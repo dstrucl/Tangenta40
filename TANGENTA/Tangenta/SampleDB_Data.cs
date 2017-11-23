@@ -296,36 +296,6 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         }
 
-        private static void Init_myOrganisation_Person()
-        {
-            TangentaTableClass.Person Person1 = new TangentaTableClass.Person();
-            TangentaTableClass.myOrganisation_Person myOrganisation_Person1 = new TangentaTableClass.myOrganisation_Person();
-            Person1.m_cFirstName.FirstName.val = "Marjetka";
-            Person1.m_cLastName.LastName.val = "Hrnčič-Štrucl";
-            m_List_Person.Add(Person1);
-
-            myOrganisation_Person1.m_Person = Person1;
-            myOrganisation_Person1.UserName.val = "marjetka";
-            myOrganisation_Person1.Active.val = true;
-            myOrganisation_Person1.Job.val = "direktor";
-            myOrganisation_Person1.Password.val="1234";
-            m_List_myOrganisation_Person.Add(myOrganisation_Person1);
-
-            TangentaTableClass.Person Person2 = new TangentaTableClass.Person();
-            TangentaTableClass.myOrganisation_Person myOrganisation_Person2 = new TangentaTableClass.myOrganisation_Person();
-            Person2.m_cFirstName.FirstName.val = "Damjan";
-            Person2.m_cLastName.LastName.val = "Štrucl-Hrnčič";
-            m_List_Person.Add(Person2);
-
-            myOrganisation_Person2.m_Person = Person2;
-            myOrganisation_Person2.UserName.val = "damjan";
-            myOrganisation_Person2.Active.val = true;
-            myOrganisation_Person2.Job.val = "zunanji sodelavec";
-            myOrganisation_Person2.Password.val = "1234";
-            m_List_myOrganisation_Person.Add(myOrganisation_Person2);
-
-
-        }
         private static void Init_Stock()
         {
             TangentaTableClass.Stock Stock = new TangentaTableClass.Stock();

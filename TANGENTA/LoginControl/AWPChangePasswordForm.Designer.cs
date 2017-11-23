@@ -1,6 +1,6 @@
 ﻿namespace LoginControl
 {
-    partial class ChangePasswordForm
+    partial class AWPChangePasswordForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePasswordForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STDChangePasswordForm));
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.lbl_Confirm_New_Pasword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();

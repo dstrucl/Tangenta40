@@ -10,10 +10,10 @@ using LanguageControl;
 
 namespace LoginControl
 {
-    public partial class UserInfoForm : Form
+    public partial class STDUserInfoForm : Form
     {
         LoginControl login_control;
-        public UserInfoForm(LoginControl logctrl)
+        public STDUserInfoForm(LoginControl logctrl)
         {
             InitializeComponent();
             try
@@ -74,7 +74,7 @@ namespace LoginControl
             dgv_Roles.Columns.Add(dgvcol_description);
             LoginDB_DataSet.LoginRoles_lang LoginRoles_lang = new LoginDB_DataSet.LoginRoles_lang();
             LoginDB_DataSet.HeaderText.Set(dgv_Roles, LoginRoles_lang.col_headers);
-            foreach (Role role in login_control.LoginRoles)
+            foreach (STDRole role in login_control.LoginSTDRoles)
             {
                 int iRow = dgv_Roles.Rows.Add();
                 dgv_Roles.Rows[iRow].Cells[LoginDB_DataSet.LoginRoles.Name.name].Value = role.Name;

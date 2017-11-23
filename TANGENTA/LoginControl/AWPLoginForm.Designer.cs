@@ -1,6 +1,6 @@
 ﻿namespace LoginControl
 {
-    partial class LoginForm
+    partial class AWPLoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STDLoginForm));
             this.lbl_UserName = new System.Windows.Forms.Label();
             this.txt_Password = new System.Windows.Forms.TextBox();
             this.lbl_Password = new System.Windows.Forms.Label();

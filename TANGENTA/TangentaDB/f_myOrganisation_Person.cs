@@ -31,8 +31,9 @@ namespace TangentaDB
 
             string Password_cond = null;
             string Password_value = null;
+            byte_array_v xPassword_v = new byte_array_v(fs.CalculateSHA256(Password_v.v));
             string spar_Password = "Password";
-            fs.AddPar(spar_Password, ref lpar, Password_v, ref Password_cond, ref Password_value);
+            fs.AddPar(spar_Password, ref lpar, xPassword_v, ref Password_cond, ref Password_value);
 
             string Job_cond = null;
             string Job_value = null;

@@ -22,7 +22,8 @@ namespace LoginControl
 
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
 
-        internal LoginData m_LoginData = new LoginData();
+        internal STDLoginData m_STDLoginData = new STDLoginData();
+        internal AWPLoginData m_AWPLoginData = new AWPLoginData();
         internal DBConnection Login_con;
 
         internal int m_MinPasswordLength = 3;
@@ -45,69 +46,74 @@ namespace LoginControl
 
         public bool IsAdministrator
         {
-            get { return m_LoginData.IsAdministrator; }
+            get { return m_STDLoginData.IsAdministrator; }
         }
 
         public bool UserNameIsAdministrator
         {
-            get { return m_LoginData.UserNameIsAdministrator; }
+            get { return m_STDLoginData.UserNameIsAdministrator; }
         }
 
         public int LoginSession_id
         {
-            get { return m_LoginData.m_LoginSession_id; }
+            get { return m_STDLoginData.m_LoginSession_id; }
         }
 
         public int LoginUsers_id
         {
-            get { return m_LoginData.m_LoginUsers_id; }
+            get { return m_STDLoginData.m_LoginUsers_id; }
         }
 
         public string UserName
         {
-            get { return m_LoginData.m_UserName; }
+            get { return m_STDLoginData.m_UserName; }
         }
 
         public string FirstName
         {
-            get { return m_LoginData.m_FirstName; }
+            get { return m_STDLoginData.m_FirstName; }
         }
 
         public string LastName
         {
-            get { return m_LoginData.m_LastName; }
+            get { return m_STDLoginData.m_LastName; }
         }
 
         public string Identity
         {
-            get { return m_LoginData.m_Identity; }
+            get { return m_STDLoginData.m_Identity; }
         }
 
         public string Contact
         {
-            get { return m_LoginData.m_Contact; }
+            get { return m_STDLoginData.m_Contact; }
         }
 
-        public List<Role> LoginRoles
+        public List<STDRole> LoginSTDRoles
         {
-            get { return m_LoginData.m_Roles; }
+            get { return m_STDLoginData.m_STDRoles; }
+        }
+
+        public List<AWPRole> LoginAWPRoles
+        {
+            get { return m_AWPLoginData.m_AWPRoles; }
         }
 
         public bool PasswordNeverExpires
         {
-            get { return m_LoginData.m_PasswordNeverExpires; }
+            get { return m_STDLoginData.m_PasswordNeverExpires; }
         }
 
         public bool NotActiveAfterPasswordExpires
         {
-            get { return m_LoginData.m_NotActiveAfterPasswordExpires; }
+            get { return m_STDLoginData.m_NotActiveAfterPasswordExpires; }
         }
 
         public bool bPasswordExpiresInNumberOfDays
         {
             get
             {
-                if ((!m_LoginData.m_PasswordNeverExpires) && (!m_LoginData.m_NotActiveAfterPasswordExpires))
+                if ((!m_STDLoginData.m_PasswordNeverExpires) && (!m_STDLoginData.m_NotActiveAfterPasswordExpires))
                 {
                     return true;
                 }
@@ -122,12 +128,12 @@ namespace LoginControl
         {
             get
             {
-                if (!m_LoginData.m_PasswordNeverExpires)
+                if (!m_STDLoginData.m_PasswordNeverExpires)
                 {
                     TimeSpan tspan = new TimeSpan();
-                    if (m_LoginData.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
+                    if (m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
                     {
-                        tspan = DateTime.Now - m_LoginData.Time_When_UserSetsItsOwnPassword_LastTime;
+                        tspan = DateTime.Now - m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
                         return tspan.Days;
                     }
                     else
@@ -144,12 +150,12 @@ namespace LoginControl
 
         public int NumberOfDaysAfterPasswordExpires
         {
-            get { return m_LoginData.NumberOfDaysAfterPasswordExpires; }
+            get { return m_STDLoginData.NumberOfDaysAfterPasswordExpires; }
         }
 
         public DateTime LastUserPasswordDefinitionTime
         {
-            get { return m_LoginData.Time_When_UserSetsItsOwnPassword_LastTime; }
+            get { return m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime; }
         }
 
         public int MinPasswordLength
@@ -173,7 +179,7 @@ namespace LoginControl
         }
 
 
-        public byte[] CalculateSHA256(string InputString)
+        public static byte[] CalculateSHA256(string InputString)
         {
             //encrypt password
             byte[] encryptedPass;
@@ -282,16 +288,16 @@ namespace LoginControl
                     return false;
 
                 case eDataTableCreationMode.AWP:
-                    switch (Login_con.DBType)
+                    switch (AWP_func.con.DBType)
                     {
                         case DBConnection.eDBType.MSSQL:
-                            return AWP_func.Read_Login_VIEW(Login_con, ref AWP_dtLoginView, ref Err);
+                            return AWP_func.Read_Login_VIEW( ref AWP_dtLoginView,null, ref Err);
 
                         case DBConnection.eDBType.MYSQL:
                             LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                             return false;
                         case DBConnection.eDBType.SQLITE:
-                            return AWP_func.Read_Login_VIEW(Login_con, ref AWP_dtLoginView, ref Err);
+                            return AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null, ref Err);
                     }
                     LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                     return false;
@@ -317,11 +323,11 @@ namespace LoginControl
             }
         }
 
-        public void InitAWPMode(Form pParentForm, DBConnection con, int Language_id, ref bool bCancel, ref string Err)
+        public void InitAWPMode(Form pParentForm, DBConnection xcon, int Language_id, ref bool bCancel, ref string Err)
         {
             m_eDataTableCreationMode = eDataTableCreationMode.AWP;
             LoginDB_DataSet.DynSettings.LanguageID = Language_id;
-            Login_con = con;
+            AWP_func.con= xcon;
         }
 
         public bool STD_Login()
@@ -331,7 +337,7 @@ namespace LoginControl
             {
                 if (dtLogin_Vaild(ref Err))
                 {
-                    return DoLogin();
+                    return DoSTDLogin();
                 }
                 else
                 {
@@ -342,7 +348,7 @@ namespace LoginControl
                         DataRow[] dr = m_Login_VIEW.dt.Select(LoginDB_DataSet.Login_VIEW.username.name + " = 'Administrator'");
                         if (dr != null)
                         {
-                            m_LoginData.m_LoginUsers_id = (int) dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
+                            m_STDLoginData.m_LoginUsers_id = (int) dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
 
                             STD_UserManager edtLogin = new STD_UserManager(null,this);
                             if (edtLogin.ShowDialog() == DialogResult.OK)
@@ -351,7 +357,7 @@ namespace LoginControl
                                 {
                                     if (STD_dtLogin_Vaild(ref Err))
                                     {
-                                        return DoLogin();
+                                        return DoSTDLogin();
                                     }
                                     else
                                     {
@@ -388,15 +394,14 @@ namespace LoginControl
             {
                 if (dtLogin_Vaild(ref Err))
                 {
-                    return DoLogin();
+                    return DoSTDLogin();
                 }
                 else
                 {
-                    // Login as SuperAdministrator to edit Login Tables !
-                    DataRow[] dr = AWP_dtLoginView.Select("username = 'Administrator'");
-                    if (dr != null)
+                    if (AWP_dtLoginView.Rows.Count > 0)
                     {
-                        m_LoginData.m_LoginUsers_id = (int)dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
+
+                        //m_LoginData.m_LoginUsers_id = (int)dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
 
                         STD_UserManager edtLogin = new STD_UserManager(null, this);
                         if (edtLogin.ShowDialog() == DialogResult.OK)
@@ -405,7 +410,7 @@ namespace LoginControl
                             {
                                 if (STD_dtLogin_Vaild(ref Err))
                                 {
-                                    return DoLogin();
+                                    return DoSTDLogin();
                                 }
                                 else
                                 {
@@ -416,6 +421,46 @@ namespace LoginControl
                             else
                             {
                                 LogFile.Error.Show("ERROR:LoginControl:Login: Read Login_VIEW Err=:" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        // import users from  myOrganisation_Person table !
+                        Form parent_form = GetParentForm();
+                        AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(parent_form, this);
+                        AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(Login_con, awp_usrmgt_frm,lng.s_ImportUsersWithAtLeastOneAadministratorRights);
+                        DialogResult dlgRes = DialogResult.None;
+                        if (parent_form != null)
+                        {
+                            frm_awp_mopt.TopMost = parent_form.TopMost;
+                            dlgRes = frm_awp_mopt.ShowDialog(parent_form);
+                        }
+                        else
+                        {
+                            dlgRes=frm_awp_mopt.ShowDialog();
+                        }
+                        if (dlgRes==DialogResult.OK)
+                        {
+                            if (AWP_func.Import_myOrganisationPerson(awp_usrmgt_frm.awpd,frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
+                            {
+                                if (parent_form != null)
+                                {
+                                    awp_usrmgt_frm.TopMost = parent_form.TopMost;
+                                    dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
+                                }
+                                else
+                                {
+                                    dlgRes = awp_usrmgt_frm.ShowDialog();
+                                }
+                            }
+                            else
+                            {
                                 return false;
                             }
                         }
@@ -447,9 +492,46 @@ namespace LoginControl
             return false;
         }
 
-        private bool DoLogin()
+        private Form GetParentForm()
         {
-            LoginForm loginf = new LoginForm(this);
+            Control ctrlParent = this.Parent;
+            for (int i=0;i<20;i++)
+            {
+                if (ctrlParent != null)
+                {
+                    if (ctrlParent is Form)
+                    {
+                        return (Form)ctrlParent;
+                    }
+                    else
+                    {
+                        ctrlParent = ctrlParent.Parent;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        private bool DoSTDLogin()
+        {
+            STDLoginForm loginf = new STDLoginForm(this);
+            if (loginf.ShowDialog() == DialogResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool DoAWPLogin()
+        {
+            STDLoginForm loginf = new STDLoginForm(this);
             if (loginf.ShowDialog() == DialogResult.OK)
             {
                 return true;
@@ -468,13 +550,13 @@ namespace LoginControl
         private bool DoLogout()
         {
             string Err = null;
-            if (m_LoginData.m_LoginSession_id >= 0)
+            if (m_STDLoginData.m_LoginSession_id >= 0)
             {
-                if (m_LoginData.m_LoginUsers_id >= 0)
+                if (m_STDLoginData.m_LoginUsers_id >= 0)
                 {
                     string Res = null;
                     LoginDB_DataSet.LoginDB_DataSet_Procedures logProc = new LoginDB_DataSet.LoginDB_DataSet_Procedures(Login_con);
-                    logProc.LoginSession_End(m_LoginData.m_LoginSession_id, ref Res, ref Err);
+                    logProc.LoginSession_End(m_STDLoginData.m_LoginSession_id, ref Res, ref Err);
                     if (Res.Equals("OK"))
                     {
                         return true;
@@ -517,7 +599,7 @@ namespace LoginControl
 
             if (AWP_dtLoginView.Rows.Count > 0)
             {
-                if (AWP_dtLoginView.Rows[0]["password"].GetType() != typeof(DBNull))
+                if (AWP_dtLoginView.Rows[0]["myOrganisation_Person_$$Password"].GetType() != typeof(DBNull))
                 {
                     return true;
                 }
@@ -538,7 +620,7 @@ namespace LoginControl
 
         internal bool PasswordMatch(byte[] encrypted_password, string password)
         {
-            byte[] encrypted_password2 = CalculateSHA256(password);
+            byte[] encrypted_password2 = LoginControl.CalculateSHA256(password);
 
             if ((encrypted_password.Length == encrypted_password2.Length))
             {
@@ -555,7 +637,7 @@ namespace LoginControl
 
 
 
-        internal bool LoginRoles_Get(int LoginUser_id,List<Role> roles, ref string Err)
+        internal bool LoginSTDRoles_Get(int LoginUser_id,List<STDRole> roles, ref string Err)
         {
             LoginDB_DataSet.Login_VIEW xLogin_VIEW = new LoginDB_DataSet.Login_VIEW(Login_con);
             xLogin_VIEW.Clear();
@@ -595,7 +677,63 @@ namespace LoginControl
 
                     if ((LoginRole_Name != null) && (LoginRole_PrivilegesLevel >= 0))
                     {
-                        Role role = new Role();
+                        STDRole role = new STDRole();
+                        role.id = LoginRole_id;
+                        role.Name = LoginRole_Name;
+                        role.PrivilegesLevel = LoginRole_PrivilegesLevel;
+                        role.description = LoginRole_description;
+                        roles.Add(role);
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        internal bool LoginAWPRoles_Get(long LoginUser_id, List<AWPRole> roles, ref string Err)
+        {
+            LoginDB_DataSet.Login_VIEW xLogin_VIEW = new LoginDB_DataSet.Login_VIEW(Login_con);
+            xLogin_VIEW.Clear();
+            xLogin_VIEW.select.all(false);
+            xLogin_VIEW.select.Role_id = true;
+            xLogin_VIEW.select.Role_Name = true;
+            xLogin_VIEW.select.Role_PrivilegesLevel = true;
+            xLogin_VIEW.select.Role_description = true;
+            xLogin_VIEW.where.all(false);
+            xLogin_VIEW.where.Users_id = true;
+            xLogin_VIEW.where.Users_id_Expression(" = " + LoginUser_id.ToString());
+            if (xLogin_VIEW.Read(ref Err))
+            {
+                roles.Clear();
+                foreach (DataRow dr in xLogin_VIEW.dt.Rows)
+                {
+                    int LoginRole_id = -1;
+                    string LoginRole_Name = null;
+                    int LoginRole_PrivilegesLevel = -1;
+                    string LoginRole_description = "";
+                    if (dr[LoginDB_DataSet.Login_VIEW.Role_id.name].GetType() == typeof(int))
+                    {
+                        LoginRole_id = (int)dr[LoginDB_DataSet.Login_VIEW.Role_id.name];
+                    }
+                    if (dr[LoginDB_DataSet.Login_VIEW.Role_Name.name].GetType() == typeof(string))
+                    {
+                        LoginRole_Name = (string)dr[LoginDB_DataSet.Login_VIEW.Role_Name.name];
+                    }
+                    if (dr[LoginDB_DataSet.Login_VIEW.Role_PrivilegesLevel.name].GetType() == typeof(int))
+                    {
+                        LoginRole_PrivilegesLevel = (int)dr[LoginDB_DataSet.Login_VIEW.Role_PrivilegesLevel.name];
+                    }
+                    if (dr[LoginDB_DataSet.Login_VIEW.Role_description.name].GetType() == typeof(string))
+                    {
+                        LoginRole_description = (string)dr[LoginDB_DataSet.Login_VIEW.Role_description.name];
+                    }
+
+                    if ((LoginRole_Name != null) && (LoginRole_PrivilegesLevel >= 0))
+                    {
+                        AWPRole role = new AWPRole();
                         role.id = LoginRole_id;
                         role.Name = LoginRole_Name;
                         role.PrivilegesLevel = LoginRole_PrivilegesLevel;
@@ -619,35 +757,98 @@ namespace LoginControl
 
         private void btn_UserInfo_Click(object sender, EventArgs e)
         {
-            UserInfoForm usrinfo = new UserInfoForm(this);
+            STDUserInfoForm usrinfo = new STDUserInfoForm(this);
             usrinfo.ShowDialog();
         }
 
-        internal bool LoginData_Get(LoginDB_DataSet.LoginUsers LoginUsers, ref string Err)
+        internal bool STDLoginData_Get(LoginDB_DataSet.LoginUsers LoginUsers, ref string Err)
         {
-            m_LoginData.m_LoginUsers_id = LoginUsers.o_id.id_;
-            m_LoginData.m_UserName = LoginUsers.o_username.username_;
-            m_LoginData.m_FirstName = LoginUsers.o_first_name.first_name_;
-            m_LoginData.m_LastName = LoginUsers.o_last_name.last_name_;
-            m_LoginData.m_Identity = LoginUsers.o_Identity.Identity_;
+            m_STDLoginData.m_LoginUsers_id = LoginUsers.o_id.id_;
+            m_STDLoginData.m_UserName = LoginUsers.o_username.username_;
+            m_STDLoginData.m_FirstName = LoginUsers.o_first_name.first_name_;
+            m_STDLoginData.m_LastName = LoginUsers.o_last_name.last_name_;
+            m_STDLoginData.m_Identity = LoginUsers.o_Identity.Identity_;
 
 
-            m_LoginData.m_PasswordNeverExpires = LoginUsers.o_PasswordNeverExpires.PasswordNeverExpires_;
-            m_LoginData.m_NotActiveAfterPasswordExpires = LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_;
-            m_LoginData.NumberOfDaysAfterPasswordExpires = LoginUsers.o_Maximum_password_age_in_days.Maximum_password_age_in_days_;
+            m_STDLoginData.m_PasswordNeverExpires = LoginUsers.o_PasswordNeverExpires.PasswordNeverExpires_;
+            m_STDLoginData.m_NotActiveAfterPasswordExpires = LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_;
+            m_STDLoginData.NumberOfDaysAfterPasswordExpires = LoginUsers.o_Maximum_password_age_in_days.Maximum_password_age_in_days_;
 
-            lbl_username.Text = lng.s_UserName.s + ":" + m_LoginData.m_UserName;
+            lbl_username.Text = lng.s_UserName.s + ":" + m_STDLoginData.m_UserName;
 
             try
             {
-                m_LoginData.Time_When_UserSetsItsOwnPassword_LastTime = LoginUsers.o_Time_When_UserSetsItsOwnPassword_LastTime.Time_When_UserSetsItsOwnPassword_LastTime_;
+                m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = LoginUsers.o_Time_When_UserSetsItsOwnPassword_LastTime.Time_When_UserSetsItsOwnPassword_LastTime_;
             }
             catch
             {
-                m_LoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
+                m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
             }
             
-            if (LoginRoles_Get(LoginUsers.o_id.id_,m_LoginData.m_Roles, ref Err))
+            if (LoginSTDRoles_Get(LoginUsers.o_id.id_,m_STDLoginData.m_STDRoles, ref Err))
+            {
+                if (IsAdministrator)
+                {
+                    btn_UserManager.Visible = true;
+                }
+                else
+                {
+                    btn_UserManager.Visible = false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool my_AddSTDRole(string LoginRole_Name, int LoginRole_PrivilegesLevel, string LoginRole_description, ref int LoginRole_id)
+        {
+            if (m_LoginDB_DataSet_Procedures == null)
+            {
+                m_LoginDB_DataSet_Procedures = new LoginDB_DataSet.LoginDB_DataSet_Procedures(Login_con);
+            }
+
+            string Res = null;
+            string Err = null;
+            m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddRole(LoginRole_Name, LoginRole_PrivilegesLevel, LoginRole_description,1, ref LoginRole_id,ref Res, ref Err);
+            if (Res.Equals("OK"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:my_AddRole:LoginUsers_Administrator_AddRole:Res="+Res);
+            }
+            return false;
+        }
+
+        internal bool AWPLoginData_Get(DataRow dr, ref string Err)
+        {
+            m_AWPLoginData.m_LoginUsers_id = (long)dr["ID"];
+            m_AWPLoginData.m_UserName = (string)dr["ID"]; 
+            //m_AWPLoginData.m_FirstName = LoginUsers.o_first_name.first_name_;
+            //m_AWPLoginData.m_LastName = LoginUsers.o_last_name.last_name_;
+            //m_AWPLoginData.m_Identity = LoginUsers.o_Identity.Identity_;
+
+
+            //m_STDLoginData.m_PasswordNeverExpires = LoginUsers.o_PasswordNeverExpires.PasswordNeverExpires_;
+            //m_STDLoginData.m_NotActiveAfterPasswordExpires = LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_;
+            //m_STDLoginData.NumberOfDaysAfterPasswordExpires = LoginUsers.o_Maximum_password_age_in_days.Maximum_password_age_in_days_;
+
+            lbl_username.Text = lng.s_UserName.s + ":" + m_STDLoginData.m_UserName;
+
+            try
+            {
+                //m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = LoginUsers.o_Time_When_UserSetsItsOwnPassword_LastTime.Time_When_UserSetsItsOwnPassword_LastTime_;
+            }
+            catch
+            {
+                m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
+            }
+
+            if (LoginAWPRoles_Get(m_AWPLoginData.m_LoginUsers_id, m_AWPLoginData.m_AWPRoles, ref Err))
             {
                 if (IsAdministrator)
                 {
@@ -674,14 +875,14 @@ namespace LoginControl
 
             string Res = null;
             string Err = null;
-            m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddRole(LoginRole_Name, LoginRole_PrivilegesLevel, LoginRole_description,1, ref LoginRole_id,ref Res, ref Err);
+            m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddRole(LoginRole_Name, LoginRole_PrivilegesLevel, LoginRole_description, 1, ref LoginRole_id, ref Res, ref Err);
             if (Res.Equals("OK"))
             {
                 return true;
             }
             else
             {
-                LogFile.Error.Show("Error:LoginControl:my_AddRole:LoginUsers_Administrator_AddRole:Res="+Res);
+                LogFile.Error.Show("Error:LoginControl:my_AddRole:LoginUsers_Administrator_AddRole:Res=" + Res);
             }
             return false;
         }
@@ -742,9 +943,9 @@ namespace LoginControl
             return false;
         }
 
-        public bool ContainsRole(string RoleName)
+        public bool STDContainsRole(string RoleName)
         {
-            foreach (Role role in m_LoginData.m_Roles)
+            foreach (STDRole role in m_STDLoginData.m_STDRoles)
             {
                 if (RoleName.Equals(role.Name))
                 {
@@ -754,9 +955,9 @@ namespace LoginControl
             return false;
         }
 
-        public bool ContainsRoles(string[] sroles)
+        public bool STDContainsRoles(string[] sroles)
         {
-            foreach (Role role in m_LoginData.m_Roles)
+            foreach (STDRole role in m_STDLoginData.m_STDRoles)
             {
                 foreach (string s in sroles)
                 {
@@ -770,7 +971,7 @@ namespace LoginControl
         }
     }
 
-    public class Role
+    public class STDRole
     {
         public int id;
         public string Name;
@@ -778,7 +979,15 @@ namespace LoginControl
         public string description;
     }
 
-    public class LoginData
+    public class AWPRole
+    {
+        public long id;
+        public string Name;
+        public int PrivilegesLevel;
+        public string description;
+    }
+
+    public class STDLoginData
     {
         internal int m_LoginSession_id = -1;
         internal int m_LoginUsers_id = -1;
@@ -793,12 +1002,58 @@ namespace LoginControl
         internal int NumberOfDaysAfterPasswordExpires = -1;
         internal DateTime Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
 
-        internal List<Role> m_Roles = new List<Role>();
+        internal List<STDRole> m_STDRoles = new List<STDRole>();
         internal bool IsAdministrator
         {
             get
             {
-                foreach (Role role in m_Roles)
+                foreach (STDRole role in m_STDRoles)
+                {
+                    if (role.Name.Equals("Administrator"))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        internal bool UserNameIsAdministrator
+        {
+            get
+            {
+                if (m_UserName != null)
+                {
+                    if (m_UserName.Equals("Administrator"))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+
+    public class AWPLoginData
+    {
+        internal long m_LoginSession_id = -1;
+        internal long m_LoginUsers_id = -1;
+        internal string m_UserName = null;
+        internal string m_FirstName = null;
+        internal string m_LastName = null;
+        internal string m_Identity = null;
+        internal string m_Contact = null;
+        internal bool m_PasswordNeverExpires = false;
+        internal bool m_Active = false;
+        internal bool m_NotActiveAfterPasswordExpires = false;
+        internal int NumberOfDaysAfterPasswordExpires = -1;
+        internal DateTime Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
+
+        internal List<AWPRole> m_AWPRoles = new List<AWPRole>();
+        internal bool IsAdministrator
+        {
+            get
+            {
+                foreach (AWPRole role in m_AWPRoles)
                 {
                     if (role.Name.Equals("Administrator"))
                     {

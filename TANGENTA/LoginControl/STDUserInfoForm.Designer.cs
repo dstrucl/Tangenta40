@@ -1,6 +1,6 @@
 ﻿namespace LoginControl
 {
-    partial class UserInfoForm
+    partial class STDUserInfoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserInfoForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STDUserInfoForm));
             this.lbl_UserName = new System.Windows.Forms.Label();
             this.txt_UserName = new System.Windows.Forms.TextBox();
             this.txt_first_name = new System.Windows.Forms.TextBox();

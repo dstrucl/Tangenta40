@@ -201,5 +201,39 @@ namespace LoginControl
         public static ltext s_NewUser = new ltext(new string[]{"New User",
                                                   "Nov uporabnik"});
 
+        public static ltext s_Import = new ltext(new string[]{"Import",
+                                            "Uvozi"});
+
+
+        public static ltext cn_myOrganisation_Person_office_Name = new ltext(new string[] { "Office*", "Poslovna enota*" });
+        public static ltext cn_myOrganisation_Person_UserName = new ltext(new string[] { "User Name*", "Uporabniško ime*" });
+        public static ltext cn_Enabled = new ltext(new string[] { "Enabled*", "Omogočeno*" });
+        public static ltext cn_myOrganisation_Person_Active = new ltext(new string[] { "Active*", "Oseba je aktivna*" });
+        public static ltext cn_myOrganisation_Person__per__cfn_FirstName = new ltext(new string[] { "First name*", "Ime*" });
+        public static ltext cn_myOrganisation_Person__per__cln_LastName = new ltext(new string[]{ "Last name*", "Priimek*" });
+        public static ltext cn_myOrganisation_Person_Job = new ltext(new string[]{"Job", "Delovno mesto" });
+        public static ltext cn_myOrganisation_Person__per_Tax_ID = new ltext(new string[]{ "Tax ID*", "Davčna št.*" });
+        public static ltext cn_myOrganisation_Person__per_Registration_ID = new ltext(new string[]{"Registration ID", "EMŠO" });
+        public static ltext cn_myOrganisation_Person_Description = new ltext(new string[]{"Description", "Opis" });
+        public static ltext cn_myOrganisation_Person__per_DateOfBirth = new ltext(new string[]{"Date of birth", "Datum rojstva" });
+        public static ltext cn_myOrganisation_Person__per_Gender = new ltext(new string[]{ "Gender*", "Spol*" });
+        public static ltext cn_PersonData__cemailper_Email = new ltext(new string[]{"Email", "Email" });
+        public static ltext cn_PersonData__cgsmnper_GsmNumber = new ltext(new string[]{"GSM", "GSM" });
+        public static ltext cn_PersonData__cphnnper_PhoneNumber = new ltext(new string[]{"TEL", "TEL" });
+        public static ltext cn_PersonData__cadrper__cstrnper_StreetName = new ltext(new string[]{"Street name", "Cesta" });
+        public static ltext cn_PersonData__cadrper__chounper_HouseNumber = new ltext(new string[]{"House number", "Hišna št." });
+        public static ltext cn_PersonData__cadrper__zipper_ZIP = new ltext(new string[]{"ZIP", "Poštna št." });
+        public static ltext cn_PersonData__cadrper__ccitper_City = new ltext(new string[]{"City", "Mesto" });
+        public static ltext cn_PersonData__cadrper__cstper_Country = new ltext(new string[]{"Country", "Država" });
+        public static ltext cn_PersonData__cadrper__ccouper_State = new ltext(new string[]{"State", "Dežela" });
+        public static ltext cn_PersonData_Description = new ltext(new string[]{"Description2", "Opis2" });
+        public static ltext cn_PersonData__cardtper_CardType = new ltext(new string[]{"Card type", "Vrsta kartice" });
+        public static ltext cn_PersonData_CardNumber = new ltext(new string[]{"Card number", "Številka kartice" });
+        public static ltext cn_myOrganisation_Person__office_ShortName = new ltext(new string[]{"Office short name", "Poslovna enota okrajšava" });
+        public static ltext cn_Selected = new ltext(new string[] { "Selected", "Izbrano" });
+        public static ltext cn_Administrator = new ltext(new string[] { "Administrator", "Skrbnik" });
+        public static ltext s_ImportUsersWithAtLeastOneAadministratorRights = new ltext(new string[] { "Select persons from may oragnisation to Login list.\r\nAt least one person must have Administrator rights checked!", "Izberite osebe iz vaše organizacije, ki se bodo lahko prijavile v program.\r\nNajmanj eni osebi morate označiti, da ima skrbniške pravice." });
+
+        public static ltext s_YouMustSelectAtLeastOnePersonWithAdministratorChecked = new ltext(new string[] {"You must select at least one person from your organisation as Administrator", "Izbrati morate najmanj eno osebo iz vaše organizacije, ki ima odkljukano da je skrbnik" });
     }
 }

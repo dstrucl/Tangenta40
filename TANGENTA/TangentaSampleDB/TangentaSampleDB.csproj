@@ -192,6 +192,10 @@
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoginControl\LoginControl.csproj">
+      <Project>{e36fd767-54a9-46c4-ae95-d0fec3fc8909}</Project>
+      <Name>LoginControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>

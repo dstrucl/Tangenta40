@@ -10,17 +10,16 @@ using LanguageControl;
 
 namespace LoginControl
 {
-    public partial class ChangePasswordForm : Form
+    public partial class STDChangePasswordForm : Form
     {
         LoginControl login_control = null;
         LoginDB_DataSet.LoginUsers LoginUsers = null;
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
-
-        public ChangePasswordForm(LoginControl loginctrl,LoginDB_DataSet.LoginUsers login_users, string sInstruction)
+        public STDChangePasswordForm(LoginControl loginctrl,LoginDB_DataSet.LoginUsers xLoginUsers, string sInstruction)
         {
             InitializeComponent();
+            LoginUsers = xLoginUsers;
             login_control = loginctrl;
-            LoginUsers = login_users;
             this.Text = lng.s_UserThatChangesPassword.s + login_control.UserName;
             lbl_New_Password.Text = lng.s_New_Password.s;
             lbl_Confirm_New_Pasword.Text = lng.s_Confirm_New_Password.s;
@@ -35,10 +34,10 @@ namespace LoginControl
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
                     string Res = null;
-                    m_LoginDB_DataSet_Procedures.LoginUsers_UserChangeItsOwnPassword(LoginUsers.o_id.id_, login_control.CalculateSHA256(txtConfirmPassword.Text), ref Res, ref Err);
+                    m_LoginDB_DataSet_Procedures.LoginUsers_UserChangeItsOwnPassword(LoginUsers.o_id.id_, LoginControl.CalculateSHA256(txtConfirmPassword.Text), ref Res, ref Err);
                     if (Res.Equals("OK"))
                     {
-                        login_control.m_LoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
+                        login_control.m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
                         DialogResult = DialogResult.OK;
                         this.Close();
                     }

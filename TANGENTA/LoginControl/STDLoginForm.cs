@@ -11,13 +11,13 @@ using System.Runtime.InteropServices;
 
 namespace LoginControl
 {
-    public partial class LoginForm : Form
+    public partial class STDLoginForm : Form
     {
         LoginDB_DataSet.LoginUsers LoginUsers = null;
         LoginControl login_control = null;
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
         LoginDB_DataSet.LoginDB_DataSet_ScalarFunctions m_LoginDB_DataSet_ScalarFunctions = null;
-        public LoginForm(LoginControl logctrl)
+        public STDLoginForm(LoginControl logctrl)
         {
             InitializeComponent();
             login_control = logctrl;
@@ -64,7 +64,7 @@ namespace LoginControl
                             {
                                 if (Login_Start(LoginUsers))
                                 {
-                                    ChangePasswordForm change_pass_form = new ChangePasswordForm(login_control, LoginUsers, lng.s_AdministratorRequestForNewPassword.s);
+                                    STDChangePasswordForm change_pass_form = new STDChangePasswordForm(login_control, LoginUsers, lng.s_AdministratorRequestForNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
@@ -103,7 +103,7 @@ namespace LoginControl
                                         // change password dialog
                                         if (Login_Start(LoginUsers))
                                         {
-                                            ChangePasswordForm change_pass_form = new ChangePasswordForm(login_control, LoginUsers, lng.s_PasswordExpiredSetNewPassword.s);
+                                            STDChangePasswordForm change_pass_form = new STDChangePasswordForm(login_control, LoginUsers, lng.s_PasswordExpiredSetNewPassword.s);
                                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                                             {
                                                 DialogResult = DialogResult.OK;
@@ -154,7 +154,7 @@ namespace LoginControl
         {
             string Err = null;
             string Res = null;
-            if (login_control.LoginData_Get(LoginUsers, ref Err))
+            if (login_control.STDLoginData_Get(LoginUsers, ref Err))
             {
                 DateTime TimeOnServer = new DateTime();
                 Err= null;
@@ -168,7 +168,7 @@ namespace LoginControl
                                                                         ref LoginSession_id, ref Res, ref Err);
                         if (Res.Equals("OK"))
                         {
-                            login_control.m_LoginData.m_LoginSession_id = LoginSession_id;
+                            login_control.m_STDLoginData.m_LoginSession_id = LoginSession_id;
                             return true;
                         }
                         else

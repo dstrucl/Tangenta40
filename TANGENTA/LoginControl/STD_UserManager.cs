@@ -250,7 +250,7 @@ namespace LoginControl
                 }
 
                 m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddUser(txtUserName.Text,
-                                                                              login_control.CalculateSHA256(txtPassword.Text),
+                                                                              LoginControl.CalculateSHA256(txtPassword.Text),
                                                                               chk_Active.Checked,
                                                                               txtFirstName.Text,
                                                                               txtLastName.Text,
@@ -267,9 +267,9 @@ namespace LoginControl
 
                 if (Res.Equals("OK"))
                 {
-                    List<Role> roles = new List<Role>();
-                    MakeListOfRoles(ref roles);
-                    if (!Write_LoginUsersAndLoginRoles(New_LoginUsers_id, roles, ref Err))
+                    List<STDRole> roles = new List<STDRole>();
+                    MakeListOfSTDRoles(ref roles);
+                    if (!Write_LoginUsersAndLoginSTDRoles(New_LoginUsers_id, roles, ref Err))
                     {
                         LogFile.Error.Show("Error:UserManager:AddUser:Write_LoginUsersAndLoginRoles:Err=" + Err);
                     }
@@ -580,7 +580,7 @@ namespace LoginControl
                     string csError = null;
                     //Role myRole = m_Login.FindRoleInLanguage(cmb_Role.Text);
                     //string RoleName = myRole.name;
-                    username_Data userdata = new username_Data();
+                    STD_username_Data userdata = new STD_username_Data();
 
                     userdata.username = txtUserName.Text;
                     if (txtPassword.Tag.Equals(TAG_PASSWORD_DEFINED))
@@ -611,12 +611,12 @@ namespace LoginControl
                     
                     userdata.m_Roles.Clear();
 
-                    MakeListOfRoles(ref userdata.m_Roles);
+                    MakeListOfSTDRoles(ref userdata.m_Roles);
 
                     bool bActive = chk_Active.Checked;
 
                     string Err = null;
-                    if (Write_LoginUsersAndLoginRoles(LoginUsers.o_id.id_, userdata.m_Roles, ref Err))
+                    if (Write_LoginUsersAndLoginSTDRoles(LoginUsers.o_id.id_, userdata.m_Roles, ref Err))
                     {
                         if (Func_ChangeData(userdata, bActive,  ref csError))
                         {
@@ -643,13 +643,13 @@ namespace LoginControl
             return false;
         }
 
-        private void MakeListOfRoles(ref List<Role> roles)
+        private void MakeListOfSTDRoles(ref List<STDRole> roles)
         {
             foreach (DataGridViewRow dgvr in dgv_Roles.Rows)
             {
                 if ((bool)dgvr.Cells[Column_Select].Value == true)
                 {
-                    Role role = new Role();
+                    STDRole role = new STDRole();
                     role.id = (int)dgvr.Cells[LoginDB_DataSet.LoginRoles.id.name].Value;
                     role.Name = (string)dgvr.Cells[LoginDB_DataSet.LoginRoles.Name.name].Value;
                     role.PrivilegesLevel = (int)dgvr.Cells[LoginDB_DataSet.LoginRoles.PrivilegesLevel.name].Value;
@@ -666,10 +666,10 @@ namespace LoginControl
             }
         }
 
-        private bool Write_LoginUsersAndLoginRoles(int usr_id,List<Role> roles,ref string Err)
+        private bool Write_LoginUsersAndLoginSTDRoles(int usr_id,List<STDRole> roles,ref string Err)
         {
             string sql_change_roles = " delete " + LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " where " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + " = " + usr_id.ToString();
-            foreach (Role role in roles)
+            foreach (STDRole role in roles)
             {
                     sql_change_roles += "\r\n insert into " +LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " ( " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + "," + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginRoles_id.name + ") values ("+ usr_id.ToString()+"," + role.id.ToString()+")";
             }
@@ -922,7 +922,7 @@ namespace LoginControl
             return false;
         }
 
-        public bool Func_AddUser(username_Data userdata, ref Int64 row_ID, ref string csError)
+        public bool Func_AddUser(STD_username_Data userdata, ref Int64 row_ID, ref string csError)
         {
         ////    if (m_tbl_amb_user != null)
         ////    {
@@ -958,7 +958,7 @@ namespace LoginControl
             return true;
         }
 
-        public bool Func_ChangeData(username_Data userdata, bool bActive,ref string csError)
+        public bool Func_ChangeData(STD_username_Data userdata, bool bActive,ref string csError)
         {
             bool bPasswordChanged = false;
             string Err = null;
@@ -1015,7 +1015,7 @@ namespace LoginControl
                     if (Res.Equals("OK"))
                     {
                         m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePasswordParameters(LoginUsers.o_id.id_,
-                                                                                                       login_control.m_LoginData.m_LoginUsers_id,
+                                                                                                       login_control.m_STDLoginData.m_LoginUsers_id,
                                                                                                        userdata.bPasswordNeverExpires,
                                                                                                        chk_Active.Checked,
                                                                                                        userdata.bChangePasswordOnFirstLogin,
@@ -1029,8 +1029,8 @@ namespace LoginControl
                             if (bPasswordChanged)
                             {
                                 m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePassword(LoginUsers.o_id.id_,
-                                                                                                     login_control.CalculateSHA256(userdata.password),//crypted password
-                                                                                                     login_control.m_LoginData.m_LoginUsers_id,
+                                                                                                     LoginControl.CalculateSHA256(userdata.password),//crypted password
+                                                                                                     login_control.m_STDLoginData.m_LoginUsers_id,
                                                                                                      ref Res,
                                                                                                      ref Err);
                                 if (Res.Equals("OK"))
@@ -1198,21 +1198,4 @@ namespace LoginControl
             }
         }
     }
-
-    public class username_Data
-    {
-        public bool bChangePasswordOnFirstLogin;
-        public bool bPasswordNeverExpires;
-        public bool bNotActiveAfterPasswordExpires;
-        public int iMaxPasswordAge;
-        public string username;
-        public string password;
-        public bool password_changed;
-        public string FirstName;
-        public string LastName;
-        public string IdentityNumber;
-        public string Contact;
-        public List<Role> m_Roles = new List<Role>();
-    }
-
 }

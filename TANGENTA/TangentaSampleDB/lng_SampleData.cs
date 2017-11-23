@@ -174,11 +174,11 @@ namespace TangentaSampleDB
 
 
         public static ltext sl_MyOrg_Person_FirstName = new ltext("Organisation administrator First Name", "Ime glavnega administratorja v podjetju");
-        public static ltext s_MyOrg_Person_FirstName_v = new ltext("Organisation1Person1FirstName", "ImeOsebe1Podjetja1");
+        public static ltext s_MyOrg_Person_FirstName_v = new ltext("FirstNameX", "ImeX");
         public static ltext sh_MyOrg_Person_FirstName = new ltext("Enter organisation administrator First Name", "Vpišite ime glavnega administratorja, ki bo imel vse uporabniške pravice");
 
         public static ltext sl_MyOrg_Person_LastName = new ltext("Organisation administrator Last Name", "Priimek glavnega administratorja v podjetju");
-        public static ltext s_MyOrg_Person_LastName_v = new ltext("PersonXLastName", "OsebaXPriimek");
+        public static ltext s_MyOrg_Person_LastName_v = new ltext("LastNameX", "PriimekX");
         public static ltext sh_MyOrg_Person_LastName = new ltext("Enter organisation administrator Lasst Name who gets all user rights", "Vpišite priimek glavnega administratorja, ki bo imel vse uporabniške pravice");
 
         public static ltext sl_MyOrg_Person_Gender = new ltext("Administrator gender", "Spol glavnega administratorja v podjetju");
@@ -194,7 +194,7 @@ namespace TangentaSampleDB
 
 
         public static ltext sl_MyOrg_Person_UserName = new ltext("Administrator user name", "Uporabniško ime glavnega administratorja");
-        public static ltext s_MyOrg_Person_UserName_v = new ltext("Organisation1Person1UserName1", "UporabniškoIme1Osebe1Podjetja1");
+        public static ltext s_MyOrg_Person_UserName_v = new ltext("UserNameX", "UporabniškoImeX");
         public static ltext sh_MyOrg_Person_UserName = new ltext("Enter administrator user name", "Vpišiti uporabniško ime glavnega administratorja");
 
         public static ltext sl_MyOrg_Person_Password = new ltext("Administrator password", "Skrbniško geslo");
@@ -202,11 +202,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Person_Password = new ltext("Enter administrator password", "Vpišite geslo glavnega administratorja");
 
         public static ltext sl_MyOrg_Person_Job = new ltext("Administrator Job Title", "Delovno mesto glavnega administratorja");
-        public static ltext s_MyOrg_Person_Job_v = new ltext("OrganisationXPersonXJob", "DelovnoMestoOsebaXPodjetjeX");
+        public static ltext s_MyOrg_Person_Job_v = new ltext("JobX", "DelovnoMestoX");
         public static ltext sh_MyOrg_Person_Job = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
 
         public static ltext sl_MyOrg_Person_Description = new ltext("Administrator description", "Glavni administrator opis");
-        public static ltext s_MyOrg_Person_Description_v = new ltext("OrganisationXPersonXDescription", "OsebeXPodjetjeXOpis");
+        public static ltext s_MyOrg_Person_Description_v = new ltext("PersonXDescription", "OsebaXOpis");
         public static ltext sh_MyOrg_Person_Description = new ltext("Enter job description of administrator", "Vpišite opis dela glavnega administratorja");
 
 

@@ -822,7 +822,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class Password:DB_varchar_32
+    public class Password:DB_varbinary_max
     {
     }
 
@@ -2552,11 +2552,13 @@ namespace TangentaTableClass
     public class AttemptTime : DB_DateTime { }
     public class Username_does_not_exist : DB_bit { }
     public class Password_wrong : DB_bit { }
+    public class Enabled : DB_bit { }
 
     public class LoginUsers
     {
         public ID ID = new ID();
         public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
+        public Enabled Enabled = new Enabled();
         public ChangePasswordOnFirstLogin ChangePasswordOnFirstLogin = new ChangePasswordOnFirstLogin();
         public Time_When_AdministratorSetsPassword Time_When_AdministratorSetsPassword = new Time_When_AdministratorSetsPassword();
         public Administrator_LoginUsers_ID Administrator_LoginUsers_ID = new Administrator_LoginUsers_ID();

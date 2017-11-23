@@ -58,6 +58,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SelectGender">
+      <HintPath>..\..\CodeTables\CONTROLS\SelectGender\obj\Debug\SelectGender.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -74,12 +77,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChangePasswordForm.cs">
+    <Compile Include="AWPData.cs" />
+    <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangePasswordForm.Designer.cs">
-      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.Designer.cs">
+      <DependentUpon>AWP_Select_users_from_myOrganisation_Person_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="AWPChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWPChangePasswordForm.Designer.cs">
+      <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="STDChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STDChangePasswordForm.Designer.cs">
+      <DependentUpon>STDChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AWP_myOrganisation_Person_not_in_LoginUsers_column_names.cs" />
     <Compile Include="STAND_ALONE_MSSQL_CreateTables.cs" />
     <Compile Include="STAND_ALONE_MSSQL_commands.cs" />
     <Compile Include="DataSet\LoginaDatasetCommonClasses.cs" />
@@ -98,11 +115,17 @@
     <Compile Include="LoginControl.Designer.cs">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="AWPLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="AWPLoginForm.Designer.cs">
+      <DependentUpon>AWPLoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="STDLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STDLoginForm.Designer.cs">
+      <DependentUpon>STDLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginHistoryForm.cs">
       <SubType>Form</SubType>
@@ -136,11 +159,13 @@
     <Compile Include="AWP_UserManager.designer.cs">
       <DependentUpon>AWP_UserManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInfoForm.cs">
+    <Compile Include="AWP_username_Data.cs" />
+    <Compile Include="STD_username_Data.cs" />
+    <Compile Include="STDUserInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserInfoForm.Designer.cs">
-      <DependentUpon>UserInfoForm.cs</DependentUpon>
+    <Compile Include="STDUserInfoForm.Designer.cs">
+      <DependentUpon>STDUserInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="STD_UserManager.cs">
       <SubType>Form</SubType>
@@ -151,8 +176,15 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ChangePasswordForm.resx">
-      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    <EmbeddedResource Include="AWP_Select_users_from_myOrganisation_Person_Table.resx">
+      <DependentUpon>AWP_Select_users_from_myOrganisation_Person_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AWPChangePasswordForm.resx">
+      <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STDChangePasswordForm.resx">
+      <DependentUpon>STDChangePasswordForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EditLoginData_Form.resx">
@@ -163,8 +195,12 @@
       <DependentUpon>LoginControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="AWPLoginForm.resx">
+      <DependentUpon>AWPLoginForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STDLoginForm.resx">
+      <DependentUpon>STDLoginForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginHistoryForm.resx">
@@ -188,8 +224,8 @@
       <DependentUpon>AWP_UserManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInfoForm.resx">
-      <DependentUpon>UserInfoForm.cs</DependentUpon>
+    <EmbeddedResource Include="STDUserInfoForm.resx">
+      <DependentUpon>STDUserInfoForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="STD_UserManager.resx">
@@ -217,6 +253,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
+      <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
+      <Name>XMessage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>

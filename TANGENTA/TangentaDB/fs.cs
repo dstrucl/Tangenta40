@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
+using System.Security.Cryptography;
 
 namespace TangentaDB
 {
@@ -2192,6 +2193,17 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static byte[] CalculateSHA256(string InputString)
+        {
+            //encrypt password
+            byte[] encryptedPass;
+            UTF8Encoding encoder = new UTF8Encoding();
+            SHA256Managed shaTranscode = new SHA256Managed();
+            encryptedPass = shaTranscode.ComputeHash(encoder.GetBytes(InputString));
+            return encryptedPass;
+        }
+
 
         public static bool AddPar(string spar, ref List<SQL_Parameter> lpar, object obj_v, ref string cond, ref string value)
         {
