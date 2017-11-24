@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AWPData.cs" />
+    <Compile Include="AWPLoginData.cs" />
+    <Compile Include="AWPRole.cs" />
     <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +92,7 @@
     <Compile Include="AWPChangePasswordForm.Designer.cs">
       <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="f.cs" />
     <Compile Include="STDChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +124,7 @@
     <Compile Include="AWPLoginForm.Designer.cs">
       <DependentUpon>AWPLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="STDLoginData.cs" />
     <Compile Include="STDLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +156,7 @@
       <DependentUpon>RoleManager.cs</DependentUpon>
     </Compile>
     <Compile Include="AWP_func.cs" />
+    <Compile Include="STDRole.cs" />
     <Compile Include="STD_MSSQL.cs" />
     <Compile Include="AWP_UserManager.cs">
       <SubType>Form</SubType>

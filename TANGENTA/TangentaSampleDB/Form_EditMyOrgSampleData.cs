@@ -58,10 +58,16 @@ namespace TangentaSampleDB
         private void do_OK()
         {
             DataChanged = false;
-            AllDataChanged = true;
+            AllDataChanged = false;
             if (m_usrc_SampleDataEdit.Check(EnumControlCallback_Check))
             {
                 if (DataChanged && AllDataChanged)
+                {
+                    m_usrc_SampleDataEdit.Fill(EnumControlCallback_Fill);
+                    DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else if (!DataChanged && !AllDataChanged)
                 {
                     m_usrc_SampleDataEdit.Fill(EnumControlCallback_Fill);
                     DialogResult = DialogResult.OK;
@@ -87,13 +93,13 @@ namespace TangentaSampleDB
         {
             if (edt_control.DataNotChanged())
             {
-                edt_control.MarkAsChanged();
-                DataChanged = true;
+                edt_control.MarkAsNotChanged();
             }
             else
             {
+                edt_control.MarkAsChanged();
+                DataChanged = true;
                 AllDataChanged = false;
-                edt_control.MarkAsNotChanged();
             }
             return true;
         }

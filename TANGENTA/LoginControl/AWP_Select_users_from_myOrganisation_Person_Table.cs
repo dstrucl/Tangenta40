@@ -10,19 +10,19 @@ using System.Windows.Forms;
 
 namespace LoginControl
 {
-    public partial class AWP_Select_users_from_myOrganisation_Person_Table : Form
+    internal partial class AWP_Select_users_from_myOrganisation_Person_Table : Form
     {
 
-        private AWP_UserManager usrmgtfrm = null;
-        public DataTable dtmyOrganisation_Person_not_in_LoginUsers = null;
+        internal DataTable dtmyOrganisation_Person_not_in_LoginUsers = null;
         private DBConnectionControl40.DBConnection logincon = null;
-        public DataRow[] drsImportAdministrator = null;
-        public DataRow[] drsImportOthers = null;
+        internal DataRow[] drsImportAdministrator = null;
+        internal DataRow[] drsImportOthers = null;
+        internal AWPBindingData awpd  = null;
 
-        public AWP_Select_users_from_myOrganisation_Person_Table(DBConnectionControl40.DBConnection con, AWP_UserManager xawp_usrmgt_frm,ltext ltInstruction)
+        internal AWP_Select_users_from_myOrganisation_Person_Table(DBConnectionControl40.DBConnection con, AWPBindingData xawpd,ltext ltInstruction)
         {
-            usrmgtfrm = xawp_usrmgt_frm;
             InitializeComponent();
+            awpd = xawpd;
             logincon = con;
             this.Text = "";
             if (ltInstruction != null)
@@ -53,7 +53,7 @@ namespace LoginControl
                     dgvc.Visible = false;
                 }
 
-                foreach (AWPColName cn in usrmgtfrm.awpd.AWP_col_Names)
+                foreach (AWPColName cn in awpd.AWP_col_Names)
                 {
                     if (dgvx_myOrganisationPerson.Columns.Contains(cn.ColumnName))
                     {
@@ -109,6 +109,11 @@ namespace LoginControl
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void dgvx_myOrganisationPerson_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
     }
 }

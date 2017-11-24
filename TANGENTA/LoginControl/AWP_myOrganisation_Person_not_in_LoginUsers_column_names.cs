@@ -7,22 +7,28 @@ using System.Windows.Forms;
 
 namespace LoginControl
 {
-    class AWPColName
+    internal class AWPColName
     {
 
-        public Control lbl_ctrl = null;
-        public Control edit_ctrl = null;
-        public string ColumnName = "";
-        public ltext NameInLanguage = null;
-        public int DisplayIndex = 0;
-        public AWPColName(string colname,ltext ltext_colname, int display_index,Control xctrl, Control xedit_ctrl)
+        internal Control lbl_ctrl = null;
+        internal Control edit_ctrl = null;
+        internal string ColumnName = "";
+        internal ltext NameInLanguage = null;
+        internal int DisplayIndex = 0;
+        internal AWPColName(string colname,ltext ltext_colname, int display_index)
         {
-            lbl_ctrl = xctrl;
-            edit_ctrl = xedit_ctrl;
             ColumnName = colname;
             NameInLanguage = ltext_colname;
             DisplayIndex = display_index;
-
+            lbl_ctrl = null;
+            edit_ctrl = null;
         }
+
+        internal void Bind(Control xctrl, Control xedit_ctrl)
+        {
+            lbl_ctrl = xctrl;
+            edit_ctrl = xedit_ctrl;
+        }
+
     }
 }

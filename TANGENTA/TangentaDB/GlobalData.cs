@@ -262,7 +262,8 @@ namespace TangentaDB
 
 
 
-        public static bool GetWorkPeriod(string Atom_WorkPeriod_Type_Name, 
+        public static bool GetWorkPeriod(long myOrganisation_Person_ID,
+                                         string Atom_WorkPeriod_Type_Name, 
                                          string x_Atom_WorkPeriod_Type_Description,
                                          string ElectronicDevice_Name,
                                          string ElectronicDevice_Description,
@@ -275,7 +276,7 @@ namespace TangentaDB
                 if (Atom_myOrganisation_Person_ID < 0)
                 {
                     string_v office_name = null;
-                    if (f_Atom_myOrganisation_Person.Get(1, ref Atom_myOrganisation_Person_ID, ref office_name))
+                    if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name))
                     {
                         if (f_WorkingPlace.Get(office_name.v, "Tangenta 1", ref WorkingPlace_ID))
                         {

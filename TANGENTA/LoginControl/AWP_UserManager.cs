@@ -26,7 +26,7 @@ namespace LoginControl
         private const string Column_Select = "Select";
         private Form myParent;
 
-        internal AWPData awpd = null;
+        internal AWPBindingData awpd = null;
 
         internal DataTable dtLoginUsers = null;
 
@@ -39,7 +39,7 @@ namespace LoginControl
             login_control = xlogin_control;
             InitializeComponent();
 
-            awpd = new AWPData(this);
+            awpd = login_control.awpd;
 
             int Index_OfDefaultUserName = -1;
 
@@ -62,14 +62,13 @@ namespace LoginControl
             lbl_Description.Text = lng.s_Contact.s;
 
            
-            this.lbl_UserName.Text = lng.s_lblUserName_UserManager.s;
-            this.lblPassword.Text = lng.s_lblPassword_UserManager.s;
             this.lbl_ConfirmPasword.Text = lng.s_lblConfirmPassword_UserManager.s;
             this.btnAddUser.Text = lng.s_btnAddUser_UserManager.s;
             this.btnDeleteUser.Text = lng.s_btn_DeleteUser.s;
             this.btnChangeData.Text = lng.s_btnChangeData_UserManager.s;
             this.btnOK.Text = lng.s_btnOK_UserManager.s;
             this.btnCancel.Text = lng.s_btnCancel_UserManager.s;
+
             this.txtUserName.Tag = null;
             this.grp_PasswordExpires.Text = lng.s_PasswordExpires.s;
             btnDeleteUser.Enabled = false;
@@ -86,7 +85,6 @@ namespace LoginControl
 
             chk_Active.Text = lng.s_Active.s;
 
-  
             this.Text = lng.s_ManageUSers.s + " " + lng.s_OnComputer.s + " " + SystemInformation.ComputerName;
 
             this.chk_ChangePasswordOnFirstLogIn.Checked = true;
@@ -100,6 +98,7 @@ namespace LoginControl
             txtIdentityNumber.Text = "";
             txt_Description.Text = "";
             txtConfirmPassword.Text = "";
+            awpd.BindingControls(this);
             this.txtUserName.Focus();
         }
 
@@ -630,18 +629,9 @@ namespace LoginControl
             {
                 if ((bool)dgvr.Cells[Column_Select].Value == true)
                 {
-                    AWPRole role = new AWPRole();
-                    role.id = (int)dgvr.Cells[LoginDB_DataSet.LoginRoles.id.name].Value;
-                    role.Name = (string)dgvr.Cells[LoginDB_DataSet.LoginRoles.Name.name].Value;
-                    role.PrivilegesLevel = (int)dgvr.Cells[LoginDB_DataSet.LoginRoles.PrivilegesLevel.name].Value;
-                    if (dgvr.Cells[LoginDB_DataSet.LoginRoles.description.name].Value.GetType() == typeof(string))
-                    {
-                        role.description = (string)dgvr.Cells[LoginDB_DataSet.LoginRoles.description.name].Value;
-                    }
-                    else
-                    {
-                        role.description = "";
-                    }
+                    AWPRole role = new AWPRole((long)dgvr.Cells["ID"].Value,
+                                               (string)dgvr.Cells["Role"].Value,
+                                               (string)dgvr.Cells["Name"].Value);
                     roles.Add(role);
                 }
             }

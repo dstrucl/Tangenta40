@@ -18,6 +18,6 @@ namespace LoginControl
         public string LastName;
         public string IdentityNumber;
         public string Contact;
-        public List<AWPRole> m_Roles = new List<AWPRole>();
+        internal List<AWPRole> m_Roles = new List<AWPRole>();
     }
 }

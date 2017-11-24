@@ -12,8 +12,9 @@ namespace LoginControl
         internal static DBConnection con = null;
 
 
-        internal static bool Read_Login_VIEW(ref DataTable dt,string where_condition, ref string Err)
+        internal static bool Read_Login_VIEW(ref DataTable dt,string where_condition, List<SQL_Parameter> lpar)
         {
+            string err = null;
             if (where_condition==null)
             {
                 where_condition = "";
@@ -106,15 +107,21 @@ SELECT
                 dt.Clear();
                 dt.Columns.Clear();
             }
-            if (con.ReadDataTable(ref dt, sql,ref Err))
+            if (con.ReadDataTable(ref dt,sql,lpar,ref err))
             {
                 return true;
             }
             else
             {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:Read_Login_VIEW:sql=" + sql + "\r\nErr=" + err);
                 return false;
             }
 
+        }
+
+        internal static bool GetLoginSession(long atom_WorkPeriod_ID, ref int loginSession_id)
+        {
+            throw new NotImplementedException();
         }
 
         internal static bool Read_myOrganisation_Person_VIEW(ref DataTable dt, ref string Err)
@@ -207,6 +214,55 @@ SELECT
             }
 
         }
+
+        internal static bool UpdateRoles(List<AWPRole> allRoles)
+        {
+            foreach(AWPRole r in allRoles)
+            {
+                if (!UpdateRole(r))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool UpdateRole(AWPRole r)
+        {
+            string sql = "select id from LoginRoles where role = '" + r.Role + "'";
+            DataTable dt = new DataTable();
+            string err = null;
+            if (con.ReadDataTable(ref dt,sql,ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    r.ID = (long) dt.Rows[0]["ID"];
+                    return true;
+                }
+                else
+                {
+                    sql = "insert into LoginRoles (role) values ('" + r.Role + "')";
+                    long LoginRoles_ID = -1;
+                    object oret = null;
+                    if (con.ExecuteNonQuerySQLReturnID(sql,null,ref LoginRoles_ID,ref oret, ref err,"LoginRoles"))
+                    {
+                        r.ID = LoginRoles_ID;
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:LoginControl:AWP_func:UpdateRole:sql=" + sql + "\r\nErr=" + err);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:UpdateRole:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
         internal static bool Read_myOrganisation_Person_not_in_LoginUsers(ref DataTable dt, ref string Err)
         {
             string sql = @"
@@ -324,7 +380,8 @@ SELECT
             }
         }
 
-        internal static bool Import_myOrganisationPerson(AWPData awpd, DataRow[] drsImportAdministrator, DataRow[] drsImportOthers)
+
+        internal static bool Import_myOrganisationPerson(AWPBindingData awpd, DataRow[] drsImportAdministrator, DataRow[] drsImportOthers)
         {
             foreach (DataRow dr in drsImportAdministrator)
             {
@@ -350,6 +407,11 @@ SELECT
                     SQL_Parameter par_PasswordNeverExpires = new SQL_Parameter(spar_PasswordNeverExpires, SQL_Parameter.eSQL_Parameter.Bit, false, PasswordNeverExpires);
                     lpar.Add(par_PasswordNeverExpires);
 
+                    bool Enabled = true;
+                    string spar_Enabled = "@par_Enabled";
+                    SQL_Parameter par_Enabled = new SQL_Parameter(spar_Enabled, SQL_Parameter.eSQL_Parameter.Bit, false, Enabled);
+                    lpar.Add(par_Enabled);
+
                     bool ChangePasswordOnFirstLogin = true;
                     string spar_ChangePasswordOnFirstLogin = "@par_ChangePasswordOnFirstLogin";
                     SQL_Parameter par_ChangePasswordOnFirstLogin = new SQL_Parameter(spar_ChangePasswordOnFirstLogin, SQL_Parameter.eSQL_Parameter.Bit, false, ChangePasswordOnFirstLogin);
@@ -367,6 +429,7 @@ SELECT
                     lpar.Add(par_NotActiveAfterPasswordExpires);
 
                     sql = @"Insert into LoginUsers(myOrganisation_Person_ID,
+                                                   Enabled,
                                                    PasswordNeverExpires,
                                                    Time_When_AdministratorSetsPassword,
                                                    Time_When_UserSetsItsOwnPassword_FirstTime,
@@ -376,7 +439,8 @@ SELECT
                                                    Maximum_password_age_in_days,
                                                    NotActiveAfterPasswordExpires)
                                                    values ("
-                                                   + spar_myOrganisation_Person_ID +
+                                                   + spar_Enabled +
+                                                   "," + spar_myOrganisation_Person_ID +
                                                    "," + spar_PasswordNeverExpires +
                                                    ",null" + //Time_When_AdministratorSetsPassword
                                                    ",null" + //Time_When_UserSetsItsOwnPassword_FirstTime
@@ -401,6 +465,110 @@ SELECT
                 }
             }
             return true;
+        }
+
+        internal static bool AWPRoles_GetAll(ref List<AWPRole> AllAWPRoles)
+        {
+            string sql = @"select ID,Role from LoginRoles";
+            string err = null;
+            DataTable dt = new DataTable();
+            if (AllAWPRoles == null)
+            {
+                AllAWPRoles = new List<AWPRole>();
+            }
+            else
+            {
+                AllAWPRoles.Clear();
+            }
+
+            if (con.ReadDataTable(ref dt, sql, ref err))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AllAWPRoles.Add(new AWPRole((long)dr["ID"], (string)dr["Role"]));
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:AWPRoles_GetAll:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
+        internal static bool AWPRoles_GetUserRoles(long LoginUsers_ID, ref List<AWPRole> AWPRoles)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint,false, LoginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+            string sql = @"select 
+                           lr.ID as ID,
+                           lr.Role as Role
+                           from LoginUsersAndLoginRoles lualr
+                           inner join LoginUsers lu on lualr.LoginUsers_ID = lu.ID
+                           inner join LoginRoles lr on lualr.LoginRoles_ID = lr.ID
+                           wher lualr.LoginUsers_ID = "+ spar_LoginUsers_ID;
+            string err = null;
+            DataTable dt = new DataTable();
+            if (AWPRoles==null)
+            {
+                AWPRoles = new List<AWPRole>();
+            }
+            else
+            {
+                AWPRoles.Clear();
+            }
+            if (con.ReadDataTable(ref dt,sql,lpar, ref err))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AWPRoles.Add(new AWPRole((long)dr["ID"], (string)dr["Role"]));
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:GetUserRoles:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
+        internal static bool AWPRoles_GetRoles_User_Does_Not_Have(long LoginUsers_ID, ref List<AWPRole> AWPRoles)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+            string sql = @"select ID,Role from LoginRoles where ID not in (select 
+                           lr.ID
+                           from LoginUsersAndLoginRoles lualr
+                           inner join LoginUsers lu on lualr.LoginUsers_ID = lu.ID
+                           inner join LoginRoles lr on lualr.LoginRoles_ID = lr.ID
+                           where lualr.LoginUsers_ID = " + spar_LoginUsers_ID +")";
+            string err = null;
+            DataTable dt = new DataTable();
+            if (AWPRoles == null)
+            {
+                AWPRoles = new List<AWPRole>();
+            }
+            else
+            {
+                AWPRoles.Clear();
+            }
+            if (con.ReadDataTable(ref dt, sql, lpar, ref err))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AWPRoles.Add(new AWPRole((long)dr["ID"], (string)dr["Role"]));
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:AWPRoles_GetRoles_User_Does_Not_Have:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
         }
     }
 }

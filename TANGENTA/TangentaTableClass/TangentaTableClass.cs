@@ -2548,11 +2548,11 @@ namespace TangentaTableClass
     public class Maximum_password_age_in_days : DB_Int32 { }
     public class NotActiveAfterPasswordExpires : DB_bit { }
     public class PrivilegesLevel : DB_Int32 { }
-    public class Logout_Type : DB_Int32 { }
     public class AttemptTime : DB_DateTime { }
     public class Username_does_not_exist : DB_bit { }
     public class Password_wrong : DB_bit { }
     public class Enabled : DB_bit { }
+    public class Role : DB_varchar_64 { }
 
     public class LoginUsers
     {
@@ -2572,8 +2572,7 @@ namespace TangentaTableClass
     public class LoginRoles
     {
         public ID ID = new ID();
-        public Name Name = new Name();
-        public PrivilegesLevel PrivilegesLevel = new PrivilegesLevel();
+        public Role Role = new Role();
     }
 
     public class LoginUsersAndLoginRoles
@@ -2588,7 +2587,6 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
-        public Logout_Type Logout_Type = new Logout_Type();
     }
 
     public class LoginFailed

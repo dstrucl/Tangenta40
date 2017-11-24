@@ -51,6 +51,7 @@
             this.dgvx_myOrganisationPerson.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_myOrganisationPerson.Size = new System.Drawing.Size(675, 349);
             this.dgvx_myOrganisationPerson.TabIndex = 0;
+            this.dgvx_myOrganisationPerson.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvx_myOrganisationPerson_DataError);
             // 
             // btn_Import
             // 

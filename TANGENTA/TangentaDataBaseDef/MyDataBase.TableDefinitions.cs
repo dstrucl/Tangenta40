@@ -2415,7 +2415,7 @@ namespace TangentaDataBaseDef
             /* 210 */
             t_LoginUsers = new SQLTable((Object)new LoginUsers(), "lusr", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers);
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba v podjetju ID"));
+            t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba v podjetju ID"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.Enabled, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Enabled", "Omogočeno"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.PasswordNeverExpires, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Password never expires", "Geslo nikoli ne poteče"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.Time_When_AdministratorSetsPassword, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Time when administrator sets password", "Čas administratorskega nastavitva gesla"));
@@ -2430,32 +2430,30 @@ namespace TangentaDataBaseDef
             /* 211 */
             t_LoginRoles = new SQLTable((Object)new LoginRoles(), "lrol", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginRoles);
             t_LoginRoles.AddColumn((Object)mt.m_LoginRoles.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginRoles.AddColumn((Object)mt.m_LoginRoles.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Login Role Name", "Naziv pravice"));
-            t_LoginRoles.AddColumn((Object)mt.m_LoginRoles.PrivilegesLevel, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("PrivilegesLevel", "Nivo pravice"));
+            t_LoginRoles.AddColumn((Object)mt.m_LoginRoles.Role, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Access Right", "Pravica"));
             m_DBTables.items.Add(t_LoginRoles);
 
             /* 212 */
             t_LoginUsersAndLoginRoles = new SQLTable((Object)new LoginUsersAndLoginRoles(), "lusrrol", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsersAndLoginRoles);
             t_LoginUsersAndLoginRoles.AddColumn((Object)mt.m_LoginUsersAndLoginRoles.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginUsersAndLoginRoles.AddColumn((Object)mt.m_LoginUsersAndLoginRoles.m_LoginUsers, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("LoginUsers ID", "Uporabnik za prijavo ID"));
-            t_LoginUsersAndLoginRoles.AddColumn((Object)mt.m_LoginUsersAndLoginRoles.m_LoginRoles, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("LoginRoles ID", "Seznam pravic ID"));
+            t_LoginUsersAndLoginRoles.AddColumn((Object)mt.m_LoginUsersAndLoginRoles.m_LoginUsers, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("LoginUsers ID", "Uporabnik za prijavo ID"));
+            t_LoginUsersAndLoginRoles.AddColumn((Object)mt.m_LoginUsersAndLoginRoles.m_LoginRoles, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("LoginRoles ID", "Seznam pravic ID"));
             m_DBTables.items.Add(t_LoginUsersAndLoginRoles);
 
             /* 213 */
             t_LoginSession = new SQLTable((Object)new LoginSession(), "lses", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginSession);
             t_LoginSession.AddColumn((Object)mt.m_LoginSession.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginSession.AddColumn((Object)mt.m_LoginSession.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Work period archive ID", "Šiht arhiv ID"));
-            t_LoginSession.AddColumn((Object)mt.m_LoginSession.Logout_Type, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Logout type", "Vrsta odjave"));
+            t_LoginSession.AddColumn((Object)mt.m_LoginSession.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work period archive ID", "Šiht arhiv ID"));
             m_DBTables.items.Add(t_LoginSession);
 
             /* 214 */
             t_LoginFailed = new SQLTable((Object)new LoginFailed(), "lfail", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginFailed);
             t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.AttemptTime, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Failed login attempt time", "Čas neuspešne prijave"));
-            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.UserName, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("User name", "Uporabniško ime"));
-            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.Password_wrong, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Password wrong", "Napačno geslo"));
-            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.Username_does_not_exist, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Username does not exist", "Uporabniško ime ne obstaja"));
-            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Computer archive ID", "Računalnik arhiv ID"));
+            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.AttemptTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Failed login attempt time", "Čas neuspešne prijave"));
+            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.UserName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("User name", "Uporabniško ime"));
+            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.Password_wrong, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Password wrong", "Napačno geslo"));
+            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.Username_does_not_exist, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Username does not exist", "Uporabniško ime ne obstaja"));
+            t_LoginFailed.AddColumn((Object)mt.m_LoginFailed.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer archive ID", "Računalnik arhiv ID"));
             m_DBTables.items.Add(t_LoginFailed);
 
             /* 215 */
@@ -2467,9 +2465,9 @@ namespace TangentaDataBaseDef
             /* 216 */
             t_LoginManagerJournal = new SQLTable((Object)new LoginManagerJournal(), "lmj", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginManagerJournal);
             t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.m_LoginUsers, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Login user ID", "Uporabnik ID"));
-            t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.m_LoginManagerEvent, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Login Manager Event ID", "Dogodek urejanja prijav ID"));
-            t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
+            t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.m_LoginUsers, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login user ID", "Uporabnik ID"));
+            t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.m_LoginManagerEvent, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login Manager Event ID", "Dogodek urejanja prijav ID"));
+            t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
             m_DBTables.items.Add(t_LoginManagerJournal);
 
         }

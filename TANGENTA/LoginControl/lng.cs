@@ -235,5 +235,17 @@ namespace LoginControl
         public static ltext s_ImportUsersWithAtLeastOneAadministratorRights = new ltext(new string[] { "Select persons from may oragnisation to Login list.\r\nAt least one person must have Administrator rights checked!", "Izberite osebe iz vaše organizacije, ki se bodo lahko prijavile v program.\r\nNajmanj eni osebi morate označiti, da ima skrbniške pravice." });
 
         public static ltext s_YouMustSelectAtLeastOnePersonWithAdministratorChecked = new ltext(new string[] {"You must select at least one person from your organisation as Administrator", "Izbrati morate najmanj eno osebo iz vaše organizacije, ki ima odkljukano da je skrbnik" });
+
+        public static ltext cn_Role_Administrator= new ltext(new string[] { "Administrator", "Skrbništvo" });
+        public static ltext cn_Role_UserManagement = new ltext(new string[] { "User management", "Upravljanje kadrov " });
+        public static ltext cn_Role_WriteInvoice = new ltext(new string[] { "Write Invoice", "Izdajanje računov" });
+        public static ltext cn_Role_WriteProformaInvoice = new ltext(new string[] { "Write Proforma-Invoice", "Izdajanje predračunov" });
+        public static ltext cn_Role_StockTakeManagemenent = new ltext(new string[] { "Stock take management", "Prevzem blaga" });
+        public static ltext cn_Role_PriceListManagement = new ltext(new string[] { "Price list management", "Urejenje cenikov" });
+        public static ltext cn_Role_ViewAndExport = new ltext(new string[] { "View and Export", "Vpogled in izvoz" });
+        public static ltext cn_Role_WorkInShopA = new ltext(new string[] { "Work in Shop A", "Delo v prodajalni A" });
+        public static ltext cn_Role_WorkInShopB = new ltext(new string[] { "Work in Shop B", "Delo v prodajalni B" });
+        public static ltext cn_Role_WorkInShopC = new ltext(new string[] { "Work in Shop C", "Delo v prodajalni C" });
+
     }
 }
