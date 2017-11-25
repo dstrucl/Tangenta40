@@ -562,30 +562,37 @@ namespace LoginControl
                 }
                 else
                 {
-                    if (AWP_dtLoginView.Rows.Count > 0)
+                    // First time instalation because AWP_dtLoginView.Rows[0]["Password"] == null ! or AWP_dtLoginView.Rows.Count==0
+                    Form parent_form = GetParentForm();
+                    AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(xnav,Login_con, awpd,lng.s_ImportUsersWithAtLeastOneAadministratorRights);
+                    DialogResult dlgRes = DialogResult.None;
+                    if (parent_form != null)
                     {
-
-                        //m_LoginData.m_LoginUsers_id = (int)dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
-
-                        STD_UserManager edtLogin = new STD_UserManager(null, this);
-                        if (edtLogin.ShowDialog() == DialogResult.OK)
+                        frm_awp_mopt.TopMost = parent_form.TopMost;
+                        dlgRes = frm_awp_mopt.ShowDialog(parent_form);
+                    }
+                    else
+                    {
+                        dlgRes=frm_awp_mopt.ShowDialog();
+                    }
+                    if (dlgRes==DialogResult.OK)
+                    {
+                        if (AWP_func.Import_myOrganisationPerson(awpd,frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
                         {
-                            if (Read_Login_VIEW(m_eDataTableCreationMode, this.Login_con, ref Err))
+                            AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(xnav,parent_form, this);
+                            if (parent_form != null)
                             {
-                                if (STD_dtLogin_Vaild(ref Err))
-                                {
-                                    return DoSTDLogin();
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:LoginControl:Login: Read Login data Tables are not valid:" + Err);
-                                    return false;
-                                }
+                                awp_usrmgt_frm.TopMost = parent_form.TopMost;
+                                dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:LoginControl:Login: Read Login_VIEW Err=:" + Err);
-                                return false;
+                                dlgRes = awp_usrmgt_frm.ShowDialog();
+                            }
+                            switch (dlgRes)
+                            {
+                                case DialogResult.OK:
+                                    return true;
                             }
                         }
                         else
@@ -595,43 +602,7 @@ namespace LoginControl
                     }
                     else
                     {
-                        // import users from  myOrganisation_Person table !
-                        Form parent_form = GetParentForm();
-                        AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(Login_con, awpd,lng.s_ImportUsersWithAtLeastOneAadministratorRights);
-                        DialogResult dlgRes = DialogResult.None;
-                        if (parent_form != null)
-                        {
-                            frm_awp_mopt.TopMost = parent_form.TopMost;
-                            dlgRes = frm_awp_mopt.ShowDialog(parent_form);
-                        }
-                        else
-                        {
-                            dlgRes=frm_awp_mopt.ShowDialog();
-                        }
-                        if (dlgRes==DialogResult.OK)
-                        {
-                            if (AWP_func.Import_myOrganisationPerson(awpd,frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
-                            {
-                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(parent_form, this);
-                                if (parent_form != null)
-                                {
-                                    awp_usrmgt_frm.TopMost = parent_form.TopMost;
-                                    dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
-                                }
-                                else
-                                {
-                                    dlgRes = awp_usrmgt_frm.ShowDialog();
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
                 return false;

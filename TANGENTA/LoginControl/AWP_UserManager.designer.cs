@@ -28,8 +28,7 @@ namespace LoginControl
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AWP_UserManager));
             this.btnAddUser = new System.Windows.Forms.Button();
             this.btnChangeData = new System.Windows.Forms.Button();
             this.dgv_LoginUsers = new DataGridView_2xls.DataGridView2xls();
@@ -57,6 +56,7 @@ namespace LoginControl
             this.lbl_Max_Password_Age = new System.Windows.Forms.Label();
             this.nmUpDn_MaxPasswordAge = new System.Windows.Forms.NumericUpDown();
             this.chk_Enabled = new System.Windows.Forms.CheckBox();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LoginUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -72,38 +72,12 @@ namespace LoginControl
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_MaxPasswordAge)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnOK.Location = new System.Drawing.Point(169, 614);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(138, 34);
-            this.btnOK.TabIndex = 11;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnCancel.Location = new System.Drawing.Point(637, 614);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(138, 34);
-            this.btnCancel.TabIndex = 14;
-            this.btnCancel.Text = "CANCEL";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // btnAddUser
             // 
             this.btnAddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnAddUser.Location = new System.Drawing.Point(13, 614);
+            this.btnAddUser.Location = new System.Drawing.Point(181, 605);
             this.btnAddUser.Name = "btnAddUser";
             this.btnAddUser.Size = new System.Drawing.Size(138, 34);
             this.btnAddUser.TabIndex = 10;
@@ -117,7 +91,7 @@ namespace LoginControl
             this.btnChangeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnChangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnChangeData.Location = new System.Drawing.Point(323, 614);
+            this.btnChangeData.Location = new System.Drawing.Point(335, 605);
             this.btnChangeData.Name = "btnChangeData";
             this.btnChangeData.Size = new System.Drawing.Size(138, 34);
             this.btnChangeData.TabIndex = 12;
@@ -140,7 +114,7 @@ namespace LoginControl
             this.dgv_LoginUsers.ReadOnly = true;
             this.dgv_LoginUsers.RowTemplate.Height = 24;
             this.dgv_LoginUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_LoginUsers.Size = new System.Drawing.Size(545, 606);
+            this.dgv_LoginUsers.Size = new System.Drawing.Size(545, 587);
             this.dgv_LoginUsers.StandardTab = true;
             this.dgv_LoginUsers.TabIndex = 15;
             this.dgv_LoginUsers.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
@@ -152,7 +126,7 @@ namespace LoginControl
             this.btnDeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeleteUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnDeleteUser.Location = new System.Drawing.Point(483, 614);
+            this.btnDeleteUser.Location = new System.Drawing.Point(479, 605);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(138, 34);
             this.btnDeleteUser.TabIndex = 13;
@@ -189,7 +163,7 @@ namespace LoginControl
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgv_LoginUsers);
-            this.splitContainer1.Size = new System.Drawing.Size(978, 606);
+            this.splitContainer1.Size = new System.Drawing.Size(978, 587);
             this.splitContainer1.SplitterDistance = 429;
             this.splitContainer1.TabIndex = 16;
             // 
@@ -213,7 +187,7 @@ namespace LoginControl
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainer2.Panel2.Controls.Add(this.dataGridView2);
             this.splitContainer2.Panel2.Controls.Add(this.lbl_OtherRoles);
-            this.splitContainer2.Size = new System.Drawing.Size(423, 113);
+            this.splitContainer2.Size = new System.Drawing.Size(423, 94);
             this.splitContainer2.SplitterDistance = 208;
             this.splitContainer2.TabIndex = 116;
             // 
@@ -225,7 +199,7 @@ namespace LoginControl
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(4, 23);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(201, 89);
+            this.dataGridView1.Size = new System.Drawing.Size(201, 70);
             this.dataGridView1.TabIndex = 74;
             // 
             // lbl_UserRoles
@@ -245,7 +219,7 @@ namespace LoginControl
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(3, 23);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(205, 89);
+            this.dataGridView2.Size = new System.Drawing.Size(205, 70);
             this.dataGridView2.TabIndex = 75;
             // 
             // lbl_OtherRoles
@@ -284,7 +258,7 @@ namespace LoginControl
             this.webBrowser1.Location = new System.Drawing.Point(3, 186);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(417, 297);
+            this.webBrowser1.Size = new System.Drawing.Size(417, 278);
             this.webBrowser1.TabIndex = 112;
             // 
             // chk_ChangePasswordOnFirstLogIn
@@ -445,19 +419,50 @@ namespace LoginControl
             this.chk_Enabled.Text = "Enabled*";
             this.chk_Enabled.UseVisualStyleBackColor = true;
             // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(-1, 593);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(982, 63);
+            this.usrc_NavigationButtons1.TabIndex = 17;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
+            // 
             // AWP_UserManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(984, 660);
-            this.Controls.Add(this.splitContainer1);
+            this.ControlBox = false;
             this.Controls.Add(this.btnDeleteUser);
             this.Controls.Add(this.btnChangeData);
             this.Controls.Add(this.btnAddUser);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "AWP_UserManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ReadDataForm";
@@ -485,9 +490,6 @@ namespace LoginControl
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Button btnChangeData;
         internal DataGridView_2xls.DataGridView2xls dgv_LoginUsers;
@@ -515,5 +517,6 @@ namespace LoginControl
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
         internal System.Windows.Forms.Label lbl_OtherRoles;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LanguageControl;
+using NavigationButtons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,7 @@ namespace LoginControl
         internal DataRow[] drsImportOthers = null;
         internal AWPBindingData awpd  = null;
 
-        internal AWP_Select_users_from_myOrganisation_Person_Table(DBConnectionControl40.DBConnection con, AWPBindingData xawpd,ltext ltInstruction)
+        internal AWP_Select_users_from_myOrganisation_Person_Table(Navigation xnav,DBConnectionControl40.DBConnection con, AWPBindingData xawpd,ltext ltInstruction)
         {
             InitializeComponent();
             awpd = xawpd;
@@ -33,8 +34,9 @@ namespace LoginControl
             {
                 lbl_Instruction.Text = "";
             }
-            lng.s_Import.Text(btn_Import);
-            lng.s_Cancel.Text(btn_Cancel);
+            usrc_NavigationButtons1.Init(xnav);
+            //lng.s_Import.Text(btn_Import);
+            //lng.s_Cancel.Text(btn_Cancel);
         }
 
         private void AWP_Select_users_from_myOrganisation_Person_Table_Load(object sender, EventArgs e)
@@ -90,7 +92,7 @@ namespace LoginControl
             }
         }
 
-        private void btn_Import_Click(object sender, EventArgs e)
+        private void DoImport()
         {
             drsImportAdministrator = dtmyOrganisation_Person_not_in_LoginUsers.Select("Selected = 1 and Administrator=1");
             drsImportOthers = dtmyOrganisation_Person_not_in_LoginUsers.Select("Selected = 1 and Administrator=0");
@@ -105,15 +107,31 @@ namespace LoginControl
             }
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
 
         private void dgvx_myOrganisationPerson_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (evt)
+            {
+                case Navigation.eEvent.NEXT:
+                    DoImport();
+                    break;
+
+                case Navigation.eEvent.PREV:
+                    DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    break;
+
+                case Navigation.eEvent.EXIT:
+                    DialogResult = DialogResult.Abort;
+                    this.Close();
+                    break;
+
+            }
         }
     }
 }

@@ -104,17 +104,24 @@ namespace LoginControl
         }
 
 
-        internal  eGetDateResult GetData(string username, AWPBindingData awpb)
+        internal  eGetDateResult GetData(ref DataTable dt,string username, AWPBindingData awpb)
         {
-            DataTable dt = new DataTable();
-            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string spar_UserName = "@par_UserName";
-            SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, username);
-            lpar.Add(par_UserName);
-            string where_condition = " where UserName = " + spar_UserName;
+            List<SQL_Parameter> lpar = null;
+            string where_condition = "";
+            if (username != null)
+            {
+                if (username.Length > 0)
+                {
+                    lpar = new List<SQL_Parameter>();
+                    string spar_UserName = "@par_UserName";
+                    SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, username);
+                    lpar.Add(par_UserName);
+                    where_condition = " where UserName = " + spar_UserName;
+                }
+            }
             if (AWP_func.Read_Login_VIEW(ref dt, where_condition, lpar))
             {
-                if (dt.Rows.Count == 1)
+                if (dt.Rows.Count > 0)
                 {
                     DataRow dr = dt.Rows[0];
                     ID = f.glong(dr[awpb.mcn_ID.ColumnName]);

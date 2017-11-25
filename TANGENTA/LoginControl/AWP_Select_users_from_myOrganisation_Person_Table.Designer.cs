@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AWP_Select_users_from_myOrganisation_Person_Table));
             this.dgvx_myOrganisationPerson = new DataGridView_2xls.DataGridView2xls();
-            this.btn_Import = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.lbl_Instruction = new System.Windows.Forms.Label();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_myOrganisationPerson)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,31 +49,9 @@
             this.dgvx_myOrganisationPerson.Location = new System.Drawing.Point(1, 68);
             this.dgvx_myOrganisationPerson.Name = "dgvx_myOrganisationPerson";
             this.dgvx_myOrganisationPerson.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_myOrganisationPerson.Size = new System.Drawing.Size(675, 349);
+            this.dgvx_myOrganisationPerson.Size = new System.Drawing.Size(675, 367);
             this.dgvx_myOrganisationPerson.TabIndex = 0;
             this.dgvx_myOrganisationPerson.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvx_myOrganisationPerson_DataError);
-            // 
-            // btn_Import
-            // 
-            this.btn_Import.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Import.Location = new System.Drawing.Point(39, 422);
-            this.btn_Import.Name = "btn_Import";
-            this.btn_Import.Size = new System.Drawing.Size(198, 29);
-            this.btn_Import.TabIndex = 1;
-            this.btn_Import.Text = "Import";
-            this.btn_Import.UseVisualStyleBackColor = true;
-            this.btn_Import.Click += new System.EventHandler(this.btn_Import_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(344, 422);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(198, 29);
-            this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // lbl_Instruction
             // 
@@ -85,17 +63,47 @@
             this.lbl_Instruction.Text = "label1";
             this.lbl_Instruction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 442);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(675, 73);
+            this.usrc_NavigationButtons1.TabIndex = 4;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
+            // 
             // AWP_Select_users_from_myOrganisation_Person_Table
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 454);
+            this.ClientSize = new System.Drawing.Size(677, 518);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.lbl_Instruction);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Import);
             this.Controls.Add(this.dgvx_myOrganisationPerson);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "AWP_Select_users_from_myOrganisation_Person_Table";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AWP_Select_users_from_myOrganisation_Person_Table";
             this.Load += new System.EventHandler(this.AWP_Select_users_from_myOrganisation_Person_Table_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_myOrganisationPerson)).EndInit();
@@ -106,8 +114,7 @@
         #endregion
 
         private DataGridView_2xls.DataGridView2xls dgvx_myOrganisationPerson;
-        private System.Windows.Forms.Button btn_Import;
-        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Label lbl_Instruction;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

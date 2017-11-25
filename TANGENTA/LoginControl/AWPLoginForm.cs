@@ -13,6 +13,8 @@ namespace LoginControl
 {
     public partial class AWPLoginForm : Form
     {
+
+        internal DataTable dtLoginUsers = null;
         LoginControl login_control = null;
         AWPLoginData awpld = null;
         LoginControl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
@@ -28,12 +30,13 @@ namespace LoginControl
             this.btn_Cancel.Text = lng.s_Cancel.s;
             lbl_UserName.Text = lng.s_UserName.s;
             lbl_Password.Text = lng.s_Password.s;
+            dtLoginUsers = new DataTable();
         }
 
         private void DoLogin()
         {
             this.cmbR_UserName.Set(this.cmbR_UserName.Text);
-            switch (awpld.GetData(cmbR_UserName.Text, login_control.awpd))
+            switch (awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, login_control.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
                     if (login_control.PasswordMatch(awpld.Password, txt_Password.Text))

@@ -664,7 +664,7 @@ namespace Tangenta
             return true;
         }
 
-        public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
+    public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
     {
         if (Program.OperationMode.MultiUser)
         {
