@@ -33,18 +33,6 @@ namespace Tangenta
             get { return m_Job; }
         }
 
-        private string m_UserName = null;
-        public string UserName
-        {
-            get { return m_UserName; }
-        }
-
-        private string m_Password = null;
-        public string Password
-        {
-            get { return m_Password; }
-        }
-
         private string m_Description = null;
         public string Description
         {
@@ -75,8 +63,6 @@ namespace Tangenta
         public Employee(string xFirstName,
                         object xLastName,
                         object xJob,
-                        object xUserName,
-                        object xPassword,
                         object xDescription,
                         bool xActive,
                         long x_myOrganisation_ID,
@@ -86,8 +72,6 @@ namespace Tangenta
             m_FirstName = xFirstName;
             m_LastName = set_string(xLastName);
             m_Job = set_string(xJob);
-            m_UserName = set_string(xUserName);
-            m_Password = set_string(xPassword);
             m_Description = set_string(xDescription);
             m_Active = xActive;
             m_myOrganisation_ID = x_myOrganisation_ID;

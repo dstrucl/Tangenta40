@@ -190,17 +190,7 @@ namespace TangentaSampleDB
         public static ltext s_MyOrg_Person_DateOfBirth_v = null;
         public static ltext sh_MyOrg_Person_DateOfBirth = new ltext("Enter date of birth of administrator", "Vpišite datum rojstva glavnega administratorja");
 
-
-
-
-        public static ltext sl_MyOrg_Person_UserName = new ltext("Administrator user name", "Uporabniško ime glavnega administratorja");
-        public static ltext s_MyOrg_Person_UserName_v = new ltext("UserNameX", "UporabniškoImeX");
-        public static ltext sh_MyOrg_Person_UserName = new ltext("Enter administrator user name", "Vpišiti uporabniško ime glavnega administratorja");
-
-        public static ltext sl_MyOrg_Person_Password = new ltext("Administrator password", "Skrbniško geslo");
-        public static ltext s_MyOrg_Person_Password_v = new ltext("12345", "12345");
-        public static ltext sh_MyOrg_Person_Password = new ltext("Enter administrator password", "Vpišite geslo glavnega administratorja");
-
+                  
         public static ltext sl_MyOrg_Person_Job = new ltext("Administrator Job Title", "Delovno mesto glavnega administratorja");
         public static ltext s_MyOrg_Person_Job_v = new ltext("JobX", "DelovnoMestoX");
         public static ltext sh_MyOrg_Person_Job = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");

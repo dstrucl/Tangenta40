@@ -11,9 +11,7 @@ namespace TangentaDB
 {
     public static class f_myOrganisation_Person
     {
-        public static bool Get(string_v UserName_v,
-                               string_v Password_v,
-                               string_v Job_v,
+        public static bool Get(string_v Job_v,
                                bool_v Active_v,
                                string_v Description_v,
                                long_v Person_ID_v,
@@ -23,17 +21,6 @@ namespace TangentaDB
             string Err = null;
             DataTable dt = new DataTable();
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-
-            string UserName_cond = null;
-            string UserName_value = null;
-            string spar_UserName = "UserName";
-            fs.AddPar(spar_UserName, ref lpar, UserName_v, ref UserName_cond, ref UserName_value);
-
-            string Password_cond = null;
-            string Password_value = null;
-            byte_array_v xPassword_v = new byte_array_v(fs.CalculateSHA256(Password_v.v));
-            string spar_Password = "Password";
-            fs.AddPar(spar_Password, ref lpar, xPassword_v, ref Password_cond, ref Password_value);
 
             string Job_cond = null;
             string Job_value = null;
@@ -60,9 +47,7 @@ namespace TangentaDB
             string spar_Office_ID = "Office_ID";
             fs.AddPar(spar_Office_ID, ref lpar, Office_ID_v, ref Office_ID_cond, ref Office_ID_value);
 
-            string sql = "select ID from myOrganisation_Person where " + UserName_cond + " and "
-                                                                       + Password_cond + " and "
-                                                                       + Job_cond + " and "
+            string sql = "select ID from myOrganisation_Person where " + Job_cond + " and "
                                                                        + Active_cond + " and "
                                                                        + Description_cond + " and "
                                                                        + Person_ID_cond + " and "
@@ -82,68 +67,28 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = "select ID from myOrganisation_Person where " + UserName_cond ;
-                    if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
+                    sql = @"insert into myOrganisation_Person ( Job,
+                                                                Active,
+                                                                Description,
+                                                                Person_ID,
+                                                                Office_ID
+                                                                ) values
+                                                                ("
+                                                            + Job_value + @",
+                                                        " + Active_value + @",
+                                                        " + Description_value + @",
+                                                        " + Person_ID_value + @",
+                                                        " + Office_ID_value + @")";
+                    long myOrganisation_Person_ID = -1;
+                    object oret = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_ID, ref oret, ref Err, "myOrganisation_Person"))
                     {
-                        if (dt.Rows.Count > 0)
+                        if (myOrganisation_Person_v == null)
                         {
-                            if (myOrganisation_Person_v == null)
-                            {
-                                myOrganisation_Person_v = new long_v();
-                            }
-                            myOrganisation_Person_v.v = (long)dt.Rows[0]["ID"];
-                            sql = "update myOrganisation_Person set Password = " + Password_value + @",
-                                                                Job = " + Job_value + @",
-                                                                Active = " + Active_value + @",
-                                                                Description = " + Description_value + @",
-                                                                Person_ID = " + Person_ID_value + @",
-                                                                Office_ID = " + Office_ID_value + @"
-                                                                where  ID = " + myOrganisation_Person_v.v.ToString();
-                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:f_myOrganisation:Get: sql = " + sql + "\r\nErr=" + Err);
-                                return false;
-                            }
+                            myOrganisation_Person_v = new long_v();
                         }
-                        else
-                        {
-                            sql = @"insert into myOrganisation_Person ( UserName,
-                                                                        Password,
-                                                                        Job,
-                                                                        Active,
-                                                                        Description,
-                                                                        Person_ID,
-                                                                        Office_ID
-                                                                        ) values
-                                                                       ("
-                                                                 + UserName_value + @",
-                                                                " + Password_value + @",
-                                                                " + Job_value + @",
-                                                                " + Active_value + @",
-                                                                " + Description_value + @",
-                                                                " + Person_ID_value + @",
-                                                                " + Office_ID_value + @")";
-                            long myOrganisation_Person_ID = -1;
-                            object oret = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_ID, ref oret, ref Err, "myOrganisation_Person"))
-                            {
-                                if (myOrganisation_Person_v == null)
-                                {
-                                    myOrganisation_Person_v = new long_v();
-                                }
-                                myOrganisation_Person_v.v = myOrganisation_Person_ID;
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:f_myOrganisation_Person:Get: sql = " + sql + "\r\nErr=" + Err);
-                                return false;
-                            }
-                        }
+                        myOrganisation_Person_v.v = myOrganisation_Person_ID;
+                        return true;
                     }
                     else
                     {
@@ -162,6 +107,42 @@ namespace TangentaDB
         public static bool DeleteAll()
         {
             return fs.DeleteAll("myOrganisation_Person");
+        }
+
+        public static long First_ID()
+        {
+            string sql = null;
+            switch (DBSync.DBSync.m_DBType)
+            {
+                case DBConnection.eDBType.SQLITE:
+                    sql = "select ID from myOrganisation_Person order by ID asc limit 1";
+                    break;
+                case DBConnection.eDBType.MSSQL:
+                    sql = "select top 1 ID from myOrganisation_Person order by ID asc";
+                    break;
+
+                default:
+                    LogFile.Error.Show("ERROR:TangentaDB:f_myOrganisation_Person:First_ID:DBSync.DBSync.m_DBType = " + DBSync.DBSync.m_DBType.ToString() + " not implemented!");
+                    return -1;
+            }
+            DataTable dt = new DataTable();
+            string err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    return (long)dt.Rows[0]["ID"];
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_myOrganisation_Person:First_ID:sql=" + sql + "\r\nErr="+err);
+                return -1;
+            }
         }
     }
 }

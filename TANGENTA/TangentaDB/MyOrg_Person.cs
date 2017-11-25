@@ -18,11 +18,9 @@ namespace TangentaDB
     public class myOrg_Person
     {
         public long ID = 0;
-        public string_v UserName_v = null;
         public string_v FirstName_v = null;
         public string_v LastName_v = null;
         public string_v Job_v = null;
-        public byte_array_v Password_v = null;
         public bool_v Active_v = null;
         public bool_v Gender_v = null;
         public DateTime_v DateOfBirth_v = null;

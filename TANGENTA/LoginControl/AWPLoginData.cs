@@ -14,16 +14,17 @@ namespace LoginControl
 
         internal long ID = -1;
         internal bool Enabled;
-        internal bool Time_When_AdministratorSetsPassword;
+        internal DateTime Time_When_AdministratorSetsPassword;
         internal DateTime Time_When_UserSetsItsOwnPassword_FirstTime;
         internal DateTime Time_When_UserSetsItsOwnPassword_LastTime;
         internal long Administrator_LoginUsers_ID;
         internal bool ChangePasswordOnFirstLogin;
-        internal bool Maximum_password_age_in_days;
+        internal int Maximum_password_age_in_days;
         internal bool NotActiveAfterPasswordExpires;
+        internal bool PasswordNeverExpires;
         internal long myOrganisation_Person_ID;
-        internal string myOrganisation_Person_UserName;
-        internal byte[] myOrganisation_Person_Password;
+        internal string UserName;
+        internal byte[] Password;
         internal string myOrganisation_Person_Job;
         internal bool myOrganisation_Person_Active;
         internal string myOrganisation_Person_Description;
@@ -71,9 +72,9 @@ namespace LoginControl
 
 
 
-        internal List<AWPRole> m_AWPRoles = new List<AWPRole>();
+        public List<AWPRole> m_AWPRoles = new List<AWPRole>();
 
-        internal List<AWPRole> m_AWP_UserRoles = new List<AWPRole>();
+        public List<AWPRole> m_AWP_UserRoles = new List<AWPRole>();
 
         internal bool IsAdministrator
         {
@@ -81,7 +82,7 @@ namespace LoginControl
             {
                 foreach (AWPRole role in m_AWP_UserRoles)
                 {
-                    if (role.Name.Equals(AWPBindingData.ROLE_Administrator))
+                    if (role.Name.Equals(LoginControl.ROLE_Administrator))
                     {
                         return true;
                     }
@@ -110,23 +111,25 @@ namespace LoginControl
             string spar_UserName = "@par_UserName";
             SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, username);
             lpar.Add(par_UserName);
-            string where_condition = " where LoginUsers_$_mcomper.UserName = " + spar_UserName;
+            string where_condition = " where UserName = " + spar_UserName;
             if (AWP_func.Read_Login_VIEW(ref dt, where_condition, lpar))
             {
                 if (dt.Rows.Count == 1)
                 {
                     DataRow dr = dt.Rows[0];
+                    ID = f.glong(dr[awpb.mcn_ID.ColumnName]);
                     Enabled = f.gbool(dr[awpb.mcn_Enabled.ColumnName]);
-                    Time_When_AdministratorSetsPassword = f.gbool(dr[awpb.mcn_Time_When_AdministratorSetsPassword.ColumnName]);
+                    PasswordNeverExpires = f.gbool(dr[awpb.mcn_PasswordNeverExpires.ColumnName]);
+                    Time_When_AdministratorSetsPassword = f.gDateTime(dr[awpb.mcn_Time_When_AdministratorSetsPassword.ColumnName]);
                     Time_When_UserSetsItsOwnPassword_FirstTime = f.gDateTime(dr[awpb.mcn_Time_When_UserSetsItsOwnPassword_FirstTime.ColumnName]);
                     Time_When_UserSetsItsOwnPassword_LastTime = f.gDateTime(dr[awpb.mcn_Time_When_UserSetsItsOwnPassword_LastTime.ColumnName]);
                     Administrator_LoginUsers_ID = f.glong(dr[awpb.mcn_Administrator_LoginUsers_ID.ColumnName]);
                     ChangePasswordOnFirstLogin = f.gbool(dr[awpb.mcn_ChangePasswordOnFirstLogin.ColumnName]);
-                    Maximum_password_age_in_days = f.gbool(dr[awpb.mcn_Maximum_password_age_in_days.ColumnName]);
+                    Maximum_password_age_in_days = f.gint(dr[awpb.mcn_Maximum_password_age_in_days.ColumnName]);
                     NotActiveAfterPasswordExpires = f.gbool(dr[awpb.mcn_NotActiveAfterPasswordExpires.ColumnName]);
                     myOrganisation_Person_ID = f.glong(dr[awpb.mcn_myOrganisation_Person_ID.ColumnName]);
-                    myOrganisation_Person_UserName = f.gstring(dr[awpb.mcn_myOrganisation_Person_UserName.ColumnName]);
-                    myOrganisation_Person_Password = f.gbytearray(dr[awpb.mcn_myOrganisation_Person_Password.ColumnName]);
+                    UserName = f.gstring(dr[awpb.mcn_UserName.ColumnName]);
+                    Password = f.gbytearray(dr[awpb.mcn_Password.ColumnName]);
                     myOrganisation_Person_Job = f.gstring(dr[awpb.mcn_myOrganisation_Person_Job.ColumnName]);
                     myOrganisation_Person_Active = f.gbool(dr[awpb.mcn_myOrganisation_Person_Active.ColumnName]);
                     myOrganisation_Person_Description = f.gstring(dr[awpb.mcn_myOrganisation_Person_Description.ColumnName]);

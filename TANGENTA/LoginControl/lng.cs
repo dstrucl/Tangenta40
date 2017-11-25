@@ -35,8 +35,8 @@ namespace LoginControl
 
         public static ltext s_Confirm_New_Password = new ltext(new string[] { "Confirm new password:", "Ponovite novo geslo:" });
 
-        public static ltext s_YouCanNotSetMinumumPasswordLengthLessThan3 = new ltext(new string[]{"You can not set property minimum password length less than 3!",
-                                                                                      "Najmanjša možna nastavitev dolžine gesla je 3 znake!"});
+        public static ltext s_YouCanNotSetMinumumPasswordLengthLessThan5 = new ltext(new string[]{"You can not set property minimum password length less than 5!",
+                                                                                      "Najmanjša možna nastavitev dolžine gesla je 5 znakov!"});
 
         public static ltext s_ActiveUsers = new ltext(new string[]{"Active users:", "Prijavljeni uporabniki:"});
 
@@ -59,18 +59,6 @@ namespace LoginControl
 
         public static ltext s_CreateLoginTablesQuestion = new ltext(new string[]{"Users and Roles tables are missing.\r\nCreate Users and Roles tables?", "Manjkajo tabele \"Users\" and \"Roles\".\r\n Ustvarim tabele potrebne za prijavo?"});
 
-        public static ltext s_FirstName = new ltext(new string[]{"First Name",
-                                             "Ime"});
-
-        public static ltext s_LastName = new ltext(new string[]{"Last Name",
-                                             "Priimek"});
-
-        public static ltext s_IdentityNumber = new ltext(new string[]{"Identity",
-                                                 "Identiteta"});
-
-
-        public static ltext s_Contact = new ltext(new string[]{"Contact",
-                                                "Kontakt"});
 
         public static ltext s_LoginTime = new ltext(new string[]{"Login Time", "Čas prijave"});
         public static ltext s_LogoutTime = new ltext(new string[]{"Logout Time", "Čas odjave"});
@@ -80,9 +68,8 @@ namespace LoginControl
         public static ltext s_Roles = new ltext(new string[]{"Roles:", "Vloge:"});
 
         public static ltext s_PasswordExpiresAfter = new ltext(new string[]{"Days after password expires:", "Število dni do poteka veljavnosti gesla:"});
-        public static ltext s_RoleManagerForm = new ltext(new string[]{"Manage Roles", "Urejanje Vlog"});
-        public static ltext s_btn_ManageRoles = new ltext(new string[]{"Manage Roles", "Urejanje Vlog"});
-        public static ltext s_lbl_ManageRoles = new ltext(new string[]{"Roles:", "Vloge:"});
+        public static ltext s_lbl_UserRoles = new ltext(new string[]{"User Rights", "Uporabnikove pravice"});
+        public static ltext s_lbl_OtherRoles = new ltext(new string[] { "Other Rights:", "Ostale pravice" });
 
         public static ltext s_LoginSuperAdministrator = new ltext(new string[]{"Enter password for SUPER-ADMINISTRATOR!\r\n SUPER-ADMINISTRATOR password expires in very short period of time. \r\n You can get this password by calling:\r\n Srečko Virant  (+386 41 771 339)\r\n or \r\nDamjan Štrucl (+386 41 707 369)", "Vnesite geslo za SUPER-ADMINISTRATOR!\r\nSUPER-ADMINISTRATOR geslo poteče prej kot v enem dnevu.\r\nZa SUPER-ADMINISTRATOR-sko geslo pokličite:\r\n +386 41 771 339 (g. Srečo Virant )\r\n ali\r\n +386 41 707 369 (g. Damjan Štrucl)"});
 
@@ -122,9 +109,6 @@ namespace LoginControl
         public static ltext s_sLoginEnterUserNameAndPassword = new ltext(new string[]{"Please enter user name and password",
                                                                          "Prosim vnesite uporabniško ime in geslo"});
 
-        public static ltext s_OnComputer = new ltext(new string[]{"on computer",
-                                                         "na računalniku"});
-
         public static ltext s_btnOK_UserManager = new ltext(new string[]{"OK",
                                                          "OK"});
 
@@ -151,7 +135,7 @@ namespace LoginControl
         public static ltext s_RolesDataTableIsChanged_Question_SAVE = new ltext(new string[]{"Roles data table is changed!\r\nSave changes ?",
                                                                                 "Tabela vlog je spremenjena!\r\nShranim spremembe ?"});
 
-        public static ltext s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers3 = new ltext(new string[]{
+        public static ltext s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers = new ltext(new string[]{
                             "You must define password which has at least ",
                             "Geslo morate določiti tako, da njegovo število znakov ne bo manjše od "});
 
@@ -186,8 +170,6 @@ namespace LoginControl
 
         public static ltext s_ManageUSers = new ltext(new string[]{"Manage Users",
     "Urejanje uporabnikov"});
-        public static ltext s_Active = new ltext(new string[]{"Active",
-                                                 "Aktivno"});
 
         public static ltext s_AddUser = new ltext(new string[]{"Add User",
                                                   "Dodaj uporabnika"});
@@ -204,6 +186,43 @@ namespace LoginControl
         public static ltext s_Import = new ltext(new string[]{"Import",
                                             "Uvozi"});
 
+        public static ltext s_Select_myOrganisation_Person = new ltext(new string[]{"Select employee",
+                                            "Izberi zapolesleno osebo"});
+
+        public static ltext s_Edit_myOrganisation_Person = new ltext(new string[]{"Edit employees",
+                                            "Urejanje kadrovska evidence"});
+
+        public static ltext s_STDRoleManagerForm = new ltext(new string[]{"Role Manager",
+                                            "Urejanje pravic"});
+
+        public static ltext s_OnComputer = new ltext(new string[]{" on computer ",
+                                            " na računalniku "});
+
+        public static ltext s_FirstName = new ltext(new string[]{"First Name",
+                                            "Ime"});
+
+        public static ltext s_LastName = new ltext(new string[]{"Last Name",
+                                            "Priimenk"});
+
+        public static ltext s_IdentityNumber = new ltext(new string[]{"Identity Number",
+                                            "EMŠO"});
+
+        public static ltext s_Contact = new ltext(new string[]{"Contact",
+                                            "Kontakt"});
+
+        public static ltext s_btn_ManageRoles = new ltext(new string[]{"Manage roles",
+                                            "Urejanje pravic"});
+
+        public static ltext s_Active = new ltext(new string[]{"Active",
+                                            "Oseba je aktivna"});
+
+        public static ltext s_UserName_Is_Not_Defined = new ltext(new string[]{"User Name is empty",
+                                                                              @"Uporabniško ime je prazno!
+                                                                                \r\nVpisati morate uprabniško ime"});
+
+        public static ltext s_UserName_AllreadyExist = new ltext(new string[]{"User Name is allready in use. Write different user name.",
+                                                                              @"Uporabniško ime je že v uporabi!
+                                                                                \r\nVpisati morate drugačno uprabniško ime."});
 
         public static ltext cn_myOrganisation_Person_office_Name = new ltext(new string[] { "Office*", "Poslovna enota*" });
         public static ltext cn_myOrganisation_Person_UserName = new ltext(new string[] { "User Name*", "Uporabniško ime*" });

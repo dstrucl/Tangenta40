@@ -31,8 +31,7 @@ namespace LoginControl
         internal DataTable dtLoginUsers = null;
 
         LoginControl login_control;
-        
-
+        private bool bUserNameChanged = false;
 
         public AWP_UserManager(Form pParent, LoginControl xlogin_control)
         {
@@ -41,62 +40,47 @@ namespace LoginControl
 
             awpd = login_control.awpd;
 
-            int Index_OfDefaultUserName = -1;
-
 
             myParent = pParent;
 
-            //this.txt_ComputerName_DataBaseFile_DataBaseFileCreationTime.Text = lng.s_ComputerName.s + SystemInformation.ComputerName + "  ; " + lng.s_DataBaseFile.s + m_DataBaseFile + " ; " + lng.s_DataBaseFileCreationTime.s + m_DataBaseFileCreationTime.ToString();
+
+            lng.s_Max_Password_Age.Text(lbl_Max_Password_Age);
+            lng.s_chk_ChangePasswordOnFirstLogIn.Text(chk_ChangePasswordOnFirstLogIn);
+            lng.s_chk_PasswordNeverExpires.Text(rdb_PaswordExpires_Never);
+            lng.s_rdb_DeactivateAfterNumberOfDays.Text(rdb_DeactivateAfterNumberOfDays);
+            lng.s_rdb_AfterNumberOfDays.Text(rdb_AfterNumberOfDays);
 
 
+            lng.s_lblConfirmPassword_UserManager.Text(this.lbl_ConfirmPasword);
+            lng.s_btnAddUser_UserManager.Text(this.btnAddUser);
+            lng.s_btn_DeleteUser.Text(this.btnDeleteUser);
+            lng.s_btnChangeData_UserManager.Text(this.btnChangeData);
+            lng.s_btnOK_UserManager.Text(this.btnOK);
+            lng.s_btnCancel_UserManager.Text(this.btnCancel);
+            lng.s_PasswordExpires.Text(this.grp_PasswordExpires);
+            lng.s_ManageUSers.Text(this);
+            lng.s_lbl_UserRoles.Text(lbl_UserRoles);
+            lng.s_lbl_OtherRoles.Text(lbl_OtherRoles);
+            lng.s_Select_myOrganisation_Person.Text(btn_Select_myOrganisationPerson);
+            lng.s_Edit_myOrganisation_Person.Text(btn_Edit_myOrganisation_Person);
 
-
-            lbl_Max_Password_Age.Text = lng.s_Max_Password_Age.s;
-            chk_ChangePasswordOnFirstLogIn.Text = lng.s_chk_ChangePasswordOnFirstLogIn.s;
-            rdb_PaswordExpires_Never.Text = lng.s_chk_PasswordNeverExpires.s;
-            rdb_DeactivateAfterNumberOfDays.Text = lng.s_rdb_DeactivateAfterNumberOfDays.s;
-            rdb_AfterNumberOfDays.Text = lng.s_rdb_AfterNumberOfDays.s;
-            lbl_UserFirstName.Text = lng.s_FirstName.s;
-            lbl_UserLastName.Text = lng.s_LastName.s;
-            lbl_UserIdentity.Text = lng.s_IdentityNumber.s;
-            lbl_Description.Text = lng.s_Contact.s;
-
-           
-            this.lbl_ConfirmPasword.Text = lng.s_lblConfirmPassword_UserManager.s;
-            this.btnAddUser.Text = lng.s_btnAddUser_UserManager.s;
-            this.btnDeleteUser.Text = lng.s_btn_DeleteUser.s;
-            this.btnChangeData.Text = lng.s_btnChangeData_UserManager.s;
-            this.btnOK.Text = lng.s_btnOK_UserManager.s;
-            this.btnCancel.Text = lng.s_btnCancel_UserManager.s;
 
             this.txtUserName.Tag = null;
-            this.grp_PasswordExpires.Text = lng.s_PasswordExpires.s;
-            btnDeleteUser.Enabled = false;
-            this.lbl_ConfirmPasword.Enabled = false;
-            this.lblPassword.Enabled = false;
-            this.txtPassword.Enabled = false;
-            this.txtConfirmPassword.Enabled = false;
-            this.btnAddUser.Enabled = false;
-            this.btnChangeData.Enabled = false;
+            //btnDeleteUser.Enabled = false;
+            //this.lbl_ConfirmPasword.Enabled = false;
+            //this.lblPassword.Enabled = false;
+            //this.txtPassword.Enabled = false;
+            //this.txtConfirmPassword.Enabled = false;
+            //this.btnAddUser.Enabled = false;
+            //this.btnChangeData.Enabled = false;
             this.Icon = Properties.Resources.user;
-            this.Text = lng.s_ManageUSers.s;
-            lbl_ManageRoles.Text = lng.s_lbl_ManageRoles.s;
-            btn_ManageRoles.Text = lng.s_btn_ManageRoles.s;
 
-            chk_Active.Text = lng.s_Active.s;
-
-            this.Text = lng.s_ManageUSers.s + " " + lng.s_OnComputer.s + " " + SystemInformation.ComputerName;
 
             this.chk_ChangePasswordOnFirstLogIn.Checked = true;
             this.rdb_PaswordExpires_Never.Checked = true;
             this.nmUpDn_MaxPasswordAge.Value = 90.0M;
-            this.chk_Active.Checked = true;
             txtUserName.Text = "";
             txtPassword.Text = "";
-            txtFirstName.Text = "";
-            txtLastName.Text = "";
-            txtIdentityNumber.Text = "";
-            txt_Description.Text = "";
             txtConfirmPassword.Text = "";
             awpd.BindingControls(this);
             this.txtUserName.Focus();
@@ -105,6 +89,7 @@ namespace LoginControl
 
         private void txtUserName_TextChanged(object sender, EventArgs e)
         {
+            bUserNameChanged = true;
             if (txtUserName.Text.Length > 0)
             {
                 this.lblPassword.Enabled = true;
@@ -154,9 +139,7 @@ namespace LoginControl
             int New_LoginUsers_id = -1;
             string Res = null;
             string Err = null;
-            Int64 id = -1;
-            bool bActive = false;
-            string csError = null;
+        
 
             if (this.txtUserName.Tag != null)
             {
@@ -174,24 +157,18 @@ namespace LoginControl
 
                 txtUserName.Text = "";
                 txtPassword.Text = "";
-                txtFirstName.Text = "";
-                txtLastName.Text = "";
-                txtIdentityNumber.Text = "";
-                txt_Description.Text = "";
+               
                 txtConfirmPassword.Text = "";
                 txtUserName.ReadOnly = false;
                 txtUserName.Enabled = true;
                 txtPassword.Enabled = true;
                 lblPassword.Enabled = true;
                 txtConfirmPassword.Enabled = true;
-                chk_Active.Checked = true;
+               
                 this.lbl_ConfirmPasword.Enabled = true;
                 chk_ChangePasswordOnFirstLogIn.Checked = true;
                 txtUserName.Focus();
-                foreach (DataGridViewRow dgvr in dgv_Roles.Rows)
-                {
-                    dgvr.Cells[Column_Select].Value = false;
-                }
+               
                 return true;
             }
             else
@@ -333,7 +310,9 @@ namespace LoginControl
                         this.txtUserName.ReadOnly = true;
                         this.txtPassword.Enabled = true;
                         this.txtConfirmPassword.Enabled = true;
-                        this.txtUserName.Text = dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.username.name].ToString();
+                        this.txtUserName.TextChanged -= new System.EventHandler(this.txtUserName_TextChanged);
+                        this.txtUserName.Text = dtLoginUsers.Rows[iRowIndex]["UserName"].ToString();
+                        this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
                         if (dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.password.name].GetType() != typeof(DBNull))
                         {
                             this.txtPassword.Text = TEXT_PASSWORD_WILDCARDS;
@@ -344,12 +323,7 @@ namespace LoginControl
                             this.txtPassword.Text = "";
                             this.txtPassword.Tag = TAG_PASSWORD_UNDEFINED;
                         }
-                        this.txtFirstName.Text = dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.first_name.name].ToString();
-                        this.txtLastName.Text = dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.last_name.name].ToString();
-                        this.txtIdentityNumber.Text = dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.Identity.name].ToString();
-                        this.txt_Description.Text = dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.Contact.name].ToString();
 
-                        this.chk_Active.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.enabled.name];
                         if (txtUserName.Text.Equals("Administrator"))
                         {
                             this.rdb_PaswordExpires_Never.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.PasswordNeverExpires.name];
@@ -399,18 +373,18 @@ namespace LoginControl
         {
             if (LoginRoles_Read((int)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.id.name], ref Err))
             {
-                foreach (DataGridViewRow dgvroles in dgv_Roles.Rows)
-                {
-                    int LoginRole_id = (int)dgvroles.Cells[LoginDB_DataSet.LoginRoles.id.name].Value;
-                    if (LoginRole_id_IN_LoginUsersAndLoginRoles(LoginRole_id))
-                    {
-                        dgvroles.Cells[Column_Select].Value = true;
-                    }
-                    else
-                    {
-                        dgvroles.Cells[Column_Select].Value = false;
-                    }
-                }
+                //foreach (DataGridViewRow dgvroles in dgv_Roles.Rows)
+                //{
+                //    int LoginRole_id = (int)dgvroles.Cells[LoginDB_DataSet.LoginRoles.id.name].Value;
+                //    if (LoginRole_id_IN_LoginUsersAndLoginRoles(LoginRole_id))
+                //    {
+                //        dgvroles.Cells[Column_Select].Value = true;
+                //    }
+                //    else
+                //    {
+                //        dgvroles.Cells[Column_Select].Value = false;
+                //    }
+                //}
                 return true;
             }
             else
@@ -552,89 +526,58 @@ namespace LoginControl
 
         private bool DoChangeData()
         {
-            if (txtUserName.Tag != null)
+            AWPLoginData awpld = login_control.m_AWPLoginData;
+            if (txtUserName.Text.Length > 0)
             {
-                if (txtPassword.Text.Equals(txtConfirmPassword.Text))
+                string Err = null;
+                if (bUserNameChanged)
                 {
-                    int iRow = (int)txtUserName.Tag;
-                    string csError = null;
-                    //Role myRole = m_Login.FindRoleInLanguage(cmb_Role.Text);
-                    //string RoleName = myRole.name;
-                    AWP_username_Data userdata = new AWP_username_Data();
-
-                    userdata.username = txtUserName.Text;
-                    if (txtPassword.Tag.Equals(TAG_PASSWORD_DEFINED))
+                    if (AWP_func.UserNameExist(txtUserName.Text, ref Err))
                     {
-                        userdata.password = TEXT_PASSWORD_WILDCARDS;
-                        userdata.password_changed = false;
+                        MessageBox.Show(lng.s_UserName_AllreadyExist.s);
+                        return false;
                     }
-
-                    if (txtPassword.Tag.Equals(TAG_PASSWORD_UNDEFINED))
+                }
+                if (Err == null)
+                {
+                    if (txtPassword.Text.Length >= login_control.MinPasswordLength)
+                    { 
+                        if (txtPassword.Text.Equals(txtConfirmPassword.Text))
+                        {
+                            awpld.UserName = txtUserName.Text;
+                            byte[] Password = LoginControl.CalculateSHA256(txtPassword.Text);
+                            awpld.Password = Password;
+                            bool bRes = AWP_func.Update_LoginUsers_ID(awpld, true);
+                            if (bRes)
+                            {
+                                bUserNameChanged = false;
+                            }
+                            return bRes;
+                        }
+                        else
+                        {
+                            MessageBox.Show(lng.s_Password_does_not_match.s);
+                        }
+                    }
+                    else
                     {
-                        userdata.password = txtPassword.Text;
-                        userdata.password_changed = true;
+                        MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s+" "+ login_control.MinPasswordLength.ToString());
                     }
-
-                    if (txtPassword.Tag.Equals(TAG_PASSWORD_CHANGED))
-                    {
-                        userdata.password = txtPassword.Text;
-                        userdata.password_changed = true;
-                    }
-
-                    userdata.FirstName = txtFirstName.Text;
-                    userdata.LastName = txtLastName.Text;
-                    userdata.IdentityNumber = txtIdentityNumber.Text;
-                    userdata.Contact = txt_Description.Text;
-                    userdata.bPasswordNeverExpires = this.rdb_PaswordExpires_Never.Checked;
-                    userdata.bChangePasswordOnFirstLogin = chk_ChangePasswordOnFirstLogIn.Checked;
-                    userdata.iMaxPasswordAge = Convert.ToInt32(nmUpDn_MaxPasswordAge.Value);
-                    
-                    userdata.m_Roles.Clear();
-
-                    MakeListOfAWPRoles(ref userdata.m_Roles);
-
-                    bool bActive = chk_Active.Checked;
-
-                    string Err = null;
-                    //    if (Write_LoginUsersAndLoginRoles(LoginUsers.o_id.id_, userdata.m_Roles, ref Err))
-                    //    {
-                    //        if (Func_ChangeData(userdata, bActive,  ref csError))
-                    //        {
-                    //            MessageBox.Show(lng.sUserDataAreChanged.s);
-                    //            return true;
-                    //        }
-                    //        else
-                    //        {
-                    //            return false;
-                    //        }
-
-                    //    }
-                    //    else
-                    //    {
-                    //        LogFile.Error.Show("Error:UserManager:DoChangeData:Write_LoginUsersAndLoginRoles:" + Err);
-                    //        return false;
-                    //    }
                 }
                 else
                 {
-                    MessageBox.Show(lng.s_Password_does_not_match.s);
+                    return false;
                 }
+            }
+            else
+            {
+                MessageBox.Show(lng.s_UserName_Is_Not_Defined.s);
             }
             return false;
         }
 
         private void MakeListOfAWPRoles(ref List<AWPRole> roles)
         {
-            foreach (DataGridViewRow dgvr in dgv_Roles.Rows)
-            {
-                if ((bool)dgvr.Cells[Column_Select].Value == true)
-                {
-                    AWPRole role = new AWPRole((long)dgvr.Cells["ID"].Value,
-                                               (string)dgvr.Cells["Role"].Value,
-                                               (string)dgvr.Cells["Name"].Value);
-                    roles.Add(role);
-                }
-            }
         }
 
         private bool Write_LoginUsersAndLoginAWPRoles(int usr_id,List<AWPRole> roles,ref string Err)
@@ -642,7 +585,7 @@ namespace LoginControl
             string sql_change_roles = " delete " + LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " where " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + " = " + usr_id.ToString();
             foreach (AWPRole role in roles)
             {
-                    sql_change_roles += "\r\n insert into " +LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " ( " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + "," + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginRoles_id.name + ") values ("+ usr_id.ToString()+"," + role.id.ToString()+")";
+//                    sql_change_roles += "\r\n insert into " +LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " ( " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + "," + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginRoles_id.name + ") values ("+ usr_id.ToString()+"," + role.id.ToString()+")";
             }
             object res = null;
             //if (Login_con.ExecuteNonQuerySQL(sql_change_roles,null,ref res,ref Err))
@@ -671,11 +614,6 @@ namespace LoginControl
         private void UserManager_FormClosing(object sender, FormClosingEventArgs e)
         {
             //TranslateRoleNamesFromLanguage(m_DataTable);
-        }
-
-        private void chk_Active_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void txtUserName_KeyPress(object sender, KeyPressEventArgs e)
@@ -720,69 +658,8 @@ namespace LoginControl
             }
         }
 
-        private void cmb_Role_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                txtFirstName.Focus();
-                e.Handled = true;
-            }
-        }
+  
 
-        private void txtFirstName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                this.txtLastName.Focus();
-                e.Handled = true;
-            }
-
-        }
-        private void txtLastName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                this.txtIdentityNumber.Focus();
-                e.Handled = true;
-            }
-
-        }
-
-        private void txtIdentityNumber_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                this.txt_Description.Focus();
-                e.Handled = true;
-            }
-
-        }
-
-        private void txtContact_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                if (this.txtUserName.Tag != null)
-                {
-
-                    this.btnChangeData.Focus();
-                }
-                else
-                {
-                    this.btnAddUser.Focus();
-                }
-                e.Handled = true;
-            }
-        }
-
-        private void cmb_Group_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                this.txtUserName.Focus();
-                e.Handled = true;
-            }
-        }
 
 
 
@@ -826,28 +703,37 @@ namespace LoginControl
 
             }
             bLoginUsers_Read = true;
-            if (AWP_func.Read_Login_VIEW(ref dtLoginUsers,null, ref Err))
+            if (AWP_func.Read_Login_VIEW(ref dtLoginUsers,null,null))
             {
                 dgv_LoginUsers.Rows.Clear();
                 dgv_LoginUsers.DataSource = dtLoginUsers;
                 if (dtLoginUsers.Rows.Count > 0)
                 {
                     awpd.SetControls(dgv_LoginUsers, dtLoginUsers.Rows[0], dtLoginUsers.TableName);
+                    if (login_control.m_AWPLoginData.GetData(txtUserName.Text, awpd) == AWPLoginData.eGetDateResult.OK)
+                    {
+                        this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
+                        this.dgv_LoginUsers.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
 
-
-                    //LoginDB_DataSet.HeaderText.Set(dgv_LoginUsers, LoginUsers_lang.col_headers);
-                    //DataGridViewCell dgvcell = new DataGridViewTextBoxCell();
-                    //DataGridViewColumn dgvcol = new DataGridViewColumn(dgvcell);
-                    //dgvcol.Name = "Password";
-                    //dgvcol.HeaderText = lng.s_Password.s;
-                    //dgv_LoginUsers.Columns.Insert(dgv_LoginUsers.Columns[LoginDB_DataSet.LoginUsers.password.name].Index, dgvcol);
-                    //if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
-                    //{
-                    //    LogFile.Error.Show("Error:UserManager_Load:LoginUsers.Read: Err = " + Err);
-                    //    DialogResult = DialogResult.Cancel;
-                    //    this.Close();
-                    //    return;
-                    //}
+                        //LoginDB_DataSet.HeaderText.Set(dgv_LoginUsers, LoginUsers_lang.col_headers);
+                        //DataGridViewCell dgvcell = new DataGridViewTextBoxCell();
+                        //DataGridViewColumn dgvcol = new DataGridViewColumn(dgvcell);
+                        //dgvcol.Name = "Password";
+                        //dgvcol.HeaderText = lng.s_Password.s;
+                        //dgv_LoginUsers.Columns.Insert(dgv_LoginUsers.Columns[LoginDB_DataSet.LoginUsers.password.name].Index, dgvcol);
+                        //if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
+                        //{
+                        //    LogFile.Error.Show("Error:UserManager_Load:LoginUsers.Read: Err = " + Err);
+                        //    DialogResult = DialogResult.Cancel;
+                        //    this.Close();
+                        //    return;
+                        //}
+                    }
+                    else
+                    {
+                        DialogResult = DialogResult.Cancel;
+                        this.Close();
+                    }
                 }
             }
             else
@@ -918,7 +804,7 @@ namespace LoginControl
             return true;
         }
 
-        public bool Func_ChangeData(AWP_username_Data userdata, bool bActive,ref string csError)
+        internal bool Func_ChangeData(AWPBindingData awpd, bool bActive,ref string csError)
         {
             //bool bPasswordChanged = false;
             //string Err = null;
@@ -1159,29 +1045,14 @@ namespace LoginControl
             }
         }
 
-        private void la_Click(object sender, EventArgs e)
+       
+      
+
+        private void btn_Edit_myOrganisation_Person_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblPassword_Click(object sender, EventArgs e)
-        {
-
+            bool bChanged = false;
+            long new_myOrganisation_Person_ID = -1;
+            login_control.call_Edit_myOrganisationPerson(this, login_control.m_AWPLoginData.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
         }
     }
 }

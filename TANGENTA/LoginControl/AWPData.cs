@@ -17,7 +17,9 @@ namespace LoginControl
         internal AWPColName mcn_Administrator = null;
         internal AWPColName mcn_myOrganisation_Person_office_Name = null;
         internal AWPColName mcn_myOrganisation_Person__office_ShortName = null;
-        internal AWPColName mcn_myOrganisation_Person_UserName = null;
+        internal AWPColName mcn_ID = null;
+        internal AWPColName mcn_UserName = null;
+        internal AWPColName mcn_Password = null;
         internal AWPColName mcn_myOrganisation_Person__per__cfn_FirstName = null;
         internal AWPColName mcn_myOrganisation_Person__per__cln_LastName = null;
         internal AWPColName mcn_myOrganisation_Person__per_Tax_ID = null;
@@ -53,7 +55,6 @@ namespace LoginControl
         internal AWPColName mcn_NotActiveAfterPasswordExpires = null;
 
 
-        internal AWPColName mcn_myOrganisation_Person_Password = null;
         internal AWPColName mcn_myOrganisation_Person__per_ID = null;
         internal AWPColName mcn_myOrganisation_Person__per__cfn_ID = null;
         internal AWPColName mcn_myOrganisation_Person__per__cln_ID = null;
@@ -78,16 +79,6 @@ namespace LoginControl
 
         internal List<AWPRole> AllRoles = null;
 
-        public const string ROLE_Administrator = "Administrator";
-        public const string ROLE_UserManagement = "UserManagement";
-        public const string ROLE_WriteInvoice = "WriteInvoice";
-        public const string ROLE_WriteProformainvoice = "WriteProformaInvoice";
-        public const string ROLE_StockTakeManagement = "StockTakeManagement";
-        public const string ROLE_PriceListManagement = "PriceListManagement";
-        public const string ROLE_ViewAndExport = "ViewAndExport";
-        public const string ROLE_WorkInShopA = "WorkInShopA";
-        public const string ROLE_WorkInShopB = "WorkInShopB";
-        public const string ROLE_WorkInShopC = "WorkInShopC";
 
 
 
@@ -100,7 +91,7 @@ namespace LoginControl
             mcn_Administrator = new AWPColName("Administrator", lng.cn_Administrator, i++);
             mcn_myOrganisation_Person_office_Name = new AWPColName("myOrganisation_Person_$_office_$$Name", lng.cn_myOrganisation_Person_office_Name, i++);
             mcn_myOrganisation_Person__office_ShortName = new AWPColName("myOrganisation_Person_$_office_$$ShortName", lng.cn_myOrganisation_Person__office_ShortName, i++);
-            mcn_myOrganisation_Person_UserName = new AWPColName("myOrganisation_Person_$$UserName", lng.cn_myOrganisation_Person_UserName, i++);
+            mcn_UserName = new AWPColName("UserName", lng.cn_myOrganisation_Person_UserName, i++);
             mcn_myOrganisation_Person__per__cfn_FirstName = new AWPColName("myOrganisation_Person_$_per_$_cfn_$$FirstName", lng.cn_myOrganisation_Person__per__cfn_FirstName, i++);
             mcn_myOrganisation_Person__per__cln_LastName = new AWPColName("myOrganisation_Person_$_per_$_cln_$$LastName", lng.cn_myOrganisation_Person__per__cln_LastName, i++);
             mcn_myOrganisation_Person__per_Tax_ID = new AWPColName("myOrganisation_Person_$_per_$$Tax_ID", lng.cn_myOrganisation_Person__per_Tax_ID, i++);
@@ -133,13 +124,13 @@ namespace LoginControl
             mcn_Maximum_password_age_in_days = new AWPColName("Maximum_password_age_in_days", null, i++);
             mcn_NotActiveAfterPasswordExpires = new AWPColName("NotActiveAfterPasswordExpires", null, i++);
 
-
-            mcn_myOrganisation_Person_Password = new AWPColName("myOrganisation_Person_$$Password", null, i++);
+            mcn_Password = new AWPColName("Password", null, i++);
             mcn_myOrganisation_Person__per_ID = new AWPColName("myOrganisation_Person_$_per_$$ID", null, i++);
-
+            mcn_ID = new AWPColName("ID", lng.cn_Selected, i++);
             mcn_myOrganisation_Person__per__cfn_ID = new AWPColName("myOrganisation_Person_$_per_$_cfn_$$ID", null, i++); 
             mcn_myOrganisation_Person__per__cln_ID = new AWPColName("myOrganisation_Person_$_per_$_cln_$$ID", null, i++); 
-            mcn_myOrganisation_Person__office_ID = new AWPColName("myOrganisation_Person_$_office_$$ID", null, i++); 
+            mcn_myOrganisation_Person__office_ID = new AWPColName("myOrganisation_Person_$_office_$$ID", null, i++);
+            mcn_myOrganisation_Person__office_Name = new AWPColName("myOrganisation_Person_$_office_$$Name", null, i++);
             mcn_PersonData_ID = new AWPColName("PersonData_$$ID", null, i++);
             mcn_PersonData__cphnnper_ID = new AWPColName("PersonData_$_cphnnper_$$ID", null, i++);
             mcn_PersonData__cemailper_ID = new AWPColName("PersonData_$_cemailper_$$ID", null, i++);
@@ -157,11 +148,11 @@ namespace LoginControl
             mcn_PersonData__perimg_Image_Hash = new AWPColName("PersonData_$_perimg_$$Image_Hash", null, i++);
             mcn_PersonData__perimg_Image_Data = new AWPColName("PersonData_$_perimg_$$Image_Data", null, i++);
 
-        AWP_col_Names.Add(mcn_Selected);
+            AWP_col_Names.Add(mcn_Selected);
             AWP_col_Names.Add(mcn_Administrator);
             AWP_col_Names.Add(mcn_myOrganisation_Person_office_Name);
             AWP_col_Names.Add(mcn_myOrganisation_Person__office_ShortName);
-            AWP_col_Names.Add(mcn_myOrganisation_Person_UserName);
+            AWP_col_Names.Add(mcn_UserName);
             AWP_col_Names.Add(mcn_myOrganisation_Person__per__cfn_FirstName);
             AWP_col_Names.Add(mcn_myOrganisation_Person__per__cln_LastName);
             AWP_col_Names.Add(mcn_myOrganisation_Person__per_Tax_ID);
@@ -194,19 +185,22 @@ namespace LoginControl
             AWP_col_Names.Add(mcn_Maximum_password_age_in_days);
             AWP_col_Names.Add(mcn_NotActiveAfterPasswordExpires);
 
+            if (AllRoles==null)
+            {
+                AllRoles = new List<AWPRole>();
+            }
 
-            AllRoles.Add(new AWPRole(-1, ROLE_Administrator));
-            AllRoles.Add(new AWPRole(-1, ROLE_UserManagement));
-            AllRoles.Add(new AWPRole(-1, ROLE_WriteInvoice));
-            AllRoles.Add(new AWPRole(-1, ROLE_WriteProformainvoice));
-            AllRoles.Add(new AWPRole(-1, ROLE_StockTakeManagement));
-            AllRoles.Add(new AWPRole(-1, ROLE_PriceListManagement));
-            AllRoles.Add(new AWPRole(-1, ROLE_ViewAndExport));
-            AllRoles.Add(new AWPRole(-1, ROLE_WorkInShopA));
-            AllRoles.Add(new AWPRole(-1, ROLE_WorkInShopB));
-            AllRoles.Add(new AWPRole(-1, ROLE_WorkInShopC));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_Administrator));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_UserManagement));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WriteInvoice));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WriteProformainvoice));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_StockTakeManagement));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_PriceListManagement));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_ViewAndExport));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WorkInShopA));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WorkInShopB));
+            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WorkInShopC));
 
-            AWP_func.UpdateRoles(AllRoles);
        
         }
 
@@ -215,28 +209,8 @@ namespace LoginControl
             frm = xfrm;
             mcn_Selected.Bind(null, null);
             mcn_Administrator.Bind(null, null);
-            mcn_myOrganisation_Person_office_Name.Bind(frm.lbl_Office, frm.cmb_Office);
-            mcn_myOrganisation_Person__office_ShortName.Bind( frm.lbl_OfficeShortName, frm.txt_OfficeShortName);
-            mcn_myOrganisation_Person_UserName.Bind(frm.lbl_UserName, frm.txtUserName);
-            mcn_myOrganisation_Person__per__cfn_FirstName.Bind(frm.lbl_UserFirstName, frm.txtFirstName);
-            mcn_myOrganisation_Person__per__cln_LastName.Bind(frm.lbl_UserLastName, frm.txtLastName);
-            mcn_myOrganisation_Person__per_Tax_ID.Bind(frm.lbl_UserTax_ID, frm.lbl_UserTax_ID);
-            mcn_myOrganisation_Person__per_Registration_ID.Bind( frm.lbl_UserIdentity, frm.txtIdentityNumber);
+            mcn_UserName.Bind(frm.lbl_UserName, frm.txtUserName);
             mcn_Enabled.Bind(frm.chk_Enabled, frm.chk_Enabled);
-            mcn_myOrganisation_Person_Active.Bind(frm.chk_Active, frm.chk_Active);
-            mcn_myOrganisation_Person_Job.Bind(frm.lbl_Job, frm.txt_Job);
-            mcn_myOrganisation_Person_Description.Bind( frm.lbl_Description, frm.txt_Description);
-            mcn_myOrganisation_Person__per_DateOfBirth.Bind( frm.lbl_DateOfBirth, frm.dtp_DateOfBirth);
-            mcn_myOrganisation_Person__per_Gender.Bind( frm.lbl_Gender, frm.usrc_SelectGender1);
-            mcn_PersonData__cemailper_Email.Bind( frm.lbl_Email, frm.txt_Email);
-            mcn_PersonData__cgsmnper_GsmNumber.Bind( frm.lbl_Gsm, frm.txt_GSM);
-            mcn_PersonData__cphnnper_PhoneNumber.Bind(frm.lbl_Tel, frm.txt_TEL);
-            mcn_PersonData__cadrper__cstrnper_StreetName.Bind(frm.lbl_Street, frm.txt_StreetName);
-            mcn_PersonData__cadrper__chounper_HouseNumber.Bind(frm.lbl_HouseNumber, frm.txt_HouseNumber);
-            mcn_PersonData__cadrper__zipper_ZIP.Bind( frm.lbl_ZIP, frm.txt_ZIP);
-            mcn_PersonData__cadrper__ccitper_City.Bind( frm.lbl_City, frm.txt_City);
-            mcn_PersonData__cadrper__cstper_Country.Bind( frm.lbl_Country, frm.cmb_Country);
-            mcn_PersonData__cadrper__ccouper_State.Bind( frm.lbl_State, frm.txt_State);
             mcn_PersonData_Description.Bind( null, null);
             mcn_PersonData__cardtper_CardType.Bind( null, null);
             mcn_PersonData_CardNumber.Bind(null, null);

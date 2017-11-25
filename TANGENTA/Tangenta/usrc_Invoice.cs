@@ -1895,8 +1895,6 @@ do_EditMyOrganisation_Data:
                                             myOrganisation_Person_$_per_$_cfn_$$FirstName,
                                             myOrganisation_Person_$_per_$_cln_$$LastName,
                                             myOrganisation_Person_$$Job,
-                                            myOrganisation_Person_$$UserName,
-                                            myOrganisation_Person_$$Password,
                                             myOrganisation_Person_$$Description,
                                             myOrganisation_Person_$$Active
                                             from myOrganisation_Person_VIEW
@@ -1912,8 +1910,6 @@ do_EditMyOrganisation_Data:
                         Employee employee = new Employee((string)dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"],
                                                             dr["myOrganisation_Person_$_per_$_cln_$$LastName"],
                                                             dr["myOrganisation_Person_$$Job"],
-                                                            dr["myOrganisation_Person_$$UserName"],
-                                                            dr["myOrganisation_Person_$$Password"],
                                                             dr["myOrganisation_Person_$$Description"],
                                                           (bool)dr["myOrganisation_Person_$$Active"],
                                                           (long)dr["ID"],

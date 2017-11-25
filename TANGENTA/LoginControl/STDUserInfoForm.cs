@@ -34,12 +34,12 @@ namespace LoginControl
                 chk_NotActiveAfterPasswordExpires.Checked = login_control.NotActiveAfterPasswordExpires;
                 chk_PasswordExpiresInNumberOfDays.Checked = login_control.bPasswordExpiresInNumberOfDays;
                 chk_PasswordNeverExpires.Checked = login_control.PasswordNeverExpires;
-                txt_NumberOfDays.Text = login_control.NumberOfDaysAfterPasswordExpires.ToString();
+                txt_NumberOfDays.Text = login_control.Maximum_password_age_in_days.ToString();
                 txt_LastUserPasswordDefinitionTime.Text = login_control.LastUserPasswordDefinitionTime.ToString();
                 if (!login_control.PasswordNeverExpires)
                 {
                     lbl_Password_expires_on.Visible = true;
-                    lbl_Password_expires_on.Text = lng.s_PasswordExpiresAfter.s + login_control.NumberOfDaysAfterPasswordExpires.ToString();
+                    lbl_Password_expires_on.Text = lng.s_PasswordExpiresAfter.s + login_control.PasswordExpiresInNumberOfDays.ToString();
                     txt_NumberOfDays.Visible = true;
                 }
                 else

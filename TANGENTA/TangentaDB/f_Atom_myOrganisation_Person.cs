@@ -55,7 +55,6 @@ namespace TangentaDB
                                             return false;
                                         }
                                     }
-                                    string_v UserName_v = null;
                                     string_v Job_v = null;
                                     string_v Description_v = null;
                                     bool_v Gender_v = null;
@@ -83,7 +82,6 @@ namespace TangentaDB
 
                                     string sql = @"select
                                             myOrganisation_Person_$_per_$$ID,
-                                            myOrganisation_Person_$$UserName,
                                             myOrganisation_Person_$$Job,
                                             myOrganisation_Person_$$Description,
                                             myOrganisation_Person_$_per_$$Gender,
@@ -100,7 +98,6 @@ namespace TangentaDB
                                         {
                                             long_v Person_ID_v = null;
                                             Person_ID_v = tf.set_long(dt.Rows[0]["myOrganisation_Person_$_per_$$ID"]);
-                                            UserName_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$UserName"]);
                                             Job_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$Job"]);
                                             Description_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$Description"]);
                                             Gender_v = tf.set_bool(dt.Rows[0]["myOrganisation_Person_$_per_$$Gender"]);
@@ -186,21 +183,6 @@ namespace TangentaDB
 
                                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
-                                                string scond_UserName = null;
-                                                string sval_UserName = "null";
-                                                if (UserName_v != null)
-                                                {
-                                                    string spar_UserName = "@par_UserName";
-                                                    SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, UserName_v.v);
-                                                    lpar.Add(par_UserName);
-                                                    scond_UserName = "UserName = " + spar_UserName;
-                                                    sval_UserName = spar_UserName;
-                                                }
-                                                else
-                                                {
-                                                    scond_UserName = "UserName is null";
-                                                    sval_UserName = "null";
-                                                }
 
                                                 string scond_Atom_Office_ID = null;
                                                 string sval_Atom_Office_ID = "null";
@@ -266,7 +248,7 @@ namespace TangentaDB
                                                     sval_Description = "null";
                                                 }
 
-                                                sql = @"select ID from atom_myorganisation_person where (" + scond_UserName + ") and (" + scond_Atom_Office_ID + ") and (" + scond_Atom_Person_ID + ")and(" + scond_Job + ")and(" + scond_Description + ")";
+                                                sql = @"select ID from atom_myorganisation_person where (" + scond_Atom_Office_ID + ") and (" + scond_Atom_Person_ID + ")and(" + scond_Job + ")and(" + scond_Description + ")";
                                                 dt.Clear();
                                                 dt.Columns.Clear();
                                                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -278,7 +260,7 @@ namespace TangentaDB
                                                     }
                                                     else
                                                     {
-                                                        sql = @"insert into  atom_myorganisation_person (UserName,Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_UserName + "," + sval_Atom_Office_ID + "," + sval_Atom_Person_ID + "," + sval_Job + "," + sval_Description + ")";
+                                                        sql = @"insert into  atom_myorganisation_person (Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_Atom_Office_ID + "," + sval_Atom_Person_ID + "," + sval_Job + "," + sval_Description + ")";
                                                         dt.Clear();
                                                         dt.Columns.Clear();
                                                         object oret = null;

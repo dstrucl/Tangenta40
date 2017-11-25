@@ -84,7 +84,7 @@ namespace LoginControl
             this.btnChangeData.Enabled = false;
             this.Icon = Properties.Resources.user;
             this.Text = lng.s_ManageUSers.s;
-            lbl_ManageRoles.Text = lng.s_lbl_ManageRoles.s;
+            lbl_ManageRoles.Text = lng.s_lbl_UserRoles.s;
             btn_ManageRoles.Text = lng.s_btn_ManageRoles.s;
 
             chk_Active.Text = lng.s_Active.s;
@@ -996,7 +996,7 @@ namespace LoginControl
                         {
                             if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < login_control.MinPasswordLength)) && ((userdata.password.Length > 0)))
                             {
-                                MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers3.s
+                                MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s
                                               + login_control.MinPasswordLength.ToString() +
                                               lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                                 return false;
@@ -1167,7 +1167,7 @@ namespace LoginControl
         private void btn_ManageRoles_Click(object sender, EventArgs e)
         {
             int iCurPos = LoginUsers.m_bs_dt.Position;
-            RoleManager role_man = new RoleManager(login_control);
+            STDRoleManager role_man = new STDRoleManager(login_control);
             if (role_man.ShowDialog() == DialogResult.Yes)
             {
                 string Err = null;

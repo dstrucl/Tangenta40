@@ -35,29 +35,15 @@ namespace LoginControl
             this.dgv_LoginUsers = new DataGridView_2xls.DataGridView2xls();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.usrc_SelectGender1 = new SelectGender.usrc_SelectGender();
-            this.lbl_Gender = new System.Windows.Forms.Label();
-            this.lbl_DateOfBirth = new System.Windows.Forms.Label();
-            this.dtp_DateOfBirth = new System.Windows.Forms.DateTimePicker();
-            this.txt_OfficeShortName = new System.Windows.Forms.TextBox();
-            this.lbl_OfficeShortName = new System.Windows.Forms.Label();
-            this.txt_Job = new System.Windows.Forms.TextBox();
-            this.lbl_Job = new System.Windows.Forms.Label();
-            this.txt_UserTax_ID = new System.Windows.Forms.TextBox();
-            this.lbl_UserTax_ID = new System.Windows.Forms.Label();
-            this.dgv_Roles = new DataGridView_2xls.DataGridView2xls();
-            this.btn_ManageRoles = new System.Windows.Forms.Button();
-            this.lbl_ManageRoles = new System.Windows.Forms.Label();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lbl_UserRoles = new System.Windows.Forms.Label();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.lbl_OtherRoles = new System.Windows.Forms.Label();
+            this.btn_Select_myOrganisationPerson = new System.Windows.Forms.Button();
+            this.btn_Edit_myOrganisation_Person = new System.Windows.Forms.Button();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.chk_ChangePasswordOnFirstLogIn = new System.Windows.Forms.CheckBox();
-            this.txt_Description = new System.Windows.Forms.TextBox();
-            this.lbl_Description = new System.Windows.Forms.Label();
-            this.txtIdentityNumber = new System.Windows.Forms.TextBox();
-            this.lbl_UserIdentity = new System.Windows.Forms.Label();
-            this.txtLastName = new System.Windows.Forms.TextBox();
-            this.lbl_UserLastName = new System.Windows.Forms.Label();
-            this.lbl_UserFirstName = new System.Windows.Forms.Label();
-            this.txtFirstName = new System.Windows.Forms.TextBox();
-            this.chk_Active = new System.Windows.Forms.CheckBox();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.lbl_ConfirmPasword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -70,38 +56,20 @@ namespace LoginControl
             this.rdb_DeactivateAfterNumberOfDays = new System.Windows.Forms.RadioButton();
             this.lbl_Max_Password_Age = new System.Windows.Forms.Label();
             this.nmUpDn_MaxPasswordAge = new System.Windows.Forms.NumericUpDown();
-            this.lbl_Office = new System.Windows.Forms.Label();
-            this.cmb_Office = new System.Windows.Forms.ComboBox();
-            this.txt_Email = new System.Windows.Forms.TextBox();
-            this.lbl_Email = new System.Windows.Forms.Label();
-            this.btn_PersonImage = new System.Windows.Forms.Button();
-            this.pic_Image = new System.Windows.Forms.PictureBox();
-            this.txt_TEL = new System.Windows.Forms.TextBox();
-            this.lbl_Tel = new System.Windows.Forms.Label();
-            this.txt_GSM = new System.Windows.Forms.TextBox();
-            this.lbl_Gsm = new System.Windows.Forms.Label();
-            this.txt_State = new System.Windows.Forms.TextBox();
-            this.lbl_State = new System.Windows.Forms.Label();
-            this.lbl_Country = new System.Windows.Forms.Label();
-            this.txt_ZIP = new System.Windows.Forms.TextBox();
-            this.lbl_ZIP = new System.Windows.Forms.Label();
-            this.txt_City = new System.Windows.Forms.TextBox();
-            this.lbl_City = new System.Windows.Forms.Label();
-            this.txt_HouseNumber = new System.Windows.Forms.TextBox();
-            this.lbl_HouseNumber = new System.Windows.Forms.Label();
-            this.txt_StreetName = new System.Windows.Forms.TextBox();
-            this.lbl_Street = new System.Windows.Forms.Label();
-            this.cmb_Country = new System.Windows.Forms.ComboBox();
             this.chk_Enabled = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LoginUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Roles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.grp_PasswordExpires.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_MaxPasswordAge)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pic_Image)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -178,7 +146,6 @@ namespace LoginControl
             this.dgv_LoginUsers.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
             this.dgv_LoginUsers.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgv_LoginUsers_DataError);
             this.dgv_LoginUsers.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
-            this.dgv_LoginUsers.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
             // 
             // btnDeleteUser
             // 
@@ -205,29 +172,11 @@ namespace LoginControl
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainer1.Panel1.Controls.Add(this.usrc_SelectGender1);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Gender);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_DateOfBirth);
-            this.splitContainer1.Panel1.Controls.Add(this.dtp_DateOfBirth);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_OfficeShortName);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_OfficeShortName);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_Job);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Job);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_UserTax_ID);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_UserTax_ID);
-            this.splitContainer1.Panel1.Controls.Add(this.dgv_Roles);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_ManageRoles);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_ManageRoles);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Select_myOrganisationPerson);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Edit_myOrganisation_Person);
+            this.splitContainer1.Panel1.Controls.Add(this.webBrowser1);
             this.splitContainer1.Panel1.Controls.Add(this.chk_ChangePasswordOnFirstLogIn);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_Description);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Description);
-            this.splitContainer1.Panel1.Controls.Add(this.txtIdentityNumber);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_UserIdentity);
-            this.splitContainer1.Panel1.Controls.Add(this.txtLastName);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_UserLastName);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_UserFirstName);
-            this.splitContainer1.Panel1.Controls.Add(this.txtFirstName);
-            this.splitContainer1.Panel1.Controls.Add(this.chk_Active);
             this.splitContainer1.Panel1.Controls.Add(this.txtConfirmPassword);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_ConfirmPasword);
             this.splitContainer1.Panel1.Controls.Add(this.txtPassword);
@@ -235,28 +184,6 @@ namespace LoginControl
             this.splitContainer1.Panel1.Controls.Add(this.lbl_UserName);
             this.splitContainer1.Panel1.Controls.Add(this.txtUserName);
             this.splitContainer1.Panel1.Controls.Add(this.grp_PasswordExpires);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Office);
-            this.splitContainer1.Panel1.Controls.Add(this.cmb_Office);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_Email);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Email);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_PersonImage);
-            this.splitContainer1.Panel1.Controls.Add(this.pic_Image);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_TEL);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Tel);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_GSM);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Gsm);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_State);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_State);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Country);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_ZIP);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_ZIP);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_City);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_City);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_HouseNumber);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_HouseNumber);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_StreetName);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_Street);
-            this.splitContainer1.Panel1.Controls.Add(this.cmb_Country);
             this.splitContainer1.Panel1.Controls.Add(this.chk_Enabled);
             // 
             // splitContainer1.Panel2
@@ -266,233 +193,115 @@ namespace LoginControl
             this.splitContainer1.SplitterDistance = 429;
             this.splitContainer1.TabIndex = 16;
             // 
-            // usrc_SelectGender1
+            // splitContainer2
             // 
-            this.usrc_SelectGender1.Checked = false;
-            this.usrc_SelectGender1.Location = new System.Drawing.Point(230, 461);
-            this.usrc_SelectGender1.Name = "usrc_SelectGender1";
-            this.usrc_SelectGender1.RadioButton1_Text = "0";
-            this.usrc_SelectGender1.RadioButton1IsTrue = true;
-            this.usrc_SelectGender1.RadioButton2_Text = "1";
-            this.usrc_SelectGender1.Size = new System.Drawing.Size(189, 21);
-            this.usrc_SelectGender1.TabIndex = 112;
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.splitContainer2.Location = new System.Drawing.Point(3, 490);
+            this.splitContainer2.Name = "splitContainer2";
             // 
-            // lbl_Gender
+            // splitContainer2.Panel1
             // 
-            this.lbl_Gender.ForeColor = System.Drawing.Color.Navy;
-            this.lbl_Gender.Location = new System.Drawing.Point(168, 463);
-            this.lbl_Gender.Name = "lbl_Gender";
-            this.lbl_Gender.Size = new System.Drawing.Size(58, 13);
-            this.lbl_Gender.TabIndex = 108;
-            this.lbl_Gender.Text = "Gender*";
-            this.lbl_Gender.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
+            this.splitContainer2.Panel1.Controls.Add(this.lbl_UserRoles);
             // 
-            // lbl_DateOfBirth
+            // splitContainer2.Panel2
             // 
-            this.lbl_DateOfBirth.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_DateOfBirth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_DateOfBirth.Location = new System.Drawing.Point(4, 438);
-            this.lbl_DateOfBirth.Name = "lbl_DateOfBirth";
-            this.lbl_DateOfBirth.Size = new System.Drawing.Size(125, 13);
-            this.lbl_DateOfBirth.TabIndex = 106;
-            this.lbl_DateOfBirth.Text = "Date of birth";
+            this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainer2.Panel2.Controls.Add(this.dataGridView2);
+            this.splitContainer2.Panel2.Controls.Add(this.lbl_OtherRoles);
+            this.splitContainer2.Size = new System.Drawing.Size(423, 113);
+            this.splitContainer2.SplitterDistance = 208;
+            this.splitContainer2.TabIndex = 116;
             // 
-            // dtp_DateOfBirth
+            // dataGridView1
             // 
-            this.dtp_DateOfBirth.Location = new System.Drawing.Point(167, 435);
-            this.dtp_DateOfBirth.Name = "dtp_DateOfBirth";
-            this.dtp_DateOfBirth.Size = new System.Drawing.Size(179, 19);
-            this.dtp_DateOfBirth.TabIndex = 105;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(4, 23);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(201, 89);
+            this.dataGridView1.TabIndex = 74;
             // 
-            // txt_OfficeShortName
+            // lbl_UserRoles
             // 
-            this.txt_OfficeShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_OfficeShortName.Location = new System.Drawing.Point(363, 7);
-            this.txt_OfficeShortName.Name = "txt_OfficeShortName";
-            this.txt_OfficeShortName.Size = new System.Drawing.Size(54, 19);
-            this.txt_OfficeShortName.TabIndex = 110;
+            this.lbl_UserRoles.AutoSize = true;
+            this.lbl_UserRoles.Location = new System.Drawing.Point(4, 7);
+            this.lbl_UserRoles.Name = "lbl_UserRoles";
+            this.lbl_UserRoles.Size = new System.Drawing.Size(59, 13);
+            this.lbl_UserRoles.TabIndex = 73;
+            this.lbl_UserRoles.Text = "User Roles";
             // 
-            // lbl_OfficeShortName
+            // dataGridView2
             // 
-            this.lbl_OfficeShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_OfficeShortName.ForeColor = System.Drawing.Color.Black;
-            this.lbl_OfficeShortName.Location = new System.Drawing.Point(265, 10);
-            this.lbl_OfficeShortName.Name = "lbl_OfficeShortName";
-            this.lbl_OfficeShortName.Size = new System.Drawing.Size(92, 13);
-            this.lbl_OfficeShortName.TabIndex = 109;
-            this.lbl_OfficeShortName.Text = "Office short name";
-            this.lbl_OfficeShortName.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(3, 23);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(205, 89);
+            this.dataGridView2.TabIndex = 75;
             // 
-            // txt_Job
+            // lbl_OtherRoles
             // 
-            this.txt_Job.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Job.Location = new System.Drawing.Point(86, 270);
-            this.txt_Job.Name = "txt_Job";
-            this.txt_Job.Size = new System.Drawing.Size(331, 19);
-            this.txt_Job.TabIndex = 79;
+            this.lbl_OtherRoles.AutoSize = true;
+            this.lbl_OtherRoles.Location = new System.Drawing.Point(5, 7);
+            this.lbl_OtherRoles.Name = "lbl_OtherRoles";
+            this.lbl_OtherRoles.Size = new System.Drawing.Size(63, 13);
+            this.lbl_OtherRoles.TabIndex = 74;
+            this.lbl_OtherRoles.Text = "Other Roles";
             // 
-            // lbl_Job
+            // btn_Select_myOrganisationPerson
             // 
-            this.lbl_Job.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Job.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Job.Location = new System.Drawing.Point(5, 271);
-            this.lbl_Job.Name = "lbl_Job";
-            this.lbl_Job.Size = new System.Drawing.Size(24, 13);
-            this.lbl_Job.TabIndex = 80;
-            this.lbl_Job.Text = "Job";
+            this.btn_Select_myOrganisationPerson.Location = new System.Drawing.Point(8, 153);
+            this.btn_Select_myOrganisationPerson.Name = "btn_Select_myOrganisationPerson";
+            this.btn_Select_myOrganisationPerson.Size = new System.Drawing.Size(208, 24);
+            this.btn_Select_myOrganisationPerson.TabIndex = 115;
+            this.btn_Select_myOrganisationPerson.Text = "Select my organiastion person";
+            this.btn_Select_myOrganisationPerson.UseVisualStyleBackColor = true;
             // 
-            // txt_UserTax_ID
+            // btn_Edit_myOrganisation_Person
             // 
-            this.txt_UserTax_ID.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_UserTax_ID.Location = new System.Drawing.Point(293, 249);
-            this.txt_UserTax_ID.Name = "txt_UserTax_ID";
-            this.txt_UserTax_ID.Size = new System.Drawing.Size(124, 19);
-            this.txt_UserTax_ID.TabIndex = 77;
+            this.btn_Edit_myOrganisation_Person.Location = new System.Drawing.Point(220, 153);
+            this.btn_Edit_myOrganisation_Person.Name = "btn_Edit_myOrganisation_Person";
+            this.btn_Edit_myOrganisation_Person.Size = new System.Drawing.Size(208, 24);
+            this.btn_Edit_myOrganisation_Person.TabIndex = 114;
+            this.btn_Edit_myOrganisation_Person.Text = "Edit my organisation person";
+            this.btn_Edit_myOrganisation_Person.UseVisualStyleBackColor = true;
+            this.btn_Edit_myOrganisation_Person.Click += new System.EventHandler(this.btn_Edit_myOrganisation_Person_Click);
             // 
-            // lbl_UserTax_ID
+            // webBrowser1
             // 
-            this.lbl_UserTax_ID.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_UserTax_ID.ForeColor = System.Drawing.Color.Navy;
-            this.lbl_UserTax_ID.Location = new System.Drawing.Point(205, 252);
-            this.lbl_UserTax_ID.Name = "lbl_UserTax_ID";
-            this.lbl_UserTax_ID.Size = new System.Drawing.Size(82, 13);
-            this.lbl_UserTax_ID.TabIndex = 78;
-            this.lbl_UserTax_ID.Text = "User TAX ID";
-            this.lbl_UserTax_ID.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // dgv_Roles
-            // 
-            this.dgv_Roles.AllowUserToAddRows = false;
-            this.dgv_Roles.AllowUserToDeleteRows = false;
-            this.dgv_Roles.AllowUserToOrderColumns = true;
-            this.dgv_Roles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgv_Roles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgv_Roles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Roles.DataGridViewWithRowNumber = false;
-            this.dgv_Roles.Location = new System.Drawing.Point(3, 489);
-            this.dgv_Roles.Name = "dgv_Roles";
-            this.dgv_Roles.Size = new System.Drawing.Size(411, 114);
-            this.dgv_Roles.TabIndex = 75;
-            // 
-            // btn_ManageRoles
-            // 
-            this.btn_ManageRoles.Location = new System.Drawing.Point(53, 456);
-            this.btn_ManageRoles.Name = "btn_ManageRoles";
-            this.btn_ManageRoles.Size = new System.Drawing.Size(109, 27);
-            this.btn_ManageRoles.TabIndex = 74;
-            this.btn_ManageRoles.Text = "Manage Roles";
-            this.btn_ManageRoles.UseVisualStyleBackColor = true;
-            // 
-            // lbl_ManageRoles
-            // 
-            this.lbl_ManageRoles.AutoSize = true;
-            this.lbl_ManageRoles.Location = new System.Drawing.Point(7, 463);
-            this.lbl_ManageRoles.Name = "lbl_ManageRoles";
-            this.lbl_ManageRoles.Size = new System.Drawing.Size(32, 13);
-            this.lbl_ManageRoles.TabIndex = 73;
-            this.lbl_ManageRoles.Text = "Role:";
+            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser1.Location = new System.Drawing.Point(3, 186);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(417, 297);
+            this.webBrowser1.TabIndex = 112;
             // 
             // chk_ChangePasswordOnFirstLogIn
             // 
-            this.chk_ChangePasswordOnFirstLogIn.AutoSize = true;
             this.chk_ChangePasswordOnFirstLogIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_ChangePasswordOnFirstLogIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.chk_ChangePasswordOnFirstLogIn.Location = new System.Drawing.Point(8, 113);
+            this.chk_ChangePasswordOnFirstLogIn.Location = new System.Drawing.Point(301, 32);
             this.chk_ChangePasswordOnFirstLogIn.Name = "chk_ChangePasswordOnFirstLogIn";
-            this.chk_ChangePasswordOnFirstLogIn.Size = new System.Drawing.Size(185, 17);
+            this.chk_ChangePasswordOnFirstLogIn.Size = new System.Drawing.Size(126, 50);
             this.chk_ChangePasswordOnFirstLogIn.TabIndex = 72;
             this.chk_ChangePasswordOnFirstLogIn.Text = "Change Password On First LogIn*";
             this.chk_ChangePasswordOnFirstLogIn.UseVisualStyleBackColor = true;
             // 
-            // txt_Description
-            // 
-            this.txt_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Description.Location = new System.Drawing.Point(75, 410);
-            this.txt_Description.Name = "txt_Description";
-            this.txt_Description.Size = new System.Drawing.Size(339, 19);
-            this.txt_Description.TabIndex = 67;
-            // 
-            // lbl_Description
-            // 
-            this.lbl_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Description.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Description.Location = new System.Drawing.Point(4, 412);
-            this.lbl_Description.Name = "lbl_Description";
-            this.lbl_Description.Size = new System.Drawing.Size(60, 13);
-            this.lbl_Description.TabIndex = 71;
-            this.lbl_Description.Text = "Description";
-            // 
-            // txtIdentityNumber
-            // 
-            this.txtIdentityNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdentityNumber.Location = new System.Drawing.Point(86, 249);
-            this.txtIdentityNumber.Name = "txtIdentityNumber";
-            this.txtIdentityNumber.Size = new System.Drawing.Size(113, 19);
-            this.txtIdentityNumber.TabIndex = 66;
-            // 
-            // lbl_UserIdentity
-            // 
-            this.lbl_UserIdentity.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_UserIdentity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_UserIdentity.Location = new System.Drawing.Point(5, 252);
-            this.lbl_UserIdentity.Name = "lbl_UserIdentity";
-            this.lbl_UserIdentity.Size = new System.Drawing.Size(81, 13);
-            this.lbl_UserIdentity.TabIndex = 70;
-            this.lbl_UserIdentity.Text = "Identity Number";
-            // 
-            // txtLastName
-            // 
-            this.txtLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastName.Location = new System.Drawing.Point(86, 228);
-            this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(331, 19);
-            this.txtLastName.TabIndex = 64;
-            // 
-            // lbl_UserLastName
-            // 
-            this.lbl_UserLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_UserLastName.ForeColor = System.Drawing.Color.Navy;
-            this.lbl_UserLastName.Location = new System.Drawing.Point(5, 230);
-            this.lbl_UserLastName.Name = "lbl_UserLastName";
-            this.lbl_UserLastName.Size = new System.Drawing.Size(58, 13);
-            this.lbl_UserLastName.TabIndex = 69;
-            this.lbl_UserLastName.Text = "Last Name";
-            // 
-            // lbl_UserFirstName
-            // 
-            this.lbl_UserFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_UserFirstName.ForeColor = System.Drawing.Color.Navy;
-            this.lbl_UserFirstName.Location = new System.Drawing.Point(5, 210);
-            this.lbl_UserFirstName.Name = "lbl_UserFirstName";
-            this.lbl_UserFirstName.Size = new System.Drawing.Size(57, 13);
-            this.lbl_UserFirstName.TabIndex = 68;
-            this.lbl_UserFirstName.Text = "First Name";
-            // 
-            // txtFirstName
-            // 
-            this.txtFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFirstName.Location = new System.Drawing.Point(86, 207);
-            this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(237, 19);
-            this.txtFirstName.TabIndex = 63;
-            // 
-            // chk_Active
-            // 
-            this.chk_Active.AutoSize = true;
-            this.chk_Active.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_Active.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.chk_Active.Location = new System.Drawing.Point(329, 208);
-            this.chk_Active.Name = "chk_Active";
-            this.chk_Active.Size = new System.Drawing.Size(60, 17);
-            this.chk_Active.TabIndex = 57;
-            this.chk_Active.Text = "Active*";
-            this.chk_Active.UseVisualStyleBackColor = true;
-            // 
             // txtConfirmPassword
             // 
             this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(105, 84);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(114, 61);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(178, 19);
@@ -502,7 +311,7 @@ namespace LoginControl
             // 
             this.lbl_ConfirmPasword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ConfirmPasword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_ConfirmPasword.Location = new System.Drawing.Point(5, 90);
+            this.lbl_ConfirmPasword.Location = new System.Drawing.Point(14, 67);
             this.lbl_ConfirmPasword.Name = "lbl_ConfirmPasword";
             this.lbl_ConfirmPasword.Size = new System.Drawing.Size(94, 13);
             this.lbl_ConfirmPasword.TabIndex = 65;
@@ -511,7 +320,7 @@ namespace LoginControl
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(105, 59);
+            this.txtPassword.Location = new System.Drawing.Point(114, 36);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(178, 19);
@@ -521,18 +330,17 @@ namespace LoginControl
             // 
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblPassword.Location = new System.Drawing.Point(5, 65);
+            this.lblPassword.Location = new System.Drawing.Point(14, 42);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(94, 13);
             this.lblPassword.TabIndex = 62;
             this.lblPassword.Text = "Password*:";
-            this.lblPassword.Click += new System.EventHandler(this.lblPassword_Click);
             // 
             // lbl_UserName
             // 
             this.lbl_UserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_UserName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_UserName.Location = new System.Drawing.Point(5, 36);
+            this.lbl_UserName.Location = new System.Drawing.Point(5, 13);
             this.lbl_UserName.Name = "lbl_UserName";
             this.lbl_UserName.Size = new System.Drawing.Size(64, 13);
             this.lbl_UserName.TabIndex = 60;
@@ -541,9 +349,9 @@ namespace LoginControl
             // txtUserName
             // 
             this.txtUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(71, 33);
+            this.txtUserName.Location = new System.Drawing.Point(114, 7);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(141, 19);
+            this.txtUserName.Size = new System.Drawing.Size(178, 19);
             this.txtUserName.TabIndex = 58;
             // 
             // grp_PasswordExpires
@@ -553,9 +361,9 @@ namespace LoginControl
             this.grp_PasswordExpires.Controls.Add(this.rdb_DeactivateAfterNumberOfDays);
             this.grp_PasswordExpires.Controls.Add(this.lbl_Max_Password_Age);
             this.grp_PasswordExpires.Controls.Add(this.nmUpDn_MaxPasswordAge);
-            this.grp_PasswordExpires.Location = new System.Drawing.Point(4, 136);
+            this.grp_PasswordExpires.Location = new System.Drawing.Point(10, 88);
             this.grp_PasswordExpires.Name = "grp_PasswordExpires";
-            this.grp_PasswordExpires.Size = new System.Drawing.Size(410, 65);
+            this.grp_PasswordExpires.Size = new System.Drawing.Size(410, 59);
             this.grp_PasswordExpires.TabIndex = 76;
             this.grp_PasswordExpires.TabStop = false;
             this.grp_PasswordExpires.Text = "Password Expires";
@@ -625,213 +433,12 @@ namespace LoginControl
             0,
             0});
             // 
-            // lbl_Office
-            // 
-            this.lbl_Office.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Office.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_Office.Location = new System.Drawing.Point(5, 10);
-            this.lbl_Office.Name = "lbl_Office";
-            this.lbl_Office.Size = new System.Drawing.Size(93, 13);
-            this.lbl_Office.TabIndex = 103;
-            this.lbl_Office.Text = "Office*:";
-            // 
-            // cmb_Office
-            // 
-            this.cmb_Office.FormattingEnabled = true;
-            this.cmb_Office.Location = new System.Drawing.Point(102, 5);
-            this.cmb_Office.Name = "cmb_Office";
-            this.cmb_Office.Size = new System.Drawing.Size(155, 21);
-            this.cmb_Office.TabIndex = 101;
-            // 
-            // txt_Email
-            // 
-            this.txt_Email.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Email.Location = new System.Drawing.Point(53, 387);
-            this.txt_Email.Name = "txt_Email";
-            this.txt_Email.Size = new System.Drawing.Size(364, 19);
-            this.txt_Email.TabIndex = 99;
-            // 
-            // lbl_Email
-            // 
-            this.lbl_Email.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Email.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Email.Location = new System.Drawing.Point(5, 389);
-            this.lbl_Email.Name = "lbl_Email";
-            this.lbl_Email.Size = new System.Drawing.Size(32, 13);
-            this.lbl_Email.TabIndex = 100;
-            this.lbl_Email.Text = "Email";
-            // 
-            // btn_PersonImage
-            // 
-            this.btn_PersonImage.Location = new System.Drawing.Point(278, 107);
-            this.btn_PersonImage.Name = "btn_PersonImage";
-            this.btn_PersonImage.Size = new System.Drawing.Size(40, 25);
-            this.btn_PersonImage.TabIndex = 98;
-            this.btn_PersonImage.Text = "image";
-            this.btn_PersonImage.UseVisualStyleBackColor = true;
-            // 
-            // pic_Image
-            // 
-            this.pic_Image.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.pic_Image.Location = new System.Drawing.Point(320, 36);
-            this.pic_Image.Name = "pic_Image";
-            this.pic_Image.Size = new System.Drawing.Size(96, 96);
-            this.pic_Image.TabIndex = 97;
-            this.pic_Image.TabStop = false;
-            // 
-            // txt_TEL
-            // 
-            this.txt_TEL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_TEL.Location = new System.Drawing.Point(195, 363);
-            this.txt_TEL.Name = "txt_TEL";
-            this.txt_TEL.Size = new System.Drawing.Size(113, 19);
-            this.txt_TEL.TabIndex = 95;
-            // 
-            // lbl_Tel
-            // 
-            this.lbl_Tel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Tel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Tel.Location = new System.Drawing.Point(165, 365);
-            this.lbl_Tel.Name = "lbl_Tel";
-            this.lbl_Tel.Size = new System.Drawing.Size(30, 13);
-            this.lbl_Tel.TabIndex = 96;
-            this.lbl_Tel.Text = "TEL:";
-            // 
-            // txt_GSM
-            // 
-            this.txt_GSM.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_GSM.Location = new System.Drawing.Point(37, 362);
-            this.txt_GSM.Name = "txt_GSM";
-            this.txt_GSM.Size = new System.Drawing.Size(125, 19);
-            this.txt_GSM.TabIndex = 93;
-            // 
-            // lbl_Gsm
-            // 
-            this.lbl_Gsm.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Gsm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Gsm.Location = new System.Drawing.Point(5, 364);
-            this.lbl_Gsm.Name = "lbl_Gsm";
-            this.lbl_Gsm.Size = new System.Drawing.Size(34, 13);
-            this.lbl_Gsm.TabIndex = 94;
-            this.lbl_Gsm.Text = "GSM:";
-            // 
-            // txt_State
-            // 
-            this.txt_State.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_State.Location = new System.Drawing.Point(293, 337);
-            this.txt_State.Name = "txt_State";
-            this.txt_State.Size = new System.Drawing.Size(124, 19);
-            this.txt_State.TabIndex = 91;
-            // 
-            // lbl_State
-            // 
-            this.lbl_State.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_State.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_State.Location = new System.Drawing.Point(245, 339);
-            this.lbl_State.Name = "lbl_State";
-            this.lbl_State.Size = new System.Drawing.Size(44, 13);
-            this.lbl_State.TabIndex = 92;
-            this.lbl_State.Text = "State";
-            this.lbl_State.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lbl_Country
-            // 
-            this.lbl_Country.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Country.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Country.Location = new System.Drawing.Point(5, 339);
-            this.lbl_Country.Name = "lbl_Country";
-            this.lbl_Country.Size = new System.Drawing.Size(43, 13);
-            this.lbl_Country.TabIndex = 90;
-            this.lbl_Country.Text = "Country";
-            // 
-            // txt_ZIP
-            // 
-            this.txt_ZIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_ZIP.Location = new System.Drawing.Point(329, 312);
-            this.txt_ZIP.Name = "txt_ZIP";
-            this.txt_ZIP.Size = new System.Drawing.Size(88, 19);
-            this.txt_ZIP.TabIndex = 87;
-            // 
-            // lbl_ZIP
-            // 
-            this.lbl_ZIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ZIP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_ZIP.Location = new System.Drawing.Point(244, 315);
-            this.lbl_ZIP.Name = "lbl_ZIP";
-            this.lbl_ZIP.Size = new System.Drawing.Size(79, 13);
-            this.lbl_ZIP.TabIndex = 88;
-            this.lbl_ZIP.Text = "Poštna številka";
-            this.lbl_ZIP.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txt_City
-            // 
-            this.txt_City.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_City.Location = new System.Drawing.Point(53, 312);
-            this.txt_City.Name = "txt_City";
-            this.txt_City.Size = new System.Drawing.Size(185, 19);
-            this.txt_City.TabIndex = 85;
-            // 
-            // lbl_City
-            // 
-            this.lbl_City.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_City.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_City.Location = new System.Drawing.Point(5, 315);
-            this.lbl_City.Name = "lbl_City";
-            this.lbl_City.Size = new System.Drawing.Size(24, 13);
-            this.lbl_City.TabIndex = 86;
-            this.lbl_City.Text = "City";
-            // 
-            // txt_HouseNumber
-            // 
-            this.txt_HouseNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_HouseNumber.Location = new System.Drawing.Point(315, 291);
-            this.txt_HouseNumber.Name = "txt_HouseNumber";
-            this.txt_HouseNumber.Size = new System.Drawing.Size(102, 19);
-            this.txt_HouseNumber.TabIndex = 83;
-            // 
-            // lbl_HouseNumber
-            // 
-            this.lbl_HouseNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_HouseNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_HouseNumber.Location = new System.Drawing.Point(225, 294);
-            this.lbl_HouseNumber.Name = "lbl_HouseNumber";
-            this.lbl_HouseNumber.Size = new System.Drawing.Size(84, 13);
-            this.lbl_HouseNumber.TabIndex = 84;
-            this.lbl_HouseNumber.Text = "House Naumber";
-            this.lbl_HouseNumber.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txt_StreetName
-            // 
-            this.txt_StreetName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_StreetName.Location = new System.Drawing.Point(39, 291);
-            this.txt_StreetName.Name = "txt_StreetName";
-            this.txt_StreetName.Size = new System.Drawing.Size(180, 19);
-            this.txt_StreetName.TabIndex = 81;
-            // 
-            // lbl_Street
-            // 
-            this.lbl_Street.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Street.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbl_Street.Location = new System.Drawing.Point(5, 294);
-            this.lbl_Street.Name = "lbl_Street";
-            this.lbl_Street.Size = new System.Drawing.Size(35, 13);
-            this.lbl_Street.TabIndex = 82;
-            this.lbl_Street.Text = "Street";
-            // 
-            // cmb_Country
-            // 
-            this.cmb_Country.FormattingEnabled = true;
-            this.cmb_Country.Location = new System.Drawing.Point(49, 336);
-            this.cmb_Country.Name = "cmb_Country";
-            this.cmb_Country.Size = new System.Drawing.Size(189, 21);
-            this.cmb_Country.TabIndex = 104;
-            // 
             // chk_Enabled
             // 
             this.chk_Enabled.AutoSize = true;
             this.chk_Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_Enabled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.chk_Enabled.Location = new System.Drawing.Point(223, 36);
+            this.chk_Enabled.Location = new System.Drawing.Point(300, 9);
             this.chk_Enabled.Name = "chk_Enabled";
             this.chk_Enabled.Size = new System.Drawing.Size(69, 17);
             this.chk_Enabled.TabIndex = 111;
@@ -862,11 +469,17 @@ namespace LoginControl
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Roles)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.grp_PasswordExpires.ResumeLayout(false);
             this.grp_PasswordExpires.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_MaxPasswordAge)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pic_Image)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -880,29 +493,8 @@ namespace LoginControl
         internal DataGridView_2xls.DataGridView2xls dgv_LoginUsers;
         private System.Windows.Forms.Button btnDeleteUser;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        internal System.Windows.Forms.Label lbl_Gender;
-
-        internal System.Windows.Forms.Label lbl_DateOfBirth;
-        internal System.Windows.Forms.DateTimePicker dtp_DateOfBirth;
-        internal System.Windows.Forms.TextBox txt_OfficeShortName;
-        internal System.Windows.Forms.Label lbl_OfficeShortName;
-        internal System.Windows.Forms.TextBox txt_Job;
-        internal System.Windows.Forms.Label lbl_Job;
-        internal System.Windows.Forms.TextBox txt_UserTax_ID;
-        internal System.Windows.Forms.Label lbl_UserTax_ID;
-        internal DataGridView_2xls.DataGridView2xls dgv_Roles;
-        internal System.Windows.Forms.Button btn_ManageRoles;
-        internal System.Windows.Forms.Label lbl_ManageRoles;
+        internal System.Windows.Forms.Label lbl_UserRoles;
         internal System.Windows.Forms.CheckBox chk_ChangePasswordOnFirstLogIn;
-        internal System.Windows.Forms.TextBox txt_Description;
-        internal System.Windows.Forms.Label lbl_Description;
-        internal System.Windows.Forms.TextBox txtIdentityNumber;
-        internal System.Windows.Forms.Label lbl_UserIdentity;
-        internal System.Windows.Forms.TextBox txtLastName;
-        internal System.Windows.Forms.Label lbl_UserLastName;
-        internal System.Windows.Forms.Label lbl_UserFirstName;
-        internal System.Windows.Forms.TextBox txtFirstName;
-        internal System.Windows.Forms.CheckBox chk_Active;
         internal System.Windows.Forms.TextBox txtConfirmPassword;
         internal System.Windows.Forms.Label lbl_ConfirmPasword;
         internal System.Windows.Forms.TextBox txtPassword;
@@ -910,34 +502,18 @@ namespace LoginControl
         internal System.Windows.Forms.Label lbl_UserName;
         internal System.Windows.Forms.TextBox txtUserName;
         internal System.Windows.Forms.GroupBox grp_PasswordExpires;
-        internal System.Windows.Forms.Label lbl_Office;
-        internal System.Windows.Forms.ComboBox cmb_Office;
-        internal System.Windows.Forms.TextBox txt_Email;
-        internal System.Windows.Forms.Label lbl_Email;
-        internal System.Windows.Forms.Button btn_PersonImage;
-        internal System.Windows.Forms.PictureBox pic_Image;
-        internal System.Windows.Forms.TextBox txt_TEL;
-        internal System.Windows.Forms.Label lbl_Tel;
-        internal System.Windows.Forms.TextBox txt_GSM;
-        internal System.Windows.Forms.Label lbl_Gsm;
-        internal System.Windows.Forms.TextBox txt_State;
-        internal System.Windows.Forms.Label lbl_State;
-        internal System.Windows.Forms.Label lbl_Country;
-        internal System.Windows.Forms.TextBox txt_ZIP;
-        internal System.Windows.Forms.Label lbl_ZIP;
-        internal System.Windows.Forms.TextBox txt_City;
-        internal System.Windows.Forms.Label lbl_City;
-        internal System.Windows.Forms.TextBox txt_HouseNumber;
-        internal System.Windows.Forms.Label lbl_HouseNumber;
-        internal System.Windows.Forms.TextBox txt_StreetName;
-        internal System.Windows.Forms.Label lbl_Street;
-        internal System.Windows.Forms.ComboBox cmb_Country;
         internal System.Windows.Forms.RadioButton rdb_DeactivateAfterNumberOfDays;
         internal System.Windows.Forms.RadioButton rdb_AfterNumberOfDays;
         internal System.Windows.Forms.RadioButton rdb_PaswordExpires_Never;
         internal System.Windows.Forms.NumericUpDown nmUpDn_MaxPasswordAge;
         internal System.Windows.Forms.Label lbl_Max_Password_Age;
         internal System.Windows.Forms.CheckBox chk_Enabled;
-        internal SelectGender.usrc_SelectGender usrc_SelectGender1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Button btn_Select_myOrganisationPerson;
+        private System.Windows.Forms.Button btn_Edit_myOrganisation_Person;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        internal System.Windows.Forms.Label lbl_OtherRoles;
     }
 }

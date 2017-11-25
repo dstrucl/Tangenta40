@@ -149,11 +149,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RoleManager.cs">
+    <Compile Include="STDRoleManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RoleManager.Designer.cs">
-      <DependentUpon>RoleManager.cs</DependentUpon>
+    <Compile Include="STDRoleManager.Designer.cs">
+      <DependentUpon>STDRoleManager.cs</DependentUpon>
     </Compile>
     <Compile Include="AWP_func.cs" />
     <Compile Include="STDRole.cs" />
@@ -164,7 +164,6 @@
     <Compile Include="AWP_UserManager.designer.cs">
       <DependentUpon>AWP_UserManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="AWP_username_Data.cs" />
     <Compile Include="STD_username_Data.cs" />
     <Compile Include="STDUserInfoForm.cs">
       <SubType>Form</SubType>
@@ -221,8 +220,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RoleManager.resx">
-      <DependentUpon>RoleManager.cs</DependentUpon>
+    <EmbeddedResource Include="STDRoleManager.resx">
+      <DependentUpon>STDRoleManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AWP_UserManager.resx">

@@ -83,7 +83,6 @@ namespace TangentaDB
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper.Job AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Job,
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper.UserName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$UserName,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper.Description AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Description,
                         JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper.ID AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$ID,
@@ -150,7 +149,6 @@ namespace TangentaDB
                         JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                         JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                         JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Job AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Job,
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.UserName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$UserName,
                         JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Description AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Description,
                         JOURNAL_DocProformaInvoice_$_dpinv.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$$ID,
                         JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$ID,
@@ -908,10 +906,19 @@ namespace TangentaDB
         {
             DataTable dt = new DataTable();
             string sql_find_Atom_myOrganisation_Person_ID = @"select
-                                Atom_myOrganisation_Person.ID as Atom_myOrganisation_Person_ID
-                                from Atom_myOrganisation_Person
-                                inner join myOrganisation_Person on Atom_myOrganisation_Person.UserName = myOrganisation_Person.UserName
-                                where Atom_myOrganisation_Person.Atom_myOrganisation_ID = " + Atom_myOrganisation_ID.ToString();
+                                amoper.ID as Atom_myOrganisation_Person_ID
+                                from Atom_myOrganisation_Person amoper
+                                inner join myOrganisation_Person  moper on amoper.Job = moper.Job and amoper.Description = moper.Description
+								inner join Atom_Person aper on aper.ID = amoper.Atom_Person_ID
+								inner join Atom_cFirstName acfn on acfn.ID = aper.Atom_cFirstName_ID
+								inner join Atom_cLastName acln on acln.ID = aper.Atom_cLastName_ID
+								inner join Atom_Office ao on ao.ID = amoper.Atom_Office_ID
+								inner join Office  o on o.ID = moper.Office_ID and o.Name = ao.Name
+                                inner join Person  p on p.ID = moper.Person_ID and p.Gender = aper.Gender and p.DateOfBirth = aper.DateOfBirth and p.Tax_ID = aper.Tax_ID
+								inner join cFirstName cfn on  cfn.ID = p.cFirstName_ID and acfn.FirstName = cfn.FirstName
+								inner join cLastName cln on  cln.ID = p.cLastName_ID and acln.LastName = cln.LastName
+                                where ao.Atom_myOrganisation_ID = " + Atom_myOrganisation_ID.ToString();
+
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myOrganisation_Person_ID, ref Err))
             {
                 if (dt.Rows.Count > 0)

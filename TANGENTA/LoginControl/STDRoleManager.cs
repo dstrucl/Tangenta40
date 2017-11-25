@@ -10,16 +10,16 @@ using LogFile;
 using LanguageControl;
 namespace LoginControl
 {
-    public partial class RoleManager : Form
+    public partial class STDRoleManager : Form
     {
         LoginDB_DataSet.LoginRoles LoginRoles = null;
         LoginDB_DataSet.LoginRoles_lang LoginRoles_lang = new LoginDB_DataSet.LoginRoles_lang();
         LoginControl login_control;
-        public RoleManager(LoginControl logctrl)
+        public STDRoleManager(LoginControl logctrl)
         {
             InitializeComponent();
             login_control = logctrl;
-            this.Text = lng.s_RoleManagerForm.s;
+            this.Text = lng.s_STDRoleManagerForm.s;
         }
 
         private void RoleManager_Load(object sender, EventArgs e)

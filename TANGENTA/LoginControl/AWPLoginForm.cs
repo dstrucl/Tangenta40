@@ -32,23 +32,27 @@ namespace LoginControl
 
         private void DoLogin()
         {
-            string Err = null;
             this.cmbR_UserName.Set(this.cmbR_UserName.Text);
             switch (awpld.GetData(cmbR_UserName.Text, login_control.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
-                    if (login_control.PasswordMatch(awpld.myOrganisation_Person_Password, txt_Password.Text))
+                    if (login_control.PasswordMatch(awpld.Password, txt_Password.Text))
                     {
                         if (awpld.ChangePasswordOnFirstLogin)
                         {
-                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(login_control, dr, lng.s_AdministratorRequestForNewPassword.s);
+                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(login_control, awpld, lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
                                 Login_Start();
                                 DialogResult = DialogResult.OK;
                                 Close();
                                 return;
-
+                            }
+                            else
+                            {
+                                DialogResult = DialogResult.Cancel;
+                                Close();
+                                return;
                             }
                         }
                         else
@@ -57,33 +61,31 @@ namespace LoginControl
                             {
                                 if (awpld.NotActiveAfterPasswordExpires)
                                 {
-                                    //string sql_change_enabled = "UPDATE LoginUsers SET enabled = 0 where id = " + LoginUsers_ID.ToString();
-                                    //object res = null;
-                                    //if (!login_control.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
-                                    //{
-                                    //    LogFile.Error.Show("Error:LoginForm:" + sql_change_enabled + ":Err=" + Err);
-                                    //}
+                                    AWP_func.DeactivateUserName(awpld.ID);
                                     MessageBox.Show(lng.s_YourUsernameHasExpired.s);
-
                                 }
                                 else
                                 {
-                                    // change password dialog
-                                    if (Login_Start(dr))
+                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(login_control, awpld, lng.s_PasswordExpiredSetNewPassword.s);
+                                    if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(login_control, dr, lng.s_PasswordExpiredSetNewPassword.s);
-                                        if (change_pass_form.ShowDialog() == DialogResult.OK)
+                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(awpld))
                                         {
-                                            DialogResult = DialogResult.OK;
-                                            Close();
-                                            return;
+                                            // change password dialog
+                                            if (Login_Start())
+                                            {
+
+                                                DialogResult = DialogResult.OK;
+                                                Close();
+                                                return;
+                                            }
                                         }
                                     }
                                 }
                             }
                             else
                             {
-                                if (Login_Start(dr))
+                                if (Login_Start())
                                 {
                                     DialogResult = DialogResult.OK;
                                     Close();
@@ -96,14 +98,32 @@ namespace LoginControl
                     {
                         MessageBox.Show(lng.s_Password_does_not_match.s);
                     }
+                    break;
                 }
             }
-        
 
-        private bool Login_PasswordExpired(DataRow dr, ref string err)
+        private bool Login_PasswordExpired(AWPLoginData awpld)
         {
-            throw new NotImplementedException();
+            if (awpld.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
+            {
+                DateTime dtnow = DateTime.Now;
+                DateTime dtToExpire = awpld.Time_When_UserSetsItsOwnPassword_LastTime.AddDays(awpld.Maximum_password_age_in_days);
+                if (dtnow > dtToExpire)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWPLoginForm:Login_PasswordExpired:Time_When_UserSetsItsOwnPassword_LastTime not defined!");
+                return false;
+            }
         }
+
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
@@ -112,47 +132,32 @@ namespace LoginControl
 
         private bool Login_Start()
         {
-            string Err = null;
-            string Res = null;
             DateTime TimeOnServer = new DateTime();
             if (AWP_func.con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
             {
                 // Get time from server
                 //TimeOnServer = m_LoginDB_DataSet_ScalarFunctions.Login_Server_GetDate(ref Err);
+                string Err = null;
                 if (SetThisComputerSystemTime(TimeOnServer, ref Err))
                 {
                 }
-            {
+            }
             long Atom_WorkPeriod_ID = -1;
             if (call_Get_Atom_WorkPeriod(awpld.myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
             {
-
-                    int LoginSession_id = -1;
-                    if (AWP_func.GetLoginSession(Atom_WorkPeriod_ID,ref LoginSession_id))
+                    long LoginSession_id = -1;
+                    if (AWP_func.GetLoginSession(awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
                     {
-                       
-                    }
-                    //m_LoginDB_DataSet_Procedures.LoginSession_Start(LoginUsers.o_id.id_, System.Environment.MachineName, System.Environment.UserName,
-                    //                                                ref LoginSession_id, ref Res, ref Err);
-                    if (Res.Equals("OK"))
-                    {
-                        login_control.m_STDLoginData.m_LoginSession_id = LoginSession_id;
-                        return true;
+                            return true;
                     }
                     else
                     {
-                        if (Res == null) Res = "null";
-                        LogFile.Error.Show("Error:LoginForm:m_LoginDB_DataSet_Procedures.LoginSession_Start:Result=" + Res + ", Err=" + Err);
+                            return false;
                     }
-                }
-                else
-                {
-                    LogFile.Error.Show("Error:LoginForm:Login_Start:.SetThisComputerSystemTime: Err=" + Err);
-                }
             }
             else
             {
-                LogFile.Error.Show("Error:LoginForm:m_LoginDB_DataSet_ScalarFunctions.Login_Server_GetDate: Err=" + Err);
+                        return false;
             }
         }
 
@@ -194,13 +199,6 @@ namespace LoginControl
             }
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-            //LoginUsers = new LoginDB_DataSet.LoginUsers(login_control.Login_con);
-            //m_LoginDB_DataSet_Procedures = new LoginDB_DataSet.LoginDB_DataSet_Procedures(login_control.Login_con);
-            //m_LoginDB_DataSet_ScalarFunctions = new LoginDB_DataSet.LoginDB_DataSet_ScalarFunctions(login_control.Login_con);
-        }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {

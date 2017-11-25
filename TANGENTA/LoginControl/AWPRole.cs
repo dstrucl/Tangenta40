@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LoginControl
 {
-    internal class AWPRole
+    public class AWPRole
     {
         private long id = -1;
         internal long ID
@@ -31,39 +31,43 @@ namespace LoginControl
         {
             id = xid;
             role = xrole;
-            if (role.Equals(AWPBindingData.ROLE_Administrator))
+            if (role.Equals(LoginControl.ROLE_Administrator))
             {
                 name = lng.cn_Role_Administrator.s;
             }
-            else if (role.Equals(AWPBindingData.ROLE_PriceListManagement))
+            else if (role.Equals(LoginControl.ROLE_PriceListManagement))
             {
                 name = lng.cn_Role_PriceListManagement.s;
             }
-            else if (role.Equals(AWPBindingData.ROLE_StockTakeManagement))
+            else if (role.Equals(LoginControl.ROLE_StockTakeManagement))
             {
                 name = lng.cn_Role_StockTakeManagemenent.s;
             }
-            else if (role.Equals(AWPBindingData.ROLE_UserManagement))
+            else if (role.Equals(LoginControl.ROLE_UserManagement))
             {
                 name = lng.cn_Role_UserManagement.s;
             }
-            else if (role.Equals(AWPBindingData.ROLE_WriteInvoice))
+            else if (role.Equals(LoginControl.ROLE_WriteInvoice))
             {
                 name = lng.cn_Role_WriteInvoice.s;
             }
-            else if (role.Equals(AWPBindingData.ROLE_WriteProformainvoice))
+            else if (role.Equals(LoginControl.ROLE_WriteProformainvoice))
             {
                 name = lng.cn_Role_WriteProformaInvoice.s;
             }
-            else if (role.Equals(AWPBindingData.ROLE_WorkInShopA))
+            else if (role.Equals(LoginControl.ROLE_WorkInShopA))
             {
                 name = lng.cn_Role_WorkInShopA.s;
             }
-            else if (xrole.Equals(AWPBindingData.ROLE_WorkInShopB))
+            else if (xrole.Equals(LoginControl.ROLE_WorkInShopB))
             {
                 name = lng.cn_Role_WorkInShopB.s;
             }
-            else if (xrole.Equals(AWPBindingData.ROLE_WorkInShopC))
+            else if (xrole.Equals(LoginControl.ROLE_WorkInShopC))
+            {
+                name = lng.cn_Role_WorkInShopC.s;
+            }
+            else if (xrole.Equals(LoginControl.ROLE_ViewAndExport))
             {
                 name = lng.cn_Role_WorkInShopC.s;
             }

@@ -15,11 +15,26 @@ namespace LoginControl
 {
     public partial class LoginControl : UserControl
     {
+        public const string ROLE_Administrator = "Administrator";
+        public const string ROLE_UserManagement = "UserManagement";
+        public const string ROLE_WriteInvoice = "WriteInvoice";
+        public const string ROLE_WriteProformainvoice = "WriteProformaInvoice";
+        public const string ROLE_StockTakeManagement = "StockTakeManagement";
+        public const string ROLE_PriceListManagement = "PriceListManagement";
+        public const string ROLE_ViewAndExport = "ViewAndExport";
+        public const string ROLE_WorkInShopA = "WorkInShopA";
+        public const string ROLE_WorkInShopB = "WorkInShopB";
+        public const string ROLE_WorkInShopC = "WorkInShopC";
+
+
         public delegate bool delegate_Get_Atom_WorkPeriod(long myOrganisation_Person_ID, ref long Atom_WordPeriod_ID);
+        public delegate bool delegate_Edit_myOrganisationPerson(Form parentform,long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new);
 
         public enum eDataTableCreationMode {/*STAND_ALONE*/STD,/*Atom_WorkPeriod*/ AWP };
 
         internal AWPBindingData awpd = new AWPBindingData();
+
+        internal delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
 
         LoginDB_DataSet.Login_VIEW m_Login_VIEW = null;
         DataTable AWP_dtLoginView = null;
@@ -30,7 +45,7 @@ namespace LoginControl
         internal AWPLoginData m_AWPLoginData = new AWPLoginData();
         internal DBConnection Login_con;
 
-        internal int m_MinPasswordLength = 3;
+        internal int m_MinPasswordLength = 5;
 
         private eDataTableCreationMode m_eDataTableCreationMode = eDataTableCreationMode.STD; 
 
@@ -70,60 +85,155 @@ namespace LoginControl
 
         public string UserName
         {
-            get { return m_STDLoginData.m_UserName; }
+            get {
+                    if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                    {
+                        return m_AWPLoginData.UserName;
+                    }
+                    else
+                    {
+                        return m_STDLoginData.m_UserName;
+                    }
+                }
         }
 
         public string FirstName
         {
-            get { return m_STDLoginData.m_FirstName; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.myOrganisation_Person__per__cfn_FirstName;
+                }
+                else
+                {
+                    return m_STDLoginData.m_FirstName;
+                }
+            }
         }
 
         public string LastName
         {
-            get { return m_STDLoginData.m_LastName; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.myOrganisation_Person__per__cln_LastName;
+                }
+                else
+                {
+                    return m_STDLoginData.m_LastName;
+                }
+            }
         }
 
         public string Identity
         {
-            get { return m_STDLoginData.m_Identity; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.myOrganisation_Person__per_Registration_ID;
+                }
+                else
+                {
+                    return m_STDLoginData.m_Identity;
+                }
+            }
         }
 
         public string Contact
         {
-            get { return m_STDLoginData.m_Contact; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.PersonData__cemailper_Email;
+                }
+                else
+                {
+                    return m_STDLoginData.m_Contact;
+                }
+            }
         }
 
         public List<STDRole> LoginSTDRoles
         {
-            get { return m_STDLoginData.m_STDRoles; }
+            get
+            {
+                return m_STDLoginData.m_STDRoles;
+            }
         }
 
-        internal List<AWPRole> LoginAWPRoles
+        public List<AWPRole> LoginAWP_AllRoles
         {
-            get { return m_AWPLoginData.m_AWPRoles; }
+            get
+            {
+                return m_AWPLoginData.m_AWPRoles;
+            }
+        }
+
+
+        internal List<AWPRole> LoginAWP_UserRoles
+        {
+            get { return m_AWPLoginData.m_AWP_UserRoles; }
         }
 
         public bool PasswordNeverExpires
         {
-            get { return m_STDLoginData.m_PasswordNeverExpires; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.PasswordNeverExpires;
+                }
+                else
+                {
+                    return m_STDLoginData.m_PasswordNeverExpires;
+                }
+            }
         }
 
         public bool NotActiveAfterPasswordExpires
         {
-            get { return m_STDLoginData.m_NotActiveAfterPasswordExpires; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.NotActiveAfterPasswordExpires;
+                }
+                else
+                {
+                    return m_STDLoginData.m_NotActiveAfterPasswordExpires;
+                }
+            }
         }
 
         public bool bPasswordExpiresInNumberOfDays
         {
             get
             {
-                if ((!m_STDLoginData.m_PasswordNeverExpires) && (!m_STDLoginData.m_NotActiveAfterPasswordExpires))
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
                 {
-                    return true;
+                    if ((!m_AWPLoginData.PasswordNeverExpires) && (!m_AWPLoginData.NotActiveAfterPasswordExpires))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    if ((!m_STDLoginData.m_PasswordNeverExpires) && (!m_STDLoginData.m_NotActiveAfterPasswordExpires))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
         }
@@ -132,13 +242,20 @@ namespace LoginControl
         {
             get
             {
-                if (!m_STDLoginData.m_PasswordNeverExpires)
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
                 {
-                    TimeSpan tspan = new TimeSpan();
-                    if (m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
+                    if (!m_AWPLoginData.PasswordNeverExpires)
                     {
-                        tspan = DateTime.Now - m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
-                        return tspan.Days;
+                        TimeSpan tspan = new TimeSpan();
+                        if (m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
+                        {
+                            tspan = DateTime.Now - m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
+                            return tspan.Days;
+                        }
+                        else
+                        {
+                            return -1;
+                        }
                     }
                     else
                     {
@@ -147,28 +264,64 @@ namespace LoginControl
                 }
                 else
                 {
-                    return -1;
+                    if (!m_STDLoginData.m_PasswordNeverExpires)
+                    {
+                        TimeSpan tspan = new TimeSpan();
+                        if (m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
+                        {
+                            tspan = DateTime.Now - m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
+                            return tspan.Days;
+                        }
+                        else
+                        {
+                            return -1;
+                        }
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
             }
         }
 
-        public int NumberOfDaysAfterPasswordExpires
+        public int Maximum_password_age_in_days
         {
-            get { return m_STDLoginData.NumberOfDaysAfterPasswordExpires; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.Maximum_password_age_in_days;
+                }
+                else
+                {
+                    return m_STDLoginData.NumberOfDaysAfterPasswordExpires;
+                }
+            }
         }
 
         public DateTime LastUserPasswordDefinitionTime
         {
-            get { return m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
+                }
+                else
+                {
+                    return m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
+                }
+            }
         }
 
         public int MinPasswordLength
         {
             get { return m_MinPasswordLength;  }
             set {m_MinPasswordLength = value;
-                    if (m_MinPasswordLength < 3)
+                    if (m_MinPasswordLength < 5)
                     {
-                        MessageBox.Show(lng.s_YouCanNotSetMinumumPasswordLengthLessThan3.s);
+                        MessageBox.Show(lng.s_YouCanNotSetMinumumPasswordLengthLessThan5.s);
                     }
                 }
         }
@@ -295,13 +448,13 @@ namespace LoginControl
                     switch (AWP_func.con.DBType)
                     {
                         case DBConnection.eDBType.MSSQL:
-                            return AWP_func.Read_Login_VIEW( ref AWP_dtLoginView,null, ref Err);
+                            return AWP_func.Read_Login_VIEW( ref AWP_dtLoginView,null,null);
 
                         case DBConnection.eDBType.MYSQL:
                             LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                             return false;
                         case DBConnection.eDBType.SQLITE:
-                            return AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null, ref Err);
+                            return AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null, null);
                     }
                     LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                     return false;
@@ -327,11 +480,17 @@ namespace LoginControl
             }
         }
 
-        public void InitAWPMode(Form pParentForm, DBConnection xcon, int Language_id, ref bool bCancel, ref string Err)
+        public void InitAWPMode(Form pParentForm, 
+                                DBConnection xcon, 
+                                int Language_id,
+                                delegate_Edit_myOrganisationPerson xcall_Edit_myOrganisationPerson
+                                )
         {
+            call_Edit_myOrganisationPerson = xcall_Edit_myOrganisationPerson;
             m_eDataTableCreationMode = eDataTableCreationMode.AWP;
             LoginDB_DataSet.DynSettings.LanguageID = Language_id;
             AWP_func.con= xcon;
+            AWP_func.UpdateRoles(awpd.AllRoles);
         }
 
         public bool STD_Login()
@@ -391,7 +550,8 @@ namespace LoginControl
             }
         }
 
-        public bool AWP_Login(NavigationButtons.Navigation xnav, delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        public bool AWP_Login(NavigationButtons.Navigation xnav,
+                              delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
             string Err = null;
             if (Read_Login_VIEW(m_eDataTableCreationMode, this.Login_con, ref Err))
@@ -591,7 +751,7 @@ namespace LoginControl
 
             if (AWP_dtLoginView.Rows.Count > 0)
             {
-                if (AWP_dtLoginView.Rows[0]["myOrganisation_Person_$$Password"].GetType() != typeof(DBNull))
+                if (AWP_dtLoginView.Rows[0]["Password"].GetType() != typeof(DBNull))
                 {
                     return true;
                 }
@@ -770,72 +930,6 @@ namespace LoginControl
             return false;
         }
 
-        internal bool AWPLoginData_Get(DataRow dr, ref string Err)
-        {
-            m_AWPLoginData.m_LoginUsers_id = (long)dr["ID"];
-            m_AWPLoginData.m_UserName = (string)dr["myOrganisation_Person_$$UserName"]; 
-            m_AWPLoginData.m_FirstName = (string)dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"];
-            object oLastName = dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"];
-            if (oLastName is string)
-            {
-                m_AWPLoginData.m_LastName = (string) oLastName;
-            }
-            else
-            {
-                m_AWPLoginData.m_LastName = null;
-            }
-
-            object oRegistration_ID = dr["myOrganisation_Person_$_per_$$Registration_ID"];
-            if (oRegistration_ID is string)
-            {
-                m_AWPLoginData.m_Registration_ID = (string)oRegistration_ID;
-            }
-            else
-            {
-                m_AWPLoginData.m_Registration_ID = null;
-            }
-
-
-            m_AWPLoginData.m_PasswordNeverExpires = (bool)dr["PasswordNeverExpires"]; ;
-            m_STDLoginData.m_NotActiveAfterPasswordExpires = (bool)dr["NotActiveAfterPasswordExpires"]; 
-            m_STDLoginData.NumberOfDaysAfterPasswordExpires = (int)dr["Maximum_password_age_in_days"];
-
-            lbl_username.Text = lng.s_UserName.s + ":" + m_STDLoginData.m_UserName;
-
-            try
-            {
-                object oTime_When_UserSetsItsOwnPassword_LastTime = dr["Time_When_UserSetsItsOwnPassword_LastTime"];
-                if (oTime_When_UserSetsItsOwnPassword_LastTime is DateTime)
-                {
-                    m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = (DateTime)oTime_When_UserSetsItsOwnPassword_LastTime;
-                }
-                else
-                {
-                    m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
-                }
-            }
-            catch
-            {
-                m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.MinValue;
-            }
-
-            if (m_AWPLoginData.GetUserRoles())
-            {
-                if (IsAdministrator)
-                {
-                    btn_UserManager.Visible = true;
-                }
-                else
-                {
-                    btn_UserManager.Visible = false;
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
         private bool my_AddRole(string LoginRole_Name, int LoginRole_PrivilegesLevel, string LoginRole_description, ref int LoginRole_id)
         {

@@ -12,10 +12,10 @@ namespace LoginControl
         internal static DBConnection con = null;
 
 
-        internal static bool Read_Login_VIEW(ref DataTable dt,string where_condition, List<SQL_Parameter> lpar)
+        internal static bool Read_Login_VIEW(ref DataTable dt, string where_condition, List<SQL_Parameter> lpar)
         {
             string err = null;
-            if (where_condition==null)
+            if (where_condition == null)
             {
                 where_condition = "";
             }
@@ -24,6 +24,8 @@ SELECT
 			LoginUsers.ID, 
 			LoginUsers.PasswordNeverExpires AS PasswordNeverExpires,
             LoginUsers.Enabled AS Enabled,
+			LoginUsers.UserName AS UserName,
+			LoginUsers.Password AS Password,
 			LoginUsers.Time_When_AdministratorSetsPassword AS Time_When_AdministratorSetsPassword,
 			LoginUsers.Time_When_UserSetsItsOwnPassword_FirstTime AS Time_When_UserSetsItsOwnPassword_FirstTime,
 			LoginUsers.Time_When_UserSetsItsOwnPassword_LastTime AS Time_When_UserSetsItsOwnPassword_LastTime,
@@ -32,8 +34,6 @@ SELECT
 			LoginUsers.Maximum_password_age_in_days AS Maximum_password_age_in_days,
 			LoginUsers.NotActiveAfterPasswordExpires AS NotActiveAfterPasswordExpires, 
 			LoginUsers_$_mcomper.ID AS myOrganisation_Person_ID, 
-			LoginUsers_$_mcomper.UserName AS myOrganisation_Person_$$UserName,
-			LoginUsers_$_mcomper.Password AS myOrganisation_Person_$$Password,
 			LoginUsers_$_mcomper.Job AS myOrganisation_Person_$$Job,
 			LoginUsers_$_mcomper.Active AS myOrganisation_Person_$$Active,
 			LoginUsers_$_mcomper.Description AS myOrganisation_Person_$$Description,
@@ -107,7 +107,7 @@ SELECT
                 dt.Clear();
                 dt.Columns.Clear();
             }
-            if (con.ReadDataTable(ref dt,sql,lpar,ref err))
+            if (con.ReadDataTable(ref dt, sql, lpar, ref err))
             {
                 return true;
             }
@@ -119,9 +119,99 @@ SELECT
 
         }
 
-        internal static bool GetLoginSession(long atom_WorkPeriod_ID, ref int loginSession_id)
+        internal static bool Remove_ChangePasswordOnFirstLogin(AWPLoginData awpld)
         {
-            throw new NotImplementedException();
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, awpld.ID);
+            lpar.Add(par_LoginUsers_ID);
+            string sql = "UPDATE LoginUsers SET  ChangePasswordOnFirstLogin  = 0  where id = " + spar_LoginUsers_ID;
+            object oret = null;
+            string Err = null;
+            if (con.ExecuteNonQuerySQL(sql,lpar,ref oret,ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:Remove_ChangePasswordOnFirstLogin:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool LoginUsers_UserChangeItsOwnPassword(AWPLoginData awpld, byte[] xpsw)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, awpld.ID);
+            lpar.Add(par_LoginUsers_ID);
+
+            DateTime xTime_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
+
+            string spar_Time_When_UserSetsItsOwnPassword_LastTime = "@par_TWUsrSetsOwnPass_LastTime";
+            SQL_Parameter par_Time_When_UserSetsItsOwnPassword_LastTime = new SQL_Parameter(spar_Time_When_UserSetsItsOwnPassword_LastTime, SQL_Parameter.eSQL_Parameter.Datetime, false, xTime_When_UserSetsItsOwnPassword_LastTime);
+            lpar.Add(par_Time_When_UserSetsItsOwnPassword_LastTime);
+
+            string spar_Pssword = "@par_Pssword";
+            SQL_Parameter par_Pssword = new SQL_Parameter(spar_Pssword, SQL_Parameter.eSQL_Parameter.Varbinary, false, xpsw);
+            lpar.Add(par_Pssword);
+
+            string sql = "UPDATE LoginUsers SET  Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
+                                                 ",Password = " + spar_Pssword + " where id = " + spar_LoginUsers_ID;
+            string Err = null;
+            object oret = null;
+            if (con.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+            {
+                awpld.Time_When_UserSetsItsOwnPassword_LastTime = xTime_When_UserSetsItsOwnPassword_LastTime;
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:LoginUsers_UserChangeItsOwnPassword:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool DeactivateUserName(long iD)
+        {
+            string sql_change_enabled = "UPDATE LoginUsers SET enabled = 0 where id = " + iD.ToString();
+            object res = null;
+            string Err = null;
+            if (con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:DeactivateUserName:sql=" + sql_change_enabled + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool GetLoginSession(long LoginUsers_ID, long Atom_WorkPeriod_ID, ref long loginSession_id)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+
+            string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_WorkPeriod_ID);
+            lpar.Add(par_Atom_WorkPeriod_ID);
+
+
+            string sql = @"insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID) values (" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
+            object oret = null;
+            string err = null;
+            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref loginSession_id, ref oret, ref err, "LoginSession"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:GetLoginSession:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
         }
 
         internal static bool Read_myOrganisation_Person_VIEW(ref DataTable dt, ref string Err)
@@ -129,8 +219,6 @@ SELECT
             string sql = @"
             SELECT 
              myOrganisation_Person.ID, 
-             myOrganisation_Person.UserName AS myOrganisation_Person_$$UserName,
-             myOrganisation_Person.Password AS myOrganisation_Person_$$Password,
              myOrganisation_Person.Job AS myOrganisation_Person_$$Job,
              myOrganisation_Person.Active AS myOrganisation_Person_$$Active,
              myOrganisation_Person.Description AS myOrganisation_Person_$$Description,
@@ -217,7 +305,7 @@ SELECT
 
         internal static bool UpdateRoles(List<AWPRole> allRoles)
         {
-            foreach(AWPRole r in allRoles)
+            foreach (AWPRole r in allRoles)
             {
                 if (!UpdateRole(r))
                 {
@@ -232,11 +320,11 @@ SELECT
             string sql = "select id from LoginRoles where role = '" + r.Role + "'";
             DataTable dt = new DataTable();
             string err = null;
-            if (con.ReadDataTable(ref dt,sql,ref err))
+            if (con.ReadDataTable(ref dt, sql, ref err))
             {
-                if (dt.Rows.Count>0)
+                if (dt.Rows.Count > 0)
                 {
-                    r.ID = (long) dt.Rows[0]["ID"];
+                    r.ID = (long)dt.Rows[0]["ID"];
                     return true;
                 }
                 else
@@ -244,7 +332,7 @@ SELECT
                     sql = "insert into LoginRoles (role) values ('" + r.Role + "')";
                     long LoginRoles_ID = -1;
                     object oret = null;
-                    if (con.ExecuteNonQuerySQLReturnID(sql,null,ref LoginRoles_ID,ref oret, ref err,"LoginRoles"))
+                    if (con.ExecuteNonQuerySQLReturnID(sql, null, ref LoginRoles_ID, ref oret, ref err, "LoginRoles"))
                     {
                         r.ID = LoginRoles_ID;
                         return true;
@@ -268,7 +356,6 @@ SELECT
             string sql = @"
             SELECT 
              myOrganisation_Person_$_office.Name AS myOrganisation_Person_$_office_$$Name,
-             myOrganisation_Person.UserName AS myOrganisation_Person_$$UserName,
              myOrganisation_Person.Active AS myOrganisation_Person_$$Active,
              myOrganisation_Person_$_per_$_cfn.FirstName AS myOrganisation_Person_$_per_$_cfn_$$FirstName,
              myOrganisation_Person_$_per_$_cln.LastName AS myOrganisation_Person_$_per_$_cln_$$LastName,
@@ -299,7 +386,6 @@ SELECT
              PersonData_$_perimg.Image_Hash AS PersonData_$_perimg_$$Image_Hash,
              PersonData_$_perimg.Image_Data AS PersonData_$_perimg_$$Image_Data,
 
-             myOrganisation_Person.Password AS myOrganisation_Person_$$Password,
 
              myOrganisation_Person.ID as myOrganisation_Person_ID, 
              myOrganisation_Person_$_per.ID AS myOrganisation_Person_$_per_$$ID,
@@ -360,6 +446,256 @@ SELECT
             }
 
         }
+
+        internal static bool UserNameExist(string UserName, ref string Err)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_UserName = "@par_UserName";
+            SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, UserName);
+            lpar.Add(par_UserName);
+            string sql = "select ID from LoginUsers where UserName = " + spar_UserName;
+            DataTable dt = new DataTable();
+            if (con.ReadDataTable(ref dt, sql,lpar, ref Err))
+            {
+                return dt.Rows.Count > 0;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:UserNameExist:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool Update_LoginUsers_ID(AWPLoginData m_AWPLoginData, bool PasswordChanged)
+        {
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_AWPLoginData.ID);
+            lpar.Add(par_LoginUsers_ID);
+
+
+            string sql = null;
+            string Err = null;
+
+            string spar_UserName = "@par_UserName";
+            SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, m_AWPLoginData.UserName);
+            lpar.Add(par_UserName);
+
+            string spar_Password = "@par_Password";
+            SQL_Parameter par_Password = new SQL_Parameter(spar_Password, SQL_Parameter.eSQL_Parameter.Varbinary, false, m_AWPLoginData.Password);
+            lpar.Add(par_Password);
+
+
+            string spar_PasswordNeverExpires = "@par_PasswordNeverExpires";
+            SQL_Parameter par_PasswordNeverExpires = new SQL_Parameter(spar_PasswordNeverExpires, SQL_Parameter.eSQL_Parameter.Bit, false, m_AWPLoginData.PasswordNeverExpires);
+            lpar.Add(par_PasswordNeverExpires);
+
+            string spar_Enabled = "@par_Enabled";
+            SQL_Parameter par_Enabled = new SQL_Parameter(spar_Enabled, SQL_Parameter.eSQL_Parameter.Bit, false, m_AWPLoginData.Enabled);
+            lpar.Add(par_Enabled);
+
+            string spar_ChangePasswordOnFirstLogin = "@par_ChangePasswordOnFirstLogin";
+            SQL_Parameter par_ChangePasswordOnFirstLogin = new SQL_Parameter(spar_ChangePasswordOnFirstLogin, SQL_Parameter.eSQL_Parameter.Bit, false, m_AWPLoginData.ChangePasswordOnFirstLogin);
+            lpar.Add(par_ChangePasswordOnFirstLogin);
+
+
+            string spar_Maximum_password_age_in_days = "@par_Maximum_password_age_in_days";
+            SQL_Parameter par_Maximum_password_age_in_days = new SQL_Parameter(spar_Maximum_password_age_in_days, SQL_Parameter.eSQL_Parameter.Int, false, m_AWPLoginData.Maximum_password_age_in_days);
+            lpar.Add(par_Maximum_password_age_in_days);
+
+            string spar_NotActiveAfterPasswordExpires = "@par_NotActiveAfterPasswordExpires";
+            SQL_Parameter par_NotActiveAfterPasswordExpires = new SQL_Parameter(spar_NotActiveAfterPasswordExpires, SQL_Parameter.eSQL_Parameter.Bit, false, m_AWPLoginData.NotActiveAfterPasswordExpires);
+            lpar.Add(par_NotActiveAfterPasswordExpires);
+
+
+            if (PasswordChanged)
+            {
+                if (IsAdministrator(m_AWPLoginData.ID))
+                {
+                    if (IsFirstTime(m_AWPLoginData.ID))
+                    {
+                        m_AWPLoginData.Time_When_AdministratorSetsPassword = DateTime.Now;
+                        string spar_Time_When_AdministratorSetsPassword = "@par_Time_When_AdministratorSetsPassword";
+                        SQL_Parameter par_Time_When_AdministratorSetsPassword = new SQL_Parameter(spar_Time_When_AdministratorSetsPassword, SQL_Parameter.eSQL_Parameter.Datetime, false, m_AWPLoginData.Time_When_AdministratorSetsPassword);
+                        lpar.Add(par_Time_When_AdministratorSetsPassword);
+
+                        string spar_Administrator_LoginUsers_ID = "@par_Administrator_LoginUsers_ID";
+                        SQL_Parameter par_Administrator_LoginUsers_ID = new SQL_Parameter(spar_Administrator_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Datetime, false, m_AWPLoginData.Administrator_LoginUsers_ID);
+                        lpar.Add(par_Administrator_LoginUsers_ID);
+
+                        sql = @"update LoginUsers 
+                                                    set UserName = " + spar_UserName +
+                                                ", Password = " + spar_Password +
+                                                ",Enabled = " + spar_Enabled +
+                                                ",PasswordNeverExpires = " + spar_PasswordNeverExpires +
+                                                ",Time_When_AdministratorSetsPassword = " + spar_Time_When_AdministratorSetsPassword +
+                                                ",Time_When_UserSetsItsOwnPassword_FirstTime = " + spar_Time_When_AdministratorSetsPassword+
+                                                ",Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_AdministratorSetsPassword+
+                                                ",Administrator_LoginUsers_ID = " + spar_Administrator_LoginUsers_ID +
+                                                ",ChangePasswordOnFirstLogin = " + spar_ChangePasswordOnFirstLogin +
+                                                ",Maximum_password_age_in_days = " + spar_Maximum_password_age_in_days +
+                                                ",NotActiveAfterPasswordExpires = " + spar_NotActiveAfterPasswordExpires +
+                                                " where ID = " + spar_LoginUsers_ID;
+                    }
+                    else
+                    {
+                        m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
+                        string spar_Time_When_UserSetsItsOwnPassword_LastTime = "@par_Time_When_UserSetsItsOwnPassword_LastTime";
+                        SQL_Parameter par_Time_When_UserSetsItsOwnPassword_LastTime = new SQL_Parameter(spar_Time_When_UserSetsItsOwnPassword_LastTime, SQL_Parameter.eSQL_Parameter.Datetime, false, m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime);
+                        lpar.Add(par_Time_When_UserSetsItsOwnPassword_LastTime);
+
+                        sql = @"update LoginUsers 
+                                                    set UserName = " + spar_UserName +
+                                                   ", Password = " + spar_Password +
+                                                    ",Enabled = " + spar_Enabled +
+                                                    ",PasswordNeverExpires = " + spar_PasswordNeverExpires +
+                                                    ",Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
+                                                    ",ChangePasswordOnFirstLogin = " + spar_ChangePasswordOnFirstLogin +
+                                                    ",Maximum_password_age_in_days = " + spar_Maximum_password_age_in_days +
+                                                    ",NotActiveAfterPasswordExpires = " + spar_NotActiveAfterPasswordExpires +
+                                                    " where ID = " + spar_LoginUsers_ID;
+
+                    }
+                }
+                else
+                {
+                    if (IsFirstTime(m_AWPLoginData.ID))
+                    {
+                        m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
+                        string spar_Time_When_UserSetsItsOwnPassword_LastTime = "@par_Time_When_UserSetsItsOwnPassword_LastTime";
+                        SQL_Parameter par_Time_When_UserSetsItsOwnPassword_LastTime = new SQL_Parameter(spar_Time_When_UserSetsItsOwnPassword_LastTime, SQL_Parameter.eSQL_Parameter.Datetime, false, m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime);
+                        lpar.Add(par_Time_When_UserSetsItsOwnPassword_LastTime);
+                        sql = @"update LoginUsers 
+                                                set UserName = " + spar_UserName +
+                                               ", Password = " + spar_Password +
+                                                ",Enabled = " + spar_Enabled +
+                                                ",PasswordNeverExpires = " + spar_PasswordNeverExpires +
+                                                ",Time_When_UserSetsItsOwnPassword_FirstTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
+                                                ",Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
+                                                ",ChangePasswordOnFirstLogin = " + spar_ChangePasswordOnFirstLogin +
+                                                ",Maximum_password_age_in_days = " + spar_Maximum_password_age_in_days +
+                                                ",NotActiveAfterPasswordExpires = " + spar_NotActiveAfterPasswordExpires +
+                                                " where ID = " + spar_LoginUsers_ID;
+                    }
+                    else
+                    {
+                        m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
+                        string spar_Time_When_UserSetsItsOwnPassword_LastTime = "@par_Time_When_UserSetsItsOwnPassword_LastTime";
+                        SQL_Parameter par_Time_When_UserSetsItsOwnPassword_LastTime = new SQL_Parameter(spar_Time_When_UserSetsItsOwnPassword_LastTime, SQL_Parameter.eSQL_Parameter.Datetime, false, m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime);
+                        lpar.Add(par_Time_When_UserSetsItsOwnPassword_LastTime);
+                        sql = @"update LoginUsers 
+                                                set UserName = " + spar_UserName +
+                                               ", Password = " + spar_Password +
+                                                ",Enabled = " + spar_Enabled +
+                                                ",PasswordNeverExpires = " + spar_PasswordNeverExpires +
+                                                ",Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
+                                                ",ChangePasswordOnFirstLogin = " + spar_ChangePasswordOnFirstLogin +
+                                                ",Maximum_password_age_in_days = " + spar_Maximum_password_age_in_days +
+                                                ",NotActiveAfterPasswordExpires = " + spar_NotActiveAfterPasswordExpires +
+                                                " where ID = " + spar_LoginUsers_ID;
+
+                    }
+
+                }
+            }
+            else
+            {
+                sql = @"update LoginUsers 
+                                         set UserName = " + spar_UserName +
+                                        ",Enabled = " + spar_Enabled +
+                                        ",PasswordNeverExpires = " + spar_PasswordNeverExpires +
+                                        ",ChangePasswordOnFirstLogin = " + spar_ChangePasswordOnFirstLogin +
+                                        ",Maximum_password_age_in_days = " + spar_Maximum_password_age_in_days +
+                                        ",NotActiveAfterPasswordExpires = " + spar_NotActiveAfterPasswordExpires +
+                                        " where ID = " + spar_LoginUsers_ID;
+            }
+
+            if (sql==null)
+            {
+                LogFile.Error.Show("ERROR: LoginControl:AWP_func: Update_LoginUsers_ID:sql = null\r\nErr = " + Err);
+                return false; 
+            }
+
+            object oret = null;
+            if (con.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:Import_myOrganisationPerson:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+
+        }
+
+        private static bool IsFirstTime(long LoginUsers_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+
+            string sql = @"select Time_When_UserSetsItsOwnPassword_FirstTime  from LoginUsers
+                          where Time_When_UserSetsItsOwnPassword_FirstTime  is null and ID = "+ spar_LoginUsers_ID;
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (con.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:IsAdministrator:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private static bool IsAdministrator(long iD)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, iD);
+            lpar.Add(par_LoginUsers_ID);
+
+            string spar_Role = "@par_Role";
+            string Role = LoginControl.ROLE_Administrator;
+            SQL_Parameter par_Role = new SQL_Parameter(spar_Role, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Role);
+            lpar.Add(par_Role);
+
+            string sql = @"select lualr.ID from LoginUsersAndLoginRoles lualr
+                          inner join LoginRoles lr on lr.ID = lualr.LoginRoles_ID
+                          inner join LoginUsers lu on lu.ID = lualr.LoginUsers_ID
+                            where lualr.LoginUsers_ID = " + spar_LoginUsers_ID + " and lr.Role = "+ spar_Role;
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (con.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:IsAdministrator:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+
         private static bool AllreadyImported(ref DataTable dt, string sql, List<SQL_Parameter> lpar, ref string Err)
         {
             if (con.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -383,6 +719,7 @@ SELECT
 
         internal static bool Import_myOrganisationPerson(AWPBindingData awpd, DataRow[] drsImportAdministrator, DataRow[] drsImportOthers)
         {
+            int iAdminNr = 1;
             foreach (DataRow dr in drsImportAdministrator)
             {
                 long myOrganisation_Person_ID = (long)dr[awpd.mcn_myOrganisation_Person_ID.ColumnName];
@@ -391,6 +728,7 @@ SELECT
                 string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
                 SQL_Parameter par_myOrganisation_Person_ID = new SQL_Parameter(spar_myOrganisation_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_Person_ID);
                 lpar.Add(par_myOrganisation_Person_ID);
+
 
                 string sql = "Select ID from LoginUsers where myOrganisation_Person_ID = " + spar_myOrganisation_Person_ID;
                 DataTable dt = new DataTable();
@@ -402,6 +740,13 @@ SELECT
                 }
                 else
                 {
+                    string Administrator_UserName = "admin" + iAdminNr.ToString();
+                    string spar_UserName = "@par_UserName";
+                    SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Administrator_UserName);
+                    lpar.Add(par_UserName);
+
+                    iAdminNr++;
+
                     bool PasswordNeverExpires = true;
                     string spar_PasswordNeverExpires = "@par_PasswordNeverExpires";
                     SQL_Parameter par_PasswordNeverExpires = new SQL_Parameter(spar_PasswordNeverExpires, SQL_Parameter.eSQL_Parameter.Bit, false, PasswordNeverExpires);
@@ -427,8 +772,9 @@ SELECT
                     string spar_NotActiveAfterPasswordExpires = "@par_NotActiveAfterPasswordExpires";
                     SQL_Parameter par_NotActiveAfterPasswordExpires = new SQL_Parameter(spar_NotActiveAfterPasswordExpires, SQL_Parameter.eSQL_Parameter.Bit, false, NotActiveAfterPasswordExpires);
                     lpar.Add(par_NotActiveAfterPasswordExpires);
-
+                    
                     sql = @"Insert into LoginUsers(myOrganisation_Person_ID,
+                                                   UserName,
                                                    Enabled,
                                                    PasswordNeverExpires,
                                                    Time_When_AdministratorSetsPassword,
@@ -439,8 +785,9 @@ SELECT
                                                    Maximum_password_age_in_days,
                                                    NotActiveAfterPasswordExpires)
                                                    values ("
-                                                   + spar_Enabled +
-                                                   "," + spar_myOrganisation_Person_ID +
+                                                    + spar_myOrganisation_Person_ID +
+                                                   "," + spar_UserName +
+                                                   "," + spar_Enabled +
                                                    "," + spar_PasswordNeverExpires +
                                                    ",null" + //Time_When_AdministratorSetsPassword
                                                    ",null" + //Time_When_UserSetsItsOwnPassword_FirstTime
@@ -455,16 +802,75 @@ SELECT
 
                     if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsers_ID, ref oret, ref Err, "LoginUsers"))
                     {
-                        continue;
+                        long LoginRoles_ID = -1;
+                        if (AWP_func.Get_LoginRoles_ID(LoginControl.ROLE_Administrator, ref LoginRoles_ID))
+                        {
+                            List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
+
+                            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+                            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+                            lpar1.Add(par_LoginUsers_ID);
+
+                            string spar_LoginRoles_ID = "@par_LoginRoles_ID";
+                            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
+                            lpar1.Add(par_LoginRoles_ID);
+
+                            sql = @"Insert into LoginUsersAndLoginRoles(LoginUsers_ID,
+                                                                    LoginRoles_ID
+                                                                   )
+                                                   values ("
+                                                            + spar_LoginUsers_ID +
+                                                           "," + spar_LoginRoles_ID +
+                                                       ")";
+                            long LoginUsersAndLoginRoles_ID = -1;
+                            if (con.ExecuteNonQuerySQLReturnID(sql, lpar1, ref LoginUsersAndLoginRoles_ID, ref oret, ref Err, "LoginUsersAndLoginRoles"))
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:LoginControl:AWP_func:Import_myOrganisationPerson:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
+
                 }
             }
             return true;
+        }
+
+        private static bool Get_LoginRoles_ID(string Role, ref long loginRoles_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Role = "@par_Role";
+            SQL_Parameter par_Role = new SQL_Parameter(spar_Role, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Role);
+            lpar.Add(par_Role);
+
+            string sql = @"select ID from LoginRoles where Role = "+ spar_Role;
+            string err = null;
+            DataTable dt = new DataTable();
+            if (con.ReadDataTable(ref dt, sql,lpar, ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    loginRoles_ID = (long)dt.Rows[0]["ID"];
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:Get_LoginRoles_ID:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
         }
 
         internal static bool AWPRoles_GetAll(ref List<AWPRole> AllAWPRoles)
@@ -508,7 +914,7 @@ SELECT
                            from LoginUsersAndLoginRoles lualr
                            inner join LoginUsers lu on lualr.LoginUsers_ID = lu.ID
                            inner join LoginRoles lr on lualr.LoginRoles_ID = lr.ID
-                           wher lualr.LoginUsers_ID = "+ spar_LoginUsers_ID;
+                           where lualr.LoginUsers_ID = "+ spar_LoginUsers_ID;
             string err = null;
             DataTable dt = new DataTable();
             if (AWPRoles==null)

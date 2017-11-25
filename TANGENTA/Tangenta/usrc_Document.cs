@@ -42,11 +42,11 @@ namespace Tangenta
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
-        public bool Get_ProgramSettings(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
+        public bool Get_ProgramSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             if (fs.Get_JOURNAL_TYPE_ID())
             {
-do_Get_ProgramSettings:
+            do_Get_ProgramSettings:
                 if (Get_ProgramSettings(xnav, true))
                 {
                     switch (xnav.eExitResult)
@@ -91,21 +91,21 @@ do_Get_ProgramSettings:
         private bool Get_FVI(Navigation xnav)
         {
             Program.b_FVI_SLO = false;
-            if (myOrg.Address_v!=null)
+            if (myOrg.Address_v != null)
             {
                 if (myOrg.Address_v.Country_ISO_3166_num == TangentaDB.PostAddress_v.SLO_Country_ISO_3166_num)
                 {
                     Program.b_FVI_SLO = true;
                     if (Program.bFirstTimeInstallation)
                     {
-Do_Form_FVI_check:
+                    Do_Form_FVI_check:
                         xnav.ChildDialog = new Form_FVI_check(xnav);
                         xnav.ShowDialog();
                         if (Program.b_FVI_SLO)
                         {
                             if (xnav.eExitResult == Navigation.eEvent.NEXT)
                             {
-Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
+                            Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
                                 xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
                                 xnav.ShowDialog();
@@ -116,7 +116,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                                 else if (xnav.eExitResult == Navigation.eEvent.NEXT)
                                 {
                                     bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
-                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1,xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
+                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
                                     Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
                                     xnav.ShowDialog();
                                     if (xnav.eExitResult == Navigation.eEvent.PREV)
@@ -132,11 +132,11 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             return true;
         }
 
-        public bool Get_ProgramSettings(NavigationButtons.Navigation xnav,bool bResetShopsInUse)
+        public bool Get_ProgramSettings(NavigationButtons.Navigation xnav, bool bResetShopsInUse)
         {
-            if (Program.bFirstTimeInstallation||(Program.Shops_in_use.Length == 0))
+            if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
             {
-                xnav.ChildDialog = new Form_ProgramSettings(this,xnav);
+                xnav.ChildDialog = new Form_ProgramSettings(this, xnav);
                 xnav.ShowDialog();
                 if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
                 {
@@ -197,7 +197,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             {
                 TangentaPrint.PrintersList.Init();
 
-                if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL)) 
+                if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL))
                 {
                     myStartup.eNextStep++;
                     return true;
@@ -227,7 +227,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
             else
             {
-               myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -235,7 +235,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
         internal bool Initialise(Form main_Form)
         {
             Main_Form = main_Form;
-            return  this.m_usrc_InvoiceMan.Initialise(Main_Form);
+            return this.m_usrc_InvoiceMan.Initialise(Main_Form);
         }
 
         internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
@@ -247,7 +247,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     if (m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
                     {
                         m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
-                        if (xnav.eExitResult== Navigation.eEvent.NEXT)
+                        if (xnav.eExitResult == Navigation.eEvent.NEXT)
                         {
                             myStartup.eNextStep++;
                             return true;
@@ -324,7 +324,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
         private bool CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
         {
-            Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup,xnav);
+            Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup, xnav);
             xnav.ChildDialog = frmdlg;
             xnav.ShowDialog();
             return myStartup.bInsertSampleData;
@@ -423,14 +423,14 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
             else
             {
-                if (MessageBox.Show(this.Main_Form, lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n"+lng.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(this.Main_Form, lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n" + lng.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
                     return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
                 }
                 else
                 {
-                    Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n"+ lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
+                    Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n" + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
                     myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
                 }
@@ -444,7 +444,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
-            repeat_Form_DBSettings:
+        repeat_Form_DBSettings:
             nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
@@ -558,7 +558,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
         }
 
-        internal bool CheckDBVersion(startup myStartup, object oData,NavigationButtons.Navigation xnav, ref string Err)
+        internal bool CheckDBVersion(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             bool bResult = false;
             switch (myStartup.eGetDBSettings_Result)
@@ -580,8 +580,8 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     return bResult;
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
-                    //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
- do_Form_DBSettings:
+                //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
+                do_Form_DBSettings:
 
                     xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
                     xnav.ShowDialog();
@@ -638,26 +638,47 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
         }
 
-    public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
+    private bool getWorkPeriod(long myOrganisation_Person_ID, ref long xAtom_WorkPeriod_ID)
+    {
+            string Err = null;
+            if(GlobalData.GetWorkPeriod(myOrganisation_Person_ID,f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+            {
+                xAtom_WorkPeriod_ID = GlobalData.Atom_WorkPeriod_ID;
+                return true;
+            }
+            else
+            {
+                xAtom_WorkPeriod_ID = -1;
+                GlobalData.Atom_WorkPeriod_ID = -1;
+                return false;
+            }
+    }
+    
+    public bool call_Edit_myOrganisationPerson(Form parentform,long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new)
+        {
+            Navigation xnav = new Navigation();
+            xnav.m_eButtons = Navigation.eButtons.OkCancel;
+            Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(1, xnav);
+            frm_myOrgPerEdit.TopMost = parentform.TopMost;
+            frm_myOrgPerEdit.Show(parentform);
+            return true;
+        }
+
+        public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
     {
         if (Program.OperationMode.MultiUser)
         {
             bool bCancel = false;
-            this.loginControl1.InitAWPMode((Form)this.Parent, DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,  LanguageControl.DynSettings.LanguageID, ref bCancel, ref Err);
-            if (this.loginControl1.AWP_Login(xnav))
-            {
+            this.loginControl1.InitAWPMode((Form)this.Parent,
+                                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                            LanguageControl.DynSettings.LanguageID,
+                                            call_Edit_myOrganisationPerson
+                                            );
 
-                if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
-                {
-                    myStartup.eNextStep++;
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    return false;
-                }
+            if (this.loginControl1.AWP_Login(xnav, getWorkPeriod))
+            {
+                myStartup.eNextStep++;
+                return true;
             }
             else
             {
@@ -668,48 +689,12 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
         else // Single user
         {
             this.loginControl1.Visible = false;
-            if (Program.bFirstTimeInstallation)
+            long myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
+            if (myOrganisation_Person_first_ID >= 0)
             {
-
-                if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                if (Program.bFirstTimeInstallation)
                 {
-                    myStartup.eNextStep++;
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    return false;
-                }
-            }
-            else
-            {
-                if (Program.OperationMode.SingleUserLoginAsAdministrator)
-                {
-                    if (Program.DoLoginAsAdministrator((Form)this.Parent))
-                    {
-                        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
-                        {
-                            myStartup.eNextStep++;
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                    if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
                     {
                         myStartup.eNextStep++;
                         return true;
@@ -721,9 +706,52 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                         return false;
                     }
                 }
+                else
+                {
+                    if (Program.OperationMode.SingleUserLoginAsAdministrator)
+                    {
+                        if (Program.DoLoginAsAdministrator((Form)this.Parent))
+                        {
+                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                            {
+                                myStartup.eNextStep++;
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                        {
+                            myStartup.eNextStep++;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return false;
+                        }
+                    }
+                }
             }
+            else
+            {
+                return false;
+            }
+          }
         }
-      }
 
 
         private void btn_Exit_Click(object sender, EventArgs e)

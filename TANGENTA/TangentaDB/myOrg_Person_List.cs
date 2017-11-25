@@ -24,8 +24,6 @@ namespace TangentaDB
             myOrg_Person_list.Clear();
             string sql = null;
             sql = @"select
-                        myOrganisation_Person_$$UserName,
-                        myOrganisation_Person_$$Password,
                         myOrganisation_Person_$$Job,
                         myOrganisation_Person_$$Active,
                         myOrganisation_Person_$$Description,
@@ -53,8 +51,6 @@ namespace TangentaDB
                     {
                         DataRow dr = dt.Rows[i];
                         myOrg_Person xmp = new myOrg_Person();
-                        xmp.UserName_v = tf.set_string(dr["myOrganisation_Person_$$UserName"]);
-                        xmp.Password_v = tf.set_byte_array(dr["myOrganisation_Person_$$Password"]);
                         xmp.Job_v = tf.set_string(dr["myOrganisation_Person_$$Job"]);
                         xmp.Active_v = tf.set_bool(dr["myOrganisation_Person_$$Active"]);
                         xmp.Description_v = tf.set_string(dr["myOrganisation_Person_$$Description"]);

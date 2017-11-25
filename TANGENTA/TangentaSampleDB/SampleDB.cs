@@ -76,8 +76,6 @@ namespace TangentaSampleDB
             dstring_v MyOrg_Person_Email_v = new dstring_v();
 
 
-            dstring_v MyOrg_Person_UserName_v = new dstring_v();
-            dstring_v MyOrg_Person_Password_v = new dstring_v();
             dstring_v MyOrg_Person_Job_v = new dstring_v();
             dbool_v MyOrg_Person_Active_v = new dbool_v();
             dstring_v MyOrg_Person_Description_v = new dstring_v();
@@ -266,11 +264,6 @@ namespace TangentaSampleDB
 
                 new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lng_SampleData.sl_MyOrg_Person_DateOfBirth, lng_SampleData.s_MyOrg_Person_DateOfBirth_v, lng_SampleData.sh_MyOrg_Person_DateOfBirth);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lng_SampleData.sl_MyOrg_Person_UserName, lng_SampleData.s_MyOrg_Person_UserName_v, lng_SampleData.sh_MyOrg_Person_UserName);
-
-
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Password_v, "MyOrg_Person_Password", lng_SampleData.sl_MyOrg_Person_Password, lng_SampleData.s_MyOrg_Person_Password_v, lng_SampleData.sh_MyOrg_Person_Password);
-
                 new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Job_v, "MyOrg_Person_Job", lng_SampleData.sl_MyOrg_Person_Job, lng_SampleData.s_MyOrg_Person_Job_v, lng_SampleData.sh_MyOrg_Person_Job);
 
                 MyOrg_Person_Active_v = new dbool_v(true);
@@ -392,9 +385,7 @@ namespace TangentaSampleDB
                                                     MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
                                                     MyOrg_Person_Office_ID_v = new long_v(Office_ID);
                                                     long_v myOrganisation_Person_v = new long_v();
-                                                    if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
-                                                                                    MyOrg_Person_Password_v,
-                                                                                    MyOrg_Person_Job_v,
+                                                    if (f_myOrganisation_Person.Get(MyOrg_Person_Job_v,
                                                                                     MyOrg_Person_Active_v,
                                                                                     MyOrg_Person_Description_v,
                                                                                     MyOrg_Person_Person_ID_v,
