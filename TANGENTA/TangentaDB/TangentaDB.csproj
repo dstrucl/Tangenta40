@@ -164,6 +164,7 @@
     <Compile Include="f_OrganisationData.cs" />
     <Compile Include="f_PaymentType.cs" />
     <Compile Include="f_Person.cs" />
+    <Compile Include="f_PersonData.cs" />
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />
     <Compile Include="f_PriceList.cs" />
     <Compile Include="f_Price_Item.cs" />

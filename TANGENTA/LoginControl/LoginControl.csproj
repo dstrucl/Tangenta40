@@ -78,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AWPData.cs" />
+    <Compile Include="AWPFormSelectMyOrgPerNotInLoginUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWPFormSelectMyOrgPerNotInLoginUsers.Designer.cs">
+      <DependentUpon>AWPFormSelectMyOrgPerNotInLoginUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="AWPLoginData.cs" />
     <Compile Include="AWPRole.cs" />
     <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.cs">
@@ -93,6 +99,7 @@
       <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="f.cs" />
+    <Compile Include="HtmlTemplate.cs" />
     <Compile Include="STDChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,9 +184,13 @@
     <Compile Include="STD_UserManager.designer.cs">
       <DependentUpon>STD_UserManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="TemplatesLoader.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AWPFormSelectMyOrgPerNotInLoginUsers.resx">
+      <DependentUpon>AWPFormSelectMyOrgPerNotInLoginUsers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AWP_Select_users_from_myOrganisation_Person_Table.resx">
       <DependentUpon>AWP_Select_users_from_myOrganisation_Person_Table.cs</DependentUpon>
     </EmbeddedResource>
@@ -303,6 +314,8 @@
     <None Include="Resources\LoginHistoryClock.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\00_ENG_myOrganisation_Person.htm" />
+    <EmbeddedResource Include="Resources\01_SLO_myOrganisation_Person.htm" />
     <Content Include="Resources\UserInfo.png" />
     <Content Include="Resources\Users.png" />
   </ItemGroup>

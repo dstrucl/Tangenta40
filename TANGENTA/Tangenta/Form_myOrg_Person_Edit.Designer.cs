@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_myOrg_Person_Edit));
             this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
+            this.btn_PersonData_Edit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usrc_EditTable1
@@ -41,14 +42,15 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable1.GetRandomData = false;
-            this.usrc_EditTable1.Location = new System.Drawing.Point(2, 3);
+            this.usrc_EditTable1.Location = new System.Drawing.Point(2, 41);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(861, 546);
+            this.usrc_EditTable1.Size = new System.Drawing.Size(861, 508);
             this.usrc_EditTable1.TabIndex = 3;
             this.usrc_EditTable1.Title = "";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_EditTable1.after_FillDataInputControl += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_after_FillDataInputControl(this.usrc_EditTable1_after_FillDataInputControl_1);
             this.usrc_EditTable1.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
             this.usrc_EditTable1.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
             // 
@@ -82,11 +84,22 @@
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
+            // btn_PersonData_Edit
+            // 
+            this.btn_PersonData_Edit.Location = new System.Drawing.Point(2, 2);
+            this.btn_PersonData_Edit.Name = "btn_PersonData_Edit";
+            this.btn_PersonData_Edit.Size = new System.Drawing.Size(437, 34);
+            this.btn_PersonData_Edit.TabIndex = 6;
+            this.btn_PersonData_Edit.Text = "More Person Data ";
+            this.btn_PersonData_Edit.UseVisualStyleBackColor = true;
+            this.btn_PersonData_Edit.Click += new System.EventHandler(this.btn_PersonData_Edit_Click);
+            // 
             // Form_myOrg_Person_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(866, 620);
+            this.Controls.Add(this.btn_PersonData_Edit);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_EditTable1);
             this.Name = "Form_myOrg_Person_Edit";
@@ -100,5 +113,6 @@
         #endregion
         private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
+        private System.Windows.Forms.Button btn_PersonData_Edit;
     }
 }

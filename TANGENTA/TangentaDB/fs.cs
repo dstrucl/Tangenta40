@@ -2000,7 +2000,14 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_Atom_cAddress_Person_ID(string_v StreetName_v, string_v HouseNumber_v, string_v ZIP_v, string_v City_v, string_v Country_v, string_v State_v, ref long_v Atom_cAddress_Person_ID_v)
+        public static bool Get_Atom_cAddress_Person_ID(string_v StreetName_v,
+                                      string_v HouseNumber_v, 
+                                      string_v ZIP_v, string_v City_v, 
+                                      string_v Country_v,
+                                      string_v Country_ISO_3166_a2,
+                                      string_v Country_ISO_3166_a3,
+                                      short_v Country_ISO_3166_num,
+                                      string_v State_v, ref long_v Atom_cAddress_Person_ID_v)
         {
             if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
@@ -2052,9 +2059,13 @@ namespace TangentaDB
             {
                 return false;
             }
+
             long_v Atom_cCountry_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cCountry_Person", "Country", Country_v, ref Atom_cCountry_Person_ID_v))
-            {
+            if (!f_Atom_cCountry_Person.Get(Country_v,
+                                            Country_ISO_3166_a2,
+                                            Country_ISO_3166_a3,
+                                            Country_ISO_3166_num,ref Atom_cCountry_Person_ID_v))
+            { 
                 return false;
             }
             string Atom_cCountry_Person_ID_cond = null;
@@ -2174,7 +2185,7 @@ namespace TangentaDB
                     sql = "insert into " + TableName + " (" + ColumnName + ")values(" + value + ")";
                     long id = -1;
                     object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "Atom_cFirstName"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, TableName))
                     {
                         ID_v = new long_v();
                         ID_v.v = id;
@@ -2182,14 +2193,14 @@ namespace TangentaDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_Atom_Customer_Person:Get_Atom_cFirstName_ID:" + sql + "\r\n:Err=" + Err);
+                        LogFile.Error.Show("ERROR:TangentaDB:fs:Get_string_table_ID:" + sql + "\r\n:Err=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_Atom_Customer_Person:Get_Atom_cFirstName_ID:" + sql + "\r\n:Err=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:fs:Get_string_table_ID:" + sql + "\r\n:Err=" + Err);
                 return false;
             }
         }

@@ -10,6 +10,7 @@ using DBConnectionControl40;
 using LanguageControl;
 using LogFile;
 using System.Security.Cryptography;
+using NavigationButtons;
 
 namespace LoginControl
 {
@@ -63,9 +64,62 @@ namespace LoginControl
             set { m_RecentItemsFolder = value; }
         }
 
+        public bool IsUserManager
+        {
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    if (m_AWPLoginData != null)
+                    {
+                        foreach (AWPRole r in m_AWPLoginData.m_AWP_UserRoles)
+                        {
+                            if (r.Role.Equals(ROLE_Administrator) || r.Role.Equals(ROLE_UserManagement))
+                            {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return m_STDLoginData.IsAdministrator;
+                }
+            }
+        }
+
         public bool IsAdministrator
         {
-            get { return m_STDLoginData.IsAdministrator; }
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    if (m_AWPLoginData != null)
+                    {
+                        foreach (AWPRole r in m_AWPLoginData.m_AWP_UserRoles)
+                        {
+                            if (r.Role.Equals(ROLE_Administrator))
+                            {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return m_STDLoginData.IsAdministrator;
+                }
+            }
         }
 
         public bool UserNameIsAdministrator
@@ -491,6 +545,7 @@ namespace LoginControl
             LoginDB_DataSet.DynSettings.LanguageID = Language_id;
             AWP_func.con= xcon;
             AWP_func.UpdateRoles(awpd.AllRoles);
+            TemplatesLoader.Init();
         }
 
         public bool STD_Login()
@@ -558,7 +613,15 @@ namespace LoginControl
             {
                 if (AWP_dtLogin_Vaild(ref Err))
                 {
-                    return DoAWPLogin(call_Get_Atom_WorkPeriod);
+                    bool bres = DoAWPLogin(call_Get_Atom_WorkPeriod);
+                    if (bres)
+                    {
+                        if (IsUserManager)
+                        {
+                            this.btn_UserManager.Visible = true;
+                        }
+                    }
+                    return bres;
                 }
                 else
                 {
@@ -592,6 +655,10 @@ namespace LoginControl
                             switch (dlgRes)
                             {
                                 case DialogResult.OK:
+                                    if (IsUserManager)
+                                    {
+                                        this.btn_UserManager.Visible = true;
+                                    }
                                     return true;
                             }
                         }
@@ -828,8 +895,20 @@ namespace LoginControl
 
         private void btn_UserManager_Click(object sender, EventArgs e)
         {
-            STD_UserManager usr_mangaer = new STD_UserManager(this.ParentForm, this);
-            usr_mangaer.ShowDialog();
+            switch (m_eDataTableCreationMode)
+            {
+                case eDataTableCreationMode.AWP:
+                    Navigation xnav = new Navigation();
+                    xnav.m_eButtons = Navigation.eButtons.OkCancel;
+                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(xnav,this.ParentForm, this);
+                    AWP_usr_mangaer.ShowDialog(GetParentForm());
+                    break;
+
+                case eDataTableCreationMode.STD:
+                    STD_UserManager STD_usr_mangaer = new STD_UserManager(this.ParentForm, this);
+                    STD_usr_mangaer.ShowDialog(GetParentForm());
+                    break;
+            }
         }
 
         private void btn_UserInfo_Click(object sender, EventArgs e)

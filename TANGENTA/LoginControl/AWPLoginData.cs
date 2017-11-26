@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -9,8 +10,29 @@ namespace LoginControl
 {
     public class AWPLoginData
     {
-        internal  enum eGetDateResult {USER_NOT_FOUND, DUPLICATE_USER_FOUND, USER_HAS_NO_RULES,OK, ERROR }
+        internal string t_FirstName = "(*FirstName*)";
+        internal string t_LastName = "(*LastName*)";
+        internal string t_OfficeName = "(*OfficeName*)";
+        internal string t_OfficeShortName = "(*OfficeShortName*)";
+        internal string t_PersonImage = "(*PersonImage*)";
+        internal string t_Job = "(*Job*)";
+        internal string t_DateOfBirth = "(*DateOfBirth*)";
+        internal string t_Tax_ID = "(*Tax_ID*)";
+        internal string t_Registration_ID = "(*Registration_ID*)";
+        internal string t_Street = "(*Street*)";
+        internal string t_HouseNumber = "(*HouseNumber*)";
+        internal string t_ZIP = "(*ZIP*)";
+        internal string t_City = "(*City*)";
+        internal string t_Country = "(*Country*)";
+        internal string t_UserName = "(*UserName*)";
+        internal string t_AccessRight = "(*AccessRight*)";
+
+        internal enum eGetDateResult {USER_NOT_FOUND, DUPLICATE_USER_FOUND, USER_HAS_NO_RULES,OK, ERROR }
+
+
         internal long LoginSession_id = -1;
+
+
 
         internal long ID = -1;
         internal bool Enabled;
@@ -209,6 +231,104 @@ namespace LoginControl
             return eGetDateResult.ERROR;
         }
 
+        internal string GetHtml()
+        {
+            int iLanguage = LanguageControl.DynSettings.LanguageID;
+            foreach (HtmlTemplate ht in TemplatesLoader.Templates)
+            {
+                if (iLanguage == 0)
+                {
+                    if (ht.Name.Equals("00_ENG_myOrganisation_Person"))
+                    {
+                        return FillData(ht.Html);
+                    }
+                }
+                else if (iLanguage == 1)
+                {
+                    if (ht.Name.Equals("01_SLO_myOrganisation_Person"))
+                    {
+                        return FillData(ht.Html);
+                    }
+                }
+                else
+                {
+                    return "<p>ERROR:LoginControl:AWPLoginData:GetHtml:Language index = " + iLanguage.ToString() + " not implemented!</p>";
+                }
+            }
+            return "<p>ERROR:LoginControl:AWPLoginData:GetHtml:Template not found!</p>";
+        }
 
+        private string FillData(string html)
+        {
+            StringBuilder sb = new StringBuilder(html);
+            sb = Replace(sb, ref t_FirstName, ref myOrganisation_Person__per__cfn_FirstName);
+            sb = Replace(sb, ref t_LastName, ref myOrganisation_Person__per__cln_LastName);
+            sb = Replace(sb, ref t_OfficeName, ref myOrganisation_Person__office_Name);
+            sb = Replace(sb, ref t_OfficeShortName, ref myOrganisation_Person__office_ShortName);
+            sb = Replace(sb, ref t_OfficeName, ref myOrganisation_Person__office_ShortName);
+            bool bHasImage = false;
+            if (PersonData__perimg_Image_Data is byte[])
+            {
+                if (PersonData__perimg_Image_Data != null)
+                {
+                    string sBase64image = Convert.ToBase64String(PersonData__perimg_Image_Data);
+                    sb = Replace(sb, ref t_PersonImage, ref sBase64image);
+                    bHasImage = true;
+                }
+            }
+            if (!bHasImage)
+            {
+                string t = "<img width=\"128\" height=\"156\" src=\"data:image/png;base64,(*PersonImage*)\">";
+                string s = "";
+                sb = Replace(sb, ref t, ref s);
+            }
+
+            sb = Replace(sb, ref t_Job, ref myOrganisation_Person_Job);
+            string sDate = null;
+            if (myOrganisation_Person__per_DateOfBirth is DateTime)
+            {
+                if (myOrganisation_Person__per_DateOfBirth != null)
+                {
+                    if (LanguageControl.DynSettings.LanguageID == LanguageControl.DynSettings.Slovensko_ID)
+                    {
+                        sDate = myOrganisation_Person__per_DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("sl-SI"));
+                    }
+                    else
+                    {
+                        sDate = myOrganisation_Person__per_DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
+                    }
+                    if (sDate != null)
+                    {
+                        sb = Replace(sb, ref t_DateOfBirth, ref sDate);
+                    }
+                }
+            }
+            if (sDate == null)
+            {
+                string r = "";
+                sb = Replace(sb, ref t_DateOfBirth, ref r);
+            }
+            sb = Replace(sb, ref t_Tax_ID, ref myOrganisation_Person__per_Tax_ID);
+            sb = Replace(sb, ref t_Registration_ID, ref myOrganisation_Person__per_Registration_ID);
+            sb = Replace(sb, ref t_Street, ref PersonData__cadrper__cstrnper_StreetName);
+            sb = Replace(sb, ref t_HouseNumber, ref PersonData__cadrper__chounper_HouseNumber);
+            sb = Replace(sb, ref t_ZIP, ref PersonData__cadrper__zipper_ZIP);
+            sb = Replace(sb, ref t_City, ref PersonData__cadrper__ccitper_City);
+            sb = Replace(sb, ref t_Country, ref PersonData__cadrper__cstper_Country);
+            sb = Replace(sb, ref t_UserName,ref UserName);
+            return sb.ToString();
+    }
+
+        private StringBuilder Replace(StringBuilder sb, ref string t_token, ref string svalue)
+        {
+            if (svalue==null)
+            {
+                return sb.Replace(t_token, "");
+            }
+            else 
+            {
+                return sb.Replace(t_token, svalue);
+            }
+        }
     }
 }

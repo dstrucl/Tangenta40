@@ -65,9 +65,14 @@ namespace DBTypes
             {
                 x = new short_v((ushort)p);
             }
+            else if (p is int)
+            {
+                short h = Convert.ToInt16((int)p);
+                x = new short_v((short)h);
+            }
             else if (!(p is System.DBNull))
             {
-                tf.ShowTypeError(p.GetType().ToString(),x.GetType().ToString());
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
             }
 
             return x;

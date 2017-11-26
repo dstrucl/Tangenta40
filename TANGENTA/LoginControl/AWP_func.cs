@@ -119,6 +119,94 @@ SELECT
 
         }
 
+        internal static bool InsertNewDefaultLoginUsersRow(long myOrganisation_Person_ID, string uniqueUserName, ref long LoginUsers_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
+            SQL_Parameter par_myOrganisation_Person_ID = new SQL_Parameter(spar_myOrganisation_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_Person_ID);
+            lpar.Add(par_myOrganisation_Person_ID);
+
+            string spar_UniqueUserName = "@par_UniqueUserName";
+            SQL_Parameter par_UniqueUserName = new SQL_Parameter(spar_UniqueUserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, uniqueUserName);
+            lpar.Add(par_UniqueUserName);
+            string sql = @"insert into LoginUsers (myOrganisation_Person_ID
+                                                    ,Enabled
+                                                    ,UserName
+                                                     ,PasswordNeverExpires
+                                                     ,ChangePasswordOnFirstLogin
+                                                     ,Maximum_password_age_in_days
+                                                     ,NotActiveAfterPasswordExpires) values
+                                                     (" + spar_myOrganisation_Person_ID
+                                                     + ",1"
+                                                     + "," + spar_UniqueUserName
+                                                     + @",1
+                                                         ,1
+                                                         ,30
+                                                         ,0
+                                                         )";
+            object oret = null;
+            string Err = null;
+            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref LoginUsers_ID,ref oret,ref Err, "LoginUsers"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:InsertNewDefaultLoginUsersRow:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static string GetUniqueUserName(string firstName)
+        {
+            string purged_firstName = firstName.Replace(" ", "");
+            purged_firstName = purged_firstName.Replace("\t", "");
+            string usrname = purged_firstName;
+            string Err = null;
+            int i = 1;
+            for (;;)
+            {
+                if (AWP_func.UserNameExist(usrname, ref Err))
+                {
+                    usrname = purged_firstName + i.ToString();
+                    i++;
+                }
+                else
+                {
+                    if (Err == null)
+                    {
+                        return usrname;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
+   
+
+        internal static bool GetMyOrgPerNotInLoginUsers(ref DataTable dt_myOrgPerNotInLoginUsers)
+        {
+            string sql = @"select cfn.FirstName,cln.LastName,p.Tax_ID,p.Registration_ID,p.DateOfBirth,mop.ID from myOrganisation_Person mop
+                           inner join Person p on p.ID = mop.Person_ID
+                           inner join cFirstName cfn on cfn.ID = p.cFirstName_ID
+                           left join cLastName cln on cln.ID = p.cLastName_ID
+                           where mop.ID not in (select myOrganisation_Person_ID from LoginUsers)";
+            string Err = null;
+            if (con.ReadDataTable(ref dt_myOrgPerNotInLoginUsers,sql,ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:GetMyOrgPerNotInLoginUsers:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+
+        }
+
         internal static bool Remove_ChangePasswordOnFirstLogin(AWPLoginData awpld)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

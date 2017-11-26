@@ -41,12 +41,13 @@ namespace LoginControl
             InitializeComponent();
 
             awpbd = login_control.awpd;
-            awpld = login_control.m_AWPLoginData;
+           
 
             if (xnav.m_eButtons == Navigation.eButtons.PrevNextExit)
             {
                 bFirstTimeStartup = true;
             }
+
             usrc_NavigationButtons1.Init(xnav);
 
             myParent = pParent;
@@ -68,8 +69,7 @@ namespace LoginControl
             lng.s_ManageUSers.Text(this);
             lng.s_lbl_UserRoles.Text(lbl_UserRoles);
             lng.s_lbl_OtherRoles.Text(lbl_OtherRoles);
-            lng.s_Select_myOrganisation_Person.Text(btn_Select_myOrganisationPerson);
-            lng.s_Edit_myOrganisation_Person.Text(btn_Edit_myOrganisation_Person);
+            lng.s_btn_Edit_myOrganisation_Person.Text(btn_Edit_myOrganisation_Person);
 
             
 
@@ -97,8 +97,20 @@ namespace LoginControl
 
         private void AWP_UserManager_Load(object sender, EventArgs e)
         {
+            if (bFirstTimeStartup)
+            {
+                awpld = login_control.m_AWPLoginData;
+            }
+            else
+            {
+                // use new created awpld 
+                awpld = new AWPLoginData();
+            }
+            LoadData(null);
+        }
 
-            string Err = null;
+        private void LoadData(string sUserName)
+        {
             if (dtLoginUsers == null)
             {
                 dtLoginUsers = new DataTable();
@@ -107,45 +119,46 @@ namespace LoginControl
             {
                 dtLoginUsers.Clear();
                 dtLoginUsers.Columns.Clear();
-
             }
-            string sUserName = null;
 
             bLoginUsers_Read = false;
+            dgv_LoginUsers.DataSource = null;
             switch (awpld.GetData(ref dtLoginUsers, sUserName, awpbd))
             {
 
-            case AWPLoginData.eGetDateResult.OK:
-                dgv_LoginUsers.Rows.Clear();
-                dgv_LoginUsers.DataSource = dtLoginUsers;
-                awpbd.SetControls(dgv_LoginUsers, dtLoginUsers.Rows[0], dtLoginUsers.TableName);
-                if (bFirstTimeStartup)
-                {
-                    awpld.ChangePasswordOnFirstLogin = false;
-                    awpld.PasswordNeverExpires = true;
-                }
-                chk_ChangePasswordOnFirstLogIn.Checked = awpld.ChangePasswordOnFirstLogin;
-                if (awpld.PasswordNeverExpires)
-                {
-                    rdb_PaswordExpires_Never.Checked = true;
-                }
-                if (awpld.NotActiveAfterPasswordExpires)
-                {
-                    rdb_DeactivateAfterNumberOfDays.Checked = true;
-                }
-                nmUpDn_MaxPasswordAge.Value = awpld.Maximum_password_age_in_days;
+                case AWPLoginData.eGetDateResult.OK:
+                    dgv_LoginUsers.Rows.Clear();
+                    dgv_LoginUsers.DataSource = dtLoginUsers;
 
-                this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
-                this.dgv_LoginUsers.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
-                bLoginUsers_Read = true;
-                break;
-            case AWPLoginData.eGetDateResult.USER_NOT_FOUND:
-                sUserName = null;
-                break;
-            case AWPLoginData.eGetDateResult.ERROR:
-                DialogResult = DialogResult.Cancel;
-                this.Close();
-                break;
+                    awpbd.SetControls(dgv_LoginUsers, dtLoginUsers.Rows[0], dtLoginUsers.TableName);
+                    this.webBrowser1.DocumentText = awpld.GetHtml();
+                    if (bFirstTimeStartup)
+                    {
+                        awpld.ChangePasswordOnFirstLogin = false;
+                        awpld.PasswordNeverExpires = true;
+                    }
+                    chk_ChangePasswordOnFirstLogIn.Checked = awpld.ChangePasswordOnFirstLogin;
+                    if (awpld.PasswordNeverExpires)
+                    {
+                        rdb_PaswordExpires_Never.Checked = true;
+                    }
+                    if (awpld.NotActiveAfterPasswordExpires)
+                    {
+                        rdb_DeactivateAfterNumberOfDays.Checked = true;
+                    }
+                    nmUpDn_MaxPasswordAge.Value = awpld.Maximum_password_age_in_days;
+
+                    this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
+                    this.dgv_LoginUsers.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
+                    bLoginUsers_Read = true;
+                    break;
+                case AWPLoginData.eGetDateResult.USER_NOT_FOUND:
+                    sUserName = null;
+                    break;
+                case AWPLoginData.eGetDateResult.ERROR:
+                    DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    break;
             }
         }
 
@@ -196,136 +209,21 @@ namespace LoginControl
             }
         }
 
-        private bool AddUser()
+        private void AddUser()
         {
-            int New_LoginUsers_id = -1;
-            string Res = null;
-            string Err = null;
-        
-
-            if (this.txtUserName.Tag != null)
+            AWPFormSelectMyOrgPerNotInLoginUsers awpFormSelectMyOrgPerNotInLoginUsers = new AWPFormSelectMyOrgPerNotInLoginUsers();
+            DialogResult dlgres = awpFormSelectMyOrgPerNotInLoginUsers.ShowDialog(this);
+            switch (dlgres)
             {
-                this.txtUserName.Tag = null;
-
-                //txtUserName.TabIndex = 0;
-                //txtPassword.TabIndex = 1;
-                //txtConfirmPassword.TabIndex = 2;
-                //btnAddUser.TabIndex = 3;
-                //this.btnOK.TabIndex = 4;
-
-                //this.cmb_Group.TabIndex = 15;
-                //this.chk_Active.TabIndex = 14;
-                //this.dataGridView.TabIndex = 13;
-
-                txtUserName.Text = "";
-                txtPassword.Text = "";
-               
-                txtConfirmPassword.Text = "";
-                txtUserName.ReadOnly = false;
-                txtUserName.Enabled = true;
-                txtPassword.Enabled = true;
-                lblPassword.Enabled = true;
-                txtConfirmPassword.Enabled = true;
-               
-                this.lbl_ConfirmPasword.Enabled = true;
-                chk_ChangePasswordOnFirstLogIn.Checked = true;
-                txtUserName.Focus();
-               
-                return true;
+                case DialogResult.No:
+                    MessageBox.Show(lng.s_AllEmpleyeesHaveUserAccount.s + lng.s_btn_Edit_myOrganisation_Person.s);
+                    break;
+                case DialogResult.OK:
+                    LoadData(null);
+                    break;
             }
-            else
-            {
-                //this.cmb_Group.TabIndex = 0;
-                //this.chk_Active.TabIndex = 1;
-                //txtUserName.TabIndex = 2;
-                //txtPassword.TabIndex = 3;
-                //txtConfirmPassword.TabIndex = 4;
-
-                //btnAddUser.TabIndex = 10;
-                //this.btnOK.TabIndex = 11;
-                //this.dataGridView.TabIndex = 15;
-
-                if (txtUserName.Text.Length == 0)
-                {
-                    MessageBox.Show(lng.s_UserNameIsNotWritten.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                if (!txtPassword.Text.Equals(txtConfirmPassword.Text))
-                {
-                    MessageBox.Show(lng.s_Password_does_not_match.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                ////int iRow = dtLoginUsers.Rows.Count - 1;
-
-                //if (iRow >= 0)
-                //{
-                //    this.txtUserName.Tag = iRow;
-                //    btnDeleteUser.Enabled = true;
-                //    this.btnChangeData.Enabled = true;
-                //    btnAddUser.Text = lng.s_NewUser.s;
-                //    txtUserName.ReadOnly = true;
-                //}
-
-                //m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddUser(txtUserName.Text,
-                //                                                              login_control.CalculateSHA256(txtPassword.Text),
-                //                                                              chk_Active.Checked,
-                //                                                              txtFirstName.Text,
-                //                                                              txtLastName.Text,
-                //                                                              txtIdentityNumber.Text,
-                //                                                              txt_Description.Text,
-                //                                                              login_control.LoginUsers_id,
-                //                                                              this.rdb_PaswordExpires_Never.Checked,
-                //                                                              chk_ChangePasswordOnFirstLogIn.Checked,
-                //                                                              Convert.ToInt32(nmUpDn_MaxPasswordAge.Value),
-                //                                                              rdb_DeactivateAfterNumberOfDays.Checked,
-                //                                                              ref New_LoginUsers_id,
-                //                                                              ref Res,
-                //                                                              ref Err);
-
-                if (Res.Equals("OK"))
-                {
-                    List<AWPRole> roles = new List<AWPRole>();
-                    MakeListOfAWPRoles(ref roles);
-                    if (!Write_LoginUsersAndLoginAWPRoles(New_LoginUsers_id, roles, ref Err))
-                    {
-                        LogFile.Error.Show("Error:UserManager:AddUser:Write_LoginUsersAndLoginRoles:Err=" + Err);
-                    }
-
-                    //if (LoginUsers_Read(-1, ref Err))
-                    //{
-//                        LoginUsers.m_bs_dt.Position = dtLoginUsers.Rows.Count-1;
-
-                        //if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
-                        //{
-                        //    LogFile.Error.Show("Error:UserManager_Load:LoginUsers.Read: Err = " + Err);
-                        //    return false;
-                        //}
-
-                        return true;
-                    //}
-                    //else
-                    //{
-                    //    LogFile.Error.Show(Err);
-                    //    return false;
-                    //}
-                    
-                }
-                else
-                {
-                    if (Err!=null)
-                    {
-                        LogFile.Error.Show(Err);
-                    }
-                    else
-                    {
-                        LogFile.Error.Show(Res);
-                    }
-                    return false;
-                }
-            }
-
         }
+
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             AddUser();
@@ -740,10 +638,7 @@ namespace LoginControl
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (AddUser())
-                {
-                   // this.btnOK.Focus();
-                }
+                AddUser();
                 e.Handled = true;
             }
 
@@ -1073,6 +968,7 @@ namespace LoginControl
         {
             switch (evt)
             {
+                case Navigation.eEvent.OK:
                 case Navigation.eEvent.NEXT:
                     if (DoOK())
                     {
@@ -1089,6 +985,7 @@ namespace LoginControl
                     }
                     break;
 
+                case Navigation.eEvent.CANCEL:
                 case Navigation.eEvent.EXIT:
                     if (DoCancel())
                     {

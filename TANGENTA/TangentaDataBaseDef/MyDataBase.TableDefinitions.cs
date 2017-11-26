@@ -1519,7 +1519,6 @@ namespace TangentaDataBaseDef
         /* 107 */
             t_PersonData = new SQLTable((Object)new PersonData(), "perd",Column.Flags.FILTER_AND_UNIQUE, lng.lngt_PersonData);
             t_PersonData.AddColumn((Object)mt.m_PersonData.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_PersonData.AddColumn((Object)mt.m_PersonData.m_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Person ID", "Oseba ID") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_cGsmNumber_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "GSM Number ID", "Gsm ID") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_cPhoneNumber_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Telephone Number ID", "Telefon ID") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_cEmail_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Email ID", "Elektronski naslov ID") );
@@ -1528,6 +1527,7 @@ namespace TangentaDataBaseDef
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_cCardType_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Card Type ID", "Vrsta Kartice ID") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_PersonImage, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Image", "Slika") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Description", "Opis") );
+            t_PersonData.AddColumn((Object)mt.m_PersonData.m_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext("Person ID", "Oseba ID"));
             m_DBTables.items.Add(t_PersonData);
 
         /* 108 */

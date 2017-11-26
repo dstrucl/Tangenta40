@@ -634,5 +634,8 @@ namespace Tangenta
 
         public static ltext s_chk_LoginAsAdministrator = new ltext(new string[] { "Login as Administrator", "Prijava z skrbniškim geslom"}); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
 
+        internal static ltext s_MoreDataForPerson = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Person_Edit.cs
+
+        internal static ltext s_OtherPersonDana = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_PersonData_Edit.cs
     }
 }

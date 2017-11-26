@@ -142,6 +142,9 @@ namespace TangentaDB
                                             ZIP_v,
                                             City_v,
                                             Country_v,
+                                            Country_ISO_3166_a2,
+                                            Country_ISO_3166_a3,
+                                            Country_ISO_3166_num,
                                             State_v,
                                             ref Atom_cAddress_Person_ID_v
                                             ))

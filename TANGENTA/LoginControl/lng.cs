@@ -52,6 +52,8 @@ namespace LoginControl
         public static ltext s_UserName = new ltext(new string[]{"User Name",
                                                     "Uporabniško Ime"});
 
+        public static ltext s_ImportNewEmpleyees = new ltext(new string[]{"Selected empleyees to user account",
+                                                    "Izberite zaposlene za uporabniški račun tega programa"});
         public static ltext s_LoginConnection = new ltext(new string[]{"Login connection:", "Prijavna povezava:"});
 
         public static ltext s_Password_does_not_match = new ltext(new string[]{"Password does not match!",
@@ -186,11 +188,9 @@ namespace LoginControl
         public static ltext s_Import = new ltext(new string[]{"Import",
                                             "Uvozi"});
 
-        public static ltext s_Select_myOrganisation_Person = new ltext(new string[]{"Select employee",
-                                            "Izberi zapolesleno osebo"});
 
-        public static ltext s_Edit_myOrganisation_Person = new ltext(new string[]{"Edit employees",
-                                            "Urejanje kadrovska evidence"});
+        public static ltext s_btn_Edit_myOrganisation_Person = new ltext(new string[]{"Edit employees",
+                                            "Urejanje kadrovske evidence"});
 
         public static ltext s_STDRoleManagerForm = new ltext(new string[]{"Role Manager",
                                             "Urejanje pravic"});
@@ -223,6 +223,16 @@ namespace LoginControl
         public static ltext s_UserName_AllreadyExist = new ltext(new string[]{"User Name is allready in use. Write different user name.",
                                                                               @"Uporabniško ime je že v uporabi!
                                                                                 \r\nVpisati morate drugačno uprabniško ime."});
+
+        public static ltext s_Tax_ID = new ltext(new string[]{"Tax ID",
+                                            "Davčna številka"});
+        public static ltext s_Registration_ID = new ltext(new string[]{"Registration ID",
+                                            "EMŠO"});
+        public static ltext s_DateOfBirth =  new ltext(new string[]{"Date of birth",
+                                            "Datum rojstva"});
+
+        public static ltext s_AllEmpleyeesHaveUserAccount = new ltext(new string[]{"All emplyees have user account.\r\nTo add new emplyye press button",
+                                                                      "Vsi zaposleni imajo uporabniški račun.\r\nČe želite dodati novega zaposlenega ga morate najprej vnesti v kadrovsko evidenco\r\nkar storite s pritiskom na gumb ->"});
 
         public static ltext cn_myOrganisation_Person_office_Name = new ltext(new string[] { "Office*", "Poslovna enota*" });
         public static ltext cn_myOrganisation_Person_UserName = new ltext(new string[] { "User Name*", "Uporabniško ime*" });
@@ -265,6 +275,7 @@ namespace LoginControl
         public static ltext cn_Role_WorkInShopA = new ltext(new string[] { "Work in Shop A", "Delo v prodajalni A" });
         public static ltext cn_Role_WorkInShopB = new ltext(new string[] { "Work in Shop B", "Delo v prodajalni B" });
         public static ltext cn_Role_WorkInShopC = new ltext(new string[] { "Work in Shop C", "Delo v prodajalni C" });
+
 
     }
 }

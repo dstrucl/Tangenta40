@@ -39,7 +39,6 @@ namespace LoginControl
             this.lbl_UserRoles = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.lbl_OtherRoles = new System.Windows.Forms.Label();
-            this.btn_Select_myOrganisationPerson = new System.Windows.Forms.Button();
             this.btn_Edit_myOrganisation_Person = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.chk_ChangePasswordOnFirstLogIn = new System.Windows.Forms.CheckBox();
@@ -147,7 +146,6 @@ namespace LoginControl
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_Select_myOrganisationPerson);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Edit_myOrganisation_Person);
             this.splitContainer1.Panel1.Controls.Add(this.webBrowser1);
             this.splitContainer1.Panel1.Controls.Add(this.chk_ChangePasswordOnFirstLogIn);
@@ -231,20 +229,11 @@ namespace LoginControl
             this.lbl_OtherRoles.TabIndex = 74;
             this.lbl_OtherRoles.Text = "Other Roles";
             // 
-            // btn_Select_myOrganisationPerson
-            // 
-            this.btn_Select_myOrganisationPerson.Location = new System.Drawing.Point(8, 153);
-            this.btn_Select_myOrganisationPerson.Name = "btn_Select_myOrganisationPerson";
-            this.btn_Select_myOrganisationPerson.Size = new System.Drawing.Size(208, 24);
-            this.btn_Select_myOrganisationPerson.TabIndex = 115;
-            this.btn_Select_myOrganisationPerson.Text = "Select my organiastion person";
-            this.btn_Select_myOrganisationPerson.UseVisualStyleBackColor = true;
-            // 
             // btn_Edit_myOrganisation_Person
             // 
-            this.btn_Edit_myOrganisation_Person.Location = new System.Drawing.Point(220, 153);
+            this.btn_Edit_myOrganisation_Person.Location = new System.Drawing.Point(8, 149);
             this.btn_Edit_myOrganisation_Person.Name = "btn_Edit_myOrganisation_Person";
-            this.btn_Edit_myOrganisation_Person.Size = new System.Drawing.Size(208, 24);
+            this.btn_Edit_myOrganisation_Person.Size = new System.Drawing.Size(418, 29);
             this.btn_Edit_myOrganisation_Person.TabIndex = 114;
             this.btn_Edit_myOrganisation_Person.Text = "Edit my organisation person";
             this.btn_Edit_myOrganisation_Person.UseVisualStyleBackColor = true;
@@ -512,7 +501,6 @@ namespace LoginControl
         internal System.Windows.Forms.CheckBox chk_Enabled;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Button btn_Select_myOrganisationPerson;
         private System.Windows.Forms.Button btn_Edit_myOrganisation_Person;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;

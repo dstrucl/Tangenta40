@@ -245,6 +245,34 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
+        public object GetColumnObject(string ColumnName)
+        {
+            if (tbl!=null)
+            {
+                DataRow[] drs = dt_Data.Select("ID=" + this.Identity.ToString());
+                if (drs!= null)
+                {
+                    if (drs.Length>0)
+                    {
+                        foreach (DataColumn dcol in dt_Data.Columns)
+                        {
+                            if (dcol.ColumnName.Equals(ColumnName))
+                            {
+                                return drs[0][ColumnName];
+                            }
+                        }
+
+                    }
+                }
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private bool InitDataTable(long ID)
         {
             bInitData = true;

@@ -30,6 +30,7 @@ namespace Tangenta
         long_v ID_v = null;
         string ColumnOrderBy = "";
         NavigationButtons.Navigation nav = null;
+        private long m_Person_ID = -1;
 
         public Form_PersonData_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy,NavigationButtons.Navigation xnav)
         {
@@ -42,7 +43,7 @@ namespace Tangenta
 
         }
 
-        public Form_PersonData_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, NavigationButtons.Navigation xnav)
+        public Form_PersonData_Edit(long Person_ID,CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long PersonData_ID,  NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
@@ -50,9 +51,9 @@ namespace Tangenta
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
             ID_v = new long_v();
-            ID_v.v = ID;
-            this.Text = lng.s_Items.s;
-
+            ID_v.v = PersonData_ID;
+            lng.s_OtherPersonDana.Text(this);
+            m_Person_ID = Person_ID;
         }
 
         private bool Init()
@@ -79,7 +80,28 @@ namespace Tangenta
             ";
 
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
+            usrc_EditTable.AllowUserToAddNew = false;
+            if (usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav))
+            {
+                usrc_EditTable.FillInitialData();
+                string s_Person = "";
+                object oFirstName = usrc_EditTable.GetColumnObject("PersonData_$_per_$_cfn_$$FirstName");
+                if (oFirstName is string)
+                {
+                    s_Person = lng.s_Person.s + " " + (string)oFirstName;
+                }
+                object oLastName = usrc_EditTable.GetColumnObject("PersonData_$_per_$_cln_$$LastName");
+                if (oLastName is string)
+                {
+                    s_Person += " " + (string)oLastName;
+                }
+                usrc_EditTable.Title = s_Person;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
         private void Customer_Person_EditForm_Load(object sender, EventArgs e)
@@ -131,5 +153,16 @@ namespace Tangenta
         {
         }
 
+        private void usrc_EditTable_FillTable(SQLTable m_tbl)
+        {
+            if (m_Person_ID >= 0)
+            {
+                if (m_tbl.TableName.ToLower().Equals("Person"))
+                {
+                    string Err = null;
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Person_ID, true, ref Err);
+                }
+            }
+        }
     }
 }
