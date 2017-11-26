@@ -185,7 +185,29 @@ SELECT
             }
         }
 
-   
+        internal static bool WriteLoginSession(long loginUsers_ID, long atom_WorkPeriod_ID, ref long loginSession_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, loginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+            string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, atom_WorkPeriod_ID);
+            lpar.Add(par_Atom_WorkPeriod_ID);
+            string sql = "insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID)values(" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
+            object oret = null;
+            string Err = null;
+
+            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref loginSession_ID,ref oret, ref Err, "LoginSession"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:WriteLoginSession:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
 
         internal static bool GetMyOrgPerNotInLoginUsers(ref DataTable dt_myOrgPerNotInLoginUsers)
         {
@@ -755,7 +777,7 @@ SELECT
             lpar.Add(par_LoginUsers_ID);
 
             string spar_Role = "@par_Role";
-            string Role = LoginControl.ROLE_Administrator;
+            string Role = AWP.ROLE_Administrator;
             SQL_Parameter par_Role = new SQL_Parameter(spar_Role, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Role);
             lpar.Add(par_Role);
 
@@ -891,7 +913,7 @@ SELECT
                     if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsers_ID, ref oret, ref Err, "LoginUsers"))
                     {
                         long LoginRoles_ID = -1;
-                        if (AWP_func.Get_LoginRoles_ID(LoginControl.ROLE_Administrator, ref LoginRoles_ID))
+                        if (AWP_func.Get_LoginRoles_ID(AWP.ROLE_Administrator, ref LoginRoles_ID))
                         {
                             List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
 

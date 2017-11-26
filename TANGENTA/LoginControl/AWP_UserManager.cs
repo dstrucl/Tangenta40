@@ -26,7 +26,8 @@ namespace LoginControl
         private const string Column_Select = "Select";
         private Form myParent;
 
-        LoginControl login_control;
+
+        AWP awp = null;
         internal AWPBindingData awpbd = null;
         internal AWPLoginData awpld = null;
 
@@ -35,12 +36,12 @@ namespace LoginControl
         private bool bUserNameChanged = false;
         private bool bFirstTimeStartup = false;
 
-        public AWP_UserManager(Navigation xnav,Form pParent, LoginControl xlogin_control)
+        public AWP_UserManager(Navigation xnav,Form pParent, AWP xawp)
         {
-            login_control = xlogin_control;
+            awp = xawp;
             InitializeComponent();
 
-            awpbd = login_control.awpd;
+            awpbd = awp.awpd;
            
 
             if (xnav.m_eButtons == Navigation.eButtons.PrevNextExit)
@@ -99,7 +100,7 @@ namespace LoginControl
         {
             if (bFirstTimeStartup)
             {
-                awpld = login_control.m_AWPLoginData;
+                awpld = awp.m_AWPLoginData;
             }
             else
             {
@@ -499,7 +500,7 @@ namespace LoginControl
                 }
                 if (Err == null)
                 {
-                    if (txtPassword.Text.Length >= login_control.MinPasswordLength)
+                    if (txtPassword.Text.Length >= awp.lctrl.MinPasswordLength)
                     { 
                         if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                         {
@@ -520,7 +521,7 @@ namespace LoginControl
                     }
                     else
                     {
-                        MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s+" "+ login_control.MinPasswordLength.ToString());
+                        MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s+" "+ awp.lctrl.MinPasswordLength.ToString());
                     }
                 }
                 else
@@ -941,7 +942,7 @@ namespace LoginControl
         {
             bool bChanged = false;
             long new_myOrganisation_Person_ID = -1;
-            login_control.call_Edit_myOrganisationPerson(this, awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
+            awp.call_Edit_myOrganisationPerson(this, awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
         }
 
         private bool DoOK()
@@ -952,7 +953,7 @@ namespace LoginControl
             }
             else
             {
-                MessageBox.Show(this, lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s + login_control.MinPasswordLength.ToString()
+                MessageBox.Show(this, lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s + awp.lctrl.MinPasswordLength.ToString()
                                 + lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                 return false;
             }

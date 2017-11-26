@@ -15,16 +15,14 @@ namespace LoginControl
     {
 
         internal DataTable dtmyOrganisation_Person_not_in_LoginUsers = null;
-        private DBConnectionControl40.DBConnection logincon = null;
         internal DataRow[] drsImportAdministrator = null;
         internal DataRow[] drsImportOthers = null;
         internal AWPBindingData awpd  = null;
 
-        internal AWP_Select_users_from_myOrganisation_Person_Table(Navigation xnav,DBConnectionControl40.DBConnection con, AWPBindingData xawpd,ltext ltInstruction)
+        internal AWP_Select_users_from_myOrganisation_Person_Table(Navigation xnav, AWPBindingData xawpd,ltext ltInstruction)
         {
             InitializeComponent();
             awpd = xawpd;
-            logincon = con;
             this.Text = "";
             if (ltInstruction != null)
             {

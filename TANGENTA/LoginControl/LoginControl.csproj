@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AWP.cs" />
     <Compile Include="AWPData.cs" />
     <Compile Include="AWPFormSelectMyOrgPerNotInLoginUsers.cs">
       <SubType>Form</SubType>
@@ -100,6 +101,7 @@
     </Compile>
     <Compile Include="f.cs" />
     <Compile Include="HtmlTemplate.cs" />
+    <Compile Include="STD.cs" />
     <Compile Include="STDChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>

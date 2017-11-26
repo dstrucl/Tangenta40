@@ -14,14 +14,14 @@ namespace LoginControl
     public partial class STDLoginForm : Form
     {
         LoginDB_DataSet.LoginUsers LoginUsers = null;
-        LoginControl login_control = null;
+        STD std = null;
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
         LoginDB_DataSet.LoginDB_DataSet_ScalarFunctions m_LoginDB_DataSet_ScalarFunctions = null;
-        public STDLoginForm(LoginControl logctrl)
+        public STDLoginForm(STD xstd)
         {
             InitializeComponent();
-            login_control = logctrl;
-            cmbR_UserName.RecentItemsFolder = login_control.RecentItemsFolder;
+            std = xstd;
+            cmbR_UserName.RecentItemsFolder = std.lctrl.RecentItemsFolder;
             this.Text = lng.s_Login.s;
             this.btn_OK.Text = lng.s_OK.s;
             this.btn_Cancel.Text = lng.s_Cancel.s;
@@ -58,18 +58,18 @@ namespace LoginControl
                 {
                     if (LoginUsers.o_enabled.enabled_)
                     {
-                        if (login_control.PasswordMatch(LoginUsers.o_password.password_, txt_Password.Text))
+                        if (std.lctrl.PasswordMatch(LoginUsers.o_password.password_, txt_Password.Text))
                         {
                             if (LoginUsers.o_ChangePasswordOnFirstLogin.ChangePasswordOnFirstLogin_)
                             {
                                 if (Login_Start(LoginUsers))
                                 {
-                                    STDChangePasswordForm change_pass_form = new STDChangePasswordForm(login_control, LoginUsers, lng.s_AdministratorRequestForNewPassword.s);
+                                    STDChangePasswordForm change_pass_form = new STDChangePasswordForm(std, LoginUsers, lng.s_AdministratorRequestForNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
                                         object res = null;
-                                        if (login_control.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
+                                        if (std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
                                         {
                                             DialogResult = DialogResult.OK;
                                             Close();
@@ -91,7 +91,7 @@ namespace LoginControl
                                     {
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.enabled.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
                                         object res = null;
-                                        if (!login_control.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
+                                        if (!std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
                                         {
                                             LogFile.Error.Show("Error:LoginForm:" + sql_change_enabled + ":Err=" + Err);
                                         }
@@ -103,7 +103,7 @@ namespace LoginControl
                                         // change password dialog
                                         if (Login_Start(LoginUsers))
                                         {
-                                            STDChangePasswordForm change_pass_form = new STDChangePasswordForm(login_control, LoginUsers, lng.s_PasswordExpiredSetNewPassword.s);
+                                            STDChangePasswordForm change_pass_form = new STDChangePasswordForm(std, LoginUsers, lng.s_PasswordExpiredSetNewPassword.s);
                                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                                             {
                                                 DialogResult = DialogResult.OK;
@@ -154,7 +154,7 @@ namespace LoginControl
         {
             string Err = null;
             string Res = null;
-            if (login_control.STDLoginData_Get(LoginUsers, ref Err))
+            if (std.STDLoginData_Get(LoginUsers, ref Err))
             {
                 DateTime TimeOnServer = new DateTime();
                 Err= null;
@@ -168,7 +168,7 @@ namespace LoginControl
                                                                         ref LoginSession_id, ref Res, ref Err);
                         if (Res.Equals("OK"))
                         {
-                            login_control.m_STDLoginData.m_LoginSession_id = LoginSession_id;
+                            std.m_STDLoginData.m_LoginSession_id = LoginSession_id;
                             return true;
                         }
                         else
@@ -235,9 +235,9 @@ namespace LoginControl
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
-            LoginUsers = new LoginDB_DataSet.LoginUsers(login_control.Login_con);
-            m_LoginDB_DataSet_Procedures = new LoginDB_DataSet.LoginDB_DataSet_Procedures(login_control.Login_con);
-            m_LoginDB_DataSet_ScalarFunctions = new LoginDB_DataSet.LoginDB_DataSet_ScalarFunctions(login_control.Login_con);
+            LoginUsers = new LoginDB_DataSet.LoginUsers(std.Login_con);
+            m_LoginDB_DataSet_Procedures = new LoginDB_DataSet.LoginDB_DataSet_Procedures(std.Login_con);
+            m_LoginDB_DataSet_ScalarFunctions = new LoginDB_DataSet.LoginDB_DataSet_ScalarFunctions(std.Login_con);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

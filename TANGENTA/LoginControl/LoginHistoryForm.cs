@@ -14,12 +14,12 @@ namespace LoginControl
     {
         LoginDB_DataSet.LoginSession_VIEW m_LoginSession_VIEW_active = null;
         LoginDB_DataSet.LoginSession_VIEW m_LoginSession_VIEW_notactive = null;
-        LoginControl login_control;
+        STD std = null;
         int LoginUsers_id;
-        public LoginHistoryForm(LoginControl logctrl, int Users_id, string UserName)
+        public LoginHistoryForm(STD xstd, int Users_id, string UserName)
         {
             InitializeComponent();
-            login_control = logctrl;
+            std = xstd;
             LoginUsers_id = Users_id;
             this.lbl_ActiveUsers.Text = lng.s_ActiveUsers.s;
             this.lbl_LoginHistory.Text = lng.s_LoginHistoryForUser.s + UserName;
@@ -34,7 +34,7 @@ namespace LoginControl
         private void LoginHistoryForm_Load(object sender, EventArgs e)
         {
             string Err = null;
-            m_LoginSession_VIEW_active = new LoginDB_DataSet.LoginSession_VIEW(login_control.Login_con);
+            m_LoginSession_VIEW_active = new LoginDB_DataSet.LoginSession_VIEW(std.Login_con);
             m_LoginSession_VIEW_active.Clear();
             m_LoginSession_VIEW_active.select.all(false);
             m_LoginSession_VIEW_active.select.username = true;
@@ -60,7 +60,7 @@ namespace LoginControl
                 dgv_ActiveUsers.Columns[LoginDB_DataSet.LoginSession_VIEW.Login_time.name].HeaderText = lng.s_LoginTime.s;
                 dgv_ActiveUsers.Columns[LoginDB_DataSet.LoginSession_VIEW.Logout_time.name].HeaderText = lng.s_LogoutTime.s;
 
-                m_LoginSession_VIEW_notactive = new LoginDB_DataSet.LoginSession_VIEW(login_control.Login_con);
+                m_LoginSession_VIEW_notactive = new LoginDB_DataSet.LoginSession_VIEW(std.Login_con);
                 m_LoginSession_VIEW_notactive.Clear();
                 m_LoginSession_VIEW_notactive.select.all(false);
                 m_LoginSession_VIEW_notactive.select.username = true;

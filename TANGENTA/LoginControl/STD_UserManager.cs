@@ -35,14 +35,14 @@ namespace LoginControl
         LoginDB_DataSet.LoginUsersAndLoginRoles LoginUsersAndLoginRoles = null;
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
         LoginDB_DataSet.LoginUsers_lang LoginUsers_lang = new LoginDB_DataSet.LoginUsers_lang();
-        LoginControl login_control;
+        STD std = null;
 
 
-        public STD_UserManager(Form pParent,LoginControl xlogin_control)
+        public STD_UserManager(Form pParent,STD xstd)
         {
-            login_control = xlogin_control;
+            std = xstd;
             InitializeComponent();
-            Login_con = login_control.Login_con;
+            Login_con = std.Login_con;
 
             int Index_OfDefaultUserName = -1;
 
@@ -256,7 +256,7 @@ namespace LoginControl
                                                                               txtLastName.Text,
                                                                               txtIdentityNumber.Text,
                                                                               txtContact.Text,
-                                                                              login_control.LoginUsers_id,
+                                                                              Convert.ToInt32(std.lctrl.LoginUsers_id),
                                                                               this.rdb_PaswordExpires_Never.Checked,
                                                                               chk_ChangePasswordOnFirstLogIn.Checked,
                                                                               Convert.ToInt32(nmUpDn_MaxPasswordAge.Value),
@@ -458,7 +458,7 @@ namespace LoginControl
         {
             if (LoginRoles == null)
             {
-                LoginRoles = new LoginDB_DataSet.LoginRoles(login_control.Login_con);
+                LoginRoles = new LoginDB_DataSet.LoginRoles(std.Login_con);
             }
             LoginRoles.Clear();
             LoginRoles.select.all(true);
@@ -483,7 +483,7 @@ namespace LoginControl
                 }
                 if (LoginUsersAndLoginRoles == null)
                 {
-                    LoginUsersAndLoginRoles = new LoginDB_DataSet.LoginUsersAndLoginRoles(login_control.Login_con);
+                    LoginUsersAndLoginRoles = new LoginDB_DataSet.LoginUsersAndLoginRoles(std.Login_con);
                 }
                 LoginUsersAndLoginRoles.Clear();
                 LoginUsersAndLoginRoles.select.all(false);
@@ -965,7 +965,7 @@ namespace LoginControl
 
                 if (LoginUsers.RowsCount > 0)
                 {
-                    if (userdata.password.Length >= login_control.MinPasswordLength)
+                    if (userdata.password.Length >= std.lctrl.MinPasswordLength)
                     {
                         if (LoginUsers.o_password.password_ == null)
                         {
@@ -975,7 +975,7 @@ namespace LoginControl
                         {
                             if (userdata.password_changed)
                             {
-                                if (!login_control.PasswordMatch(LoginUsers.o_password.password_, userdata.password))
+                                if (!std.lctrl.PasswordMatch(LoginUsers.o_password.password_, userdata.password))
                                 {
                                     bPasswordChanged = true;
                                 }
@@ -985,19 +985,19 @@ namespace LoginControl
                     else
                     {
 
-                        if ((LoginUsers.o_password.password_ == null) && ((userdata.password.Length < login_control.MinPasswordLength)))
+                        if ((LoginUsers.o_password.password_ == null) && ((userdata.password.Length < std.lctrl.MinPasswordLength)))
                         {
                             MessageBox.Show(lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s
-                                            + login_control.MinPasswordLength.ToString() +
+                                            + std.lctrl.MinPasswordLength.ToString() +
                                             lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                             return false;
                         }
                         else
                         {
-                            if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < login_control.MinPasswordLength)) && ((userdata.password.Length > 0)))
+                            if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < std.lctrl.MinPasswordLength)) && ((userdata.password.Length > 0)))
                             {
                                 MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s
-                                              + login_control.MinPasswordLength.ToString() +
+                                              + std.lctrl.MinPasswordLength.ToString() +
                                               lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                                 return false;
                             }
@@ -1015,7 +1015,7 @@ namespace LoginControl
                     if (Res.Equals("OK"))
                     {
                         m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePasswordParameters(LoginUsers.o_id.id_,
-                                                                                                       login_control.m_STDLoginData.m_LoginUsers_id,
+                                                                                                       std.m_STDLoginData.m_LoginUsers_id,
                                                                                                        userdata.bPasswordNeverExpires,
                                                                                                        chk_Active.Checked,
                                                                                                        userdata.bChangePasswordOnFirstLogin,
@@ -1030,7 +1030,7 @@ namespace LoginControl
                             {
                                 m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePassword(LoginUsers.o_id.id_,
                                                                                                      LoginControl.CalculateSHA256(userdata.password),//crypted password
-                                                                                                     login_control.m_STDLoginData.m_LoginUsers_id,
+                                                                                                     std.m_STDLoginData.m_LoginUsers_id,
                                                                                                      ref Res,
                                                                                                      ref Err);
                                 if (Res.Equals("OK"))
@@ -1167,7 +1167,7 @@ namespace LoginControl
         private void btn_ManageRoles_Click(object sender, EventArgs e)
         {
             int iCurPos = LoginUsers.m_bs_dt.Position;
-            STDRoleManager role_man = new STDRoleManager(login_control);
+            STDRoleManager role_man = new STDRoleManager(std);
             if (role_man.ShowDialog() == DialogResult.Yes)
             {
                 string Err = null;

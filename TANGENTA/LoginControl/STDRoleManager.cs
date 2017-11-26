@@ -14,11 +14,11 @@ namespace LoginControl
     {
         LoginDB_DataSet.LoginRoles LoginRoles = null;
         LoginDB_DataSet.LoginRoles_lang LoginRoles_lang = new LoginDB_DataSet.LoginRoles_lang();
-        LoginControl login_control;
-        public STDRoleManager(LoginControl logctrl)
+        STD std = null;
+        public STDRoleManager(STD xstd)
         {
             InitializeComponent();
-            login_control = logctrl;
+            std = xstd;
             this.Text = lng.s_STDRoleManagerForm.s;
         }
 
@@ -27,7 +27,7 @@ namespace LoginControl
             string Err = null;
             if (LoginRoles == null)
             {
-                LoginRoles = new LoginDB_DataSet.LoginRoles(login_control.Login_con);
+                LoginRoles = new LoginDB_DataSet.LoginRoles(std.Login_con);
             }
             LoginRoles.Clear();
             LoginRoles.select.all(true);

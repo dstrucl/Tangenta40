@@ -669,13 +669,16 @@ namespace Tangenta
         if (Program.OperationMode.MultiUser)
         {
             bool bCancel = false;
-            this.loginControl1.InitAWPMode((Form)this.Parent,
+            this.loginControl1.Init(LoginControl.LoginControl.eDataTableCreationMode.AWP,
                                             DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                            this.getWorkPeriod,
+                                            call_Edit_myOrganisationPerson,
+                                            null,
                                             LanguageControl.DynSettings.LanguageID,
-                                            call_Edit_myOrganisationPerson
+                                            ref bCancel
                                             );
 
-            if (this.loginControl1.AWP_Login(xnav, getWorkPeriod))
+            if (this.loginControl1.Login(xnav, getWorkPeriod))
             {
                 myStartup.eNextStep++;
                 return true;

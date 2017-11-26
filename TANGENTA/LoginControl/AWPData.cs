@@ -190,16 +190,16 @@ namespace LoginControl
                 AllRoles = new List<AWPRole>();
             }
 
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_Administrator));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_UserManagement));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WriteInvoice));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WriteProformainvoice));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_StockTakeManagement));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_PriceListManagement));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_ViewAndExport));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WorkInShopA));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WorkInShopB));
-            AllRoles.Add(new AWPRole(-1, LoginControl.ROLE_WorkInShopC));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_Administrator));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_UserManagement));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WriteInvoice));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WriteProformainvoice));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_StockTakeManagement));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_PriceListManagement));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_ViewAndExport));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopA));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopB));
+            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopC));
 
        
         }

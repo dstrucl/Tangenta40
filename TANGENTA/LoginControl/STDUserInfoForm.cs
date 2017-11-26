@@ -12,34 +12,34 @@ namespace LoginControl
 {
     public partial class STDUserInfoForm : Form
     {
-        LoginControl login_control;
-        public STDUserInfoForm(LoginControl logctrl)
+        STD std=null;
+        public STDUserInfoForm(STD xstd)
         {
             InitializeComponent();
             try
             {
                 this.Text = lng.s_UserInfo.s;
                 lbl_Roles.Text = lng.s_Roles.s;
-                login_control = logctrl;
+                std = xstd;
                 lbl_UserName.Text = lng.s_UserName.s;
                 lbl_first_name.Text = lng.s_FirstName.s;
                 lbl_last_name.Text = lng.s_LastName.s;
                 lbl_Identity.Text = lng.s_IdentityNumber.s;
                 lbl_Contact.Text = lng.s_Contact.s;
-                txt_UserName.Text = login_control.UserName;
-                txt_first_name.Text = login_control.FirstName;
-                txt_last_name.Text = login_control.LastName;
-                txt_Identiy.Text = login_control.Identity;
-                txt_Contact.Text = login_control.Contact;
-                chk_NotActiveAfterPasswordExpires.Checked = login_control.NotActiveAfterPasswordExpires;
-                chk_PasswordExpiresInNumberOfDays.Checked = login_control.bPasswordExpiresInNumberOfDays;
-                chk_PasswordNeverExpires.Checked = login_control.PasswordNeverExpires;
-                txt_NumberOfDays.Text = login_control.Maximum_password_age_in_days.ToString();
-                txt_LastUserPasswordDefinitionTime.Text = login_control.LastUserPasswordDefinitionTime.ToString();
-                if (!login_control.PasswordNeverExpires)
+                txt_UserName.Text = std.lctrl.UserName;
+                txt_first_name.Text = std.lctrl.FirstName;
+                txt_last_name.Text = std.lctrl.LastName;
+                txt_Identiy.Text = std.lctrl.Identity;
+                txt_Contact.Text = std.lctrl.Email;
+                chk_NotActiveAfterPasswordExpires.Checked = std.lctrl.NotActiveAfterPasswordExpires;
+                chk_PasswordExpiresInNumberOfDays.Checked = std.lctrl.bPasswordExpiresInNumberOfDays;
+                chk_PasswordNeverExpires.Checked = std.lctrl.PasswordNeverExpires;
+                txt_NumberOfDays.Text = std.lctrl.Maximum_password_age_in_days.ToString();
+                txt_LastUserPasswordDefinitionTime.Text = std.lctrl.LastUserPasswordDefinitionTime.ToString();
+                if (!std.lctrl.PasswordNeverExpires)
                 {
                     lbl_Password_expires_on.Visible = true;
-                    lbl_Password_expires_on.Text = lng.s_PasswordExpiresAfter.s + login_control.PasswordExpiresInNumberOfDays.ToString();
+                    lbl_Password_expires_on.Text = lng.s_PasswordExpiresAfter.s + std.lctrl.PasswordExpiresInNumberOfDays.ToString();
                     txt_NumberOfDays.Visible = true;
                 }
                 else
@@ -74,7 +74,7 @@ namespace LoginControl
             dgv_Roles.Columns.Add(dgvcol_description);
             LoginDB_DataSet.LoginRoles_lang LoginRoles_lang = new LoginDB_DataSet.LoginRoles_lang();
             LoginDB_DataSet.HeaderText.Set(dgv_Roles, LoginRoles_lang.col_headers);
-            foreach (STDRole role in login_control.LoginSTDRoles)
+            foreach (STDRole role in std.LoginSTDRoles)
             {
                 int iRow = dgv_Roles.Rows.Add();
                 dgv_Roles.Rows[iRow].Cells[LoginDB_DataSet.LoginRoles.Name.name].Value = role.Name;
@@ -92,7 +92,7 @@ namespace LoginControl
 
         private void btn_LoginHistory_Click(object sender, EventArgs e)
         {
-            LoginHistoryForm login_history_form = new LoginHistoryForm(login_control, login_control.LoginUsers_id, login_control.UserName);
+            LoginHistoryForm login_history_form = new LoginHistoryForm(std,Convert.ToInt32(std.lctrl.LoginUsers_id), std.lctrl.UserName);
             login_history_form.ShowDialog();
         }
     }

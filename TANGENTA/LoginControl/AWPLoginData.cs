@@ -30,8 +30,8 @@ namespace LoginControl
         internal enum eGetDateResult {USER_NOT_FOUND, DUPLICATE_USER_FOUND, USER_HAS_NO_RULES,OK, ERROR }
 
 
-        internal long LoginSession_id = -1;
 
+        internal int LoginSession_id = -1;
 
 
         internal long ID = -1;
@@ -98,13 +98,14 @@ namespace LoginControl
 
         public List<AWPRole> m_AWP_UserRoles = new List<AWPRole>();
 
+
         internal bool IsAdministrator
         {
             get
             {
                 foreach (AWPRole role in m_AWP_UserRoles)
                 {
-                    if (role.Name.Equals(LoginControl.ROLE_Administrator))
+                    if (role.Name.Equals(AWP.ROLE_Administrator))
                     {
                         return true;
                     }
@@ -112,6 +113,13 @@ namespace LoginControl
                 return false;
             }
         }
+
+        public long LoginUsers_ID {
+            get
+            {
+                return ID;
+            }
+            }
 
         internal bool GetUserRoles()
         {

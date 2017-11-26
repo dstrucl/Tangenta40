@@ -17,12 +17,14 @@ namespace LoginControl
         internal DataTable dtLoginUsers = null;
         LoginControl login_control = null;
         AWPLoginData awpld = null;
+        AWP awp = null;
         LoginControl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
-        public AWPLoginForm(LoginControl logctrl, LoginControl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod)
+
+        public AWPLoginForm(AWP xawp, LoginControl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod)
         {
             InitializeComponent();
-            login_control = logctrl;
-            awpld = login_control.m_AWPLoginData;
+            awp = xawp;
+            awpld = awp.m_AWPLoginData;
             call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
             cmbR_UserName.RecentItemsFolder = login_control.RecentItemsFolder;
             this.Text = lng.s_Login.s;
@@ -36,7 +38,7 @@ namespace LoginControl
         private void DoLogin()
         {
             this.cmbR_UserName.Set(this.cmbR_UserName.Text);
-            switch (awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, login_control.awpd))
+            switch (awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, awp.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
                     if (login_control.PasswordMatch(awpld.Password, txt_Password.Text))

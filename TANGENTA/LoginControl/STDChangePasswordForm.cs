@@ -12,15 +12,15 @@ namespace LoginControl
 {
     public partial class STDChangePasswordForm : Form
     {
-        LoginControl login_control = null;
+        STD std = null;
         LoginDB_DataSet.LoginUsers LoginUsers = null;
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
-        public STDChangePasswordForm(LoginControl loginctrl,LoginDB_DataSet.LoginUsers xLoginUsers, string sInstruction)
+        public STDChangePasswordForm(STD xstd,LoginDB_DataSet.LoginUsers xLoginUsers, string sInstruction)
         {
             InitializeComponent();
             LoginUsers = xLoginUsers;
-            login_control = loginctrl;
-            this.Text = lng.s_UserThatChangesPassword.s + login_control.UserName;
+            std = xstd;
+            this.Text = lng.s_UserThatChangesPassword.s + std.UserName;
             lbl_New_Password.Text = lng.s_New_Password.s;
             lbl_Confirm_New_Pasword.Text = lng.s_Confirm_New_Password.s;
             lbl_Instruction.Text = sInstruction;
@@ -29,7 +29,7 @@ namespace LoginControl
         private void btn_OK_Click(object sender, EventArgs e)
         {
             string Err = null;
-            if (txtPassword.Text.Length >= login_control.MinPasswordLength)
+            if (txtPassword.Text.Length >= std.lctrl.MinPasswordLength)
             {
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
@@ -37,7 +37,7 @@ namespace LoginControl
                     m_LoginDB_DataSet_Procedures.LoginUsers_UserChangeItsOwnPassword(LoginUsers.o_id.id_, LoginControl.CalculateSHA256(txtConfirmPassword.Text), ref Res, ref Err);
                     if (Res.Equals("OK"))
                     {
-                        login_control.m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
+                        std.m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;
                         DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -55,7 +55,7 @@ namespace LoginControl
 
         private void ChangePasswordForm_Load(object sender, EventArgs e)
         {
-            m_LoginDB_DataSet_Procedures = new LoginDB_DataSet.LoginDB_DataSet_Procedures(login_control.Login_con);
+            m_LoginDB_DataSet_Procedures = new LoginDB_DataSet.LoginDB_DataSet_Procedures(std.Login_con);
         }
     }
 }
