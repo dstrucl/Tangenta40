@@ -15,7 +15,6 @@ namespace LoginControl
     {
 
         internal DataTable dtLoginUsers = null;
-        LoginControl login_control = null;
         AWPLoginData awpld = null;
         AWP awp = null;
         LoginControl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
@@ -26,7 +25,7 @@ namespace LoginControl
             awp = xawp;
             awpld = awp.m_AWPLoginData;
             call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
-            cmbR_UserName.RecentItemsFolder = login_control.RecentItemsFolder;
+            cmbR_UserName.RecentItemsFolder = awp.lctrl.RecentItemsFolder;
             this.Text = lng.s_Login.s;
             this.btn_OK.Text = lng.s_OK.s;
             this.btn_Cancel.Text = lng.s_Cancel.s;
@@ -41,11 +40,11 @@ namespace LoginControl
             switch (awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, awp.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
-                    if (login_control.PasswordMatch(awpld.Password, txt_Password.Text))
+                    if (awp.lctrl.PasswordMatch(awpld.Password, txt_Password.Text))
                     {
                         if (awpld.ChangePasswordOnFirstLogin)
                         {
-                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(login_control, awpld, lng.s_AdministratorRequestForNewPassword.s);
+                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(awp.lctrl, awpld, lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
                                 Login_Start();
@@ -71,7 +70,7 @@ namespace LoginControl
                                 }
                                 else
                                 {
-                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(login_control, awpld, lng.s_PasswordExpiredSetNewPassword.s);
+                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(awp.lctrl, awpld, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
                                         if (AWP_func.Remove_ChangePasswordOnFirstLogin(awpld))

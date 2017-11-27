@@ -416,7 +416,7 @@ namespace TangentaDB
                             dpiao.TermsOfPayment_ID as TermsOfPayment_ID,
                             mop.ID as MethodOfPayment_DPI_ID,
                             mop.Atom_BankAccount_ID as Atom_BankAccount_ID,
-                            top.Description as TermsOfPayment_Description,
+                            topay.Description as TermsOfPayment_Description,
                             pt.Identification as PaymentType_Identification,
                             aba.TRR as TRR,
                             ao.Name as AtomOrganisationName,
@@ -427,7 +427,7 @@ namespace TangentaDB
                             an.NoticeText as NoticeText
                             from DocProformaInvoice dpi
                             left join  DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = dpi.ID
-                            left join  TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
+                            left join  TermsOfPayment topay on dpiao.TermsOfPayment_ID = topay.ID
                             left join  MethodOfPayment_DPI mop on dpiao.MethodOfPayment_DPI_ID = mop.ID
                             left join  PaymentType pt on mop.PaymentType_ID = pt.ID
                             left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID

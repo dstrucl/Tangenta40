@@ -438,7 +438,7 @@ namespace TangentaDB
                             mop.ID as MethodOfPayment_DI_ID,
                             diao.PaymentDeadline,
                             mop.Atom_BankAccount_ID,
-                            top.Description as TermsOfPayment_Description,
+                            topay.Description as TermsOfPayment_Description,
                             mop.PaymentType_ID,
                             pt.Identification as PaymentType_Identification,
                             aba.TRR,
@@ -450,7 +450,7 @@ namespace TangentaDB
                             acmt1.Comment as Comment1
                             from DocInvoice di
 							inner join  DocInvoiceAddOn diao on diao.DocInvoice_ID = di.ID
-                            left join  TermsOfPayment top on diao.TermsOfPayment_ID = top.ID
+                            left join  TermsOfPayment topay on diao.TermsOfPayment_ID = topay.ID
                             left join  MethodOfPayment_DI mop on diao.MethodOfPayment_DI_ID = mop.ID
                             left join  PaymentType pt on mop.PaymentType_ID = pt.ID
                             left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID

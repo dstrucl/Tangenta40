@@ -567,20 +567,6 @@ namespace Tangenta
 
 
 
-
-        public long myOrganisation_Person_ID { 
-            get
-            { if (this.m_usrc_Invoice!=null)
-                {
-                    return this.m_usrc_Invoice.myOrganisation_Person_ID;
-                }
-            else
-            {
-                return -1;
-            }
-            }
-            }
-
         private void m_usrc_Invoice_PriceListChanged()
         {
             NavigationButtons.Navigation nav_Invoice_PriceListChanged = new NavigationButtons.Navigation();

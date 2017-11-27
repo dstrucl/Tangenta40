@@ -2191,21 +2191,25 @@ do_EditMyOrganisation_Data:
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID))
                     {
+
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
+
+                        if (Program.b_FVI_SLO)
+                        {
+
+                            if ((m_InvoiceData.AddOnDI.IsCashPayment && Program.usrc_FVI_SLO1.FVI_for_cash_payment)
+                                || (m_InvoiceData.AddOnDI.IsCardPayment && Program.usrc_FVI_SLO1.FVI_for_card_payment)
+                                || (m_InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.usrc_FVI_SLO1.FVI_for_payment_on_bank_account)
+                                )
+                            {
+                                UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(GlobalData.Atom_myOrganisation_Person_ID);
+                                this.SendInvoice(GrossSum, TaxSum, xInvoiceAuthor);
+                            }
+                        }
+
                         // read saved doc Invoice again !
                         if (m_InvoiceData.Read_DocInvoice())
                         {
-                            if (Program.b_FVI_SLO)
-                            {
-
-                                if ((m_InvoiceData.AddOnDI.IsCashPayment && Program.usrc_FVI_SLO1.FVI_for_cash_payment) 
-                                    || (m_InvoiceData.AddOnDI.IsCardPayment && Program.usrc_FVI_SLO1.FVI_for_card_payment)
-                                    || (m_InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.usrc_FVI_SLO1.FVI_for_payment_on_bank_account)
-                                    )
-                                {
-                                    this.SendInvoice();
-                                }
-                            }
 
                             if (aa_DocInvoiceSaved != null)
                             {
@@ -2265,7 +2269,7 @@ do_EditMyOrganisation_Data:
             }
         }
 
-        private void SendInvoice()
+        private void SendInvoice(decimal dGrossSum,StaticLib.TaxSum xTaxSum,UniversalInvoice.Person xInvoiceAuthor)
         {
             if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
             {
@@ -2283,9 +2287,9 @@ do_EditMyOrganisation_Data:
                                        "", "",
                                        m_InvoiceData.IssueDate_v,
                                        m_InvoiceData.NumberInFinancialYear,
-                                       m_InvoiceData.GrossSum,
-                                       m_InvoiceData.taxSum,
-                                       m_InvoiceData.Invoice_Author
+                                       dGrossSum,
+                                       xTaxSum,
+                                       xInvoiceAuthor //ToDo : Get real Invoice Autor here!
                                        );
                 Image img_QR = null;
                 string furs_UniqeMsgID = null;
@@ -2571,7 +2575,6 @@ do_EditMyOrganisation_Data:
         }
 
 
-        public long myOrganisation_Person_ID { get; set; }
 
 
         private void usrc_Customer_Customer_Org_Changed(long Customer_Org_ID)

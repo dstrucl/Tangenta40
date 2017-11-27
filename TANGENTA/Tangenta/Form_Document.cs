@@ -413,19 +413,6 @@ namespace Tangenta
             }
         }
 
-        public long myOrganisation_Person_ID 
-        { 
-            get {
-                    if (this.m_usrc_Main!=null)
-                    {
-                        return this.m_usrc_Main.myOrganisation_Person_ID;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
-                }
-        }
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {

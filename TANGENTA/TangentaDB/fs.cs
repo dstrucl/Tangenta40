@@ -43,6 +43,11 @@ namespace TangentaDB
             return s;
         }
 
+        public static UniversalInvoice.Person GetInvoiceAuthor(long Atom_MyOrganisation_Person_ID)
+        {
+            return f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
+        }
+
         public static bool DeleteAll(string TableName)
         {
             string Err = null;

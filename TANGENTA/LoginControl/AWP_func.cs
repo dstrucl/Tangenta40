@@ -534,7 +534,7 @@ SELECT
              LEFT JOIN cState_Person PersonData_$_cadrper_$_ccouper ON PersonData_$_cadrper.cState_Person_ID = PersonData_$_cadrper_$_ccouper.ID 
              LEFT JOIN cCardType_Person PersonData_$_cardtper ON PersonData.cCardType_Person_ID = PersonData_$_cardtper.ID 
              LEFT JOIN PersonImage PersonData_$_perimg ON PersonData.PersonImage_ID = PersonData_$_perimg.ID
-             where myOrganisation_Person_ID not in (select myOrganisation_Person_ID from LoginUsers) and  myOrganisation_Person.Active =1
+             where myOrganisation_Person.ID not in (select myOrganisation_Person_ID from LoginUsers) and  myOrganisation_Person.Active =1
 ";
             if (dt == null)
             {

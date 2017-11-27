@@ -69,11 +69,11 @@ namespace TangentaDB
             {
                 if (ID >= 0)
                 {
-                    cond = " where  JOURNAL_DocInvoice_$_dinv_$$ID = " + ID.ToString();
+                    cond = " where  JOURNAL_DocInvoice_$_dinv.ID = " + ID.ToString();
                 }
                 else if (bDraft)
                 {
-                    cond = " where JOURNAL_DocInvoice_$_dinv_$$Draft = 1 ";
+                    cond = " where JOURNAL_DocInvoice_$_dinv.Draft = 1 ";
                 }
                 else
                 {
@@ -123,8 +123,8 @@ namespace TangentaDB
                         LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.ID
                         LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
                         LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
-						left join DocInvoiceAddOn diao on diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv_$$ID
-                        left join TermsOfPayment top on diao.TermsOfPayment_ID = top.id
+						left join DocInvoiceAddOn diao on diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                        left join TermsOfPayment topay on diao.TermsOfPayment_ID = topay.id
                         left join MethodOfPayment_DI mtpdi on diao.MethodOfPayment_DI_ID = mtpdi.id
                         left join PaymentType pt on mtpdi.PaymentType_ID = pt.ID
                         left join Atom_Warranty aw on diao.Atom_Warranty_ID = aw.ID
@@ -135,11 +135,11 @@ namespace TangentaDB
             {
                 if (ID >= 0)
                 {
-                    cond = " where  JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + ID.ToString();
+                    cond = " where  JOURNAL_DocProformaInvoice_$_dpinv.ID = " + ID.ToString();
                 }
                 else if (bDraft)
                 {
-                    cond = " where JOURNAL_DocProformaInvoice_$_dpinv_$$Draft = 1 ";
+                    cond = " where JOURNAL_DocProformaInvoice_$_dpinv.Draft = 1 ";
                 }
                 else
                 {
@@ -168,7 +168,7 @@ namespace TangentaDB
                         aw.WarrantyDuration as WarrantyDuration,
                         aw.WarrantyConditions as WarrantyConditions,
                         dpiao.TermsOfPayment_ID as TermsOfPayment_ID,
-                        top.Description as TermsOfPayment_Description,
+                        topay.Description as TermsOfPayment_Description,
                         dpiao.DocDuration as DocDuration,
                         dpiao.DocDurationType as DocDurationType
                         FROM JOURNAL_DocProformaInvoice
@@ -185,8 +185,8 @@ namespace TangentaDB
                         LEFT JOIN Atom_cLastName JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.ID
                         LEFT JOIN Atom_Customer_Org JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Org_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.ID
                         LEFT JOIN Atom_Organisation JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.ID
-                        left join DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv_$$ID
-                        left join TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
+                        left join DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
+                        left join TermsOfPayment topay on dpiao.TermsOfPayment_ID = topay.ID
                         left join Atom_Warranty aw on dpiao.Atom_Warranty_ID = aw.ID
                         " + cond;
             }

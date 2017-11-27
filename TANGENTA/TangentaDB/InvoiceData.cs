@@ -808,7 +808,7 @@ namespace TangentaDB
 
         }
 
-
+      
 
         public bool Read_DocInvoice()
         {
@@ -1322,6 +1322,14 @@ namespace TangentaDB
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
                         sFiscalVerificationOfInvoicesNotDone = lng.s_FVI_not_done.s;
+
+                        object oAtom_MyOrganisation_Person_ID = dt_DocInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
+                        if (oAtom_MyOrganisation_Person_ID is long)
+                        {
+                            long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
+                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
+                        }
+
                         if (IsDocInvoice)
                         {
                             if (AddOnDI.b_FVI_SLO)
@@ -1393,12 +1401,6 @@ namespace TangentaDB
                             }
                         }
 
-                        object oAtom_MyOrganisation_Person_ID = dt_DocInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
-                        if (oAtom_MyOrganisation_Person_ID is long)
-                        {
-                            long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
-                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
-                        }
 
                         object oAtom_Customer_Org_ID = dt_DocInvoice.Rows[0]["Atom_Customer_Org_ID"];
                         if (oAtom_Customer_Org_ID is long)

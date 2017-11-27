@@ -120,7 +120,6 @@
             this.m_usrc_Invoice.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_Invoice.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_Invoice.Margin = new System.Windows.Forms.Padding(2);
-            this.m_usrc_Invoice.myOrganisation_Person_ID = ((long)(0));
             this.m_usrc_Invoice.Name = "m_usrc_Invoice";
             this.m_usrc_Invoice.Size = new System.Drawing.Size(625, 681);
             this.m_usrc_Invoice.TabIndex = 0;

@@ -300,7 +300,7 @@ namespace Tangenta
                     LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
                     LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
                     LEFT JOIN DocInvoiceAddOn diao ON diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN TermsOfPayment top ON diao.TermsOfPayment_ID = top.ID
+                    LEFT JOIN TermsOfPayment topay ON diao.TermsOfPayment_ID = topay.ID
                     LEFT JOIN MethodOfPayment_DI mtpdi ON diao.MethodOfPayment_DI_ID = mtpdi.ID
                     LEFT JOIN PaymentType pt ON mtpdi.PaymentType_ID = pt.ID
                     LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
@@ -379,7 +379,7 @@ namespace Tangenta
                     LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
                     LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
                     LEFT JOIN DocInvoiceAddOn diao ON diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN TermsOfPayment top ON diao.TermsOfPayment_ID = top.ID
+                    LEFT JOIN TermsOfPayment topay ON diao.TermsOfPayment_ID = topay.ID
                     LEFT JOIN MethodOfPayment_DI mtpdi ON diao.MethodOfPayment_DI_ID = mtpdi.ID
                     LEFT JOIN PaymentType pt ON mtpdi.PaymentType_ID = pt.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
@@ -454,7 +454,7 @@ namespace Tangenta
                 LEFT JOIN Atom_Customer_Org JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Org_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.ID
                 LEFT JOIN Atom_Organisation JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.ID
                 LEFT JOIN DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
-                LEFT JOIN TermsOfPayment top ON dpiao.TermsOfPayment_ID = top.ID
+                LEFT JOIN TermsOfPayment topay ON dpiao.TermsOfPayment_ID = topay.ID
                 LEFT JOIN MethodOfPayment_DPI mtpdpi ON dpiao.MethodOfPayment_DPI_ID = mtpdpi.ID
                 LEFT JOIN PaymentType pt ON mtpdpi.PaymentType_ID = pt.ID
                 INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID

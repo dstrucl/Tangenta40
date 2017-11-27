@@ -162,20 +162,6 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsInUse; }
         }
 
-        public static long myOrganisation_Person_ID
-        {
-            get
-            {
-                if (MainForm != null)
-                {
-                    return MainForm.myOrganisation_Person_ID;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-        }
 
         public static bool ProgramDiagnostic
         {

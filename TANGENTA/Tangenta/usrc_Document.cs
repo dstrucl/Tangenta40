@@ -766,19 +766,6 @@ namespace Tangenta
         }
 
 
-        public long myOrganisation_Person_ID {
-            get
-            {
-                if (this.m_usrc_InvoiceMan != null)
-                {
-                    return this.m_usrc_InvoiceMan.myOrganisation_Person_ID;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-        }
 
 
         private void btn_Settings_Click(object sender, EventArgs e)
