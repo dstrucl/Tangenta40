@@ -488,6 +488,7 @@ namespace Tangenta
             string Err = null;
             iColIndex_DocInvoice_Draft = -1;
             iColIndex_DocInvoice_Invoice_Storno = -1;
+            dgvx_XInvoice.DataSource = null;
             bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XInvoice, sql, lpar_ExtraCondition, ref Err);
             if (bRes)
             {
