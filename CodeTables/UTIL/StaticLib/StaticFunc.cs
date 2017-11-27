@@ -315,6 +315,13 @@ namespace StaticLib
             return ms.ToArray();
         }
 
+        public static byte[] ImageToByteArray(System.Drawing.Image imageIn, System.Drawing.Imaging.ImageFormat frmt)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, frmt);
+            return ms.ToArray();
+        }
+
         public static Image resizeImage(Image imgToResize, Size size, System.Drawing.Imaging.ImageFormat destformat)
         {
             int sourceWidth = imgToResize.Width;
@@ -514,6 +521,5 @@ namespace StaticLib
             RetailPriceWithDiscount_WithoutTax = RetailPriceWithDiscount - TaxPrice;
 
         }
-
     }
 }

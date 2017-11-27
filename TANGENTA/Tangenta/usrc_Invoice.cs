@@ -2271,13 +2271,13 @@ do_EditMyOrganisation_Data:
 
         private void SendInvoice(decimal dGrossSum,StaticLib.TaxSum xTaxSum,UniversalInvoice.Person xInvoiceAuthor)
         {
-            if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
-            {
-                m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
-                m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
-            }
-            else
-            {
+            //if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
+            //{
+            //m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+            //    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+            //}
+            //else
+            //{
                 string furs_XML = m_InvoiceData.AddOnDI.m_FURS.Create_furs_InvoiceXML(false,
                                        Properties.Resources.FVI_SLO_Invoice,
                                        Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
@@ -2325,7 +2325,7 @@ do_EditMyOrganisation_Data:
                     }
                 }
                 m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
-            }
+            //}
         }
 
         private void btn_Issue_Click(object sender, EventArgs e)

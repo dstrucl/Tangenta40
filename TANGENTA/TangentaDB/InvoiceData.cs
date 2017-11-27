@@ -1395,7 +1395,10 @@ namespace TangentaDB
 
                                     if (AddOnDI.m_FURS.FURS_QR_v != null)
                                     {
-                                        AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Set(AddOnDI.m_FURS.FURS_QR_v.v);
+                                        AddOnDI.m_FURS.FURS_Image_QRcode = MNet.SLOTaxService.Services.BarCodes.DrawQRCode(128, System.Drawing.Imaging.ImageFormat.Png,AddOnDI.m_FURS.FURS_QR_v.v);
+                                        byte[] Image_QRcode_ByteArray = StaticLib.Func.ImageToByteArray(AddOnDI.m_FURS.FURS_Image_QRcode, System.Drawing.Imaging.ImageFormat.Png);
+                                        string Image_QRcode_base64String = Convert.ToBase64String(Image_QRcode_ByteArray);
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Set(Image_QRcode_base64String);
                                     }
                                 }
                             }

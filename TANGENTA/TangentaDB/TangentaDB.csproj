@@ -267,6 +267,10 @@
       <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
       <Name>HtmlRenderer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SLO_FISCAL\SLOTaxService\SLOTaxService.csproj">
+      <Project>{b2f0a646-91f9-4ddb-aadd-f7a8c1d97fd7}</Project>
+      <Name>SLOTaxService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
       <Name>ShopA_dbfunc</Name>
