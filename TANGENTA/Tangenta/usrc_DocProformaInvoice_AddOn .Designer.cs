@@ -35,7 +35,7 @@
             this.btn_Select_BankAccount = new System.Windows.Forms.Button();
             this.txt_BankAccount = new System.Windows.Forms.TextBox();
             this.grp_ValidityOfTheTender = new System.Windows.Forms.GroupBox();
-            this.cmb_DaysOrMonths = new ComboBox_Recent.ComboBox_RecentList();
+            this.cmb_DaysOrMonths = new System.Windows.Forms.ComboBox();
             this.dtP_TenderValidUntil = new System.Windows.Forms.DateTimePicker();
             this.rdb_Valid_Tender_Until = new System.Windows.Forms.RadioButton();
             this.rdb_ValidNumberOf = new System.Windows.Forms.RadioButton();
@@ -157,20 +157,11 @@
             // 
             // cmb_DaysOrMonths
             // 
-            this.cmb_DaysOrMonths.AskToCreateRecentItemsFolder = false;
             this.cmb_DaysOrMonths.DisplayMember = "text";
-            this.cmb_DaysOrMonths.DisplayTime = true;
-            this.cmb_DaysOrMonths.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_DaysOrMonths.FormattingEnabled = true;
-            this.cmb_DaysOrMonths.InsertOnKeyPress = true;
-            this.cmb_DaysOrMonths.Key = null;
             this.cmb_DaysOrMonths.Location = new System.Drawing.Point(114, 23);
             this.cmb_DaysOrMonths.Margin = new System.Windows.Forms.Padding(2);
-            this.cmb_DaysOrMonths.MaxRecentCount = 10;
             this.cmb_DaysOrMonths.Name = "cmb_DaysOrMonths";
-            this.cmb_DaysOrMonths.ReadOnly = false;
-            this.cmb_DaysOrMonths.RecentItemsFileName = null;
-            this.cmb_DaysOrMonths.RecentItemsFolder = "";
             this.cmb_DaysOrMonths.Size = new System.Drawing.Size(134, 27);
             this.cmb_DaysOrMonths.TabIndex = 5;
             this.cmb_DaysOrMonths.SelectedIndexChanged += new System.EventHandler(this.cmb_DaysOrMonths_SelectedIndexChanged);
@@ -352,7 +343,7 @@
         private System.Windows.Forms.GroupBox grp_TermsOfPayment;
         private System.Windows.Forms.TextBox txt_PaymantConditionsDescription;
         private System.Windows.Forms.Button btn_Select_Terms_of_Payment;
-        private ComboBox_Recent.ComboBox_RecentList cmb_DaysOrMonths;
+        private System.Windows.Forms.ComboBox cmb_DaysOrMonths;
         private System.Windows.Forms.Button btn_Select_BankAccount;
         private System.Windows.Forms.TextBox txt_BankAccount;
         private System.Windows.Forms.DateTimePicker dtP_DateOfIssue;
