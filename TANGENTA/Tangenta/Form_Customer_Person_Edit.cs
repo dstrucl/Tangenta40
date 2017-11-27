@@ -93,6 +93,8 @@ namespace Tangenta
                                   PersonData_$_cadrper_$_cstper_$$Country
             ";
             string sWhereCondition = "";
+            tbl.SetAsFirstColumn("Person_ID");
+            //tbl.SetColumnStyle("Person_ID",Column.eStyle.ReadOnlyTable);
             return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
         }

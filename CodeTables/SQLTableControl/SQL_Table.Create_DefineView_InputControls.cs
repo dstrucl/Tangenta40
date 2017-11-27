@@ -121,6 +121,53 @@ namespace CodeTables
             }
         }
 
+        public bool SetAsFirstColumn(string ColumnName)
+        {
+            int iCount = Column.Count;
+            int i = 0;
+            for(i=0;i<iCount;i++)
+            {
+                if (Column[i].Name.Equals(ColumnName))
+                {
+                    var item = Column[i];
+                    Column.RemoveAt(i);
+                    Column.Insert(0, item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool SetAsLastColumn(string ColumnName)
+        {
+            int iCount = Column.Count;
+            int i = 0;
+            for (i = 0; i < iCount; i++)
+            {
+                if (Column[i].Name.Equals(ColumnName))
+                {
+                    var item = Column[i];
+                    Column.RemoveAt(i);
+                    Column.Add(item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool SetColumnStyle(string ColumnName, CodeTables.Column.eStyle style)
+        {
+            foreach(Column col in Column)
+            {
+                if (col.Name.Equals(ColumnName))
+                {
+                    col.Style = style;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private Column IdentityColumn()
         {
             foreach (Column col in Column)

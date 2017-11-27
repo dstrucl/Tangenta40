@@ -29,6 +29,7 @@ namespace Tangenta
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
+        string sWhereCondition = "";
         NavigationButtons.Navigation nav = null;
         private long m_Person_ID = -1;
 
@@ -56,6 +57,20 @@ namespace Tangenta
             m_Person_ID = Person_ID;
         }
 
+        public Form_PersonData_Edit(long Person_ID,string xWhereCondition, CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long PersonData_ID, NavigationButtons.Navigation xnav)
+        {
+            InitializeComponent();
+            nav = xnav;
+            dbTables = xdbTables;
+            tbl = xtbl;
+            ColumnOrderBy = xColumnOrderBy;
+            ID_v = new long_v();
+            ID_v.v = PersonData_ID;
+            lng.s_OtherPersonDana.Text(this);
+            m_Person_ID = Person_ID;
+            sWhereCondition = xWhereCondition;
+        }
+
         private bool Init()
         {
             string selection = @" ID,
@@ -79,8 +94,8 @@ namespace Tangenta
                     PersonData_$$Description
             ";
 
-            string sWhereCondition = "";
             usrc_EditTable.AllowUserToAddNew = false;
+            tbl.SetColumnStyle("Person_ID", Column.eStyle.ReadOnlyTable);
             if (usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav))
             {
                 usrc_EditTable.FillInitialData();

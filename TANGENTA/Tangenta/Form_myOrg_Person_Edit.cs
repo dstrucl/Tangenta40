@@ -227,7 +227,9 @@ namespace Tangenta
                 {
                     if (PersonData_ID>=0)
                     {
-                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID_v.v,DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID_v.v,
+                                                                      " where PersonData_$_per_$$ID = " + Person_ID_v.v.ToString(),
+                                                                      DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                                     tbl_PersonData,
                                                                                     "PersonData_$_per_$_cln_$$LastName desc",
                                                                                     PersonData_ID,
@@ -238,11 +240,13 @@ namespace Tangenta
                 {
                     if (f_PersonData.InsertEmptyRow(Person_ID_v, ref  PersonData_ID))
                     {
-                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID_v.v,DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                                                  tbl_PersonData,
-                                                                                  "PersonData_$_per_$_cln_$$LastName desc",
-                                                                                  PersonData_ID,
-                                                                                  nav);
+                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID_v.v,
+                                                                      " where PersonData_$_per_$$ID = " + Person_ID_v.v.ToString(),
+                                                                      DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                                      tbl_PersonData,
+                                                                      "PersonData_$_per_$_cln_$$LastName desc",
+                                                                      PersonData_ID,
+                                                                      nav);
                     }
                 }
             }
