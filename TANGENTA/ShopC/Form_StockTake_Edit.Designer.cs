@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_StockTake_Edit));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
-            this.usrc_StockEditForSelectedStockTake1 = new usrc_StockEditForSelectedStockTake();
+            this.usrc_StockEditForSelectedStockTake1 = new ShopC.usrc_StockEditForSelectedStockTake();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,6 +82,7 @@
             this.usrc_StockEditForSelectedStockTake1.Size = new System.Drawing.Size(615, 729);
             this.usrc_StockEditForSelectedStockTake1.TabIndex = 0;
             this.usrc_StockEditForSelectedStockTake1.BtnExitPressed += new ShopC.usrc_StockEditForSelectedStockTake.delegate_BtnExitPressed(this.usrc_StockEditForSelectedStockTake1_BtnExitPressed);
+            this.usrc_StockEditForSelectedStockTake1.Load += new System.EventHandler(this.usrc_StockEditForSelectedStockTake1_Load);
             // 
             // Form_StockTake_Edit
             // 

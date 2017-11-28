@@ -230,5 +230,10 @@ namespace ShopC
 
         public static ltext s_DocInvoice = new ltext(new string[] { "Invoice",
                                                  "Račun" });
+
+        public static ltext s_Unit = new ltext(new string[] { "Unit", "Merska enota" });
+
+        public static ltext s_DecimalPlaces = new ltext(new string[] { "Decimal places", "Decimalna mesta" });
+
     }
 }

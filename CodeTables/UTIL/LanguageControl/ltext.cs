@@ -264,10 +264,15 @@ namespace LanguageControl
             m_ctrl = ctrl;
             m_ctrl.Text = this.s;
             m_ctrl.Tag = this;
-            if ((ctrl is Button) || (ctrl is RadioButton) || (ctrl is CheckBox) || (ctrl is TextBox) || (ctrl is Label))
+            if (IsHoverControl(m_ctrl))
             {
                 m_ctrl.MouseHover += m_ctrl_MouseHover;
             }
+        }
+
+        private bool IsHoverControl(Control ctrl)
+        {
+            return (ctrl is Button) || (ctrl is RadioButton) || (ctrl is CheckBox) || (ctrl is TextBox) || (ctrl is Label) || (ctrl is GroupBox);
         }
 
         public void Text(Control ctrl,string additional_text)
@@ -275,7 +280,57 @@ namespace LanguageControl
             m_ctrl = ctrl;
             m_ctrl.Text = this.s + additional_text;
             m_ctrl.Tag = this;
-            if ((ctrl is Button) || (ctrl is RadioButton) || (ctrl is CheckBox) || (ctrl is TextBox) || (ctrl is Label))
+            if (IsHoverControl(m_ctrl))
+            {
+                m_ctrl.MouseHover += m_ctrl_MouseHover;
+            }
+        }
+
+        public void TextWithToolTip(Control ctrl, string tool_tip_text)
+        {
+            m_ctrl = ctrl;
+            
+            m_ctrl.Text = this.s;
+            m_ctrl.Tag = this;
+
+            ToolTip toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip1.ShowAlways = true;
+
+            // Set up the ToolTip text for the control
+            toolTip1.SetToolTip(m_ctrl, tool_tip_text);
+
+            if (IsHoverControl(m_ctrl))
+            {
+                m_ctrl.MouseHover += m_ctrl_MouseHover;
+            }
+        }
+
+        public void TextWithToolTip(Control ctrl,string additional_text, string tool_tip_text)
+        {
+            m_ctrl = ctrl;
+
+            m_ctrl.Text = this.s+ additional_text;
+            m_ctrl.Tag = this;
+
+            ToolTip toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip1.ShowAlways = true;
+
+            // Set up the ToolTip text for the control
+            toolTip1.SetToolTip(m_ctrl, tool_tip_text);
+
+            if (IsHoverControl(m_ctrl))
             {
                 m_ctrl.MouseHover += m_ctrl_MouseHover;
             }
@@ -299,7 +354,7 @@ namespace LanguageControl
             complex_text_list = xcomplex_text_list;
             m_ctrl.Text = this.s;
             m_ctrl.Tag = this;
-            if ((ctrl is Button) || (ctrl is RadioButton) || (ctrl is CheckBox) || (ctrl is TextBox) || (ctrl is Label))
+            if (IsHoverControl(m_ctrl))
             {
                 m_ctrl.MouseHover += m_ctrl_MouseHover;
             }

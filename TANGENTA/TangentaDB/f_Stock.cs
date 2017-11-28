@@ -104,6 +104,10 @@ namespace TangentaDB
                                   tr.TruckingCost,
                                   tr.Customs,                                  
                                   st.Name as StockTake_Name, 
+                                  u.Name as UnitName,
+                                  u.symbol as UnitSymbol,
+                                  u.DecimalPlaces as UnitDecimalPlaces,
+                                  u.StorageOption as UnitStorageOption,
                                   s.ID as Stock_ID,
                                   s.PurchasePrice_Item_ID,
                                   ppi.PurchasePrice_ID,
@@ -116,6 +120,7 @@ namespace TangentaDB
                            inner join Currency cur on pp.Currency_ID = cur.ID
                            inner join Taxation t on pp.Taxation_ID = t.ID
                            inner join Item i on ppi.Item_ID = i.ID
+                           inner join Unit u on i.Unit_ID = u.ID
                            inner join StockTake st on ppi.StockTake_ID = st.ID 
                            left join  Supplier sp on st.Supplier_ID = sp.ID
                            left join  Contact c on sp.Contact_ID = c.ID

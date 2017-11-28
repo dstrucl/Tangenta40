@@ -108,7 +108,10 @@ namespace ShopC
                                   Item_$_exp_$$ExpiryDescription,
                                   Item_$_wrty_$$WarrantyDuration,
                                   Item_$_wrty_$$WarrantyDurationType,
-                                  Item_$_wrty_$$WarrantyConditions
+                                  Item_$_wrty_$$WarrantyConditions,
+                                  Item_$_u_$$Name,
+                                  Item_$_u_$$Symbol,
+                                  Item_$_u_$$DecimalPlaces
             ";
             string sWhereCondition = "";
             switch (ItemEditMode)
@@ -151,20 +154,32 @@ namespace ShopC
                     usrc_EditTable.Save();
                 }
             }
+            SetUnderlayingItem();
+            this.Close();
+            DialogResult = DialogResult.Yes;
+        }
+
+        private void SetUnderlayingItem()
+        {
             if (m_usrc_StockEditForSelectedStockTake != null)
             {
                 object oItem_UniqueName = usrc_EditTable.tbl.Value("Item_$$UniqueName");
+                object oItem_Unit_Symbol = usrc_EditTable.tbl.Value("Item_$_u_$$Symbol");
+                object oItem_Unit_Name = usrc_EditTable.tbl.Value("Item_$_u_$$Name");
+                object oItem_Unit_DecimalPlaces = usrc_EditTable.tbl.Value("Item_$_u_$$DecimalPlaces");
                 if (oItem_UniqueName is TangentaTableClass.UniqueName)
                 {
                     if (((TangentaTableClass.UniqueName)oItem_UniqueName).defined)
                     {
-                        m_usrc_StockEditForSelectedStockTake.SetItem(usrc_EditTable.Identity, ((TangentaTableClass.UniqueName)oItem_UniqueName).val);
+                        string sUniqueName = ((TangentaTableClass.UniqueName)oItem_UniqueName).val;
+                        string sUnitName = ((TangentaTableClass.Name)oItem_Unit_Name).val;
+                        string sUnitSymbol = ((TangentaTableClass.Symbol)oItem_Unit_Symbol).val;
+                        short uDecimalPlaces = ((TangentaTableClass.DecimalPlaces)oItem_Unit_DecimalPlaces).val;
+                        m_usrc_StockEditForSelectedStockTake.SetItem(usrc_EditTable.Identity, sUniqueName, sUnitSymbol, uDecimalPlaces);
                     }
                 }
             }
-            this.Close();
-            DialogResult = DialogResult.Yes;
-        }
+       }
 
         private void do_Cancel()
         {
@@ -299,6 +314,7 @@ namespace ShopC
         {
             if (m_usrc_StockEditForSelectedStockTake!=null)
             {
+                SetUnderlayingItem();
                 m_usrc_StockEditForSelectedStockTake.Selected_Item_Index_Changed(m_tbl, ID, index);
             }
         }

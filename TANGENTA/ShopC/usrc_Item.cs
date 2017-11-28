@@ -154,21 +154,14 @@ namespace ShopC
                 
                     nmUpDn_StockQuantity.Minimum = 0;
                     nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
-                    nmUpDn_StockQuantity.Value = 1;
-                    nmUpDn_StockQuantity.Increment = fs.GetIncrement(m_Item_Data.Unit_DecimalPlaces, m_Item_Data.Unit_Symbol);
-
-                    nmUpDn_FactoryQuantity.Increment = fs.GetIncrement(m_Item_Data.Unit_DecimalPlaces, m_Item_Data.Unit_Symbol);
-                    nmUpDn_FactoryQuantity.Value = 0;
-                    nmUpDn_FactoryQuantity.Minimum = 0;
-                    nmUpDn_FactoryQuantity.Maximum = 10000000;
+                    fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
+                    nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
                     Paint_Item_Mode(eMode.STOCK_AND_FACTORY);
             }
             else
             {
-                nmUpDn_FactoryQuantity.Increment = fs.GetIncrement(m_Item_Data.Unit_DecimalPlaces, m_Item_Data.Unit_Symbol);
-                nmUpDn_FactoryQuantity.Value = 1;
-                nmUpDn_FactoryQuantity.Minimum = 0;
-                nmUpDn_FactoryQuantity.Maximum = 10000000;
+                fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
+                nmUpDn_FactoryQuantity.Maximum = decimal.MaxValue;
                 Paint_Item_Mode(eMode.FACTORY);
             }
 

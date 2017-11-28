@@ -238,5 +238,10 @@ namespace ShopC
                 }
             }
         }
+
+        private void usrc_StockEditForSelectedStockTake1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

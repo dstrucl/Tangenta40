@@ -162,12 +162,18 @@ namespace ShopC
         public usrc_StockEditForSelectedStockTake()
         {
             InitializeComponent();
+            nmUpDn_Quantity.Maximum = decimal.MaxValue;
+            EnableControls(false);
         }
 
-        internal void SetItem(long ID,string xUniqueName)
+        internal void SetItem(long ID,string xUniqueName, string symbol,short uDecimalPlaces)
         {
             CurrentItem_ID = ID;
-            lng.s_Item.Text(this.grp_Item, ":" + xUniqueName);
+            lng.s_Item.TextWithToolTip(this.grp_Item, lng.s_Item.s + ":" + xUniqueName, lng.s_Item.s+ ":" + xUniqueName+" "+lng.s_Unit.s + ":"+symbol + " ; "+lng.s_DecimalPlaces.s+"="+ uDecimalPlaces.ToString());
+            fs.SetNumericUpDown(ref nmUpDn_Quantity, uDecimalPlaces);
+            nmUpDn_Quantity.Maximum = decimal.MaxValue;
+
+            EnableControls(true);
         }
 
         private void btn_SelectItem_Click(object sender, EventArgs e)
@@ -195,19 +201,6 @@ namespace ShopC
         {
             if (iD >= 0)
             {
-                object ovalue = m_tbl.Value("UniqueName");
-                if (ovalue !=null)
-                {
-                    if (ovalue is TangentaTableClass.UniqueName)
-                    {
-                        if (((TangentaTableClass.UniqueName)ovalue).defined)
-                        {
-                            string Item_UniqueName = ((TangentaTableClass.UniqueName)ovalue).val;
-                            lng.s_Item.Text(grp_Item, ":" + Item_UniqueName);
-                            CurrentItem_ID = iD;
-                        }
-                    }
-                }
                 if (fs.IDisValid(CurrentItem_ID))
                 {
                     object oID = cmb_Currency.ValueMember;
@@ -625,8 +618,12 @@ namespace ShopC
             lng.s_lbl_StockTakeName.Text(lbl_StockTakeName, " : " + StockTakeName);
             if (fs.IDisValid(CurrentStock_ID))
             {
-                lng.s_Item.Text(grp_Item, ":" + ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]));
-
+                string sItem_UniqueName =((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]);
+                string sItem_UnitName = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitName"]);
+                string sItem_UnitSymbol = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitSymbol"]);
+                int iItem_UnitDecimalPlaces = ((int)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitDecimalPlaces"]);
+                fs.SetNumericUpDown(ref nmUpDn_Quantity, iItem_UnitDecimalPlaces);
+                lng.s_Item.TextWithToolTip(grp_Item, ":" + sItem_UniqueName, lng.s_Item.s+" : "+lng.s_Unit.s+ " = "+ sItem_UnitSymbol+" : "+lng.s_DecimalPlaces.s+" = "+ iItem_UnitDecimalPlaces.ToString());
                 nmUpDn_Quantity.Value = ((decimal)dt_Stock_Of_Current_StockTake.Rows[current_index]["dQuantity"]);
                 tPick_ImportTime.Value = ((DateTime)dt_Stock_Of_Current_StockTake.Rows[current_index]["ImportTime"]);
                 object oExpiryDate = dt_Stock_Of_Current_StockTake.Rows[current_index]["ExpiryDate"];
@@ -649,15 +646,27 @@ namespace ShopC
                 {
                     txt_StockDescription.Text = (string)oDescription;
                 }
+                EnableControls(true);
             }
             else
             {
-                lng.s_Item.Text(grp_Item, ":");
+                lng.s_Item.TextWithToolTip(grp_Item, ":","");
                 cmb_PurchasePrice.Text = "";
                 nmUpDn_Quantity.Value = 0;
-                chk_ExpiryCheck.Checked = false;
-                this.TPiick_ExpiryDate.Enabled = false;
+                EnableControls(false);
             }
+        }
+
+        private void EnableControls(bool v)
+        {
+            nmUpDn_Quantity.Enabled = v;
+            cmb_PurchasePrice.Enabled = v;
+            cmb_Taxation.Enabled = v;
+            cmb_Currency.Enabled = v;
+            tPick_ImportTime.Enabled = v;
+            TPiick_ExpiryDate.Enabled = v;
+            chk_ExpiryCheck.Enabled = v;
+            txt_StockDescription.Enabled = v;
         }
 
         private void btn_Exit_Click(object sender, EventArgs e)

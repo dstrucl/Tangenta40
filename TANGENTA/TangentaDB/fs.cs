@@ -160,6 +160,49 @@ namespace TangentaDB
             return false;
         }
 
+        public static void SetNumericUpDown(ref NumericUpDown nmUpDn_Quantity, object DecimalPlaces)
+        {
+            nmUpDn_Quantity.DecimalPlaces = Convert.ToInt32(DecimalPlaces);
+            decimal dincrement = Increment(DecimalPlaces);
+            nmUpDn_Quantity.Increment = dincrement;
+            nmUpDn_Quantity.Minimum = 0;
+        }
+        public static decimal Increment(object DecimalPlaces)
+        {
+            if (DecimalPlaces is short)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble(-(short)DecimalPlaces)));
+            }
+            else if (DecimalPlaces is ushort)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble(-(ushort)DecimalPlaces)));
+            }
+            else if (DecimalPlaces is int)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble(-(int)DecimalPlaces)));
+            }
+            else if (DecimalPlaces is uint)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble(-(uint)DecimalPlaces)));
+            }
+            else if (DecimalPlaces is int)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble(-(int)DecimalPlaces)));
+            }
+            else if (DecimalPlaces is long)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble(-(long)DecimalPlaces)));
+            }
+            else if (DecimalPlaces is ulong)
+            {
+                return Convert.ToDecimal(Math.Pow(10, Convert.ToDouble((ulong)DecimalPlaces)*-1));
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:StaticLib:fs:Increment:object DecimalPlaces of type " + DecimalPlaces.GetType().ToString() + " not implemented!");
+                return 0;
+            }
+        }
 
 
         public static bool Init_Default_DB(ref string Err)
