@@ -555,205 +555,204 @@ namespace TangentaDB
         private bool Get_Atom_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string Err = null;
-            string sAtom_Item_Name_ID = null;
             long Atom_Item_Name_ID = -1;
-            if (Get_Atom_Item_Name(appisd.Atom_Item_Name_Name, ref Atom_Item_Name_ID))
+
+            string scond_Atom_Item_Name_ID = "(Atom_Item_Name_ID is null)";
+            string sv_Atom_Item_Name_ID = " null" ;
+
+            List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
+
+            if (appisd.Atom_Item_Name_Name != null)
             {
-                if (Atom_Item_Name_ID >= 0)
+                if (f_Atom_Item_Name.Get(appisd.Atom_Item_Name_Name, ref Atom_Item_Name_ID))
                 {
-
-                    sAtom_Item_Name_ID = Atom_Item_Name_ID.ToString();
-
-                    string sAtom_Unit_ID = null;
-                    long Atom_Unit_ID = -1;
-
-                    if (Get_Atom_Unit_ID(appisd, ref Atom_Unit_ID))
+                    if (Atom_Item_Name_ID >= 0)
                     {
+                        string spar_Atom_Item_Name_ID = "@par_Atom_Item_Name_ID";
+                        DBConnectionControl40.SQL_Parameter par_Atom_Item_Name_ID = new DBConnectionControl40.SQL_Parameter(spar_Atom_Item_Name_ID, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Item_Name_ID);
+                        lpar.Add(par_Atom_Item_Name_ID);
+                        scond_Atom_Item_Name_ID = "(Atom_Item_Name_ID = @par_Atom_Item_Name_ID)";
+                        sv_Atom_Item_Name_ID = " @par_Atom_Item_Name_ID ";
+                    }
+                }
+            }
 
-                        if (Atom_Unit_ID >= 0)
+
+            string sAtom_Unit_ID = null;
+            long Atom_Unit_ID = -1;
+
+            if (Get_Atom_Unit_ID(appisd, ref Atom_Unit_ID))
+            {
+
+                if (Atom_Unit_ID >= 0)
+                {
+                    string scond_UniqueName = null;
+                    string sv_UniqueName = null;
+
+                    string spar_UniqueName = "@par_UniqueName";
+                    DBConnectionControl40.SQL_Parameter par_UniqueName = new DBConnectionControl40.SQL_Parameter(spar_UniqueName, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Nvarchar, false, appisd.Atom_Item_UniqueName.v);
+                    lpar.Add(par_UniqueName);
+                    scond_UniqueName = "(UniqueName = @par_UniqueName)";
+                    sv_UniqueName = spar_UniqueName;
+
+                    sAtom_Unit_ID = Atom_Unit_ID.ToString();
+                    long Atom_Item_barcode_ID = -1;
+                    string scond_Atom_Item_barcode_ID = null;
+                    string sv_Atom_Item_barcode_ID = null;
+                    if (Get_Atom_Item_barcode(appisd.Atom_Item_barcode_barcode, ref Atom_Item_barcode_ID, ref Err))
+                    {
+                        if (Atom_Item_barcode_ID >= 0)
                         {
-                            string scond_UniqueName = null;
-                            string sv_UniqueName = null;
-
-                            List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
-                            string spar_UniqueName = "@par_UniqueName";
-                            DBConnectionControl40.SQL_Parameter par_UniqueName = new DBConnectionControl40.SQL_Parameter(spar_UniqueName, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Nvarchar, false, appisd.Atom_Item_UniqueName.v);
-                            lpar.Add(par_UniqueName);
-                            scond_UniqueName = "(UniqueName = @par_UniqueName)";
-                            sv_UniqueName = spar_UniqueName;
-
-                            sAtom_Unit_ID = Atom_Unit_ID.ToString();
-                            long Atom_Item_barcode_ID = -1;
-                            string scond_Atom_Item_barcode_ID = null;
-                            string sv_Atom_Item_barcode_ID = null;
-                            if (Get_Atom_Item_barcode(appisd.Atom_Item_barcode_barcode, ref Atom_Item_barcode_ID, ref Err))
-                            {
-                                if (Atom_Item_barcode_ID >= 0)
-                                {
-                                    scond_Atom_Item_barcode_ID = "(Atom_Item_barcode_ID = " + Atom_Item_barcode_ID.ToString() + ")";
-                                    sv_Atom_Item_barcode_ID = Atom_Item_barcode_ID.ToString();
-                                }
-                                else
-                                {
-                                    scond_Atom_Item_barcode_ID = "(Atom_Item_barcode_ID is null)";
-                                    sv_Atom_Item_barcode_ID = "null";
-                                }
-                            }
-                            long Atom_Item_Description_ID = -1;
-                            string scond_Atom_Item_Description_ID = null;
-                            string sv_Atom_Item_Description_ID = null;
-                            if (Get_Atom_Item_Description(appisd.Atom_Item_Description_Description, ref Atom_Item_Description_ID, ref Err))
-                            {
-                                if (Atom_Item_Description_ID >= 0)
-                                {
-                                    scond_Atom_Item_Description_ID = "(Atom_Item_Description_ID = " + Atom_Item_Description_ID.ToString() + ")";
-                                    sv_Atom_Item_Description_ID = Atom_Item_Description_ID.ToString();
-                                }
-                                else
-                                {
-                                    scond_Atom_Item_Description_ID = "(Atom_Item_Description_ID is null)";
-                                    sv_Atom_Item_Description_ID = "null";
-                                }
-                            }
-
-                            long Atom_Expiry_ID = -1;
-                            string scond_Atom_Expiry_ID = null;
-                            string sv_Atom_Expiry_ID = null;
-                            if (appisd.Atom_Expiry_ExpectedShelfLifeInDays != null)
-                            {
-                                if (Get_Atom_Expiry(appisd.Atom_Expiry_ExpectedShelfLifeInDays,
-                                                    appisd.Atom_Expiry_SaleBeforeExpiryDateInDays,
-                                                    appisd.Atom_Expiry_DiscardBeforeExpiryDateInDays,
-                                                    appisd.Atom_Expiry_ExpiryDescription,
-                                                   ref Atom_Expiry_ID, ref Err))
-                                {
-                                    scond_Atom_Expiry_ID = "(Atom_Expiry_ID = " + Atom_Expiry_ID.ToString() + ")";
-                                    sv_Atom_Expiry_ID = Atom_Expiry_ID.ToString();
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                scond_Atom_Expiry_ID = "(Atom_Expiry_ID is null)";
-                                sv_Atom_Expiry_ID = "null";
-                            }
-
-                            long Atom_Item_Atom_Warranty_ID = -1;
-                            string scond_Atom_Warranty_ID = null;
-                            string sv_Atom_Warranty_ID = null;
-                            if (appisd.Atom_Warranty_ID != null)
-                            {
-                                if (Get_Atom_Warranty(appisd.Atom_Warranty_WarrantyDurationType, appisd.Atom_Warranty_WarrantyDuration, appisd.Atom_Warranty_WarrantyConditions, ref Atom_Item_Atom_Warranty_ID, ref Err))
-                                {
-                                    scond_Atom_Warranty_ID = "(Atom_Warranty_ID = " + Atom_Item_Atom_Warranty_ID.ToString() + ")";
-                                    sv_Atom_Warranty_ID = Atom_Item_Atom_Warranty_ID.ToString();
-
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                scond_Atom_Warranty_ID = "(Atom_Warranty_ID is null)";
-                                sv_Atom_Warranty_ID = "null";
-
-                            }
-
-
-
-
-                            string sql = @"select ID as Atom_Item_ID from Atom_Item 
-                                                            where
-                                                           " + scond_UniqueName + @" and
-                                                           Atom_Item_Name_ID = " + Atom_Item_Name_ID.ToString() + @" and
-                                                           Atom_Unit_ID = " + sAtom_Unit_ID + @" and
-                                                           " + scond_Atom_Item_barcode_ID + @" and
-                                                           " + scond_Atom_Item_Description_ID + @" and
-                                                           " + scond_Atom_Warranty_ID + @" and
-                                                           " + scond_Atom_Expiry_ID;
-
-
-
-                            DataTable dt = new DataTable();
-
-                            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-                            {
-                                if (dt.Rows.Count > 0)
-                                {
-                                    if (appisd.Atom_Item_ID == null)
-                                    {
-                                        appisd.Atom_Item_ID = new long_v();
-                                    }
-                                    appisd.Atom_Item_ID.v = (long)dt.Rows[0]["Atom_Item_ID"];
-                                    return true;
-                                }
-                                else
-                                {
-                                    sql = @"insert into Atom_Item 
-                                            (
-                                                UniqueName,
-                                                Atom_Item_Name_ID,
-                                                Atom_Unit_ID,
-                                                Atom_Item_barcode_ID,
-                                                Atom_Item_Description_ID,
-                                                Atom_Warranty_ID,
-                                                Atom_Expiry_ID
-                                            )   values("
-                                            + sv_UniqueName + ",\r\n"
-                                            + Atom_Item_Name_ID.ToString() + ",\r\n"
-                                            + sAtom_Unit_ID + ",\r\n"
-                                            + sv_Atom_Item_barcode_ID + ",\r\n"
-                                            + sv_Atom_Item_Description_ID + ",\r\n"
-                                            + sv_Atom_Warranty_ID + ",\r\n"
-                                            + sv_Atom_Expiry_ID
-                                            + ")";
-
-
-
-                                    object objret = null;
-                                    long Atom_Item_ID = -1;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_TableName))
-                                    {
-                                        if (appisd.Atom_Item_ID == null)
-                                        {
-                                            appisd.Atom_Item_ID = new long_v();
-                                        }
-                                        appisd.Atom_Item_ID.v = Atom_Item_ID;
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show("ERROR:Get_Atom_Item:insert into Atom_Item failed!\r\nErr=" + Err);
-                                        return false;
-                                    }
-                                }
-                            }
-                            else
-                            {
-
-                                LogFile.Error.Show("ERROR:Get_Atom_Item:select ID as Atom_Item_ID from Atom_Item failed!\r\nErr=" + Err);
-                                return false;
-                            }
+                            scond_Atom_Item_barcode_ID = "(Atom_Item_barcode_ID = " + Atom_Item_barcode_ID.ToString() + ")";
+                            sv_Atom_Item_barcode_ID = Atom_Item_barcode_ID.ToString();
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:Get_Atom_Item:Atom_Unit_ID not found!");
+                            scond_Atom_Item_barcode_ID = "(Atom_Item_barcode_ID is null)";
+                            sv_Atom_Item_barcode_ID = "null";
+                        }
+                    }
+                    long Atom_Item_Description_ID = -1;
+                    string scond_Atom_Item_Description_ID = null;
+                    string sv_Atom_Item_Description_ID = null;
+                    if (Get_Atom_Item_Description(appisd.Atom_Item_Description_Description, ref Atom_Item_Description_ID, ref Err))
+                    {
+                        if (Atom_Item_Description_ID >= 0)
+                        {
+                            scond_Atom_Item_Description_ID = "(Atom_Item_Description_ID = " + Atom_Item_Description_ID.ToString() + ")";
+                            sv_Atom_Item_Description_ID = Atom_Item_Description_ID.ToString();
+                        }
+                        else
+                        {
+                            scond_Atom_Item_Description_ID = "(Atom_Item_Description_ID is null)";
+                            sv_Atom_Item_Description_ID = "null";
+                        }
+                    }
+
+                    long Atom_Expiry_ID = -1;
+                    string scond_Atom_Expiry_ID = null;
+                    string sv_Atom_Expiry_ID = null;
+                    if (appisd.Atom_Expiry_ExpectedShelfLifeInDays != null)
+                    {
+                        if (Get_Atom_Expiry(appisd.Atom_Expiry_ExpectedShelfLifeInDays,
+                                            appisd.Atom_Expiry_SaleBeforeExpiryDateInDays,
+                                            appisd.Atom_Expiry_DiscardBeforeExpiryDateInDays,
+                                            appisd.Atom_Expiry_ExpiryDescription,
+                                            ref Atom_Expiry_ID, ref Err))
+                        {
+                            scond_Atom_Expiry_ID = "(Atom_Expiry_ID = " + Atom_Expiry_ID.ToString() + ")";
+                            sv_Atom_Expiry_ID = Atom_Expiry_ID.ToString();
+                        }
+                        else
+                        {
                             return false;
                         }
                     }
                     else
                     {
+                        scond_Atom_Expiry_ID = "(Atom_Expiry_ID is null)";
+                        sv_Atom_Expiry_ID = "null";
+                    }
+
+                    long Atom_Item_Atom_Warranty_ID = -1;
+                    string scond_Atom_Warranty_ID = null;
+                    string sv_Atom_Warranty_ID = null;
+                    if (appisd.Atom_Warranty_ID != null)
+                    {
+                        if (Get_Atom_Warranty(appisd.Atom_Warranty_WarrantyDurationType, appisd.Atom_Warranty_WarrantyDuration, appisd.Atom_Warranty_WarrantyConditions, ref Atom_Item_Atom_Warranty_ID, ref Err))
+                        {
+                            scond_Atom_Warranty_ID = "(Atom_Warranty_ID = " + Atom_Item_Atom_Warranty_ID.ToString() + ")";
+                            sv_Atom_Warranty_ID = Atom_Item_Atom_Warranty_ID.ToString();
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        scond_Atom_Warranty_ID = "(Atom_Warranty_ID is null)";
+                        sv_Atom_Warranty_ID = "null";
+
+                    }
+
+
+                    string sql = @"select ID as Atom_Item_ID from Atom_Item 
+                                                    where
+                                                    " + scond_Atom_Item_Name_ID+ @" and
+                                                    " + scond_UniqueName + @" and
+                                                    " + scond_Atom_Item_barcode_ID + @" and
+                                                    " + scond_Atom_Item_Description_ID + @" and
+                                                    " + scond_Atom_Warranty_ID + @" and
+                                                    " + scond_Atom_Expiry_ID;
+
+
+
+                    DataTable dt = new DataTable();
+
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            if (appisd.Atom_Item_ID == null)
+                            {
+                                appisd.Atom_Item_ID = new long_v();
+                            }
+                            appisd.Atom_Item_ID.v = (long)dt.Rows[0]["Atom_Item_ID"];
+                            return true;
+                        }
+                        else
+                        {
+                            sql = @"insert into Atom_Item 
+                                    (
+                                        UniqueName,
+                                        Atom_Item_Name_ID,
+                                        Atom_Unit_ID,
+                                        Atom_Item_barcode_ID,
+                                        Atom_Item_Description_ID,
+                                        Atom_Warranty_ID,
+                                        Atom_Expiry_ID
+                                    )   values("
+                                    + sv_UniqueName + ",\r\n"
+                                    + sv_Atom_Item_Name_ID + ",\r\n"
+                                    + sAtom_Unit_ID + ",\r\n"
+                                    + sv_Atom_Item_barcode_ID + ",\r\n"
+                                    + sv_Atom_Item_Description_ID + ",\r\n"
+                                    + sv_Atom_Warranty_ID + ",\r\n"
+                                    + sv_Atom_Expiry_ID
+                                    + ")";
+
+
+
+                            object objret = null;
+                            long Atom_Item_ID = -1;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_TableName))
+                            {
+                                if (appisd.Atom_Item_ID == null)
+                                {
+                                    appisd.Atom_Item_ID = new long_v();
+                                }
+                                appisd.Atom_Item_ID.v = Atom_Item_ID;
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:Get_Atom_Item:insert into Atom_Item failed!\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        LogFile.Error.Show("ERROR:Get_Atom_Item:select ID as Atom_Item_ID from Atom_Item failed!\r\nErr=" + Err);
                         return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:No Atom_Item_Name_ID !");
+                    LogFile.Error.Show("ERROR:Get_Atom_Item:Atom_Unit_ID not found!");
                     return false;
                 }
             }
@@ -1418,51 +1417,6 @@ namespace TangentaDB
 
         }
 
-        private bool Get_Atom_Item_Name(string_v Item_Name, ref long Atom_Item_Name_ID)
-        {
-            string Err = null;
-            if (Item_Name != null)
-            {
-                List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
-                string spar_Name = "@par_Name";
-                DBConnectionControl40.SQL_Parameter par_Name = new DBConnectionControl40.SQL_Parameter(spar_Name, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Varchar, false, Item_Name.v);
-                lpar.Add(par_Name);
-                string sql = @"select ID as Atom_Item_Name_ID from Atom_Item_Name where Name = " + spar_Name;
-                DataTable dt = new DataTable();
-                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-                {
-                    if (dt.Rows.Count > 0)
-                    {
-                        Atom_Item_Name_ID = (long)dt.Rows[0]["Atom_Item_Name_ID"];
-                        return true;
-                    }
-                    else
-                    {
-                        sql = @"insert into Atom_Item_Name (Name)values(" + spar_Name + ")";
-                        object objret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_Name_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_Name_TableName))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Get_Atom_Item_Name:\r\n" + sql + "!\r\nErr=" + Err);
-                            return false;
-                        }
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Get_Atom_Item_Name:\r\n" + sql + "!\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Get_Atom_Item_Name:Item_Name is not defined!");
-                return false;
-            }
-        }
 
 
 

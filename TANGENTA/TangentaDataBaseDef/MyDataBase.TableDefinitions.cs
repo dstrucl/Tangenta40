@@ -873,7 +873,7 @@ namespace TangentaDataBaseDef
             t_Atom_Item = new SQLTable((Object)new Atom_Item(),"ai", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_InvoiceItem);
             t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.UniqueName, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Unique Name", "Unikatno ime") );
-            t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.m_Atom_Item_Name, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "ItemName ID", "Ime Artikla ID") );
+            t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.m_Atom_Item_Name, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Item Name ID", "Ime Artikla ID") );
             t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.m_Atom_Unit, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Unit archive ID", "Enota arhiv ID") );
             t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.m_Atom_Item_barcode, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Item barcode ID", "barkoda ID") );
             t_Atom_Item.AddColumn((Object)mt.m_Atom_Item.m_Atom_Item_Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Item description ID", "Opis artikla ID") );
