@@ -21,7 +21,7 @@ namespace TangentaDB
         public string sql_Price_Item_Stock_template = null;
         public DataTable dt_Price_Item_Stock = new DataTable();
         public DataTable dt_Price_Item_Group = new DataTable();
-        public List<object> items = new List<object>();
+        public List<object> ListOfItems = new List<object>();
 
 
         public ShopShelf()
@@ -107,12 +107,12 @@ namespace TangentaDB
               left Join Item_ParentGroup1 s1 ON ptm.Item_ParentGroup1_ID = s1.ID
               left Join Item_ParentGroup2 s2 ON s1.Item_ParentGroup2_ID = s2.ID
               left Join Item_ParentGroup3 s3 ON s2.Item_ParentGroup3_ID = s3.ID
-	                    where ptm.ToOffer = 1 and Price_Item.PriceList_ID = ";
+	                    where ptm.ToOffer = 1 and Price_Item.RetailPricePerUnit>=0 and Price_Item.PriceList_ID = ";
         }
 
-        private bool ExistingItem(long item_id, Item_Data xItem_Data)
+        private bool FillStockDataListForEachItemInItems(long item_id, Item_Data xItem_Data)
         {
-            foreach (object o in items)
+            foreach (object o in ListOfItems)
             {
                 Item_Data idata = (Item_Data)o;
                 if (idata.Item_ID != null)
@@ -178,9 +178,9 @@ namespace TangentaDB
             return false;
         }
 
-        private void Set()
+        private void ListOfItems_Set()
         {
-            items.Clear();
+            ListOfItems.Clear();
             foreach (DataRow dr in dt_Price_Item_Stock.Rows)
             {
                 Item_Data xItem_Data = new Item_Data();
@@ -188,7 +188,7 @@ namespace TangentaDB
                 if (dr[m_cpis.icol_Item_ID] is long)
                 {
                     long item_id = (long)dr[m_cpis.icol_Item_ID];
-                    if (ExistingItem(item_id, xItem_Data))
+                    if (FillStockDataListForEachItemInItems(item_id, xItem_Data))
                     {
                         continue;
                     }
@@ -245,7 +245,7 @@ namespace TangentaDB
                             stock_data.dQuantity = null;
                         }
                         xItem_Data.Stock_Data_List.Add(stock_data);
-                        items.Add(xItem_Data);
+                        ListOfItems.Add(xItem_Data);
                     }
                 }
                 else
@@ -268,7 +268,7 @@ namespace TangentaDB
             if (DBSync.DBSync.ReadDataTable(ref dt_Price_Item_Stock, sql_Stock, lpar, ref Err))
             {
                 m_cpis.Set(dt_Price_Item_Stock);
-                Set();
+                ListOfItems_Set();
 
                 dt_Price_Item_Group.Clear();
                 dt_Price_Item_Group.Columns.Clear();
@@ -339,11 +339,11 @@ namespace TangentaDB
 
         public int GetIndex(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
-            foreach (object o in items)
+            foreach (object o in ListOfItems)
             {
                 if (((Item_Data)o).Item_UniqueName.v.Equals(appisd.Atom_Item_UniqueName.v))
                 {
-                    int index = items.IndexOf(o);
+                    int index = ListOfItems.IndexOf(o);
                     return index;
                 }
             }
@@ -352,7 +352,7 @@ namespace TangentaDB
 
         public void Set_dQuantity_New_InStock(long stock_id, decimal dQuantity_New_InStock)
         {
-            foreach (object oitem in items)
+            foreach (object oitem in ListOfItems)
             {
                 if (oitem is Item_Data)
                 {

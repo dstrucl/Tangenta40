@@ -255,7 +255,7 @@ namespace ShopC
             if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.Load(m_PriceList_ID, s_name))
             {
                 lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
-                m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_ShopShelf.items, 5, usrc_Item_aray);
+                m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
             }
         }
 
