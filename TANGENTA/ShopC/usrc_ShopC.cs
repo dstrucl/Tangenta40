@@ -237,6 +237,7 @@ namespace ShopC
                     if (EditStock(nav))
                     {
                         usrc_ItemList.Get_Price_Item_Stock_Data(PriceList_ID);
+                        Reset();
                     }
                 }
                 else

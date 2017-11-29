@@ -202,6 +202,10 @@ namespace ShopC
             {
                 m_Changed = true;
             }
+            if (this.usrc_StockEditForSelectedStockTake1.Changed)
+            {
+                m_Changed = true;
+            }
             usrc_StockEditForSelectedStockTake1.DoClose();
         }
 

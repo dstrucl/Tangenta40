@@ -146,11 +146,11 @@ namespace TangentaDB
                     long stock_id = (long)dr["stock_id"];
                     if ((DBSync.DBSync.m_DBType == DBConnection.eDBType.MSSQL))
                     {
-                        sql = "select top 1 dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data + ")) order by EventTime desc";
+                        sql = "select top 1 dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed + ")) order by EventTime desc";
                     }
                     else
                     {
-                        sql = "select dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data + ")) order by EventTime desc limit 1";
+                        sql = "select dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed + ")) order by EventTime desc limit 1";
                     }
                     dt_dQuantity.Rows.Clear();
                     dt_dQuantity.Columns.Clear();

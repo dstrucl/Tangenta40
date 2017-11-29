@@ -35,6 +35,7 @@ namespace TangentaDB
         public decimal_v Stock_dQuantity = null;
         public decimal_v RetailPricePerUnit = null;
         public DateTime_v Stock_ImportTime = null;
+        public bool_v StockTake_Draft = null;
         public long_v Item_ID = null;
         public string_v Item_UniqueName = null;
         public string_v Item_Name = null;
@@ -88,6 +89,7 @@ namespace TangentaDB
             Stock_dQuantity = tf.set_decimal(xdr["Stock_dQuantity"]);
             RetailPricePerUnit = tf.set_decimal(xdr["RetailPricePerUnit"]);
             Stock_ImportTime = tf.set_DateTime(xdr["Stock_ImportTime"]);
+            StockTake_Draft = tf.set_bool(xdr["StockTake_Draft"]);
             Item_ID = tf.set_long(xdr["Item_ID"]);
             Item_UniqueName = tf.set_string(xdr["Item_UniqueName"]);
             Item_Name = tf.set_string(xdr["Item_Name"]);
@@ -157,11 +159,16 @@ namespace TangentaDB
                 {
                     if (stock_data.Stock_ID != null)
                     {
-                        if (stock_data.dQuantity != null)
+                        if (stock_data.StockTake_Draft != null)
                         {
-                            d += stock_data.dQuantity.v;
+                            if (stock_data.StockTake_Draft.v == false)
+                            {
+                                if (stock_data.dQuantity != null)
+                                {
+                                    d += stock_data.dQuantity.v;
+                                }
+                            }
                         }
-
                     }
                 }
                 return d;

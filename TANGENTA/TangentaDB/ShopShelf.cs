@@ -46,6 +46,7 @@ namespace TangentaDB
               Stock.ExpiryDate as " + m_cpis.sStock_ExpiryDate + @",
               Stock.dQuantity as " + m_cpis.sStock_dQuantity + @",
 			  Stock.ImportTime as " + m_cpis.sStock_ImportTime + @",
+              StockTake.Draft as  " + m_cpis.sStockTake_Draft + @",
               ptm.id  as " + m_cpis.sItem_ID + @",
               ptm.UniqueName as " + m_cpis.sItem_UniqueName + @",
 			  ptm.Name as " + m_cpis.sItem_Name + @",
@@ -91,7 +92,7 @@ namespace TangentaDB
               Left Join Expiry on ptm.Expiry_ID = Expiry.ID
               Left Join Warranty on ptm.Warranty_ID = Warranty.ID
               left Join Stock on   putm.ID = Stock.PurchasePrice_Item_ID
-              left Join StockTake on putm.StockTake_ID = StockTake.ID 
+              left Join StockTake on putm.StockTake_ID = StockTake.ID
               left Join Supplier on StockTake.Supplier_ID =Supplier.ID 
               left Join Contact c on Supplier.Contact_ID =c.ID 
               left Join OrganisationData cod on c.OrganisationData_ID =cod.ID 
@@ -158,6 +159,17 @@ namespace TangentaDB
                         {
                             stock_data.dQuantity = null;
                         }
+
+                        if (xItem_Data.StockTake_Draft != null)
+                        {
+                            stock_data.StockTake_Draft = new DBTypes.bool_v();
+                            stock_data.StockTake_Draft.v = xItem_Data.StockTake_Draft.v;
+                        }
+                        else
+                        {
+                            stock_data.StockTake_Draft = null;
+                        }
+
                         idata.Stock_Data_List.Add(stock_data);
                         return true;
                     }
@@ -201,6 +213,16 @@ namespace TangentaDB
                         else
                         {
                             stock_data.Stock_ImportTime = null;
+                        }
+
+                        if (xItem_Data.StockTake_Draft != null)
+                        {
+                            stock_data.StockTake_Draft = new DBTypes.bool_v();
+                            stock_data.StockTake_Draft.v = xItem_Data.StockTake_Draft.v;
+                        }
+                        else
+                        {
+                            stock_data.StockTake_Draft = null;
                         }
 
                         if (xItem_Data.Stock_ExpiryDate != null)

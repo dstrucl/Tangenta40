@@ -686,6 +686,7 @@ namespace ShopC
                     if (XMessage.Box.Show(this, lng.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         f_StockTake.Lock(StockTake_ID);
+                        m_Changed = true;
                     }
                 }
                 else

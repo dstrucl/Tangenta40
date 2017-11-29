@@ -90,6 +90,7 @@ namespace TangentaDB
         public string sStock_ExpiryDate = "Stock_ExpiryDate";
         public string sStock_dQuantity = "Stock_dQuantity";
         public string sStock_ImportTime = "Stock_ImportTime";
+        public string sStockTake_Draft = "StockTake_Draft";
         public string sItem_ID = "Item_ID";
         public string sItem_UniqueName = "Item_UniqueName";
         public string sItem_Name = "Item_Name";

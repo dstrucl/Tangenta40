@@ -22,6 +22,7 @@ namespace TangentaDB
         public decimal_v dQuantity = null;
         public decimal_v dQuantity_New_in_Stock = null;
         public DateTime_v Stock_ExpiryDate = null;
+        public bool_v StockTake_Draft = null;
 
         public decimal_v dQuantity_from_stock
         {

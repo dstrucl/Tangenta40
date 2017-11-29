@@ -27,9 +27,15 @@ namespace TangentaDB
                 {
                     if (stock.Stock_ID != null)
                     {
-                        if (stock.dQuantity_from_stock != null)
+                        if (stock.StockTake_Draft != null)
                         {
-                            d += stock.dQuantity_from_stock.v;
+                            if (stock.StockTake_Draft.v == false)
+                            {
+                                if (stock.dQuantity_from_stock != null)
+                                {
+                                    d += stock.dQuantity_from_stock.v;
+                                }
+                            }
                         }
                     }
                     else
@@ -51,9 +57,15 @@ namespace TangentaDB
                 decimal d = 0;
                 foreach (Stock_Data stock in Stock_Data_List)
                 {
-                    if (stock.Stock_ID != null)
+                    if (stock.StockTake_Draft != null)
                     {
-                        d += stock.dQuantity_from_stock.v;
+                        if (stock.StockTake_Draft.v == false)
+                        {
+                            if (stock.Stock_ID != null)
+                            {
+                                d += stock.dQuantity_from_stock.v;
+                            }
+                        }
                     }
                 }
                 return d;
