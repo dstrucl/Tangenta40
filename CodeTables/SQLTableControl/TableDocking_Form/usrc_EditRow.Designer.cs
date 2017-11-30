@@ -69,7 +69,7 @@
             // BtnCallSecretaryToWork
             // 
             this.BtnCallSecretaryToWork.AutoSize = true;
-            this.BtnCallSecretaryToWork.Location = new System.Drawing.Point(429, 26);
+            this.BtnCallSecretaryToWork.Location = new System.Drawing.Point(480, 26);
             this.BtnCallSecretaryToWork.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnCallSecretaryToWork.Name = "BtnCallSecretaryToWork";
             this.BtnCallSecretaryToWork.Size = new System.Drawing.Size(233, 31);

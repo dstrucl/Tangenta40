@@ -165,7 +165,8 @@ namespace TangentaDB
             nmUpDn_Quantity.DecimalPlaces = Convert.ToInt32(DecimalPlaces);
             decimal dincrement = Increment(DecimalPlaces);
             nmUpDn_Quantity.Increment = dincrement;
-            nmUpDn_Quantity.Minimum = 0;
+            nmUpDn_Quantity.Minimum = dincrement;
+            nmUpDn_Quantity.Value = dincrement;
         }
         public static decimal Increment(object DecimalPlaces)
         {

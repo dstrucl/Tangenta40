@@ -652,6 +652,7 @@ namespace ShopC
             {
                 lng.s_Item.TextWithToolTip(grp_Item, ":","");
                 cmb_PurchasePrice.Text = "";
+                nmUpDn_Quantity.Minimum = 0;
                 nmUpDn_Quantity.Value = 0;
                 EnableControls(false);
             }

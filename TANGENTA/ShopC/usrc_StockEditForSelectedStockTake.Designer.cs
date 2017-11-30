@@ -49,6 +49,7 @@
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
             this.lbl_StockTakeItems = new System.Windows.Forms.Label();
+            this.dgvx_StockTakeItemsAndPrices = new DataGridView_2xls.DataGridView2xls();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.btn_CloseStockTake = new System.Windows.Forms.Button();
             this.lbl_StockTakeName = new System.Windows.Forms.Label();
@@ -61,7 +62,6 @@
             this.lbl_ItemsCost = new System.Windows.Forms.Label();
             this.txt_Difference = new System.Windows.Forms.TextBox();
             this.lbl_Difference = new System.Windows.Forms.Label();
-            this.dgvx_StockTakeItemsAndPrices = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -93,7 +93,7 @@
             this.splitContainer2.Panel2.Controls.Add(this.btn_Add);
             this.splitContainer2.Panel2.Controls.Add(this.lbl_StockTakeItems);
             this.splitContainer2.Panel2.Controls.Add(this.dgvx_StockTakeItemsAndPrices);
-            this.splitContainer2.Size = new System.Drawing.Size(501, 713);
+            this.splitContainer2.Size = new System.Drawing.Size(475, 713);
             this.splitContainer2.SplitterDistance = 218;
             this.splitContainer2.TabIndex = 2;
             // 
@@ -119,7 +119,7 @@
             this.grp_Item.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.grp_Item.Location = new System.Drawing.Point(0, 0);
             this.grp_Item.Name = "grp_Item";
-            this.grp_Item.Size = new System.Drawing.Size(497, 214);
+            this.grp_Item.Size = new System.Drawing.Size(471, 214);
             this.grp_Item.TabIndex = 17;
             this.grp_Item.TabStop = false;
             this.grp_Item.Text = "Item:";
@@ -129,10 +129,10 @@
             this.txt_StockDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_StockDescription.Enabled = false;
-            this.txt_StockDescription.Location = new System.Drawing.Point(12, 157);
+            this.txt_StockDescription.Location = new System.Drawing.Point(10, 157);
             this.txt_StockDescription.Multiline = true;
             this.txt_StockDescription.Name = "txt_StockDescription";
-            this.txt_StockDescription.Size = new System.Drawing.Size(479, 45);
+            this.txt_StockDescription.Size = new System.Drawing.Size(453, 49);
             this.txt_StockDescription.TabIndex = 13;
             // 
             // chk_ExpiryCheck
@@ -140,7 +140,7 @@
             this.chk_ExpiryCheck.AutoSize = true;
             this.chk_ExpiryCheck.Enabled = false;
             this.chk_ExpiryCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_ExpiryCheck.Location = new System.Drawing.Point(385, 133);
+            this.chk_ExpiryCheck.Location = new System.Drawing.Point(361, 131);
             this.chk_ExpiryCheck.Name = "chk_ExpiryCheck";
             this.chk_ExpiryCheck.Size = new System.Drawing.Size(112, 17);
             this.chk_ExpiryCheck.TabIndex = 16;
@@ -185,7 +185,7 @@
             this.TPiick_ExpiryDate.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.TPiick_ExpiryDate.Enabled = false;
             this.TPiick_ExpiryDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TPiick_ExpiryDate.Location = new System.Drawing.Point(162, 131);
+            this.TPiick_ExpiryDate.Location = new System.Drawing.Point(134, 131);
             this.TPiick_ExpiryDate.Name = "TPiick_ExpiryDate";
             this.TPiick_ExpiryDate.Size = new System.Drawing.Size(221, 20);
             this.TPiick_ExpiryDate.TabIndex = 10;
@@ -263,9 +263,9 @@
             // 
             this.btn_SelectItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_SelectItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_SelectItem.Location = new System.Drawing.Point(355, 3);
+            this.btn_SelectItem.Location = new System.Drawing.Point(332, 1);
             this.btn_SelectItem.Name = "btn_SelectItem";
-            this.btn_SelectItem.Size = new System.Drawing.Size(136, 32);
+            this.btn_SelectItem.Size = new System.Drawing.Size(136, 25);
             this.btn_SelectItem.TabIndex = 2;
             this.btn_SelectItem.Text = "Select Item";
             this.btn_SelectItem.UseVisualStyleBackColor = true;
@@ -320,11 +320,31 @@
             this.lbl_StockTakeItems.TabIndex = 1;
             this.lbl_StockTakeItems.Text = "lbl_StockTakeItems";
             // 
+            // dgvx_StockTakeItemsAndPrices
+            // 
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToAddRows = false;
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToDeleteRows = false;
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToOrderColumns = true;
+            this.dgvx_StockTakeItemsAndPrices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_StockTakeItemsAndPrices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = true;
+            this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
+            this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
+            this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
+            this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(465, 448);
+            this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
+            this.dgvx_StockTakeItemsAndPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_StockTakeItemsAndPrices_CellClick);
+            this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
+            // 
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(441, 0);
+            this.btn_Exit.Location = new System.Drawing.Point(415, 0);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(61, 26);
             this.btn_Exit.TabIndex = 4;
@@ -348,7 +368,7 @@
             this.lbl_StockTakeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_StockTakeName.Location = new System.Drawing.Point(84, 8);
             this.lbl_StockTakeName.Name = "lbl_StockTakeName";
-            this.lbl_StockTakeName.Size = new System.Drawing.Size(207, 16);
+            this.lbl_StockTakeName.Size = new System.Drawing.Size(181, 16);
             this.lbl_StockTakeName.TabIndex = 5;
             this.lbl_StockTakeName.Text = "Stock Take Name";
             // 
@@ -356,7 +376,7 @@
             // 
             this.btn_AdditionalCost.Location = new System.Drawing.Point(358, 54);
             this.btn_AdditionalCost.Name = "btn_AdditionalCost";
-            this.btn_AdditionalCost.Size = new System.Drawing.Size(144, 23);
+            this.btn_AdditionalCost.Size = new System.Drawing.Size(120, 23);
             this.btn_AdditionalCost.TabIndex = 6;
             this.btn_AdditionalCost.Text = "btn_AdditionalCost";
             this.btn_AdditionalCost.UseVisualStyleBackColor = true;
@@ -434,26 +454,6 @@
             this.lbl_Difference.Text = "Difference:";
             this.lbl_Difference.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dgvx_StockTakeItemsAndPrices
-            // 
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToAddRows = false;
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToDeleteRows = false;
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToOrderColumns = true;
-            this.dgvx_StockTakeItemsAndPrices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_StockTakeItemsAndPrices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = true;
-            this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
-            this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
-            this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
-            this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(491, 448);
-            this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
-            this.dgvx_StockTakeItemsAndPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_StockTakeItemsAndPrices_CellClick);
-            this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
-            // 
             // usrc_StockEditForSelectedStockTake
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -472,7 +472,7 @@
             this.Controls.Add(this.btn_CloseStockTake);
             this.Controls.Add(this.splitContainer2);
             this.Name = "usrc_StockEditForSelectedStockTake";
-            this.Size = new System.Drawing.Size(507, 798);
+            this.Size = new System.Drawing.Size(481, 798);
             this.Load += new System.EventHandler(this.usrc_StockEditForSelectedStockTake_Load);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);

@@ -152,15 +152,16 @@ namespace ShopC
             if (dAllStockQuantity > 0)
             {
                 
-                    nmUpDn_StockQuantity.Minimum = 0;
                     nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
                     fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
                     nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
+                    fs.SetNumericUpDown(ref nmUpDn_FactoryQuantity, m_Item_Data.Unit_DecimalPlaces.v);
                     Paint_Item_Mode(eMode.STOCK_AND_FACTORY);
             }
             else
             {
                 fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
+                fs.SetNumericUpDown(ref nmUpDn_FactoryQuantity, m_Item_Data.Unit_DecimalPlaces.v);
                 nmUpDn_FactoryQuantity.Maximum = decimal.MaxValue;
                 Paint_Item_Mode(eMode.FACTORY);
             }
@@ -586,12 +587,12 @@ namespace ShopC
 
         private decimal Get_AverageRetailPricePerUnit()
         {
-            int icount = 0;
+            decimal dcount = 0;
             decimal RetailPricePerUnit_Sum = 0;
-            icount += Convert.ToInt32(nmUpDn_FactoryQuantity.Value);
-            if (icount!=0)
+            dcount += nmUpDn_FactoryQuantity.Value;
+            if (dcount != 0)
             { 
-                return RetailPricePerUnit_Sum / icount;
+                return RetailPricePerUnit_Sum / dcount;
             }
             else
             {

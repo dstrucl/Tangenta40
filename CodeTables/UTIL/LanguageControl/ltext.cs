@@ -21,6 +21,8 @@ namespace LanguageControl
     {
         private string[] m_sText = new string[DynSettings.MAX_NUMBER_OF_LANGUAGES];
 
+        ToolTip toolTip1 = null;
+
         public void sText(int i,string s)
         {
             if (i< m_sText.Length)
@@ -293,7 +295,10 @@ namespace LanguageControl
             m_ctrl.Text = this.s;
             m_ctrl.Tag = this;
 
-            ToolTip toolTip1 = new ToolTip();
+            if (toolTip1 == null)
+            {
+                toolTip1 = new ToolTip();
+            }
 
             // Set up the delays for the ToolTip.
             toolTip1.AutoPopDelay = 5000;
@@ -318,8 +323,10 @@ namespace LanguageControl
             m_ctrl.Text = this.s+ additional_text;
             m_ctrl.Tag = this;
 
-            ToolTip toolTip1 = new ToolTip();
-
+            if (toolTip1 == null)
+            {
+                toolTip1 = new ToolTip();
+            }
             // Set up the delays for the ToolTip.
             toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 1000;
