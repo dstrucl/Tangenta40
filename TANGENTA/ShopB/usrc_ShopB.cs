@@ -669,7 +669,7 @@ namespace ShopB
                 btn_Remove.HeaderText = "Odstrani";
                 btn_Remove.Text = "-";
                 btn_Remove.Name = column_SelectedShopBItem_btn_deselect;
-                this.dgv_SelectedShopB_Items.Columns.Add(btn_Remove);
+                this.dgv_SelectedShopB_Items.Columns.Insert(0,btn_Remove);
                 Layout = eLayout.DRAFT;
             }
 

@@ -101,6 +101,7 @@ namespace TangentaDB
                                   ctrorg.Name as TruckingOrganisation,
                                   org.Tax_ID as Supplier_Tax_ID,
                                   st.StockTakePriceTotal,
+                                  st.Draft,
                                   tr.TruckingCost,
                                   tr.Customs,                                  
                                   st.Name as StockTake_Name, 

@@ -618,6 +618,22 @@ namespace ShopC
             lng.s_lbl_StockTakeName.Text(lbl_StockTakeName, " : " + StockTakeName);
             if (fs.IDisValid(CurrentStock_ID))
             {
+                bool_v StockTake_Draft_v = tf.set_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["Draft"]);
+                bool bClosed = false;
+                if (StockTake_Draft_v!=null)
+                {
+                    bClosed = !StockTake_Draft_v.v;
+                }
+
+                if (bClosed)
+                {
+                    btn_CloseStockTake.Enabled = false;
+                }
+                else
+                {
+                    btn_CloseStockTake.Enabled = true;
+                }
+
                 string sItem_UniqueName =((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]);
                 string sItem_UnitName = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitName"]);
                 string sItem_UnitSymbol = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitSymbol"]);
