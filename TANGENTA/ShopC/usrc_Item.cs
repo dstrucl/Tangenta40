@@ -156,12 +156,18 @@ namespace ShopC
                     fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
                     nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
                     fs.SetNumericUpDown(ref nmUpDn_FactoryQuantity, m_Item_Data.Unit_DecimalPlaces.v);
+                    nmUpDn_FactoryQuantity.Minimum = 0;
+                    nmUpDn_FactoryQuantity.Value = 0;
                     Paint_Item_Mode(eMode.STOCK_AND_FACTORY);
             }
             else
             {
                 fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
+                nmUpDn_StockQuantity.Minimum = 0;
+                nmUpDn_StockQuantity.Value = 0;
                 fs.SetNumericUpDown(ref nmUpDn_FactoryQuantity, m_Item_Data.Unit_DecimalPlaces.v);
+                nmUpDn_FactoryQuantity.Minimum = 0;
+                nmUpDn_FactoryQuantity.Value = 0;
                 nmUpDn_FactoryQuantity.Maximum = decimal.MaxValue;
                 Paint_Item_Mode(eMode.FACTORY);
             }
