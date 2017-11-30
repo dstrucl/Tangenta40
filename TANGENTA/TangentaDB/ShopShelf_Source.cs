@@ -174,6 +174,15 @@ namespace TangentaDB
                         if (sd.dQuantity_from_stock != null)
                         {
                             Stock_Data stock_data = new Stock_Data();
+                            if (sd.StockTake_Draft != null)
+                            {
+                                stock_data.StockTake_Draft = new bool_v(sd.StockTake_Draft.v);
+                            }
+                            else
+                            {
+                                stock_data.StockTake_Draft = null;
+                            }
+
                             if (dquantity > sd.dQuantity_from_stock.v)
                             {
                                 dquantity -= sd.dQuantity_from_stock.v;
