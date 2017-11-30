@@ -517,7 +517,7 @@ namespace ShopC
 
                 for (int i = 0; i < dt_Stock_Of_Current_StockTake.Rows.Count; i++)
                 {
-                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).visible = false;
+                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).visible = true;
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = false;
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.White;
                     if (aDoc_ShopC_Item[i] != null)
@@ -640,7 +640,12 @@ namespace ShopC
                 int iItem_UnitDecimalPlaces = ((int)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitDecimalPlaces"]);
                 fs.SetNumericUpDown(ref nmUpDn_Quantity, iItem_UnitDecimalPlaces);
                 lng.s_Item.TextWithToolTip(grp_Item, ":" + sItem_UniqueName, lng.s_Item.s+" : "+lng.s_Unit.s+ " = "+ sItem_UnitSymbol+" : "+lng.s_DecimalPlaces.s+" = "+ iItem_UnitDecimalPlaces.ToString());
-                nmUpDn_Quantity.Value = ((decimal)dt_Stock_Of_Current_StockTake.Rows[current_index]["dQuantity"]);
+                decimal dValue = ((decimal)dt_Stock_Of_Current_StockTake.Rows[current_index]["dQuantity"]);
+                if (nmUpDn_Quantity.Minimum> dValue)
+                {
+                    nmUpDn_Quantity.Minimum = dValue;
+                }
+                nmUpDn_Quantity.Value = dValue;
                 tPick_ImportTime.Value = ((DateTime)dt_Stock_Of_Current_StockTake.Rows[current_index]["ImportTime"]);
                 object oExpiryDate = dt_Stock_Of_Current_StockTake.Rows[current_index]["ExpiryDate"];
                 if (oExpiryDate is DateTime)
