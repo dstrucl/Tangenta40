@@ -26,6 +26,9 @@ namespace ShopC
             get { return m_Changed; }
         }
 
+        private Form_StockTake_Edit m_Form_StockTake_Edit = null;
+
+
         private DataTable dt_PurchasePrices = null;
 
         private int current_index = -1;
@@ -164,6 +167,12 @@ namespace ShopC
             InitializeComponent();
             nmUpDn_Quantity.Maximum = decimal.MaxValue;
             EnableControls(false);
+        }
+
+
+        internal void Init(Form_StockTake_Edit xForm_StockTake_Edit)
+        {
+            m_Form_StockTake_Edit = xForm_StockTake_Edit;
         }
 
         internal void SetItem(long ID,string xUniqueName, string symbol,short uDecimalPlaces)
@@ -311,6 +320,9 @@ namespace ShopC
                 lng.s_btn_CloseStockTake.Text(btn_CloseStockTake);
                 lng.s_btn_AdditionalCost.Text(btn_AdditionalCost);
                 lng.s_lbl_StockTakeTotalPrice.Text(this.lbl_TotalPrice);
+                lng.s_lbl_Difference.Text(this.lbl_Difference);
+                lng.s_lbl_TruckingCustosPlusAddtional.Text(lbl_TruckingCustosPlusAddtional);
+                lng.s_lbl_ItemsCost.Text(lbl_ItemsCost);
 
                 btn_Add.Visible = false;
                 btn_Remove.Visible = false;
@@ -709,6 +721,7 @@ namespace ShopC
                     {
                         f_StockTake.Lock(StockTake_ID);
                         m_Changed = true;
+                        m_Form_StockTake_Edit.Init();
                     }
                 }
                 else

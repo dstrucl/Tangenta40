@@ -38,14 +38,24 @@ namespace ShopC
 
         private void Form_StockAddress_Edit_Load(object sender, EventArgs e)
         {
-            if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false,nav))
+            Init();
+        }
+
+        internal bool Init()
+        {
+            if (!usrc_EditTable.Init(dbTables, tbl, null, ColumnOrderBy, false, null, null, false, nav))
             {
                 Close();
                 DialogResult = DialogResult.Abort;
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
-        private bool CheckStockAddressData(ref string Err)
+    private bool CheckStockAddressData(ref string Err)
         {
             string sql_StockAddress = "select * from Stock_AddressLevel1";
             DataTable dt = new DataTable();

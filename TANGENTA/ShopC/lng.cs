@@ -196,6 +196,8 @@ namespace ShopC
 
         public static ltext s_lbl_StockTakeTotalPrice = new ltext(new string[] { "Total Cost", "Celotna cena" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
+        public static ltext s_lbl_Difference = new ltext(new string[] { "Difference:", "Razlika:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
+
         public static ltext s_btn_AdditionalCost = new ltext(new string[] { "Additional Cost", "Dodatni Stroški" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
         public static ltext s_lbl_StockTakeName = new ltext(new string[] { "Stock-Take:", "Prevzemnica:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
@@ -234,6 +236,10 @@ namespace ShopC
         public static ltext s_Unit = new ltext(new string[] { "Unit", "Merska enota" });
 
         public static ltext s_DecimalPlaces = new ltext(new string[] { "Decimal places", "Decimalna mesta" });
+
+        public static ltext s_lbl_TruckingCustosPlusAddtional = new ltext(new string[] { "Price for Trucking,Customs,Additional Cost:", "Dodatni stroski (carina,transport..):" });
+
+        public static ltext s_lbl_ItemsCost = new ltext(new string[] { "Items total:", "Cena vseh artiklov:" });
 
     }
 }

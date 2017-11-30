@@ -105,10 +105,20 @@ namespace ShopC
             dbTables = xdbTables;
             this.Text = lng.s_EditStockTakeItems.s;
             usrc_EditTable1.Text(lng.s_EditStockTake);
+            usrc_StockEditForSelectedStockTake1.Init(this);
         }
 
 
         private void Form_StockTake_Edit_Load(object sender, EventArgs e)
+        {
+        if (!Init())
+            {
+                DialogResult = DialogResult.Abort;
+                Close();
+            }
+        }
+
+        internal bool Init()
         {
             this.Cursor = Cursors.WaitCursor;
             SQLTable tbl_StockTake = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(StockTake)));
@@ -143,12 +153,12 @@ namespace ShopC
             }
             else
             {
-                Close();
-                DialogResult = DialogResult.Abort;
+                this.Cursor = Cursors.Arrow;
+                return false;
             }
             this.Cursor = Cursors.Arrow;
+            return true;
         }
-
 
         private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
         {

@@ -403,17 +403,17 @@
             // txt_TruckingCustomsPlusAddtitional
             // 
             this.txt_TruckingCustomsPlusAddtitional.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_TruckingCustomsPlusAddtitional.Location = new System.Drawing.Point(424, 30);
+            this.txt_TruckingCustomsPlusAddtitional.Location = new System.Drawing.Point(407, 30);
             this.txt_TruckingCustomsPlusAddtitional.Name = "txt_TruckingCustomsPlusAddtitional";
             this.txt_TruckingCustomsPlusAddtitional.ReadOnly = true;
-            this.txt_TruckingCustomsPlusAddtitional.Size = new System.Drawing.Size(75, 13);
+            this.txt_TruckingCustomsPlusAddtitional.Size = new System.Drawing.Size(73, 13);
             this.txt_TruckingCustomsPlusAddtitional.TabIndex = 12;
             // 
             // lbl_TruckingCustosPlusAddtional
             // 
-            this.lbl_TruckingCustosPlusAddtional.Location = new System.Drawing.Point(188, 33);
+            this.lbl_TruckingCustosPlusAddtional.Location = new System.Drawing.Point(185, 29);
             this.lbl_TruckingCustosPlusAddtional.Name = "lbl_TruckingCustosPlusAddtional";
-            this.lbl_TruckingCustosPlusAddtional.Size = new System.Drawing.Size(230, 15);
+            this.lbl_TruckingCustosPlusAddtional.Size = new System.Drawing.Size(222, 15);
             this.lbl_TruckingCustosPlusAddtional.TabIndex = 11;
             this.lbl_TruckingCustosPlusAddtional.Text = "Price for Trucking,Customs,Additional Cost:";
             this.lbl_TruckingCustosPlusAddtional.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
