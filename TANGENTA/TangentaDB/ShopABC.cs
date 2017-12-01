@@ -839,7 +839,7 @@ namespace TangentaDB
                             + m_CurrentInvoice.FinancialYear.ToString() + ","
                             + m_CurrentInvoice.DraftNumber.ToString() + ","
                             + "1,"
-                            + "1"
+                            + "0"
                             + ")";
                     }
                     else if (IsDocProformaInvoice)

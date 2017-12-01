@@ -916,17 +916,14 @@ namespace Tangenta
                         {
                             e.CellStyle.BackColor = ColorDraft;
                         }
-                        bool bxstorno = false;
-                        if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno] is bool)
-                        {
-                            bxstorno = (bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno];
-                        }
-                        else if (bxstorno)
+
+                        if (IsStorno(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno]))
                         {
                             e.CellStyle.BackColor = ColorStorno;
                         }
                         else
                         {
+                            e.CellStyle.BackColor = Color.White;
                             if (Program.b_FVI_SLO)
                             {
                                 if ((dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue] is string) && (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string))
@@ -963,6 +960,18 @@ namespace Tangenta
                         }  
                     }
                 }
+            }
+        }
+
+        private bool IsStorno(object v)
+        {
+            if (v is bool)
+            {
+                return (bool)v;
+            }
+            else
+            {
+                return false;
             }
         }
 

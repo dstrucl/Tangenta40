@@ -27,7 +27,7 @@ namespace FiscalVerificationOfInvoices_SLO
             lng.s_Error.Text(this.lbl_ErrorMessage,":"+errorMessage);
             lng.s_InvoiceNotSentOK.Text(this);
             lng.s_TryToSendFURSDataAgain.Text(this.btn_TryAagin);
-            lng.s_GoToSalesBookInvoice.Text(this.btn_Cancel);
+            lng.s_GoToSalesBookInvoice.Text(this.btn_WriteInSalesBook);
             lng.s_InstructionToTryToSendFURSDataAgain.Text(this.lbl_Message);
         }
 
@@ -37,7 +37,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.DialogResult = DialogResult.Retry;
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void btn_WriteInSalesBook_Click(object sender, EventArgs e)
         {
             Close();
             this.DialogResult = DialogResult.Cancel;
