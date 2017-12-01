@@ -194,7 +194,7 @@
             // 
             this.lbl_Quantity.AutoSize = true;
             this.lbl_Quantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Quantity.Location = new System.Drawing.Point(3, 30);
+            this.lbl_Quantity.Location = new System.Drawing.Point(8, 34);
             this.lbl_Quantity.Name = "lbl_Quantity";
             this.lbl_Quantity.Size = new System.Drawing.Size(49, 13);
             this.lbl_Quantity.TabIndex = 9;
@@ -204,9 +204,9 @@
             // 
             this.nmUpDn_Quantity.Enabled = false;
             this.nmUpDn_Quantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.nmUpDn_Quantity.Location = new System.Drawing.Point(63, 27);
+            this.nmUpDn_Quantity.Location = new System.Drawing.Point(82, 32);
             this.nmUpDn_Quantity.Name = "nmUpDn_Quantity";
-            this.nmUpDn_Quantity.Size = new System.Drawing.Size(95, 20);
+            this.nmUpDn_Quantity.Size = new System.Drawing.Size(93, 20);
             this.nmUpDn_Quantity.TabIndex = 8;
             // 
             // cmb_Taxation
@@ -214,7 +214,7 @@
             this.cmb_Taxation.Enabled = false;
             this.cmb_Taxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_Taxation.FormattingEnabled = true;
-            this.cmb_Taxation.Location = new System.Drawing.Point(68, 55);
+            this.cmb_Taxation.Location = new System.Drawing.Point(82, 60);
             this.cmb_Taxation.Name = "cmb_Taxation";
             this.cmb_Taxation.Size = new System.Drawing.Size(95, 21);
             this.cmb_Taxation.TabIndex = 7;
@@ -223,7 +223,7 @@
             // 
             this.lbl_Taxation.AutoSize = true;
             this.lbl_Taxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Taxation.Location = new System.Drawing.Point(6, 58);
+            this.lbl_Taxation.Location = new System.Drawing.Point(6, 63);
             this.lbl_Taxation.Name = "lbl_Taxation";
             this.lbl_Taxation.Size = new System.Drawing.Size(51, 13);
             this.lbl_Taxation.TabIndex = 6;
@@ -234,27 +234,27 @@
             this.cmb_Currency.Enabled = false;
             this.cmb_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_Currency.FormattingEnabled = true;
-            this.cmb_Currency.Location = new System.Drawing.Point(256, 55);
+            this.cmb_Currency.Location = new System.Drawing.Point(332, 60);
             this.cmb_Currency.Name = "cmb_Currency";
-            this.cmb_Currency.Size = new System.Drawing.Size(95, 21);
+            this.cmb_Currency.Size = new System.Drawing.Size(103, 21);
             this.cmb_Currency.TabIndex = 5;
             // 
             // lbl_Currency
             // 
-            this.lbl_Currency.AutoSize = true;
             this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Currency.Location = new System.Drawing.Point(198, 59);
+            this.lbl_Currency.Location = new System.Drawing.Point(199, 63);
             this.lbl_Currency.Name = "lbl_Currency";
-            this.lbl_Currency.Size = new System.Drawing.Size(52, 13);
+            this.lbl_Currency.Size = new System.Drawing.Size(127, 13);
             this.lbl_Currency.TabIndex = 4;
             this.lbl_Currency.Text = "Currency:";
+            this.lbl_Currency.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cmb_PurchasePrice
             // 
             this.cmb_PurchasePrice.Enabled = false;
             this.cmb_PurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_PurchasePrice.FormattingEnabled = true;
-            this.cmb_PurchasePrice.Location = new System.Drawing.Point(249, 27);
+            this.cmb_PurchasePrice.Location = new System.Drawing.Point(332, 31);
             this.cmb_PurchasePrice.Name = "cmb_PurchasePrice";
             this.cmb_PurchasePrice.Size = new System.Drawing.Size(103, 21);
             this.cmb_PurchasePrice.TabIndex = 3;
@@ -273,13 +273,13 @@
             // 
             // lbl_PurchasePrice
             // 
-            this.lbl_PurchasePrice.AutoSize = true;
             this.lbl_PurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_PurchasePrice.Location = new System.Drawing.Point(159, 31);
+            this.lbl_PurchasePrice.Location = new System.Drawing.Point(196, 34);
             this.lbl_PurchasePrice.Name = "lbl_PurchasePrice";
-            this.lbl_PurchasePrice.Size = new System.Drawing.Size(82, 13);
+            this.lbl_PurchasePrice.Size = new System.Drawing.Size(130, 13);
             this.lbl_PurchasePrice.TabIndex = 0;
             this.lbl_PurchasePrice.Text = "Purchase Price:";
+            this.lbl_PurchasePrice.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btn_Update
             // 

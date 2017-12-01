@@ -20,16 +20,21 @@ namespace ShopC
 
         internal Form_ShopC_Item_Edit edt_Item_dlg = null;
 
+        private DataTable dtPurchasePrices = null;
+        private DataTable dtCurrency = null;
+
         private bool m_Changed = false;
         public bool Changed
         {
             get { return m_Changed; }
         }
 
+        private ToolTip toolTip_cmb_PurchasePrice = null;
+
+
         private Form_StockTake_Edit m_Form_StockTake_Edit = null;
 
 
-        private DataTable dt_PurchasePrices = null;
 
         private int current_index = -1;
 
@@ -212,7 +217,7 @@ namespace ShopC
             {
                 if (fs.IDisValid(CurrentItem_ID))
                 {
-                    object oID = cmb_Currency.ValueMember;
+                    object oID = cmb_Currency.SelectedValue;
                     long Selected_Currency_ID = -1;
                     if (oID is long)
                     {
@@ -225,80 +230,80 @@ namespace ShopC
 
         private void Set_cmb_PurchasePrice(long Item_ID, long Currency_ID)
         {
-            if (dt_PurchasePrices == null)
+            toolTip_cmb_PurchasePrice.SetToolTip(cmb_PurchasePrice,lng.s_PurchasePricesNotDefinedYeet.s);
+
+            cmb_PurchasePrice.DataSource = null;
+            cmb_PurchasePrice.Items.Clear();
+            cmb_PurchasePrice.Text = "0";
+            if (Item_ID >= 0)
             {
-                string Err = null;
-                string sql = null;
                 if (Currency_ID >= 0)
                 {
-                    if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DBType == DBConnectionControl40.DBConnection.eDBType.SQLITE)
+                    if (f_PurchasePrice_Item.GetLastItemPrices(Item_ID, Currency_ID,ref dtPurchasePrices,5))
                     {
-                        sql = @"select PurchasePricePerUnit from PurchasePrice_Item ppi
-                               inner join StockTake st on ppi.StockTake_ID = st.ID
-                               inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
-                               inner join Currency c on pp.Currency_ID = c.ID 
-                               where Item_ID = " + Item_ID.ToString()
-                               + " and Currency_ID = " + Currency_ID.ToString()
-                               + " order by StockTake_Date desc limit 20";
-                        ;
+                        if (dtPurchasePrices.Rows.Count > 0)
+                        {
+                            cmb_PurchasePrice.DataSource = dtPurchasePrices;
+                            cmb_PurchasePrice.DisplayMember = "PurchasePricePerUnit";
+                            cmb_PurchasePrice.ValueMember = "PurchasePricePerUnit";
+                            cmb_PurchasePrice.SelectedIndex = 0;
+                            string sPurchasePricesInThePast = GetPastPurchasePrices(dtPurchasePrices);
+                            toolTip_cmb_PurchasePrice.SetToolTip(cmb_PurchasePrice, sPurchasePricesInThePast);
+                        }
                     }
-                    else if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
-                    {
-                        sql = @"select top 20 PurchasePricePerUnit from PurchasePrice_Item ppi
-                               inner join StockTake st on ppi.StockTake_ID = st.ID
-                               inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
-                               inner join Currency c on pp.Currency_ID = c.ID 
-                               where Item_ID = " + Item_ID.ToString()
-                               + " and Currency_ID = " + Currency_ID.ToString()
-                               + " order by StockTake_Date";
-                        ;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Shop_C:usrc_StockEditForSelectedStockTake:Set_cmb_PurchasePrice:Err = " + DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DBType.ToString() + " not implemented");
-                        return;
-                    }
-                }
-                else
-                {
-                    if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DBType == DBConnectionControl40.DBConnection.eDBType.SQLITE)
-                    {
-                        sql = @"select PurchasePricePerUnit from PurchasePrice_Item ppi
-                               inner join StockTake st on ppi.StockTake_ID = st.ID
-                               inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
-                               inner join Currency c on pp.Currency_ID = c.ID 
-                               where Item_ID = " + Item_ID.ToString()
-                               + " order by StockTake_Date desc limit 20 ";
-                    }
-                    else if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
-                    {
-                        sql = @"select top 20 PurchasePricePerUnit from PurchasePrice_Item ppi
-                               inner join StockTake st on ppi.StockTake_ID = st.ID
-                               inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
-                               inner join Currency c on pp.Currency_ID = c.ID 
-                               where Item_ID = " + Item_ID.ToString()
-                               + " order by StockTake_Date desc";
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Shop_C:usrc_StockEditForSelectedStockTake:Set_cmb_PurchasePrice:Err = " + DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DBType.ToString() + " not implemented");
-                        return;
-                    }
-                }
-                dt_PurchasePrices = new DataTable();
-                if (!DBSync.DBSync.ReadDataTable(ref dt_PurchasePrices, sql, ref Err))
-                {
-                    LogFile.Error.Show("ERROR:ShopC:usrc_StockEditForSelectedStockTake.cs:Set_cmb_PurchasePrice:sql=" + sql + "\r\nErr=" + Err);
-                    dt_PurchasePrices.Dispose();
-                    dt_PurchasePrices = null;
                 }
             }
-            if (dt_PurchasePrices != null)
+        }
+
+        private string GetPastPurchasePrices(DataTable xdtPurchasePrices)
+        {
+            StringBuilder sb = new StringBuilder(lng.s_PurchasePricesInThePast.s+"\r\n");
+            foreach (DataRow dr in xdtPurchasePrices.Rows)
             {
-                cmb_PurchasePrice.DataSource = dt_PurchasePrices;
-                cmb_PurchasePrice.DisplayMember = "PurchasePricePerUnit";
-                cmb_PurchasePrice.ValueMember = "PurchasePricePerUnit";
+                decimal_v dPurchasePricePerUnit_v = tf.set_decimal(dr["PurchasePricePerUnit"]);
+                DateTime_v dtPurchasePriceDatet_v = tf.set_DateTime(dr["PurchasePriceDate"]);
+                string_v SupplierName_v = tf.set_string(dr["SupplierName"]);
+                string_v StockTakeName_v = tf.set_string(dr["StockTakeName"]);
+                DateTime_v StockTake_Date_v = tf.set_DateTime(dr["StockTake_Date"]);
+                if (dPurchasePricePerUnit_v!=null)
+                {
+                    sb.Append(lng.s_PurchasePricePerUnit.s);
+                    sb.Append("=");
+                    sb.Append(dPurchasePricePerUnit_v.v.ToString());
+                    sb.Append(";");
+                }
+                if (dtPurchasePriceDatet_v != null)
+                {
+                    sb.Append(lng.s_PurchasePriceDate.s);
+                    sb.Append("=");
+                    sb.Append(LanguageControl.DynSettings.SetLanguageDateTimeString(dtPurchasePriceDatet_v.v));
+                    sb.Append(";");
+                }
+                if (SupplierName_v != null)
+                {
+                    sb.Append(lng.s_Supplier.s);
+                    sb.Append("=");
+                    sb.Append(SupplierName_v.v);
+                    sb.Append(";");
+                }
+
+                if (StockTakeName_v != null)
+                {
+                    sb.Append(lng.s_StockTakeName.s);
+                    sb.Append("=");
+                    sb.Append(StockTakeName_v.v);
+                    sb.Append(";");
+                }
+                if (StockTake_Date_v != null)
+                {
+                    sb.Append(lng.s_StockTakeDate.s);
+                    sb.Append("=");
+                    sb.Append(LanguageControl.DynSettings.SetLanguageDateTimeString(StockTake_Date_v.v));
+                    sb.Append(";");
+                }
+                sb.Append("\r\n");
             }
+            return sb.ToString();
         }
 
         private void usrc_StockEditForSelectedStockTake_Load(object sender, EventArgs e)
@@ -330,13 +335,28 @@ namespace ShopC
                 cmb_Taxation.DataSource = TangentaDB.f_Taxation.GetTable(false);
                 cmb_Taxation.DisplayMember = "Name";
                 cmb_Taxation.ValueMember = "ID";
-                cmb_Currency.DataSource = TangentaDB.f_Currency.GetTable(false);
+                dtCurrency = TangentaDB.f_Currency.GetTable(false);
+                cmb_Currency.DataSource = dtCurrency;
                 cmb_Currency.DisplayMember = "Symbol";
                 cmb_Currency.ValueMember = "ID";
                 if (TangentaDB.myOrg.Default_Currency_ID >= 0)
                 {
                     cmb_Currency.SelectedIndex = (int)(TangentaDB.myOrg.Default_Currency_ID - 1);
                 }
+                if (toolTip_cmb_PurchasePrice == null)
+                {
+                    toolTip_cmb_PurchasePrice = new ToolTip();
+                }
+
+                // Set up the delays for the ToolTip.
+                toolTip_cmb_PurchasePrice.AutoPopDelay = 5000;
+                toolTip_cmb_PurchasePrice.InitialDelay = 1000;
+                toolTip_cmb_PurchasePrice.ReshowDelay = 500;
+                // Force the ToolTip text to be displayed whether or not the form is active.
+                toolTip_cmb_PurchasePrice.ShowAlways = true;
+
+                // Set up the ToolTip text for the control
+
             }
         }
 
@@ -741,6 +761,17 @@ namespace ShopC
                 {
                     CurrentStock_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"];
                     CurrentItem_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"];
+                    if (fs.IDisValid(CurrentItem_ID))
+                    {
+                        object oID = cmb_Currency.ValueMember;
+                        long Selected_Currency_ID = -1;
+                        if (oID is long)
+                        {
+                            Selected_Currency_ID = (long)oID;
+                        }
+                        Set_cmb_PurchasePrice(CurrentItem_ID, Selected_Currency_ID);
+                    }
+
                 }
                 else
                 {

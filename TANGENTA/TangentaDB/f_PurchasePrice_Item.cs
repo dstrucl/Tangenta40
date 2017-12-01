@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using TangentaTableClass;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
@@ -123,5 +124,81 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool GetLastItemPrices(long Item_ID,long Currency_ID,ref DataTable dtPurchasePrices,int Limit)
+        {
+            string Err = null;
+            string sql = null;
+            if (dtPurchasePrices==null)
+            {
+                dtPurchasePrices = new DataTable();
+            }
+            else
+            {
+                dtPurchasePrices.Clear();
+                dtPurchasePrices.Columns.Clear();
+
+            }
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Item_ID = "@par_Item_ID";
+            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Item_ID);
+            lpar.Add(par_Item_ID);
+
+            string spar_Currency_ID = "@par_Currency_ID";
+            SQL_Parameter par_Currency_ID = new SQL_Parameter(spar_Currency_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Currency_ID);
+            lpar.Add(par_Currency_ID);
+
+            switch (DBSync.DBSync.m_DBType)
+            {
+                case DBConnection.eDBType.SQLITE:
+                sql = @"select pp.PurchasePricePerUnit as PurchasePricePerUnit,
+	                        pp.PurchasePriceDate as PurchasePriceDate,
+	                        o.Name as SupplierName,
+	                        st.Name as StockTakeName,
+	                        st.StockTake_Date as StockTake_Date
+                            from PurchasePrice_Item ppi
+                            inner join Item i on i.ID = ppi.Item_ID
+                            inner join PurchasePrice pp on pp.ID = ppi.PurchasePrice_ID
+                            left join StockTake st on st.ID = ppi.StockTake_ID
+                            left join Supplier su on su.ID = st.Supplier_ID
+                            left join Contact c on c.ID = su.Contact_ID
+                            left join OrganisationData od on od.id = c.OrganisationData_ID
+                            left  join Organisation o on o.id = od.Organisation_ID
+                            where ppi.Item_ID = " + spar_Item_ID + " and pp.Currency_ID = "+ spar_Currency_ID + " order by PurchasePriceDate desc limit " + Limit.ToString();
+                    break;
+
+                case DBConnection.eDBType.MSSQL:
+                    sql = @"select top "+ Limit.ToString() + @" pp.PurchasePricePerUnit as PurchasePricePerUnit,
+	                        pp.PurchasePriceDate as PurchasePriceDate,
+	                        o.Name as SupplierName,
+	                        st.Name as StockTakeName,
+	                        st.StockTake_Date as StockTake_Date
+                            from PurchasePrice_Item ppi
+                            inner join Item i on i.ID = ppi.Item_ID
+                            inner join PurchasePrice pp on pp.ID = ppi.PurchasePrice_ID
+                            left join StockTake st on st.ID = ppi.StockTake_ID
+                            left join Supplier su on su.ID = st.Supplier_ID
+                            left join Contact c on c.ID = su.Contact_ID
+                            left join OrganisationData od on od.id = c.OrganisationData_ID
+                            left  join Organisation o on o.id = od.Organisation_ID
+                            where ppi.Item_ID = " + spar_Item_ID + " and pp.Currency_ID = " + spar_Currency_ID + " order by PurchasePriceDate desc ";
+                    break;
+
+                default:
+                    LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:GetLastItemPrices:Not implemented for m_DBType="+ DBSync.DBSync.m_DBType.ToString());
+                    return false;
+            }
+            if (DBSync.DBSync.ReadDataTable(ref dtPurchasePrices, sql,lpar,ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:GetLastItemPrices:sql = " + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
     }
 }

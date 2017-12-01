@@ -168,6 +168,9 @@ namespace ShopC
         public static ltext s_PurchasePricePerUnit = new ltext(new string[]{"Purchase price per unit",
                                                                 "Nabavna cena na enoto"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
 
+        public static ltext s_PurchasePriceDate = new ltext(new string[]{"Purchase price date",
+                                                                         "Datum nabavne cene"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
         public static ltext s_Item_Not_In_Offer = new ltext(new string[] { "Item is not in offer any more!", "Artikel ni več v ponudbi!" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
 
         public static ltext s_NotEnoughItemsInStock_DoIgnoreStockQuestion = new ltext(new string[] { "There is not enough items in stock!\r\nInsert items ignoring stock (Yes/No)?", "Ni dovolj artikla (artiklov) v zalogah!\r\nVnesi artikel mimo skladišča (Da/Ne)?" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
@@ -240,6 +243,9 @@ namespace ShopC
         public static ltext s_lbl_TruckingCustosPlusAddtional = new ltext(new string[] { "Price for Trucking,Customs,Additional Cost:", "Dodatni stroski (carina,transport..):" });
 
         public static ltext s_lbl_ItemsCost = new ltext(new string[] { "Items total:", "Cena vseh artiklov:" });
+
+        public static ltext s_PurchasePricesNotDefinedYeet = new ltext(new string[] { "Purchase price has never bin defined before", "Nabavna cena še nikoli ni bila določena" });
+        public static ltext s_PurchasePricesInThePast = new ltext(new string[] { "Purchase prices in the past", "Nabavne cene v preteklosti" });
 
     }
 }
