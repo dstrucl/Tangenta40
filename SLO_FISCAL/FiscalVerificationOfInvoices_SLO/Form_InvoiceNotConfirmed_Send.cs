@@ -27,6 +27,11 @@ namespace FiscalVerificationOfInvoices_SLO
             m_InvoiceData_List = xInvoiceData_List;
             lng.s_Invoice_UnsentMsg.Text(this.lbl_Invoice_UnsentMsg);
             lng.s_Invoice_UnsentMsg.Text(this);
+            Init();
+        }
+
+        private void Init()
+        {
             DataColumn dcol_FinancialYear = new DataColumn("FinancialYear", typeof(int));
             DataColumn dcol_InvoiceNumber = new DataColumn("InvoiceNumber", typeof(string));
             DataColumn dcol_IssueDate_v = new DataColumn("IssueDate_v", typeof(DateTime));
@@ -37,6 +42,10 @@ namespace FiscalVerificationOfInvoices_SLO
             DataColumn dcol_IssuerFirstName = new DataColumn("IssuerFirstName", typeof(string));
             DataColumn dcol_IssuerLastName = new DataColumn("IssuerLastName", typeof(string));
 
+            dgvx_Invoice_Unsent.DataSource = null;
+            dgvx_Invoice_Unsent.Columns.Clear();
+            dt.Clear();
+            dt.Columns.Clear();
             dt.Columns.Add(dcol_FinancialYear);
             dt.Columns.Add(dcol_InvoiceNumber);
             dt.Columns.Add(dcol_BarCodeValue);
@@ -47,23 +56,14 @@ namespace FiscalVerificationOfInvoices_SLO
             dt.Columns.Add(dcol_IssuerFirstName);
             dt.Columns.Add(dcol_IssuerLastName);
             int i = 0;
-            int iCount = xInvoiceData_List.Count;
+            int iCount = m_InvoiceData_List.Count;
             string FURS_SalesBookInvoice_error = null;
             for (i = 0; i < iCount; i++)
             {
-                InvoiceData xinvd = xInvoiceData_List[i];
+                InvoiceData xinvd = m_InvoiceData_List[i];
                 DataRow dr = dt.NewRow();
                 dr["FinancialYear"] = xinvd.FinancialYear;
                 dr["InvoiceNumber"] = xinvd.NumberInFinancialYear;
-                if (xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v != null)
-                {
-                    dr["InvoiceNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v.v;
-                }
-                else
-                {
-                    Set_FURS_Invoice_error(ref FURS_SalesBookInvoice_error, xinvd, "No InvoiceNumber");
-                }
-
                 dr["IssueDate_v"] = xinvd.IssueDate_v.v;
                 dr["GrossSum"] = xinvd.GrossSum;
                 dr["TaxSum"] = xinvd.taxsum;
@@ -71,10 +71,6 @@ namespace FiscalVerificationOfInvoices_SLO
                 dr["IssuerFirstName"] = xinvd.Invoice_Author.FirstName;
                 dr["IssuerLastName"] = xinvd.Invoice_Author.LastName;
                 dt.Rows.Add(dr);
-            }
-            if (FURS_SalesBookInvoice_error != null)
-            {
-                LogFile.Error.Show(FURS_SalesBookInvoice_error);
             }
             dgvx_Invoice_Unsent.DataSource = dt;
             dgvx_Invoice_Unsent.Columns["FinancialYear"].HeaderText = lng.s_FinancialYear.s;
@@ -97,7 +93,6 @@ namespace FiscalVerificationOfInvoices_SLO
             dgvx_Invoice_Unsent.CurrentCellDirtyStateChanged += Dgvx_Invoice_Unsent_CurrentCellDirtyStateChanged;
 
         }
-
         private void Set_FURS_InvoiceNotConfirmed_error(ref string fURS_SalesBookInvoice_error, InvoiceData xinvd, string serr)
         {
             if (fURS_SalesBookInvoice_error == null)
@@ -157,8 +152,6 @@ namespace FiscalVerificationOfInvoices_SLO
                                      xInvData.Invoice_Author //ToDo : Get real Invoice Autor here!
                                      );
 
-                    string ZOI = null;
-                    string EOR = null;
                     Image img_QR = null;
                     string furs_UniqeMsgID = null;
                     string furs_UniqeInvID = null;
@@ -169,12 +162,16 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
 
                         case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK:
-                        case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.TIMEOUT:
                             xInvData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
                             xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                             xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                             xInvData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                            xInvData.AddOnDI.m_FURS.Update_FURS_Response_Data(xInvData.DocInvoice_ID, m_usrc_FVI_SLO.FursTESTEnvironment);
+                            if(xInvData.AddOnDI.m_FURS.Update_FURS_Response_Data(xInvData.DocInvoice_ID, m_usrc_FVI_SLO.FursTESTEnvironment))
+                            {
+                                buttonCell.Enabled = false;
+                                m_InvoiceData_List.RemoveAt(e.RowIndex);
+                                Init();
+                            }
                             break;
                     }
                 }

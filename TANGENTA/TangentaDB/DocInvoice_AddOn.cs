@@ -840,9 +840,14 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count == 0)
                     {
-                        LogFile.Error.Show("ERROR:InvoiceData:Update_FURS_Response_Data:sql=" + sql + "\r\n Invoice not found DocInvoice_ID = " + DocInvoice_ID.ToString());
-                        return true;
-
+                        if (Write_FURS_Response_Data(DocInvoice_ID, FursTESTEnvironment))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
                 string spar_MessageID = "@par_MessageID";

@@ -71,10 +71,8 @@ namespace TangentaDB
         {
             string sql = @"select pi.ID
                                 from DocInvoice pi
-								inner join JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = pi.ID
-								inner join JOURNAL_DocInvoice_Type jdit on jdi.JOURNAL_DocInvoice_Type_ID = jdit.ID
                                 left join FVI_SLO_Response fvires on fvires.DocInvoice_ID = pi.ID
-                                where pi.Draft = 0 and fvires.UniqueInvoiceID is null and fvires.MessageID is not null and jdit.Name = 'InvoiceTime'";
+                                where pi.Draft = 0 and fvires.UniqueInvoiceID is null";
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
