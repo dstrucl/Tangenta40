@@ -15,6 +15,7 @@ using System.Drawing;
 //using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
+using System.Data;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
@@ -471,6 +472,24 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        public void Check_InvoiceNotConfirmedAtFURS(ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
+        {
+            Properties.Settings.Default.Reload();
+            bool bTest = Properties.Settings.Default.fursTEST_Environment;
+            List<InvoiceData> InvoiceData_List = null;
+            if (f_FVI_SLO_Invoice.Select_InvoiceNotConfirmed(xShopABC, xAddOnDPI, xDocProformaInvoice_AddOn, ref InvoiceData_List, FursD_ElectronicDeviceID))
+            {
+                if (InvoiceData_List != null)
+                {
+                    if (InvoiceData_List.Count>0)
+                    { 
+                        Form_InvoiceNotConfirmed_Send frm_sbi_send = new Form_InvoiceNotConfirmed_Send(this, InvoiceData_List);
+                        frm_sbi_send.ShowDialog();
+                    }
+                }
+            }
+        }
+
         public void Write_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
         {
             Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(this,Invoice_ID, FiscalYear, InvoiceNumber, null, null, null, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
@@ -587,7 +606,8 @@ namespace FiscalVerificationOfInvoices_SLO
                 LastMessageID++;
                 Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
                 FormFURSCommunication = new FormFURSCommunication(this, msg);
-                if (FormFURSCommunication.ShowDialog() == DialogResult.OK)
+                DialogResult dlgRes = FormFURSCommunication.ShowDialog();
+                if (dlgRes == DialogResult.OK)
                 {
                     UniqeMsgID = FormFURSCommunication.ProtectedID;
                     UniqueInvID = FormFURSCommunication.UniqueInvoiceID;
@@ -608,6 +628,12 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
+
+                    UniqeMsgID = FormFURSCommunication.ProtectedID;
+                    UniqueInvID = FormFURSCommunication.UniqueInvoiceID;
+                    barcode_value = FormFURSCommunication.BarCodeValue;
+                    Image_QR = FormFURSCommunication.Image_QRCode;
+
                     if (bSendSalesBookInvoice)
                     {
                         return Result_MessageBox_Post.ERROR;
@@ -615,9 +641,12 @@ namespace FiscalVerificationOfInvoices_SLO
                     else
                     {
                         FormFURSCommunicationERRORhandler frm_com_err_handler = new FormFURSCommunicationERRORhandler(FormFURSCommunication.ErrorMessage);
-                        if (frm_com_err_handler.ShowDialog(this) == DialogResult.Cancel)
+                        switch (frm_com_err_handler.ShowDialog(this))
                         {
-                            return Result_MessageBox_Post.ERROR;
+                            case DialogResult.Cancel:
+                                return Result_MessageBox_Post.ERROR;
+                            case DialogResult.Ignore:
+                                return Result_MessageBox_Post.TIMEOUT;
                         }
                     }
                 }

@@ -2278,7 +2278,7 @@ do_EditMyOrganisation_Data:
             //}
             //else
             //{
-                string furs_XML = m_InvoiceData.AddOnDI.m_FURS.Create_furs_InvoiceXML(false,
+                string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(false,
                                        Properties.Resources.FVI_SLO_Invoice,
                                        Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
                                        Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
@@ -2295,16 +2295,22 @@ do_EditMyOrganisation_Data:
                 string furs_UniqeMsgID = null;
                 string furs_UniqeInvID = null;
                 string furs_BarCodeValue = null;
-                if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false, furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
-                {
+
+                FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post eres = Program.usrc_FVI_SLO1.Send_SingleInvoice(false, furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR);
+                switch (eres)
+                { 
+
+                case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK:
+                case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.TIMEOUT:
                     m_InvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
                     m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID,Program.usrc_FVI_SLO1.FursTESTEnvironment);
-                }
-                else
-                {
+                    break;
+
+                case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.ERROR:
+
                     string xSerialNumber = null;
                     string xSetNumber = null;
                     string xInvoiceNumber = null;
@@ -2323,8 +2329,11 @@ do_EditMyOrganisation_Data:
                         //    m_InvoiceData.Write_FURS_Response_Data();
                         //}
                     }
-                }
-                m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+                    break;
+
+
+            }
+            m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
             //}
         }
 
@@ -2520,7 +2529,7 @@ do_EditMyOrganisation_Data:
                                         if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                         {
 
-                                            string furs_XML = xInvoiceData.AddOnDI.m_FURS.Create_furs_InvoiceXML(true,
+                                            string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(true,
                                                                                                           Properties.Resources.FVI_SLO_Invoice,
                                                                                                           Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
                                                                                                           Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,

@@ -783,9 +783,18 @@ namespace TangentaDB
                 lpar.Add(par_MessageID);
 
 
-                string spar_UniqueInvoiceID = "@par_UniqueInvoiceID";
-                SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_EOR_v.v);
-                lpar.Add(par_UniqueInvoiceID);
+                string sval_UniqueInvoiceID = " null ";
+
+                if (FURS_EOR_v != null)
+                {
+                    if (FURS_EOR_v.v != null)
+                    {
+                        string spar_UniqueInvoiceID = "@par_UniqueInvoiceID";
+                        SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_EOR_v.v);
+                        lpar.Add(par_UniqueInvoiceID);
+                        sval_UniqueInvoiceID = spar_UniqueInvoiceID;
+                    }
+                }
 
                 string spar_BarCodeValue = "@par_BarCodeValue";
                 SQL_Parameter par_BarCodeValue = new SQL_Parameter(spar_BarCodeValue, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_QR_v.v);
@@ -801,7 +810,7 @@ namespace TangentaDB
                 SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
                 lpar.Add(par_TestEnvironment);
 
-                sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime,TestEnvironment) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ","+ spar_TestEnvironment+")";
+                sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime,TestEnvironment) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + sval_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ","+ spar_TestEnvironment+")";
                 long id = -1;
                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "fvi_slo_response"))
                 {
@@ -815,6 +824,77 @@ namespace TangentaDB
                 }
             }
 
+
+            public bool Update_FURS_Response_Data(long DocInvoice_ID, bool FursTESTEnvironment)
+            {
+                object oret = null;
+                string Err = null;
+                string sql = null;
+                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                string spar_Invoice_ID = "@par_Invoice_ID";
+                SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
+                lpar.Add(par_Invoice_ID);
+                sql = "select ID from fvi_slo_response where DocInvoice_ID = " + spar_Invoice_ID;
+                DataTable dt = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                {
+                    if (dt.Rows.Count == 0)
+                    {
+                        LogFile.Error.Show("ERROR:InvoiceData:Update_FURS_Response_Data:sql=" + sql + "\r\n Invoice not found DocInvoice_ID = " + DocInvoice_ID.ToString());
+                        return true;
+
+                    }
+                }
+                string spar_MessageID = "@par_MessageID";
+                SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_ZOI_v.v);
+                lpar.Add(par_MessageID);
+
+
+                string sval_UniqueInvoiceID = " null ";
+
+                if (FURS_EOR_v != null)
+                {
+                    if (FURS_EOR_v.v != null)
+                    {
+                        string spar_UniqueInvoiceID = "@par_UniqueInvoiceID";
+                        SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_EOR_v.v);
+                        lpar.Add(par_UniqueInvoiceID);
+                        sval_UniqueInvoiceID = spar_UniqueInvoiceID;
+                    }
+                }
+
+                string spar_BarCodeValue = "@par_BarCodeValue";
+                SQL_Parameter par_BarCodeValue = new SQL_Parameter(spar_BarCodeValue, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_QR_v.v);
+                lpar.Add(par_BarCodeValue);
+
+                DateTime resp_datetime = DateTime.Now;
+                string spar_Response_DateTime = "@par_Response_DateTime";
+                SQL_Parameter par_Response_DateTime = new SQL_Parameter(spar_Response_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, resp_datetime);
+                lpar.Add(par_Response_DateTime);
+
+
+                string spar_TestEnvironment = "@par_TestEnvironment";
+                SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
+                lpar.Add(par_TestEnvironment);
+
+                sql = @"Update fvi_slo_response set MessageID = " + spar_MessageID +
+                        ",UniqueInvoiceID = " + sval_UniqueInvoiceID +
+                        ",BarCodeValue = " + spar_BarCodeValue +
+                        ",Response_DateTime = " + spar_Response_DateTime +
+                        ",TestEnvironment = " + spar_TestEnvironment +
+                        " where DocInvoice_ID = " + spar_Invoice_ID;
+                long id = -1;
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret, ref Err))
+                {
+                    Set_Invoice_Furs_Token();
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:InvoiceData:Update_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
 
 
             public void Set_Invoice_Furs_Token()
@@ -935,7 +1015,7 @@ namespace TangentaDB
                 }
             }
 
-            public string Create_furs_InvoiceXML(bool bStorno,
+            public static string Create_furs_InvoiceXML(bool bStorno,
                                                 string InvoiceXmlTemplate,
                                                 string FursD_MyOrgTaxID,
                                                 string FursD_BussinesPremiseID,
@@ -1048,7 +1128,7 @@ namespace TangentaDB
 
             }
 
-            private string XmlDcoumentToString(XmlDocument xmlDoc)
+            private static string XmlDcoumentToString(XmlDocument xmlDoc)
             {
                 var settings = new XmlWriterSettings();
                 settings.OmitXmlDeclaration = false;
@@ -1065,7 +1145,7 @@ namespace TangentaDB
             }
 
 
-            private string sStorno(bool bStorno)
+            private static string sStorno(bool bStorno)
             {
                 if (bStorno)
                 {

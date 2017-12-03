@@ -654,13 +654,12 @@ namespace TangentaDB
         public bool SaveDocInvoice(ref long docinvoice_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
-            DateTime_v InvoiceTime_v = new DateTime_v();
-            InvoiceTime_v.v = DateTime.Now;
             bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docinvoice_ID = DocInvoice_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
+                DateTime_v InvoiceTime_v = new DateTime_v(AddOnDI.m_IssueDate.Date);
                 this.SetInvoiceTime(InvoiceTime_v);
             }
             return bRet;

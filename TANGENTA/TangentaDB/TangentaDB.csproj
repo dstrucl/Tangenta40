@@ -142,6 +142,7 @@
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />
     <Compile Include="f_Expiry.cs" />
+    <Compile Include="f_FVI_SLO_Invoice.cs" />
     <Compile Include="f_FVI_SLO_SalesBookInvoice.cs" />
     <Compile Include="f_Item.cs" />
     <Compile Include="f_Item_Image.cs" />

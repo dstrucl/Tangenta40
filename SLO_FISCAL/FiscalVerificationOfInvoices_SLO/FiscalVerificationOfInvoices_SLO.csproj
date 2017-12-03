@@ -82,6 +82,8 @@
   <ItemGroup>
     <Compile Include="CircularBuffer_usrc_FVI_SLO_Message.cs" />
     <Compile Include="CircularBuffer_Thread_FVI_Message.cs" />
+    <Compile Include="DataGridViewDisableButtonCell.cs" />
+    <Compile Include="DataGridViewDisableButtonColumn.cs" />
     <Compile Include="FormFURSCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +119,12 @@
     </Compile>
     <Compile Include="Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_InvoiceNotConfirmed_Send.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_InvoiceNotConfirmed_Send.Designer.cs">
+      <DependentUpon>Form_InvoiceNotConfirmed_Send.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_SalesBookInvoice_Send.cs">
       <SubType>Form</SubType>
@@ -203,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_InvoiceNotConfirmed_Send.resx">
+      <DependentUpon>Form_InvoiceNotConfirmed_Send.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SalesBookInvoice_Send.resx">
       <DependentUpon>Form_SalesBookInvoice_Send.cs</DependentUpon>
