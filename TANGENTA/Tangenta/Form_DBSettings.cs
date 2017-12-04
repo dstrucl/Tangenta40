@@ -52,10 +52,12 @@ namespace Tangenta
             if (rdb_SingleUser.Checked)
             {
                 chk_SingleUserLoginAsAdministrator.Enabled = true;
+                usrc_Password1.Enabled = true;
             }
             else
             {
                 chk_SingleUserLoginAsAdministrator.Enabled = false;
+                usrc_Password1.Enabled = false;
             }
         }
 
@@ -159,10 +161,12 @@ namespace Tangenta
             if (rdb_MultiUserOperation.Checked)
             {
                 chk_SingleUserLoginAsAdministrator.Enabled = false;
+                usrc_Password1.Enabled = false;
             }
             else
             {
                 chk_SingleUserLoginAsAdministrator.Enabled = true;
+                usrc_Password1.Enabled = true;
             }
         }
     }

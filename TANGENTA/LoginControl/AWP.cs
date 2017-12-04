@@ -269,6 +269,7 @@ namespace LoginControl
                         {
                             lctrl.btn_UserManager.Visible = true;
                         }
+                        lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
                     }
                     return bres;
                 }

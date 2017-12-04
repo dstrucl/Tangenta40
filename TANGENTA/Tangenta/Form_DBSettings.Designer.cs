@@ -44,9 +44,10 @@
             // lbl_Administrator_Password
             // 
             this.lbl_Administrator_Password.AutoSize = true;
-            this.lbl_Administrator_Password.Location = new System.Drawing.Point(14, 32);
+            this.lbl_Administrator_Password.Location = new System.Drawing.Point(34, 88);
+            this.lbl_Administrator_Password.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Administrator_Password.Name = "lbl_Administrator_Password";
-            this.lbl_Administrator_Password.Size = new System.Drawing.Size(116, 13);
+            this.lbl_Administrator_Password.Size = new System.Drawing.Size(156, 17);
             this.lbl_Administrator_Password.TabIndex = 1;
             this.lbl_Administrator_Password.Text = "Administrator Password";
             // 
@@ -66,9 +67,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 228);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(4, 285);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(385, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(481, 79);
             this.usrc_NavigationButtons1.TabIndex = 2;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -83,21 +85,23 @@
             // usrc_Password1
             // 
             this.usrc_Password1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.usrc_Password1.Location = new System.Drawing.Point(12, 49);
+            this.usrc_Password1.Location = new System.Drawing.Point(31, 109);
+            this.usrc_Password1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_Password1.MaxLength = 32;
             this.usrc_Password1.MinPasswordLength = 5;
             this.usrc_Password1.Name = "usrc_Password1";
             this.usrc_Password1.PasswordLocked = true;
             this.usrc_Password1.ReadOnly = false;
-            this.usrc_Password1.Size = new System.Drawing.Size(261, 67);
+            this.usrc_Password1.Size = new System.Drawing.Size(326, 84);
             this.usrc_Password1.TabIndex = 0;
             // 
             // chk_StockCheckAtStartup
             // 
             this.chk_StockCheckAtStartup.AutoSize = true;
-            this.chk_StockCheckAtStartup.Location = new System.Drawing.Point(12, 205);
+            this.chk_StockCheckAtStartup.Location = new System.Drawing.Point(13, 256);
+            this.chk_StockCheckAtStartup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chk_StockCheckAtStartup.Name = "chk_StockCheckAtStartup";
-            this.chk_StockCheckAtStartup.Size = new System.Drawing.Size(138, 17);
+            this.chk_StockCheckAtStartup.Size = new System.Drawing.Size(175, 21);
             this.chk_StockCheckAtStartup.TabIndex = 3;
             this.chk_StockCheckAtStartup.Text = "Stock Check At Startup";
             this.chk_StockCheckAtStartup.UseVisualStyleBackColor = true;
@@ -105,9 +109,10 @@
             // rdb_MultiUserOperation
             // 
             this.rdb_MultiUserOperation.AutoSize = true;
-            this.rdb_MultiUserOperation.Location = new System.Drawing.Point(6, 19);
+            this.rdb_MultiUserOperation.Location = new System.Drawing.Point(8, 24);
+            this.rdb_MultiUserOperation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdb_MultiUserOperation.Name = "rdb_MultiUserOperation";
-            this.rdb_MultiUserOperation.Size = new System.Drawing.Size(70, 17);
+            this.rdb_MultiUserOperation.Size = new System.Drawing.Size(90, 21);
             this.rdb_MultiUserOperation.TabIndex = 4;
             this.rdb_MultiUserOperation.Text = "Multi user";
             this.rdb_MultiUserOperation.UseVisualStyleBackColor = true;
@@ -116,9 +121,10 @@
             // lbl_DataBaseVersion
             // 
             this.lbl_DataBaseVersion.AutoSize = true;
-            this.lbl_DataBaseVersion.Location = new System.Drawing.Point(16, 5);
+            this.lbl_DataBaseVersion.Location = new System.Drawing.Point(20, 6);
+            this.lbl_DataBaseVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_DataBaseVersion.Name = "lbl_DataBaseVersion";
-            this.lbl_DataBaseVersion.Size = new System.Drawing.Size(95, 13);
+            this.lbl_DataBaseVersion.Size = new System.Drawing.Size(126, 17);
             this.lbl_DataBaseVersion.TabIndex = 5;
             this.lbl_DataBaseVersion.Text = "Data Base Version";
             // 
@@ -127,9 +133,13 @@
             this.grp_OperationMode.Controls.Add(this.chk_SingleUserLoginAsAdministrator);
             this.grp_OperationMode.Controls.Add(this.rdb_SingleUser);
             this.grp_OperationMode.Controls.Add(this.rdb_MultiUserOperation);
-            this.grp_OperationMode.Location = new System.Drawing.Point(12, 123);
+            this.grp_OperationMode.Controls.Add(this.lbl_Administrator_Password);
+            this.grp_OperationMode.Controls.Add(this.usrc_Password1);
+            this.grp_OperationMode.Location = new System.Drawing.Point(13, 38);
+            this.grp_OperationMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grp_OperationMode.Name = "grp_OperationMode";
-            this.grp_OperationMode.Size = new System.Drawing.Size(375, 71);
+            this.grp_OperationMode.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grp_OperationMode.Size = new System.Drawing.Size(469, 210);
             this.grp_OperationMode.TabIndex = 6;
             this.grp_OperationMode.TabStop = false;
             this.grp_OperationMode.Text = "Operation Mode";
@@ -137,9 +147,10 @@
             // chk_SingleUserLoginAsAdministrator
             // 
             this.chk_SingleUserLoginAsAdministrator.AutoSize = true;
-            this.chk_SingleUserLoginAsAdministrator.Location = new System.Drawing.Point(194, 43);
+            this.chk_SingleUserLoginAsAdministrator.Location = new System.Drawing.Point(242, 54);
+            this.chk_SingleUserLoginAsAdministrator.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chk_SingleUserLoginAsAdministrator.Name = "chk_SingleUserLoginAsAdministrator";
-            this.chk_SingleUserLoginAsAdministrator.Size = new System.Drawing.Size(129, 17);
+            this.chk_SingleUserLoginAsAdministrator.Size = new System.Drawing.Size(171, 21);
             this.chk_SingleUserLoginAsAdministrator.TabIndex = 6;
             this.chk_SingleUserLoginAsAdministrator.Text = "Login as Administrator";
             this.chk_SingleUserLoginAsAdministrator.UseVisualStyleBackColor = true;
@@ -147,26 +158,26 @@
             // rdb_SingleUser
             // 
             this.rdb_SingleUser.AutoSize = true;
-            this.rdb_SingleUser.Location = new System.Drawing.Point(7, 42);
+            this.rdb_SingleUser.Location = new System.Drawing.Point(9, 52);
+            this.rdb_SingleUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdb_SingleUser.Name = "rdb_SingleUser";
-            this.rdb_SingleUser.Size = new System.Drawing.Size(77, 17);
+            this.rdb_SingleUser.Size = new System.Drawing.Size(100, 21);
             this.rdb_SingleUser.TabIndex = 5;
             this.rdb_SingleUser.Text = "Single user";
             this.rdb_SingleUser.UseVisualStyleBackColor = true;
             // 
             // Form_DBSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(393, 291);
+            this.ClientSize = new System.Drawing.Size(491, 364);
             this.Controls.Add(this.grp_OperationMode);
             this.Controls.Add(this.lbl_DataBaseVersion);
             this.Controls.Add(this.chk_StockCheckAtStartup);
             this.Controls.Add(this.usrc_NavigationButtons1);
-            this.Controls.Add(this.lbl_Administrator_Password);
-            this.Controls.Add(this.usrc_Password1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_DBSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.grp_OperationMode.ResumeLayout(false);

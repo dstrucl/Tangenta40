@@ -260,7 +260,14 @@ namespace TangentaDB
                         long xDocInvoice_ID = m_CurrentInvoice.Doc_ID;
                         if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v != null)
                         {
-                            xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
+                            decimal_v dGrossSum_v = tf.set_decimal(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
+                            if (dGrossSum_v!=null)
+                            {
+                               if (dGrossSum_v.v < 0)
+                                {
+                                    xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
+                                }
+                            }
                         }
 
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))

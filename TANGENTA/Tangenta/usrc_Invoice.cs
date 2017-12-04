@@ -2107,7 +2107,15 @@ do_EditMyOrganisation_Data:
                 }
                 else
                 {
-                    sGrossSum = "-" + dsum_GrossSum.ToString();
+                    sGrossSum =  dsum_GrossSum.ToString();
+                    decimal_v dGrossSum_v = tf.set_decimal(m_ShopABC.m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
+                    if (dGrossSum_v != null)
+                    {
+                        if (dGrossSum_v.v < 0)
+                        {
+                            sGrossSum = dGrossSum_v.v.ToString();
+                        }
+                    }
                     this.lbl_Sum.ForeColor = Color.Red;
                 }
             }
