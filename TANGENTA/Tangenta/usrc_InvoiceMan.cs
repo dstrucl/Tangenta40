@@ -220,6 +220,7 @@ namespace Tangenta
             bool bRes = SetDocument(xnav);
 
             this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
+            SetBackGroundColor();
 
             Program.Cursor_Arrow();
             return bRes;
@@ -315,6 +316,7 @@ namespace Tangenta
                 {
                 }
             }
+            SetBackGroundColor();
         }
 
 
@@ -616,8 +618,24 @@ namespace Tangenta
 
                     break;
             }
-
+            SetBackGroundColor();
             SetDocInvoiceOrDocPoformaInvoice();
+        }
+
+        private void SetBackGroundColor()
+        {
+            if (IsDocInvoice)
+            {
+                this.BackColor = Properties.Settings.Default.Color_DocInvoiceBackGround;
+            }
+            else
+            {
+                this.BackColor = Properties.Settings.Default.Color_DocProformaInvoiceBackGround;
+            }
+            if (Program.MainForm != null)
+            {
+                Program.MainForm.BackColor = this.BackColor;
+            }
         }
     }
 }

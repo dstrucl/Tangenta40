@@ -729,8 +729,23 @@ namespace ShopB
             {
                 if (col_Discount != null)
                 {
-                    this.dgv_SelectedShopB_Items.Columns.Remove(col_Discount);
+                    int iIndex = this.dgv_SelectedShopB_Items.Columns.IndexOf(col_Discount);
+                    if (iIndex >= 0)
+                    {
+                        this.dgv_SelectedShopB_Items.Columns.RemoveAt(iIndex);
+                    }
                     col_Discount = null;
+                }
+                else
+                {
+                    foreach (DataGridViewColumn dgvc in this.dgv_SelectedShopB_Items.Columns)
+                    {
+                        if (dgvc.Name.Equals(column_SelectedShopBItem_btn_discount))
+                        {
+                            this.dgv_SelectedShopB_Items.Columns.Remove(dgvc);
+                            break;
+                        }
+                    }
                 }
             }
             

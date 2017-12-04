@@ -116,5 +116,11 @@
     <Setting Name="AutomaticSelectionOfItemFromStock" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Color_DocInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">255, 255, 220</Value>
+    </Setting>
+    <Setting Name="Color_DocProformaInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Azure</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

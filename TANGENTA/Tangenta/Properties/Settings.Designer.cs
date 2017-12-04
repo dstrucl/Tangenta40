@@ -478,5 +478,29 @@ namespace Tangenta.Properties {
                 this["AutomaticSelectionOfItemFromStock"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 255, 220")]
+        public global::System.Drawing.Color Color_DocInvoiceBackGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocInvoiceBackGround"]));
+            }
+            set {
+                this["Color_DocInvoiceBackGround"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Azure")]
+        public global::System.Drawing.Color Color_DocProformaInvoiceBackGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceBackGround"]));
+            }
+            set {
+                this["Color_DocProformaInvoiceBackGround"] = value;
+            }
+        }
     }
 }
