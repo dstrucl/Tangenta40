@@ -71,7 +71,7 @@ namespace TangentaDB
         {
             string sql = @"select pi.ID
                                 from DocInvoice pi
-                                left join FVI_SLO_Response fvires on fvires.DocInvoice_ID = pi.ID
+                                inner join FVI_SLO_Response fvires on fvires.DocInvoice_ID = pi.ID
                                 where pi.Draft = 0 and fvires.UniqueInvoiceID is null";
             DataTable dt = new DataTable();
             string Err = null;

@@ -421,6 +421,9 @@ namespace Tangenta
                         {
                             case eCommandLineHelpResult.DO_SELECT_LANGUAGE:
                                 goto DoSelectLanguage;
+                            case eCommandLineHelpResult.EXIT:
+                                return;
+
                         }
                     }
 

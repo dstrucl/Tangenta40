@@ -94,11 +94,12 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public static ltext s_InstructionToTryToSendFURSDataAgain = new ltext(new string[]{"Data was not send to DURS!\r\nYou can:"
                                                                               + "\r\n\r\n   1. click \"Send invoice data to DURS again\" button after you have checked your internet connection ! or"
-                                                                              + "\r\n\r\n   2. click \"Write into SalesBookInvoice\" button to write invoice data into Sales Book Invoice.",
+                                                                              + "\r\n\r\n   2. click \"Send later\" to send it later. You must send it in next two working days!",
                                                                               "Račun ni bil supešno poslan davčni upravi!\r\n\r\nIzberete lahko:"
                                                                               + "\r\n\r\n   1. kliknite gumb \"Ponovno pošlji račun davčni upravi\" v kolikor ste preverili, da imate povezavo na svetovni splet ali pa"
-                                                                              + "\r\n\r\n   2. kliknite gumb \"Vpišite v vezano knjigo računov\" kjer boste potem morali račun vpisati v vezano knjigo računov,"
-                                                                              + "r\n      le to pa boste lahko poslali davčni upravi, ko bo zopet povezava z davčno upravo delovala."});   // referenced in C:\Tangenta40\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FormFURSCommunicationERRORhandler.cs
+                                                                              + "\r\n\r\n   2. kliknite gumb \"Pošlji kasnjeje\" da boste lahko natisnili račun brez davčne potrditve."
+                                                                              + "\r\n        Račun morate potrditi v naslednjih dveh delovnih dneh,"
+                                                                              + "\r\n           ko bo zopet povezava z davčno upravo delovala."});   // referenced in C:\Tangenta40\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FormFURSCommunicationERRORhandler.cs
 
         public static ltext s_TryToSendFURSDataAgain = new ltext(new string[] { "Send invoice data to DURS again", "Ponovno pošlji račun davčni upravi" });   // referenced in C:\Tangenta40\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FormFURSCommunicationERRORhandler.cs
 
@@ -220,7 +221,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public static ltext s_DoYouRealyWantToResetSettingsFor_FiscalVerificationOfInvoices = new ltext(new string[] { "Do you realy want to reset Settings for fiscal verification of invoices", "Ste prepričani, da zares želite ponastaviti nastavitve za davčno potrjevanje računov na začetno programsko vrednost ?" });   // referenced in C:\Tangenta40\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\usrc_FVI_SLO.cs
 
-        public static ltext s_SendInvoiceLater = new ltext(new string[] { "Send Invoice later in 48 hours", "Pošlji račun nakasneje v 48 urah" });   // referenced in C:\Tangenta40\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\usrc_FURS_BussinesPremiseData.cs
+        public static ltext s_SendInvoiceLater = new ltext(new string[] { "Send later", "Pošlji kasneje" });   // referenced in C:\Tangenta40\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\usrc_FURS_BussinesPremiseData.cs
 
         public static ltext s_Send = new ltext(new string[] { "Send", "Pošlji" });
     }

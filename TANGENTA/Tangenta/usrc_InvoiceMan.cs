@@ -239,7 +239,7 @@ namespace Tangenta
 
         }
 
-        private bool SetDocument(NavigationButtons.Navigation xnav)
+        internal bool SetDocument(NavigationButtons.Navigation xnav)
         {
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 

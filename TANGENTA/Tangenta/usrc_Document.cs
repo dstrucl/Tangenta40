@@ -304,8 +304,11 @@ namespace Tangenta
                             if (Program.b_FVI_SLO)
                             {
                                 this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
-                                Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
+                                if (Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI))
+                                {
+                                    this.m_usrc_InvoiceMan.SetDocument(xnav);
+                                }
+                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
                             }
                         }
                     }

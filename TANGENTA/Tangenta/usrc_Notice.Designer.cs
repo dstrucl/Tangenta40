@@ -36,9 +36,10 @@
             // btn_SelectNotice
             // 
             this.btn_SelectNotice.Image = global::Tangenta.Properties.Resources.SelectRow;
-            this.btn_SelectNotice.Location = new System.Drawing.Point(3, 5);
+            this.btn_SelectNotice.Location = new System.Drawing.Point(4, 6);
+            this.btn_SelectNotice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_SelectNotice.Name = "btn_SelectNotice";
-            this.btn_SelectNotice.Size = new System.Drawing.Size(44, 27);
+            this.btn_SelectNotice.Size = new System.Drawing.Size(55, 34);
             this.btn_SelectNotice.TabIndex = 31;
             this.btn_SelectNotice.UseVisualStyleBackColor = true;
             this.btn_SelectNotice.Click += new System.EventHandler(this.btn_SelectNotice_Click);
@@ -46,9 +47,10 @@
             // chk_Notice
             // 
             this.chk_Notice.AutoSize = true;
-            this.chk_Notice.Location = new System.Drawing.Point(53, 8);
+            this.chk_Notice.Location = new System.Drawing.Point(66, 10);
+            this.chk_Notice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chk_Notice.Name = "chk_Notice";
-            this.chk_Notice.Size = new System.Drawing.Size(57, 17);
+            this.chk_Notice.Size = new System.Drawing.Size(70, 21);
             this.chk_Notice.TabIndex = 30;
             this.chk_Notice.Text = "Notice";
             this.chk_Notice.UseVisualStyleBackColor = true;
@@ -61,21 +63,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Notice.Enabled = false;
             this.txt_Notice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Notice.Location = new System.Drawing.Point(3, 34);
+            this.txt_Notice.Location = new System.Drawing.Point(4, 42);
+            this.txt_Notice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt_Notice.Multiline = true;
             this.txt_Notice.Name = "txt_Notice";
-            this.txt_Notice.Size = new System.Drawing.Size(547, 79);
+            this.txt_Notice.Size = new System.Drawing.Size(691, 109);
             this.txt_Notice.TabIndex = 29;
             // 
             // usrc_Notice
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.btn_SelectNotice);
             this.Controls.Add(this.chk_Notice);
             this.Controls.Add(this.txt_Notice);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "usrc_Notice";
-            this.Size = new System.Drawing.Size(556, 121);
+            this.Size = new System.Drawing.Size(695, 151);
             this.ResumeLayout(false);
             this.PerformLayout();
 

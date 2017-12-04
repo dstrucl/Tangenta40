@@ -918,36 +918,23 @@ namespace Tangenta
                         {
                             e.CellStyle.BackColor = ColorDraft;
                         }
-
-                        if (IsStorno(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno]))
-                        {
-                            e.CellStyle.BackColor = ColorStorno;
-                        }
-                        else
+                        else 
                         {
                             e.CellStyle.BackColor = Color.White;
+                            if (IsStorno(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno]))
+                            { 
+                                e.CellStyle.BackColor = ColorStorno;
+                            }
                             if (Program.b_FVI_SLO)
                             {
                                 if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_EOR] is string)
                                 {
                                     e.CellStyle.BackColor = ColorFurs_InvoiceConfirmed;
                                 }
-                                else if ((dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue] is string) && (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string))
-                                {
-                                    e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceConfirmed;
-                                }
-                                else if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string)
-                                {
+                                else
+                                { 
                                     e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceNotConfirmed;
                                 }
-                                else
-                                {
-                                    e.CellStyle.BackColor = Color.PaleVioletRed;
-                                }
-                            }
-                            else
-                            {
-                                e.CellStyle.BackColor = Color.White;
                             }
                         }
                     }
@@ -959,7 +946,11 @@ namespace Tangenta
                         if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
                         {
                             e.CellStyle.BackColor = ColorDraft;
-                        }  
+                        } 
+                        else
+                        {
+                            e.CellStyle.BackColor = Color.White;
+                        }
                     }
                 }
             }

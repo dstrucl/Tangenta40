@@ -472,7 +472,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public void Check_InvoiceNotConfirmedAtFURS(ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
+        public bool Check_InvoiceNotConfirmedAtFURS(ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
         {
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
@@ -485,9 +485,11 @@ namespace FiscalVerificationOfInvoices_SLO
                     { 
                         Form_InvoiceNotConfirmed_Send frm_sbi_send = new Form_InvoiceNotConfirmed_Send(this, InvoiceData_List);
                         frm_sbi_send.ShowDialog();
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         public void Write_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
