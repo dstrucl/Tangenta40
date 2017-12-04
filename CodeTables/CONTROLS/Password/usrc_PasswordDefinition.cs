@@ -12,7 +12,8 @@ namespace Password
 {
     public partial class usrc_PasswordDefinition : UserControl
     {
-        public new event EventHandler TextChanged = null;
+        public delegate void delegate_TextChanged(object sender, EventArgs e);
+        public event delegate_TextChanged PasswordTextChanged = null;
         public new event EventHandler GotFocus = null;
 
         public bool m_Locked = true;
@@ -67,8 +68,10 @@ namespace Password
             set
             {
                 string s = value;
+                this.txt_Password.TextChanged -= new System.EventHandler(this.txt_Password_TextChanged);
                 if (PasswordLocked)
                 {
+                   
                     string s_unlocked = Password.UnlockPassword(s);
                     txt_Password.Text = s_unlocked;
                     txt_Password_Retyped.Text = s_unlocked;
@@ -78,6 +81,7 @@ namespace Password
                     txt_Password.Text = s;
                     txt_Password_Retyped.Text = s;
                 }
+                this.txt_Password.TextChanged += new System.EventHandler(this.txt_Password_TextChanged);
             }
         }
 
@@ -140,7 +144,8 @@ namespace Password
         {
             InitializeComponent();
             lbl_Retype_Password.Text = lng.s_RetypePassword.s;
-            txt_Password.Text = ""; 
+            txt_Password.Text = "";
+            this.txt_Password.TextChanged += new System.EventHandler(this.txt_Password_TextChanged);
             txt_Password.GotFocus += Txt_Password_GotFocus;
         }
 
@@ -154,9 +159,9 @@ namespace Password
 
         private void txt_Password_TextChanged(object sender, EventArgs e)
         {
-            if (TextChanged!=null)
+            if (PasswordTextChanged!=null)
             {
-                TextChanged(sender,e);
+                PasswordTextChanged(sender,e);
             }
         }
 

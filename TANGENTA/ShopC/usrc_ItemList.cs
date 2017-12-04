@@ -60,6 +60,13 @@ namespace ShopC
                 }
         }
 
+        private bool m_bExclusivelySellFromStock = false;
+        public bool ExclusivelySellFromStock
+        {
+            get { return m_bExclusivelySellFromStock; }
+            set { m_bExclusivelySellFromStock = value; }
+        }
+
         public string[] s_name_Group = null;
 
         public delegate void delegate_ItemAdded();
@@ -100,6 +107,7 @@ namespace ShopC
             {
                 usrc_Item usrc_item = new usrc_Item();
                 usrc_item.m_usrc_ItemList = this;
+                usrc_item.ExclusivelySellFromStock = this.ExclusivelySellFromStock;
                 usrc_item.Top = yPos;
                 usrc_item.Left = 5;
                 usrc_item.Width = this.pnl_Items.Width - 10;
@@ -141,12 +149,13 @@ namespace ShopC
             }
         }
 
-        internal void Init(TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan)
+        internal void Init(TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
         {
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_C.s;
+            m_bExclusivelySellFromStock = xbExclusivelySellFromStock;
             Init();
         }
 

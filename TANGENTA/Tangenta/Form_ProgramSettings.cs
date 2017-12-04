@@ -30,6 +30,7 @@ namespace Tangenta
         private bool bChanged = false;
         NavigationButtons.Navigation nav = null;
         private Form LogManager_dlg = null;
+        bool bDBSettingsChanged = false;
 
         public Form_ProgramSettings(usrc_Document usrc_Main,NavigationButtons.Navigation xnav)
         {
@@ -129,13 +130,19 @@ namespace Tangenta
                 {
                     bChanged = true;
                     Properties.Settings.Default.LanguageID = newLanguage;
-                    XMessage.Box.Show(this, lng.s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                
                 }
                 if (bChanged)
                 {
                     Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
                     Properties.Settings.Default.Save();
                 }
+
+                if ((bChanged || bDBSettingsChanged)&&(nav.m_eButtons== Navigation.eButtons.OkCancel))
+                {
+                    XMessage.Box.Show(this, lng.s_YouHaveChangedSettingsYouMustRestartProgramToUseNewSettings, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                }
+
                 if (LogManager_dlg != null)
                 {
                     XMessage.Box.Show(this, lng.s_CloseLogManagerDialog, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
@@ -217,6 +224,7 @@ namespace Tangenta
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
             {
+                bDBSettingsChanged = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).Changed;
                 Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
                 Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
                 Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;

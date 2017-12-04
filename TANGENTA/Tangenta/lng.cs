@@ -498,7 +498,7 @@ namespace Tangenta
 
         public static ltext s_CloseLogManagerDialog = new ltext(new string[] { "Close Log Manager Dialog!", "Končaj oziroma zapri dialog dnevniških nastavitev!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
-        public static ltext s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage = new ltext(new string[] { "You have selected another language.\r\nYou must restart program to use another language.", "Izbrali ste drug jezik. Da bo program delal v novem jeziku, ponovno zaženite program." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+        public static ltext s_YouHaveChangedSettingsYouMustRestartProgramToUseNewSettings = new ltext(new string[] { "You have change settings.\r\nYou must restart program to use new settings.", "Spremenili ste nastavitve. Da bo program delal z novimi nastavitvami, ponovno zaženite program." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_LogFile = new ltext(new string[] { "Log file", "Dnevniška datoteka (\"Log file\")" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
@@ -637,5 +637,7 @@ namespace Tangenta
         internal static ltext s_MoreDataForPerson = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Person_Edit.cs
 
         internal static ltext s_OtherPersonDana = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_PersonData_Edit.cs
+
+        internal static ltext s_chk_ShopC_ExclusivelySellFromStock = new ltext(new string[] { "In Shop C only sell from stock is enabled", "V prodajalni C je omogočena samo prodaja iz zalog" });
     }
 }

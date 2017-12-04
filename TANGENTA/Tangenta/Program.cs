@@ -52,6 +52,7 @@ namespace Tangenta
             internal static bool MultiUser = true;
             internal static bool SingleUserLoginAsAdministrator = false;
             internal static bool StockCheckAtStartup = true;
+            internal static bool ShopC_ExclusivelySellFromStock = false;
         }
 
         private static string m_RunAs = null;

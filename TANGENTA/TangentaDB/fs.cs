@@ -226,7 +226,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool WriteDBSettings(string name, string textValue, string v, ref long ID)
+        public static bool WriteDBSettings(string name, string textValue, string sbReadOnly, ref long ID)
         {
             string Err = null;
             string s_DBSettings_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).TableName;
@@ -241,7 +241,7 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     ID = (long)dt.Rows[0]["ID"];
-                    sql = "update " + s_DBSettings_table_name + " set TextValue = '" + textValue + "',ReadOnly = " + v + " where ID = " + ID.ToString(); ;
+                    sql = "update " + s_DBSettings_table_name + " set TextValue = '" + textValue + "',ReadOnly = " + sbReadOnly + " where ID = " + ID.ToString(); ;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
                     {
                         return true;
@@ -254,7 +254,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('" + name + "','" + textValue + "'," + v + ")";
+                    sql = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('" + name + "','" + textValue + "'," + sbReadOnly + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref ID, ref oret, ref Err, s_DBSettings_table_name))
                     {
                         return true;

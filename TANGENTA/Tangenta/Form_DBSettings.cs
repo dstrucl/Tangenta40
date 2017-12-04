@@ -19,6 +19,7 @@ namespace Tangenta
         public bool MultiuserOperationWithLogin { get { return rdb_MultiUserOperation.Checked; } }
         public bool SingleUserLoginAsAdministrator { get { return chk_SingleUserLoginAsAdministrator.Checked; } }
         public bool StockCheckAtStartup { get {return chk_StockCheckAtStartup.Checked; } }
+        public bool Changed = false;
 
         public Form_DBSettings(NavigationButtons.Navigation xnav,string AdministratorLockedPassword, bool bMultiuserOperation,bool bStockCheckAtStartup)
         {
@@ -29,6 +30,7 @@ namespace Tangenta
             lng.s_Administrator_password.Text(lbl_Administrator_Password);
             lng.s_MultiuserOperationWithLogin.Text(rdb_MultiUserOperation);
             lng.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
+            lng.s_chk_ShopC_ExclusivelySellFromStock.Text(chk_ShopC_ExclusivelySellFromStock);
             if (AdministratorLockedPassword == null)
             {
                 this.usrc_Password1.Text =Password.Password.LockPassword("12345");
@@ -48,6 +50,7 @@ namespace Tangenta
             rdb_MultiUserOperation.Checked = Program.OperationMode.MultiUser;
             rdb_SingleUser.Checked = !Program.OperationMode.MultiUser;
             chk_SingleUserLoginAsAdministrator.Checked = Program.OperationMode.SingleUserLoginAsAdministrator;
+            chk_ShopC_ExclusivelySellFromStock.Checked = Program.OperationMode.ShopC_ExclusivelySellFromStock;
 
             if (rdb_SingleUser.Checked)
             {
@@ -115,6 +118,7 @@ namespace Tangenta
                     string sbMutiuserOperation = "0";
                     string sbStockCheckAtStartup = "0";
                     string sbSingleUserLoginAsAdministrator = "0";
+                    string sbShopC_ExclusivelySellFromStock = "0";
 
                     if (rdb_MultiUserOperation.Checked)
                     {
@@ -130,15 +134,37 @@ namespace Tangenta
                         sbSingleUserLoginAsAdministrator = "1";
                     }
 
+                    if (chk_ShopC_ExclusivelySellFromStock.Checked)
+                    {
+                        sbShopC_ExclusivelySellFromStock = "1";
+                    }
+
+                    if ((rdb_MultiUserOperation.Checked!= Program.OperationMode.MultiUser)
+                        ||(chk_StockCheckAtStartup.Checked!= Program.OperationMode.StockCheckAtStartup)
+                        || (chk_SingleUserLoginAsAdministrator.Checked != Program.OperationMode.SingleUserLoginAsAdministrator)
+                        || (chk_ShopC_ExclusivelySellFromStock.Checked != Program.OperationMode.ShopC_ExclusivelySellFromStock))
+                    {
+                        Changed = true;
+                    }
+
+                   
                     if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, sbMutiuserOperation, "0", ref DBSettings_ID))
                     {
+                        Program.OperationMode.MultiUser = rdb_MultiUserOperation.Checked;
+
                         if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, sbStockCheckAtStartup, "0", ref DBSettings_ID))
                         {
+                            Program.OperationMode.StockCheckAtStartup = chk_StockCheckAtStartup.Checked;
                             if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, sbSingleUserLoginAsAdministrator, "0", ref DBSettings_ID))
                             {
-                                Close();
-                                DialogResult = DialogResult.OK;
-                                return true;
+                                Program.OperationMode.SingleUserLoginAsAdministrator = chk_SingleUserLoginAsAdministrator.Checked;
+                                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, sbShopC_ExclusivelySellFromStock, "0", ref DBSettings_ID))
+                                {
+                                    Program.OperationMode.ShopC_ExclusivelySellFromStock = chk_ShopC_ExclusivelySellFromStock.Checked;
+                                    Close();
+                                    DialogResult = DialogResult.OK;
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -168,6 +194,11 @@ namespace Tangenta
                 chk_SingleUserLoginAsAdministrator.Enabled = true;
                 usrc_Password1.Enabled = true;
             }
+        }
+
+        private void usrc_Password1_PasswordTextChanged(object sender, EventArgs e)
+        {
+            Changed = true;
         }
     }
 }

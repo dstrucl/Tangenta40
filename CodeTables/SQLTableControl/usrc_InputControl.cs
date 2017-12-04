@@ -834,7 +834,7 @@ namespace CodeTables
                     {
                         if (m_col.Style == Column.eStyle.Password)
                         {
-                            txtPassword.TextChanged += new EventHandler(TxtPassword_TextChanged);
+                            txtPassword.PasswordTextChanged += TxtPassword_TextChanged; 
                             txtPassword.GotFocus += new EventHandler(InputControl_GotFocus);
                         }
                         else
@@ -851,7 +851,7 @@ namespace CodeTables
                     {
                         if (m_col.Style == Column.eStyle.Password)
                         {
-                            txtPassword.TextChanged -= TxtPassword_TextChanged;
+                            txtPassword.PasswordTextChanged -= TxtPassword_TextChanged;
                             txtPassword.GotFocus -= InputControl_GotFocus;
                         }
                         else
@@ -872,7 +872,7 @@ namespace CodeTables
                     {
                         if (m_col.Style == Column.eStyle.Password)
                         {
-                            txtPassword.TextChanged += new EventHandler(TxtPassword_TextChanged);
+                            txtPassword.PasswordTextChanged += TxtPassword_TextChanged;
                             txtPassword.GotFocus += new EventHandler(InputControl_GotFocus);
                         }
                         else
@@ -885,7 +885,7 @@ namespace CodeTables
                     {
                         if (m_col.Style == Column.eStyle.Password)
                         {
-                            txtPassword.TextChanged -= TxtPassword_TextChanged;
+                            txtPassword.PasswordTextChanged -= TxtPassword_TextChanged;
                             txtPassword.GotFocus -= InputControl_GotFocus;
                         }
                         else
@@ -904,6 +904,7 @@ namespace CodeTables
 
             }
         }
+
 
         private void TxtPassword_TextChanged(object sender, EventArgs e)
         {

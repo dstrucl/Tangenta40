@@ -87,6 +87,13 @@ namespace ShopC
         }
 
 
+        private bool m_bExclusivelySellFromStock = false;
+        public bool ExclusivelySellFromStock
+        {
+            get { return m_bExclusivelySellFromStock; }
+            set { m_bExclusivelySellFromStock = value; }
+        }
+
 
         public usrc_ShopC()
         {
@@ -110,9 +117,11 @@ namespace ShopC
         public void Init(TangentaDB.ShopABC xm_InvoiceDB, 
                         DBTablesAndColumnNames xDBtcn, 
                         string ShopsInUse, NavigationButtons.Navigation xnav,
-                        bool bAutomaticSelectionOfItemFromStock)
+                        bool bAutomaticSelectionOfItemFromStock,
+                        bool bExclusivelySellFromStock)
                         
         {
+            m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_InvoiceDB = xm_InvoiceDB;
             this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
             DBtcn = xDBtcn;
@@ -125,7 +134,7 @@ namespace ShopC
             lng.s_Shop_C.Text(lbl_ShopC_Name);
 
             this.usrc_Atom_ItemsList.Init(usrc_ItemList, xm_InvoiceDB, xDBtcn);
-            this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn,this);
+            this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn,this, m_bExclusivelySellFromStock);
 
             this.usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);

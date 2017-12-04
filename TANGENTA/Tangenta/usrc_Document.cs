@@ -355,7 +355,27 @@ namespace Tangenta
                                     {
                                         case fs.enum_GetDBSettings.DBSettings_OK:
                                             Program.OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
+                                            string sShopC_ExclusivelySellFromStock = null;
+                                            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
+                                            {
+                                                case fs.enum_GetDBSettings.DBSettings_OK:
+                                                    Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
+                                                    break;
+
+                                                case fs.enum_GetDBSettings.No_TextValue:
+                                                case fs.enum_GetDBSettings.No_Data_Rows:
+                                                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name))
+                                                    {
+                                                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                        return false;
+                                                    }
+                                                    break;
+                                                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                    return false;
+                                            }
                                             break;
+                                            
 
                                         case fs.enum_GetDBSettings.No_TextValue:
                                         case fs.enum_GetDBSettings.No_Data_Rows:
@@ -363,6 +383,25 @@ namespace Tangenta
                                             {
                                                 myStartup.eNextStep = startup_step.eStep.Cancel;
                                                 return false;
+                                            }
+                                            sShopC_ExclusivelySellFromStock = null;
+                                            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
+                                            {
+                                                case fs.enum_GetDBSettings.DBSettings_OK:
+                                                    Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
+                                                    break;
+
+                                                case fs.enum_GetDBSettings.No_TextValue:
+                                                case fs.enum_GetDBSettings.No_Data_Rows:
+                                                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name))
+                                                    {
+                                                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                        return false;
+                                                    }
+                                                    break;
+                                                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                    return false;
                                             }
                                             break;
                                         case fs.enum_GetDBSettings.Error_Load_DBSettings:

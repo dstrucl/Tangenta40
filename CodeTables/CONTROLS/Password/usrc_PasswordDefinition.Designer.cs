@@ -79,9 +79,7 @@
             this.txt_Password.Name = "txt_Password";
             this.txt_Password.Size = new System.Drawing.Size(219, 20);
             this.txt_Password.TabIndex = 0;
-            this.txt_Password.UseSystemPasswordChar = true;
-            this.txt_Password.TextChanged += new System.EventHandler(this.txt_Password_TextChanged);
-            // 
+            this.txt_Password.UseSystemPasswordChar = true;            // 
             // usrc_Password
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;

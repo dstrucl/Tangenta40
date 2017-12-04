@@ -41,6 +41,7 @@ namespace TangentaDataBaseDef
         public Settings_Item AdminPassword = null;
         public Settings_Item MultiUserOperation = null;
         public Settings_Item SingleUserLoginAsAdministrator = null;
+        public Settings_Item ShopC_ExclusivelySellFromStock = null;
 
         public Settings(string Ver)
         {
@@ -49,6 +50,8 @@ namespace TangentaDataBaseDef
             AdminPassword = new Settings_Item("AdminPassword", "12345", false);
             MultiUserOperation = new Settings_Item("MultiUserOperation", "1", false);
             SingleUserLoginAsAdministrator = new Settings_Item("SingleUserLoginAsAdministrator", "0", false);
+            ShopC_ExclusivelySellFromStock = new Settings_Item("ShopC_ExclusivelySellFromStock", "0", false);
+
         }
 
     }
