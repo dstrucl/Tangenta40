@@ -715,16 +715,25 @@ namespace ShopB
                 this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].HeaderText = lng.s_PriceListDiscount.s;
                 this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].HeaderText = lng.s_ExtraDiscount.s;
                 this.dgv_SelectedShopB_Items.Columns[column_total_discount].HeaderText = lng.s_TotalDiscount.s;
+                if (col_Discount == null)
+                {
+                    col_Discount = new DataGridViewTextBoxColumn();
+                    col_Discount.HeaderText = lng.s_Discount.s;
+                    col_Discount.Name = column_SelectedShopBItem_btn_discount;
+                    col_Discount.Width = 32;
+                    this.dgv_SelectedShopB_Items.Columns.Insert(4, col_Discount);
+                }
                 Layout = eLayout.VIEW;
             }
-            if (col_Discount == null)
-            { 
-                col_Discount = new DataGridViewTextBoxColumn();
-                col_Discount.HeaderText = lng.s_Discount.s;
-                col_Discount.Name = column_SelectedShopBItem_btn_discount;
-                col_Discount.Width = 32;
-                this.dgv_SelectedShopB_Items.Columns.Insert(4, col_Discount);
+            else
+            {
+                if (col_Discount != null)
+                {
+                    this.dgv_SelectedShopB_Items.Columns.Remove(col_Discount);
+                    col_Discount = null;
+                }
             }
+            
         }
 
         public void Set_dgv_SelectedShopB_Items()

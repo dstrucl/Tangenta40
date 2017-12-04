@@ -66,6 +66,7 @@ namespace Tangenta
         private int iColIndex_DocProformaInvoice_IssueDate = -1;
         private int iColIndex_DocInvoice_Invoice_Storno = -1;
         private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
+        private int iColIndex_DocInvoice_FSI_SLO_ID = -1;
         private int iColIndex_DocInvoice_FSI_SLO_EOR = -1;
         private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
         private int iColIndex_DocInvoice_PaymentType_Name = -1;
@@ -285,6 +286,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
                     JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
+                    JOURNAL_DocInvoice_$_dinv_$_fvisres.ID AS JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID,
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.ID AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$ID
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
@@ -513,6 +515,7 @@ namespace Tangenta
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
                     if (Program.b_FVI_SLO)
                     {
+                        iColIndex_DocInvoice_FSI_SLO_ID = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID"); 
                         iColIndex_DocInvoice_FSI_SLO_EOR = dt_XInvoice.Columns.IndexOf("EOR");
                         iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue");
                         iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber");
@@ -921,20 +924,25 @@ namespace Tangenta
                         else 
                         {
                             e.CellStyle.BackColor = Color.White;
-                            if (IsStorno(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno]))
-                            { 
-                                e.CellStyle.BackColor = ColorStorno;
-                            }
+                          
                             if (Program.b_FVI_SLO)
                             {
                                 if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_EOR] is string)
                                 {
                                     e.CellStyle.BackColor = ColorFurs_InvoiceConfirmed;
+                                  
                                 }
                                 else
-                                { 
-                                    e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceNotConfirmed;
+                                {
+                                    if (!(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_ID] is System.DBNull))
+                                    {
+                                        e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceNotConfirmed;
+                                    }
                                 }
+                            }
+                            if (IsStorno(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno]))
+                            {
+                                e.CellStyle.BackColor = ColorStorno;
                             }
                         }
                     }

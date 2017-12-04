@@ -1747,6 +1747,7 @@ do_EditMyOrganisation_Data:
                     chk_Storno_CanBe_ManualyChanged = false;
                     if (IsDocInvoice)
                     {
+                        this.chk_Storno.Visible = true;
                         if (m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v != null)
                         {
                             this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v.v;
@@ -1756,6 +1757,10 @@ do_EditMyOrganisation_Data:
                             this.chk_Storno.Checked = false;
                         }
                         chk_Storno_CanBe_ManualyChanged = true;
+                    }
+                    else
+                    {
+                        this.chk_Storno.Visible = false;
                     }
                 }
                 this.m_usrc_ShopC.Reset();
@@ -2389,6 +2394,7 @@ do_EditMyOrganisation_Data:
                             }
 
                             IssueDocument();
+                            DoCurrent(m_ShopABC.m_CurrentInvoice.Doc_ID);
                             return;
                         }
                         else
