@@ -90,7 +90,7 @@ namespace LoginControl
         public static ltext s_lblUserName_UserManager = new ltext(new string[]{"User Name:",
                                                                "Uporabniško Ime:"});
 
-        public static ltext s_lblPassword_UserManager = new ltext(new string[]{"Password:",
+        public static ltext s_lblPassword = new ltext(new string[]{"Password:",
                                                                "Geslo:"});
 
         public static ltext s_lblConfirmPassword_UserManager = new ltext(new string[]{"Confirm Password:",
@@ -236,7 +236,7 @@ namespace LoginControl
 
         public static ltext cn_myOrganisation_Person_office_Name = new ltext(new string[] { "Office*", "Poslovna enota*" });
         public static ltext cn_myOrganisation_Person_UserName = new ltext(new string[] { "User Name*", "Uporabniško ime*" });
-        public static ltext cn_Enabled = new ltext(new string[] { "Enabled*", "Omogočeno*" });
+        public static ltext cn_Enabled = new ltext(new string[] { "Login Enabled", "Prijava Omogočena" });
         public static ltext cn_myOrganisation_Person_Active = new ltext(new string[] { "Active*", "Oseba je aktivna*" });
         public static ltext cn_myOrganisation_Person__per__cfn_FirstName = new ltext(new string[] { "First name*", "Ime*" });
         public static ltext cn_myOrganisation_Person__per__cln_LastName = new ltext(new string[]{ "Last name*", "Priimek*" });

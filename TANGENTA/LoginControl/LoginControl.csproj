@@ -187,6 +187,12 @@
       <DependentUpon>STD_UserManager.cs</DependentUpon>
     </Compile>
     <Compile Include="TemplatesLoader.cs" />
+    <Compile Include="usrc_PasswordBytes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PasswordBytes.Designer.cs">
+      <DependentUpon>usrc_PasswordBytes.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +254,9 @@
     <EmbeddedResource Include="STD_UserManager.resx">
       <DependentUpon>STD_UserManager.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PasswordBytes.resx">
+      <DependentUpon>usrc_PasswordBytes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

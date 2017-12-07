@@ -33,6 +33,7 @@ namespace LoginControl
             this.btnChangeData = new System.Windows.Forms.Button();
             this.dgv_LoginUsers = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.usrc_PasswordBytes1 = new usrc_PasswordBytes();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -42,10 +43,6 @@ namespace LoginControl
             this.lbl_OtherRoles = new System.Windows.Forms.Label();
             this.btn_Edit_myOrganisation_Person = new System.Windows.Forms.Button();
             this.chk_ChangePasswordOnFirstLogIn = new System.Windows.Forms.CheckBox();
-            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
-            this.lbl_ConfirmPasword = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
             this.lbl_UserName = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.grp_PasswordExpires = new System.Windows.Forms.GroupBox();
@@ -140,13 +137,10 @@ namespace LoginControl
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainer1.Panel1.Controls.Add(this.usrc_PasswordBytes1);
             this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Edit_myOrganisation_Person);
             this.splitContainer1.Panel1.Controls.Add(this.chk_ChangePasswordOnFirstLogIn);
-            this.splitContainer1.Panel1.Controls.Add(this.txtConfirmPassword);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_ConfirmPasword);
-            this.splitContainer1.Panel1.Controls.Add(this.txtPassword);
-            this.splitContainer1.Panel1.Controls.Add(this.lblPassword);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_UserName);
             this.splitContainer1.Panel1.Controls.Add(this.txtUserName);
             this.splitContainer1.Panel1.Controls.Add(this.grp_PasswordExpires);
@@ -159,6 +153,15 @@ namespace LoginControl
             this.splitContainer1.SplitterDistance = 558;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 16;
+            // 
+            // usrc_PasswordBytes1
+            // 
+            this.usrc_PasswordBytes1.Location = new System.Drawing.Point(3, 38);
+            this.usrc_PasswordBytes1.MinPasswordLength = 5;
+            this.usrc_PasswordBytes1.Name = "usrc_PasswordBytes1";
+            this.usrc_PasswordBytes1.Size = new System.Drawing.Size(350, 62);
+            this.usrc_PasswordBytes1.TabIndex = 118;
+            this.usrc_PasswordBytes1.PasswordChanged += new usrc_PasswordBytes.delegate_PasswordChanged(this.usrc_PasswordBytes1_PasswordChanged);
             // 
             // splitContainer3
             // 
@@ -255,7 +258,7 @@ namespace LoginControl
             this.dgvx_OtherRoles.Name = "dgvx_OtherRoles";
             this.dgvx_OtherRoles.ReadOnly = true;
             this.dgvx_OtherRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_OtherRoles.Size = new System.Drawing.Size(257, 181);
+            this.dgvx_OtherRoles.Size = new System.Drawing.Size(255, 181);
             this.dgvx_OtherRoles.TabIndex = 75;
             // 
             // lbl_OtherRoles
@@ -291,55 +294,11 @@ namespace LoginControl
             this.chk_ChangePasswordOnFirstLogIn.Text = "Change Password On First LogIn*";
             this.chk_ChangePasswordOnFirstLogIn.UseVisualStyleBackColor = true;
             // 
-            // txtConfirmPassword
-            // 
-            this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(142, 76);
-            this.txtConfirmPassword.Margin = new System.Windows.Forms.Padding(4);
-            this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(222, 22);
-            this.txtConfirmPassword.TabIndex = 61;
-            this.txtConfirmPassword.UseSystemPasswordChar = true;
-            // 
-            // lbl_ConfirmPasword
-            // 
-            this.lbl_ConfirmPasword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ConfirmPasword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_ConfirmPasword.Location = new System.Drawing.Point(18, 84);
-            this.lbl_ConfirmPasword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_ConfirmPasword.Name = "lbl_ConfirmPasword";
-            this.lbl_ConfirmPasword.Size = new System.Drawing.Size(118, 16);
-            this.lbl_ConfirmPasword.TabIndex = 65;
-            this.lbl_ConfirmPasword.Text = "Confirm Password:";
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(142, 45);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(222, 22);
-            this.txtPassword.TabIndex = 59;
-            this.txtPassword.UseSystemPasswordChar = true;
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblPassword.Location = new System.Drawing.Point(18, 52);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(118, 16);
-            this.lblPassword.TabIndex = 62;
-            this.lblPassword.Text = "Password*:";
-            // 
             // lbl_UserName
             // 
             this.lbl_UserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_UserName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_UserName.Location = new System.Drawing.Point(6, 16);
+            this.lbl_UserName.Location = new System.Drawing.Point(8, 12);
             this.lbl_UserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_UserName.Name = "lbl_UserName";
             this.lbl_UserName.Size = new System.Drawing.Size(80, 16);
@@ -349,7 +308,7 @@ namespace LoginControl
             // txtUserName
             // 
             this.txtUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(142, 9);
+            this.txtUserName.Location = new System.Drawing.Point(131, 9);
             this.txtUserName.Margin = new System.Windows.Forms.Padding(4);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(222, 22);
@@ -536,10 +495,6 @@ namespace LoginControl
         private System.Windows.Forms.SplitContainer splitContainer1;
         internal System.Windows.Forms.Label lbl_UserRoles;
         internal System.Windows.Forms.CheckBox chk_ChangePasswordOnFirstLogIn;
-        internal System.Windows.Forms.TextBox txtConfirmPassword;
-        internal System.Windows.Forms.Label lbl_ConfirmPasword;
-        internal System.Windows.Forms.TextBox txtPassword;
-        internal System.Windows.Forms.Label lblPassword;
         internal System.Windows.Forms.Label lbl_UserName;
         internal System.Windows.Forms.TextBox txtUserName;
         internal System.Windows.Forms.GroupBox grp_PasswordExpires;
@@ -557,5 +512,7 @@ namespace LoginControl
         internal System.Windows.Forms.Label lbl_OtherRoles;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private System.Windows.Forms.SplitContainer splitContainer3;
+        private usrc_PasswordBytes usrc_PasswordBytes1;
+
     }
 }

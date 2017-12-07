@@ -66,7 +66,7 @@ namespace LoginControl
 
            
             this.lbl_UserName.Text = lng.s_lblUserName_UserManager.s;
-            this.lblPassword.Text = lng.s_lblPassword_UserManager.s;
+            this.lblPassword.Text = lng.s_lblPassword.s;
             this.lbl_ConfirmPasword.Text = lng.s_lblConfirmPassword_UserManager.s;
             this.btnAddUser.Text = lng.s_btnAddUser_UserManager.s;
             this.btnDeleteUser.Text = lng.s_btn_DeleteUser.s;

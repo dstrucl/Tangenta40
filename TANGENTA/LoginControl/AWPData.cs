@@ -96,7 +96,7 @@ namespace LoginControl
             mcn_myOrganisation_Person__per__cln_LastName = new AWPColName("myOrganisation_Person_$_per_$_cln_$$LastName", lng.cn_myOrganisation_Person__per__cln_LastName, i++);
             mcn_myOrganisation_Person__per_Tax_ID = new AWPColName("myOrganisation_Person_$_per_$$Tax_ID", lng.cn_myOrganisation_Person__per_Tax_ID, i++);
             mcn_myOrganisation_Person__per_Registration_ID = new AWPColName("myOrganisation_Person_$_per_$$Registration_ID", lng.cn_myOrganisation_Person__per_Registration_ID, i++);
-            mcn_Enabled = new AWPColName("Enabled", lng.cn_myOrganisation_Person_Active, i++);
+            mcn_Enabled = new AWPColName("Enabled", lng.cn_Enabled, i++);
             mcn_myOrganisation_Person_Active = new AWPColName("myOrganisation_Person_$$Active", lng.cn_myOrganisation_Person_Active, i++);
             mcn_myOrganisation_Person_Job = new AWPColName("myOrganisation_Person_$$Job", lng.cn_myOrganisation_Person_Job, i++);
             mcn_myOrganisation_Person_Description = new AWPColName("myOrganisation_Person_$$Description", lng.cn_myOrganisation_Person_Description, i++);
