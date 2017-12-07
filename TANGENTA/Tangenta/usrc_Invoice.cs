@@ -711,8 +711,18 @@ namespace Tangenta
             chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             splitContainer2.Panel1Collapsed = !chk_Head.Checked;
-           
+            SetOperationMode();
             return true;
+        }
+
+        private void SetOperationMode()
+        {
+            if (Program.OperationMode.MultiUser)
+            {
+                cmb_select_my_Organisation_Person.Visible = false;
+                btn_edit_MyOrganisation_Person.Visible = false;
+                lbl_Issuer.Visible = false;
+            }
         }
 
         public bool Init(NavigationButtons.Navigation xnav,long Document_ID)
@@ -1999,7 +2009,7 @@ do_EditMyOrganisation_Data:
             }
         }
 
-        private void btn_edit_MyOrganisation_Click_1(object sender, EventArgs e)
+        private void btn_edit_MyOrganisation_Person_Click(object sender, EventArgs e)
         {
             EditMyOrganisation_Person_Data(0,nav);
             myOrg.Get(1);

@@ -79,7 +79,7 @@
             this.lbl_Issuer.Location = new System.Drawing.Point(8, 50);
             this.lbl_Issuer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Issuer.Name = "lbl_Issuer";
-            this.lbl_Issuer.Size = new System.Drawing.Size(78, 17);
+            this.lbl_Issuer.Size = new System.Drawing.Size(91, 20);
             this.lbl_Issuer.TabIndex = 2;
             this.lbl_Issuer.Text = "Izdajatelj:";
             // 
@@ -131,9 +131,9 @@
             // 
             this.cmb_select_my_Organisation_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_select_my_Organisation_Person.FormattingEnabled = true;
-            this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(132, 47);
+            this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(151, 47);
             this.cmb_select_my_Organisation_Person.Name = "cmb_select_my_Organisation_Person";
-            this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(185, 24);
+            this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(166, 28);
             this.cmb_select_my_Organisation_Person.TabIndex = 21;
             // 
             // txt_Number
@@ -142,7 +142,7 @@
             this.txt_Number.Location = new System.Drawing.Point(79, 3);
             this.txt_Number.Name = "txt_Number";
             this.txt_Number.ReadOnly = true;
-            this.txt_Number.Size = new System.Drawing.Size(104, 24);
+            this.txt_Number.Size = new System.Drawing.Size(104, 29);
             this.txt_Number.TabIndex = 22;
             // 
             // lbl_Number
@@ -151,19 +151,19 @@
             this.lbl_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Number.Location = new System.Drawing.Point(2, 4);
             this.lbl_Number.Name = "lbl_Number";
-            this.lbl_Number.Size = new System.Drawing.Size(77, 20);
+            this.lbl_Number.Size = new System.Drawing.Size(96, 25);
             this.lbl_Number.TabIndex = 23;
             this.lbl_Number.Text = "Številka:";
             // 
             // btn_edit_MyOrganisation_Person
             // 
             this.btn_edit_MyOrganisation_Person.Image = ((System.Drawing.Image)(resources.GetObject("btn_edit_MyOrganisation_Person.Image")));
-            this.btn_edit_MyOrganisation_Person.Location = new System.Drawing.Point(91, 45);
+            this.btn_edit_MyOrganisation_Person.Location = new System.Drawing.Point(104, 45);
             this.btn_edit_MyOrganisation_Person.Name = "btn_edit_MyOrganisation_Person";
             this.btn_edit_MyOrganisation_Person.Size = new System.Drawing.Size(35, 28);
             this.btn_edit_MyOrganisation_Person.TabIndex = 17;
             this.btn_edit_MyOrganisation_Person.UseVisualStyleBackColor = true;
-            this.btn_edit_MyOrganisation_Person.Click += new System.EventHandler(this.btn_edit_MyOrganisation_Click_1);
+            this.btn_edit_MyOrganisation_Person.Click += new System.EventHandler(this.btn_edit_MyOrganisation_Person_Click);
             // 
             // lbl_Currency
             // 
@@ -184,7 +184,7 @@
             this.txt_Currency.Location = new System.Drawing.Point(523, 2);
             this.txt_Currency.Name = "txt_Currency";
             this.txt_Currency.ReadOnly = true;
-            this.txt_Currency.Size = new System.Drawing.Size(47, 24);
+            this.txt_Currency.Size = new System.Drawing.Size(47, 29);
             this.txt_Currency.TabIndex = 27;
             // 
             // btn_SelectBaseCurrency
@@ -279,7 +279,7 @@
             this.lbl_MyOrganisation.Location = new System.Drawing.Point(8, 16);
             this.lbl_MyOrganisation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_MyOrganisation.Name = "lbl_MyOrganisation";
-            this.lbl_MyOrganisation.Size = new System.Drawing.Size(126, 17);
+            this.lbl_MyOrganisation.Size = new System.Drawing.Size(146, 20);
             this.lbl_MyOrganisation.TabIndex = 34;
             this.lbl_MyOrganisation.Text = "My Organisation";
             // 
@@ -303,7 +303,7 @@
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Storno.Location = new System.Drawing.Point(346, 4);
             this.chk_Storno.Name = "chk_Storno";
-            this.chk_Storno.Size = new System.Drawing.Size(69, 21);
+            this.chk_Storno.Size = new System.Drawing.Size(80, 24);
             this.chk_Storno.TabIndex = 39;
             this.chk_Storno.Text = "Storno";
             this.chk_Storno.UseVisualStyleBackColor = true;
