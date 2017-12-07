@@ -276,6 +276,7 @@ namespace LoginControl
         public static ltext cn_Role_WorkInShopB = new ltext(new string[] { "Work in Shop B", "Delo v prodajalni B" });
         public static ltext cn_Role_WorkInShopC = new ltext(new string[] { "Work in Shop C", "Delo v prodajalni C" });
 
-
+        public static ltext s_UserHasNoAccessRights = new ltext(new string[] { "There are no access rights for user : ","Nimate nobenih uporabniških pravic.Uporabik:" });
+        public static ltext s_AskAdministratorToSetupYourUserAccessRights = new ltext(new string[] { "Please ask the Administrator to setup your user access rights.", "Pokličite skrbnika da vam dodeli uporabniške dostopne pravice" });
     }
 }

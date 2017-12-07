@@ -119,6 +119,55 @@ SELECT
 
         }
 
+        internal static string RoleInLanguage(string role)
+        {
+            if (role.Equals(AWP.ROLE_Administrator))
+            {
+                return lng.cn_Role_Administrator.s;
+            }
+            else if (role.Equals(AWP.ROLE_UserManagement))
+            {
+                return lng.cn_Role_UserManagement.s;
+            }
+            else if (role.Equals(AWP.ROLE_PriceListManagement))
+            {
+                return lng.cn_Role_PriceListManagement.s;
+            }
+            else if (role.Equals(AWP.ROLE_StockTakeManagement))
+            {
+                return lng.cn_Role_StockTakeManagemenent.s;
+            }
+            else if (role.Equals(AWP.ROLE_ViewAndExport))
+            {
+                return lng.cn_Role_ViewAndExport.s;
+            }
+            else if (role.Equals(AWP.ROLE_WorkInShopA))
+            {
+                return lng.cn_Role_WorkInShopA.s;
+            }
+            else if (role.Equals(AWP.ROLE_WorkInShopB))
+            {
+                return lng.cn_Role_WorkInShopB.s;
+            }
+            else if (role.Equals(AWP.ROLE_WorkInShopC))
+            {
+                return lng.cn_Role_WorkInShopC.s;
+            }
+            else if (role.Equals(AWP.ROLE_WriteInvoice))
+            {
+                return lng.cn_Role_WriteInvoice.s;
+            }
+            else if (role.Equals(AWP.ROLE_WriteProformainvoice))
+            {
+                return lng.cn_Role_WriteProformaInvoice.s;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:AWP_func:RoleInLanguage:Role=" + role + " not implemented!");
+                return "ERROR";
+            }
+        }
+
         internal static bool InsertNewDefaultLoginUsersRow(long myOrganisation_Person_ID, string uniqueUserName, ref long LoginUsers_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -166,7 +215,7 @@ SELECT
             int i = 1;
             for (;;)
             {
-                if (AWP_func.UserNameExist(usrname, ref Err))
+                if (AWP_func.UserNameExist(usrname))
                 {
                     usrname = purged_firstName + i.ToString();
                     i++;
@@ -266,7 +315,7 @@ SELECT
             SQL_Parameter par_Pssword = new SQL_Parameter(spar_Pssword, SQL_Parameter.eSQL_Parameter.Varbinary, false, xpsw);
             lpar.Add(par_Pssword);
 
-            string sql = "UPDATE LoginUsers SET  Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
+            string sql = "UPDATE LoginUsers SET ChangePasswordOnFirstLogin = 0, Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
                                                  ",Password = " + spar_Pssword + " where id = " + spar_LoginUsers_ID;
             string Err = null;
             object oret = null;
@@ -413,6 +462,57 @@ SELECT
 
         }
 
+        internal static bool RemoveRole(long LoginUsers_ID, long LoginRoles_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+
+            string spar_LoginRoles_ID = "@par_LoginRoles_ID";
+            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
+            lpar.Add(par_LoginRoles_ID);
+
+            string sql = "DELETE FROM LoginUsersAndLoginRoles where LoginUsers_ID = " + spar_LoginUsers_ID + " and LoginRoles_ID = " + spar_LoginRoles_ID;
+            object oret = null;
+            string err = null;
+            if (con.ExecuteNonQuerySQL(sql, lpar, ref oret, ref err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:RemoveRole:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
+        internal static bool AddRole(long LoginUsers_ID, long LoginRoles_ID, ref long LoginUsersAndLoginRoles_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            lpar.Add(par_LoginUsers_ID);
+
+            string spar_LoginRoles_ID = "@par_LoginRoles_ID";
+            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
+            lpar.Add(par_LoginRoles_ID);
+
+            string sql = "Insert into LoginUsersAndLoginRoles (LoginUsers_ID,LoginRoles_ID) values (" + spar_LoginUsers_ID + "," + spar_LoginRoles_ID+")";
+            object oret = null;
+            string err = null;
+
+            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsersAndLoginRoles_ID, ref oret, ref err, "LoginUsersAndLoginRoles"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:AddRole:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
         internal static bool UpdateRoles(List<AWPRole> allRoles)
         {
             foreach (AWPRole r in allRoles)
@@ -557,7 +657,7 @@ SELECT
 
         }
 
-        internal static bool UserNameExist(string UserName, ref string Err)
+        internal static bool UserNameExist(string UserName)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_UserName = "@par_UserName";
@@ -565,9 +665,34 @@ SELECT
             lpar.Add(par_UserName);
             string sql = "select ID from LoginUsers where UserName = " + spar_UserName;
             DataTable dt = new DataTable();
+            string Err = null;
             if (con.ReadDataTable(ref dt, sql,lpar, ref Err))
             {
                 return dt.Rows.Count > 0;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:UserNameExist:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool UserNameExist(string UserName, ref long LoginUsers_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_UserName = "@par_UserName";
+            SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, UserName);
+            lpar.Add(par_UserName);
+            string sql = "select ID from LoginUsers where UserName = " + spar_UserName;
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (con.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    LoginUsers_ID = (long)dt.Rows[0]["ID"];
+                }
+                return true;
             }
             else
             {

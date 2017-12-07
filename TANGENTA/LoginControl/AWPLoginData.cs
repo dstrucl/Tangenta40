@@ -96,8 +96,10 @@ namespace LoginControl
 
         public List<AWPRole> m_AWPRoles = new List<AWPRole>();
 
+        internal DataTable dt_AWP_UserRoles = new DataTable();
         public List<AWPRole> m_AWP_UserRoles = new List<AWPRole>();
-
+        internal DataTable dt_AWP_MissingUserRoles = new DataTable();
+        public List<AWPRole> m_AWP_MissingUserRoles = new List<AWPRole>();
 
         internal bool IsAdministrator
         {
@@ -121,16 +123,49 @@ namespace LoginControl
             }
             }
 
+        private bool m_Changed = false;
+        internal bool Changed
+        {
+            get { return m_Changed; }
+            set { m_Changed = value; }
+        }
+
         internal bool GetUserRoles()
         {
+            if (dt_AWP_UserRoles.Columns.Count!=1)
+            {
+                DataColumn dcol_Role = new DataColumn("Role",typeof(string));
+                dt_AWP_UserRoles.Columns.Add(dcol_Role);
+            }
+            dt_AWP_UserRoles.Rows.Clear();
+
+            if (dt_AWP_MissingUserRoles.Columns.Count != 1)
+            {
+                DataColumn dcol_Role = new DataColumn("Role", typeof(string));
+                dt_AWP_MissingUserRoles.Columns.Add(dcol_Role);
+            }
+            dt_AWP_MissingUserRoles.Rows.Clear();
+
             if (AWP_func.AWPRoles_GetUserRoles(ID,ref m_AWP_UserRoles))
             {
-                return true;
+                if (AWP_func.AWPRoles_GetRoles_User_Does_Not_Have(ID, ref m_AWP_MissingUserRoles))
+                {
+                    foreach (AWPRole r in m_AWP_UserRoles)
+                    {
+                        DataRow dr = dt_AWP_UserRoles.NewRow();
+                        dr["Role"] = AWP_func.RoleInLanguage(r.Role);
+                        dt_AWP_UserRoles.Rows.Add(dr);
+                    }
+                    foreach (AWPRole r in m_AWP_MissingUserRoles)
+                    {
+                        DataRow dr = dt_AWP_MissingUserRoles.NewRow();
+                        dr["Role"] = AWP_func.RoleInLanguage(r.Role);
+                        dt_AWP_MissingUserRoles.Rows.Add(dr);
+                    }
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
 
@@ -337,6 +372,19 @@ namespace LoginControl
             {
                 return sb.Replace(t_token, svalue);
             }
+        }
+
+        internal void RemoveRole(int Index)
+        {
+            AWP_func.RemoveRole(ID, m_AWP_UserRoles[Index].ID);
+
+        }
+
+        internal void AddRole(int Index)
+        {
+            long LoginUsersAndLoginRoles_ID = -1;
+
+            AWP_func.AddRole(ID, m_AWP_MissingUserRoles[Index].ID,ref LoginUsersAndLoginRoles_ID);
         }
     }
 }

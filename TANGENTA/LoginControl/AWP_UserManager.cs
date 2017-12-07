@@ -16,8 +16,7 @@ namespace LoginControl
     public partial class AWP_UserManager : Form
     {
 
-        bool bLoginUsers_Read = false;
-
+     
         private const string TEXT_PASSWORD_WILDCARDS = "***********";
         private const string TAG_PASSWORD_UNDEFINED = "TAG_PASSWORD_UNDEFINED";
         private const string TAG_PASSWORD_DEFINED = "TAG_PASSWORD_DEFINED";
@@ -63,7 +62,7 @@ namespace LoginControl
 
             lng.s_lblConfirmPassword_UserManager.Text(this.lbl_ConfirmPasword);
             lng.s_btnAddUser_UserManager.Text(this.btnAddUser);
-            lng.s_btn_DeleteUser.Text(this.btnDeleteUser);
+            //lng.s_btn_DeleteUser.Text(this.btnDeleteUser);
             lng.s_btnChangeData_UserManager.Text(this.btnChangeData);
             
             lng.s_PasswordExpires.Text(this.grp_PasswordExpires);
@@ -112,26 +111,53 @@ namespace LoginControl
 
         private void LoadData(string sUserName)
         {
-            if (dtLoginUsers == null)
+            RemoveHandlers();
+            InitRoles();
+            DataTable dtOfUserName = null;
+            AWPLoginData.eGetDateResult eres = AWPLoginData.eGetDateResult.ERROR;
+            if (sUserName == null)
             {
-                dtLoginUsers = new DataTable();
+                if (dtLoginUsers == null)
+                {
+                    dtLoginUsers = new DataTable();
+                }
+                else
+                {
+                    dtLoginUsers.Clear();
+                    dtLoginUsers.Columns.Clear();
+                }
+                dgv_LoginUsers.DataSource = null;
+                eres = awpld.GetData(ref dtLoginUsers, sUserName, awpbd);
             }
             else
             {
-                dtLoginUsers.Clear();
-                dtLoginUsers.Columns.Clear();
+                dtOfUserName = new DataTable();
+                eres = awpld.GetData(ref dtOfUserName, sUserName, awpbd);
             }
-
-            bLoginUsers_Read = false;
-            dgv_LoginUsers.DataSource = null;
-            switch (awpld.GetData(ref dtLoginUsers, sUserName, awpbd))
+            
+            switch (eres)
             {
 
                 case AWPLoginData.eGetDateResult.OK:
-                    dgv_LoginUsers.Rows.Clear();
-                    dgv_LoginUsers.DataSource = dtLoginUsers;
+                case AWPLoginData.eGetDateResult.USER_HAS_NO_RULES:
 
-                    awpbd.SetControls(dgv_LoginUsers, dtLoginUsers.Rows[0], dtLoginUsers.TableName);
+                    DataTable dt = null;
+
+                    if (dtOfUserName == null)
+                    {
+                        dt = dtLoginUsers;
+                        //dgv_LoginUsers.Columns.Clear();
+                        dgv_LoginUsers.DataSource = dtLoginUsers;
+                        awpbd.SetControls(dgv_LoginUsers, dt.Rows[0], dtLoginUsers.TableName);
+                    }
+                    else
+                    {
+                        dt = dtOfUserName;
+                        awpbd.SetControls(null,dt.Rows[0], null);
+
+                    }
+
+                  
                     this.webBrowser1.DocumentText = awpld.GetHtml();
                     if (bFirstTimeStartup)
                     {
@@ -142,34 +168,97 @@ namespace LoginControl
                     if (awpld.PasswordNeverExpires)
                     {
                         rdb_PaswordExpires_Never.Checked = true;
+                        nmUpDn_MaxPasswordAge.Enabled = false;
                     }
                     if (awpld.NotActiveAfterPasswordExpires)
                     {
                         rdb_DeactivateAfterNumberOfDays.Checked = true;
+                        nmUpDn_MaxPasswordAge.Enabled = true;
                     }
-                    nmUpDn_MaxPasswordAge.Value = awpld.Maximum_password_age_in_days;
+                    if (!awpld.PasswordNeverExpires && awpld.NotActiveAfterPasswordExpires)
+                    {
+                        rdb_AfterNumberOfDays.Checked = true;
+                        nmUpDn_MaxPasswordAge.Enabled = true;
+                    }
+                   
 
-                    this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
-                    this.dgv_LoginUsers.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
-                    bLoginUsers_Read = true;
+                    nmUpDn_MaxPasswordAge.Value = awpld.Maximum_password_age_in_days;
+                    if (awpld.Password is byte[])
+                    {
+                        txtPassword.Tag = TAG_PASSWORD_DEFINED;
+                        txtPassword.Text = TEXT_PASSWORD_WILDCARDS;
+                        txtConfirmPassword.Text = TEXT_PASSWORD_WILDCARDS;
+                    }
+                    else
+                    {
+
+                        txtPassword.Tag = TAG_PASSWORD_UNDEFINED;
+                        txtPassword.Text = "";
+                        txtConfirmPassword.Text = "";
+                    }
+
+                    SetRoles();
                     break;
+
                 case AWPLoginData.eGetDateResult.USER_NOT_FOUND:
                     sUserName = null;
                     break;
+
                 case AWPLoginData.eGetDateResult.ERROR:
                     DialogResult = DialogResult.Cancel;
                     this.Close();
                     break;
             }
+            awpld.Changed = false;
+            AddHandlers();
+        }
+
+      
+
+        private void InitRoles()
+        {
+            dgvx_UserRoles.DataSource = null;
+            dgvx_OtherRoles.DataSource = null;
+            dgvx_UserRoles.Columns.Clear();
+            dgvx_OtherRoles.Columns.Clear();
+        }
+
+        private void SetRoles()
+        {
+            dgvx_OtherRoles.DataSource = awpld.dt_AWP_MissingUserRoles;
+            dgvx_UserRoles.DataSource = awpld.dt_AWP_UserRoles;
+            DataGridViewButtonColumn dgvcb_MoveLeft = new DataGridViewButtonColumn();
+            dgvcb_MoveLeft.Name = "MoveLeft";
+            dgvcb_MoveLeft.Width = 60;
+            dgvcb_MoveLeft.Text = "<=";
+            dgvcb_MoveLeft.HeaderText = "<=";
+            dgvcb_MoveLeft.UseColumnTextForButtonValue = true;
+            dgvcb_MoveLeft.ValueType = typeof(string);
+            dgvcb_MoveLeft.MinimumWidth = 40;
+            dgvx_OtherRoles.Columns.Insert(0, dgvcb_MoveLeft);
+
+
+            DataGridViewButtonColumn dgvcb_MoveRight = new DataGridViewButtonColumn();
+            dgvcb_MoveRight.Name = "MoveRight";
+            dgvcb_MoveRight.Width = 60;
+            dgvcb_MoveRight.Text = "=>";
+            dgvcb_MoveRight.HeaderText = "=>";
+            dgvcb_MoveRight.ValueType = typeof(string);
+            dgvcb_MoveRight.UseColumnTextForButtonValue = true;
+            dgvcb_MoveRight.MinimumWidth = 40;
+
+            dgvx_UserRoles.Columns.Add(dgvcb_MoveRight);
         }
 
         private void txtUserName_TextChanged(object sender, EventArgs e)
         {
-            bUserNameChanged = true;
+            awpld.Changed = true;
             if (txtUserName.Text.Length > 0)
             {
                 this.lblPassword.Enabled = true;
                 this.txtPassword.Enabled = true;
+                this.txtPassword.Text = "";
+                this.txtConfirmPassword.Text = "";
                 this.btnAddUser.Enabled = true;
                 this.btnAddUser.Text = lng.s_AddUser.s;
             }
@@ -182,6 +271,7 @@ namespace LoginControl
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
+            awpld.Changed = true;
             txtPassword.Tag = TAG_PASSWORD_CHANGED;
             if (txtPassword.Text.Length > 0)
             {
@@ -196,20 +286,7 @@ namespace LoginControl
             }
         }
 
-        private void txtConfirmPassword_TextChanged(object sender, EventArgs e)
-        {
-            if (txtConfirmPassword.Text.Length > 0)
-            {
-                this.btnChangeData.Enabled = true;
-            }
-            else
-            {
-                this.txtConfirmPassword.Text = "";
-                this.txtConfirmPassword.Enabled = false;
-                this.lbl_ConfirmPasword.Enabled = false;
-            }
-        }
-
+ 
         private void AddUser()
         {
             AWPFormSelectMyOrgPerNotInLoginUsers awpFormSelectMyOrgPerNotInLoginUsers = new AWPFormSelectMyOrgPerNotInLoginUsers();
@@ -256,72 +333,77 @@ namespace LoginControl
         {
             try
             {
-                string Err = null;
+
                 if (dgv_LoginUsers.SelectedRows.Count > 0)
                 {
                     DataGridViewRow dgvr = dgv_LoginUsers.SelectedRows[0];
                     int iRowIndex = dgvr.Cells[0].RowIndex;
                     if ((iRowIndex >= 0) && (iRowIndex < dtLoginUsers.Rows.Count))
                     {
-                        btnDeleteUser.Enabled = true;
-                        btnAddUser.Text = lng.s_NewUser.s;
-                        this.txtUserName.Enabled = true;
-                        this.txtUserName.Tag = iRowIndex;
-                        btnChangeData.Enabled = true;
-                        this.txtUserName.ReadOnly = true;
-                        this.txtPassword.Enabled = true;
-                        this.txtConfirmPassword.Enabled = true;
-                        this.txtUserName.TextChanged -= new System.EventHandler(this.txtUserName_TextChanged);
-                        this.txtUserName.Text = dtLoginUsers.Rows[iRowIndex]["UserName"].ToString();
-                        this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
-                        if (dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.password.name].GetType() != typeof(DBNull))
+                        object oUserName = dtLoginUsers.Rows[iRowIndex]["UserName"];
+                        if (oUserName is string)
                         {
-                            this.txtPassword.Text = TEXT_PASSWORD_WILDCARDS;
-                            this.txtPassword.Tag = TAG_PASSWORD_DEFINED;
+                            LoadData((string)oUserName);
                         }
-                        else
-                        {
-                            this.txtPassword.Text = "";
-                            this.txtPassword.Tag = TAG_PASSWORD_UNDEFINED;
-                        }
+                    //    btnDeleteUser.Enabled = true;
+                    //    btnAddUser.Text = lng.s_NewUser.s;
+                    //    this.txtUserName.Enabled = true;
+                    //    this.txtUserName.Tag = iRowIndex;
+                    //    btnChangeData.Enabled = true;
+                    //    this.txtUserName.ReadOnly = true;
+                    //    this.txtPassword.Enabled = true;
+                    //    this.txtConfirmPassword.Enabled = true;
+                    //    this.txtUserName.TextChanged -= new System.EventHandler(this.txtUserName_TextChanged);
+                    //    this.txtUserName.Text = dtLoginUsers.Rows[iRowIndex]["UserName"].ToString();
+                    //    this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
+                    //    if (dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.password.name].GetType() != typeof(DBNull))
+                    //    {
+                    //        this.txtPassword.Text = TEXT_PASSWORD_WILDCARDS;
+                    //        this.txtPassword.Tag = TAG_PASSWORD_DEFINED;
+                    //    }
+                    //    else
+                    //    {
+                    //        this.txtPassword.Text = "";
+                    //        this.txtPassword.Tag = TAG_PASSWORD_UNDEFINED;
+                    //    }
 
-                        if (txtUserName.Text.Equals("Administrator"))
-                        {
-                            this.rdb_PaswordExpires_Never.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.PasswordNeverExpires.name];
-                            this.rdb_PaswordExpires_Never.Checked = true;
-                            this.rdb_DeactivateAfterNumberOfDays.Checked = false;
-                            this.rdb_DeactivateAfterNumberOfDays.Enabled = false;
-                            this.rdb_AfterNumberOfDays.Enabled = false;
-                            this.rdb_AfterNumberOfDays.Checked = false;
-                            this.nmUpDn_MaxPasswordAge.Enabled = false;
-                            this.chk_ChangePasswordOnFirstLogIn.Checked = false;
-                        }
-                        else
-                        {
-                            this.rdb_PaswordExpires_Never.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.PasswordNeverExpires.name];
-                            this.chk_ChangePasswordOnFirstLogIn.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name];
-                            this.nmUpDn_MaxPasswordAge.Value = Convert.ToDecimal(dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.Maximum_password_age_in_days.name]);
-                            this.rdb_DeactivateAfterNumberOfDays.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.NotActiveAfterPasswordExpires.name];
-                            if ((!rdb_DeactivateAfterNumberOfDays.Checked) && (!rdb_PaswordExpires_Never.Checked))
-                            {
-                                this.rdb_AfterNumberOfDays.Checked = true;
-                            }
-                            else
-                            {
-                                this.rdb_AfterNumberOfDays.Checked = false;
-                            }
-                        }
-                        this.txtConfirmPassword.Text = this.txtPassword.Text;
-                        this.lbl_UserName.Enabled = true;
-                        this.lblPassword.Enabled = true;
-                        this.lbl_ConfirmPasword.Enabled = true;
-                        if (!bLoginUsers_Read)
-                        {
-                            if (!LoginRolesReload(iRowIndex, ref Err))
-                            {
-                                LogFile.Error.Show(Err);
-                            }
-                        }
+                    //    if (txtUserName.Text.Equals("Administrator"))
+                    //    {
+                    //        this.rdb_PaswordExpires_Never.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.PasswordNeverExpires.name];
+                    //        this.rdb_PaswordExpires_Never.Checked = true;
+                    //        this.rdb_DeactivateAfterNumberOfDays.Checked = false;
+                    //        this.rdb_DeactivateAfterNumberOfDays.Enabled = false;
+                    //        this.rdb_AfterNumberOfDays.Enabled = false;
+                    //        this.rdb_AfterNumberOfDays.Checked = false;
+                    //        this.nmUpDn_MaxPasswordAge.Enabled = false;
+                    //        this.chk_ChangePasswordOnFirstLogIn.Checked = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        this.rdb_PaswordExpires_Never.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.PasswordNeverExpires.name];
+                    //        this.chk_ChangePasswordOnFirstLogIn.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name];
+                    //        this.nmUpDn_MaxPasswordAge.Value = Convert.ToDecimal(dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.Maximum_password_age_in_days.name]);
+                    //        this.rdb_DeactivateAfterNumberOfDays.Checked = (bool)dtLoginUsers.Rows[iRowIndex][LoginDB_DataSet.LoginUsers.NotActiveAfterPasswordExpires.name];
+                    //        if ((!rdb_DeactivateAfterNumberOfDays.Checked) && (!rdb_PaswordExpires_Never.Checked))
+                    //        {
+                    //            this.rdb_AfterNumberOfDays.Checked = true;
+                    //        }
+                    //        else
+                    //        {
+                    //            this.rdb_AfterNumberOfDays.Checked = false;
+                    //        }
+                    //    }
+                    //    this.txtConfirmPassword.Text = this.txtPassword.Text;
+                    //    this.lbl_UserName.Enabled = true;
+                    //    this.lblPassword.Enabled = true;
+                    //    this.lbl_ConfirmPasword.Enabled = true;
+                    //    if (!bLoginUsers_Read)
+                    //    {
+                    //        if (!LoginRolesReload(iRowIndex, ref Err))
+                    //        {
+                    //            LogFile.Error.Show(Err);
+                    //        }
+                    //    }
                     }
                 }
             }
@@ -454,7 +536,7 @@ namespace LoginControl
                 {
                     dgv_LoginUsers.CurrentCell = dgv_LoginUsers[0, iRowIndex];
                     txtUserName.Tag = iRowIndex;
-                    btnDeleteUser.Enabled = true;
+                    //btnDeleteUser.Enabled = true;
                     btnAddUser.Text = lng.s_NewUser.s;
                     this.txtUserName.Enabled = true;
                     this.txtUserName.Tag = iRowIndex;
@@ -471,7 +553,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    btnDeleteUser.Enabled = false;
+                    //btnDeleteUser.Enabled = false;
                     btnChangeData.Enabled = false;
                     txtUserName.Tag = null;
                     txtUserName.Enabled = true;
@@ -485,48 +567,59 @@ namespace LoginControl
             }
         }
 
+        private bool PasswordConfirmed()
+        {
+            if (txtPassword.Text.Length >= awp.lctrl.MinPasswordLength)
+            {
+                if (txtPassword.Text.Equals(txtConfirmPassword.Text))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show(lng.s_Password_does_not_match.s);
+                }
+            }
+            else
+            {
+                MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s + " " + awp.lctrl.MinPasswordLength.ToString());
+            }
+            return false;
+        }
+
+        private bool UpdateAWPLoginData()
+        {
+            awpld.UserName = txtUserName.Text;
+            byte[] Password = LoginControl.CalculateSHA256(txtPassword.Text);
+            awpld.Password = Password;
+            awpld.Enabled = chk_Enabled.Checked;
+            awpld.ChangePasswordOnFirstLogin = chk_ChangePasswordOnFirstLogIn.Checked;
+            awpld.PasswordNeverExpires = rdb_PaswordExpires_Never.Checked;
+            awpld.NotActiveAfterPasswordExpires = rdb_DeactivateAfterNumberOfDays.Checked;
+            awpld.Maximum_password_age_in_days = Convert.ToInt32(nmUpDn_MaxPasswordAge.Value);
+            bool bRes = AWP_func.Update_LoginUsers_ID(awpld, true);
+            if (bRes)
+            {
+                awpld.Changed = false;
+            }
+            return bRes;
+        }
+
         private bool DoChangeData()
         {
             if (txtUserName.Text.Length > 0)
             {
-                string Err = null;
                 if (bUserNameChanged)
                 {
-                    if (AWP_func.UserNameExist(txtUserName.Text, ref Err))
+                    if (AWP_func.UserNameExist(txtUserName.Text))
                     {
                         MessageBox.Show(lng.s_UserName_AllreadyExist.s);
                         return false;
                     }
                 }
-                if (Err == null)
+                if (PasswordConfirmed())
                 {
-                    if (txtPassword.Text.Length >= awp.lctrl.MinPasswordLength)
-                    { 
-                        if (txtPassword.Text.Equals(txtConfirmPassword.Text))
-                        {
-                            awpld.UserName = txtUserName.Text;
-                            byte[] Password = LoginControl.CalculateSHA256(txtPassword.Text);
-                            awpld.Password = Password;
-                            bool bRes = AWP_func.Update_LoginUsers_ID(awpld, true);
-                            if (bRes)
-                            {
-                                bUserNameChanged = false;
-                            }
-                            return bRes;
-                        }
-                        else
-                        {
-                            MessageBox.Show(lng.s_Password_does_not_match.s);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s+" "+ awp.lctrl.MinPasswordLength.ToString());
-                    }
-                }
-                else
-                {
-                    return false;
+                  return UpdateAWPLoginData();
                 }
             }
             else
@@ -536,28 +629,78 @@ namespace LoginControl
             return false;
         }
 
+        private bool DoOK()
+        {
+            if (awpld.Changed)
+            {
+                if (CheckIfUserDefined())
+                {
+                    long LoginUsers_ID = -1;
+                    if (AWP_func.UserNameExist(txtUserName.Text, ref LoginUsers_ID))
+                    {
+                        if (txtPassword.Tag is string)
+                        {
+                            if (((string)txtPassword.Tag).Equals(TAG_PASSWORD_DEFINED))
+                            {
+                                return UpdateAWPLoginData(); 
+                            }
+                            else
+                            {
+                                //Password is not defined check if txtPassword.Text and txtConfirmPassword matches
+                                if (PasswordConfirmed())
+                                {
+                                    return UpdateAWPLoginData();
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        //User Name does not exist 
+                        //Password is not defined check if txtPassword.Text and txtConfirmPassword matches
+                        if (PasswordConfirmed())
+                        {
+                            return UpdateAWPLoginData();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show(this, lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s + awp.lctrl.MinPasswordLength.ToString()
+                                    + lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
+                    return false;
+                }
+            }
+            else
+            {
+                if (awpld.Password != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show(this, lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s + awp.lctrl.MinPasswordLength.ToString()
+                                   + lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
+                    return false;
+                }
+            }
+
+        }
         private void MakeListOfAWPRoles(ref List<AWPRole> roles)
         {
         }
 
-        private bool Write_LoginUsersAndLoginAWPRoles(int usr_id,List<AWPRole> roles,ref string Err)
-        {
-            string sql_change_roles = " delete " + LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " where " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + " = " + usr_id.ToString();
-            foreach (AWPRole role in roles)
-            {
-//                    sql_change_roles += "\r\n insert into " +LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " ( " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + "," + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginRoles_id.name + ") values ("+ usr_id.ToString()+"," + role.id.ToString()+")";
-            }
-            object res = null;
-            //if (Login_con.ExecuteNonQuerySQL(sql_change_roles,null,ref res,ref Err))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-            return false;
-        }
+
 
 
         private void btnChangeData_Click(object sender, EventArgs e)
@@ -609,7 +752,7 @@ namespace LoginControl
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
                     e.Handled = true;
-                                   }
+                }
                 else
                 {
                     MessageBox.Show(lng.s_Password_does_not_match.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -617,10 +760,6 @@ namespace LoginControl
                 }
             }
         }
-
-  
-
-
 
 
         private void btnChangeData_KeyUp(object sender, KeyEventArgs e)
@@ -651,272 +790,78 @@ namespace LoginControl
 
         }
 
-        public bool Func_FindUser(string UserName, ref Int64 id, ref bool bActive, ref string csError)
-        {
-            //DataTable dt = new DataTable();
-            //string sColumn1 = "amb_username_UserName";
-            //string sColumn2 = "amb_user_Active";
-            //string sColumns = "[ID]," + sColumn1 + "," + sColumn2;
-            //string sWhere = " WHERE " + sColumn1 + " = '" + UserName + "'";
-            //if (m_tbl_amb_user.GetTableView(m_DB_Local.m_DBTables.m_con, ref dt, ref csError, -1, sColumns, sWhere))
-            //{
-            //    if (dt.Rows.Count > 0)
-            //    {
-            //        id = (Int64)dt.Rows[0][0];
-            //        bActive = (bool)dt.Rows[0][sColumn2];
-            //        return true;
-            //    }
-            //}
-            return false;
-        }
-
-        public bool Func_AddUser(STD_username_Data userdata, ref Int64 row_ID, ref string csError)
-        {
-        ////    if (m_tbl_amb_user != null)
-        ////    {
-        ////        amb_user m_amb_user = (amb_user)this.m_DB_Local.m_DBTables.UndefineAllValues(m_tbl_amb_user);
-        ////        m_amb_user.amb_localdatabase_ID.ComputerName.val = SystemInformation.ComputerName;
-        ////        m_amb_user.amb_localdatabase_ID.DataBaseFile.val = m_DB_Local.m_DBTables.m_con.SQLiteDataBaseFile;
-        ////        m_amb_user.amb_localdatabase_ID.DataBaseFileCreationTime.val = m_DB_Local.m_DBTables.m_con.SQLiteDataBaseFileCreationTime;
-        ////        m_amb_user.amb_role_ID.RoleName.val = RoleName;
-        ////        m_amb_user.amb_group_ID.GroupName.val = GroupName;
-        ////        m_amb_user.amb_username_ID.UserName.val = userdata.username;
-        ////        m_amb_user.amb_username_ID.Password.val = m_Login.EncryptString(userdata.password);
-        ////        m_amb_user.amb_username_ID.amb_username_PersonalData_ID.FirstName.val = userdata.FirstName;
-        ////        m_amb_user.amb_username_ID.amb_username_PersonalData_ID.LastName.val = userdata.LastName;
-        ////        m_amb_user.amb_username_ID.amb_username_PersonalData_ID.IdentityNumber.val = userdata.IdentityNumber;
-        ////        m_amb_user.amb_username_ID.amb_username_PersonalData_ID.Contact.val = userdata.Contact;
-        ////        m_amb_user.Active.val = true;
-        ////        m_tbl_amb_user.SetColumnValues(m_amb_user);
-        ////        row_ID = -1;
-        ////        if (m_tbl_amb_user.SQLcmd_InsertInto(m_DB_Local.m_DBTables.m_con, m_DB_Local.m_DBTables.items, ref csError, m_DB_Local.m_DBTables.m_strSQLUseDatabase, ref row_ID))
-        ////        {
-        ////            return true;
-        ////        }
-        ////        else
-        ////        {
-        ////            return false;
-        ////        }
-        ////    }
-        ////    else
-        ////    {
-        ////        csError = "Error: m_tbl_amb_user == null";
-        ////        return false;
-        ////    }
-            return true;
-        }
-
-        internal bool Func_ChangeData(AWPBindingData awpd, bool bActive,ref string csError)
-        {
-            //bool bPasswordChanged = false;
-            //string Err = null;
-
-            //    if (LoginUsers.RowsCount > 0)
-            //    {
-            //        if (userdata.password.Length >= login_control.MinPasswordLength)
-            //        {
-            //            if (LoginUsers.o_password.password_ == null)
-            //            {
-            //                bPasswordChanged = true;
-            //            }
-            //            else
-            //            {
-            //                if (userdata.password_changed)
-            //                {
-            //                    if (!login_control.PasswordMatch(LoginUsers.o_password.password_, userdata.password))
-            //                    {
-            //                        bPasswordChanged = true;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-
-            //            if ((LoginUsers.o_password.password_ == null) && ((userdata.password.Length < login_control.MinPasswordLength)))
-            //            {
-            //                MessageBox.Show(lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s
-            //                                + login_control.MinPasswordLength.ToString() +
-            //                                lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
-            //                return false;
-            //            }
-            //            else
-            //            {
-            //                if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < login_control.MinPasswordLength)) && ((userdata.password.Length > 0)))
-            //                {
-            //                    MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers3.s
-            //                                  + login_control.MinPasswordLength.ToString() +
-            //                                  lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
-            //                    return false;
-            //                }
-            //            }
-            //        }
-
-            //        string Res = null;
-            //        m_LoginDB_DataSet_Procedures.LoginUsers_ChangeData(LoginUsers.o_id.id_,
-            //                                                           userdata.FirstName,
-            //                                                           userdata.LastName,
-            //                                                           userdata.IdentityNumber,
-            //                                                           userdata.Contact,
-            //                                                           ref Res,
-            //                                                           ref Err);
-            //        if (Res.Equals("OK"))
-            //        {
-            //            m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePasswordParameters(LoginUsers.o_id.id_,
-            //                                                                                           login_control.m_LoginData.m_LoginUsers_id,
-            //                                                                                           userdata.bPasswordNeverExpires,
-            //                                                                                           chk_Active.Checked,
-            //                                                                                           userdata.bChangePasswordOnFirstLogin,
-            //                                                                                           userdata.iMaxPasswordAge,
-            //                                                                                           userdata.bNotActiveAfterPasswordExpires,
-            //                                                                                         ref Res,
-            //                                                                                         ref Err);
-
-            //            if (Res.Equals("OK"))
-            //            {
-            //                if (bPasswordChanged)
-            //                {
-            //                    m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePassword(LoginUsers.o_id.id_,
-            //                                                                                         login_control.CalculateSHA256(userdata.password),//crypted password
-            //                                                                                         login_control.m_LoginData.m_LoginUsers_id,
-            //                                                                                         ref Res,
-            //                                                                                         ref Err);
-            //                    if (Res.Equals("OK"))
-            //                    {
-            //                        if (LoginUsers_Read(LoginUsers.m_bs_dt.Position, ref Err))
-            //                        {
-            //                            if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
-            //                            {
-            //                                LogFile.Error.Show(Err);
-            //                            }
-            //                            return true;
-            //                        }
-            //                        else
-            //                        {
-            //                            LogFile.Error.Show("Error:Func_ChangeData:LoginUsers_Read: Error = " + Err);
-            //                            return false;
-            //                        }
-            //                    }
-            //                    else
-            //                    {
-            //                        LogFile.Error.Show("Error:Func_ChangeData:LoginUsers_Administrator_ChangePassword: Res = " + Res);
-            //                        return false;
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    if (LoginUsers_Read(LoginUsers.m_bs_dt.Position, ref Err))
-            //                    {
-            //                        if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
-            //                        {
-            //                            LogFile.Error.Show(Err);
-            //                        }
-            //                        return true;
-            //                    }
-            //                    else
-            //                    {
-            //                        LogFile.Error.Show("Error:Func_ChangeData:LoginUsers_Read: Error = " + Err);
-            //                        return false;
-            //                    }
-            //                }
-            //            }
-            //            else
-            //            {
-            //                LogFile.Error.Show("Error:Func_ChangeData:LoginUsers_Administrator_ChangePasswordParameters: Res = " + Res);
-            //                return false;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            LogFile.Error.Show("Error:Func_ChangeData:LoginUsers_ChangeData: Res = " + Res);
-            //            return false;
-            //        }
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        LogFile.Error.Show("Error:UserManager:LoginUsers: RowsCount = 0");
-            //        return false;
-            //    }
-            return false;
-        }
-
-        public bool Func_RemoveUser(string UserName, ref bool bDeleted, ref string csError)
-        {
-            return false;
-            //DataTable dt = new DataTable();
-            //string sColumn1 = "amb_username_UserName";
-            //string sColumns = "[ID]," + sColumn1;
-            //string sWhere = " WHERE " + sColumn1 + " = '" + UserName + "'";
-            //if (m_tbl_amb_user.GetTableView(m_DB_Local.m_DBTables.m_con, ref dt, ref csError, -1, sColumns, sWhere))
-            //{
-            //    if (dt.Rows.Count > 0)
-            //    {
-            //        Int64 id = (Int64)dt.Rows[0][0];
-            //        // We have id of amb_user 
-            //        // Check if this user is used in Local table
-            //        sColumns = sColumn1;
-            //        sWhere = " WHERE " + sColumn1 + " = '" + UserName + "'";
-            //        dt.Clear();
-            //        if (this.m_tbl_amb_queue.GetTableView(m_DB_Local.m_DBTables.m_con, ref dt, ref csError, 2, sColumns, sWhere))
-            //        {
-            //            if (dt.Rows.Count > 0)
-            //            {
-            //                amb_user m_amb_user = (amb_user)this.m_DB_Local.m_DBTables.UndefineAllValues(m_tbl_amb_user);
-            //                m_amb_user.ID.val = id;
-            //                m_amb_user.Active.val = false;
-            //                m_tbl_amb_user.SetColumnValues(m_amb_user);
-            //                if (m_tbl_amb_user.SQLcmd_Update(m_DB_Local.m_DBTables, ref  csError))
-            //                {
-            //                    bDeleted = false;
-            //                    return true;
-            //                }
-            //                else
-            //                {
-            //                    LogFile.Error.Show("Error:" + csError);
-            //                    return false;
-            //                }
-            //            }
-            //            else
-            //            {
-            //                // No amb_user_ID found in amb_queue , so we can delete it without compromising foreign key constraint
-            //                string sql_delete = "DELETE FROM " + m_tbl_amb_user.TableName + " WHERE id = " + id.ToString();
-            //                object oResult = null;
-            //                if (m_DB_Local.m_DBTables.m_con.ExecuteNonQuerySQL(sql_delete, null, ref oResult, ref csError, "DELETE User from user table"))
-            //                {
-            //                    bDeleted = true;
-            //                    return true;
-            //                }
-            //                else
-            //                {
-            //                    LogFile.Error.Show("Error:" + csError);
-            //                    return false;
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-            //            LogFile.Error.Show("Error:" + csError);
-            //            return false;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        LogFile.Error.Show("Error: Unexpected: UserName= " + UserName + "Are not in table " + m_tbl_amb_user.TableName + ". They should be in table!");
-            //        return false;
-            //    }
-            //}
-            //else
-            //{
-            //    csError = "Error:dt.Rows.Count == 0";
-            //    return false;
-            //}
-        }
-
      
+       private void AddHandlers()
+        {
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
+            this.txtPassword.Enter += new System.EventHandler(this.txtPassword_Enter);
+            this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
+            this.chk_Enabled.CheckedChanged += new System.EventHandler(this.chk_Enabled_CheckedChanged);
+            this.rdb_DeactivateAfterNumberOfDays.CheckedChanged += new System.EventHandler(this.rdb_DeactivateAfterNumberOfDays_CheckedChanged);
+            this.rdb_AfterNumberOfDays.CheckedChanged += new System.EventHandler(this.rdb_AfterNumberOfDays_CheckedChanged);
+            this.rdb_PaswordExpires_Never.CheckedChanged += new System.EventHandler(this.rdb_PaswordExpires_Never_CheckedChanged);
+            this.txtUserName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUserName_KeyPress);
+            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
+            this.txtConfirmPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConfirmPassword_KeyPress);
+            this.chk_ChangePasswordOnFirstLogIn.CheckedChanged += new System.EventHandler(this.chk_ChangePasswordOnFirstLogIn_CheckedChanged);
+            this.dgv_LoginUsers.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
+            this.dgvx_OtherRoles.CellClick += Dgvx_OtherRoles_CellClick;
+            this.dgvx_UserRoles.CellClick += Dgvx_UserRoles_CellClick;
+        }
+
+        private void Dgvx_UserRoles_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0)
+            {
+                if (e.ColumnIndex==1)
+                {
+                    //button MoveRight clicked
+                    //Remove Role
+                    awpld.RemoveRole(e.RowIndex);
+                    InitRoles();
+                    awpld.GetUserRoles();
+                    SetRoles();
+
+                }
+            }
+        }
+
+        private void Dgvx_OtherRoles_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 0)
+                {
+                    //button MoveRight clicked
+                    awpld.AddRole(e.RowIndex);
+                    InitRoles();
+                    awpld.GetUserRoles();
+                    SetRoles();
+                }
+            };
+        }
+
+        private void RemoveHandlers()
+        {
+            this.txtPassword.TextChanged -= new System.EventHandler(this.txtPassword_TextChanged);
+            this.txtPassword.Enter -= new System.EventHandler(this.txtPassword_Enter);
+            this.txtUserName.TextChanged -= new System.EventHandler(this.txtUserName_TextChanged);
+            this.chk_Enabled.CheckedChanged -= new System.EventHandler(this.chk_Enabled_CheckedChanged);
+            this.rdb_DeactivateAfterNumberOfDays.CheckedChanged -= new System.EventHandler(this.rdb_DeactivateAfterNumberOfDays_CheckedChanged);
+            this.rdb_AfterNumberOfDays.CheckedChanged -= new System.EventHandler(this.rdb_AfterNumberOfDays_CheckedChanged);
+            this.rdb_PaswordExpires_Never.CheckedChanged -= new System.EventHandler(this.rdb_PaswordExpires_Never_CheckedChanged);
+            this.txtUserName.KeyPress -= new System.Windows.Forms.KeyPressEventHandler(this.txtUserName_KeyPress);
+            this.txtPassword.KeyPress -= new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
+            this.txtConfirmPassword.KeyPress -= new System.Windows.Forms.KeyPressEventHandler(this.txtConfirmPassword_KeyPress);
+            this.chk_ChangePasswordOnFirstLogIn.CheckedChanged -= new System.EventHandler(this.chk_ChangePasswordOnFirstLogIn_CheckedChanged);
+            this.dgv_LoginUsers.SelectionChanged -= new System.EventHandler(this.dataGridView_SelectionChanged);
+            this.dgvx_OtherRoles.CellClick -= Dgvx_OtherRoles_CellClick;
+            this.dgvx_UserRoles.CellClick -= Dgvx_UserRoles_CellClick;
+        }
 
         private void rdb_PaswordExpires_Never_CheckedChanged(object sender, EventArgs e)
         {
+            awpld.Changed = true;
             if (rdb_PaswordExpires_Never.Checked)
             {
                 this.nmUpDn_MaxPasswordAge.Enabled = false;
@@ -945,19 +890,11 @@ namespace LoginControl
             awp.call_Edit_myOrganisationPerson(this, awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
         }
 
-        private bool DoOK()
-        {
-            if (awpld.Password!=null)
-            {
-                return true;
-            }
-            else
-            {
-                MessageBox.Show(this, lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s + awp.lctrl.MinPasswordLength.ToString()
-                                + lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
-                return false;
-            }
+    
 
+        private bool CheckIfUserDefined()
+        {
+            return (txtUserName.Text.Length > 0);
         }
 
         private bool DoCancel()
@@ -998,6 +935,24 @@ namespace LoginControl
             }
         }
 
+        private void chk_Enabled_CheckedChanged(object sender, EventArgs e)
+        {
+            awpld.Changed = true;
+        }
 
+        private void chk_ChangePasswordOnFirstLogIn_CheckedChanged(object sender, EventArgs e)
+        {
+            awpld.Changed = true;
+        }
+
+        private void rdb_AfterNumberOfDays_CheckedChanged(object sender, EventArgs e)
+        {
+            awpld.Changed = true;
+        }
+
+        private void rdb_DeactivateAfterNumberOfDays_CheckedChanged(object sender, EventArgs e)
+        {
+            awpld.Changed = true;
+        }
     }
 }

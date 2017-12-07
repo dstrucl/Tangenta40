@@ -176,8 +176,7 @@ namespace LoginControl
             string Res = null;
             string Err = null;
             Int64 id = -1;
-            bool bActive = false;
-            string csError = null;
+          
 
             if (this.txtUserName.Tag != null)
             {
@@ -1083,7 +1082,7 @@ namespace LoginControl
                         LogFile.Error.Show("Error:Func_ChangeData:LoginUsers_ChangeData: Res = " + Res);
                         return false;
                     }
-                    return true;
+                  
                 }
                 else
                 {

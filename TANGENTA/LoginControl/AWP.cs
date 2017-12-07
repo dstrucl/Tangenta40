@@ -260,76 +260,108 @@ namespace LoginControl
             string Err = null;
             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null,null))
             {
-                if (AWP_dtLogin_Vaild(ref Err))
+                Form parent_form = lctrl.GetParentForm();
+                switch (AWP_dtLogin_Vaild())
                 {
-                    bool bres = CallLoginForm(call_Get_Atom_WorkPeriod);
-                    if (bres)
-                    {
-                        if (IsUserManager)
+                    case eAWP_dtLogin_Vaild_result.OK:
+                        bool bres = CallLoginForm(call_Get_Atom_WorkPeriod);
+                        if (bres)
                         {
-                            lctrl.btn_UserManager.Visible = true;
+                            if (IsUserManager)
+                            {
+                                lctrl.btn_UserManager.Visible = true;
+                            }
+                            lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
                         }
-                        lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
-                    }
-                    return bres;
-                }
-                else
-                {
-                    // First time instalation because AWP_dtLoginView.Rows[0]["Password"] == null ! or AWP_dtLoginView.Rows.Count==0
-                    Form parent_form = lctrl.GetParentForm();
-                    AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(xnav,  awpd, lng.s_ImportUsersWithAtLeastOneAadministratorRights);
-                    DialogResult dlgRes = DialogResult.None;
-                    if (parent_form != null)
-                    {
-                        frm_awp_mopt.TopMost = parent_form.TopMost;
-                        dlgRes = frm_awp_mopt.ShowDialog(parent_form);
-                    }
-                    else
-                    {
-                        dlgRes = frm_awp_mopt.ShowDialog();
-                    }
-                    if (dlgRes == DialogResult.OK)
-                    {
-                        if (AWP_func.Import_myOrganisationPerson(awpd, frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
+                        return bres;
+
+                    case eAWP_dtLogin_Vaild_result.NO_USERS:
+                     // First time instalation because  AWP_dtLoginView.Rows.Count==0
+                       
+                        AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(xnav,  awpd, lng.s_ImportUsersWithAtLeastOneAadministratorRights);
+                        DialogResult dlgRes = DialogResult.None;
+                        if (parent_form != null)
                         {
-                            AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(xnav, parent_form, this);
-                            if (parent_form != null)
-                            {
-                                awp_usrmgt_frm.TopMost = parent_form.TopMost;
-                                dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
-                            }
-                            else
-                            {
-                                dlgRes = awp_usrmgt_frm.ShowDialog();
-                            }
-                            switch (dlgRes)
-                            {
-                                case DialogResult.OK:
-                                    if (IsUserManager)
-                                    {
-                                        lctrl.btn_UserManager.Visible = true;
-                                    }
-                                    long Atom_WorkPeriod_ID = -1;
-                                    if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
-                                    {
-                                        long LoginSession_ID = -1;
-                                        if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
-                                        {
-                                            return true;
-                                        }
-                                    }
-                                    return false;
-                            }
+                            frm_awp_mopt.TopMost = parent_form.TopMost;
+                            dlgRes = frm_awp_mopt.ShowDialog(parent_form);
                         }
                         else
                         {
-                            return false;
+                            dlgRes = frm_awp_mopt.ShowDialog();
                         }
-                    }
-                    else
-                    {
+                        if (dlgRes == DialogResult.OK)
+                        {
+                            if (AWP_func.Import_myOrganisationPerson(awpd, frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
+                            {
+                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(xnav, parent_form, this);
+                                if (parent_form != null)
+                                {
+                                    awp_usrmgt_frm.TopMost = parent_form.TopMost;
+                                    dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
+                                }
+                                else
+                                {
+                                    dlgRes = awp_usrmgt_frm.ShowDialog();
+                                }
+                                switch (dlgRes)
+                                {
+                                    case DialogResult.OK:
+                                        if (IsUserManager)
+                                        {
+                                            lctrl.btn_UserManager.Visible = true;
+                                        }
+                                        long Atom_WorkPeriod_ID = -1;
+                                        if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
+                                        {
+                                            long LoginSession_ID = -1;
+                                            if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                            {
+                                                lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
                         return false;
-                    }
+
+                    case eAWP_dtLogin_Vaild_result.NO_PASSWORD_FOR_FIRST_USER:
+                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(xnav, parent_form, this);
+                        if (parent_form != null)
+                        {
+                            awp_usrmgt2_frm.TopMost = parent_form.TopMost;
+                            dlgRes = awp_usrmgt2_frm.ShowDialog(parent_form);
+                        }
+                        else
+                        {
+                            dlgRes = awp_usrmgt2_frm.ShowDialog();
+                        }
+                        switch (dlgRes)
+                        {
+                            case DialogResult.OK:
+                                if (IsUserManager)
+                                {
+                                    lctrl.btn_UserManager.Visible = true;
+                                }
+                                long Atom_WorkPeriod_ID = -1;
+                                if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
+                                {
+                                    long LoginSession_ID = -1;
+                                    if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                    {
+                                        lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                                        return true;
+                                    }
+                                }
+                                return false;
+                        }
+                        return false;
+
                 }
                 return false;
             }
@@ -385,25 +417,26 @@ namespace LoginControl
             return false;
         }
 
+        internal enum eAWP_dtLogin_Vaild_result { OK,NO_PASSWORD_FOR_FIRST_USER,NO_USERS}
 
-        private bool AWP_dtLogin_Vaild(ref string Err)
+        private eAWP_dtLogin_Vaild_result AWP_dtLogin_Vaild()
         {
 
             if (AWP_dtLoginView.Rows.Count > 0)
             {
                 if (AWP_dtLoginView.Rows[0]["Password"].GetType() != typeof(DBNull))
                 {
-                    return true;
+                    return eAWP_dtLogin_Vaild_result.OK;
                 }
                 else
                 {
-                    return false;
+                    return eAWP_dtLogin_Vaild_result.NO_PASSWORD_FOR_FIRST_USER;
                 }
             }
             else
             {
-                Err = "Error : AWP_dtLoginView Table is empty (AWP_dtLoginView.Rows.Count = 0)!";
-                return false;
+               
+                return eAWP_dtLogin_Vaild_result.NO_USERS;
             }
         }
 

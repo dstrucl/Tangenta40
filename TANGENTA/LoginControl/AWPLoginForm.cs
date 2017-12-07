@@ -103,7 +103,14 @@ namespace LoginControl
                         MessageBox.Show(lng.s_Password_does_not_match.s);
                     }
                     break;
-                }
+
+                case AWPLoginData.eGetDateResult.USER_HAS_NO_RULES:
+                    MessageBox.Show(lng.s_UserHasNoAccessRights.s+ cmbR_UserName.Text+"\r\n"+lng.s_AskAdministratorToSetupYourUserAccessRights.s);
+                    DialogResult = DialogResult.Cancel;
+                    Close();
+                    return;
+
+              }
             }
 
         private bool Login_PasswordExpired(AWPLoginData awpld)

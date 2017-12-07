@@ -32,7 +32,7 @@ namespace LoginControl
             {
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
-                    string Res = null;
+
                     if (AWP_func.LoginUsers_UserChangeItsOwnPassword(awpld, LoginControl.CalculateSHA256(txtConfirmPassword.Text)))
                     {
                         DialogResult = DialogResult.OK;

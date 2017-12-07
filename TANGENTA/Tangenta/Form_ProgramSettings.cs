@@ -140,7 +140,7 @@ namespace Tangenta
 
                 if ((bChanged || bDBSettingsChanged)&&(nav.m_eButtons== Navigation.eButtons.OkCancel))
                 {
-                    XMessage.Box.Show(this, lng.s_YouHaveChangedSettingsYouMustRestartProgramToUseNewSettings, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouHaveChangedSettingsYouMustRestartProgramToUseNewSettings, "", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 }
 
                 if (LogManager_dlg != null)

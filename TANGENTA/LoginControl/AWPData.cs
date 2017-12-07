@@ -225,11 +225,14 @@ namespace LoginControl
             mcn_NotActiveAfterPasswordExpires.Bind( frm.rdb_DeactivateAfterNumberOfDays, frm.rdb_DeactivateAfterNumberOfDays);
         }
 
-        internal void SetControls(DataGridView2xls dgv_LoginUsers, DataRow dataRow,string TableName)
+        internal void SetControls(DataGridView2xls dgv_LoginUsers, DataRow dataRow, string TableName)
         {
-            foreach (DataGridViewColumn dgvc in dgv_LoginUsers.Columns)
+            if (dgv_LoginUsers != null)
             {
-                dgvc.Visible = false;
+                foreach (DataGridViewColumn dgvc in dgv_LoginUsers.Columns)
+                {
+                    dgvc.Visible = false;
+                }
             }
             foreach (AWPColName awpcn in AWP_col_Names)
             {
@@ -245,10 +248,16 @@ namespace LoginControl
                 {
                     try
                     {
-                        dgv_LoginUsers.Columns[awpcn.ColumnName].Visible = true;
-                        if (awpcn.NameInLanguage != null)
+                        if (dgv_LoginUsers != null)
                         {
-                            dgv_LoginUsers.Columns[awpcn.ColumnName].HeaderText = awpcn.NameInLanguage.s;
+                            if (TableName != null)
+                            {
+                                dgv_LoginUsers.Columns[awpcn.ColumnName].Visible = true;
+                                if (awpcn.NameInLanguage != null)
+                                {
+                                    dgv_LoginUsers.Columns[awpcn.ColumnName].HeaderText = awpcn.NameInLanguage.s;
+                                }
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -258,7 +267,7 @@ namespace LoginControl
 
                     try
                     {
-                        if (awpcn.lbl_ctrl!=null)
+                        if (awpcn.lbl_ctrl != null)
                         {
                             if (awpcn.lbl_ctrl is Label)
                             {
