@@ -58,6 +58,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Check">
+      <HintPath>..\..\CodeTables\CONTROLS\Check\obj\Debug\Check.dll</HintPath>
+    </Reference>
     <Reference Include="SelectGender">
       <HintPath>..\..\CodeTables\CONTROLS\SelectGender\obj\Debug\SelectGender.dll</HintPath>
     </Reference>
@@ -99,6 +102,12 @@
     <Compile Include="AWPChangePasswordForm.Designer.cs">
       <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AWP_UserInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWP_UserInfo_Form.Designer.cs">
+      <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="f.cs" />
     <Compile Include="HtmlTemplate.cs" />
     <Compile Include="STD.cs" />
@@ -121,11 +130,11 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
-    <Compile Include="LoginControl.cs">
+    <Compile Include="LoginCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LoginControl.Designer.cs">
-      <DependentUpon>LoginControl.cs</DependentUpon>
+    <Compile Include="LoginCtrl.Designer.cs">
+      <DependentUpon>LoginCtrl.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPLoginForm.cs">
       <SubType>Form</SubType>
@@ -140,11 +149,17 @@
     <Compile Include="STDLoginForm.Designer.cs">
       <DependentUpon>STDLoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginHistoryForm.cs">
+    <Compile Include="AWPLoginHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginHistoryForm.Designer.cs">
-      <DependentUpon>LoginHistoryForm.cs</DependentUpon>
+    <Compile Include="AWPLoginHistoryForm.Designer.cs">
+      <DependentUpon>AWPLoginHistoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="STDLoginHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STDLoginHistoryForm.Designer.cs">
+      <DependentUpon>STDLoginHistoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginSuperAdministratorForm.cs">
       <SubType>Form</SubType>
@@ -206,6 +221,9 @@
       <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="AWP_UserInfo_Form.resx">
+      <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="STDChangePasswordForm.resx">
       <DependentUpon>STDChangePasswordForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -214,8 +232,8 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginControl.resx">
-      <DependentUpon>LoginControl.cs</DependentUpon>
+    <EmbeddedResource Include="LoginCtrl.resx">
+      <DependentUpon>LoginCtrl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AWPLoginForm.resx">
@@ -226,8 +244,12 @@
       <DependentUpon>STDLoginForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginHistoryForm.resx">
-      <DependentUpon>LoginHistoryForm.cs</DependentUpon>
+    <EmbeddedResource Include="AWPLoginHistoryForm.resx">
+      <DependentUpon>AWPLoginHistoryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STDLoginHistoryForm.resx">
+      <DependentUpon>STDLoginHistoryForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginSuperAdministratorForm.resx">

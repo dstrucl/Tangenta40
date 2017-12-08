@@ -60,9 +60,13 @@ namespace LoginControl
             {
                 if (PasswordConfirmed())
                 {
-                    m_Password = LoginControl.CalculateSHA256(txtPassword.Text);
+                    m_Password = LoginCtrl.CalculateSHA256(txtPassword.Text);
                     xPassword = m_Password;
                     return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             if (m_Password==null)

@@ -119,6 +119,105 @@ SELECT
 
         }
 
+        internal static bool GetWorkingPeriod(ref DataTable dtWorkingPeriod, string userName)
+        {
+            long myOrganisation_Person_ID = -1;
+            if (Get_myOrganisation_Person_ID(userName, ref myOrganisation_Person_ID))
+            {
+                if (dtWorkingPeriod==null)
+                {
+                    dtWorkingPeriod = new DataTable();
+                }
+                else
+                {
+                    dtWorkingPeriod.Rows.Clear();
+                    dtWorkingPeriod.Columns.Clear();
+                }
+                
+                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
+                SQL_Parameter par_myOrganisation_Person_ID = new SQL_Parameter(spar_myOrganisation_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_Person_ID);
+                lpar.Add(par_myOrganisation_Person_ID);
+                string sql = @"  SELECT 
+
+                    Atom_WorkPeriod.LoginTime AS Atom_WorkPeriod_$$LoginTime, 
+                    Atom_WorkPeriod.LogoutTime AS Atom_WorkPeriod_$$LogoutTime,
+                    Atom_WorkPeriod_$_aed.Name AS Atom_WorkPeriod_$_aed_$$Name,
+                    Atom_WorkPeriod_$_amcper_$_aoffice.Name AS Atom_WorkPeriod_$_amcper_$_aoffice_$$Name,
+                    Atom_WorkPeriod_$_amcper_$_aoffice.ShortName AS Atom_WorkPeriod_$_amcper_$_aoffice_$$ShortName,
+                    Atom_WorkPeriod_$_acomp.Name AS Atom_WorkPeriod_$_acomp_$$Name,
+                    Atom_WorkPeriod_$_acomp.UserName AS Atom_WorkPeriod_$_acomp_$$UserName,
+                    Atom_WorkPeriod_$_acomp.IP_address AS Atom_WorkPeriod_$_acomp_$$IP_address,
+                    Atom_WorkPeriod_$_acomp.MAC_address AS Atom_WorkPeriod_$_acomp_$$MAC_address,
+                    Atom_WorkPeriod_$_amcper_$_aper_$_acfn.FirstName AS Atom_WorkPeriod_$_amcper_$_aper_$_acfn_$$FirstName,
+                    Atom_WorkPeriod_$_amcper_$_aper_$_acln.LastName AS Atom_WorkPeriod_$_amcper_$_aper_$_acln_$$LastName,
+                    
+                    Atom_WorkPeriod_$_awperiodt.Name AS Atom_WorkPeriod_$_awperiodt_$$Name,
+                    Atom_WorkPeriod_$_awperiodt.Description AS Atom_WorkPeriod_$_awperiodt_$$Description
+                    FROM Atom_WorkPeriod 
+                    INNER JOIN Atom_myOrganisation_Person Atom_WorkPeriod_$_amcper ON Atom_WorkPeriod.Atom_myOrganisation_Person_ID = Atom_WorkPeriod_$_amcper.ID 
+                    INNER JOIN Atom_Person Atom_WorkPeriod_$_amcper_$_aper ON Atom_WorkPeriod_$_amcper.Atom_Person_ID = Atom_WorkPeriod_$_amcper_$_aper.ID 
+                    INNER JOIN Atom_cFirstName Atom_WorkPeriod_$_amcper_$_aper_$_acfn ON Atom_WorkPeriod_$_amcper_$_aper.Atom_cFirstName_ID = Atom_WorkPeriod_$_amcper_$_aper_$_acfn.ID 
+                    LEFT JOIN Atom_cLastName Atom_WorkPeriod_$_amcper_$_aper_$_acln ON Atom_WorkPeriod_$_amcper_$_aper.Atom_cLastName_ID = Atom_WorkPeriod_$_amcper_$_aper_$_acln.ID 
+                    INNER JOIN Atom_Office Atom_WorkPeriod_$_amcper_$_aoffice ON Atom_WorkPeriod_$_amcper.Atom_Office_ID = Atom_WorkPeriod_$_amcper_$_aoffice.ID 
+                    INNER JOIN Atom_myOrganisation Atom_WorkPeriod_$_amcper_$_aoffice_$_amc ON Atom_WorkPeriod_$_amcper_$_aoffice.Atom_myOrganisation_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc.ID 
+                    INNER JOIN Atom_OrganisationData Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd ON Atom_WorkPeriod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd.ID 
+                    INNER JOIN Atom_Organisation Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
+                    INNER JOIN Atom_WorkingPlace Atom_WorkPeriod_$_awplace ON Atom_WorkPeriod.Atom_WorkingPlace_ID = Atom_WorkPeriod_$_awplace.ID
+                    INNER JOIN Atom_Computer Atom_WorkPeriod_$_acomp ON Atom_WorkPeriod.Atom_Computer_ID = Atom_WorkPeriod_$_acomp.ID 
+                    INNER JOIN Atom_ElectronicDevice Atom_WorkPeriod_$_aed ON Atom_WorkPeriod.Atom_ElectronicDevice_ID = Atom_WorkPeriod_$_aed.ID 
+                    LEFT JOIN Atom_WorkPeriod_TYPE Atom_WorkPeriod_$_awperiodt ON Atom_WorkPeriod.Atom_WorkPeriod_TYPE_ID = Atom_WorkPeriod_$_awperiodt.ID
+                    where Atom_WorkPeriod_$_amcper.ID = " + spar_myOrganisation_Person_ID + " order by Atom_WorkPeriod.LoginTime desc ";
+
+                    string err = null;
+                    if (con.ReadDataTable(ref dtWorkingPeriod, sql, lpar, ref err))
+                    {
+                         return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:LoginControl:AWP_func:GetWorkingPeriod:sql=" + sql + "\r\nErr=" + err);
+                        return false;
+                    }
+
+            }
+            return false;
+        }
+
+        internal static bool Get_myOrganisation_Person_ID(string userName, ref long myOrganisation_Person_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_UserName = "@par_UserName";
+            SQL_Parameter par_UserName = new SQL_Parameter(spar_UserName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, userName);
+            lpar.Add(par_UserName);
+            string sql = @" 
+              SELECT 
+	
+		    LoginUsers_$_mcomper.ID AS myOrganisation_Person_ID 
+			
+            FROM LoginUsers 
+            INNER JOIN myOrganisation_Person LoginUsers_$_mcomper ON LoginUsers.myOrganisation_Person_ID = LoginUsers_$_mcomper.ID 
+           
+            where LoginUsers.UserName = " + spar_UserName;
+            DataTable dt = new DataTable();
+            string err = null;
+            if (con.ReadDataTable(ref dt, sql, lpar, ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    myOrganisation_Person_ID = (long)dt.Rows[0]["myOrganisation_Person_ID"];
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:Get_myOrganisation_Person_ID:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+
+        }
+    
         internal static string RoleInLanguage(string role)
         {
             if (role.Equals(AWP.ROLE_Administrator))

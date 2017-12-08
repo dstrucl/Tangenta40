@@ -14,7 +14,7 @@ using NavigationButtons;
 
 namespace LoginControl
 {
-    public partial class LoginControl : UserControl
+    public partial class LoginCtrl : UserControl
     {
         public delegate bool delegate_Get_Atom_WorkPeriod(long myOrganisation_Person_ID, ref long Atom_WordPeriod_ID);
         public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new);
@@ -314,7 +314,7 @@ namespace LoginControl
                 }
         }
 
-        public LoginControl()
+        public LoginCtrl()
         {
             InitializeComponent();
         }
@@ -395,7 +395,7 @@ namespace LoginControl
 
         internal bool PasswordMatch(byte[] encrypted_password, string password)
         {
-            byte[] encrypted_password2 = LoginControl.CalculateSHA256(password);
+            byte[] encrypted_password2 = LoginCtrl.CalculateSHA256(password);
 
             if ((encrypted_password.Length == encrypted_password2.Length))
             {
@@ -450,6 +450,9 @@ namespace LoginControl
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
+                    Form pForm = GetParentForm();
+                    AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, UserName, awp);
+                    awp_usr_info.ShowDialog(pForm);
                     break;
                 case eDataTableCreationMode.STD:
                     STDUserInfoForm usrinfo = new STDUserInfoForm(std);

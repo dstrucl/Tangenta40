@@ -19,7 +19,7 @@ namespace LoginControl
 
         Form pParentForm = null;
 
-        internal LoginControl lctrl = null;
+        internal LoginCtrl lctrl = null;
 
         public bool IsUserManager
         {
@@ -180,7 +180,7 @@ namespace LoginControl
             }
         }
 
-        public bool Init(Form xpParentForm,LoginControl xlctrl, DBConnection con, object DBParam, int Language_id, ref bool bCancel, ref string Err)
+        public bool Init(Form xpParentForm,LoginCtrl xlctrl, DBConnection con, object DBParam, int Language_id, ref bool bCancel, ref string Err)
         {
             pParentForm = xpParentForm;
             lctrl = xlctrl;
@@ -555,7 +555,7 @@ namespace LoginControl
 
             string Res = null;
             string Err = null;
-            byte[] pass = LoginControl.CalculateSHA256("123");
+            byte[] pass = LoginCtrl.CalculateSHA256("123");
             m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddUser(username, pass, true, frist_name, last_name, Identity, Contact, 1, true, true, 90, false, ref LoginUsers_id, ref Res, ref Err);
             if (Res.Equals("OK"))
             {

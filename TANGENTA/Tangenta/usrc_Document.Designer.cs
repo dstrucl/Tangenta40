@@ -38,7 +38,7 @@ namespace Tangenta
             this.m_usrc_Help = new usrc_Help.usrc_Help();
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.usrc_TangentaPrint1 = new TangentaPrint.usrc_TangentaPrint();
-            this.loginControl1 = new LoginControl.LoginControl();
+            this.loginControl1 = new LoginControl.LoginCtrl();
             this.SuspendLayout();
             // 
             // btn_Exit
@@ -129,7 +129,7 @@ namespace Tangenta
             // 
             this.loginControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loginControl1.DataTableCreationMode = LoginControl.LoginControl.eDataTableCreationMode.AWP;
+            this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.AWP;
             this.loginControl1.Location = new System.Drawing.Point(493, 1);
             this.loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.loginControl1.MinPasswordLength = 5;
@@ -166,6 +166,6 @@ namespace Tangenta
         private System.Windows.Forms.Button btn_Backup;
         private System.Windows.Forms.Button btn_CodeTables;
         private usrc_TangentaPrint usrc_TangentaPrint1;
-        private LoginControl.LoginControl loginControl1;
+        private LoginControl.LoginCtrl loginControl1;
     }
 }

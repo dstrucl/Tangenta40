@@ -1,6 +1,6 @@
 ﻿namespace LoginControl
 {
-    partial class LoginHistoryForm
+    partial class STDLoginHistoryForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginHistoryForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STDLoginHistoryForm));
             this.dgv_LoginHistory = new DataGridView_2xls.DataGridView2xls();
             this.dgv_ActiveUsers = new DataGridView_2xls.DataGridView2xls();
             this.btn_OK = new System.Windows.Forms.Button();

@@ -12,10 +12,10 @@ namespace LoginControl
 {
     public partial class AWPChangePasswordForm : Form
     {
-        LoginControl login_control = null;
+        LoginCtrl login_control = null;
         AWPLoginData awpld = null;
 
-        public AWPChangePasswordForm(LoginControl loginctrl,AWPLoginData xawpld, string sInstruction)
+        public AWPChangePasswordForm(LoginCtrl loginctrl,AWPLoginData xawpld, string sInstruction)
         {
             InitializeComponent();
             login_control = loginctrl;
@@ -33,7 +33,7 @@ namespace LoginControl
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
 
-                    if (AWP_func.LoginUsers_UserChangeItsOwnPassword(awpld, LoginControl.CalculateSHA256(txtConfirmPassword.Text)))
+                    if (AWP_func.LoginUsers_UserChangeItsOwnPassword(awpld, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text)))
                     {
                         DialogResult = DialogResult.OK;
                         this.Close();

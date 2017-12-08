@@ -92,7 +92,7 @@ namespace LoginControl
 
         private void btn_LoginHistory_Click(object sender, EventArgs e)
         {
-            LoginHistoryForm login_history_form = new LoginHistoryForm(std,Convert.ToInt32(std.lctrl.LoginUsers_id), std.lctrl.UserName);
+            STDLoginHistoryForm login_history_form = new STDLoginHistoryForm(std,Convert.ToInt32(std.lctrl.LoginUsers_id), std.lctrl.UserName);
             login_history_form.ShowDialog();
         }
     }

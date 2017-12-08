@@ -22,14 +22,14 @@ namespace LoginControl
         public const string ROLE_WorkInShopC = "WorkInShopC";
 
 
-        internal LoginControl.delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
+        internal LoginCtrl.delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
 
         internal AWPBindingData awpd = new AWPBindingData();
         DataTable AWP_dtLoginView = null;
         internal AWPLoginData m_AWPLoginData = new AWPLoginData();
 
         private Form pParentForm = null;
-        internal LoginControl lctrl = null;
+        internal LoginCtrl lctrl = null;
         internal DBConnection con;
 
         public bool IsUserManager
@@ -234,9 +234,9 @@ namespace LoginControl
 
 
         public void Init(Form xpParentForm,
-                          LoginControl xlctrl,
+                          LoginCtrl xlctrl,
                           DBConnection xcon,
-                          LoginControl.delegate_Edit_myOrganisationPerson xcall_Edit_myOrganisationPerson
+                          LoginCtrl.delegate_Edit_myOrganisationPerson xcall_Edit_myOrganisationPerson
                           )
         {
             pParentForm = xpParentForm;
@@ -255,7 +255,7 @@ namespace LoginControl
 
 
         public bool Login(NavigationButtons.Navigation xnav,
-                      LoginControl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+                      LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
             string Err = null;
             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null,null))
@@ -372,7 +372,7 @@ namespace LoginControl
             }
         }
 
-        private bool CallLoginForm(LoginControl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        private bool CallLoginForm(LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
             AWPLoginForm loginf = new AWPLoginForm(this, call_Get_Atom_WorkPeriod);
             if (loginf.ShowDialog() == DialogResult.OK)

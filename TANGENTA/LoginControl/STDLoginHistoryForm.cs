@@ -10,13 +10,13 @@ using LanguageControl;
 
 namespace LoginControl
 {
-    public partial class LoginHistoryForm : Form
+    public partial class STDLoginHistoryForm : Form
     {
         LoginDB_DataSet.LoginSession_VIEW m_LoginSession_VIEW_active = null;
         LoginDB_DataSet.LoginSession_VIEW m_LoginSession_VIEW_notactive = null;
         STD std = null;
         int LoginUsers_id;
-        public LoginHistoryForm(STD xstd, int Users_id, string UserName)
+        public STDLoginHistoryForm(STD xstd, int Users_id, string UserName)
         {
             InitializeComponent();
             std = xstd;

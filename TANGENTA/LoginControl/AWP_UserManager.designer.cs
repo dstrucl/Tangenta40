@@ -137,7 +137,7 @@ namespace LoginControl
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainer1.Panel1.Controls.Add(this.usrc_PasswordBytes1);
+            this.splitContainer1.Panel1.Controls.Add(usrc_PasswordBytes1);
             this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Edit_myOrganisation_Person);
             this.splitContainer1.Panel1.Controls.Add(this.chk_ChangePasswordOnFirstLogIn);

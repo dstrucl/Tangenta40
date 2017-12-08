@@ -1,6 +1,6 @@
 ﻿namespace LoginControl
 {
-    partial class LoginControl
+    partial class LoginCtrl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginCtrl));
             this.lbl_username = new System.Windows.Forms.Label();
             this.btn_UserInfo = new System.Windows.Forms.Button();
             this.btn_UserManager = new System.Windows.Forms.Button();

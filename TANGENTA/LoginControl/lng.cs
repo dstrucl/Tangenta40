@@ -27,6 +27,13 @@ namespace LoginControl
 
         public static ltext s_ComputerName = new ltext(new string[] { "Computer:", "Računalnik:" });
 
+        public static ltext s_ComputerUserName = new ltext(new string[] { "UserName for computer login:", "Uporabniško ime za prijavo v računalnik." });
+
+        public static ltext s_IP_Address = new ltext(new string[] { "Local computer IP address", "Lokalni IP naslov računalnika" });
+
+        public static ltext s_MAC_address = new ltext(new string[] { "Local computer MAC address", "Lokalni MAC naslov računalnika" });
+
+        
         public static ltext s_Max_Password_Age = new ltext(new string[] {"Number of days:",
                                                                          "Število dni:" });
         public static ltext s_UserThatChangesPassword = new ltext(new string[] { "UserName:", "Uporabnik:" });
@@ -65,6 +72,11 @@ namespace LoginControl
         public static ltext s_LoginTime = new ltext(new string[]{"Login Time", "Čas prijave"});
         public static ltext s_LogoutTime = new ltext(new string[]{"Logout Time", "Čas odjave"});
         public static ltext s_LoginHistoryAndActiveUsers = new ltext(new string[]{"Show Active Users and Login History", "Prikaži aktivne uporabnike in zgodovino prijav"});
+
+        public static ltext s_ElectronicDevice_ID = new ltext(new string[] { "Casshier Name", "Ime elektronske blagajne" });
+        public static ltext s_OfficeName = new ltext(new string[] { "Office Name", "Ime poslovne enote" });
+        public static ltext s_OfficeNameShort = new ltext(new string[] { "Short Office Name", "Ime poslovne enote okrajšano" });
+
 
         public static ltext s_UserInfo = new ltext(new string[]{"User Info", "Informacija o uporabniku"});
         public static ltext s_Roles = new ltext(new string[]{"Roles:", "Vloge:"});
@@ -278,5 +290,10 @@ namespace LoginControl
 
         public static ltext s_UserHasNoAccessRights = new ltext(new string[] { "There are no access rights for user : ","Nimate nobenih uporabniških pravic.Uporabik:" });
         public static ltext s_AskAdministratorToSetupYourUserAccessRights = new ltext(new string[] { "Please ask the Administrator to setup your user access rights.", "Pokličite skrbnika da vam dodeli uporabniške dostopne pravice" });
+        public static ltext s_YouHaveChangedYourPassord = new ltext(new string[] { "You have changed your password.", "Spremenili ste vaše geslo." });
+
+        public static ltext s_ChangePassord = new ltext(new string[] { "Change password", "Spremeni geslo" });
+
+        public static ltext s_LoginHistory = new ltext(new string[] { "Login History", "Zgodovina prijav" });
     }
 }

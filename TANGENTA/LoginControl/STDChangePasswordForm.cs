@@ -34,7 +34,7 @@ namespace LoginControl
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
                     string Res = null;
-                    m_LoginDB_DataSet_Procedures.LoginUsers_UserChangeItsOwnPassword(LoginUsers.o_id.id_, LoginControl.CalculateSHA256(txtConfirmPassword.Text), ref Res, ref Err);
+                    m_LoginDB_DataSet_Procedures.LoginUsers_UserChangeItsOwnPassword(LoginUsers.o_id.id_, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text), ref Res, ref Err);
                     if (Res.Equals("OK"))
                     {
                         std.m_STDLoginData.Time_When_UserSetsItsOwnPassword_LastTime = DateTime.Now;

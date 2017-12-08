@@ -30,7 +30,6 @@ namespace LoginControl
 
         internal DataTable dtLoginUsers = null;
 
-        private bool bUserNameChanged = false;
         private bool bFirstTimeStartup = false;
 
         public AWP_UserManager(Navigation xnav,Form pParent, AWP xawp)
@@ -69,7 +68,7 @@ namespace LoginControl
             lng.s_btn_Edit_myOrganisation_Person.Text(btn_Edit_myOrganisation_Person);
 
             
-
+            
             this.txtUserName.Tag = null;
 
             this.Icon = Properties.Resources.user;

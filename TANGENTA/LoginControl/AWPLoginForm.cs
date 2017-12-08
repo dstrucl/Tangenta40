@@ -17,9 +17,9 @@ namespace LoginControl
         internal DataTable dtLoginUsers = null;
         AWPLoginData awpld = null;
         AWP awp = null;
-        LoginControl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
+        LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
 
-        public AWPLoginForm(AWP xawp, LoginControl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod)
+        public AWPLoginForm(AWP xawp, LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod)
         {
             InitializeComponent();
             awp = xawp;

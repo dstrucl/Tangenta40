@@ -712,7 +712,7 @@ namespace Tangenta
         if (Program.OperationMode.MultiUser)
         {
             bool bCancel = false;
-            this.loginControl1.Init(LoginControl.LoginControl.eDataTableCreationMode.AWP,
+            this.loginControl1.Init(LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                             DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
                                             this.getWorkPeriod,
                                             call_Edit_myOrganisationPerson,

@@ -249,7 +249,7 @@ namespace LoginControl
                 }
 
                 m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_AddUser(txtUserName.Text,
-                                                                              LoginControl.CalculateSHA256(txtPassword.Text),
+                                                                              LoginCtrl.CalculateSHA256(txtPassword.Text),
                                                                               chk_Active.Checked,
                                                                               txtFirstName.Text,
                                                                               txtLastName.Text,
@@ -1028,7 +1028,7 @@ namespace LoginControl
                             if (bPasswordChanged)
                             {
                                 m_LoginDB_DataSet_Procedures.LoginUsers_Administrator_ChangePassword(LoginUsers.o_id.id_,
-                                                                                                     LoginControl.CalculateSHA256(userdata.password),//crypted password
+                                                                                                     LoginCtrl.CalculateSHA256(userdata.password),//crypted password
                                                                                                      std.m_STDLoginData.m_LoginUsers_id,
                                                                                                      ref Res,
                                                                                                      ref Err);
