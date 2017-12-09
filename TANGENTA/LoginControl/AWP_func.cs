@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using TangentaDB;
 
 namespace LoginControl
 {
@@ -119,26 +120,68 @@ SELECT
 
         }
 
-        internal static bool GetWorkingPeriod(ref DataTable dtWorkingPeriod, string userName)
+        internal static bool GetWorkingPeriod(ref DataTable dtWorkingPeriod,DateTime dateFrom,DateTime dateTo, string userName)
         {
             long myOrganisation_Person_ID = -1;
             if (Get_myOrganisation_Person_ID(userName, ref myOrganisation_Person_ID))
             {
-                if (dtWorkingPeriod==null)
+                List<long> Atom_myOrganisation_Person_ID_List = new List<long>();
+                if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID_List))
                 {
-                    dtWorkingPeriod = new DataTable();
-                }
-                else
-                {
-                    dtWorkingPeriod.Rows.Clear();
-                    dtWorkingPeriod.Columns.Clear();
-                }
-                
-                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
-                SQL_Parameter par_myOrganisation_Person_ID = new SQL_Parameter(spar_myOrganisation_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_Person_ID);
-                lpar.Add(par_myOrganisation_Person_ID);
-                string sql = @"  SELECT 
+                    if (Atom_myOrganisation_Person_ID_List.Count == 0)
+                    {
+                        if (dtWorkingPeriod==null)
+                        {
+                            dtWorkingPeriod = new DataTable();
+                        }
+                        else
+                        {
+                            dtWorkingPeriod.Clear();
+                        }
+                        return false;
+                    }
+
+                    if (dtWorkingPeriod == null)
+                    {
+                        dtWorkingPeriod = new DataTable();
+                    }
+                    else
+                    {
+                        dtWorkingPeriod.Rows.Clear();
+                        dtWorkingPeriod.Columns.Clear();
+                    }
+
+                    string sInCondition = null;
+                    foreach (long l in Atom_myOrganisation_Person_ID_List)
+                    {
+                        if (sInCondition==null)
+                        {
+                            sInCondition = "("+l.ToString();
+                        }
+                        else
+                        {
+                            sInCondition += "," + l.ToString();
+                        }
+                    }
+                    if (sInCondition!=null)
+                    {
+                        sInCondition += ")"; 
+                    }
+
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                    DateTime xdateFrom = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day);
+                    DateTime xdateTo = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day);
+
+
+                    string spar_dateFrom = "@par_dateFrom";
+                    SQL_Parameter par_dateFrom = new SQL_Parameter(spar_dateFrom, SQL_Parameter.eSQL_Parameter.Datetime, false, xdateFrom);
+                    lpar.Add(par_dateFrom);
+
+                    string spar_dateTo = "@par_dateTo";
+                    SQL_Parameter par_dateTo = new SQL_Parameter(spar_dateTo, SQL_Parameter.eSQL_Parameter.Datetime, false, xdateTo);
+                    lpar.Add(par_dateTo);
+
+                    string sql = @"  SELECT 
 
                     Atom_WorkPeriod.LoginTime AS Atom_WorkPeriod_$$LoginTime, 
                     Atom_WorkPeriod.LogoutTime AS Atom_WorkPeriod_$$LogoutTime,
@@ -167,19 +210,19 @@ SELECT
                     INNER JOIN Atom_Computer Atom_WorkPeriod_$_acomp ON Atom_WorkPeriod.Atom_Computer_ID = Atom_WorkPeriod_$_acomp.ID 
                     INNER JOIN Atom_ElectronicDevice Atom_WorkPeriod_$_aed ON Atom_WorkPeriod.Atom_ElectronicDevice_ID = Atom_WorkPeriod_$_aed.ID 
                     LEFT JOIN Atom_WorkPeriod_TYPE Atom_WorkPeriod_$_awperiodt ON Atom_WorkPeriod.Atom_WorkPeriod_TYPE_ID = Atom_WorkPeriod_$_awperiodt.ID
-                    where Atom_WorkPeriod_$_amcper.ID = " + spar_myOrganisation_Person_ID + " order by Atom_WorkPeriod.LoginTime desc ";
+                    where Atom_WorkPeriod_$_amcper.ID in " + sInCondition + " and Atom_WorkPeriod.LoginTime > "+ spar_dateFrom + " and Atom_WorkPeriod.LoginTime < "+ spar_dateTo + " order by Atom_WorkPeriod.LoginTime desc ";
 
                     string err = null;
                     if (con.ReadDataTable(ref dtWorkingPeriod, sql, lpar, ref err))
                     {
-                         return true;
+                        return true;
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:LoginControl:AWP_func:GetWorkingPeriod:sql=" + sql + "\r\nErr=" + err);
                         return false;
                     }
-
+                }
             }
             return false;
         }

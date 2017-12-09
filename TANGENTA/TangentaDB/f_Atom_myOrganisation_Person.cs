@@ -338,6 +338,49 @@ namespace TangentaDB
             }
         }
 
+        public static bool Get(long myOrganisation_Person_ID, ref List<long> atom_myOrganisation_Person_ID_List)
+        {
+            string sql = @"select amop.ID as Atom_myOrganisation_Person_ID
+	                      from myOrganisation_Person mop 
+	                      inner join Person p on mop.Person_ID = p.ID
+	                      inner join cFirstName fn on p.cFirstName_ID = fn.iD
+	                      left join cLastName ln on p.cLastName_ID = ln.iD
+	                      inner join Atom_cFirstName afn on fn.FirstName = afn.FirstName
+	                      left join Atom_cLastName aln on aln.LastName = ln.LastName
+	                      left join Atom_Person ap on ap.Atom_cFirstName_ID = afn.ID
+	                      left join Atom_myOrganisation_Person amop on amop.Atom_Person_ID = ap.ID and ap.Tax_ID = p.Tax_ID and ap.Registration_ID = p.Registration_ID
+                          where mop.ID = " + myOrganisation_Person_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                int iCount = dt.Rows.Count;
+                if (iCount > 0)
+                {
+                    if (atom_myOrganisation_Person_ID_List==null)
+                    {
+                        atom_myOrganisation_Person_ID_List = new List<long>();
+                    }
+                    else
+                    {
+                        atom_myOrganisation_Person_ID_List.Clear();
+                    }
+                    for (int i = 0; i < iCount; i++)
+                    {
+                        if (dt.Rows[i]["Atom_myOrganisation_Person_ID"] is long)
+                        {
+                            atom_myOrganisation_Person_ID_List.Add((long)dt.Rows[i]["Atom_myOrganisation_Person_ID"]);
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:" + sql + "\r\n:Err=" + Err);
+                return false;
+            }
+        }
 
         private static bool Find_myOrganisation_Office(long myOrganisation_Person_ID, ref long Person_ID, ref long myOrganisation_ID, ref long Office_ID, ref string Err)
         {

@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Edo Cof (Opal d.o.o.) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="Prenos">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Glava">
+<xs:annotation>
+<xs:documentation>Informativni podatki o programu in avtorjih, ki pripravi XML datoteko.</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Program">
+<xs:annotation>
+<xs:documentation>Program, ki je pripravil XML datoteko</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="100"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Program_verzija">
+<xs:annotation>
+<xs:documentation>Verzija programa, ki je pripravil XML datoteko</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="20"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Program_avtor">
+<xs:annotation>
+<xs:documentation>Avtor - podjetje, ki je izdelalo program, ki je pripravil XML datoteko</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="100"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Verzija_xml" minOccurs="0" type="xs:string">
+<xs:annotation>
+<xs:documentation>Verzija XSD sheme na osnovi katere je izdelana XML datoteka.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Identifikacija" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Podatki se uporabljajo pri avtomatskem uvažanju datoteke, da sistem, ki uvaža ve v katero firmo uvoziti podatke. Pri ročnem uvozu podatki niso potrebni.</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Firma">
+<xs:annotation>
+<xs:documentation>Identifikacija podjetja v ERP-u kateremu so podatki namenjeni. Podatek mora biti usklajen med pošiljateljemm in prejemnikom.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="10"/>
+<xs:maxLength value="30"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Kljuc">
+<xs:annotation>
+<xs:documentation>Ključ. Na osnovi firme in ključa program, ki uvaža ugotovi kateri firmi podatki pripadajo. Podatek mora biti usklajen med pošiljateljemm in prejemnikom.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="10"/>
+<xs:maxLength value="30"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Telo">
+<xs:annotation>
+<xs:documentation>Vsebina prenešenih podatkov - dokumentov, oz. knjižb</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Dokument" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation>Dokument se lahko ponavlja, torej, jih je v eni XML datoteki lahko več.</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Dokument" type="Dokument">
+<xs:annotation>
+<xs:documentation>En dokument ima lahko samo eno vrsto dokumenta</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Trg" minOccurs="0" type="Trg">
+<xs:annotation>
+<xs:documentation>Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi, če gre za dokument, ki gre v davčne evidence. Pri temeljnicah podatek ni potreben.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Stevilka_dokumenta" minOccurs="0" type="Stev_dok">
+<xs:annotation>
+<xs:documentation>Unikatna številka dokumenta glede na element DOKUMENT skozi vsa leta. Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi. Pri prejetih računih je to interna št. dok. ali vložna številka v fasciklu ali zap. štev. prej. računa. Pri prej. računih ni nujno, da je podatek prisoten. V tem primeru ga genrira program, ki uvaža podatke.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:choice>
+<xs:element name="Dobav_stevilka_dokumenta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Podatek nastopa le pri prejetih računih. Vsebuje originalno številko dobaviteljevega računa.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="22"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="FURS_stevilka" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Podatek nastopa na le izdanih računih in vsebuje FURS številko. Max. dolžina je 62 znakov. 3 krat po 20 znakov z vmesnimi pomišlaji.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="62"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:choice>
+<xs:element name="Model" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="2"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Sklic" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Podatek nastopa le pri prejetih računih. Vsebuije vrednost, ki se vpiše v sklic pri plačilu dotičnega računa.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="0"/>
+<xs:maxLength value="22"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Datum_dokumenta" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_dur" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Datum odpreme blaga, oz. opravljene storitve. Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi. Če dokument ni povezan z davčnimi evidencami podatek ni potreben.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Obracunsko_obdobje" minOccurs="0" type="Obracunsko_obdobje">
+<xs:annotation>
+<xs:documentation>Bilančno obdobje. Podatek je namenjen generiranju bruto bilance. Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Obracunsko_obdobje_do" minOccurs="0" type="Obracunsko_obdobje">
+<xs:annotation>
+<xs:documentation>Bilančno obdobje do. Če je podatek podan, potem program, ki uvaža XML razmnoži knjižbe med bil. obd. in bil. obd. do.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_knjizenja" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_prejema_izdaje" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Datum prejema, oz. izdaje dokumenta. Podatek ni obvezen, vendar če ga tu ni in gre za prejeti račun, mora biti na knjižbi</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Opis_dokumenta" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="80"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Datum_ddv" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi. Podatek ni potreben, če gre za temeljnico, ki ni povezana z davčnimi evidencami.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_osnove" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek ni obvezen, vendar če ga ni tu naj bi bil na knjižbi. Vsebuje datum v katerega se knjiži osnova za obdavčitev. Običajno je to isti datum kot datum DDV-ja. Pri knjižbi vhodnega davka samoobdavčitve, pa je to datum obračunanega DDV-ja.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_zapadlosti" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek je namenjen saldakontom. Če gre npr. za temeljnico plač podatek ni obvezen.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_predvidenega_placila" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek je namenjen saldakontom. Če gre npr. za temeljnico plač podatek ni obvezen.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Partner" minOccurs="0" type="Partner">
+<xs:annotation>
+<xs:documentation>Če ima dokument enega partnerja ga lahko podamo na tem nivoju, sicer pa pri vsaki knjižbi posebej.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Intrastat" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Nabor podatkov potrebni za poročanje Intrasta</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Datum_intrastat" minOccurs="0" type="xs:date"/>
+<xs:element name="IPartner" minOccurs="0" type="Partner">
+<xs:annotation>
+<xs:documentation>Če ima dokument enega partnerja ga lahko podamo na tem nivoju, sicer pa pri vsaki knjižbi posebej.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Pariteta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>EXW, DDU, DDP...</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="3"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Lega" minOccurs="0">
+<xs:annotation>
+<xs:documentation>1 -kraj na področju Slovenije, 2 - v drugi članici EU, 3 - Izven skupnosti</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Vrsta_posla" minOccurs="0">
+<xs:annotation>
+<xs:documentation>11 - dokončni nakup / prodaja, 12 - blago na ogled, 13 - kompenzacijski posli...</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="2"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Vrsta_transporta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>1 - pomorski, 2 - želežniški, 3 - cestni, 4 - zračni, 5 - poštni, 7 - transportne napeljave, 9 - lastni pogon</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="IDrzava" minOccurs="0" type="Drzava"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Sifra_valute" minOccurs="0">
+<xs:annotation>
+<xs:documentation>V kolikor je dokument- račun domač se podaja šifra domače valute. Npr: za ameriški dolar se vnese šifra 840, za EUR 978 Če podatek ni podan, se podatek podaja na knjižbi.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="1"/>
+<xs:maxInclusive value="999"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Avans_info" minOccurs="0">
+<xs:annotation>
+<xs:documentation>V primeru avansnega računa informativni podatki o avansu. Če se ti podatki podajajo, potem mora biti podana tudi valuta na dokumentu, če gre za tuj avansni račun.</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Konto_avansa">
+<xs:annotation>
+<xs:documentation>Konto na katerega je bila knjižena banka na osnovi katere je izdelan avansni račun.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="8"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Znesek" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Znesek avansa na osnovi katerega je izdelan avansni račun. Znesek je v domači valuti.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Znesek_v_valuti" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Če gre za tuj avansni račun, potem je v tem polju znesek v tuji valuti, ki je podana na dokumentu. če je domač avansni račun, potem je ta znesek v domači valuti ali pa elementa sploh ni.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Znesek_dokumenta" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Kotrolni podatek. Znesek računa v valuti računa. Znesek računa mora v nadaljevanju nastopati na knjižbi z vrsto knjižbe Znesek_z_DDV, ko gre za račune.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Tecaj" minOccurs="0" type="xs:double">
+<xs:annotation>
+<xs:documentation>Tečaj po katerem je dokument preračunan v domačo valuto. V kolikor ni en tečaj za vse knjižbe dokumenta enak, se podaja na posamezni knjižbi.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_tecaja" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Datum tečaja, ki je podan v elementu Tecaj.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Stev_izvor_dokum" minOccurs="0" type="Stev_dok">
+<xs:annotation>
+<xs:documentation>Podatek nastopa pri dokumentu samoobdavčitve ali pri internemu računu. Vanj zapišemo številko izvornega dokumenta na osnovi katerega je bil izdelan dokument samoobdavčitve ali interni račun.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Sken" minOccurs="0" type="Sken">
+<xs:annotation>
+<xs:documentation>Element se uporablja za potrebe skenirno dokumenrtnih sistemov</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Knjizba" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation>V datoteki vrstni red knjižb glede na node Vrsta_knjizbe ni definiran. To pomeni, da se ne ve ali so knjižbe bruto zneskov računov pred knjižbami davkov...</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Trg" minOccurs="0" type="Trg">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Vrsta_knjizbe">
+<xs:annotation>
+<xs:documentation>Knjižbe iste vrste se lahko na istem dokumentu večkrat ponovijo. Npr. za davek splošne stopnje je lahko več knjižb...</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:enumeration value="Znesek_z_ddv"/>
+<xs:enumeration value="Osnova_splosna_stopnja"/>
+<xs:enumeration value="Osnova_splosna_stopnja_neprem"/>
+<xs:enumeration value="Osnova_splosna_stopnja_drugaOS"/>
+<xs:enumeration value="Osnova_znizana_stopnja"/>
+<xs:enumeration value="Osnova_za_samoobdav_SI"/>
+<xs:enumeration value="Osnova_pavsalna_stopnja"/>
+<xs:enumeration value="Neobdavcen_promet_s_pravico_do_odbitka"/>
+<xs:enumeration value="Oproscen_promet_prodaja_na_daljavo"/>
+<xs:enumeration value="Oproscen_promet_tristranska_dobava"/>
+<xs:enumeration value="Oproscen_promet_izvoz_blaga"/>
+<xs:enumeration value="Oproscen_promet_montaza_v_EU"/>
+<xs:enumeration value="Oproscen_promet_brez_pravice_do_odbitka"/>
+<xs:enumeration value="Oproscen_promet_dobave_v_EU"/>
+<xs:enumeration value="Druge_oprostitve"/>
+<xs:enumeration value="Osnova_splosna_stop_76a_clen"/>
+<xs:enumeration value="Osnova_znizana_stop_76a_clen"/>
+<xs:enumeration value="Oproscen_promet_storitev_EU"/>
+<xs:enumeration value="Osnova_splosna_stop_blago"/>
+<xs:enumeration value="Osnova_znizana_stop_blago"/>
+<xs:enumeration value="Osnova_splosna_stop_storitev"/>
+<xs:enumeration value="Osnova_znizana_stop_storitev"/>
+<xs:enumeration value="Osnova_splosna_stop_blago_neodb"/>
+<xs:enumeration value="Osnova_znizana_stop_blago_neodb"/>
+<xs:enumeration value="Osnova_splosna_stop_storitev_neodb"/>
+<xs:enumeration value="Osnova_znizana_stop_storitev_neodb"/>
+<xs:enumeration value="Osnova_splosna_stop_76a_clen"/>
+<xs:enumeration value="Osnova_znizana_stop_76a_clen"/>
+<xs:enumeration value="Osnova_splosna_stop_76a_clen_neodb"/>
+<xs:enumeration value="Osnova_znizana_stop_76a_clen_neodb"/>
+<xs:enumeration value="Oprosceno"/>
+<xs:enumeration value="Oprosceno_neprem"/>
+<xs:enumeration value="Oprosceno_drugaOS"/>
+<xs:enumeration value="Osnova_pridobitve_tristranske"/>
+<xs:enumeration value="Ne_gre_v_knjigo"/>
+<xs:enumeration value="DDV_splosna_stopnja"/>
+<xs:enumeration value="DDV_znizana_stopnja"/>
+<xs:enumeration value="DDV_pavsalna_stopnja"/>
+<xs:enumeration value="DDV_splosna_stopnja_avans"/>
+<xs:enumeration value="DDV_znizana_stopnja_avans"/>
+<xs:enumeration value="DDV_splosna_stopnja_neodb"/>
+<xs:enumeration value="DDV_znizana_stopnja_neodb"/>
+<xs:enumeration value="DDV_pavsalna_stopnja_neodb"/>
+<xs:enumeration value="DDV_splosna_stopnja_avans"/>
+<xs:enumeration value="DDV_znizana_stopnja_avans"/>
+<xs:enumeration value="DDV_splosna_stopnja_avans_neodb"/>
+<xs:enumeration value="DDV_znizana_stopnja_avans_neodb"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_storitev"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_storitev"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_storitev_neodb"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_storitev_neodb"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_storitev_obrac"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_storitev_obrac"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_blago"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_blago"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_blago_neodb"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_blago_neodb"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_blago_obrac"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_blago_obrac"/>
+<xs:enumeration value="DDV_splosna_stop_uvoz_blago"/>
+<xs:enumeration value="DDV_znizana_stop_uvoz_blago"/>
+<xs:enumeration value="DDV_splosna_stop_uvoz_blago_neodb"/>
+<xs:enumeration value="DDV_znizana_stop_uvoz_blago_neodb"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_76a_clen"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_76a_clen"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_76a_clen_neodb"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_76a_clen_neodb"/>
+<xs:enumeration value="DDV_splosna_stop_samoobd_76a_clen_obrac"/>
+<xs:enumeration value="DDV_znizana_stop_samoobd_76a_clen_obrac"/>
+<xs:enumeration value=""/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Drzava_potrosnje" minOccurs="0" type="Drzava">
+<xs:annotation>
+<xs:documentation>Država potrošnje. Če podatek ni podan je to domača država.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Stevilka_dokumenta" minOccurs="0" type="Stev_dok">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Veza" minOccurs="0" type="Stev_dok"/>
+<xs:element name="Datum_dokumenta" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_dur" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Obracunsko_obdobje" minOccurs="0" type="Obracunsko_obdobje">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Obracunsko_obdobje_do" minOccurs="0" type="Obracunsko_obdobje"/>
+<xs:element name="Datum_knjizenja" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_prejema_izdaje" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Opis_dokumenta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="80"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Datum_ddv" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_osnove" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek, če je podan prekrije tistega iz glave. Vsebuje datum v katerega se knjiži osnova za obdavčitev. Običajno je to isti datum kot datum DDV-ja. Pri knjižbi vhodnega davka samoobdavčitve, pa je to datum obračunanega DDV-ja.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_zapadlosti" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_predvidenega_placila" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Vrsta_dokumenta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Simbol dokumenta</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Konto">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="8"/>
+<xs:minLength value="3"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Partner" minOccurs="0" type="Partner"/>
+<xs:choice>
+<xs:element name="Stroskovno_mesto" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Šifra stroškovnega mesta</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Cost_center" minOccurs="0" type="TAnalyst">
+<xs:annotation>
+<xs:documentation>V tem primeru obstaja šifrant str. mest in podajamo poleg šifre tudi Naziv in dodaten tekst. </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:choice>
+<xs:choice>
+<xs:element name="Analitika1" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Analitika 1..6 so razne analitične evidece, npr projekti, objekti, del. nalogi... Podajamo le šifro.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Analyst_1" minOccurs="0" type="TAnalyst">
+<xs:annotation>
+<xs:documentation>V tem primeru obstaja šifrant in podajamo poleg šifre še naziv šifre in dodaten tekst.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:choice>
+<xs:choice>
+<xs:element name="Analitika2" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Analyst_2" minOccurs="0" type="TAnalyst"/>
+</xs:choice>
+<xs:choice>
+<xs:element name="Analitika3" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Analyst_3" minOccurs="0" type="TAnalyst"/>
+</xs:choice>
+<xs:choice>
+<xs:element name="Analitika4" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Analyst_4" minOccurs="0" type="TAnalyst"/>
+</xs:choice>
+<xs:choice>
+<xs:element name="Analitika5" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Analyst_5" minOccurs="0" type="TAnalyst"/>
+</xs:choice>
+<xs:choice>
+<xs:element name="Analitika6" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Analyst_6" minOccurs="0" type="TAnalyst"/>
+</xs:choice>
+<xs:choice>
+<xs:element name="Debet" type="xs:decimal"/>
+<xs:element name="Kredit" type="xs:decimal"/>
+</xs:choice>
+<xs:element name="Osnova" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Podatek nastopa le če je to knjižba davka in v tem primeru vsebuje osnovo od katere je bil obračunan DDV, ki se nahaja v polju Debet, oz. Kredit</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Sifra_valute" minOccurs="0">
+<xs:annotation>
+<xs:documentation>V kolikor je dokument- račun domač se podaja šifra domače valute. Npr: za ameriški dolar se vnese šifra 840, za EUR 978 Če podatek ni podan, se smatra, da gre za domačo valuto.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="1"/>
+<xs:maxInclusive value="999"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Tecaj" minOccurs="0" type="xs:double">
+<xs:annotation>
+<xs:documentation>Tečaj po katerem je znesek knjižbe (Debet, Kredit) v tuji valuti preračunan v domačo valuto. Če je enoten za cel dokument se lahko podaja že na dokumentu.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Datum_tecaja" minOccurs="0" type="xs:date">
+<xs:annotation>
+<xs:documentation>Datum tečaja, ki je podan v elementu Tecaj.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:choice minOccurs="0">
+<xs:annotation>
+<xs:documentation>Znesek v valuti se podaja vedno, ravno tako kot Debet, Kredit. Če podatek ni podan, se smatra, da so vrednosti enake kot v primeru Debet in Kredit.</xs:documentation>
+</xs:annotation>
+<xs:element name="Valuta_debet" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Če podatek ni podan se smatra, da je enak podatku Debet</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Valuta_kredit" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Če podatek ni podan, se smatra, da je enak podatku Kredit.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:choice>
+<xs:element name="Drzava" minOccurs="0" type="Drzava">
+<xs:annotation>
+<xs:documentation>Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za Slovenijo</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="SifraBS" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Šifra Banke Slovenije. Npr. 106, 112...</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="3"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="SifraBST" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Šifra Banke slovenije za poročilo BST</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="6"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Otvoritev" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Ali je knjižba otvoritvena knjižba: 0=ne, 1=da. Če podatek ni podan se smatra, da je knjižba promet in ne otvoritev.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:enumeration value="0"/>
+<xs:enumeration value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Odbitni_delez" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>V primeru prejetih računov, ko ima podjetje odbitni delež v tem polju na knjižbi neodbitnega davka podamo procent odbitnega deleža, ki je bil obračunan.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Dejanski_konto" minOccurs="0">
+<xs:annotation>
+<xs:documentation>V primeru neodbitnega davka iz naslova odbitnega deleža imamo v elementu Konto konto stroška ali zaloge, v tem polju pa konto davka na katerega je bil knjižen odbitni del DDV-ja.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="3"/>
+<xs:maxLength value="8"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Intrastat" minOccurs="0">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Datum_intrastat" minOccurs="0" type="xs:date"/>
+<xs:element name="IPartner" minOccurs="0" type="Partner">
+<xs:annotation>
+<xs:documentation>Če ima dokument enega partnerja ga lahko podamo na dokumentu, sicer pa pri vsaki knjižbi posebej.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Pariteta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>EXW, DDU, DDP...</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="3"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Lega" minOccurs="0">
+<xs:annotation>
+<xs:documentation>1 -kraj na področju Slovenije, 2 - v drugi članici EU, 3 - Izven skupnosti</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Vrsta_posla" minOccurs="0">
+<xs:annotation>
+<xs:documentation>11 - dokončni nakup / prodaja, 12 - blago na ogled, 13 - kompenzacijski posli...</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="2"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Vrsta_transporta" minOccurs="0">
+<xs:annotation>
+<xs:documentation>1 - pomorski, 2 - želežniški, 3 - cestni, 4 - zračni, 5 - poštni, 7 - transportne napeljave, 9 - lastni pogon</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="IDrzava" minOccurs="0" type="Drzava">
+<xs:annotation>
+<xs:documentation>PR: Država namena / IR: Država pošiljatelja</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Tarifa" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Tarifna številka iz šifranta Carinske uprave</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:length value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="IDrzava_porekla" minOccurs="0" type="Drzava"/>
+<xs:element name="Neto_teza" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Neto teža</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Kolicina" minOccurs="0" type="xs:decimal"/>
+<xs:element name="Zniz_zvis_FV" minOccurs="0" type="xs:decimal">
+<xs:annotation>
+<xs:documentation>Zniižanje ali zvišanje fakturne vrednosti</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Sken" minOccurs="0" type="Sken"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="Partner">
+<xs:sequence>
+<xs:element name="Sifra">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Naziv1" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Naziv2" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Naziv3" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Naslov" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:choice>
+<xs:element name="Postna_stevilka" minOccurs="0" type="Postna_stevilka"/>
+<xs:element name="PostOffice" minOccurs="0" type="TPostOffice"/>
+</xs:choice>
+<xs:element name="Kraj" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="35"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Drzava" minOccurs="0" type="Drzava">
+<xs:annotation>
+<xs:documentation>Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za Slovenijo</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="DDV_status" minOccurs="0" type="DDV_status"/>
+<xs:element name="Identifikacijska_stevilka" minOccurs="0" type="ID_stev_za_DDV">
+<xs:annotation>
+<xs:documentation>ID številka za DDV. Slovenske so SIxxxxxxxx. Vedno se prične z dvomestno kodo države.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Davcna_stevilka" minOccurs="0" type="Davc_stev">
+<xs:annotation>
+<xs:documentation>Nastopa le v primeru slovenskih oseb. V tem primeru je to Identifikacijska številka brez SI.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Maticna_stevilka" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Tel_stevilka" minOccurs="0" type="Tel_stev">
+<xs:annotation>
+<xs:documentation>Telefonska številka centrale ali tajništva</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Fax_stevilka" minOccurs="0" type="Tel_stev">
+<xs:annotation>
+<xs:documentation>Telefonska številka centralnega faxa ali faxa v tajništvu</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Sifra_tuji_program" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="20"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="EMail" minOccurs="0" type="xs:string">
+<xs:annotation>
+<xs:documentation>Generalni elektronski naslov podjetja, npr. info@firma.si</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Racuni" minOccurs="0">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Racun" minOccurs="0" maxOccurs="unbounded">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Racun">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="25"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="BIC">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="11"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Osebe" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Zaposleni pri partnerju</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Oseba" type="Oseba" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TPostOffice">
+<xs:sequence>
+<xs:element name="Code" type="Postna_stevilka">
+<xs:annotation>
+<xs:documentation>Poštva številka, ki se mora pričeti z dvomestno kodo države. Npr. SI-1000 ali HR-1000</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="Title1">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Title2" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Country" minOccurs="0" type="Drzava">
+<xs:annotation>
+<xs:documentation>Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za državo zakonodaje</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Oseba">
+<xs:sequence>
+<xs:element name="EMSO" minOccurs="0">
+<xs:annotation>
+<xs:documentation>V kolikor imamo ta podatek podajamo ta podatek in se lahko uporabi kot unikaten podatek za identifikacijo osebe v sistemu. Pri tujcih se podaja EMST.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="13"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Koda" minOccurs="0">
+<xs:annotation>
+<xs:documentation>Če se ne podaja podatek EMŠO ali ni na voljo je potrebno podati neko drugo kodo - šifro, iz sistema ki podatke podaja, oz. pripravlja prenosno datoteko. </xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="13"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Priimek">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="30"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Ime">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="30"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Naslov1" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Naslov2" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="40"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:choice>
+<xs:element name="Postna_stevilka" minOccurs="0" type="Postna_stevilka"/>
+<xs:element name="PostOffice" minOccurs="0" type="TPostOffice"/>
+</xs:choice>
+<xs:element name="Kraj" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="35"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Drzava" minOccurs="0" type="Drzava">
+<xs:annotation>
+<xs:documentation>Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za Slovenijo</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="EMail" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string"/>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Tel_stevilke" minOccurs="0">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Tel_stevilka" type="Tel_stevilka" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Tel_stevilka">
+<xs:sequence>
+<xs:element name="Stevilka" type="Tel_stev"/>
+<xs:element name="Tip" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:enumeration value="Stacionarni"/>
+<xs:enumeration value="Mobilni"/>
+<xs:enumeration value="Fax"/>
+<xs:enumeration value="Pager"/>
+<xs:enumeration value="Modem"/>
+<xs:enumeration value="Telefax"/>
+<xs:enumeration value="Car"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Namen" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:enumeration value="Privatni"/>
+<xs:enumeration value="Sluzbeni"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TAnalyst">
+<xs:sequence>
+<xs:element name="Code">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="10"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Title1" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="100"/>
+<xs:enumeration value="Stacionarni"/>
+<xs:enumeration value="Mobilni"/>
+<xs:enumeration value="Fax"/>
+<xs:enumeration value="Pager"/>
+<xs:enumeration value="Modem"/>
+<xs:enumeration value="Telefax"/>
+<xs:enumeration value="Car"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Title2" minOccurs="0">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="100"/>
+<xs:enumeration value="Privatni"/>
+<xs:enumeration value="Sluzbeni"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Obracunsko_obdobje">
+<xs:sequence>
+<xs:element name="Mesec">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="1"/>
+<xs:maxInclusive value="12"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Leto">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="1900"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Sken">
+<xs:sequence>
+<xs:element name="Sken_ID">
+<xs:annotation>
+<xs:documentation>Unikaten identifikator slike v skenirnem sistemu</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:maxLength value="20"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="Slike" minOccurs="0">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Slika" maxOccurs="unbounded">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Format" type="FormatSlike">
+<xs:annotation>
+<xs:documentation>Format v katerem je slika generirana, ki se nahaja v elementu RAW</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="RAW" type="xs:base64Binary"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="Postna_stevilka">
+<xs:restriction base="xs:string">
+<xs:maxLength value="12"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="Drzava">
+<xs:restriction base="xs:string"/>
+</xs:simpleType>
+<xs:simpleType name="Tel_stev">
+<xs:restriction base="xs:string">
+<xs:maxLength value="20"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="ID_stev_za_DDV">
+<xs:restriction base="xs:string"/>
+</xs:simpleType>
+<xs:simpleType name="Davc_stev">
+<xs:restriction base="xs:string"/>
+</xs:simpleType>
+<xs:simpleType name="Stev_dok">
+<xs:restriction base="xs:string">
+<xs:maxLength value="15"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="DDV_status">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Davcni_zavezanec"/>
+<xs:enumeration value="Nedavcni_zavezanec"/>
+<xs:enumeration value="Konzularno_predstavnistvo"/>
+<xs:enumeration value="Pavsalni_zavezanec"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="Dokument">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Prejeti_racun"/>
+<xs:enumeration value="Prejeti_dobropis"/>
+<xs:enumeration value="Prejeti_avansni_racun"/>
+<xs:enumeration value="Prejeti_ecl"/>
+<xs:enumeration value="Prejeti_nedavcni_racun"/>
+<xs:enumeration value="Prejeti_interni_racun"/>
+<xs:enumeration value="Prejeti_racun_samoobdavcitev"/>
+<xs:enumeration value="Prejeti_dokum_car_post42"/>
+<xs:enumeration value="Izdani_racun"/>
+<xs:enumeration value="Izdani_dobropis"/>
+<xs:enumeration value="Izdani_avansni_racun"/>
+<xs:enumeration value="Izdani_nedavcni_racun"/>
+<xs:enumeration value="Temeljnica"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="Trg">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Domac"/>
+<xs:enumeration value="EU"/>
+<xs:enumeration value="Tretji_svet"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="FormatSlike">
+<xs:restriction base="xs:string">
+<xs:enumeration value="TIFF"/>
+<xs:enumeration value="JPG"/>
+<xs:enumeration value="PNG"/>
+<xs:enumeration value="PDF"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:schema>

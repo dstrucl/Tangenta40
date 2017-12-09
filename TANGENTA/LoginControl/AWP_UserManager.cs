@@ -66,6 +66,7 @@ namespace LoginControl
             lng.s_lbl_UserRoles.Text(lbl_UserRoles);
             lng.s_lbl_OtherRoles.Text(lbl_OtherRoles);
             lng.s_btn_Edit_myOrganisation_Person.Text(btn_Edit_myOrganisation_Person);
+            lng.s_LoginHistory.Text(btn_LoginHistory);
 
             
             
@@ -614,6 +615,12 @@ namespace LoginControl
         private void usrc_PasswordBytes1_PasswordChanged()
         {
             awpld.Changed = true;
+        }
+
+        private void btn_LoginHistory_Click(object sender, EventArgs e)
+        {
+            AWPLoginHistoryForm awplhfrm = new AWPLoginHistoryForm(awp, awpld.UserName);
+            awplhfrm.ShowDialog(this);
         }
     }
 }

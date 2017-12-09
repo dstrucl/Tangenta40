@@ -310,6 +310,10 @@
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
+      <Project>{3C726999-1AD1-4321-8D63-D1136A3F071C}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\Excell_Export\Excell_Export.csproj">
       <Project>{5f7e6571-ac5e-44bc-a805-a0726d99b82c}</Project>
       <Name>Excell_Export</Name>
@@ -325,6 +329,10 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6B46E1F3-1818-4AF1-B63F-19E31C6B6170}</Project>
       <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
+      <Project>{6583355D-D6DC-46C9-9787-96A74EF27BE3}</Project>
+      <Name>TangentaDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

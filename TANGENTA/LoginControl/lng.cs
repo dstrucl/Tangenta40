@@ -49,6 +49,8 @@ namespace LoginControl
 
         public static ltext s_LoginHistoryForUser = new ltext(new string[]{"Login History for user:", "Zgodovina prijav za uporabnika:"});
 
+        public static ltext s_TotalWorkTime = new ltext(new string[] { "Total work time:", "Skupni  čas dela:" });
+        
 
         public static ltext s_Login = new ltext(new string[]{"Log-in", " Prijava"});
 
@@ -68,7 +70,8 @@ namespace LoginControl
 
         public static ltext s_CreateLoginTablesQuestion = new ltext(new string[]{"Users and Roles tables are missing.\r\nCreate Users and Roles tables?", "Manjkajo tabele \"Users\" and \"Roles\".\r\n Ustvarim tabele potrebne za prijavo?"});
 
-
+        public static ltext s_Duration = new ltext(new string[] { "Duration", "Trajanje" });
+        
         public static ltext s_LoginTime = new ltext(new string[]{"Login Time", "Čas prijave"});
         public static ltext s_LogoutTime = new ltext(new string[]{"Logout Time", "Čas odjave"});
         public static ltext s_LoginHistoryAndActiveUsers = new ltext(new string[]{"Show Active Users and Login History", "Prikaži aktivne uporabnike in zgodovino prijav"});
