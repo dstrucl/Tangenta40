@@ -5,21 +5,6 @@
     <Setting Name="RecentItemsFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IniFileFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\</Value>
-    </Setting>
-    <Setting Name="ReceiptPrinter" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="Setting" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="BackupFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="PrintAtOnce" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="ColorDraft" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">220, 255, 220</Value>
     </Setting>
@@ -64,9 +49,6 @@
     </Setting>
     <Setting Name="FinancialYear" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="CasshierName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Blagajna1</Value>
     </Setting>
     <Setting Name="FullScreen" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -121,6 +103,9 @@
     </Setting>
     <Setting Name="Color_DocProformaInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Azure</Value>
+    </Setting>
+    <Setting Name="SQLiteBackupFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

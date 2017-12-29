@@ -125,6 +125,27 @@ namespace Tangenta
         private bool Read_VOD_XSD_shema()
         {
             VOD_xsd_shema_file = Properties.Settings.Default.OPAL_VOD_XSD_shema;
+            if (VOD_xsd_shema_file.Length==0)
+            {
+                string xVodShemaFolder = null;
+                string Err = null;
+                if (StaticLib.Func.SetApplicationSubFolder(ref xVodShemaFolder, Program.TANGENTA_VODSHEMA_SUB_FOLDER,ref Err))
+                {
+                    string shema = Properties.Resources.VOD_shema;
+
+                    VOD_xsd_shema_file = xVodShemaFolder + "\\VOD.xsd";
+                    try
+                    {
+                        File.WriteAllText(VOD_xsd_shema_file, shema);
+                        Properties.Settings.Default.OPAL_VOD_XSD_shema = VOD_xsd_shema_file;
+                        Properties.Settings.Default.Save();
+                    }
+                    catch (Exception Ex)
+                    {
+                        LogFile.Warning.Show("Warning: Can not write VOD shema file:" + VOD_xsd_shema_file);
+                    }
+                }
+            }
             cmb_VOD_xml_shema.Text = VOD_xsd_shema_file;
             for (;;)
             {

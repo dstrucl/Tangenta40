@@ -20,17 +20,20 @@ using System.IO;
 using Startup;
 using System.Diagnostics;
 using TangentaDB;
+using System.Reflection;
 
 namespace Tangenta
 {
     public partial class Form_Document : Form
     {
         public const string XML_ROOT_NAME = "Tangenta_Xml";
+
         public string RecentItemsFolder = null;
         public startup m_startup = null;
         internal string m_XmlFileName = null;
         public startup_step[] StartupStep = null;
         public Form ChildForm = null;
+
 
         public Form_Document()
         {
@@ -136,38 +139,47 @@ namespace Tangenta
 
         public bool Startup_Check_DataBase(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
         {
-            string IniFileFolder = Properties.Settings.Default.IniFileFolder;
+         
+
             string sDBType = null;
             sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
-            bool bResult = DBSync.DBSync.Init(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated,ref bCanceled);
-            if (bResult)
+            string xCodeTables_IniFileFolder = null;
+            if (StaticLib.Func.SetApplicationSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
-                TangentaDB.GlobalData.Init();
-            }
-            if (bCanceled)
-            {
-                myStartup.eNextStep = startup_step.eStep.Cancel;
-                return false;
-            }
-            if (bResult)
-            {
-                Properties.Settings.Default.IniFileFolder = IniFileFolder;
-
-                Properties.Settings.Default.DBType = sDBType;
-                Properties.Settings.Default.Save();
-
-                myStartup.eNextStep++;
-                if (!DBSync.DBSync.DB_for_Tangenta_SessionConnect(ref Err))
+                bool bResult = DBSync.DBSync.Init(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
+                if (bResult)
                 {
-                    bResult = false;
+                    TangentaDB.GlobalData.Init();
                 }
+                if (bCanceled)
+                {
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    return false;
+                }
+                if (bResult)
+                {
+
+                    Properties.Settings.Default.DBType = sDBType;
+                    Properties.Settings.Default.Save();
+
+                    myStartup.eNextStep++;
+                    if (!DBSync.DBSync.DB_for_Tangenta_SessionConnect(ref Err))
+                    {
+                        bResult = false;
+                    }
+                }
+                else
+                {
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                }
+                return bResult;
             }
             else
             {
                 myStartup.eNextStep = startup_step.eStep.Cancel;
             }
-            return bResult;
+            return false;
         }
 
 

@@ -156,8 +156,7 @@
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\fcmo62m" +
-    "-01\\RecentComboBoxItems";
+            this.cmbR_FilePath.RecentItemsFolder = "";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
@@ -176,8 +175,8 @@
             this.cmb_VOD_xml_shema.Name = "cmb_VOD_xml_shema";
             this.cmb_VOD_xml_shema.ReadOnly = false;
             this.cmb_VOD_xml_shema.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmb_VOD_xml_shema.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\fcmo62m" +
-    "-01\\RecentComboBoxItems";
+            this.cmb_VOD_xml_shema.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\6bo6a" +
+    "c9o01\\RecentComboBoxItems";
             this.cmb_VOD_xml_shema.Size = new System.Drawing.Size(411, 23);
             this.cmb_VOD_xml_shema.TabIndex = 21;
             // 
@@ -280,7 +279,7 @@
             this.splitContainer3.Panel1.Controls.Add(this.lbl_Dokumenti);
             this.splitContainer3.Panel1.Controls.Add(this.dgvx_Dokumenti);
             this.splitContainer3.Size = new System.Drawing.Size(500, 369);
-            this.splitContainer3.SplitterDistance = 467;
+            this.splitContainer3.SplitterDistance = 466;
             this.splitContainer3.TabIndex = 0;
             // 
             // lbl_Dokumenti
@@ -305,7 +304,7 @@
             this.dgvx_Dokumenti.Name = "dgvx_Dokumenti";
             this.dgvx_Dokumenti.ReadOnly = true;
             this.dgvx_Dokumenti.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_Dokumenti.Size = new System.Drawing.Size(463, 340);
+            this.dgvx_Dokumenti.Size = new System.Drawing.Size(462, 340);
             this.dgvx_Dokumenti.TabIndex = 0;
             // 
             // splitContainer4

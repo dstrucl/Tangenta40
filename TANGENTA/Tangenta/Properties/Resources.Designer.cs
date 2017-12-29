@@ -778,6 +778,31 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!--
+        /// edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by AAA (BBBB) 
+        ///--&gt;
+        ///&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; elementFormDefault=&quot;qualified&quot; attributeFormDefault=&quot;unqualified&quot;&gt;
+        ///&lt;xs:element name=&quot;Prenos&quot;&gt;
+        ///&lt;xs:complexType&gt;
+        ///&lt;xs:sequence&gt;
+        ///&lt;xs:element name=&quot;Glava&quot;&gt;
+        ///&lt;xs:annotation&gt;
+        ///&lt;xs:documentation&gt;
+        ///Informativni podatki o programu in avtorjih, ki pripravi XML datoteko.
+        ///&lt;/xs:documentation&gt;
+        ///&lt;/xs:annotation&gt;
+        ///&lt;xs:complexType&gt;
+        ///&lt;xs:sequence&gt;
+        ///&lt;xs:element name=&quot;Program&quot;&gt;
+        ///&lt;xs [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string VOD_shema {
+            get {
+                return ResourceManager.GetString("VOD_shema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Warranty {

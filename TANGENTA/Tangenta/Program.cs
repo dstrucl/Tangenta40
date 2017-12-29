@@ -30,6 +30,9 @@ namespace Tangenta
     {
 
         #region Constants
+        internal const string TANGENTA_SETTINGS_SUB_FOLDER = "\\Settings";
+        internal const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\SQliteBackup";
+        internal const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\VODshema";
         const string const_command_DOCINVOICE = "DOCINVOICE";
         const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
         const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
@@ -235,6 +238,7 @@ namespace Tangenta
 
         #endregion
 
+       
         private static void Parse_CommandLineArguments(string[] CommandLineArguments)
         {
             if (CommandLineArguments != null)

@@ -826,19 +826,29 @@ namespace Tangenta
 
         private void btn_Backup_Click(object sender, EventArgs e)
         {
-            string BackupFolder = Properties.Settings.Default.BackupFolder;
-            string IniFileFolder = Properties.Settings.Default.IniFileFolder;
+
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
             NavigationButtons.Navigation nav = new NavigationButtons.Navigation();
             nav.btn3_Visible = true;
             nav.btn3_Text = "";
             nav.btn3_Image = Properties.Resources.Exit;
-
-            DBSync.DBSync.DBMan(Main_Form, Program.Reset2FactorySettings.DBConnectionControlXX_EXE, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder, nav);
-            Properties.Settings.Default.BackupFolder = BackupFolder;
-            Properties.Settings.Default.DBType = sDBType;
-            Properties.Settings.Default.Save();
+            string xCodeTables_IniFileFolder = null;
+            string Err = null;
+            if (StaticLib.Func.SetApplicationSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            {
+                string xSQLitebackupFolder = Properties.Settings.Default.SQLiteBackupFolder;
+                if (xSQLitebackupFolder.Length == 0)
+                {
+                    if (StaticLib.Func.SetApplicationSubFolder(ref xSQLitebackupFolder, Program.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
+                    {
+                    }
+                }
+                DBSync.DBSync.DBMan(Main_Form, Program.Reset2FactorySettings.DBConnectionControlXX_EXE, ((Form_Document)Main_Form).m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
+                Properties.Settings.Default.SQLiteBackupFolder = xSQLitebackupFolder;
+                Properties.Settings.Default.DBType = sDBType;
+                Properties.Settings.Default.Save();
+            }
         }
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()

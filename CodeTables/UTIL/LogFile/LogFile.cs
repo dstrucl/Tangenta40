@@ -148,6 +148,26 @@ namespace LogFile
 
             if (!Directory.Exists(LogFolder))
             {
+                if (LogFolder != null)
+                {
+                    if (LogFolder.Length > 0)
+                    {
+                        try
+                        {
+
+                            Directory.CreateDirectory(LogFolder);
+
+                        }
+                        catch (Exception Ex)
+                        {
+                            MessageBox.Show("Log folder not created:" + LogFolder + "\r\nException:" + Ex.Message);
+                        }
+                    }
+                }
+            }
+
+            if (!Directory.Exists(LogFolder))
+            {
                 MessageBox.Show("Log folder does not exist:" + LogFile.LogFolder + "\r\nLog folder is set to:" + strAppDir, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 LogFile.LogFolder = strAppDir;
                 if (LogFile.LogFolder[LogFile.LogFolder.Length - 1] != '\\')

@@ -37,66 +37,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\")]
-        public string IniFileFolder {
-            get {
-                return ((string)(this["IniFileFolder"]));
-            }
-            set {
-                this["IniFileFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ReceiptPrinter {
-            get {
-                return ((string)(this["ReceiptPrinter"]));
-            }
-            set {
-                this["ReceiptPrinter"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
-            get {
-                return ((string)(this["Setting"]));
-            }
-            set {
-                this["Setting"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string BackupFolder {
-            get {
-                return ((string)(this["BackupFolder"]));
-            }
-            set {
-                this["BackupFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PrintAtOnce {
-            get {
-                return ((bool)(this["PrintAtOnce"]));
-            }
-            set {
-                this["PrintAtOnce"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("220, 255, 220")]
         public global::System.Drawing.Color ColorDraft {
             get {
@@ -272,18 +212,6 @@ namespace Tangenta.Properties {
             }
             set {
                 this["FinancialYear"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blagajna1")]
-        public string CasshierName {
-            get {
-                return ((string)(this["CasshierName"]));
-            }
-            set {
-                this["CasshierName"] = value;
             }
         }
         
@@ -500,6 +428,18 @@ namespace Tangenta.Properties {
             }
             set {
                 this["Color_DocProformaInvoiceBackGround"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SQLiteBackupFolder {
+            get {
+                return ((string)(this["SQLiteBackupFolder"]));
+            }
+            set {
+                this["SQLiteBackupFolder"] = value;
             }
         }
     }
