@@ -246,6 +246,16 @@ namespace Tangenta
             }
 
             string sql = null;
+
+            string ElectronicDevice_Name = Properties.Settings.Default.ElectronicDevice_ID;
+            if (lpar_ExtraCondition == null)
+            {
+                lpar_ExtraCondition = new List<SQL_Parameter>();
+            }
+            string spar_ElectronicDevice_Name = "@par_ElectronicDevice_Name";
+            SQL_Parameter par_ElectronicDevice_Name = new SQL_Parameter(spar_ElectronicDevice_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Name);
+            lpar_ExtraCondition.Add(par_ElectronicDevice_Name);
+
             if (IsDocInvoice)
             {
                 if (Program.b_FVI_SLO)
@@ -332,7 +342,10 @@ namespace Tangenta
                     INNER JOIN Atom_WorkingPlace JOURNAL_DocInvoice_$_awperiod_$_awplace ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocInvoice_$_awperiod_$_awplace.ID
                     INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_acomp ON JOURNAL_DocInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
-                    " + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
+                    " + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " 
+                    + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime 
+                    + ")) and  JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name 
+                    + " order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
                 }
                 else
                 {
@@ -409,7 +422,10 @@ namespace Tangenta
                     INNER JOIN Atom_WorkingPlace JOURNAL_DocInvoice_$_awperiod_$_awplace ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocInvoice_$_awperiod_$_awplace.ID
                     INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_acomp ON JOURNAL_DocInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
-                    " + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_DocInvoice_$_dinv.FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
+                    " + cond +
+                    " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime
+                    + ")) and  JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name
+                    + " order by JOURNAL_DocInvoice_$_dinv.FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
                 }
             }
             else if (IsDocProformaInvoice)
@@ -440,6 +456,7 @@ namespace Tangenta
                 JOURNAL_DocProformaInvoice.EventTime AS JOURNAL_DocProformaInvoice_$$EventTime,
                 JOURNAL_DocProformaInvoice_$_dpinv.Draft AS JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
                 JOURNAL_DocProformaInvoice_$_dpinv.DraftNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
+                JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name AS JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$$Name,
                 JOURNAL_DocProformaInvoice_$_dpinv.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$$ID, 
                 JOURNAL_DocProformaInvoice_$_jpinvt.ID AS JOURNAL_DocProformaInvoice_$_jpinvt_$$ID
                 FROM JOURNAL_DocProformaInvoice
@@ -461,6 +478,7 @@ namespace Tangenta
                 LEFT JOIN MethodOfPayment_DPI mtpdpi ON dpiao.MethodOfPayment_DPI_ID = mtpdpi.ID
                 LEFT JOIN PaymentType pt ON mtpdpi.PaymentType_ID = pt.ID
                 INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
+                INNER JOIN Atom_ElectronicDevice JOURNAL_DocProformaInvoice_$_awperiod_$_aed ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed.ID
                 INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
                 INNER JOIN Atom_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.ID
                 INNER JOIN Atom_cFirstName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
@@ -483,7 +501,10 @@ namespace Tangenta
                 INNER JOIN Atom_WorkingPlace JOURNAL_DocProformaInvoice_$_awperiod_$_awplace ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awplace.ID
                 INNER JOIN Atom_Computer JOURNAL_DocProformaInvoice_$_awperiod_$_acomp ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_acomp.ID
                 LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt.ID
-                " + cond + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime + ") order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv.Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
+                " + cond 
+                + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime 
+                + ") and  JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name +
+                " order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv.Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
             }
             bIgnoreChangeSelectionEvent = true;
             dt_XInvoice.Clear();

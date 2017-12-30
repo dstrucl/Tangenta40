@@ -173,8 +173,25 @@ namespace UpgradeDB
 
                                             ALTER TABLE Atom_PriceList_NEW RENAME TO Atom_PriceList;
 
-                                            PRAGMA foreign_keys = ON;
+                                            DELETE FROM Currency;
+                                            delete from sqlite_sequence where name='Currency';
+
                                             ";
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+
+                        if (!fs.Init_Currency_Table(ref Err))
+                        {
+                            return false;
+                        }
+
+                        sql = @"update Atom_Currency set Name = 'Euro' where Name = 'EURO';
+                                PRAGMA foreign_keys = ON;
+                              ";
+
                         if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);

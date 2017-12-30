@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLO_FISCAL", "SLO_FISCAL", "{DE3D2397-515E-4558-BCE5-30433DE67F71}"
 EndProject
@@ -9106,7 +9106,7 @@ Global
 		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.NUnit|x64.Build.0 = Release|x86
 		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.NUnit|x86.ActiveCfg = Release|x86
 		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.NUnit|x86.Build.0 = Release|x86
-		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.Release|Any CPU.ActiveCfg = Release|x86
+		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.Release|ARM.ActiveCfg = Release|x86
 		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.Release|iPhone.ActiveCfg = Release|x86
 		{351DC52F-73B9-4D0E-98C5-1D56760628F8}.Release|iPhoneSimulator.ActiveCfg = Release|x86

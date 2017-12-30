@@ -397,12 +397,12 @@ namespace TangentaDB
             }
         }
 
-        internal bool SaveDocProformaInvoice(string DocInvoice,ref long xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn, ref int xNumberInFinancialYear)
+        internal bool SaveDocProformaInvoice(string DocInvoice,ref long xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear)
         {
             string sql = null;
             object ores = null;
             string Err = null;
-            if (GetNewNumberInFinancialYear(DocInvoice))
+            if (GetNewNumberInFinancialYear(DocInvoice, ElectronicDevice_Name))
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocProformaInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
@@ -1476,12 +1476,12 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocInvoice(string DocInvoice,ref long xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(string DocInvoice,ref long xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
         {
             string sql = null;
             object ores = null;
             string Err = null;
-            if (GetNewNumberInFinancialYear(DocInvoice))
+            if (GetNewNumberInFinancialYear(DocInvoice,  ElectronicDevice_Name))
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
@@ -1498,7 +1498,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool GetNewNumberInFinancialYear(string DocInvoice,ref int xNumberInFinancialYear)
+        private bool GetNewNumberInFinancialYear(string DocInvoice,string ElectronicDevice_Name,ref int xNumberInFinancialYear)
         {
             //string cond = null;
             int iLimit = 1;
@@ -1512,10 +1512,24 @@ namespace TangentaDB
             //    cond = "Invoice_ID is null";
             //}
             //string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and " + cond + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
-            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from "+ DocInvoice + " where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            //string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from "+ DocInvoice + " where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_ElectronicDevice_Name = "@par_ElectronicDevice_Name";
+            SQL_Parameter par_ElectronicDevice_Name = new SQL_Parameter(spar_ElectronicDevice_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Name);
+            lpar.Add(par_ElectronicDevice_Name);
+
+
+            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.NumberInFinancialYear from " + DocInvoice + " di " +
+              "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
+              "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+              "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
+              "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+              "\r\n where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and aed.Name = " + spar_ElectronicDevice_Name + " order by aed.Name asc, NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+
             DataTable dt = new DataTable();
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count == 1)
                 {
@@ -1535,9 +1549,9 @@ namespace TangentaDB
             }
         }
 
-        private bool GetNewNumberInFinancialYear(string DocInvoice)
+        private bool GetNewNumberInFinancialYear(string DocInvoice, string ElectronicDevice_Name)
         {
-            return GetNewNumberInFinancialYear(DocInvoice,ref NumberInFinancialYear);
+            return GetNewNumberInFinancialYear(DocInvoice, ElectronicDevice_Name,ref NumberInFinancialYear);
         }
 
         public bool Update_Customer_Person(string DocInvoice, long Customer_Person_ID, ref long_v xAtom_Customer_Person_ID_v)
@@ -1634,7 +1648,7 @@ namespace TangentaDB
         }
    
 
-        public bool Storno(ref long Storno_DocInvoice_ID,  bool bStorno, string sReason,ref  DateTime retissue_time)
+        public bool Storno(ref long Storno_DocInvoice_ID,  bool bStorno,string ElectronicDevice_Name, string sReason,ref  DateTime retissue_time)
         {
             object ores = null;
             string Err = null;
@@ -1681,7 +1695,7 @@ namespace TangentaDB
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
                 long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 int iNewNumberInFinancialYear = -1;
-                GetNewNumberInFinancialYear("DocInvoice",ref iNewNumberInFinancialYear);
+                GetNewNumberInFinancialYear("DocInvoice", ElectronicDevice_Name,ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
 
                 long_v Storno_Invoice_ID_v = new long_v(Doc_ID);

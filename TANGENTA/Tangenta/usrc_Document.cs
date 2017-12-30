@@ -613,10 +613,14 @@ namespace Tangenta
                     {
                         if (Program.bFirstTimeInstallation)
                         {
-                            bResult = InsertSampleData(myStartup, xnav, ref Err);
-                            if (xnav.eExitResult == Navigation.eEvent.PREV)
+                            if (fs.GetTableRowsCount("myOrganisation_Person") == 0)
                             {
-                                goto do_Form_DBSettings;
+                                //DataBase Is Empty!
+                                bResult = InsertSampleData(myStartup, xnav, ref Err);
+                                if (xnav.eExitResult == Navigation.eEvent.PREV)
+                                {
+                                    goto do_Form_DBSettings;
+                                }
                             }
                         }
                     }

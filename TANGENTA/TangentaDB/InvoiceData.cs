@@ -550,12 +550,12 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocProformaInvoice(ref long docInvoice_ID)
+        public bool SaveDocProformaInvoice(ref long docInvoice_ID,string ElectronicDevice_Name)
         {
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
             InvoiceTime_v.v = DateTime.Now;
-            bool bRet= m_ShopABC.m_CurrentInvoice.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ref xNumberInFinancialYear);
+            bool bRet= m_ShopABC.m_CurrentInvoice.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ElectronicDevice_Name, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docInvoice_ID = DocInvoice_ID;
@@ -651,10 +651,10 @@ namespace TangentaDB
         }
 
 
-        public bool SaveDocInvoice(ref long docinvoice_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref long docinvoice_ID, string ElectronicDevice_Name)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
-            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ref xNumberInFinancialYear);
+            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ElectronicDevice_Name, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docinvoice_ID = DocInvoice_ID;
@@ -812,11 +812,19 @@ namespace TangentaDB
         public bool Read_DocInvoice()
         {
             string sql = null;
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Doc_ID = "@par_Doc_ID";
+            SQL_Parameter par_Doc_ID = new SQL_Parameter(spar_Doc_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
+            lpar.Add(par_Doc_ID);
+
+
             if (IsDocInvoice)
             {
                 DocInvoice_Reference_ID_v = null;
                 if (AddOnDI.b_FVI_SLO)
                 {
+
                     sql = @"select
                                 pi.ID as DocInvoice_ID,
                                 pi.FinancialYear,
@@ -906,7 +914,7 @@ namespace TangentaDB
                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                where pi.ID = " + DocInvoice_ID.ToString();
+                                where pi.ID = " + spar_Doc_ID;
                 }
                 else
                 {
@@ -990,9 +998,9 @@ namespace TangentaDB
                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                where pi.ID = " + DocInvoice_ID.ToString();
-                    }
+                                where pi.ID = " + spar_Doc_ID;
                 }
+            }
                 else if (IsDocProformaInvoice)
                 {
                 sql = @"select
@@ -1072,7 +1080,7 @@ namespace TangentaDB
                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                where pi.ID = " + DocInvoice_ID.ToString();
+                                where pi.ID = " + spar_Doc_ID;
             }
             else
             {
@@ -1083,7 +1091,7 @@ namespace TangentaDB
             string Err = null;
             dt_DocInvoice.Clear();
             dt_DocInvoice.Columns.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql,lpar, ref Err))
             {
                 if (dt_DocInvoice.Rows.Count == 1)
                 {

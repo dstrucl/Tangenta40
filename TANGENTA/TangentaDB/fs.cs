@@ -548,6 +548,7 @@ namespace TangentaDB
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
                         {
                             Err = "ERROR::TangentaDB:fs:Init_Currency_Table:Err=" + Err;
+                            LogFile.Error.Show(Err);
                             if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
                             {
                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();

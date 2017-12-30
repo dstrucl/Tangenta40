@@ -1992,7 +1992,7 @@ do_EditMyOrganisation_Data:
         {
             long DocInvoice_ID = -1;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, Properties.Settings.Default.ElectronicDevice_ID, ref Err))
             {
                 if (m_ShopABC.m_CurrentInvoice.Doc_ID >= 0)
                 {
@@ -2212,7 +2212,7 @@ do_EditMyOrganisation_Data:
                   
                     long DocInvoice_ID = -1;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID))
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID))
                     {
 
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
@@ -2255,7 +2255,7 @@ do_EditMyOrganisation_Data:
                 {
                     long DocInvoice_ID = -1;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID))
+                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID))
                     {
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
@@ -2538,7 +2538,7 @@ do_EditMyOrganisation_Data:
     
                                     long Storno_DocInvoice_ID = -1;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_DocInvoice_ID,true, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
+                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_DocInvoice_ID,true,Properties.Settings.Default.ElectronicDevice_ID, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
                                         if (Storno != null)
                                         {

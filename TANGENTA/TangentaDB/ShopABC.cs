@@ -17,6 +17,7 @@ using DBTypes;
 using System.Data;
 using System.Windows.Forms;
 using System.Drawing;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
@@ -786,13 +787,24 @@ namespace TangentaDB
         public bool SetNewDraft_DocInvoice(int iFinancialYear, Control pParent, ref long DocInvoice_ID,
                                   long myOrganisation_Person_ID,
                                   string DocInvoice,
+                                  string ElectronicDevice_Name,
                                   ref string Err)
         {
             DataTable dt = new DataTable();
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_ElectronicDevice_Name = "@par_ElectronicDevice_Name";
+            SQL_Parameter par_ElectronicDevice_Name = new SQL_Parameter(spar_ElectronicDevice_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Name);
+            lpar.Add(par_ElectronicDevice_Name);
+
             int xDraftNumber = -1;
             int iLimit = 1;
-            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from "+DocInvoice+" order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
-            if (!DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from "+DocInvoice+" di "+
+                          "\r\n inner join JOURNAL_"+ DocInvoice + " jdi on jdi."+ DocInvoice+"_ID = di.ID "+
+                          "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+                          "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
+                          "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                          "\r\n where aed.Name = "+ spar_ElectronicDevice_Name + " order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            if (!DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
             {
                 LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
                 return false;
