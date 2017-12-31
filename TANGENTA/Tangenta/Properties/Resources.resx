@@ -1666,4 +1666,10 @@ Format v katerem je slika generirana, ki se nahaja v elementu RAW
 &lt;/xs:simpleType&gt;
 &lt;/xs:schema&gt;</value>
   </data>
+  <data name="TangentaInstaller_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TangentaInstaller_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TangentaUninstaller_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TangentaUninstaller_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

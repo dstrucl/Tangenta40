@@ -720,6 +720,26 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon TangentaInstaller_Icon {
+            get {
+                object obj = ResourceManager.GetObject("TangentaInstaller_Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon TangentaUninstaller_Icon {
+            get {
+                object obj = ResourceManager.GetObject("TangentaUninstaller_Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon Tax_icon {
             get {
                 object obj = ResourceManager.GetObject("Tax_icon", resourceCulture);

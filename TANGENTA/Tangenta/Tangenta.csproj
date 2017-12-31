@@ -792,6 +792,7 @@
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
     <None Include="Tangenta.licenseheader" />
+    <None Include="TangentaInsatllerMUI2.nsi" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\Check\Check.csproj">
@@ -1177,6 +1178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\TangentaUninstaller_Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
