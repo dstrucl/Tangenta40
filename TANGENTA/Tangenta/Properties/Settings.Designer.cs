@@ -409,7 +409,7 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("255, 255, 220")]
+        [global::System.Configuration.DefaultSettingValueAttribute("226, 255, 186")]
         public global::System.Drawing.Color Color_DocInvoiceBackGround {
             get {
                 return ((global::System.Drawing.Color)(this["Color_DocInvoiceBackGround"]));
