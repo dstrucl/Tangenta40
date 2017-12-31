@@ -123,6 +123,16 @@ namespace CodeTables.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap InsertInDataBase {
+            get {
+                object obj = ResourceManager.GetObject("InsertInDataBase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap jim_carrey_typing_grande {
             get {
                 object obj = ResourceManager.GetObject("jim_carrey_typing_grande", resourceCulture);
@@ -327,6 +337,16 @@ namespace CodeTables.Properties {
             get {
                 object obj = ResourceManager.GetObject("Warning_Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WriteToDB {
+            get {
+                object obj = ResourceManager.GetObject("WriteToDB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

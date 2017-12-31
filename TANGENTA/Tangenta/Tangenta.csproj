@@ -79,6 +79,10 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=6.8.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1130,9 +1134,6 @@
     <None Include="Resources\Settings_in_DB.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CompanyLogo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\CodeTables.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -1144,7 +1145,6 @@
   <ItemGroup>
     <None Include="Resources\DBSettings.png" />
     <EmbeddedResource Include="00_ENG_Invoice_A4.htm" />
-    <Content Include="Blagajna_Icon.ico" />
     <None Include="Resources\PaymentIcon.ico" />
     <None Include="Resources\Print.bmp" />
     <None Include="Resources\Form_DBSettings.ico" />
@@ -1155,7 +1155,6 @@
     <None Include="Resources\Person.ico" />
     <None Include="Resources\Persons.ico" />
     <None Include="Resources\Tangenta_Question.ico" />
-    <None Include="Resources\Blagajna_Icon1.ico" />
     <None Include="Resources\Exit_Program.bmp" />
     <None Include="Resources\ProgramSettings.ico" />
     <None Include="Resources\Settings.bmp" />
@@ -1175,6 +1174,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blagajna_Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

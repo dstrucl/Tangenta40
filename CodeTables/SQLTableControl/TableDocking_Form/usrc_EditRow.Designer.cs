@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_EditRow));
             this.btn_New = new System.Windows.Forms.Button();
             this.btn_Update = new System.Windows.Forms.Button();
             this.btn_Insert = new System.Windows.Forms.Button();
@@ -38,32 +39,47 @@
             // 
             // btn_New
             // 
+            this.btn_New.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_New.Image = ((System.Drawing.Image)(resources.GetObject("btn_New.Image")));
+            this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(5, 27);
             this.btn_New.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_New.Name = "btn_New";
-            this.btn_New.Size = new System.Drawing.Size(69, 30);
+            this.btn_New.Size = new System.Drawing.Size(74, 30);
             this.btn_New.TabIndex = 8;
             this.btn_New.Text = "New";
+            this.btn_New.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_New.UseVisualStyleBackColor = false;
             this.btn_New.Click += new System.EventHandler(this.btn_New_Click);
             // 
             // btn_Update
             // 
-            this.btn_Update.Location = new System.Drawing.Point(208, 27);
+            this.btn_Update.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Update.Image = global::CodeTables.Properties.Resources.WriteToDB;
+            this.btn_Update.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_Update.Location = new System.Drawing.Point(209, 27);
             this.btn_Update.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(83, 30);
             this.btn_Update.TabIndex = 7;
             this.btn_Update.Text = "Update";
+            this.btn_Update.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Update.UseVisualStyleBackColor = false;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Insert
             // 
-            this.btn_Insert.Location = new System.Drawing.Point(80, 27);
+            this.btn_Insert.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Insert.Image = ((System.Drawing.Image)(resources.GetObject("btn_Insert.Image")));
+            this.btn_Insert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Insert.Location = new System.Drawing.Point(83, 27);
             this.btn_Insert.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Insert.Name = "btn_Insert";
             this.btn_Insert.Size = new System.Drawing.Size(122, 30);
             this.btn_Insert.TabIndex = 5;
             this.btn_Insert.Text = "Insert In Data Base";
+            this.btn_Insert.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_Insert.UseVisualStyleBackColor = false;
             this.btn_Insert.Click += new System.EventHandler(this.btnInsertInDataBase_Click);
             // 
             // BtnCallSecretaryToWork
