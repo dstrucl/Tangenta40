@@ -56,12 +56,13 @@
             // 
             // btn_FVI_SLO_RealEstateBP
             // 
+            this.btn_FVI_SLO_RealEstateBP.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_FVI_SLO_RealEstateBP.Location = new System.Drawing.Point(3, 5);
             this.btn_FVI_SLO_RealEstateBP.Name = "btn_FVI_SLO_RealEstateBP";
             this.btn_FVI_SLO_RealEstateBP.Size = new System.Drawing.Size(367, 34);
             this.btn_FVI_SLO_RealEstateBP.TabIndex = 3;
             this.btn_FVI_SLO_RealEstateBP.Text = "button1";
-            this.btn_FVI_SLO_RealEstateBP.UseVisualStyleBackColor = true;
+            this.btn_FVI_SLO_RealEstateBP.UseVisualStyleBackColor = false;
             this.btn_FVI_SLO_RealEstateBP.Click += new System.EventHandler(this.btn_FVI_SLO_RealEstateBP_Click);
             // 
             // usrc_NavigationButtons1

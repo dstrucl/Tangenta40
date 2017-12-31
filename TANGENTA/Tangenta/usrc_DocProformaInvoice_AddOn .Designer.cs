@@ -70,6 +70,7 @@
             // btn_ProformaInvoice_Issue
             // 
             this.btn_ProformaInvoice_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_ProformaInvoice_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_ProformaInvoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_ProformaInvoice_Issue.ForeColor = System.Drawing.Color.Black;
             this.btn_ProformaInvoice_Issue.Location = new System.Drawing.Point(10, 442);
@@ -78,7 +79,7 @@
             this.btn_ProformaInvoice_Issue.Size = new System.Drawing.Size(158, 44);
             this.btn_ProformaInvoice_Issue.TabIndex = 7;
             this.btn_ProformaInvoice_Issue.Text = "Issue";
-            this.btn_ProformaInvoice_Issue.UseVisualStyleBackColor = true;
+            this.btn_ProformaInvoice_Issue.UseVisualStyleBackColor = false;
             this.btn_ProformaInvoice_Issue.Click += new System.EventHandler(this.btn_Issue_Click);
             // 
             // rdb_BankAccountTransfer
@@ -116,6 +117,7 @@
             // btn_Select_BankAccount
             // 
             this.btn_Select_BankAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Select_BankAccount.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_BankAccount.ForeColor = System.Drawing.Color.Black;
             this.btn_Select_BankAccount.Image = global::Tangenta.Properties.Resources.SelectRow;
             this.btn_Select_BankAccount.Location = new System.Drawing.Point(415, 20);
@@ -123,7 +125,7 @@
             this.btn_Select_BankAccount.Name = "btn_Select_BankAccount";
             this.btn_Select_BankAccount.Size = new System.Drawing.Size(32, 20);
             this.btn_Select_BankAccount.TabIndex = 12;
-            this.btn_Select_BankAccount.UseVisualStyleBackColor = true;
+            this.btn_Select_BankAccount.UseVisualStyleBackColor = false;
             this.btn_Select_BankAccount.Click += new System.EventHandler(this.btn_Select_BankAccount_Click);
             // 
             // txt_BankAccount
@@ -162,7 +164,7 @@
             this.cmb_DaysOrMonths.Location = new System.Drawing.Point(114, 23);
             this.cmb_DaysOrMonths.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_DaysOrMonths.Name = "cmb_DaysOrMonths";
-            this.cmb_DaysOrMonths.Size = new System.Drawing.Size(134, 27);
+            this.cmb_DaysOrMonths.Size = new System.Drawing.Size(134, 28);
             this.cmb_DaysOrMonths.TabIndex = 5;
             this.cmb_DaysOrMonths.SelectedIndexChanged += new System.EventHandler(this.cmb_DaysOrMonths_SelectedIndexChanged);
             // 
@@ -233,6 +235,7 @@
             // 
             // btn_Select_Terms_of_Payment
             // 
+            this.btn_Select_Terms_of_Payment.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_Terms_of_Payment.ForeColor = System.Drawing.Color.Black;
             this.btn_Select_Terms_of_Payment.Image = global::Tangenta.Properties.Resources.SelectRow;
             this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(201, 1);
@@ -240,7 +243,7 @@
             this.btn_Select_Terms_of_Payment.Name = "btn_Select_Terms_of_Payment";
             this.btn_Select_Terms_of_Payment.Size = new System.Drawing.Size(44, 21);
             this.btn_Select_Terms_of_Payment.TabIndex = 14;
-            this.btn_Select_Terms_of_Payment.UseVisualStyleBackColor = true;
+            this.btn_Select_Terms_of_Payment.UseVisualStyleBackColor = false;
             this.btn_Select_Terms_of_Payment.Click += new System.EventHandler(this.btn_Select_Terms_of_Payment_Click);
             // 
             // txt_PaymantConditionsDescription
@@ -258,6 +261,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
@@ -266,7 +270,7 @@
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(92, 42);
             this.btn_Cancel.TabIndex = 12;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // dtP_DateOfIssue

@@ -208,12 +208,13 @@
             // btn_edit_ShopB_Items
             // 
             this.btn_edit_ShopB_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_edit_ShopB_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_edit_ShopB_Items.Image = global::ShopB.Properties.Resources.Edit;
             this.btn_edit_ShopB_Items.Location = new System.Drawing.Point(766, 0);
             this.btn_edit_ShopB_Items.Name = "btn_edit_ShopB_Items";
             this.btn_edit_ShopB_Items.Size = new System.Drawing.Size(32, 25);
             this.btn_edit_ShopB_Items.TabIndex = 18;
-            this.btn_edit_ShopB_Items.UseVisualStyleBackColor = true;
+            this.btn_edit_ShopB_Items.UseVisualStyleBackColor = false;
             this.btn_edit_ShopB_Items.Click += new System.EventHandler(this.btn_edit_ShopB_Items_Click);
             // 
             // lbl_ShopB_Items

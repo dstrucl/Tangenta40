@@ -86,6 +86,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_ItemList.DocInvoice = "DocInvoice";
+            this.usrc_ItemList.ExclusivelySellFromStock = false;
             this.usrc_ItemList.Location = new System.Drawing.Point(1, 6);
             this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_ItemList.Name = "usrc_ItemList";
@@ -108,13 +109,14 @@
             // btn_Stock
             // 
             this.btn_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Stock.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Stock.Image = global::ShopC.Properties.Resources.Edit;
             this.btn_Stock.Location = new System.Drawing.Point(1064, 3);
             this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stock.Name = "btn_Stock";
             this.btn_Stock.Size = new System.Drawing.Size(37, 28);
             this.btn_Stock.TabIndex = 21;
-            this.btn_Stock.UseVisualStyleBackColor = true;
+            this.btn_Stock.UseVisualStyleBackColor = false;
             this.btn_Stock.Click += new System.EventHandler(this.btn_Stock_Click);
             // 
             // lbl_Items
@@ -131,13 +133,14 @@
             // btn_Items
             // 
             this.btn_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Items.Image = global::ShopC.Properties.Resources.Edit;
             this.btn_Items.Location = new System.Drawing.Point(1216, 3);
             this.btn_Items.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Items.Name = "btn_Items";
             this.btn_Items.Size = new System.Drawing.Size(37, 28);
             this.btn_Items.TabIndex = 19;
-            this.btn_Items.UseVisualStyleBackColor = true;
+            this.btn_Items.UseVisualStyleBackColor = false;
             this.btn_Items.Click += new System.EventHandler(this.btn_Items_Click);
             // 
             // lbl_Stock

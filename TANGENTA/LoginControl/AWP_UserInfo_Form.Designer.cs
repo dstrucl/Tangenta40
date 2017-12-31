@@ -70,32 +70,30 @@
             this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser1.Location = new System.Drawing.Point(16, 193);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(25, 25);
+            this.webBrowser1.Location = new System.Drawing.Point(13, 154);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(628, 308);
+            this.webBrowser1.Size = new System.Drawing.Size(502, 246);
             this.webBrowser1.TabIndex = 112;
             // 
             // lbl_ChangePasswordOnFirstLogIn
             // 
             this.lbl_ChangePasswordOnFirstLogIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ChangePasswordOnFirstLogIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_ChangePasswordOnFirstLogIn.Location = new System.Drawing.Point(416, 43);
-            this.lbl_ChangePasswordOnFirstLogIn.Margin = new System.Windows.Forms.Padding(4);
+            this.lbl_ChangePasswordOnFirstLogIn.Location = new System.Drawing.Point(333, 34);
+            this.lbl_ChangePasswordOnFirstLogIn.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lbl_ChangePasswordOnFirstLogIn.Name = "lbl_ChangePasswordOnFirstLogIn";
-            this.lbl_ChangePasswordOnFirstLogIn.Size = new System.Drawing.Size(173, 62);
+            this.lbl_ChangePasswordOnFirstLogIn.Size = new System.Drawing.Size(138, 50);
             this.lbl_ChangePasswordOnFirstLogIn.TabIndex = 121;
             this.lbl_ChangePasswordOnFirstLogIn.Text = "Change Password On First login";
             // 
             // txtUserName
             // 
             this.txtUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(135, 10);
-            this.txtUserName.Margin = new System.Windows.Forms.Padding(4);
+            this.txtUserName.Location = new System.Drawing.Point(108, 8);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ReadOnly = true;
-            this.txtUserName.Size = new System.Drawing.Size(222, 22);
+            this.txtUserName.Size = new System.Drawing.Size(178, 19);
             this.txtUserName.TabIndex = 119;
             // 
             // grp_PasswordExpires
@@ -108,11 +106,9 @@
             this.grp_PasswordExpires.Controls.Add(this.lbl_DeactivateAfterNumberOfDays);
             this.grp_PasswordExpires.Controls.Add(this.lbl_Max_Password_Age);
             this.grp_PasswordExpires.Controls.Add(this.nmUpDn_MaxPasswordAge);
-            this.grp_PasswordExpires.Location = new System.Drawing.Point(16, 111);
-            this.grp_PasswordExpires.Margin = new System.Windows.Forms.Padding(4);
+            this.grp_PasswordExpires.Location = new System.Drawing.Point(13, 89);
             this.grp_PasswordExpires.Name = "grp_PasswordExpires";
-            this.grp_PasswordExpires.Padding = new System.Windows.Forms.Padding(4);
-            this.grp_PasswordExpires.Size = new System.Drawing.Size(632, 74);
+            this.grp_PasswordExpires.Size = new System.Drawing.Size(506, 59);
             this.grp_PasswordExpires.TabIndex = 122;
             this.grp_PasswordExpires.TabStop = false;
             this.grp_PasswordExpires.Text = "Password Expires";
@@ -120,9 +116,10 @@
             // chkp_PasswordNotActiveAfterNumberOfDays
             // 
             this.chkp_PasswordNotActiveAfterNumberOfDays.Image = ((System.Drawing.Image)(resources.GetObject("chkp_PasswordNotActiveAfterNumberOfDays.Image")));
-            this.chkp_PasswordNotActiveAfterNumberOfDays.Location = new System.Drawing.Point(351, 16);
+            this.chkp_PasswordNotActiveAfterNumberOfDays.Location = new System.Drawing.Point(281, 13);
+            this.chkp_PasswordNotActiveAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkp_PasswordNotActiveAfterNumberOfDays.Name = "chkp_PasswordNotActiveAfterNumberOfDays";
-            this.chkp_PasswordNotActiveAfterNumberOfDays.Size = new System.Drawing.Size(24, 25);
+            this.chkp_PasswordNotActiveAfterNumberOfDays.Size = new System.Drawing.Size(19, 20);
             this.chkp_PasswordNotActiveAfterNumberOfDays.State = Check.check.eState.UNDEFINED;
             this.chkp_PasswordNotActiveAfterNumberOfDays.TabIndex = 132;
             this.chkp_PasswordNotActiveAfterNumberOfDays.TabStop = false;
@@ -130,9 +127,10 @@
             // chkp_PasswordExpiresAfterNumbersOfDays
             // 
             this.chkp_PasswordExpiresAfterNumbersOfDays.Image = ((System.Drawing.Image)(resources.GetObject("chkp_PasswordExpiresAfterNumbersOfDays.Image")));
-            this.chkp_PasswordExpiresAfterNumbersOfDays.Location = new System.Drawing.Point(137, 22);
+            this.chkp_PasswordExpiresAfterNumbersOfDays.Location = new System.Drawing.Point(110, 18);
+            this.chkp_PasswordExpiresAfterNumbersOfDays.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkp_PasswordExpiresAfterNumbersOfDays.Name = "chkp_PasswordExpiresAfterNumbersOfDays";
-            this.chkp_PasswordExpiresAfterNumbersOfDays.Size = new System.Drawing.Size(24, 25);
+            this.chkp_PasswordExpiresAfterNumbersOfDays.Size = new System.Drawing.Size(19, 20);
             this.chkp_PasswordExpiresAfterNumbersOfDays.State = Check.check.eState.UNDEFINED;
             this.chkp_PasswordExpiresAfterNumbersOfDays.TabIndex = 131;
             this.chkp_PasswordExpiresAfterNumbersOfDays.TabStop = false;
@@ -140,9 +138,10 @@
             // chkp_PasswordNeverExpires
             // 
             this.chkp_PasswordNeverExpires.Image = ((System.Drawing.Image)(resources.GetObject("chkp_PasswordNeverExpires.Image")));
-            this.chkp_PasswordNeverExpires.Location = new System.Drawing.Point(7, 22);
+            this.chkp_PasswordNeverExpires.Location = new System.Drawing.Point(6, 18);
+            this.chkp_PasswordNeverExpires.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkp_PasswordNeverExpires.Name = "chkp_PasswordNeverExpires";
-            this.chkp_PasswordNeverExpires.Size = new System.Drawing.Size(24, 26);
+            this.chkp_PasswordNeverExpires.Size = new System.Drawing.Size(19, 21);
             this.chkp_PasswordNeverExpires.State = Check.check.eState.UNDEFINED;
             this.chkp_PasswordNeverExpires.TabIndex = 130;
             this.chkp_PasswordNeverExpires.TabStop = false;
@@ -150,10 +149,10 @@
             // lbl_PaswordExpires_Never
             // 
             this.lbl_PaswordExpires_Never.AutoSize = true;
-            this.lbl_PaswordExpires_Never.Location = new System.Drawing.Point(38, 23);
-            this.lbl_PaswordExpires_Never.Margin = new System.Windows.Forms.Padding(4);
+            this.lbl_PaswordExpires_Never.Location = new System.Drawing.Point(30, 18);
+            this.lbl_PaswordExpires_Never.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lbl_PaswordExpires_Never.Name = "lbl_PaswordExpires_Never";
-            this.lbl_PaswordExpires_Never.Size = new System.Drawing.Size(46, 17);
+            this.lbl_PaswordExpires_Never.Size = new System.Drawing.Size(36, 13);
             this.lbl_PaswordExpires_Never.TabIndex = 34;
             this.lbl_PaswordExpires_Never.TabStop = true;
             this.lbl_PaswordExpires_Never.Text = "Never";
@@ -161,10 +160,10 @@
             // lbl_AfterNumberOfDays
             // 
             this.lbl_AfterNumberOfDays.AutoSize = true;
-            this.lbl_AfterNumberOfDays.Location = new System.Drawing.Point(168, 22);
-            this.lbl_AfterNumberOfDays.Margin = new System.Windows.Forms.Padding(4);
+            this.lbl_AfterNumberOfDays.Location = new System.Drawing.Point(134, 18);
+            this.lbl_AfterNumberOfDays.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lbl_AfterNumberOfDays.Name = "lbl_AfterNumberOfDays";
-            this.lbl_AfterNumberOfDays.Size = new System.Drawing.Size(142, 17);
+            this.lbl_AfterNumberOfDays.Size = new System.Drawing.Size(106, 13);
             this.lbl_AfterNumberOfDays.TabIndex = 35;
             this.lbl_AfterNumberOfDays.TabStop = true;
             this.lbl_AfterNumberOfDays.Text = "After Number of days";
@@ -172,10 +171,10 @@
             // lbl_DeactivateAfterNumberOfDays
             // 
             this.lbl_DeactivateAfterNumberOfDays.AutoSize = true;
-            this.lbl_DeactivateAfterNumberOfDays.Location = new System.Drawing.Point(382, 22);
-            this.lbl_DeactivateAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(4);
+            this.lbl_DeactivateAfterNumberOfDays.Location = new System.Drawing.Point(306, 18);
+            this.lbl_DeactivateAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lbl_DeactivateAfterNumberOfDays.Name = "lbl_DeactivateAfterNumberOfDays";
-            this.lbl_DeactivateAfterNumberOfDays.Size = new System.Drawing.Size(212, 17);
+            this.lbl_DeactivateAfterNumberOfDays.Size = new System.Drawing.Size(161, 13);
             this.lbl_DeactivateAfterNumberOfDays.TabIndex = 36;
             this.lbl_DeactivateAfterNumberOfDays.TabStop = true;
             this.lbl_DeactivateAfterNumberOfDays.Text = "Not Active After Number of Days";
@@ -184,18 +183,16 @@
             // 
             this.lbl_Max_Password_Age.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Max_Password_Age.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_Max_Password_Age.Location = new System.Drawing.Point(8, 51);
-            this.lbl_Max_Password_Age.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_Max_Password_Age.Location = new System.Drawing.Point(6, 41);
             this.lbl_Max_Password_Age.Name = "lbl_Max_Password_Age";
-            this.lbl_Max_Password_Age.Size = new System.Drawing.Size(334, 16);
+            this.lbl_Max_Password_Age.Size = new System.Drawing.Size(267, 13);
             this.lbl_Max_Password_Age.TabIndex = 29;
             this.lbl_Max_Password_Age.Text = "Number  of days:";
             this.lbl_Max_Password_Age.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // nmUpDn_MaxPasswordAge
             // 
-            this.nmUpDn_MaxPasswordAge.Location = new System.Drawing.Point(351, 49);
-            this.nmUpDn_MaxPasswordAge.Margin = new System.Windows.Forms.Padding(5);
+            this.nmUpDn_MaxPasswordAge.Location = new System.Drawing.Point(281, 39);
             this.nmUpDn_MaxPasswordAge.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -208,7 +205,7 @@
             0});
             this.nmUpDn_MaxPasswordAge.Name = "nmUpDn_MaxPasswordAge";
             this.nmUpDn_MaxPasswordAge.ReadOnly = true;
-            this.nmUpDn_MaxPasswordAge.Size = new System.Drawing.Size(126, 22);
+            this.nmUpDn_MaxPasswordAge.Size = new System.Drawing.Size(101, 19);
             this.nmUpDn_MaxPasswordAge.TabIndex = 28;
             this.nmUpDn_MaxPasswordAge.Value = new decimal(new int[] {
             1,
@@ -221,10 +218,10 @@
             this.lbl_Enabled.AutoSize = true;
             this.lbl_Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Enabled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_Enabled.Location = new System.Drawing.Point(416, 18);
-            this.lbl_Enabled.Margin = new System.Windows.Forms.Padding(4);
+            this.lbl_Enabled.Location = new System.Drawing.Point(333, 14);
+            this.lbl_Enabled.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lbl_Enabled.Name = "lbl_Enabled";
-            this.lbl_Enabled.Size = new System.Drawing.Size(65, 17);
+            this.lbl_Enabled.Size = new System.Drawing.Size(50, 13);
             this.lbl_Enabled.TabIndex = 123;
             this.lbl_Enabled.Text = "Enabled*";
             // 
@@ -233,6 +230,7 @@
             this.splitContainer3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -253,28 +251,32 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dgvx_UserRoles);
-            this.splitContainer3.Size = new System.Drawing.Size(812, 547);
-            this.splitContainer3.SplitterDistance = 648;
+            this.splitContainer3.Size = new System.Drawing.Size(650, 438);
+            this.splitContainer3.SplitterDistance = 518;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 124;
             // 
             // btn_ChangePassword
             // 
             this.btn_ChangePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_ChangePassword.Location = new System.Drawing.Point(285, 508);
+            this.btn_ChangePassword.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_ChangePassword.Location = new System.Drawing.Point(228, 406);
+            this.btn_ChangePassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_ChangePassword.Name = "btn_ChangePassword";
-            this.btn_ChangePassword.Size = new System.Drawing.Size(266, 34);
+            this.btn_ChangePassword.Size = new System.Drawing.Size(213, 27);
             this.btn_ChangePassword.TabIndex = 130;
             this.btn_ChangePassword.Text = "Change Password";
-            this.btn_ChangePassword.UseVisualStyleBackColor = true;
+            this.btn_ChangePassword.UseVisualStyleBackColor = false;
             this.btn_ChangePassword.Visible = false;
             this.btn_ChangePassword.Click += new System.EventHandler(this.btn_ChangePassword_Click);
             // 
             // chkp_ChangePasswordOnFirstLogin
             // 
             this.chkp_ChangePasswordOnFirstLogin.Image = ((System.Drawing.Image)(resources.GetObject("chkp_ChangePasswordOnFirstLogin.Image")));
-            this.chkp_ChangePasswordOnFirstLogin.Location = new System.Drawing.Point(380, 45);
+            this.chkp_ChangePasswordOnFirstLogin.Location = new System.Drawing.Point(304, 36);
+            this.chkp_ChangePasswordOnFirstLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkp_ChangePasswordOnFirstLogin.Name = "chkp_ChangePasswordOnFirstLogin";
-            this.chkp_ChangePasswordOnFirstLogin.Size = new System.Drawing.Size(24, 26);
+            this.chkp_ChangePasswordOnFirstLogin.Size = new System.Drawing.Size(19, 21);
             this.chkp_ChangePasswordOnFirstLogin.State = Check.check.eState.UNDEFINED;
             this.chkp_ChangePasswordOnFirstLogin.TabIndex = 129;
             this.chkp_ChangePasswordOnFirstLogin.TabStop = false;
@@ -282,9 +284,10 @@
             // chkp_Enabled
             // 
             this.chkp_Enabled.Image = ((System.Drawing.Image)(resources.GetObject("chkp_Enabled.Image")));
-            this.chkp_Enabled.Location = new System.Drawing.Point(380, 13);
+            this.chkp_Enabled.Location = new System.Drawing.Point(304, 10);
+            this.chkp_Enabled.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkp_Enabled.Name = "chkp_Enabled";
-            this.chkp_Enabled.Size = new System.Drawing.Size(24, 26);
+            this.chkp_Enabled.Size = new System.Drawing.Size(19, 21);
             this.chkp_Enabled.State = Check.check.eState.UNDEFINED;
             this.chkp_Enabled.TabIndex = 128;
             this.chkp_Enabled.TabStop = false;
@@ -292,31 +295,36 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
-            this.btn_Cancel.Location = new System.Drawing.Point(557, 508);
+            this.btn_Cancel.Location = new System.Drawing.Point(446, 406);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(87, 34);
+            this.btn_Cancel.Size = new System.Drawing.Size(70, 27);
             this.btn_Cancel.TabIndex = 127;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // btn_LoginHistory
             // 
             this.btn_LoginHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_LoginHistory.Location = new System.Drawing.Point(12, 508);
+            this.btn_LoginHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_LoginHistory.Location = new System.Drawing.Point(10, 406);
+            this.btn_LoginHistory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_LoginHistory.Name = "btn_LoginHistory";
-            this.btn_LoginHistory.Size = new System.Drawing.Size(267, 34);
+            this.btn_LoginHistory.Size = new System.Drawing.Size(214, 27);
             this.btn_LoginHistory.TabIndex = 126;
             this.btn_LoginHistory.Text = "Login History";
-            this.btn_LoginHistory.UseVisualStyleBackColor = true;
+            this.btn_LoginHistory.UseVisualStyleBackColor = false;
             this.btn_LoginHistory.Click += new System.EventHandler(this.btn_LoginHistory_Click);
             // 
             // usrc_PasswordBytes1
             // 
-            this.usrc_PasswordBytes1.Location = new System.Drawing.Point(7, 39);
+            this.usrc_PasswordBytes1.Location = new System.Drawing.Point(6, 31);
+            this.usrc_PasswordBytes1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.usrc_PasswordBytes1.MinPasswordLength = 5;
             this.usrc_PasswordBytes1.Name = "usrc_PasswordBytes1";
-            this.usrc_PasswordBytes1.Size = new System.Drawing.Size(350, 62);
+            this.usrc_PasswordBytes1.Size = new System.Drawing.Size(280, 50);
             this.usrc_PasswordBytes1.TabIndex = 125;
             this.usrc_PasswordBytes1.PasswordChanged += new LoginControl.usrc_PasswordBytes.delegate_PasswordChanged(this.usrc_PasswordBytes1_PasswordChanged);
             // 
@@ -324,10 +332,9 @@
             // 
             this.lbl_UserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_UserName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbl_UserName.Location = new System.Drawing.Point(12, 13);
-            this.lbl_UserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_UserName.Location = new System.Drawing.Point(10, 10);
             this.lbl_UserName.Name = "lbl_UserName";
-            this.lbl_UserName.Size = new System.Drawing.Size(80, 16);
+            this.lbl_UserName.Size = new System.Drawing.Size(64, 13);
             this.lbl_UserName.TabIndex = 120;
             this.lbl_UserName.Text = "UserName*:";
             // 
@@ -340,24 +347,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_UserRoles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvx_UserRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_UserRoles.Location = new System.Drawing.Point(4, 4);
-            this.dgvx_UserRoles.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvx_UserRoles.Location = new System.Drawing.Point(3, 3);
             this.dgvx_UserRoles.Name = "dgvx_UserRoles";
             this.dgvx_UserRoles.ReadOnly = true;
-            this.dgvx_UserRoles.Size = new System.Drawing.Size(152, 539);
+            this.dgvx_UserRoles.Size = new System.Drawing.Size(123, 431);
             this.dgvx_UserRoles.TabIndex = 127;
             // 
             // AWP_UserInfo_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(812, 547);
+            this.ClientSize = new System.Drawing.Size(650, 438);
             this.Controls.Add(this.splitContainer3);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AWP_UserInfo_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ReadDataForm";

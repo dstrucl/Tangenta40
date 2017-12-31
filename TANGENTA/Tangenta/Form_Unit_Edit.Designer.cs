@@ -37,26 +37,26 @@
             // btn_OK
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(10, 299);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(46, 25);
+            this.btn_OK.Size = new System.Drawing.Size(52, 25);
             this.btn_OK.TabIndex = 1;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Cancel.Location = new System.Drawing.Point(102, 299);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(89, 25);
+            this.btn_Cancel.Size = new System.Drawing.Size(67, 25);
             this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // usrc_EditTable

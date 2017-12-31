@@ -56,22 +56,24 @@
             // 
             // btn_OK
             // 
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(244, 217);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(82, 33);
             this.btn_OK.TabIndex = 2;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Location = new System.Drawing.Point(479, 219);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(85, 31);
             this.btn_Cancel.TabIndex = 3;
             this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // LoginSuperAdministratorForm

@@ -41,22 +41,24 @@ namespace Tangenta
             // 
             // btn_Print
             // 
+            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
             this.btn_Print.Location = new System.Drawing.Point(143, 73);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(188, 39);
             this.btn_Print.TabIndex = 1;
-            this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.UseVisualStyleBackColor = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(440, 73);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(82, 39);
             this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // lbl_From_To
@@ -70,33 +72,36 @@ namespace Tangenta
             // 
             // btn_DURS_output
             // 
+            this.btn_DURS_output.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_DURS_output.Location = new System.Drawing.Point(6, 73);
             this.btn_DURS_output.Name = "btn_DURS_output";
             this.btn_DURS_output.Size = new System.Drawing.Size(114, 37);
             this.btn_DURS_output.TabIndex = 4;
             this.btn_DURS_output.Text = "Izpis za DURS ";
-            this.btn_DURS_output.UseVisualStyleBackColor = true;
+            this.btn_DURS_output.UseVisualStyleBackColor = false;
             this.btn_DURS_output.Visible = false;
             this.btn_DURS_output.Click += new System.EventHandler(this.btn_DURS_output_Click);
             // 
             // btn_XML_export
             // 
+            this.btn_XML_export.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_XML_export.Location = new System.Drawing.Point(6, 30);
             this.btn_XML_export.Name = "btn_XML_export";
             this.btn_XML_export.Size = new System.Drawing.Size(114, 37);
             this.btn_XML_export.TabIndex = 5;
             this.btn_XML_export.Text = "Izpis v XML";
-            this.btn_XML_export.UseVisualStyleBackColor = true;
+            this.btn_XML_export.UseVisualStyleBackColor = false;
             this.btn_XML_export.Visible = false;
             this.btn_XML_export.Click += new System.EventHandler(this.btn_XML_export_Click);
             // 
             // btn_VOD_xml_OPAL_export
             // 
+            this.btn_VOD_xml_OPAL_export.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_VOD_xml_OPAL_export.Location = new System.Drawing.Point(143, 30);
             this.btn_VOD_xml_OPAL_export.Name = "btn_VOD_xml_OPAL_export";
             this.btn_VOD_xml_OPAL_export.Size = new System.Drawing.Size(188, 37);
             this.btn_VOD_xml_OPAL_export.TabIndex = 6;
-            this.btn_VOD_xml_OPAL_export.UseVisualStyleBackColor = true;
+            this.btn_VOD_xml_OPAL_export.UseVisualStyleBackColor = false;
             this.btn_VOD_xml_OPAL_export.Click += new System.EventHandler(this.btn_VOD_xml_OPAL_export_Click);
             // 
             // Form_PrintReport

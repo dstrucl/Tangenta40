@@ -69,7 +69,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.Controls.Add(this.btn_Minus);
             this.Controls.Add(this.btn_Plus);
             this.Controls.Add(this.txt_Value);

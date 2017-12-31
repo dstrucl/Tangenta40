@@ -228,12 +228,13 @@
             // 
             this.Btn_Add_PP_to_FURS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Add_PP_to_FURS.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.Btn_Add_PP_to_FURS.Location = new System.Drawing.Point(500, 194);
             this.Btn_Add_PP_to_FURS.Name = "Btn_Add_PP_to_FURS";
             this.Btn_Add_PP_to_FURS.Size = new System.Drawing.Size(129, 31);
             this.Btn_Add_PP_to_FURS.TabIndex = 41;
             this.Btn_Add_PP_to_FURS.Text = "Registriraj prostor";
-            this.Btn_Add_PP_to_FURS.UseVisualStyleBackColor = true;
+            this.Btn_Add_PP_to_FURS.UseVisualStyleBackColor = false;
             this.Btn_Add_PP_to_FURS.Click += new System.EventHandler(this.Btn_Add_PP_to_FURS_Click);
             // 
             // txt_InvoiceAuthor_TaxID

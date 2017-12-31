@@ -262,13 +262,14 @@
             // btn_SelectItem
             // 
             this.btn_SelectItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SelectItem.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_SelectItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_SelectItem.Location = new System.Drawing.Point(332, 1);
             this.btn_SelectItem.Name = "btn_SelectItem";
             this.btn_SelectItem.Size = new System.Drawing.Size(136, 25);
             this.btn_SelectItem.TabIndex = 2;
             this.btn_SelectItem.Text = "Select Item";
-            this.btn_SelectItem.UseVisualStyleBackColor = true;
+            this.btn_SelectItem.UseVisualStyleBackColor = false;
             this.btn_SelectItem.Click += new System.EventHandler(this.btn_SelectItem_Click);
             // 
             // lbl_PurchasePrice
@@ -283,32 +284,35 @@
             // 
             // btn_Update
             // 
+            this.btn_Update.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Update.Location = new System.Drawing.Point(228, 3);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(60, 21);
             this.btn_Update.TabIndex = 19;
             this.btn_Update.Text = "Update";
-            this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.UseVisualStyleBackColor = false;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Remove
             // 
+            this.btn_Remove.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Remove.Location = new System.Drawing.Point(295, 1);
             this.btn_Remove.Name = "btn_Remove";
             this.btn_Remove.Size = new System.Drawing.Size(60, 23);
             this.btn_Remove.TabIndex = 18;
             this.btn_Remove.Text = "Remove";
-            this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.UseVisualStyleBackColor = false;
             this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // btn_Add
             // 
+            this.btn_Add.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Add.Location = new System.Drawing.Point(158, 4);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(60, 21);
             this.btn_Add.TabIndex = 17;
             this.btn_Add.Text = "Add";
-            this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.UseVisualStyleBackColor = false;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // lbl_StockTakeItems
@@ -343,22 +347,24 @@
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(415, 0);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(61, 26);
             this.btn_Exit.TabIndex = 4;
-            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // btn_CloseStockTake
             // 
+            this.btn_CloseStockTake.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_CloseStockTake.Location = new System.Drawing.Point(2, 2);
             this.btn_CloseStockTake.Name = "btn_CloseStockTake";
             this.btn_CloseStockTake.Size = new System.Drawing.Size(76, 27);
             this.btn_CloseStockTake.TabIndex = 3;
             this.btn_CloseStockTake.Text = "btn_Close";
-            this.btn_CloseStockTake.UseVisualStyleBackColor = true;
+            this.btn_CloseStockTake.UseVisualStyleBackColor = false;
             this.btn_CloseStockTake.Click += new System.EventHandler(this.btn_CloseStockTake_Click);
             // 
             // lbl_StockTakeName
@@ -374,12 +380,13 @@
             // 
             // btn_AdditionalCost
             // 
+            this.btn_AdditionalCost.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_AdditionalCost.Location = new System.Drawing.Point(358, 54);
             this.btn_AdditionalCost.Name = "btn_AdditionalCost";
             this.btn_AdditionalCost.Size = new System.Drawing.Size(120, 23);
             this.btn_AdditionalCost.TabIndex = 6;
             this.btn_AdditionalCost.Text = "btn_AdditionalCost";
-            this.btn_AdditionalCost.UseVisualStyleBackColor = true;
+            this.btn_AdditionalCost.UseVisualStyleBackColor = false;
             this.btn_AdditionalCost.Click += new System.EventHandler(this.btn_AdditionalCost_Click);
             // 
             // lbl_TotalPrice

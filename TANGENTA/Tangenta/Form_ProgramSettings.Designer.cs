@@ -80,12 +80,13 @@
             // 
             // btn_LogFile
             // 
+            this.btn_LogFile.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_LogFile.Location = new System.Drawing.Point(437, 41);
             this.btn_LogFile.Name = "btn_LogFile";
             this.btn_LogFile.Size = new System.Drawing.Size(129, 43);
             this.btn_LogFile.TabIndex = 16;
             this.btn_LogFile.Text = "LOG DATOTEKA";
-            this.btn_LogFile.UseVisualStyleBackColor = true;
+            this.btn_LogFile.UseVisualStyleBackColor = false;
             this.btn_LogFile.Click += new System.EventHandler(this.btn_LogFile_Click);
             // 
             // lbL_ElectronicDevice_ID
@@ -145,12 +146,13 @@
             // 
             // btn_DBSettings
             // 
+            this.btn_DBSettings.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_DBSettings.Image = global::Tangenta.Properties.Resources.DBSettings;
             this.btn_DBSettings.Location = new System.Drawing.Point(380, 41);
             this.btn_DBSettings.Name = "btn_DBSettings";
             this.btn_DBSettings.Size = new System.Drawing.Size(51, 43);
             this.btn_DBSettings.TabIndex = 40;
-            this.btn_DBSettings.UseVisualStyleBackColor = true;
+            this.btn_DBSettings.UseVisualStyleBackColor = false;
             this.btn_DBSettings.Click += new System.EventHandler(this.btn_DBSettings_Click);
             // 
             // Form_ProgramSettings

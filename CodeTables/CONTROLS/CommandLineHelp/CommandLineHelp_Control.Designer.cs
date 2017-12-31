@@ -33,15 +33,16 @@
             // 
             // btn_CommandLineHelp
             // 
-            this.btn_CommandLineHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CommandLineHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CommandLineHelp.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_CommandLineHelp.Location = new System.Drawing.Point(0, 0);
             this.btn_CommandLineHelp.Name = "btn_CommandLineHelp";
             this.btn_CommandLineHelp.Size = new System.Drawing.Size(187, 28);
             this.btn_CommandLineHelp.TabIndex = 0;
             this.btn_CommandLineHelp.Text = "button1";
-            this.btn_CommandLineHelp.UseVisualStyleBackColor = true;
+            this.btn_CommandLineHelp.UseVisualStyleBackColor = false;
             this.btn_CommandLineHelp.Click += new System.EventHandler(this.btn_CommandLineHelp_Click);
             // 
             // CommandLineHelp_Control

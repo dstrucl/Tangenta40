@@ -60,12 +60,13 @@
             // 
             // btn_Remove
             // 
+            this.btn_Remove.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Remove.Location = new System.Drawing.Point(6, 19);
             this.btn_Remove.Name = "btn_Remove";
-            this.btn_Remove.Size = new System.Drawing.Size(62, 22);
+            this.btn_Remove.Size = new System.Drawing.Size(104, 22);
             this.btn_Remove.TabIndex = 6;
             this.btn_Remove.Text = "Remove";
-            this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.UseVisualStyleBackColor = false;
             this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // grp_Invoice
@@ -158,7 +159,9 @@
             this.chk_Printing_ProformaInvoices.TabIndex = 2;
             this.chk_Printing_ProformaInvoices.Text = "Printing Proforma Invoices";
             this.chk_Printing_ProformaInvoices.UseVisualStyleBackColor = true;
-
+            // 
+            // usrc_Printer
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grp_Printer);

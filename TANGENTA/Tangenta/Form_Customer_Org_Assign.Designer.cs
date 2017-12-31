@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Customer_Person_Assign));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Customer_Org_Assign));
             this.lbl_Instruction_part1 = new System.Windows.Forms.Label();
             this.lbl_Instruction_part2 = new System.Windows.Forms.Label();
             this.btn_Yes = new System.Windows.Forms.Button();
@@ -60,37 +60,39 @@
             // 
             // btn_Yes
             // 
+            this.btn_Yes.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Yes.Cursor = System.Windows.Forms.Cursors.PanSW;
             this.btn_Yes.Location = new System.Drawing.Point(260, 244);
             this.btn_Yes.Name = "btn_Yes";
             this.btn_Yes.Size = new System.Drawing.Size(91, 32);
             this.btn_Yes.TabIndex = 3;
             this.btn_Yes.Text = "button1";
-            this.btn_Yes.UseVisualStyleBackColor = true;
+            this.btn_Yes.UseVisualStyleBackColor = false;
             this.btn_Yes.Click += new System.EventHandler(this.btn_Yes_Click);
             // 
             // btn_No
             // 
+            this.btn_No.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_No.Location = new System.Drawing.Point(390, 244);
             this.btn_No.Name = "btn_No";
             this.btn_No.Size = new System.Drawing.Size(91, 32);
             this.btn_No.TabIndex = 4;
             this.btn_No.Text = "button1";
-            this.btn_No.UseVisualStyleBackColor = true;
+            this.btn_No.UseVisualStyleBackColor = false;
             this.btn_No.Click += new System.EventHandler(this.btn_No_Click);
             // 
-            // lbl_Person
+            // lbl_Org
             // 
             this.lbl_Org.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbl_Org.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Org.Location = new System.Drawing.Point(55, 34);
             this.lbl_Org.Multiline = true;
-            this.lbl_Org.Name = "lbl_Person";
+            this.lbl_Org.Name = "lbl_Org";
             this.lbl_Org.ReadOnly = true;
             this.lbl_Org.Size = new System.Drawing.Size(667, 158);
             this.lbl_Org.TabIndex = 5;
             // 
-            // Form_Customer_Assign
+            // Form_Customer_Org_Assign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -105,7 +107,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Customer_Name = "Form_Customer_Assign";
+            this.Name = "Form_Customer_Org_Assign";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Customer_Add";
             this.Load += new System.EventHandler(this.Form_Customer_Assign_Load);

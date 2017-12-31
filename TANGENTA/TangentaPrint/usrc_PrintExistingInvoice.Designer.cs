@@ -41,6 +41,7 @@ namespace TangentaPrint
             // btn_Print
             // 
             this.btn_Print.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Print.ForeColor = System.Drawing.Color.Black;
             this.btn_Print.Location = new System.Drawing.Point(208, 311);
@@ -48,7 +49,7 @@ namespace TangentaPrint
             this.btn_Print.Size = new System.Drawing.Size(197, 55);
             this.btn_Print.TabIndex = 7;
             this.btn_Print.Text = "Print";
-            this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.UseVisualStyleBackColor = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // lbl_Invoice
@@ -92,14 +93,15 @@ namespace TangentaPrint
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = global::TangentaPrint.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(489, 311);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
             this.btn_Cancel.TabIndex = 11;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // usrc_PrintExistingInvoice

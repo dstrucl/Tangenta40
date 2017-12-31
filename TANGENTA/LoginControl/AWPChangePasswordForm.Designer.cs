@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STDChangePasswordForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AWPChangePasswordForm));
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.lbl_Confirm_New_Pasword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -82,22 +82,24 @@
             // 
             // btn_OK
             // 
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(164, 170);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(85, 28);
             this.btn_OK.TabIndex = 12;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Location = new System.Drawing.Point(335, 170);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(85, 28);
             this.btn_Cancel.TabIndex = 13;
             this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             // 
             // lbl_Instruction
             // 
@@ -109,7 +111,7 @@
             this.lbl_Instruction.TabIndex = 14;
             this.lbl_Instruction.Text = "lbl_Instruction";
             // 
-            // ChangePasswordForm
+            // AWPChangePasswordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,7 +126,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ChangePasswordForm";
+            this.Name = "AWPChangePasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChangePasswordForm";
             this.ResumeLayout(false);

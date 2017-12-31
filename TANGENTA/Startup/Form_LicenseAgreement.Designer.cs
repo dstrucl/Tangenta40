@@ -44,21 +44,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.rdb_NotAcceptLicenseAgreement);
             this.groupBox1.Controls.Add(this.rdb_AcceptLicenseAgreement);
-            this.groupBox1.Location = new System.Drawing.Point(4, 283);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(3, 226);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(666, 69);
+            this.groupBox1.Size = new System.Drawing.Size(533, 55);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
             // rdb_NotAcceptLicenseAgreement
             // 
             this.rdb_NotAcceptLicenseAgreement.AutoSize = true;
-            this.rdb_NotAcceptLicenseAgreement.Location = new System.Drawing.Point(9, 41);
-            this.rdb_NotAcceptLicenseAgreement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_NotAcceptLicenseAgreement.Location = new System.Drawing.Point(7, 33);
             this.rdb_NotAcceptLicenseAgreement.Name = "rdb_NotAcceptLicenseAgreement";
-            this.rdb_NotAcceptLicenseAgreement.Size = new System.Drawing.Size(224, 21);
+            this.rdb_NotAcceptLicenseAgreement.Size = new System.Drawing.Size(173, 17);
             this.rdb_NotAcceptLicenseAgreement.TabIndex = 5;
             this.rdb_NotAcceptLicenseAgreement.Text = "Not Accept License Agreement";
             this.rdb_NotAcceptLicenseAgreement.UseVisualStyleBackColor = true;
@@ -66,10 +63,9 @@
             // rdb_AcceptLicenseAgreement
             // 
             this.rdb_AcceptLicenseAgreement.AutoSize = true;
-            this.rdb_AcceptLicenseAgreement.Location = new System.Drawing.Point(9, 15);
-            this.rdb_AcceptLicenseAgreement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_AcceptLicenseAgreement.Location = new System.Drawing.Point(7, 12);
             this.rdb_AcceptLicenseAgreement.Name = "rdb_AcceptLicenseAgreement";
-            this.rdb_AcceptLicenseAgreement.Size = new System.Drawing.Size(198, 21);
+            this.rdb_AcceptLicenseAgreement.Size = new System.Drawing.Size(153, 17);
             this.rdb_AcceptLicenseAgreement.TabIndex = 4;
             this.rdb_AcceptLicenseAgreement.Text = "Accept License Agreement";
             this.rdb_AcceptLicenseAgreement.UseVisualStyleBackColor = true;
@@ -78,13 +74,13 @@
             // 
             this.btn_Print.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Print.Location = new System.Drawing.Point(237, 398);
-            this.btn_Print.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Print.Location = new System.Drawing.Point(190, 318);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(186, 34);
+            this.btn_Print.Size = new System.Drawing.Size(149, 27);
             this.btn_Print.TabIndex = 4;
             this.btn_Print.Text = "Print";
-            this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.UseVisualStyleBackColor = false;
             // 
             // webBrowser1
             // 
@@ -94,12 +90,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(3, 5);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
+            this.webBrowser1.Location = new System.Drawing.Point(2, 4);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(22, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(667, 276);
+            this.webBrowser1.Size = new System.Drawing.Size(534, 221);
             this.webBrowser1.TabIndex = 5;
             // 
             // usrc_NavigationButtons1
@@ -118,10 +113,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(13, 356);
-            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(10, 285);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(644, 79);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(515, 63);
             this.usrc_NavigationButtons1.TabIndex = 6;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -135,15 +129,14 @@
             // 
             // Form_LicenseAgreement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(670, 440);
+            this.ClientSize = new System.Drawing.Size(536, 352);
             this.ControlBox = false;
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.usrc_NavigationButtons1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_LicenseAgreement";

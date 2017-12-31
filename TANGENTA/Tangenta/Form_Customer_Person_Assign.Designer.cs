@@ -60,23 +60,25 @@
             // 
             // btn_Yes
             // 
+            this.btn_Yes.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Yes.Cursor = System.Windows.Forms.Cursors.PanSW;
             this.btn_Yes.Location = new System.Drawing.Point(260, 244);
             this.btn_Yes.Name = "btn_Yes";
             this.btn_Yes.Size = new System.Drawing.Size(91, 32);
             this.btn_Yes.TabIndex = 3;
             this.btn_Yes.Text = "button1";
-            this.btn_Yes.UseVisualStyleBackColor = true;
+            this.btn_Yes.UseVisualStyleBackColor = false;
             this.btn_Yes.Click += new System.EventHandler(this.btn_Yes_Click);
             // 
             // btn_No
             // 
+            this.btn_No.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_No.Location = new System.Drawing.Point(390, 244);
             this.btn_No.Name = "btn_No";
             this.btn_No.Size = new System.Drawing.Size(91, 32);
             this.btn_No.TabIndex = 4;
             this.btn_No.Text = "button1";
-            this.btn_No.UseVisualStyleBackColor = true;
+            this.btn_No.UseVisualStyleBackColor = false;
             this.btn_No.Click += new System.EventHandler(this.btn_No_Click);
             // 
             // lbl_Person
@@ -90,7 +92,7 @@
             this.lbl_Person.Size = new System.Drawing.Size(667, 158);
             this.lbl_Person.TabIndex = 5;
             // 
-            // Form_Customer_Assign
+            // Form_Customer_Person_Assign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -105,7 +107,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_Customer_Assign";
+            this.Name = "Form_Customer_Person_Assign";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Customer_Add";
             this.Load += new System.EventHandler(this.Form_Customer_Assign_Load);

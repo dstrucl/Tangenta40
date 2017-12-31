@@ -66,22 +66,24 @@
             // 
             // btn_Office
             // 
+            this.btn_Office.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Office.Location = new System.Drawing.Point(4, 12);
             this.btn_Office.Name = "btn_Office";
             this.btn_Office.Size = new System.Drawing.Size(266, 26);
             this.btn_Office.TabIndex = 11;
             this.btn_Office.Text = "Organisation Bank Account";
-            this.btn_Office.UseVisualStyleBackColor = true;
+            this.btn_Office.UseVisualStyleBackColor = false;
             this.btn_Office.Click += new System.EventHandler(this.btn_Office_Edit);
             // 
             // btn_BankAccounts
             // 
+            this.btn_BankAccounts.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_BankAccounts.Location = new System.Drawing.Point(276, 12);
             this.btn_BankAccounts.Name = "btn_BankAccounts";
             this.btn_BankAccounts.Size = new System.Drawing.Size(191, 26);
             this.btn_BankAccounts.TabIndex = 10;
             this.btn_BankAccounts.Text = "Organisation Bank Account";
-            this.btn_BankAccounts.UseVisualStyleBackColor = true;
+            this.btn_BankAccounts.UseVisualStyleBackColor = false;
             this.btn_BankAccounts.Click += new System.EventHandler(this.btn_BankAccounts_Click);
             // 
             // usrc_EditRow
@@ -95,7 +97,7 @@
             this.usrc_EditRow.Changed = false;
             this.usrc_EditRow.GetRandomData = false;
             this.usrc_EditRow.Location = new System.Drawing.Point(4, 42);
-            this.usrc_EditRow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_EditRow.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_EditRow.Name = "usrc_EditRow";
             this.usrc_EditRow.SelectionButtonVisible = true;
             this.usrc_EditRow.Size = new System.Drawing.Size(856, 404);

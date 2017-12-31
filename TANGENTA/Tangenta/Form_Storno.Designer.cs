@@ -65,23 +65,25 @@
             // btn_Storno
             // 
             this.btn_Storno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Storno.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Storno.Location = new System.Drawing.Point(12, 356);
             this.btn_Storno.Name = "btn_Storno";
             this.btn_Storno.Size = new System.Drawing.Size(98, 30);
             this.btn_Storno.TabIndex = 2;
             this.btn_Storno.Text = "STORNO";
-            this.btn_Storno.UseVisualStyleBackColor = true;
+            this.btn_Storno.UseVisualStyleBackColor = false;
             this.btn_Storno.Click += new System.EventHandler(this.btn_Storno_Click);
             // 
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(164, 356);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(98, 30);
             this.btn_Cancel.TabIndex = 3;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             // 
             // cmb_StornoReason
             // 

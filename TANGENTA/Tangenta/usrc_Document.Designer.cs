@@ -44,44 +44,48 @@ namespace Tangenta
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(956, 1);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(63, 31);
             this.btn_Exit.TabIndex = 3;
-            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // btn_Settings
             // 
             this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
             this.btn_Settings.Location = new System.Drawing.Point(821, 1);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(40, 31);
             this.btn_Settings.TabIndex = 8;
-            this.btn_Settings.UseVisualStyleBackColor = true;
+            this.btn_Settings.UseVisualStyleBackColor = false;
             this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
             // 
             // btn_Backup
             // 
             this.btn_Backup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Backup.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Backup.Image = global::Tangenta.Properties.Resources.UpgradeDataBase;
             this.btn_Backup.Location = new System.Drawing.Point(911, 1);
             this.btn_Backup.Name = "btn_Backup";
             this.btn_Backup.Size = new System.Drawing.Size(40, 31);
             this.btn_Backup.TabIndex = 9;
-            this.btn_Backup.UseVisualStyleBackColor = true;
+            this.btn_Backup.UseVisualStyleBackColor = false;
             this.btn_Backup.Click += new System.EventHandler(this.btn_Backup_Click);
             // 
             // btn_CodeTables
             // 
+            this.btn_CodeTables.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_CodeTables.Image = global::Tangenta.Properties.Resources.CodeTablesImage;
             this.btn_CodeTables.Location = new System.Drawing.Point(689, 1);
             this.btn_CodeTables.Name = "btn_CodeTables";
             this.btn_CodeTables.Size = new System.Drawing.Size(40, 31);
             this.btn_CodeTables.TabIndex = 10;
-            this.btn_CodeTables.UseVisualStyleBackColor = true;
+            this.btn_CodeTables.UseVisualStyleBackColor = false;
             this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
             // 
             // m_usrc_InvoiceMan
@@ -96,6 +100,7 @@ namespace Tangenta
             // m_usrc_Help
             // 
             this.m_usrc_Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_Help.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.m_usrc_Help.Location = new System.Drawing.Point(866, 1);
             this.m_usrc_Help.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_Help.Name = "m_usrc_Help";
@@ -105,6 +110,7 @@ namespace Tangenta
             // usrc_FVI_SLO1
             // 
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = "";
             this.usrc_FVI_SLO1.FursTESTEnvironment = false;
             this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
@@ -119,6 +125,7 @@ namespace Tangenta
             // usrc_TangentaPrint1
             // 
             this.usrc_TangentaPrint1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_TangentaPrint1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_TangentaPrint1.Location = new System.Drawing.Point(777, 1);
             this.usrc_TangentaPrint1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_TangentaPrint1.Name = "usrc_TangentaPrint1";

@@ -100,12 +100,13 @@
             // btn_OK
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(347, 429);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(114, 30);
             this.btn_OK.TabIndex = 5;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             // 
             // txt_ToSelect
             // 

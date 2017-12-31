@@ -64,13 +64,14 @@
             // 
             // btn_OK
             // 
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_OK.Location = new System.Drawing.Point(153, 93);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(110, 51);
             this.btn_OK.TabIndex = 11;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // usrc_Error_Response

@@ -30,7 +30,6 @@ namespace ShopC
             InitializeComponent();
             lng.s_ExpiryDateFormText.Text(this);
             lng.s_PleaseDefineExpiryDateForItem.Text(this.lbl_ExpiryDate,":"+ Item_UniqueName);
-            lng.s_Cancel.Text(btn_Cancel);
             lng.s_OK.Text(this.btn_OK);
             ExpiryDate = xExpiryDate;
             if (ExpiryDate != null)

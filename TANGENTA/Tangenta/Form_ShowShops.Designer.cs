@@ -40,20 +40,23 @@
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(12, 283);
+            this.btn_Cancel.Location = new System.Drawing.Point(10, 226);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(91, 36);
+            this.btn_Cancel.Size = new System.Drawing.Size(73, 29);
             this.btn_Cancel.TabIndex = 35;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // rdb_AB
             // 
             this.rdb_AB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_AB.Location = new System.Drawing.Point(12, 126);
+            this.rdb_AB.Location = new System.Drawing.Point(10, 101);
+            this.rdb_AB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_AB.Name = "rdb_AB";
-            this.rdb_AB.Size = new System.Drawing.Size(436, 29);
+            this.rdb_AB.Size = new System.Drawing.Size(349, 23);
             this.rdb_AB.TabIndex = 39;
             this.rdb_AB.Text = "A && B";
             this.rdb_AB.UseVisualStyleBackColor = true;
@@ -61,9 +64,10 @@
             // rdb_B
             // 
             this.rdb_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_B.Location = new System.Drawing.Point(12, 48);
+            this.rdb_B.Location = new System.Drawing.Point(10, 38);
+            this.rdb_B.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_B.Name = "rdb_B";
-            this.rdb_B.Size = new System.Drawing.Size(436, 29);
+            this.rdb_B.Size = new System.Drawing.Size(349, 23);
             this.rdb_B.TabIndex = 38;
             this.rdb_B.Text = "B";
             this.rdb_B.UseVisualStyleBackColor = true;
@@ -71,9 +75,10 @@
             // rdb_A
             // 
             this.rdb_A.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_A.Location = new System.Drawing.Point(12, 9);
+            this.rdb_A.Location = new System.Drawing.Point(10, 7);
+            this.rdb_A.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_A.Name = "rdb_A";
-            this.rdb_A.Size = new System.Drawing.Size(436, 29);
+            this.rdb_A.Size = new System.Drawing.Size(349, 23);
             this.rdb_A.TabIndex = 37;
             this.rdb_A.Text = "A";
             this.rdb_A.UseVisualStyleBackColor = true;
@@ -82,9 +87,10 @@
             // rdb_C
             // 
             this.rdb_C.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_C.Location = new System.Drawing.Point(12, 87);
+            this.rdb_C.Location = new System.Drawing.Point(10, 70);
+            this.rdb_C.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_C.Name = "rdb_C";
-            this.rdb_C.Size = new System.Drawing.Size(436, 29);
+            this.rdb_C.Size = new System.Drawing.Size(349, 23);
             this.rdb_C.TabIndex = 40;
             this.rdb_C.Text = "C";
             this.rdb_C.UseVisualStyleBackColor = true;
@@ -92,9 +98,10 @@
             // rdb_BC
             // 
             this.rdb_BC.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_BC.Location = new System.Drawing.Point(12, 204);
+            this.rdb_BC.Location = new System.Drawing.Point(10, 163);
+            this.rdb_BC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_BC.Name = "rdb_BC";
-            this.rdb_BC.Size = new System.Drawing.Size(436, 29);
+            this.rdb_BC.Size = new System.Drawing.Size(349, 23);
             this.rdb_BC.TabIndex = 41;
             this.rdb_BC.Text = "B && C";
             this.rdb_BC.UseVisualStyleBackColor = true;
@@ -102,9 +109,10 @@
             // rdb_AC
             // 
             this.rdb_AC.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_AC.Location = new System.Drawing.Point(12, 165);
+            this.rdb_AC.Location = new System.Drawing.Point(10, 132);
+            this.rdb_AC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_AC.Name = "rdb_AC";
-            this.rdb_AC.Size = new System.Drawing.Size(436, 29);
+            this.rdb_AC.Size = new System.Drawing.Size(349, 23);
             this.rdb_AC.TabIndex = 42;
             this.rdb_AC.Text = "A && C";
             this.rdb_AC.UseVisualStyleBackColor = true;
@@ -112,19 +120,20 @@
             // rdb_ABC
             // 
             this.rdb_ABC.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ABC.Location = new System.Drawing.Point(12, 243);
+            this.rdb_ABC.Location = new System.Drawing.Point(10, 194);
+            this.rdb_ABC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rdb_ABC.Name = "rdb_ABC";
-            this.rdb_ABC.Size = new System.Drawing.Size(436, 29);
+            this.rdb_ABC.Size = new System.Drawing.Size(349, 23);
             this.rdb_ABC.TabIndex = 43;
             this.rdb_ABC.Text = "A && B && C";
             this.rdb_ABC.UseVisualStyleBackColor = true;
             // 
             // Form_ShowShops
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(451, 331);
+            this.ClientSize = new System.Drawing.Size(361, 265);
             this.Controls.Add(this.rdb_ABC);
             this.Controls.Add(this.rdb_AC);
             this.Controls.Add(this.rdb_BC);
@@ -134,6 +143,7 @@
             this.Controls.Add(this.rdb_A);
             this.Controls.Add(this.btn_Cancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form_ShowShops";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.Form_SelectPanels_Load);

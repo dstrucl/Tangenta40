@@ -37,32 +37,35 @@
             // 
             // btn_Print
             // 
+            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.Image = global::TangentaPrint.Properties.Resources.Print;
             this.btn_Print.Location = new System.Drawing.Point(89, 3);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(69, 39);
             this.btn_Print.TabIndex = 3;
-            this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.UseVisualStyleBackColor = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // btn_SaveAs
             // 
+            this.btn_SaveAs.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_SaveAs.Image = global::TangentaPrint.Properties.Resources.SaveHtml;
             this.btn_SaveAs.Location = new System.Drawing.Point(3, 3);
             this.btn_SaveAs.Name = "btn_SaveAs";
             this.btn_SaveAs.Size = new System.Drawing.Size(69, 39);
             this.btn_SaveAs.TabIndex = 4;
-            this.btn_SaveAs.UseVisualStyleBackColor = true;
+            this.btn_SaveAs.UseVisualStyleBackColor = false;
             this.btn_SaveAs.Click += new System.EventHandler(this.btn_SaveAs_Click);
             // 
             // btn_Tokens
             // 
+            this.btn_Tokens.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Tokens.Location = new System.Drawing.Point(164, 10);
             this.btn_Tokens.Name = "btn_Tokens";
             this.btn_Tokens.Size = new System.Drawing.Size(258, 25);
             this.btn_Tokens.TabIndex = 5;
             this.btn_Tokens.Text = "button1";
-            this.btn_Tokens.UseVisualStyleBackColor = true;
+            this.btn_Tokens.UseVisualStyleBackColor = false;
             this.btn_Tokens.Visible = false;
             this.btn_Tokens.Click += new System.EventHandler(this.btn_Tokens_Click);
             // 

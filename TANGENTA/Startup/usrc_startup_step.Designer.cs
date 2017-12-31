@@ -52,6 +52,7 @@
             this.check1.Margin = new System.Windows.Forms.Padding(2);
             this.check1.Name = "check1";
             this.check1.Size = new System.Drawing.Size(20, 22);
+            this.check1.State = Check.check.eState.UNDEFINED;
             this.check1.TabIndex = 1;
             this.check1.TabStop = false;
             // 
@@ -61,7 +62,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.check1);
             this.Controls.Add(this.lbl_startup_step);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_startup_step";
             this.Size = new System.Drawing.Size(335, 31);
             ((System.ComponentModel.ISupportInitialize)(this.check1)).EndInit();

@@ -74,23 +74,24 @@
             // 
             // btn_Save
             // 
+            this.btn_Save.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Save.Location = new System.Drawing.Point(17, 144);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(95, 37);
             this.btn_Save.TabIndex = 17;
             this.btn_Save.Text = "Save";
-            this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.UseVisualStyleBackColor = false;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Cancel.Location = new System.Drawing.Point(158, 144);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 37);
             this.btn_Cancel.TabIndex = 18;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // cmbR_FilePath
@@ -115,13 +116,14 @@
             // 
             // btn_View
             // 
+            this.btn_View.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_View.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_View.Location = new System.Drawing.Point(284, 144);
             this.btn_View.Name = "btn_View";
             this.btn_View.Size = new System.Drawing.Size(95, 37);
             this.btn_View.TabIndex = 19;
             this.btn_View.Text = "View";
-            this.btn_View.UseVisualStyleBackColor = true;
+            this.btn_View.UseVisualStyleBackColor = false;
             this.btn_View.Visible = false;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
             // 

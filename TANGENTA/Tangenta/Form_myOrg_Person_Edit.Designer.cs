@@ -86,12 +86,13 @@
             // 
             // btn_PersonData_Edit
             // 
+            this.btn_PersonData_Edit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_PersonData_Edit.Location = new System.Drawing.Point(2, 2);
             this.btn_PersonData_Edit.Name = "btn_PersonData_Edit";
             this.btn_PersonData_Edit.Size = new System.Drawing.Size(437, 34);
             this.btn_PersonData_Edit.TabIndex = 6;
             this.btn_PersonData_Edit.Text = "More Person Data ";
-            this.btn_PersonData_Edit.UseVisualStyleBackColor = true;
+            this.btn_PersonData_Edit.UseVisualStyleBackColor = false;
             this.btn_PersonData_Edit.Click += new System.EventHandler(this.btn_PersonData_Edit_Click);
             // 
             // Form_myOrg_Person_Edit

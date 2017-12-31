@@ -41,12 +41,13 @@
             // 
             // btn_BuyerSelect
             // 
+            this.btn_BuyerSelect.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_BuyerSelect.Location = new System.Drawing.Point(541, 2);
             this.btn_BuyerSelect.Margin = new System.Windows.Forms.Padding(2);
             this.btn_BuyerSelect.Name = "btn_BuyerSelect";
             this.btn_BuyerSelect.Size = new System.Drawing.Size(42, 28);
             this.btn_BuyerSelect.TabIndex = 38;
-            this.btn_BuyerSelect.UseVisualStyleBackColor = true;
+            this.btn_BuyerSelect.UseVisualStyleBackColor = false;
             this.btn_BuyerSelect.Click += new System.EventHandler(this.btn_BuyerSelect_Click);
             // 
             // lbl_TypeOfBuyerCard
@@ -123,12 +124,13 @@
             // 
             // btn_Buyer
             // 
+            this.btn_Buyer.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Buyer.Image = global::Tangenta.Properties.Resources.Edit;
             this.btn_Buyer.Location = new System.Drawing.Point(61, 1);
             this.btn_Buyer.Name = "btn_Buyer";
             this.btn_Buyer.Size = new System.Drawing.Size(36, 28);
             this.btn_Buyer.TabIndex = 39;
-            this.btn_Buyer.UseVisualStyleBackColor = true;
+            this.btn_Buyer.UseVisualStyleBackColor = false;
             this.btn_Buyer.Click += new System.EventHandler(this.btn_Buyer_Click);
             // 
             // cmb_BuyerType

@@ -35,22 +35,24 @@
             // 
             // btn_EditStockTakeItems
             // 
+            this.btn_EditStockTakeItems.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_EditStockTakeItems.Location = new System.Drawing.Point(3, 3);
             this.btn_EditStockTakeItems.Name = "btn_EditStockTakeItems";
             this.btn_EditStockTakeItems.Size = new System.Drawing.Size(189, 106);
             this.btn_EditStockTakeItems.TabIndex = 1;
             this.btn_EditStockTakeItems.Text = "btn_EditStockTakeItems";
-            this.btn_EditStockTakeItems.UseVisualStyleBackColor = true;
+            this.btn_EditStockTakeItems.UseVisualStyleBackColor = false;
             this.btn_EditStockTakeItems.Click += new System.EventHandler(this.btn_EditStockTakeItems_Click);
             // 
             // btn_EditItemsInStock
             // 
+            this.btn_EditItemsInStock.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_EditItemsInStock.Location = new System.Drawing.Point(214, 4);
             this.btn_EditItemsInStock.Name = "btn_EditItemsInStock";
             this.btn_EditItemsInStock.Size = new System.Drawing.Size(189, 106);
             this.btn_EditItemsInStock.TabIndex = 2;
             this.btn_EditItemsInStock.Text = "btn_EditItemsInStock";
-            this.btn_EditItemsInStock.UseVisualStyleBackColor = true;
+            this.btn_EditItemsInStock.UseVisualStyleBackColor = false;
             this.btn_EditItemsInStock.Click += new System.EventHandler(this.btn_EditItemsInStock_Click);
             // 
             // Form_SelectStockEditType

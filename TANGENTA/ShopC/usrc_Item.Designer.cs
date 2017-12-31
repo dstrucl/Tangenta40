@@ -137,7 +137,8 @@
             // 
             // btn_Discount
             // 
-            this.btn_Discount.Image = Properties.Resources.Discount;
+            this.btn_Discount.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Discount.Image = global::ShopC.Properties.Resources.Discount;
             this.btn_Discount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Discount.Location = new System.Drawing.Point(293, 96);
             this.btn_Discount.Margin = new System.Windows.Forms.Padding(4);
@@ -145,41 +146,44 @@
             this.btn_Discount.Size = new System.Drawing.Size(169, 30);
             this.btn_Discount.TabIndex = 12;
             this.btn_Discount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Discount.UseVisualStyleBackColor = true;
+            this.btn_Discount.UseVisualStyleBackColor = false;
             this.btn_Discount.Click += new System.EventHandler(this.btn_Discount_Click);
             // 
             // btn_EditItem
             // 
-            this.btn_EditItem.Image = Properties.Resources.ItemStock_Edit;
+            this.btn_EditItem.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_EditItem.Image = global::ShopC.Properties.Resources.ItemStock_Edit;
             this.btn_EditItem.Location = new System.Drawing.Point(112, 0);
             this.btn_EditItem.Margin = new System.Windows.Forms.Padding(4);
             this.btn_EditItem.Name = "btn_EditItem";
             this.btn_EditItem.Size = new System.Drawing.Size(44, 33);
             this.btn_EditItem.TabIndex = 6;
-            this.btn_EditItem.UseVisualStyleBackColor = true;
+            this.btn_EditItem.UseVisualStyleBackColor = false;
             this.btn_EditItem.Click += new System.EventHandler(this.btn_EditItem_Click);
             // 
             // btn_NoStock
             // 
+            this.btn_NoStock.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_NoStock.Enabled = false;
-            this.btn_NoStock.Image = Properties.Resources.Item_NoStock;
+            this.btn_NoStock.Image = global::ShopC.Properties.Resources.Item_NoStock;
             this.btn_NoStock.Location = new System.Drawing.Point(292, 32);
             this.btn_NoStock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_NoStock.Name = "btn_NoStock";
             this.btn_NoStock.Size = new System.Drawing.Size(72, 63);
             this.btn_NoStock.TabIndex = 3;
-            this.btn_NoStock.UseVisualStyleBackColor = true;
+            this.btn_NoStock.UseVisualStyleBackColor = false;
             this.btn_NoStock.Click += new System.EventHandler(this.btn_Factory_Click);
             // 
             // btn_Stock
             // 
-            this.btn_Stock.Image = Properties.Resources.Item_Stock;
+            this.btn_Stock.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Stock.Image = global::ShopC.Properties.Resources.Item_Stock;
             this.btn_Stock.Location = new System.Drawing.Point(112, 32);
             this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stock.Name = "btn_Stock";
             this.btn_Stock.Size = new System.Drawing.Size(72, 63);
             this.btn_Stock.TabIndex = 2;
-            this.btn_Stock.UseVisualStyleBackColor = true;
+            this.btn_Stock.UseVisualStyleBackColor = false;
             this.btn_Stock.Click += new System.EventHandler(this.btn_Stock_Click);
             // 
             // pic_Item
@@ -195,7 +199,7 @@
             // usrc_Item
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.btn_Discount);
             this.Controls.Add(this.nmUpDn_FactoryQuantity);

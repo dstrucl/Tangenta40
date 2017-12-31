@@ -125,23 +125,25 @@
             // 
             // btn_Print
             // 
+            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.CausesValidation = false;
             this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
             this.btn_Print.Location = new System.Drawing.Point(71, 1);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(55, 37);
             this.btn_Print.TabIndex = 8;
-            this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.UseVisualStyleBackColor = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // btn_TimeSpan
             // 
+            this.btn_TimeSpan.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_TimeSpan.Image = global::Tangenta.Properties.Resources.TimeSpan;
             this.btn_TimeSpan.Location = new System.Drawing.Point(3, 1);
             this.btn_TimeSpan.Name = "btn_TimeSpan";
             this.btn_TimeSpan.Size = new System.Drawing.Size(56, 38);
             this.btn_TimeSpan.TabIndex = 2;
-            this.btn_TimeSpan.UseVisualStyleBackColor = true;
+            this.btn_TimeSpan.UseVisualStyleBackColor = false;
             this.btn_TimeSpan.Click += new System.EventHandler(this.btn_TimeSpan_Click);
             // 
             // usrc_InvoiceTable

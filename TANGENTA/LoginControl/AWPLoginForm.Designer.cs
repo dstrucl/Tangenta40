@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STDLoginForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AWPLoginForm));
             this.lbl_UserName = new System.Windows.Forms.Label();
             this.txt_Password = new System.Windows.Forms.TextBox();
             this.lbl_Password = new System.Windows.Forms.Label();
@@ -67,26 +67,29 @@
             // 
             // btn_OK
             // 
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(231, 139);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(79, 31);
             this.btn_OK.TabIndex = 4;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Location = new System.Drawing.Point(419, 139);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 31);
             this.btn_Cancel.TabIndex = 5;
             this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // cmbR_UserName
             // 
+            this.cmbR_UserName.AskToCreateRecentItemsFolder = false;
             this.cmbR_UserName.DisplayMember = "text";
             this.cmbR_UserName.DisplayTime = true;
             this.cmbR_UserName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -100,11 +103,12 @@
             this.cmbR_UserName.Name = "cmbR_UserName";
             this.cmbR_UserName.ReadOnly = false;
             this.cmbR_UserName.RecentItemsFileName = "LoginComboBoxRecentXmlFile_UserName.xml";
+            this.cmbR_UserName.RecentItemsFolder = "";
             this.cmbR_UserName.Size = new System.Drawing.Size(385, 21);
             this.cmbR_UserName.TabIndex = 0;
             this.cmbR_UserName.EnterPressed += new ComboBox_Recent.ComboBox_RecentList.delagate_EnterPressed(this.cmbR_UserName_EnterPressed);
             // 
-            // LoginForm
+            // AWPLoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,7 +122,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "LoginForm";
+            this.Name = "AWPLoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
             this.Shown += new System.EventHandler(this.LoginForm_Shown);

@@ -42,22 +42,24 @@
             // 
             // btn_Yes
             // 
+            this.btn_Yes.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Yes.Location = new System.Drawing.Point(141, 207);
             this.btn_Yes.Name = "btn_Yes";
             this.btn_Yes.Size = new System.Drawing.Size(70, 34);
             this.btn_Yes.TabIndex = 0;
             this.btn_Yes.Text = "Yes";
-            this.btn_Yes.UseVisualStyleBackColor = true;
+            this.btn_Yes.UseVisualStyleBackColor = false;
             this.btn_Yes.Click += new System.EventHandler(this.btn_Yes_Click);
             // 
             // btn_No
             // 
+            this.btn_No.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_No.Location = new System.Drawing.Point(275, 207);
             this.btn_No.Name = "btn_No";
             this.btn_No.Size = new System.Drawing.Size(70, 34);
             this.btn_No.TabIndex = 1;
             this.btn_No.Text = "No";
-            this.btn_No.UseVisualStyleBackColor = true;
+            this.btn_No.UseVisualStyleBackColor = false;
             this.btn_No.Click += new System.EventHandler(this.btn_No_Click);
             // 
             // label1

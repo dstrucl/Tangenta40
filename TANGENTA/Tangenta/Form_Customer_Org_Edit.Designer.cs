@@ -39,43 +39,47 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(128, 578);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(55, 24);
             this.btn_Cancel.TabIndex = 4;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // btn_OK
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(4, 578);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(55, 24);
             this.btn_OK.TabIndex = 3;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // btn_BankAccounts
             // 
+            this.btn_BankAccounts.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_BankAccounts.Location = new System.Drawing.Point(224, 1);
             this.btn_BankAccounts.Name = "btn_BankAccounts";
             this.btn_BankAccounts.Size = new System.Drawing.Size(191, 26);
             this.btn_BankAccounts.TabIndex = 8;
             this.btn_BankAccounts.Text = "Organisation Bank Account";
-            this.btn_BankAccounts.UseVisualStyleBackColor = true;
+            this.btn_BankAccounts.UseVisualStyleBackColor = false;
             this.btn_BankAccounts.Click += new System.EventHandler(this.btn_BankAccounts_Click);
             // 
             // btn_OrganisationData
             // 
+            this.btn_OrganisationData.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OrganisationData.Location = new System.Drawing.Point(4, 1);
             this.btn_OrganisationData.Name = "btn_OrganisationData";
             this.btn_OrganisationData.Size = new System.Drawing.Size(203, 26);
             this.btn_OrganisationData.TabIndex = 7;
             this.btn_OrganisationData.Text = "Organisation Data";
-            this.btn_OrganisationData.UseVisualStyleBackColor = true;
+            this.btn_OrganisationData.UseVisualStyleBackColor = false;
             this.btn_OrganisationData.Click += new System.EventHandler(this.btn_OrganisationData_Click);
             // 
             // usrc_EditTable
@@ -107,7 +111,7 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Customer_Name = "Form_Customer_Org_Edit";
+            this.Name = "Form_Customer_Org_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Item_EditForm_FormClosing);

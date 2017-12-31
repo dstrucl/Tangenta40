@@ -33,6 +33,7 @@ namespace LoginControl
             this.btnChangeData = new System.Windows.Forms.Button();
             this.dgv_LoginUsers = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btn_LoginHistory = new System.Windows.Forms.Button();
             this.usrc_PasswordBytes1 = new LoginControl.usrc_PasswordBytes();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
@@ -53,7 +54,6 @@ namespace LoginControl
             this.nmUpDn_MaxPasswordAge = new System.Windows.Forms.NumericUpDown();
             this.chk_Enabled = new System.Windows.Forms.CheckBox();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
-            this.btn_LoginHistory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LoginUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -76,6 +76,7 @@ namespace LoginControl
             // btnAddUser
             // 
             this.btnAddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddUser.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
             this.btnAddUser.Location = new System.Drawing.Point(181, 605);
@@ -83,13 +84,14 @@ namespace LoginControl
             this.btnAddUser.Size = new System.Drawing.Size(138, 34);
             this.btnAddUser.TabIndex = 10;
             this.btnAddUser.Text = "Add User";
-            this.btnAddUser.UseVisualStyleBackColor = true;
+            this.btnAddUser.UseVisualStyleBackColor = false;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             this.btnAddUser.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnAddUser_KeyUp);
             // 
             // btnChangeData
             // 
             this.btnChangeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnChangeData.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnChangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
             this.btnChangeData.Location = new System.Drawing.Point(335, 605);
@@ -97,7 +99,7 @@ namespace LoginControl
             this.btnChangeData.Size = new System.Drawing.Size(138, 34);
             this.btnChangeData.TabIndex = 12;
             this.btnChangeData.Text = "Change Data";
-            this.btnChangeData.UseVisualStyleBackColor = true;
+            this.btnChangeData.UseVisualStyleBackColor = false;
             this.btnChangeData.Click += new System.EventHandler(this.btnChangeData_Click);
             this.btnChangeData.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnChangeData_KeyUp);
             // 
@@ -151,6 +153,17 @@ namespace LoginControl
             this.splitContainer1.SplitterDistance = 446;
             this.splitContainer1.TabIndex = 16;
             // 
+            // btn_LoginHistory
+            // 
+            this.btn_LoginHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_LoginHistory.Location = new System.Drawing.Point(259, 150);
+            this.btn_LoginHistory.Name = "btn_LoginHistory";
+            this.btn_LoginHistory.Size = new System.Drawing.Size(168, 29);
+            this.btn_LoginHistory.TabIndex = 119;
+            this.btn_LoginHistory.Text = "Login History";
+            this.btn_LoginHistory.UseVisualStyleBackColor = false;
+            this.btn_LoginHistory.Click += new System.EventHandler(this.btn_LoginHistory_Click);
+            // 
             // usrc_PasswordBytes1
             // 
             this.usrc_PasswordBytes1.Location = new System.Drawing.Point(2, 30);
@@ -168,7 +181,7 @@ namespace LoginControl
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.splitContainer3.Location = new System.Drawing.Point(2, 183);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -266,12 +279,13 @@ namespace LoginControl
             // 
             // btn_Edit_myOrganisation_Person
             // 
+            this.btn_Edit_myOrganisation_Person.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Edit_myOrganisation_Person.Location = new System.Drawing.Point(8, 149);
             this.btn_Edit_myOrganisation_Person.Name = "btn_Edit_myOrganisation_Person";
             this.btn_Edit_myOrganisation_Person.Size = new System.Drawing.Size(238, 29);
             this.btn_Edit_myOrganisation_Person.TabIndex = 114;
             this.btn_Edit_myOrganisation_Person.Text = "Edit my organisation person";
-            this.btn_Edit_myOrganisation_Person.UseVisualStyleBackColor = true;
+            this.btn_Edit_myOrganisation_Person.UseVisualStyleBackColor = false;
             this.btn_Edit_myOrganisation_Person.Click += new System.EventHandler(this.btn_Edit_myOrganisation_Person_Click);
             // 
             // chk_ChangePasswordOnFirstLogIn
@@ -423,16 +437,6 @@ namespace LoginControl
             this.usrc_NavigationButtons1.Visible_NEXT = true;
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
-            // 
-            // btn_LoginHistory
-            // 
-            this.btn_LoginHistory.Location = new System.Drawing.Point(259, 150);
-            this.btn_LoginHistory.Name = "btn_LoginHistory";
-            this.btn_LoginHistory.Size = new System.Drawing.Size(168, 29);
-            this.btn_LoginHistory.TabIndex = 119;
-            this.btn_LoginHistory.Text = "Login History";
-            this.btn_LoginHistory.UseVisualStyleBackColor = true;
-            this.btn_LoginHistory.Click += new System.EventHandler(this.btn_LoginHistory_Click);
             // 
             // AWP_UserManager
             // 

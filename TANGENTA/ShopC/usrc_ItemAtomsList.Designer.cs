@@ -45,12 +45,13 @@
             // btn_ClearAll
             // 
             this.btn_ClearAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ClearAll.Image = Properties.Resources.RemoveAll;
+            this.btn_ClearAll.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_ClearAll.Image = global::ShopC.Properties.Resources.RemoveAll;
             this.btn_ClearAll.Location = new System.Drawing.Point(421, -1);
             this.btn_ClearAll.Name = "btn_ClearAll";
             this.btn_ClearAll.Size = new System.Drawing.Size(54, 41);
             this.btn_ClearAll.TabIndex = 10;
-            this.btn_ClearAll.UseVisualStyleBackColor = true;
+            this.btn_ClearAll.UseVisualStyleBackColor = false;
             this.btn_ClearAll.Visible = false;
             this.btn_ClearAll.Click += new System.EventHandler(this.btn_ClearAll_Click);
             // 
@@ -62,7 +63,7 @@
             this.pnl_Atom_Items.AutoScroll = true;
             this.pnl_Atom_Items.AutoScrollMinSize = new System.Drawing.Size(10, 10);
             this.pnl_Atom_Items.BackColor = System.Drawing.Color.GhostWhite;
-            this.pnl_Atom_Items.BackgroundImage = Properties.Resources.Shopping_Basket;
+            this.pnl_Atom_Items.BackgroundImage = global::ShopC.Properties.Resources.Shopping_Basket;
             this.pnl_Atom_Items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pnl_Atom_Items.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnl_Atom_Items.Location = new System.Drawing.Point(0, 41);

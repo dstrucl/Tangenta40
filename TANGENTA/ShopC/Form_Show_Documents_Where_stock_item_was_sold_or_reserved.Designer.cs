@@ -54,12 +54,13 @@
             // 
             // btn_Exit
             // 
+            this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(520, 3);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(78, 25);
             this.btn_Exit.TabIndex = 1;
-            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // Form_Show_Documents_Where_stock_item_was_sold_or_reserved

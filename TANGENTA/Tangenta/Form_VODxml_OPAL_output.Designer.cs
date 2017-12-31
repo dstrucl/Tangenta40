@@ -87,6 +87,7 @@
             // 
             // btn_SelectFolder
             // 
+            this.btn_SelectFolder.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_SelectFolder.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectFolder.Image")));
             this.btn_SelectFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_SelectFolder.Location = new System.Drawing.Point(604, 73);
@@ -96,7 +97,7 @@
             this.btn_SelectFolder.TabIndex = 13;
             this.btn_SelectFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_SelectFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_SelectFolder.UseVisualStyleBackColor = true;
+            this.btn_SelectFolder.UseVisualStyleBackColor = false;
             this.btn_SelectFolder.Click += new System.EventHandler(this.btn_SelectFolder_Click);
             // 
             // lbl_Folder
@@ -122,23 +123,25 @@
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Save.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Save.Location = new System.Drawing.Point(2, 677);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(95, 37);
             this.btn_Save.TabIndex = 17;
             this.btn_Save.Text = "Save";
-            this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.UseVisualStyleBackColor = false;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(940, 9);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 37);
             this.btn_Cancel.TabIndex = 18;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // cmbR_FilePath
@@ -156,7 +159,8 @@
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\riaanxl" +
+    "u01\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
@@ -182,6 +186,7 @@
             // 
             // btn_Select_Shema
             // 
+            this.btn_Select_Shema.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_Shema.Image = ((System.Drawing.Image)(resources.GetObject("btn_Select_Shema.Image")));
             this.btn_Select_Shema.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Select_Shema.Location = new System.Drawing.Point(462, 24);
@@ -191,7 +196,7 @@
             this.btn_Select_Shema.TabIndex = 20;
             this.btn_Select_Shema.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Select_Shema.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_Select_Shema.UseVisualStyleBackColor = true;
+            this.btn_Select_Shema.UseVisualStyleBackColor = false;
             this.btn_Select_Shema.Click += new System.EventHandler(this.btn_Select_Shema_Click);
             // 
             // lbl_VOD_xml_shema
@@ -419,13 +424,14 @@
             // btn_View
             // 
             this.btn_View.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_View.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_View.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_View.Location = new System.Drawing.Point(142, 677);
             this.btn_View.Name = "btn_View";
             this.btn_View.Size = new System.Drawing.Size(95, 37);
             this.btn_View.TabIndex = 19;
             this.btn_View.Text = "View";
-            this.btn_View.UseVisualStyleBackColor = true;
+            this.btn_View.UseVisualStyleBackColor = false;
             this.btn_View.Visible = false;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
             // 

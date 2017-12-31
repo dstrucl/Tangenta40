@@ -43,12 +43,13 @@
             // btn_PasswordView
             // 
             this.btn_PasswordView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_PasswordView.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_PasswordView.Image = ((System.Drawing.Image)(resources.GetObject("btn_PasswordView.Image")));
             this.btn_PasswordView.Location = new System.Drawing.Point(306, 22);
             this.btn_PasswordView.Name = "btn_PasswordView";
             this.btn_PasswordView.Size = new System.Drawing.Size(35, 21);
             this.btn_PasswordView.TabIndex = 13;
-            this.btn_PasswordView.UseVisualStyleBackColor = true;
+            this.btn_PasswordView.UseVisualStyleBackColor = false;
             this.btn_PasswordView.Click += new System.EventHandler(this.btn_PasswordView_Click);
             // 
             // chk_RememberPasswordInSession
@@ -90,22 +91,24 @@
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Location = new System.Drawing.Point(184, 91);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(72, 32);
             this.btn_Cancel.TabIndex = 8;
             this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // btn_OK
             // 
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(60, 91);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(72, 32);
             this.btn_OK.TabIndex = 7;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // timer1

@@ -45,12 +45,13 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
             this.btn_Cancel.Location = new System.Drawing.Point(371, 573);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(74, 30);
             this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // lbl_LoginHistory
@@ -96,12 +97,13 @@
             // 
             // btn_Refresh
             // 
+            this.btn_Refresh.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Refresh.Location = new System.Drawing.Point(596, 30);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(108, 23);
             this.btn_Refresh.TabIndex = 9;
             this.btn_Refresh.Text = "Refresh";
-            this.btn_Refresh.UseVisualStyleBackColor = true;
+            this.btn_Refresh.UseVisualStyleBackColor = false;
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
             // dgv_LoginHistory

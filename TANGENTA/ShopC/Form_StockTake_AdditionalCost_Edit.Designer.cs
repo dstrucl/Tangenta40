@@ -103,32 +103,35 @@
             // 
             // btn_Add
             // 
+            this.btn_Add.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Add.Location = new System.Drawing.Point(12, 52);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(62, 22);
             this.btn_Add.TabIndex = 7;
             this.btn_Add.Text = "Add";
-            this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.UseVisualStyleBackColor = false;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // btn_Update
             // 
+            this.btn_Update.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Update.Location = new System.Drawing.Point(80, 52);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(99, 22);
             this.btn_Update.TabIndex = 8;
             this.btn_Update.Text = "Update";
-            this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.UseVisualStyleBackColor = false;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Remove
             // 
+            this.btn_Remove.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Remove.Location = new System.Drawing.Point(190, 52);
             this.btn_Remove.Name = "btn_Remove";
             this.btn_Remove.Size = new System.Drawing.Size(87, 22);
             this.btn_Remove.TabIndex = 9;
             this.btn_Remove.Text = "Remove";
-            this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.UseVisualStyleBackColor = false;
             this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // dgvx_StockTakeAdditionalCost
@@ -151,12 +154,13 @@
             // 
             // btn_Exit
             // 
+            this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(445, 2);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(72, 28);
             this.btn_Exit.TabIndex = 10;
-            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // Form_StockTake_AdditionalCost_Edit

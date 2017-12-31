@@ -214,25 +214,27 @@
             // 
             // btn_RemoveFromBasketToFactory
             // 
-            this.btn_RemoveFromBasketToFactory.Image = Properties.Resources.RemoveFromBoxToFactory;
+            this.btn_RemoveFromBasketToFactory.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_RemoveFromBasketToFactory.Image = global::ShopC.Properties.Resources.RemoveFromBoxToFactory;
             this.btn_RemoveFromBasketToFactory.Location = new System.Drawing.Point(220, 33);
             this.btn_RemoveFromBasketToFactory.Margin = new System.Windows.Forms.Padding(4);
             this.btn_RemoveFromBasketToFactory.Name = "btn_RemoveFromBasketToFactory";
             this.btn_RemoveFromBasketToFactory.Size = new System.Drawing.Size(95, 63);
             this.btn_RemoveFromBasketToFactory.TabIndex = 25;
-            this.btn_RemoveFromBasketToFactory.UseVisualStyleBackColor = true;
+            this.btn_RemoveFromBasketToFactory.UseVisualStyleBackColor = false;
             this.btn_RemoveFromBasketToFactory.Visible = false;
             this.btn_RemoveFromBasketToFactory.Click += new System.EventHandler(this.btn_RemoveFromBasketToFactory_Click);
             // 
             // btn_RemoveFromBasketToStock
             // 
-            this.btn_RemoveFromBasketToStock.Image = Properties.Resources.RemoveFromBox;
+            this.btn_RemoveFromBasketToStock.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_RemoveFromBasketToStock.Image = global::ShopC.Properties.Resources.RemoveFromBox;
             this.btn_RemoveFromBasketToStock.Location = new System.Drawing.Point(117, 33);
             this.btn_RemoveFromBasketToStock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_RemoveFromBasketToStock.Name = "btn_RemoveFromBasketToStock";
             this.btn_RemoveFromBasketToStock.Size = new System.Drawing.Size(95, 63);
             this.btn_RemoveFromBasketToStock.TabIndex = 19;
-            this.btn_RemoveFromBasketToStock.UseVisualStyleBackColor = true;
+            this.btn_RemoveFromBasketToStock.UseVisualStyleBackColor = false;
             this.btn_RemoveFromBasketToStock.Visible = false;
             this.btn_RemoveFromBasketToStock.Click += new System.EventHandler(this.btn_RemoveFromBasketToStock_Click);
             // 
@@ -261,7 +263,7 @@
             // usrc_Atom_Item
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.lbl_Quantity_Value);
             this.Controls.Add(this.lbl_Quantity);

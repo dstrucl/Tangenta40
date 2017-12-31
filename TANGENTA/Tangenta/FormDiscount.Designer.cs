@@ -182,27 +182,29 @@
             // 
             // btn_OK
             // 
+            this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_OK.Location = new System.Drawing.Point(219, 424);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(171, 57);
             this.btn_OK.TabIndex = 12;
             this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // btn_PurchasePriceInfo
             // 
+            this.btn_PurchasePriceInfo.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_PurchasePriceInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_PurchasePriceInfo.Location = new System.Drawing.Point(371, 14);
             this.btn_PurchasePriceInfo.Name = "btn_PurchasePriceInfo";
             this.btn_PurchasePriceInfo.Size = new System.Drawing.Size(237, 83);
             this.btn_PurchasePriceInfo.TabIndex = 13;
             this.btn_PurchasePriceInfo.Text = "PurchasePriceInfo";
-            this.btn_PurchasePriceInfo.UseVisualStyleBackColor = true;
+            this.btn_PurchasePriceInfo.UseVisualStyleBackColor = false;
             this.btn_PurchasePriceInfo.Click += new System.EventHandler(this.btn_PurchasePriceInfo_Click);
             // 
-            // Form_Discount
+            // FormDiscount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -224,7 +226,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_Discount";
+            this.Name = "FormDiscount";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_Discount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_EndPrice)).EndInit();

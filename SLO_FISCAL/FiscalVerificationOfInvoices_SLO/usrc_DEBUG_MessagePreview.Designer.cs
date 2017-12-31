@@ -43,12 +43,13 @@
             // 
             // btn_PostMessage
             // 
+            this.btn_PostMessage.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_PostMessage.Location = new System.Drawing.Point(254, 34);
             this.btn_PostMessage.Name = "btn_PostMessage";
             this.btn_PostMessage.Size = new System.Drawing.Size(208, 26);
             this.btn_PostMessage.TabIndex = 4;
             this.btn_PostMessage.Text = "PostMessage --> Thread_FVI_Message ";
-            this.btn_PostMessage.UseVisualStyleBackColor = true;
+            this.btn_PostMessage.UseVisualStyleBackColor = false;
             this.btn_PostMessage.Click += new System.EventHandler(this.btn_PostMessage_Click);
             // 
             // lbl_MessageType
@@ -120,12 +121,13 @@
             // 
             // btn_End
             // 
+            this.btn_End.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_End.Location = new System.Drawing.Point(367, 5);
             this.btn_End.Name = "btn_End";
             this.btn_End.Size = new System.Drawing.Size(66, 23);
             this.btn_End.TabIndex = 13;
             this.btn_End.Text = "KONEC";
-            this.btn_End.UseVisualStyleBackColor = true;
+            this.btn_End.UseVisualStyleBackColor = false;
             this.btn_End.Click += new System.EventHandler(this.btn_End_Click);
             // 
             // txt_Response_MessageID

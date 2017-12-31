@@ -52,22 +52,24 @@
             // 
             // btn_Select
             // 
+            this.btn_Select.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select.Image = ((System.Drawing.Image)(resources.GetObject("btn_Select.Image")));
             this.btn_Select.Location = new System.Drawing.Point(6, 3);
             this.btn_Select.Name = "btn_Select";
             this.btn_Select.Size = new System.Drawing.Size(58, 25);
             this.btn_Select.TabIndex = 1;
-            this.btn_Select.UseVisualStyleBackColor = true;
+            this.btn_Select.UseVisualStyleBackColor = false;
             this.btn_Select.Click += new System.EventHandler(this.btn_Select_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
             this.btn_Cancel.Location = new System.Drawing.Point(325, 3);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(58, 25);
             this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // AWPFormSelectMyOrgPerNotInLoginUsers
