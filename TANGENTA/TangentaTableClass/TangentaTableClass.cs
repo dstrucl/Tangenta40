@@ -1375,12 +1375,18 @@ namespace TangentaTableClass
         public DecimalPlaces DecimalPlaces = new DecimalPlaces();
     }
 
+    public class Atom_PriceList_Name
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
 
     public class Atom_PriceList
     {
         public ID ID = new ID();
         public Atom_Currency m_Atom_Currency = new Atom_Currency();
-        public Name Name = new Name();
+        public Atom_PriceList_Name m_Atom_PriceList_Name = new Atom_PriceList_Name();
         public Valid Valid = new Valid();
         public ValidFrom ValidFrom = new ValidFrom();
         public ValidTo ValidTo = new ValidTo();
@@ -1500,11 +1506,16 @@ namespace TangentaTableClass
     {
     }
 
+    public class PriceList_Name
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
 
     public class PriceList
     {
         public ID ID = new ID();
-        public Name Name = new Name();
+        public PriceList_Name m_PriceList_Name = new PriceList_Name();
         public Currency m_Currency = new Currency();
         public Valid Valid = new Valid();
         public ValidFrom ValidFrom = new ValidFrom();
@@ -1910,6 +1921,7 @@ namespace TangentaTableClass
         public EndSum EndSum = new EndSum();
         public TaxSum TaxSum = new TaxSum();
         public GrossSum GrossSum = new GrossSum();
+        public Atom_Currency m_Atom_Currency = new Atom_Currency();
         public Atom_Customer_Person m_Atom_Customer_Person = new Atom_Customer_Person();
         public Atom_Customer_Org m_Atom_Customer_Org = new Atom_Customer_Org();
         public Paid Paid = new Paid();
@@ -1943,6 +1955,7 @@ namespace TangentaTableClass
         public EndSum EndSum = new EndSum();
         public TaxSum TaxSum = new TaxSum();
         public GrossSum GrossSum = new GrossSum();
+        public Atom_Currency m_Atom_Currency = new Atom_Currency();
         public Atom_Customer_Person m_Atom_Customer_Person = new Atom_Customer_Person();
         public Atom_Customer_Org m_Atom_Customer_Org = new Atom_Customer_Org();
     }
@@ -3203,5 +3216,10 @@ namespace TangentaTableClass
         /* 212 */
         public LoginManagerJournal m_LoginManagerJournal = new LoginManagerJournal();
 
+        /* 213 */
+        public Atom_PriceList_Name m_Atom_PriceList_Name = new Atom_PriceList_Name();
+
+        /* 214 */
+        public PriceList_Name m_PriceList_Name = new PriceList_Name();
     }
 }

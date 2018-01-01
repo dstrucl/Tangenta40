@@ -33,6 +33,9 @@ namespace TangentaDB
             public int_v DocDuration_Type_v = null;
         }
 
+        public xCurrency Currency = null;
+        public long Atom_Currency_ID = -1;
+
         public InvoiceData.eType m_eType = InvoiceData.eType.UNKNOWN;
 
         public ShopABC m_InvoiceDB = null;
@@ -55,6 +58,7 @@ namespace TangentaDB
 
 
         public int DraftNumber;
+
 
         public long Doc_ID;
 
@@ -1663,6 +1667,7 @@ namespace TangentaDB
                         EndSum,
                         TaxSum,
                         GrossSum,
+                        Atom_Currency_ID,
                         Atom_Customer_Person_ID,
                         Atom_Customer_Org_ID,
                         aw.WarrantyConditions,
@@ -1689,7 +1694,8 @@ namespace TangentaDB
                 decimal_v GrossSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["GrossSum"]);
                 long_v Atom_Customer_Person_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Person_ID"]);
                 long_v Atom_Customer_Org_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Org_ID"]);
-              
+                long_v Atom_Currency_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Currency_ID"]);
+
                 string_v WarrantyConditions_v = tf.set_string(dt_ProfInv.Rows[0]["WarrantyConditions"]);
                 int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
@@ -1715,6 +1721,7 @@ namespace TangentaDB
                                                 EndSum,
                                                 TaxSum,
                                                 GrossSum,
+                                                Atom_Currency_ID,
                                                 Atom_Customer_Person_ID,
                                                 Atom_Customer_Org_ID,
                                                 Invoice_Reference_ID,
@@ -1732,6 +1739,7 @@ namespace TangentaDB
                                                             + GetParam("EndSum", ref lpar, EndSum_v) + ","
                                                             + GetParam("TaxSum", ref lpar, TaxSum_v) + ","
                                                             + GetParam("GrossSum", ref lpar, GrossSum_v) + ","
+                                                            + GetParam("Atom_Currency_ID", ref lpar, Atom_Currency_ID_v) + ","
                                                             + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
                                                             + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
                                                             + GetParam("Invoice_Reference_ID", ref lpar, Storno_Invoice_ID_v) + @",

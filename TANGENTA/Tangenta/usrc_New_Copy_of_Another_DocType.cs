@@ -78,6 +78,8 @@ namespace Tangenta
             int Default_FinancialYear = DateTime.Now.Year;
             if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref m_dt_FiancialYear, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))
             {
+                Properties.Settings.Default.FinancialYear = Default_FinancialYear;
+                Properties.Settings.Default.Save();
                 cmb_FinancialYear.SelectedIndexChanged += cmb_FinancialYear_SelectedIndexChanged;
             }
         }

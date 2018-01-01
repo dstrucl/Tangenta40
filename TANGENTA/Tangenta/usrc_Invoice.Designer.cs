@@ -37,9 +37,6 @@
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
             this.btn_edit_MyOrganisation_Person = new System.Windows.Forms.Button();
-            this.lbl_Currency = new System.Windows.Forms.Label();
-            this.txt_Currency = new System.Windows.Forms.TextBox();
-            this.btn_SelectBaseCurrency = new System.Windows.Forms.Button();
             this.lbl_Sum = new System.Windows.Forms.Label();
             this.btn_Issue = new System.Windows.Forms.Button();
             this.chk_Head = new System.Windows.Forms.CheckBox();
@@ -50,6 +47,7 @@
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
+            this.usrc_Currency1 = new Tangenta.usrc_Currency();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -165,41 +163,6 @@
             this.btn_edit_MyOrganisation_Person.TabIndex = 17;
             this.btn_edit_MyOrganisation_Person.UseVisualStyleBackColor = false;
             this.btn_edit_MyOrganisation_Person.Click += new System.EventHandler(this.btn_edit_MyOrganisation_Person_Click);
-            // 
-            // lbl_Currency
-            // 
-            this.lbl_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Currency.Location = new System.Drawing.Point(412, 6);
-            this.lbl_Currency.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_Currency.Name = "lbl_Currency";
-            this.lbl_Currency.Size = new System.Drawing.Size(74, 17);
-            this.lbl_Currency.TabIndex = 25;
-            this.lbl_Currency.Text = "Valuta:";
-            this.lbl_Currency.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txt_Currency
-            // 
-            this.txt_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Currency.Location = new System.Drawing.Point(523, 2);
-            this.txt_Currency.Name = "txt_Currency";
-            this.txt_Currency.ReadOnly = true;
-            this.txt_Currency.Size = new System.Drawing.Size(47, 24);
-            this.txt_Currency.TabIndex = 27;
-            // 
-            // btn_SelectBaseCurrency
-            // 
-            this.btn_SelectBaseCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SelectBaseCurrency.AutoEllipsis = true;
-            this.btn_SelectBaseCurrency.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectBaseCurrency.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectBaseCurrency.Image")));
-            this.btn_SelectBaseCurrency.Location = new System.Drawing.Point(487, -1);
-            this.btn_SelectBaseCurrency.Name = "btn_SelectBaseCurrency";
-            this.btn_SelectBaseCurrency.Size = new System.Drawing.Size(34, 29);
-            this.btn_SelectBaseCurrency.TabIndex = 28;
-            this.btn_SelectBaseCurrency.UseVisualStyleBackColor = false;
-            this.btn_SelectBaseCurrency.Click += new System.EventHandler(this.btn_SelectBaseCurrency_Click);
             // 
             // lbl_Sum
             // 
@@ -335,9 +298,18 @@
             this.usrc_AddOn1.Size = new System.Drawing.Size(395, 65);
             this.usrc_AddOn1.TabIndex = 40;
             // 
+            // usrc_Currency1
+            // 
+            this.usrc_Currency1.Location = new System.Drawing.Point(410, -2);
+            this.usrc_Currency1.Name = "usrc_Currency1";
+            this.usrc_Currency1.Size = new System.Drawing.Size(158, 31);
+            this.usrc_Currency1.TabIndex = 42;
+            this.usrc_Currency1.CurrencyChanged += new Tangenta.usrc_Currency.delegate_CurrencyChanged(this.usrc_Currency1_CurrencyChanged);
+            // 
             // usrc_Invoice
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_Currency1);
             this.Controls.Add(this.btn_Show_Shops);
             this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
@@ -345,9 +317,6 @@
             this.Controls.Add(this.chk_Head);
             this.Controls.Add(this.btn_Issue);
             this.Controls.Add(this.lbl_Sum);
-            this.Controls.Add(this.btn_SelectBaseCurrency);
-            this.Controls.Add(this.txt_Currency);
-            this.Controls.Add(this.lbl_Currency);
             this.Controls.Add(this.lbl_Number);
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -378,9 +347,6 @@
         private System.Windows.Forms.ComboBox cmb_select_my_Organisation_Person;
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
-        private System.Windows.Forms.Label lbl_Currency;
-        private System.Windows.Forms.TextBox txt_Currency;
-        private System.Windows.Forms.Button btn_SelectBaseCurrency;
         private System.Windows.Forms.Button btn_Issue;
         private usrc_Customer usrc_Customer;
         private System.Windows.Forms.CheckBox chk_Head;
@@ -392,5 +358,6 @@
         private System.Windows.Forms.Label lbl_MyOrganisation;
         private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
+        private usrc_Currency usrc_Currency1;
     }
 }

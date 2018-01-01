@@ -478,5 +478,9 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_LoginManagerJournal = new ltext(new string[] { "Login Manager Event JOURNAL", "Dnevnik dogodkov urejanja uporabnikov" });
 
+        public static ltext lngt_t_Atom_PriceList_Name = new ltext(new string[] { "Price List Name archive", "Ime cenika arhiv" });
+
+        public static ltext lngt_t_PriceList_Name = new ltext(new string[] { "Price List Name", "Ime cenika" });
+
     }
 }

@@ -629,6 +629,11 @@ namespace TangentaDataBaseDef
         /* 212 */
         public SQLTable t_LoginManagerJournal = null;
 
+        /* 213 */
+        public SQLTable t_Atom_PriceList_Name =null;
+
+        /* 214 */
+        public SQLTable t_PriceList_Name = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -977,6 +982,7 @@ namespace TangentaDataBaseDef
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.EndSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("End Sum", "Cena s popustom"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.TaxSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Tax Sum", "DDV"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.GrossSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Gross Sum", "Cena za plačilo"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Curreny archiv ID", "Valuta arhiv ID"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Customer_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Person archive ID", "Oseba Kupec arhiv ID"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Customer_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Organisation archive ID", "Kupec Organizacija arhiv ID"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Paid, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Paid", "Plačano"));
@@ -1316,7 +1322,7 @@ namespace TangentaDataBaseDef
         /* 85 */
             t_PriceList = new SQLTable((Object)new PriceList(),"pl", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_PriceList);
             t_PriceList.AddColumn((Object)mt.m_PriceList.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_PriceList.AddColumn((Object)mt.m_PriceList.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Price List Name", "Ime Cenika") );
+            t_PriceList.AddColumn((Object)mt.m_PriceList.m_PriceList_Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Price List Name ID", "Ime Cenika ID") );
             t_PriceList.AddColumn((Object)mt.m_PriceList.Valid, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid", "Veljaven") );
             t_PriceList.AddColumn((Object)mt.m_PriceList.m_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Currency ID", "Valuta ID") );
             t_PriceList.AddColumn((Object)mt.m_PriceList.ValidFrom, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid from", "Velja od") );
@@ -1363,7 +1369,7 @@ namespace TangentaDataBaseDef
         /* 90 */
             t_Atom_PriceList = new SQLTable((Object)new Atom_PriceList(),"apl", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_PriceList);;
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Price list name ", "Ime cenika") );
+            t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.m_Atom_PriceList_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Price list name archive ID ", "Ime cenika arhiv ID") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.Valid, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid", "Veljavno") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ValidFrom, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid from", "Veljavno od") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ValidTo, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid to", "Veljavno do") );
@@ -2121,6 +2127,7 @@ namespace TangentaDataBaseDef
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.EndSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("End Sum", "Cena s popustom"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.TaxSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Tax Sum", "DDV"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.GrossSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Gross Sum", "Cena za plačilo"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_Atom_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Currency archive ID", "Valuta arhiv ID"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_Atom_Customer_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Person archive ID", "Oseba Kupec arhiv ID"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_Atom_Customer_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Organisation archive ID", "Kupec Organizacija arhiv ID"));
             m_DBTables.items.Add(t_DocProformaInvoice);
@@ -2430,6 +2437,18 @@ namespace TangentaDataBaseDef
             t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.m_LoginManagerEvent, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login Manager Event ID", "Dogodek urejanja prijav ID"));
             t_LoginManagerJournal.AddColumn((Object)mt.m_LoginManagerJournal.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
             m_DBTables.items.Add(t_LoginManagerJournal);
+
+            /* 213 */
+            t_Atom_PriceList_Name  = new SQLTable((Object)new Atom_PriceList_Name(), "apln", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_PriceList_Name);
+            t_Atom_PriceList_Name.AddColumn((Object)mt.m_Atom_PriceList_Name.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_PriceList_Name.AddColumn((Object)mt.m_Atom_PriceList_Name.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price list name", "Ime cenika"));
+            m_DBTables.items.Add(t_Atom_PriceList_Name);
+
+            /* 214 */
+            t_PriceList_Name = new SQLTable((Object)new PriceList_Name(), "pln", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_PriceList_Name);
+            t_PriceList_Name.AddColumn((Object)mt.m_PriceList_Name.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_PriceList_Name.AddColumn((Object)mt.m_PriceList_Name.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price list name", "Ime cenika"));
+            m_DBTables.items.Add(t_PriceList_Name);
 
         }
     }

@@ -22,17 +22,19 @@ namespace TangentaDB
             string Err = null;
 
             DataTable dt = new DataTable();
-            string sql = @"select Atom_PriceList.ID
-                            from Atom_PriceList 
-                            inner join PriceList on Atom_PriceList.Name = PriceList.Name 
-                                                    and Atom_PriceList.Valid = PriceList.Valid
-                                                    and ((Atom_PriceList.ValidFrom = PriceList.ValidFrom) or (Atom_PriceList.ValidFrom is null and PriceList.ValidFrom is null))
-                                                    and ((Atom_PriceList.ValidTo = PriceList.ValidTo) or (Atom_PriceList.ValidTo is null and PriceList.ValidTo is null))
-                                                    and ((Atom_PriceList.Description = PriceList.Description) or (Atom_PriceList.Description is null and PriceList.Description is null))
-                            inner join Currency on PriceList.Currency_ID = Currency.ID
-                            inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
-                            where Currency.Abbreviation = Atom_Currency.Abbreviation and
-                                  PriceList.ID = " + PriceList_ID.ToString();
+            string sql = @"select apl.ID
+                            from Atom_PriceList apl
+                            inner join Atom_PriceList_Name apln on apl.Atom_PriceList_Name_ID = apln.ID
+                            inner join PriceList_Name pln on pln.Name = apln.Name
+                            inner join PriceList pl on pl.PriceList_Name_ID = pln.ID 
+                                                    and apl.Valid = pl.Valid
+                                                    and ((apl.ValidFrom = pl.ValidFrom) or (apl.ValidFrom is null and pl.ValidFrom is null))
+                                                    and ((apl.ValidTo = pl.ValidTo) or (apl.ValidTo is null and pl.ValidTo is null))
+                                                    and ((apl.Description = pl.Description) or (apl.Description is null and pl.Description is null))
+                            inner join Currency cur on pl.Currency_ID = cur.ID
+                            inner join Atom_Currency acur on apl.Atom_Currency_ID = acur.ID 
+                            where cur.Abbreviation = acur.Abbreviation and
+                                  pl.ID = " + PriceList_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
             {
@@ -44,7 +46,11 @@ namespace TangentaDB
                 else
                 {
                     xPriceList m_xPriceList = new xPriceList();
-                    sql = "select Currency_ID from PriceList where PriceList.ID = " + PriceList_ID.ToString();
+                    sql = @"select pl.Currency_ID,
+                                   pln.Name as PriceList_Name
+                                   from PriceList pl
+                                   inner join PriceList_Name pln on pl.PriceList_Name_ID = pln.ID
+                                   where pl.ID = " + PriceList_ID.ToString();
                     dt.Clear();
                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
                     {
@@ -54,16 +60,27 @@ namespace TangentaDB
                             long Atom_Currency_ID = -1;
                             if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID))
                             {
-                                sql = "insert into Atom_PriceList (Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select Name,Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
 
-                                object objretx = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref objretx, ref Err, "Atom_PriceList"))
+                                string PriceList_Name = (string)dt.Rows[0]["PriceList_Name"];
+                                long Atom_PriceList_Name_ID = -1;
+                                if (f_Atom_PriceList_Name.Get(PriceList_Name, ref Atom_PriceList_Name_ID))
                                 {
-                                    return true;
+
+                                    sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
+
+                                    object objretx = null;
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref objretx, ref Err, "Atom_PriceList"))
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        LogFile.Error.Show("ERROR:f_Atom_PriceList:Get:" + sql + "\r\nErr=" + Err);
+                                        return false;
+                                    }
                                 }
                                 else
                                 {
-                                    LogFile.Error.Show("ERROR:f_Atom_PriceList:Get:" + sql + "\r\nErr=" + Err);
                                     return false;
                                 }
                             }
@@ -113,8 +130,9 @@ namespace TangentaDB
                 DataTable dt = new DataTable();
                 string sql = @"select Atom_PriceList.ID
                             from Atom_PriceList
+                            inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                             inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
-                            where Atom_PriceList.Name = " + spar_Atom_PriceList_Name + " and  Atom_Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
+                            where Atom_PriceList_Name.Name = " + spar_Atom_PriceList_Name + " and  Atom_Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
 
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
@@ -127,8 +145,9 @@ namespace TangentaDB
                     {
                         sql = @"select PriceList.ID
                                       from PriceList 
+                                      inner join PriceList_Name on PriceList.PriceList_Name_ID = PriceList_Name.ID 
                                       inner join Currency on PriceList.Currency_ID = Currency.ID 
-                                      where PriceList.Name = " + spar_Atom_PriceList_Name + " and  Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
+                                      where PriceList_Name.Name = " + spar_Atom_PriceList_Name + " and  Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
                         dt.Clear();
                         dt.Rows.Clear();
                         dt.Columns.Clear();
@@ -148,16 +167,24 @@ namespace TangentaDB
                                         long Atom_Currency_ID = -1;
                                         if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID))
                                         {
-                                            sql = "insert into Atom_PriceList (Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select Name,Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
-
-                                            object objretx = null;
-                                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref objretx, ref Err, "Atom_PriceList"))
+                                            long Atom_PriceList_Name_ID = -1;
+                                            if (f_Atom_PriceList_Name.Get(appisd.Atom_PriceList_Name.v, ref Atom_PriceList_Name_ID))
                                             {
-                                                return true;
+                                                sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
+
+                                                object objretx = null;
+                                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref objretx, ref Err, "Atom_PriceList"))
+                                                {
+                                                    return true;
+                                                }
+                                                else
+                                                {
+                                                    LogFile.Error.Show("ERROR:f_Atom_PriceList:Get:" + sql + "\r\nErr=" + Err);
+                                                    return false;
+                                                }
                                             }
                                             else
                                             {
-                                                LogFile.Error.Show("ERROR:f_Atom_PriceList:Get:" + sql + "\r\nErr=" + Err);
                                                 return false;
                                             }
                                         }

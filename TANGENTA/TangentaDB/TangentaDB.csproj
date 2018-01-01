@@ -106,6 +106,7 @@
     <Compile Include="f_Atom_Customer_Person.cs" />
     <Compile Include="f_Atom_Person.cs" />
     <Compile Include="f_Atom_PriceList.cs" />
+    <Compile Include="f_Atom_PriceList_Name.cs" />
     <Compile Include="f_Atom_WorkingPlace.cs" />
     <Compile Include="f_Atom_WorkPeriod.cs" />
     <Compile Include="f_Atom_WorkPeriod_Type.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="f_PersonData.cs" />
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />
     <Compile Include="f_PriceList.cs" />
+    <Compile Include="f_PriceList_Name.cs" />
     <Compile Include="f_Price_Item.cs" />
     <Compile Include="f_Price_SimpleItem.cs" />
     <Compile Include="f_PurchasePrice.cs" />

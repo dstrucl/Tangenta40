@@ -244,15 +244,17 @@ namespace TangentaDB
                                 Atom_Taxation.Rate,
                                 Atom_Taxation.Name
                                 from "+DocInvoice+@"_ShopB_Item
-                                inner join Atom_PriceList on "+DocInvoice+@"_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
-                                inner join Atom_SimpleItem on "+DocInvoice+@"_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
+                                inner join Atom_PriceList on "+DocInvoice+ @"_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
+                                inner join Atom_SimpleItem on " + DocInvoice+ @"_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
 				                inner join Atom_SimpleItem_Name on Atom_SimpleItem.Atom_SimpleItem_Name_ID = Atom_SimpleItem_Name.ID
-                                inner join PriceList on Atom_PriceList.Name = PriceList.Name
+                                inner join PriceList_Name on Atom_PriceList_Name.Name = PriceList_Name.Name
+                                inner join PriceList on PriceList.PriceList_Name_ID = PriceList_Name.ID
                                 inner join Price_SimpleItem on Price_SimpleItem.PriceList_ID = PriceList.ID
                                 inner join SimpleItem on   Price_SimpleItem.SimpleItem_ID = SimpleItem.ID and
                                                         Atom_SimpleItem_Name.Abbreviation = SimpleItem.Abbreviation and
 												        Atom_SimpleItem_Name.Name = SimpleItem.Name 
-                                inner join Atom_Taxation on "+DocInvoice+@"_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
+                                inner join Atom_Taxation on " + DocInvoice+@"_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
                                 inner join Taxation on Taxation.Name = Atom_Taxation.Name and Taxation.Rate = Atom_Taxation.Rate
                                 where SimpleItem.ToOffer = 1 and "+DocInvoice+@"_ID = " + DocInvoice_ID.ToString() + " and Price_SimpleItem.ID =  " + Price_SimpleItem_ID.ToString();
 

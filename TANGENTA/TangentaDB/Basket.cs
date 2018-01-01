@@ -103,7 +103,7 @@ namespace TangentaDB
                 Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
                 Atom_Unit.Description AS Atom_Unit_Description,
                 Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-                Atom_PriceList.Name AS Atom_PriceList_Name,
+                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
                 Atom_Currency.Name AS Atom_Currency_Name,
                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
@@ -116,6 +116,7 @@ namespace TangentaDB
                 FROM DocInvoice_ShopC_Item 
                 INNER JOIN  Atom_Price_Item on DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID
                 INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                 INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
                 INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
                 INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
@@ -193,6 +194,7 @@ namespace TangentaDB
                 FROM DocProformaInvoice_ShopC_Item 
                 INNER JOIN  Atom_Price_Item on DocProformaInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID
                 INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                 INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
                 INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
                 INNER JOIN  DocProformaInvoice ON DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID = DocProformaInvoice.ID 

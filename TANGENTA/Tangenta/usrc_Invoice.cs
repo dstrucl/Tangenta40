@@ -27,6 +27,7 @@ namespace Tangenta
 {
     public partial class usrc_Invoice : UserControl
     {
+        public long Atom_Currency_ID = -1;
 
         public usrc_ShopA m_usrc_ShopA = null;
         public usrc_ShopB m_usrc_ShopB = null;
@@ -552,7 +553,6 @@ namespace Tangenta
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_Number.Text(lbl_Number);
-            lng.s_Currency.Text(lbl_Currency);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
             lng.s_Issue.Text(btn_Issue);
             lng.s_chk_Storno.Text(chk_Storno);
@@ -1850,7 +1850,7 @@ do_EditMyOrganisation_Data:
                 {
                     if (BaseCurrency_Text != null)
                     {
-                        this.txt_Currency.Text = BaseCurrency_Text;
+                        usrc_Currency1.Init(GlobalData.BaseCurrency);
                         myStartup.eNextStep++;
                         return true;
                     }
@@ -1882,7 +1882,7 @@ do_EditMyOrganisation_Data:
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
                 {
-                    this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
+                    usrc_Currency1.Init(GlobalData.BaseCurrency);
                     return true;
                 }
                 else
@@ -1966,7 +1966,7 @@ do_EditMyOrganisation_Data:
 
         }
 
-        public void SetNewDraft(enum_Invoice eInvType, int xFinancialYear)
+        public void SetNewDraft(enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, long Atom_Currency_ID)
         {
             switch (eInvoiceType)
             {
@@ -1976,7 +1976,7 @@ do_EditMyOrganisation_Data:
                     {
                         m_ShopABC = new ShopABC(DBtcn);
                     }
-                    if (SetNewInvoiceDraft(xFinancialYear))
+                    if (SetNewInvoiceDraft(xFinancialYear, xcurrency, Atom_Currency_ID))
                     {
                         SetMode(emode.edit_eInvoiceType);
                     }
@@ -1988,11 +1988,11 @@ do_EditMyOrganisation_Data:
 
         }
 
-        private bool SetNewInvoiceDraft(int FinancialYear)
+        private bool SetNewInvoiceDraft(int FinancialYear, xCurrency xcurrency, long xAtom_Currency_ID)
         {
             long DocInvoice_ID = -1;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, Properties.Settings.Default.ElectronicDevice_ID, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, Properties.Settings.Default.ElectronicDevice_ID, ref Err))
             {
                 if (m_ShopABC.m_CurrentInvoice.Doc_ID >= 0)
                 {
@@ -2023,20 +2023,6 @@ do_EditMyOrganisation_Data:
         }
 
 
-        private void btn_SelectBaseCurrency_Click(object sender, EventArgs e)
-        {
-            string Err = null;
-            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
-            xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            xnav.btn1_Text = lng.s_OK.s;
-            xnav.btn1_Image = null;
-            xnav.btn2_Text = lng.s_Cancel.s; ;
-            xnav.btn2_Image = null;
-            xnav.btn1_Visible = true;
-            xnav.btn2_Visible = true;
-            xnav.btn3_Visible = false;
-            Select_BaseCurrency(xnav,ref Err);
-        }
 
         private void lbl_PriceList_SimpleItem_Click(object sender, EventArgs e)
         {
@@ -2668,6 +2654,12 @@ do_EditMyOrganisation_Data:
         private void usrc_MethodOfPayment_Data1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void usrc_Currency1_CurrencyChanged(xCurrency currency, long xAtom_Currency_ID)
+        {
+            GlobalData.BaseCurrency = currency;
+            Atom_Currency_ID = xAtom_Currency_ID;
         }
     }
 }

@@ -129,6 +129,7 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:GlobalData:SetFinancialYears:Unsupported DocInvoice");
                 return false;
             }
+
             int CurrentYear = DateTime.Now.Year;
             if (!FinancialYearExist(dt_FinancialYears, CurrentYear))
             {

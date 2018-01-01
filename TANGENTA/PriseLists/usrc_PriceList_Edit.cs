@@ -108,13 +108,14 @@ namespace PriseLists
         private bool Init()
         {
             string selection = @" ID,
-                                        PriceList_$$Name,
+                                        PriceList_$_pln_$$Name,
+                                        PriceList_$_Cur_$$Abbreviation,
+                                        PriceList_$_Cur_$$Name,
                                         PriceList_$$CreationDate,
                                         PriceList_$$Description,
                                         PriceList_$$Valid,
                                         PriceList_$$ValidFrom,
                                         PriceList_$$ValidTo
-
             ";
             string sWhereCondition = "";
             switch (PriceListMode)
@@ -228,7 +229,7 @@ namespace PriseLists
                                                   Price_SimpleItem_$_pl_$_Cur_$$Symbol,
                                                   Price_SimpleItem_$_pl_$_Cur_$$Abbreviation,
                                                   Price_SimpleItem_$_si_$$Code,
-                                                  Price_SimpleItem_$_pl_$$Name
+                                                  Price_SimpleItem_$_pl_$_pln_$$Name
                                                   ";
                                 if (usrc_EditTable_Shop_Prices != null)
                                 {
@@ -270,7 +271,7 @@ namespace PriseLists
                                                   Price_Item_$_pl_$_Cur_$$Symbol,
                                                   Price_Item_$_pl_$_Cur_$$Abbreviation,
                                                   Price_Item_$_i_$$Code,
-                                                  Price_Item_$_pl_$$Name
+                                                  Price_Item_$_pl_$_pln_$$Name
                                                   ";
                                 string where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
                                 if (usrc_EditTable_Shop_Prices != null)
@@ -314,17 +315,37 @@ namespace PriseLists
 
         private bool SetPriceListName(long ID,ref string Err)
         {
-            string sql_PriceListName = " select Name,CreationDate from PriceList where ID = " + ID.ToString();
+            string sql_PriceListName = @" select pln.Name,
+                                                 cur.Name as CurrencyName,
+                                                 pl.CreationDate 
+                                          from PriceList pl
+                                          inner join PriceList_Name pln on pln.ID = pl.PriceList_Name_ID
+                                          inner join Currency cur on cur.ID = pl.Currency_ID
+                                          where pl.ID = " + ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_PriceListName, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    object oName = dt.Rows[0]["Name"];
-                    if (oName.GetType() == typeof(string))
+                    string sPriceListName = "";
+                    string sCurrencyName = "";
+
+                    object oPriceListName = dt.Rows[0]["Name"];
+                    if (oPriceListName.GetType() == typeof(string))
                     {
-                        this.txt_PriceList_Name.Text = (string)oName;
+                        sPriceListName = (string)oPriceListName;
+
                     }
+
+                    object oCurrencyName = dt.Rows[0]["CurrencyName"];
+                    if (oCurrencyName.GetType() == typeof(string))
+                    {
+                        sCurrencyName = (string)oCurrencyName;
+
+                    }
+
+                    this.txt_PriceList_Name.Text = sPriceListName + ":" + sCurrencyName;
+
                     object oCreationDate = dt.Rows[0]["CreationDate"];
                     if (oCreationDate.GetType() == typeof(DateTime))
                     {
@@ -380,7 +401,7 @@ namespace PriseLists
                                                       Price_SimpleItem_$_tax_$$Rate,
                                                       Price_SimpleItem_$_pl_$_Cur_$$Symbol,
                                                       Price_SimpleItem_$_pl_$_Cur_$$Abbreviation,
-                                                      Price_SimpleItem_$_pl_$$Name,
+                                                      Price_SimpleItem_$_pl_$_pln_$$Name,
                                                       Price_SimpleItem_$_si_$$Code,
                                                       ID
                                                       ";
@@ -428,7 +449,7 @@ namespace PriseLists
                                                       Price_Item_$_pl_$_Cur_$$Symbol,
                                                       Price_Item_$_pl_$_Cur_$$Abbreviation,
                                                       Price_Item_$_i_$$Code,
-                                                      Price_Item_$_pl_$$Name,
+                                                      Price_Item_$_pl_$_pln_$$Name,
                                                       ID
                                                       ";
                         sOrder_by_UndefinedFirst = "";
@@ -636,12 +657,15 @@ namespace PriseLists
         {
             if (nav.m_eButtons == Navigation.eButtons.PrevNextExit)
             {
-                if (col.ownerTable.TableName.Equals("PriceList"))
+                if (col.ownerTable.TableName.Equals("PriceList_Name"))
                 {
                     if (col.Name.Equals("Name"))
                     {
                         col.InputControl.SetValue(lng.PriceList_Name.s);
                     }
+                }
+                else if (col.ownerTable.TableName.Equals("PriceList"))
+                {
                     if (col.Name.Equals("Valid"))
                     {
                         col.InputControl.SetValue(true);

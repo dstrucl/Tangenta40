@@ -105,15 +105,31 @@ namespace Tangenta
                         {
                             if (xnav.eExitResult == Navigation.eEvent.NEXT)
                             {
-                            Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
-
-                                xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
-                                xnav.ShowDialog();
-                                if (xnav.eExitResult == Navigation.eEvent.PREV)
+                                long FVI_SLO_RealEstateBP_rows_count = fs.GetTableRowsCount("FVI_SLO_RealEstateBP");
+                                if (FVI_SLO_RealEstateBP_rows_count == 0)
                                 {
-                                    goto Do_Form_FVI_check;
+
+                                Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
+
+                                    xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
+                                    xnav.ShowDialog();
+                                    if (xnav.eExitResult == Navigation.eEvent.PREV)
+                                    {
+                                        goto Do_Form_FVI_check;
+                                    }
+                                    else if (xnav.eExitResult == Navigation.eEvent.NEXT)
+                                    {
+                                        bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
+                                        xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
+                                        Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
+                                        xnav.ShowDialog();
+                                        if (xnav.eExitResult == Navigation.eEvent.PREV)
+                                        {
+                                            goto Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
+                                        }
+                                    }
                                 }
-                                else if (xnav.eExitResult == Navigation.eEvent.NEXT)
+                                else
                                 {
                                     bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
                                     xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
@@ -121,7 +137,7 @@ namespace Tangenta
                                     xnav.ShowDialog();
                                     if (xnav.eExitResult == Navigation.eEvent.PREV)
                                     {
-                                        goto Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
+                                        goto Do_Form_FVI_check;
                                     }
                                 }
                             }

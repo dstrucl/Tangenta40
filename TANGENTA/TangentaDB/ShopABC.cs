@@ -408,13 +408,14 @@ namespace TangentaDB
                                                 DocInvoice_ShopB_Item.iQuantity, 
                                                 Atom_SimpleItem_Name.Name,
                                                 Atom_SimpleItem_Name.Abbreviation, 
-                                                Atom_PriceList.Name AS Atom_PriceList_Name,
+                                                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
                                                 Atom_Currency.Name AS Atom_Currency_Name,
                                                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                                                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
                                                 Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces 
                                                 from DocInvoice_ShopB_Item
                                                 inner join Atom_PriceList on DocInvoice_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                                                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                                                 inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
                                                 inner join Atom_Taxation on DocInvoice_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
                                                 inner join Atom_SimpleItem on DocInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
@@ -442,13 +443,14 @@ namespace TangentaDB
                                                 DocProformaInvoice_ShopB_Item.iQuantity, 
                                                 Atom_SimpleItem_Name.Name,
                                                 Atom_SimpleItem_Name.Abbreviation, 
-                                                Atom_PriceList.Name AS Atom_PriceList_Name,
+                                                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
                                                 Atom_Currency.Name AS Atom_Currency_Name,
                                                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                                                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
                                                 Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces 
                                                 from DocProformaInvoice_ShopB_Item
                                                 inner join Atom_PriceList on DocProformaInvoice_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                                                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                                                 inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
                                                 inner join Atom_Taxation on DocProformaInvoice_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
                                                 inner join Atom_SimpleItem on DocProformaInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
@@ -784,7 +786,7 @@ namespace TangentaDB
 
         }
 
-        public bool SetNewDraft_DocInvoice(int iFinancialYear, Control pParent, ref long DocInvoice_ID,
+        public bool SetNewDraft_DocInvoice(int iFinancialYear, xCurrency xcurrency, long xAtom_Currency_ID, Control pParent, ref long DocInvoice_ID,
                                   long myOrganisation_Person_ID,
                                   string DocInvoice,
                                   string ElectronicDevice_Name,
@@ -853,11 +855,13 @@ namespace TangentaDB
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
+                            + "Atom_Currency_ID,"
                             + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
                         + @") values ( "
                             + m_CurrentInvoice.FinancialYear.ToString() + ","
                             + m_CurrentInvoice.DraftNumber.ToString() + ","
                             + "1,"
+                            + xAtom_Currency_ID.ToString()+","
                             + "0"
                             + ")";
                     }
@@ -867,11 +871,13 @@ namespace TangentaDB
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
-                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) 
+                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType())
+                            + "Atom_Currency_ID"
                         + @") values ( "
                             + m_CurrentInvoice.FinancialYear.ToString() + ","
                             + m_CurrentInvoice.DraftNumber.ToString() + ","
-                            + "1"
+                            + "1,"
+                            + xAtom_Currency_ID.ToString()
                             + ")";
                     }
                     else

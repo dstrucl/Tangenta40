@@ -27,149 +27,159 @@ namespace TangentaDB
             object oret = null;
             string sql = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string spar_PriceListName = "@par_PriceListName";
-            SQL_Parameter par_PriceListName = new SQL_Parameter(spar_PriceListName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, sPriceListName);
-            lpar.Add(par_PriceListName);
 
-            string scond_ValidFrom = " ValidFrom is null ";
-            string sval_ValidFrom = " null ";
-            if (ValidFrom_v != null)
+            long PriceList_Name_ID = -1;
+            if (f_PriceList_Name.Get(sPriceListName, ref PriceList_Name_ID))
             {
-                string spar_ValidFrom = "@par_ValidFrom";
-                SQL_Parameter par_ValidFrom = new SQL_Parameter(spar_ValidFrom, SQL_Parameter.eSQL_Parameter.Datetime, false, ValidFrom_v.v);
-                lpar.Add(par_ValidFrom);
-                scond_ValidFrom = " ValidFrom = " + spar_ValidFrom + " ";
-                sval_ValidFrom = " " + spar_ValidFrom + " ";
-            }
+                string spar_PriceListName_ID = "@par_PriceListName_ID";
+                SQL_Parameter par_PriceListName_ID = new SQL_Parameter(spar_PriceListName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PriceList_Name_ID);
+                lpar.Add(par_PriceListName_ID);
 
-
-            string scond_ValidTo = " ValidTo is null ";
-            string sval_ValidTo = " null ";
-            if (ValidTo_v != null)
-            {
-                string spar_ValidTo = "@par_ValidTo";
-                SQL_Parameter par_ValidTo = new SQL_Parameter(spar_ValidTo, SQL_Parameter.eSQL_Parameter.Datetime, false, ValidTo_v.v);
-                lpar.Add(par_ValidTo);
-                scond_ValidTo = " ValidTo = " + spar_ValidTo + " ";
-                sval_ValidTo = " " + spar_ValidTo + " ";
-            }
-
-            string scond_CreationDate = " CreationDate is null ";
-            string sval_CreationDate = " null ";
-            if (CreationDate_v != null)
-            {
-                string spar_CreationDate = "@par_CreationDate";
-                SQL_Parameter par_CreationDate = new SQL_Parameter(spar_CreationDate, SQL_Parameter.eSQL_Parameter.Datetime, false, CreationDate_v.v);
-                lpar.Add(par_CreationDate);
-                scond_CreationDate = " CreationDate = " + spar_CreationDate + " ";
-                sval_CreationDate = " " + spar_CreationDate + " ";
-            }
-
-            string scond_Description = " Description is null ";
-            string sval_Description = " null ";
-            if (Description != null)
-            {
-                string spar_Description = "@par_Description";
-                SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description);
-                lpar.Add(par_Description);
-                scond_Description = " Description = " + spar_Description + " ";
-                sval_Description = " " + spar_Description + " ";
-            }
-
-            string scond_valid = " valid = 0 ";
-            string sval_valid = " 0 ";
-            if (valid)
-            {
-                scond_valid = " valid = 1 ";
-                sval_valid = " 1 ";
-            }
-
-
-            sql = "select ID from PriceList where Name = " + spar_PriceListName;
-
-
-            DataTable dt = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-            {
-                if (dt.Rows.Count > 0)
+                string scond_ValidFrom = " ValidFrom is null ";
+                string sval_ValidFrom = " null ";
+                if (ValidFrom_v != null)
                 {
-                    PriceList_ID = (long)dt.Rows[0]["ID"];
+                    string spar_ValidFrom = "@par_ValidFrom";
+                    SQL_Parameter par_ValidFrom = new SQL_Parameter(spar_ValidFrom, SQL_Parameter.eSQL_Parameter.Datetime, false, ValidFrom_v.v);
+                    lpar.Add(par_ValidFrom);
+                    scond_ValidFrom = " ValidFrom = " + spar_ValidFrom + " ";
+                    sval_ValidFrom = " " + spar_ValidFrom + " ";
+                }
 
 
-                    sql = "select ID from PriceList where Name = " + spar_PriceListName +
-                                                        " and Currency_ID = " + Currency_ID.ToString() +
-                                                        " and " + scond_valid +
-                                                        " and " + scond_ValidFrom +
-                                                        " and " + scond_ValidTo +
-                                                        " and " + scond_CreationDate +
-                                                        " and " + scond_Description;
+                string scond_ValidTo = " ValidTo is null ";
+                string sval_ValidTo = " null ";
+                if (ValidTo_v != null)
+                {
+                    string spar_ValidTo = "@par_ValidTo";
+                    SQL_Parameter par_ValidTo = new SQL_Parameter(spar_ValidTo, SQL_Parameter.eSQL_Parameter.Datetime, false, ValidTo_v.v);
+                    lpar.Add(par_ValidTo);
+                    scond_ValidTo = " ValidTo = " + spar_ValidTo + " ";
+                    sval_ValidTo = " " + spar_ValidTo + " ";
+                }
 
-                    dt.Clear();
-                    dt.Rows.Clear();
-                    dt.Columns.Clear();
-                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                string scond_CreationDate = " CreationDate is null ";
+                string sval_CreationDate = " null ";
+                if (CreationDate_v != null)
+                {
+                    string spar_CreationDate = "@par_CreationDate";
+                    SQL_Parameter par_CreationDate = new SQL_Parameter(spar_CreationDate, SQL_Parameter.eSQL_Parameter.Datetime, false, CreationDate_v.v);
+                    lpar.Add(par_CreationDate);
+                    scond_CreationDate = " CreationDate = " + spar_CreationDate + " ";
+                    sval_CreationDate = " " + spar_CreationDate + " ";
+                }
+
+                string scond_Description = " Description is null ";
+                string sval_Description = " null ";
+                if (Description != null)
+                {
+                    string spar_Description = "@par_Description";
+                    SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description);
+                    lpar.Add(par_Description);
+                    scond_Description = " Description = " + spar_Description + " ";
+                    sval_Description = " " + spar_Description + " ";
+                }
+
+                string scond_valid = " valid = 0 ";
+                string sval_valid = " 0 ";
+                if (valid)
+                {
+                    scond_valid = " valid = 1 ";
+                    sval_valid = " 1 ";
+                }
+
+
+                sql = @"select pl.ID 
+                        from PriceList pl
+                        where pl.PriceList_Name_ID = " + spar_PriceListName_ID + " and  pl.Currency_ID = " + Currency_ID.ToString();
+
+
+                DataTable dt = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                {
+                    if (dt.Rows.Count > 0)
                     {
-                        if (dt.Rows.Count > 0)
+                        PriceList_ID = (long)dt.Rows[0]["ID"];
+
+
+                        sql = "select ID from PriceList where PriceList_Name_ID = " + spar_PriceListName_ID +
+                                                            " and Currency_ID = " + Currency_ID.ToString() +
+                                                            " and " + scond_valid +
+                                                            " and " + scond_ValidFrom +
+                                                            " and " + scond_ValidTo +
+                                                            " and " + scond_CreationDate +
+                                                            " and " + scond_Description;
+
+                        dt.Clear();
+                        dt.Rows.Clear();
+                        dt.Columns.Clear();
+                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                         {
-                            return true;
-                        }
-                        else
-                        {
-                            sql = "update PriceList set Currency_ID = " + Currency_ID.ToString() +
-                                                                " , valid = " + sval_valid +
-                                                                " , ValidFrom = " + sval_ValidFrom +
-                                                                " , ValidTo = " + sval_ValidTo +
-                                                                " , CreationDate = " + sval_CreationDate +
-                                                                " , Description = " + sval_Description +
-                                                                " where ID = " + PriceList_ID.ToString();
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+                            if (dt.Rows.Count > 0)
                             {
                                 return true;
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
-                                return false;
+                                sql = "update PriceList set  valid = " + sval_valid +
+                                                                    " , ValidFrom = " + sval_ValidFrom +
+                                                                    " , ValidTo = " + sval_ValidTo +
+                                                                    " , CreationDate = " + sval_CreationDate +
+                                                                    " , Description = " + sval_Description +
+                                                                    " where ID = " + PriceList_ID.ToString();
+                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
                             }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
                         }
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    sql = @"insert into PriceList (Name,
+                        sql = @"insert into PriceList (PriceList_Name_ID,
                                                    valid,
                                                    Currency_ID,
                                                    ValidFrom,
                                                    ValidTo,
                                                    CreationDate,
                                                    Description) values
-                                                   (" + spar_PriceListName +
-                                                    "," + sval_valid +
-                                                    "," + Currency_ID.ToString() +
-                                                    "," + sval_ValidFrom +
-                                                    "," + sval_ValidTo +
-                                                    "," + sval_CreationDate +
-                                                    "," + sval_Description +
-                                                        ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PriceList_ID, ref oret, ref Err, "PriceList"))
-                    {
-                        return true;
+                                                   (" + spar_PriceListName_ID +
+                                                        "," + sval_valid +
+                                                        "," + Currency_ID.ToString() +
+                                                        "," + sval_ValidFrom +
+                                                        "," + sval_ValidTo +
+                                                        "," + sval_CreationDate +
+                                                        "," + sval_Description +
+                                                            ")";
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PriceList_ID, ref oret, ref Err, "PriceList"))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
                     }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
@@ -270,7 +280,11 @@ namespace TangentaDB
 
             DataTable dt_PriceList = new DataTable();
 
-            string sql = "select ID,Name from PriceList";
+            string sql = @"select pl.ID,
+                                  pln.Name 
+                                from PriceList pl
+                                inner join PriceList_Name pln on pln.ID = pl.PriceList_Name_ID
+                    ";
             if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, ref Err))
             {
                 foreach (DataRow dr in dt_PriceList.Rows)
@@ -326,7 +340,9 @@ namespace TangentaDB
 
             DataTable dt_PriceList = new DataTable();
 
-            string sql = "select ID,Name from PriceList";
+            string sql = @"select pl.ID,pln.Name 
+                           from PriceList pl 
+                           inner join PriceList_Name pln on pln.ID = pl.PriceList_Name_ID";
             if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, ref Err))
             {
                 foreach (DataRow dr in dt_PriceList.Rows)
@@ -449,7 +465,7 @@ namespace TangentaDB
             string Err = null;
             bEdit = false;
             DataTable dt_Price_SimpleItem_VIEW = new DataTable();
-            string sql = @"select Price_SimpleItem_$_pl_$$Name,Price_SimpleItem_$_si_$$Name
+            string sql = @"select Price_SimpleItem_$_pl_$_pln_$$Name,Price_SimpleItem_$_si_$$Name
                             from Price_SimpleItem_VIEW where Price_SimpleItem_$_si_$$ToOffer = 1 and  Price_SimpleItem_$$RetailSimpleItemPrice < 0";
             if (DBSync.DBSync.ReadDataTable(ref dt_Price_SimpleItem_VIEW, sql, ref Err))
             {
@@ -470,7 +486,7 @@ namespace TangentaDB
             string Err = null;
             bEdit = false;
             DataTable dt_Price_Item_VIEW = new DataTable();
-            string sql = @"select Price_Item_$_pl_$$Name,Price_Item_$_i_$$UniqueName,Price_Item_$_i_$$Name
+            string sql = @"select Price_Item_$_pl_$_pln_$$Name,Price_Item_$_i_$$UniqueName,Price_Item_$_i_$$Name
                             from Price_Item_VIEW where Price_Item_$_i_$$ToOffer = 1 and Price_Item_$$RetailPricePerUnit < 0";
             if (DBSync.DBSync.ReadDataTable(ref dt_Price_Item_VIEW, sql, ref Err))
             {
@@ -521,7 +537,10 @@ namespace TangentaDB
             SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, PriceList_Name);
             lpar.Add(par_Name);
             DataTable dt_PriceList = new DataTable();
-            string sql = @"select ID,Valid,Currency_ID,ValidFrom,ValidTo,CreationDate,Description from PriceList where Name = " + spar_Name;
+            string sql = @"select pl.ID,pl.Valid,pl.Currency_ID,pl.ValidFrom,pl.ValidTo,pl.CreationDate,pl.Description 
+                            from PriceList pl
+                            inner join PriceList_Name pln on pln.ID = pl.PriceList_Name_ID
+                            where pln.Name = " + spar_Name;
             if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, lpar, ref Err))
             {
                 if (dt_PriceList.Rows.Count > 0)
@@ -586,7 +605,10 @@ namespace TangentaDB
             SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, priceList_ID);
             lpar.Add(par_ID);
             DataTable dt_PriceList = new DataTable();
-            string sql = @"select Name,Valid,Currency_ID,ValidFrom,ValidTo,CreationDate,Description from PriceList where ID = " + spar_ID;
+            string sql = @"select pln.Name,pl.Valid,pl.Currency_ID,pl.ValidFrom,pl.ValidTo,pl.CreationDate,pl.Description 
+                            from PriceList pl
+                            inner join PriceList_Name pln on pln.ID = pl.PriceList_Name_ID
+                            where pl.ID = " + spar_ID;
             if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, lpar, ref Err))
             {
                 if (dt_PriceList.Rows.Count > 0)

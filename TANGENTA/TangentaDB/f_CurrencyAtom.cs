@@ -13,7 +13,7 @@ using System.Data;
 
 namespace TangentaDB
 {
-    class f_Atom_Currency
+    public static class f_Atom_Currency
     {
         public static bool Get(long Currency_ID, ref long Atom_Currency_ID)
         {

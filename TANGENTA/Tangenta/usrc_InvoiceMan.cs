@@ -327,19 +327,20 @@ namespace Tangenta
             switch (frm_new.eNewDocumentResult)
             {
                 case Form_NewDocument.e_NewDocument.New_Empty:
-                    New_Empty_Doc();
+
+                    New_Empty_Doc(frm_new.usrc_Currency1.Currency,frm_new.usrc_Currency1.Atom_Currency_ID);
                     break;
 
                 case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                    New_Copy_Of_SameDocType(frm_new.FinancialYear);
+                    New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
                     break;
                 case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                    New_Copy_To_Another_DocType(frm_new.FinancialYear);
+                    New_Copy_To_Another_DocType(frm_new.FinancialYear,frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
                     break;
             }
         }
 
-        private void New_Empty_Doc()
+        private void New_Empty_Doc(xCurrency currency,long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
@@ -351,7 +352,7 @@ namespace Tangenta
                     System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
                     int FinancialYear = (int)drv.Row.ItemArray[0];
 
-                    m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear);
+                    m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear, currency, xAtom_Currency_ID);
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
@@ -446,7 +447,7 @@ namespace Tangenta
             }
             return false;
         }
-        private void New_Copy_Of_SameDocType(int xFinancialYear)
+        private void New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
@@ -460,7 +461,7 @@ namespace Tangenta
                     DataTable xdt_ShopA_Items = null;
                     if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                     {
-                        m_usrc_Invoice.SetNewDraft(eInvType, xFinancialYear);
+                        m_usrc_Invoice.SetNewDraft(eInvType, xFinancialYear, currency, xAtom_Currency_ID);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
@@ -481,7 +482,7 @@ namespace Tangenta
         }
 
 
-        private void New_Copy_To_Another_DocType(int xFinancialYear)
+        private void New_Copy_To_Another_DocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
@@ -516,7 +517,7 @@ namespace Tangenta
                         Set_cmb_InvoiceType_selected_index();
                         this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
-                        m_usrc_Invoice.SetNewDraft(New_eInvType, xFinancialYear);
+                        m_usrc_Invoice.SetNewDraft(New_eInvType, xFinancialYear, currency, xAtom_Currency_ID);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);

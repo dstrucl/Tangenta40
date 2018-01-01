@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -64,6 +65,7 @@ namespace Tangenta
                 this.usrc_New_Copy_of_Same_DocType1.Init(m_usrc_InvoiceMan.DocInvoice, sInvoiceNumber);
                 this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_InvoiceMan.DocInvoice, sInvoiceNumber);
             }
+            usrc_Currency1.Init(GlobalData.BaseCurrency);
         }
 
         private void btn_New_Empty_Click(object sender, EventArgs e)

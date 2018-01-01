@@ -955,7 +955,7 @@ namespace ShopB
                   Price_SimpleItem.RetailSimpleItemPrice,
                   SimpleItem.Name AS SimpleItem_Name,
                   Price_SimpleItem.Discount,
-                  PriceList.Name As PriceList_Name,
+                  PriceList_Name.Name As PriceList_Name,
                   Taxation.Name AS Taxation_Name,
                   Taxation.Rate AS Taxation_Rate,
                   SimpleItem_Image.Image_Hash AS SimpleItem_Image_Image_Hash,
@@ -967,6 +967,7 @@ namespace ShopB
                   s3.Name as s3_name
                   From Price_SimpleItem
                   INNER JOIN PriceList ON  Price_SimpleItem.PriceList_ID = PriceList.ID
+                  INNER JOIN PriceList_Name ON  PriceList.PriceList_Name_ID = PriceList_Name.ID
                   INNER JOIN Taxation ON  Price_SimpleItem.Taxation_ID = Taxation.ID
                   INNER JOIN SimpleItem ON  Price_SimpleItem.SimpleItem_ID = SimpleItem.ID
                   LEFT JOIN SimpleItem_Image ON SimpleItem.SimpleItem_Image_ID = SimpleItem_Image.ID

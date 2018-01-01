@@ -279,21 +279,22 @@ namespace TangentaDB
             //            LEFT JOIN PersonData ON PersonData.Person_ID = Person.ID 
             //            where PriceList.Valid = 1  and PriceList.Currency_ID = " + Currency_ID.ToString();
             string sql_select_PriceList = @"SELECT 
-              PriceList.ID,
-              PriceList.Name,
-              PriceList.Valid,
-              PriceList.ValidFrom,
-              PriceList.ValidTo,
-              PriceList.CreationDate,
-              PriceList.Description,
-              Currency.ID as Currency_ID,
-              Currency.Name as Currency_Name,
-              Currency.Abbreviation as Currency_Abbreviation,
-              Currency.Symbol as Currency_Symbol,
-              Currency.CurrencyCode as Currency_CurrencyCode
-            FROM PriceList 
-            INNER JOIN Currency ON Currency.ID = PriceList.Currency_ID 
-            where PriceList.Valid = 1  and PriceList.Currency_ID = " + Currency_ID.ToString();
+              pl.ID,
+              pln.Name,
+              pl.Valid,
+              pl.ValidFrom,
+              pl.ValidTo,
+              pl.CreationDate,
+              pl.Description,
+              cur.ID as Currency_ID,
+              cur.Name as Currency_Name,
+              cur.Abbreviation as Currency_Abbreviation,
+              cur.Symbol as Currency_Symbol,
+              cur.CurrencyCode as Currency_CurrencyCode
+            FROM PriceList pl
+            INNER JOIN PriceList_Name pln on pln.ID = pl.PriceList_Name_ID
+            INNER JOIN Currency cur ON cur.ID = pl.Currency_ID 
+            where pl.Valid = 1  and pl.Currency_ID = " + Currency_ID.ToString();
             dt_xPriceList.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_xPriceList, sql_select_PriceList, null, ref Err))
             {
@@ -324,31 +325,23 @@ namespace TangentaDB
         public bool Get_PriceList(long PriceList_ID, ref int iCount, ref string Err)
         {
             string sql_select_PriceList = @"SELECT 
-              PriceList.ID,
-              PriceList.Name,
-              PriceList.Valid,
-              PriceList.ValidFrom,
-              PriceList.ValidTo,
-              PriceList.CreationDate,
-              PriceList.Description,
-              myOrganisation_Person.ID as myOrganisation_Person_ID
-              myOrganisation_PersonData.ID as myOrganisation_PersonData_ID
-              myOrganisation_PersonData.UserName,
-              myOrganisation_PersonData.FirstName,
-              myOrganisation_PersonData.LastName,
-              myOrganisation_PersonData.Active,
-              myOrganisation_PersonData.Job,
-              myOrganisation_PersonData.Description as myOrganisation_Person_Description,
-              Currency.ID as Currency_ID,
-              Currency.Name as Currency_Name,
-              Currency.Abbreviation as Currency_Abbreviation,
-              Currency.Symbol as Currency_Symbol,
-              Currency.CurrencyCode as Currency_CurrencyCode
-            FROM PriceList 
-            INNER JOIN Currency ON Currency.ID = PriceList.Currency_ID 
-            LEFT JOIN myOrganisation_Person ON myOrganisation_Person.ID = PriceList.myOrganisation_Person_ID 
-            LEFT JOIN myOrganisation_PersonData ON myOrganisation_PersonData.ID = myOrganisation_Person.myOrganisation_PersonData_ID 
-            where PriceList.ID = " + PriceList_ID.ToString();
+              pl.ID,
+              pln.Name,
+              pl.Valid,
+              pl.ValidFrom,
+              pl.ValidTo,
+              pl.CreationDate,
+              pl.Description,
+              cur.ID as Currency_ID,
+              cur.Name as Currency_Name,
+              cur.Abbreviation as Currency_Abbreviation,
+              cur.Symbol as Currency_Symbol,
+              cur.CurrencyCode as Currency_CurrencyCode
+            FROM PriceList pl
+            INNER JOIN PriceList_Name pln on pln.ID = pl.PriceList_Name_ID
+            INNER JOIN Currency cur ON cur.ID = pl.Currency_ID 
+            where pl.ID = " + PriceList_ID.ToString();
+
             dt_xPriceList.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_xPriceList, sql_select_PriceList, null, ref Err))
             {

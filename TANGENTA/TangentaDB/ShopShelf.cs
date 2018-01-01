@@ -31,7 +31,7 @@ namespace TangentaDB
             sql_Price_Item_Stock_template = @"select 
               Price_Item.ID as " + m_cpis.sPrice_Item_ID + @",
               Price_Item.PriceList_ID as " + m_cpis.sPriceList_ID + @",
-              PriceList.Name as " + m_cpis.sPriceList_Name + @",
+              PriceList_Name.Name as " + m_cpis.sPriceList_Name + @",
               Currency.Name as  " + m_cpis.sCurrency_Name + @",
               Currency.Abbreviation as  " + m_cpis.sCurrency_Abbreviation + @",
               Currency.Symbol as  " + m_cpis.sCurrency_Symbol + @",
@@ -82,6 +82,7 @@ namespace TangentaDB
               s3.Name as " + m_cpis.ss3_name + @"
               from Price_Item
               Inner Join PriceList on Price_Item.PriceList_ID = PriceList.ID
+              Inner Join PriceList_Name on PriceList.PriceList_Name_ID = PriceList_Name.ID
               Inner Join Currency on Currency.ID = PriceList.Currency_ID
               Inner Join Item ptm on Price_Item.Item_ID = ptm.ID
               Inner Join Unit on ptm.Unit_ID = Unit.ID

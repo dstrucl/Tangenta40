@@ -427,6 +427,12 @@
     <Compile Include="usrc_CodeTables.Designer.cs">
       <DependentUpon>usrc_CodeTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Currency.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Currency.Designer.cs">
+      <DependentUpon>usrc_Currency.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Customer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -697,6 +703,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_CodeTables.resx">
       <DependentUpon>usrc_CodeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Currency.resx">
+      <DependentUpon>usrc_Currency.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Customer.resx">
       <DependentUpon>usrc_Customer.cs</DependentUpon>

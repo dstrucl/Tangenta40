@@ -407,6 +407,10 @@ namespace Tangenta
                     if (!bLanguageSelected)
                     {
                         SelectLanguage(ref bLanguageSelectDialogShown, ref bLanguageSelected, ref bExitBeforeLogFileInitialised);
+                        if (bExitBeforeLogFileInitialised)
+                        {
+                            return; // end program
+                        }
                     }
 
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
