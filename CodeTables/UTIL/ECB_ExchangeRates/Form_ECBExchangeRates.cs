@@ -25,6 +25,7 @@ namespace ECB_ExchangeRates
             lng.s_lbl_FromCountryExchange.Text(lbl_FromCountryExchange);
             lng.s_lbl_ToCountryExchange.Text(lbl_ToCountryExchange);
             lng.s_btn_Calculate.Text(btn_Calculate);
+            lng.s_ExchangeRates.Text(this);
 
         }
 

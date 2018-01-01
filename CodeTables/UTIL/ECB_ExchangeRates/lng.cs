@@ -24,8 +24,8 @@ namespace ECB_ExchangeRates
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        public static ltext s_Reference = new ltext( new string[]{"Reference",
-                                                                  "Povezava"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
+        public static ltext s_Reference = new ltext( new string[]{"Reference:",
+                                                                  "Povezava:"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
 
         public static ltext s_ExchangeRatePerDay = new ltext(new string[]{"Exchange Rate per day",
                                                                           "Menjalna razmerja po dnevih"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
@@ -47,6 +47,9 @@ namespace ECB_ExchangeRates
 
         public static ltext s_btn_Calculate = new ltext(new string[]{"Calculate",
                                                                      "Pretvori"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
+
+        public static ltext s_ExchangeRates = new ltext(new string[]{"ECB Exchange rates",
+                                                                     "ECB Teèajne liste"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
 
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ECBExchangeRates));
             this.dataGrid1 = new System.Windows.Forms.DataGrid();
             this.lblRef = new System.Windows.Forms.Label();
             this.lbl_To = new System.Windows.Forms.Label();
@@ -216,6 +217,7 @@
             this.Controls.Add(this.cmbDate);
             this.Controls.Add(this.lblRef);
             this.Controls.Add(this.dataGrid1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_ECBExchangeRates";
             this.Text = "Form_ECBexchangeReates";
             this.Load += new System.EventHandler(this.Form_ECBExchangeReates_Load);
