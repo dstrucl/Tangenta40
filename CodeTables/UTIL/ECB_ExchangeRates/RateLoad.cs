@@ -13,7 +13,9 @@ namespace ECB_ExchangeRates
 	/// </summary>
 	public class RateLoad
 	{
-		private string _author = null;
+        convert conv = new convert();
+
+        private string _author = null;
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -50,7 +52,7 @@ namespace ECB_ExchangeRates
 
 			ExchangeRate dsVa = new ExchangeRate();
 
-			DataRow newRowVa = null;
+            DataRow newRowVa = null;
 
 			try
 			{
@@ -107,7 +109,7 @@ namespace ECB_ExchangeRates
 									{
 										newRowCo = dsVa.Country.NewRow();
 										newRowCo["Initial"]= "EUR";
-										newRowCo["Name"]= convert.MoneyName("EUR");
+										newRowCo["Name"]= conv.MoneyName("EUR");
 										newRowCo["Rate"]= 1.0;
 										dsVa.Country.Rows.Add(newRowCo);
 									}
@@ -127,7 +129,7 @@ namespace ECB_ExchangeRates
 
 									newRowCo = dsVa.Country.NewRow();
 									newRowCo["Initial"]= cur;
-									newRowCo["Name"]= convert.MoneyName(cur);
+									newRowCo["Name"]= conv.MoneyName(cur);
 									newRowCo["Rate"]= rat;
 									dsVa.Country.Rows.Add(newRowCo);
 

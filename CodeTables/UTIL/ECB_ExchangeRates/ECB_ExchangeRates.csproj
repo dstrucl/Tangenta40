@@ -51,9 +51,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ECBExchange.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Form_ExchangeRates.cs">
+    <Compile Include="Form_ECBExchangeRates.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form_ECBExchangeRates.Designer.cs">
+      <DependentUpon>Form_ECBExchangeRates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RateLoad.cs" />
   </ItemGroup>
@@ -71,12 +75,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_ExchangeRates.en.resx">
-      <DependentUpon>Form_ExchangeRates.cs</DependentUpon>
+    <EmbeddedResource Include="Form_ECBExchangeRates.resx">
+      <DependentUpon>Form_ECBExchangeRates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_ExchangeRates.resx">
-      <DependentUpon>Form_ExchangeRates.cs</DependentUpon>
-    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLS\Country\Country_ISO_3166.csproj">
+      <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
+      <Name>Country_ISO_3166</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

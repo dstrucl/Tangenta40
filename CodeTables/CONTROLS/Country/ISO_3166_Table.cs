@@ -21,6 +21,8 @@ namespace Country_ISO_3166
     public class ISO_3166_Table
     {
         public static ISO_3166 m_Afghanistan = new ISO_3166("Afghanistan", "AF", "AFG", 004, "ISO 3166 - 2:AF", "Afghani", "AFN", "AFN", 971, 2, "Afganistan");
+
+
         public static ISO_3166 m_Aland_Islands = new ISO_3166("Åland Islands", "AX", "ALA", 248, "ISO 3166 - 2:AX", "Euro", "EUR", "€", 978, 2, "Åland otoki");
         public static ISO_3166 m_Albania = new ISO_3166("Albania", "AL", "ALB", 008, "ISO 3166 - 2:AL", "Lek", "ALL", "ALL", 008, 2, "Albanija");
         public static ISO_3166 m_Algeria = new ISO_3166("Algeria", "DZ", "DZA", 012, "ISO 3166 - 2:DZ", "Algerian Dinar", "DZD", "DZD", 012, 2, "Alžirija");
@@ -587,15 +589,18 @@ namespace Country_ISO_3166
                 }
             }
 
-            dt_ISO_3166.Columns.Add("Country", typeof(string));
-            dt_ISO_3166.Columns.Add("a2", typeof(string));
-            dt_ISO_3166.Columns.Add("a3", typeof(string));
-            dt_ISO_3166.Columns.Add("num", typeof(short));
-            dt_ISO_3166.Columns.Add("Currency Name", typeof(string));
-            dt_ISO_3166.Columns.Add("Currency Abbreviation", typeof(string));
-            dt_ISO_3166.Columns.Add("Currency Symbol", typeof(string));
-            dt_ISO_3166.Columns.Add("Currency Code", typeof(int));
-            dt_ISO_3166.Columns.Add("Currency Decimal Places", typeof(int));
+            if (dt_ISO_3166.Columns.Count == 0)
+            {
+                dt_ISO_3166.Columns.Add("Country", typeof(string));
+                dt_ISO_3166.Columns.Add("a2", typeof(string));
+                dt_ISO_3166.Columns.Add("a3", typeof(string));
+                dt_ISO_3166.Columns.Add("num", typeof(short));
+                dt_ISO_3166.Columns.Add("Currency Name", typeof(string));
+                dt_ISO_3166.Columns.Add("Currency Abbreviation", typeof(string));
+                dt_ISO_3166.Columns.Add("Currency Symbol", typeof(string));
+                dt_ISO_3166.Columns.Add("Currency Code", typeof(int));
+                dt_ISO_3166.Columns.Add("Currency Decimal Places", typeof(int));
+            }
 
             foreach (ISO_3166 iso_3166 in item)
             {
@@ -622,5 +627,21 @@ namespace Country_ISO_3166
             dataSet.ReadXml(stringReader);
             return dataSet.Tables[0];
         }
+
+        public string GetCurrencyName(string shortName)
+        {
+            foreach (ISO_3166 iso_3166 in item)
+            {
+                if (iso_3166.Currency_Abbreviation != null)
+                {
+                    if (iso_3166.Currency_Abbreviation.Equals(shortName))
+                    {
+                        return iso_3166.Currency_Name;
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

@@ -18,6 +18,7 @@ namespace ECB_ExchangeRates_TEST
         [STAThread]
         static void Main()
         {
+            LanguageControl.DynSettings.LanguageID = 1;
             Application.Run(new ECB_ExchangeRates.Form_ECBExchangeRates());
         }
     }

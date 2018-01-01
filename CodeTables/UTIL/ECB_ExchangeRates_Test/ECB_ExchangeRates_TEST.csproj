@@ -61,6 +61,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -81,6 +82,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -135,6 +137,10 @@
     <ProjectReference Include="..\ECB_ExchangeRates\ECB_ExchangeRates.csproj">
       <Project>{23187e10-f2fe-4b8f-abb6-4c93c837e448}</Project>
       <Name>ECB_ExchangeRates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
