@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DURS_output));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_XML_output));
             this.btn_SelectFolder = new System.Windows.Forms.Button();
             this.lbl_Folder = new System.Windows.Forms.Label();
             this.lbl_FileNames = new System.Windows.Forms.Label();
@@ -84,7 +84,8 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Cancel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Cancel.Location = new System.Drawing.Point(158, 144);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 37);
@@ -94,6 +95,7 @@
             // 
             // cmbR_FilePath
             // 
+            this.cmbR_FilePath.AskToCreateRecentItemsFolder = false;
             this.cmbR_FilePath.DisplayMember = "text";
             this.cmbR_FilePath.DisplayTime = true;
             this.cmbR_FilePath.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -106,7 +108,8 @@
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\fcmo62m" +
+    "-01\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
@@ -122,7 +125,7 @@
             this.btn_View.Visible = false;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
             // 
-            // Form_DURS_output
+            // Form_XML_output
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -135,7 +138,7 @@
             this.Controls.Add(this.btn_SelectFolder);
             this.Controls.Add(this.lbl_Folder);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_DURS_output";
+            this.Name = "Form_XML_output";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form_Backup_SQLite";
             this.ResumeLayout(false);

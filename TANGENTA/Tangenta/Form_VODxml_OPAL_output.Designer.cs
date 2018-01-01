@@ -133,7 +133,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(940, 9);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 37);
@@ -143,6 +143,7 @@
             // 
             // cmbR_FilePath
             // 
+            this.cmbR_FilePath.AskToCreateRecentItemsFolder = false;
             this.cmbR_FilePath.DisplayMember = "text";
             this.cmbR_FilePath.DisplayTime = true;
             this.cmbR_FilePath.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -155,12 +156,14 @@
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\fcmo62m" +
+    "-01\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
             // cmb_VOD_xml_shema
             // 
+            this.cmb_VOD_xml_shema.AskToCreateRecentItemsFolder = false;
             this.cmb_VOD_xml_shema.DisplayMember = "text";
             this.cmb_VOD_xml_shema.DisplayTime = true;
             this.cmb_VOD_xml_shema.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -173,7 +176,8 @@
             this.cmb_VOD_xml_shema.Name = "cmb_VOD_xml_shema";
             this.cmb_VOD_xml_shema.ReadOnly = false;
             this.cmb_VOD_xml_shema.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmb_VOD_xml_shema.RecentItemsFolder = "";
+            this.cmb_VOD_xml_shema.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\fcmo62m" +
+    "-01\\RecentComboBoxItems";
             this.cmb_VOD_xml_shema.Size = new System.Drawing.Size(411, 23);
             this.cmb_VOD_xml_shema.TabIndex = 21;
             // 
@@ -225,6 +229,8 @@
             // 
             // dgvx_Glava
             // 
+            this.dgvx_Glava.AllowUserToAddRows = false;
+            this.dgvx_Glava.AllowUserToDeleteRows = false;
             this.dgvx_Glava.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -232,6 +238,7 @@
             this.dgvx_Glava.DataGridViewWithRowNumber = false;
             this.dgvx_Glava.Location = new System.Drawing.Point(5, 20);
             this.dgvx_Glava.Name = "dgvx_Glava";
+            this.dgvx_Glava.ReadOnly = true;
             this.dgvx_Glava.Size = new System.Drawing.Size(1009, 45);
             this.dgvx_Glava.TabIndex = 1;
             // 
@@ -273,7 +280,7 @@
             this.splitContainer3.Panel1.Controls.Add(this.lbl_Dokumenti);
             this.splitContainer3.Panel1.Controls.Add(this.dgvx_Dokumenti);
             this.splitContainer3.Size = new System.Drawing.Size(500, 369);
-            this.splitContainer3.SplitterDistance = 457;
+            this.splitContainer3.SplitterDistance = 467;
             this.splitContainer3.TabIndex = 0;
             // 
             // lbl_Dokumenti
@@ -287,6 +294,8 @@
             // 
             // dgvx_Dokumenti
             // 
+            this.dgvx_Dokumenti.AllowUserToAddRows = false;
+            this.dgvx_Dokumenti.AllowUserToDeleteRows = false;
             this.dgvx_Dokumenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -294,7 +303,9 @@
             this.dgvx_Dokumenti.DataGridViewWithRowNumber = false;
             this.dgvx_Dokumenti.Location = new System.Drawing.Point(0, 26);
             this.dgvx_Dokumenti.Name = "dgvx_Dokumenti";
-            this.dgvx_Dokumenti.Size = new System.Drawing.Size(453, 340);
+            this.dgvx_Dokumenti.ReadOnly = true;
+            this.dgvx_Dokumenti.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_Dokumenti.Size = new System.Drawing.Size(463, 340);
             this.dgvx_Dokumenti.TabIndex = 0;
             // 
             // splitContainer4
@@ -309,7 +320,7 @@
             this.splitContainer4.Panel1.Controls.Add(this.lbl_Knjizbe);
             this.splitContainer4.Panel1.Controls.Add(this.dgvx_Knjizbe);
             this.splitContainer4.Size = new System.Drawing.Size(513, 369);
-            this.splitContainer4.SplitterDistance = 474;
+            this.splitContainer4.SplitterDistance = 484;
             this.splitContainer4.TabIndex = 0;
             // 
             // lbl_Knjizbe
@@ -323,6 +334,9 @@
             // 
             // dgvx_Knjizbe
             // 
+            this.dgvx_Knjizbe.AllowUserToAddRows = false;
+            this.dgvx_Knjizbe.AllowUserToDeleteRows = false;
+            this.dgvx_Knjizbe.AllowUserToOrderColumns = true;
             this.dgvx_Knjizbe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -330,7 +344,8 @@
             this.dgvx_Knjizbe.DataGridViewWithRowNumber = false;
             this.dgvx_Knjizbe.Location = new System.Drawing.Point(2, 26);
             this.dgvx_Knjizbe.Name = "dgvx_Knjizbe";
-            this.dgvx_Knjizbe.Size = new System.Drawing.Size(469, 340);
+            this.dgvx_Knjizbe.ReadOnly = true;
+            this.dgvx_Knjizbe.Size = new System.Drawing.Size(479, 340);
             this.dgvx_Knjizbe.TabIndex = 2;
             // 
             // lbl_Konto_Price_with_tax_for_cash

@@ -41,18 +41,18 @@ namespace Tangenta
             // 
             // btn_Print
             // 
-            this.btn_Print.Image = Properties.Resources.Print;
-            this.btn_Print.Location = new System.Drawing.Point(190, 133);
+            this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
+            this.btn_Print.Location = new System.Drawing.Point(143, 73);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(143, 39);
+            this.btn_Print.Size = new System.Drawing.Size(188, 39);
             this.btn_Print.TabIndex = 1;
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Image = Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(442, 133);
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Cancel.Location = new System.Drawing.Point(440, 73);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(82, 39);
             this.btn_Cancel.TabIndex = 2;
@@ -62,7 +62,7 @@ namespace Tangenta
             // lbl_From_To
             // 
             this.lbl_From_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_From_To.Location = new System.Drawing.Point(51, 61);
+            this.lbl_From_To.Location = new System.Drawing.Point(50, 9);
             this.lbl_From_To.Name = "lbl_From_To";
             this.lbl_From_To.Size = new System.Drawing.Size(427, 18);
             this.lbl_From_To.TabIndex = 3;
@@ -70,29 +70,31 @@ namespace Tangenta
             // 
             // btn_DURS_output
             // 
-            this.btn_DURS_output.Location = new System.Drawing.Point(8, 133);
+            this.btn_DURS_output.Location = new System.Drawing.Point(6, 73);
             this.btn_DURS_output.Name = "btn_DURS_output";
             this.btn_DURS_output.Size = new System.Drawing.Size(114, 37);
             this.btn_DURS_output.TabIndex = 4;
             this.btn_DURS_output.Text = "Izpis za DURS ";
             this.btn_DURS_output.UseVisualStyleBackColor = true;
+            this.btn_DURS_output.Visible = false;
             this.btn_DURS_output.Click += new System.EventHandler(this.btn_DURS_output_Click);
             // 
             // btn_XML_export
             // 
-            this.btn_XML_export.Location = new System.Drawing.Point(8, 90);
+            this.btn_XML_export.Location = new System.Drawing.Point(6, 30);
             this.btn_XML_export.Name = "btn_XML_export";
             this.btn_XML_export.Size = new System.Drawing.Size(114, 37);
             this.btn_XML_export.TabIndex = 5;
             this.btn_XML_export.Text = "Izpis v XML";
             this.btn_XML_export.UseVisualStyleBackColor = true;
+            this.btn_XML_export.Visible = false;
             this.btn_XML_export.Click += new System.EventHandler(this.btn_XML_export_Click);
             // 
             // btn_VOD_xml_OPAL_export
             // 
-            this.btn_VOD_xml_OPAL_export.Location = new System.Drawing.Point(190, 90);
+            this.btn_VOD_xml_OPAL_export.Location = new System.Drawing.Point(143, 30);
             this.btn_VOD_xml_OPAL_export.Name = "btn_VOD_xml_OPAL_export";
-            this.btn_VOD_xml_OPAL_export.Size = new System.Drawing.Size(143, 37);
+            this.btn_VOD_xml_OPAL_export.Size = new System.Drawing.Size(188, 37);
             this.btn_VOD_xml_OPAL_export.TabIndex = 6;
             this.btn_VOD_xml_OPAL_export.UseVisualStyleBackColor = true;
             this.btn_VOD_xml_OPAL_export.Click += new System.EventHandler(this.btn_VOD_xml_OPAL_export_Click);
@@ -101,7 +103,7 @@ namespace Tangenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(528, 181);
+            this.ClientSize = new System.Drawing.Size(528, 119);
             this.Controls.Add(this.btn_VOD_xml_OPAL_export);
             this.Controls.Add(this.btn_XML_export);
             this.Controls.Add(this.btn_DURS_output);

@@ -280,6 +280,8 @@ namespace Tangenta
 
         public static ltext s_VODxml_export_for = new ltext(new string[] { "VOD xml export for period", "Izvoz faktur v VOD XML datoteko za obdobje od" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
 
+        public static ltext s_VOD_Head = new ltext(new string[] { "HEAD", "GLAVA" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
         public static ltext s_you_can_do_VODxml_Output_just_for_past_month = new ltext(new string[] { "You can do VOD xml export just for any month in the past!", "Izvoz faktur v VOD XML datoteko lahko naredite samo za katerikoli že pretekli mesec!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
 
         public static ltext s_you_must_have_select_one_month_period_to_do_VODxml_Output = new ltext(new string[] { "There must be selectedt exactly one month period of invoices to do VOD xml ouptut!", "Izbrani računi morajo pripadati točno izbranemu celemu mesecu, da bi lahko naredili izvoz faktur v VOD XML datoteko!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
@@ -639,5 +641,7 @@ namespace Tangenta
         internal static ltext s_OtherPersonDana = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_PersonData_Edit.cs
 
         internal static ltext s_chk_ShopC_ExclusivelySellFromStock = new ltext(new string[] { "In Shop C only sell from stock is enabled", "V prodajalni C je omogočena samo prodaja iz zalog" });
+
+        internal static ltext s_Printing_InvoiceListIsNotImplementedYet_YouCanExportDataTableToExcelAndPrintExcelFile = new ltext(new string[] { "Printning list of invoices is not suported yet.\r\n You can exoprt data grid view of invoices to excel file and print it in Excel or other spread-sheet editor", "Tiskanje seznama računov še ni podrto.\r\nNamesto tega lahko izvozite seznam računov v Excel datoteka in ga natisnete v Excel programu." });
     }
 }

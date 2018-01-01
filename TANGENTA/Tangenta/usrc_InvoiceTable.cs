@@ -142,7 +142,7 @@ namespace Tangenta
             dgvx_XInvoice.ClearSelection();
             this.dgvx_XInvoice.SelectionChanged += this.dgvx_XInvoice_SelectionChanged;
             dgvx_XInvoice.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvx_XInvoice.MultiSelect = false;
+            //dgvx_XInvoice.MultiSelect = false;
             if (dt_XInvoice.Rows.Count>0)
             {
                 if (iCurrentSelectedRow>=0)

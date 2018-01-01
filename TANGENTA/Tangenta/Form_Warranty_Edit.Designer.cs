@@ -48,9 +48,10 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(102, 299);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(54, 25);
+            this.btn_Cancel.Size = new System.Drawing.Size(114, 25);
             this.btn_Cancel.TabIndex = 2;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;

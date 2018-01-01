@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -78,6 +79,7 @@ namespace Tangenta
             this.lbl_Konto_VAT_general_rate.Text = lng.s_Konto_VAT_general_rate.s;
             this.lbl_End_Customers_Code.Text = lng.s_End_Customers_Code.s;
             this.lbl_End_Customes_Name.Text = lng.s_End_Customes_Name.s;
+            lng.s_VOD_Head.Text(this.lbl_Glava);
 
 
             //dt_IZPIS_RACUNI_GLAVE = new DataTable();
@@ -250,11 +252,12 @@ namespace Tangenta
             try
             {
                 int iRowsCount = -1;
-                string scond = m_usrc_InvoiceTable.cond.Replace("$_inv.ID","$_inv_$$ID");
-                scond = scond.Replace("$_pinv.FinancialYear", "$_dinv_$$FinancialYear");
+                string scond = m_usrc_InvoiceTable.cond.Replace("$_dinv.ID", "$_dinv_$$ID");
+                scond = scond.Replace("$_dinv.FinancialYear", "$_dinv_$$FinancialYear");
 
+                dt_XML_Invoices.Rows.Clear();
                 string sInvoiceCondition = " and (JOURNAL_DocInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString() + " or JOURNAL_DocInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() +  ") ";
-                string sql = @" select 
+                string sql = @"select 
                             JOURNAL_DocInvoice_$_dinv_$$ID as ID,
                             JOURNAL_DocInvoice_$_dinv_$$Draft,
                             JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Tax_ID,
@@ -269,7 +272,7 @@ namespace Tangenta
                             JOURNAL_DocInvoice_$_dinv_$$GrossSum,
                             JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                             JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                            JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
+							pt.Name	as JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
                             JOURNAL_DocInvoice_$_dinv_$$NetSum,
                             JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                             JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acadrper_$_astrnper_$$StreetName,
@@ -284,12 +287,15 @@ namespace Tangenta
                             JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Name,
                             JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Tax_ID,
                             JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Registration_ID
-                            JOURNAL_DocInvoice_$_dinv_$_inv_$$Paid,
-                            JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno,
+                            JOURNAL_DocInvoice_$_dinv_$$Paid,
+                            JOURNAL_DocInvoice_$_dinv_$$Storno,
                             JOURNAL_DocInvoice_$_dinv_$$Discount,
                             JOURNAL_DocInvoice_$_dinv_$$EndSum,
-                            JOURNAL_DocInvoice_$_dinv_$_inv_$$ID
-                            from JOURNAL_DocInvoice_VIEW " + scond + sInvoiceCondition + " order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
+                            JOURNAL_DocInvoice_$_dinv_$$ID
+                            from JOURNAL_DocInvoice_VIEW
+							left join DocInvoiceAddOn diaon on JOURNAL_DocInvoice_$_dinv_$$ID = diaon.DocInvoice_ID
+							left join MethodOfPayment_DI mofpdi on mofpdi.ID = diaon.MethodOfPayment_DI_ID
+							left join PaymentType pt on pt.ID = mofpdi.PaymentType_ID " + scond + sInvoiceCondition + " order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
                 string Err = null;
                 bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XML_Invoices, sql, m_usrc_InvoiceTable.lpar_ExtraCondition, ref Err);
 
@@ -303,7 +309,7 @@ namespace Tangenta
                         int Partner_ID = 0;
 
                         int i = 0;
-                        int ic_Invoice_ID = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$$ID");
+                        int ic_Invoice_ID = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$ID");
                         int ic_ID = dt_XML_Invoices.Columns.IndexOf("ID");
                         int ic_Atom_Customer_Org_ID = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID");
                         int ic_Draft = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
@@ -321,7 +327,11 @@ namespace Tangenta
                         int ic_Organisation_City = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City");
                         int ic_PaymentType = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType");
 
-                        dt_Dokument.Clear();
+                        dgvx_Dokumenti.DataSource = null;
+                        dt_Obracunsko_obdobje.Rows.Clear();
+                        dt_Partner.Rows.Clear(); ;
+                        dt_Knjizba.Rows.Clear();
+                        dt_Dokument.Rows.Clear();
                         dt_Dokument.Columns["Datum_dokumenta"].DataType = typeof(string);
                         dt_Dokument.Columns["Datum_dur"].DataType = typeof(string);
                         dt_Dokument.Columns["Datum_prejema_izdaje"].DataType = typeof(string);
@@ -545,57 +555,86 @@ namespace Tangenta
                                     //dr_IZPIS_RACUNI_GLAVE[Invoices.c_OPOMBE] = "";
 
                                     //string s_Invoice = 
-                                     //       gl1_Davcna_stevilka_zavezanca_za_davek
-                                     //+ ";" +gl2_Stevilka_racuna
-                                     //+ ";" +gl3_Datum_Racuna_DDMMLL
-                                     //+ ";" +gl4_Ura_izdaje_racuna_HH_MM
-                                     //+ ";" +gl5_Oznaka_Poslovne_Enote
-                                     //+ ";" +gl6_Oznaka_Elektronske_Naprave
-                                     //+ ";" +gl7_Firma_ime_in_sedez_kupca
-                                     //+ ";" +gl8_Kupceva_identifikacijska_stevilka_za_DDV
-                                     //+ ";" +gl9_Znesek_Racuna_skupaj_z_DDV
-                                     //+ ";" +gl10_Obracunan_DDV_po_9_5
-                                     //+ ";" +gl11_Obracunan_DDV_po_22
-                                     //+ ";" +gl12_Znesek_placila_z_gotovino_skupaj_z_DDV
-                                     //+ ";" +gl13_Znesek_placila_s_placilno_kartico_skupaj_z_DDV
-                                     //+ ";" +gl14_Znesek_placila_na_drug_nacin_skupaj_z_DDV
-                                     //+ ";" +gl15_Datum_spremembe_racuna_DDMMLLL
-                                     //+ ";" +gl16_Ura_spremembe_racuna
-                                     //+ ";" +gl17_Zaporedna_stevilka_spremembe_racuna
-                                     //+ ";" +gl18_Oznaka_razloga_spremembe_racuna
-                                     //+ ";" +gl19_Opis_razloga_spremembe_racuna
-                                     //+ ";" +gl20_Uporabnisko_ime_osebe_ki_je_spremenila_racun
-                                     //+ ";" +gl21_Ime_in_Priimek_osebe_ki_je_spremenila_racun
-                                     // + ";" +gl22_OPOMBE + "\r\n";
+                                    //       gl1_Davcna_stevilka_zavezanca_za_davek
+                                    //+ ";" +gl2_Stevilka_racuna
+                                    //+ ";" +gl3_Datum_Racuna_DDMMLL
+                                    //+ ";" +gl4_Ura_izdaje_racuna_HH_MM
+                                    //+ ";" +gl5_Oznaka_Poslovne_Enote
+                                    //+ ";" +gl6_Oznaka_Elektronske_Naprave
+                                    //+ ";" +gl7_Firma_ime_in_sedez_kupca
+                                    //+ ";" +gl8_Kupceva_identifikacijska_stevilka_za_DDV
+                                    //+ ";" +gl9_Znesek_Racuna_skupaj_z_DDV
+                                    //+ ";" +gl10_Obracunan_DDV_po_9_5
+                                    //+ ";" +gl11_Obracunan_DDV_po_22
+                                    //+ ";" +gl12_Znesek_placila_z_gotovino_skupaj_z_DDV
+                                    //+ ";" +gl13_Znesek_placila_s_placilno_kartico_skupaj_z_DDV
+                                    //+ ";" +gl14_Znesek_placila_na_drug_nacin_skupaj_z_DDV
+                                    //+ ";" +gl15_Datum_spremembe_racuna_DDMMLLL
+                                    //+ ";" +gl16_Ura_spremembe_racuna
+                                    //+ ";" +gl17_Zaporedna_stevilka_spremembe_racuna
+                                    //+ ";" +gl18_Oznaka_razloga_spremembe_racuna
+                                    //+ ";" +gl19_Opis_razloga_spremembe_racuna
+                                    //+ ";" +gl20_Uporabnisko_ime_osebe_ki_je_spremenila_racun
+                                    //+ ";" +gl21_Ime_in_Priimek_osebe_ki_je_spremenila_racun
+                                    // + ";" +gl22_OPOMBE + "\r\n";
 
                                     sql = @"select 
-                                            JOURNAL_Invoice_$_jinvt_$$Description,
-                                            JOURNAL_Invoice_$$EventTime,
-                                            JOURNAL_Invoice_$_awperiod_$_amcper_$$UserName,
-                                            JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                                            JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
-                                       from JOURNAL_Invoice_VIEW where JOURNAL_Invoice_$_jinvt_$$Name = 'Storno*' and JOURNAL_Invoice_$_inv_$$Storno = 1 and JOURNAL_Invoice_$_inv_$$ID = " + Invoice_ID.ToString();
-
+                                        JOURNAL_DocInvoice_$_jpinvt_$$Description,
+                                        JOURNAL_DocInvoice_$$EventTime,
+                                        JOURNAL_DocInvoice_$_awperiod_$_acomp_$$UserName,
+                                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
+                                        JOURNAL_DocInvoice_$_awperiod_$$ID
+                                    from JOURNAL_DocInvoice_VIEW where JOURNAL_DocInvoice_$_dinv_$$GrossSum < 0 and JOURNAL_DocInvoice_$_dinv_$$Storno = 1 and JOURNAL_DocInvoice_$_dinv_$$ID = " + Invoice_ID.ToString();
 
                                     DataTable dt_XML_Invoice_Storno = new DataTable();
                                     if (DBSync.DBSync.ReadDataTable(ref dt_XML_Invoice_Storno,sql, ref Err))
                                     {
                                         if (dt_XML_Invoice_Storno.Rows.Count>0)
                                         {
-                                            gl15_Datum_spremembe_racuna_DDMMLLL = (string) fs.Date_DDMMYYYY((DateTime)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$$EventTime"]);
-                                            gl16_Ura_spremembe_racuna = (string) fs.Time_HH_MM(':',(DateTime)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$$EventTime"]);
+                                            gl15_Datum_spremembe_racuna_DDMMLLL = (string) fs.Date_DDMMYYYY((DateTime)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$$EventTime"]);
+                                            gl16_Ura_spremembe_racuna = (string) fs.Time_HH_MM(':',(DateTime)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$$EventTime"]);
                                             //gl17_Zaporedna_stevilka_spremembe_racuna = "1";
                                             //gl18_Oznaka_razloga_spremembe_racuna = "S";
-                                            gl19_Opis_razloga_spremembe_racuna = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_jinvt_$$Description"];
-                                            gl20_Uporabnisko_ime_osebe_ki_je_spremenila_racun = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$$UserName"];
+                                            gl19_Opis_razloga_spremembe_racuna = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_jpinvt_$$Description"];
+                                            string sUserName = null;
+                                            if (Program.OperationMode.MultiUser)
+                                            {
+                                                long_v Atom_WorkPeriod_ID_v = tf.set_long(dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_awperiod_$$ID"]);
+                                                if (Atom_WorkPeriod_ID_v != null)
+                                                {
+                                                    string sql_get_username = @"select lu.UserName as UserName
+                                                                    from LoginUsers lu
+                                                                    inner join LoginSession ls on ls.LoginUsers_ID = lu.ID
+                                                                    where ls.Atom_WorkPeriod_ID = " + Atom_WorkPeriod_ID_v.v.ToString();
+
+                                                    DataTable dtUserName = new DataTable();
+                                                    if (DBSync.DBSync.ReadDataTable(ref dtUserName, sql_get_username, ref Err))
+                                                    {
+                                                        if (dtUserName.Rows.Count > 0)
+                                                        {
+                                                            sUserName = (string)dtUserName.Rows[0]["UserName"];
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                            if (sUserName==null)
+                                            {
+                                                gl20_Uporabnisko_ime_osebe_ki_je_spremenila_racun = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_awperiod_$_amcper_$$UserName"];
+                                            }
+                                            else
+                                            {
+                                                gl20_Uporabnisko_ime_osebe_ki_je_spremenila_racun = sUserName;
+                                            }
                                             string sFirstName = "";
-                                            object oFirstName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"];
+                                            object oFirstName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"];
                                             if (oFirstName is string)
                                             {
                                                 sFirstName = (string)oFirstName;
                                             }
                                             string sLastName = "";
-                                            object oLastName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"];
+                                            object oLastName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"];
                                             if (oLastName is string)
                                             {
                                                 sLastName = (string)oLastName;

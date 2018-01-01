@@ -97,7 +97,6 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvx_XInvoice.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvx_XInvoice.Location = new System.Drawing.Point(4, 42);
-            this.dgvx_XInvoice.MultiSelect = false;
             this.dgvx_XInvoice.Name = "dgvx_XInvoice";
             this.dgvx_XInvoice.ReadOnly = true;
             this.dgvx_XInvoice.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
