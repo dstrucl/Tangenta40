@@ -51,6 +51,15 @@ namespace Tangenta
             {
                 LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument: Unknown DocInvoice type!");
             }
+            if (Program.OperationMode.MultiCurrency)
+            {
+                usrc_Currency1.Enabled = true;
+            }
+            else
+            {
+                usrc_Currency1.Enabled = false;
+            }
+
             if (ItemsCount == 0 )
             {
                 this.usrc_New_Copy_of_Same_DocType1.Visible = false;

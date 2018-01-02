@@ -42,6 +42,7 @@ namespace TangentaDataBaseDef
         public Settings_Item MultiUserOperation = null;
         public Settings_Item SingleUserLoginAsAdministrator = null;
         public Settings_Item ShopC_ExclusivelySellFromStock = null;
+        public Settings_Item MultiCurrencyOperation = null;
 
         public Settings(string Ver)
         {
@@ -51,7 +52,7 @@ namespace TangentaDataBaseDef
             MultiUserOperation = new Settings_Item("MultiUserOperation", "1", false);
             SingleUserLoginAsAdministrator = new Settings_Item("SingleUserLoginAsAdministrator", "0", false);
             ShopC_ExclusivelySellFromStock = new Settings_Item("ShopC_ExclusivelySellFromStock", "0", false);
-
+            MultiCurrencyOperation = new Settings_Item("MultCurrencyOperation", "0", false);
         }
 
     }

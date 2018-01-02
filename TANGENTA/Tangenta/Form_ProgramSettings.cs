@@ -220,15 +220,18 @@ namespace Tangenta
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
-            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword);
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
             {
                 bDBSettingsChanged = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).Changed;
                 Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
+
                 Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
                 Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
                 Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
+                Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).ShopC_ExclusivelySellFromStock;
+                Program.OperationMode.MultiCurrency = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiCurrencyOperation;
             }
         }
     }

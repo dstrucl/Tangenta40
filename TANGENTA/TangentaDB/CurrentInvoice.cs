@@ -1523,13 +1523,29 @@ namespace TangentaDB
             SQL_Parameter par_ElectronicDevice_Name = new SQL_Parameter(spar_ElectronicDevice_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Name);
             lpar.Add(par_ElectronicDevice_Name);
 
+            string sql = null;
+            if (Currency.CurrencyCode == 978)
+            {
+                // Euro currency
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.NumberInFinancialYear from " + DocInvoice + " di " +
+                "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
+                "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
+                "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+                "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
+                "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                "\r\n where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode = 978 order by aed.Name asc, NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            }
+            else
+            {
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.NumberInFinancialYear from " + DocInvoice + " di " +
+                "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
+                "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
+                "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+                "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
+                "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                "\r\n where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode <> 978 order by aed.Name asc, NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            }
 
-            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.NumberInFinancialYear from " + DocInvoice + " di " +
-              "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
-              "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
-              "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
-              "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
-              "\r\n where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and aed.Name = " + spar_ElectronicDevice_Name + " order by aed.Name asc, NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
 
             DataTable dt = new DataTable();
             string Err = null;

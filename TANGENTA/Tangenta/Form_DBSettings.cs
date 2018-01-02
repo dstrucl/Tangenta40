@@ -19,9 +19,14 @@ namespace Tangenta
         public bool MultiuserOperationWithLogin { get { return rdb_MultiUserOperation.Checked; } }
         public bool SingleUserLoginAsAdministrator { get { return chk_SingleUserLoginAsAdministrator.Checked; } }
         public bool StockCheckAtStartup { get {return chk_StockCheckAtStartup.Checked; } }
+        public bool MultiCurrencyOperation { get { return chk_MultiCurrency.Checked; } }
+        public bool ShopC_ExclusivelySellFromStock { get { return chk_ShopC_ExclusivelySellFromStock.Checked; }  }
+
+
+
         public bool Changed = false;
 
-        public Form_DBSettings(NavigationButtons.Navigation xnav,string AdministratorLockedPassword, bool bMultiuserOperation,bool bStockCheckAtStartup)
+        public Form_DBSettings(NavigationButtons.Navigation xnav,string AdministratorLockedPassword)
         {
             InitializeComponent();
             nav = xnav;
@@ -39,18 +44,19 @@ namespace Tangenta
             {
                 this.usrc_Password1.Text = AdministratorLockedPassword;
             }
-            rdb_MultiUserOperation.Checked = bMultiuserOperation;
-            chk_StockCheckAtStartup.Checked = bStockCheckAtStartup;
 
             lng.s_grp_OperationMode.Text(grp_OperationMode);
             lng.s_rdb_MultiUser.Text(rdb_MultiUserOperation);
             lng.s_rdb_SingleUser.Text(rdb_SingleUser);
             lng.s_chk_LoginAsAdministrator.Text(chk_SingleUserLoginAsAdministrator);
+            lng.s_MultiCurrency.Text(chk_MultiCurrency);
 
             rdb_MultiUserOperation.Checked = Program.OperationMode.MultiUser;
             rdb_SingleUser.Checked = !Program.OperationMode.MultiUser;
             chk_SingleUserLoginAsAdministrator.Checked = Program.OperationMode.SingleUserLoginAsAdministrator;
             chk_ShopC_ExclusivelySellFromStock.Checked = Program.OperationMode.ShopC_ExclusivelySellFromStock;
+            chk_StockCheckAtStartup.Checked = Program.OperationMode.StockCheckAtStartup;
+            chk_MultiCurrency.Checked = Program.OperationMode.MultiCurrency;
 
             if (rdb_SingleUser.Checked)
             {
@@ -115,14 +121,15 @@ namespace Tangenta
                 long DBSettings_ID = -1;
                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, usrc_Password1.Text, "0", ref DBSettings_ID))
                 {
-                    string sbMutiuserOperation = "0";
+                    string sbMultiUserOperation = "0";
                     string sbStockCheckAtStartup = "0";
                     string sbSingleUserLoginAsAdministrator = "0";
                     string sbShopC_ExclusivelySellFromStock = "0";
+                    string sbMultiCurrencyOperation = "0";
 
                     if (rdb_MultiUserOperation.Checked)
                     {
-                        sbMutiuserOperation = "1";
+                        sbMultiUserOperation = "1";
                     }
                     if (chk_StockCheckAtStartup.Checked)
                     {
@@ -139,31 +146,45 @@ namespace Tangenta
                         sbShopC_ExclusivelySellFromStock = "1";
                     }
 
+                    if (chk_MultiCurrency.Checked)
+                    {
+                        sbShopC_ExclusivelySellFromStock = "1";
+                    }
+
                     if ((rdb_MultiUserOperation.Checked!= Program.OperationMode.MultiUser)
                         ||(chk_StockCheckAtStartup.Checked!= Program.OperationMode.StockCheckAtStartup)
                         || (chk_SingleUserLoginAsAdministrator.Checked != Program.OperationMode.SingleUserLoginAsAdministrator)
-                        || (chk_ShopC_ExclusivelySellFromStock.Checked != Program.OperationMode.ShopC_ExclusivelySellFromStock))
+                        || (chk_ShopC_ExclusivelySellFromStock.Checked != Program.OperationMode.ShopC_ExclusivelySellFromStock)
+                        || (chk_MultiCurrency.Checked != Program.OperationMode.MultiCurrency))
                     {
                         Changed = true;
                     }
 
                    
-                    if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, sbMutiuserOperation, "0", ref DBSettings_ID))
+                    if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, sbMultiUserOperation, "0", ref DBSettings_ID))
                     {
                         Program.OperationMode.MultiUser = rdb_MultiUserOperation.Checked;
 
                         if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, sbStockCheckAtStartup, "0", ref DBSettings_ID))
                         {
                             Program.OperationMode.StockCheckAtStartup = chk_StockCheckAtStartup.Checked;
+
                             if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, sbSingleUserLoginAsAdministrator, "0", ref DBSettings_ID))
                             {
                                 Program.OperationMode.SingleUserLoginAsAdministrator = chk_SingleUserLoginAsAdministrator.Checked;
+
                                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, sbShopC_ExclusivelySellFromStock, "0", ref DBSettings_ID))
                                 {
                                     Program.OperationMode.ShopC_ExclusivelySellFromStock = chk_ShopC_ExclusivelySellFromStock.Checked;
-                                    Close();
-                                    DialogResult = DialogResult.OK;
-                                    return true;
+
+                                    if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, sbMultiCurrencyOperation, "0", ref DBSettings_ID))
+                                    {
+                                        Program.OperationMode.MultiCurrency = chk_MultiCurrency.Checked;
+
+                                        Close();
+                                        DialogResult = DialogResult.OK;
+                                        return true;
+                                    }
                                 }
                             }
                         }

@@ -81,8 +81,7 @@ namespace TangentaDB
 
 
 
-        public string Currency_Symbol = null;
-        public int Currency_DecimalPlaces = -1;
+        public xCurrency Currency = new xCurrency();
 
 
 
@@ -500,7 +499,7 @@ namespace TangentaDB
                 decimal dRetailPricePerUnitWithDiscount = 0;
                 if (dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"] is decimal)
                 {
-                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
+                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"] * (1 - Discount), Currency.DecimalPlaces);
                 }
 
                 decimal dprice_without_tax = DBTypes.tf._set_decimal(price_without_tax);
@@ -521,7 +520,7 @@ namespace TangentaDB
                                                              dQuantity,
                                                              DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$$Discount"]),
                                                              DBTypes.tf._set_decimal(0),
-                                                             DBTypes.tf._set_string(GlobalData.BaseCurrency.Symbol),
+                                                             DBTypes.tf._set_string(Currency.Symbol),
                                                              taxation_rate,
                                                              DBTypes.tf._set_decimal(TotalDiscount),
                                                              dprice_without_tax,
@@ -588,7 +587,7 @@ namespace TangentaDB
                     ExtraDiscount = (decimal)oExtraDiscount;
                 }
 
-                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
+                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Currency.DecimalPlaces);
 
                 decimal RetailSimpleItemPriceWithDiscount = 0;
                 object o_RetailSimpleItemPriceWithDiscount = dr["RetailSimpleItemPriceWithDiscount"];
@@ -647,7 +646,6 @@ namespace TangentaDB
 
                 j++;
             }
-
         }
 
 
@@ -745,7 +743,7 @@ namespace TangentaDB
 
                 decimal ExtraDiscount = appisd.ExtraDiscount.v;
 
-                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
+                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Currency.DecimalPlaces);
 
                 decimal Atom_Taxation_Rate = appisd.Atom_Taxation_Rate.v;
 
@@ -835,6 +833,12 @@ namespace TangentaDB
                                 GrossSum,
                                 TaxSum,
                                 NetSum,
+                                acur.ID as Atom_Currency_ID,
+                                acur.Name as CurrencyName,
+                                acur.Symbol as CurrencySymbol,
+                                acur.Abbreviation as CurrencyAbbreviation,
+                                acur.CurrencyCode as CurrencyCode,
+                                acur.DecimalPlaces as CurrencyDecimalPlaces,
                                 ao.Name,
                                 ao.Tax_ID,
                                 ao.Registration_ID,  
@@ -879,6 +883,7 @@ namespace TangentaDB
                                 from JOURNAL_DocInvoice jpi
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
+                                inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                 inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
@@ -928,6 +933,12 @@ namespace TangentaDB
                                 GrossSum,
                                 TaxSum,
                                 NetSum,
+                                acur.ID as Atom_Currency_ID,
+                                acur.Name as CurrencyName,
+                                acur.Symbol as CurrencySymbol,
+                                acur.Abbreviation as CurrencyAbbreviation,
+                                acur.CurrencyCode as CurrencyCode,
+                                acur.DecimalPlaces as CurrencyDecimalPlaces,
                                 ao.Name,
                                 ao.Tax_ID,
                                 ao.Registration_ID,
@@ -965,6 +976,7 @@ namespace TangentaDB
                                 from JOURNAL_DocInvoice jpi
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
+                                inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                 inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
@@ -1013,6 +1025,12 @@ namespace TangentaDB
                                 GrossSum,
                                 TaxSum,
                                 NetSum,
+                                acur.ID  as Atom_Currency_ID,
+                                acur.Name as CurrencyName,
+                                acur.Symbol as CurrencySymbol,
+                                acur.Abbreviation as CurrencyAbbreviation,
+                                acur.CurrencyCode as CurrencyCode,
+                                acur.DecimalPlaces as CurrencyDecimalPlaces,
                                 ao.Name,
                                 ao.Tax_ID,
                                 ao.Registration_ID,
@@ -1047,6 +1065,7 @@ namespace TangentaDB
                                 from JOURNAL_DocProformaInvoice jpi
                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
                                 inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
+                                inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                 inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
@@ -1100,6 +1119,15 @@ namespace TangentaDB
                         Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
                         IssueDate_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
                         Electronic_Device_Name_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Atom_Electronic_Device_Name"]);
+
+                        Currency.ID = (long)dt_DocInvoice.Rows[0]["Atom_Currency_ID"];
+                        Currency.Name = (string)dt_DocInvoice.Rows[0]["CurrencyName"];
+                        Currency.Symbol = (string)dt_DocInvoice.Rows[0]["CurrencySymbol"];
+                        Currency.Abbreviation = (string)dt_DocInvoice.Rows[0]["CurrencyAbbreviation"];
+                        Currency.CurrencyCode = (int)dt_DocInvoice.Rows[0]["CurrencyCode"];
+                        Currency.DecimalPlaces = (int)dt_DocInvoice.Rows[0]["CurrencyDecimalPlaces"];
+
+
                         if (IsDocInvoice)
                         {
                             if (!AddOnDI.Get(DocInvoice_ID))

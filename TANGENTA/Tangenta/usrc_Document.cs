@@ -361,21 +361,44 @@ namespace Tangenta
                     {
                         case fs.enum_GetDBSettings.DBSettings_OK:
                             Program.OperationMode.MultiUser = MultiuserOperationWithLogin.Equals("1");
+
                             string StockCheckAtStartup = null;
                             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
                             {
                                 case fs.enum_GetDBSettings.DBSettings_OK:
                                     Program.OperationMode.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
+
                                     string sSingleUserLoginAsAdministrator = null;
                                     switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, ref sSingleUserLoginAsAdministrator, ref bReadOnly, ref Err))
                                     {
                                         case fs.enum_GetDBSettings.DBSettings_OK:
                                             Program.OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
+
                                             string sShopC_ExclusivelySellFromStock = null;
                                             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
                                             {
                                                 case fs.enum_GetDBSettings.DBSettings_OK:
                                                     Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
+
+                                                    string sMultiCurrencyOperation = null;
+                                                    switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, ref sMultiCurrencyOperation, ref bReadOnly, ref Err))
+                                                    {
+                                                        case fs.enum_GetDBSettings.DBSettings_OK:
+                                                            Program.OperationMode.MultiCurrency = sMultiCurrencyOperation.Equals("1");
+                                                            break;
+
+                                                        case fs.enum_GetDBSettings.No_TextValue:
+                                                        case fs.enum_GetDBSettings.No_Data_Rows:
+                                                            if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name))
+                                                            {
+                                                                myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                                return false;
+                                                            }
+                                                            break;
+                                                        case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                            return false;
+                                                    }
                                                     break;
 
                                                 case fs.enum_GetDBSettings.No_TextValue:
@@ -504,14 +527,17 @@ namespace Tangenta
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
         repeat_Form_DBSettings:
-            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword);
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
             {
                 Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
+
                 Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
                 Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
                 Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
+                Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).ShopC_ExclusivelySellFromStock;
+                Program.OperationMode.MultiCurrency = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiCurrencyOperation;
                 return true;
             }
             else
@@ -646,11 +672,15 @@ namespace Tangenta
                 //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
                 do_Form_DBSettings:
 
-                    xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
+                    xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword);
                     xnav.ShowDialog();
+
                     Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
                     Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
                     Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
+                    Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)xnav.ChildDialog).ShopC_ExclusivelySellFromStock;
+                    Program.OperationMode.MultiCurrency = ((Form_DBSettings)xnav.ChildDialog).MultiCurrencyOperation;
+
                     switch (xnav.eExitResult)
                     {
                         case Navigation.eEvent.NEXT:

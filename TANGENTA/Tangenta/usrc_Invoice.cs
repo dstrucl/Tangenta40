@@ -723,6 +723,14 @@ namespace Tangenta
                 btn_edit_MyOrganisation_Person.Visible = false;
                 lbl_Issuer.Visible = false;
             }
+            if (Program.OperationMode.MultiCurrency)
+            {
+                usrc_Currency1.Enabled = true;
+            }
+            else
+            {
+                usrc_Currency1.Enabled = false;
+            }
         }
 
         public bool Init(NavigationButtons.Navigation xnav,long Document_ID)

@@ -643,5 +643,7 @@ namespace Tangenta
         internal static ltext s_chk_ShopC_ExclusivelySellFromStock = new ltext(new string[] { "In Shop C only sell from stock is enabled", "V prodajalni C je omogočena samo prodaja iz zalog" });
 
         internal static ltext s_Printing_InvoiceListIsNotImplementedYet_YouCanExportDataTableToExcelAndPrintExcelFile = new ltext(new string[] { "Printning list of invoices is not suported yet.\r\n You can exoprt data grid view of invoices to excel file and print it in Excel or other spread-sheet editor", "Tiskanje seznama računov še ni podrto.\r\nNamesto tega lahko izvozite seznam računov v Excel datoteka in ga natisnete v Excel programu." });
+
+        internal static ltext s_MultiCurrency  = new ltext(new string[] { "Multi Currency operation ", "Več valutno poslovanje" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
     }
 }

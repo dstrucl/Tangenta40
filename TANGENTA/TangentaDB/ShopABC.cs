@@ -835,12 +835,30 @@ namespace TangentaDB
 
             int xDraftNumber = -1;
             int iLimit = 1;
-            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from "+DocInvoice+" di "+
-                          "\r\n inner join JOURNAL_"+ DocInvoice + " jdi on jdi."+ DocInvoice+"_ID = di.ID "+
+
+            string sql = null;
+            if (xcurrency.CurrencyCode == 978)
+            {
+                // invoice Number for Euro
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocInvoice + " di " +
+                          "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
+                          "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
                           "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
                           "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
-                          "\r\n where aed.Name = "+ spar_ElectronicDevice_Name + " order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+                          "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode = 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            }
+            else
+            {
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocInvoice + " di " +
+                          "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
+                          "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
+                          "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+                          "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
+                          "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                          "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode <> 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            }
+
             if (!DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
             {
                 LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
