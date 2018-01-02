@@ -21,8 +21,18 @@ namespace TangentaDB
     {
         public static void SetDictionary()
         {
-            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name); 
         }
+
+        public static ltext s_SetNewFinancial = new ltext(new string[] { " Do you want to set new financial year ", "Želite Novo leto " });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
+
+        public static ltext s_AsDefaultFinancialYear = new ltext(new string[] { "\r\n as new default (selected) financial  year", " \r\n določiti kot privzeto (izbrano) finančno leto ?" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
+
+        public static ltext s_CurrentComputerTimeIsInNewYear = new ltext(new string[] { " Current computer time is in new Year" , " Računalnikova ura kaže Novo leto" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
+
+        public static ltext s_HappyNewYear = new ltext(new string[] { "Happy New Year", "Srečno Novo leto" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
+
+        public static ltext s_OpenNewFiscalYearYesNo = new ltext(new string[] { "Do you want to open new fiscal year:", "Ali želite odpreti novo obračunsko leto:" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
 
         public static ltext s_IssueDate_not_defined = new ltext(new string[] { " Issue Date Not defined!\r\n", " Datum izdaje računa ni določen!\r\n" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\DocInvoice_AddOn.cs
 

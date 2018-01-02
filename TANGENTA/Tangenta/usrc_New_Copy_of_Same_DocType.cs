@@ -77,7 +77,7 @@ namespace Tangenta
             btn_New_Copy_Of_SameDocType.Text = btn_New_Copy_Of_SameDocType.Text.Replace("%s", sInvoiceNumber);
             lng.s_IntoFinancialYear.Text(lbl_FinancialYear);
             cmb_FinancialYear.SelectedIndexChanged -= cmb_FinancialYear_SelectedIndexChanged;
-            int Default_FinancialYear = DateTime.Now.Year;
+            int Default_FinancialYear = Properties.Settings.Default.FinancialYear;
             if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref m_dt_FiancialYear,IsDocInvoice,IsDocProformaInvoice,ref Default_FinancialYear))
             {
                 Properties.Settings.Default.FinancialYear = Default_FinancialYear;

@@ -260,7 +260,7 @@ namespace LoginControl
             string Err = null;
             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null,null))
             {
-                Form parent_form = lctrl.GetParentForm();
+                Form parent_form = StaticLib.Func.GetParentForm(lctrl);
                 switch (AWP_dtLogin_Vaild())
                 {
                     case eAWP_dtLogin_Vaild_result.OK:

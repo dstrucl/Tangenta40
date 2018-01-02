@@ -152,31 +152,108 @@ namespace UpgradeDB
 
                         }
                         sql = @"
-                                            PRAGMA foreign_keys = OFF;
-                                            DROP TABLE doc;
-                                            DROP TABLE doc_type;
-                                            DROP TABLE doc_page_type;
+                            PRAGMA foreign_keys = OFF;
+                            DROP TABLE doc;
+                            DROP TABLE doc_type;
+                            DROP TABLE doc_page_type;
 
-                                            CREATE TABLE Atom_Currency_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Abbreviation' varchar(50) NOT NULL, 'Symbol' varchar(5) NOT NULL, 'CurrencyCode' INT NOT NULL, 'DecimalPlaces' INT NOT NULL );
+                            CREATE TABLE Atom_Currency_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Abbreviation' varchar(50) NOT NULL, 'Symbol' varchar(5) NOT NULL, 'CurrencyCode' INT NOT NULL, 'DecimalPlaces' INT NOT NULL );
 
-                                            insert into Atom_Currency_NEW (ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Atom_Currency;
+                            insert into Atom_Currency_NEW (ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Atom_Currency;
 
-                                            CREATE TABLE Atom_PriceList_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Valid' BIT NOT NULL, 'ValidFrom' DATETIME NULL, 'ValidTo' DATETIME NULL, 'Description' varchar(2000) NULL, Atom_Currency_ID INTEGER NOT NULL REFERENCES Atom_Currency(ID) );
+                            DROP TABLE Atom_Currency;
+                            ALTER TABLE Atom_Currency_NEW RENAME TO Atom_Currency;
 
-                                            insert into Atom_PriceList_NEW (ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID from Atom_PriceList;
+                            CREATE TABLE Atom_PriceList_Name 
+                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                            'Name' varchar(264) NOT NULL 
+                            );
 
-                                            DROP TABLE Atom_Currency;
+                            CREATE TABLE Atom_PriceList_new 
+                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Atom_PriceList_Name_ID INTEGER NOT NULL REFERENCES Atom_PriceList_Name(ID),
+                            'Valid' BIT NOT NULL,
+                            'ValidFrom' DATETIME NULL,
+                            'ValidTo' DATETIME NULL,
+                            'Description' varchar(2000) NULL,
+                            'CreationDate' DATETIME NULL,
+                            Atom_Currency_ID INTEGER NOT NULL REFERENCES Atom_Currency(ID) 
+                            );
 
-                                            ALTER TABLE Atom_Currency_NEW RENAME TO Atom_Currency;
+                            CREATE TABLE PriceList_Name 
+                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                              'Name' varchar(264) NOT NULL 
+                            );
 
-                                            DROP TABLE Atom_PriceList;
+                            CREATE TABLE PriceList_new 
+                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                              PriceList_Name_ID INTEGER NOT NULL REFERENCES PriceList_Name(ID),
+                              'Valid' BIT NOT NULL,
+                              Currency_ID INTEGER NOT NULL REFERENCES Currency(ID),
+                              'ValidFrom' DATETIME NULL,
+                              'ValidTo' DATETIME NULL,
+                              'CreationDate' DATETIME NULL,
+                              'Description' varchar(2000) NULL );
+                             
+                              insert into PriceList_Name (Name)  select Name from PriceList;
 
-                                            ALTER TABLE Atom_PriceList_NEW RENAME TO Atom_PriceList;
+                              insert into PriceList_new
+                              (
+                              ID,
+                              PriceList_Name_ID,
+                              Valid,
+                              Currency_ID,
+                              ValidFrom,
+                              ValidTo,
+                              CreationDate,
+                              Description
+                              )
+                              select 
+                              pl.ID,
+                              pln.ID,
+                              pl.Valid,
+                              pl.Currency_ID,
+                              pl.ValidFrom,
+                              pl.ValidTo,
+                              pl.CreationDate,
+                              pl.Description
+                              from PriceList pl
+                              inner join PriceList_Name pln on pln.Name = pl.Name;
 
-                                            DELETE FROM Currency;
-                                            delete from sqlite_sequence where name='Currency';
+                              insert into Atom_PriceList_Name (Name)  select Name from Atom_PriceList;
 
-                                            ";
+                              insert into Atom_PriceList_new
+                              (
+                                ID,
+                              Atom_PriceList_Name_ID,
+                              Valid,
+                              Atom_Currency_ID,
+                              ValidFrom,
+                              ValidTo,
+                              Description
+                              )
+                              select 
+                              apl.ID,
+                              apln.ID,
+                              apl.Valid,
+                              apl.Atom_Currency_ID,
+                              apl.ValidFrom,
+                              apl.ValidTo,
+                              apl.Description
+                              from Atom_PriceList apl
+                              inner join Atom_PriceList_Name apln on apln.Name = apl.Name;
+
+                              DROP TABLE PriceList;
+
+                              ALTER TABLE PriceList_new RENAME TO PriceList;
+
+                              DROP TABLE Atom_PriceList;
+
+                              ALTER TABLE Atom_PriceList_new RENAME TO Atom_PriceList;
+
+                              DELETE FROM Currency;
+                              delete from sqlite_sequence where name='Currency';
+                              ";
                         if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);

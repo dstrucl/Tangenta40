@@ -39,6 +39,8 @@
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
             this.btn_DBSettings = new System.Windows.Forms.Button();
+            this.lbl_AppData = new System.Windows.Forms.Label();
+            this.txt_ApplicationDataFolder = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // chk_AllowToEditText
@@ -123,9 +125,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 224);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(10, 273);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(561, 62);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(563, 62);
             this.usrc_NavigationButtons1.TabIndex = 39;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -141,7 +143,7 @@
             // 
             this.usrc_ShopsInuse1.Location = new System.Drawing.Point(3, 90);
             this.usrc_ShopsInuse1.Name = "usrc_ShopsInuse1";
-            this.usrc_ShopsInuse1.Size = new System.Drawing.Size(570, 133);
+            this.usrc_ShopsInuse1.Size = new System.Drawing.Size(570, 125);
             this.usrc_ShopsInuse1.TabIndex = 38;
             // 
             // btn_DBSettings
@@ -155,11 +157,33 @@
             this.btn_DBSettings.UseVisualStyleBackColor = false;
             this.btn_DBSettings.Click += new System.EventHandler(this.btn_DBSettings_Click);
             // 
+            // lbl_AppData
+            // 
+            this.lbl_AppData.AutoSize = true;
+            this.lbl_AppData.Location = new System.Drawing.Point(5, 220);
+            this.lbl_AppData.Name = "lbl_AppData";
+            this.lbl_AppData.Size = new System.Drawing.Size(88, 13);
+            this.lbl_AppData.TabIndex = 42;
+            this.lbl_AppData.Text = "\"AppData folder\"";
+            // 
+            // txt_ApplicationDataFolder
+            // 
+            this.txt_ApplicationDataFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_ApplicationDataFolder.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 236);
+            this.txt_ApplicationDataFolder.Name = "txt_ApplicationDataFolder";
+            this.txt_ApplicationDataFolder.ReadOnly = true;
+            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(570, 20);
+            this.txt_ApplicationDataFolder.TabIndex = 41;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(574, 307);
+            this.ClientSize = new System.Drawing.Size(576, 338);
+            this.Controls.Add(this.lbl_AppData);
+            this.Controls.Add(this.txt_ApplicationDataFolder);
             this.Controls.Add(this.btn_DBSettings);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_ShopsInuse1);
@@ -191,5 +215,7 @@
         private usrc_ShopsInuse usrc_ShopsInuse1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private System.Windows.Forms.Button btn_DBSettings;
+        private System.Windows.Forms.Label lbl_AppData;
+        private System.Windows.Forms.TextBox txt_ApplicationDataFolder;
     }
 }

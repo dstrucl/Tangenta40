@@ -891,7 +891,7 @@ namespace Tangenta
         {
             if (DoGetCurrent(ID))
             {
-                if (m_ShopABC.m_CurrentInvoice.bDraft)
+                if (m_ShopABC.m_CurrentInvoice.ShowDraftButtons())
                 {
                     this.m_usrc_ShopB.SetDraftButtons();
                 }

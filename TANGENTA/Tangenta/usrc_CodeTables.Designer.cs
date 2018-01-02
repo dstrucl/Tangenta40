@@ -204,7 +204,7 @@
             // 
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_OK.Location = new System.Drawing.Point(246, 171);
+            this.btn_OK.Location = new System.Drawing.Point(485, 153);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(121, 44);
             this.btn_OK.TabIndex = 12;
@@ -228,7 +228,7 @@
             this.Controls.Add(this.btn_Units);
             this.Controls.Add(this.btn_Currency);
             this.Name = "usrc_CodeTables";
-            this.Size = new System.Drawing.Size(611, 218);
+            this.Size = new System.Drawing.Size(611, 208);
             this.ResumeLayout(false);
 
         }

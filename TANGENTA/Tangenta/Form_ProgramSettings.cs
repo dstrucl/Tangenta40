@@ -66,6 +66,7 @@ namespace Tangenta
                     this.usrc_ShopsInuse1.chk_C_in_use.Checked = true;
                 }
             }
+            txt_ApplicationDataFolder.Text = StaticLib.Func.GetApplicationDataFolder();
 
         }
 

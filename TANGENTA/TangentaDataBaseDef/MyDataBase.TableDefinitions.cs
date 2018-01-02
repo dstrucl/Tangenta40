@@ -1375,6 +1375,7 @@ namespace TangentaDataBaseDef
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ValidFrom, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid from", "Veljavno od") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ValidTo, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid to", "Veljavno do") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Description", "Opis") );
+            t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.CreationDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Creation Date", "Datum nastanka"));
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.m_Atom_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Currency ID archive ", "Valuta ID arhiv") );
             m_DBTables.items.Add(t_Atom_PriceList);
 

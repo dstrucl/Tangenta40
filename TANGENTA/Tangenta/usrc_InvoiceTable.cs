@@ -73,7 +73,7 @@ namespace Tangenta
         private int iColIndex_DocInvoice_PaymentType_Identification = -1;
 
 
-        private bool bIgnoreChangeSelectionEvent = false;
+        //private bool bIgnoreChangeSelectionEvent = false;
 
         private string m_DocInvoice = Program.const_DocInvoice;
 
@@ -506,7 +506,7 @@ namespace Tangenta
                 + ") and  JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name +
                 " order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv.Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
             }
-            bIgnoreChangeSelectionEvent = true;
+            //bIgnoreChangeSelectionEvent = true;
             dt_XInvoice.Clear();
             dt_XInvoice.Columns.Clear();
             string Err = null;
@@ -578,7 +578,7 @@ namespace Tangenta
                             }
                         }
                     }
-                    bIgnoreChangeSelectionEvent = false;
+                    //bIgnoreChangeSelectionEvent = false;
                 }
                 else if (IsDocProformaInvoice)
                 {
@@ -618,12 +618,12 @@ namespace Tangenta
                             }
                         }
                     }
-                    bIgnoreChangeSelectionEvent = false;
+                    //bIgnoreChangeSelectionEvent = false;
                 }
             }
             else
             {
-                bIgnoreChangeSelectionEvent = false;
+                //bIgnoreChangeSelectionEvent = false;
                 LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice Err=" + Err);
             }
             return iRowsCount;
@@ -804,10 +804,10 @@ namespace Tangenta
         }
         private void dgvx_XInvoice_SelectionChanged(object sender, EventArgs e)
         {
-            if (!bIgnoreChangeSelectionEvent)
-            {
-                ShowOrEditSelectedRow(false);
-            }
+            //if (!bIgnoreChangeSelectionEvent)
+            //{
+            ShowOrEditSelectedRow(false);
+            //}
         }
 
         private void btn_TimeSpan_Click(object sender, EventArgs e)

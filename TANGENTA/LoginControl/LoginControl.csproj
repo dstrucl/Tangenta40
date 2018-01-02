@@ -330,6 +330,10 @@
       <Project>{6B46E1F3-1818-4AF1-B63F-19E31C6B6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355D-D6DC-46C9-9787-96A74EF27BE3}</Project>
       <Name>TangentaDB</Name>

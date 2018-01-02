@@ -356,7 +356,7 @@ namespace Tangenta
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
-                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear,null);
+                    m_usrc_InvoiceTable.Init(eInvType, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
                 }
                 else
                 {

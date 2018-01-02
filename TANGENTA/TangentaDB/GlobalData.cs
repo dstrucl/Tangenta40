@@ -130,21 +130,38 @@ namespace TangentaDB
                 return false;
             }
 
+            cmb_FinancialYear.DataSource = null;
             int CurrentYear = DateTime.Now.Year;
+            bool bNewFinancialYear = false;
             if (!FinancialYearExist(dt_FinancialYears, CurrentYear))
             {
-                DataRow dr = dt_FinancialYears.NewRow();
-                dr["FinancialYear"] = CurrentYear;
-                dt_FinancialYears.Rows.Add(dr);
+                if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_CurrentComputerTimeIsInNewYear, ":" + CurrentYear.ToString() + "\r\n" + lng.s_OpenNewFiscalYearYesNo.s + ":" + CurrentYear.ToString() + " ?",lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    bNewFinancialYear = true;
+                    DataRow dr = dt_FinancialYears.NewRow();
+                    dr["FinancialYear"] = CurrentYear;
+                    dt_FinancialYears.Rows.Add(dr);
+                }
             }
             cmb_FinancialYear.DataSource = dt_FinancialYears;
             cmb_FinancialYear.DisplayMember = "FinancialYear";
             cmb_FinancialYear.ValueMember = "FinancialYear";
+
             if (Default_FinancialYear == 0)
             {
-                Default_FinancialYear = DateTime.Now.Year;
+                Default_FinancialYear = CurrentYear;
             }
-            SelectFinancialYear(cmb_FinancialYear,Default_FinancialYear);
+            else
+            {
+                if (bNewFinancialYear)
+                {
+                    if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_SetNewFinancial, ":" + CurrentYear.ToString() + lng.s_AsDefaultFinancialYear.s, lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        Default_FinancialYear = CurrentYear;
+                    }
+                }
+            }
+            SelectFinancialYear(cmb_FinancialYear, Default_FinancialYear);
             return true;
         }
 

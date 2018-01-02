@@ -108,10 +108,60 @@ namespace StaticLib
             return ms.ToArray();
         }
 
-        public static bool SetApplicationSubFolder(ref string folder, string subFolder, ref string Err)
+        //public static bool SetApplicationSubFolder(ref string folder, string subFolder, ref string Err)
+        //{
+        //    Err = null;
+        //    string xFolder = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + subFolder;
+        //    try
+        //    {
+        //        if (!Directory.Exists(xFolder))
+        //        {
+        //            Directory.CreateDirectory(xFolder);
+        //        }
+        //        GrantFolderAccess(xFolder);
+        //        folder = xFolder;
+        //        return true;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        Err = Ex.Message + "\r\n" + Ex.StackTrace;
+        //    }
+        //    folder = null;
+        //    return false;
+        //}
+        public static Form GetParentForm(Control xctrl)
+        {
+            Control ctrlParent = xctrl.Parent;
+            for (int i = 0; i < 20; i++)
+            {
+                if (ctrlParent != null)
+                {
+                    if (ctrlParent is Form)
+                    {
+                        return (Form)ctrlParent;
+                    }
+                    else
+                    {
+                        ctrlParent = ctrlParent.Parent;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        public static string GetApplicationDataFolder()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        }
+
+        public static bool SetApplicationDataSubFolder(ref string folder, string subFolder, ref string Err)
         {
             Err = null;
-            string xFolder = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + subFolder;
+            string xFolder = GetApplicationDataFolder() + subFolder;
             try
             {
                 if (!Directory.Exists(xFolder))

@@ -159,6 +159,13 @@ namespace UpgradeDB
                         DROP TABLE myOrganisation_Person_AccessR;
                         DROP TABLE AccessR;
 
+                        delete from JOURNAL_DocInvoice  where ID in (select jdi.ID from JOURNAL_DocInvoice jdi where ID in (select ID from DocInvoice where FinancialYear = 2016 and Draft = 1));
+                        delete from  DocInvoiceAddOn where ID in (select ID from DocInvoice where FinancialYear = 2016 and Draft = 1);
+                        delete from DocInvoice_ShopA_item where DocInvoice_ID in (select ID from DocInvoice where FinancialYear = 2016 and Draft = 1);
+                        delete from DocInvoice_ShopB_item where DocInvoice_ID in (select ID from DocInvoice where FinancialYear = 2016 and Draft = 1);
+                        delete from DocInvoice_ShopC_item where DocInvoice_ID in (select ID from DocInvoice where FinancialYear = 2016 and Draft = 1);
+                        delete from DocInvoice where FinancialYear = 2016 and Draft = 1;
+
                         PRAGMA foreign_keys = ON;
                         ";
 

@@ -100,7 +100,7 @@ namespace ComboBox_Recent
             get { return FolderName; }
             set
             {
-                FolderName = value;
+                FolderName = "";
                 Init();
             }
         }
@@ -422,7 +422,7 @@ namespace ComboBox_Recent
                 {
                     //FolderName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     string Err = null;
-                    if (!SetApplicationSubFolder(ref FolderName, "\\RecentComboBoxItems", ref  Err))
+                    if (!SetApplicationDataSubFolder(ref FolderName, "\\RecentComboBoxItems", ref  Err))
                     {
                         MessageBox.Show("Error:Cannot set RecentItemsFolder:" + Err);
                     }
@@ -509,10 +509,10 @@ namespace ComboBox_Recent
             return true;
         }
 
-        private  bool SetApplicationSubFolder(ref string folder, string subFolder, ref string Err)
+        private  bool SetApplicationDataSubFolder(ref string folder, string subFolder, ref string Err)
         {
             Err = null;
-            string xFolder = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + subFolder;
+            string xFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + subFolder; 
             try
             {
                 if (!Directory.Exists(xFolder))

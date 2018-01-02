@@ -145,7 +145,7 @@ namespace Tangenta
             sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
             string xCodeTables_IniFileFolder = null;
-            if (StaticLib.Func.SetApplicationSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
                 bool bResult = DBSync.DBSync.Init(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
                 if (bResult)

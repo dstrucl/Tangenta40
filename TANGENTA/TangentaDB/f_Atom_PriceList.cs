@@ -170,7 +170,7 @@ namespace TangentaDB
                                             long Atom_PriceList_Name_ID = -1;
                                             if (f_Atom_PriceList_Name.Get(appisd.Atom_PriceList_Name.v, ref Atom_PriceList_Name_ID))
                                             {
-                                                sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
+                                                sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,CreationDate,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description,CreationDate" + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
 
                                                 object objretx = null;
                                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref objretx, ref Err, "Atom_PriceList"))

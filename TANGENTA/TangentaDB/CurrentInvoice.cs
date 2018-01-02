@@ -62,6 +62,8 @@ namespace TangentaDB
 
         public long Doc_ID;
 
+        public DateTime EventTime = DateTime.MinValue;
+
         // DocInvoice
         public CurrentInvoice.TaxInvoice TInvoice = new CurrentInvoice.TaxInvoice();
         public CurrentInvoice.ProformaInvoice PInvoice = new CurrentInvoice.ProformaInvoice();
@@ -758,6 +760,28 @@ namespace TangentaDB
                 {
                     LogFile.Error.Show("ERROR:Get_Atom_Item:Atom_Unit_ID not found!");
                     return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool ShowDraftButtons()
+        {
+            if (bDraft)
+            {
+                //Check if Draft not To Old !
+                DateTime dtNow = DateTime.Now;
+                TimeSpan ts = dtNow - this.EventTime;
+                if (ts.Days > 300)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
                 }
             }
             else
