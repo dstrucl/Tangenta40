@@ -13,5 +13,12 @@ namespace ECB_ExchangeRates
             Form_ECBExchangeRates frm_ECBExchangeRates = new Form_ECBExchangeRates();
             frm_ECBExchangeRates.ShowDialog(pParent);
         }
+
+        public static void Show(Form pParent, string CurrencyAbbreviation,decimal dValueToConvert)
+        {
+            Form_ECBExchangeRates frm_ECBExchangeRates = new Form_ECBExchangeRates();
+            frm_ECBExchangeRates.ShowDialog(pParent);
+        }
+
     }
 }

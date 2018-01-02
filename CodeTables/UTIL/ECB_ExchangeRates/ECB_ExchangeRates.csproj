@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrencyDaily.cs" />
     <Compile Include="dialog.cs" />
     <Compile Include="convert.cs" />
     <Compile Include="ECBExchange.cs">
@@ -57,6 +58,7 @@
     <Compile Include="Form_ECBExchangeRates.Designer.cs">
       <DependentUpon>Form_ECBExchangeRates.cs</DependentUpon>
     </Compile>
+    <Compile Include="ICurrencyConverter.cs" />
     <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -65,6 +67,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RateLoad.cs" />
+    <Compile Include="Rates.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ECBExchange.xsc">

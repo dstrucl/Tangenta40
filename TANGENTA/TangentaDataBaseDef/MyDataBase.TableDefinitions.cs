@@ -1323,7 +1323,7 @@ namespace TangentaDataBaseDef
         /* 85 */
             t_PriceList = new SQLTable((Object)new PriceList(),"pl", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_PriceList);
             t_PriceList.AddColumn((Object)mt.m_PriceList.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_PriceList.AddColumn((Object)mt.m_PriceList.m_PriceList_Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Price List Name ID", "Ime Cenika ID") );
+            t_PriceList.AddColumn((Object)mt.m_PriceList.m_PriceList_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Price List Name ID", "Ime Cenika ID") );
             t_PriceList.AddColumn((Object)mt.m_PriceList.Valid, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid", "Veljaven") );
             t_PriceList.AddColumn((Object)mt.m_PriceList.m_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Currency ID", "Valuta ID") );
             t_PriceList.AddColumn((Object)mt.m_PriceList.ValidFrom, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid from", "Velja od") );

@@ -13,10 +13,63 @@ namespace ECB_ExchangeRates
     {
         private RateLoad _kl = new RateLoad();
         private ExchangeRate _dsExchangeRate = new ExchangeRate();
+        private string m_ConvertToCurrencyWithAbbreviation = null;
+        private decimal m_dEuroValueToConvert = 0;
+        private decimal m_dExchangeRateProvision = 0;
+        private decimal m_dResult = 0;
+
+        public decimal ExchangeRateProvision { get { return m_dExchangeRateProvision; } }
+        public decimal Result { get { return m_dResult; } }
 
         public Form_ECBExchangeRates()
         {
             InitializeComponent();
+            InitializeControls();
+
+        }
+
+        public Form_ECBExchangeRates(string xConvertToCurrencyWithAbbreviation, decimal dEuroValueToConvert, decimal dExchangeRateProvision)
+        {
+            InitializeComponent();
+            m_ConvertToCurrencyWithAbbreviation = xConvertToCurrencyWithAbbreviation;
+            m_dEuroValueToConvert = dEuroValueToConvert;
+            m_dExchangeRateProvision = dExchangeRateProvision;
+
+            InitializeControls();
+        }
+
+        private void Rdb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is RadioButton)
+            {
+                string sText = ((RadioButton)sender).Text;
+                if (sText.Equals("2,5%"))
+                {
+                    m_dExchangeRateProvision = 2.5M;
+                }
+                else if (sText.Length==0)
+                {
+                    m_dExchangeRateProvision = nmUpDn_ExchangeRateProvision.Value;
+                }
+                else
+                {
+                    try
+                    {
+                        sText = sText.Replace("%", "");
+                        m_dExchangeRateProvision = Convert.ToDecimal(sText);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR: Can not convert to decimal:\""+sText+ "\".\r\nException="+ex.Message);
+                        return;
+                    }
+                }
+                convert();
+            }
+        }
+
+        private void InitializeControls()
+        {
             lng.s_Reference.Text(lblRef);
             dataGrid1.CaptionText = lng.s_ExchangeRatePerDay.s;
             lng.s_lbl_Date.Text(lbl_Date);
@@ -26,16 +79,127 @@ namespace ECB_ExchangeRates
             lng.s_lbl_ToCountryExchange.Text(lbl_ToCountryExchange);
             lng.s_btn_Calculate.Text(btn_Calculate);
             lng.s_ExchangeRates.Text(this);
+            lng.s_ExchangeRateProvision.Text(grp_ExchangeRateProvision);
+
+
+            if (m_dExchangeRateProvision > nmUpDn_ExchangeRateProvision.Maximum)
+            {
+                m_dExchangeRateProvision = nmUpDn_ExchangeRateProvision.Maximum;
+                nmUpDn_ExchangeRateProvision.Value = m_dExchangeRateProvision;
+                rdb_nmUpDn.Checked = true;
+            }
+            else if (m_dExchangeRateProvision < nmUpDn_ExchangeRateProvision.Minimum)
+            {
+                m_dExchangeRateProvision = nmUpDn_ExchangeRateProvision.Minimum;
+                nmUpDn_ExchangeRateProvision.Value = m_dExchangeRateProvision;
+                rdb_nmUpDn.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 0)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 0;
+                rdb_0.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 1)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 1;
+                rdb_1.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 2)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 2;
+                rdb_2.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 2.5M)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 2.5M;
+                rdb_2_5.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 3)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 3;
+                rdb_3.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 4)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 4;
+                rdb_4.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 5)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 5;
+                rdb_5.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 6)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 6;
+                rdb_6.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 7)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 7;
+                rdb_7.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 8)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 8;
+                rdb_8.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 10)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 10;
+                rdb_10.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 15)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 15;
+                rdb_15.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 20)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 20;
+                rdb_20.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 25)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 25;
+                rdb_25.Checked = true;
+            }
+            else if (m_dExchangeRateProvision == 30)
+            {
+                nmUpDn_ExchangeRateProvision.Value = 30;
+                rdb_30.Checked = true;
+            }
+            else
+            {
+                nmUpDn_ExchangeRateProvision.Value = m_dExchangeRateProvision;
+                rdb_nmUpDn.Checked = true;
+            }
+            rdb_0.CheckedChanged += Rdb_CheckedChanged;
+            rdb_1.CheckedChanged += Rdb_CheckedChanged;
+            rdb_2.CheckedChanged += Rdb_CheckedChanged;
+            rdb_2_5.CheckedChanged += Rdb_CheckedChanged;
+            rdb_3.CheckedChanged += Rdb_CheckedChanged;
+            rdb_4.CheckedChanged += Rdb_CheckedChanged;
+            rdb_5.CheckedChanged += Rdb_CheckedChanged;
+            rdb_6.CheckedChanged += Rdb_CheckedChanged;
+            rdb_7.CheckedChanged += Rdb_CheckedChanged;
+            rdb_8.CheckedChanged += Rdb_CheckedChanged;
+            rdb_10.CheckedChanged += Rdb_CheckedChanged;
+            rdb_15.CheckedChanged += Rdb_CheckedChanged;
+            rdb_20.CheckedChanged += Rdb_CheckedChanged;
+            rdb_25.CheckedChanged += Rdb_CheckedChanged;
+            rdb_30.CheckedChanged += Rdb_CheckedChanged;
+            rdb_nmUpDn.CheckedChanged += Rdb_CheckedChanged;
 
         }
 
-     
         private void InitCombo()
         {
-            int DkIndex = 0;
+            int EuroIndex = 0;
             cmbDate.DataSource = _dsExchangeRate.Tables["Exchange"];
             cmbDate.DisplayMember = "Date";
             cmbDate.ValueMember = "Date";
+            int HRK_Index = -1;
             foreach (DataTable t in _dsExchangeRate.Tables)
             {
                 foreach (DataRow r in t.Rows)
@@ -53,28 +217,66 @@ namespace ECB_ExchangeRates
 
                         if ("Country" == t.TableName)
                         {
-                            if ("Name" == c.ColumnName)
+                            if ("Initial" == c.ColumnName)
                             {
                                 if (r[c] is string)
                                 {
-                                    if (((string)r[c]).Equals("Euro")) DkIndex++;
-                                    if (DkIndex <= 1)
+
+                                    if (m_ConvertToCurrencyWithAbbreviation == null)
                                     {
-                                        cmbFromCountry.Items.Add((object)r[c]);
-                                        cmbToCountry.Items.Add((object)r[c]);
+                                        if (((string)r[c]).Equals("EUR")) EuroIndex++;
+
+                                        if (EuroIndex <= 1)
+                                        {
+                                            cmbFromCountry.Items.Add((object)r[c]);
+                                            cmbToCountry.Items.Add((object)r[c]);
+                                        }
                                     }
+                                    else
+                                    {
+                                        if (((string)r[c]).Equals("EUR")) EuroIndex++;
+
+                                        if (EuroIndex <= 1)
+                                        {
+                                            cmbFromCountry.Items.Add((object)r[c]);
+                                        }
+
+                                        if (((string)r[c]).Equals(m_ConvertToCurrencyWithAbbreviation))
+                                        {
+                                            HRK_Index = cmbToCountry.Items.Add((object)r[c]);
+                                        }
+                                        else
+                                        {
+                                            cmbToCountry.Items.Add((object)r[c]);
+                                        }
+                                    }
+                                    
                                 }
                             }
                         }
                     }
                 }
             }
+
             cmbDate.SelectedIndex = 0;
             cmbFromCountry.SelectedIndex = 0;
-            cmbToCountry.SelectedIndex = 0;
+            if (HRK_Index >= 0)
+            {
+                cmbToCountry.SelectedIndex = HRK_Index;
+            }
+            else
+            {
+                cmbToCountry.SelectedIndex = 0;
+            }
         }
 
         private void btnCalculat_Click(object sender, System.EventArgs e)
+        {
+            convert();
+        }
+
+
+        private bool convert ()
         {
             int Date = cmbDate.SelectedIndex;
             int FromC = cmbFromCountry.SelectedIndex;
@@ -99,6 +301,7 @@ namespace ECB_ExchangeRates
                     if (drFound == null)
                     {
                         MessageBox.Show("No PK matches " + cmbDate.Text);
+                        return false;
                     }
                     else
                     {
@@ -133,26 +336,23 @@ namespace ECB_ExchangeRates
                 label5.Text = ToLand;
                 string II = txtBelob.Text;
                 double Input = Convert.ToDouble(II);
-
-                txtHowMany.Text = Convert.ToString(ExRateValue(Input, dblFromLand, dblToLand, lblRef.Text));
-            }
-        }
-
-
-        private static double ExRateValue(double Input, double FromContry, double ToContry, string reference)
-        {
-            double result = 0;
-            if (0 < reference.IndexOf("Danmarks Nationalbank", 0, reference.Length))
-            {
-                if (ToContry == 0) return 0;
-                result = (Input / ToContry) * FromContry;
+                double dResult = ExRateValue(Input, dblFromLand, dblToLand);
+                dResult = dResult * (1 + (Convert.ToDouble(m_dExchangeRateProvision))/100);
+                txtHowMany.Text = Convert.ToString(dResult);
+                m_dResult = Convert.ToDecimal(dResult);
+                return true;
             }
             else
             {
-                result = (Input / FromContry) * ToContry;
+                return false;
             }
-            result = Math.Round(result, 2);
 
+        }
+        private static double ExRateValue(double Input, double FromContry, double ToContry)
+        {
+            double result = 0;
+            result = (Input / FromContry) * ToContry;
+            result = Math.Round(result, 2);
             return result;
         }
 

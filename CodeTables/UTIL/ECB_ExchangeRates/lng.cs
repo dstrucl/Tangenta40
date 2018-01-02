@@ -51,5 +51,7 @@ namespace ECB_ExchangeRates
         public static ltext s_ExchangeRates = new ltext(new string[]{"ECB Exchange rates",
                                                                      "ECB Teèajne liste"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
 
+        public static ltext s_ExchangeRateProvision = new ltext(new string[]{"Exchange provision",
+                                                                     "Menjalna provizija"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ECB_ExchangeRates\Form_ECBExchangeRates.cs
     }
 }
