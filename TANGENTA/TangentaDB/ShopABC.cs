@@ -98,6 +98,12 @@ namespace TangentaDB
                         JOURNAL_DocInvoice_$_dinv.EndSum AS JOURNAL_DocInvoice_$_dinv_$$EndSum,
                         JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                         JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
+                        acur.ID as Atom_Currency_ID,
+                        acur.Name as CurrencyName,
+                        acur.Abbreviation as CurrencyAbbreviation,
+                        acur.Symbol as CurrencySymbol,
+                        acur.CurrencyCode as CurrencyCode,
+                        acur.DecimalPlaces as CurrencyDecimalPlaces,
                         diao.Atom_Warranty_ID,
                         aw.WarrantyDurationType,
                         aw.WarrantyDuration,
@@ -113,6 +119,7 @@ namespace TangentaDB
                         FROM JOURNAL_DocInvoice
                         INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
                         LEFT JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                        INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_DocInvoice_$_dinv.Atom_Currency_ID
                         LEFT JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
                         LEFT JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
                         LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
@@ -164,6 +171,12 @@ namespace TangentaDB
                         JOURNAL_DocProformaInvoice_$_dpinv.EndSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
                         JOURNAL_DocProformaInvoice_$_dpinv.TaxSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
                         JOURNAL_DocProformaInvoice_$_dpinv.GrossSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
+                        acur.ID as Atom_Currency_ID,
+                        acur.Name as CurrencyName,
+                        acur.Abbreviation as CurrencyAbbreviation,
+                        acur.Symbol as CurrencySymbol,
+                        acur.CurrencyCode as CurrencyCode,
+                        acur.DecimalPlaces as CurrencyDecimalPlaces,
                         dpiao.Atom_Warranty_ID as Atom_Warranty_ID,
                         aw.WarrantyDurationType as WarrantyDurationType,
                         aw.WarrantyDuration as WarrantyDuration,
@@ -175,6 +188,7 @@ namespace TangentaDB
                         FROM JOURNAL_DocProformaInvoice
                         INNER JOIN JOURNAL_DocProformaInvoice_Type JOURNAL_DocProformaInvoice_$_jdpinvt ON JOURNAL_DocProformaInvoice.JOURNAL_DocProformaInvoice_Type_ID = JOURNAL_DocProformaInvoice_$_jdpinvt.ID
                         INNER JOIN DocProformaInvoice JOURNAL_DocProformaInvoice_$_dpinv ON JOURNAL_DocProformaInvoice.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
+                        INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_DocProformaInvoice_$_dpinv.Atom_Currency_ID
                         INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
                         INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
                         INNER JOIN Atom_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.ID
@@ -213,6 +227,19 @@ namespace TangentaDB
                         m_CurrentInvoice.Exist = true;
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
                         m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"];
+
+                        m_CurrentInvoice.Atom_Currency_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"];
+                        if (m_CurrentInvoice.Currency==null)
+                        {
+                            m_CurrentInvoice.Currency = new xCurrency();
+                        }
+
+                        m_CurrentInvoice.Currency.ID = m_CurrentInvoice.Atom_Currency_ID;
+                        m_CurrentInvoice.Currency.Name = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyName"];
+                        m_CurrentInvoice.Currency.Abbreviation = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
+                        m_CurrentInvoice.Currency.Symbol = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
+                        m_CurrentInvoice.Currency.CurrencyCode = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
+                        m_CurrentInvoice.Currency.DecimalPlaces = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
 
                         m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
                         m_CurrentInvoice.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
@@ -293,6 +320,14 @@ namespace TangentaDB
                         m_CurrentInvoice.Exist = true;
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
                         m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
+
+                        m_CurrentInvoice.Currency.ID = m_CurrentInvoice.Atom_Currency_ID;
+                        m_CurrentInvoice.Currency.Name = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyName"];
+                        m_CurrentInvoice.Currency.Abbreviation = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
+                        m_CurrentInvoice.Currency.Symbol = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
+                        m_CurrentInvoice.Currency.CurrencyCode = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
+                        m_CurrentInvoice.Currency.DecimalPlaces = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
+
 
                         m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDuration"]);
                         m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDurationType"]);
