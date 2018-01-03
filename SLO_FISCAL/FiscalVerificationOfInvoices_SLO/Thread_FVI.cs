@@ -166,8 +166,11 @@ namespace FiscalVerificationOfInvoices_SLO
                                 break;
 
                             case Thread_FVI_Message.eMessage.END:
-                                xusrc_FVI_SLO_Message.Set(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_END, null);
-                                xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+                                if (xusrc_FVI_SLO_Message != null)
+                                {
+                                    xusrc_FVI_SLO_Message.Set(0, usrc_FVI_SLO_Message.eMessage.Thread_FVI_END, null);
+                                    xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+                                }
                                 return;
                         }
                         break;
@@ -190,12 +193,20 @@ namespace FiscalVerificationOfInvoices_SLO
 
             for (;;)
             {
-                if (xusrc_FVI_SLO_MessageBox.Get(ref xusrc_FVI_SLO_Message_END)== Result_MessageBox_Get.OK)
-                { 
-                    if (xusrc_FVI_SLO_Message_END.Message == usrc_FVI_SLO_Message.eMessage.Thread_FVI_END)
+                if (xusrc_FVI_SLO_MessageBox != null)
+                {
+                    if (xusrc_FVI_SLO_MessageBox.Get(ref xusrc_FVI_SLO_Message_END) == Result_MessageBox_Get.OK)
                     {
-                        return true;
+                        if (xusrc_FVI_SLO_Message_END.Message == usrc_FVI_SLO_Message.eMessage.Thread_FVI_END)
+                        {
+                            return true;
+                        }
                     }
+                }
+                else
+                {
+                    //Ocurs when crash and catch in Program.Main!
+                    return true;
                 }
                 if ((DateTime.Now.Ticks- StartTicks)>100000000)
                 {

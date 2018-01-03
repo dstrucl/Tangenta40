@@ -67,11 +67,14 @@ namespace TangentaPrint
         private void ArrangePrinterControls()
         {
             int y = 0;
+            int idx = 0;
             foreach (Control ctrl in panel1.Controls)
             {
                 if (ctrl is usrc_Printer)
                 {
                     ((usrc_Printer)ctrl).Top = y;
+                    ((usrc_Printer)ctrl).m_index = idx;
+                    idx++;
                     y += ((usrc_Printer)ctrl).Height + 5;
                 }
             }

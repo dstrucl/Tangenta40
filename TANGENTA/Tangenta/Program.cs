@@ -108,6 +108,11 @@ namespace Tangenta
         internal static string IniFile = "";
 
         internal static usrc_FVI_SLO usrc_FVI_SLO1 = null;
+
+        internal static usrc_FVI_SLO_MessageBox message_box = null;
+
+        internal static Thread_FVI thread_fvi = null;
+
         internal static usrc_TangentaPrint usrc_TangentaPrint1 = null;
 
         internal static Form_Document MainForm = null;
@@ -533,6 +538,10 @@ namespace Tangenta
                     {
                         LogFile.Error.Show("ERROR!!:Program:Exception=" + Ex.Message + "\r\n STACK TRACE :\r\n" + Ex.StackTrace);
                     }
+                    if (thread_fvi != null)
+                    {
+                        thread_fvi.End(message_box);
+                    }
                 }
                 finally
                 {
@@ -545,6 +554,7 @@ namespace Tangenta
                         }
                     }
                 }
+               
                 rpc.End();
             }
         }

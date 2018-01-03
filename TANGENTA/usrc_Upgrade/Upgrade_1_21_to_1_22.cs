@@ -166,8 +166,23 @@ namespace UpgradeDB
                         delete from DocInvoice_ShopC_item where DocInvoice_ID in (select ID from DocInvoice where FinancialYear = 2016 and Draft = 1);
                         delete from DocInvoice where FinancialYear = 2016 and Draft = 1;
 
+
+
+                        CREATE TABLE Atom_Office_new ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                            Atom_myOrganisation_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation(ID),
+                            'Name' varchar(264)  NOT NULL,
+                            'ShortName' varchar(10)  NOT NULL );
+                        insert into Atom_Office_new(ID, Atom_myOrganisation_ID, Name, ShortName) select ID, Atom_myOrganisation_ID, Name, ShortName from Atom_Office;
+
+                        drop table Atom_Office;
+
+                        ALTER TABLE Atom_Office_new RENAME TO Atom_Office;
+
+
+
                         PRAGMA foreign_keys = ON;
-                        ";
+                                ";
 
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {

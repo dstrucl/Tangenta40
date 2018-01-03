@@ -53,9 +53,10 @@ namespace FiscalVerificationOfInvoices_SLO
 
 
         private bool bRun = false;
-        internal usrc_FVI_SLO_MessageBox message_box = null;
 
-        internal Thread_FVI thread_fvi = new Thread_FVI();
+        public usrc_FVI_SLO_MessageBox message_box = null;
+
+        public Thread_FVI thread_fvi = new Thread_FVI();
 
         private usrc_FVI_SLO_Message message = new usrc_FVI_SLO_Message(0, usrc_FVI_SLO_Message.eMessage.NONE, null);
 

@@ -289,10 +289,13 @@ namespace Tangenta
         internal bool Init(NavigationButtons.Navigation xnav)
         {
             string Err = null;
+            Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+            Program.thread_fvi = this.usrc_FVI_SLO1.thread_fvi;
+            Program.message_box = this.usrc_FVI_SLO1.message_box;
 
             if (Program.b_FVI_SLO)
             {
-                Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+                
                 Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
                 if (Program.Reset2FactorySettings.FiscalVerification_DLL)
                 {

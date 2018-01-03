@@ -197,20 +197,11 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before SetFinancialYears()");
 
-            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-            int Default_FinancialYear = Properties.Settings.Default.FinancialYear;
-            if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref dt_FinancialYears,IsDocInvoice,IsDocProformaInvoice,ref Default_FinancialYear))
+
+            if (!SetFinancialYears())
             {
-                Properties.Settings.Default.FinancialYear = Default_FinancialYear;
-                Properties.Settings.Default.Save();
-                cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_InvoiceMan:Init:GlobalData.SetFinancialYears Failed!");
                 return false;
             }
-
 
 
             splitContainer1.Panel2Collapsed = false;
@@ -226,6 +217,27 @@ namespace Tangenta
             return bRes;
         }
 
+        private bool SetFinancialYears()
+        {
+            int Default_FinancialYear = Properties.Settings.Default.FinancialYear;
+
+            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
+
+            if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref dt_FinancialYears, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))
+            {
+                Properties.Settings.Default.FinancialYear = Default_FinancialYear;
+                Properties.Settings.Default.Save();
+                cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:usrc_InvoiceMan:Init:GlobalData.SetFinancialYears Failed!");
+                return false;
+            }
+
+        }
+
         private void Set_cmb_InvoiceType_selected_index()
         {
             switch (this.m_usrc_Invoice.eInvoiceType)
@@ -237,7 +249,7 @@ namespace Tangenta
                     this.cmb_InvoiceType.SelectedIndex = 1;
                     break;
             }
-
+            SetFinancialYears();
         }
 
         internal bool SetDocument(NavigationButtons.Navigation xnav)
@@ -275,6 +287,7 @@ namespace Tangenta
                 {
                     Properties.Settings.Default.FinancialYear = iFinancialYear;
                     Properties.Settings.Default.Save();
+                    SetFinancialYears();
                     this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
@@ -621,6 +634,7 @@ namespace Tangenta
             }
             SetBackGroundColor();
             SetDocInvoiceOrDocPoformaInvoice();
+            SetFinancialYears();
         }
 
         private void SetBackGroundColor()

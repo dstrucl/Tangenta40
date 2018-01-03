@@ -133,14 +133,37 @@ namespace TangentaDB
             cmb_FinancialYear.DataSource = null;
             int CurrentYear = DateTime.Now.Year;
             bool bNewFinancialYear = false;
+            bool bNoFinancialYearsatAll = false;
             if (!FinancialYearExist(dt_FinancialYears, CurrentYear))
             {
-                if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_CurrentComputerTimeIsInNewYear, ":" + CurrentYear.ToString() + "\r\n" + lng.s_OpenNewFiscalYearYesNo.s + ":" + CurrentYear.ToString() + " ?",lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (dt_FinancialYears.Rows.Count == 0)
                 {
+                    //No data rows for financial year at all
                     bNewFinancialYear = true;
+                    bNoFinancialYearsatAll = true;
                     DataRow dr = dt_FinancialYears.NewRow();
                     dr["FinancialYear"] = CurrentYear;
                     dt_FinancialYears.Rows.Add(dr);
+                }
+                else
+                {
+                    //No data rows for financial year for Current Year
+                    if (Default_FinancialYear != CurrentYear)
+                    {
+                        if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_CurrentComputerTimeIsInNewYear, ":" + CurrentYear.ToString() + "\r\n" + lng.s_OpenNewFiscalYearYesNo.s + ":" + CurrentYear.ToString() + " ?", lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            bNewFinancialYear = true;
+                            DataRow dr = dt_FinancialYears.NewRow();
+                            dr["FinancialYear"] = CurrentYear;
+                            dt_FinancialYears.Rows.Add(dr);
+                        }
+                    }
+                    else
+                    {
+                        DataRow dr = dt_FinancialYears.NewRow();
+                        dr["FinancialYear"] = CurrentYear;
+                        dt_FinancialYears.Rows.Add(dr);
+                    }
                 }
             }
             cmb_FinancialYear.DataSource = dt_FinancialYears;
@@ -155,9 +178,16 @@ namespace TangentaDB
             {
                 if (bNewFinancialYear)
                 {
-                    if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_SetNewFinancial, ":" + CurrentYear.ToString() + lng.s_AsDefaultFinancialYear.s, lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (bNoFinancialYearsatAll)
                     {
                         Default_FinancialYear = CurrentYear;
+                    }
+                    else
+                    {
+                        if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_SetNewFinancial, ":" + CurrentYear.ToString() + lng.s_AsDefaultFinancialYear.s, lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            Default_FinancialYear = CurrentYear;
+                        }
                     }
                 }
             }
