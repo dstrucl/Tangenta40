@@ -61,10 +61,19 @@ namespace TangentaDB
                     {
                         if (stock.StockTake_Draft.v == false)
                         {
+                            //not draft
                             if (stock.Stock_ID != null)
                             {
                                 d += stock.dQuantity_from_stock.v;
                             }
+                        }
+                    }
+                    else
+                    {
+                        //not draft
+                        if (stock.Stock_ID != null)
+                        {
+                            d += stock.dQuantity_from_stock.v;
                         }
                     }
                 }

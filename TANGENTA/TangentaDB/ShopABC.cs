@@ -119,7 +119,10 @@ namespace TangentaDB
                         JOURNAL_DocInvoice.EventTime
                         FROM JOURNAL_DocInvoice 
                         INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
-                        LEFT JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                        LEFT JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
+                                                                          and (((JOURNAL_DocInvoice_$_jpinvt.Name='InvoiceDraftTime') and (JOURNAL_DocInvoice_$_dinv.Draft=1))
+                                                                              or(((JOURNAL_DocInvoice_$_jpinvt.Name='InvoiceTime') or  (JOURNAL_DocInvoice_$_jpinvt.Name='InvoiceStornoTime')or  (JOURNAL_DocInvoice_$_jpinvt.Name='Storno*'))
+                                                                                  and (JOURNAL_DocInvoice_$_dinv.Draft=0)))
                         INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_DocInvoice_$_dinv.Atom_Currency_ID
                         LEFT JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
                         LEFT JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
@@ -190,6 +193,9 @@ namespace TangentaDB
                         FROM JOURNAL_DocProformaInvoice 
                         INNER JOIN JOURNAL_DocProformaInvoice_Type JOURNAL_DocProformaInvoice_$_jdpinvt ON JOURNAL_DocProformaInvoice.JOURNAL_DocProformaInvoice_Type_ID = JOURNAL_DocProformaInvoice_$_jdpinvt.ID
                         INNER JOIN DocProformaInvoice JOURNAL_DocProformaInvoice_$_dpinv ON JOURNAL_DocProformaInvoice.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
+                                                                               and (((JOURNAL_DocProformaInvoice_$_jdpinvt.Name='ProformaInvoiceDraftTime') and (JOURNAL_DocProformaInvoice_$_dpinv.Draft=1))
+                                                                               or((JOURNAL_DocProformaInvoice_$_jdpinvt.Name='ProformaInvoiceTime') and (JOURNAL_DocProformaInvoice_$_dpinv.Draft=0))
+                                                                               )
                         INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_DocProformaInvoice_$_dpinv.Atom_Currency_ID
                         INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
                         INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
@@ -686,7 +692,22 @@ namespace TangentaDB
                 Stock.ImportTime AS Stock_ImportTime,
                 Stock.dQuantity AS Stock_dQuantity,
                 Stock.ExpiryDate AS Stock_ExpiryDate,
-                Atom_PriceList.Name AS Atom_PriceList_Name,
+                StockTake.Name AS StockTake_Name,
+                StockTake.StockTake_Date AS StockTakeDate,
+                StockTake.StockTakePriceTotal AS StockTakePriceTotal,
+                Reference.ReferenceNote as StockTake_ReferenceNote,
+                StockTake.ID as StockTake_ID,
+                Organisation.Name as Supplier_Organisation_Name,
+                Organisation.Tax_ID as Supplier_Organisation_Tax_ID,
+                cPhoneNumber_Org.PhoneNumber as  Supplier_Organisation_PhoneNumber,
+                cEmail_Org.Email as Supplier_Organisation_Email,
+                cHomePage_Org.HomePage as Supplier_Organisation_HomePage,
+                cFirstName.FirstName as Supplier_Person_First_Name,
+                cLastName.LastName as Supplier_Person_Last_Name,
+                cGsmNumber_Person.GsmNumber as Supplier_Person_GsmNumber,
+                cPhoneNumber_Person.PhoneNumber as Supplier_Person_PhoneNumber,
+                cEmail_Person.Email as Supplier_Person_Email,
+                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
                 Atom_Currency.Name AS Atom_Currency_Name,
                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
@@ -701,6 +722,7 @@ namespace TangentaDB
                 INNER JOIN  Atom_Price_Item ON DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID 
                 INNER JOIN  Atom_Taxation ON Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID 
                 INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
+                INNER JOIN  Atom_PriceList_Name ON Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID 
                 INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
                 INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
                 INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
@@ -710,6 +732,22 @@ namespace TangentaDB
                 LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
                 LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
                 LEFT JOIN  PurchasePrice_Item ON Stock.PurchasePrice_Item_ID = PurchasePrice_Item.ID 
+                LEFT JOIN  StockTake ON PurchasePrice_Item.StockTake_ID = StockTake.ID
+                LEFT JOIN  Reference ON StockTake.Reference_ID = Reference.ID
+                LEFT JOIN  Supplier ON StockTake.Supplier_ID = Supplier.ID
+                LEFT JOIN  Contact ON Supplier.Contact_ID = Contact.ID
+                LEFT JOIN  OrganisationData ON Contact.OrganisationData_ID = OrganisationData.ID
+                LEFT JOIN  Organisation ON OrganisationData.Organisation_ID = Organisation.ID
+                LEFT JOIN  cPhoneNumber_Org on OrganisationData.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                LEFT JOIN  cEmail_Org on OrganisationData.cEmail_Org_ID = cEmail_Org.ID
+                LEFT JOIN  cHomePage_Org on OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
+                LEFT JOIN  Person ON Contact.Person_ID = Person.ID
+                LEFT JOIN  cFirstName on Person.cFirstName_ID = cFirstName.ID
+                LEFT JOIN  cLastName on Person.cLastName_ID = cLastName.ID
+                LEFT JOIN  PersonData ON PersonData.Person_ID = Person.ID
+                LEFT JOIN  cGsmNumber_Person ON PersonData.cGsmNumber_Person_ID = cGsmNumber_Person.ID
+                LEFT JOIN  cPhoneNumber_Person ON PersonData.cPhoneNumber_Person_ID = cPhoneNumber_Person.ID
+                LEFT JOIN  cEmail_Person ON PersonData.cEmail_Person_ID = cEmail_Person.ID
                 LEFT JOIN  PurchasePrice ON PurchasePrice.ID = PurchasePrice_Item.PurchasePrice_ID 
                 LEFT JOIN  Item itms ON PurchasePrice_Item.Item_ID = itms.ID 
                 LEFT JOIN  Item_ParentGroup1 itm_g1 ON itms.Item_ParentGroup1_ID = itm_g1.ID 
@@ -763,7 +801,22 @@ namespace TangentaDB
                 Stock.ImportTime AS Stock_ImportTime,
                 Stock.dQuantity AS Stock_dQuantity,
                 Stock.ExpiryDate AS Stock_ExpiryDate,
-                Atom_PriceList.Name AS Atom_PriceList_Name,
+                StockTake.Name AS StockTake_Name,
+                StockTake.StockTake_Date AS StockTakeDate,
+                StockTake.StockTakePriceTotal AS StockTakePriceTotal,
+                Reference.ReferenceNote as StockTake_ReferenceNote,
+                StockTake.ID as StockTake_ID,
+                Organisation.Name as Supplier_Organisation_Name,
+                Organisation.Tax_ID as Supplier_Organisation_Tax_ID,
+                cPhoneNumber_Org.PhoneNumber as  Supplier_Organisation_PhoneNumber,
+                cEmail_Org.Email as Supplier_Organisation_Email,
+                cHomePage_Org.HomePage as Supplier_Organisation_HomePage,
+                cFirstName.FirstName as Supplier_Person_First_Name,
+                cLastName.LastName as Supplier_Person_Last_Name,
+                cGsmNumber_Person.GsmNumber as Supplier_Person_GsmNumber,
+                cPhoneNumber_Person.PhoneNumber as Supplier_Person_PhoneNumber,
+                cEmail_Person.Email as Supplier_Person_Email,
+                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
                 Atom_Currency.Name AS Atom_Currency_Name,
                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
@@ -778,6 +831,7 @@ namespace TangentaDB
                 INNER JOIN  Atom_Price_Item ON DocProformaInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID 
                 INNER JOIN  Atom_Taxation ON Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID 
                 INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
+                INNER JOIN  Atom_PriceList_Name ON Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID 
                 INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
                 INNER JOIN  DocProformaInvoice ON DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID = DocProformaInvoice.ID 
                 INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
@@ -787,6 +841,22 @@ namespace TangentaDB
                 LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
                 LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
                 LEFT JOIN  PurchasePrice_Item ON Stock.PurchasePrice_Item_ID = PurchasePrice_Item.ID 
+                LEFT JOIN  StockTake ON PurchasePrice_Item.StockTake_ID = StockTake.ID
+                LEFT JOIN  Reference ON StockTake.Reference_ID = Reference.ID
+                LEFT JOIN  Supplier ON StockTake.Supplier_ID = Supplier.ID
+                LEFT JOIN  Contact ON Supplier.Contact_ID = Contact.ID
+                LEFT JOIN  OrganisationData ON Contact.OrganisationData_ID = OrganisationData.ID
+                LEFT JOIN  Organisation ON OrganisationData.Organisation_ID = Organisation.ID
+                LEFT JOIN  cPhoneNumber_Org on OrganisationData.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                LEFT JOIN  cEmail_Org on OrganisationData.cEmail_Org_ID = cEmail_Org.ID
+                LEFT JOIN  cHomePage_Org on OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
+                LEFT JOIN  Person ON Contact.Person_ID = Person.ID
+                LEFT JOIN  cFirstName on Person.cFirstName_ID = cFirstName.ID
+                LEFT JOIN  cLastName on Person.cLastName_ID = cLastName.ID
+                LEFT JOIN  PersonData ON PersonData.Person_ID = Person.ID
+                LEFT JOIN  cGsmNumber_Person ON PersonData.cGsmNumber_Person_ID = cGsmNumber_Person.ID
+                LEFT JOIN  cPhoneNumber_Person ON PersonData.cPhoneNumber_Person_ID = cPhoneNumber_Person.ID
+                LEFT JOIN  cEmail_Person ON PersonData.cEmail_Person_ID = cEmail_Person.ID
                 LEFT JOIN  PurchasePrice ON PurchasePrice.ID = PurchasePrice_Item.PurchasePrice_ID 
                 LEFT JOIN  Item itms ON PurchasePrice_Item.Item_ID = itms.ID 
                 LEFT JOIN  Item_ParentGroup1 itm_g1 ON itms.Item_ParentGroup1_ID = itm_g1.ID 

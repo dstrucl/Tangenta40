@@ -24,6 +24,25 @@ namespace ShopC
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+        public static ltext s_Stock_ImportTime = new ltext(new string[] { "Stock Import Time", "Čas vnosa v zalogo" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Stock_ExpiryDate = new ltext(new string[] { "Stock expiry date", "Rok uporabe v zalogi" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_StockTake_Name = new ltext(new string[] { "Stock Take name Import Time", "Ime prevzemnice" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_StockTakeDate = new ltext(new string[] { "StockTake Date","Čas prevzema v zalogo" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_StockTakePriceTotal = new ltext(new string[] { "StockTake Price Total", "Skupna cena prevzemnice" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_StockTake_ReferenceNote = new ltext(new string[] { "Reference document", "Sklic na dokument" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Organisation_Name = new ltext(new string[] { "Supplier Org. Name", "Ime dobavitelja" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Organisation_Tax_ID = new ltext(new string[] { "Supplier Org. TaxID", "Davčna št. Dobavitelja" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Organisation_PhoneNumber = new ltext(new string[] { "Supplier Org. Phone Number", "Dobavitelj (org.) Telefon" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Organisation_Email = new ltext(new string[] { "Supplier Org. Emial", "Dobavitelj (org.) Email" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Organisation_HomePage = new ltext(new string[] { "Supplier Org. HomePage", "Dobavitelj (org.) Domača Stran" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Person_First_Name = new ltext(new string[] { "Supplier  Contact Person First Name", "Kontaktna oseba dobavitelja Ime" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Person_Last_Name = new ltext(new string[] { "Supplier  Contact Person Last Name", "Kontaktna oseba dobavitelja Priimek" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Person_GsmNumber = new ltext(new string[] { "Supplier  Contact Person Mobile number", "Kontaktna oseba dobavitelja Mobilni telefon številka" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Person_PhoneNumber = new ltext(new string[] { "Supplier  Contact Person Phone number", "Kontaktna oseba dobavitelja telefon številka" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+        public static ltext s_Supplier_Person_Email = new ltext(new string[] { "Supplier  Contact Person Email", "Kontaktna oseba dobavitelja Email" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
+
         public static ltext s_ItemGroups = new ltext(new string[] { "Item groups", "Skupine Artiklov" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_ItemGroups_Edit.cs
 
         public static ltext s_YourSelectedQuantityIsNotEqualTo = new ltext(new string[] { "Selected quantity is not equal to requested quantity!", "Izbrana količina ni enaka zahtevani količini! " });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
@@ -33,8 +52,6 @@ namespace ShopC
         public static ltext s_Form_SelectItemFromStock = new ltext(new string[] { "Select Items from stock", "Izberi artikel iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
         public static ltext s_StockTakeName = new ltext(new string[] { "Stock take name", "Ime prevzemnice" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
-
-        public static ltext s_StockTakeDate = new ltext(new string[] { "Stock take date", "Datum prevzemnice" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
         public static ltext s_QuantityTakenFromStock = new ltext(new string[] { "Quantity taken from stock", "Količina vzeta iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 

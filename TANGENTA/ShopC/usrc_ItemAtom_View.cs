@@ -49,30 +49,100 @@ namespace ShopC
             {
                 if (dt_DocInvoice_Atom_Item_Stock_view.Rows.Count > 0)
                 {
-                    dgv_DocInvoice_Atom_Item_Stock.DataSource = dt_DocInvoice_Atom_Item_Stock_view;
-                    DBSync.DBSync.DB_for_Tangenta.t_DocInvoice_ShopC_Item.SetView_DataGridViewImageColumns_Headers((DataGridView)dgv_DocInvoice_Atom_Item_Stock);
-                    foreach (DataGridViewColumn c in dgv_DocInvoice_Atom_Item_Stock.Columns)
+                    dgvx_DocInvoice_Atom_Item_Stock.DataSource = dt_DocInvoice_Atom_Item_Stock_view;
+                    DBSync.DBSync.DB_for_Tangenta.t_DocInvoice_ShopC_Item.SetView_DataGridViewImageColumns_Headers((DataGridView)dgvx_DocInvoice_Atom_Item_Stock);
+                    foreach (DataGridViewColumn c in dgvx_DocInvoice_Atom_Item_Stock.Columns)
                     {
                         c.Visible = false;
                     }
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].Visible = true;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].DisplayIndex = 0;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].HeaderText = lng.s_Stock_ID.s;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].Visible = true;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].DisplayIndex = 1;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].HeaderText = lng.s_Quantity.s;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].Visible = true;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].DisplayIndex = 2;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].HeaderText = lng.s_ExpiryDate.s;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].Visible = true;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].DisplayIndex = 3;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].HeaderText = lng.s_Stock_dQuantity.s;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].Visible = true;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].DisplayIndex = 4;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].HeaderText = lng.s_PurchasePricePerUnit.s;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].Visible = true;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].DisplayIndex = 5;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].HeaderText = lng.s_RetailPricePerUnit.s;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].DisplayIndex = 0;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].HeaderText = lng.s_Stock_ID.s;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].DisplayIndex = 1;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].HeaderText = lng.s_Quantity.s;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].DisplayIndex = 2;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].HeaderText = lng.s_ExpiryDate.s;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].DisplayIndex = 3;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].HeaderText = lng.s_Stock_dQuantity.s;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].DisplayIndex = 4;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].HeaderText = lng.s_PurchasePricePerUnit.s;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].DisplayIndex = 5;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].HeaderText = lng.s_RetailPricePerUnit.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ImportTime"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ImportTime"].DisplayIndex = 6;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ImportTime"].HeaderText = lng.s_Stock_ImportTime.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ExpiryDate"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ExpiryDate"].DisplayIndex = 7;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Stock_ExpiryDate"].HeaderText = lng.s_Stock_ExpiryDate.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_Name"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_Name"].DisplayIndex = 8;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_Name"].HeaderText = lng.s_StockTake_Name.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTakeDate"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTakeDate"].DisplayIndex = 9;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTakeDate"].HeaderText = lng.s_StockTakeDate.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTakePriceTotal"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTakePriceTotal"].DisplayIndex = 10;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTakePriceTotal"].HeaderText = lng.s_StockTakePriceTotal.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_ReferenceNote"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_ReferenceNote"].DisplayIndex = 11; 
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_ReferenceNote"].HeaderText = lng.s_StockTake_ReferenceNote.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["StockTake_ID"].Visible = false;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Name"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Name"].DisplayIndex = 12;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Name"].HeaderText = lng.s_Supplier_Organisation_Name.s;
+
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Tax_ID"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Tax_ID"].DisplayIndex = 13;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Tax_ID"].HeaderText = lng.s_Supplier_Organisation_Tax_ID.s;
+
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_PhoneNumber"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_PhoneNumber"].DisplayIndex = 14; 
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_PhoneNumber"].HeaderText = lng.s_Supplier_Organisation_PhoneNumber.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Email"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Email"].DisplayIndex = 15;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_Email"].HeaderText = lng.s_Supplier_Organisation_Email.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_HomePage"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_HomePage"].DisplayIndex = 16;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Organisation_HomePage"].HeaderText = lng.s_Supplier_Organisation_HomePage.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_First_Name"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_First_Name"].DisplayIndex = 17;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_First_Name"].HeaderText = lng.s_Supplier_Person_First_Name.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_Last_Name"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_Last_Name"].DisplayIndex = 18;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_Last_Name"].HeaderText = lng.s_Supplier_Person_Last_Name.s;
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_GsmNumber"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_GsmNumber"].DisplayIndex = 19; 
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_GsmNumber"].HeaderText = lng.s_Supplier_Person_GsmNumber.s;
+
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_PhoneNumber"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_PhoneNumber"].DisplayIndex = 20;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_PhoneNumber"].HeaderText = lng.s_Supplier_Person_PhoneNumber.s;
+
+
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_Email"].Visible = true;
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_Email"].DisplayIndex = 21; 
+                    dgvx_DocInvoice_Atom_Item_Stock.Columns["Supplier_Person_Email"].HeaderText = lng.s_Supplier_Person_Email.s;
 
                     int iCol_Stock_ExpiryDate =dt_DocInvoice_Atom_Item_Stock_view.Columns.IndexOf("Stock_ExpiryDate");
                     int iCol_ExpiryDate = dt_DocInvoice_Atom_Item_Stock_view.Columns.IndexOf("ExpiryDate");
