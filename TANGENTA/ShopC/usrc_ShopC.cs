@@ -419,6 +419,14 @@ namespace ShopC
                 {
                     if (dr["TakeFromStock"] is decimal)
                     {
+                        //decimal_v xStock_dQuantity = tf.set_decimal(dr["Stock_dQuantity"]);
+                        //if (xStock_dQuantity != null)
+                        //{
+                        //    if (xStock_dQuantity.v==0)
+                        //    {
+                        //        continue;
+                        //    }
+                        //}
                         Stock_Data stock_data = new Stock_Data();
                         stock_data.Stock_ID = tf.set_long(dr["Stock_ID"]);
                         stock_data.Stock_ImportTime = tf.set_DateTime(dr["Stock_ImportTime"]);

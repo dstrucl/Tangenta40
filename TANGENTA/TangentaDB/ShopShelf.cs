@@ -120,6 +120,7 @@ namespace TangentaDB
                 {
                     if (idata.Item_ID.v == item_id)
                     {
+ 
                         Stock_Data stock_data = new Stock_Data();
                         if (xItem_Data.Stock_ID != null)
                         {
@@ -153,8 +154,17 @@ namespace TangentaDB
 
                         if (xItem_Data.Stock_dQuantity != null)
                         {
-                            stock_data.dQuantity = new DBTypes.decimal_v();
-                            stock_data.dQuantity.v = xItem_Data.Stock_dQuantity.v;
+                            if (xItem_Data.Stock_dQuantity.v > 0)
+                            {
+                                stock_data.dQuantity = new DBTypes.decimal_v();
+                                stock_data.dQuantity.v = xItem_Data.Stock_dQuantity.v;
+                            }
+                            else
+                            {
+                                // set stock_ID to null;
+                                stock_data.Stock_ID = null;
+                                stock_data.dQuantity = null;
+                            }
                         }
                         else
                         {
@@ -195,7 +205,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        Stock_Data stock_data = new Stock_Data();
+                            Stock_Data stock_data = new Stock_Data();
                         if (xItem_Data.Stock_ID != null)
                         {
                             stock_data.Stock_ID = new DBTypes.long_v();
@@ -243,6 +253,8 @@ namespace TangentaDB
                         }
                         else
                         {
+                            // set stock_ID to null;
+                            stock_data.Stock_ID = null;
                             stock_data.dQuantity = null;
                         }
                         xItem_Data.Stock_Data_List.Add(stock_data);

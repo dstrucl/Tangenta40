@@ -244,14 +244,16 @@ namespace TangentaDB
                         {
                             continue;
                         }
-                    }
-                    else
-                    {
-                        if (stock_data.Stock_ID != null)
+
+                        if (stock_data.dQuantity_from_stock != null)
                         {
-                            continue;
+                            if (stock_data.dQuantity_from_stock.v == 0)
+                            {
+                                continue;
+                            }
                         }
                     }
+
                     decimal RetailPriceWithDiscount = 0;
 
                     decimal TaxPrice = 0;
