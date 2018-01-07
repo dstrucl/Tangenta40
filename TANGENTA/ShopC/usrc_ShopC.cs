@@ -409,6 +409,10 @@ namespace ShopC
                 {
                     Form_Select_Item_From_Stock Select_Item_From_Stock_Dialog = new Form_Select_Item_From_Stock(dt_ShopC_Item_in_Stock, dStockQuantity);
                     bOK = Select_Item_From_Stock_Dialog.ShowDialog() == DialogResult.OK;
+                    if (!bOK)
+                    {
+                        return false;
+                    }
                     dQuantitySelectedFromStock = Select_Item_From_Stock_Dialog.dQuantitySelected;
 
 

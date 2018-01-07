@@ -231,15 +231,15 @@ namespace TangentaDB
 
    
 
-        public string CreateHTML_PagePaperPrintingOutput(HTML_PrintingElement_List hTML_RollPaperPrintingOutput, double xPageHeight)
+        public StringBuilder CreateHTML_PagePaperPrintingOutput(HTML_PrintingElement_List hTML_RollPaperPrintingOutput, double xPageHeight)
         {
             //PageHeight = 1000;
-            string html = hTML_RollPaperPrintingOutput.style.html;
+            StringBuilder html = new StringBuilder(hTML_RollPaperPrintingOutput.style.html, hTML_RollPaperPrintingOutput.style.html.Length*4);
             bool bFirstItemFound = false;
-            html += @"
+            html.Append(@"
              <html>
                 <body>
-                    <page> ";
+                    <page> ");
             double bottom = 0;
             int i = 0;
             int iCount = hTML_RollPaperPrintingOutput.elements.Count;
@@ -252,13 +252,13 @@ namespace TangentaDB
             }
             else
             {
-                return "WARNING:TangentaDB:InvoiceData:CreateHTML_PagePaperPrintingOutput:Document has no items!";
+                return new StringBuilder("WARNING:TangentaDB:InvoiceData:CreateHTML_PagePaperPrintingOutput:Document has no items!");
             }
 
             for (i = 0; i < iCount; i++)
             {
                 HTML_PrintingElement pel = hTML_RollPaperPrintingOutput.elements[i];
-                string shtml = null;
+                StringBuilder shtml = null;
                 if (pel.Is("div", "pagenumbers")
                     || pel.Is("div", "invoicetop")
                     || pel.Is("tr", "item")
@@ -268,12 +268,12 @@ namespace TangentaDB
                     || pel.Is("div", "invoicebottom")
                     )
                 {
-                    shtml = pel.html;
+                    shtml = new StringBuilder(pel.html);
                     bottom += pel.Height;
                 }
                 else if (pel.Is("table", "tableitems"))
                 {
-                    shtml = pel.html;
+                    shtml = new StringBuilder(pel.html);
                     bottom += Thead_Height;
                 }
 
@@ -290,9 +290,9 @@ namespace TangentaDB
                         //BuildHtmlElements(pel, hTML_RollPaperPrintingOutput, ref shtml, ref html);
                         if (pel.Is("div", "invoicebottom"))
                         {
-                            html += @"
+                            html.Append(@"
                                                 </tbody>
-                                              </table>" + shtml + "\r\n";
+                                              </table>" + shtml + "\r\n");
                         }
                         else
                         {
@@ -301,139 +301,147 @@ namespace TangentaDB
                                 if (!bFirstItemFound)
                                 {
                                     bFirstItemFound = true;
-                                    html += "\r\n<tbody>";
+                                    html.Append("\r\n<tbody>");
                                 }
                             }
-                            html += shtml + "\r\n";
+                            html.Append(shtml + "\r\n");
                         }
                     }
                 }
             }
-            html += @"
+            html.Append(@"
                                         </page>
                                        </body>
-                                     </html>";
+                                     </html>");
 
-            html = InsertPageNumbers(html);
+            InsertPageNumbers(ref html);
             return html;
        }
 
-        private void InsertPage(ref string html, HTML_PrintingElement_List hTML_RollPaperPrintingOutput)
+        private void InsertPage(ref StringBuilder html, HTML_PrintingElement_List hTML_RollPaperPrintingOutput)
         {
-            html += @"</page>
-                                        <page>";
+            html.Append(@"</page>
+                                        <page>");
             hTML_RollPaperPrintingOutput.NumberOfPages++;
 
             if (hTML_RollPaperPrintingOutput.pagenumber != null)
             {
-                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                html.Append("\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n");
             }
         }
-        private void StartBuildHtmlElementsOnNewPage(HTML_PrintingElement pel, HTML_PrintingElement_List hTML_RollPaperPrintingOutput,ref string shtml, ref string html)
+        private void StartBuildHtmlElementsOnNewPage(HTML_PrintingElement pel, HTML_PrintingElement_List hTML_RollPaperPrintingOutput,ref StringBuilder shtml, ref StringBuilder html)
         {
             if (pel.Is("table", "tableitems"))
             {
                 InsertPage(ref html, hTML_RollPaperPrintingOutput);
-                html += shtml + "\r\n";
+                html.Append(shtml + "\r\n");
             }
             else if (pel.Is("tr", "item"))
             {
                 // close table and open new page
-                html += @"</tbody>
+                html.Append(@"</tbody>
                                             </table>
-                        ";
+                        ");
 
                 InsertPage(ref html, hTML_RollPaperPrintingOutput);
 
-                html += hTML_RollPaperPrintingOutput.tableitems.html;
-                html += "\r\n<tbody>\r\n";
-                html += shtml + "\r\n";
+                html.Append(hTML_RollPaperPrintingOutput.tableitems.html);
+                html.Append("\r\n<tbody>\r\n");
+                html.Append(shtml + "\r\n");
             }
             else if (pel.Is("tr", "totalneto"))
             {
-                html += @"
+                html.Append(@"
                                                 </tbody>
                                               </table>
-                        ";
+                        ");
                 InsertPage(ref html, hTML_RollPaperPrintingOutput);
-                html += "\r\n<table class = \"tableitems\">\r\n";
-                html += "\r\n<tbody>\r\n";
-                html += "\r\n" + pel.html + "\r\n";
+                html.Append("\r\n<table class = \"tableitems\">\r\n");
+                html.Append("\r\n<tbody>\r\n");
+                html.Append("\r\n" + pel.html + "\r\n");
                 if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
                 {
-                    html += @"</tbody>
+                    html.Append(@"</tbody>
                                             </table>
-                                            ";
+                                            ");
                 }
             }
             else if (pel.Is("tr", "taxsum"))
             {
-                html += @"
+                html.Append(@"
                                                 </tbody>
                                               </table>
-                        ";
+                        ");
                 InsertPage(ref html, hTML_RollPaperPrintingOutput);
-                html += "\r\n" + pel.html + "\r\n";
-                html += "\r\n<table class = \"tableitems\">\r\n";
-                html += "\r\n<tbody>\r\n";
-                html += "\r\n" + pel.html + "\r\n";
+                html.Append("\r\n" + pel.html + "\r\n");
+                html.Append("\r\n<table class = \"tableitems\">\r\n");
+                html.Append("\r\n<tbody>\r\n");
+                html.Append("\r\n" + pel.html + "\r\n");
                 if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
                 {
-                    html += @"</tbody>
+                    html.Append(@"</tbody>
                                             </table>
-                                            ";
+                                            ");
                 }
             }
             else if (pel.Is("tr", "grandtotal"))
             {
-                html += @"
+                html.Append(@"
                                                 </tbody>
                                               </table>
-";
+");
                 InsertPage(ref html, hTML_RollPaperPrintingOutput);
-                html += "\r\n<table class = \"tableitems\">\r\n";
-                html += "\r\n<tbody>\r\n";
-                html += "\r\n" + pel.html + "\r\n";
+                html.Append("\r\n<table class = \"tableitems\">\r\n");
+                html.Append("\r\n<tbody>\r\n");
+                html.Append("\r\n" + pel.html + "\r\n");
                 if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
                 {
-                    html += @"</tbody>
+                    html.Append(@"</tbody>
                                             </table>
-                                            ";
+                                            ");
                 }
             }
             else if (pel.Is("div", "invoicebottom"))
             {
-                html += @"
+                html.Append(@"
                                                 </tbody>
                                               </table>
-                        ";
+                        ");
                 InsertPage(ref html, hTML_RollPaperPrintingOutput);
-                html += "\r\n" + pel.html + "\r\n";
-                html += @"
+                html.Append("\r\n" + pel.html + "\r\n");
+                html.Append(@"
                                         </page>
                                        </body>
-                                     </html>";
+                                     </html>");
             }
         }
 
-        public string InsertPageNumbers(string html)
+        public void InsertPageNumbers(ref StringBuilder html)
         {
             int index_of_page_number = -1;
             int page_number_length = -1;
             index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
-            int iPage = 1;
-            while (index_of_page_number >= 0)
+            if (index_of_page_number >= 0)
             {
-                html = html.Substring(0,index_of_page_number) + iPage.ToString() + html.Substring(index_of_page_number + page_number_length);
-                index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
-                if (index_of_page_number >= 0)
+                StringBuilder sb = null;
+                int iPage = 1;
+                while (index_of_page_number >= 0)
                 {
-                    iPage++;
+
+                    int isbLen = html.Length;
+                    sb = new StringBuilder(html.ToString(0, index_of_page_number));
+                    sb.Append(iPage.ToString());
+                    sb.Append(html.ToString(index_of_page_number + page_number_length, isbLen - index_of_page_number + page_number_length));
+                    index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
+                    if (index_of_page_number >= 0)
+                    {
+                        iPage++;
+                    }
                 }
+                GeneralToken.tNumberOfPages.Set(iPage.ToString());
+                GeneralToken.tNumberOfPages.Replace(ref sb);
+                html = sb;
             }
-            GeneralToken.tNumberOfPages.Set(iPage.ToString());
-            html = GeneralToken.tNumberOfPages.Replace(html);
-            return html;
         }
 
         public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
@@ -1724,7 +1732,7 @@ namespace TangentaDB
         }
 
 
-        public string CreateHTML_PrintingElementList(ref string html_doc_template, ref HTML_PrintingElement_List PrintingElement_List, ref bool bError)
+        public bool CreateHTML_PrintingElementList(ref StringBuilder html_doc_template, ref HTML_PrintingElement_List PrintingElement_List, ref bool bError)
         {
             bError = false;
             if (PrintingElement_List == null)
@@ -1830,46 +1838,46 @@ namespace TangentaDB
             InvoiceToken.tPaymentToBankAccount.Set(sBankAccount);
             InvoiceToken.tPaymentToBankName.Set(sBankName);
 
-            html_doc_template = InvoiceToken.tPaymentType.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tPaymentToBankAccount.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tPaymentToBankName.Replace(html_doc_template);
+            InvoiceToken.tPaymentType.Replace(ref html_doc_template);
+            InvoiceToken.tPaymentToBankAccount.Replace(ref html_doc_template);
+            InvoiceToken.tPaymentToBankName.Replace(ref html_doc_template);
             if (IsDocInvoice)
             {
-                html_doc_template = InvoiceToken.tStorno.Replace(html_doc_template);
+                InvoiceToken.tStorno.Replace(ref html_doc_template);
             }
-            html_doc_template = InvoiceToken.tFiscalYear.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tInvoiceNumber.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tIssuerOfInvoice.Replace(html_doc_template);
+            InvoiceToken.tFiscalYear.Replace(ref html_doc_template);
+            InvoiceToken.tInvoiceNumber.Replace(ref html_doc_template);
+            InvoiceToken.tIssuerOfInvoice.Replace(ref html_doc_template);
 
-            html_doc_template = InvoiceToken.tCashier.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tNotice.Replace(html_doc_template);
+            InvoiceToken.tCashier.Replace(ref html_doc_template);
+            InvoiceToken.tNotice.Replace(ref html_doc_template);
 
-            html_doc_template = Invoice_Author.token.tFirstName.Replace(html_doc_template);
-            html_doc_template = Invoice_Author.token.tLastName.Replace(html_doc_template);
-            html_doc_template = Invoice_Author.token.tTaxID.Replace(html_doc_template);
+            Invoice_Author.token.tFirstName.Replace(ref html_doc_template);
+            Invoice_Author.token.tLastName.Replace(ref html_doc_template);
+            Invoice_Author.token.tTaxID.Replace(ref html_doc_template);
 
             if (CustomerOrganisation != null)
             {
                 foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.token.list)
                 {
-                    html_doc_template = tt.Replace(html_doc_template);
+                    tt.Replace(ref html_doc_template);
                 }
 
                 foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.Address.token.list)
                 {
-                    html_doc_template = tt.Replace(html_doc_template);
+                    tt.Replace(ref html_doc_template);
                 }
             }
             if (CustomerPerson != null)
             {
                 foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.token.list)
                 {
-                    html_doc_template = tt.Replace(html_doc_template);
+                    tt.Replace(ref html_doc_template);
                 }
 
                 foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.Address.token.list)
                 {
-                    html_doc_template = tt.Replace(html_doc_template);
+                    tt.Replace(ref html_doc_template);
                 }
             }
 
@@ -1878,11 +1886,11 @@ namespace TangentaDB
             {
                 if (ivt.replacement != null)
                 {
-                    html_doc_template = ivt.Replace(html_doc_template);
+                    ivt.Replace(ref html_doc_template);
                 }
                 else
                 {
-                    html_doc_template = ivt.Replace(html_doc_template);
+                    ivt.Replace(ref html_doc_template);
                 }
             }
 
@@ -1890,94 +1898,97 @@ namespace TangentaDB
             {
                 if (ivt.replacement != null)
                 {
-                    html_doc_template = ivt.Replace(html_doc_template);
+                    ivt.Replace(ref html_doc_template);
                 }
                 else
                 {
-                    html_doc_template = ivt.Replace(html_doc_template);
+                    ivt.Replace(ref html_doc_template);
                 }
             }
 
-            html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
+            InvoiceToken.tDateOfIssue.Replace(ref html_doc_template);
           
 
             if (IsDocInvoice)
             {
-                html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
+                InvoiceToken.tDateOfMaturity.Replace(ref html_doc_template);
                 if (AddOnDI.b_FVI_SLO)
                 {
-                    html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-                    html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-                    html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                    AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(ref html_doc_template);
+                    AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(ref html_doc_template);
+                    AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(ref html_doc_template);
                 }
             }
             else
             {
-                html_doc_template = InvoiceToken.tOfferValidUntil.Replace(html_doc_template);
+                InvoiceToken.tOfferValidUntil.Replace(ref html_doc_template);
             }
             int start_index = 0;
             int iStartIndexOf_style = -1;
             int iEndIndexOf_style = -1;
 
-            if (GetHtmlElementByTagName(html_doc_template, start_index, ref iStartIndexOf_style, ref iEndIndexOf_style, "style"))
+            if (GetHtmlElementByTagName(ref html_doc_template, start_index, ref iStartIndexOf_style, ref iEndIndexOf_style, "style"))
             {
                 PrintingElement_List.style = new HTML_PrintingElement();
-                PrintingElement_List.style.html = html_doc_template.Substring(iStartIndexOf_style, iEndIndexOf_style - iStartIndexOf_style + 1);
+                PrintingElement_List.style.html = html_doc_template.ToString().Substring(iStartIndexOf_style, iEndIndexOf_style - iStartIndexOf_style + 1);
             }
             else
             {
                 bError = true;
-                return "ERROR:&lt;style&gt; not found !";
+                html_doc_template = new StringBuilder("ERROR:&lt;style&gt; not found !");
+                return  false;
             }
 
 
             int iStartIndexOfPageNumbers = -1;
             int iEndIndexOfPageNumbers = -1;
-            if (GetHtmlElementByTagNameAndClassName(html_doc_template, iEndIndexOf_style, ref iStartIndexOfPageNumbers, ref iEndIndexOfPageNumbers, "div", "pagenumbers"))
+            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, iEndIndexOf_style, ref iStartIndexOfPageNumbers, ref iEndIndexOfPageNumbers, "div", "pagenumbers"))
             {
                 PrintingElement_List.pagenumber = new HTML_PrintingElement();
-                PrintingElement_List.pagenumber.html = html_doc_template.Substring(iStartIndexOfPageNumbers, iEndIndexOfPageNumbers - iStartIndexOfPageNumbers+1);
+                PrintingElement_List.pagenumber.html = html_doc_template.ToString().Substring(iStartIndexOfPageNumbers, iEndIndexOfPageNumbers - iStartIndexOfPageNumbers+1);
             }
 
             int iStartIndexOfInvoiceTop = -1;
             int iEndIndexOfInvoiceTop = -1;
 
-            if (GetHtmlElementByTagNameAndClassName(html_doc_template, start_index, ref iStartIndexOfInvoiceTop, ref iEndIndexOfInvoiceTop, "div", "invoicetop"))
+            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, start_index, ref iStartIndexOfInvoiceTop, ref iEndIndexOfInvoiceTop, "div", "invoicetop"))
             {
                 PrintingElement_List.doctop = new HTML_PrintingElement();
-                PrintingElement_List.doctop.html = html_doc_template.Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
+                PrintingElement_List.doctop.html = html_doc_template.ToString().Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
             }
             else
             {
                 bError = true;
-                return "ERROR:&lt;div class=\"invoicetop\"&gt; not found !";
+                html_doc_template = new StringBuilder("ERROR:&lt;div class=\"invoicetop\"&gt; not found !");
+                return  false;
             }
 
 
             int iStartIndexOftable = -1;
             int iEndIndexOftable = -1;
 
-            if (GetHtmlElementByTagNameAndClassName(html_doc_template, start_index, ref iStartIndexOftable, ref iEndIndexOftable, "table", "tableitems"))
+            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, start_index, ref iStartIndexOftable, ref iEndIndexOftable, "table", "tableitems"))
             {
                 int iStartIndexOf_Thead = -1;
                 int iEndIndexOf_Thead = -1;
-                if  (GetHtmlElementByTagName(html_doc_template, iStartIndexOftable,ref iStartIndexOf_Thead, ref iEndIndexOf_Thead,"thead"))
+                if  (GetHtmlElementByTagName(ref html_doc_template, iStartIndexOftable,ref iStartIndexOf_Thead, ref iEndIndexOf_Thead,"thead"))
                 {
                     PrintingElement_List.tableitems = new HTML_PrintingElement();
-                    PrintingElement_List.tableitems.html = html_doc_template.Substring(iStartIndexOftable, iEndIndexOf_Thead - iStartIndexOftable + 1);
+                    PrintingElement_List.tableitems.html = html_doc_template.ToString().Substring(iStartIndexOftable, iEndIndexOf_Thead - iStartIndexOftable + 1);
                 }
                 else
                 {
                     bError = true;
-                    return "ERROR:&lt;thead&gt; not found for &ltable class = \"tableitems\"&gt;!";
+                    html_doc_template = new StringBuilder("ERROR:&lt;thead&gt; not found for &ltable class = \"tableitems\"&gt;!");
+                    return false;
                 }
                 int iStartIndexOf_tr = -1;
                 int iEndIndexOf_tr = -1;
                 int ipos = 0;
-                string HtmlTable_TableItems = html_doc_template.Substring(iStartIndexOftable, iEndIndexOftable - iStartIndexOftable + 1);
-                if (GetHtmlElementByTagNameAndClassName(html_doc_template, iStartIndexOftable, ref iStartIndexOf_tr, ref iEndIndexOf_tr, "tr", "item"))
+                string HtmlTable_TableItems = html_doc_template.ToString().Substring(iStartIndexOftable, iEndIndexOftable - iStartIndexOftable + 1);
+                if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, iStartIndexOftable, ref iStartIndexOf_tr, ref iEndIndexOf_tr, "tr", "item"))
                 {
-                    string tr_RowTemplate = html_doc_template.Substring(iStartIndexOf_tr, iEndIndexOf_tr - iStartIndexOf_tr + 1);
+                    string tr_RowTemplate = html_doc_template.ToString().Substring(iStartIndexOf_tr, iEndIndexOf_tr - iStartIndexOf_tr + 1);
 
                     html_doc_template = html_doc_template.Remove(iStartIndexOf_tr, iEndIndexOf_tr - iStartIndexOf_tr + 1);
 
@@ -2011,17 +2022,23 @@ namespace TangentaDB
 
 
                         }
-                        string sRow = itms.token.tItemName.Replace(tr_RowTemplate);
-                        sRow = itms.token.tPricePerUnit.Replace(sRow);
-                        sRow = itms.token.tTotalDiscount.Replace(sRow);
-                        sRow = itms.token.tCurrency.Replace(sRow);
-                        sRow = itms.token.tUnit.Replace(sRow);
-                        sRow = itms.token.tQuantity.Replace(sRow);
-                        sRow = itms.token.tTaxationRatePercent.Replace(sRow);
-                        sRow = itms.token.tNetPrice.Replace(sRow);
-                        sRow = itms.token.tTax.Replace(sRow);
-                        sRow = itms.token.tPriceWithTax.Replace(sRow);
-                        html_doc_template = html_doc_template.Insert(ipos, sRow);
+
+                        StringBuilder sb_RowTemplate = new StringBuilder(tr_RowTemplate, tr_RowTemplate.Length * 2);
+
+                        itms.token.tItemName.Replace(ref sb_RowTemplate);
+                        itms.token.tPricePerUnit.Replace(ref sb_RowTemplate);
+                        itms.token.tTotalDiscount.Replace(ref sb_RowTemplate);
+                        itms.token.tCurrency.Replace(ref sb_RowTemplate);
+                        itms.token.tUnit.Replace(ref sb_RowTemplate);
+                        itms.token.tQuantity.Replace(ref sb_RowTemplate);
+                        itms.token.tTaxationRatePercent.Replace(ref sb_RowTemplate);
+                        itms.token.tNetPrice.Replace(ref sb_RowTemplate);
+                        itms.token.tTax.Replace(ref sb_RowTemplate);
+                        itms.token.tPriceWithTax.Replace(ref sb_RowTemplate);
+                        string sRow = sb_RowTemplate.ToString();
+                        string s = html_doc_template.ToString().Insert(ipos, sRow);
+                        html_doc_template = new StringBuilder(s, s.Length * 2);
+
                         if (PrintingElement_List.items == null)
                         {
                             PrintingElement_List.items = new List<HTML_PrintingElement>();
@@ -2030,13 +2047,16 @@ namespace TangentaDB
                         html_item.html = sRow;
                         PrintingElement_List.items.Add(html_item);
                         ipos += sRow.Length;
+
+
+
                     }
 
 
-                    html_doc_template = tCurrency.Replace(html_doc_template);
+                    tCurrency.Replace(ref html_doc_template);
 
                     InvoiceToken.tSumNetPrice.Set(NetSum.ToString());
-                    html_doc_template = InvoiceToken.tSumNetPrice.Replace(html_doc_template);
+                    InvoiceToken.tSumNetPrice.Replace(ref html_doc_template);
 
 
                     //string s_journal_invoice_type = lng.s_journal_invoice_type_Print.s;
@@ -2045,122 +2065,130 @@ namespace TangentaDB
                     //f_Journal_DocProformaInvoice.Write(m_usrc_Print.DocProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
                     int iStartIndexOf_NetSum = -1;
                     int iEndIndexOf_NetSum = -1;
-                    if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_NetSum, ref iEndIndexOf_NetSum, "tr", "totalneto"))
+                    if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, ipos, ref iStartIndexOf_NetSum, ref iEndIndexOf_NetSum, "tr", "totalneto"))
                     {
                         if (PrintingElement_List.totalneto == null)
                         {
                             PrintingElement_List.totalneto = new HTML_PrintingElement();
                         }
-                        PrintingElement_List.totalneto.html = html_doc_template.Substring(iStartIndexOf_NetSum, iEndIndexOf_NetSum - iStartIndexOf_NetSum + 1);
+                        PrintingElement_List.totalneto.html = html_doc_template.ToString().Substring(iStartIndexOf_NetSum, iEndIndexOf_NetSum - iStartIndexOf_NetSum + 1);
                     }
                     else
                     {
                         bError = true;
-                        return "ERROR:&lt;tr class=\"totalneto\"&gt; not found !";
+                        html_doc_template = new StringBuilder("ERROR:&lt;tr class=\"totalneto\"&gt; not found !");
+                        return false;
                     }
 
 
 
-                    int itr_taxsum_start = html_doc_template.IndexOf("<tr class=\"taxsum\">", 0);
+                    int itr_taxsum_start = html_doc_template.ToString().IndexOf("<tr class=\"taxsum\">", 0);
                     if (itr_taxsum_start > 0)
                     {
-                        int itr_taxsum_end = html_doc_template.IndexOf("</tr>", itr_taxsum_start);
+                        int itr_taxsum_end = html_doc_template.ToString().IndexOf("</tr>", itr_taxsum_start);
                         if (itr_taxsum_end > 0)
                         {
-                            string tr_TaxSum = html_doc_template.Substring(itr_taxsum_start, itr_taxsum_end - itr_taxsum_start + 5);
+                            string tr_TaxSum = html_doc_template.ToString().Substring(itr_taxsum_start, itr_taxsum_end - itr_taxsum_start + 5);
                             html_doc_template = html_doc_template.Remove(itr_taxsum_start, itr_taxsum_end - itr_taxsum_start + 5);
                             ipos = itr_taxsum_start;
                             foreach (StaticLib.Tax tax in taxSum.TaxList)
                             {
                                 InvoiceToken.tTaxRateName.Set(tax.Name);
                                 InvoiceToken.tSumTax.Set(tax.TaxAmount.ToString());
-                                string str = InvoiceToken.tTaxRateName.Replace(tr_TaxSum);
-                                str = InvoiceToken.tSumTax.Replace(str);
-                                html_doc_template = html_doc_template.Insert(ipos, str);
+                                StringBuilder sb_TaxSum = new StringBuilder(tr_TaxSum, tr_TaxSum.Length*3);
+                                InvoiceToken.tTaxRateName.Replace(ref sb_TaxSum);
+                                InvoiceToken.tSumTax.Replace(ref sb_TaxSum);
+                                html_doc_template.Insert(ipos, sb_TaxSum.ToString());
                                 if (PrintingElement_List.taxsum==null)
                                 {
                                     PrintingElement_List.taxsum = new List<HTML_PrintingElement>();
                                 }
                                 HTML_PrintingElement html_taxsum = new HTML_PrintingElement();
-                                html_taxsum.html = str;
+                                html_taxsum.html = sb_TaxSum.ToString();
                                 PrintingElement_List.taxsum.Add(html_taxsum);
-                                ipos += str.Length;
+                                ipos += sb_TaxSum.Length;
                             }
                             InvoiceToken.tTotalSum.Set(GrossSum.ToString());
-                            html_doc_template = InvoiceToken.tTotalSum.Replace(html_doc_template);
+                            InvoiceToken.tTotalSum.Replace(ref html_doc_template);
 
                             int iStartIndexOf_GrossSum = -1;
                             int iEndIndexOf_GrossSum = -1;
-                            if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_GrossSum, ref iEndIndexOf_GrossSum, "tr", "grandtotal"))
+                            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, ipos, ref iStartIndexOf_GrossSum, ref iEndIndexOf_GrossSum, "tr", "grandtotal"))
                             {
                                 if (PrintingElement_List.grandtotal == null)
                                 {
                                     PrintingElement_List.grandtotal = new HTML_PrintingElement();
                                 }
-                                PrintingElement_List.grandtotal.html = html_doc_template.Substring(iStartIndexOf_GrossSum, iEndIndexOf_GrossSum - iStartIndexOf_GrossSum + 1);
+                                PrintingElement_List.grandtotal.html = html_doc_template.ToString().Substring(iStartIndexOf_GrossSum, iEndIndexOf_GrossSum - iStartIndexOf_GrossSum + 1);
                             }
                             else
                             {
                                 bError = true;
-                                return "ERROR:&lt;tr class=\"grandtotal\"&gt; not found !";
+                                html_doc_template = new StringBuilder("ERROR:&lt;tr class=\"grandtotal\"&gt; not found !");
+                                return false;
                             }
                             if (IsDocInvoice)
                             {
                                 if (AddOnDI.b_FVI_SLO)
                                 {
-                                    html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-                                    html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-                                    html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                                    this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(ref html_doc_template);
+                                    this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(ref html_doc_template);
+                                    this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(ref html_doc_template);
                                 }
                             }
                             int iStartIndexOf_InvoiceBottom = -1;
                             int iEndIndexOf_InvoiceBottom = -1;
-                            if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))
+                            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))
                             {
                                 if (PrintingElement_List.docbottom == null)
                                 {
                                     PrintingElement_List.docbottom = new HTML_PrintingElement();
                                 }
-                                PrintingElement_List.docbottom.html = html_doc_template.Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
+                                PrintingElement_List.docbottom.html = html_doc_template.ToString().Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
                             }
                             else
                             {
                                 bError = true;
-                                return "ERROR:&lt;div class=\"invoicebottom\"&gt; not found !";
+                                html_doc_template = new StringBuilder("ERROR:&lt;div class=\"invoicebottom\"&gt; not found !");
+                                return false;
                             }
-                            return html_doc_template;
+                            return true;
                         }
                         else
                         {
                             bError = true;
-                            return "ERROR:itr_taxsum_end &lt;= 0";
+                            html_doc_template = new StringBuilder("ERROR:itr_taxsum_end &lt;= 0");
+                            return false;
                         }
                     }
                     else
                     {
                         bError = true;
-                        return "ERROR:itr_taxsum_start &lt;= 0";
+                        html_doc_template = new StringBuilder("ERROR:itr_taxsum_start &lt;= 0");
+                        return false;
                     }
                 }
                 else
                 {
                     bError = true;
-                    return "ERROR:&lt;tr class=\"row\"&gt; not found !";
+                    html_doc_template = new StringBuilder("ERROR:&lt;tr class=\"row\"&gt; not found !");
+                    return false;
                 }
             }
             else
             {
                 bError = true;
-                return "ERROR:&lt;table class=\"tableitems\"&gt; not found !";
+                html_doc_template = new StringBuilder("ERROR:&lt;table class=\"tableitems\"&gt; not found !");
+                return false;
             }
         }
 
-        public bool GetStartTag(string html, int start_index, ref int index_of_start_tag, ref int index_of_end_tag, string htmltagname)
+        public bool GetStartTag(ref StringBuilder html, int start_index, ref int index_of_start_tag, ref int index_of_end_tag, string htmltagname)
         {
-            index_of_start_tag = html.IndexOf("<" + htmltagname, start_index);
+            index_of_start_tag = html.ToString().IndexOf("<" + htmltagname, start_index);
             if (index_of_start_tag >= 0)
             {
-                index_of_end_tag = html.IndexOf(">", index_of_start_tag+1);
+                index_of_end_tag = html.ToString().IndexOf(">", index_of_start_tag+1);
                 if (index_of_end_tag >= 0)
                 {
                     return true;
@@ -2177,12 +2205,12 @@ namespace TangentaDB
             }
         }
 
-        public bool GetEndTag(string html, int start_index, ref int index_of_start_endtag, ref int index_of_end_endtag, string htmltagname)
+        public bool GetEndTag(ref StringBuilder html, int start_index, ref int index_of_start_endtag, ref int index_of_end_endtag, string htmltagname)
         {
-            index_of_start_endtag = html.IndexOf("</" + htmltagname, start_index);
+            index_of_start_endtag = html.ToString().IndexOf("</" + htmltagname, start_index);
             if (index_of_start_endtag > 0)
             {
-                index_of_end_endtag = html.IndexOf(">", index_of_start_endtag);
+                index_of_end_endtag = html.ToString().IndexOf(">", index_of_start_endtag);
                 if (index_of_end_endtag > 0)
                 {
                     return true;
@@ -2199,9 +2227,9 @@ namespace TangentaDB
             }
         }
 
-        public bool HtmlTagContainsClassName(string html,int index_of_start_tag, int index_of_end_tag,string class_name)
+        public bool HtmlTagContainsClassName(ref StringBuilder html,int index_of_start_tag, int index_of_end_tag,string class_name)
         {
-            string stag = html.Substring(index_of_start_tag, index_of_end_tag - index_of_start_tag);
+            string stag = html.ToString().Substring(index_of_start_tag, index_of_end_tag - index_of_start_tag);
             fs.RemoveToManySpaces(ref stag);
             int iclass = stag.IndexOf("class=", 0);
             if (iclass > 0)
@@ -2236,15 +2264,15 @@ namespace TangentaDB
             return false;
         }
 
-        public bool GetHtmlElementStartIndexByTagNameAndClassName(string html,int start_index, ref int IndexOfElement, string htmltagname, string class_name)
+        public bool GetHtmlElementStartIndexByTagNameAndClassName(ref StringBuilder html,int start_index, ref int IndexOfElement, string htmltagname, string class_name)
         {
             int index_of_start_tag = 0;
             while (index_of_start_tag >= 0)
             {
                 int index_of_end_tag = -1;
-                if (GetStartTag(html, start_index, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
+                if (GetStartTag(ref html, start_index, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
                 {
-                    if (HtmlTagContainsClassName(html, index_of_start_tag, index_of_end_tag, class_name))
+                    if (HtmlTagContainsClassName(ref html, index_of_start_tag, index_of_end_tag, class_name))
                     {
                         IndexOfElement = index_of_start_tag;
                         return true;
@@ -2259,11 +2287,11 @@ namespace TangentaDB
             return false;
         }
 
-        public bool GetHtmlElementStartIndexByTagName(string html, int start_index, ref int IndexOfElement, string htmltagname)
+        public bool GetHtmlElementStartIndexByTagName(ref StringBuilder html, int start_index, ref int IndexOfElement, string htmltagname)
         {
             int index_of_start_tag = 0;
             int index_of_end_tag = -1;
-            if (GetStartTag(html, start_index, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
+            if (GetStartTag(ref html, start_index, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
             {
                     IndexOfElement = index_of_start_tag;
                     return true;
@@ -2276,24 +2304,24 @@ namespace TangentaDB
 
 
 
-        public bool GetHtmlElementByTagNameAndClassName(string html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname, string class_name)
+        public bool GetHtmlElementByTagNameAndClassName(ref StringBuilder html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname, string class_name)
         {
-            if (GetHtmlElementStartIndexByTagNameAndClassName(html, start_index, ref StartIndexOfElementInString, htmltagname, class_name))
+            if (GetHtmlElementStartIndexByTagNameAndClassName(ref html, start_index, ref StartIndexOfElementInString, htmltagname, class_name))
             {
-                if (GetEndOfHtmlElement(html,StartIndexOfElementInString,ref EndIndexOfElementInString,htmltagname))
+                if (GetEndOfHtmlElement(ref html,StartIndexOfElementInString,ref EndIndexOfElementInString,htmltagname))
                 {
-                    string xs = html.Substring(StartIndexOfElementInString, EndIndexOfElementInString + htmltagname.Length + 3 - StartIndexOfElementInString);
+                    string xs = html.ToString().Substring(StartIndexOfElementInString, EndIndexOfElementInString + htmltagname.Length + 3 - StartIndexOfElementInString);
                     return true;
                 }
             }
             return false;
         }
 
-        public bool GetHtmlElementByTagName(string html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname)
+        public bool GetHtmlElementByTagName(ref StringBuilder html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname)
         {
-            if (GetHtmlElementStartIndexByTagName(html, start_index, ref StartIndexOfElementInString, htmltagname))
+            if (GetHtmlElementStartIndexByTagName(ref html, start_index, ref StartIndexOfElementInString, htmltagname))
             {
-                if (GetEndOfHtmlElement(html, StartIndexOfElementInString, ref EndIndexOfElementInString, htmltagname))
+                if (GetEndOfHtmlElement(ref html, StartIndexOfElementInString, ref EndIndexOfElementInString, htmltagname))
                 {
                     return true;
                 }
@@ -2301,7 +2329,7 @@ namespace TangentaDB
             return false;
         }
 
-        public bool GetEndOfHtmlElement(string html, int startIndexOfElementInString, ref int endIndexOfElementInString, string htmltagname)
+        public bool GetEndOfHtmlElement(ref StringBuilder html, int startIndexOfElementInString, ref int endIndexOfElementInString, string htmltagname)
         {
             int index_of_start_end_tag = -1;
             int index_of_end_end_tag = -1;
@@ -2312,9 +2340,9 @@ namespace TangentaDB
             while (startIndexOfElementInString < html_length)
             {
                 // check for nesting tag
-                if (GetStartTag(html, startIndexOfElementInString + 1, ref index_of_start_start_tag, ref index_of_end_start_tag, htmltagname))
+                if (GetStartTag(ref html, startIndexOfElementInString + 1, ref index_of_start_start_tag, ref index_of_end_start_tag, htmltagname))
                 {
-                    if (GetEndTag(html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
+                    if (GetEndTag(ref html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
                     {
                         if (index_of_start_start_tag < index_of_end_end_tag)
                         {
@@ -2346,7 +2374,7 @@ namespace TangentaDB
                 {
                     while (NestingLevel >=0)
                     {
-                        if (GetEndTag(html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
+                        if (GetEndTag(ref html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
                         {
                             startIndexOfElementInString = index_of_end_end_tag;
                         }

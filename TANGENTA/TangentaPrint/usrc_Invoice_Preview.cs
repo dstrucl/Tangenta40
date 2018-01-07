@@ -102,9 +102,12 @@ namespace TangentaPrint
                         char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
                         string shtml_doc_text = new string(chars2);
                         HTML_PrintingElement_List HTML_RollPaperPrintingOutput = null;
-                        string s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput, ref bError);
-                        this.htmlPanel1.Text = s;
-                        return s;
+                        StringBuilder sb_html_doc_text = new StringBuilder(shtml_doc_text, shtml_doc_text.Length * 4);
+                        if (m_InvoiceData.CreateHTML_PrintingElementList(ref sb_html_doc_text, ref HTML_RollPaperPrintingOutput, ref bError))
+                        {
+                            this.htmlPanel1.Text = sb_html_doc_text.ToString();
+                        }
+                        return sb_html_doc_text.ToString();
                     }
                     catch
                     {
@@ -127,8 +130,10 @@ namespace TangentaPrint
                     string s = null;
                     if (m_InvoiceData != null)
                     {
+                        StringBuilder sb_html_doc_text = new StringBuilder(shtml_doc_text, shtml_doc_text.Length * 4);
+                        m_InvoiceData.CreateHTML_PrintingElementList(ref sb_html_doc_text, ref HTML_RollPaperPrintingOutput, ref bError);
+                        s = sb_html_doc_text.ToString();
 
-                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput, ref bError);
                     }
                     else
                     {
@@ -184,6 +189,7 @@ namespace TangentaPrint
 
         public bool ShowPreview(Printer printer, string shtml_doc_text)
         {
+            StringBuilder sb_html_doc_text = new StringBuilder(shtml_doc_text, shtml_doc_text.Length * 3); 
             if (printer != null)
             {
                 try
@@ -198,12 +204,12 @@ namespace TangentaPrint
                     if (m_InvoiceData != null)
                     {
                         bool bError = false;
-                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_Printing_ElementList, ref bError);
-                        if (!bError)
+                        if (m_InvoiceData.CreateHTML_PrintingElementList(ref sb_html_doc_text, ref HTML_Printing_ElementList, ref bError))
                         {
                             TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
 
                             // now get roll paper layout
+                            s = sb_html_doc_text.ToString();
                             this.htmlPanel1.GetPages(s, ref pglayout);
 
                             // set layout of elements
@@ -220,12 +226,13 @@ namespace TangentaPrint
                             }
                             if (pglayout.OnePageSize(xPageHeight, xPageHeight/40, xPageHeight / 7.5))
                             {
-                                s = m_InvoiceData.InsertPageNumbers(s);
+                                m_InvoiceData.InsertPageNumbers(ref sb_html_doc_text);
+                                s = sb_html_doc_text.ToString();
                             }
                             else
                             {
-                                s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_Printing_ElementList, xPageHeight);
-                                s = m_InvoiceData.InsertPageNumbers(s);
+                                sb_html_doc_text = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_Printing_ElementList, xPageHeight);
+                                m_InvoiceData.InsertPageNumbers(ref sb_html_doc_text);
                             }
                         }
                         this.htmlPanel1.Text = s;

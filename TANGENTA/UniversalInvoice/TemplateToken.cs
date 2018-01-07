@@ -213,33 +213,47 @@ namespace UniversalInvoice
             replacement = v;
         }
 
-        public string Replace(string html_doc_template)
+        public void Replace(ref StringBuilder html_doc_template)
         {
-            if (html_doc_template.Contains(lt.s))
+            if (html_doc_template != null)
             {
-               return html_doc_template.Replace(lt.s, this.replacement);
-            }
-            else
-            {
-                //replace if token is written in other languages
-                int i = 0;
-                int iCount = lt.sText_Length;
-                for (i = 0; i < iCount; i++)
+                string s = html_doc_template.ToString();
+                try
                 {
-                    if (i == DynSettings.LanguageID)
+                    if (s.Contains(lt.s))
                     {
-                        continue;
+                        html_doc_template.Replace(lt.s, this.replacement);
                     }
-                    string sx = lt.sText(i);
-                    if (sx != null)
+                    else
                     {
-                        if (html_doc_template.Contains(sx))
+                        //replace if token is written in other languages
+                        int i = 0;
+                        int iCount = lt.sText_Length;
+                        for (i = 0; i < iCount; i++)
                         {
-                            return html_doc_template.Replace(sx, this.replacement);
+                            if (i == DynSettings.LanguageID)
+                            {
+                                continue;
+                            }
+                            string sx = lt.sText(i);
+                            if (sx != null)
+                            {
+                                if (html_doc_template.ToString().Contains(sx))
+                                {
+                                    html_doc_template.Replace(sx, this.replacement);
+                                }
+                            }
                         }
                     }
                 }
-                return html_doc_template;
+                catch (Exception Ex)
+                {
+
+                }
+            }
+            else
+            {
+
             }
         }
 
@@ -344,9 +358,9 @@ namespace UniversalInvoice
             return null;
         }
 
-        public int IndexOf(string s, ref int length)
+        public int IndexOf(StringBuilder s, ref int length)
         {
-            int index = s.IndexOf(lt.s);
+            int index = s.ToString().IndexOf(lt.s);
             if (index>=0)
             {
                 length = lt.s.Length;
@@ -367,7 +381,7 @@ namespace UniversalInvoice
                     string sx = lt.sText(i);
                     if (sx != null)
                     {
-                        index = s.IndexOf(sx);
+                        index = s.ToString().IndexOf(sx);
                         if (index >=0)
                         {
                             length = sx.Length;
