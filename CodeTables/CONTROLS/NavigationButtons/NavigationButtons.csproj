@@ -91,6 +91,10 @@
     <None Include="Resources\Next.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\UTIL\ThreadProcessor\ThreadProcessor.csproj">
+      <Project>{51e8c8bc-b176-40e5-b452-c80d9421ab79}</Project>
+      <Name>ThreadProcessor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\usrc_Help\usrc_Help.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
       <Name>usrc_Help</Name>

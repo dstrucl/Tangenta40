@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using usrc_Help;
@@ -65,13 +66,22 @@ namespace NavigationButtons
             LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
             if (!bDoModal)
             {
-                ChildDialog.StartPosition = FormStartPosition.CenterScreen;
-                ChildDialog.TopMost = true;
-                ChildDialog.Visible = true;
-                ChildDialog.Show();
+                ThreadProcessor.ThreadP thread = null;
+                ThreadProcessor.ThreadP_Message m_ThreadP_Message = null;
+                ThreadProcessor.ThreadP2Ctrl_Message m_ThreadP2Ctrl_Message = null;
+
+                thread = new ThreadProcessor.ThreadP();
+                string Err = null;
+                if (thread.Start(100, null, ChildDialog, 200, ref Err))
+                {
+                  
+                }
+                
                 while (eExitResult == NavigationButtons.Navigation.eEvent.NOTHING)
                 {
                     Application.DoEvents();
+                    Thread.Sleep(2000);
+                    
                 }
                 if (ChildDialog.IsAccessible)
                 {
