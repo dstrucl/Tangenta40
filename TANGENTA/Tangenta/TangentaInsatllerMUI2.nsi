@@ -6,7 +6,7 @@
 ; Build environment
   !define top_srcdir @top_srcdir@
   !define srcdir @srcdir@
-  !define VERSION @PACKAGE_VERSION@
+  !define VERSION "1.0.0.0"
   !addplugindir @srcdir@
 ;--------------------------------
 ;General

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ThreadProcessor
 {
@@ -36,15 +35,6 @@ namespace ThreadProcessor
         {
 
             ThreadData thdata = (ThreadData)othdata;
-            if(thdata.ParameterAsObject is Form)
-            {
-                Form ChildDialog = (Form)thdata.ParameterAsObject;
-                ChildDialog.StartPosition = FormStartPosition.CenterScreen;
-                ChildDialog.TopMost = true;
-                ChildDialog.Visible = true;
-                ChildDialog.ShowDialog();
-
-            }
             ThreadP2Ctrl_MessageBox xThreadP2Ctrl_MessageBox = thdata.m_ThreadP2Ctrl_MessageBox;
             ThreadP_Message p_message = new ThreadP_Message(0, ThreadP_Message.eMessage.NONE, null,null);
             ThreadP2Ctrl_Message xThreadP2Ctrl_Message = new ThreadP2Ctrl_Message(0, ThreadP2Ctrl_Message.eMessage.START, null,null,null);

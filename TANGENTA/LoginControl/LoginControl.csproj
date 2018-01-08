@@ -58,12 +58,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Check">
-      <HintPath>..\..\CodeTables\CONTROLS\Check\obj\Debug\Check.dll</HintPath>
-    </Reference>
-    <Reference Include="SelectGender">
-      <HintPath>..\..\CodeTables\CONTROLS\SelectGender\obj\Debug\SelectGender.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -282,6 +276,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Check\Check.csproj">
+      <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
+      <Name>Check</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
       <Project>{0F0AFE83-5E47-49CF-888A-79A03FA71321}</Project>
       <Name>ComboBox_Recent</Name>
@@ -301,6 +299,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\SelectGender\SelectGender.csproj">
+      <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>
+      <Name>SelectGender</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
