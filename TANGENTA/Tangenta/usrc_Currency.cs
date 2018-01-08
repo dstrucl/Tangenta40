@@ -47,7 +47,7 @@ namespace Tangenta
         private void btn_SelectCurrency_Click(object sender, EventArgs e)
         {
             string Err = null;
-            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation(null);
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             xnav.btn1_Text = lng.s_OK.s;
             xnav.btn1_Image = null;

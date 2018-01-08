@@ -904,7 +904,7 @@ namespace ShopB
 
         private void btn_edit_ShopB_Items_Click(object sender, EventArgs e)
         {
-            NavigationButtons.Navigation nav_EditShopBItem = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav_EditShopBItem = new NavigationButtons.Navigation(null);
             nav_EditShopBItem.bDoModal = true;
             nav_EditShopBItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             EditShopBItem(nav_EditShopBItem);
@@ -927,7 +927,7 @@ namespace ShopB
                     {
                         if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList, this))
                         {
-                            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
+                            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
                             nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                             bool bPriceListChanged = false;
                             this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit, ref bPriceListChanged);

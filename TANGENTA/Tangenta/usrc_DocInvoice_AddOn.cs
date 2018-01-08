@@ -215,7 +215,7 @@ namespace Tangenta
 
         private void Select_MyOrgBankAccount()
         {
-            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation(null);
             xnav.bDoModal = true;
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
@@ -250,7 +250,7 @@ namespace Tangenta
 
         private void Select_Terms_of_Payment()
         {
-            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation(null);
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             SQLTable tbl_TermsOfPayment = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TermsOfPayment)));
             Form_TermsOfPayment_Edit TermsOfPayment_dlg = new Form_TermsOfPayment_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_TermsOfPayment, "ID asc", xnav);

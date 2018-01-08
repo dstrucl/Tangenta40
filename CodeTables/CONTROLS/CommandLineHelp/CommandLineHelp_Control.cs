@@ -48,7 +48,7 @@ namespace CommandLineHelp
         private void btn_CommandLineHelp_Click(object sender, EventArgs e)
         {
 
-            NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation(null);
             CommandLineHelpNav.bDoModal = true;
             CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             CommandLineHelpNav.btn1_Visible = false;

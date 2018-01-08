@@ -40,12 +40,13 @@ namespace Tangenta
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
 
-            Program.nav = new NavigationButtons.Navigation();
+            Program.nav = new NavigationButtons.Navigation(StartupOwnedDialogClosed);
             if (Program.Auto_NEXT)
             {
                 Program.nav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(Program.Auto_NEXT_in_miliseconds);
             }
             Program.nav.parentForm = this;
+            Program.nav.OwnerForm = this;
             Program.nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
             Program.nav.btn1_Image = Properties.Resources.Prev;
             Program.nav.btn2_Image = Properties.Resources.Next;
@@ -100,10 +101,25 @@ namespace Tangenta
             m_usrc_Main.Visible = false;
 
             int startup_step_index = 0;
+
+            m_startup = new startup(this,
+                        Program.nav,
+                        Properties.Resources.Tangenta_Question,
+                        Program.bFirstTimeInstallation
+                        );
+
+
             StartupStep = new startup_step[]
             {
+
+                // TANGENTA_About
+                new startup_step(lng.s_Startup_Tangenta_About.s,m_startup.Do_TangentaAbout,startup_step.eStep.Do_TangentaAbout,startup_step_index++),
+
+                // TANGENTA_Licence
+                new startup_step(lng.s_Licence_checked.s,m_startup.Do_TangentaLicence,startup_step.eStep.Do_TangentaLicence,startup_step_index++),
+
                 // CHECK DATABASE
-                new startup_step(lng.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase,startup_step_index++),
+                new startup_step(lng.s_Startup_Check_DataBase.s,Startup_Check_DataBase_Type,startup_step.eStep.Check_DataBase,startup_step_index++),
                 // READ DB SETTINGS
                 new startup_step(lng.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
                 // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
@@ -128,16 +144,93 @@ namespace Tangenta
                 new startup_step(lng.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod,startup_step_index++),
              };
 
+            m_startup.Steps = StartupStep;
+            //this.usr
+            //int iStep = 0;
+            //int iCountStep1 = m_startup.Step.Count();
+            //for (iStep = 0; iStep < iCountStep1; iStep++)
+            //{
+            //    usrc_startup_step xusrc_startup_step = new usrc_startup_step(m_startup.Step[iStep]);
+            //    xusrc_startup_step.Left = lbl_StartUp.Left;
+            //    xusrc_startup_step.Top = lbl_StartUp.Bottom + Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
+            //    if (xusrc_startup_step_Width < xusrc_startup_step.Width) { }
+            //    {
+            //        xusrc_startup_step_Width = xusrc_startup_step.Width;
+            //    }
+            //    this.Controls.Add(xusrc_startup_step);
+            //}
 
-            m_startup = new startup(this,
-                                    StartupStep,
-                                    Program.nav,
-                                    Properties.Resources.Tangenta_Question
-                                    );
             Program.nav.oStartup = m_startup;
         }
 
-        public bool Startup_Check_DataBase(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
+        public void StartupOwnedDialogClosed(Form ChildDialog)
+        {
+            if (ChildDialog!=null)
+            {
+                if (ChildDialog is DBSync.Form_GetDBType)
+                {
+                    DBConnection.eDBType xm_DBType = ((DBSync.Form_GetDBType)ChildDialog).m_DBType;
+
+                }
+            }
+
+            switch (m_startup.EvaulateStep(Program.nav))
+            {
+
+                case startup.EvaulateStep_RESULT.EXIT:
+                    this.Close();
+                    DialogResult = DialogResult.Cancel;
+                    break;
+
+                case startup.EvaulateStep_RESULT.START_GO_PREV:
+                    this.Close();
+                    DialogResult = DialogResult.Cancel;
+                    break;
+
+                case startup.EvaulateStep_RESULT.FINISHED_GO_NEXT:
+                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
+
+                    Program.bFirstTimeInstallation = false;
+                    m_usrc_Main.Init(null);
+
+                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Init(null)!");
+
+                    CheckOrganisationDataChange();
+
+                    m_startup.RemoveControl();
+
+                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+
+                    m_usrc_Main.Visible = true;
+                    m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+
+                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
+
+                    break;
+
+            }
+        }
+
+        public void OnCheckDataBaseResult(startup myStartup,ref bool bResult, string sDBType)
+        {
+            if (bResult)
+            { 
+                TangentaDB.GlobalData.Init();
+                Properties.Settings.Default.DBType = sDBType;
+                Properties.Settings.Default.Save();
+                string err = null;
+                if (!DBSync.DBSync.DB_for_Tangenta_SessionConnect(ref err))
+                {
+                    bResult = false;
+                }
+                else
+                {
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                }
+            }
+        }
+
+        public bool Startup_Check_DataBase_Type(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
         {
          
 
@@ -147,33 +240,17 @@ namespace Tangenta
             string xCodeTables_IniFileFolder = null;
             if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
-                bool bResult = DBSync.DBSync.Init(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
-                if (bResult)
+                if (xnav.bDoModal)
                 {
-                    TangentaDB.GlobalData.Init();
-                }
-                if (bCanceled)
-                {
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
-                    return false;
-                }
-                if (bResult)
-                {
-
-                    Properties.Settings.Default.DBType = sDBType;
-                    Properties.Settings.Default.Save();
-
-                    myStartup.eNextStep++;
-                    if (!DBSync.DBSync.DB_for_Tangenta_SessionConnect(ref Err))
-                    {
-                        bResult = false;
-                    }
+                    bool bResult = DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
+                    OnCheckDataBaseResult(myStartup, ref bResult, sDBType);
                 }
                 else
                 {
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    // just show window
+                    DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
+                    // result will come when closed
                 }
-                return bResult;
             }
             else
             {
@@ -369,10 +446,6 @@ namespace Tangenta
 
         private void Exit()
         {
-            if (Program.nav!=null)
-            {
-                Program.nav.eExitResult = NavigationButtons.Navigation.eEvent.EXIT;
-            }
             Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceMan.m_usrc_InvoiceTable.Current_Doc_ID;
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
@@ -428,8 +501,10 @@ namespace Tangenta
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.m_startup.eNextStep == startup_step.eStep.Cancel)
+            if (((int)this.m_startup.eStep) < 0 )
             {
+                Exit();
+                e.Cancel = false;
                 return;
             }
             else
@@ -452,32 +527,18 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():before m_startup.Execute!");
 
+            m_startup.ExecuteSingleStep();
 
-            if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
-            {
-                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
 
-                Program.bFirstTimeInstallation = false;
-                m_usrc_Main.Init(null);
-
-                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Init(null)!");
-
-                CheckOrganisationDataChange();
-
-                m_startup.RemoveControl();
-
-                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
-
-                m_usrc_Main.Visible = true;
-                m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
-
-                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
-            }
-            else
-            {
-                this.Close();
-                DialogResult = DialogResult.Abort;
-            }
+            //if (m_startup.ExecuteSingleStep()(Program.bFirstTimeInstallation, ref Err))
+            //{
+ 
+            //}
+            //else
+            //{
+            //    this.Close();
+            //    DialogResult = DialogResult.Abort;
+            //}
         }
 
         private void CheckOrganisationDataChange()

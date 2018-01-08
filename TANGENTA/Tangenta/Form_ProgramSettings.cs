@@ -217,7 +217,7 @@ namespace Tangenta
 
         private void btn_DBSettings_Click(object sender, EventArgs e)
         {
-            NavigationButtons.Navigation nav_FormDBSettings = new Navigation();
+            NavigationButtons.Navigation nav_FormDBSettings = new Navigation(null);
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;

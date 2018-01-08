@@ -26,6 +26,7 @@ namespace NavigationButtons
         public string LastStartupDialog_TYPE = "";
         public bool bDoModal = false;
         public Form parentForm = null;
+        public Form OwnerForm = null;
         public Form ChildDialog = null;
 
         public eButtons m_eButtons = eButtons.OkCancel;
@@ -55,10 +56,23 @@ namespace NavigationButtons
         public object oStartup = null;
         public int StartupStep_index;
 
+
+        public delegate void delegate_ChildDialogClosed(Form ChildDialog);
+
+        private delegate_ChildDialogClosed delegateChildDialogClosed = null;
+
         public bool DialogShown { get { return m_DialogShown; }
                                   set { m_DialogShown = value; }
                                 }
 
+        public Navigation(delegate_ChildDialogClosed xdelegate_ChildDialogClosed)
+        {
+            delegateChildDialogClosed = xdelegate_ChildDialogClosed;
+            if (delegateChildDialogClosed==null)
+            {
+                bDoModal = true;
+            }
+        }
         public void ShowDialog()
         {
             eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
@@ -66,23 +80,25 @@ namespace NavigationButtons
             if (!bDoModal)
             {
                 ChildDialog.StartPosition = FormStartPosition.CenterScreen;
-                ChildDialog.TopMost = true;
                 ChildDialog.Visible = true;
+                ChildDialog.Owner = this.OwnerForm;
+                ChildDialog.FormClosed -= ChildDialog_FormClosed; //delete previous event handler!
+                ChildDialog.FormClosed += ChildDialog_FormClosed;
                 ChildDialog.Show();
-                while (eExitResult == NavigationButtons.Navigation.eEvent.NOTHING)
-                {
-                    Application.DoEvents();
-                }
-                if (ChildDialog.IsAccessible)
-                {
-                    ChildDialog.Close();
-                }
             }
             else
             {
                 ChildDialog.ShowDialog();
             }
             m_DialogShown = true;
+        }
+
+        private void ChildDialog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (delegateChildDialogClosed != null)
+            {
+                delegateChildDialogClosed(ChildDialog);
+            }
         }
 
         public void ShowDialog(Form parent)
@@ -92,17 +108,19 @@ namespace NavigationButtons
             if (!bDoModal)
             {
                 ChildDialog.StartPosition = FormStartPosition.CenterScreen;
-                ChildDialog.TopMost = true;
                 ChildDialog.Visible = true;
+                ChildDialog.Owner = parent;
+                ChildDialog.FormClosed -= ChildDialog_FormClosed; //delete previous event handler!
+                ChildDialog.FormClosed += ChildDialog_FormClosed;
                 ChildDialog.Show();
-                while (eExitResult == NavigationButtons.Navigation.eEvent.NOTHING)
-                {
-                    Application.DoEvents();
-                }
-                if (ChildDialog.IsAccessible)
-                {
-                    ChildDialog.Close();
-                }
+                //while (eExitResult == NavigationButtons.Navigation.eEvent.NOTHING)
+                //{
+                //    Application.DoEvents();
+                //}
+                //if (ChildDialog.IsAccessible)
+                //{
+                //    ChildDialog.Close();
+                //}
             }
             else
             {

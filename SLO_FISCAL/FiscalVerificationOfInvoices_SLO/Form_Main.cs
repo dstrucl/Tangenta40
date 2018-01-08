@@ -108,7 +108,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
             if (bPasswordCheckOK)
             {
-                NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation();
+                NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation(null);
                 nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 nav_Form_Settings.bDoModal = true;
                 bool Reset2FactorySettings_FiscalVerification_DLL = false;

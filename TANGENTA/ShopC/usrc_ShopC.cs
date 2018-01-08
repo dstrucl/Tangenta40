@@ -312,7 +312,7 @@ namespace ShopC
             {
                 if (count_in_baskets == 0)
                 {
-                    NavigationButtons.Navigation nav_EditItem = new NavigationButtons.Navigation();
+                    NavigationButtons.Navigation nav_EditItem = new NavigationButtons.Navigation(null);
                     nav_EditItem.bDoModal = true;
                     nav_EditItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                     if (EditItem(nav_EditItem))
@@ -343,7 +343,7 @@ namespace ShopC
                 DataTable dt_ShopC_Items_NotIn_PriceList = new DataTable();
                 if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Items_NotIn_PriceList))
                 {
-                    NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
+                    NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
                     nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                     if (dt_ShopC_Items_NotIn_PriceList.Rows.Count > 0)
                     {

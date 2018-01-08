@@ -626,7 +626,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    nav_edt_my_company_person_dlg = new NavigationButtons.Navigation();
+                    nav_edt_my_company_person_dlg = new NavigationButtons.Navigation(null);
                     nav_edt_my_company_person_dlg.bDoModal = true;
                     nav_edt_my_company_person_dlg.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 }
@@ -1125,7 +1125,7 @@ namespace Tangenta
         {
             string Err = null;
             bool bGet = true;
-            NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB,Program.Shops_in_use, nav_PriceList, ref Err))
             {
@@ -1142,7 +1142,7 @@ namespace Tangenta
         {
             string Err = null;
             bool bGet = true;
-            NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, Program.Shops_in_use, nav_PriceList, ref Err))
             {
@@ -2648,7 +2648,7 @@ do_EditMyOrganisation_Data:
 
         private void btn_MyOrganisation_Click(object sender, EventArgs e)
         {
-            NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation(null);
             nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             nav_EditMyOrganisation_Data.bDoModal = true;
             EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);

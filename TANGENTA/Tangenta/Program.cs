@@ -324,7 +324,7 @@ namespace Tangenta
             command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lng.s_commandline_AUTONEXT.s));
 
-            NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation(null);
             if (Auto_NEXT)
             {
                 CommandLineHelpNav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(10);
@@ -501,6 +501,7 @@ namespace Tangenta
                             {
                                 if (bLanguageSelected)
                                 {
+                                    bLanguageSelected = false;
                                     Properties.Settings.Default.LanguageID = -1;
                                     goto DoSelectLanguage;
                                 }
@@ -600,7 +601,7 @@ namespace Tangenta
             if (Properties.Settings.Default.LanguageID < 0)
             {
                 bFirstTimeInstallation = true;
-                NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation();
+                NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation(null);
                 LanguageNav.bDoModal = true;
                 LanguageNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
                 LanguageNav.btn1_Visible = false;

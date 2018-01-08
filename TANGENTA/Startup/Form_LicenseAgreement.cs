@@ -18,6 +18,7 @@ namespace Startup
         {
             InitializeComponent();
             nav = xnav;
+            this.Owner = nav.OwnerForm;
             lng.s_License_agreement.Text(this);
             this.usrc_NavigationButtons1.Init(nav);
             lng.s_I_accept_the_terms_in_the_license_agreement.Text(rdb_AcceptLicenseAgreement);
@@ -44,7 +45,7 @@ namespace Startup
         private void do_Cancel()
         {
             Close();
-            DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

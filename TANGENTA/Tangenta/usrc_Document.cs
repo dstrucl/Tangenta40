@@ -525,7 +525,7 @@ namespace Tangenta
         private bool GetMissingDBSettings(string name)
         {
             MessageBox.Show(this, lng.s_No_DB_Settings_for.s + " " + name);
-            NavigationButtons.Navigation nav_FormDBSettings = new Navigation();
+            NavigationButtons.Navigation nav_FormDBSettings = new Navigation(null);
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
@@ -752,7 +752,7 @@ namespace Tangenta
     
     public bool call_Edit_myOrganisationPerson(Form parentform,long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new)
         {
-            Navigation xnav = new Navigation();
+            Navigation xnav = new Navigation(null);
             xnav.m_eButtons = Navigation.eButtons.OkCancel;
             Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(1, xnav);
             frm_myOrgPerEdit.TopMost = parentform.TopMost;
@@ -868,7 +868,7 @@ namespace Tangenta
         {
             if (Program.DoLoginAsAdministrator((Form)this.Parent))
             {
-                NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation();
+                NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation(null);
                 nav_Form_ProgramSettings.bDoModal = true;
                 nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 Form_ProgramSettings edt_Form = new Form_ProgramSettings(this, nav_Form_ProgramSettings);
@@ -882,7 +882,7 @@ namespace Tangenta
 
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            NavigationButtons.Navigation nav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav = new NavigationButtons.Navigation(null);
             nav.btn3_Visible = true;
             nav.btn3_Text = "";
             nav.btn3_Image = Properties.Resources.Exit;

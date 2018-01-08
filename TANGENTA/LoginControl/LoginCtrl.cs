@@ -410,7 +410,7 @@ namespace LoginControl
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
-                    Navigation xnav = new Navigation();
+                    Navigation xnav = new Navigation(null);
                     xnav.m_eButtons = Navigation.eButtons.OkCancel;
                     AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(xnav,this.ParentForm, awp);
                     AWP_usr_mangaer.ShowDialog(StaticLib.Func.GetParentForm(this));

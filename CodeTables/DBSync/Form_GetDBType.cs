@@ -33,6 +33,7 @@ namespace DBSync
             //    this.btn_Exit.Image = xImage_Cancel;
             //}
             nav = xnav;
+            this.Owner = xnav.OwnerForm;
             nav.ShowHelp(this.GetType().ToString());
             m_eButtons = nav.m_eButtons;
             usrc_NavigationButtons1.Init(nav);

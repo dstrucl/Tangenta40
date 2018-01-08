@@ -97,7 +97,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    nav_frm_offdata = new NavigationButtons.Navigation();
+                    nav_frm_offdata = new NavigationButtons.Navigation(null);
                     nav_frm_offdata.bDoModal = true;
                     nav_frm_offdata.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 }

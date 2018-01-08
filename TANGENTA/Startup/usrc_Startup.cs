@@ -26,20 +26,24 @@ namespace Startup
             Visible = true;
             Dock = DockStyle.Fill;
             m_startup.m_parent_form.Controls.Add(this);
+            
+        }
+
+        public void Init()
+        {
             int iStep = 0;
-            int iCountStep1 = m_startup.Step.Count();
-            for (iStep = 0; iStep < iCountStep1;iStep++)
+            int iCountStep1 = m_startup.Steps.Count();
+            for (iStep = 0; iStep < iCountStep1; iStep++)
             {
-                usrc_startup_step xusrc_startup_step = new usrc_startup_step(m_startup.Step[iStep]);
+                usrc_startup_step xusrc_startup_step = new usrc_startup_step(m_startup.Steps[iStep]);
                 xusrc_startup_step.Left = lbl_StartUp.Left;
-                xusrc_startup_step.Top = lbl_StartUp.Bottom+ Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
+                xusrc_startup_step.Top = lbl_StartUp.Bottom + Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
                 if (xusrc_startup_step_Width < xusrc_startup_step.Width) { }
                 {
                     xusrc_startup_step_Width = xusrc_startup_step.Width;
                 }
                 this.Controls.Add(xusrc_startup_step);
             }
-            
         }
 
         private void timer_Startup_Tick(object sender, EventArgs e)

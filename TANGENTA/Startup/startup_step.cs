@@ -12,7 +12,10 @@ namespace Startup
     {
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
-        public enum eStep : int { Check_DataBase,
+        public enum eStep : int {
+                                  Do_TangentaAbout,
+                                  Do_TangentaLicence,
+                                  Check_DataBase,
                                   Read_DBSettings_Version,
                                   CheckDBVersion,
                                   GetOrganisationData,
@@ -60,13 +63,20 @@ namespace Startup
             xnav.StartupStep_index = this.Index;
             bool bRet = this.procedure(myStartup,oData, xnav, ref Err);
             this.DialogShown = xnav.DialogShown;
-            if (bRet)
+            if (xnav.bDoModal)
             {
-                m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
+                if (bRet)
+                {
+                    m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
+                }
+                else
+                {
+                    m_usrc_startup_step.check1.State = Check.check.eState.FALSE;
+                }
             }
             else
             {
-                m_usrc_startup_step.check1.State = Check.check.eState.FALSE;
+                m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
             }
             return bRet;
         }

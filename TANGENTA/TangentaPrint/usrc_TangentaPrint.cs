@@ -28,7 +28,7 @@ namespace TangentaPrint
 
         private void SelectPrinters()
         {
-            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation(null);
             xnav.bDoModal = true;
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
 

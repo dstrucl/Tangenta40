@@ -17,20 +17,23 @@ namespace Startup
         {
             InitializeComponent();
             nav = xnav;
+            this.Owner = nav.OwnerForm;
             usrc_NavigationButtons1.Init(nav);
             lng.s_Select.Text(this);
         }
 
         private void do_OK()
         {
+            Owner = null;
             Close();
             DialogResult = DialogResult.OK;
         }
 
         private void do_Cancel()
         {
+            Owner = null;
             Close();
-            DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

@@ -41,7 +41,7 @@ namespace PriseLists
             }
             else
             {
-                nav = new NavigationButtons.Navigation();
+                nav = new NavigationButtons.Navigation(null);
                 nav.bDoModal = true;
                 nav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             }

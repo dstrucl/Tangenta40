@@ -585,7 +585,7 @@ namespace Tangenta
 
         private void m_usrc_Invoice_PriceListChanged()
         {
-            NavigationButtons.Navigation nav_Invoice_PriceListChanged = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav_Invoice_PriceListChanged = new NavigationButtons.Navigation(null);
             nav_Invoice_PriceListChanged.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.Init(nav_Invoice_PriceListChanged);
         }

@@ -519,6 +519,10 @@ namespace Tangenta
 
         public static ltext s_GoToExitProgram = new ltext(new string[] { "Exit program", "Končaj program" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
+        public static ltext s_Startup_Tangenta_About = new ltext(new string[] { "Tangenta about", "O programu Tangenta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs)
+
+        public static ltext s_Licence_checked = new ltext(new string[] { "Tangenta licence checked", "Licenca Tangente potrjena" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs)
+
         public static ltext s_Startup_Check_DataBase = new ltext(new string[] { "Connecting with Database", "Povezovanje z bazo podatkov" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
         public static ltext s_Startup_Read_DBSettings = new ltext(new string[] { "Read Database Settings", "Branje nastavitev iz baze podatkov" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs

@@ -81,7 +81,7 @@ namespace DBSync
         {
             bNewDataBaseCreated = false;
             bool bCanceled = false;
-            DBSync.Init(m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, nav, ref bNewDataBaseCreated, ref bCanceled);
+            DBSync.Init_Get_DBType(m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, nav, ref bNewDataBaseCreated, ref bCanceled);
             if (bCanceled)
             {
                 return;

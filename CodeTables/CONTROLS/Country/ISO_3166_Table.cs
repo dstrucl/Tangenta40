@@ -280,7 +280,7 @@ namespace Country_ISO_3166
             //NavigationButtons.Navigation xnav_Form_Select_Country_ISO_3166 = xnav;
             if (xnav_Form_Select_Country_ISO_3166 == null)
             {
-                xnav_Form_Select_Country_ISO_3166 = new NavigationButtons.Navigation();
+                xnav_Form_Select_Country_ISO_3166 = new NavigationButtons.Navigation(null);
                 xnav_Form_Select_Country_ISO_3166.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 xnav_Form_Select_Country_ISO_3166.bDoModal = true;
             }

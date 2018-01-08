@@ -124,7 +124,7 @@ namespace PriseLists
             NavigationButtons.Navigation nav_Form_PriceList_Edit = null;
             if (xnav == null)
             {
-                nav_Form_PriceList_Edit = new NavigationButtons.Navigation();
+                nav_Form_PriceList_Edit = new NavigationButtons.Navigation(null);
                 nav_Form_PriceList_Edit.bDoModal = true;
                 nav_Form_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
@@ -181,7 +181,7 @@ namespace PriseLists
                 pctrl = this.Parent;
                 pctrl.Cursor = Cursors.WaitCursor; 
             }
-            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
+            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
             nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             PriceList_Edit(false, nav_PriceList_Edit, ref bPriceListChanged);
             this.Cursor = Cursors.Arrow;

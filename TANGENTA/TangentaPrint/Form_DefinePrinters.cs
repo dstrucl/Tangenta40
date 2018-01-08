@@ -54,7 +54,7 @@ namespace TangentaPrint
                         if (m_nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
                         {
                             int iPrev_StartupStep_Index = m_nav.StartupStep_index - 1;
-                            if (!(((startup)m_nav.oStartup).Step[iPrev_StartupStep_Index].DialogShown))
+                            if (!(((startup)m_nav.oStartup).Steps[iPrev_StartupStep_Index].DialogShown))
                             {
                                     this.usrc_NavigationButtons1.HidePreviousButton();
                             }

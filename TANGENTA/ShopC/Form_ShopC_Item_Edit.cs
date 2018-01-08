@@ -82,7 +82,7 @@ namespace ShopC
             lng.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
             if (nav==null)
             {
-                nav = new NavigationButtons.Navigation();
+                nav = new NavigationButtons.Navigation(null);
                 nav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                 usrc_NavigationButtons1.Init(nav);
