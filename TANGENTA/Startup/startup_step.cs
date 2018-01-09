@@ -61,9 +61,9 @@ namespace Startup
 
         public NavigationButtons.Navigation nav = null;
 
-        private delegate_startup_check_proc check_procedure;
-        private delegate_startup_ShowForm_proc showform_procedure;
-        private delegate_startup_OnFormResult_proc onformresult_procedure;
+        internal delegate_startup_check_proc check_procedure;
+        internal delegate_startup_ShowForm_proc showform_procedure;
+        internal delegate_startup_OnFormResult_proc onformresult_procedure;
 
         public eStep Step = eStep.NoStep;
 
@@ -87,6 +87,11 @@ namespace Startup
             showform_procedure = xshowform_procedure;
             onformresult_procedure = xonformresult_procedure;
             Step = xStep;
+        }
+
+        internal void StartExecution()
+        {
+            m_usrc_startup_step.DoStartup_check_proc_Result();
         }
 
         internal void SetOK()

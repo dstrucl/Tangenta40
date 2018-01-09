@@ -12,6 +12,8 @@ namespace Startup
 {
     public partial class usrc_Startup : UserControl
     {
+        public event usrc_startup_step.delegate_StartupFormClosed StartupFormClosed=null;
+
         int xusrc_startup_step_Width = 0;
 
         public startup m_startup = null;
@@ -42,7 +44,16 @@ namespace Startup
                 {
                     xusrc_startup_step_Width = xusrc_startup_step.Width;
                 }
+                xusrc_startup_step.StartupFormClosed += Xusrc_startup_step_StartupFormClosed;
                 this.Controls.Add(xusrc_startup_step);
+            }
+        }
+
+        private void Xusrc_startup_step_StartupFormClosed(object sender)
+        {
+            if (StartupFormClosed!=null)
+            {
+                StartupFormClosed(sender);
             }
         }
 

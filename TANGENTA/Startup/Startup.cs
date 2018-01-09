@@ -104,87 +104,10 @@ namespace Startup
 
         }
 
-        public bool StartExecuteSteps(ref string Err)
+        public void StartExecution()
         {
-            eStep = startup_step.eStep.Check_DataBase;
-            eNextStep = eStep;
-            return true;
-        }
 
-        public bool Execute_Execute_check_procedure(object odata, ref string Err)
-        {
-            if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
-            {
-                object odata = null;
-                string Err = null;
-
-                startup_step.Startup_check_proc_Result echeck_proc_Result = startup_step.Startup_check_proc_Result.CHECK_NONE;
-                for(;;)
-                {
-                    echeck_proc_Result = m_Step[(int)eStep].Execute_check_procedure(odata, ref Err);
-                    switch (echeck_proc_Result)
-                    {
-                        case startup_step.Startup_check_proc_Result.CHECK_OK
-                    }
-                    if (bIgnoredSoGoToNextStep)
-                    {
-                        eStep++;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                //while (bNextStep);
-
-                //return bRet;
-                //if (bRet)
-                //{
-                //    int iStep = -1;
-                //    int iNextStep = -1;
-                //    switch (nav.eExitResult)
-                //    {
-                //        case NavigationButtons.Navigation.eEvent.EXIT:
-                //            return false;
-
-                //        case NavigationButtons.Navigation.eEvent.NEXT:
-                //            if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
-                //            {
-                //                iStep = (int)eStep + 1;
-                //                iNextStep = (int)eNextStep;
-                //                while (iStep < iNextStep)
-                //                {
-                //                    m_Step[iStep].SetOK();
-                //                    iStep++;
-                //                }
-                //            }
-                //            break;
-                //        case NavigationButtons.Navigation.eEvent.PREV:
-                //            iStep = (int)eStep;
-                //            iNextStep = (int)eNextStep;
-                //            while (iStep > iNextStep)
-                //            {
-                //                m_Step[iStep].SetNotDone();
-                //                iStep--;
-                //            }
-                //            break;
-                //    }
-
-                //}
-                //eStep = eNextStep;
-                //if (!bRet)
-                //{
-                //    return false;
-                //}
-                //else
-                //{
-                //    return true;
-                //}
-            }
-            else
-            {
-                return false;
-            }
+             m_Step[0].StartExecution();
         }
 
         public void RemoveControl()
@@ -201,7 +124,7 @@ namespace Startup
                 eStep++;
                 if (((int)eStep) < m_Step.Length)
                 {
-                    ExecuteSingleStep();
+                    //ExecuteSingleStep();
                     return EvaulateStep_RESULT.NEXT;
                 }
                 else
@@ -214,7 +137,7 @@ namespace Startup
                 eStep--;
                 if (((int)eStep) >= 0)
                 {
-                    ExecuteSingleStep();
+                    //ExecuteSingleStep();
                     return EvaulateStep_RESULT.PREV;
                 }
                 else

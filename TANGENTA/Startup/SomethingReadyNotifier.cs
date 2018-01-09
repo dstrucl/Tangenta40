@@ -10,6 +10,7 @@ namespace Startup
     {
         private readonly SynchronizationContext synchronizationContext;
 
+        public startup_step Startup_Step = null;
         /// <summary>
         /// Create a new <see cref="SomethingReadyNotifier"/> instance. 
         /// </summary>
@@ -17,9 +18,10 @@ namespace Startup
         /// The synchronization context that will be used to raise
         /// <see cref="SomethingReady"/> events.
         /// </param>
-        public SomethingReadyNotifier(SynchronizationContext synchronizationContext)
+        public SomethingReadyNotifier(SynchronizationContext synchronizationContext, startup_step xStartup_Step)
         {
             this.synchronizationContext = synchronizationContext;
+            Startup_Step = xStartup_Step;
         }
 
         /// <summary>
