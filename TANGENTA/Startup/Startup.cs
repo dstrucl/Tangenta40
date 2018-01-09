@@ -70,50 +70,15 @@ namespace Startup
             m_FormIconQuestion = xFormIconQuestion;
         }
 
-        //public bool Execute(bool bFirstTimeInstallation, ref string Err)
-        //{
-        //    if (bFirstTimeInstallation)
-        //    {
 
-        //    Do_TangentaAbout_again:
-        //        Do_TangentaAbout(nav);
-        //        if (nav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
-        //        {
-
-        //            Do_TangentaLicence(nav);
-        //            if (nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-        //            {
-        //                goto Do_TangentaAbout_again;
-        //            }
-        //            else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-        //            {
-        //                eNextStep = startup_step.eStep.Cancel;
-        //                return false;
-        //            }
-        //        }
-        //        else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-        //        {
-        //            eNextStep = startup_step.eStep.Cancel;
-        //            return false;
-        //        }
-        //        else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-        //        {
-        //            eNextStep = startup_step.eStep.Cancel;
-        //            return false;
-        //        }
-        //    }
-        //    return false;
-        //    //return ExecuteSteps(ref Err);
-        //}
-
-        public bool Do_TangentaLicence(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             // return  true for step over
             if (bFirstTimeInstallation)
             {
                 nav.ShowHelp("Tangenta.Tangenta-LicenseAgreement");
                 nav.ChildDialog = new Form_LicenseAgreement(nav);
-                nav.ShowDialog();
+                nav.ShowForm();
                 return false; //
             }
             else
@@ -122,14 +87,14 @@ namespace Startup
             }
         }
 
-        public bool Do_TangentaAbout(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             // return  true for step over
             if (bFirstTimeInstallation)
             {
                 nav.ShowHelp("Tangenta.Tangenta_about");
                 nav.ChildDialog = new Form_Navigate(xnav);
-                nav.ShowDialog();
+                nav.ShowForm();
                 return false;
             }
             else
@@ -146,17 +111,21 @@ namespace Startup
             return true;
         }
 
-        public bool ExecuteSingleStep()
+        public bool Execute_Execute_check_procedure(object odata, ref string Err)
         {
             if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
             {
                 object odata = null;
                 string Err = null;
 
-                bool bIgnoredSoGoToNextStep = false;
+                startup_step.Startup_check_proc_Result echeck_proc_Result = startup_step.Startup_check_proc_Result.CHECK_NONE;
                 for(;;)
                 {
-                    bIgnoredSoGoToNextStep = m_Step[(int)eStep].Execute(this, odata, nav, ref Err);
+                    echeck_proc_Result = m_Step[(int)eStep].Execute_check_procedure(odata, ref Err);
+                    switch (echeck_proc_Result)
+                    {
+                        case startup_step.Startup_check_proc_Result.CHECK_OK
+                    }
                     if (bIgnoredSoGoToNextStep)
                     {
                         eStep++;

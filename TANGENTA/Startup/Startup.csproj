@@ -81,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SomethingReadyNotifier.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="startup_step.cs" />
     <Compile Include="usrc_Startup.cs">

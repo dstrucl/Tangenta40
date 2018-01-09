@@ -10,6 +10,9 @@ namespace Startup
 {
     public class startup_step
     {
+        public enum Startup_check_proc_Result {CHECK_NONE,CHECK_OK,WAIT_USER_INTERACTION, CHECK_ERROR};
+        public enum Startup_onformresult_proc_Result {EXIT,NEXT,PREV,ERROR };
+
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
         public enum eStep : int {
@@ -32,21 +35,58 @@ namespace Startup
                                   NoStep
                                 };
 
-        public delegate bool delegate_startup_proc(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err);
+        public Startup_check_proc_Result ResultOf_check_procedure = Startup_check_proc_Result.CHECK_NONE;
+
+        public delegate Startup_check_proc_Result delegate_startup_check_proc(startup myStartup,
+                                                   object oData, 
+                                                   NavigationButtons.Navigation xnav,
+                                                   ref string Err);
+
+        public delegate bool delegate_startup_ShowForm_proc(startup myStartup,
+                                                   object oData,
+                                                   NavigationButtons.Navigation xnav,
+                                                   ref string Err);
+
+        public delegate Startup_onformresult_proc_Result delegate_startup_OnFormResult_proc(startup myStartup,
+                                                                                            object oData,
+                                                                                            NavigationButtons.Navigation xnav,
+                                                                                            ref string Err);
+
 
         public string s_Title = null;
-        public usrc_startup_step m_usrc_startup_step = null;
-        public delegate_startup_proc procedure;
-        public eStep eStep_Label = eStep.NoStep;
-        public bool DialogShown = false;
-        public int Index = -1;
 
-        public startup_step(string xs_Title, delegate_startup_proc proc, eStep xeStep_Label,int xindex)
+        public usrc_startup_step m_usrc_startup_step = null;
+
+        public startup myStartup = null;
+
+        public NavigationButtons.Navigation nav = null;
+
+        private delegate_startup_check_proc check_procedure;
+        private delegate_startup_ShowForm_proc showform_procedure;
+        private delegate_startup_OnFormResult_proc onformresult_procedure;
+
+        public eStep Step = eStep.NoStep;
+
+
+        //public delegate_startup_check_proc Check_procedure { get => check_procedure; set => check_procedure = value; }
+
+        public startup_step(string xs_Title,
+                            startup xmyStartup,
+                            NavigationButtons.Navigation xnav,
+                            delegate_startup_check_proc xcheck_proc,
+                            delegate_startup_ShowForm_proc xshowform_procedure,
+                            delegate_startup_OnFormResult_proc xonformresult_procedure,
+                            eStep xStep)
         {
             s_Title = xs_Title;
-            procedure = proc;
-            eStep_Label = xeStep_Label;
-            Index = xindex;
+            ResultOf_check_procedure = Startup_check_proc_Result.CHECK_NONE;
+
+            myStartup = xmyStartup;
+            nav = xnav;
+            check_procedure = xcheck_proc;
+            showform_procedure = xshowform_procedure;
+            onformresult_procedure = xonformresult_procedure;
+            Step = xStep;
         }
 
         internal void SetOK()
@@ -54,36 +94,34 @@ namespace Startup
             m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
         }
 
-        public bool Execute(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-
-            m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
-            Application.DoEvents();
-            xnav.DialogShown = false;
-            xnav.StartupStep_index = this.Index;
-            bool bRet = this.procedure(myStartup,oData, xnav, ref Err);
-            this.DialogShown = xnav.DialogShown;
-            if (xnav.bDoModal)
-            {
-                if (bRet)
-                {
-                    m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
-                }
-                else
-                {
-                    m_usrc_startup_step.check1.State = Check.check.eState.FALSE;
-                }
-            }
-            else
-            {
-                m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
-            }
-            return bRet;
-        }
-
         internal void SetNotDone()
         {
             m_usrc_startup_step.check1.State = Check.check.eState.UNDEFINED;
+        }
+
+
+        public Startup_check_proc_Result Execute_check_procedure(object oData, ref string Err)
+        {
+            ResultOf_check_procedure = check_procedure(myStartup, oData, nav, ref Err);
+            switch (ResultOf_check_procedure)
+            {
+                case Startup_check_proc_Result.CHECK_OK:
+                    SetOK();
+                    break;
+            }
+            return ResultOf_check_procedure;
+        }
+
+        public bool Execute_showform_procedure(object oData, ref string Err)
+        {
+            bool bRes = showform_procedure(myStartup, oData, nav, ref Err);
+            return bRes;
+        }
+
+        public Startup_onformresult_proc_Result Execute_onformresult_procedure(object oData, ref string Err)
+        {
+            Startup_onformresult_proc_Result eRes = onformresult_procedure(myStartup, oData, nav, ref Err);
+            return eRes;
         }
     }
 }

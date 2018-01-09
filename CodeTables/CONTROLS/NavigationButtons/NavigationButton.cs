@@ -73,23 +73,27 @@ namespace NavigationButtons
                 bDoModal = true;
             }
         }
+
+        public void ShowForm()
+        {
+            eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
+            LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
+            bDoModal = false;
+            ChildDialog.StartPosition = FormStartPosition.CenterScreen;
+            ChildDialog.Visible = true;
+            ChildDialog.Owner = this.OwnerForm;
+            ChildDialog.FormClosed -= ChildDialog_FormClosed; //delete previous event handler!
+            ChildDialog.FormClosed += ChildDialog_FormClosed;
+            ChildDialog.Show();
+            m_DialogShown = true;
+        }
+
         public void ShowDialog()
         {
             eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
             LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
-            if (!bDoModal)
-            {
-                ChildDialog.StartPosition = FormStartPosition.CenterScreen;
-                ChildDialog.Visible = true;
-                ChildDialog.Owner = this.OwnerForm;
-                ChildDialog.FormClosed -= ChildDialog_FormClosed; //delete previous event handler!
-                ChildDialog.FormClosed += ChildDialog_FormClosed;
-                ChildDialog.Show();
-            }
-            else
-            {
-                ChildDialog.ShowDialog();
-            }
+            bDoModal = true;
+            ChildDialog.ShowDialog();
             m_DialogShown = true;
         }
 
