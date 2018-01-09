@@ -20,10 +20,6 @@ namespace Startup
         public delegate void delegate_StartupFormClosed(object sender);
         public event delegate_StartupFormClosed StartupFormClosed;
 
-
-
-
-
         public usrc_startup_step(startup_step xstartup_step)
         {
             InitializeComponent();

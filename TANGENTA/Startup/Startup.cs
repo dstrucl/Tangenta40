@@ -74,34 +74,19 @@ namespace Startup
         public bool Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             // return  true for step over
-            if (bFirstTimeInstallation)
-            {
-                nav.ShowHelp("Tangenta.Tangenta-LicenseAgreement");
-                nav.ChildDialog = new Form_LicenseAgreement(nav);
-                nav.ShowForm();
-                return false; //
-            }
-            else
-            {
-                return true; 
-            }
+            Err = null;
+            xnav.ShowHelp("Tangenta.Tangenta-LicenseAgreement");
+            xnav.ChildDialog = new Form_LicenseAgreement(xnav);
+            xnav.ShowForm();
+            return true; //
         }
 
         public bool Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, ref string Err)
         {
-            // return  true for step over
-            if (bFirstTimeInstallation)
-            {
-                nav.ShowHelp("Tangenta.Tangenta_about");
-                nav.ChildDialog = new Form_Navigate(xnav);
-                nav.ShowForm();
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
+            xnav.ShowHelp("Tangenta.Tangenta_about");
+            xnav.ChildDialog = new Form_Navigate(xnav);
+            xnav.ShowForm();
+            return true;
         }
 
         public void StartExecution()

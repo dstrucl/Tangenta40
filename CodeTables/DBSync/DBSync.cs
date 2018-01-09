@@ -44,6 +44,32 @@ namespace DBSync
             return DB_for_Tangenta.Create_VIEWs();
         }
 
+        public static bool Get_eDBType(string DataBaseType, ref DBConnection.eDBType eDBType)
+        {
+            if (DataBaseType != null)
+            {
+                if (DataBaseType.Equals("SQLITE"))
+                {
+                    eDBType = DBConnection.eDBType.SQLITE;
+                    return true;
+                }
+                else if (DataBaseType.Equals("MSSQL"))
+                {
+                    eDBType = DBConnection.eDBType.MSSQL;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:DDBSync:Get_eDBType:DataBaseType=" + DataBaseType + " not implemented!");
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DDBSync:Get_eDBType:DataBaseType==null!");
+                return false;
+            }
+        }
 
         public static bool Init_Get_DBType(bool bReset, 
                                 string m_XmlFileName, 
@@ -61,7 +87,9 @@ namespace DBSync
                 DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(xnav.parentForm, m_XmlFileName, IniFileFolder);
             }
             DBConnection.eDBType org_m_DBType = m_DBType;
+
             xnav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
+
             if (!bShowDialog)
             {
                 if (DataBaseType != null)
@@ -76,17 +104,17 @@ namespace DBSync
                     }
                     else
                     {
-                        m_DBType = Get_DBType(ref DataBaseType, xnav, bShowDialog, ref bCanceled);
+                        m_DBType = Get_DBTypeDialog(ref DataBaseType, xnav,  ref bCanceled);
                     }
                 }
                 else
                 {
-                    m_DBType = Get_DBType(ref DataBaseType, xnav, bShowDialog, ref bCanceled);
+                    m_DBType = Get_DBTypeDialog(ref DataBaseType, xnav,  ref bCanceled);
                 }
             }
             else
             {
-                m_DBType = Get_DBType(ref DataBaseType, xnav, bShowDialog, ref bCanceled);
+                m_DBType = Get_DBTypeDialog(ref DataBaseType, xnav,  ref bCanceled);
             }
 
 
@@ -172,39 +200,38 @@ namespace DBSync
         }
 
 
+        public static bool Show_Get_DBTypeForm(ref string DataBaseType, NavigationButtons.Navigation xnav)
+        {
+            xnav.ChildDialog = new Form_GetDBType(DataBaseType, xnav);
+            xnav.ChildDialog.Owner = xnav.OwnerForm;
+            xnav.ChildDialog.Show();
+            return true;
+        }
 
-        private static DBConnection.eDBType Get_DBType(ref string DataBaseType, NavigationButtons.Navigation xnav, bool bShowDialog, ref bool bCanceled)
+
+        private static DBConnection.eDBType Get_DBTypeDialog(ref string DataBaseType, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
             if (DataBaseType == null)
             {
                 DataBaseType = "SQLITE";
             }
-
             xnav.ChildDialog = new Form_GetDBType(DataBaseType, xnav);
             xnav.ShowDialog();
-            if (xnav.bDoModal)
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
             {
-                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                switch (((Form_GetDBType)xnav.ChildDialog).m_DBType)
                 {
-                    switch (((Form_GetDBType)xnav.ChildDialog).m_DBType)
-                    {
-                        case DBConnection.eDBType.SQLITE:
-                            DataBaseType = "SQLITE";
-                            break;
-                        case DBConnection.eDBType.MSSQL:
-                            DataBaseType = "MSSQL";
-                            break;
-                        case DBConnection.eDBType.MYSQL:
-                            DataBaseType = "MYSQL";
-                            break;
-                    }
-                    return ((Form_GetDBType)xnav.ChildDialog).m_DBType;
+                    case DBConnection.eDBType.SQLITE:
+                        DataBaseType = "SQLITE";
+                        break;
+                    case DBConnection.eDBType.MSSQL:
+                        DataBaseType = "MSSQL";
+                        break;
+                    case DBConnection.eDBType.MYSQL:
+                        DataBaseType = "MYSQL";
+                        break;
                 }
-                else
-                {
-                    bCanceled = true;
-                    return m_DBType;
-                }
+                return ((Form_GetDBType)xnav.ChildDialog).m_DBType;
             }
             else
             {

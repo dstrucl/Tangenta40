@@ -21,6 +21,8 @@ using Startup;
 using System.Diagnostics;
 using TangentaDB;
 using System.Reflection;
+using static Startup.startup_step;
+using NavigationButtons;
 
 namespace Tangenta
 {
@@ -33,6 +35,197 @@ namespace Tangenta
         internal string m_XmlFileName = null;
         public startup_step[] StartupStep = null;
         public Form ChildForm = null;
+
+        private Startup_check_proc_Result Check_TangentaAboutShown(startup myStartup,
+                                                   object oData,
+                                                   NavigationButtons.Navigation xnav,
+                                                   ref string Err)
+        {
+            if (Properties.Settings.Default.Startup_TangentaAbout_Showed)
+            {
+                return Startup_check_proc_Result.CHECK_OK;
+            }
+            else
+            {
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+            }
+        }
+
+        private Startup_check_proc_Result Check_TangentaLicenceShown(startup myStartup,
+                                                   object oData,
+                                                   NavigationButtons.Navigation xnav,
+                                                   ref string Err)
+        {
+            if (Properties.Settings.Default.Startup_TangentaLicence_Showed)
+            {
+                return Startup_check_proc_Result.CHECK_OK;
+            }
+            else
+            {
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+            }
+        }
+
+
+        private Startup_onformresult_proc_Result onformresult_TangentaAbout(startup myStartup,
+                                                                                            object oData,
+                                                                                            NavigationButtons.Navigation xnav,
+                                                                                            ref string Err)
+        {
+            switch (xnav.eExitResult)
+            {
+                case NavigationButtons.Navigation.eEvent.NEXT:
+                    Properties.Settings.Default.Startup_TangentaAbout_Showed = true;
+                    Properties.Settings.Default.Save();
+                    return Startup_onformresult_proc_Result.NEXT;
+
+                case NavigationButtons.Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case NavigationButtons.Navigation.eEvent.EXIT:
+                    this.Close();
+                    this.DialogResult = DialogResult.Cancel;
+                    return Startup_onformresult_proc_Result.EXIT;
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaAbout  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+        }
+
+        private Startup_onformresult_proc_Result onformresult_TangentaLicence(startup myStartup,
+                                                                                           object oData,
+                                                                                           NavigationButtons.Navigation xnav,
+                                                                                           ref string Err)
+        {
+            switch (xnav.eExitResult)
+            {
+                case NavigationButtons.Navigation.eEvent.NEXT:
+                    Properties.Settings.Default.Startup_TangentaAbout_Showed = true;
+                    Properties.Settings.Default.Save();
+                    return Startup_onformresult_proc_Result.NEXT;
+
+                case NavigationButtons.Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case NavigationButtons.Navigation.eEvent.EXIT:
+                    this.Close();
+                    this.DialogResult = DialogResult.Cancel;
+                    return Startup_onformresult_proc_Result.EXIT;
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaLicence  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+        }
+
+        public Startup_check_proc_Result Startup_Check_DataBase_Type(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        {
+            string sDBType = null;
+
+            sDBType = Properties.Settings.Default.DBType;
+            if (sDBType.Length == 0)
+            {
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+            }
+            else
+            {
+                //Do Real Check
+                bool bCanceled = false;
+                string xCodeTables_IniFileFolder = null;
+                if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+                {
+                    // just show window
+                    if (DBSync.DBSync.Get_eDBType(sDBType, ref DBSync.DBSync.m_DBType))
+                    {
+                        return Startup_check_proc_Result.CHECK_OK;
+                    }
+                    else
+                    {
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                    }
+                }
+                else
+                {
+                    return Startup_check_proc_Result.CHECK_ERROR;
+                }
+            }
+        }
+
+        private bool Startup_ShowDataBaseTypeSelectionForm(object oData, Navigation xnav, ref string Err)
+        {
+            string sDataBaseType = "SQLITE";
+            DBSync.DBSync.Show_Get_DBTypeForm(ref sDataBaseType,xnav);
+            return true;
+        }
+
+        private Startup_onformresult_proc_Result onformresult_ShowDataBaseTypeSelectionForm(startup myStartup, object oData, Navigation xnav, ref string Err)
+        {
+            switch (xnav.eExitResult)
+            {
+                case Navigation.eEvent.NEXT:
+                    if (xnav.ChildDialog is DBSync.Form_GetDBType)
+                    {
+                        DBConnection.eDBType eDBType = ((DBSync.Form_GetDBType)xnav.ChildDialog).m_DBType;
+                        string sDBType = null;
+                        switch (eDBType)
+                        {
+                            case DBConnection.eDBType.SQLITE:
+                                sDBType = "SQLITE";
+                                Properties.Settings.Default.DBType = sDBType;
+                                Properties.Settings.Default.Save();
+                                return Startup_onformresult_proc_Result.NEXT;
+                            case DBConnection.eDBType.MSSQL:
+                                sDBType = "MSSQL";
+                                Properties.Settings.Default.DBType = sDBType;
+                                Properties.Settings.Default.Save();
+                                return Startup_onformresult_proc_Result.NEXT;
+                            default:
+                                LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:Unsuported DB type:" + eDBType.ToString());
+                                return Startup_onformresult_proc_Result.ERROR;
+                        }
+                    }
+                    else
+                    {
+                        if (xnav.ChildDialog == null)
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog == null!");
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog is not of type DBSync.Form_GetDBType DB type:" + xnav.ChildDialog.GetType().ToString());
+                        }
+                        return Startup_onformresult_proc_Result.ERROR;
+                    }
+                case Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case Navigation.eEvent.EXIT:
+                    return Startup_onformresult_proc_Result.EXIT;
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+
+        }
+
+        //            if (DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE,
+        //                                                m_XmlFileName, xCodeTables_IniFileFolder,
+        //                                                ref sDBType,
+        //                                                false, 
+        //                                                Program.bChangeConnection,
+        //                                                xnav, 
+        //                                                ref myStartup.bNewDatabaseCreated, 
+        //                                                ref bCanceled))
+        //            {
+        //                return Startup_check_proc_Result.CHECK_OK;
+        //            }
+        //            // result will come when closed
+        //        }
+        //        else
+        //        {
+        //            myStartup.eNextStep = startup_step.eStep.Cancel;
+        //        }
+        //    return false;
+        //}
 
 
         public Form_Document()
@@ -108,41 +301,42 @@ namespace Tangenta
                         Program.bFirstTimeInstallation
                         );
 
-
+            
             StartupStep = new startup_step[]
             {
 
                 // TANGENTA_About
-                new startup_step(lng.s_Startup_Tangenta_About.s,m_startup.Do_TangentaAbout,startup_step.eStep.Do_TangentaAbout,startup_step_index++),
+                new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Check_TangentaAboutShown,m_startup.Do_showform_TangentaAbout,onformresult_TangentaLicence,startup_step.eStep.Do_TangentaAbout),
 
                 // TANGENTA_Licence
-                new startup_step(lng.s_Licence_checked.s,m_startup.Do_TangentaLicence,startup_step.eStep.Do_TangentaLicence,startup_step_index++),
+                new startup_step(lng.s_Licence_checked.s, m_startup, Program.nav, Check_TangentaLicenceShown, m_startup.Do_showform_TangentaLicence,onformresult_TangentaLicence, startup_step.eStep.Do_TangentaLicence),
 
                 // CHECK DATABASE
-                new startup_step(lng.s_Startup_Check_DataBase.s,Startup_Check_DataBase_Type,startup_step.eStep.Check_DataBase,startup_step_index++),
-                // READ DB SETTINGS
-                new startup_step(lng.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
-                // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
-                new startup_step(lng.s_Startup_CheckDBVersion.s,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion,startup_step_index++),
-                // GET ORGANISATION DATA
-                new startup_step(lng.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData,startup_step_index++),
-                // GET BASE CURRENCY
-                new startup_step(lng.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency,startup_step_index++),
-                // GET TAXATION
-                new startup_step(lng.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation,startup_step_index++),
-                // GET SHOPS IN USE
-                new startup_step(lng.s_Startup_Get_ProgramSettings.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings,startup_step_index++),
-                // GET PROGRAM SETTINGS
-                new startup_step(lng.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists,startup_step_index++),
-                // GET SHOPB Item Data
-                new startup_step(lng.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData,startup_step_index++),
-                // GET SHOPC Item Data
-                new startup_step(lng.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData,startup_step_index++),
-                // GET Printer
-                new startup_step(lng.s_Startup_GetPrinter.s,this.m_usrc_Main.Get_Printer,startup_step.eStep.GetPrinter,startup_step_index++),
-                // LOGIN
-                new startup_step(lng.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod,startup_step_index++),
-             };
+                new startup_step(lng.s_Startup_Check_DataBase.s,m_startup, Program.nav, Startup_Check_DataBase_Type, Startup_ShowDataBaseTypeSelectionForm, onformresult_ShowDataBaseTypeSelectionForm,startup_step.eStep.Check_DataBase),
+
+             //   // READ DB SETTINGS
+             //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
+             //   // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
+             //   new startup_step(lng.s_Startup_CheckDBVersion.s,m_startup, Program.nav,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion,startup_step_index++),
+             //   // GET ORGANISATION DATA
+             //   new startup_step(lng.s_Startup_GetOrganisationData.s,m_startup, Program.nav,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData,startup_step_index++),
+             //   // GET BASE CURRENCY
+             //   new startup_step(lng.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency,startup_step_index++),
+             //   // GET TAXATION
+             //   new startup_step(lng.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation,startup_step_index++),
+             //   // GET SHOPS IN USE
+             //   new startup_step(lng.s_Startup_Get_ProgramSettings.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings,startup_step_index++),
+             //   // GET PROGRAM SETTINGS
+             //   new startup_step(lng.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists,startup_step_index++),
+             //   // GET SHOPB Item Data
+             //   new startup_step(lng.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData,startup_step_index++),
+             //   // GET SHOPC Item Data
+             //   new startup_step(lng.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData,startup_step_index++),
+             //   // GET Printer
+             //   new startup_step(lng.s_Startup_GetPrinter.s,this.m_usrc_Main.Get_Printer,startup_step.eStep.GetPrinter,startup_step_index++),
+             //   // LOGIN
+             //   new startup_step(lng.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod,startup_step_index++),
+            };
 
             m_startup.Steps = StartupStep;
             //this.usr
@@ -162,6 +356,7 @@ namespace Tangenta
 
             Program.nav.oStartup = m_startup;
         }
+
 
         public void StartupOwnedDialogClosed(Form ChildDialog)
         {
@@ -228,35 +423,6 @@ namespace Tangenta
                     myStartup.eNextStep = startup_step.eStep.Cancel;
                 }
             }
-        }
-
-        public bool Startup_Check_DataBase_Type(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
-        {
-         
-
-            string sDBType = null;
-            sDBType = Properties.Settings.Default.DBType;
-            bool bCanceled = false;
-            string xCodeTables_IniFileFolder = null;
-            if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
-            {
-                if (xnav.bDoModal)
-                {
-                    bool bResult = DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
-                    OnCheckDataBaseResult(myStartup, ref bResult, sDBType);
-                }
-                else
-                {
-                    // just show window
-                    DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated, ref bCanceled);
-                    // result will come when closed
-                }
-            }
-            else
-            {
-                myStartup.eNextStep = startup_step.eStep.Cancel;
-            }
-            return false;
         }
 
 
@@ -527,7 +693,7 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():before m_startup.Execute!");
 
-            m_startup.ExecuteSingleStep();
+            m_startup.StartExecution();
 
 
             //if (m_startup.ExecuteSingleStep()(Program.bFirstTimeInstallation, ref Err))

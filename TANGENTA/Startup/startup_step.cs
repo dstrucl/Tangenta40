@@ -42,8 +42,7 @@ namespace Startup
                                                    NavigationButtons.Navigation xnav,
                                                    ref string Err);
 
-        public delegate bool delegate_startup_ShowForm_proc(startup myStartup,
-                                                   object oData,
+        public delegate bool delegate_startup_ShowForm_proc(object oData,
                                                    NavigationButtons.Navigation xnav,
                                                    ref string Err);
 
@@ -119,7 +118,7 @@ namespace Startup
 
         public bool Execute_showform_procedure(object oData, ref string Err)
         {
-            bool bRes = showform_procedure(myStartup, oData, nav, ref Err);
+            bool bRes = showform_procedure(oData, nav, ref Err);
             return bRes;
         }
 
