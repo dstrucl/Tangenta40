@@ -81,6 +81,8 @@ namespace ThreadProcessor
                     case Result_MessageBox_Get.TIMEOUT:
                         break;
                 }
+                Thread.Sleep(100);//Must be called to avoid CPU time consumption!
+                Thread.Yield();
             }
         }
 
