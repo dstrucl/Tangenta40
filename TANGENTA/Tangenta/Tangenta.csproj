@@ -102,6 +102,30 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_Document.Startup_03_Check_DBConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_04_Check_DBSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_06_Check_Country_ISO_3166.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_07_Check_InsertSampleData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_05_Check_DBVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_02_Check_DBType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_01_TangentaLicence.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document.Startup_00_TangentaAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form_Select_Notice.cs">
       <SubType>Form</SubType>
     </Compile>

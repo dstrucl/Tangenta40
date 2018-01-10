@@ -36,186 +36,10 @@ namespace Tangenta
         public startup_step[] StartupStep = null;
         public Form ChildForm = null;
 
-        private Startup_check_proc_Result Check_TangentaAboutShown(startup myStartup,
-                                                   object oData,
-                                                   NavigationButtons.Navigation xnav,
-                                                   ref string Err)
-        {
-            if (Properties.Settings.Default.Startup_TangentaAbout_Showed)
-            {
-                return Startup_check_proc_Result.CHECK_OK;
-            }
-            else
-            {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-            }
-        }
+     
+    
 
-        private Startup_check_proc_Result Check_TangentaLicenceShown(startup myStartup,
-                                                   object oData,
-                                                   NavigationButtons.Navigation xnav,
-                                                   ref string Err)
-        {
-            if (Properties.Settings.Default.Startup_TangentaLicence_Showed)
-            {
-                return Startup_check_proc_Result.CHECK_OK;
-            }
-            else
-            {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-            }
-        }
-
-
-        private Startup_onformresult_proc_Result onformresult_TangentaAbout(startup myStartup,
-                                                                                            object oData,
-                                                                                            NavigationButtons.Navigation xnav,
-                                                                                            ref string Err)
-        {
-            switch (xnav.eExitResult)
-            {
-                case NavigationButtons.Navigation.eEvent.NEXT:
-                    Properties.Settings.Default.Startup_TangentaAbout_Showed = true;
-                    Properties.Settings.Default.Save();
-                    return Startup_onformresult_proc_Result.NEXT;
-
-                case NavigationButtons.Navigation.eEvent.PREV:
-                    return Startup_onformresult_proc_Result.PREV;
-
-                case NavigationButtons.Navigation.eEvent.EXIT:
-                    this.Close();
-                    this.DialogResult = DialogResult.Cancel;
-                    return Startup_onformresult_proc_Result.EXIT;
-
-                case NavigationButtons.Navigation.eEvent.NOTHING:
-                    // happens when check procedure is OK
-                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
-
-                default:
-                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaAbout  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
-                    return Startup_onformresult_proc_Result.ERROR;
-            }
-        }
-
-        private Startup_onformresult_proc_Result onformresult_TangentaLicence(startup myStartup,
-                                                                                           object oData,
-                                                                                           NavigationButtons.Navigation xnav,
-                                                                                           ref string Err)
-        {
-            switch (xnav.eExitResult)
-            {
-                case NavigationButtons.Navigation.eEvent.NEXT:
-                    Properties.Settings.Default.Startup_TangentaLicence_Showed = true;
-                    Properties.Settings.Default.Save();
-                    return Startup_onformresult_proc_Result.NEXT;
-
-                case NavigationButtons.Navigation.eEvent.PREV:
-                    return Startup_onformresult_proc_Result.PREV;
-
-                case NavigationButtons.Navigation.eEvent.EXIT:
-                    this.Close();
-                    this.DialogResult = DialogResult.Cancel;
-                    return Startup_onformresult_proc_Result.EXIT;
-
-                case NavigationButtons.Navigation.eEvent.NOTHING:
-                    // happens when check procedure is OK
-                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
-
-                default:
-                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaLicence  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
-                    return Startup_onformresult_proc_Result.ERROR;
-            }
-        }
-
-        public Startup_check_proc_Result Startup_Check_DataBase_Type(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            string sDBType = null;
-
-            sDBType = Properties.Settings.Default.DBType;
-            if (sDBType.Length == 0)
-            {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-            }
-            else
-            {
-                //Do Real Check
-                bool bCanceled = false;
-                string xCodeTables_IniFileFolder = null;
-                if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
-                {
-                    // just show window
-                    if (DBSync.DBSync.Get_eDBType(sDBType, ref DBSync.DBSync.m_DBType))
-                    {
-                        return Startup_check_proc_Result.CHECK_OK;
-                    }
-                    else
-                    {
-                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-                    }
-                }
-                else
-                {
-                    return Startup_check_proc_Result.CHECK_ERROR;
-                }
-            }
-        }
-
-        private bool Startup_ShowDataBaseTypeSelectionForm(object oData, Navigation xnav, ref string Err)
-        {
-            string sDataBaseType = "SQLITE";
-            DBSync.DBSync.Show_Get_DBTypeForm(ref sDataBaseType,xnav);
-            return true;
-        }
-
-        private Startup_onformresult_proc_Result onformresult_ShowDataBaseTypeSelectionForm(startup myStartup, object oData, Navigation xnav, ref string Err)
-        {
-            switch (xnav.eExitResult)
-            {
-                case Navigation.eEvent.NEXT:
-                    if (xnav.ChildDialog is DBSync.Form_GetDBType)
-                    {
-                        DBConnection.eDBType eDBType = ((DBSync.Form_GetDBType)xnav.ChildDialog).m_DBType;
-                        string sDBType = null;
-                        switch (eDBType)
-                        {
-                            case DBConnection.eDBType.SQLITE:
-                                sDBType = "SQLITE";
-                                Properties.Settings.Default.DBType = sDBType;
-                                Properties.Settings.Default.Save();
-                                return Startup_onformresult_proc_Result.NEXT;
-                            case DBConnection.eDBType.MSSQL:
-                                sDBType = "MSSQL";
-                                Properties.Settings.Default.DBType = sDBType;
-                                Properties.Settings.Default.Save();
-                                return Startup_onformresult_proc_Result.NEXT;
-                            default:
-                                LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:Unsuported DB type:" + eDBType.ToString());
-                                return Startup_onformresult_proc_Result.ERROR;
-                        }
-                    }
-                    else
-                    {
-                        if (xnav.ChildDialog == null)
-                        {
-                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog == null!");
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog is not of type DBSync.Form_GetDBType DB type:" + xnav.ChildDialog.GetType().ToString());
-                        }
-                        return Startup_onformresult_proc_Result.ERROR;
-                    }
-                case Navigation.eEvent.PREV:
-                    return Startup_onformresult_proc_Result.PREV;
-
-                case Navigation.eEvent.EXIT:
-                    return Startup_onformresult_proc_Result.EXIT;
-                default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
-                    return Startup_onformresult_proc_Result.ERROR;
-            }
-
-        }
+       
 
         //            if (DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE,
         //                                                m_XmlFileName, xCodeTables_IniFileFolder,
@@ -311,21 +135,28 @@ namespace Tangenta
                         Program.bFirstTimeInstallation
                         );
 
-            
+
             StartupStep = new startup_step[]
             {
 
                 // TANGENTA_About
-                new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Check_TangentaAboutShown,m_startup.Do_showform_TangentaAbout,onformresult_TangentaAbout,startup_step.eStep.Do_TangentaAbout),
-
+                CStartup_00_TangentaAbout(),
+                
                 // TANGENTA_Licence
-                new startup_step(lng.s_Licence_checked.s, m_startup, Program.nav, Check_TangentaLicenceShown, m_startup.Do_showform_TangentaLicence,onformresult_TangentaLicence, startup_step.eStep.Do_TangentaLicence),
+                CStartup_01_TangentaLicence(),
 
                 // CHECK DATABASE
-                new startup_step(lng.s_Startup_Check_DataBase.s,m_startup, Program.nav, Startup_Check_DataBase_Type, Startup_ShowDataBaseTypeSelectionForm, onformresult_ShowDataBaseTypeSelectionForm,startup_step.eStep.Check_DataBase),
+                CStartup_02_Check_DBType(),
+                
+                 // CHECK DBConnection
+                CStartup_03_Check_DBConnection(),
 
-             //   // READ DB SETTINGS
+                // CHECK DBSettings
+                CStartup_04_Check_DBSettings()
+
+             
              //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
+
              //   // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
              //   new startup_step(lng.s_Startup_CheckDBVersion.s,m_startup, Program.nav,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion,startup_step_index++),
              //   // GET ORGANISATION DATA

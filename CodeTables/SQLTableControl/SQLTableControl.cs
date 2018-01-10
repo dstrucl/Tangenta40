@@ -19,6 +19,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using DBTypes;
+using NavigationButtons;
 
 namespace CodeTables
 {
@@ -99,14 +100,7 @@ namespace CodeTables
             }
             return null;
         }
-
-        //public SQLTable Add(Object oTable, Column.Flags xFlags, ltext lngtblname)
-        //{
-        //    SQLTable myTable = new SQLTable(oTable, xFlags, lngtblname);
-        //    items.Add(myTable);
-        //    return myTable;
-        //}
-
+        
         public StringBuilder SQLcmd_CreateAllTables(DBConnection xcon)
         {
             StringBuilder strSqlAll = new StringBuilder("");
@@ -279,7 +273,6 @@ namespace CodeTables
             }
             return strSqlAll;
         }
-
 
         public StringBuilder SQLcmd_DropAllTables(DBConnection xcon)
         {
@@ -653,7 +646,6 @@ namespace CodeTables
             }
         }
 
-
         private void GetValue_FromSourceText(SourceText sTxt, string s2, ref string Value)
         {
             string[] token = s2.Split('=');
@@ -903,9 +895,6 @@ namespace CodeTables
             }
         }
 
-
-
-
         private bool DropAllViewsInSQLiteDataBase(Form pParentForm, ref bool bCancel, ref string serror)
         {
             try
@@ -961,7 +950,7 @@ namespace CodeTables
             }
         }
 
-         public bool DropAllTablesInSQLiteDataBase(Form pParentForm,ref bool bCancel, ref string serror)
+        public bool DropAllTablesInSQLiteDataBase(Form pParentForm,ref bool bCancel, ref string serror)
          {
              if (DropAllViewsInSQLiteDataBase(pParentForm, ref bCancel, ref serror))
              {
@@ -1028,7 +1017,6 @@ namespace CodeTables
                  return false;
              }
          }
-
 
         public bool DropAllTablesInDataBase(Form pParentForm,ref bool bCancel)
         {
@@ -1205,6 +1193,7 @@ namespace CodeTables
             }
             return true;
         }
+
         public bool DropVIEWs(ref string Err)
         {
             Err = null;
@@ -1275,6 +1264,7 @@ namespace CodeTables
                     return "Error wrong m_con.DBType=";
             }
         }
+
      /*********************************************************/
         public DBTableControl(Form pForm, string XmlRootName,string xmlFolder)
         {
@@ -1493,6 +1483,99 @@ namespace CodeTables
             }
         }
 
+        public bool Evaluate_DataBaseConnection(Form parentForm, object DB_Param, ref bool bNewDataBaseCreated, Navigation xnav, ref bool bCanceled)
+        {
+            if (m_con.Evaluate_MakeDataBaseConnection(xnav.parentForm, DB_Param, xnav, ref bCanceled))
+            {
+                if (m_con.DBType == DBConnection.eDBType.SQLITE)
+                {
+                    LocalDB_data local_DB_Data = (LocalDB_data)DB_Param;
+                    if (local_DB_Data.bNewDatabase)
+                    {
+                        bNewDataBaseCreated = CreateDatabaseTables(false);
+                        if (bNewDataBaseCreated)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            if (MessageBox.Show(xnav.parentForm, lng.s_Error_Creating_Tables_in_SQLITE.s, lng.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    RemoteDB_data remote_DB_Data = (RemoteDB_data)DB_Param;
+                    if (remote_DB_Data.bNewDatabase)
+                    {
+                        bNewDataBaseCreated = CreateDatabaseTables(true);
+                        if (bNewDataBaseCreated)
+                        {
+                            return bNewDataBaseCreated;
+                        }
+                        else
+                        {
+                            if (MessageBox.Show(xnav.parentForm, lng.s_Error_Creating_Tables_in_SQLITE.s, lng.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                if (m_con.DBType == DBConnection.eDBType.SQLITE)
+                {
+                    return true;
+                }
+                string csError = null;
+                enumDataBaseCheckResult eRes = DataBaseCheck(ref csError);
+                switch (eRes)
+                {
+                    case enumDataBaseCheckResult.OK:
+                        return true;
+
+                    case enumDataBaseCheckResult.TABLE_MISSING:
+                    case enumDataBaseCheckResult.COLUMN_MISSING:
+                    case enumDataBaseCheckResult.CONNECTION_FAILED:
+                    case enumDataBaseCheckResult.NO_DATABASE_CONNECTION:
+                    case enumDataBaseCheckResult.PRIMARY_KEY_MISSING:
+                        LogFile.Error.Show(csError);
+                        DialogResult dres = MessageBox.Show(xnav.parentForm,
+                                                                lng.s_DeleteAllTablesAndCreateNewOnes.s,
+                                                                "?",
+                                                                MessageBoxButtons.YesNoCancel,
+                                                                MessageBoxIcon.Question);
+                        switch (dres)
+                        {
+                            case DialogResult.Cancel:
+                                return false;
+                            case DialogResult.No:
+                                break;
+                            case DialogResult.Yes:
+                                bool bCancel = false;
+                                if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
+                                {
+                                    bNewDataBaseCreated = CreateDatabaseTables(true);
+                                    return bNewDataBaseCreated;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+
+                        }
+                        break;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public Object UndefineAllValues(SQLTable myTable)
         {
             Object objTable = myTable.objTable;
@@ -1538,7 +1621,6 @@ namespace CodeTables
             }
             return myTable.objTable;
         }
-
 
         public SQLTable GetTable(string sTableName)
         {

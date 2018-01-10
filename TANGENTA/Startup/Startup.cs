@@ -40,7 +40,7 @@ namespace Startup
             set {   m_Step = value;
                     if(m_usrc_Startup!=null)
                     {
-                        eStep = startup_step.eStep.Do_TangentaAbout;
+                        eStep = startup_step.eStep.Check_00_TangentaAbout;
                         m_usrc_Startup.Init();
                     }
                 }
@@ -105,7 +105,7 @@ namespace Startup
 
         internal bool StartNextStepExecution()
         {
-            if (((int)eStep) < m_Step.Length)
+            if (((int)eStep) < m_Step.Length-1)
             {
                 m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
                 eStep++;

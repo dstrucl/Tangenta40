@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using NavigationButtons;
 
 namespace DBSync
 {
@@ -31,7 +32,10 @@ namespace DBSync
         public static RemoteDB_data RemoteDB_data = null;
         public static LocalDB_data LocalDB_data_SQLite = null;
 
+
         public static DBConnection.eDBType m_DBType = DBConnection.eDBType.SQLITE;
+
+
         public static string m_BackupFolder;
 
         public static bool Drop_VIEWs(ref string Err)
@@ -44,18 +48,22 @@ namespace DBSync
             return DB_for_Tangenta.Create_VIEWs();
         }
 
-        public static bool Get_eDBType(string DataBaseType, ref DBConnection.eDBType eDBType)
+        public static bool Get_eDBType(string DataBaseType, ref DBConnection.eDBType eDBType,Form parentForm,string IniFileFolder,string m_XmlFileName)
         {
             if (DataBaseType != null)
             {
                 if (DataBaseType.Equals("SQLITE"))
                 {
                     eDBType = DBConnection.eDBType.SQLITE;
+                    DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
+                    DB_for_Tangenta.Init(eDBType);
                     return true;
                 }
                 else if (DataBaseType.Equals("MSSQL"))
                 {
                     eDBType = DBConnection.eDBType.MSSQL;
+                    DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
+                    DB_for_Tangenta.Init(eDBType);
                     return true;
                 }
                 else
@@ -71,71 +79,11 @@ namespace DBSync
             }
         }
 
-        public static bool Init_Get_DBType(bool bReset, 
-                                string m_XmlFileName, 
-                                string IniFileFolder, 
-                                ref string DataBaseType,
-                                bool bShowDialog,
-                                bool bChangeConnection,
-                                NavigationButtons.Navigation xnav,
-                                ref bool bNewDatabaseCreated,
-                                ref bool bCanceled)
-        {
-            string Err = null;
-            if (DB_for_Tangenta == null)
-            {
-                DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(xnav.parentForm, m_XmlFileName, IniFileFolder);
-            }
-            DBConnection.eDBType org_m_DBType = m_DBType;
-
-            xnav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
-
-            if (!bShowDialog)
-            {
-                if (DataBaseType != null)
-                {
-                    if (DataBaseType.Equals("SQLITE"))
-                    {
-                        m_DBType = DBConnection.eDBType.SQLITE;
-                    }
-                    else if (DataBaseType.Equals("MSSQL"))
-                    {
-                        m_DBType = DBConnection.eDBType.MSSQL;
-                    }
-                    else
-                    {
-                        m_DBType = Get_DBTypeDialog(ref DataBaseType, xnav,  ref bCanceled);
-                    }
-                }
-                else
-                {
-                    m_DBType = Get_DBTypeDialog(ref DataBaseType, xnav,  ref bCanceled);
-                }
-            }
-            else
-            {
-                m_DBType = Get_DBTypeDialog(ref DataBaseType, xnav,  ref bCanceled);
-            }
-
-
-            if (bCanceled)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
         public static bool Init_DBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
             string Err = null;
-            DB_for_Tangenta.Init(m_DBType);
-
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
-                my_StartupWindowThread.Message(lng.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
                 bool bGet = m_SQLite_Support.Get(bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xnav, ref bCanceled);
                 if (xnav.bDoModal)
                 {
@@ -161,7 +109,65 @@ namespace DBSync
                 }
                 else
                 {
-                    return false;
+                    return bGet;
+                }
+            }
+            else
+            {
+                my_StartupWindowThread.Message(lng.s_DataBaseFile.s);
+                if (Get(xnav.parentForm, bReset, ref Err, ref IniFileFolder, "TangentaDB", ref bNewDatabaseCreated, xnav, ref bCanceled))
+                {
+                    my_StartupWindowThread.Message(lng.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
+                    return true;
+                }
+                else
+                {
+                    if (bCanceled)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("Napaka:Povezava na podatkovne baze za Blagajno ni uspela: Err=" + Err);
+                        return false;
+                    }
+                }
+            }
+
+        }
+
+        public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
+        {
+            string Err = null;           
+            if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
+            {
+                my_StartupWindowThread.Message(lng.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
+                bool bGet = m_SQLite_Support.Evaluate_Connection(xnav, ref bNewDatabaseCreated, ref bCanceled);
+                if (xnav.bDoModal)
+                {
+                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        bCanceled = false;
+                        DataBaseType = "";
+                        return true;
+                    }
+                    if (bGet)
+                    {
+                        my_StartupWindowThread.Message(lng.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
+                        return true;
+                    }
+                    else
+                    {
+                        if (!bCanceled)
+                        {
+                            LogFile.Error.Show(lng.s_CanNotReadDataBaseFile.s + " Err=" + Err);
+                        }
+                        return false;
+                    }
+                }
+                else
+                {
+                    return bGet;
                 }
             }
             else
@@ -207,37 +213,6 @@ namespace DBSync
             return true;
         }
 
-
-        private static DBConnection.eDBType Get_DBTypeDialog(ref string DataBaseType, NavigationButtons.Navigation xnav, ref bool bCanceled)
-        {
-            if (DataBaseType == null)
-            {
-                DataBaseType = "SQLITE";
-            }
-            xnav.ChildDialog = new Form_GetDBType(DataBaseType, xnav);
-            xnav.ShowDialog();
-            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
-            {
-                switch (((Form_GetDBType)xnav.ChildDialog).m_DBType)
-                {
-                    case DBConnection.eDBType.SQLITE:
-                        DataBaseType = "SQLITE";
-                        break;
-                    case DBConnection.eDBType.MSSQL:
-                        DataBaseType = "MSSQL";
-                        break;
-                    case DBConnection.eDBType.MYSQL:
-                        DataBaseType = "MYSQL";
-                        break;
-                }
-                return ((Form_GetDBType)xnav.ChildDialog).m_DBType;
-            }
-            else
-            {
-                bCanceled = true;
-                return m_DBType;
-            }
-        }
 
         public static string DataBase
         {

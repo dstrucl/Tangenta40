@@ -426,65 +426,46 @@ namespace TangentaSampleDB
         }
 
 
-        internal bool MyOrgSampleShowDialog(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        internal bool MyOrgSampleShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
-            start:
-            if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
+            Form_EditMyOrgSampleData fedt = new Form_EditMyOrgSampleData(this, xnav, oIcon);
+            xnav.ChildDialog = fedt;
+            xnav.ShowForm();
+            return true;
+        }
+
+        internal bool Evaluate_MyOrgSampleShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        {
+            return true;
+        }
+
+        internal bool Form_Select_Country_ISO_3166_ShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        {
+
+            Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
+            string DefaultCountry = null;
+            if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
             {
-                Form_EditMyOrgSampleData fedt = new Form_EditMyOrgSampleData(this, xnav, oIcon);
-                xnav.ChildDialog = fedt;
-                xnav.ShowDialog();
-                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
-                {
-                    return true;
-                }
-                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                {
-                    goto start;
-                }
+                DefaultCountry = "Slovenija";
+            }
+            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lng.s_SelectCountryWhereYouPayTaxes.s, xnav);
+            xnav.ChildDialog = frmsel_country;
+            xnav.ShowForm();
+            return true;
+        }
+
+        internal bool Evaluate_Form_Select_Country_ISO_3116_result(NavigationButtons.Navigation xnav, ref bool b)
+        {
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+            {
+                myOrgSample.SetCountry(((Country_ISO_3166.Form_Select_Country_ISO_3166)xnav.ChildDialog));
+                return true;
             }
             else
             {
-                Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
-                string DefaultCountry = null;
-                if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
-                {
-                    DefaultCountry = "Slovenija";
-                }
-select_country:
-                Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lng.s_SelectCountryWhereYouPayTaxes.s, xnav);
-                xnav.ChildDialog = frmsel_country;
-                xnav.ShowDialog();
-                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                {
-                    bCanceled = true;
-                    return false;
-                }
-                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                {
-                    bCanceled = true;
-                    return true;
-                }
-                else if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)||(xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
-                {
-                    myOrgSample.SetCountry(frmsel_country);
-                    Form_EditMyOrgSampleData fedt = new Form_EditMyOrgSampleData(this, xnav, oIcon);
-                    xnav.ChildDialog = fedt;
-                    xnav.ShowDialog();
-                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    {
-                        fedt.Dispose();
-                        goto select_country;
-                    }
-                    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
-                    {
-                        return true;
-                    }
-
-                }
+                return false;
             }
-            bCanceled = true;
-            return false;
+
         }
 
 

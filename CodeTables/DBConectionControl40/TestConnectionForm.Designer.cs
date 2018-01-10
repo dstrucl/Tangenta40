@@ -47,7 +47,7 @@
             // 
             // progressBar_Connection
             // 
-            this.progressBar_Connection.Location = new System.Drawing.Point(11, 180);
+            this.progressBar_Connection.Location = new System.Drawing.Point(17, 216);
             this.progressBar_Connection.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar_Connection.Name = "progressBar_Connection";
             this.progressBar_Connection.Size = new System.Drawing.Size(773, 21);
@@ -178,7 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(788, 217);
+            this.ClientSize = new System.Drawing.Size(788, 245);
             this.Controls.Add(this.btn_ChangeConnection);
             this.Controls.Add(this.lbl_ERROR);
             this.Controls.Add(this.btn_OK);

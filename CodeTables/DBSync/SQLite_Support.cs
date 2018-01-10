@@ -37,6 +37,41 @@ namespace DBSync
             return false;
         }
 
+        public bool Check_DataBaseConnection(bool bReset, string inifile_prefix, string DataBaseName, ref bool bNewDataBaseCreated, ref bool bCanceled)
+        {
+            if (DBSync.LocalDB_data_SQLite == null)
+            {
+                DBSync.LocalDB_data_SQLite = new LocalDB_data(bReset, inifile_prefix, 1, DataBaseName, false);
+            }
+            string Err = null;
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled))
+            {
+                
+                if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                {
+                    LogFile.Error.Show(Err);
+                }
+                return true;
+            }
+            else
+            {
+                if (bCanceled)
+                {
+                    Err = null;
+                }
+                else
+                {
+                    Err = lng.s_ConnectionToLocalDatabaseFailed.s;
+                }
+                return false;
+            }
+        }
+
+        public bool Evaluate_Connection(NavigationButtons.Navigation nav,ref bool bNewDataBaseCreated, ref bool bCanceled)
+        {
+            return DBSync.DB_for_Tangenta.m_DBTables.Evaluate_DataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled);
+        }
+
         public bool Get(bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
 

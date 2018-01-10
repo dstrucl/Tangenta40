@@ -16,21 +16,24 @@ namespace Startup
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
         public enum eStep : int {
-                                  Do_TangentaAbout,
-                                  Do_TangentaLicence,
-                                  Check_DataBase,
-                                  Read_DBSettings_Version,
-                                  CheckDBVersion,
-                                  GetOrganisationData,
-                                  GetBaseCurrency,
-                                  GetTaxation,
-                                  Get_ProgramSettings,
-                                  SetShopsPricelists,
-                                  GetSimpleItemData,
-                                  GetItemData,
-                                  GetPrinter,
-                                  GetWorkPeriod,
-                                  NoStep //NoStep must be at the end !
+                                Check_00_TangentaAbout,
+                                Check_01_TangentaLicence,
+                                Check_02_DataBaseType,
+                                Check_03_DBConnection,
+                                Check_04_DBSettings,
+                                Check_05_DBVersion,
+                                Check_06_Country_ISO_3166,
+                                Check_07_InsertSampleData,
+                                Check_08_GetOrganisationData,
+                                GetBaseCurrency,
+                                GetTaxation,
+                                Get_ProgramSettings,
+                                SetShopsPricelists,
+                                GetSimpleItemData,
+                                GetItemData,
+                                GetPrinter,
+                                GetWorkPeriod,
+                                NoStep //NoStep must be at the end !
                                 };
 
         public Startup_check_proc_Result ResultOf_check_procedure = Startup_check_proc_Result.CHECK_NONE;

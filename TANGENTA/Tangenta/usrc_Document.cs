@@ -656,18 +656,18 @@ namespace Tangenta
                     bResult = CheckDataBaseVersion(myStartup, ref Err);
                     if (bResult)
                     {
-                        if (Program.bFirstTimeInstallation)
-                        {
-                            if (fs.GetTableRowsCount("myOrganisation_Person") == 0)
-                            {
-                                //DataBase Is Empty!
-                                bResult = InsertSampleData(myStartup, xnav, ref Err);
-                                if (xnav.eExitResult == Navigation.eEvent.PREV)
-                                {
-                                    goto do_Form_DBSettings;
-                                }
-                            }
-                        }
+                        //if (Program.bFirstTimeInstallation)
+                        //{
+                        //    if (fs.GetTableRowsCount("myOrganisation_Person") == 0)
+                        //    {
+                        //        //DataBase Is Empty!
+                        //        bResult = InsertSampleData(myStartup, xnav, ref Err);
+                        //        if (xnav.eExitResult == Navigation.eEvent.PREV)
+                        //        {
+                        //            goto do_Form_DBSettings;
+                        //        }
+                        //    }
+                        //}
                     }
                     return bResult;
 
@@ -676,38 +676,8 @@ namespace Tangenta
                 do_Form_DBSettings:
 
                     xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword);
-                    xnav.ShowDialog();
+                    xnav.ShowForm();
 
-                    Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
-                    Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
-                    Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
-                    Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)xnav.ChildDialog).ShopC_ExclusivelySellFromStock;
-                    Program.OperationMode.MultiCurrency = ((Form_DBSettings)xnav.ChildDialog).MultiCurrencyOperation;
-
-                    switch (xnav.eExitResult)
-                    {
-                        case Navigation.eEvent.NEXT:
-                            bResult = InsertSampleData(myStartup, xnav, ref Err);
-                            if (xnav.eExitResult == Navigation.eEvent.PREV)
-                            {
-                                if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_CheckInsertSampleData"))
-                                {
-                                    goto do_Form_DBSettings;
-                                }
-                            }
-                            return bResult;
-
-                        case Navigation.eEvent.PREV:
-                            //myStartup.eNextStep = startup_step.eStep.Check_DataBase;
-                            return true;
-
-                        case Navigation.eEvent.EXIT:
-                            //myStartup.eNextStep = startup_step.eStep.Cancel;
-                            return false;
-                    }
-
-
-                    bResult = InsertSampleData(myStartup, xnav, ref Err);
                     return bResult;
 
                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
@@ -733,8 +703,19 @@ namespace Tangenta
 
             }
         }
+        internal bool Evaluate_CheckDBVersion(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        {
+            Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
+            Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
+            Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
+            Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)xnav.ChildDialog).ShopC_ExclusivelySellFromStock;
+            Program.OperationMode.MultiCurrency = ((Form_DBSettings)xnav.ChildDialog).MultiCurrencyOperation;
+            
+            bool bResult = InsertSampleData(myStartup, xnav, ref Err);
+            return true;
+        }
 
-    private bool getWorkPeriod(long myOrganisation_Person_ID, ref long xAtom_WorkPeriod_ID)
+        private bool getWorkPeriod(long myOrganisation_Person_ID, ref long xAtom_WorkPeriod_ID)
     {
             string Err = null;
             if(GlobalData.GetWorkPeriod(myOrganisation_Person_ID,f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
