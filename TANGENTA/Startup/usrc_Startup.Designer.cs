@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.lbl_StartUp = new System.Windows.Forms.Label();
             this.usrc_web_Help1 = new usrc_Help.usrc_web_Help();
-            this.timer_Startup = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lbl_StartUp
@@ -58,10 +57,6 @@
             this.usrc_web_Help1.Size = new System.Drawing.Size(474, 629);
             this.usrc_web_Help1.TabIndex = 1;
             // 
-            // timer_Startup
-            // 
-            this.timer_Startup.Tick += new System.EventHandler(this.timer_Startup_Tick);
-            // 
             // usrc_Startup
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -80,6 +75,5 @@
 
         private System.Windows.Forms.Label lbl_StartUp;
         public usrc_Help.usrc_web_Help usrc_web_Help1;
-        public System.Windows.Forms.Timer timer_Startup;
     }
 }

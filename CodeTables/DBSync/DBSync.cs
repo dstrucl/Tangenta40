@@ -203,8 +203,7 @@ namespace DBSync
         public static bool Show_Get_DBTypeForm(ref string DataBaseType, NavigationButtons.Navigation xnav)
         {
             xnav.ChildDialog = new Form_GetDBType(DataBaseType, xnav);
-            xnav.ChildDialog.Owner = xnav.OwnerForm;
-            xnav.ChildDialog.Show();
+            xnav.ShowForm();
             return true;
         }
 

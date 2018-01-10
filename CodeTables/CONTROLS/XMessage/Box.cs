@@ -16,64 +16,35 @@ namespace XMessage
 {
     public static class Box
     {
-        private static void checkTopMost(IWin32Window owner, Form dlg)
-        {
-            if (owner is Form)
-            {
-                if (((Form)owner).TopMost)
-                {
-                    dlg.TopMost = true;
-                }
-            }
-        }
-
-        public static DialogResult Show(IWin32Window owner,bool bStartup,ltext xltext)
+      
+        public static DialogResult Show(Control owner,bool bStartup,ltext xltext)
         {
             Form_Box dlg = new Form_Box(owner,xltext);
-            if (bStartup)
-            {
-                dlg.TopMost = true;
-            }
-            else
-            {
-                checkTopMost(owner, dlg);
-            }
             return dlg.ShowDialog();
         }
 
-        public static DialogResult Show(bool bStartup,IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        public static DialogResult Show(bool bStartup,Control xOwner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        {
+            Form_Box dlg = new Form_Box(xOwner, xltext, caption, buttons, oIcon, defaultButton);
+            return dlg.ShowDialog();
+        }
+
+        public static DialogResult Show(Control owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
-            if (bStartup)
-            {
-                dlg.TopMost = true;
-            }
-            else
-            {
-                checkTopMost(owner, dlg);
-            }
             return dlg.ShowDialog();
         }
 
-        public static DialogResult Show(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
-        {
-            Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
-            checkTopMost(owner, dlg);
-            return dlg.ShowDialog();
-        }
-
-        public static DialogResult Show(IWin32Window owner, ltext xltext,string stext, string caption, MessageBoxButtons buttons, object icon, MessageBoxDefaultButton defaultButton)
+        public static DialogResult Show(Control owner, ltext xltext,string stext, string caption, MessageBoxButtons buttons, object icon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, stext, caption, buttons, icon, defaultButton);
-            checkTopMost(owner, dlg);
             return dlg.ShowDialog();
         }
 
 
-        public static DialogResult ShowTopMost(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        public static DialogResult ShowTopMost(Control owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
-            dlg.TopMost = true;
             return dlg.ShowDialog();
         }
 

@@ -20,7 +20,6 @@ namespace XMessage
 {
     public partial class Form_Box : Form
     {
-        private IWin32Window owner;
         private string text;
         private string caption;
         private MessageBoxButtons m_buttons;
@@ -49,11 +48,15 @@ namespace XMessage
             return null;
 
         }
-        public Form_Box(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(Control owner, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            this.owner = owner;
+            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            if (xOwner != null)
+            {
+                this.Owner = xOwner;
+            }
             this.text = text;
             this.caption = caption;
             this.m_buttons = buttons;
@@ -145,11 +148,15 @@ namespace XMessage
 
         }
 
-        public Form_Box(IWin32Window owner, ltext xltext)
+        public Form_Box(Control owner, ltext xltext)
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            this.owner = owner;
+            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            if (xOwner != null)
+            {
+                this.Owner = xOwner;
+            }
             this.caption = "";
             this.Text = "";
             xltext.Text(textBox1);
@@ -163,11 +170,15 @@ namespace XMessage
         }
 
 
-        public Form_Box(IWin32Window owner, ltext xltext, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(Control owner, ltext xltext, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            this.owner = owner;
+            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            if (xOwner != null)
+            {
+                this.Owner = xOwner;
+            }
             this.caption = caption;
             this.m_buttons = buttons;
             if (oIcon is MessageBoxIcon)
@@ -258,11 +269,15 @@ namespace XMessage
             }
         }
 
-        public Form_Box(IWin32Window owner, ltext xltext, ltext lcaption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(Control owner, ltext xltext, ltext lcaption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            this.owner = owner;
+            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            if (xOwner != null)
+            {
+                this.Owner = xOwner;
+            }
             this.m_buttons = buttons;
             if (oIcon is MessageBoxIcon)
             {
@@ -355,11 +370,15 @@ namespace XMessage
             }
         }
 
-        public Form_Box(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(Control owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            this.owner = owner;
+            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            if (xOwner != null)
+            {
+                this.Owner = xOwner;
+            }
             this.m_buttons = buttons;
             if (oIcon is MessageBoxIcon)
             {

@@ -1037,7 +1037,7 @@ namespace Tangenta
             DataTable dt = new DataTable();
             if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_ShopsInUse"))
             {
-                myStartup.eNextStep--;
+                //                myStartup.eNextStep--;
                 return true;
             }
             else
@@ -1046,7 +1046,7 @@ namespace Tangenta
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        myStartup.eNextStep++;
+//                        myStartup.eNextStep++;
                         return true;
                     }
                     else
@@ -1058,7 +1058,7 @@ namespace Tangenta
                 {
                     Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
                     LogFile.Error.Show(Err);
-                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                     return false;
                 }
             }
@@ -1073,12 +1073,12 @@ namespace Tangenta
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        myStartup.eNextStep++;
+                        //                        myStartup.eNextStep++;
                         return true;
                     }
                 }
             }
-            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
             return false;
         }
 
@@ -1163,17 +1163,17 @@ namespace Tangenta
                 {
                     if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopB_Items(xnav))
                     {
-                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                         return false;
                     }
                     else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                     {
-                        myStartup.eNextStep--;
+                        //myStartup.eNextStep--;
                         return true;
                     }
                     else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                     {
-                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                         return true;
                     }
                 }
@@ -1187,12 +1187,12 @@ namespace Tangenta
 
             if (GetSimpleItemData(ref iCountSimpleItemData, xnav))
             {
-                myStartup.eNextStep++;
+                //myStartup.eNextStep++;
                 return true;
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -1273,7 +1273,7 @@ namespace Tangenta
                 {
                     if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items(xnav))
                     {
-                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                         return false;
                     }
                 }
@@ -1288,29 +1288,29 @@ namespace Tangenta
             {
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
                 {
-                    myStartup.eNextStep++;
+                    //myStartup.eNextStep++;
                     return true;
                 }
                 else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                 {
-                    myStartup.eNextStep--;
+                    //myStartup.eNextStep--;
                     return true;
                 }
                 else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                 {
-                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                     return true;
                 }
                 else
                 {
                     LogFile.Error.Show("Error:usrc_Invoice.cs:Get_ShopC_ItemData(..) xnav.eExitResult not implemented!");
-                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                     return false;
                 }
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -1373,12 +1373,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1388,7 +1388,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1402,12 +1402,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1417,7 +1417,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1432,12 +1432,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1447,7 +1447,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1462,12 +1462,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1477,7 +1477,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1492,12 +1492,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1507,7 +1507,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1521,12 +1521,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1536,7 +1536,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1551,12 +1551,12 @@ do_EditMyOrganisation_Data:
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
-                                myStartup.eNextStep--;
+                                //myStartup.eNextStep--;
                                 return true;
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1566,7 +1566,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1589,7 +1589,7 @@ do_EditMyOrganisation_Data:
                             }
                             else
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                         }
@@ -1628,7 +1628,7 @@ do_EditMyOrganisation_Data:
                                     }
                                     else
                                     {
-                                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                         return false;
                                     }
                                 }
@@ -1651,7 +1651,7 @@ do_EditMyOrganisation_Data:
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1661,7 +1661,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1682,7 +1682,7 @@ do_EditMyOrganisation_Data:
                             }
                             else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                             else
@@ -1692,7 +1692,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1725,7 +1725,7 @@ do_EditMyOrganisation_Data:
                         + "\r\nEmail:" + sEmail
                         + "\r\nDomača stran:" + sHomePage;
                      Fill_MyOrganisation_Person();
-                    myStartup.eNextStep++;
+                    //myStartup.eNextStep++;
                     return true;
                 }
             }
@@ -1825,21 +1825,21 @@ do_EditMyOrganisation_Data:
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                 {
                     myStartup.sbd.DeleteAll();
-                    myStartup.eNextStep = startup_step.eStep.CheckDBVersion;
+                    //myStartup.eNextStep = startup_step.eStep.CheckDBVersion;
                 }
                 else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
                 {
-                    myStartup.eNextStep++;
+                    //myStartup.eNextStep++;
                 }
                 else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                 {
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                 }
                 return true;
             }
             else
             {
-                myStartup.eNextStep = startup_step.eStep.Cancel;
+                //myStartup.eNextStep = startup_step.eStep.Cancel;
                 return false;
             }
 
@@ -1859,7 +1859,6 @@ do_EditMyOrganisation_Data:
                     if (BaseCurrency_Text != null)
                     {
                         usrc_Currency1.Init(GlobalData.BaseCurrency);
-                        myStartup.eNextStep++;
                         return true;
                     }
                     else
@@ -1867,7 +1866,6 @@ do_EditMyOrganisation_Data:
                         return DoSelectBaseCurrency(myStartup, xnav, ref Err);
                     }
                 }
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }

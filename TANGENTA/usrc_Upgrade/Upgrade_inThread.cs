@@ -329,7 +329,6 @@ namespace UpgradeDB
             bool bCanceled = false;
             fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
             myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
-            myStartup.eNextStep++;
             return true;
         }
     }  

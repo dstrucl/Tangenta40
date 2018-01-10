@@ -12,13 +12,20 @@ namespace Startup
 {
     public partial class usrc_Startup : UserControl
     {
-        public event usrc_startup_step.delegate_StartupFormClosed StartupFormClosed=null;
+        public delegate void delegate_ExitProgram();
+        public event delegate_ExitProgram ExitProgram = null;
+
+        public event usrc_startup_step.delegate_StartupFormClosing StartupFormClosed=null;
 
         int xusrc_startup_step_Width = 0;
 
         public startup m_startup = null;
         
         public const int Y_DIST = 10;
+
+        private bool m_Exit = false;
+
+        public bool Exit { get { return m_Exit; } }
 
         public usrc_Startup(startup xstartup)
         {
@@ -28,7 +35,6 @@ namespace Startup
             Visible = true;
             Dock = DockStyle.Fill;
             m_startup.m_parent_form.Controls.Add(this);
-            
         }
 
         public void Init()
@@ -44,22 +50,58 @@ namespace Startup
                 {
                     xusrc_startup_step_Width = xusrc_startup_step.Width;
                 }
-                xusrc_startup_step.StartupFormClosed += Xusrc_startup_step_StartupFormClosed;
+                xusrc_startup_step.StartupFormClosing += Xusrc_startup_step_StartupFormClosing;
                 this.Controls.Add(xusrc_startup_step);
             }
         }
 
-        private void Xusrc_startup_step_StartupFormClosed(object sender)
+        private void Xusrc_startup_step_StartupFormClosing(object sender)
         {
-            if (StartupFormClosed!=null)
+            if (sender is usrc_startup_step)
             {
-                StartupFormClosed(sender);
-            }
-        }
+                usrc_startup_step xusrc_startup_step = (usrc_startup_step)sender;
+                switch (xusrc_startup_step.startup_step.nav.eExitResult)
+                {
+                    case NavigationButtons.Navigation.eEvent.NEXT:
+                       this.m_startup.StartNextStepExecution();
+                        break;
 
-        private void timer_Startup_Tick(object sender, EventArgs e)
-        {
-          
+                    case NavigationButtons.Navigation.eEvent.PREV:
+                        this.m_startup.CurrentStepExecutionSetUndefined();
+                        if (this.m_startup.StartPrevStepExecution())
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (ExitProgram != null)
+                            {
+                                ExitProgram();
+                            }
+                        }
+                        break;
+
+                    case NavigationButtons.Navigation.eEvent.NOTHING:
+                        if (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK)
+                        {
+                            this.m_startup.StartNextStepExecution();
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR:Startup:usrc_Startup:Xusrc_startup_step_StartupFormClosing:  case NavigationButtons.Navigation.eEvent.NOTHING: and (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK == false not implemented!");
+                        }
+                        break;
+
+                    case NavigationButtons.Navigation.eEvent.EXIT:
+                        if (ExitProgram!=null)
+                        {
+                            m_Exit = true;
+                            ExitProgram();
+                        }
+                        break;
+                    
+                }
+            }
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

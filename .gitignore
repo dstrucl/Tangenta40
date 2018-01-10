@@ -278,3 +278,4 @@ Startup.dll
 /TANGENTA/TangentaSampleDB/IniFile.dll
 /TANGENTA/TangentaSampleDB/LanguageControl.dll
 UnitTests
+.vs

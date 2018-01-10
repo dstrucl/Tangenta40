@@ -57,13 +57,13 @@ namespace Tangenta
                                 switch (xnav.eExitResult)
                                 {
                                     case NavigationButtons.Navigation.eEvent.NEXT:
-                                        myStartup.eNextStep++;
+                                        //myStartup.eNextStep++;
                                         return true;
                                     case NavigationButtons.Navigation.eEvent.PREV:
                                         goto do_Get_ProgramSettings;
 
                                     case NavigationButtons.Navigation.eEvent.EXIT:
-                                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                         return true;
 
 
@@ -72,16 +72,16 @@ namespace Tangenta
                             break;
 
                         case NavigationButtons.Navigation.eEvent.PREV:
-                            myStartup.eNextStep--;
+                            //myStartup.eNextStep--;
                             return true;
                         case NavigationButtons.Navigation.eEvent.EXIT:
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return true;
                     }
                 }
                 else
                 {
-                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 }
                 return true;
             }
@@ -215,7 +215,7 @@ namespace Tangenta
 
                 if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL))
                 {
-                    myStartup.eNextStep++;
+                    //myStartup.eNextStep++;
                     return true;
                 }
                 else
@@ -224,17 +224,17 @@ namespace Tangenta
                     {
                         if (xnav.eExitResult == Navigation.eEvent.NEXT)
                         {
-                            myStartup.eNextStep++;
+                            //myStartup.eNextStep++;
                             return true;
                         }
                         else if (xnav.eExitResult == Navigation.eEvent.PREV)
                         {
-                            myStartup.eNextStep--;
+                            //myStartup.eNextStep--;
                             return true;
                         }
                         else if (xnav.eExitResult == Navigation.eEvent.CANCEL)
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -243,7 +243,7 @@ namespace Tangenta
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -265,24 +265,24 @@ namespace Tangenta
                         m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
                         if (xnav.eExitResult == Navigation.eEvent.NEXT)
                         {
-                            myStartup.eNextStep++;
+                            //myStartup.eNextStep++;
                             return true;
                         }
                         else if (xnav.eExitResult == Navigation.eEvent.PREV)
                         {
-                            myStartup.eNextStep--;
+                            //myStartup.eNextStep--;
                             return true;
                         }
                         else if (xnav.eExitResult == Navigation.eEvent.EXIT)
                         {
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                             return true;
                         }
                     }
                 }
             }
 
-            myStartup.eNextStep++;
+            //myStartup.eNextStep++;
             return true;
         }
 
@@ -394,12 +394,12 @@ namespace Tangenta
                                                         case fs.enum_GetDBSettings.No_Data_Rows:
                                                             if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name))
                                                             {
-                                                                myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                                //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                                 return false;
                                                             }
                                                             break;
                                                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                             return false;
                                                     }
                                                     break;
@@ -408,12 +408,12 @@ namespace Tangenta
                                                 case fs.enum_GetDBSettings.No_Data_Rows:
                                                     if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name))
                                                     {
-                                                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                         return false;
                                                     }
                                                     break;
                                                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                     return false;
                                             }
                                             break;
@@ -423,7 +423,7 @@ namespace Tangenta
                                         case fs.enum_GetDBSettings.No_Data_Rows:
                                             if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
                                             {
-                                                myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                 return false;
                                             }
                                             sShopC_ExclusivelySellFromStock = null;
@@ -437,17 +437,17 @@ namespace Tangenta
                                                 case fs.enum_GetDBSettings.No_Data_Rows:
                                                     if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name))
                                                     {
-                                                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                         return false;
                                                     }
                                                     break;
                                                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                     return false;
                                             }
                                             break;
                                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                                             return false;
                                     }
                                     break;
@@ -457,12 +457,12 @@ namespace Tangenta
                                 case fs.enum_GetDBSettings.No_Data_Rows:
                                     if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
                                     {
-                                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                                         return false;
                                     }
                                     break;
                                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                                     return false;
                             }
                             break;
@@ -473,12 +473,12 @@ namespace Tangenta
                         case fs.enum_GetDBSettings.No_Data_Rows:
                             if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
                             {
-                                myStartup.eNextStep = startup_step.eStep.Cancel;
+                                //myStartup.eNextStep = startup_step.eStep.Cancel;
                                 return false;
                             }
                             break;
                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                             return false;
                     }
                     break;
@@ -487,15 +487,15 @@ namespace Tangenta
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
                     {
-                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                         return false;
                     }
                     break;
                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
             }
-            myStartup.eNextStep++;
+            //myStartup.eNextStep++;
             return GlobalData.Type_definitions_Read();
 
         }
@@ -516,7 +516,7 @@ namespace Tangenta
                 else
                 {
                     Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n" + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
                 }
             }
@@ -564,13 +564,13 @@ namespace Tangenta
                 myStartup.bInsertSampleData = CheckInsertSampleData(myStartup, xnav);
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                 {
-                    myStartup.eNextStep = startup_step.eStep.Check_DataBase; //go back
+                    //myStartup.eNextStep = startup_step.eStep.Check_DataBase; //go back
                     return true;
                 }
                 else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                 {
                     myStartup.bCanceled = true;
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
                 }
             }
@@ -587,7 +587,7 @@ namespace Tangenta
                             goto do_CheckInsertSampleData;
                         }
                         myStartup.sbd.DeleteAll();
-                        myStartup.eNextStep--; //go back 
+                        //myStartup.eNextStep--; //go back 
                         return true;
                     }
                     if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -597,11 +597,11 @@ namespace Tangenta
                     }
                     if (bCanceled)
                     {
-                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                     }
                     else
                     {
-                        myStartup.eNextStep = startup_step.eStep.GetOrganisationData;
+                        //myStartup.eNextStep = startup_step.eStep.GetOrganisationData;
                         return GlobalData.Type_definitions_Read();
                     }
                     return true;
@@ -611,13 +611,13 @@ namespace Tangenta
                     myStartup.bCanceled = bCanceled;
                     if (bCanceled)
                     {
-                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                         return false;
                     }
                     else
                     {
                         LogFile.Error.Show(Err);
-                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                         return false;
                     }
                 }
@@ -628,19 +628,19 @@ namespace Tangenta
                 {
                     if (GlobalData.Type_definitions_Read())
                     {
-                        myStartup.eNextStep++;
+                        //myStartup.eNextStep++;
                         return true;
                     }
                     else
                     {
-                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        //myStartup.eNextStep = startup_step.eStep.Cancel;
                         return false;
                     }
                 }
                 else
                 {
                     LogFile.Error.Show(Err);
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
                 }
             }
@@ -698,11 +698,11 @@ namespace Tangenta
                             return bResult;
 
                         case Navigation.eEvent.PREV:
-                            myStartup.eNextStep = startup_step.eStep.Check_DataBase;
+                            //myStartup.eNextStep = startup_step.eStep.Check_DataBase;
                             return true;
 
                         case Navigation.eEvent.EXIT:
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                             return false;
                     }
 
@@ -712,23 +712,23 @@ namespace Tangenta
 
                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
                     LogFile.Error.Show(Err);
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
 
                 case fs.enum_GetDBSettings.No_TextValue:
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
 
                 case fs.enum_GetDBSettings.No_ReadOnly:
                     Err = "ERROR enum_GetDBSettings return No_ReadOnly!";
                     LogFile.Error.Show(Err);
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
 
                 default:
                     Err = "ERROR enum_GetDBSettings not handled!";
                     LogFile.Error.Show(Err);
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
 
             }
@@ -776,13 +776,13 @@ namespace Tangenta
 
             if (this.loginControl1.Login(xnav, getWorkPeriod))
             {
-                myStartup.eNextStep++;
-                return true;
+                    //myStartup.eNextStep++;
+                    return true;
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
+                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    return false;
             }
         }
         else // Single user
@@ -795,14 +795,14 @@ namespace Tangenta
                 {
                     if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
                     {
-                        myStartup.eNextStep++;
-                        return true;
+                            //myStartup.eNextStep++;
+                            return true;
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                        return false;
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return false;
                     }
                 }
                 else
@@ -813,34 +813,34 @@ namespace Tangenta
                         {
                             if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
                             {
-                                myStartup.eNextStep++;
-                                return true;
+                                    //myStartup.eNextStep++;
+                                    return true;
                             }
                             else
                             {
                                 LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
+                                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                    return false;
                             }
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
                         }
                     }
                     else
                     {
                         if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
                         {
-                            myStartup.eNextStep++;
-                            return true;
+                                //myStartup.eNextStep++;
+                                return true;
                         }
                         else
                         {
                             LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
                         }
                     }
                 }

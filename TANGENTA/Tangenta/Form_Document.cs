@@ -86,6 +86,11 @@ namespace Tangenta
                     this.Close();
                     this.DialogResult = DialogResult.Cancel;
                     return Startup_onformresult_proc_Result.EXIT;
+
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
+
                 default:
                     LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaAbout  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
                     return Startup_onformresult_proc_Result.ERROR;
@@ -100,7 +105,7 @@ namespace Tangenta
             switch (xnav.eExitResult)
             {
                 case NavigationButtons.Navigation.eEvent.NEXT:
-                    Properties.Settings.Default.Startup_TangentaAbout_Showed = true;
+                    Properties.Settings.Default.Startup_TangentaLicence_Showed = true;
                     Properties.Settings.Default.Save();
                     return Startup_onformresult_proc_Result.NEXT;
 
@@ -111,6 +116,11 @@ namespace Tangenta
                     this.Close();
                     this.DialogResult = DialogResult.Cancel;
                     return Startup_onformresult_proc_Result.EXIT;
+
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
+
                 default:
                     LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaLicence  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
                     return Startup_onformresult_proc_Result.ERROR;
@@ -233,7 +243,7 @@ namespace Tangenta
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
 
-            Program.nav = new NavigationButtons.Navigation(StartupOwnedDialogClosed);
+            Program.nav = new NavigationButtons.Navigation();
             if (Program.Auto_NEXT)
             {
                 Program.nav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(Program.Auto_NEXT_in_miliseconds);
@@ -306,7 +316,7 @@ namespace Tangenta
             {
 
                 // TANGENTA_About
-                new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Check_TangentaAboutShown,m_startup.Do_showform_TangentaAbout,onformresult_TangentaLicence,startup_step.eStep.Do_TangentaAbout),
+                new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Check_TangentaAboutShown,m_startup.Do_showform_TangentaAbout,onformresult_TangentaAbout,startup_step.eStep.Do_TangentaAbout),
 
                 // TANGENTA_Licence
                 new startup_step(lng.s_Licence_checked.s, m_startup, Program.nav, Check_TangentaLicenceShown, m_startup.Do_showform_TangentaLicence,onformresult_TangentaLicence, startup_step.eStep.Do_TangentaLicence),
@@ -339,6 +349,7 @@ namespace Tangenta
             };
 
             m_startup.Steps = StartupStep;
+            m_startup.m_usrc_Startup.ExitProgram += M_usrc_Startup_ExitProgram;
             //this.usr
             //int iStep = 0;
             //int iCountStep1 = m_startup.Step.Count();
@@ -357,73 +368,14 @@ namespace Tangenta
             Program.nav.oStartup = m_startup;
         }
 
-
-        public void StartupOwnedDialogClosed(Form ChildDialog)
+        private void M_usrc_Startup_ExitProgram()
         {
-            if (ChildDialog!=null)
-            {
-                if (ChildDialog is DBSync.Form_GetDBType)
-                {
-                    DBConnection.eDBType xm_DBType = ((DBSync.Form_GetDBType)ChildDialog).m_DBType;
-
-                }
-            }
-
-            switch (m_startup.EvaulateStep(Program.nav))
-            {
-
-                case startup.EvaulateStep_RESULT.EXIT:
-                    this.Close();
-                    DialogResult = DialogResult.Cancel;
-                    break;
-
-                case startup.EvaulateStep_RESULT.START_GO_PREV:
-                    this.Close();
-                    DialogResult = DialogResult.Cancel;
-                    break;
-
-                case startup.EvaulateStep_RESULT.FINISHED_GO_NEXT:
-                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
-
-                    Program.bFirstTimeInstallation = false;
-                    m_usrc_Main.Init(null);
-
-                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Init(null)!");
-
-                    CheckOrganisationDataChange();
-
-                    m_startup.RemoveControl();
-
-                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
-
-                    m_usrc_Main.Visible = true;
-                    m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
-
-                    LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
-
-                    break;
-
-            }
+            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
 
-        public void OnCheckDataBaseResult(startup myStartup,ref bool bResult, string sDBType)
-        {
-            if (bResult)
-            { 
-                TangentaDB.GlobalData.Init();
-                Properties.Settings.Default.DBType = sDBType;
-                Properties.Settings.Default.Save();
-                string err = null;
-                if (!DBSync.DBSync.DB_for_Tangenta_SessionConnect(ref err))
-                {
-                    bResult = false;
-                }
-                else
-                {
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
-                }
-            }
-        }
+
+      
 
 
         private void Main_Form_Load(object sender, EventArgs e)
@@ -667,7 +619,7 @@ namespace Tangenta
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (((int)this.m_startup.eStep) < 0 )
+            if (this.m_startup.Exit )
             {
                 Exit();
                 e.Cancel = false;

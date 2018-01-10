@@ -11,7 +11,7 @@ namespace Startup
     public class startup_step
     {
         public enum Startup_check_proc_Result {CHECK_NONE,CHECK_OK,WAIT_USER_INTERACTION, CHECK_ERROR};
-        public enum Startup_onformresult_proc_Result {EXIT,NEXT,PREV,ERROR };
+        public enum Startup_onformresult_proc_Result {EXIT,NEXT,PREV,NO_FORM_BUT_CHECK_OK,ERROR };
 
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
@@ -30,9 +30,7 @@ namespace Startup
                                   GetItemData,
                                   GetPrinter,
                                   GetWorkPeriod,
-                                  End,
-                                  Cancel,
-                                  NoStep
+                                  NoStep //NoStep must be at the end !
                                 };
 
         public Startup_check_proc_Result ResultOf_check_procedure = Startup_check_proc_Result.CHECK_NONE;
@@ -88,6 +86,11 @@ namespace Startup
             Step = xStep;
         }
 
+        internal void Remove_DialogClosingNotifier_SomethingReady()
+        {
+            m_usrc_startup_step.Remove_DialogClosingNotifier_SomethingReady();
+        }
+
         internal void StartExecution()
         {
             m_usrc_startup_step.DoStartup_check_proc_Result();
@@ -98,7 +101,7 @@ namespace Startup
             m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
         }
 
-        internal void SetNotDone()
+        public void SetUndefined()
         {
             m_usrc_startup_step.check1.State = Check.check.eState.UNDEFINED;
         }

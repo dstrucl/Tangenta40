@@ -68,6 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SomethingReadyNotifier.cs" />
     <Compile Include="usrc_NavigationButtons.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -24,7 +24,6 @@ namespace Startup
 
         public startup_step.eStep eStep = startup_step.eStep.NoStep;
 
-        public startup_step.eStep eNextStep = startup_step.eStep.NoStep;
         public bool bNewDatabaseCreated = false;
         public bool bInsertSampleData = false;
         public bool bUpgradeDone = false;
@@ -59,6 +58,9 @@ namespace Startup
             set { m_bCancel = value; }
         }
 
+        public bool Exit { get { return ((((int)eStep) < 0) || m_usrc_Startup.Exit); } }
+
+
         public startup(Form parent_form, NavigationButtons.Navigation xnav, Icon xFormIconQuestion,bool xbFirstTimeInstallation)
         {
             sbd = new SampleDB();
@@ -81,6 +83,7 @@ namespace Startup
             return true; //
         }
 
+
         public bool Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             xnav.ShowHelp("Tangenta.Tangenta_about");
@@ -89,10 +92,59 @@ namespace Startup
             return true;
         }
 
+        internal void CurrentStepExecutionSetUndefined()
+        {
+            m_Step[(int)eStep].SetUndefined();
+        }
+
         public void StartExecution()
         {
 
              m_Step[0].StartExecution();
+        }
+
+        internal bool StartNextStepExecution()
+        {
+            if (((int)eStep) < m_Step.Length)
+            {
+                m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
+                eStep++;
+                m_Step[(int)eStep].StartExecution();
+                return true;
+            }
+            else
+            {
+                // all steps done
+                return false;
+            }
+        }
+
+        internal bool StartPrevStepExecution()
+        {
+            if (((int)eStep) > 0)
+            {
+                m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
+                eStep--;
+                m_Step[(int)eStep].StartExecution();
+                return true;
+            }
+            else
+            {
+                m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
+                // all steps in PREV direction done
+                return false;
+            }
+        }
+
+        internal bool StartCurrentStepExecution_checkprocedure()
+        {
+            switch (m_Step[(int)eStep].m_usrc_startup_step.DoStartup_check_proc_Result())
+            {
+                case startup_step.Startup_check_proc_Result.CHECK_OK:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public void RemoveControl()
