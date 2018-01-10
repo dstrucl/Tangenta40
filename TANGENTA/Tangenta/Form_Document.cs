@@ -647,16 +647,6 @@ namespace Tangenta
 
             m_startup.StartExecution();
 
-
-            //if (m_startup.ExecuteSingleStep()(Program.bFirstTimeInstallation, ref Err))
-            //{
- 
-            //}
-            //else
-            //{
-            //    this.Close();
-            //    DialogResult = DialogResult.Abort;
-            //}
         }
 
         private void CheckOrganisationDataChange()
