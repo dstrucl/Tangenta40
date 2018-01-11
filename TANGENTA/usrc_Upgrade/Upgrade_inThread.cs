@@ -323,13 +323,13 @@ namespace UpgradeDB
             }
         }
 
-        public bool Read_DBSettings_Version(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        public fs.enum_GetDBSettings Read_DBSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             bool bUpgradeDone = false;
             bool bCanceled = false;
             fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
             myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
-            return true;
+            return myStartup.eGetDBSettings_Result;
         }
     }  
 }

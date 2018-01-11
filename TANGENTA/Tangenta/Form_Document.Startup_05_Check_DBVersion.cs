@@ -21,7 +21,7 @@ namespace Tangenta
 
         public Startup_check_proc_Result Startup_05_Check_DBVersion(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
         {
-            if (this.m_usrc_Main.CheckDBVersion(myStartup, o, xnav, ref Err))
+            if (this.m_usrc_Main.CheckDBSettings(myStartup, o, xnav, ref Err))
             {
                 return Startup_check_proc_Result.CHECK_OK;
             }
@@ -41,7 +41,14 @@ namespace Tangenta
             switch (xnav.eExitResult)
             {
                 case Navigation.eEvent.NEXT:
+                    if (this.m_usrc_Main.CheckDataBaseVersion(myStartup,  ref Err))
+                    {
                         return Startup_onformresult_proc_Result.NEXT;
+                    }
+                    else
+                    {
+                        return Startup_onformresult_proc_Result.ERROR;
+                    }
 
                 case Navigation.eEvent.PREV:
                     return Startup_onformresult_proc_Result.PREV;

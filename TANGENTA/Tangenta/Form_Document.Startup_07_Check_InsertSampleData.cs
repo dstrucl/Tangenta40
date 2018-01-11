@@ -21,7 +21,7 @@ namespace Tangenta
 
         public Startup_check_proc_Result Startup_07_Check_InsertSampleData(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
         {
-            if (this.m_usrc_Main.CheckDBVersion(myStartup, o, xnav, ref Err))
+            if (this.m_usrc_Main.CheckDBSettings(myStartup, o, xnav, ref Err))
             {
                 return Startup_check_proc_Result.CHECK_OK;
             }
