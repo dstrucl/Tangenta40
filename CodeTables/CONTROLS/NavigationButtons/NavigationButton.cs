@@ -82,16 +82,40 @@ namespace NavigationButtons
             DialogClosingNotifier = new SomethingReadyNotifier(SynchronizationContext.Current);
         }
 
-        public void ShowForm()
+        public void ShowForm(Form new_Form, string sHelpToShow)
         {
             eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
-            LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
+            
+            
+            
             bDoModal = false;
+
+            if (ChildDialog != null)
+            {
+                LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
+                if (!ChildDialog.IsDisposed)
+                {
+                    if (ChildDialog.IsAccessible)
+                    {
+                        ChildDialog.FormClosing -= ChildDialog_FormClosing; //delete previous event handler!
+                        ChildDialog.Close();
+                        ChildDialog.DialogResult = DialogResult.Abort;
+                    }
+                }
+                ChildDialog.Dispose();
+                ChildDialog = null;
+            }
+
+            ChildDialog = new_Form;
             ChildDialog.StartPosition = FormStartPosition.CenterScreen;
             ChildDialog.Visible = true;
             ChildDialog.Owner = this.OwnerForm;
             ChildDialog.FormClosing -= ChildDialog_FormClosing; //delete previous event handler!
             ChildDialog.FormClosing += ChildDialog_FormClosing;
+            if (sHelpToShow!=null)
+            {
+                ShowHelp(sHelpToShow);
+            }
             ChildDialog.Show();
             m_DialogShown = true;
         }

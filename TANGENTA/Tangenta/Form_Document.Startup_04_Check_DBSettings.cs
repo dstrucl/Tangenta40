@@ -49,7 +49,7 @@ namespace Tangenta
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
                    //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
-                        return Startup_check_proc_Result.WAIT_USER_INTERACTION; // ShowDB_settings
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION_0; // ShowDB_settings
 
 
                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
@@ -73,10 +73,9 @@ namespace Tangenta
 
         }
 
-        private bool Startup_04_ShowDBSettingsForm(object oData, Navigation xnav, ref string Err)
+        private bool Startup_04_ShowDBSettingsForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
-            xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword);
-            xnav.ShowForm();
+            xnav.ShowForm(new Form_DBSettings(xnav, Program.AdministratorLockedPassword), "Tangenta.Form_DBSettings");
             return true;
         }
 

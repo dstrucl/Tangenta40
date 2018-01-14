@@ -10,8 +10,18 @@ namespace Startup
 {
     public class startup_step
     {
-        public enum Startup_check_proc_Result {CHECK_NONE,CHECK_OK,WAIT_USER_INTERACTION, CHECK_ERROR};
-        public enum Startup_onformresult_proc_Result {EXIT,NEXT,PREV,NO_FORM_BUT_CHECK_OK,ERROR };
+        public enum Startup_check_proc_Result {CHECK_NONE,
+                                               CHECK_OK,
+                                               WAIT_USER_INTERACTION_0,
+                                               WAIT_USER_INTERACTION_1,
+                                               CHECK_ERROR };
+        public enum Startup_onformresult_proc_Result {EXIT,
+                                                      NEXT,
+                                                      PREV,
+                                                      DO_CHECK_PROC_AGAIN,
+                                                      WAIT_USER_INTERACTION_0,
+                                                      WAIT_USER_INTERACTION_1,
+                                                      NO_FORM_BUT_CHECK_OK,ERROR };
 
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
@@ -45,6 +55,7 @@ namespace Startup
 
         public delegate bool delegate_startup_ShowForm_proc(object oData,
                                                    NavigationButtons.Navigation xnav,
+                                                   Startup_check_proc_Result echeck_proc_Result,
                                                    ref string Err);
 
         public delegate Startup_onformresult_proc_Result delegate_startup_OnFormResult_proc(startup myStartup,
@@ -122,9 +133,9 @@ namespace Startup
             return ResultOf_check_procedure;
         }
 
-        public bool Execute_showform_procedure(object oData, ref string Err)
+        public bool Execute_showform_procedure(object oData, Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
-            bool bRes = showform_procedure(oData, nav, ref Err);
+            bool bRes = showform_procedure(oData, nav, echeck_proc_Result, ref Err);
             return bRes;
         }
 

@@ -73,22 +73,18 @@ namespace Startup
         }
 
 
-        public bool Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
             // return  true for step over
             Err = null;
-            xnav.ShowHelp("Tangenta.Tangenta-LicenseAgreement");
-            xnav.ChildDialog = new Form_LicenseAgreement(xnav);
-            xnav.ShowForm();
+            xnav.ShowForm(new Form_LicenseAgreement(xnav), "Tangenta.Tangenta-LicenseAgreement");
             return true; //
         }
 
 
-        public bool Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result,  ref string Err)
         {
-            xnav.ShowHelp("Tangenta.Tangenta_about");
-            xnav.ChildDialog = new Form_Navigate(xnav);
-            xnav.ShowForm();
+            xnav.ShowForm(new Form_Navigate(xnav), "Tangenta.Tangenta_about");
             return true;
         }
 
@@ -101,6 +97,12 @@ namespace Startup
         {
 
              m_Step[0].StartExecution();
+        }
+
+        internal bool StartCurrentStepExecution()
+        {
+            m_Step[(int)eStep].StartExecution();
+            return true;
         }
 
         internal bool StartNextStepExecution()

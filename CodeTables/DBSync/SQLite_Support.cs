@@ -72,6 +72,33 @@ namespace DBSync
             return DBSync.DB_for_Tangenta.m_DBTables.Evaluate_DataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled);
         }
 
+        public bool Startup_03_Check_DBConnection_Is_LocalDB_data_SQLite_DataBaseFileName_Defined(bool bReset,ref string IniFileFolder,string inifile_prefix,string Connection_Name)
+        {
+            //IniFolder should be defined in previous step
+            if (!FolderExists(IniFileFolder))
+            {
+                IniFileFolder = Application.UserAppDataPath;
+                if (!IniFileFolder.EndsWith("\\"))
+                {
+                    IniFileFolder += '\\';
+                }
+            }
+
+            if (DBSync.LocalDB_data_SQLite == null)
+            {
+                DBSync.LocalDB_data_SQLite = new LocalDB_data(bReset, inifile_prefix, 1, Connection_Name, false);
+            }
+
+            if (DBSync.LocalDB_data_SQLite.DataBaseFileName != null)
+            {
+                if (DBSync.LocalDB_data_SQLite.DataBaseFileName.Length > 0)
+                {
+                    return true; //LocalDB_data.SQLite_DataBaseFileName is defined 
+                }
+            }
+            return false; //LocalDB_data.SQLite_DataBaseFileName is not defined
+    }
+
         public bool Get(bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
 

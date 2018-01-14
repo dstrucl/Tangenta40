@@ -60,46 +60,54 @@ namespace Startup
             if (sender is usrc_startup_step)
             {
                 usrc_startup_step xusrc_startup_step = (usrc_startup_step)sender;
-                switch (xusrc_startup_step.startup_step.nav.eExitResult)
+                if (xusrc_startup_step.bDoStepAgain)
                 {
-                    case NavigationButtons.Navigation.eEvent.NEXT:
-                       this.m_startup.StartNextStepExecution();
-                        break;
+                    xusrc_startup_step.bDoStepAgain = false;
+                    this.m_startup.StartCurrentStepExecution();
+                }
+                else
+                { 
+                    switch (xusrc_startup_step.startup_step.nav.eExitResult)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            this.m_startup.StartNextStepExecution();
+                            break;
 
-                    case NavigationButtons.Navigation.eEvent.PREV:
-                        this.m_startup.CurrentStepExecutionSetUndefined();
-                        if (this.m_startup.StartPrevStepExecution())
-                        {
-                            return;
-                        }
-                        else
-                        {
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            this.m_startup.CurrentStepExecutionSetUndefined();
+                            if (this.m_startup.StartPrevStepExecution())
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                if (ExitProgram != null)
+                                {
+                                    ExitProgram();
+                                }
+                            }
+                            break;
+
+                        case NavigationButtons.Navigation.eEvent.NOTHING:
+                            if (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK)
+                            {
+                                this.m_startup.StartNextStepExecution();
+                            }
+                            else
+                            {
+                                MessageBox.Show("ERROR:Startup:usrc_Startup:Xusrc_startup_step_StartupFormClosing:  case NavigationButtons.Navigation.eEvent.NOTHING: and (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK == false not implemented!");
+                            }
+                            break;
+
+                        case NavigationButtons.Navigation.eEvent.EXIT:
                             if (ExitProgram != null)
                             {
+                                m_Exit = true;
                                 ExitProgram();
                             }
-                        }
-                        break;
+                            break;
 
-                    case NavigationButtons.Navigation.eEvent.NOTHING:
-                        if (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK)
-                        {
-                            this.m_startup.StartNextStepExecution();
-                        }
-                        else
-                        {
-                            MessageBox.Show("ERROR:Startup:usrc_Startup:Xusrc_startup_step_StartupFormClosing:  case NavigationButtons.Navigation.eEvent.NOTHING: and (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK == false not implemented!");
-                        }
-                        break;
-
-                    case NavigationButtons.Navigation.eEvent.EXIT:
-                        if (ExitProgram!=null)
-                        {
-                            m_Exit = true;
-                            ExitProgram();
-                        }
-                        break;
-                    
+                    }
                 }
             }
         }

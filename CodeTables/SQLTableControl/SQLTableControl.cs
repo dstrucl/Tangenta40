@@ -427,6 +427,46 @@ namespace CodeTables
             return -1;
         }
 
+        public bool TableCountInDatabase(ref int tablesCount)
+        {
+            string strCheckTable = null;
+            string csError = null;
+            tablesCount = -1;
+            switch (m_con.DBType)
+            {
+                case DBConnection.eDBType.MYSQL:
+                    strCheckTable = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '" + this.m_con.DataBase + "';";
+                    break;
+                case DBConnection.eDBType.MSSQL:
+                    strCheckTable = "\nUSE " + this.m_con.DataBase + " SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE';";
+                    break;
+                case DBConnection.eDBType.SQLITE:
+                    strCheckTable = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'";
+                    break;
+            }
+            StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
+            int i = 0;
+            DataTable dt = new DataTable();
+            if (this.m_con.ReadDataTable(ref dt, strCheckTable, ref csError))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    tablesCount = Convert.ToInt32(dt.Rows[0][0]);
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:SQLTableControl:No rows from selection:sql = " + strCheckTable);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:SQLTableControl:" + csError);
+                return false;
+            }
+        }
+
         public bool DbTableExists(SQLTable tbl, ref string  csError)
         {
             //string strTableNameAndSchema = " SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+tbl.TableName+"'";
@@ -813,13 +853,15 @@ namespace CodeTables
             }
         }
 
-        public bool CreateDatabaseTables(bool bAsk)
+        public bool CreateDatabaseTables(bool bAsk, ref bool bCancel)
         {
+            bCancel = false;
             if (bAsk)
             { 
                 DialogResult dRes = MessageBox.Show(m_ParentForm, lng.s_CreateTablesInDataBaseQuestion.s + this.m_con.DataSource + " ?", lng.s_Warning.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if ((dRes == DialogResult.No) || (dRes == DialogResult.Cancel))
                 {
+                    bCancel = true;
                     return false;
                 }
             }
@@ -1305,7 +1347,8 @@ namespace CodeTables
                         LocalDB_data local_DB_Data = (LocalDB_data)DB_Param;
                         if (local_DB_Data.bNewDatabase)
                         {
-                            if (CreateDatabaseTables(true))
+                            bool bxCancel = false;
+                            if (CreateDatabaseTables(true,ref bxCancel))
                             {
                                 return true;
                             }
@@ -1323,7 +1366,8 @@ namespace CodeTables
                         RemoteDB_data remote_DB_Data = (RemoteDB_data)DB_Param;
                         if (remote_DB_Data.bNewDatabase)
                         {
-                            if (CreateDatabaseTables(true))
+                            bool bxCancel = false;
+                            if (CreateDatabaseTables(true, ref bxCancel))
                             {
                                 return true;
                             }
@@ -1368,7 +1412,8 @@ namespace CodeTables
                                     bool bCancel = false;
                                     if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
                                     {
-                                        return CreateDatabaseTables(true);
+                                        bool bxCancel = false;
+                                        return CreateDatabaseTables(true, ref bxCancel);
                                     }
                                     else
                                     {
@@ -1398,7 +1443,8 @@ namespace CodeTables
                         LocalDB_data local_DB_Data = (LocalDB_data)DB_Param;
                         if (local_DB_Data.bNewDatabase)
                         {
-                            bNewDataBaseCreated = CreateDatabaseTables(false);
+                            bool bxCancel = false;
+                            bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel);
                             if (bNewDataBaseCreated)
                             {
                                 return true;
@@ -1417,7 +1463,8 @@ namespace CodeTables
                         RemoteDB_data remote_DB_Data = (RemoteDB_data)DB_Param;
                         if (remote_DB_Data.bNewDatabase)
                         {
-                            bNewDataBaseCreated = CreateDatabaseTables(true);
+                            bool bxCancel = false;
+                            bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
                             if (bNewDataBaseCreated)
                             {
                                 return bNewDataBaseCreated;
@@ -1463,7 +1510,8 @@ namespace CodeTables
                                     bool bCancel = false;
                                     if (DropAllTablesInDataBase(pParentForm, ref bCancel))
                                     {
-                                        bNewDataBaseCreated = CreateDatabaseTables(true);
+                                        bool bxCancel = false;
+                                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
                                         return bNewDataBaseCreated;
                                     }
                                     else
@@ -1492,7 +1540,8 @@ namespace CodeTables
                     LocalDB_data local_DB_Data = (LocalDB_data)DB_Param;
                     if (local_DB_Data.bNewDatabase)
                     {
-                        bNewDataBaseCreated = CreateDatabaseTables(false);
+                        bool bxCancel = false;
+                        bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel);
                         if (bNewDataBaseCreated)
                         {
                             return true;
@@ -1511,7 +1560,8 @@ namespace CodeTables
                     RemoteDB_data remote_DB_Data = (RemoteDB_data)DB_Param;
                     if (remote_DB_Data.bNewDatabase)
                     {
-                        bNewDataBaseCreated = CreateDatabaseTables(true);
+                        bool bxCancel = false;
+                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
                         if (bNewDataBaseCreated)
                         {
                             return bNewDataBaseCreated;
@@ -1557,7 +1607,8 @@ namespace CodeTables
                                 bool bCancel = false;
                                 if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
                                 {
-                                    bNewDataBaseCreated = CreateDatabaseTables(true);
+                                    bool bxCancel = false;
+                                    bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
                                     return bNewDataBaseCreated;
                                 }
                                 else

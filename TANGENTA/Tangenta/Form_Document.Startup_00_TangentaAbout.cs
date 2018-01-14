@@ -26,7 +26,7 @@ namespace Tangenta
             }
             else
             {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
             }
         }
 

@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using NavigationButtons;
+using static CodeTables.DBTableControl;
 
 namespace DBSync
 {
@@ -48,22 +49,28 @@ namespace DBSync
             return DB_for_Tangenta.Create_VIEWs();
         }
 
-        public static bool Get_eDBType(string DataBaseType, ref DBConnection.eDBType eDBType,Form parentForm,string IniFileFolder,string m_XmlFileName)
+        public static bool Startup_02_Get_eDBType_and_DB_for_Tangenta(string DataBaseType, ref DBConnection.eDBType eDBType,Form parentForm,string IniFileFolder,string m_XmlFileName)
         {
             if (DataBaseType != null)
             {
                 if (DataBaseType.Equals("SQLITE"))
                 {
                     eDBType = DBConnection.eDBType.SQLITE;
-                    DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
-                    DB_for_Tangenta.Init(eDBType);
+                    if (DB_for_Tangenta == null)
+                    {
+                        DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
+                        DB_for_Tangenta.Init(eDBType);
+                    }
                     return true;
                 }
                 else if (DataBaseType.Equals("MSSQL"))
                 {
                     eDBType = DBConnection.eDBType.MSSQL;
-                    DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
-                    DB_for_Tangenta.Init(eDBType);
+                    if (DB_for_Tangenta == null)
+                    {
+                        DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
+                        DB_for_Tangenta.Init(eDBType);
+                    }
                     return true;
                 }
                 else
@@ -77,6 +84,39 @@ namespace DBSync
                 LogFile.Error.Show("ERROR:DDBSync:Get_eDBType:DataBaseType==null!");
                 return false;
             }
+        }
+
+        public static bool Startup_03_Check_DBConnection_Is_DataBase_Defined(bool bReset, ref string IniFileFolder, string inifile_prefix, string Connection_Name)
+        {
+            if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
+            {
+                return m_SQLite_Support.Startup_03_Check_DBConnection_Is_LocalDB_data_SQLite_DataBaseFileName_Defined(bReset, ref IniFileFolder, MyDataBase_Tangenta.DataBaseFilePrefix, Connection_Name);
+            }
+            else
+            {
+                return Startup_03_Check_DBConnection_Is_RemotelDB_data_DataBase_Defined( bReset, IniFileFolder, MyDataBase_Tangenta.DataBaseFilePrefix, Connection_Name);
+            }
+        }
+
+        public static bool Startup_03_Set_LocalDB_From_SQLiteConnectionDialog(SQLiteConnectionDialog frm_SQLiteConnectionDialog)
+        {
+            LocalDB_data_SQLite.DataBaseFileName = frm_SQLiteConnectionDialog.DatabaseFileName;
+            LocalDB_data_SQLite.DataBaseFilePath = frm_SQLiteConnectionDialog.DataBaseFile_path;
+            LocalDB_data_SQLite.bChanged = true;
+            string Err = null;
+            if (LocalDB_data_SQLite.Save(MyDataBase_Tangenta.DataBaseFilePrefix,ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
+        {
+            return DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_ConnectionDialog(nav);
         }
 
         public static bool Init_DBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
@@ -134,6 +174,39 @@ namespace DBSync
                 }
             }
 
+        }
+
+        public static bool Startup_03_CheckDataBaseTables(Form pParentForm, ref bool bCancel)
+        {
+            string Err = null;
+            int iTablesCount = -1;
+            if (DB_for_Tangenta.m_DBTables.TableCountInDatabase(ref iTablesCount))
+            {
+                if (iTablesCount == 0)
+                {
+                    if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(true, ref bCancel))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool Startup_03_CreateNewDatabase(Form pParentForm,ref bool bNewDatabase, ref bool bCancel)
+        {
+            return DB_for_Tangenta.m_DBTables.m_con.Startup_03_CreateNewDataBaseConnection(pParentForm, ref bNewDatabase, ref bCancel);
         }
 
         public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
@@ -208,8 +281,16 @@ namespace DBSync
 
         public static bool Show_Get_DBTypeForm(ref string DataBaseType, NavigationButtons.Navigation xnav)
         {
-            xnav.ChildDialog = new Form_GetDBType(DataBaseType, xnav);
-            xnav.ShowForm();
+            if (xnav.ChildDialog!=null)
+            {
+                if (!xnav.ChildDialog.IsDisposed)
+                {
+                    xnav.ChildDialog.Close();
+                }
+                xnav.ChildDialog.Dispose();
+            }
+
+            xnav.ShowForm(new Form_GetDBType(DataBaseType, xnav),"DBSync.Form_GetDBType");
             return true;
         }
 
@@ -320,6 +401,22 @@ namespace DBSync
                 }
             }
             return true;
+        }
+
+        public static bool Startup_03_Check_DBConnection_Is_RemotelDB_data_DataBase_Defined(bool bReset,string IniFileFolder, string inifile_prefix, string default_DataBase_name)
+        {
+            if (DBSync.RemoteDB_data == null)
+            {
+                DBSync.RemoteDB_data = new RemoteDB_data(bReset, inifile_prefix, 1, m_DBType, default_DataBase_name);
+            }
+            if (DBSync.RemoteDB_data.DataBase!=null)
+            {
+                if (DBSync.RemoteDB_data.DataBase.Length>0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled)

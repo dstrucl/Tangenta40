@@ -123,7 +123,7 @@ namespace DBConnectionControl40
             ReadSettings(bReset);
         }
 
-        private void ReadSettings(bool bReset)
+        private bool ReadSettings(bool bReset)
         {
             string Err = null;
             if (m_Settings_LocalDB.Load(bReset,ref Err))
@@ -132,10 +132,12 @@ namespace DBConnectionControl40
                 DataBaseFilePath = m_Settings_LocalDB.LocalDB_DataBaseFilePath();
                 crypted_Password = m_Settings_LocalDB.LocalDB_crypted_Password();
                 bChanged = false;
+                return true;
             }
             else
             {
                 LogFile.Error.Show(Err);
+                return false;
             }
         }
 

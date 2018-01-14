@@ -17,10 +17,10 @@ namespace Tangenta
 
         private startup_step CStartup_02_Check_DBType()
         {
-            return new startup_step(lng.s_Startup_Check_DataBase.s, m_startup, Program.nav, Startup_Check_DataBase_Type, Startup_ShowDataBaseTypeSelectionForm, onformresult_ShowDataBaseTypeSelectionForm, startup_step.eStep.Check_02_DataBaseType);
+            return new startup_step(lng.s_Startup_Check_DataBase.s, m_startup, Program.nav, Startup_02_Check_DataBase_Type, Startup_02_ShowDataBaseTypeSelectionForm, Startup_02_onformresult_ShowDataBaseTypeSelectionForm, startup_step.eStep.Check_02_DataBaseType);
         }
 
-        public Startup_check_proc_Result Startup_Check_DataBase_Type(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             string sDBType = null;
 
@@ -30,18 +30,18 @@ namespace Tangenta
                 if (sDBType.Length == 0)
                 {
                     // just show window
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
                 }
                 else
                 {
                     //Do Real Check
-                    if (DBSync.DBSync.Get_eDBType(sDBType, ref DBSync.DBSync.m_DBType,this, CodeTables_IniFileFolder, xmlCodeTables))
+                    if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref DBSync.DBSync.m_DBType,this, CodeTables_IniFileFolder, xmlCodeTables))
                     {
                         return Startup_check_proc_Result.CHECK_OK;
                     }
                     else
                     {
-                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
                     }
                 }
             }
@@ -52,14 +52,14 @@ namespace Tangenta
 
         }
 
-        private bool Startup_ShowDataBaseTypeSelectionForm(object oData, Navigation xnav, ref string Err)
+        private bool Startup_02_ShowDataBaseTypeSelectionForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
             string sDataBaseType = "SQLITE";
             DBSync.DBSync.Show_Get_DBTypeForm(ref sDataBaseType, xnav);
             return true;
         }
 
-        private Startup_onformresult_proc_Result onformresult_ShowDataBaseTypeSelectionForm(startup myStartup, object oData, Navigation xnav, ref string Err)
+        private Startup_onformresult_proc_Result Startup_02_onformresult_ShowDataBaseTypeSelectionForm(startup myStartup, object oData, Navigation xnav, ref string Err)
         {
             switch (xnav.eExitResult)
             {
@@ -74,7 +74,7 @@ namespace Tangenta
                                 sDBType = "SQLITE";
                                 Properties.Settings.Default.DBType = sDBType;
                                 Properties.Settings.Default.Save();
-                                if (DBSync.DBSync.Get_eDBType(sDBType, ref eDBType, this, CodeTables_IniFileFolder, xmlCodeTables))
+                                if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, this, CodeTables_IniFileFolder, xmlCodeTables))
                                 {
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }
@@ -86,7 +86,7 @@ namespace Tangenta
                                 sDBType = "MSSQL";
                                 Properties.Settings.Default.DBType = sDBType;
                                 Properties.Settings.Default.Save();
-                                if (DBSync.DBSync.Get_eDBType(sDBType, ref eDBType, this, CodeTables_IniFileFolder, xmlCodeTables))
+                                if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, this, CodeTables_IniFileFolder, xmlCodeTables))
                                 {
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }

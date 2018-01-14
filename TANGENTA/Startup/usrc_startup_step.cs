@@ -18,6 +18,7 @@ namespace Startup
         public delegate void delegate_StartupFormClosing(object sender);
         public event delegate_StartupFormClosing StartupFormClosing;
         public bool bNO_FORM_BUT_CHECK_OK = false;
+        public bool bDoStepAgain = false;
 
         public usrc_startup_step(startup_step xstartup_step)
         {
@@ -43,9 +44,36 @@ namespace Startup
             }
             string Err = null;
             bNO_FORM_BUT_CHECK_OK = false;
+            bDoStepAgain = false;
             startup_step.Startup_onformresult_proc_Result eRes = startup_step.Execute_onformresult_procedure(sender, ref Err);
             switch (eRes)
             {
+                case startup_step.Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN:
+                    this.check1.State = Check.check.eState.WAIT;
+                    bDoStepAgain = true;
+                    if (StartupFormClosing != null)
+                    {
+                        StartupFormClosing(this);
+                    }
+                    break;
+
+                case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_0:
+                    this.check1.State = Check.check.eState.WAIT;
+                    if (startup_step.Execute_showform_procedure(null,startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0, ref Err))
+                    {
+                    }
+                    break;
+
+                case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_1:
+                    this.check1.State = Check.check.eState.WAIT;
+                    if (startup_step.Execute_showform_procedure(null, startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_1, ref Err))
+                    {
+                    }
+                    if (StartupFormClosing != null)
+                    {
+                        StartupFormClosing(this);
+                    }
+                    break;
                 case startup_step.Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK:
                     this.check1.State = Check.check.eState.TRUE;
                     bNO_FORM_BUT_CHECK_OK = true;
@@ -92,6 +120,11 @@ namespace Startup
             this.check1.State = Check.check.eState.WAIT;
             string Err = null;
             startup_step.Startup_check_proc_Result eResult = startup_step.Execute_check_procedure(null, ref Err);
+            return Action_on_DoStartup_check_proc_Result(eResult, ref Err);
+        }
+
+        private startup_step.Startup_check_proc_Result Action_on_DoStartup_check_proc_Result(startup_step.Startup_check_proc_Result eResult, ref string Err)
+        {
             switch (eResult)
             {
                 case startup_step.Startup_check_proc_Result.CHECK_OK:
@@ -109,15 +142,17 @@ namespace Startup
                     startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready_SomethingReady;
                     startup_step.nav.DialogClosingNotifier.NotifySomethingReady();
                     return startup_step.Startup_check_proc_Result.CHECK_OK;
-                    
+
 
                 case startup_step.Startup_check_proc_Result.CHECK_ERROR:
                     this.check1.State = Check.check.eState.FALSE;
                     return startup_step.Startup_check_proc_Result.CHECK_ERROR;
 
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION:
+
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_1:
                     this.check1.State = Check.check.eState.WAIT;
-                    if (startup_step.Execute_showform_procedure(null, ref Err))
+                    if (startup_step.Execute_showform_procedure(null, eResult, ref Err))
                     {
                         //show error
                         if (startup_step.nav.DialogClosingNotifier != null)
@@ -130,7 +165,7 @@ namespace Startup
                         }
                         startup_step.nav.DialogClosingNotifier.Startup_Step = startup_step;
                         startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready_SomethingReady;
-                        return startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                        return startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
                     }
                     else
                     {

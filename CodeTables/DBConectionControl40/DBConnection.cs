@@ -835,6 +835,12 @@ namespace DBConnectionControl40
             }
         }
 
+        public bool Startup_03_Show_TestConnectionForm(Form pParentForm,NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s), "DBConnection.TestConnectionForm");
+            return true;
+        }
+
         public bool CheckDataBaseConnection(Form pParentForm, string sTitle)
         {
             if (IsValidDataBaseConnectionString())
@@ -1380,6 +1386,47 @@ namespace DBConnectionControl40
             }
         }
 
+        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
+        {
+            string sTitle = lng.s_Connection_to_Database.s + this.DataBase;
+            switch (m_DBType)
+            {
+                //case eDBType.MYSQL:
+                //    if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
+                //    {
+                //        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
+                //    }
+                //    else
+                //    {
+                //        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
+                //    }
+                //    break;
+
+                case eDBType.MSSQL:
+                    if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
+                    {
+                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
+                    }
+                    else
+                    {
+                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
+                    }
+                    nav.ShowForm(ConnectionDialog, "DBConnection.ConnectionDialog");
+                    return true;
+
+                case eDBType.SQLITE:
+
+                    SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, this.RecentItemsFolder, this.BackupFolder, nav, this.ConnectionName);
+                    nav.ShowForm(SQLiteConnectionDialog, "DBConnection.SQLiteConnectionDialog");
+                    return true;
+
+
+                default:
+                    MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
+                    return false;
+            }
+        }
+
         public ConnectResult_ENUM do_ConnectionDialog(string sTitle, ref bool bNewDatabase, NavigationButtons.Navigation nav, ref bool bCanceled, string myConnectionName)
         {
                 bNewDatabase = false;
@@ -1430,16 +1477,12 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        SQLiteConnectionDialog.TopMost = true;
-                        nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
-                        nav.ChildDialog = SQLiteConnectionDialog;
-                        nav.ShowForm();
+                        nav.ShowForm(SQLiteConnectionDialog, "DBConnection.SQLiteConnectionDialog");
                     }
                 }
                 else 
                 {
-                    nav.ChildDialog = ConnectionDialog;
-                    nav.ShowForm();
+                    nav.ShowForm(ConnectionDialog, "DBConnection.ConnectionDialog");
                 }
 
                 if (nav.bDoModal)
@@ -1462,6 +1505,78 @@ namespace DBConnectionControl40
             }
         }
 
+        public bool Startup_03_CreateNewDataBaseConnection(Form pParentForm,ref bool bNewDatabase,ref bool bCancel)
+        {
+            bNewDatabase = false;
+            bCancel = false;
+            if (MessageBox.Show(pParentForm, lng.s_CreateNewDatabase.s, lng.s_CreateNewDatabase.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+            {
+                try
+                {
+                    if (m_DBType == eDBType.SQLITE)
+                    {
+
+                        if (!File.Exists(DataBase))
+                        {
+
+                            string sErr = null;
+                            if (m_con_SQLite != null)
+                            {
+                                m_con_SQLite.Dispose();
+                            }
+                            m_con_SQLite = new SQLiteConnection(ConnectionString);
+
+                            if (Connect_ToServerOnly(ref sErr))
+                            {
+                                if (m_DBType == eDBType.SQLITE)
+                                {
+                                    try
+                                    {
+                                        SQLiteCommand cmd = m_con_SQLite.CreateCommand();
+                                        cmd.CommandText = "PRAGMA foreign_keys = ON;";
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogFile.Error.Show("ERROR:SQLite:PRAGMA foreign_keys = ON;! " + ex.Message);
+                                        return false;
+                                    }
+                                }
+                                Disconnect();
+                                bNewDatabase = true;
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show(sErr);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(lng.s_Already_exist.s + ":" + DataBase);
+                            return true;
+                        }
+
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:DBConnection:Startup_03_CreateNewDataBaseConnection: m_DBType = "+ m_DBType.ToString() +" is not implemented!");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                   LogFile.Error.Show("ERROR SQLITE:Excpetion = " + ex.Message);
+                    return false;
+                }
+            }
+            else
+            {
+                bCancel = true;
+                return true;
+            }
+        }
         public ConnectResult_ENUM EvaluateConnectionDialogResult(string sTitle,NavigationButtons.Navigation xnav,ref bool bNewDatabase, ref bool bCanceled)
         {
             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)

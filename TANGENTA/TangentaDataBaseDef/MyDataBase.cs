@@ -20,6 +20,7 @@ namespace TangentaDataBaseDef
     {
 
         //        public DBTypes.SQL_Database_Tables_Definition mt_DB;
+        public const string DataBaseFilePrefix = "TangentaDB";
 
         public ISO_3166_Table m_ISO_3166_Table = new ISO_3166_Table();
 
@@ -253,8 +254,9 @@ namespace TangentaDataBaseDef
         public bool DataBase_Create()
         {
             if (this.m_DBTables.DataBase_Create())
-            { 
-                return this.m_DBTables.CreateDatabaseTables(false);
+            {
+                bool bxCancel = false;
+                return this.m_DBTables.CreateDatabaseTables(false, ref bxCancel);
             }
             else
             {

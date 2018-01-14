@@ -20,6 +20,11 @@ namespace DBConnectionControl40
     public partial class TestConnectionForm : Form
     {
         private bool m_bResult = false;
+
+        public bool Result
+        {
+            get { return m_bResult; }
+        }
         DBConnection.eStartPositionOfTestConnectionForm m_eStartPositionOfTestConnectionForm = DBConnection.eStartPositionOfTestConnectionForm.CENTER_SCREEN;
 
         private Form m_ParentForm = null;
@@ -32,8 +37,11 @@ namespace DBConnectionControl40
         DBConnection sqlConn;
 
         Thread CheckConnectionThread = null;
+
         public Mutex mutexMessageBox = new Mutex(false);
         public List<bool> MessageList = new List<bool>();
+
+        public bool bChangeConnection = false;
 
         public bool GetMessage(ref bool bConnectionOK)
         {
@@ -360,6 +368,7 @@ namespace DBConnectionControl40
 
         private void btn_ChangeConnection_Click(object sender, EventArgs e)
         {
+            bChangeConnection = true;
             DialogResult = DialogResult.None;
             this.Close();
         }

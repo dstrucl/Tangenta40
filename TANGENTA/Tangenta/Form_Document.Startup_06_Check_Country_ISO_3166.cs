@@ -31,7 +31,7 @@ namespace Tangenta
             }
         }
 
-        private bool Startup_06_ShowCountry_ISO_3166Form(object oData, Navigation xnav, ref string Err)
+        private bool Startup_06_ShowCountry_ISO_3166Form(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
             DBSync.DBSync.Init_DBType(Program.bResetNew, CodeTables_IniFileFolder, ref DataBaseType, Program.bChangeConnection, ref bNewDatabaseCreated, xnav, ref bInit_DBType_Canceled);
             return true;

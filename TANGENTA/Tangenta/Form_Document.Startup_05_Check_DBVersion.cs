@@ -21,17 +21,18 @@ namespace Tangenta
 
         public Startup_check_proc_Result Startup_05_Check_DBVersion(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
         {
-            if (this.m_usrc_Main.CheckDBSettings(myStartup, o, xnav, ref Err))
-            {
-                return Startup_check_proc_Result.CHECK_OK;
-            }
-            else
-            {
-                return Startup_check_proc_Result.CHECK_ERROR;
-            }
+            //if (this.m_usrc_Main.CheckDBSettings(myStartup, o, xnav, ref Err))
+            //{
+            //    return Startup_check_proc_Result.CHECK_OK;
+            //}
+            //else
+            //{
+            //    return Startup_check_proc_Result.CHECK_ERROR;
+            //}
+            return Startup_check_proc_Result.CHECK_ERROR;
         }
 
-        private bool Startup_05_ShowDBVersionForm(object oData, Navigation xnav, ref string Err)
+        private bool Startup_05_ShowDBVersionForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
             return true;
         }
