@@ -184,7 +184,7 @@ namespace DBSync
             {
                 if (iTablesCount == 0)
                 {
-                    if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(true, ref bCancel))
+                    if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel))
                     {
                         return true;
                     }
