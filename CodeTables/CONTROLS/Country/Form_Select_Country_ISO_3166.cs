@@ -26,13 +26,13 @@ namespace Country_ISO_3166
         public string Country_ISO_3166_a2 = null;
         public string Country_ISO_3166_a3 = null;
         public short Country_ISO_3166_num = -1;
-        public string DefaultCountry = null;
+        public string DefaultCountry_State_A3 = null;
 
-        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry, string xTitle, NavigationButtons.Navigation xnav)
+        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry_State_A3, string xTitle, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
-            DefaultCountry = xDefaultCountry;
+            DefaultCountry_State_A3 = xDefaultCountry_State_A3;
             this.dt_ISO_3166 = dt_ISO_3166;
             dgvx_ISO_3166.DataSource = this.dt_ISO_3166;
             dgvx_ISO_3166.Columns["Country"].HeaderText = lng.s_Country.s;
@@ -58,9 +58,9 @@ namespace Country_ISO_3166
 
         private void Form_Select_Country_ISO_3166_Load(object sender, EventArgs e)
         {
-            if (DefaultCountry != null)
+            if (DefaultCountry_State_A3 != null)
             {
-                DataRow[] drs = dt_ISO_3166.Select("Country = '" + DefaultCountry + "'");
+                DataRow[] drs = dt_ISO_3166.Select("a3 = '" + DefaultCountry_State_A3 + "'");
                 if (drs.Count() > 0)
                 {
                     int iRowIndex = dt_ISO_3166.Rows.IndexOf(drs[0]);

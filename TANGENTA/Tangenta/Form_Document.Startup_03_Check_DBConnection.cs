@@ -16,7 +16,7 @@ namespace Tangenta
         private startup_step CStartup_03_Check_DBConnection()
         {
             bDatabaseReset = Program.Reset2FactorySettings.DBConnectionControlXX_EXE;
-            return new startup_step(lng.s_Startup_Check_DataBase.s, m_startup, Program.nav, Startup_03_Check_DBConnection, Startup_03_ShowDBConnectionForm, Startup_03_onformresult_ShowDBConnnection, startup_step.eStep.Check_03_DBConnection);
+            return new startup_step(lng.s_Startup_Check_DBConnection.s, m_startup, Program.nav, Startup_03_Check_DBConnection, Startup_03_ShowDBConnectionForm, Startup_03_onformresult_ShowDBConnnection, startup_step.eStep.Check_03_DBConnection);
         }
 
         public Startup_check_proc_Result Startup_03_Check_DBConnection(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
@@ -27,7 +27,7 @@ namespace Tangenta
             }
             else
             {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION_1;
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION_2;
             }
 
         }
@@ -40,7 +40,7 @@ namespace Tangenta
                     DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_TestConnectionForm(this, xnav);
                     return true;
 
-                case Startup_check_proc_Result.WAIT_USER_INTERACTION_1:
+                case Startup_check_proc_Result.WAIT_USER_INTERACTION_2:
                     DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_ConnectionDialog(xnav);
                     return true;
 
@@ -48,8 +48,7 @@ namespace Tangenta
                     LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_03_ShowDBConnectionForm: echeck_proc_Result = " + echeck_proc_Result.ToString() + " not implememented!");
                     return false;
             }
-            DBSync.DBSync.Init_DBType(Program.bResetNew, CodeTables_IniFileFolder, ref DataBaseType, Program.bChangeConnection, ref bNewDatabaseCreated, xnav, ref bInit_DBType_Canceled);
-            return true;
+          
         }
 
         private Startup_onformresult_proc_Result Startup_03_onformresult_ShowDBConnnection(startup myStartup, object oData, Navigation xnav, ref string Err)

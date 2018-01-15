@@ -261,18 +261,23 @@ namespace UpgradeDB
             }
         }
 
-        public fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,ref fs.enum_GetDBSettings eGetDBSettings_Result, ref bool bUpgradeDone,ref bool bInsertSampleData, ref bool bCanceled,ref string Err)
+        public static fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,
+                                                                    ref string xFull_backup_filename,
+                                                                    ref bool bUpgradeDone,
+                                                                    ref bool bInsertSampleData,
+                                                                    ref bool bCanceled,
+                                                                    ref string Err)
         {
             bool xReadOnly = false;
             bInsertSampleData = false;
-            Restore_if_UpgradeBackupFileExists(ref m_Full_backup_filename);
+            Restore_if_UpgradeBackupFileExists(ref xFull_backup_filename);
             return fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
                                    ref myStartup.CurrentDataBaseVersionTextValue,
                                    ref xReadOnly,
                                    ref Err);
         }
 
-        private bool Restore_if_UpgradeBackupFileExists(ref string full_backup_filename)
+        private static bool Restore_if_UpgradeBackupFileExists(ref string full_backup_filename)
         {
 
             if (DBSync.DBSync.m_DBType == DBConnection.eDBType.SQLITE)
@@ -323,13 +328,13 @@ namespace UpgradeDB
             }
         }
 
-        public fs.enum_GetDBSettings Read_DBSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            bool bUpgradeDone = false;
-            bool bCanceled = false;
-            fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
-            myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
-            return myStartup.eGetDBSettings_Result;
-        }
+        //public fs.enum_GetDBSettings Read_DBSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        //{
+        //    bool bUpgradeDone = false;
+        //    bool bCanceled = false;
+        //    fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
+        //    myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
+        //    return myStartup.eGetDBSettings_Result;
+        //}
     }  
 }

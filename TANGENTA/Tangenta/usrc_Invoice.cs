@@ -669,6 +669,12 @@ namespace Tangenta
             }
         }
 
+        internal bool Startup_05_Show_Form_myOrg_Office_Data(NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav), "Tangenta.Form_myOrg_Office_Data");
+            return true;
+        }
+
         private bool Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(NavigationButtons.Navigation xnav)
         {
             DialogResult dres = DialogResult.Ignore;
@@ -687,6 +693,12 @@ namespace Tangenta
             }
         }
 
+        internal bool Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav), "Tangenta.Form_myOrg_Office_Data_FVI_SLO_RealEstateBP");
+            return true;
+        }
+
         private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
         {
             this.Cursor = Cursors.WaitCursor;
@@ -702,6 +714,14 @@ namespace Tangenta
             {
                 return false;
             }
+        }
+
+        internal bool Startup_05_ShowForm_EditMyOrganisation_Data(bool bAllowNew, NavigationButtons.Navigation xnav)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            this.Cursor = Cursors.Arrow;
+            xnav.ShowForm(new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav), "Tangenta.Form_myOrg_Edit");
+            return true;
         }
 
         public bool Initialise(usrc_InvoiceMan xusrc_InvoiceMan)
@@ -1351,383 +1371,411 @@ namespace Tangenta
         }
 
         // DataBase is empty No Organisation Data First select Shops In use !
+        public enum eGetOrganisationDataResult { NO_ORGANISATION_NAME,
+                                                NO_TAX_ID,
+                                                NO_STREET_NAME,
+                                                NO_HOUSE_NUMBER,
+                                                NO_ZIP,
+                                                NO_CITY,
+            NO_COUNTRY,
+            NO_OFFICE,
+            NO_REAL_ESTATE,
+            NO_MY_ORG_PERSON,
+            OK,
+            ERROR
+        }
 
-
-        internal bool GetOrganisationData(startup myStartup,object  oData,NavigationButtons.Navigation xnav,ref string Err)
+        internal eGetOrganisationDataResult GetOrganisationData()
         {
-            usrc_Document x_usrc_Main = (usrc_Document)oData;
-            string sAddress = null;
-            for (;;)
+            //usrc_Document x_usrc_Main = (usrc_Document)oData;
+            //string sAddress = null;
+         
+            if (myOrg.Get(1))
             {
-                if (myOrg.Get(1))
+
+                if (myOrg.Name_v == null)
                 {
-do_EditMyOrganisation_Data:
-                    if (myOrg.Name_v == null)
+                    //x_usrc_Main.Get_shops_in_use(false);
+                    if (!Program.bFirstTimeInstallation)
                     {
-                        //x_usrc_Main.Get_shops_in_use(false);
+                        MessageBox.Show(lng.s_No_OrganisationData.s);
+                    }
+                    return eGetOrganisationDataResult.NO_ORGANISATION_NAME;
+
+                    //if (EditMyOrganisation_Data(true, xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+                if (myOrg.Tax_ID_v == null)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_Tax_ID.s);
+                    }
+                    return eGetOrganisationDataResult.NO_TAX_ID;
+
+                    //if (EditMyOrganisation_Data(false,xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+                if (myOrg.Address_v.StreetName_v == null)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_StreetName.s);
+                    }
+                    return eGetOrganisationDataResult.NO_STREET_NAME;
+                    //if (EditMyOrganisation_Data(false, xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+                if (myOrg.Address_v.HouseNumber_v == null)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_HouseNumber.s);
+                    }
+                    return eGetOrganisationDataResult.NO_HOUSE_NUMBER;
+                    //if (EditMyOrganisation_Data(false, xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+                if (myOrg.Address_v.ZIP_v == null)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_ZIP.s);
+                    }
+                    return eGetOrganisationDataResult.NO_ZIP;
+                    //if (EditMyOrganisation_Data(false, xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+                if (myOrg.Address_v.City_v == null)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_City.s);
+                    }
+                    return eGetOrganisationDataResult.NO_CITY;
+                    //if (EditMyOrganisation_Data(false, xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+                if (myOrg.Address_v.Country_v == null)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_Country.s);
+                    }
+                    return eGetOrganisationDataResult.NO_COUNTRY;
+                    //if (EditMyOrganisation_Data(false, xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        //myStartup.eNextStep--;
+                    //        return true;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+                f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID);
+                f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num,ref myOrg.Default_TaxRates);
+
+
+                if (myOrg.myOrg_Office_list.Count > 0)
+                {
+                    if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
+                    {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lng.s_No_OrganisationData.s);
+                            MessageBox.Show(lng.s_No_Office_Data.s);
                         }
-                        if (EditMyOrganisation_Data(true, xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
+                        return eGetOrganisationDataResult.NO_OFFICE;
+                        //if (Edit_myOrg_Office_Data(xnav))
+                        //{
+                        //    continue;
+                        //}
+                        //else
+                        //{
+                        //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        //    return false;
+                        //}
                     }
-                    if (myOrg.Tax_ID_v == null)
+                    else
                     {
-                        if (!Program.bFirstTimeInstallation)
+                        if (myOrg.Address_v.Country_ISO_3166_a3.Equals(Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_A3))
                         {
-                            MessageBox.Show(lng.s_No_MyOrganisation_Tax_ID.s);
-                        }
-                        if (EditMyOrganisation_Data(false,xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
+                            Program.b_FVI_SLO = true;
                         }
                         else
                         {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
+                            Program.b_FVI_SLO = false;
                         }
-                    }
-
-                    if (myOrg.Address_v.StreetName_v == null)
-                    {
-                        if (!Program.bFirstTimeInstallation)
+                        string Err = null;
+                        if (TangentaSampleDB.TangentaSampleDB.Is_Sample_DB(ref Err))
                         {
-                            MessageBox.Show(lng.s_No_MyOrganisation_StreetName.s);
-                        }
-                        if (EditMyOrganisation_Data(false, xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-
-                    if (myOrg.Address_v.HouseNumber_v == null)
-                    {
-                        if (!Program.bFirstTimeInstallation)
-                        {
-                            MessageBox.Show(lng.s_No_MyOrganisation_HouseNumber.s);
-                        }
-                        if (EditMyOrganisation_Data(false, xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-
-                    if (myOrg.Address_v.ZIP_v == null)
-                    {
-                        if (!Program.bFirstTimeInstallation)
-                        {
-                            MessageBox.Show(lng.s_No_MyOrganisation_ZIP.s);
-                        }
-                        if (EditMyOrganisation_Data(false, xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-                    if (myOrg.Address_v.City_v == null)
-                    {
-                        if (!Program.bFirstTimeInstallation)
-                        {
-                            MessageBox.Show(lng.s_No_MyOrganisation_City.s);
-                        }
-                        if (EditMyOrganisation_Data(false, xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-
-                    if (myOrg.Address_v.Country_v == null)
-                    {
-                        if (!Program.bFirstTimeInstallation)
-                        {
-                            MessageBox.Show(lng.s_No_MyOrganisation_Country.s);
-                        }
-                        if (EditMyOrganisation_Data(false, xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                //myStartup.eNextStep--;
-                                return true;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-
-                    f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID);
-                    f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num,ref myOrg.Default_TaxRates);
-
-  do_Edit_myOrg_Office:
-                    if (myOrg.myOrg_Office_list.Count > 0)
-                    {
-                        if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
-                        {
-                            if (!Program.bFirstTimeInstallation)
-                            {
-                                MessageBox.Show(lng.s_No_Office_Data.s);
-                            }
-                            if (Edit_myOrg_Office_Data(xnav))
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            if (myOrg.Address_v.Country_ISO_3166_a3.Equals(Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_A3))
-                            {
-                                Program.b_FVI_SLO = true;
-                            }
-                            else
-                            {
-                                Program.b_FVI_SLO = false;
-                            }
-
-                            if (TangentaSampleDB.TangentaSampleDB.Is_Sample_DB(ref Err))
-                            {
-                                if (Program.b_FVI_SLO)
-                                {
-                                    if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
-                                    {
-
-                                    }
-                                }
-                            }
                             if (Program.b_FVI_SLO)
                             {
                                 if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
-                                    if (!Program.bFirstTimeInstallation)
-                                    {
-                                        MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
-                                    }
-                                    if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav))
-                                    {
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                        return false;
-                                    }
+
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        if (!Program.bFirstTimeInstallation)
+                        if (Program.b_FVI_SLO)
                         {
-                            MessageBox.Show(lng.s_No_Office.s);
-                        }
-
-                        if (Edit_myOrg_Office(xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                             {
-                                myOrg.Name_v = null;
-                                goto do_EditMyOrganisation_Data;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            { 
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-
-
-                    if (myOrg.myOrg_Person_list.Count== 0)
-                    {
-                        if (!Program.bFirstTimeInstallation)
-                        {
-                            MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
-                        }
-                        if (EditMyOrganisation_Person_Data(0,xnav))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                myOrg.myOrg_Office_list.Clear();
-                                goto do_Edit_myOrg_Office;
-                            }
-                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                            {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                continue;
+                                if (!Program.bFirstTimeInstallation)
+                                {
+                                    MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                }
+                                return eGetOrganisationDataResult.NO_REAL_ESTATE;
+                                //if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav))
+                                //{
+                                //    continue;
+                                //}
+                                //else
+                                //{
+                                //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                //    return false;
+                                //}
                             }
                         }
-                        else
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
                     }
-
-                    string sPhoneNumber = "";
-                    string sEmail = "";
-                    string sHomePage = "";
-                    string sRegistration_ID = "";
-                    if (myOrg.PhoneNumber_v!=null)
-                    {
-                        sPhoneNumber = myOrg.PhoneNumber_v.vs;
-                    }
-                    if (myOrg.Email_v != null)
-                    {
-                        sEmail = myOrg.Email_v.vs;
-                    }
-                    if (myOrg.HomePage_v != null)
-                    {
-                        sHomePage = myOrg.HomePage_v.vs;
-                    }
-                    if (myOrg.Registration_ID_v != null)
-                    {
-                        sRegistration_ID = myOrg.Registration_ID_v.vs;
-                    }
-
-                    this.txt_MyOrganisation.Text = myOrg.Name_v.vs + "," + sAddress
-                        + "\r\nDavčna Številka:" + myOrg.Tax_ID_v.vs
-                        + "\r\nMatična Številka:" + sRegistration_ID
-                        + "\r\nTelefon:" + sPhoneNumber
-                        + "\r\nEmail:" + sEmail
-                        + "\r\nDomača stran:" + sHomePage;
-                     Fill_MyOrganisation_Person();
-                    //myStartup.eNextStep++;
-                    return true;
                 }
+                else
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_Office.s);
+                    }
+                    return eGetOrganisationDataResult.NO_OFFICE;
+                    //if (Edit_myOrg_Office(xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        myOrg.Name_v = null;
+                    //        goto do_EditMyOrganisation_Data;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    { 
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+
+                if (myOrg.myOrg_Person_list.Count== 0)
+                {
+                    if (!Program.bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
+                    }
+                    return eGetOrganisationDataResult.NO_MY_ORG_PERSON;
+                    //if (EditMyOrganisation_Person_Data(0,xnav))
+                    //{
+                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    //    {
+                    //        myOrg.myOrg_Office_list.Clear();
+                    //        goto do_Edit_myOrg_Office;
+                    //    }
+                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    //    {
+                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //        return false;
+                    //    }
+                    //    else
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    //    return false;
+                    //}
+                }
+
+                string sPhoneNumber = "";
+                string sEmail = "";
+                string sHomePage = "";
+                string sRegistration_ID = "";
+                if (myOrg.PhoneNumber_v!=null)
+                {
+                    sPhoneNumber = myOrg.PhoneNumber_v.vs;
+                }
+                if (myOrg.Email_v != null)
+                {
+                    sEmail = myOrg.Email_v.vs;
+                }
+                if (myOrg.HomePage_v != null)
+                {
+                    sHomePage = myOrg.HomePage_v.vs;
+                }
+                if (myOrg.Registration_ID_v != null)
+                {
+                    sRegistration_ID = myOrg.Registration_ID_v.vs;
+                }
+
+                string sAddress = myOrg.Address_v.StreetName_v.v + " " + myOrg.Address_v.HouseNumber_v.v + " , " + myOrg.Address_v.ZIP_v.v + " " + myOrg.Address_v.City_v.v + " , " + myOrg.Address_v.Country;
+
+                this.txt_MyOrganisation.Text = myOrg.Name_v.vs + "," + sAddress
+                    + "\r\n"+lng.s_Tax_ID.s+":" + myOrg.Tax_ID_v.vs
+                    + "\r\n"+lng.s_Registration_ID.s+":" + sRegistration_ID
+                    + "\r\n"+lng.s_PhoneNumber.s+":" + sPhoneNumber
+                    + "\r\n"+lng.s_Email.s+":" + sEmail
+                    + "\r\n"+ lng.s_HomePage.s + ":" + sHomePage;
+                    Fill_MyOrganisation_Person();
+
+                return eGetOrganisationDataResult.OK;
+            }
+            else
+            {
+                return eGetOrganisationDataResult.ERROR;
             }
         }
 

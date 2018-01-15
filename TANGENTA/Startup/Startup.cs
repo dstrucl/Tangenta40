@@ -73,7 +73,7 @@ namespace Startup
         }
 
 
-        public bool Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
+        public bool Startup_01_Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
             // return  true for step over
             Err = null;
@@ -82,13 +82,13 @@ namespace Startup
         }
 
 
-        public bool Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result,  ref string Err)
+        public bool Startup_00_Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result,  ref string Err)
         {
             xnav.ShowForm(new Form_Navigate(xnav), "Tangenta.Tangenta_about");
             return true;
         }
 
-        internal void CurrentStepExecutionSetUndefined()
+        public void CurrentStepExecutionSetUndefined()
         {
             m_Step[(int)eStep].SetUndefined();
         }
@@ -99,13 +99,13 @@ namespace Startup
              m_Step[0].StartExecution();
         }
 
-        internal bool StartCurrentStepExecution()
+        public bool StartCurrentStepExecution()
         {
             m_Step[(int)eStep].StartExecution();
             return true;
         }
 
-        internal bool StartNextStepExecution()
+        public bool StartNextStepExecution()
         {
             if (((int)eStep) < m_Step.Length-1)
             {
@@ -121,7 +121,7 @@ namespace Startup
             }
         }
 
-        internal bool StartPrevStepExecution()
+        public bool StartPrevStepExecution()
         {
             if (((int)eStep) > 0)
             {
@@ -192,6 +192,11 @@ namespace Startup
             {
                 return EvaulateStep_RESULT.EXIT;
             }
+        }
+
+        public void StartCurrentStepExecution_ShowForm(startup_step.Startup_check_proc_Result wAIT_USER_INTERACTION)
+        {
+            m_Step[(int)eStep].StartExecution_ShowForm(wAIT_USER_INTERACTION);
         }
     }
 }

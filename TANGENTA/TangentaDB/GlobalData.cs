@@ -504,6 +504,10 @@ namespace TangentaDB
 
         public static bool Type_definitions_Read()
         {
+            if (language_definitions==null)
+            {
+                GlobalData.Init();
+            }
             if (language_definitions.Get())
             {
                 if (JOURNAL_type_definitions_Read())

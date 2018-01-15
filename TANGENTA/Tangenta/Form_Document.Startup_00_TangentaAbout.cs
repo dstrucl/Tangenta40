@@ -12,10 +12,10 @@ namespace Tangenta
     {
         private startup_step CStartup_00_TangentaAbout()
         {
-            return new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Check_TangentaAboutShown, m_startup.Do_showform_TangentaAbout, onformresult_TangentaAbout, startup_step.eStep.Check_00_TangentaAbout);
+            return new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Startup_00_Check_TangentaAboutShown, m_startup.Startup_00_Do_showform_TangentaAbout, Startup_00_onformresult_TangentaAbout, startup_step.eStep.Check_00_TangentaAbout);
         }
 
-        private Startup_check_proc_Result Check_TangentaAboutShown(startup myStartup,
+        private Startup_check_proc_Result Startup_00_Check_TangentaAboutShown(startup myStartup,
                                                 object oData,
                                                 NavigationButtons.Navigation xnav,
                                                 ref string Err)
@@ -33,7 +33,7 @@ namespace Tangenta
         
 
 
-        private Startup_onformresult_proc_Result onformresult_TangentaAbout(startup myStartup,
+        private Startup_onformresult_proc_Result Startup_00_onformresult_TangentaAbout(startup myStartup,
                                                                                             object oData,
                                                                                             NavigationButtons.Navigation xnav,
                                                                                             ref string Err)

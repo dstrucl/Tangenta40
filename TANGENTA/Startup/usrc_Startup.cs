@@ -15,7 +15,8 @@ namespace Startup
         public delegate void delegate_ExitProgram();
         public event delegate_ExitProgram ExitProgram = null;
 
-        public event usrc_startup_step.delegate_StartupFormClosing StartupFormClosed=null;
+        
+        public event usrc_startup_step.delegate_StartupFormClosing StartupFormClosing=null;
 
         int xusrc_startup_step_Width = 0;
 
@@ -23,7 +24,7 @@ namespace Startup
         
         public const int Y_DIST = 10;
 
-        private bool m_Exit = false;
+        public bool m_Exit = false;
 
         public bool Exit { get { return m_Exit; } }
 
@@ -57,59 +58,11 @@ namespace Startup
 
         private void Xusrc_startup_step_StartupFormClosing(object sender)
         {
-            if (sender is usrc_startup_step)
+            if(StartupFormClosing!=null)
             {
-                usrc_startup_step xusrc_startup_step = (usrc_startup_step)sender;
-                if (xusrc_startup_step.bDoStepAgain)
-                {
-                    xusrc_startup_step.bDoStepAgain = false;
-                    this.m_startup.StartCurrentStepExecution();
-                }
-                else
-                { 
-                    switch (xusrc_startup_step.startup_step.nav.eExitResult)
-                    {
-                        case NavigationButtons.Navigation.eEvent.NEXT:
-                            this.m_startup.StartNextStepExecution();
-                            break;
-
-                        case NavigationButtons.Navigation.eEvent.PREV:
-                            this.m_startup.CurrentStepExecutionSetUndefined();
-                            if (this.m_startup.StartPrevStepExecution())
-                            {
-                                return;
-                            }
-                            else
-                            {
-                                if (ExitProgram != null)
-                                {
-                                    ExitProgram();
-                                }
-                            }
-                            break;
-
-                        case NavigationButtons.Navigation.eEvent.NOTHING:
-                            if (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK)
-                            {
-                                this.m_startup.StartNextStepExecution();
-                            }
-                            else
-                            {
-                                MessageBox.Show("ERROR:Startup:usrc_Startup:Xusrc_startup_step_StartupFormClosing:  case NavigationButtons.Navigation.eEvent.NOTHING: and (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK == false not implemented!");
-                            }
-                            break;
-
-                        case NavigationButtons.Navigation.eEvent.EXIT:
-                            if (ExitProgram != null)
-                            {
-                                m_Exit = true;
-                                ExitProgram();
-                            }
-                            break;
-
-                    }
-                }
+                StartupFormClosing(sender);
             }
+            
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

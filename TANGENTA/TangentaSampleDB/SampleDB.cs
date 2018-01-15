@@ -407,7 +407,7 @@ namespace TangentaSampleDB
             }
         }
 
-        internal bool WriteMyOrg()
+        public bool WriteMyOrg()
         {
             return myOrgSample.Write();
         }
@@ -426,7 +426,7 @@ namespace TangentaSampleDB
         }
 
 
-        internal bool MyOrgSampleShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        public bool Startup_05_MyOrgSampleShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
             xnav.ShowForm(new Form_EditMyOrgSampleData(this, xnav, oIcon), "TangentaSampleDB.Form_EditMyOrgSampleData");
             return true;
@@ -437,16 +437,16 @@ namespace TangentaSampleDB
             return true;
         }
 
-        internal bool Form_Select_Country_ISO_3166_ShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        internal bool Startup_05_Form_Select_Country_ISO_3166_ShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
 
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
-            string DefaultCountry = null;
+            string DefaultCountry_State_A3 = null;
             if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
             {
-                DefaultCountry = "Slovenija";
+                DefaultCountry_State_A3 = "SVN";
             }
-            xnav.ShowForm(new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lng.s_SelectCountryWhereYouPayTaxes.s, xnav), "Country_ISO_3166.Form_Select_Country_ISO_3166");
+            xnav.ShowForm(new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry_State_A3, lng.s_SelectCountryWhereYouPayTaxes.s, xnav), "Country_ISO_3166.Form_Select_Country_ISO_3166");
             return true;
         }
 

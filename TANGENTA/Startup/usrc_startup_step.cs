@@ -13,7 +13,7 @@ namespace Startup
 {
     public partial class usrc_startup_step : UserControl
     {
-        internal startup_step startup_step;
+        public startup_step startup_step;
 
         public delegate void delegate_StartupFormClosing(object sender);
         public event delegate_StartupFormClosing StartupFormClosing;
@@ -66,7 +66,7 @@ namespace Startup
 
                 case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_1:
                     this.check1.State = Check.check.eState.WAIT;
-                    if (startup_step.Execute_showform_procedure(null, startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_1, ref Err))
+                    if (startup_step.Execute_showform_procedure(null, startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2, ref Err))
                     {
                     }
                     if (StartupFormClosing != null)
@@ -150,7 +150,7 @@ namespace Startup
 
 
                 case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0:
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_1:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2:
                     this.check1.State = Check.check.eState.WAIT;
                     if (startup_step.Execute_showform_procedure(null, eResult, ref Err))
                     {

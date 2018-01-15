@@ -14,14 +14,23 @@ namespace Startup
                                                CHECK_OK,
                                                WAIT_USER_INTERACTION_0,
                                                WAIT_USER_INTERACTION_1,
-                                               CHECK_ERROR };
+                                               WAIT_USER_INTERACTION_2,
+                                               WAIT_USER_INTERACTION_3,
+                                               WAIT_USER_INTERACTION_4,
+                                               CHECK_ERROR
+            
+        };
+
         public enum Startup_onformresult_proc_Result {EXIT,
                                                       NEXT,
                                                       PREV,
                                                       DO_CHECK_PROC_AGAIN,
                                                       WAIT_USER_INTERACTION_0,
                                                       WAIT_USER_INTERACTION_1,
-                                                      NO_FORM_BUT_CHECK_OK,ERROR };
+                                                    WAIT_USER_INTERACTION_2,
+                                                    WAIT_USER_INTERACTION_3,
+                                                    NO_FORM_BUT_CHECK_OK,
+                                                    ERROR };
 
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
@@ -31,10 +40,9 @@ namespace Startup
                                 Check_02_DataBaseType,
                                 Check_03_DBConnection,
                                 Check_04_DBSettings,
-                                Check_05_DBVersion,
-                                Check_06_Country_ISO_3166,
-                                Check_07_InsertSampleData,
-                                Check_08_GetOrganisationData,
+                                Check_05_myOrganisation_Data,
+                                Check_06_InsertSampleData,
+                                Check_07_GetOrganisationData,
                                 GetBaseCurrency,
                                 GetTaxation,
                                 Get_ProgramSettings,
@@ -120,6 +128,10 @@ namespace Startup
             m_usrc_startup_step.check1.State = Check.check.eState.UNDEFINED;
         }
 
+        public void SetWait()
+        {
+            m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
+        }
 
         public Startup_check_proc_Result Execute_check_procedure(object oData, ref string Err)
         {
@@ -137,6 +149,13 @@ namespace Startup
         {
             bool bRes = showform_procedure(oData, nav, echeck_proc_Result, ref Err);
             return bRes;
+        }
+
+        internal void StartExecution_ShowForm(Startup_check_proc_Result wAIT_USER_INTERACTION)
+        {
+            string Err = null;
+            SetWait();
+            bool bRes = showform_procedure(null, nav, wAIT_USER_INTERACTION, ref Err);
         }
 
         public Startup_onformresult_proc_Result Execute_onformresult_procedure(object oData, ref string Err)

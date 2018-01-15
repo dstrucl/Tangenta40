@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using TangentaDB;
 using static Startup.startup_step;
 
@@ -17,62 +18,68 @@ namespace Tangenta
 
         private startup_step CStartup_04_Check_DBSettings()
         {
-            return new startup_step(lng.s_Startup_Check_DataBase.s, m_startup, Program.nav, Startup_04_Check_DBSettings, Startup_04_ShowDBSettingsForm, Startup_04_onformresult_ShowDBSettings, startup_step.eStep.Check_04_DBSettings);
+            return new startup_step(lng.s_Startup_Check_DBSettings.s, m_startup, Program.nav, Startup_04_Check_DBSettings, Startup_04_ShowDBSettingsForm, Startup_04_onformresult_ShowDBSettings, startup_step.eStep.Check_04_DBSettings);
         }
 
         public Startup_check_proc_Result Startup_04_Check_DBSettings(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
         {
-            fs.enum_GetDBSettings eGetDBSettings_Result = m_usrc_Main.m_UpgradeDB.Read_DBSettings(myStartup, o, xnav, ref Err);
-            switch (eGetDBSettings_Result)
+            if (GlobalData.Type_definitions_Read())
             {
+                if (m_usrc_Main.GetDBSettings(ref Err))
+                {
+                    string xFullBackupFile = null;
+                    bool bUpgradeDone = false;
+                    bool bInsertSampleData = false;
+                    bool bCanceled = false;
+                    fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(myStartup, ref xFullBackupFile, ref bUpgradeDone, ref bInsertSampleData, ref bCanceled, ref Err);
+                    switch (eGetDBSettings_Result)
+                    {
+                        case fs.enum_GetDBSettings.DBSettings_OK:
+                            if (bUpgradeDone)
+                            {
+                                return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                            }
+                            else
+                            {
+                                return Startup_check_proc_Result.CHECK_OK;
+                            }
 
-                case fs.enum_GetDBSettings.DBSettings_OK:
-                    return Startup_check_proc_Result.CHECK_OK;
-
-                //        bResult = CheckDataBaseVersion(myStartup, ref Err);
-                //        if (bResult)
-                //        {
-                //            //if (Program.bFirstTimeInstallation)
-                //            //{
-                //            //    if (fs.GetTableRowsCount("myOrganisation_Person") == 0)
-                //            //    {
-                //            //        //DataBase Is Empty!
-                //            //        bResult = InsertSampleData(myStartup, xnav, ref Err);
-                //            //        if (xnav.eExitResult == Navigation.eEvent.PREV)
-                //            //        {
-                //            //            goto do_Form_DBSettings;
-                //            //        }
-                //            //    }
-                //            //}
-                //        }
-                //        return bResult;
-
-                case fs.enum_GetDBSettings.No_Data_Rows:
-                   //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
-                        return Startup_check_proc_Result.WAIT_USER_INTERACTION_0; // ShowDB_settings
-
-
-                case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                        LogFile.Error.Show(Err);
-                    return Startup_check_proc_Result.CHECK_ERROR;
-
-                case fs.enum_GetDBSettings.No_TextValue:
-                    LogFile.Error.Show(Err);
-                    return Startup_check_proc_Result.CHECK_ERROR;
-
-                case fs.enum_GetDBSettings.No_ReadOnly:
-                        Err = "ERROR enum_GetDBSettings return No_ReadOnly!";
-                    LogFile.Error.Show(Err);
-                    return Startup_check_proc_Result.CHECK_ERROR;
-
-                default:
-                    Err = "ERROR enum_GetDBSettings not handled!";
-                    LogFile.Error.Show(Err);
-                    return Startup_check_proc_Result.CHECK_ERROR;
+                        case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                        case fs.enum_GetDBSettings.No_ReadOnly:
+                        case fs.enum_GetDBSettings.No_Data_Rows:
+                        case fs.enum_GetDBSettings.No_TextValue:
+                            return Startup_check_proc_Result.CHECK_ERROR;
+                        default:
+                            return Startup_check_proc_Result.CHECK_ERROR;
+                    }
+                }
+                else
+                {
+                    if (Err != null)
+                    {
+                        if (Err.Contains("ERROR:"))
+                        {
+                            return Startup_check_proc_Result.CHECK_ERROR;
+                        }
+                        else
+                        {
+                            XMessage.Box.Show(this, lng.s_No_DB_Settings_for, " " + Err, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                            return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_04_Check_DBSettings  Err==null should not happen in false result  from m_usrc_Main.GetDBSettings function!");
+                        return Startup_check_proc_Result.CHECK_ERROR;
+                    }
+                }
             }
-
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_04_Check_DBSettings:  Type_definitions_Read failed!");
+                return Startup_check_proc_Result.CHECK_ERROR;
+            }
         }
-
         private bool Startup_04_ShowDBSettingsForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
             xnav.ShowForm(new Form_DBSettings(xnav, Program.AdministratorLockedPassword), "Tangenta.Form_DBSettings");
@@ -84,69 +91,34 @@ namespace Tangenta
             switch (xnav.eExitResult)
             {
                 case Navigation.eEvent.NEXT:
-                    fs.enum_GetDBSettings eGetDBSettings_Result = m_usrc_Main.eGetDBSettings_Result(myStartup);
-                    switch (eGetDBSettings_Result)
-                    {
+                    bool bDBSettingsChanged = ((Form_DBSettings)xnav.ChildDialog).Changed;
+                    Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
 
-                        case fs.enum_GetDBSettings.DBSettings_OK:
-                            return Startup_onformresult_proc_Result.NEXT;
+                    Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
+                    Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)xnav.ChildDialog).SingleUserLoginAsAdministrator;
+                    Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
+                    Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)xnav.ChildDialog).ShopC_ExclusivelySellFromStock;
+                    Program.OperationMode.MultiCurrency = ((Form_DBSettings)xnav.ChildDialog).MultiCurrencyOperation;
+                    return Startup_onformresult_proc_Result.NEXT;
 
-                    //        bResult = CheckDataBaseVersion(myStartup, ref Err);
-                    //        if (bResult)
-                    //        {
-                    //            //if (Program.bFirstTimeInstallation)
-                    //            //{
-                    //            //    if (fs.GetTableRowsCount("myOrganisation_Person") == 0)
-                    //            //    {
-                    //            //        //DataBase Is Empty!
-                    //            //        bResult = InsertSampleData(myStartup, xnav, ref Err);
-                    //            //        if (xnav.eExitResult == Navigation.eEvent.PREV)
-                    //            //        {
-                    //            //            goto do_Form_DBSettings;
-                    //            //        }
-                    //            //    }
-                    //            //}
-                    //        }
-                    //        return bResult;
+                case Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
 
-                        case fs.enum_GetDBSettings.No_Data_Rows:
+                case Navigation.eEvent.EXIT:
+                    return Startup_onformresult_proc_Result.EXIT;
 
-                            return Startup_onformresult_proc_Result.NEXT; // ShowDB_settings
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
 
-                        //    //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
-                        //        xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword);
-                        //        xnav.ShowForm();
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_04_onformresult_ShowDBSettings:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
+                    return Startup_onformresult_proc_Result.ERROR;
 
-                        //        return bResult;
 
-                        case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                    //        LogFile.Error.Show(Err);
-                    //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    //        return false;
 
-                        case fs.enum_GetDBSettings.No_TextValue:
-                    //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    //        return false;
-
-                        case fs.enum_GetDBSettings.No_ReadOnly:
-                    //        Err = "ERROR enum_GetDBSettings return No_ReadOnly!";
-                    //        LogFile.Error.Show(Err);
-                    //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    //        return false;
-
-                        default:
-                            Err = "ERROR enum_GetDBSettings not handled!";
-                    //        LogFile.Error.Show(Err);
-                    //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    //        return false;
-
-                    //}
-
-                        return Startup_onformresult_proc_Result.NEXT;
-                    }
-                  
             }
-            return Startup_onformresult_proc_Result.ERROR;
+            
         }
     }
 }

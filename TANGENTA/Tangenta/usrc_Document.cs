@@ -31,6 +31,14 @@ namespace Tangenta
 
         Form Main_Form = null;
         public delegate void delegate_Exit_Click();
+
+        internal usrc_Invoice.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
+        {
+            usrc_Invoice.eGetOrganisationDataResult eres = this.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData();
+            return eres;
+
+        }
+
         public event delegate_Exit_Click Exit_Click;
         public UpgradeDB_inThread m_UpgradeDB = null;
 
@@ -353,9 +361,16 @@ namespace Tangenta
             return myStartup.bInsertSampleData;
         }
 
-        internal bool GetDBSettings_And_JOURNAL_DocInvoice_Type(startup myStartup, ref string Err)
+        internal bool Startup_05_Show_Form_CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_CheckInsertSampleData(myStartup, xnav), "Tangenta.Form_CheckInsertSampleData");
+            return true;
+        }
+
+        internal bool GetDBSettings(ref string Err)
         {
             bool bReadOnly = false;
+            Err = null;
             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref Program.AdministratorLockedPassword, ref bReadOnly, ref Err))
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
@@ -388,32 +403,25 @@ namespace Tangenta
                                                     {
                                                         case fs.enum_GetDBSettings.DBSettings_OK:
                                                             Program.OperationMode.MultiCurrency = sMultiCurrencyOperation.Equals("1");
-                                                            break;
+                                                            return true;
 
                                                         case fs.enum_GetDBSettings.No_TextValue:
                                                         case fs.enum_GetDBSettings.No_Data_Rows:
-                                                            if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name))
-                                                            {
-                                                                //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                                                return false;
-                                                            }
-                                                            break;
+                                                            Err = DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name;
+                                                            return false;
+
                                                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                            //myStartup.eNextStep = startup_step.eStep.Cancel;
+                          
                                                             return false;
                                                     }
                                                     break;
 
                                                 case fs.enum_GetDBSettings.No_TextValue:
                                                 case fs.enum_GetDBSettings.No_Data_Rows:
-                                                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name))
-                                                    {
-                                                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                                        return false;
-                                                    }
-                                                    break;
+                                                    Err = DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name;
+                                                    return false;
+
                                                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                                                     return false;
                                             }
                                             break;
@@ -421,33 +429,10 @@ namespace Tangenta
 
                                         case fs.enum_GetDBSettings.No_TextValue:
                                         case fs.enum_GetDBSettings.No_Data_Rows:
-                                            if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
-                                            {
-                                                //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                                return false;
-                                            }
-                                            sShopC_ExclusivelySellFromStock = null;
-                                            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
-                                            {
-                                                case fs.enum_GetDBSettings.DBSettings_OK:
-                                                    Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
-                                                    break;
+                                            Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
+                                            return false;
 
-                                                case fs.enum_GetDBSettings.No_TextValue:
-                                                case fs.enum_GetDBSettings.No_Data_Rows:
-                                                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name))
-                                                    {
-                                                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                                        return false;
-                                                    }
-                                                    break;
-                                                case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                    //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                                    return false;
-                                            }
-                                            break;
                                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                                             return false;
                                     }
                                     break;
@@ -455,14 +440,9 @@ namespace Tangenta
                                 case fs.enum_GetDBSettings.No_ReadOnly:
                                 case fs.enum_GetDBSettings.No_TextValue:
                                 case fs.enum_GetDBSettings.No_Data_Rows:
-                                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
-                                    {
-                                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                        return false;
-                                    }
-                                    break;
+                                    Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
+                                    return false;
                                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                                     return false;
                             }
                             break;
@@ -471,56 +451,45 @@ namespace Tangenta
                         case fs.enum_GetDBSettings.No_ReadOnly:
                         case fs.enum_GetDBSettings.No_TextValue:
                         case fs.enum_GetDBSettings.No_Data_Rows:
-                            if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
-                            {
-                                //myStartup.eNextStep = startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            break;
+                            Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
+                            return false;
                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                            //myStartup.eNextStep = startup_step.eStep.Cancel;
                             return false;
                     }
                     break;
                 case fs.enum_GetDBSettings.No_ReadOnly:
                 case fs.enum_GetDBSettings.No_TextValue:
                 case fs.enum_GetDBSettings.No_Data_Rows:
-                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
-                    {
-                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                        return false;
-                    }
-                    break;
+                    Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
+                    return false;
                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                    //myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
             }
-            //myStartup.eNextStep++;
-            return GlobalData.Type_definitions_Read();
+            return false; // GlobalData.Type_definitions_Read();
 
         }
 
-        internal bool CheckDataBaseVersion(startup myStartup, ref string Err)
-        {
-            if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
-            {
-                return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
-            }
-            else
-            {
-                if (MessageBox.Show(this.Main_Form, lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n" + lng.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
-                    return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
-                }
-                else
-                {
-                    Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n" + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
-                    //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    return false;
-                }
-            }
-        }
+        //internal bool CheckDataBaseVersion(startup myStartup, ref string Err)
+        //{
+        //    if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
+        //    {
+        //        return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
+        //    }
+        //    else
+        //    {
+        //        if (MessageBox.Show(this.Main_Form, lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n" + lng.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+        //        {
+        //            myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
+        //            return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
+        //        }
+        //        else
+        //        {
+        //            Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n" + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
+        //            //myStartup.eNextStep = startup_step.eStep.Cancel;
+        //            return false;
+        //        }
+        //    }
+        //}
 
         private bool GetMissingDBSettings(string name)
         {
@@ -704,10 +673,10 @@ namespace Tangenta
             //}
         }
 
-        internal bool Evaluate_CheckDBVersion(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            return CheckDataBaseVersion(myStartup, ref Err);
-        }
+        //internal bool Evaluate_CheckDBVersion(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        //{
+        //    return CheckDataBaseVersion(myStartup, ref Err);
+        //}
 
         internal bool Evaluate_Form_DBSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {

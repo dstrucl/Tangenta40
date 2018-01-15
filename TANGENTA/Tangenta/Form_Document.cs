@@ -23,6 +23,7 @@ using TangentaDB;
 using System.Reflection;
 using static Startup.startup_step;
 using NavigationButtons;
+using TangentaSampleDB;
 
 namespace Tangenta
 {
@@ -37,30 +38,7 @@ namespace Tangenta
         public Form ChildForm = null;
 
      
-    
-
-       
-
-        //            if (DBSync.DBSync.Init_Get_DBType(Program.Reset2FactorySettings.DBConnectionControlXX_EXE,
-        //                                                m_XmlFileName, xCodeTables_IniFileFolder,
-        //                                                ref sDBType,
-        //                                                false, 
-        //                                                Program.bChangeConnection,
-        //                                                xnav, 
-        //                                                ref myStartup.bNewDatabaseCreated, 
-        //                                                ref bCanceled))
-        //            {
-        //                return Startup_check_proc_Result.CHECK_OK;
-        //            }
-        //            // result will come when closed
-        //        }
-        //        else
-        //        {
-        //            myStartup.eNextStep = startup_step.eStep.Cancel;
-        //        }
-        //    return false;
-        //}
-
+  
 
         public Form_Document()
         {
@@ -152,8 +130,9 @@ namespace Tangenta
                 CStartup_03_Check_DBConnection(),
 
                 // CHECK DBSettings
-                CStartup_04_Check_DBSettings()
+                CStartup_04_Check_DBSettings(),
 
+                CStartup_05_Check_myOrganisation_Data()
              
              //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
 
@@ -181,6 +160,7 @@ namespace Tangenta
 
             m_startup.Steps = StartupStep;
             m_startup.m_usrc_Startup.ExitProgram += M_usrc_Startup_ExitProgram;
+            m_startup.m_usrc_Startup.StartupFormClosing += M_usrc_Startup_StartupFormClosing;
             //this.usr
             //int iStep = 0;
             //int iCountStep1 = m_startup.Step.Count();
@@ -197,6 +177,102 @@ namespace Tangenta
             //}
 
             Program.nav.oStartup = m_startup;
+        }
+
+        private void M_usrc_Startup_StartupFormClosing(object sender)
+        {
+            if (sender is usrc_startup_step)
+            {
+                usrc_startup_step xusrc_startup_step = (usrc_startup_step)sender;
+                if (xusrc_startup_step.bDoStepAgain)
+                {
+                    xusrc_startup_step.bDoStepAgain = false;
+                    this.m_startup.StartCurrentStepExecution();
+                }
+                else
+                {
+                    switch (xusrc_startup_step.startup_step.nav.eExitResult)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_CheckInsertSampleData)
+                            {
+                                Form_CheckInsertSampleData frm_CheckInsertSampleData = (Form_CheckInsertSampleData)xusrc_startup_step.startup_step.nav.ChildDialog;
+                                if (frm_CheckInsertSampleData.WritePredefinedDefaultDataInDataBase)
+                                {
+                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_1);
+                                }
+                                else
+                                {
+                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_2);
+                                }
+                            }
+                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_EditMyOrgSampleData)
+                            {
+                                this.m_startup.sbd.WriteMyOrg();
+                                this.m_startup.StartCurrentStepExecution();
+                            }
+                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Edit)
+                            {
+                                this.m_startup.StartCurrentStepExecution();
+                            }
+                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data)
+                            {
+                                this.m_startup.StartCurrentStepExecution();
+                            }
+                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
+                            {
+                                this.m_startup.StartCurrentStepExecution();
+                            }
+                            else
+                            {
+                                this.m_startup.StartNextStepExecution();
+                            }
+                            break;
+
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            this.m_startup.CurrentStepExecutionSetUndefined();
+                            if (this.m_startup.StartPrevStepExecution())
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                M_usrc_Startup_ExitProgram();
+                            }
+                            break;
+
+                        case NavigationButtons.Navigation.eEvent.NOTHING:
+                            if (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK)
+                            {
+                                this.m_startup.StartNextStepExecution();
+                            }
+                            else
+                            {
+                                if (xusrc_startup_step.startup_step.nav.ChildDialog is DBConnectionControl40.TestConnectionForm)
+                                {
+                                    DBConnectionControl40.TestConnectionForm frm_TestConnectionForm = (DBConnectionControl40.TestConnectionForm)xusrc_startup_step.startup_step.nav.ChildDialog;
+                                    if (frm_TestConnectionForm.Result)
+                                    {
+                                        this.m_startup.StartNextStepExecution();
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("ERROR:Startup:usrc_Startup:Xusrc_startup_step_StartupFormClosing:  case NavigationButtons.Navigation.eEvent.NOTHING: and (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK == false not implemented!");
+                                    M_usrc_Startup_ExitProgram();
+                                }
+                            }
+                            break;
+
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+
+                            this.m_startup.m_usrc_Startup.m_Exit = true;
+                            M_usrc_Startup_ExitProgram();
+                            break;
+
+                    }
+                }
+            }
         }
 
         private void M_usrc_Startup_ExitProgram()

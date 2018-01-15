@@ -12,10 +12,10 @@ namespace Tangenta
     {
         private startup_step CStartup_01_TangentaLicence()
         {
-            return new startup_step(lng.s_Licence_checked.s, m_startup, Program.nav, Check_TangentaLicenceShown, m_startup.Do_showform_TangentaLicence, onformresult_TangentaLicence, startup_step.eStep.Check_01_TangentaLicence);
+            return new startup_step(lng.s_Licence_checked.s, m_startup, Program.nav, Startup_01_Check_TangentaLicenceShown, m_startup.Startup_01_Do_showform_TangentaLicence, Startup_01_onformresult_TangentaLicence, startup_step.eStep.Check_01_TangentaLicence);
         }
 
-        private Startup_check_proc_Result Check_TangentaLicenceShown(startup myStartup,
+        private Startup_check_proc_Result Startup_01_Check_TangentaLicenceShown(startup myStartup,
                                                    object oData,
                                                    NavigationButtons.Navigation xnav,
                                                    ref string Err)
@@ -30,7 +30,7 @@ namespace Tangenta
             }
         }
 
-        private Startup_onformresult_proc_Result onformresult_TangentaLicence(startup myStartup,
+        private Startup_onformresult_proc_Result Startup_01_onformresult_TangentaLicence(startup myStartup,
                                                                                        object oData,
                                                                                        NavigationButtons.Navigation xnav,
                                                                                        ref string Err)

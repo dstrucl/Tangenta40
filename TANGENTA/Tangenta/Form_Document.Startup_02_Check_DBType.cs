@@ -17,7 +17,7 @@ namespace Tangenta
 
         private startup_step CStartup_02_Check_DBType()
         {
-            return new startup_step(lng.s_Startup_Check_DataBase.s, m_startup, Program.nav, Startup_02_Check_DataBase_Type, Startup_02_ShowDataBaseTypeSelectionForm, Startup_02_onformresult_ShowDataBaseTypeSelectionForm, startup_step.eStep.Check_02_DataBaseType);
+            return new startup_step(lng.s_Startup_Check_DBType.s, m_startup, Program.nav, Startup_02_Check_DataBase_Type, Startup_02_ShowDataBaseTypeSelectionForm, Startup_02_onformresult_ShowDataBaseTypeSelectionForm, startup_step.eStep.Check_02_DataBaseType);
         }
 
         public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
@@ -95,7 +95,7 @@ namespace Tangenta
                                     return Startup_onformresult_proc_Result.ERROR;
                                 }
                             default:
-                                LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:Unsuported DB type:" + eDBType.ToString());
+                                LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:Unsuported DB type:" + eDBType.ToString());
                                 return Startup_onformresult_proc_Result.ERROR;
                         }
                     }
@@ -103,11 +103,11 @@ namespace Tangenta
                     {
                         if (xnav.ChildDialog == null)
                         {
-                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog == null!");
+                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog == null!");
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog is not of type DBSync.Form_GetDBType DB type:" + xnav.ChildDialog.GetType().ToString());
+                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog is not of type DBSync.Form_GetDBType DB type:" + xnav.ChildDialog.GetType().ToString());
                         }
                         return Startup_onformresult_proc_Result.ERROR;
                     }
@@ -122,7 +122,7 @@ namespace Tangenta
                     return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
 
                 default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:onformresult_ShowDataBaseTypeSelectionForm:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
                     return Startup_onformresult_proc_Result.ERROR;
             }
         }

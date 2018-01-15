@@ -355,6 +355,14 @@ namespace Tangenta
 
         public static ltext s_Tax_ID = new ltext(new string[] { "VAT ID", "Davč.št." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
 
+        public static ltext s_Registration_ID = new ltext(new string[] { "Registration ID", "Matična.št." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
+
+        public static ltext s_PhoneNumber = new ltext(new string[] { "Phone", "Telefon" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
+
+        public static ltext s_Email = new ltext(new string[] { "Email", "Email" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
+
+        public static ltext s_HomePage = new ltext(new string[] { "Home page", "Domača stran" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
+
         public static ltext s_Type = new ltext(new string[] { "Type", "Vrsta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
 
         public static ltext s_CardNumber = new ltext(new string[] { "Card Number", "Št. kartice" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Customer.cs
@@ -523,11 +531,13 @@ namespace Tangenta
 
         public static ltext s_Licence_checked = new ltext(new string[] { "Tangenta licence checked", "Licenca Tangente potrjena" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs)
 
-        public static ltext s_Startup_Check_DataBase = new ltext(new string[] { "Connecting with Database", "Povezovanje z bazo podatkov" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
+        public static ltext s_Startup_Check_DBType = new ltext(new string[] { "Get DB type", "Vrsta podatkovne baze" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_Startup_Read_DBSettings = new ltext(new string[] { "Read Database Settings", "Branje nastavitev iz baze podatkov" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
+        public static ltext s_Startup_Check_DBConnection = new ltext(new string[] { "Connection to Database", "Povezava do podatkovne baze" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_Startup_CheckDBVersion = new ltext(new string[] { "Check database", "Preverjanje baze podatkov" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
+        public static ltext s_Startup_Check_DBSettings = new ltext(new string[] { "Read DB Settings", "Nastavitve podatkovne baze" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
+
+        public static ltext s_Startup_Check_myOrganisation_Data = new ltext(new string[] { "My Organisation data", "Podatki o moji organizaciji" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
         public static ltext s_Startup_GetOrganisationData = new ltext(new string[] { "Reading organisation data ", "Branje podatkov o vaši organizaciji" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 

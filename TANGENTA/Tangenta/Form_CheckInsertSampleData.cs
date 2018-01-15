@@ -16,7 +16,11 @@ namespace Tangenta
     {
         private startup myStartup;
         private NavigationButtons.Navigation nav = null;
-
+        private bool m_WritePredefinedDefaultDataInDataBase = false;
+        public bool WritePredefinedDefaultDataInDataBase
+        {
+            get {return  m_WritePredefinedDefaultDataInDataBase; }
+        }
         public Form_CheckInsertSampleData(startup xmyStartup, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
@@ -48,6 +52,7 @@ namespace Tangenta
         {
             myStartup.bCanceled = false;
             myStartup.bInsertSampleData = rdb_WritePredefinedDefaultDataInDataBase.Checked;
+            m_WritePredefinedDefaultDataInDataBase = rdb_WritePredefinedDefaultDataInDataBase.Checked;
             this.Close();
             DialogResult = DialogResult.Cancel;
         }
