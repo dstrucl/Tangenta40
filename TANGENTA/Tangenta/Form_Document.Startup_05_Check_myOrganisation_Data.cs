@@ -35,13 +35,13 @@ namespace Tangenta
                 case usrc_Invoice.eGetOrganisationDataResult.NO_STREET_NAME:
                 case usrc_Invoice.eGetOrganisationDataResult.NO_HOUSE_NUMBER:
                 case usrc_Invoice.eGetOrganisationDataResult.NO_TAX_ID:
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_1;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_3;
 
                 case usrc_Invoice.eGetOrganisationDataResult.NO_OFFICE:
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_2;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_4;
 
                 case usrc_Invoice.eGetOrganisationDataResult.NO_REAL_ESTATE:
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_3;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_5;
 
                 default:
                     return Startup_check_proc_Result.CHECK_ERROR;
@@ -55,22 +55,26 @@ namespace Tangenta
             switch (echeck_proc_Result)
             {
                 case Startup_check_proc_Result.WAIT_USER_INTERACTION_0:
-                    m_usrc_Main.Startup_05_Show_Form_CheckInsertSampleData(m_startup, xnav);
+                    m_startup.sbd.Startup_05_Form_Select_Country_ISO_3166_ShowForm(ref bCanceled, xnav, Properties.Resources.Tangenta_Icon);
                     break;
 
                 case Startup_check_proc_Result.WAIT_USER_INTERACTION_1:
-                    m_startup.sbd.Startup_05_MyOrgSampleShowForm(ref bCanceled, xnav, Properties.Resources.Tangenta_Icon);
+                    m_usrc_Main.Startup_05_Show_Form_CheckInsertSampleData(m_startup, xnav);
                     break;
 
                 case Startup_check_proc_Result.WAIT_USER_INTERACTION_2:
-                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
+                    m_startup.sbd.Startup_05_MyOrgSampleShowForm(ref bCanceled, xnav, Properties.Resources.Tangenta_Icon);
                     break;
 
                 case Startup_check_proc_Result.WAIT_USER_INTERACTION_3:
-                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
+                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
                     break;
 
                 case Startup_check_proc_Result.WAIT_USER_INTERACTION_4:
+                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
+                    break;
+
+                case Startup_check_proc_Result.WAIT_USER_INTERACTION_5:
                     m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
                     break;
 

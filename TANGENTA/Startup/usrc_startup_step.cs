@@ -150,7 +150,11 @@ namespace Startup
 
 
                 case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_1:
                 case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_3:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_4:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_5:
                     this.check1.State = Check.check.eState.WAIT;
                     if (startup_step.Execute_showform_procedure(null, eResult, ref Err))
                     {

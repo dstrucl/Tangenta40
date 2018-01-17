@@ -111,7 +111,7 @@
     <Compile Include="Form_Document.Startup_05_Check_myOrganisation_Data.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Document.Startup_06_Check_InsertSampleData.cs">
+    <Compile Include="Form_Document.Startup_06_GetBaseCurrency.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_Document.Startup_02_Check_DBType.cs">

@@ -99,10 +99,9 @@ namespace Startup
              m_Step[0].StartExecution();
         }
 
-        public bool StartCurrentStepExecution()
+        public startup_step.Startup_check_proc_Result StartCurrentStepExecution()
         {
-            m_Step[(int)eStep].StartExecution();
-            return true;
+            return m_Step[(int)eStep].StartExecution();
         }
 
         public bool StartNextStepExecution()

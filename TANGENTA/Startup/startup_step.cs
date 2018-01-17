@@ -17,6 +17,7 @@ namespace Startup
                                                WAIT_USER_INTERACTION_2,
                                                WAIT_USER_INTERACTION_3,
                                                WAIT_USER_INTERACTION_4,
+                                               WAIT_USER_INTERACTION_5,
                                                CHECK_ERROR
             
         };
@@ -113,9 +114,9 @@ namespace Startup
             m_usrc_startup_step.Remove_DialogClosingNotifier_SomethingReady();
         }
 
-        internal void StartExecution()
+        internal startup_step.Startup_check_proc_Result StartExecution()
         {
-            m_usrc_startup_step.DoStartup_check_proc_Result();
+            return m_usrc_startup_step.DoStartup_check_proc_Result();
         }
 
         internal void SetOK()

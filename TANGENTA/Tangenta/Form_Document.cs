@@ -24,6 +24,7 @@ using System.Reflection;
 using static Startup.startup_step;
 using NavigationButtons;
 using TangentaSampleDB;
+using Country_ISO_3166;
 
 namespace Tangenta
 {
@@ -133,6 +134,8 @@ namespace Tangenta
                 CStartup_04_Check_DBSettings(),
 
                 CStartup_05_Check_myOrganisation_Data()
+
+
              
              //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
 
@@ -181,6 +184,7 @@ namespace Tangenta
 
         private void M_usrc_Startup_StartupFormClosing(object sender)
         {
+            startup_step.Startup_check_proc_Result eres = Startup_check_proc_Result.CHECK_NONE;
             if (sender is usrc_startup_step)
             {
                 usrc_startup_step xusrc_startup_step = (usrc_startup_step)sender;
@@ -194,34 +198,65 @@ namespace Tangenta
                     switch (xusrc_startup_step.startup_step.nav.eExitResult)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_CheckInsertSampleData)
+                            if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_Select_Country_ISO_3166)
+                            {
+                                Form_Select_Country_ISO_3166 frm_Select_Country_ISO_3166 = (Form_Select_Country_ISO_3166)xusrc_startup_step.startup_step.nav.ChildDialog;
+                                this.m_startup.sbd.Startup_05_Form_Select_Country_ISO_3116_result(frm_Select_Country_ISO_3166);
+                                this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_1);
+
+                            }
+                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_CheckInsertSampleData)
                             {
                                 Form_CheckInsertSampleData frm_CheckInsertSampleData = (Form_CheckInsertSampleData)xusrc_startup_step.startup_step.nav.ChildDialog;
                                 if (frm_CheckInsertSampleData.WritePredefinedDefaultDataInDataBase)
                                 {
-                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_1);
+                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_2);
                                 }
                                 else
                                 {
-                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_2);
+                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_3);
                                 }
                             }
                             else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_EditMyOrgSampleData)
                             {
                                 this.m_startup.sbd.WriteMyOrg();
-                                this.m_startup.StartCurrentStepExecution();
+                                eres = this.m_startup.StartCurrentStepExecution();
+                                switch (eres)
+                                {
+                                    case Startup_check_proc_Result.CHECK_OK:
+                                        this.m_startup.StartNextStepExecution();
+                                        return;
+                                }
                             }
                             else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Edit)
                             {
-                                this.m_startup.StartCurrentStepExecution();
+                                eres = this.m_startup.StartCurrentStepExecution();
+                                switch (eres)
+                                {
+                                    case Startup_check_proc_Result.CHECK_OK:
+                                        this.m_startup.StartNextStepExecution();
+                                        return;
+                                }
                             }
                             else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data)
                             {
-                                this.m_startup.StartCurrentStepExecution();
+                                eres = this.m_startup.StartCurrentStepExecution();
+                                switch (eres)
+                                {
+                                    case Startup_check_proc_Result.CHECK_OK:
+                                        this.m_startup.StartNextStepExecution();
+                                        return;
+                                }
                             }
                             else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
                             {
-                                this.m_startup.StartCurrentStepExecution();
+                                 eres = this.m_startup.StartCurrentStepExecution();
+                                 switch (eres)
+                                {
+                                    case Startup_check_proc_Result.CHECK_OK:
+                                        this.m_startup.StartNextStepExecution();
+                                        return;
+                                }
                             }
                             else
                             {

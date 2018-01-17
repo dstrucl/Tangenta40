@@ -437,7 +437,7 @@ namespace TangentaSampleDB
             return true;
         }
 
-        internal bool Startup_05_Form_Select_Country_ISO_3166_ShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        public bool Startup_05_Form_Select_Country_ISO_3166_ShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
 
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
@@ -450,18 +450,10 @@ namespace TangentaSampleDB
             return true;
         }
 
-        internal bool Evaluate_Form_Select_Country_ISO_3116_result(NavigationButtons.Navigation xnav, ref bool b)
+        public bool Startup_05_Form_Select_Country_ISO_3116_result(Country_ISO_3166.Form_Select_Country_ISO_3166 frm_Select_Country_ISO_3166)
         {
-            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
-            {
-                myOrgSample.SetCountry(((Country_ISO_3166.Form_Select_Country_ISO_3166)xnav.ChildDialog));
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            myOrgSample.SetCountry(frm_Select_Country_ISO_3166);
+            return true;
         }
 
 
