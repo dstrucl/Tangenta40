@@ -18,9 +18,10 @@ namespace Tangenta
                                     startup_step.eStep.Check_00_TangentaAbout);
         }
 
-        private Startup_check_proc_Result Startup_00_Check_TangentaAboutShown(startup_step myStartup_step,
-                                                object oData,
-                                                ref string Err)
+        private Startup_check_proc_Result Startup_00_Check_TangentaAboutShown(startup_step xstartup_step,
+                                                   object oData,
+                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                   ref string Err)
         {
             if (Properties.Settings.Default.Startup_TangentaAbout_Showed)
             {
@@ -28,7 +29,7 @@ namespace Tangenta
             }
             else
             {
-                myStartup_step.showform_procedure = Startup_00_Show_Form_TangentaAbout;
+                startup_ShowForm_proc = Startup_00_Show_Form_TangentaAbout;
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
         }

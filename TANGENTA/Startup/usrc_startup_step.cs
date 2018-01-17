@@ -18,7 +18,7 @@ namespace Startup
         public delegate void delegate_StartupFormClosing(object sender);
         public event delegate_StartupFormClosing StartupFormClosing;
         public bool bNO_FORM_BUT_CHECK_OK = false;
-        public bool bDoStepAgain = false;
+
 
         public usrc_startup_step(startup_step xstartup_step)
         {
@@ -46,16 +46,20 @@ namespace Startup
             {
                 string Err = null;
                 bNO_FORM_BUT_CHECK_OK = false;
-                bDoStepAgain = false;
                 startup_step.Startup_onformresult_proc_Result eRes = startup_step.Execute_onformresult_procedure(sender, ref Err);
                 switch (eRes)
                 {
                     case startup_step.Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN:
                         this.check1.State = Check.check.eState.WAIT;
-                        bDoStepAgain = true;
-                        if (StartupFormClosing != null)
+                        if (startup_step.check_procedure!=null)
                         {
-                            StartupFormClosing(this);
+                          startup_step.Startup_check_proc_Result e_check_result =  startup_step.check_procedure(startup_step, null, ref startup_step.showform_procedure, ref Err);
+                            switch (e_check_result)
+                            {
+                                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION:
+                                    startup_step.showform_procedure(startup_step, startup_step.nav, ref startup_step.onformresult_procedure);
+                                    break;
+                            }
                         }
                         break;
 
@@ -97,10 +101,11 @@ namespace Startup
                         break;
                     case startup_step.Startup_onformresult_proc_Result.NEXT:
                         this.check1.State = Check.check.eState.TRUE;
-                        if (StartupFormClosing != null)
-                        {
-                            StartupFormClosing(this);
-                        }
+                        startup_step.myStartup.StartNextStepExecution();
+                        //if (StartupFormClosing != null)
+                        //{
+                        //    StartupFormClosing(this);
+                        //}
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.PREV:

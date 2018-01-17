@@ -19,8 +19,9 @@ namespace Tangenta
                                     startup_step.eStep.Check_01_TangentaLicence);
         }
 
-        private Startup_check_proc_Result Startup_01_Check_TangentaLicenceShown(startup_step myStartup_step,
+        private Startup_check_proc_Result Startup_01_Check_TangentaLicenceShown(startup_step xstartup_step,
                                                    object oData,
+                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
             
@@ -30,7 +31,7 @@ namespace Tangenta
             }
             else
             {
-                myStartup_step.showform_procedure = Startup_01_Do_showform_TangentaLicence;
+                startup_ShowForm_proc = Startup_01_Do_showform_TangentaLicence;
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
         }

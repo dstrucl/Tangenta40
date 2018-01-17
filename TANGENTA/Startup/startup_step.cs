@@ -60,7 +60,8 @@ namespace Startup
         public Startup_onformresult_proc_Result eonformresult_proc_Result = Startup_onformresult_proc_Result.NO_RESULT;
 
         public delegate Startup_check_proc_Result delegate_startup_check_proc(startup_step xstartup_step,
-                                                   object oData, 
+                                                   object oData,
+                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err);
 
         public delegate bool delegate_startup_ShowForm_proc(startup_step xstartup_step,
@@ -149,7 +150,7 @@ namespace Startup
 
         public Startup_check_proc_Result Execute_check_procedure(object oData, ref string Err)
         {
-            eResult_Of_check_procedure = check_procedure(this, oData,  ref Err);
+            eResult_Of_check_procedure = check_procedure(this, oData,ref showform_procedure,  ref Err);
             switch (eResult_Of_check_procedure)
             {
                 case Startup_check_proc_Result.CHECK_OK:

@@ -20,7 +20,10 @@ namespace Tangenta
             return new startup_step(lng.s_Startup_Check_myOrganisation_Data.s, m_startup, Program.nav, Startup_05_Check_myOrganisation_Data, startup_step.eStep.Check_05_myOrganisation_Data);
         }
 
-        public Startup_check_proc_Result Startup_05_Check_myOrganisation_Data(startup_step myStartup_step, object o, ref string Err)
+        public Startup_check_proc_Result Startup_05_Check_myOrganisation_Data(startup_step xstartup_step,
+                                                   object oData,
+                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                   ref string Err)
         {
             usrc_Invoice.eGetOrganisationDataResult eres = this.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
             switch (eres)
@@ -28,7 +31,7 @@ namespace Tangenta
                 case usrc_Invoice.eGetOrganisationDataResult.OK:
                     return Startup_check_proc_Result.CHECK_OK;
                 case usrc_Invoice.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
-                    myStartup_step.showform_procedure = Startup_05_Show_Form_Select_Country_ISO_3166;
+                    startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
                 case usrc_Invoice.eGetOrganisationDataResult.NO_COUNTRY:
@@ -37,7 +40,7 @@ namespace Tangenta
                 case usrc_Invoice.eGetOrganisationDataResult.NO_STREET_NAME:
                 case usrc_Invoice.eGetOrganisationDataResult.NO_HOUSE_NUMBER:
                 case usrc_Invoice.eGetOrganisationDataResult.NO_TAX_ID:
-                    myStartup_step.showform_procedure = Startup_05_Show_Form_CheckInsertSampleData;
+                    startup_ShowForm_proc = Startup_05_Show_Form_CheckInsertSampleData;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
                 case usrc_Invoice.eGetOrganisationDataResult.NO_OFFICE:

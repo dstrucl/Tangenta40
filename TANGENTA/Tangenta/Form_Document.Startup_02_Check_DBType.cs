@@ -27,7 +27,10 @@ namespace Tangenta
                                     startup_step.eStep.Check_02_DataBaseType);
         }
 
-        public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup_step myStartup_step, object o, ref string Err)
+        public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup_step xstartup_step,
+                                                   object oData,
+                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                   ref string Err)
         {
             string sDBType = null;
 
@@ -37,7 +40,7 @@ namespace Tangenta
                 if (sDBType.Length == 0)
                 {
                     // just show window
-                    myStartup_step.showform_procedure = Startup_02_ShowDataBaseTypeSelectionForm;
+                    startup_ShowForm_proc = Startup_02_ShowDataBaseTypeSelectionForm;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                 }
                 else

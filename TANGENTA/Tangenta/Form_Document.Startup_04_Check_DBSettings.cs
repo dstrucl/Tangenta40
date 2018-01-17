@@ -22,7 +22,10 @@ namespace Tangenta
                                     Startup_04_Check_DBSettings, startup_step.eStep.Check_04_DBSettings);
         }
 
-        public Startup_check_proc_Result Startup_04_Check_DBSettings(startup_step myStartup_step, object o, ref string Err)
+        public Startup_check_proc_Result Startup_04_Check_DBSettings(startup_step xstartup_step,
+                                                   object oData,
+                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                   ref string Err)
         {
             if (GlobalData.Type_definitions_Read())
             {
