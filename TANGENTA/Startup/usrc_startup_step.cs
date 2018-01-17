@@ -42,76 +42,102 @@ namespace Startup
                     }
                 }
             }
-            string Err = null;
-            bNO_FORM_BUT_CHECK_OK = false;
-            bDoStepAgain = false;
-            startup_step.Startup_onformresult_proc_Result eRes = startup_step.Execute_onformresult_procedure(sender, ref Err);
-            switch (eRes)
+            if (this.startup_step.showform_procedure != null)
             {
-                case startup_step.Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN:
-                    this.check1.State = Check.check.eState.WAIT;
-                    bDoStepAgain = true;
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
+                string Err = null;
+                bNO_FORM_BUT_CHECK_OK = false;
+                bDoStepAgain = false;
+                startup_step.Startup_onformresult_proc_Result eRes = startup_step.Execute_onformresult_procedure(sender, ref Err);
+                switch (eRes)
+                {
+                    case startup_step.Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN:
+                        this.check1.State = Check.check.eState.WAIT;
+                        bDoStepAgain = true;
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        break;
 
-                case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_0:
-                    this.check1.State = Check.check.eState.WAIT;
-                    if (startup_step.Execute_showform_procedure(null,startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0, ref Err))
-                    {
-                    }
-                    break;
+                    case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION:
+                        this.check1.State = Check.check.eState.WAIT;
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        //    if (startup_step.Execute_showform_procedure(null,startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0, ref Err))
+                        //    {
+                        //    }
+                        break;
 
-                case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_1:
-                    this.check1.State = Check.check.eState.WAIT;
-                    if (startup_step.Execute_showform_procedure(null, startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2, ref Err))
-                    {
-                    }
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
-                case startup_step.Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK:
-                    this.check1.State = Check.check.eState.TRUE;
-                    bNO_FORM_BUT_CHECK_OK = true;
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
-                case startup_step.Startup_onformresult_proc_Result.NEXT:
-                    this.check1.State = Check.check.eState.TRUE;
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
+                    //case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_0:
+                    //    this.check1.State = Check.check.eState.WAIT;
+                    //    if (startup_step.Execute_showform_procedure(null,startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0, ref Err))
+                    //    {
+                    //    }
+                    //    break;
 
-                case startup_step.Startup_onformresult_proc_Result.PREV:
-                    this.check1.State = Check.check.eState.UNDEFINED;
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
+                    //case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_1:
+                    //    this.check1.State = Check.check.eState.WAIT;
+                    //    if (startup_step.Execute_showform_procedure(null, startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2, ref Err))
+                    //    {
+                    //    }
+                    //    if (StartupFormClosing != null)
+                    //    {
+                    //        StartupFormClosing(this);
+                    //    }
+                    //    break;
+                    case startup_step.Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK:
+                        this.check1.State = Check.check.eState.TRUE;
+                        bNO_FORM_BUT_CHECK_OK = true;
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        break;
+                    case startup_step.Startup_onformresult_proc_Result.NEXT:
+                        this.check1.State = Check.check.eState.TRUE;
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        break;
 
-                case startup_step.Startup_onformresult_proc_Result.EXIT:
-                    this.check1.State = Check.check.eState.UNDEFINED;
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
+                    case startup_step.Startup_onformresult_proc_Result.PREV:
+                        this.check1.State = Check.check.eState.UNDEFINED;
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        break;
 
-                default:
-                    if (StartupFormClosing != null)
-                    {
-                        StartupFormClosing(this);
-                    }
-                    break;
+                    case startup_step.Startup_onformresult_proc_Result.EXIT:
+                        this.check1.State = Check.check.eState.UNDEFINED;
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        break;
+
+                    default:
+                        if (StartupFormClosing != null)
+                        {
+                            StartupFormClosing(this);
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                //No form was showed
+                switch (startup_step.eResult_Of_check_procedure)
+                {
+                    case startup_step.Startup_check_proc_Result.CHECK_OK:
+                        startup_step.myStartup.StartNextStepExecution();
+                        break;
+                    case startup_step.Startup_check_proc_Result.CHECK_ERROR:
+                        break;
+                }
             }
         }
 
@@ -149,14 +175,9 @@ namespace Startup
                     return startup_step.Startup_check_proc_Result.CHECK_ERROR;
 
 
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0:
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_1:
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2:
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_3:
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_4:
-                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_5:
+                case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION:
                     this.check1.State = Check.check.eState.WAIT;
-                    if (startup_step.Execute_showform_procedure(null, eResult, ref Err))
+                    if (startup_step.showform_procedure(this.startup_step,this.startup_step.nav, ref this.startup_step.onformresult_procedure))
                     {
                         //show error
                         if (startup_step.nav.DialogClosingNotifier != null)
@@ -169,7 +190,7 @@ namespace Startup
                         }
                         startup_step.nav.DialogClosingNotifier.Startup_Step = startup_step;
                         startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready_SomethingReady;
-                        return startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                        return startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION;
                     }
                     else
                     {

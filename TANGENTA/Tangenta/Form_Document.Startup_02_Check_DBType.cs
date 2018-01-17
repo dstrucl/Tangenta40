@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using static Startup.startup_step;
 
 namespace Tangenta
@@ -17,10 +18,16 @@ namespace Tangenta
 
         private startup_step CStartup_02_Check_DBType()
         {
-            return new startup_step(lng.s_Startup_Check_DBType.s, m_startup, Program.nav, Startup_02_Check_DataBase_Type, Startup_02_ShowDataBaseTypeSelectionForm, Startup_02_onformresult_ShowDataBaseTypeSelectionForm, startup_step.eStep.Check_02_DataBaseType);
+            return new startup_step(lng.s_Startup_Check_DBType.s,
+                                    m_startup,
+                                    Program.nav,
+                                    Startup_02_Check_DataBase_Type,
+                                    //Startup_02_ShowDataBaseTypeSelectionForm,
+                                    //Startup_02_onformresult_ShowDataBaseTypeSelectionForm,
+                                    startup_step.eStep.Check_02_DataBaseType);
         }
 
-        public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup_step myStartup_step, object o, ref string Err)
         {
             string sDBType = null;
 
@@ -30,7 +37,8 @@ namespace Tangenta
                 if (sDBType.Length == 0)
                 {
                     // just show window
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                    myStartup_step.showform_procedure = Startup_02_ShowDataBaseTypeSelectionForm;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                 }
                 else
                 {
@@ -41,7 +49,8 @@ namespace Tangenta
                     }
                     else
                     {
-                        return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                     }
                 }
             }
@@ -52,21 +61,28 @@ namespace Tangenta
 
         }
 
-        private bool Startup_02_ShowDataBaseTypeSelectionForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
+        private bool Startup_02_ShowDataBaseTypeSelectionForm(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             string sDataBaseType = "SQLITE";
+            startup_OnFormResult_proc = Startup_02_onformresult_ShowDataBaseTypeSelectionForm;
             DBSync.DBSync.Show_Get_DBTypeForm(ref sDataBaseType, xnav);
             return true;
         }
 
-        private Startup_onformresult_proc_Result Startup_02_onformresult_ShowDataBaseTypeSelectionForm(startup myStartup, object oData, Navigation xnav, ref string Err)
+        private Startup_onformresult_proc_Result Startup_02_onformresult_ShowDataBaseTypeSelectionForm(startup_step myStartup_step,
+                                                                                            Form form,
+                                                                                            NavigationButtons.Navigation.eEvent eExitResult,
+                                                                                            ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                                            ref string Err)
         {
-            switch (xnav.eExitResult)
+            switch (eExitResult)
             {
                 case Navigation.eEvent.NEXT:
-                    if (xnav.ChildDialog is DBSync.Form_GetDBType)
+                    if (form is DBSync.Form_GetDBType)
                     {
-                        DBConnection.eDBType eDBType = ((DBSync.Form_GetDBType)xnav.ChildDialog).m_DBType;
+                        DBConnection.eDBType eDBType = ((DBSync.Form_GetDBType)form).m_DBType;
                         string sDBType = null;
                         switch (eDBType)
                         {
@@ -101,13 +117,13 @@ namespace Tangenta
                     }
                     else
                     {
-                        if (xnav.ChildDialog == null)
+                        if (form == null)
                         {
                             LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog == null!");
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:xnav.ChildDialog is not of type DBSync.Form_GetDBType DB type:" + xnav.ChildDialog.GetType().ToString());
+                            LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:form is not of type DBSync.Form_GetDBType DB type:" + form.GetType().ToString());
                         }
                         return Startup_onformresult_proc_Result.ERROR;
                     }
@@ -122,7 +138,7 @@ namespace Tangenta
                     return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
 
                 default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_02_onformresult_ShowDataBaseTypeSelectionForm:eExitResult not implemented for xnav.eExitResult = " + eExitResult.ToString());
                     return Startup_onformresult_proc_Result.ERROR;
             }
         }

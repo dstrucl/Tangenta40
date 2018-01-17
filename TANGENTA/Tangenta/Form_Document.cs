@@ -198,70 +198,72 @@ namespace Tangenta
                     switch (xusrc_startup_step.startup_step.nav.eExitResult)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_Select_Country_ISO_3166)
-                            {
-                                Form_Select_Country_ISO_3166 frm_Select_Country_ISO_3166 = (Form_Select_Country_ISO_3166)xusrc_startup_step.startup_step.nav.ChildDialog;
-                                this.m_startup.sbd.Startup_05_Form_Select_Country_ISO_3116_result(frm_Select_Country_ISO_3166);
-                                this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_1);
+                            xusrc_startup_step.startup_step.DoOnFormClosing();
+                            break;
+                            //if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_Select_Country_ISO_3166)
+                            //{
+                            //    Form_Select_Country_ISO_3166 frm_Select_Country_ISO_3166 = (Form_Select_Country_ISO_3166)xusrc_startup_step.startup_step.nav.ChildDialog;
+                            //    this.m_startup.sbd.Startup_05_Form_Select_Country_ISO_3116_result(frm_Select_Country_ISO_3166);
+                            //    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_1);
 
-                            }
-                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_CheckInsertSampleData)
-                            {
-                                Form_CheckInsertSampleData frm_CheckInsertSampleData = (Form_CheckInsertSampleData)xusrc_startup_step.startup_step.nav.ChildDialog;
-                                if (frm_CheckInsertSampleData.WritePredefinedDefaultDataInDataBase)
-                                {
-                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_2);
-                                }
-                                else
-                                {
-                                    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_3);
-                                }
-                            }
-                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_EditMyOrgSampleData)
-                            {
-                                this.m_startup.sbd.WriteMyOrg();
-                                eres = this.m_startup.StartCurrentStepExecution();
-                                switch (eres)
-                                {
-                                    case Startup_check_proc_Result.CHECK_OK:
-                                        this.m_startup.StartNextStepExecution();
-                                        return;
-                                }
-                            }
-                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Edit)
-                            {
-                                eres = this.m_startup.StartCurrentStepExecution();
-                                switch (eres)
-                                {
-                                    case Startup_check_proc_Result.CHECK_OK:
-                                        this.m_startup.StartNextStepExecution();
-                                        return;
-                                }
-                            }
-                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data)
-                            {
-                                eres = this.m_startup.StartCurrentStepExecution();
-                                switch (eres)
-                                {
-                                    case Startup_check_proc_Result.CHECK_OK:
-                                        this.m_startup.StartNextStepExecution();
-                                        return;
-                                }
-                            }
-                            else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
-                            {
-                                 eres = this.m_startup.StartCurrentStepExecution();
-                                 switch (eres)
-                                {
-                                    case Startup_check_proc_Result.CHECK_OK:
-                                        this.m_startup.StartNextStepExecution();
-                                        return;
-                                }
-                            }
-                            else
-                            {
-                                this.m_startup.StartNextStepExecution();
-                            }
+                            //}
+                            //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_CheckInsertSampleData)
+                            //{
+                            //    Form_CheckInsertSampleData frm_CheckInsertSampleData = (Form_CheckInsertSampleData)xusrc_startup_step.startup_step.nav.ChildDialog;
+                            //    if (frm_CheckInsertSampleData.WritePredefinedDefaultDataInDataBase)
+                            //    {
+                            //        this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_2);
+                            //    }
+                            //    else
+                            //    {
+                            //        this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_3);
+                            //    }
+                            //}
+                            //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_EditMyOrgSampleData)
+                            //{
+                            //    this.m_startup.sbd.WriteMyOrg();
+                            //    eres = this.m_startup.StartCurrentStepExecution();
+                            //    switch (eres)
+                            //    {
+                            //        case Startup_check_proc_Result.CHECK_OK:
+                            //            this.m_startup.StartNextStepExecution();
+                            //            return;
+                            //    }
+                            //}
+                            //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Edit)
+                            //{
+                            //    eres = this.m_startup.StartCurrentStepExecution();
+                            //    switch (eres)
+                            //    {
+                            //        case Startup_check_proc_Result.CHECK_OK:
+                            //            this.m_startup.StartNextStepExecution();
+                            //            return;
+                            //    }
+                            //}
+                            //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data)
+                            //{
+                            //    eres = this.m_startup.StartCurrentStepExecution();
+                            //    switch (eres)
+                            //    {
+                            //        case Startup_check_proc_Result.CHECK_OK:
+                            //            this.m_startup.StartNextStepExecution();
+                            //            return;
+                            //    }
+                            //}
+                            //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
+                            //{
+                            //     eres = this.m_startup.StartCurrentStepExecution();
+                            //     switch (eres)
+                            //    {
+                            //        case Startup_check_proc_Result.CHECK_OK:
+                            //            this.m_startup.StartNextStepExecution();
+                            //            return;
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    this.m_startup.StartNextStepExecution();
+                            //}
                             break;
 
                         case NavigationButtons.Navigation.eEvent.PREV:

@@ -12,12 +12,14 @@ namespace Tangenta
     {
         private startup_step CStartup_00_TangentaAbout()
         {
-            return new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Startup_00_Check_TangentaAboutShown, m_startup.Startup_00_Do_showform_TangentaAbout, Startup_00_onformresult_TangentaAbout, startup_step.eStep.Check_00_TangentaAbout);
+            return new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, Startup_00_Check_TangentaAboutShown, 
+                                    //m_startup.Startup_00_Do_showform_TangentaAbout,
+                                    //Startup_00_onformresult_TangentaAbout,
+                                    startup_step.eStep.Check_00_TangentaAbout);
         }
 
-        private Startup_check_proc_Result Startup_00_Check_TangentaAboutShown(startup myStartup,
+        private Startup_check_proc_Result Startup_00_Check_TangentaAboutShown(startup_step myStartup_step,
                                                 object oData,
-                                                NavigationButtons.Navigation xnav,
                                                 ref string Err)
         {
             if (Properties.Settings.Default.Startup_TangentaAbout_Showed)
@@ -26,19 +28,25 @@ namespace Tangenta
             }
             else
             {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                myStartup_step.showform_procedure = Startup_00_Show_Form_TangentaAbout;
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
         }
 
-        
+        private bool Startup_00_Show_Form_TangentaAbout(startup_step myStartup_step,NavigationButtons.Navigation xnav, ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
+        {
+            startup_OnFormResult_proc = Startup_00_onformresult_TangentaAbout;
+            return m_startup.Startup_00_Do_showform_TangentaAbout(xnav);
 
+        }
 
-        private Startup_onformresult_proc_Result Startup_00_onformresult_TangentaAbout(startup myStartup,
-                                                                                            object oData,
-                                                                                            NavigationButtons.Navigation xnav,
+            private Startup_onformresult_proc_Result Startup_00_onformresult_TangentaAbout(startup_step myStartup_step,
+                                                                                            Form form,
+                                                                                            NavigationButtons.Navigation.eEvent eExitResult,
+                                                                                            ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                                                             ref string Err)
         {
-            switch (xnav.eExitResult)
+            switch (eExitResult)
             {
                 case NavigationButtons.Navigation.eEvent.NEXT:
                     Properties.Settings.Default.Startup_TangentaAbout_Showed = true;
@@ -58,7 +66,7 @@ namespace Tangenta
                     return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
 
                 default:
-                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaAbout  xnav.eExitResult = " + xnav.eExitResult.ToString() + " not implemented");
+                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:onformresult_TangentaAbout  xnav.eExitResult = " + eExitResult.ToString() + " not implemented");
                     return Startup_onformresult_proc_Result.ERROR;
             }
         }

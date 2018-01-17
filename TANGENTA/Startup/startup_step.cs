@@ -12,12 +12,7 @@ namespace Startup
     {
         public enum Startup_check_proc_Result {CHECK_NONE,
                                                CHECK_OK,
-                                               WAIT_USER_INTERACTION_0,
-                                               WAIT_USER_INTERACTION_1,
-                                               WAIT_USER_INTERACTION_2,
-                                               WAIT_USER_INTERACTION_3,
-                                               WAIT_USER_INTERACTION_4,
-                                               WAIT_USER_INTERACTION_5,
+                                               WAIT_USER_INTERACTION,
                                                CHECK_ERROR
             
         };
@@ -26,12 +21,11 @@ namespace Startup
                                                       NEXT,
                                                       PREV,
                                                       DO_CHECK_PROC_AGAIN,
-                                                      WAIT_USER_INTERACTION_0,
-                                                      WAIT_USER_INTERACTION_1,
-                                                    WAIT_USER_INTERACTION_2,
-                                                    WAIT_USER_INTERACTION_3,
+                                                      WAIT_USER_INTERACTION,
                                                     NO_FORM_BUT_CHECK_OK,
-                                                    ERROR };
+                                                    ERROR,
+                                                    NO_RESULT
+        };
 
         public enum eResult { NEXT, BACK, EXIT, ERROR};
 
@@ -55,21 +49,28 @@ namespace Startup
                                 NoStep //NoStep must be at the end !
                                 };
 
-        public Startup_check_proc_Result ResultOf_check_procedure = Startup_check_proc_Result.CHECK_NONE;
+       
 
-        public delegate Startup_check_proc_Result delegate_startup_check_proc(startup myStartup,
+        internal void SetCurretStepShowFormProcedure()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Startup_check_proc_Result eResult_Of_check_procedure = Startup_check_proc_Result.CHECK_NONE;
+        public Startup_onformresult_proc_Result eonformresult_proc_Result = Startup_onformresult_proc_Result.NO_RESULT;
+
+        public delegate Startup_check_proc_Result delegate_startup_check_proc(startup_step xstartup_step,
                                                    object oData, 
-                                                   NavigationButtons.Navigation xnav,
                                                    ref string Err);
 
-        public delegate bool delegate_startup_ShowForm_proc(object oData,
-                                                   NavigationButtons.Navigation xnav,
-                                                   Startup_check_proc_Result echeck_proc_Result,
-                                                   ref string Err);
+        public delegate bool delegate_startup_ShowForm_proc(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc);
 
-        public delegate Startup_onformresult_proc_Result delegate_startup_OnFormResult_proc(startup myStartup,
-                                                                                            object oData,
-                                                                                            NavigationButtons.Navigation xnav,
+        public delegate Startup_onformresult_proc_Result delegate_startup_OnFormResult_proc(startup_step myStartup_step,
+                                                                                            Form form,
+                                                                                            NavigationButtons.Navigation.eEvent eExitResult,
+                                                                                            ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                                                             ref string Err);
 
 
@@ -82,8 +83,8 @@ namespace Startup
         public NavigationButtons.Navigation nav = null;
 
         internal delegate_startup_check_proc check_procedure;
-        internal delegate_startup_ShowForm_proc showform_procedure;
-        internal delegate_startup_OnFormResult_proc onformresult_procedure;
+        public delegate_startup_ShowForm_proc showform_procedure;
+        public delegate_startup_OnFormResult_proc onformresult_procedure;
 
         public eStep Step = eStep.NoStep;
 
@@ -94,21 +95,32 @@ namespace Startup
                             startup xmyStartup,
                             NavigationButtons.Navigation xnav,
                             delegate_startup_check_proc xcheck_proc,
-                            delegate_startup_ShowForm_proc xshowform_procedure,
-                            delegate_startup_OnFormResult_proc xonformresult_procedure,
                             eStep xStep)
         {
             s_Title = xs_Title;
-            ResultOf_check_procedure = Startup_check_proc_Result.CHECK_NONE;
+            eResult_Of_check_procedure = Startup_check_proc_Result.CHECK_NONE;
 
             myStartup = xmyStartup;
             nav = xnav;
             check_procedure = xcheck_proc;
-            showform_procedure = xshowform_procedure;
-            onformresult_procedure = xonformresult_procedure;
+            showform_procedure = null;
+            onformresult_procedure =null;
             Step = xStep;
         }
 
+        internal bool ShowFormProcedure(delegate_startup_ShowForm_proc Do_showform)
+        {
+            if (Do_showform != null)
+            {
+                showform_procedure = Do_showform;
+            }
+            if (showform_procedure!=null)
+            {
+                bool bRes = showform_procedure(this,nav,ref onformresult_procedure);
+                return bRes;
+            }
+            return false;
+        }
         internal void Remove_DialogClosingNotifier_SomethingReady()
         {
             m_usrc_startup_step.Remove_DialogClosingNotifier_SomethingReady();
@@ -116,7 +128,8 @@ namespace Startup
 
         internal startup_step.Startup_check_proc_Result StartExecution()
         {
-            return m_usrc_startup_step.DoStartup_check_proc_Result();
+            eResult_Of_check_procedure = m_usrc_startup_step.DoStartup_check_proc_Result();
+            return eResult_Of_check_procedure;
         }
 
         internal void SetOK()
@@ -136,32 +149,33 @@ namespace Startup
 
         public Startup_check_proc_Result Execute_check_procedure(object oData, ref string Err)
         {
-            ResultOf_check_procedure = check_procedure(myStartup, oData, nav, ref Err);
-            switch (ResultOf_check_procedure)
+            eResult_Of_check_procedure = check_procedure(this, oData,  ref Err);
+            switch (eResult_Of_check_procedure)
             {
                 case Startup_check_proc_Result.CHECK_OK:
                     SetOK();
                     break;
             }
-            return ResultOf_check_procedure;
+            return eResult_Of_check_procedure;
         }
 
-        public bool Execute_showform_procedure(object oData, Startup_check_proc_Result echeck_proc_Result, ref string Err)
-        {
-            bool bRes = showform_procedure(oData, nav, echeck_proc_Result, ref Err);
-            return bRes;
-        }
 
         internal void StartExecution_ShowForm(Startup_check_proc_Result wAIT_USER_INTERACTION)
         {
-            string Err = null;
             SetWait();
-            bool bRes = showform_procedure(null, nav, wAIT_USER_INTERACTION, ref Err);
+            bool bRes = showform_procedure(this, nav, ref onformresult_procedure);
         }
 
         public Startup_onformresult_proc_Result Execute_onformresult_procedure(object oData, ref string Err)
         {
-            Startup_onformresult_proc_Result eRes = onformresult_procedure(myStartup, oData, nav, ref Err);
+            eonformresult_proc_Result = onformresult_procedure(this,nav.ChildDialog, nav.eExitResult,ref showform_procedure, ref Err);
+            return eonformresult_proc_Result;
+        }
+
+        public Startup_onformresult_proc_Result DoOnFormClosing()
+        {
+            string Err = null;
+            Startup_onformresult_proc_Result eRes = onformresult_procedure(this,nav.ChildDialog, nav.eExitResult, ref showform_procedure, ref Err);
             return eRes;
         }
     }

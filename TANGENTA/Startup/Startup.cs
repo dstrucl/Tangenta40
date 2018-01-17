@@ -10,6 +10,7 @@ using ThreadProcessor;
 using TangentaDB;
 using TangentaSampleDB;
 using NavigationButtons;
+using static Startup.startup_step;
 
 namespace Startup
 {
@@ -45,6 +46,12 @@ namespace Startup
                     }
                 }
         }
+
+        public void SetCurretStepShowFormProcedure(delegate_startup_ShowForm_proc startup_01_Do_showform_TangentaLicence)
+        {
+            m_Step[(int)eStep].ShowFormProcedure(startup_01_Do_showform_TangentaLicence); 
+        }
+
         public Image m_ImageCancel = null;
         private bool m_bCancel = false;
         public Icon m_FormIconQuestion = null;
@@ -73,16 +80,15 @@ namespace Startup
         }
 
 
-        public bool Startup_01_Do_showform_TangentaLicence(object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
+        public bool Startup_01_Do_showform_TangentaLicence(NavigationButtons.Navigation xnav)
         {
             // return  true for step over
-            Err = null;
             xnav.ShowForm(new Form_LicenseAgreement(xnav), "Tangenta.Tangenta-LicenseAgreement");
             return true; //
         }
 
 
-        public bool Startup_00_Do_showform_TangentaAbout( object o, NavigationButtons.Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result,  ref string Err)
+        public bool Startup_00_Do_showform_TangentaAbout( NavigationButtons.Navigation xnav)
         {
             xnav.ShowForm(new Form_Navigate(xnav), "Tangenta.Tangenta_about");
             return true;

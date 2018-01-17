@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using static Startup.startup_step;
 
 namespace Tangenta
@@ -16,64 +17,66 @@ namespace Tangenta
         private startup_step CStartup_03_Check_DBConnection()
         {
             bDatabaseReset = Program.Reset2FactorySettings.DBConnectionControlXX_EXE;
-            return new startup_step(lng.s_Startup_Check_DBConnection.s, m_startup, Program.nav, Startup_03_Check_DBConnection, Startup_03_ShowDBConnectionForm, Startup_03_onformresult_ShowDBConnnection, startup_step.eStep.Check_03_DBConnection);
+            return new startup_step(lng.s_Startup_Check_DBConnection.s, m_startup, Program.nav,
+                                    Startup_03_Check_DBConnection, 
+                                    startup_step.eStep.Check_03_DBConnection);
         }
 
-        public Startup_check_proc_Result Startup_03_Check_DBConnection(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        public Startup_check_proc_Result Startup_03_Check_DBConnection(startup_step myStartup_step,object o, ref string Err)
         {
             if (DBSync.DBSync.Startup_03_Check_DBConnection_Is_DataBase_Defined(bDatabaseReset, ref CodeTables_IniFileFolder, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix))
             {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                myStartup_step.showform_procedure = Startup_03_Show_TestConnectionForm;
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
             else
             {
-                return Startup_check_proc_Result.WAIT_USER_INTERACTION_2;
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
 
         }
 
-        private bool Startup_03_ShowDBConnectionForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
+        private bool Startup_03_Show_TestConnectionForm(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
-           switch (echeck_proc_Result)
-            {
-                case Startup_check_proc_Result.WAIT_USER_INTERACTION_0:
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_TestConnectionForm(this, xnav);
-                    return true;
-
-                case Startup_check_proc_Result.WAIT_USER_INTERACTION_2:
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_ConnectionDialog(xnav);
-                    return true;
-
-                default:
-                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_03_ShowDBConnectionForm: echeck_proc_Result = " + echeck_proc_Result.ToString() + " not implememented!");
-                    return false;
-            }
-          
+            startup_OnFormResult_proc = Startup_03_onformresult_ShowDBConnnection;
+            return DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_TestConnectionForm(this, xnav);
         }
 
-        private Startup_onformresult_proc_Result Startup_03_onformresult_ShowDBConnnection(startup myStartup, object oData, Navigation xnav, ref string Err)
+        private bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation xnav)
         {
-            switch (xnav.eExitResult)
+            return DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_ConnectionDialog(xnav);
+        }
+
+       
+        private Startup_onformresult_proc_Result Startup_03_onformresult_ShowDBConnnection(startup_step myStartup_step,
+                                                                                            Form form,
+                                                                                            NavigationButtons.Navigation.eEvent eExitResult,
+                                                                                            ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                                            ref string Err)
+        {
+            switch (eExitResult)
             {
                 case Navigation.eEvent.NEXT:
-                    if (xnav.ChildDialog is DBConnectionControl40.TestConnectionForm)
+                    if (form is DBConnectionControl40.TestConnectionForm)
                     {
-                        if (((DBConnectionControl40.TestConnectionForm)xnav.ChildDialog).Result)
+                        if (((DBConnectionControl40.TestConnectionForm)form).Result)
                         {
                             return Startup_onformresult_proc_Result.NEXT;
                         }
                         else
                         {
-                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_1;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
                         }
                     }
-                    else if (xnav.ChildDialog is DBConnectionControl40.ConnectionDialog)
+                    else if (form is DBConnectionControl40.ConnectionDialog)
                     {
                         return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                     }
-                    else if (xnav.ChildDialog is DBConnectionControl40.SQLiteConnectionDialog)
+                    else if (form is DBConnectionControl40.SQLiteConnectionDialog)
                     {
-                        if (DBSync.DBSync.Startup_03_Set_LocalDB_From_SQLiteConnectionDialog((DBConnectionControl40.SQLiteConnectionDialog)xnav.ChildDialog))
+                        if (DBSync.DBSync.Startup_03_Set_LocalDB_From_SQLiteConnectionDialog((DBConnectionControl40.SQLiteConnectionDialog)form))
                         {
                             bDatabaseReset = false;
                             return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
@@ -86,7 +89,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_03_onformresult_ShowDBConnnection:xnav.ChildDialog = " + xnav.ChildDialog.GetType().ToString() + " is not implemented!");
+                        LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_03_onformresult_ShowDBConnnection:form = " + form.GetType().ToString() + " is not implemented!");
                         return Startup_onformresult_proc_Result.ERROR;
                     }
 
@@ -100,9 +103,9 @@ namespace Tangenta
                     // happens when check procedure is OK
                     bool bNewDataBase = false;
                     bool bCancel = false;
-                    if (xnav.ChildDialog is DBConnectionControl40.TestConnectionForm)
+                    if (form is DBConnectionControl40.TestConnectionForm)
                     {
-                        if (((DBConnectionControl40.TestConnectionForm)xnav.ChildDialog).Result)
+                        if (((DBConnectionControl40.TestConnectionForm)form).Result)
                         {
                             if (DBSync.DBSync.Startup_03_CheckDataBaseTables(this,ref bCancel))
                             {
@@ -142,7 +145,7 @@ namespace Tangenta
                     }
 
                 default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_03_onformresult_ShowDBConnnection:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_03_onformresult_ShowDBConnnection:eExitResult not implemented for xnav.eExitResult = " + eExitResult.ToString());
                     return Startup_onformresult_proc_Result.ERROR;
             }
         }

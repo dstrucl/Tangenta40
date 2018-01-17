@@ -18,10 +18,11 @@ namespace Tangenta
 
         private startup_step CStartup_04_Check_DBSettings()
         {
-            return new startup_step(lng.s_Startup_Check_DBSettings.s, m_startup, Program.nav, Startup_04_Check_DBSettings, Startup_04_ShowDBSettingsForm, Startup_04_onformresult_ShowDBSettings, startup_step.eStep.Check_04_DBSettings);
+            return new startup_step(lng.s_Startup_Check_DBSettings.s, m_startup, Program.nav,
+                                    Startup_04_Check_DBSettings, startup_step.eStep.Check_04_DBSettings);
         }
 
-        public Startup_check_proc_Result Startup_04_Check_DBSettings(startup myStartup, object o, NavigationButtons.Navigation xnav, ref string Err)
+        public Startup_check_proc_Result Startup_04_Check_DBSettings(startup_step myStartup_step, object o, ref string Err)
         {
             if (GlobalData.Type_definitions_Read())
             {
@@ -31,13 +32,13 @@ namespace Tangenta
                     bool bUpgradeDone = false;
                     bool bInsertSampleData = false;
                     bool bCanceled = false;
-                    fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(myStartup, ref xFullBackupFile, ref bUpgradeDone, ref bInsertSampleData, ref bCanceled, ref Err);
+                    fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(m_startup, ref xFullBackupFile, ref bUpgradeDone, ref bInsertSampleData, ref bCanceled, ref Err);
                     switch (eGetDBSettings_Result)
                     {
                         case fs.enum_GetDBSettings.DBSettings_OK:
                             if (bUpgradeDone)
                             {
-                                return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                             }
                             else
                             {
@@ -64,7 +65,7 @@ namespace Tangenta
                         else
                         {
                             XMessage.Box.Show(this, lng.s_No_DB_Settings_for, " " + Err, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                            return Startup_check_proc_Result.WAIT_USER_INTERACTION_0;
+                            return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                         }
                     }
                     else
@@ -80,7 +81,7 @@ namespace Tangenta
                 return Startup_check_proc_Result.CHECK_ERROR;
             }
         }
-        private bool Startup_04_ShowDBSettingsForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
+        private bool Startup_04_ShowDBSettingsForm(Navigation xnav)
         {
             xnav.ShowForm(new Form_DBSettings(xnav, Program.AdministratorLockedPassword), "Tangenta.Form_DBSettings");
             return true;
