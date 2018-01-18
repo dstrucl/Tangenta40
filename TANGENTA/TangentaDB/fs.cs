@@ -24,6 +24,9 @@ namespace TangentaDB
 {
     public static class fs
     {
+        public const string ERROR = "ERROR:";
+        public const string EMPTYTABLE = "EmptyTable";
+
         public enum enum_GetDBSettings
         {
             DBSettings_OK,
@@ -142,7 +145,8 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:fs.cs:GetDBSettings:sql=" + sql_DBSettings + "\r\nErr=+Err");
+                Err = "ERROR:TangentaDB:fs.cs:GetDBSettings:sql=" + sql_DBSettings + "\r\nErr=" + Err;
+                LogFile.Error.Show(Err);
                 return enum_GetDBSettings.Error_Load_DBSettings;
             }
 

@@ -65,13 +65,7 @@ namespace Startup
 
                     case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION:
                         this.check1.State = Check.check.eState.WAIT;
-                        if (StartupFormClosing != null)
-                        {
-                            StartupFormClosing(this);
-                        }
-                        //    if (startup_step.Execute_showform_procedure(null,startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0, ref Err))
-                        //    {
-                        //    }
+                        startup_step.showform_procedure(startup_step, startup_step.nav, ref startup_step.onformresult_procedure);
                         break;
 
                     //case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_0:

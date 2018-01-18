@@ -66,10 +66,11 @@
             // chk_DebugAndTest
             // 
             this.chk_DebugAndTest.AutoSize = true;
-            this.chk_DebugAndTest.Location = new System.Drawing.Point(345, 36);
+            this.chk_DebugAndTest.Location = new System.Drawing.Point(427, 45);
+            this.chk_DebugAndTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chk_DebugAndTest.Name = "chk_DebugAndTest";
             this.chk_DebugAndTest.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chk_DebugAndTest.Size = new System.Drawing.Size(91, 17);
+            this.chk_DebugAndTest.Size = new System.Drawing.Size(117, 21);
             this.chk_DebugAndTest.TabIndex = 0;
             this.chk_DebugAndTest.Text = "Debug && Test";
             this.chk_DebugAndTest.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -78,15 +79,17 @@
             // lbl_timeOutInSec
             // 
             this.lbl_timeOutInSec.AutoSize = true;
-            this.lbl_timeOutInSec.Location = new System.Drawing.Point(11, 36);
+            this.lbl_timeOutInSec.Location = new System.Drawing.Point(14, 45);
+            this.lbl_timeOutInSec.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_timeOutInSec.Name = "lbl_timeOutInSec";
-            this.lbl_timeOutInSec.Size = new System.Drawing.Size(252, 13);
+            this.lbl_timeOutInSec.Size = new System.Drawing.Size(331, 17);
             this.lbl_timeOutInSec.TabIndex = 10;
             this.lbl_timeOutInSec.Text = "Dovoljen čas (\"timeout\") za transakcijo v sekundah:";
             // 
             // nm_UpDown_timeOutInSec
             // 
-            this.nm_UpDown_timeOutInSec.Location = new System.Drawing.Point(279, 33);
+            this.nm_UpDown_timeOutInSec.Location = new System.Drawing.Point(349, 41);
+            this.nm_UpDown_timeOutInSec.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nm_UpDown_timeOutInSec.Maximum = new decimal(new int[] {
             120,
             0,
@@ -98,7 +101,7 @@
             0,
             0});
             this.nm_UpDown_timeOutInSec.Name = "nm_UpDown_timeOutInSec";
-            this.nm_UpDown_timeOutInSec.Size = new System.Drawing.Size(49, 20);
+            this.nm_UpDown_timeOutInSec.Size = new System.Drawing.Size(61, 22);
             this.nm_UpDown_timeOutInSec.TabIndex = 11;
             this.nm_UpDown_timeOutInSec.Value = new decimal(new int[] {
             30,
@@ -108,14 +111,15 @@
             // 
             // nm_TimeToShoqSuccessfulFURS_Transaction
             // 
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Location = new System.Drawing.Point(279, 8);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Location = new System.Drawing.Point(349, 10);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nm_TimeToShoqSuccessfulFURS_Transaction.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.nm_TimeToShoqSuccessfulFURS_Transaction.Name = "nm_TimeToShoqSuccessfulFURS_Transaction";
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Size = new System.Drawing.Size(49, 20);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Size = new System.Drawing.Size(61, 22);
             this.nm_TimeToShoqSuccessfulFURS_Transaction.TabIndex = 15;
             this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = new decimal(new int[] {
             10,
@@ -126,15 +130,17 @@
             // lbl_TimeToShowFURSSuccessfulResult
             // 
             this.lbl_TimeToShowFURSSuccessfulResult.AutoSize = true;
-            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(11, 10);
+            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(14, 12);
+            this.lbl_TimeToShowFURSSuccessfulResult.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_TimeToShowFURSSuccessfulResult.Name = "lbl_TimeToShowFURSSuccessfulResult";
-            this.lbl_TimeToShowFURSSuccessfulResult.Size = new System.Drawing.Size(253, 13);
+            this.lbl_TimeToShowFURSSuccessfulResult.Size = new System.Drawing.Size(334, 17);
             this.lbl_TimeToShowFURSSuccessfulResult.TabIndex = 14;
             this.lbl_TimeToShowFURSSuccessfulResult.Text = "Čas prikaza uspešne FURS transakcije v sekundah:";
             // 
             // nm_QRSizeWidth
             // 
-            this.nm_QRSizeWidth.Location = new System.Drawing.Point(431, 8);
+            this.nm_QRSizeWidth.Location = new System.Drawing.Point(540, 13);
+            this.nm_QRSizeWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nm_QRSizeWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -146,7 +152,7 @@
             0,
             0});
             this.nm_QRSizeWidth.Name = "nm_QRSizeWidth";
-            this.nm_QRSizeWidth.Size = new System.Drawing.Size(71, 20);
+            this.nm_QRSizeWidth.Size = new System.Drawing.Size(62, 22);
             this.nm_QRSizeWidth.TabIndex = 17;
             this.nm_QRSizeWidth.Value = new decimal(new int[] {
             128,
@@ -157,18 +163,20 @@
             // lbl_QRSizeWidth
             // 
             this.lbl_QRSizeWidth.AutoSize = true;
-            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(342, 11);
+            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(424, 14);
+            this.lbl_QRSizeWidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_QRSizeWidth.Name = "lbl_QRSizeWidth";
-            this.lbl_QRSizeWidth.Size = new System.Drawing.Size(82, 13);
+            this.lbl_QRSizeWidth.Size = new System.Drawing.Size(108, 17);
             this.lbl_QRSizeWidth.TabIndex = 16;
             this.lbl_QRSizeWidth.Text = "Širina QR kode:";
             // 
             // rdb_FURS_Environment
             // 
             this.rdb_FURS_Environment.AutoSize = true;
-            this.rdb_FURS_Environment.Location = new System.Drawing.Point(14, 58);
+            this.rdb_FURS_Environment.Location = new System.Drawing.Point(18, 72);
+            this.rdb_FURS_Environment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdb_FURS_Environment.Name = "rdb_FURS_Environment";
-            this.rdb_FURS_Environment.Size = new System.Drawing.Size(140, 17);
+            this.rdb_FURS_Environment.Size = new System.Drawing.Size(182, 21);
             this.rdb_FURS_Environment.TabIndex = 20;
             this.rdb_FURS_Environment.TabStop = true;
             this.rdb_FURS_Environment.Text = "rdb_FURS_Environment";
@@ -177,9 +185,10 @@
             // rdb_FURS_TEST_Environment
             // 
             this.rdb_FURS_TEST_Environment.AutoSize = true;
-            this.rdb_FURS_TEST_Environment.Location = new System.Drawing.Point(160, 59);
+            this.rdb_FURS_TEST_Environment.Location = new System.Drawing.Point(200, 74);
+            this.rdb_FURS_TEST_Environment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdb_FURS_TEST_Environment.Name = "rdb_FURS_TEST_Environment";
-            this.rdb_FURS_TEST_Environment.Size = new System.Drawing.Size(174, 17);
+            this.rdb_FURS_TEST_Environment.Size = new System.Drawing.Size(226, 21);
             this.rdb_FURS_TEST_Environment.TabIndex = 21;
             this.rdb_FURS_TEST_Environment.TabStop = true;
             this.rdb_FURS_TEST_Environment.Text = "rdb_FURS_TEST_Environment";
@@ -192,7 +201,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(8, 79);
+            this.splitContainer1.Location = new System.Drawing.Point(10, 99);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -203,8 +213,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(910, 651);
-            this.splitContainer1.SplitterDistance = 343;
+            this.splitContainer1.Size = new System.Drawing.Size(1017, 507);
+            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 22;
             // 
             // usrc_FURS_environment_settings
@@ -214,8 +225,9 @@
             this.usrc_FURS_environment_settings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
+            this.usrc_FURS_environment_settings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(906, 339);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(1013, 196);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -225,15 +237,17 @@
             this.usrc_FURS_environment_settings_TEST.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
+            this.usrc_FURS_environment_settings_TEST.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(906, 300);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(1013, 298);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
             // 
             // txt_SalesBookInvoice_Current_SerialNumber
             // 
-            this.txt_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(126, 18);
+            this.txt_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(168, 18);
+            this.txt_SalesBookInvoice_Current_SerialNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt_SalesBookInvoice_Current_SerialNumber.Name = "txt_SalesBookInvoice_Current_SerialNumber";
-            this.txt_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(90, 20);
+            this.txt_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(102, 22);
             this.txt_SalesBookInvoice_Current_SerialNumber.TabIndex = 24;
             this.txt_SalesBookInvoice_Current_SerialNumber.Text = "1234-1234567";
             // 
@@ -247,16 +261,20 @@
             this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_Last_SetNumber);
             this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_Current_SerialNumber);
             this.grp_SalesBookInvoice.Controls.Add(this.txt_SalesBookInvoice_Current_SerialNumber);
-            this.grp_SalesBookInvoice.Location = new System.Drawing.Point(508, 6);
+            this.grp_SalesBookInvoice.Location = new System.Drawing.Point(616, -1);
+            this.grp_SalesBookInvoice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grp_SalesBookInvoice.Name = "grp_SalesBookInvoice";
-            this.grp_SalesBookInvoice.Size = new System.Drawing.Size(405, 69);
+            this.grp_SalesBookInvoice.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grp_SalesBookInvoice.Size = new System.Drawing.Size(411, 99);
             this.grp_SalesBookInvoice.TabIndex = 27;
             this.grp_SalesBookInvoice.TabStop = false;
             this.grp_SalesBookInvoice.Text = "Vezana knjiga računov";
+            this.grp_SalesBookInvoice.Visible = false;
             // 
             // nm_UpDn_SalesBookInvoice_Last_SetNumber
             // 
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(107, 45);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(168, 45);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -268,7 +286,7 @@
             0,
             0});
             this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Name = "nm_UpDn_SalesBookInvoice_Last_SetNumber";
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(51, 20);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(64, 22);
             this.nm_UpDn_SalesBookInvoice_Last_SetNumber.TabIndex = 35;
             this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = new decimal(new int[] {
             50,
@@ -278,7 +296,8 @@
             // 
             // nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook
             // 
-            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(346, 45);
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(254, 71);
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -290,7 +309,7 @@
             0,
             0});
             this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Name = "nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook";
-            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(54, 20);
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(68, 22);
             this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.TabIndex = 34;
             this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value = new decimal(new int[] {
             50,
@@ -301,49 +320,56 @@
             // lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook
             // 
             this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.AutoSize = true;
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(163, 48);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(8, 71);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Name = "lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook";
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(180, 13);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(238, 17);
             this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.TabIndex = 33;
             this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Text = "Število vseh setov znotraj ene knjige";
             // 
             // lbl_SalesBookInvoice_SerialNumber_Format
             // 
             this.lbl_SalesBookInvoice_SerialNumber_Format.AutoSize = true;
-            this.lbl_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(229, 21);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(251, 47);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_SalesBookInvoice_SerialNumber_Format.Name = "lbl_SalesBookInvoice_SerialNumber_Format";
-            this.lbl_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(42, 13);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(56, 17);
             this.lbl_SalesBookInvoice_SerialNumber_Format.TabIndex = 31;
             this.lbl_SalesBookInvoice_SerialNumber_Format.Text = "Format:";
             // 
             // txt_SalesBookInvoice_SerialNumber_Format
             // 
-            this.txt_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(273, 18);
+            this.txt_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(315, 47);
+            this.txt_SalesBookInvoice_SerialNumber_Format.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt_SalesBookInvoice_SerialNumber_Format.Name = "txt_SalesBookInvoice_SerialNumber_Format";
-            this.txt_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(126, 20);
+            this.txt_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(89, 22);
             this.txt_SalesBookInvoice_SerialNumber_Format.TabIndex = 30;
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = "1234-1234567";
             // 
             // lbl_SalesBookInvoice_Last_SetNumber
             // 
             this.lbl_SalesBookInvoice_Last_SetNumber.AutoSize = true;
-            this.lbl_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(4, 48);
+            this.lbl_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(8, 44);
+            this.lbl_SalesBookInvoice_Last_SetNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_SalesBookInvoice_Last_SetNumber.Name = "lbl_SalesBookInvoice_Last_SetNumber";
-            this.lbl_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(102, 13);
+            this.lbl_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(134, 17);
             this.lbl_SalesBookInvoice_Last_SetNumber.TabIndex = 29;
             this.lbl_SalesBookInvoice_Last_SetNumber.Text = "Zadnja številka seta";
             // 
             // lbl_SalesBookInvoice_Current_SerialNumber
             // 
             this.lbl_SalesBookInvoice_Current_SerialNumber.AutoSize = true;
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(2, 22);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(2, 23);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_SalesBookInvoice_Current_SerialNumber.Name = "lbl_SalesBookInvoice_Current_SerialNumber";
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(121, 13);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(158, 17);
             this.lbl_SalesBookInvoice_Current_SerialNumber.TabIndex = 28;
             this.lbl_SalesBookInvoice_Current_SerialNumber.Text = "Tekoča serijska številka";
             // 
             // usrc_NavigationButtons1
             // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
@@ -356,9 +382,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(8, 736);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(9, 614);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(905, 73);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(954, 78);
             this.usrc_NavigationButtons1.TabIndex = 28;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -372,10 +399,10 @@
             // 
             // Form_Settings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(925, 813);
+            this.ClientSize = new System.Drawing.Size(1031, 705);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.grp_SalesBookInvoice);
             this.Controls.Add(this.splitContainer1);
@@ -388,7 +415,9 @@
             this.Controls.Add(this.nm_UpDown_timeOutInSec);
             this.Controls.Add(this.lbl_timeOutInSec);
             this.Controls.Add(this.chk_DebugAndTest);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nastavitve za komunikacijo z DAVČNO UPRAVO";

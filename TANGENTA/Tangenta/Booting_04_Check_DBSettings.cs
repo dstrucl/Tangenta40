@@ -15,7 +15,7 @@ namespace Tangenta
     {
        
 
-        private startup_step.eStep eStep = eStep.Check_02_DataBaseType;
+        private startup_step.eStep eStep = eStep.Check_04_DBSettings;
 
         private Form_Document frm = null;
         private startup m_startup = null;
@@ -55,6 +55,7 @@ namespace Tangenta
                         case fs.enum_GetDBSettings.DBSettings_OK:
                             if (bUpgradeDone)
                             {
+                                startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
                                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                             }
                             else
@@ -75,13 +76,20 @@ namespace Tangenta
                 {
                     if (Err != null)
                     {
-                        if (Err.Contains("ERROR:"))
+
+                        if (Err.Contains(fs.ERROR))
                         {
                             return Startup_check_proc_Result.CHECK_ERROR;
                         }
+                        else if (Err.Equals(fs.EMPTYTABLE))
+                        {
+                            startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
+                            return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                        }
                         else
                         {
-                            XMessage.Box.Show(frm, lng.s_No_DB_Settings_for, " " + Err, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                            XMessage.Box.Show(frm, lng.s_No_DB_Settings_for, " " + Err, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                            startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
                             return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                         }
                     }
@@ -98,25 +106,32 @@ namespace Tangenta
                 return Startup_check_proc_Result.CHECK_ERROR;
             }
         }
-        private bool Startup_04_ShowDBSettingsForm(Navigation xnav)
+        private bool Startup_04_ShowDBSettingsForm(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
+            startup_OnFormResult_proc = Startup_04_onformresult_ShowDBSettings;
             xnav.ShowForm(new Form_DBSettings(xnav, Program.AdministratorLockedPassword), "Tangenta.Form_DBSettings");
             return true;
         }
 
-        private Startup_onformresult_proc_Result Startup_04_onformresult_ShowDBSettings(startup myStartup, object oData, Navigation xnav, ref string Err)
+        private Startup_onformresult_proc_Result Startup_04_onformresult_ShowDBSettings(startup_step myStartup_step,
+                                                                                    Form form,
+                                                                                    NavigationButtons.Navigation.eEvent eExitResult,
+                                                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                                    ref string Err)
         {
-            switch (xnav.eExitResult)
+            switch (eExitResult)
             {
                 case Navigation.eEvent.NEXT:
-                    bool bDBSettingsChanged = ((Form_DBSettings)xnav.ChildDialog).Changed;
-                    Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
+                    bool bDBSettingsChanged = ((Form_DBSettings)form).Changed;
+                    Program.AdministratorLockedPassword = ((Form_DBSettings)form).AdministratorLockedPassword;
 
-                    Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
-                    Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)xnav.ChildDialog).SingleUserLoginAsAdministrator;
-                    Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
-                    Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)xnav.ChildDialog).ShopC_ExclusivelySellFromStock;
-                    Program.OperationMode.MultiCurrency = ((Form_DBSettings)xnav.ChildDialog).MultiCurrencyOperation;
+                    Program.OperationMode.MultiUser = ((Form_DBSettings)form).MultiuserOperationWithLogin;
+                    Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)form).SingleUserLoginAsAdministrator;
+                    Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)form).StockCheckAtStartup;
+                    Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)form).ShopC_ExclusivelySellFromStock;
+                    Program.OperationMode.MultiCurrency = ((Form_DBSettings)form).MultiCurrencyOperation;
                     return Startup_onformresult_proc_Result.NEXT;
 
                 case Navigation.eEvent.PREV:
@@ -130,7 +145,7 @@ namespace Tangenta
                     return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
 
                 default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_04_onformresult_ShowDBSettings:xnav.eExitResult not implemented for xnav.eExitResult = " + xnav.eExitResult.ToString());
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_04_onformresult_ShowDBSettings:xnav.eExitResult not implemented for xnav.eExitResult = " + eExitResult.ToString());
                     return Startup_onformresult_proc_Result.ERROR;
 
 

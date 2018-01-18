@@ -1010,6 +1010,12 @@ namespace Tangenta
             return false;// Program.usrc_TangentaPrint1.GetReceiptPrinter();
         }
 
+        internal void Startup_07_Show_Form_Taxation_Edit(NavigationButtons.Navigation xnav)
+        {
+            SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
+            xnav.ShowForm(new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc", xnav), "Tangenta.Form_Taxation_Edit");
+        }
+
         private bool Edit_Taxation()
         {
             SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
@@ -1038,6 +1044,44 @@ namespace Tangenta
             }
         }
         
+        public bool Startup_07_GetTaxation(ref string Err)
+        {
+            Err = null;
+            if (DBtcn == null)
+            {
+                DBtcn = new DBTablesAndColumnNames();
+            }
+            if (m_ShopABC == null)
+            {
+                m_ShopABC = new ShopABC(DBtcn);
+            }
+
+            if (m_ShopABC.m_xTaxationList == null)
+            {
+                m_ShopABC.m_xTaxationList = new xTaxationList();
+            }
+            DataTable dt = new DataTable();
+            if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    //                        myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
+                LogFile.Error.Show(Err);
+                //                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
+            }
+
+        }
 
         public bool GetTaxation(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
@@ -1055,6 +1099,8 @@ namespace Tangenta
                 m_ShopABC.m_xTaxationList = new xTaxationList();
             }
             DataTable dt = new DataTable();
+
+
             if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_ShopsInUse"))
             {
                 //                myStartup.eNextStep--;
@@ -1093,7 +1139,6 @@ namespace Tangenta
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        //                        myStartup.eNextStep++;
                         return true;
                     }
                 }
@@ -1914,6 +1959,30 @@ namespace Tangenta
                         return DoSelectBaseCurrency(myStartup, xnav, ref Err);
                     }
                 }
+                return false;
+            }
+        }
+
+        internal void Startup_06_Show_Form_Select_DefaultCurrency(NavigationButtons.Navigation xnav)
+        {
+            if (GlobalData.BaseCurrency == null)
+            {
+                GlobalData.BaseCurrency = new xCurrency();
+            }
+            long DefaultCurrency_ID = myOrg.Default_Currency_ID;
+            xnav.ShowForm(new Form_Select_DefaultCurrency(DefaultCurrency_ID, ref GlobalData.BaseCurrency, xnav), "Tangenta.Form_Select_DefaultCurrency");
+        }
+
+        internal bool Startup_06_set_DefaultCurrency(Form_Select_DefaultCurrency sel_basecurrency_dlg, ref string Err)
+        {
+            if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
+            {
+                usrc_Currency1.Init(GlobalData.BaseCurrency);
+                return true;
+            }
+            else
+            {
+                Err = "ERROR:usrc_Invoice:Select_BaseCurrency:InsertIntoBaseCurrency:Err=" + Err;
                 return false;
             }
         }

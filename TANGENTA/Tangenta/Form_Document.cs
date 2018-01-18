@@ -51,6 +51,8 @@ namespace Tangenta
         internal Booting_03_Check_DBConnection booting_03_Check_DBConnection = null;
         internal Booting_04_Check_DBSettings booting_04_Check_DBSettings = null;
         internal Booting_05_Check_myOrganisation_Data booting_05_Check_MyOrganisation_Data = null;
+        internal Booting_06_GetBaseCurrency booting_06_GetBaseCurrency = null;
+        internal Booting_07_GetTaxation booting_07_GetTaxation = null;
 
         public Form_Document()
         {
@@ -117,7 +119,6 @@ namespace Tangenta
 
             m_usrc_Main.Visible = false;
 
-            int startup_step_index = 0;
 
             m_startup = new startup(this,
                         Program.nav,
@@ -131,6 +132,8 @@ namespace Tangenta
             booting_03_Check_DBConnection = new Booting_03_Check_DBConnection(this, m_startup);
             booting_04_Check_DBSettings = new Booting_04_Check_DBSettings(this, m_startup);
             booting_05_Check_MyOrganisation_Data = new Booting_05_Check_myOrganisation_Data(this, m_startup);
+            booting_06_GetBaseCurrency = new Booting_06_GetBaseCurrency(this, m_startup);
+            booting_07_GetTaxation = new Booting_07_GetTaxation(this, m_startup);
 
             StartupStep = new startup_step[]
             {
@@ -150,9 +153,14 @@ namespace Tangenta
                 // CHECK DBSettings
                 booting_04_Check_DBSettings.CreateStep(),
 
+                // CHECK TangentaDB.myOrg
+                booting_05_Check_MyOrganisation_Data.CreateStep(),
 
-                booting_05_Check_MyOrganisation_Data.CreateStep()
+                // CHECK BaseCurrency
+                booting_06_GetBaseCurrency.CreateStep(),
 
+                // GET TAXATION
+                booting_07_GetTaxation.CreateStep()
 
              
              //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
@@ -199,136 +207,7 @@ namespace Tangenta
             Program.nav.oStartup = m_startup;
         }
 
-        //private void M_usrc_Startup_StartupFormClosing(object sender)
-        //{
-        //    startup_step.Startup_check_proc_Result eres = Startup_check_proc_Result.CHECK_NONE;
-        //    if (sender is usrc_startup_step)
-        //    {
-        //        usrc_startup_step xusrc_startup_step = (usrc_startup_step)sender;
-        //        if (xusrc_startup_step.bDoStepAgain)
-        //        {
-        //            xusrc_startup_step.bDoStepAgain = false;
-        //            this.m_startup.StartCurrentStepExecution();
-        //        }
-        //        else
-        //        {
-        //            switch (xusrc_startup_step.startup_step.nav.eExitResult)
-        //            {
-        //                case NavigationButtons.Navigation.eEvent.NEXT:
-        //                    xusrc_startup_step.startup_step.DoOnFormClosing();
-        //                    break;
-        //                    //if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_Select_Country_ISO_3166)
-        //                    //{
-        //                    //    Form_Select_Country_ISO_3166 frm_Select_Country_ISO_3166 = (Form_Select_Country_ISO_3166)xusrc_startup_step.startup_step.nav.ChildDialog;
-        //                    //    this.m_startup.sbd.Startup_05_Form_Select_Country_ISO_3116_result(frm_Select_Country_ISO_3166);
-        //                    //    this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_1);
-
-        //                    //}
-        //                    //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_CheckInsertSampleData)
-        //                    //{
-        //                    //    Form_CheckInsertSampleData frm_CheckInsertSampleData = (Form_CheckInsertSampleData)xusrc_startup_step.startup_step.nav.ChildDialog;
-        //                    //    if (frm_CheckInsertSampleData.WritePredefinedDefaultDataInDataBase)
-        //                    //    {
-        //                    //        this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_2);
-        //                    //    }
-        //                    //    else
-        //                    //    {
-        //                    //        this.m_startup.StartCurrentStepExecution_ShowForm(Startup_check_proc_Result.WAIT_USER_INTERACTION_3);
-        //                    //    }
-        //                    //}
-        //                    //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_EditMyOrgSampleData)
-        //                    //{
-        //                    //    this.m_startup.sbd.WriteMyOrg();
-        //                    //    eres = this.m_startup.StartCurrentStepExecution();
-        //                    //    switch (eres)
-        //                    //    {
-        //                    //        case Startup_check_proc_Result.CHECK_OK:
-        //                    //            this.m_startup.StartNextStepExecution();
-        //                    //            return;
-        //                    //    }
-        //                    //}
-        //                    //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Edit)
-        //                    //{
-        //                    //    eres = this.m_startup.StartCurrentStepExecution();
-        //                    //    switch (eres)
-        //                    //    {
-        //                    //        case Startup_check_proc_Result.CHECK_OK:
-        //                    //            this.m_startup.StartNextStepExecution();
-        //                    //            return;
-        //                    //    }
-        //                    //}
-        //                    //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data)
-        //                    //{
-        //                    //    eres = this.m_startup.StartCurrentStepExecution();
-        //                    //    switch (eres)
-        //                    //    {
-        //                    //        case Startup_check_proc_Result.CHECK_OK:
-        //                    //            this.m_startup.StartNextStepExecution();
-        //                    //            return;
-        //                    //    }
-        //                    //}
-        //                    //else if (xusrc_startup_step.startup_step.nav.ChildDialog is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
-        //                    //{
-        //                    //     eres = this.m_startup.StartCurrentStepExecution();
-        //                    //     switch (eres)
-        //                    //    {
-        //                    //        case Startup_check_proc_Result.CHECK_OK:
-        //                    //            this.m_startup.StartNextStepExecution();
-        //                    //            return;
-        //                    //    }
-        //                    //}
-        //                    //else
-        //                    //{
-        //                    //    this.m_startup.StartNextStepExecution();
-        //                    //}
-        //                    break;
-
-        //                case NavigationButtons.Navigation.eEvent.PREV:
-        //                    this.m_startup.CurrentStepExecutionSetUndefined();
-        //                    if (this.m_startup.StartPrevStepExecution())
-        //                    {
-        //                        return;
-        //                    }
-        //                    else
-        //                    {
-        //                        M_usrc_Startup_ExitProgram();
-        //                    }
-        //                    break;
-
-        //                case NavigationButtons.Navigation.eEvent.NOTHING:
-        //                    if (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK)
-        //                    {
-        //                        this.m_startup.StartNextStepExecution();
-        //                    }
-        //                    else
-        //                    {
-        //                        if (xusrc_startup_step.startup_step.nav.ChildDialog is DBConnectionControl40.TestConnectionForm)
-        //                        {
-        //                            DBConnectionControl40.TestConnectionForm frm_TestConnectionForm = (DBConnectionControl40.TestConnectionForm)xusrc_startup_step.startup_step.nav.ChildDialog;
-        //                            if (frm_TestConnectionForm.Result)
-        //                            {
-        //                                this.m_startup.StartNextStepExecution();
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            MessageBox.Show("ERROR:Startup:usrc_Startup:Xusrc_startup_step_StartupFormClosing:  case NavigationButtons.Navigation.eEvent.NOTHING: and (xusrc_startup_step.bNO_FORM_BUT_CHECK_OK == false not implemented!");
-        //                            M_usrc_Startup_ExitProgram();
-        //                        }
-        //                    }
-        //                    break;
-
-        //                case NavigationButtons.Navigation.eEvent.EXIT:
-
-        //                    this.m_startup.m_usrc_Startup.m_Exit = true;
-        //                    M_usrc_Startup_ExitProgram();
-        //                    break;
-
-        //            }
-        //        }
-        //    }
-        //}
-
+       
         private void M_usrc_Startup_ExitProgram()
         {
             this.Close();

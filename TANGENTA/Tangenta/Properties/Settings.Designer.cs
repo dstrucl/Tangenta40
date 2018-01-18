@@ -466,5 +466,17 @@ namespace Tangenta.Properties {
                 this["Startup_TangentaLicence_Showed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string bFVI_SLO {
+            get {
+                return ((string)(this["bFVI_SLO"]));
+            }
+            set {
+                this["bFVI_SLO"] = value;
+            }
+        }
     }
 }

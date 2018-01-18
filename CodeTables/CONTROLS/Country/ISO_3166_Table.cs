@@ -20,6 +20,8 @@ namespace Country_ISO_3166
 {
     public class ISO_3166_Table
     {
+        public const int SLOVENIA_COUNTRY_NUM = 705;
+
         public static ISO_3166 m_Afghanistan = new ISO_3166("Afghanistan", "AF", "AFG", 004, "ISO 3166 - 2:AF", "Afghani", "AFN", "AFN", 971, 2, "Afganistan");
 
 
@@ -222,7 +224,7 @@ namespace Country_ISO_3166
         public static ISO_3166 m_Singapore = new ISO_3166("Singapore", "SG", "SGP", 702, "ISO 3166 - 2:SG", "Singapore Dollar", "SGD", "$", 702, 2, "Singapur");
         public static ISO_3166 m_Sint_Maarten_Dutch_part = new ISO_3166("Sint Maarten(Dutch part)", "SX", "SXM", 534, "ISO 3166 - 2:SX", "Netherlands Antillean Guilder", "ANG", "ANG", 532, 2, "Sint Maarten");
         public static ISO_3166 m_Slovakia = new ISO_3166("Slovakia", "SK", "SVK", 703, "ISO 3166 - 2:SK", "Euro", "EUR", "€", 978, 2, "Slovaška ");
-        public static ISO_3166 m_Slovenia = new ISO_3166("Slovenia", "SI", "SVN", 705, "ISO 3166 - 2:SI", "Euro", "EUR", "€", 978, 2, "Slovenija ");
+        public static ISO_3166 m_Slovenia = new ISO_3166("Slovenia", "SI", "SVN", SLOVENIA_COUNTRY_NUM, "ISO 3166 - 2:SI", "Euro", "EUR", "€", 978, 2, "Slovenija ");
         public static ISO_3166 m_Solomon_Islands = new ISO_3166("Solomon Islands", "SB", "SLB", 090, "ISO 3166 - 2:SB", "Solomon Islands Dollar", "SBD", "SBD", 090, 2, "Salomonovi otoki");
         public static ISO_3166 m_Somalia = new ISO_3166("Somalia", "SO", "SOM", 706, "ISO 3166 - 2:SO", "Somali Shilling", "SOS", "SOS", 706, 2, "Somalija");
         public static ISO_3166 m_South_Africa = new ISO_3166("South Africa", "ZA", "ZAF", 710, "ISO 3166 - 2:ZA", "Rand", "ZAR", "S", 710, 2, "Srednjeafriška republika");

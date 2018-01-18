@@ -73,6 +73,15 @@ namespace Tangenta
         private bool do_OK()
         {
             Program.b_FVI_SLO = chk_FVI.Checked;
+            if (Program.b_FVI_SLO)
+            {
+                Properties.Settings.Default.bFVI_SLO = "1";
+            }
+            else
+            {
+                Properties.Settings.Default.bFVI_SLO = "0";
+            }
+            Properties.Settings.Default.Save();
             Close();
             DialogResult = DialogResult.OK;
             return true;

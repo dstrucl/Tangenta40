@@ -426,7 +426,7 @@ namespace TangentaSampleDB
         }
 
 
-        public bool Startup_05_MyOrgSampleShowForm(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
+        public bool Startup_05_Show_Form_EditMyOrgSampleData(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
             xnav.ShowForm(new Form_EditMyOrgSampleData(this, xnav, oIcon), "TangentaSampleDB.Form_EditMyOrgSampleData");
             return true;

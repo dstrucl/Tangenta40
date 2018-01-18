@@ -105,6 +105,7 @@
     <Compile Include="Booting_03_Check_DBConnection.cs" />
     <Compile Include="Booting_04_Check_DBSettings.cs" />
     <Compile Include="Booting_05_Check_myOrganisation_Data.cs" />
+    <Compile Include="Booting_07_GetTaxation.cs" />
     <Compile Include="Booting_06_GetBaseCurrency.cs" />
     <Compile Include="Booting_02_Check_DBType.cs" />
     <Compile Include="Booting_01_TangentaLicence.cs" />

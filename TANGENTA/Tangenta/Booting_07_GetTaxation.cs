@@ -11,15 +11,15 @@ using static Startup.startup_step;
 
 namespace Tangenta
 {
-    public class Booting_06_GetBaseCurrency
+    public class Booting_07_GetTaxation
     {
-        private startup_step.eStep eStep = eStep.Check_06_GetBaseCurrency;
+        private startup_step.eStep eStep = eStep.Check_07_GetTaxation;
 
         private Form_Document frm = null;
         private startup m_startup = null;
 
 
-        public Booting_06_GetBaseCurrency(Form_Document xfmain, startup x_sturtup)
+        public Booting_07_GetTaxation(Form_Document xfmain, startup x_sturtup)
         {
             frm = xfmain;
             m_startup = x_sturtup;
@@ -29,41 +29,35 @@ namespace Tangenta
 
         internal startup_step CreateStep()
         {
-            return new startup_step(lng.s_Startup_GetBaseCurrency.s, m_startup, Program.nav, Startup_06_GetBaseCurrency, eStep);
+            return new startup_step(lng.s_Startup_GetTaxation.s, m_startup, Program.nav, Startup_07_GetTaxation, eStep);
         }
 
-        public Startup_check_proc_Result Startup_06_GetBaseCurrency(startup_step xstartup_step,
+        public Startup_check_proc_Result Startup_07_GetTaxation(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            string BaseCurrency_Text = null;
-            if (GlobalData.Get_BaseCurrency(ref BaseCurrency_Text, ref Err))
+            if (frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_07_GetTaxation(ref Err))
             {
-                if (BaseCurrency_Text != null)
-                {
-                    frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.usrc_Currency1.Init(GlobalData.BaseCurrency);
-                    return Startup_check_proc_Result.CHECK_OK;
-                }
-                else
-                {
-                    startup_ShowForm_proc = Startup_06_Show_Form_Select_DefaultCurrency;
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-                }
+                return Startup_check_proc_Result.CHECK_OK;
             }
-            return Startup_check_proc_Result.CHECK_ERROR;
+            else
+            {
+                startup_ShowForm_proc = Startup_07_Show_Form_Taxation_Edit;
+                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+            }
         }
 
-        private bool Startup_06_Show_Form_Select_DefaultCurrency(startup_step xstartup_step,
+        private bool Startup_07_Show_Form_Taxation_Edit(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
-            startup_OnFormResult_proc = Startup_06_onformresult_Form_Select_DefaultCurrency;
-            frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_06_Show_Form_Select_DefaultCurrency(xnav);
+            startup_OnFormResult_proc = Startup_07_onformresult_Form_Taxation_Edit;
+            frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_07_Show_Form_Taxation_Edit(xnav);
             return true;
         }
 
-        private Startup_onformresult_proc_Result Startup_06_onformresult_Form_Select_DefaultCurrency(startup_step myStartup_step,
+        private Startup_onformresult_proc_Result Startup_07_onformresult_Form_Taxation_Edit(startup_step myStartup_step,
                                                                                     Form form,
                                                                                     NavigationButtons.Navigation.eEvent eExitResult,
                                                                                     ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
@@ -72,20 +66,13 @@ namespace Tangenta
             switch (eExitResult)
             {
                 case Navigation.eEvent.NEXT:
-                    if (form is Form_Select_DefaultCurrency)
+                    if (form is Form_Taxation_Edit)
                     {
-                        if (frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_06_set_DefaultCurrency((Form_Select_DefaultCurrency)form, ref Err))
-                        {
-                            return Startup_onformresult_proc_Result.NEXT;
-                        }
-                        else
-                        {
-                            return Startup_onformresult_proc_Result.ERROR;
-                        }
+                       return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                     }
                     else
                     {
-                        return Startup_onformresult_proc_Result.ERROR;
+                            return Startup_onformresult_proc_Result.ERROR;
                     }
 
                 case Navigation.eEvent.PREV:
