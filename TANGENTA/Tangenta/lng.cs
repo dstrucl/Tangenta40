@@ -549,9 +549,9 @@ namespace Tangenta
 
         public static ltext s_Startup_GetTaxation = new ltext(new string[] { "Reading default taxation", "Branje davčnih stopenj" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_Startup_GetSimpleItemData = new ltext(new string[] { "Reading ShopB Items", "Branje artiklov/storitev trgovine B" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
+        public static ltext s_Startup_GetShopB_Items = new ltext(new string[] { "Reading ShopB Items", "Branje artiklov/storitev trgovine B" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_Startup_GetItemData = new ltext(new string[] { "Reading ShopC Items", "Branje artiklov/storitev trgovine C" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
+        public static ltext s_Startup_GetShopC_Items = new ltext(new string[] { "Reading ShopC Items", "Branje artiklov/storitev trgovine C" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
         public static ltext s_Startup_GetPrinter = new ltext(new string[] { "Get Printers", "Nastavitve tiskanja" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 

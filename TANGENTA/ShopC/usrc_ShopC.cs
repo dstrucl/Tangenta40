@@ -114,12 +114,14 @@ namespace ShopC
             get { return chk_AutomaticSelectionOfItemFromStock.Checked; }
         }
 
-        public void Init(TangentaDB.ShopABC xm_InvoiceDB, 
-                        DBTablesAndColumnNames xDBtcn, 
+        
+
+        public void Init(TangentaDB.ShopABC xm_InvoiceDB,
+                        DBTablesAndColumnNames xDBtcn,
                         string ShopsInUse, NavigationButtons.Navigation xnav,
                         bool bAutomaticSelectionOfItemFromStock,
                         bool bExclusivelySellFromStock)
-                        
+
         {
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_InvoiceDB = xm_InvoiceDB;
@@ -134,13 +136,13 @@ namespace ShopC
             lng.s_Shop_C.Text(lbl_ShopC_Name);
 
             this.usrc_Atom_ItemsList.Init(usrc_ItemList, xm_InvoiceDB, xDBtcn);
-            this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn,this, m_bExclusivelySellFromStock);
+            this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
 
             this.usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             string Err = null;
-            
-             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC,ShopsInUse,xnav,  ref Err);
+
+            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC, ShopsInUse, xnav, ref Err);
         }
 
         void usrc_Atom_ItemsList_After_Atom_Item_Remove()

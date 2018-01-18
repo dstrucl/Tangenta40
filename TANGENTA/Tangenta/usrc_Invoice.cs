@@ -208,27 +208,6 @@ namespace Tangenta
             GetPriceSum();
         }
 
-        private void New_ShopB(NavigationButtons.Navigation xnav)
-        {
-            if (m_usrc_ShopB == null)
-            {
-                m_usrc_ShopB = new usrc_ShopB();
-                m_usrc_ShopB.DocInvoice = this.DocInvoice;
-            }
-            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use, xnav);
-            if (xnav != null)
-            {
-                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
-                {
-                    return;
-                }
-            }
-            m_usrc_ShopB.Dock = DockStyle.Fill;
-            m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
-            m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
-            m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
-            m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
-        }
 
         private void New_ShopC(NavigationButtons.Navigation xnav)
         {
@@ -334,6 +313,51 @@ namespace Tangenta
 
             this.splitContainer3.Panel2.Controls.Add(m_usrc_ShopC);
         }
+
+        private void New_ShopB(NavigationButtons.Navigation xnav)
+
+        {
+
+            if (m_usrc_ShopB == null)
+
+            {
+
+                m_usrc_ShopB = new usrc_ShopB();
+
+                m_usrc_ShopB.DocInvoice = this.DocInvoice;
+
+            }
+
+            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use, xnav);
+
+            if (xnav != null)
+
+            {
+
+                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
+
+                {
+
+                    return;
+
+                }
+
+            }
+
+            m_usrc_ShopB.Dock = DockStyle.Fill;
+
+            m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
+
+            m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
+
+            m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
+
+            m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
+
+        }
+
+
+
 
         internal void Set_eShopsMode(string eShopsMode,NavigationButtons.Navigation xnav)
         {
@@ -1330,55 +1354,55 @@ namespace Tangenta
             }
         }
 
-        public bool Get_ShopC_ItemData(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            if (Program.Shops_in_use.Contains("C"))
-            {
-                if (myStartup.bInsertSampleData)
-                {
-                    if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items(xnav))
-                    {
-                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                        return false;
-                    }
-                }
-                if (this.m_usrc_ShopC == null)
-                {
-                    Set_eShopsMode(Program.Shops_in_use,xnav);
-                }
-            }
+        //public bool Get_ShopC_ItemData(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
+        //{
+        //    if (Program.Shops_in_use.Contains("C"))
+        //    {
+        //        if (myStartup.bInsertSampleData)
+        //        {
+        //            if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items(xnav))
+        //            {
+        //                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+        //                return false;
+        //            }
+        //        }
+        //        if (this.m_usrc_ShopC == null)
+        //        {
+        //            Set_eShopsMode(Program.Shops_in_use,xnav);
+        //        }
+        //    }
 
 
-            if (GetItemData(ref iCountItemData,xnav))
-            {
-                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
-                {
-                    //myStartup.eNextStep++;
-                    return true;
-                }
-                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                {
-                    //myStartup.eNextStep--;
-                    return true;
-                }
-                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                {
-                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("Error:usrc_Invoice.cs:Get_ShopC_ItemData(..) xnav.eExitResult not implemented!");
-                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    return false;
-                }
-            }
-            else
-            {
-                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
-            }
-        }
+        //    if (GetItemData(ref iCountItemData,xnav))
+        //    {
+        //        if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
+        //        {
+        //            //myStartup.eNextStep++;
+        //            return true;
+        //        }
+        //        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+        //        {
+        //            //myStartup.eNextStep--;
+        //            return true;
+        //        }
+        //        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+        //        {
+        //            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            LogFile.Error.Show("Error:usrc_Invoice.cs:Get_ShopC_ItemData(..) xnav.eExitResult not implemented!");
+        //            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+        //        return false;
+        //    }
+        //}
 
 
         private bool GetItemData(ref int iCountItemData,NavigationButtons.Navigation xnav)

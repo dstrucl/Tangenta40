@@ -94,6 +94,7 @@ namespace ShopB
         public delegate void delegate_ExtraDiscount(long ID, DataTable dt_SelectedShopBItem);
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
+       
 
         public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use, NavigationButtons.Navigation xnav)
         {

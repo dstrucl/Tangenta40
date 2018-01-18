@@ -156,6 +156,29 @@ namespace Tangenta
             return true;
         }
 
+        internal bool Startup_08_CheckPogramSettings(bool bResetShopsInUse)
+        {
+            if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
+            {
+                return false;
+            }
+            else
+            {
+                if (Program.Shops_in_use.Length > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal bool Startup_08_Show_Form_ProgramSettings(NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_ProgramSettings(this, xnav), "Tangenta.Form_ProgramSettings");
+            return true;
+        }
+
+
         public bool Get_ProgramSettings(NavigationButtons.Navigation xnav, bool bResetShopsInUse)
         {
             if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
@@ -214,6 +237,31 @@ namespace Tangenta
             }
         }
 
+        internal bool Startup_12_Get_Printer(startup myStartup,  ref string Err)
+        {
+            //Insert default templates for Proforma Invoice and for 
+            if (f_doc.InsertDefault())
+            {
+                TangentaPrint.PrintersList.Init();
+
+                if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL))
+                {
+                    //myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                  
+                }
+            }
+            else
+            {
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
+            }
+        }
+
         internal bool Get_Printer(startup myStartup, object oData, Navigation xnav, ref string Err)
         {
             //Insert default templates for Proforma Invoice and for 
@@ -261,6 +309,26 @@ namespace Tangenta
             Main_Form = main_Form;
             return this.m_usrc_InvoiceMan.Initialise(Main_Form);
         }
+
+        //internal bool Startup_09_SetShopsPricelists(startup myStartup, Navigation xnav, ref string Err)
+        //{
+        //    if (m_usrc_InvoiceMan != null)
+        //    {
+        //        if (m_usrc_InvoiceMan.m_usrc_Invoice != null)
+        //        {
+        //            if (m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
+        //            {
+        //                m_usrc_InvoiceMan.m_usrc_Invoice.Startup_09_Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
+
+                        
+        //            }
+        //        }
+        //    }
+
+        //    //myStartup.eNextStep++;
+        //    return true;
+
+        //}
 
         internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
         {

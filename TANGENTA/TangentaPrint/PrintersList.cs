@@ -191,6 +191,12 @@ namespace TangentaPrint
             return true;
         }
 
+        public static bool Startup_12_Show_Form_DefinePrinters(Navigation xnav)
+        {
+            xnav.ShowForm(new Form_DefinePrinters(ref dt, xnav, null), "PrintersList.Form_DefinePrinters");
+            return true;
+        }
+
         internal static int Add(Printer prn)
         {
             DataRow dr = dt.NewRow();

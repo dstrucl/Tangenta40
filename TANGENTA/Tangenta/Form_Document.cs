@@ -53,6 +53,13 @@ namespace Tangenta
         internal Booting_05_Check_myOrganisation_Data booting_05_Check_MyOrganisation_Data = null;
         internal Booting_06_GetBaseCurrency booting_06_GetBaseCurrency = null;
         internal Booting_07_GetTaxation booting_07_GetTaxation = null;
+        internal Booting_08_GetProgramSettings booting_08_GetProgramSettings = null;
+        internal Booting_09_GetShopsPriceLists booting_09_GetShopsPriceLists = null;
+        internal Booting_10_GetShopB_Items booting_10_GetShopB_Items = null;
+        internal Booting_11_GetShopC_Items booting_11_GetShopC_Items = null;
+        internal Booting_12_GetPrinters booting_12_GetPrinters = null;
+        internal Booting_13_Login booting_13_Login = null;
+
 
         public Form_Document()
         {
@@ -134,6 +141,13 @@ namespace Tangenta
             booting_05_Check_MyOrganisation_Data = new Booting_05_Check_myOrganisation_Data(this, m_startup);
             booting_06_GetBaseCurrency = new Booting_06_GetBaseCurrency(this, m_startup);
             booting_07_GetTaxation = new Booting_07_GetTaxation(this, m_startup);
+            booting_08_GetProgramSettings = new Booting_08_GetProgramSettings(this, m_startup);
+            booting_09_GetShopsPriceLists = new Booting_09_GetShopsPriceLists(this, m_startup);
+            booting_10_GetShopB_Items = new Booting_10_GetShopB_Items(this, m_startup);
+            booting_11_GetShopC_Items = new Booting_11_GetShopC_Items(this, m_startup);
+            booting_12_GetPrinters = new Booting_12_GetPrinters(this, m_startup);
+            booting_13_Login = new Booting_13_Login(this, m_startup);
+
 
             StartupStep = new startup_step[]
             {
@@ -159,9 +173,26 @@ namespace Tangenta
                 // CHECK BaseCurrency
                 booting_06_GetBaseCurrency.CreateStep(),
 
-                // GET TAXATION
-                booting_07_GetTaxation.CreateStep()
+                // GET Taxation
+                booting_07_GetTaxation.CreateStep(),
 
+                // GET ProgramSettings
+                booting_08_GetProgramSettings.CreateStep(),
+
+                // GET PriceList
+                booting_09_GetShopsPriceLists.CreateStep(),
+
+                // GET SHOPB Item Data
+                booting_10_GetShopB_Items.CreateStep(),
+
+                // GET SHOPC Item Data
+                booting_11_GetShopC_Items.CreateStep(),
+
+                // GET Printer
+                booting_12_GetPrinters.CreateStep(),
+
+                // LOGIN
+                booting_13_Login.CreateStep()
              
              //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
 

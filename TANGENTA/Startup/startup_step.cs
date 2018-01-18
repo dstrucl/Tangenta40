@@ -38,14 +38,12 @@ namespace Startup
                                 Check_05_myOrganisation_Data,
                                 Check_06_GetBaseCurrency,
                                 Check_07_GetTaxation,
-                                GetBaseCurrency,
-                                GetTaxation,
-                                Get_ProgramSettings,
-                                SetShopsPricelists,
-                                GetSimpleItemData,
-                                GetItemData,
-                                GetPrinter,
-                                GetWorkPeriod,
+                                Check_08_GetProgramSettings,
+                                Check_09_ShopsPriceLists,
+                                Check_10_GetShopB_Items,
+                                Check_11_GetShopC_Items,
+                                Check_12_GetPrinters,
+                                Check_13_Login,
                                 NoStep //NoStep must be at the end !
                                 };
 

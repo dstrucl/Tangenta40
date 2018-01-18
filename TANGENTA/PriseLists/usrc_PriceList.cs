@@ -59,6 +59,8 @@ namespace PriseLists
             }
         }
 
+       
+
 
         public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, NavigationButtons.Navigation xnav, ref string Err)
         {
@@ -116,6 +118,7 @@ namespace PriseLists
                 return false;
             }
         }
+
 
         private bool DoEditPriceList(long Currency_ID,NavigationButtons.Navigation xnav,ref bool   Changed,  ref string Err)
         {
