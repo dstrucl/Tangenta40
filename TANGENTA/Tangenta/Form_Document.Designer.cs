@@ -34,6 +34,7 @@
             // 
             // m_usrc_Main
             // 
+            this.m_usrc_Main.AutoScroll = true;
             this.m_usrc_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_Main.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_Main.Name = "m_usrc_Main";
@@ -63,7 +64,7 @@
 
         #endregion
 
-        private usrc_Document m_usrc_Main;
+        internal usrc_Document m_usrc_Main;
     }
 }
 

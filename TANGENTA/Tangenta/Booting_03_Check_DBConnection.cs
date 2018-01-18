@@ -10,11 +10,24 @@ using static Startup.startup_step;
 
 namespace Tangenta
 {
-    public partial class Form_Document
+    public class Booting_03_Check_DBConnection
     {
-        bool bDatabaseReset = false;
+        public bool bDatabaseReset = false;
 
-        private startup_step CStartup_03_Check_DBConnection()
+        private startup_step.eStep eStep = eStep.Check_03_DBConnection;
+
+        private Form_Document frm = null;
+        private startup m_startup = null;
+
+
+        public Booting_03_Check_DBConnection(Form_Document xfmain, startup x_sturtup)
+        {
+            frm = xfmain;
+            m_startup = x_sturtup;
+
+        }
+
+        internal startup_step CreateStep()
         {
             bDatabaseReset = Program.Reset2FactorySettings.DBConnectionControlXX_EXE;
             return new startup_step(lng.s_Startup_Check_DBConnection.s, m_startup, Program.nav,
@@ -22,12 +35,12 @@ namespace Tangenta
                                     startup_step.eStep.Check_03_DBConnection);
         }
 
-        public Startup_check_proc_Result Startup_03_Check_DBConnection(startup_step xstartup_step,
+        private Startup_check_proc_Result Startup_03_Check_DBConnection(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (DBSync.DBSync.Startup_03_Check_DBConnection_Is_DataBase_Defined(bDatabaseReset, ref CodeTables_IniFileFolder, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix))
+            if (DBSync.DBSync.Startup_03_Check_DBConnection_Is_DataBase_Defined(bDatabaseReset, ref frm.CodeTables_IniFileFolder, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix))
             {
                 startup_ShowForm_proc = Startup_03_Show_TestConnectionForm;
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
@@ -45,7 +58,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_03_onformresult_Show_TestConnectionForm;
-            return DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_TestConnectionForm(this, xnav);
+            return DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_TestConnectionForm(frm, xnav);
         }
 
         private bool Startup_03_Show_ConnectionDialog(startup_step xstartup_step,
@@ -94,7 +107,7 @@ namespace Tangenta
                     {
                         if (((DBConnectionControl40.TestConnectionForm)form).Result)
                         {
-                            if (DBSync.DBSync.Startup_03_CheckDataBaseTables(this, ref bCancel))
+                            if (DBSync.DBSync.Startup_03_CheckDataBaseTables(frm, ref bCancel))
                             {
                                 return Startup_onformresult_proc_Result.NEXT;
                             }
@@ -106,7 +119,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (DBSync.DBSync.Startup_03_CreateNewDatabase(this, ref bNewDataBase, ref bCancel))
+                            if (DBSync.DBSync.Startup_03_CreateNewDatabase(frm, ref bNewDataBase, ref bCancel))
                             {
                                 if (bCancel || !bNewDataBase)
                                 {
@@ -185,7 +198,7 @@ namespace Tangenta
                     {
                         if (((DBConnectionControl40.TestConnectionForm)form).Result)
                         {
-                            if (DBSync.DBSync.Startup_03_CheckDataBaseTables(this,ref bCancel))
+                            if (DBSync.DBSync.Startup_03_CheckDataBaseTables(frm,ref bCancel))
                             {
                                 return Startup_onformresult_proc_Result.NEXT;
                             }
@@ -197,7 +210,7 @@ namespace Tangenta
                         }
                         else
                         {
-                           if (DBSync.DBSync.Startup_03_CreateNewDatabase(this,ref bNewDataBase, ref bCancel))
+                           if (DBSync.DBSync.Startup_03_CreateNewDatabase(frm,ref bNewDataBase, ref bCancel))
                             {
                                 if (bCancel || !bNewDataBase)
                                 {

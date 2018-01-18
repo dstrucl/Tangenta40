@@ -102,27 +102,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form_Document.Startup_03_Check_DBConnection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Document.Startup_04_Check_DBSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Document.Startup_05_Check_myOrganisation_Data.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Document.Startup_06_GetBaseCurrency.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Document.Startup_02_Check_DBType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Document.Startup_01_TangentaLicence.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Document.Startup_00_TangentaAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Booting_03_Check_DBConnection.cs" />
+    <Compile Include="Booting_04_Check_DBSettings.cs" />
+    <Compile Include="Booting_05_Check_myOrganisation_Data.cs" />
+    <Compile Include="Booting_06_GetBaseCurrency.cs" />
+    <Compile Include="Booting_02_Check_DBType.cs" />
+    <Compile Include="Booting_01_TangentaLicence.cs" />
+    <Compile Include="Booting_00_TangentaAbout.cs" />
     <Compile Include="Form_Select_Notice.cs">
       <SubType>Form</SubType>
     </Compile>

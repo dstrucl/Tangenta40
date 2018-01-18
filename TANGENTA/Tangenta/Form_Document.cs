@@ -38,8 +38,19 @@ namespace Tangenta
         public startup_step[] StartupStep = null;
         public Form ChildForm = null;
 
-     
-  
+        public string CodeTables_IniFileFolder = null;
+        public string xmlCodeTables = "CodeTables.xml";
+        public string DataBaseType = null;
+        public bool bNewDatabaseCreated = false;
+        public bool bInit_DBType_Canceled = false;
+
+
+        internal Booting_00_TangentaAbout booting_00_TangentaAbout = null;
+        internal Booting_01_TangentaLicence booting_01_TangentaLicence = null;
+        internal Booting_02_Check_DBType booting_02_Check_DBType = null;
+        internal Booting_03_Check_DBConnection booting_03_Check_DBConnection = null;
+        internal Booting_04_Check_DBSettings booting_04_Check_DBSettings = null;
+        internal Booting_05_Check_myOrganisation_Data booting_05_Check_MyOrganisation_Data = null;
 
         public Form_Document()
         {
@@ -114,26 +125,33 @@ namespace Tangenta
                         Program.bFirstTimeInstallation
                         );
 
+            booting_00_TangentaAbout = new Booting_00_TangentaAbout(this, m_startup);
+            booting_01_TangentaLicence = new Booting_01_TangentaLicence(this, m_startup);
+            booting_02_Check_DBType = new Booting_02_Check_DBType(this, m_startup);
+            booting_03_Check_DBConnection = new Booting_03_Check_DBConnection(this, m_startup);
+            booting_04_Check_DBSettings = new Booting_04_Check_DBSettings(this, m_startup);
+            booting_05_Check_MyOrganisation_Data = new Booting_05_Check_myOrganisation_Data(this, m_startup);
 
             StartupStep = new startup_step[]
             {
 
                 // TANGENTA_About
-                CStartup_00_TangentaAbout(),
+                booting_00_TangentaAbout.CreateStep(),
                 
                 // TANGENTA_Licence
-                CStartup_01_TangentaLicence(),
+                booting_01_TangentaLicence.CreateStep(),
 
                 // CHECK DATABASE
-                CStartup_02_Check_DBType(),
+                booting_02_Check_DBType.CreateStep(),
                 
                  // CHECK DBConnection
-                CStartup_03_Check_DBConnection(),
+                booting_03_Check_DBConnection.CreateStep(),
 
                 // CHECK DBSettings
-                CStartup_04_Check_DBSettings(),
+                booting_04_Check_DBSettings.CreateStep(),
 
-                CStartup_05_Check_myOrganisation_Data()
+
+                booting_05_Check_MyOrganisation_Data.CreateStep()
 
 
              

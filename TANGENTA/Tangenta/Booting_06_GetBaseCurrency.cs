@@ -10,11 +10,23 @@ using static Startup.startup_step;
 
 namespace Tangenta
 {
-    public partial class Form_Document
+    public class Booting_06_GetBaseCurrency
     {
-        
+        private startup_step.eStep eStep = eStep.Check_02_DataBaseType;
 
-        private startup_step CStartup_06_Check_InsertSampleData()
+        private Form_Document frm = null;
+        private startup m_startup = null;
+
+
+        public Booting_06_GetBaseCurrency(Form_Document xfmain, startup x_sturtup)
+        {
+            frm = xfmain;
+            m_startup = x_sturtup;
+
+        }
+
+
+        internal startup_step CreateStep()
         {
             return new startup_step(lng.s_Startup_Check_myOrganisation_Data.s, m_startup, Program.nav, Startup_06_Check_InsertSampleData, startup_step.eStep.Check_04_DBSettings);
         }
@@ -37,7 +49,7 @@ namespace Tangenta
 
         private bool Startup_06_ShowCheckInsertSampleDataForm(object oData, Navigation xnav, startup_step.Startup_check_proc_Result echeck_proc_Result, ref string Err)
         {
-            DBSync.DBSync.Init_DBType(Program.bResetNew, CodeTables_IniFileFolder, ref DataBaseType, Program.bChangeConnection, ref bNewDatabaseCreated, xnav, ref bInit_DBType_Canceled);
+            DBSync.DBSync.Init_DBType(Program.bResetNew, frm.CodeTables_IniFileFolder, ref frm.DataBaseType, Program.bChangeConnection, ref frm.bNewDatabaseCreated, xnav, ref frm.bInit_DBType_Canceled);
             return true;
         }
 

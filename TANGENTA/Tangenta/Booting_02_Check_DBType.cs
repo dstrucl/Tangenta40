@@ -10,31 +10,40 @@ using static Startup.startup_step;
 
 namespace Tangenta
 {
-    public partial class Form_Document
+    public class Booting_02_Check_DBType
     {
-        string CodeTables_IniFileFolder = null;
-        string xmlCodeTables = "CodeTables.xml";
-        string DataBaseType = null;
 
-        private startup_step CStartup_02_Check_DBType()
+        private startup_step.eStep eStep = eStep.Check_02_DataBaseType;
+
+        private Form_Document frm = null;
+        private startup m_startup = null;
+
+
+        public Booting_02_Check_DBType(Form_Document xfmain, startup x_sturtup)
+        {
+            frm = xfmain;
+            m_startup = x_sturtup;
+
+        }
+
+
+        internal startup_step CreateStep()
         {
             return new startup_step(lng.s_Startup_Check_DBType.s,
                                     m_startup,
                                     Program.nav,
                                     Startup_02_Check_DataBase_Type,
-                                    //Startup_02_ShowDataBaseTypeSelectionForm,
-                                    //Startup_02_onformresult_ShowDataBaseTypeSelectionForm,
                                     startup_step.eStep.Check_02_DataBaseType);
         }
 
-        public Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup_step xstartup_step,
+        private Startup_check_proc_Result Startup_02_Check_DataBase_Type(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
             string sDBType = null;
 
-            if (StaticLib.Func.SetApplicationDataSubFolder(ref CodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            if (StaticLib.Func.SetApplicationDataSubFolder(ref frm.CodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
                 sDBType = Properties.Settings.Default.DBType;
                 if (sDBType.Length == 0)
@@ -46,7 +55,7 @@ namespace Tangenta
                 else
                 {
                     //Do Real Check
-                    if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref DBSync.DBSync.m_DBType,this, CodeTables_IniFileFolder, xmlCodeTables))
+                    if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref DBSync.DBSync.m_DBType,frm, frm.CodeTables_IniFileFolder, frm.xmlCodeTables))
                     {
                         return Startup_check_proc_Result.CHECK_OK;
                     }
@@ -93,7 +102,7 @@ namespace Tangenta
                                 sDBType = "SQLITE";
                                 Properties.Settings.Default.DBType = sDBType;
                                 Properties.Settings.Default.Save();
-                                if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, this, CodeTables_IniFileFolder, xmlCodeTables))
+                                if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, frm, frm.CodeTables_IniFileFolder, frm.xmlCodeTables))
                                 {
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }
@@ -105,7 +114,7 @@ namespace Tangenta
                                 sDBType = "MSSQL";
                                 Properties.Settings.Default.DBType = sDBType;
                                 Properties.Settings.Default.Save();
-                                if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, this, CodeTables_IniFileFolder, xmlCodeTables))
+                                if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, frm, frm.CodeTables_IniFileFolder, frm.xmlCodeTables))
                                 {
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }

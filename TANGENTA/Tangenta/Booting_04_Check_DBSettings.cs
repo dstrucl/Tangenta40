@@ -11,25 +11,39 @@ using static Startup.startup_step;
 
 namespace Tangenta
 {
-    public partial class Form_Document
+    public class Booting_04_Check_DBSettings
     {
-        bool bNewDatabaseCreated = false;
-        bool bInit_DBType_Canceled = false;
+       
 
-        private startup_step CStartup_04_Check_DBSettings()
+        private startup_step.eStep eStep = eStep.Check_02_DataBaseType;
+
+        private Form_Document frm = null;
+        private startup m_startup = null;
+
+
+        public Booting_04_Check_DBSettings(Form_Document xfmain, startup x_sturtup)
         {
-            return new startup_step(lng.s_Startup_Check_DBSettings.s, m_startup, Program.nav,
-                                    Startup_04_Check_DBSettings, startup_step.eStep.Check_04_DBSettings);
+            frm = xfmain;
+            m_startup = x_sturtup;
+
         }
 
-        public Startup_check_proc_Result Startup_04_Check_DBSettings(startup_step xstartup_step,
+
+        internal startup_step CreateStep()
+        {
+            return new startup_step(lng.s_Startup_Check_DBSettings.s, m_startup, Program.nav,
+                                    Startup_04_Check_DBSettings, 
+                                    startup_step.eStep.Check_04_DBSettings);
+        }
+
+        private Startup_check_proc_Result Startup_04_Check_DBSettings(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
             if (GlobalData.Type_definitions_Read())
             {
-                if (m_usrc_Main.GetDBSettings(ref Err))
+                if (frm.m_usrc_Main.GetDBSettings(ref Err))
                 {
                     string xFullBackupFile = null;
                     bool bUpgradeDone = false;
@@ -67,7 +81,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            XMessage.Box.Show(this, lng.s_No_DB_Settings_for, " " + Err, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                            XMessage.Box.Show(frm, lng.s_No_DB_Settings_for, " " + Err, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                             return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                         }
                     }

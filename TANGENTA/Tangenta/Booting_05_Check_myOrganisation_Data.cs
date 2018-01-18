@@ -11,11 +11,23 @@ using static Startup.startup_step;
 
 namespace Tangenta
 {
-    public partial class Form_Document
+    public class Booting_05_Check_myOrganisation_Data
     {
-        
+        private startup_step.eStep eStep = eStep.Check_05_myOrganisation_Data;
 
-        private startup_step CStartup_05_Check_myOrganisation_Data()
+        private Form_Document frm = null;
+        private startup m_startup = null;
+
+
+        public Booting_05_Check_myOrganisation_Data(Form_Document xfmain, startup x_sturtup)
+        {
+            frm = xfmain;
+            m_startup = x_sturtup;
+
+        }
+
+
+        internal startup_step CreateStep()
         {
             return new startup_step(lng.s_Startup_Check_myOrganisation_Data.s, m_startup, Program.nav, Startup_05_Check_myOrganisation_Data, startup_step.eStep.Check_05_myOrganisation_Data);
         }
@@ -25,7 +37,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            usrc_Invoice.eGetOrganisationDataResult eres = this.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
+            usrc_Invoice.eGetOrganisationDataResult eres = frm.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
             switch (eres)
             {
                 case usrc_Invoice.eGetOrganisationDataResult.OK:
@@ -70,21 +82,21 @@ namespace Tangenta
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
-            return m_usrc_Main.Startup_05_Show_Form_CheckInsertSampleData(m_startup, xnav);
+            return frm.m_usrc_Main.Startup_05_Show_Form_CheckInsertSampleData(m_startup, xnav);
         }
 
         private bool Startup_05_Show_Form_myOrg_Office_Data(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
-           return m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
+           return frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
         }
 
         private bool Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
-           return m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
+           return frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_Select_Country_ISO_3166(startup myStartup, object oData, Navigation xnav, ref string Err)
