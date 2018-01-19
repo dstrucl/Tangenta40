@@ -217,9 +217,12 @@ namespace Tangenta
                 m_usrc_ShopC.DocInvoice = this.DocInvoice;
             }
             m_usrc_ShopC.Init(this.m_ShopABC, DBtcn,Program.Shops_in_use,xnav,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
-            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
+            if (xnav != null)
             {
-                return;
+                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
+                {
+                    return;
+                }
             }
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;

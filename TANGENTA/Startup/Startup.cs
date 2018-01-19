@@ -47,10 +47,7 @@ namespace Startup
                 }
         }
 
-        public void SetCurretStepShowFormProcedure(delegate_startup_ShowForm_proc startup_01_Do_showform_TangentaLicence)
-        {
-            m_Step[(int)eStep].ShowFormProcedure(startup_01_Do_showform_TangentaLicence); 
-        }
+ 
 
         public Image m_ImageCancel = null;
         private bool m_bCancel = false;
@@ -94,22 +91,13 @@ namespace Startup
             return true;
         }
 
-        public void CurrentStepExecutionSetUndefined()
-        {
-            m_Step[(int)eStep].SetUndefined();
-        }
-
         public void StartExecution()
         {
 
              m_Step[0].StartExecution();
         }
 
-        public startup_step.Startup_check_proc_Result StartCurrentStepExecution()
-        {
-            return m_Step[(int)eStep].StartExecution();
-        }
-
+        
         public bool StartNextStepExecution()
         {
             if (((int)eStep) < m_Step.Length-1)
@@ -143,65 +131,11 @@ namespace Startup
             }
         }
 
-        internal bool StartCurrentStepExecution_checkprocedure()
-        {
-            switch (m_Step[(int)eStep].m_usrc_startup_step.DoStartup_check_proc_Result())
-            {
-                case startup_step.Startup_check_proc_Result.CHECK_OK:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
         public void RemoveControl()
         {
             m_parent_form.Controls.Remove(m_usrc_Startup);
             m_usrc_Startup.Dispose();
             m_usrc_Startup = null;
-        }
-
-        public EvaulateStep_RESULT EvaulateStep(Navigation nav)
-        {
-            if (nav.eExitResult== Navigation.eEvent.NEXT)
-            {
-                eStep++;
-                if (((int)eStep) < m_Step.Length)
-                {
-                    //ExecuteSingleStep();
-                    return EvaulateStep_RESULT.NEXT;
-                }
-                else
-                {
-                    return EvaulateStep_RESULT.FINISHED_GO_NEXT;
-                }
-            }
-            else if (nav.eExitResult == Navigation.eEvent.PREV)
-            {
-                eStep--;
-                if (((int)eStep) >= 0)
-                {
-                    //ExecuteSingleStep();
-                    return EvaulateStep_RESULT.PREV;
-                }
-                else
-                {
-                    return EvaulateStep_RESULT.START_GO_PREV;
-                }
-            }
-            else if (nav.eExitResult == Navigation.eEvent.EXIT)
-            {
-                return EvaulateStep_RESULT.EXIT;
-            }
-            else
-            {
-                return EvaulateStep_RESULT.EXIT;
-            }
-        }
-
-        public void StartCurrentStepExecution_ShowForm(startup_step.Startup_check_proc_Result wAIT_USER_INTERACTION)
-        {
-            m_Step[(int)eStep].StartExecution_ShowForm(wAIT_USER_INTERACTION);
         }
     }
 }

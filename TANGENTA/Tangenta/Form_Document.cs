@@ -219,26 +219,15 @@ namespace Tangenta
             };
 
             m_startup.Steps = StartupStep;
+
             m_startup.m_usrc_Startup.ExitProgram += M_usrc_Startup_ExitProgram;
-            //this.usr
-            //int iStep = 0;
-            //int iCountStep1 = m_startup.Step.Count();
-            //for (iStep = 0; iStep < iCountStep1; iStep++)
-            //{
-            //    usrc_startup_step xusrc_startup_step = new usrc_startup_step(m_startup.Step[iStep]);
-            //    xusrc_startup_step.Left = lbl_StartUp.Left;
-            //    xusrc_startup_step.Top = lbl_StartUp.Bottom + Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
-            //    if (xusrc_startup_step_Width < xusrc_startup_step.Width) { }
-            //    {
-            //        xusrc_startup_step_Width = xusrc_startup_step.Width;
-            //    }
-            //    this.Controls.Add(xusrc_startup_step);
-            //}
+            m_startup.m_usrc_Startup.Finished += M_usrc_Startup_Finished;
 
             Program.nav.oStartup = m_startup;
         }
 
-       
+     
+
         private void M_usrc_Startup_ExitProgram()
         {
             this.Close();
@@ -512,11 +501,33 @@ namespace Tangenta
 
         private void Form_Document_Shown(object sender, EventArgs e)
         {
-            string Err = null;
-
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():before m_startup.Execute!");
 
-            m_startup.StartExecution();
+            m_startup.StartExecution();//when Startup has finished event M_usrc_Startup_Finished is triggered
+
+        }
+
+        private void M_usrc_Startup_Finished()
+        {
+            //Startup finished
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
+
+            Program.bFirstTimeInstallation = false;
+            m_usrc_Main.Init(null);
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Init(null)!");
+
+            CheckOrganisationDataChange();
+
+            m_startup.RemoveControl();
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+
+            m_usrc_Main.Visible = true;
+            m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
         }
 

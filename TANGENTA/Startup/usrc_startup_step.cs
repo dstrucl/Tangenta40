@@ -15,8 +15,12 @@ namespace Startup
     {
         public startup_step startup_step;
 
-        public delegate void delegate_StartupFormClosing(object sender);
-        public event delegate_StartupFormClosing StartupFormClosing;
+        public delegate void delegate_ExitProgram(object sender);
+        public event delegate_ExitProgram ExitProgram;
+
+        public delegate void delegate_Finished();
+        public event delegate_Finished Finished;
+
         public bool bNO_FORM_BUT_CHECK_OK = false;
 
 
@@ -29,7 +33,7 @@ namespace Startup
             this.check1.State = Check.check.eState.UNDEFINED;
         }
 
-        private void Something_ready_SomethingReady(object sender, EventArgs e)
+        private void Something_ready(object sender, EventArgs e)
         {
             //this is soemthing ready in 
             if (sender is NavigationButtons.SomethingReadyNotifier)
@@ -72,61 +76,37 @@ namespace Startup
                         startup_step.showform_procedure(startup_step, startup_step.nav, ref startup_step.onformresult_procedure);
                         break;
 
-                    //case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_0:
-                    //    this.check1.State = Check.check.eState.WAIT;
-                    //    if (startup_step.Execute_showform_procedure(null,startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_0, ref Err))
-                    //    {
-                    //    }
-                    //    break;
-
-                    //case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION_1:
-                    //    this.check1.State = Check.check.eState.WAIT;
-                    //    if (startup_step.Execute_showform_procedure(null, startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION_2, ref Err))
-                    //    {
-                    //    }
-                    //    if (StartupFormClosing != null)
-                    //    {
-                    //        StartupFormClosing(this);
-                    //    }
-                    //    break;
+                   
                     case startup_step.Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK:
                         this.check1.State = Check.check.eState.TRUE;
                         bNO_FORM_BUT_CHECK_OK = true;
-                        if (StartupFormClosing != null)
-                        {
-                            StartupFormClosing(this);
-                        }
                         break;
+
                     case startup_step.Startup_onformresult_proc_Result.NEXT:
                         this.check1.State = Check.check.eState.TRUE;
-                        startup_step.myStartup.StartNextStepExecution();
-                        //if (StartupFormClosing != null)
-                        //{
-                        //    StartupFormClosing(this);
-                        //}
+                        if (!startup_step.myStartup.StartNextStepExecution())
+                        {
+                            if (Finished!=null)
+                            {
+                                Finished();
+                            }
+                        }
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.PREV:
                         this.check1.State = Check.check.eState.UNDEFINED;
-                        if (StartupFormClosing != null)
-                        {
-                            StartupFormClosing(this);
-                        }
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.EXIT:
                         this.check1.State = Check.check.eState.UNDEFINED;
-                        if (StartupFormClosing != null)
+                        if (ExitProgram != null)
                         {
-                            StartupFormClosing(this);
+                            ExitProgram(this);
                         }
                         break;
 
                     default:
-                        if (StartupFormClosing != null)
-                        {
-                            StartupFormClosing(this);
-                        }
+                        LogFile.Error.Show("ERROR:Startup:usrc_startup_step:Something_ready: startup_step.Startup_onformresult_proc_Result eRes = " + eRes.ToString() + " not implemented!");
                         break;
                 }
             }
@@ -136,7 +116,13 @@ namespace Startup
                 switch (startup_step.eResult_Of_check_procedure)
                 {
                     case startup_step.Startup_check_proc_Result.CHECK_OK:
-                        startup_step.myStartup.StartNextStepExecution();
+                        if (!startup_step.myStartup.StartNextStepExecution())
+                        {
+                            if (Finished!=null)
+                            {
+                                Finished();
+                            }
+                        }
                         break;
                     case startup_step.Startup_check_proc_Result.CHECK_ERROR:
                         break;
@@ -161,14 +147,14 @@ namespace Startup
 
                     if (startup_step.nav.DialogClosingNotifier != null)
                     {
-                        startup_step.nav.DialogClosingNotifier.SomethingReady -= Something_ready_SomethingReady;
+                        startup_step.nav.DialogClosingNotifier.SomethingReady -= Something_ready;
                     }
                     else
                     {
                         startup_step.nav.DialogClosingNotifier = new NavigationButtons.SomethingReadyNotifier(SynchronizationContext.Current, this);
                     }
                     startup_step.nav.DialogClosingNotifier.Startup_Step = startup_step;
-                    startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready_SomethingReady;
+                    startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready;
                     startup_step.nav.DialogClosingNotifier.NotifySomethingReady();
                     return startup_step.Startup_check_proc_Result.CHECK_OK;
 
@@ -185,14 +171,14 @@ namespace Startup
                         //show error
                         if (startup_step.nav.DialogClosingNotifier != null)
                         {
-                            startup_step.nav.DialogClosingNotifier.SomethingReady -= Something_ready_SomethingReady;
+                            startup_step.nav.DialogClosingNotifier.SomethingReady -= Something_ready;
                         }
                         else
                         {
                             startup_step.nav.DialogClosingNotifier = new NavigationButtons.SomethingReadyNotifier(SynchronizationContext.Current, this);
                         }
                         startup_step.nav.DialogClosingNotifier.Startup_Step = startup_step;
-                        startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready_SomethingReady;
+                        startup_step.nav.DialogClosingNotifier.SomethingReady += Something_ready;
                         return startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION;
                     }
                     else
@@ -210,7 +196,7 @@ namespace Startup
         {
             if (startup_step.nav.DialogClosingNotifier != null)
             {
-                startup_step.nav.DialogClosingNotifier.SomethingReady -= Something_ready_SomethingReady;
+                startup_step.nav.DialogClosingNotifier.SomethingReady -= Something_ready;
             }
         }
     }

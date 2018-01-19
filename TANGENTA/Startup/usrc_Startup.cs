@@ -15,8 +15,10 @@ namespace Startup
         public delegate void delegate_ExitProgram();
         public event delegate_ExitProgram ExitProgram = null;
 
+        public delegate void delegate_Finished();
+        public event delegate_Finished Finished = null;
+
         
-        public event usrc_startup_step.delegate_StartupFormClosing StartupFormClosing=null;
 
         int xusrc_startup_step_Width = 0;
 
@@ -51,18 +53,26 @@ namespace Startup
                 {
                     xusrc_startup_step_Width = xusrc_startup_step.Width;
                 }
-                xusrc_startup_step.StartupFormClosing += Xusrc_startup_step_StartupFormClosing;
+                xusrc_startup_step.ExitProgram += Xusrc_startup_step_ExitProgram;
+                xusrc_startup_step.Finished += Xusrc_startup_step_Finished;
                 this.Controls.Add(xusrc_startup_step);
             }
         }
 
-        private void Xusrc_startup_step_StartupFormClosing(object sender)
+        private void Xusrc_startup_step_ExitProgram(object sender)
         {
-            if(StartupFormClosing!=null)
+            if (this.ExitProgram!=null)
             {
-                StartupFormClosing(sender);
+                this.ExitProgram();
             }
-            
+        }
+
+        private void Xusrc_startup_step_Finished()
+        {
+            if (this.Finished != null)
+            {
+                this.Finished();
+            }
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
