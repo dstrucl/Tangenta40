@@ -59,6 +59,10 @@ namespace Startup
                                 case startup_step.Startup_check_proc_Result.WAIT_USER_INTERACTION:
                                     startup_step.showform_procedure(startup_step, startup_step.nav, ref startup_step.onformresult_procedure);
                                     break;
+                                case startup_step.Startup_check_proc_Result.CHECK_OK:
+                                    this.check1.State = Check.check.eState.TRUE;
+                                    startup_step.myStartup.StartNextStepExecution();
+                                    break;
                             }
                         }
                         break;

@@ -68,7 +68,7 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is Form_ProgramSettings)
                     {
-                       return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                       return Startup_onformresult_proc_Result.NEXT;
                     }
                     else
                     {
