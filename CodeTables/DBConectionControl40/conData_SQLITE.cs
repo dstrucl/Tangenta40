@@ -22,8 +22,33 @@ namespace DBConnectionControl40
 
         internal Crypt m_Crypt;
 
-        public string m_DataBaseFilePath = null;
-        public string m_DataBaseFileName = null;
+        private string m_DataBaseFilePath = null;
+        private string m_DataBaseFileName = null;
+
+        public string DataBaseFileName
+        {
+            get
+            {
+                return m_DataBaseFileName;
+            }
+            set
+            {
+                m_DataBaseFileName = value;
+            }
+        }
+
+        public string DataBaseFilePath
+        {
+            get
+            {
+                return m_DataBaseFilePath;
+            }
+            set
+            {
+                m_DataBaseFilePath = value;
+            }
+        }
+
         internal string m_crypted_Password = null;
         
         public bool SQLite_AllwaysCreateNew

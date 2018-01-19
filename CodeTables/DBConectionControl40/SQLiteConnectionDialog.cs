@@ -25,7 +25,6 @@ namespace DBConnectionControl40
         public string DataBaseFile_path = null;
         public string DataBaseFile_name = null;
 
-        public string DatabaseFileName = null;
 
         public string BackupFolder = null;
 
@@ -59,8 +58,8 @@ namespace DBConnectionControl40
                 {
                     cmbR_FilePath.Text += "\\";
                 }
-                DatabaseFileName = Path.GetFileName(m_conData_SQLITE.DataBaseFile);
-                cmbR_FileName.Text = DatabaseFileName;
+                DataBaseFile_name = Path.GetFileName(m_conData_SQLITE.DataBaseFile);
+                cmbR_FileName.Text = DataBaseFile_name;
                 
                 if (!System.IO.File.Exists(xconData_SQLite.DataBaseFile))
                 {
@@ -76,15 +75,15 @@ namespace DBConnectionControl40
                 if (myConnectionName != null)
                 {
                     cmbR_FilePath.Text = "C:\\" + myConnectionName + "\\";
-                    DatabaseFileName = myConnectionName + ".sqlite";
+                    DataBaseFile_name = myConnectionName + ".sqlite";
                 }
                 else
                 {
                     cmbR_FilePath.Text = "C:\\";
-                    DatabaseFileName = "LocalDB.sqlite";
+                    DataBaseFile_name = "LocalDB.sqlite";
 
                 }
-                cmbR_FileName.Text = DatabaseFileName;
+                cmbR_FileName.Text = DataBaseFile_name;
             }
 
             this.lbl_FileName.Text = lng.s_FileName.s + ":";
@@ -102,8 +101,8 @@ namespace DBConnectionControl40
 
         private void Do_OK()
         {
-            m_conData_SQLITE.m_DataBaseFilePath = this.cmbR_FilePath.Text;
-            string DirPath = m_conData_SQLITE.m_DataBaseFilePath;
+            m_conData_SQLITE.DataBaseFilePath = this.cmbR_FilePath.Text;
+            string DirPath = m_conData_SQLITE.DataBaseFilePath;
             string username = System.Environment.UserDomainName + "\\" + System.Environment.UserName;
             if (Directory.Exists(DirPath))
             {
@@ -113,7 +112,7 @@ namespace DBConnectionControl40
             }
             else
             {
-                DirectoryInfo drinfo = Directory.CreateDirectory(m_conData_SQLITE.m_DataBaseFilePath);
+                DirectoryInfo drinfo = Directory.CreateDirectory(m_conData_SQLITE.DataBaseFilePath);
                 if (drinfo != null)
                 {
                     System.Security.AccessControl.DirectorySecurity myDirectorySecurity = drinfo.GetAccessControl();
@@ -122,7 +121,7 @@ namespace DBConnectionControl40
                     drinfo.SetAccessControl(myDirectorySecurity);
                 }
             }
-            m_conData_SQLITE.m_DataBaseFileName = this.cmbR_FileName.Text;
+            m_conData_SQLITE.DataBaseFileName = this.cmbR_FileName.Text;
             if (m_conData_SQLITE.IsValidDataBaseFile())
             {
                 DataBaseFile_path = cmbR_FilePath.Text;
@@ -207,7 +206,7 @@ namespace DBConnectionControl40
 
         private void btn_Backup_Click(object sender, EventArgs e)
         {
-            Form_Backup_SQLite frm_backup = new Form_Backup_SQLite(m_conData_SQLITE.DataBaseFile,DatabaseFileName, BackupFolder);
+            Form_Backup_SQLite frm_backup = new Form_Backup_SQLite(m_conData_SQLITE.DataBaseFile,DataBaseFile_name, BackupFolder);
             if (frm_backup.ShowDialog()== DialogResult.OK)
             {
                 BackupFolder = frm_backup.BackupFolder;

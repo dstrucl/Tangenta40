@@ -100,7 +100,7 @@ namespace DBSync
 
         public static bool Startup_03_Set_LocalDB_From_SQLiteConnectionDialog(SQLiteConnectionDialog frm_SQLiteConnectionDialog)
         {
-            LocalDB_data_SQLite.DataBaseFileName = frm_SQLiteConnectionDialog.DatabaseFileName;
+            LocalDB_data_SQLite.DataBaseFileName = frm_SQLiteConnectionDialog.DataBaseFile_name;
             LocalDB_data_SQLite.DataBaseFilePath = frm_SQLiteConnectionDialog.DataBaseFile_path;
             LocalDB_data_SQLite.bChanged = true;
             string Err = null;

@@ -93,6 +93,7 @@ namespace DBSync
             {
                 if (DBSync.LocalDB_data_SQLite.DataBaseFileName.Length > 0)
                 {
+                    DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName = DBSync.LocalDB_data_SQLite.DataBaseFilePath + DBSync.LocalDB_data_SQLite.DataBaseFileName;
                     return true; //LocalDB_data.SQLite_DataBaseFileName is defined 
                 }
             }

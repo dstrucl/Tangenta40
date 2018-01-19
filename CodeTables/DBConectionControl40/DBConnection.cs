@@ -684,7 +684,7 @@ namespace DBConnectionControl40
                         return null; 
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.m_DataBaseFilePath;
+                        return m_conData_SQLITE.DataBaseFilePath;
 
                 }
                 return null;
@@ -1041,8 +1041,8 @@ namespace DBConnectionControl40
                                 LocalDB_data local_DB_Param = (LocalDB_data)DB_Param;
                                 local_DB_Param.bChanged = true;
                                 local_DB_Param.bNewDatabase = bxNewDatabase;
-                                local_DB_Param.DataBaseFileName = m_conData_SQLITE.m_DataBaseFileName;
-                                local_DB_Param.DataBaseFilePath = m_conData_SQLITE.m_DataBaseFilePath;
+                                local_DB_Param.DataBaseFileName = m_conData_SQLITE.DataBaseFileName;
+                                local_DB_Param.DataBaseFilePath = m_conData_SQLITE.DataBaseFilePath;
                                 break;
                         }
                        // DB_Param = DB_Param;
@@ -1114,8 +1114,8 @@ namespace DBConnectionControl40
                                 LocalDB_data local_DB_Param = (LocalDB_data)xDB_Param;
                                 local_DB_Param.bChanged = true;
                                 local_DB_Param.bNewDatabase = bxNewDatabase;
-                                local_DB_Param.DataBaseFileName = m_conData_SQLITE.m_DataBaseFileName;
-                                local_DB_Param.DataBaseFilePath = m_conData_SQLITE.m_DataBaseFilePath;
+                                local_DB_Param.DataBaseFileName = m_conData_SQLITE.DataBaseFileName;
+                                local_DB_Param.DataBaseFilePath = m_conData_SQLITE.DataBaseFilePath;
                                 break;
                         }
 

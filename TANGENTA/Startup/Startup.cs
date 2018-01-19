@@ -62,7 +62,20 @@ namespace Startup
             set { m_bCancel = value; }
         }
 
-        public bool Exit { get { return ((((int)eStep) < 0) || m_usrc_Startup.Exit); } }
+        public bool Exit { get {
+                if ((((int)eStep) < 0))
+                {
+                    return true;
+                }
+                if (m_usrc_Startup != null)
+                {
+                    return (m_usrc_Startup.Exit);
+                }
+                else
+                {
+                    return true;
+                }
+            } }
 
 
         public startup(Form parent_form, NavigationButtons.Navigation xnav, Icon xFormIconQuestion,bool xbFirstTimeInstallation)

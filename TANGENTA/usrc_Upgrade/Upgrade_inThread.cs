@@ -225,7 +225,7 @@ namespace UpgradeDB
         }
 
 
-        internal static bool Set_DataBase_Version(string Version)
+        public static bool Set_DataBase_Version(string Version)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_TextValue = "@par_TextValue";

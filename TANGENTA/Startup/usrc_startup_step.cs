@@ -30,8 +30,27 @@ namespace Startup
             startup_step = xstartup_step;
             startup_step.m_usrc_startup_step = this;
             this.lbl_startup_step.Text = startup_step.s_Title;
-            this.check1.State = Check.check.eState.UNDEFINED;
+            Set_UNDEFINED();
         }
+
+        private void Set_UNDEFINED()
+        {
+            this.check1.State = Check.check.eState.UNDEFINED;
+            this.check1.Refresh();
+        }
+
+        private void Set_WAIT()
+        {
+            this.check1.State = Check.check.eState.WAIT;
+            this.check1.Refresh();
+        }
+
+        private void Set_TRUE()
+        {
+            this.check1.State = Check.check.eState.TRUE;
+            this.check1.Refresh();
+        }
+
 
         private void Something_ready(object sender, EventArgs e)
         {
@@ -54,7 +73,8 @@ namespace Startup
                 switch (eRes)
                 {
                     case startup_step.Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN:
-                        this.check1.State = Check.check.eState.WAIT;
+                        Set_WAIT();
+                        
                         if (startup_step.check_procedure!=null)
                         {
                           startup_step.Startup_check_proc_Result e_check_result =  startup_step.check_procedure(startup_step, null, ref startup_step.showform_procedure, ref Err);
@@ -64,7 +84,7 @@ namespace Startup
                                     startup_step.showform_procedure(startup_step, startup_step.nav, ref startup_step.onformresult_procedure);
                                     break;
                                 case startup_step.Startup_check_proc_Result.CHECK_OK:
-                                    this.check1.State = Check.check.eState.TRUE;
+                                    Set_TRUE();
                                     startup_step.myStartup.StartNextStepExecution();
                                     break;
                             }
@@ -72,18 +92,18 @@ namespace Startup
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.WAIT_USER_INTERACTION:
-                        this.check1.State = Check.check.eState.WAIT;
+                        Set_WAIT();
                         startup_step.showform_procedure(startup_step, startup_step.nav, ref startup_step.onformresult_procedure);
                         break;
 
                    
                     case startup_step.Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK:
-                        this.check1.State = Check.check.eState.TRUE;
+                        Set_TRUE();
                         bNO_FORM_BUT_CHECK_OK = true;
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.NEXT:
-                        this.check1.State = Check.check.eState.TRUE;
+                        Set_TRUE();
                         if (!startup_step.myStartup.StartNextStepExecution())
                         {
                             if (Finished!=null)
@@ -94,11 +114,11 @@ namespace Startup
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.PREV:
-                        this.check1.State = Check.check.eState.UNDEFINED;
+                        Set_UNDEFINED();
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.EXIT:
-                        this.check1.State = Check.check.eState.UNDEFINED;
+                        Set_UNDEFINED();
                         if (ExitProgram != null)
                         {
                             ExitProgram(this);
@@ -116,6 +136,7 @@ namespace Startup
                 switch (startup_step.eResult_Of_check_procedure)
                 {
                     case startup_step.Startup_check_proc_Result.CHECK_OK:
+                        Set_TRUE();
                         if (!startup_step.myStartup.StartNextStepExecution())
                         {
                             if (Finished!=null)
@@ -130,9 +151,10 @@ namespace Startup
             }
         }
 
+
         internal startup_step.Startup_check_proc_Result DoStartup_check_proc_Result()
         {
-            this.check1.State = Check.check.eState.WAIT;
+            Set_WAIT();
             string Err = null;
             startup_step.Startup_check_proc_Result eResult = startup_step.Execute_check_procedure(null, ref Err);
             return Action_on_DoStartup_check_proc_Result(eResult, ref Err);

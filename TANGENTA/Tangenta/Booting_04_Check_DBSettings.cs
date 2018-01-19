@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaDataBaseDef;
 using TangentaDB;
+using UpgradeDB;
 using static Startup.startup_step;
 
 namespace Tangenta
@@ -63,9 +65,19 @@ namespace Tangenta
                                 return Startup_check_proc_Result.CHECK_OK;
                             }
 
+                        case fs.enum_GetDBSettings.No_Data_Rows:
+                            //DataBaseVersion Not written !
+                            long ID_Version = -1;
+                            if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
+                            {
+                                return Startup_check_proc_Result.CHECK_OK;
+                            }
+                            else
+                            {
+                                return Startup_check_proc_Result.CHECK_ERROR;
+                            }
                         case fs.enum_GetDBSettings.Error_Load_DBSettings:
                         case fs.enum_GetDBSettings.No_ReadOnly:
-                        case fs.enum_GetDBSettings.No_Data_Rows:
                         case fs.enum_GetDBSettings.No_TextValue:
                             return Startup_check_proc_Result.CHECK_ERROR;
                         default:

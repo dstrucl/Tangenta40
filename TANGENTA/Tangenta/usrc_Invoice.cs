@@ -414,22 +414,25 @@ namespace Tangenta
             if (m_usrc_ShopC == null)
             {
                 New_ShopC(xnav);
-                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                if (xnav != null)
                 {
-                    if (m_usrc_ShopB!= null)
+                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                     {
-                        m_usrc_ShopB.Dispose();
-                        m_usrc_ShopB = null;
-                        goto do_NewShopB;
+                        if (m_usrc_ShopB != null)
+                        {
+                            m_usrc_ShopB.Dispose();
+                            m_usrc_ShopB = null;
+                            goto do_NewShopB;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-                    else
+                    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                     {
                         return;
                     }
-                }
-                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                {
-                  return;
                 }
             }
 
