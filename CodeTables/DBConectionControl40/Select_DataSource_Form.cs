@@ -15,6 +15,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.Sql;
 using LanguageControl;
+using System.Management;
+using System.Data.Common;
+using System.Management.Automation;
 
 namespace DBConnectionControl40
 {
@@ -47,6 +50,78 @@ namespace DBConnectionControl40
 
         }
 
+        //public static void LocateSqlInstances()
+        //{
+        //    using (DataTable sqlSources = SqlDataSourceEnumerator.Instance.GetDataSources())
+        //    {
+        //        foreach (DataRow source in sqlSources.Rows)
+        //        {
+        //            string servername;
+        //            string instanceName = source["InstanceName"].ToString();
+
+        //            if (!string.IsNullOrEmpty(instanceName))
+        //            {
+        //                servername = source["InstanceName"] + "\\" + source["ServerName"];
+        //            }
+        //            else
+        //            {
+        //                servername = (string)source["ServerName"];
+        //            }
+        //            string s = string.Format(" Server Name:{0}", servername);
+        //            s += string.Format("   Version:{0}", source["Version"]);
+        //            s += "\r\n";
+
+        //        }
+        //    }
+        //}
+
+        public DataTable GetSqlServers(string server)
+        {
+            DataTable dt = null;
+            object results = null;
+            string commandStr =
+                @"if(Test-Connection " + server + @" -Count 2 -Quiet) {
+                    Get-WmiObject win32_Service -Computer " + server + @" |`
+                    where {$_.DisplayName -match ""SQL Server""} | `
+                    select SystemName, DisplayName, Name, State, Status, StartMode, StartName
+                }";
+
+            PSCommand cmd = new PSCommand();
+
+            cmd.AddScript(commandStr);
+            using (PowerShell ps = PowerShell.Create())
+            {
+                ps.Commands = cmd;
+                results = ps.Invoke();
+            }
+            if (results is System.Collections.ObjectModel.Collection<System.Management.Automation.PSObject>)
+            {
+                if (((System.Collections.ObjectModel.Collection<System.Management.Automation.PSObject>)results).Count>0)
+                {
+                    foreach (PSObject psobject in (System.Collections.ObjectModel.Collection<System.Management.Automation.PSObject>)results)
+                    {
+                        string stype = psobject.GetType().ToString();
+                        PSMemberInfoCollection<PSMemberInfo> pinfmemberc = psobject.Members;
+                        foreach (PSMemberInfo psmemberinf in pinfmemberc)
+                        {
+                            PSMemberTypes psmemtypes = psmemberinf.MemberType;
+                            if (psmemberinf.MemberType.Equals("SQL Server"))
+                            {
+
+                            }
+                            if (psmemberinf.Value.Equals("SQL Server"))
+                            {
+
+                            }
+                        }
+                        PSMemberInfoCollection<PSMethodInfo> pinfmedthodc = psobject.Methods;
+                        PSMemberInfoCollection<PSPropertyInfo> pinfpropertiesc = psobject.Properties;
+                    }
+                }
+            }
+            return dt;
+        }
+
         private void Timer_ShowServers_Tick(object sender, EventArgs e)
         {
 
@@ -69,8 +144,12 @@ namespace DBConnectionControl40
 
                     case DBConnection.eDBType.MSSQL:
                         searchLocalNetwork.Visible = false;
+                        SQLInfoEnumerator sqlenum = new SQLInfoEnumerator();
+                        string[] servers = sqlenum.EnumerateSQLServers();
+                        
                         SqlDataSourceEnumerator ServerEnum = SqlDataSourceEnumerator.Instance;
                         Table_of_ServersInLocalNetwork = ServerEnum.GetDataSources();
+                        
                         dataGridView_SELECT_SERVER.DataSource = Table_of_ServersInLocalNetwork;
                         this.lbl_Progress.Visible = false;
                         this.Cursor = System.Windows.Forms.Cursors.Arrow;

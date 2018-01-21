@@ -56,6 +56,7 @@ namespace DBSync
                 if (DataBaseType.Equals("SQLITE"))
                 {
                     eDBType = DBConnection.eDBType.SQLITE;
+                    m_DBType = eDBType;
                     if (DB_for_Tangenta == null)
                     {
                         DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);
@@ -66,6 +67,7 @@ namespace DBSync
                 else if (DataBaseType.Equals("MSSQL"))
                 {
                     eDBType = DBConnection.eDBType.MSSQL;
+                    m_DBType = eDBType;
                     if (DB_for_Tangenta == null)
                     {
                         DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentForm, m_XmlFileName, IniFileFolder);

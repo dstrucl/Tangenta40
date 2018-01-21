@@ -162,8 +162,20 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is DBConnectionControl40.ConnectionDialog)
                     {
-                        startup_ShowForm_proc = Startup_03_Show_TestConnectionForm;
-                        return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                        DBConnectionControl40.ConnectionDialog frm_ConnectionDialog = (DBConnectionControl40.ConnectionDialog)form;
+                        if (DBSync.DBSync.RemoteDB_data != null)
+                        {
+                            DBSync.DBSync.RemoteDB_data.bWindowsAuthentication = frm_ConnectionDialog.m_con.WindowsAuthentication;
+                            DBSync.DBSync.RemoteDB_data.DataSource = frm_ConnectionDialog.m_con.DataSource;
+                            DBSync.DBSync.RemoteDB_data.DataBase = frm_ConnectionDialog.m_con.DataBase;
+                            DBSync.DBSync.RemoteDB_data.UserName = frm_ConnectionDialog.m_con.UserName;
+                            DBSync.DBSync.RemoteDB_data.crypted_Password = frm_ConnectionDialog.m_con.PasswordCrypted;
+                            if (DBSync.DBSync.RemoteDB_data.Save(frm.CodeTables_IniFileFolder,ref Err))
+                            {
+                                return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                            }
+                        }
+                        return Startup_onformresult_proc_Result.ERROR;
                     }
                     else if (form is DBConnectionControl40.SQLiteConnectionDialog)
                     {

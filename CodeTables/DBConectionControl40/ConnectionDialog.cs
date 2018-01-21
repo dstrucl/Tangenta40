@@ -39,7 +39,7 @@ namespace DBConnectionControl40
 
         public ConnectionDialog_enum my_ConnectionDialog_enum;
 
-        DBConnection m_con = null;
+        public DBConnection m_con = null;
 
         internal bool m_bNewDataBase = false;
 

@@ -310,26 +310,7 @@ namespace Tangenta
             return this.m_usrc_InvoiceMan.Initialise(Main_Form);
         }
 
-        //internal bool Startup_09_SetShopsPricelists(startup myStartup, Navigation xnav, ref string Err)
-        //{
-        //    if (m_usrc_InvoiceMan != null)
-        //    {
-        //        if (m_usrc_InvoiceMan.m_usrc_Invoice != null)
-        //        {
-        //            if (m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
-        //            {
-        //                m_usrc_InvoiceMan.m_usrc_Invoice.Startup_09_Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
-
-                        
-        //            }
-        //        }
-        //    }
-
-        //    //myStartup.eNextStep++;
-        //    return true;
-
-        //}
-
+    
         internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
         {
             if (m_usrc_InvoiceMan != null)

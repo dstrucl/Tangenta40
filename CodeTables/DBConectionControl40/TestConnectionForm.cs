@@ -291,20 +291,17 @@ namespace DBConnectionControl40
                     if (bRes)
                     {
                         // connection OK
+                        ShowOK();
                         timerFollow_CheckConnection.Enabled = false;
                         if (m_bTimerClose)
                         {
                             this.Close();
                             this.DialogResult = DialogResult.OK;
                         }
-                        else
-                        {
-                            ShowOK();
-                        }
-
                     }
                     else
                     {
+                        m_bResult = false;
                         this.Close();
                         this.DialogResult = DialogResult.No;
 
