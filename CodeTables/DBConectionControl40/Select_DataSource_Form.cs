@@ -10,6 +10,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Collections;
+using GongSolutions.Shell;
+using GongSolutions.Shell.Interop;
+
 
 using System.Text;
 using System.Windows.Forms;
@@ -18,6 +22,7 @@ using LanguageControl;
 using System.Management;
 using System.Data.Common;
 using System.Management.Automation;
+using System.DirectoryServices;
 
 namespace DBConnectionControl40
 {
@@ -50,34 +55,8 @@ namespace DBConnectionControl40
 
         }
 
-        //public static void LocateSqlInstances()
-        //{
-        //    using (DataTable sqlSources = SqlDataSourceEnumerator.Instance.GetDataSources())
-        //    {
-        //        foreach (DataRow source in sqlSources.Rows)
-        //        {
-        //            string servername;
-        //            string instanceName = source["InstanceName"].ToString();
-
-        //            if (!string.IsNullOrEmpty(instanceName))
-        //            {
-        //                servername = source["InstanceName"] + "\\" + source["ServerName"];
-        //            }
-        //            else
-        //            {
-        //                servername = (string)source["ServerName"];
-        //            }
-        //            string s = string.Format(" Server Name:{0}", servername);
-        //            s += string.Format("   Version:{0}", source["Version"]);
-        //            s += "\r\n";
-
-        //        }
-        //    }
-        //}
-
-        public DataTable GetSqlServers(string server)
+        public DataTable GetSqlServers(DataTable dt,string server)
         {
-            DataTable dt = null;
             object results = null;
             string commandStr =
                 @"if(Test-Connection " + server + @" -Count 2 -Quiet) {
@@ -102,16 +81,28 @@ namespace DBConnectionControl40
                     {
                         string stype = psobject.GetType().ToString();
                         PSMemberInfoCollection<PSMemberInfo> pinfmemberc = psobject.Members;
+                        bool bDisplayNameFound = false;
                         foreach (PSMemberInfo psmemberinf in pinfmemberc)
                         {
                             PSMemberTypes psmemtypes = psmemberinf.MemberType;
-                            if (psmemberinf.MemberType.Equals("SQL Server"))
+                            if (psmemberinf.Name.Equals("DisplayName"))
                             {
-
+                                bDisplayNameFound = true;
                             }
-                            if (psmemberinf.Value.Equals("SQL Server"))
+                            if (bDisplayNameFound)
                             {
-
+                                if (psmemberinf.Value is string)
+                                {
+                                    string svalue = (string)psmemberinf.Value;
+                                    if (svalue.Contains("SQL Server ("))
+                                    {
+                                        string[] sserver = svalue.Split(new char[] { '(', ')' });
+                                        DataRow dr = dt.NewRow();
+                                        dr["Servername"] = server;
+                                        dr["InstanceName"]=sserver[1];
+                                        dt.Rows.Add(dr);
+                                    }
+                                }
                             }
                         }
                         PSMemberInfoCollection<PSMethodInfo> pinfmedthodc = psobject.Methods;
@@ -122,7 +113,28 @@ namespace DBConnectionControl40
             return dt;
         }
 
-        private void Timer_ShowServers_Tick(object sender, EventArgs e)
+
+    public sealed class ShellNetworkComputers : IEnumerable<string>
+    {
+        public IEnumerator<string> GetEnumerator()
+        {
+            ShellItem folder = new ShellItem((Environment.SpecialFolder)CSIDL.NETWORK);
+            IEnumerator<ShellItem> e = folder.GetEnumerator(SHCONTF.FOLDERS);
+
+            while (e.MoveNext())
+            {
+//                Debug.Print(e.Current.ParsingName);
+                yield return e.Current.ParsingName;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    private void Timer_ShowServers_Tick(object sender, EventArgs e)
         {
 
             this.Timer_ShowServers.Enabled = false;
@@ -144,12 +156,32 @@ namespace DBConnectionControl40
 
                     case DBConnection.eDBType.MSSQL:
                         searchLocalNetwork.Visible = false;
-                        SQLInfoEnumerator sqlenum = new SQLInfoEnumerator();
-                        string[] servers = sqlenum.EnumerateSQLServers();
-                        
-                        SqlDataSourceEnumerator ServerEnum = SqlDataSourceEnumerator.Instance;
-                        Table_of_ServersInLocalNetwork = ServerEnum.GetDataSources();
-                        
+
+                        if (System.Environment.OSVersion.Version.Major == 10)
+                        {
+                            Table_of_ServersInLocalNetwork = new DataTable();
+                            DataColumn dcol_ServerName = new DataColumn("ServerName", typeof(string));
+                            DataColumn dcol_InstanceName = new DataColumn("InstanceName", typeof(string));
+                            DataColumn dcol_IsClustered = new DataColumn("IsClustered", typeof(bool));
+                            DataColumn dcol_Version = new DataColumn("Version", typeof(string));
+                            Table_of_ServersInLocalNetwork.Columns.Add(dcol_ServerName);
+                            Table_of_ServersInLocalNetwork.Columns.Add(dcol_InstanceName);
+                            Table_of_ServersInLocalNetwork.Columns.Add(dcol_IsClustered);
+                            Table_of_ServersInLocalNetwork.Columns.Add(dcol_Version);
+
+                            ShellNetworkComputers shnc = new ShellNetworkComputers();
+                            foreach (string scomputer in shnc)
+                            {
+                                string scomp = scomputer.Replace("\\\\", "");
+                                GetSqlServers(Table_of_ServersInLocalNetwork,scomp);
+                            }
+                        }
+                        else
+                        {
+                            SqlDataSourceEnumerator ServerEnum = SqlDataSourceEnumerator.Instance;
+                            Table_of_ServersInLocalNetwork = ServerEnum.GetDataSources();
+                        }
+
                         dataGridView_SELECT_SERVER.DataSource = Table_of_ServersInLocalNetwork;
                         this.lbl_Progress.Visible = false;
                         this.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -255,6 +287,9 @@ namespace DBConnectionControl40
             }
             return false;
         }
+
+        
+
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
