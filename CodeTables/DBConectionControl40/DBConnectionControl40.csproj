@@ -363,6 +363,10 @@
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UTIL\OsVersionInfo\OsVersionInfo.csproj">
+      <Project>{49c87667-2dc7-44f7-8dd0-31df3978a3e5}</Project>
+      <Name>OsVersionInfo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UTIL\ProgramDiagnostic\ProgramDiagnostic.csproj">
       <Project>{88f14aad-b6bc-415a-9195-c3314addea6f}</Project>
       <Name>ProgramDiagnostic</Name>

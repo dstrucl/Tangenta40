@@ -157,7 +157,7 @@ namespace DBConnectionControl40
                     case DBConnection.eDBType.MSSQL:
                         searchLocalNetwork.Visible = false;
 
-                        if (System.Environment.OSVersion.Version.Major == 10)
+                        if (OSVer.OSVersionInfo.Name.Contains("Windows 10"))
                         {
                             Table_of_ServersInLocalNetwork = new DataTable();
                             DataColumn dcol_ServerName = new DataColumn("ServerName", typeof(string));

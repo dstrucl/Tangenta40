@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OSVersionInfoClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticFunc.cs" />
     <Compile Include="TaxSum.cs" />
