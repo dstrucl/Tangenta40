@@ -67,14 +67,14 @@
             this.txt_MyOrganisation.Margin = new System.Windows.Forms.Padding(2);
             this.txt_MyOrganisation.Multiline = true;
             this.txt_MyOrganisation.Name = "txt_MyOrganisation";
-            this.txt_MyOrganisation.Size = new System.Drawing.Size(374, 34);
+            this.txt_MyOrganisation.Size = new System.Drawing.Size(423, 34);
             this.txt_MyOrganisation.TabIndex = 1;
             // 
             // lbl_Issuer
             // 
             this.lbl_Issuer.AutoSize = true;
             this.lbl_Issuer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Issuer.Location = new System.Drawing.Point(8, 50);
+            this.lbl_Issuer.Location = new System.Drawing.Point(8, 48);
             this.lbl_Issuer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Issuer.Name = "lbl_Issuer";
             this.lbl_Issuer.Size = new System.Drawing.Size(91, 20);
@@ -101,7 +101,7 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(571, 498);
+            this.splitContainer1.Size = new System.Drawing.Size(620, 498);
             this.splitContainer1.SplitterDistance = 195;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 3;
@@ -121,7 +121,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer3.Size = new System.Drawing.Size(567, 296);
+            this.splitContainer3.Size = new System.Drawing.Size(616, 296);
             this.splitContainer3.SplitterDistance = 124;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -129,7 +129,7 @@
             // 
             this.cmb_select_my_Organisation_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_select_my_Organisation_Person.FormattingEnabled = true;
-            this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(151, 47);
+            this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(151, 45);
             this.cmb_select_my_Organisation_Person.Name = "cmb_select_my_Organisation_Person";
             this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(166, 28);
             this.cmb_select_my_Organisation_Person.TabIndex = 21;
@@ -137,10 +137,10 @@
             // txt_Number
             // 
             this.txt_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Number.Location = new System.Drawing.Point(79, 3);
+            this.txt_Number.Location = new System.Drawing.Point(91, 3);
             this.txt_Number.Name = "txt_Number";
             this.txt_Number.ReadOnly = true;
-            this.txt_Number.Size = new System.Drawing.Size(104, 29);
+            this.txt_Number.Size = new System.Drawing.Size(92, 29);
             this.txt_Number.TabIndex = 22;
             // 
             // lbl_Number
@@ -157,7 +157,7 @@
             // 
             this.btn_edit_MyOrganisation_Person.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_edit_MyOrganisation_Person.Image = ((System.Drawing.Image)(resources.GetObject("btn_edit_MyOrganisation_Person.Image")));
-            this.btn_edit_MyOrganisation_Person.Location = new System.Drawing.Point(104, 45);
+            this.btn_edit_MyOrganisation_Person.Location = new System.Drawing.Point(104, 44);
             this.btn_edit_MyOrganisation_Person.Name = "btn_edit_MyOrganisation_Person";
             this.btn_edit_MyOrganisation_Person.Size = new System.Drawing.Size(35, 28);
             this.btn_edit_MyOrganisation_Person.TabIndex = 17;
@@ -193,7 +193,7 @@
             this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Head.Location = new System.Drawing.Point(191, 1);
             this.chk_Head.Name = "chk_Head";
-            this.chk_Head.Size = new System.Drawing.Size(64, 28);
+            this.chk_Head.Size = new System.Drawing.Size(81, 28);
             this.chk_Head.TabIndex = 37;
             this.chk_Head.Text = "Glava";
             this.chk_Head.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer2.Size = new System.Drawing.Size(571, 579);
+            this.splitContainer2.Size = new System.Drawing.Size(620, 579);
             this.splitContainer2.SplitterDistance = 77;
             this.splitContainer2.TabIndex = 38;
             // 
@@ -255,10 +255,10 @@
             this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_Customer.Location = new System.Drawing.Point(324, 45);
+            this.usrc_Customer.Location = new System.Drawing.Point(324, 43);
             this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(245, 29);
+            this.usrc_Customer.Size = new System.Drawing.Size(294, 29);
             this.usrc_Customer.TabIndex = 33;
             this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
             this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
@@ -280,9 +280,9 @@
             // 
             this.btn_Show_Shops.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Show_Shops.Location = new System.Drawing.Point(254, 0);
+            this.btn_Show_Shops.Location = new System.Drawing.Point(263, 0);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
-            this.btn_Show_Shops.Size = new System.Drawing.Size(89, 29);
+            this.btn_Show_Shops.Size = new System.Drawing.Size(79, 29);
             this.btn_Show_Shops.TabIndex = 41;
             this.btn_Show_Shops.Text = "trgovine";
             this.btn_Show_Shops.UseVisualStyleBackColor = false;
@@ -295,15 +295,16 @@
             this.usrc_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
             this.usrc_AddOn1.Location = new System.Drawing.Point(174, 615);
             this.usrc_AddOn1.Name = "usrc_AddOn1";
-            this.usrc_AddOn1.Size = new System.Drawing.Size(395, 65);
+            this.usrc_AddOn1.Size = new System.Drawing.Size(444, 65);
             this.usrc_AddOn1.TabIndex = 40;
             // 
             // usrc_Currency1
             // 
-            this.usrc_Currency1.Location = new System.Drawing.Point(410, -2);
+            this.usrc_Currency1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Currency1.Location = new System.Drawing.Point(430, 0);
             this.usrc_Currency1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_Currency1.Name = "usrc_Currency1";
-            this.usrc_Currency1.Size = new System.Drawing.Size(158, 31);
+            this.usrc_Currency1.Size = new System.Drawing.Size(194, 29);
             this.usrc_Currency1.TabIndex = 42;
             this.usrc_Currency1.CurrencyChanged += new Tangenta.usrc_Currency.delegate_CurrencyChanged(this.usrc_Currency1_CurrencyChanged);
             // 
@@ -322,7 +323,7 @@
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_Invoice";
-            this.Size = new System.Drawing.Size(575, 680);
+            this.Size = new System.Drawing.Size(624, 680);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);

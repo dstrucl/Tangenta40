@@ -42,10 +42,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable1.GetRandomData = false;
             this.usrc_EditTable1.Location = new System.Drawing.Point(1, 0);
-            this.usrc_EditTable1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.usrc_EditTable1.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(1130, 807);
+            this.usrc_EditTable1.Size = new System.Drawing.Size(950, 597);
             this.usrc_EditTable1.TabIndex = 0;
             this.usrc_EditTable1.Title = "Urejanje Poslovnih enot";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -57,6 +57,8 @@
             // 
             // usrc_NavigationButtons1
             // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
@@ -69,10 +71,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(26, 816);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 606);
             this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(1032, 79);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(948, 77);
             this.usrc_NavigationButtons1.TabIndex = 1;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -88,12 +90,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1134, 906);
+            this.ClientSize = new System.Drawing.Size(954, 696);
             this.ControlBox = false;
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_EditTable1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_myOrg_Office_Data_FVI_SLO_RealEstateBP";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_myOrg_Offices_Edit";

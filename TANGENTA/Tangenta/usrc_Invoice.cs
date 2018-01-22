@@ -1462,9 +1462,6 @@ namespace Tangenta
 
         internal eGetOrganisationDataResult GetOrganisationData()
         {
-            //usrc_Document x_usrc_Main = (usrc_Document)oData;
-            //string sAddress = null;
-         
             if (myOrg.Get(1))
             {
 
@@ -1477,28 +1474,7 @@ namespace Tangenta
                     }
                     return eGetOrganisationDataResult.NO_ORGANISATION_NAME;
 
-                    //if (EditMyOrganisation_Data(true, xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
+
                 }
                 if (myOrg.Tax_ID_v == null)
                 {
@@ -1508,28 +1484,6 @@ namespace Tangenta
                     }
                     return eGetOrganisationDataResult.NO_TAX_ID;
 
-                    //if (EditMyOrganisation_Data(false,xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
 
                 if (myOrg.Address_v.StreetName_v == null)
@@ -1539,28 +1493,6 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_StreetName.s);
                     }
                     return eGetOrganisationDataResult.NO_STREET_NAME;
-                    //if (EditMyOrganisation_Data(false, xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
 
                 if (myOrg.Address_v.HouseNumber_v == null)
@@ -1570,28 +1502,6 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_HouseNumber.s);
                     }
                     return eGetOrganisationDataResult.NO_HOUSE_NUMBER;
-                    //if (EditMyOrganisation_Data(false, xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
 
                 if (myOrg.Address_v.ZIP_v == null)
@@ -1601,28 +1511,6 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_ZIP.s);
                     }
                     return eGetOrganisationDataResult.NO_ZIP;
-                    //if (EditMyOrganisation_Data(false, xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
                 if (myOrg.Address_v.City_v == null)
                 {
@@ -1631,28 +1519,6 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_City.s);
                     }
                     return eGetOrganisationDataResult.NO_CITY;
-                    //if (EditMyOrganisation_Data(false, xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
 
                 if (myOrg.Address_v.Country_v == null)
@@ -1662,29 +1528,8 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_Country.s);
                     }
                     return eGetOrganisationDataResult.NO_COUNTRY;
-                    //if (EditMyOrganisation_Data(false, xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        //myStartup.eNextStep--;
-                    //        return true;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
+
 
                 f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID);
                 f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num,ref myOrg.Default_TaxRates);
@@ -1699,15 +1544,6 @@ namespace Tangenta
                             MessageBox.Show(lng.s_No_Office_Data.s);
                         }
                         return eGetOrganisationDataResult.NO_OFFICE;
-                        //if (Edit_myOrg_Office_Data(xnav))
-                        //{
-                        //    continue;
-                        //}
-                        //else
-                        //{
-                        //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                        //    return false;
-                        //}
                     }
                     else
                     {
@@ -1739,15 +1575,6 @@ namespace Tangenta
                                     MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
                                 }
                                 return eGetOrganisationDataResult.NO_REAL_ESTATE;
-                                //if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav))
-                                //{
-                                //    continue;
-                                //}
-                                //else
-                                //{
-                                //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                //    return false;
-                                //}
                             }
                         }
                     }
@@ -1759,28 +1586,6 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_Office.s);
                     }
                     return eGetOrganisationDataResult.NO_OFFICE;
-                    //if (Edit_myOrg_Office(xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        myOrg.Name_v = null;
-                    //        goto do_EditMyOrganisation_Data;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    { 
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
 
 
@@ -1791,28 +1596,6 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
                     }
                     return eGetOrganisationDataResult.NO_MY_ORG_PERSON;
-                    //if (EditMyOrganisation_Person_Data(0,xnav))
-                    //{
-                    //    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    //    {
-                    //        myOrg.myOrg_Office_list.Clear();
-                    //        goto do_Edit_myOrg_Office;
-                    //    }
-                    //    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                    //    {
-                    //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //        return false;
-                    //    }
-                    //    else
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    //    return false;
-                    //}
                 }
 
                 string sPhoneNumber = "";

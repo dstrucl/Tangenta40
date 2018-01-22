@@ -36,6 +36,23 @@ namespace TangentaDB
             return true;
         }
 
+
+     
+
+        public static bool GetCurrencyTable(ref string Err)
+        {
+            long lRowsCount = fs.GetTableRowsCount("Currency");
+            if (lRowsCount > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return fs.Init_Currency_Table(ref Err);
+            }
+        }
+
+
         public static bool Get(string Abbreviation,string Name,string Symbol,int CurrencyCode, int DecimalPlaces, ref long Currency_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
