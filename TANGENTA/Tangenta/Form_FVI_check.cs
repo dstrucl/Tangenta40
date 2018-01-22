@@ -18,7 +18,7 @@ namespace Tangenta
         {
             InitializeComponent();
             nav = xnav;
-            chk_FVI.Checked = Program.b_FVI_SLO;
+            chk_FVI.Checked = true;
             usrc_NavigationButtons1.Init(nav);
             lng.s_FVI_instruction.Text(label1);
             lng.s_FVI_Check.Text(chk_FVI);

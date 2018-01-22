@@ -59,12 +59,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
             this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
-            this.rdb_FURS_TEST_Environment.Checked = false;
-            this.rdb_FURS_Environment.Checked = false;
-            this.usrc_FURS_environment_settings.Init(false, m_usrc_FVI_SLO);
-            this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
-            this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
-            this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
+
 
             if (m_usrc_FVI_SLO.FursTESTEnvironment)
             {

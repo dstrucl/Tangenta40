@@ -47,10 +47,10 @@
             // 
             // progressBar_Connection
             // 
-            this.progressBar_Connection.Location = new System.Drawing.Point(14, 173);
-            this.progressBar_Connection.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar_Connection.Location = new System.Drawing.Point(11, 213);
+            this.progressBar_Connection.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar_Connection.Name = "progressBar_Connection";
-            this.progressBar_Connection.Size = new System.Drawing.Size(618, 17);
+            this.progressBar_Connection.Size = new System.Drawing.Size(772, 21);
             this.progressBar_Connection.TabIndex = 15;
             // 
             // chkBoxWindowsLogon
@@ -58,10 +58,10 @@
             this.chkBoxWindowsLogon.AutoSize = true;
             this.chkBoxWindowsLogon.Enabled = false;
             this.chkBoxWindowsLogon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkBoxWindowsLogon.Location = new System.Drawing.Point(10, 97);
-            this.chkBoxWindowsLogon.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxWindowsLogon.Location = new System.Drawing.Point(12, 121);
+            this.chkBoxWindowsLogon.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxWindowsLogon.Name = "chkBoxWindowsLogon";
-            this.chkBoxWindowsLogon.Size = new System.Drawing.Size(148, 24);
+            this.chkBoxWindowsLogon.Size = new System.Drawing.Size(185, 29);
             this.chkBoxWindowsLogon.TabIndex = 14;
             this.chkBoxWindowsLogon.Text = "Windows Log On";
             this.chkBoxWindowsLogon.UseVisualStyleBackColor = true;
@@ -69,10 +69,10 @@
             // label_DataBase
             // 
             this.label_DataBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_DataBase.Location = new System.Drawing.Point(231, 34);
+            this.label_DataBase.Location = new System.Drawing.Point(289, 42);
             this.label_DataBase.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_DataBase.Name = "label_DataBase";
-            this.label_DataBase.Size = new System.Drawing.Size(396, 18);
+            this.label_DataBase.Size = new System.Drawing.Size(495, 22);
             this.label_DataBase.TabIndex = 13;
             this.label_DataBase.Text = "DataBase:";
             this.label_DataBase.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -80,10 +80,10 @@
             // lblUserName
             // 
             this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserName.Location = new System.Drawing.Point(3, 65);
+            this.lblUserName.Location = new System.Drawing.Point(4, 81);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(222, 18);
+            this.lblUserName.Size = new System.Drawing.Size(278, 22);
             this.lblUserName.TabIndex = 9;
             this.lblUserName.Text = "User Name:";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -91,10 +91,10 @@
             // lblDataSource
             // 
             this.lblDataSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDataSource.Location = new System.Drawing.Point(10, 7);
+            this.lblDataSource.Location = new System.Drawing.Point(12, 9);
             this.lblDataSource.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDataSource.Name = "lblDataSource";
-            this.lblDataSource.Size = new System.Drawing.Size(103, 18);
+            this.lblDataSource.Size = new System.Drawing.Size(129, 22);
             this.lblDataSource.TabIndex = 8;
             this.lblDataSource.Text = "Server:";
             this.lblDataSource.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -106,10 +106,10 @@
             // label_UserName
             // 
             this.label_UserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_UserName.Location = new System.Drawing.Point(231, 65);
+            this.label_UserName.Location = new System.Drawing.Point(289, 81);
             this.label_UserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_UserName.Name = "label_UserName";
-            this.label_UserName.Size = new System.Drawing.Size(396, 18);
+            this.label_UserName.Size = new System.Drawing.Size(495, 22);
             this.label_UserName.TabIndex = 12;
             this.label_UserName.Text = "User Name:";
             this.label_UserName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -117,10 +117,10 @@
             // label_Server
             // 
             this.label_Server.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Server.Location = new System.Drawing.Point(118, 6);
+            this.label_Server.Location = new System.Drawing.Point(148, 8);
             this.label_Server.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Server.Name = "label_Server";
-            this.label_Server.Size = new System.Drawing.Size(257, 18);
+            this.label_Server.Size = new System.Drawing.Size(321, 22);
             this.label_Server.TabIndex = 11;
             this.label_Server.Text = "Server:";
             this.label_Server.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -128,10 +128,10 @@
             // lblDataBase
             // 
             this.lblDataBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDataBase.Location = new System.Drawing.Point(4, 34);
+            this.lblDataBase.Location = new System.Drawing.Point(5, 42);
             this.lblDataBase.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDataBase.Name = "lblDataBase";
-            this.lblDataBase.Size = new System.Drawing.Size(221, 18);
+            this.lblDataBase.Size = new System.Drawing.Size(276, 22);
             this.lblDataBase.TabIndex = 10;
             this.lblDataBase.Text = "DataBase:";
             this.lblDataBase.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -139,10 +139,10 @@
             // btn_OK
             // 
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_OK.Location = new System.Drawing.Point(235, 124);
-            this.btn_OK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_OK.Location = new System.Drawing.Point(294, 143);
+            this.btn_OK.Margin = new System.Windows.Forms.Padding(2);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(92, 46);
+            this.btn_OK.Size = new System.Drawing.Size(115, 58);
             this.btn_OK.TabIndex = 16;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = true;
@@ -152,10 +152,10 @@
             // 
             this.lbl_ERROR.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ERROR.ForeColor = System.Drawing.Color.DarkRed;
-            this.lbl_ERROR.Location = new System.Drawing.Point(10, 6);
+            this.lbl_ERROR.Location = new System.Drawing.Point(12, 8);
             this.lbl_ERROR.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_ERROR.Name = "lbl_ERROR";
-            this.lbl_ERROR.Size = new System.Drawing.Size(774, 18);
+            this.lbl_ERROR.Size = new System.Drawing.Size(968, 22);
             this.lbl_ERROR.TabIndex = 17;
             this.lbl_ERROR.Text = "label1";
             // 
@@ -173,19 +173,19 @@
             // 
             this.btn_ChangeConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_ChangeConnection.Image = global::DBConnectionControl40.Properties.Resources.ChangeConnection;
-            this.btn_ChangeConnection.Location = new System.Drawing.Point(395, 124);
-            this.btn_ChangeConnection.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_ChangeConnection.Location = new System.Drawing.Point(497, 143);
+            this.btn_ChangeConnection.Margin = new System.Windows.Forms.Padding(2);
             this.btn_ChangeConnection.Name = "btn_ChangeConnection";
-            this.btn_ChangeConnection.Size = new System.Drawing.Size(45, 46);
+            this.btn_ChangeConnection.Size = new System.Drawing.Size(56, 58);
             this.btn_ChangeConnection.TabIndex = 18;
             this.btn_ChangeConnection.UseVisualStyleBackColor = true;
             this.btn_ChangeConnection.Click += new System.EventHandler(this.btn_ChangeConnection_Click);
             // 
             // TestConnectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(630, 196);
+            this.ClientSize = new System.Drawing.Size(788, 245);
             this.ControlBox = false;
             this.Controls.Add(this.btn_ChangeConnection);
             this.Controls.Add(this.lbl_ERROR);
@@ -199,7 +199,7 @@
             this.Controls.Add(this.label_Server);
             this.Controls.Add(this.lblDataBase);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TestConnectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TestConnectionForm";

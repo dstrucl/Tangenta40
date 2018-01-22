@@ -945,7 +945,7 @@
       <Value Profile="(Default)">89304489</Value>
     </Setting>
     <Setting Name="fursD_City_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Mesto1</Value>
+      <Value Profile="(Default)">MestoX</Value>
     </Setting>
     <Setting Name="fursD_PostNumber_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
@@ -957,7 +957,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_StreetName_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Cesta1</Value>
+      <Value Profile="(Default)">CestaX</Value>
     </Setting>
     <Setting Name="fursD_City" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

@@ -354,10 +354,10 @@ namespace Tangenta
             {
                 
                 Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
-                if (Program.Reset2FactorySettings.FiscalVerification_DLL)
-                {
-                    Program.usrc_FVI_SLO1.Settings_Reset(this);
-                }
+                //if (Program.Reset2FactorySettings.FiscalVerification_DLL)
+                //{
+                //    Program.usrc_FVI_SLO1.Settings_Reset(this);
+                //}
             }
 
             if (Program.b_FVI_SLO)
