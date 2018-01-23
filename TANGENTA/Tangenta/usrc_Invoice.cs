@@ -701,7 +701,14 @@ namespace Tangenta
 
         internal bool Startup_05_Show_Form_myOrg_Office_Data(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav), "Tangenta.Form_myOrg_Office_Data");
+            if (myOrg.myOrg_Office_list.Count > 0)
+            {
+                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav), "Tangenta.Form_myOrg_Office_Data");
+            }
+            else
+            {
+                xnav.ShowForm(new Form_myOrg_Office_Data(-1, xnav), "Tangenta.Form_myOrg_Office_Data");
+            }
             return true;
         }
 

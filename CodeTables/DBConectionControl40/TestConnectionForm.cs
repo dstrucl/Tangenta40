@@ -19,11 +19,12 @@ namespace DBConnectionControl40
 {
     public partial class TestConnectionForm : Form
     {
-        private bool m_bResult = false;
+        public enum eTestConnectionFormResult {NONE, OK, FAILED,CHANGE}
+        private eTestConnectionFormResult m_eResult = eTestConnectionFormResult.NONE;
 
-        public bool Result
+        public eTestConnectionFormResult Result
         {
-            get { return m_bResult; }
+            get { return m_eResult; }
         }
         DBConnection.eStartPositionOfTestConnectionForm m_eStartPositionOfTestConnectionForm = DBConnection.eStartPositionOfTestConnectionForm.CENTER_SCREEN;
 
@@ -252,7 +253,7 @@ namespace DBConnectionControl40
             this.lblUserName.Visible = false;
             this.chkBoxWindowsLogon.Visible = false;
             this.progressBar_Connection.Visible = false;
-            m_bResult = true;
+            m_eResult = eTestConnectionFormResult.OK;
         }
 
         private void ShowError(string s)
@@ -266,7 +267,7 @@ namespace DBConnectionControl40
             this.lblUserName.Visible = false;
             this.chkBoxWindowsLogon.Visible = false;
             this.progressBar_Connection.Visible = false;
-            m_bResult = false;
+            m_eResult = eTestConnectionFormResult.FAILED;
 
         }
 
@@ -301,7 +302,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        m_bResult = false;
+                        m_eResult = eTestConnectionFormResult.FAILED;
                         this.Close();
                         this.DialogResult = DialogResult.No;
 
@@ -327,7 +328,7 @@ namespace DBConnectionControl40
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            if (m_bResult)
+            if (m_eResult == eTestConnectionFormResult.OK)
             {
                 DialogResult = DialogResult.OK;
             }
@@ -365,6 +366,7 @@ namespace DBConnectionControl40
 
         private void btn_ChangeConnection_Click(object sender, EventArgs e)
         {
+            m_eResult = eTestConnectionFormResult.CHANGE;
             bChangeConnection = true;
             DialogResult = DialogResult.None;
             this.Close();

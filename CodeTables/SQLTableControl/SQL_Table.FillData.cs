@@ -127,6 +127,10 @@ namespace CodeTables
 
         public bool FillDataInputControl(DBConnection x_SQL_connection, long ID, bool bSetInitialValues,ref string csError)
         {
+            if (ID < 0)
+            {
+                return false;
+            }
             // 1 Read row data
             iFillTableData++;
             this.current_row_ID = new ID_v();

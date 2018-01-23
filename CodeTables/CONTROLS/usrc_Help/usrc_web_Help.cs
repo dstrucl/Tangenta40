@@ -41,6 +41,8 @@ namespace usrc_Help
             uri = new Uri(sUrl);
             webBrowser1.Url = uri;
             lbl_URL.Text = sUrl;
+            webBrowser1.Refresh();
+
         }
     }
 }

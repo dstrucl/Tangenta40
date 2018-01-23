@@ -42,10 +42,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable1.GetRandomData = false;
-            this.usrc_EditTable1.Location = new System.Drawing.Point(1, 45);
+            this.usrc_EditTable1.Location = new System.Drawing.Point(1, 55);
+            this.usrc_EditTable1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(811, 496);
+            this.usrc_EditTable1.Size = new System.Drawing.Size(1081, 610);
             this.usrc_EditTable1.TabIndex = 0;
             this.usrc_EditTable1.Title = "Urejanje Poslovnih enot";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -57,9 +58,10 @@
             // btn_FVI_SLO_RealEstateBP
             // 
             this.btn_FVI_SLO_RealEstateBP.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_FVI_SLO_RealEstateBP.Location = new System.Drawing.Point(3, 5);
+            this.btn_FVI_SLO_RealEstateBP.Location = new System.Drawing.Point(4, 6);
+            this.btn_FVI_SLO_RealEstateBP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_FVI_SLO_RealEstateBP.Name = "btn_FVI_SLO_RealEstateBP";
-            this.btn_FVI_SLO_RealEstateBP.Size = new System.Drawing.Size(367, 34);
+            this.btn_FVI_SLO_RealEstateBP.Size = new System.Drawing.Size(489, 42);
             this.btn_FVI_SLO_RealEstateBP.TabIndex = 3;
             this.btn_FVI_SLO_RealEstateBP.Text = "button1";
             this.btn_FVI_SLO_RealEstateBP.UseVisualStyleBackColor = false;
@@ -81,9 +83,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 547);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 673);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(811, 67);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(1081, 82);
             this.usrc_NavigationButtons1.TabIndex = 4;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -97,14 +100,15 @@
             // 
             // Form_myOrg_Office_Data
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 615);
-            this.ControlBox = false;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1085, 757);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.btn_FVI_SLO_RealEstateBP);
             this.Controls.Add(this.usrc_EditTable1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_myOrg_Office_Data";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_myOrg_Offices_Edit";

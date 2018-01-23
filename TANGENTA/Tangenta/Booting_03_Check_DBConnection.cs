@@ -87,14 +87,15 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is DBConnectionControl40.TestConnectionForm)
                     {
-                        if (((DBConnectionControl40.TestConnectionForm)form).Result)
+                        switch(((DBConnectionControl40.TestConnectionForm)form).Result)
                         {
-                            return Startup_onformresult_proc_Result.NEXT;
-                        }
-                        else
-                        {
-                            startup_ShowForm_proc = Startup_03_Show_ConnectionDialog;
-                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            case DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.OK:
+                                return Startup_onformresult_proc_Result.NEXT;
+
+                            case DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.CHANGE:
+                            case DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.FAILED:
+                                startup_ShowForm_proc = Startup_03_Show_ConnectionDialog;
+                                return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
                         }
                     }
                     Err = "ERROR:Tangenta_Form_Document:Startup_03_onformresult_Show_TestConnectionForm:form is not of type " + typeof(DBConnectionControl40.TestConnectionForm).ToString();
@@ -112,7 +113,7 @@ namespace Tangenta
                     bool bCancel = false;
                     if (form is DBConnectionControl40.TestConnectionForm)
                     {
-                        if (((DBConnectionControl40.TestConnectionForm)form).Result)
+                        if (((DBConnectionControl40.TestConnectionForm)form).Result== DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.OK)
                         {
                             if (DBSync.DBSync.Startup_03_CheckDataBaseTables(frm, ref bCancel))
                             {
@@ -126,23 +127,36 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (DBSync.DBSync.Startup_03_CreateNewDatabase(frm, ref bNewDataBase, ref bCancel))
+                            if (((DBConnectionControl40.TestConnectionForm)form).Result == DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.CHANGE)
                             {
-                                if (bCancel || !bNewDataBase)
+                                startup_ShowForm_proc = Startup_03_Show_ConnectionDialog;
+                                return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            }
+                            else if (((DBConnectionControl40.TestConnectionForm)form).Result == DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.FAILED)
+                            {
+                                if (DBSync.DBSync.Startup_03_CreateNewDatabase(frm, ref bNewDataBase, ref bCancel))
+                                {
+                                    if (bCancel || !bNewDataBase)
+
+                                    {
+                                        bDatabaseReset = true;
+                                        return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                                    }
+                                    else
+                                    {
+                                        return Startup_onformresult_proc_Result.NEXT;
+                                    }
+
+                                }
+                                else
                                 {
                                     bDatabaseReset = true;
                                     return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                                 }
-                                else
-                                {
-                                    return Startup_onformresult_proc_Result.NEXT;
-                                }
-
                             }
                             else
                             {
-                                bDatabaseReset = true;
-                                return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                                return Startup_onformresult_proc_Result.ERROR;
                             }
                         }
                     }
@@ -215,9 +229,9 @@ namespace Tangenta
                     bool bCancel = false;
                     if (form is DBConnectionControl40.TestConnectionForm)
                     {
-                        if (((DBConnectionControl40.TestConnectionForm)form).Result)
+                        if (((DBConnectionControl40.TestConnectionForm)form).Result == DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.OK)
                         {
-                            if (DBSync.DBSync.Startup_03_CheckDataBaseTables(frm,ref bCancel))
+                            if (DBSync.DBSync.Startup_03_CheckDataBaseTables(frm, ref bCancel))
                             {
                                 return Startup_onformresult_proc_Result.NEXT;
                             }
@@ -227,9 +241,10 @@ namespace Tangenta
                                 return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                             }
                         }
-                        else
+                        else if (((DBConnectionControl40.TestConnectionForm)form).Result == DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.FAILED)
                         {
-                           if (DBSync.DBSync.Startup_03_CreateNewDatabase(frm,ref bNewDataBase, ref bCancel))
+
+                            if (DBSync.DBSync.Startup_03_CreateNewDatabase(frm, ref bNewDataBase, ref bCancel))
                             {
                                 if (bCancel || !bNewDataBase)
                                 {
@@ -240,13 +255,22 @@ namespace Tangenta
                                 {
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }
-                                
+
                             }
-                           else
+                            else
                             {
                                 bDatabaseReset = true;
-                                return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN; 
+                                return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                             }
+                        }
+                        else if (((DBConnectionControl40.TestConnectionForm)form).Result == DBConnectionControl40.TestConnectionForm.eTestConnectionFormResult.CHANGE)
+                        {
+                            startup_ShowForm_proc = Startup_03_Show_ConnectionDialog;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                        }
+                        else
+                        {
+                            return Startup_onformresult_proc_Result.ERROR;
                         }
                     }
                     else
