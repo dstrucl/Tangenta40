@@ -34,7 +34,8 @@ namespace Tangenta
         internal startup_step CreateStep()
         {
             return new startup_step(lng.s_Startup_Check_DBSettings.s, m_startup, Program.nav,
-                                    Startup_04_Check_DBSettings, 
+                                    Startup_04_Check_DBSettings,
+                                    Startup_04_Undo,
                                     startup_step.eStep.Check_04_DBSettings);
         }
 
@@ -128,6 +129,18 @@ namespace Tangenta
             }
         }
 
+        internal Startup_eUndoProcedureResult Startup_04_Undo(startup_step xstartup_step,
+                                        ref string Err)
+        {
+            if (fs.DeleteAll("DBSettings", ref Err))
+            {
+                return Startup_eUndoProcedureResult.OK;
+            }
+            else
+            {
+                return Startup_eUndoProcedureResult.ERROR;
+            }
+         }
 
         private bool Startup_04_ShowDBSettingsForm(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,

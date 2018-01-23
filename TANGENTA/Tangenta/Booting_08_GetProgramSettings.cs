@@ -29,7 +29,7 @@ namespace Tangenta
 
         internal startup_step CreateStep()
         {
-            return new startup_step(lng.s_Startup_Get_ProgramSettings.s, m_startup, Program.nav, Startup_08_GetProgramSettings, eStep);
+            return new startup_step(lng.s_Startup_Get_ProgramSettings.s, m_startup, Program.nav, Startup_08_GetProgramSettings,null, eStep);
         }
 
         public Startup_check_proc_Result Startup_08_GetProgramSettings(startup_step xstartup_step,

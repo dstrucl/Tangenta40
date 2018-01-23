@@ -30,7 +30,7 @@ namespace Tangenta
 
         internal startup_step CreateStep()
         {
-            return new startup_step(lng.s_SetShopsPricelists.s, m_startup, Program.nav, Startup_09_GetShopsPriceLists, eStep);
+            return new startup_step(lng.s_SetShopsPricelists.s, m_startup, Program.nav, Startup_09_GetShopsPriceLists,null, eStep);
         }
 
         public Startup_check_proc_Result Startup_09_GetShopsPriceLists(startup_step xstartup_step,

@@ -101,16 +101,16 @@ namespace DBConnectionControl40
         private void SetTextBoxes()
         {
 
-            lbl_Server.Text = lng.s_Server.s;
-            lbl_DataBase.Text = lng.s_DataBase.s;
-            lbl_UserName.Text = lng.s_UserName.s;
-            lbl_Password.Text = lng.s_Password.s;
-            btn_Browse_servers.Text = lng.s_Browse__.s;
-            btn_Browse_Databases_onServer.Text = lng.s_Browse__.s;
+            lng.s_Server.Text(lbl_Server);
+            lng.s_DataBase.Text(lbl_DataBase);
+            lng.s_UserName.Text(lbl_UserName);
+            lng.s_Password.Text(lbl_Password);
+            lng.s_Browse__.Text(btn_Browse_servers);
+            lng.s_Browse__.Text(btn_Browse_Databases_onServer);
             usrc_NavigationButtons1.Init(nav);
-            btn_Action.Text = lng.s_ConnectWithDatabase.s;
-            rdb_UseWindowsAuthentication.Text = lng.s_WindowsAuthentication.s;
-            rdb_SQL_Server_Authentication.Text = lng.s_SQLServerAuthentication.s;
+            lng.s_ConnectWithDatabase.Text(btn_Action);
+            lng.s_WindowsAuthentication.Text(rdb_UseWindowsAuthentication);
+            lng.s_SQLServerAuthentication.Text(rdb_SQL_Server_Authentication);
 
 
             this.Text = GetTitle();

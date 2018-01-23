@@ -191,5 +191,10 @@ namespace NavigationButtons
                 m_time = t;
             }
         }
+
+        public void SetPreviousButtonVisible(bool v)
+        {
+            btn1_Visible = v;
+        }
     }
 }

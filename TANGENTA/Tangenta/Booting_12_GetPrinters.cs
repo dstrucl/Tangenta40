@@ -30,7 +30,7 @@ namespace Tangenta
 
         internal startup_step CreateStep()
         {
-            return new startup_step(lng.s_Startup_GetPrinter.s, m_startup, Program.nav, Startup_12_GetPrinter, eStep);
+            return new startup_step(lng.s_Startup_GetPrinter.s, m_startup, Program.nav, Startup_12_GetPrinter,null, eStep);
         }
 
         public Startup_check_proc_Result Startup_12_GetPrinter(startup_step xstartup_step,

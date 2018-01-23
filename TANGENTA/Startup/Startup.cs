@@ -73,7 +73,7 @@ namespace Startup
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             } }
 
@@ -115,6 +115,10 @@ namespace Startup
         {
             if (((int)eStep) < m_Step.Length-1)
             {
+                if ((int)eStep > 0)
+                {
+                    nav.btn1_Visible = (m_Step[(int)eStep].undo_procedure != null);
+                }
                 m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
                 eStep++;
                 m_Step[(int)eStep].StartExecution();
@@ -127,20 +131,37 @@ namespace Startup
             }
         }
 
-        public bool StartPrevStepExecution()
+        public bool StartPrevStepExecution(ref string Err)
         {
-            if (((int)eStep) > 0)
+            Err = null;
+            m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
+            for (;;)
             {
-                m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
-                eStep--;
-                m_Step[(int)eStep].StartExecution();
-                return true;
-            }
-            else
-            {
-                m_Step[(int)eStep].Remove_DialogClosingNotifier_SomethingReady();
-                // all steps in PREV direction done
-                return false;
+                if (((int)eStep) > 0)
+                {
+                    eStep--;
+                    startup_step.Startup_eUndoProcedureResult eres = m_Step[(int)eStep].UndoProcedure(ref Err);
+                    switch (eres)
+                    {
+                        case Startup_eUndoProcedureResult.OK:
+                            m_Step[(int)eStep].SetWait();
+                            m_Step[(int)eStep].StartExecution();
+                            return true;
+                        case Startup_eUndoProcedureResult.NO_UNDO:
+                            m_Step[(int)eStep].SetUndefined();
+                            continue;
+
+                        case Startup_eUndoProcedureResult.ERROR:
+                            m_Step[(int)eStep].SetError();
+                            return false;
+
+                    }
+                }
+                else
+                {
+                    // all steps in PREV direction done
+                    return false;
+                }
             }
         }
 
@@ -149,6 +170,18 @@ namespace Startup
             m_parent_form.Controls.Remove(m_usrc_Startup);
             m_usrc_Startup.Dispose();
             m_usrc_Startup = null;
+        }
+
+        internal bool CanGoToPrevious(eStep step)
+        {
+            if (((int)eStep) > 0)
+            {
+                return m_Step[(int)eStep - 1].undo_procedure != null;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

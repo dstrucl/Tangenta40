@@ -54,16 +54,22 @@ namespace TangentaDB
         public static bool DeleteAll(string TableName)
         {
             string Err = null;
+            return DeleteAll(TableName, ref Err);
+        }
+
+        public static bool DeleteAll(string TableName, ref string Err)
+        {
+            
             string sql_delete = null;
             switch (DBSync.DBSync.m_DBType)
             {
                 case DBConnection.eDBType.SQLITE:
-                    sql_delete = @"delete from "+ TableName + @";
-                                  delete from sqlite_sequence where name = '"+TableName+"'";
+                    sql_delete = @"delete from " + TableName + @";
+                                  delete from sqlite_sequence where name = '" + TableName + "'";
                     break;
                 case DBConnection.eDBType.MSSQL:
-                    sql_delete = @"delete from "+ TableName + @";
-                                   DBCC CHECKIDENT ('["+ TableName + "]', RESEED, 0);";
+                    sql_delete = @"delete from " + TableName + @";
+                                   DBCC CHECKIDENT ('[" + TableName + "]', RESEED, 0);";
                     break;
             }
             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql_delete, null, ref Err))
@@ -72,7 +78,7 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:fs:DeleteAll("+ TableName + "):sql=" + sql_delete + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:fs:DeleteAll(" + TableName + "):sql=" + sql_delete + "\r\nErr=" + Err);
                 return false;
             }
         }
@@ -172,6 +178,8 @@ namespace TangentaDB
             nmUpDn_Quantity.Minimum = dincrement;
             nmUpDn_Quantity.Value = dincrement;
         }
+
+
         public static decimal Increment(object DecimalPlaces)
         {
             if (DecimalPlaces is short)

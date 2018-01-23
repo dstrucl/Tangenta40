@@ -29,7 +29,7 @@ namespace Tangenta
 
         internal startup_step CreateStep()
         {
-            return new startup_step(lng.s_Startup_GetBaseCurrency.s, m_startup, Program.nav, Startup_06_GetBaseCurrency, eStep);
+            return new startup_step(lng.s_Startup_GetBaseCurrency.s, m_startup, Program.nav, Startup_06_GetBaseCurrency, null,eStep);
         }
 
         public Startup_check_proc_Result Startup_06_GetBaseCurrency(startup_step xstartup_step,

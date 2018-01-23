@@ -10,12 +10,17 @@ namespace Startup
 {
     public class startup_step
     {
+
         public enum Startup_check_proc_Result {CHECK_NONE,
                                                CHECK_OK,
                                                WAIT_USER_INTERACTION,
                                                CHECK_ERROR
             
         };
+
+        public enum Startup_eUndoProcedureResult { NO_UNDO,
+                                           OK,
+                                           ERROR};
 
         public enum Startup_onformresult_proc_Result {EXIT,
                                                       NEXT,
@@ -62,6 +67,9 @@ namespace Startup
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err);
 
+        public delegate Startup_eUndoProcedureResult delegate_startup_Undo(startup_step xstartup_step,
+                                           ref string Err);
+
         public delegate bool delegate_startup_ShowForm_proc(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc);
@@ -81,7 +89,10 @@ namespace Startup
 
         public NavigationButtons.Navigation nav = null;
 
+       
+
         internal delegate_startup_check_proc check_procedure;
+        internal delegate_startup_Undo undo_procedure;
         public delegate_startup_ShowForm_proc showform_procedure;
         public delegate_startup_OnFormResult_proc onformresult_procedure;
 
@@ -94,6 +105,7 @@ namespace Startup
                             startup xmyStartup,
                             NavigationButtons.Navigation xnav,
                             delegate_startup_check_proc xcheck_proc,
+                            delegate_startup_Undo xcheck_undo,
                             eStep xStep)
         {
             s_Title = xs_Title;
@@ -102,10 +114,12 @@ namespace Startup
             myStartup = xmyStartup;
             nav = xnav;
             check_procedure = xcheck_proc;
+            undo_procedure = xcheck_undo;
             showform_procedure = null;
             onformresult_procedure =null;
             Step = xStep;
         }
+
 
         internal bool ShowFormProcedure(delegate_startup_ShowForm_proc Do_showform)
         {
@@ -115,11 +129,25 @@ namespace Startup
             }
             if (showform_procedure!=null)
             {
+                SetPreviousButtonVisible();
                 bool bRes = showform_procedure(this,nav,ref onformresult_procedure);
                 return bRes;
             }
             return false;
         }
+
+        private void SetPreviousButtonVisible()
+        {
+           if (myStartup.CanGoToPrevious(Step))
+            {
+                nav.SetPreviousButtonVisible(true);
+            }
+            else
+            {
+                nav.SetPreviousButtonVisible(false);
+            }
+        }
+
         internal void Remove_DialogClosingNotifier_SomethingReady()
         {
             m_usrc_startup_step.Remove_DialogClosingNotifier_SomethingReady();
@@ -131,19 +159,40 @@ namespace Startup
             return eResult_Of_check_procedure;
         }
 
+        internal Startup_eUndoProcedureResult UndoProcedure(ref string Err)
+        {
+            if (undo_procedure!=null)
+            {
+                return undo_procedure(this, ref Err);
+            }
+            else
+            {
+                return Startup_eUndoProcedureResult.NO_UNDO;
+            }
+        }
+
         internal void SetOK()
         {
             m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
+            m_usrc_startup_step.Refresh();
         }
 
         public void SetUndefined()
         {
             m_usrc_startup_step.check1.State = Check.check.eState.UNDEFINED;
+            m_usrc_startup_step.Refresh();
         }
 
         public void SetWait()
         {
             m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
+            m_usrc_startup_step.Refresh();
+        }
+
+        internal void SetError()
+        {
+            m_usrc_startup_step.check1.State = Check.check.eState.FALSE;
+            m_usrc_startup_step.Refresh();
         }
 
         public Startup_check_proc_Result Execute_check_procedure(object oData, ref string Err)

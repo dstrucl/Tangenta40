@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestConnectionForm));
             this.progressBar_Connection = new System.Windows.Forms.ProgressBar();
             this.chkBoxWindowsLogon = new System.Windows.Forms.CheckBox();
             this.label_DataBase = new System.Windows.Forms.Label();
@@ -47,10 +48,12 @@
             // 
             // progressBar_Connection
             // 
+            this.progressBar_Connection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar_Connection.Location = new System.Drawing.Point(11, 213);
             this.progressBar_Connection.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar_Connection.Name = "progressBar_Connection";
-            this.progressBar_Connection.Size = new System.Drawing.Size(772, 21);
+            this.progressBar_Connection.Size = new System.Drawing.Size(761, 21);
             this.progressBar_Connection.TabIndex = 15;
             // 
             // chkBoxWindowsLogon
@@ -155,7 +158,7 @@
             this.lbl_ERROR.Location = new System.Drawing.Point(12, 8);
             this.lbl_ERROR.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_ERROR.Name = "lbl_ERROR";
-            this.lbl_ERROR.Size = new System.Drawing.Size(968, 22);
+            this.lbl_ERROR.Size = new System.Drawing.Size(772, 22);
             this.lbl_ERROR.TabIndex = 17;
             this.lbl_ERROR.Text = "label1";
             // 
@@ -185,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(788, 245);
+            this.ClientSize = new System.Drawing.Size(793, 245);
             this.ControlBox = false;
             this.Controls.Add(this.btn_ChangeConnection);
             this.Controls.Add(this.lbl_ERROR);
@@ -199,6 +202,7 @@
             this.Controls.Add(this.label_Server);
             this.Controls.Add(this.lblDataBase);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TestConnectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

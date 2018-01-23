@@ -27,6 +27,7 @@ namespace Tangenta
         {
             return new startup_step(lng.s_Licence_checked.s, m_startup, Program.nav,
                                     Startup_01_Check_TangentaLicenceShown,
+                                    Startup_01_Undo,
                                     startup_step.eStep.Check_01_TangentaLicence);
         }
 
@@ -46,6 +47,13 @@ namespace Tangenta
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
         }
+
+        internal Startup_eUndoProcedureResult Startup_01_Undo(startup_step xstartup_step,
+                                         ref string Err)
+        {
+            return Startup_eUndoProcedureResult.NO_UNDO;
+        }
+
 
         private bool Startup_01_Do_showform_TangentaLicence(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,

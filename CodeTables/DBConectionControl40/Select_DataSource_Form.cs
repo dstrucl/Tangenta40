@@ -123,7 +123,6 @@ namespace DBConnectionControl40
 
             while (e.MoveNext())
             {
-//                Debug.Print(e.Current.ParsingName);
                 yield return e.Current.ParsingName;
             }
         }
@@ -162,12 +161,12 @@ namespace DBConnectionControl40
                             Table_of_ServersInLocalNetwork = new DataTable();
                             DataColumn dcol_ServerName = new DataColumn("ServerName", typeof(string));
                             DataColumn dcol_InstanceName = new DataColumn("InstanceName", typeof(string));
-                            DataColumn dcol_IsClustered = new DataColumn("IsClustered", typeof(bool));
-                            DataColumn dcol_Version = new DataColumn("Version", typeof(string));
+                            //DataColumn dcol_IsClustered = new DataColumn("IsClustered", typeof(bool));
+                            //DataColumn dcol_Version = new DataColumn("Version", typeof(string));
                             Table_of_ServersInLocalNetwork.Columns.Add(dcol_ServerName);
                             Table_of_ServersInLocalNetwork.Columns.Add(dcol_InstanceName);
-                            Table_of_ServersInLocalNetwork.Columns.Add(dcol_IsClustered);
-                            Table_of_ServersInLocalNetwork.Columns.Add(dcol_Version);
+                            //Table_of_ServersInLocalNetwork.Columns.Add(dcol_IsClustered);
+                            //Table_of_ServersInLocalNetwork.Columns.Add(dcol_Version);
 
                             ShellNetworkComputers shnc = new ShellNetworkComputers();
                             foreach (string scomputer in shnc)

@@ -33,6 +33,7 @@ namespace Tangenta
                                     m_startup,
                                     Program.nav,
                                     Startup_02_Check_DataBase_Type,
+                                    Startup_02_Undo,
                                     startup_step.eStep.Check_02_DataBaseType);
         }
 
@@ -71,6 +72,26 @@ namespace Tangenta
                 return Startup_check_proc_Result.CHECK_ERROR;
             }
 
+        }
+
+        internal Startup_eUndoProcedureResult Startup_02_Undo(startup_step xstartup_step,
+                                        ref string Err)
+        {
+            Properties.Settings.Default.DBType = "";
+            Properties.Settings.Default.Save();
+            if (DBSync.DBSync.DB_for_Tangenta!=null)
+            {
+                if (DBSync.DBSync.DB_for_Tangenta.m_DBTables != null)
+                {
+                    if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con!=null)
+                    {
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con = null;
+                    }
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables = null;
+                }
+                DBSync.DBSync.DB_for_Tangenta = null;
+            }
+            return Startup_eUndoProcedureResult.OK;
         }
 
         private bool Startup_02_ShowDataBaseTypeSelectionForm(startup_step xstartup_step,

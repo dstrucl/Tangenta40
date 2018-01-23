@@ -15,6 +15,9 @@ namespace Startup
         public delegate void delegate_ExitProgram();
         public event delegate_ExitProgram ExitProgram = null;
 
+        public delegate void delegate_ExitPrev();
+        public event delegate_ExitProgram ExitPrev = null;
+
         public delegate void delegate_Finished();
         public event delegate_Finished Finished = null;
 
@@ -54,8 +57,17 @@ namespace Startup
                     xusrc_startup_step_Width = xusrc_startup_step.Width;
                 }
                 xusrc_startup_step.ExitProgram += Xusrc_startup_step_ExitProgram;
+                xusrc_startup_step.ExitPrev += Xusrc_startup_step_ExitPrev;
                 xusrc_startup_step.Finished += Xusrc_startup_step_Finished;
                 this.Controls.Add(xusrc_startup_step);
+            }
+        }
+
+        private void Xusrc_startup_step_ExitPrev()
+        {
+            if (ExitPrev!=null)
+            {
+                ExitPrev();
             }
         }
 
@@ -63,6 +75,7 @@ namespace Startup
         {
             if (this.ExitProgram!=null)
             {
+                m_Exit = true;
                 this.ExitProgram();
             }
         }

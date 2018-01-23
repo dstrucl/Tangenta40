@@ -31,7 +31,8 @@ namespace Tangenta
         {
             bDatabaseReset = Program.Reset2FactorySettings.DBConnectionControlXX_EXE;
             return new startup_step(lng.s_Startup_Check_DBConnection.s, m_startup, Program.nav,
-                                    Startup_03_Check_DBConnection, 
+                                    Startup_03_Check_DBConnection,
+                                    Startup_03_Undo,
                                     startup_step.eStep.Check_03_DBConnection);
         }
 
@@ -50,7 +51,13 @@ namespace Tangenta
                 startup_ShowForm_proc = Startup_03_Show_ConnectionDialog;
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
+        }
 
+        internal Startup_eUndoProcedureResult Startup_03_Undo(startup_step xstartup_step,
+                                        ref string Err)
+        {
+            DBSync.DBSync.Startup_03_Undo_DBConnection();
+            return Startup_eUndoProcedureResult.OK;
         }
 
         private bool Startup_03_Show_TestConnectionForm(startup_step xstartup_step,

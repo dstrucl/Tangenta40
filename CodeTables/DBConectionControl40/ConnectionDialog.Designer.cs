@@ -53,10 +53,10 @@
             // rdb_SQL_Server_Authentication
             // 
             this.rdb_SQL_Server_Authentication.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdb_SQL_Server_Authentication.Location = new System.Drawing.Point(134, 197);
-            this.rdb_SQL_Server_Authentication.Margin = new System.Windows.Forms.Padding(2);
+            this.rdb_SQL_Server_Authentication.Location = new System.Drawing.Point(179, 196);
+            this.rdb_SQL_Server_Authentication.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rdb_SQL_Server_Authentication.Name = "rdb_SQL_Server_Authentication";
-            this.rdb_SQL_Server_Authentication.Size = new System.Drawing.Size(196, 21);
+            this.rdb_SQL_Server_Authentication.Size = new System.Drawing.Size(261, 40);
             this.rdb_SQL_Server_Authentication.TabIndex = 40;
             this.rdb_SQL_Server_Authentication.TabStop = true;
             this.rdb_SQL_Server_Authentication.Text = "SQL Server Authentication";
@@ -66,10 +66,10 @@
             // rdb_UseWindowsAuthentication
             // 
             this.rdb_UseWindowsAuthentication.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdb_UseWindowsAuthentication.Location = new System.Drawing.Point(134, 169);
-            this.rdb_UseWindowsAuthentication.Margin = new System.Windows.Forms.Padding(2);
+            this.rdb_UseWindowsAuthentication.Location = new System.Drawing.Point(179, 162);
+            this.rdb_UseWindowsAuthentication.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rdb_UseWindowsAuthentication.Name = "rdb_UseWindowsAuthentication";
-            this.rdb_UseWindowsAuthentication.Size = new System.Drawing.Size(196, 21);
+            this.rdb_UseWindowsAuthentication.Size = new System.Drawing.Size(261, 40);
             this.rdb_UseWindowsAuthentication.TabIndex = 39;
             this.rdb_UseWindowsAuthentication.TabStop = true;
             this.rdb_UseWindowsAuthentication.Text = "Windows Authentication";
@@ -79,10 +79,10 @@
             // btn_Browse_Databases_onServer
             // 
             this.btn_Browse_Databases_onServer.Enabled = false;
-            this.btn_Browse_Databases_onServer.Location = new System.Drawing.Point(422, 132);
-            this.btn_Browse_Databases_onServer.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Browse_Databases_onServer.Location = new System.Drawing.Point(567, 323);
+            this.btn_Browse_Databases_onServer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Browse_Databases_onServer.Name = "btn_Browse_Databases_onServer";
-            this.btn_Browse_Databases_onServer.Size = new System.Drawing.Size(63, 21);
+            this.btn_Browse_Databases_onServer.Size = new System.Drawing.Size(84, 26);
             this.btn_Browse_Databases_onServer.TabIndex = 38;
             this.btn_Browse_Databases_onServer.Text = "Browse...";
             this.btn_Browse_Databases_onServer.UseVisualStyleBackColor = true;
@@ -90,10 +90,10 @@
             // 
             // btn_Browse_servers
             // 
-            this.btn_Browse_servers.Location = new System.Drawing.Point(422, 104);
-            this.btn_Browse_servers.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Browse_servers.Location = new System.Drawing.Point(563, 128);
+            this.btn_Browse_servers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Browse_servers.Name = "btn_Browse_servers";
-            this.btn_Browse_servers.Size = new System.Drawing.Size(63, 24);
+            this.btn_Browse_servers.Size = new System.Drawing.Size(84, 30);
             this.btn_Browse_servers.TabIndex = 37;
             this.btn_Browse_servers.Text = "Browse...";
             this.btn_Browse_servers.UseVisualStyleBackColor = true;
@@ -102,10 +102,9 @@
             // lbl_Instruction
             // 
             this.lbl_Instruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Instruction.Location = new System.Drawing.Point(3, 4);
-            this.lbl_Instruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Instruction.Location = new System.Drawing.Point(4, 5);
             this.lbl_Instruction.Name = "lbl_Instruction";
-            this.lbl_Instruction.Size = new System.Drawing.Size(482, 56);
+            this.lbl_Instruction.Size = new System.Drawing.Size(670, 69);
             this.lbl_Instruction.TabIndex = 36;
             this.lbl_Instruction.Text = "label1";
             this.lbl_Instruction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -113,10 +112,9 @@
             // lbl_DataBase
             // 
             this.lbl_DataBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_DataBase.Location = new System.Drawing.Point(3, 134);
-            this.lbl_DataBase.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_DataBase.Location = new System.Drawing.Point(8, 326);
             this.lbl_DataBase.Name = "lbl_DataBase";
-            this.lbl_DataBase.Size = new System.Drawing.Size(116, 16);
+            this.lbl_DataBase.Size = new System.Drawing.Size(155, 20);
             this.lbl_DataBase.TabIndex = 32;
             this.lbl_DataBase.Text = "Podatkovna baza:";
             this.lbl_DataBase.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -124,10 +122,9 @@
             // lbl_Server
             // 
             this.lbl_Server.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Server.Location = new System.Drawing.Point(3, 109);
-            this.lbl_Server.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Server.Location = new System.Drawing.Point(4, 134);
             this.lbl_Server.Name = "lbl_Server";
-            this.lbl_Server.Size = new System.Drawing.Size(116, 16);
+            this.lbl_Server.Size = new System.Drawing.Size(155, 20);
             this.lbl_Server.TabIndex = 31;
             this.lbl_Server.Text = "Strežnik:";
             this.lbl_Server.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -135,10 +132,10 @@
             // btn_Action
             // 
             this.btn_Action.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Action.Location = new System.Drawing.Point(134, 280);
-            this.btn_Action.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Action.Location = new System.Drawing.Point(179, 366);
+            this.btn_Action.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Action.Name = "btn_Action";
-            this.btn_Action.Size = new System.Drawing.Size(208, 28);
+            this.btn_Action.Size = new System.Drawing.Size(277, 48);
             this.btn_Action.TabIndex = 30;
             this.btn_Action.Text = "Poveži se na bazo podatkov";
             this.btn_Action.UseVisualStyleBackColor = true;
@@ -147,10 +144,9 @@
             // lbl_UserName
             // 
             this.lbl_UserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_UserName.Location = new System.Drawing.Point(3, 225);
-            this.lbl_UserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_UserName.Location = new System.Drawing.Point(4, 231);
             this.lbl_UserName.Name = "lbl_UserName";
-            this.lbl_UserName.Size = new System.Drawing.Size(116, 16);
+            this.lbl_UserName.Size = new System.Drawing.Size(155, 34);
             this.lbl_UserName.TabIndex = 29;
             this.lbl_UserName.Text = "Uporabniško ime:";
             this.lbl_UserName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -158,10 +154,9 @@
             // lbl_Password
             // 
             this.lbl_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Password.Location = new System.Drawing.Point(3, 256);
-            this.lbl_Password.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Password.Location = new System.Drawing.Point(4, 269);
             this.lbl_Password.Name = "lbl_Password";
-            this.lbl_Password.Size = new System.Drawing.Size(116, 16);
+            this.lbl_Password.Size = new System.Drawing.Size(155, 34);
             this.lbl_Password.TabIndex = 28;
             this.lbl_Password.Text = "Geslo:";
             this.lbl_Password.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -170,10 +165,10 @@
             // 
             this.txt_Password.Enabled = false;
             this.txt_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Password.Location = new System.Drawing.Point(134, 254);
-            this.txt_Password.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_Password.Location = new System.Drawing.Point(179, 267);
+            this.txt_Password.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_Password.Name = "txt_Password";
-            this.txt_Password.Size = new System.Drawing.Size(284, 23);
+            this.txt_Password.Size = new System.Drawing.Size(377, 26);
             this.txt_Password.TabIndex = 26;
             this.txt_Password.UseSystemPasswordChar = true;
             // 
@@ -181,11 +176,11 @@
             // 
             this.grpServerType.Controls.Add(this.radioButton_MySqlServer);
             this.grpServerType.Controls.Add(this.radioButton_MicrosoftSQL);
-            this.grpServerType.Location = new System.Drawing.Point(134, 62);
-            this.grpServerType.Margin = new System.Windows.Forms.Padding(2);
+            this.grpServerType.Location = new System.Drawing.Point(179, 76);
+            this.grpServerType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpServerType.Name = "grpServerType";
-            this.grpServerType.Padding = new System.Windows.Forms.Padding(2);
-            this.grpServerType.Size = new System.Drawing.Size(284, 40);
+            this.grpServerType.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpServerType.Size = new System.Drawing.Size(379, 49);
             this.grpServerType.TabIndex = 43;
             this.grpServerType.TabStop = false;
             this.grpServerType.Text = "Select Server";
@@ -195,10 +190,10 @@
             // 
             this.radioButton_MySqlServer.AutoSize = true;
             this.radioButton_MySqlServer.Enabled = false;
-            this.radioButton_MySqlServer.Location = new System.Drawing.Point(170, 18);
-            this.radioButton_MySqlServer.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_MySqlServer.Location = new System.Drawing.Point(227, 22);
+            this.radioButton_MySqlServer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_MySqlServer.Name = "radioButton_MySqlServer";
-            this.radioButton_MySqlServer.Size = new System.Drawing.Size(92, 17);
+            this.radioButton_MySqlServer.Size = new System.Drawing.Size(119, 21);
             this.radioButton_MySqlServer.TabIndex = 44;
             this.radioButton_MySqlServer.TabStop = true;
             this.radioButton_MySqlServer.Text = "MySQL server";
@@ -208,10 +203,10 @@
             // radioButton_MicrosoftSQL
             // 
             this.radioButton_MicrosoftSQL.AutoSize = true;
-            this.radioButton_MicrosoftSQL.Location = new System.Drawing.Point(14, 17);
-            this.radioButton_MicrosoftSQL.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_MicrosoftSQL.Location = new System.Drawing.Point(19, 21);
+            this.radioButton_MicrosoftSQL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_MicrosoftSQL.Name = "radioButton_MicrosoftSQL";
-            this.radioButton_MicrosoftSQL.Size = new System.Drawing.Size(126, 17);
+            this.radioButton_MicrosoftSQL.Size = new System.Drawing.Size(164, 21);
             this.radioButton_MicrosoftSQL.TabIndex = 43;
             this.radioButton_MicrosoftSQL.TabStop = true;
             this.radioButton_MicrosoftSQL.Text = "Microsoft SQL Server";
@@ -220,53 +215,59 @@
             // 
             // cmb_UserName
             // 
+            this.cmb_UserName.AskToCreateRecentItemsFolder = false;
             this.cmb_UserName.DisplayMember = "text";
             this.cmb_UserName.DisplayTime = false;
             this.cmb_UserName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_UserName.FormattingEnabled = true;
             this.cmb_UserName.InsertOnKeyPress = true;
             this.cmb_UserName.Key = "UserName";
-            this.cmb_UserName.Location = new System.Drawing.Point(134, 228);
+            this.cmb_UserName.Location = new System.Drawing.Point(179, 235);
+            this.cmb_UserName.Margin = new System.Windows.Forms.Padding(4);
             this.cmb_UserName.MaxRecentCount = 10;
             this.cmb_UserName.Name = "cmb_UserName";
             this.cmb_UserName.ReadOnly = false;
             this.cmb_UserName.RecentItemsFileName = "ComboBoxRecentXmlFile_UserName.xml";
-            this.cmb_UserName.RecentItemsFolder = "";
-            this.cmb_UserName.Size = new System.Drawing.Size(282, 21);
+            this.cmb_UserName.RecentItemsFolder = "C:\\Users\\V\\AppData\\Roaming\\RecentComboBoxItems";
+            this.cmb_UserName.Size = new System.Drawing.Size(375, 23);
             this.cmb_UserName.TabIndex = 49;
             // 
             // cmb_DataBaseName
             // 
+            this.cmb_DataBaseName.AskToCreateRecentItemsFolder = false;
             this.cmb_DataBaseName.DisplayMember = "text";
             this.cmb_DataBaseName.DisplayTime = false;
             this.cmb_DataBaseName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_DataBaseName.FormattingEnabled = true;
             this.cmb_DataBaseName.InsertOnKeyPress = true;
             this.cmb_DataBaseName.Key = "DataBaseName";
-            this.cmb_DataBaseName.Location = new System.Drawing.Point(123, 135);
+            this.cmb_DataBaseName.Location = new System.Drawing.Point(168, 327);
+            this.cmb_DataBaseName.Margin = new System.Windows.Forms.Padding(4);
             this.cmb_DataBaseName.MaxRecentCount = 10;
             this.cmb_DataBaseName.Name = "cmb_DataBaseName";
             this.cmb_DataBaseName.ReadOnly = false;
             this.cmb_DataBaseName.RecentItemsFileName = "ComboBoxRecentXmlFile_DataBaseName.xml";
-            this.cmb_DataBaseName.RecentItemsFolder = "";
-            this.cmb_DataBaseName.Size = new System.Drawing.Size(293, 21);
+            this.cmb_DataBaseName.RecentItemsFolder = "C:\\Users\\V\\AppData\\Roaming\\RecentComboBoxItems";
+            this.cmb_DataBaseName.Size = new System.Drawing.Size(389, 23);
             this.cmb_DataBaseName.TabIndex = 48;
             // 
             // cmb_ServerName
             // 
+            this.cmb_ServerName.AskToCreateRecentItemsFolder = false;
             this.cmb_ServerName.DisplayMember = "text";
             this.cmb_ServerName.DisplayTime = false;
             this.cmb_ServerName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_ServerName.FormattingEnabled = true;
             this.cmb_ServerName.InsertOnKeyPress = true;
             this.cmb_ServerName.Key = "ServerName";
-            this.cmb_ServerName.Location = new System.Drawing.Point(124, 108);
+            this.cmb_ServerName.Location = new System.Drawing.Point(165, 133);
+            this.cmb_ServerName.Margin = new System.Windows.Forms.Padding(4);
             this.cmb_ServerName.MaxRecentCount = 10;
             this.cmb_ServerName.Name = "cmb_ServerName";
             this.cmb_ServerName.ReadOnly = false;
             this.cmb_ServerName.RecentItemsFileName = "ComboBoxRecentXmlFile_ServerName.xml";
-            this.cmb_ServerName.RecentItemsFolder = "";
-            this.cmb_ServerName.Size = new System.Drawing.Size(292, 21);
+            this.cmb_ServerName.RecentItemsFolder = "C:\\Users\\V\\AppData\\Roaming\\RecentComboBoxItems";
+            this.cmb_ServerName.Size = new System.Drawing.Size(388, 23);
             this.cmb_ServerName.TabIndex = 47;
             this.cmb_ServerName.TextChanged += new System.EventHandler(this.cmb_ServerName_TextChanged);
             // 
@@ -286,9 +287,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = null;
             this.usrc_NavigationButtons1.Image_OK = null;
             this.usrc_NavigationButtons1.Image_PREV = null;
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(5, 324);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(7, 399);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(489, 62);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(652, 76);
             this.usrc_NavigationButtons1.TabIndex = 50;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -302,9 +304,10 @@
             // 
             // ConnectionDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 398);
+            this.ClientSize = new System.Drawing.Size(675, 490);
+            this.Controls.Add(this.btn_Action);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.cmb_UserName);
             this.Controls.Add(this.cmb_DataBaseName);
@@ -317,12 +320,11 @@
             this.Controls.Add(this.lbl_Instruction);
             this.Controls.Add(this.lbl_DataBase);
             this.Controls.Add(this.lbl_Server);
-            this.Controls.Add(this.btn_Action);
             this.Controls.Add(this.lbl_UserName);
             this.Controls.Add(this.lbl_Password);
             this.Controls.Add(this.txt_Password);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ConnectionDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

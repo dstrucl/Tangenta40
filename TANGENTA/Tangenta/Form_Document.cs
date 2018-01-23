@@ -194,39 +194,23 @@ namespace Tangenta
                 // LOGIN
                 booting_13_Login.CreateStep()
              
-             //   new startup_step(lng.s_Startup_Read_DBSettings.s,m_startup, Program.nav,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
-
-             //   // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
-             //   new startup_step(lng.s_Startup_CheckDBVersion.s,m_startup, Program.nav,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion,startup_step_index++),
-             //   // GET ORGANISATION DATA
-             //   new startup_step(lng.s_Startup_GetOrganisationData.s,m_startup, Program.nav,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData,startup_step_index++),
-             //   // GET BASE CURRENCY
-             //   new startup_step(lng.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency,startup_step_index++),
-             //   // GET TAXATION
-             //   new startup_step(lng.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation,startup_step_index++),
-             //   // GET SHOPS IN USE
-             //   new startup_step(lng.s_Startup_Get_ProgramSettings.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings,startup_step_index++),
-             //   // GET PROGRAM SETTINGS
-             //   new startup_step(lng.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists,startup_step_index++),
-             //   // GET SHOPB Item Data
-             //   new startup_step(lng.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData,startup_step_index++),
-             //   // GET SHOPC Item Data
-             //   new startup_step(lng.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData,startup_step_index++),
-             //   // GET Printer
-             //   new startup_step(lng.s_Startup_GetPrinter.s,this.m_usrc_Main.Get_Printer,startup_step.eStep.GetPrinter,startup_step_index++),
-             //   // LOGIN
-             //   new startup_step(lng.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod,startup_step_index++),
             };
 
             m_startup.Steps = StartupStep;
 
             m_startup.m_usrc_Startup.ExitProgram += M_usrc_Startup_ExitProgram;
+            m_startup.m_usrc_Startup.ExitPrev += M_usrc_Startup_ExitPrev;
             m_startup.m_usrc_Startup.Finished += M_usrc_Startup_Finished;
 
             Program.nav.oStartup = m_startup;
         }
 
-     
+        private void M_usrc_Startup_ExitPrev()
+        {
+            Program.nav.eExitResult = NavigationButtons.Navigation.eEvent.PREV;
+            this.Close();
+            DialogResult = DialogResult.Cancel;
+        }
 
         private void M_usrc_Startup_ExitProgram()
         {

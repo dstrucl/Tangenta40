@@ -13,6 +13,7 @@ namespace Startup
 {
     public partial class usrc_startup_step : UserControl
     {
+        
         public startup_step startup_step;
 
         public delegate void delegate_ExitProgram(object sender);
@@ -20,6 +21,9 @@ namespace Startup
 
         public delegate void delegate_Finished();
         public event delegate_Finished Finished;
+
+        public delegate void delegate_ExitPrev();
+        public event delegate_ExitPrev ExitPrev;
 
         public bool bNO_FORM_BUT_CHECK_OK = false;
 
@@ -106,7 +110,7 @@ namespace Startup
                         Set_TRUE();
                         if (!startup_step.myStartup.StartNextStepExecution())
                         {
-                            if (Finished!=null)
+                            if (Finished != null)
                             {
                                 Finished();
                             }
@@ -115,6 +119,17 @@ namespace Startup
 
                     case startup_step.Startup_onformresult_proc_Result.PREV:
                         Set_UNDEFINED();
+                        Err = null;
+                        if (!startup_step.myStartup.StartPrevStepExecution(ref Err))
+                        {
+                            if (Err == null)
+                            {
+                                if (ExitPrev != null)
+                                {
+                                    ExitPrev();
+                                }
+                            }
+                        }
                         break;
 
                     case startup_step.Startup_onformresult_proc_Result.EXIT:
@@ -151,6 +166,14 @@ namespace Startup
             }
         }
 
+        internal void UndoProcedure(ref string Err)
+        {
+            if (startup_step.undo_procedure!=null)
+            {
+                startup_step.undo_procedure(startup_step, ref Err);
+            }
+
+        }
 
         internal startup_step.Startup_check_proc_Result DoStartup_check_proc_Result()
         {

@@ -639,7 +639,8 @@ namespace TangentaDataBaseDef
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
-
+            m_DBTables.items.Clear();
+            TableNames.list.Clear();
             /* 1 */
             t_cFirstName = new SQLTable((Object)new cFirstName(),"cfn", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_cFirstName);
             t_cFirstName.AddColumn((Object)mt.m_cFirstName.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );

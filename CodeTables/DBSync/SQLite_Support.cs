@@ -100,6 +100,13 @@ namespace DBSync
             return false; //LocalDB_data.SQLite_DataBaseFileName is not defined
     }
 
+        public bool Startup_03_Undo_DBConnection()
+        {
+
+            DBSync.LocalDB_data_SQLite = null;
+            return false; //LocalDB_data.SQLite_DataBaseFileName is not defined
+        }
+
         public bool Get(bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
 

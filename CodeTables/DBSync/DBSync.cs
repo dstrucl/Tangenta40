@@ -100,6 +100,19 @@ namespace DBSync
             }
         }
 
+        public static bool Startup_03_Undo_DBConnection()
+        {
+            if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
+            {
+                return m_SQLite_Support.Startup_03_Undo_DBConnection();
+            }
+            else
+            {
+                RemoteDB_data = null;
+                return true;
+            }
+        }
+
         public static bool Startup_03_Set_LocalDB_From_SQLiteConnectionDialog(SQLiteConnectionDialog frm_SQLiteConnectionDialog)
         {
             LocalDB_data_SQLite.DataBaseFileName = frm_SQLiteConnectionDialog.DataBaseFile_name;
@@ -420,6 +433,8 @@ namespace DBSync
             }
             return false;
         }
+
+     
 
         public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled)
         {

@@ -27,9 +27,16 @@ namespace Tangenta
         {
             return new startup_step(lng.s_Startup_Tangenta_About.s, m_startup, Program.nav, 
                                     Startup_00_Check_TangentaAboutShown,
+                                    Startup_00_Undo,
                                     eStep);
         }
 
+        internal Startup_eUndoProcedureResult Startup_00_Undo(startup_step xstartup_step,
+                                           ref string Err)
+        {
+            return Startup_eUndoProcedureResult.NO_UNDO;
+        }
+            
         private Startup_check_proc_Result Startup_00_Check_TangentaAboutShown(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
