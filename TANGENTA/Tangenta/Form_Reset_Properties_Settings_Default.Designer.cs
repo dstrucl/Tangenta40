@@ -150,7 +150,7 @@
             this.MinimizeBox = false;
             this.Name = "Form_Reset_Properties_Settings_Default";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TopMost = true;
+            this.TopMost = false;
             this.Load += new System.EventHandler(this.Form_Reset_Properties_Settings_Default_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

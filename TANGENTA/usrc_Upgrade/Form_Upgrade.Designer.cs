@@ -75,7 +75,7 @@
             this.Name = "Form_Upgrade_inThread";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nadgradnja podatkovne baze";
-            this.TopMost = true;
+            this.TopMost = false;
             this.Load += new System.EventHandler(this.Form_Upgrade_Load);
             this.ResumeLayout(false);
 

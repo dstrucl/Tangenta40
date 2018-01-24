@@ -53,7 +53,17 @@ namespace CodeTables
         }
 
 
+        private static bool m_Show_ID = false;
 
+        public static bool ShowID
+        {
+            get {
+                return m_Show_ID;
+                }
+            set {
+                    m_Show_ID = value;
+                }
+        }
 
         public static Object MainWindow = null;
         public static int TAB = 4;
@@ -65,6 +75,17 @@ namespace CodeTables
             string s = new string(' ', num);
             return s;
 
+        }
+
+        internal static void ShowID_In_DataGrid(DataGridView dataGridView)
+        {
+            foreach (DataGridViewColumn dgvc in dataGridView.Columns)
+            {
+                if (dgvc.Name.Equals("ID")|| dgvc.Name.Contains("_$$ID"))
+                {
+                    dgvc.Visible = ShowID;
+                }
+            }
         }
 
         public static byte[] Compress(byte[] inputData)

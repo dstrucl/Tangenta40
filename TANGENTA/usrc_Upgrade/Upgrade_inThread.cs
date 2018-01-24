@@ -89,7 +89,8 @@ namespace UpgradeDB
                 {
                     int j = i;
                     Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j, this.m_Full_backup_filename);
-                    frm_upgr.ShowDialog();
+                    frm_upgr.Owner = StaticLib.Func.GetParentForm(m_parent_ctrl);
+                    frm_upgr.ShowDialog(frm_upgr.Owner);
                 }
             }
             CheckDataBaseTables(ref Err);

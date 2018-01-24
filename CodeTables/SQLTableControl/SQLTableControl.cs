@@ -72,11 +72,18 @@ namespace CodeTables
                     {
                         foreach (DataGridViewColumn cl in dgvx_Item.Columns)
                         {
-                            foreach (CodeTables.Column col in tbl.Column)
+                            if (cl.Name.Equals("ID"))
                             {
-                                if (col.Name.ToLower().Equals(cl.Name.ToLower()))
+                                cl.Visible = Globals.ShowID;
+                            }
+                            if (cl.Visible)
+                            {
+                                foreach (CodeTables.Column col in tbl.Column)
                                 {
-                                    cl.HeaderText = col.Name_in_language.s;
+                                    if (col.Name.ToLower().Equals(cl.Name.ToLower()))
+                                    {
+                                        cl.HeaderText = col.Name_in_language.s;
+                                    }
                                 }
                             }
                         }

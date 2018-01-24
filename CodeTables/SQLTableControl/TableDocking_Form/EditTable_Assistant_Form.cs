@@ -60,6 +60,7 @@ namespace CodeTables
                 dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
                 dataGridView.ClearSelection();
                 dataGridView.CurrentCell = null;
+                Globals.ShowID_In_DataGrid(dataGridView);
                 if (my_start_up_id_v != null)
                 {
                     DataRow[] drs = m_dt.Select("ID = " + my_start_up_id_v.v.ToString());

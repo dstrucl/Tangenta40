@@ -88,7 +88,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SelectID_Table_Assistant_Form";
             this.Text = "EditaTable_Assistant_Form";
-            this.TopMost = true;
+            this.TopMost = false;
             this.Load += new System.EventHandler(this.EditTable_Assistant_Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

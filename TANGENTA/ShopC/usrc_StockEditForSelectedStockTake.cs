@@ -198,8 +198,8 @@ namespace ShopC
                 edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                 tbl_Item,
                                                                 "Item_$$Code desc", CurrentItem_ID, this);
-                edt_Item_dlg.TopMost = true;
             }
+            edt_Item_dlg.Owner = StaticLib.Func.GetParentForm(this);
             edt_Item_dlg.Show();
         }
 

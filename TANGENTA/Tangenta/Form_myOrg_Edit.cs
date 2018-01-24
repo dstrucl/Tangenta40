@@ -72,6 +72,7 @@ namespace Tangenta
             if (InitDataTable(-1))
             {
                 usrc_EditRow.Init(dbTables, tbl, null,false,nav);
+                usrc_EditRow.FillInitialData();
                 if (dt_my_company.Rows.Count > 0)
                 {
                     long Identity = (long)dt_my_company.Rows[0]["ID"];
@@ -284,6 +285,67 @@ namespace Tangenta
                         }
                     }
                     break;
+            }
+        }
+
+        private void usrc_EditRow_FillTable(SQLTable tbl)
+        {
+            if (TangentaDB.myOrg.Address_v != null)
+            {
+                if ((TangentaDB.myOrg.Address_v.Country_v != null))
+                {
+                    if (tbl.TableName.Equals("cCountry_Org"))
+                    {
+                        foreach (Column col in tbl.Column)
+                        {
+                            if (col.Name.Equals("Country"))
+                            {
+                                col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_a2"))
+                            {
+                                col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country_ISO_3166_a2);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_a3"))
+                            {
+                                col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country_ISO_3166_a3);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_num"))
+                            {
+                                col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country_ISO_3166_num);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void usrc_EditRow_SetInputControlProperties(Column col, object obj)
+        {
+            if (TangentaDB.myOrg.Address_v != null)
+            {
+                if ((TangentaDB.myOrg.Address_v.Country_v != null))
+                {
+                    if (col.ownerTable.TableName.Equals("cCountry_Org"))
+                    {
+                        if (col.Name.Equals("Country"))
+                        {
+                            col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_a2"))
+                        {
+                            col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country_ISO_3166_a2);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_a3"))
+                        {
+                            col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country_ISO_3166_a3);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_num"))
+                        {
+                            col.InputControl.SetValue(TangentaDB.myOrg.Address_v.Country_ISO_3166_num);
+                        }
+                    }
+                }
             }
         }
     }

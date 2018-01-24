@@ -338,7 +338,7 @@ namespace ShopC
             Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
                                                             "Item_$$Code desc",xnav);
-            edt_Item_dlg.ShowDialog();
+            edt_Item_dlg.ShowDialog(StaticLib.Func.GetParentForm(this));
 
             if (edt_Item_dlg.List_of_Inserted_Items_ID.Count>0)
             {

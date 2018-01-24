@@ -48,71 +48,79 @@ namespace Tangenta
             {
                 if (f_Currency.GetCurrencyTable(ref Err))
                 {
-                    if (frm.m_usrc_Main.GetDBSettings(ref Err))
+                    if (fs.Init_Unit_Table(ref Err))
                     {
-                        string xFullBackupFile = null;
-                        bool bUpgradeDone = false;
-                        bool bInsertSampleData = false;
-                        bool bCanceled = false;
-                        fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(m_startup, ref xFullBackupFile, ref bUpgradeDone, ref bInsertSampleData, ref bCanceled, ref Err);
-                        switch (eGetDBSettings_Result)
+                        if (frm.m_usrc_Main.GetDBSettings(ref Err))
                         {
-                            case fs.enum_GetDBSettings.DBSettings_OK:
-                                if (bUpgradeDone)
+                            string xFullBackupFile = null;
+                            bool bUpgradeDone = false;
+                            bool bInsertSampleData = false;
+                            bool bCanceled = false;
+                            fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(m_startup, ref xFullBackupFile, ref bUpgradeDone, ref bInsertSampleData, ref bCanceled, ref Err);
+                            switch (eGetDBSettings_Result)
+                            {
+                                case fs.enum_GetDBSettings.DBSettings_OK:
+                                    if (bUpgradeDone)
+                                    {
+                                        startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
+                                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                                    }
+                                    else
+                                    {
+                                        return Startup_check_proc_Result.CHECK_OK;
+                                    }
+
+                                case fs.enum_GetDBSettings.No_Data_Rows:
+                                    //DataBaseVersion Not written !
+                                    long ID_Version = -1;
+                                    if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
+                                    {
+                                        return Startup_check_proc_Result.CHECK_OK;
+                                    }
+                                    else
+                                    {
+                                        return Startup_check_proc_Result.CHECK_ERROR;
+                                    }
+                                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                case fs.enum_GetDBSettings.No_ReadOnly:
+                                case fs.enum_GetDBSettings.No_TextValue:
+                                    return Startup_check_proc_Result.CHECK_ERROR;
+                                default:
+                                    return Startup_check_proc_Result.CHECK_ERROR;
+                            }
+                        }
+                        else
+                        {
+                            if (Err != null)
+                            {
+
+                                if (Err.Contains(fs.ERROR))
+                                {
+                                    return Startup_check_proc_Result.CHECK_ERROR;
+                                }
+                                else if (Err.Equals(fs.EMPTYTABLE))
                                 {
                                     startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
                                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                                 }
                                 else
                                 {
-                                    return Startup_check_proc_Result.CHECK_OK;
+                                    XMessage.Box.Show(frm, lng.s_No_DB_Settings_for, " " + Err, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                                    startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
+                                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                                 }
-
-                            case fs.enum_GetDBSettings.No_Data_Rows:
-                                //DataBaseVersion Not written !
-                                long ID_Version = -1;
-                                if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
-                                {
-                                    return Startup_check_proc_Result.CHECK_OK;
-                                }
-                                else
-                                {
-                                    return Startup_check_proc_Result.CHECK_ERROR;
-                                }
-                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                            case fs.enum_GetDBSettings.No_ReadOnly:
-                            case fs.enum_GetDBSettings.No_TextValue:
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_04_Check_DBSettings  Err==null should not happen in false result  from m_usrc_Main.GetDBSettings function!");
                                 return Startup_check_proc_Result.CHECK_ERROR;
-                            default:
-                                return Startup_check_proc_Result.CHECK_ERROR;
+                            }
                         }
                     }
                     else
                     {
-                        if (Err != null)
-                        {
-
-                            if (Err.Contains(fs.ERROR))
-                            {
-                                return Startup_check_proc_Result.CHECK_ERROR;
-                            }
-                            else if (Err.Equals(fs.EMPTYTABLE))
-                            {
-                                startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
-                                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-                            }
-                            else
-                            {
-                                XMessage.Box.Show(frm, lng.s_No_DB_Settings_for, " " + Err, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                                startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
-                                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-                            }
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_04_Check_DBSettings  Err==null should not happen in false result  from m_usrc_Main.GetDBSettings function!");
-                            return Startup_check_proc_Result.CHECK_ERROR;
-                        }
+                        LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_04_Check_DBSettings:fs.Init_Unit_Table! Err=" + Err);
+                        return Startup_check_proc_Result.CHECK_ERROR;
                     }
                 }
                 else

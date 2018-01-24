@@ -1943,9 +1943,9 @@ namespace TangentaDataBaseDef
         /* 159 */
             t_Office_Data  = new SQLTable((Object)new Office_Data(),"officed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Office_Data);
             t_Office_Data.AddColumn((Object)mt.m_Office_Data.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.ReadOnlyTable, new ltext("Office ID", "Poslovna enota ID"));
             t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_cAddress_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office address ID", "Poslovna enota naslov ID"));
             t_Office_Data.AddColumn((Object)mt.m_Office_Data.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office Description", "Poslovna enota opis"));
-            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.ReadOnlyTable, new ltext( "Office ID", "Poslovna enota ID") );
             m_DBTables.items.Add(t_Office_Data);
 
         /* 160 */

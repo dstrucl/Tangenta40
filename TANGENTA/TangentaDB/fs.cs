@@ -614,7 +614,7 @@ namespace TangentaDB
             }
         }
 
-        private static bool Init_Unit_Table(ref string Err)
+        public static bool Init_Unit_Table(ref string Err)
         {
             string s_Unit_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).TableName;
             string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Name.GetType()).Name;

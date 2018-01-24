@@ -753,10 +753,15 @@ namespace Tangenta
             }
         }
 
+        internal bool Startup_05_ShowForm_Form_myOrg_Person_Edit(long x_Office_ID,bool bAllowNew, NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_myOrg_Person_Edit(x_Office_ID,xnav), "Tangenta.Form_myOrg_Person_Edit");
+            return true;
+        }
+
+
         internal bool Startup_05_ShowForm_EditMyOrganisation_Data(bool bAllowNew, NavigationButtons.Navigation xnav)
         {
-            this.Cursor = Cursors.WaitCursor;
-            this.Cursor = Cursors.Arrow;
             xnav.ShowForm(new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav), "Tangenta.Form_myOrg_Edit");
             return true;
         }
@@ -1459,12 +1464,12 @@ namespace Tangenta
                                                 NO_HOUSE_NUMBER,
                                                 NO_ZIP,
                                                 NO_CITY,
-            NO_COUNTRY,
-            NO_OFFICE,
-            NO_REAL_ESTATE,
-            NO_MY_ORG_PERSON,
-            OK,
-            ERROR
+                                                NO_COUNTRY,
+                                                NO_OFFICE,
+                                                NO_REAL_ESTATE,
+                                                NO_MY_ORG_PERSON,
+                                                OK,
+                                                ERROR
         }
 
         internal eGetOrganisationDataResult GetOrganisationData()

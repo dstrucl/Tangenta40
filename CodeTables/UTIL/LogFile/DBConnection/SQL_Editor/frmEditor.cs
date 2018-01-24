@@ -410,7 +410,7 @@ namespace LogFile_SqlBuilder.Forms
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " SQL Editor";
-            this.TopMost = true;
+            this.TopMost = false;
             this.Load += new System.EventHandler(this.frmEditor_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

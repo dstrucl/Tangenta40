@@ -20,6 +20,7 @@ namespace Tangenta
         private Form_Document frm = null;
         private startup m_startup = null;
 
+        private long myOffice_ID = -1;
 
         public Booting_05_Check_myOrganisation_Data(Form_Document xfmain, startup x_sturtup)
         {
@@ -71,6 +72,20 @@ namespace Tangenta
 
                 case usrc_Invoice.eGetOrganisationDataResult.NO_OFFICE:
                     startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+
+                case usrc_Invoice.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
+                    if (myOrg.myOrg_Office_list!=null)
+                    {
+                        if (myOrg.myOrg_Office_list.Count>0)
+                        {
+                            if (myOrg.myOrg_Office_list[0].ID_v != null)
+                            {
+                                myOffice_ID = myOrg.myOrg_Office_list[0].ID_v.v;
+                            }
+                        }
+                    }
+                    startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
                 case usrc_Invoice.eGetOrganisationDataResult.NO_REAL_ESTATE:
@@ -393,7 +408,50 @@ namespace Tangenta
                     return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
 
                 default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_CheckInsertSampleData:xnav.eExitResult not implemented for eExitResult = " + eExitResult.ToString());
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_CheckInsertSampleData:eExitResult not implemented for eExitResult = " + eExitResult.ToString());
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+        }
+
+        public bool Startup_05_Show_Form_myOrg_Person_Edit(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
+        {
+            startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Person_Edit;
+            frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
+            return true;
+        }
+
+        private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Person_Edit(startup_step myStartup_step,
+                                                                               Form form,
+                                                                               NavigationButtons.Navigation.eEvent eExitResult,
+                                                                               ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                               ref string Err)
+        {
+            switch (eExitResult)
+            {
+                case Navigation.eEvent.NEXT:
+                    if (form is Form_myOrg_Person_Edit)
+                    {
+                        return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                    }
+                    else
+                    {
+                        return Startup_onformresult_proc_Result.ERROR;
+                    }
+
+                case Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case Navigation.eEvent.EXIT:
+                    return Startup_onformresult_proc_Result.EXIT;
+
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
+
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_myOrg_Person_Edit:eExitResult not implemented for eExitResult = " + eExitResult.ToString());
                     return Startup_onformresult_proc_Result.ERROR;
             }
         }
@@ -462,7 +520,7 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is FiscalVerificationOfInvoices_SLO.Form_Settings)
                     {
-                        return Startup_onformresult_proc_Result.NEXT;
+                        return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                     }
                     else
                     {
