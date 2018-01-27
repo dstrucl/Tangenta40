@@ -331,6 +331,10 @@ namespace TangentaDB
                         m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
                         m_CurrentInvoice.EventTime = (DateTime)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["EventTime"];
 
+                        if (m_CurrentInvoice.Currency==null)
+                        {
+                            m_CurrentInvoice.Currency = new xCurrency();
+                        }
                         m_CurrentInvoice.Currency.ID = m_CurrentInvoice.Atom_Currency_ID;
                         m_CurrentInvoice.Currency.Name = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyName"];
                         m_CurrentInvoice.Currency.Abbreviation = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
@@ -998,7 +1002,7 @@ namespace TangentaDB
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
-                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType())
+                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
                             + "Atom_Currency_ID"
                         + @") values ( "
                             + m_CurrentInvoice.FinancialYear.ToString() + ","

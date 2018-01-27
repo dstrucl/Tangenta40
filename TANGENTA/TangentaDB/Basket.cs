@@ -181,7 +181,7 @@ namespace TangentaDB
                 Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
                 Atom_Unit.Description AS Atom_Unit_Description,
                 Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-                Atom_PriceList.Name AS Atom_PriceList_Name,
+                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
                 Atom_Currency.Name AS Atom_Currency_Name,
                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
