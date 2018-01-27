@@ -265,7 +265,7 @@ namespace LoginControl
             this.dgvx_OtherRoles.Name = "dgvx_OtherRoles";
             this.dgvx_OtherRoles.ReadOnly = true;
             this.dgvx_OtherRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_OtherRoles.Size = new System.Drawing.Size(204, 146);
+            this.dgvx_OtherRoles.Size = new System.Drawing.Size(209, 146);
             this.dgvx_OtherRoles.TabIndex = 75;
             // 
             // lbl_OtherRoles
@@ -448,6 +448,7 @@ namespace LoginControl
             this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.usrc_NavigationButtons1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
