@@ -33,8 +33,6 @@ namespace Tangenta
         public usrc_ShopB m_usrc_ShopB = null;
         public usrc_ShopC m_usrc_ShopC = null;
 
-        public int iCountSimpleItemData = 0;
-        public int iCountItemData = 0;
 
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
         NavigationButtons.Navigation nav = null;
@@ -821,119 +819,112 @@ namespace Tangenta
             }
             Set_eShopsMode(Properties.Settings.Default.eShopsMode,xnav);
             GetUnits();
-            if ((iCountSimpleItemData + iCountItemData > 0) || (Program.Shops_in_use.Contains("A")))
-            {
 
-                DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-                if (GetPriceList_ShopB())
+            DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
+            if (GetPriceList_ShopB())
+            {
+                if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
                 {
-                    if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
+                    if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
                     {
-                        if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
+                        if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
                         {
-                            if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
-                            {
-                                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
-                                {
-                                    bool bPriceListChanged = false;
-                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            bool bEdit = false;
-                            f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
-                            if (bEdit)
+                            if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
                             {
                                 bool bPriceListChanged = false;
                                 this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
-
                             }
                         }
                     }
-
-                    int iCount_Price_SimpleItem_Data = 0;
-                    if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+                    else
                     {
-                        this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+                        bool bEdit = false;
+                        f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
+                        if (bEdit)
+                        {
+                            bool bPriceListChanged = false;
+                            this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
+
+                        }
                     }
                 }
-                else
-                {
-                    return false;
-                }
 
-                if (Program.Shops_in_use.Contains("C"))
+                int iCount_Price_SimpleItem_Data = 0;
+                if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
                 {
-                    if (GetPriceList_ShopC())
+                    this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            if (Program.Shops_in_use.Contains("C"))
+            {
+                if (GetPriceList_ShopC())
+                {
+                    DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+                    if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
                     {
-                        DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
-                        if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+                        if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
                         {
-                            if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+                            if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
                             {
-                                if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
-                                {
-                                    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
-                                    {
-                                        bool bPriceListChanged = false;
-                                        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                bool bEdit = false;
-                                f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                                if (bEdit)
+                                if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
                                 {
                                     bool bPriceListChanged = false;
                                     this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
                                 }
                             }
                         }
-
-                        if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
+                        else
                         {
-                            if (Program.bStartup)
+                            bool bEdit = false;
+                            f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+                            if (bEdit)
                             {
-                                Program.bStartup = false;
+                                bool bPriceListChanged = false;
+                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
+                            }
+                        }
+                    }
 
-                                if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                    if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
+                    {
+                        if (Program.bStartup)
+                        {
+                            Program.bStartup = false;
+
+                            if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                            {
+                                bool ExpiryItemsFound = false;
+                                string sNoExpiryDate = null;
+                                string sNoSaleBeforeExpiryDate = null;
+                                string sNoDiscardBeforeExpiryDate = null;
+                                DataTable dt_ExpiryCheck = new DataTable();
+                                if (fs.ExpiryCheck(ref dt_ExpiryCheck, ref ExpiryItemsFound, ref sNoExpiryDate, ref sNoSaleBeforeExpiryDate, ref sNoDiscardBeforeExpiryDate))
                                 {
-                                    bool ExpiryItemsFound = false;
-                                    string sNoExpiryDate = null;
-                                    string sNoSaleBeforeExpiryDate = null;
-                                    string sNoDiscardBeforeExpiryDate = null;
-                                    DataTable dt_ExpiryCheck = new DataTable();
-                                    if (fs.ExpiryCheck(ref dt_ExpiryCheck, ref ExpiryItemsFound, ref sNoExpiryDate, ref sNoSaleBeforeExpiryDate, ref sNoDiscardBeforeExpiryDate))
+                                    if (ExpiryItemsFound)
                                     {
-                                        if (ExpiryItemsFound)
-                                        {
-                                            Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
-                                            frm_exp_chk.ShowDialog();
-                                        }
-                                        return DoCurrent(Document_ID);
+                                        Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
+                                        frm_exp_chk.ShowDialog();
                                     }
-                                    else
-                                    {
-                                        return false;
-                                    }
+                                    return DoCurrent(Document_ID);
                                 }
                                 else
                                 {
-                                    return true;
+                                    return false;
                                 }
                             }
                             else
                             {
-                                return DoCurrent(Document_ID); 
+                                return true;
                             }
                         }
                         else
                         {
-                            return false;
+                            return DoCurrent(Document_ID); 
                         }
                     }
                     else
@@ -941,12 +932,12 @@ namespace Tangenta
                         return false;
                     }
                 }
-                return DoCurrent(Document_ID);
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return DoCurrent(Document_ID);
         }
 
         public bool DoCurrent(long ID)

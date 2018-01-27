@@ -507,8 +507,17 @@ namespace Tangenta
                 " order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv.Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
             }
             //bIgnoreChangeSelectionEvent = true;
-            dt_XInvoice.Clear();
-            dt_XInvoice.Columns.Clear();
+            if (dt_XInvoice != null)
+            {
+                dt_XInvoice.Dispose();
+                dt_XInvoice = null;
+                dt_XInvoice = new DataTable();
+            }
+            else
+            {
+                dt_XInvoice = new DataTable();
+            }
+            
             string Err = null;
             iColIndex_DocInvoice_Draft = -1;
             iColIndex_DocInvoice_Invoice_Storno = -1;
