@@ -42,10 +42,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable1.GetRandomData = false;
-            this.usrc_EditTable1.Location = new System.Drawing.Point(2, 41);
+            this.usrc_EditTable1.Location = new System.Drawing.Point(2, 70);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(861, 508);
+            this.usrc_EditTable1.Size = new System.Drawing.Size(861, 550);
             this.usrc_EditTable1.TabIndex = 3;
             this.usrc_EditTable1.Title = "";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -56,9 +56,9 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -70,9 +70,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(4, 555);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(859, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(866, 28);
             this.usrc_NavigationButtons1.TabIndex = 4;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -87,7 +87,7 @@
             // btn_PersonData_Edit
             // 
             this.btn_PersonData_Edit.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_PersonData_Edit.Location = new System.Drawing.Point(2, 2);
+            this.btn_PersonData_Edit.Location = new System.Drawing.Point(2, 31);
             this.btn_PersonData_Edit.Name = "btn_PersonData_Edit";
             this.btn_PersonData_Edit.Size = new System.Drawing.Size(437, 34);
             this.btn_PersonData_Edit.TabIndex = 6;

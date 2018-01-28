@@ -62,6 +62,7 @@
             this.lbl_ItemsCost = new System.Windows.Forms.Label();
             this.txt_Difference = new System.Windows.Forms.TextBox();
             this.lbl_Difference = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -349,7 +350,7 @@
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(415, 0);
+            this.btn_Exit.Location = new System.Drawing.Point(365, 1);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(61, 26);
             this.btn_Exit.TabIndex = 4;
@@ -461,10 +462,18 @@
             this.lbl_Difference.Text = "Difference:";
             this.lbl_Difference.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(433, 1);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(43, 26);
+            this.usrc_Help1.TabIndex = 17;
+            // 
             // usrc_StockEditForSelectedStockTake
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.txt_Difference);
             this.Controls.Add(this.lbl_Difference);
             this.Controls.Add(this.txt_ItemsPrice);
@@ -531,5 +540,6 @@
         private System.Windows.Forms.Label lbl_ItemsCost;
         private System.Windows.Forms.TextBox txt_Difference;
         private System.Windows.Forms.Label lbl_Difference;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

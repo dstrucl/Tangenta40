@@ -51,6 +51,7 @@
             this.usrc_PasswordBytes1 = new LoginControl.usrc_PasswordBytes();
             this.lbl_UserName = new System.Windows.Forms.Label();
             this.dgvx_UserRoles = new System.Windows.Forms.DataGridView();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.grp_PasswordExpires.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkp_PasswordNotActiveAfterNumberOfDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkp_PasswordExpiresAfterNumbersOfDays)).BeginInit();
@@ -81,7 +82,7 @@
             this.lbl_ChangePasswordOnFirstLogIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ChangePasswordOnFirstLogIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.lbl_ChangePasswordOnFirstLogIn.Location = new System.Drawing.Point(333, 34);
-            this.lbl_ChangePasswordOnFirstLogIn.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lbl_ChangePasswordOnFirstLogIn.Margin = new System.Windows.Forms.Padding(3);
             this.lbl_ChangePasswordOnFirstLogIn.Name = "lbl_ChangePasswordOnFirstLogIn";
             this.lbl_ChangePasswordOnFirstLogIn.Size = new System.Drawing.Size(138, 50);
             this.lbl_ChangePasswordOnFirstLogIn.TabIndex = 121;
@@ -117,7 +118,7 @@
             // 
             this.chkp_PasswordNotActiveAfterNumberOfDays.Image = ((System.Drawing.Image)(resources.GetObject("chkp_PasswordNotActiveAfterNumberOfDays.Image")));
             this.chkp_PasswordNotActiveAfterNumberOfDays.Location = new System.Drawing.Point(281, 13);
-            this.chkp_PasswordNotActiveAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkp_PasswordNotActiveAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(2);
             this.chkp_PasswordNotActiveAfterNumberOfDays.Name = "chkp_PasswordNotActiveAfterNumberOfDays";
             this.chkp_PasswordNotActiveAfterNumberOfDays.Size = new System.Drawing.Size(19, 20);
             this.chkp_PasswordNotActiveAfterNumberOfDays.State = Check.check.eState.UNDEFINED;
@@ -128,7 +129,7 @@
             // 
             this.chkp_PasswordExpiresAfterNumbersOfDays.Image = ((System.Drawing.Image)(resources.GetObject("chkp_PasswordExpiresAfterNumbersOfDays.Image")));
             this.chkp_PasswordExpiresAfterNumbersOfDays.Location = new System.Drawing.Point(110, 18);
-            this.chkp_PasswordExpiresAfterNumbersOfDays.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkp_PasswordExpiresAfterNumbersOfDays.Margin = new System.Windows.Forms.Padding(2);
             this.chkp_PasswordExpiresAfterNumbersOfDays.Name = "chkp_PasswordExpiresAfterNumbersOfDays";
             this.chkp_PasswordExpiresAfterNumbersOfDays.Size = new System.Drawing.Size(19, 20);
             this.chkp_PasswordExpiresAfterNumbersOfDays.State = Check.check.eState.UNDEFINED;
@@ -139,7 +140,7 @@
             // 
             this.chkp_PasswordNeverExpires.Image = ((System.Drawing.Image)(resources.GetObject("chkp_PasswordNeverExpires.Image")));
             this.chkp_PasswordNeverExpires.Location = new System.Drawing.Point(6, 18);
-            this.chkp_PasswordNeverExpires.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkp_PasswordNeverExpires.Margin = new System.Windows.Forms.Padding(2);
             this.chkp_PasswordNeverExpires.Name = "chkp_PasswordNeverExpires";
             this.chkp_PasswordNeverExpires.Size = new System.Drawing.Size(19, 21);
             this.chkp_PasswordNeverExpires.State = Check.check.eState.UNDEFINED;
@@ -150,7 +151,7 @@
             // 
             this.lbl_PaswordExpires_Never.AutoSize = true;
             this.lbl_PaswordExpires_Never.Location = new System.Drawing.Point(30, 18);
-            this.lbl_PaswordExpires_Never.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lbl_PaswordExpires_Never.Margin = new System.Windows.Forms.Padding(3);
             this.lbl_PaswordExpires_Never.Name = "lbl_PaswordExpires_Never";
             this.lbl_PaswordExpires_Never.Size = new System.Drawing.Size(36, 13);
             this.lbl_PaswordExpires_Never.TabIndex = 34;
@@ -161,7 +162,7 @@
             // 
             this.lbl_AfterNumberOfDays.AutoSize = true;
             this.lbl_AfterNumberOfDays.Location = new System.Drawing.Point(134, 18);
-            this.lbl_AfterNumberOfDays.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lbl_AfterNumberOfDays.Margin = new System.Windows.Forms.Padding(3);
             this.lbl_AfterNumberOfDays.Name = "lbl_AfterNumberOfDays";
             this.lbl_AfterNumberOfDays.Size = new System.Drawing.Size(106, 13);
             this.lbl_AfterNumberOfDays.TabIndex = 35;
@@ -172,7 +173,7 @@
             // 
             this.lbl_DeactivateAfterNumberOfDays.AutoSize = true;
             this.lbl_DeactivateAfterNumberOfDays.Location = new System.Drawing.Point(306, 18);
-            this.lbl_DeactivateAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lbl_DeactivateAfterNumberOfDays.Margin = new System.Windows.Forms.Padding(3);
             this.lbl_DeactivateAfterNumberOfDays.Name = "lbl_DeactivateAfterNumberOfDays";
             this.lbl_DeactivateAfterNumberOfDays.Size = new System.Drawing.Size(161, 13);
             this.lbl_DeactivateAfterNumberOfDays.TabIndex = 36;
@@ -219,7 +220,7 @@
             this.lbl_Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Enabled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.lbl_Enabled.Location = new System.Drawing.Point(333, 14);
-            this.lbl_Enabled.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lbl_Enabled.Margin = new System.Windows.Forms.Padding(3);
             this.lbl_Enabled.Name = "lbl_Enabled";
             this.lbl_Enabled.Size = new System.Drawing.Size(50, 13);
             this.lbl_Enabled.TabIndex = 123;
@@ -230,11 +231,12 @@
             this.splitContainer3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.usrc_Help1);
             this.splitContainer3.Panel1.Controls.Add(this.btn_ChangePassword);
             this.splitContainer3.Panel1.Controls.Add(this.chkp_ChangePasswordOnFirstLogin);
             this.splitContainer3.Panel1.Controls.Add(this.chkp_Enabled);
@@ -260,10 +262,10 @@
             // 
             this.btn_ChangePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_ChangePassword.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_ChangePassword.Location = new System.Drawing.Point(228, 406);
-            this.btn_ChangePassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_ChangePassword.Location = new System.Drawing.Point(232, 406);
+            this.btn_ChangePassword.Margin = new System.Windows.Forms.Padding(2);
             this.btn_ChangePassword.Name = "btn_ChangePassword";
-            this.btn_ChangePassword.Size = new System.Drawing.Size(213, 27);
+            this.btn_ChangePassword.Size = new System.Drawing.Size(207, 27);
             this.btn_ChangePassword.TabIndex = 130;
             this.btn_ChangePassword.Text = "Change Password";
             this.btn_ChangePassword.UseVisualStyleBackColor = false;
@@ -274,7 +276,7 @@
             // 
             this.chkp_ChangePasswordOnFirstLogin.Image = ((System.Drawing.Image)(resources.GetObject("chkp_ChangePasswordOnFirstLogin.Image")));
             this.chkp_ChangePasswordOnFirstLogin.Location = new System.Drawing.Point(304, 36);
-            this.chkp_ChangePasswordOnFirstLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkp_ChangePasswordOnFirstLogin.Margin = new System.Windows.Forms.Padding(2);
             this.chkp_ChangePasswordOnFirstLogin.Name = "chkp_ChangePasswordOnFirstLogin";
             this.chkp_ChangePasswordOnFirstLogin.Size = new System.Drawing.Size(19, 21);
             this.chkp_ChangePasswordOnFirstLogin.State = Check.check.eState.UNDEFINED;
@@ -285,7 +287,7 @@
             // 
             this.chkp_Enabled.Image = ((System.Drawing.Image)(resources.GetObject("chkp_Enabled.Image")));
             this.chkp_Enabled.Location = new System.Drawing.Point(304, 10);
-            this.chkp_Enabled.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkp_Enabled.Margin = new System.Windows.Forms.Padding(2);
             this.chkp_Enabled.Name = "chkp_Enabled";
             this.chkp_Enabled.Size = new System.Drawing.Size(19, 21);
             this.chkp_Enabled.State = Check.check.eState.UNDEFINED;
@@ -298,7 +300,7 @@
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
             this.btn_Cancel.Location = new System.Drawing.Point(446, 406);
-            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(70, 27);
             this.btn_Cancel.TabIndex = 127;
@@ -310,7 +312,7 @@
             this.btn_LoginHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_LoginHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_LoginHistory.Location = new System.Drawing.Point(10, 406);
-            this.btn_LoginHistory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_LoginHistory.Margin = new System.Windows.Forms.Padding(2);
             this.btn_LoginHistory.Name = "btn_LoginHistory";
             this.btn_LoginHistory.Size = new System.Drawing.Size(214, 27);
             this.btn_LoginHistory.TabIndex = 126;
@@ -350,8 +352,17 @@
             this.dgvx_UserRoles.Location = new System.Drawing.Point(3, 3);
             this.dgvx_UserRoles.Name = "dgvx_UserRoles";
             this.dgvx_UserRoles.ReadOnly = true;
-            this.dgvx_UserRoles.Size = new System.Drawing.Size(123, 431);
+            this.dgvx_UserRoles.Size = new System.Drawing.Size(124, 431);
             this.dgvx_UserRoles.TabIndex = 127;
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(470, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(45, 29);
+            this.usrc_Help1.TabIndex = 131;
             // 
             // AWP_UserInfo_Form
             // 
@@ -362,6 +373,7 @@
             this.Controls.Add(this.splitContainer3);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AWP_UserInfo_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -409,5 +421,6 @@
         private Check.check chkp_PasswordNeverExpires;
         private Check.check chkp_ChangePasswordOnFirstLogin;
         private System.Windows.Forms.Button btn_ChangePassword;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

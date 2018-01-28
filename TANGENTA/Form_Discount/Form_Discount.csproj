@@ -78,6 +78,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Help\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>

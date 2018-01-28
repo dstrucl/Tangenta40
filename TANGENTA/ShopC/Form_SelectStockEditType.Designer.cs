@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_SelectStockEditType));
             this.btn_EditStockTakeItems = new System.Windows.Forms.Button();
             this.btn_EditItemsInStock = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_EditStockTakeItems
@@ -55,11 +56,19 @@
             this.btn_EditItemsInStock.UseVisualStyleBackColor = false;
             this.btn_EditItemsInStock.Click += new System.EventHandler(this.btn_EditItemsInStock_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(420, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(35, 51);
+            this.usrc_Help1.TabIndex = 3;
+            // 
             // Form_SelectStockEditType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 117);
+            this.ClientSize = new System.Drawing.Size(461, 117);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_EditItemsInStock);
             this.Controls.Add(this.btn_EditStockTakeItems);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -76,5 +85,6 @@
         #endregion
         private System.Windows.Forms.Button btn_EditStockTakeItems;
         private System.Windows.Forms.Button btn_EditItemsInStock;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

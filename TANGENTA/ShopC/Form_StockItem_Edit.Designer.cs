@@ -32,6 +32,7 @@
             this.lbl_Item_Stock = new System.Windows.Forms.Label();
             this.lbl_Item = new System.Windows.Forms.Label();
             this.m_usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // lbl_Item_Stock
@@ -76,11 +77,19 @@
             this.m_usrc_EditTable.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.m_usrc_EditTable_after_UpdateDataBase);
             this.m_usrc_EditTable.RowReferenceFromTable_Check_NoChangeToOther += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_RowReferenceFromTable_Check_NoChangeToOther(this.m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(845, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(52, 31);
+            this.usrc_Help1.TabIndex = 3;
+            // 
             // Form_StockItem_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(905, 607);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_Item);
             this.Controls.Add(this.lbl_Item_Stock);
             this.Controls.Add(this.m_usrc_EditTable);
@@ -99,8 +108,6 @@
         private CodeTables.TableDocking_Form.usrc_EditTable m_usrc_EditTable;
         private System.Windows.Forms.Label lbl_Item_Stock;
         private System.Windows.Forms.Label lbl_Item;
-
-
-
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

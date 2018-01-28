@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Backup_SQLite));
             this.cmbR_FilePath = new ComboBox_Recent.ComboBox_RecentList();
             this.btn_SelectFolder = new System.Windows.Forms.Button();
@@ -36,23 +37,27 @@
             this.txt_BackupFileName = new System.Windows.Forms.TextBox();
             this.btn_Save = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // cmbR_FilePath
             // 
+            this.cmbR_FilePath.AskToCreateRecentItemsFolder = false;
             this.cmbR_FilePath.DisplayMember = "text";
             this.cmbR_FilePath.DisplayTime = true;
             this.cmbR_FilePath.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbR_FilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbR_FilePath.FormattingEnabled = true;
             this.cmbR_FilePath.InsertOnKeyPress = true;
+            this.cmbR_FilePath.Items.AddRange(new object[] {
+            myIteM1});
             this.cmbR_FilePath.Key = "Folder";
             this.cmbR_FilePath.Location = new System.Drawing.Point(25, 41);
             this.cmbR_FilePath.MaxRecentCount = 10;
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Roaming\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
@@ -111,7 +116,7 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(158, 144);
+            this.btn_Cancel.Location = new System.Drawing.Point(251, 144);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 31);
             this.btn_Cancel.TabIndex = 18;
@@ -119,11 +124,19 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(102, 144);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(56, 31);
+            this.usrc_Help1.TabIndex = 19;
+            // 
             // Form_Backup_SQLite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 187);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.txt_BackupFileName);
@@ -148,5 +161,6 @@
         private System.Windows.Forms.TextBox txt_BackupFileName;
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.Button btn_Cancel;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

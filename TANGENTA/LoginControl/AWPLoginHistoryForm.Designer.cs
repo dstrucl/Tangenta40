@@ -39,6 +39,7 @@
             this.dgv_LoginHistory = new DataGridView_2xls.DataGridView2xls();
             this.lbl_TotalTimeSpan = new System.Windows.Forms.Label();
             this.lbl_WorkHoursResult = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LoginHistory)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,11 +143,19 @@
             this.lbl_WorkHoursResult.TabIndex = 11;
             this.lbl_WorkHoursResult.Text = "lbl_WorkHoursResult";
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(706, 1);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(56, 23);
+            this.usrc_Help1.TabIndex = 12;
+            // 
             // AWPLoginHistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(774, 613);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_WorkHoursResult);
             this.Controls.Add(this.lbl_TotalTimeSpan);
             this.Controls.Add(this.btn_Refresh);
@@ -180,5 +189,6 @@
         private System.Windows.Forms.Button btn_Refresh;
         private System.Windows.Forms.Label lbl_TotalTimeSpan;
         private System.Windows.Forms.Label lbl_WorkHoursResult;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

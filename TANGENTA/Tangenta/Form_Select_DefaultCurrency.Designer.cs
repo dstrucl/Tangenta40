@@ -40,7 +40,7 @@
             // 
             this.lbl_SelectedCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_SelectedCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_SelectedCurrency.Location = new System.Drawing.Point(15, 331);
+            this.lbl_SelectedCurrency.Location = new System.Drawing.Point(19, 33);
             this.lbl_SelectedCurrency.Name = "lbl_SelectedCurrency";
             this.lbl_SelectedCurrency.Size = new System.Drawing.Size(126, 26);
             this.lbl_SelectedCurrency.TabIndex = 2;
@@ -52,7 +52,7 @@
             this.txt_SelectedCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txt_SelectedCurrency.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_SelectedCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_SelectedCurrency.Location = new System.Drawing.Point(142, 331);
+            this.txt_SelectedCurrency.Location = new System.Drawing.Point(146, 33);
             this.txt_SelectedCurrency.Name = "txt_SelectedCurrency";
             this.txt_SelectedCurrency.ReadOnly = true;
             this.txt_SelectedCurrency.Size = new System.Drawing.Size(240, 26);
@@ -68,22 +68,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_Currency.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_Currency.DataGridViewWithRowNumber = false;
-            this.dgvx_Currency.Location = new System.Drawing.Point(12, 12);
+            this.dgvx_Currency.Location = new System.Drawing.Point(2, 65);
             this.dgvx_Currency.Name = "dgvx_Currency";
             this.dgvx_Currency.ReadOnly = true;
             this.dgvx_Currency.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_Currency.Size = new System.Drawing.Size(711, 308);
+            this.dgvx_Currency.Size = new System.Drawing.Size(678, 369);
             this.dgvx_Currency.TabIndex = 0;
             this.dgvx_Currency.SelectionChanged += new System.EventHandler(this.dgvx_Currency_SelectionChanged);
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
@@ -91,9 +92,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(5, 365);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(729, 67);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(681, 27);
             this.usrc_NavigationButtons1.TabIndex = 4;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -109,12 +110,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(735, 435);
+            this.ClientSize = new System.Drawing.Size(681, 435);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.txt_SelectedCurrency);
             this.Controls.Add(this.lbl_SelectedCurrency);
             this.Controls.Add(this.dgvx_Currency);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Select_DefaultCurrency";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -38,6 +38,7 @@
             this.chk_FiscalVerifiaction = new System.Windows.Forms.CheckBox();
             this.chk_LogFile_DLL = new System.Windows.Forms.CheckBox();
             this.chk_TangentaPrint_DLL = new System.Windows.Forms.CheckBox();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_Yes
@@ -130,11 +131,19 @@
             this.chk_TangentaPrint_DLL.Text = "TangentaPrint.DLL";
             this.chk_TangentaPrint_DLL.UseVisualStyleBackColor = true;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(427, 7);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(44, 27);
+            this.usrc_Help1.TabIndex = 9;
+            // 
             // Form_Reset_Properties_Settings_Default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 251);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.chk_TangentaPrint_DLL);
             this.Controls.Add(this.chk_LogFile_DLL);
             this.Controls.Add(this.chk_FiscalVerifiaction);
@@ -150,7 +159,6 @@
             this.MinimizeBox = false;
             this.Name = "Form_Reset_Properties_Settings_Default";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TopMost = false;
             this.Load += new System.EventHandler(this.Form_Reset_Properties_Settings_Default_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -168,5 +176,6 @@
         private System.Windows.Forms.CheckBox chk_FiscalVerifiaction;
         private System.Windows.Forms.CheckBox chk_LogFile_DLL;
         private System.Windows.Forms.CheckBox chk_TangentaPrint_DLL;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

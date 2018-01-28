@@ -33,6 +33,7 @@
             this.usrc_New_Copy_of_Another_DocType1 = new Tangenta.usrc_New_Copy_of_Another_DocType();
             this.usrc_New_Copy_of_Same_DocType1 = new Tangenta.usrc_New_Copy_of_Same_DocType();
             this.usrc_Currency1 = new Tangenta.usrc_Currency();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_New_Empty
@@ -89,11 +90,19 @@
             this.usrc_Currency1.Size = new System.Drawing.Size(179, 31);
             this.usrc_Currency1.TabIndex = 39;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(371, 5);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(42, 25);
+            this.usrc_Help1.TabIndex = 40;
+            // 
             // Form_NewDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(418, 485);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_Currency1);
             this.Controls.Add(this.usrc_New_Copy_of_Another_DocType1);
             this.Controls.Add(this.usrc_New_Copy_of_Same_DocType1);
@@ -114,5 +123,6 @@
         private usrc_New_Copy_of_Same_DocType usrc_New_Copy_of_Same_DocType1;
         private usrc_New_Copy_of_Another_DocType usrc_New_Copy_of_Another_DocType1;
         internal usrc_Currency usrc_Currency1;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

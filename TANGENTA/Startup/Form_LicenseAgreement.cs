@@ -80,5 +80,10 @@ namespace Startup
                 usrc_NavigationButtons1.Visible_PREV = false;
             }
         }
+
+        private void btn_Print_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

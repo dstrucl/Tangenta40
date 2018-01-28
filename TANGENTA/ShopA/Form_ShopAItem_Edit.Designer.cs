@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // usrc_EditTable
@@ -39,23 +40,31 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable.GetRandomData = false;
-            this.usrc_EditTable.Location = new System.Drawing.Point(4, 2);
+            this.usrc_EditTable.Location = new System.Drawing.Point(4, 29);
             this.usrc_EditTable.Name = "usrc_EditTable";
             this.usrc_EditTable.SelectionButtonVisible = false;
-            this.usrc_EditTable.Size = new System.Drawing.Size(902, 607);
+            this.usrc_EditTable.Size = new System.Drawing.Size(902, 558);
             this.usrc_EditTable.TabIndex = 0;
             this.usrc_EditTable.Title = "";
             this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.usrc_EditTable.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_after_InsertInDataBase);
             // 
-            // Form_ShopBItem_Edit
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(858, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(44, 23);
+            this.usrc_Help1.TabIndex = 1;
+            // 
+            // Form_ShopAItem_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(905, 607);
+            this.ClientSize = new System.Drawing.Size(905, 589);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_EditTable);
-            this.Name = "Form_ShopBItem_Edit";
+            this.Name = "Form_ShopAItem_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShopBItem_EditForm";
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
@@ -66,6 +75,6 @@
         #endregion
 
         private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable;
-
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

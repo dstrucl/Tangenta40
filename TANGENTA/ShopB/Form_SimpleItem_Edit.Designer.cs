@@ -44,11 +44,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable.GetRandomData = false;
-            this.usrc_EditTable.Location = new System.Drawing.Point(5, 2);
-            this.usrc_EditTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_EditTable.Location = new System.Drawing.Point(4, 57);
             this.usrc_EditTable.Name = "usrc_EditTable";
             this.usrc_EditTable.SelectionButtonVisible = false;
-            this.usrc_EditTable.Size = new System.Drawing.Size(1128, 808);
+            this.usrc_EditTable.Size = new System.Drawing.Size(902, 432);
             this.usrc_EditTable.TabIndex = 0;
             this.usrc_EditTable.Title = "";
             this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -58,12 +57,10 @@
             // 
             // rdb_OnlyNotInOffer
             // 
-            this.rdb_OnlyNotInOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyNotInOffer.AutoSize = true;
-            this.rdb_OnlyNotInOffer.Location = new System.Drawing.Point(256, 818);
-            this.rdb_OnlyNotInOffer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_OnlyNotInOffer.Location = new System.Drawing.Point(195, 34);
             this.rdb_OnlyNotInOffer.Name = "rdb_OnlyNotInOffer";
-            this.rdb_OnlyNotInOffer.Size = new System.Drawing.Size(93, 21);
+            this.rdb_OnlyNotInOffer.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyNotInOffer.TabIndex = 14;
             this.rdb_OnlyNotInOffer.TabStop = true;
             this.rdb_OnlyNotInOffer.Text = "Only Valid";
@@ -71,12 +68,10 @@
             // 
             // rdb_All
             // 
-            this.rdb_All.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_All.AutoSize = true;
-            this.rdb_All.Location = new System.Drawing.Point(524, 818);
-            this.rdb_All.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_All.Location = new System.Drawing.Point(409, 34);
             this.rdb_All.Name = "rdb_All";
-            this.rdb_All.Size = new System.Drawing.Size(44, 21);
+            this.rdb_All.Size = new System.Drawing.Size(36, 17);
             this.rdb_All.TabIndex = 13;
             this.rdb_All.TabStop = true;
             this.rdb_All.Text = "All";
@@ -84,12 +79,10 @@
             // 
             // rdb_OnlyInOffer
             // 
-            this.rdb_OnlyInOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyInOffer.AutoSize = true;
-            this.rdb_OnlyInOffer.Location = new System.Drawing.Point(12, 818);
-            this.rdb_OnlyInOffer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_OnlyInOffer.Location = new System.Drawing.Point(0, 34);
             this.rdb_OnlyInOffer.Name = "rdb_OnlyInOffer";
-            this.rdb_OnlyInOffer.Size = new System.Drawing.Size(93, 21);
+            this.rdb_OnlyInOffer.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyInOffer.TabIndex = 12;
             this.rdb_OnlyInOffer.TabStop = true;
             this.rdb_OnlyInOffer.Text = "Only Valid";
@@ -97,9 +90,9 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -111,10 +104,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(6, 818);
-            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(1110, 84);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(904, 24);
             this.usrc_NavigationButtons1.TabIndex = 15;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -128,9 +120,9 @@
             // 
             // Form_ShopB_Item_Edit
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1131, 905);
+            this.ClientSize = new System.Drawing.Size(905, 494);
             this.Controls.Add(this.rdb_OnlyNotInOffer);
             this.Controls.Add(this.rdb_All);
             this.Controls.Add(this.rdb_OnlyInOffer);
@@ -138,7 +130,6 @@
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_ShopB_Item_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShopBItem_EditForm";

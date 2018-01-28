@@ -48,12 +48,11 @@ namespace TangentaSampleDB
             this.m_usrc_SampleDataEdit.HorisontallOffsetToLabel = 4;
             this.m_usrc_SampleDataEdit.lblVerticalOffset = 4;
             this.m_usrc_SampleDataEdit.LeftMargin = 10;
-            this.m_usrc_SampleDataEdit.Location = new System.Drawing.Point(1, 1);
-            this.m_usrc_SampleDataEdit.Margin = new System.Windows.Forms.Padding(4);
+            this.m_usrc_SampleDataEdit.Location = new System.Drawing.Point(1, 25);
             this.m_usrc_SampleDataEdit.MinEditBoxWidth = 64;
             this.m_usrc_SampleDataEdit.Name = "m_usrc_SampleDataEdit";
             this.m_usrc_SampleDataEdit.RightMargin = 10;
-            this.m_usrc_SampleDataEdit.Size = new System.Drawing.Size(718, 540);
+            this.m_usrc_SampleDataEdit.Size = new System.Drawing.Size(574, 477);
             this.m_usrc_SampleDataEdit.TabIndex = 0;
             this.m_usrc_SampleDataEdit.TopMargin = 30;
             this.m_usrc_SampleDataEdit.VerticalDistance = 5;
@@ -62,9 +61,9 @@ namespace TangentaSampleDB
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -76,10 +75,9 @@ namespace TangentaSampleDB
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 549);
-            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(707, 79);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(575, 22);
             this.usrc_NavigationButtons1.TabIndex = 1;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -93,12 +91,11 @@ namespace TangentaSampleDB
             // 
             // Form_EditMyOrgSampleData
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(721, 630);
+            this.ClientSize = new System.Drawing.Size(577, 504);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.m_usrc_SampleDataEdit);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_EditMyOrgSampleData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_EditSampleData";

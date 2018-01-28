@@ -37,6 +37,7 @@ namespace Tangenta
             this.btn_DURS_output = new System.Windows.Forms.Button();
             this.btn_XML_export = new System.Windows.Forms.Button();
             this.btn_VOD_xml_OPAL_export = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_Print
@@ -54,9 +55,9 @@ namespace Tangenta
             // 
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(440, 73);
+            this.btn_Cancel.Location = new System.Drawing.Point(449, 2);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(82, 39);
+            this.btn_Cancel.Size = new System.Drawing.Size(39, 39);
             this.btn_Cancel.TabIndex = 2;
             this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
@@ -64,9 +65,9 @@ namespace Tangenta
             // lbl_From_To
             // 
             this.lbl_From_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_From_To.Location = new System.Drawing.Point(50, 9);
+            this.lbl_From_To.Location = new System.Drawing.Point(3, 9);
             this.lbl_From_To.Name = "lbl_From_To";
-            this.lbl_From_To.Size = new System.Drawing.Size(427, 18);
+            this.lbl_From_To.Size = new System.Drawing.Size(440, 18);
             this.lbl_From_To.TabIndex = 3;
             this.lbl_From_To.Text = "Prikaži vse";
             // 
@@ -104,11 +105,19 @@ namespace Tangenta
             this.btn_VOD_xml_OPAL_export.UseVisualStyleBackColor = false;
             this.btn_VOD_xml_OPAL_export.Click += new System.EventHandler(this.btn_VOD_xml_OPAL_export_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(494, 2);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(34, 39);
+            this.usrc_Help1.TabIndex = 7;
+            // 
             // Form_PrintReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(528, 119);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_VOD_xml_OPAL_export);
             this.Controls.Add(this.btn_XML_export);
             this.Controls.Add(this.btn_DURS_output);
@@ -135,5 +144,6 @@ namespace Tangenta
         private System.Windows.Forms.Button btn_DURS_output;
         private System.Windows.Forms.Button btn_XML_export;
         private System.Windows.Forms.Button btn_VOD_xml_OPAL_export;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

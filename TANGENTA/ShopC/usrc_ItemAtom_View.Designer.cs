@@ -73,6 +73,7 @@
             this.txt_V_FromStock = new System.Windows.Forms.TextBox();
             this.lbl_FromStock = new System.Windows.Forms.Label();
             this.dgvx_DocInvoice_Atom_Item_Stock = new DataGridView_2xls.DataGridView2xls();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -91,6 +92,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.usrc_Help1);
             this.splitContainer1.Panel1.Controls.Add(this.chk_V_NeverExpires);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_Expiry);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_V_Quantity);
@@ -221,7 +223,7 @@
             this.txt_barcode_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_barcode_value.Location = new System.Drawing.Point(673, 68);
             this.txt_barcode_value.Name = "txt_barcode_value";
-            this.txt_barcode_value.Size = new System.Drawing.Size(175, 26);
+            this.txt_barcode_value.Size = new System.Drawing.Size(175, 22);
             this.txt_barcode_value.TabIndex = 57;
             // 
             // txt_V_Atom_Item_Description
@@ -503,7 +505,7 @@
             this.txt_Atom_Item_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_Atom_Item_Name.Location = new System.Drawing.Point(298, 2);
             this.txt_Atom_Item_Name.Name = "txt_Atom_Item_Name";
-            this.txt_Atom_Item_Name.Size = new System.Drawing.Size(508, 26);
+            this.txt_Atom_Item_Name.Size = new System.Drawing.Size(508, 22);
             this.txt_Atom_Item_Name.TabIndex = 35;
             // 
             // lbl_Atom_Item_Name
@@ -530,7 +532,7 @@
             this.txt_V_FromFactory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_V_FromFactory.Location = new System.Drawing.Point(717, 12);
             this.txt_V_FromFactory.Name = "txt_V_FromFactory";
-            this.txt_V_FromFactory.Size = new System.Drawing.Size(121, 26);
+            this.txt_V_FromFactory.Size = new System.Drawing.Size(121, 22);
             this.txt_V_FromFactory.TabIndex = 38;
             // 
             // lbl_FromFactory
@@ -548,7 +550,7 @@
             this.txt_V_FromStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_V_FromStock.Location = new System.Drawing.Point(193, 13);
             this.txt_V_FromStock.Name = "txt_V_FromStock";
-            this.txt_V_FromStock.Size = new System.Drawing.Size(126, 26);
+            this.txt_V_FromStock.Size = new System.Drawing.Size(126, 22);
             this.txt_V_FromStock.TabIndex = 36;
             this.txt_V_FromStock.TextChanged += new System.EventHandler(this.txt_V_FromStock_TextChanged);
             // 
@@ -580,6 +582,13 @@
             this.dgvx_DocInvoice_Atom_Item_Stock.ShowRowErrors = false;
             this.dgvx_DocInvoice_Atom_Item_Stock.Size = new System.Drawing.Size(841, 88);
             this.dgvx_DocInvoice_Atom_Item_Stock.TabIndex = 39;
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(813, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(35, 32);
+            this.usrc_Help1.TabIndex = 66;
             // 
             // usrc_Atom_Item_View
             // 
@@ -649,5 +658,6 @@
         private usrc_checkmark chk_V_NeverExpires;
         private System.Windows.Forms.Label lbl_Warranty;
         private usrc_checkmark chk_V_Warranty;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

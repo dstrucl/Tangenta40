@@ -215,5 +215,15 @@ namespace TangentaPrint
         {
             e.Cancel = true;
         }
+
+        private void rdb_OnlyInOffer_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdb_All_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

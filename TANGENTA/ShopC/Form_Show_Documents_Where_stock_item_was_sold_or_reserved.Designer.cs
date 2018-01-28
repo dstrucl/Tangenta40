@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Show_Documents_Where_stock_item_was_sold_or_reserved));
             this.dgvx_Stock_Item_OnDocument = new DataGridView_2xls.DataGridView2xls();
             this.btn_Exit = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Stock_Item_OnDocument)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,18 +57,26 @@
             // 
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(520, 3);
+            this.btn_Exit.Location = new System.Drawing.Point(468, 2);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(78, 25);
             this.btn_Exit.TabIndex = 1;
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(553, 2);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(49, 25);
+            this.usrc_Help1.TabIndex = 2;
+            // 
             // Form_Show_Documents_Where_stock_item_was_sold_or_reserved
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 435);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.dgvx_Stock_Item_OnDocument);
             this.DoubleBuffered = true;
@@ -85,5 +94,6 @@
 
         private DataGridView_2xls.DataGridView2xls dgvx_Stock_Item_OnDocument;
         private System.Windows.Forms.Button btn_Exit;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

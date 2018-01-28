@@ -255,5 +255,10 @@ namespace Form_Discount
             sMsg = sMsg.Replace("%s2", sPurchasePrice);
             XMessage.Box.Show(this, lng.s_PurchasePriceInfoText, sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
+
+        private void nm_UpDown_Discount_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

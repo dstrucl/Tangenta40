@@ -43,6 +43,7 @@
             this.rdb_20 = new System.Windows.Forms.RadioButton();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_PurchasePriceInfo = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_Discount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_EndPrice)).BeginInit();
             this.SuspendLayout();
@@ -105,7 +106,7 @@
             // nm_UpDown_Discount
             // 
             this.nm_UpDown_Discount.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nm_UpDown_Discount.Location = new System.Drawing.Point(319, 286);
+            this.nm_UpDown_Discount.Location = new System.Drawing.Point(223, 284);
             this.nm_UpDown_Discount.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -115,13 +116,14 @@
             this.nm_UpDown_Discount.Size = new System.Drawing.Size(222, 62);
             this.nm_UpDown_Discount.TabIndex = 9;
             this.nm_UpDown_Discount.ThousandsSeparator = true;
+            this.nm_UpDown_Discount.ValueChanged += new System.EventHandler(this.nm_UpDown_Discount_ValueChanged_1);
             // 
             // rdb_Custom
             // 
             this.rdb_Custom.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_Custom.Location = new System.Drawing.Point(12, 288);
             this.rdb_Custom.Name = "rdb_Custom";
-            this.rdb_Custom.Size = new System.Drawing.Size(272, 54);
+            this.rdb_Custom.Size = new System.Drawing.Size(205, 54);
             this.rdb_Custom.TabIndex = 8;
             this.rdb_Custom.TabStop = true;
             this.rdb_Custom.Text = "20%";
@@ -132,7 +134,7 @@
             this.rdb_EndPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_EndPrice.Location = new System.Drawing.Point(12, 360);
             this.rdb_EndPrice.Name = "rdb_EndPrice";
-            this.rdb_EndPrice.Size = new System.Drawing.Size(368, 54);
+            this.rdb_EndPrice.Size = new System.Drawing.Size(182, 54);
             this.rdb_EndPrice.TabIndex = 10;
             this.rdb_EndPrice.TabStop = true;
             this.rdb_EndPrice.Text = "20%";
@@ -141,7 +143,7 @@
             // nm_UpDown_EndPrice
             // 
             this.nm_UpDown_EndPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nm_UpDown_EndPrice.Location = new System.Drawing.Point(386, 354);
+            this.nm_UpDown_EndPrice.Location = new System.Drawing.Point(223, 358);
             this.nm_UpDown_EndPrice.Maximum = new decimal(new int[] {
             276447232,
             23283,
@@ -201,19 +203,27 @@
             // 
             this.btn_PurchasePriceInfo.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_PurchasePriceInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_PurchasePriceInfo.Location = new System.Drawing.Point(371, 14);
+            this.btn_PurchasePriceInfo.Location = new System.Drawing.Point(386, 61);
             this.btn_PurchasePriceInfo.Name = "btn_PurchasePriceInfo";
-            this.btn_PurchasePriceInfo.Size = new System.Drawing.Size(237, 83);
+            this.btn_PurchasePriceInfo.Size = new System.Drawing.Size(222, 83);
             this.btn_PurchasePriceInfo.TabIndex = 13;
             this.btn_PurchasePriceInfo.Text = "PurchasePriceInfo";
             this.btn_PurchasePriceInfo.UseVisualStyleBackColor = false;
             this.btn_PurchasePriceInfo.Click += new System.EventHandler(this.btn_PurchasePriceInfo_Click);
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(550, 12);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(58, 32);
+            this.usrc_Help1.TabIndex = 14;
             // 
             // Form_Discount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(620, 493);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_PurchasePriceInfo);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.rdb_20);
@@ -255,5 +265,6 @@
         private System.Windows.Forms.RadioButton rdb_20;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_PurchasePriceInfo;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

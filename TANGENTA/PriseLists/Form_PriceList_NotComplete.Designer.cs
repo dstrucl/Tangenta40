@@ -33,6 +33,8 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.dgvx_Item_Not_in_Pricelist = new DataGridView_2xls.DataGridView2xls();
             this.lbl_Item_Not_in_PriceList = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.usrc_Help2 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Item_Not_in_Pricelist)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,11 +91,28 @@
             this.lbl_Item_Not_in_PriceList.TabIndex = 6;
             this.lbl_Item_Not_in_PriceList.Text = "label1";
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(-23, -46);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(56, 61);
+            this.usrc_Help1.TabIndex = 7;
+            // 
+            // usrc_Help2
+            // 
+            this.usrc_Help2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help2.Location = new System.Drawing.Point(514, 0);
+            this.usrc_Help2.Name = "usrc_Help2";
+            this.usrc_Help2.Size = new System.Drawing.Size(44, 26);
+            this.usrc_Help2.TabIndex = 8;
+            // 
             // Form_PriceList_NotComplete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(564, 368);
+            this.Controls.Add(this.usrc_Help2);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.dgvx_Item_Not_in_Pricelist);
             this.Controls.Add(this.lbl_Item_Not_in_PriceList);
             this.Controls.Add(this.btn_Cancel);
@@ -114,5 +133,7 @@
         private System.Windows.Forms.Button btn_Cancel;
         private DataGridView_2xls.DataGridView2xls dgvx_Item_Not_in_Pricelist;
         private System.Windows.Forms.Label lbl_Item_Not_in_PriceList;
+        private HUDCMS.usrc_Help usrc_Help1;
+        private HUDCMS.usrc_Help usrc_Help2;
     }
 }

@@ -33,6 +33,7 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // lbl_ExpiryDate
@@ -78,11 +79,19 @@
             this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(466, 6);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(42, 26);
+            this.usrc_Help1.TabIndex = 4;
+            // 
             // Form_Stock_AvoidStock_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(513, 128);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.dateTimePicker);
@@ -104,7 +113,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
-
-
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

@@ -31,7 +31,8 @@
         {
             this.lbl_Printer = new System.Windows.Forms.Label();
             this.lbl_PrinterNameValue = new System.Windows.Forms.Label();
-            this.usrc_PrintExistingInvoice1 = new usrc_PrintExistingInvoice();
+            this.usrc_PrintExistingInvoice1 = new TangentaPrint.usrc_PrintExistingInvoice();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // lbl_Printer
@@ -64,16 +65,24 @@
             this.usrc_PrintExistingInvoice1.Name = "usrc_PrintExistingInvoice1";
             this.usrc_PrintExistingInvoice1.Size = new System.Drawing.Size(678, 364);
             this.usrc_PrintExistingInvoice1.TabIndex = 0;
-            this.usrc_PrintExistingInvoice1.Cancel += new usrc_PrintExistingInvoice.delegate_Cancel(this.usrc_PrintExistingInvoice1_Cancel);
+            this.usrc_PrintExistingInvoice1.Cancel += new TangentaPrint.usrc_PrintExistingInvoice.delegate_Cancel(this.usrc_PrintExistingInvoice1_Cancel);
             // 
-            // Form_PrintExistingInvoice
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(624, 1);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(49, 24);
+            this.usrc_Help1.TabIndex = 3;
+            // 
+            // Form_PrintJournal
             // 
             this.ClientSize = new System.Drawing.Size(677, 400);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_PrinterNameValue);
             this.Controls.Add(this.lbl_Printer);
             this.Controls.Add(this.usrc_PrintExistingInvoice1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Name = "Form_PrintExistingInvoice";
+            this.Name = "Form_PrintJournal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
@@ -84,5 +93,6 @@
         private usrc_PrintExistingInvoice usrc_PrintExistingInvoice1;
         private System.Windows.Forms.Label lbl_Printer;
         private System.Windows.Forms.Label lbl_PrinterNameValue;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

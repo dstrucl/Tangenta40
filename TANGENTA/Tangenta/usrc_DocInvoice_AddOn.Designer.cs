@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using HUDCMS;
+
+namespace Tangenta
 {
     partial class usrc_DocInvoice_AddOn
     {
@@ -45,6 +47,7 @@
             this.lbl_DateOfIssue = new System.Windows.Forms.Label();
             this.dtP_PaymentDeadline = new System.Windows.Forms.DateTimePicker();
             this.usrc_Notice1 = new Tangenta.usrc_Notice();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.grp_TermsOfPayment.SuspendLayout();
             this.grp_MtehodOfPaymentType.SuspendLayout();
             this.SuspendLayout();
@@ -127,9 +130,9 @@
             // 
             this.dtP_DateOfIssue.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_DateOfIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dtP_DateOfIssue.Location = new System.Drawing.Point(264, 5);
+            this.dtP_DateOfIssue.Location = new System.Drawing.Point(236, 4);
             this.dtP_DateOfIssue.Name = "dtP_DateOfIssue";
-            this.dtP_DateOfIssue.Size = new System.Drawing.Size(441, 29);
+            this.dtP_DateOfIssue.Size = new System.Drawing.Size(368, 29);
             this.dtP_DateOfIssue.TabIndex = 17;
             // 
             // grp_TermsOfPayment
@@ -220,7 +223,7 @@
             this.lbl_DateOfIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_DateOfIssue.Location = new System.Drawing.Point(24, 8);
             this.lbl_DateOfIssue.Name = "lbl_DateOfIssue";
-            this.lbl_DateOfIssue.Size = new System.Drawing.Size(231, 25);
+            this.lbl_DateOfIssue.Size = new System.Drawing.Size(206, 25);
             this.lbl_DateOfIssue.TabIndex = 22;
             this.lbl_DateOfIssue.Text = "Date of issue";
             this.lbl_DateOfIssue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -240,16 +243,24 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Notice1.Location = new System.Drawing.Point(27, 370);
-            this.usrc_Notice1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_Notice1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Notice1.Name = "usrc_Notice1";
             this.usrc_Notice1.Size = new System.Drawing.Size(678, 110);
             this.usrc_Notice1.TabIndex = 23;
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(636, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(69, 29);
+            this.usrc_Help1.TabIndex = 24;
             // 
             // usrc_DocInvoice_AddOn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_Notice1);
             this.Controls.Add(this.lbl_DateOfIssue);
             this.Controls.Add(this.dtP_PaymentDeadline);
@@ -289,5 +300,6 @@
         private System.Windows.Forms.Label lbl_DateOfIssue;
         private System.Windows.Forms.DateTimePicker dtP_PaymentDeadline;
         private usrc_Notice usrc_Notice1;
+        private usrc_Help usrc_Help1;
     }
 }

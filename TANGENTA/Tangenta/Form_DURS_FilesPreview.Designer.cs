@@ -33,6 +33,7 @@
             this.txt_GLAVA = new System.Windows.Forms.TextBox();
             this.lbl_file_POSTAVKE = new System.Windows.Forms.Label();
             this.txt_POSTAVKE = new System.Windows.Forms.TextBox();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -41,8 +42,10 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 30);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -54,7 +57,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lbl_file_POSTAVKE);
             this.splitContainer1.Panel2.Controls.Add(this.txt_POSTAVKE);
-            this.splitContainer1.Size = new System.Drawing.Size(859, 511);
+            this.splitContainer1.Size = new System.Drawing.Size(859, 481);
             this.splitContainer1.SplitterDistance = 446;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -78,7 +81,7 @@
             this.txt_GLAVA.Multiline = true;
             this.txt_GLAVA.Name = "txt_GLAVA";
             this.txt_GLAVA.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_GLAVA.Size = new System.Drawing.Size(433, 469);
+            this.txt_GLAVA.Size = new System.Drawing.Size(433, 439);
             this.txt_GLAVA.TabIndex = 0;
             this.txt_GLAVA.WordWrap = false;
             // 
@@ -102,15 +105,24 @@
             this.txt_POSTAVKE.Multiline = true;
             this.txt_POSTAVKE.Name = "txt_POSTAVKE";
             this.txt_POSTAVKE.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_POSTAVKE.Size = new System.Drawing.Size(403, 467);
+            this.txt_POSTAVKE.Size = new System.Drawing.Size(403, 437);
             this.txt_POSTAVKE.TabIndex = 1;
             this.txt_POSTAVKE.WordWrap = false;
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(799, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(56, 23);
+            this.usrc_Help1.TabIndex = 1;
             // 
             // Form_DURS_FilesPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(859, 511);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form_DURS_FilesPreview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -132,5 +144,6 @@
         private System.Windows.Forms.TextBox txt_GLAVA;
         private System.Windows.Forms.Label lbl_file_POSTAVKE;
         private System.Windows.Forms.TextBox txt_POSTAVKE;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

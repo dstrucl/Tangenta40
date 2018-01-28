@@ -41,6 +41,7 @@ namespace Tangenta
             this.lbl_Items_WithNoExpiryData = new System.Windows.Forms.Label();
             this.lbl_Color_ItemsWithNoExpiryData = new System.Windows.Forms.Label();
             this.dgvx_ExpiryCheck = new DataGridView_2xls.DataGridView2xls();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ExpiryCheck)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,11 +133,19 @@ namespace Tangenta
             this.dgvx_ExpiryCheck.TabIndex = 0;
             this.dgvx_ExpiryCheck.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_ExpiryCheck_CellFormatting);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(917, 5);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(58, 31);
+            this.usrc_Help1.TabIndex = 9;
+            // 
             // Form_Expiry_Check
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(979, 539);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_Items_WithNoExpiryData);
             this.Controls.Add(this.lbl_Color_ItemsWithNoExpiryData);
             this.Controls.Add(this.lbl_ItemsToDestroy);
@@ -167,5 +176,6 @@ namespace Tangenta
         private System.Windows.Forms.Label lbl_ItemsToDestroy;
         private Label lbl_Items_WithNoExpiryData;
         private Label lbl_Color_ItemsWithNoExpiryData;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

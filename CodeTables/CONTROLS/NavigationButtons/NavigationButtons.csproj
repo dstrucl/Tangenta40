@@ -57,6 +57,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TangentaHelp">
+      <HintPath>..\..\..\TangentaHelp\obj\Debug\TangentaHelp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auto_NEXT.cs" />

@@ -34,6 +34,7 @@
             this.btn_Yes = new System.Windows.Forms.Button();
             this.btn_No = new System.Windows.Forms.Button();
             this.lbl_Person = new System.Windows.Forms.TextBox();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // lbl_Instruction_part1
@@ -92,11 +93,20 @@
             this.lbl_Person.Size = new System.Drawing.Size(667, 158);
             this.lbl_Person.TabIndex = 5;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(720, 4);
+            this.usrc_Help1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(41, 25);
+            this.usrc_Help1.TabIndex = 6;
+            // 
             // Form_Customer_Person_Assign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(763, 288);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_Person);
             this.Controls.Add(this.btn_No);
             this.Controls.Add(this.btn_Yes);
@@ -123,5 +133,6 @@
         private System.Windows.Forms.Button btn_Yes;
         private System.Windows.Forms.Button btn_No;
         private System.Windows.Forms.TextBox lbl_Person;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

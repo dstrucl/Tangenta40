@@ -39,15 +39,16 @@
             this.lbl_ToSelect = new System.Windows.Forms.Label();
             this.txt_Selected = new System.Windows.Forms.TextBox();
             this.lbl_Selected = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Stock)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_Item
             // 
             this.lbl_Item.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Item.Location = new System.Drawing.Point(25, 13);
+            this.lbl_Item.Location = new System.Drawing.Point(12, 13);
             this.lbl_Item.Name = "lbl_Item";
-            this.lbl_Item.Size = new System.Drawing.Size(110, 23);
+            this.lbl_Item.Size = new System.Drawing.Size(123, 23);
             this.lbl_Item.TabIndex = 0;
             this.lbl_Item.Text = "Item";
             this.lbl_Item.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -59,10 +60,10 @@
             this.txt_Item.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txt_Item.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_Item.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Item.Location = new System.Drawing.Point(145, 14);
+            this.txt_Item.Location = new System.Drawing.Point(136, 14);
             this.txt_Item.Name = "txt_Item";
             this.txt_Item.ReadOnly = true;
-            this.txt_Item.Size = new System.Drawing.Size(695, 19);
+            this.txt_Item.Size = new System.Drawing.Size(572, 19);
             this.txt_Item.TabIndex = 1;
             // 
             // dgv_Stock
@@ -71,9 +72,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_Stock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Stock.Location = new System.Drawing.Point(12, 78);
+            this.dgv_Stock.Location = new System.Drawing.Point(1, 76);
             this.dgv_Stock.Name = "dgv_Stock";
-            this.dgv_Stock.Size = new System.Drawing.Size(835, 345);
+            this.dgv_Stock.Size = new System.Drawing.Size(845, 387);
             this.dgv_Stock.TabIndex = 2;
             // 
             // txt_InStock
@@ -101,9 +102,9 @@
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_OK.Location = new System.Drawing.Point(347, 429);
+            this.btn_OK.Location = new System.Drawing.Point(720, 10);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(114, 30);
+            this.btn_OK.Size = new System.Drawing.Size(62, 30);
             this.btn_OK.TabIndex = 5;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = false;
@@ -150,11 +151,19 @@
             this.lbl_Selected.Text = "Selected";
             this.lbl_Selected.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(789, 11);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(48, 29);
+            this.usrc_Help1.TabIndex = 10;
+            // 
             // Form_Select_from_Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(852, 464);
+            this.ClientSize = new System.Drawing.Size(846, 464);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.txt_Selected);
             this.Controls.Add(this.lbl_Selected);
             this.Controls.Add(this.txt_ToSelect);
@@ -186,5 +195,6 @@
         private System.Windows.Forms.Label lbl_ToSelect;
         private System.Windows.Forms.TextBox txt_Selected;
         private System.Windows.Forms.Label lbl_Selected;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

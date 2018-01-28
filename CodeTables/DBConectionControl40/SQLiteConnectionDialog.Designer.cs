@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SQLiteConnectionDialog));
+            ComboBox_Recent.myIteM myIteM4 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM5 = new ComboBox_Recent.myIteM();
             this.lbl_Folder = new System.Windows.Forms.Label();
             this.btn_SelectFolder = new System.Windows.Forms.Button();
             this.lbl_FileName = new System.Windows.Forms.Label();
@@ -45,7 +48,7 @@
             // lbl_Folder
             // 
             this.lbl_Folder.AutoSize = true;
-            this.lbl_Folder.Location = new System.Drawing.Point(8, 11);
+            this.lbl_Folder.Location = new System.Drawing.Point(8, 35);
             this.lbl_Folder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Folder.Name = "lbl_Folder";
             this.lbl_Folder.Size = new System.Drawing.Size(36, 13);
@@ -57,10 +60,10 @@
             // 
             this.btn_SelectFolder.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectFolder.Image")));
             this.btn_SelectFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_SelectFolder.Location = new System.Drawing.Point(441, 24);
+            this.btn_SelectFolder.Location = new System.Drawing.Point(440, 47);
             this.btn_SelectFolder.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SelectFolder.Name = "btn_SelectFolder";
-            this.btn_SelectFolder.Size = new System.Drawing.Size(123, 44);
+            this.btn_SelectFolder.Size = new System.Drawing.Size(123, 34);
             this.btn_SelectFolder.TabIndex = 7;
             this.btn_SelectFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_SelectFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -71,21 +74,22 @@
             // 
             this.lbl_FileName.AutoSize = true;
             this.lbl_FileName.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_FileName.Location = new System.Drawing.Point(8, 93);
+            this.lbl_FileName.Location = new System.Drawing.Point(11, 96);
             this.lbl_FileName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_FileName.Name = "lbl_FileName";
             this.lbl_FileName.Size = new System.Drawing.Size(67, 16);
             this.lbl_FileName.TabIndex = 9;
             this.lbl_FileName.Text = "FileName";
+            this.lbl_FileName.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btn_SelectFile
             // 
             this.btn_SelectFile.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectFile.Image")));
             this.btn_SelectFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_SelectFile.Location = new System.Drawing.Point(441, 79);
+            this.btn_SelectFile.Location = new System.Drawing.Point(440, 107);
             this.btn_SelectFile.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SelectFile.Name = "btn_SelectFile";
-            this.btn_SelectFile.Size = new System.Drawing.Size(123, 44);
+            this.btn_SelectFile.Size = new System.Drawing.Size(123, 34);
             this.btn_SelectFile.TabIndex = 10;
             this.btn_SelectFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_SelectFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -94,44 +98,51 @@
             // 
             // cmbR_FilePath
             // 
+            this.cmbR_FilePath.AskToCreateRecentItemsFolder = false;
             this.cmbR_FilePath.DisplayMember = "text";
             this.cmbR_FilePath.DisplayTime = true;
             this.cmbR_FilePath.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbR_FilePath.FormattingEnabled = true;
             this.cmbR_FilePath.InsertOnKeyPress = true;
+            this.cmbR_FilePath.Items.AddRange(new object[] {
+            myIteM4});
             this.cmbR_FilePath.Key = "Folder";
-            this.cmbR_FilePath.Location = new System.Drawing.Point(13, 37);
+            this.cmbR_FilePath.Location = new System.Drawing.Point(13, 51);
             this.cmbR_FilePath.MaxRecentCount = 10;
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Roaming\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(423, 21);
             this.cmbR_FilePath.TabIndex = 11;
             this.cmbR_FilePath.SelectedIndexChanged += new System.EventHandler(this.cmbR_FilePath_SelectedIndexChanged);
             // 
             // cmbR_FileName
             // 
+            this.cmbR_FileName.AskToCreateRecentItemsFolder = false;
             this.cmbR_FileName.DisplayMember = "text";
             this.cmbR_FileName.DisplayTime = true;
             this.cmbR_FileName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbR_FileName.FormattingEnabled = true;
             this.cmbR_FileName.InsertOnKeyPress = true;
+            this.cmbR_FileName.Items.AddRange(new object[] {
+            myIteM1,
+            myIteM5});
             this.cmbR_FileName.Key = "FileName";
-            this.cmbR_FileName.Location = new System.Drawing.Point(148, 91);
+            this.cmbR_FileName.Location = new System.Drawing.Point(14, 115);
             this.cmbR_FileName.MaxRecentCount = 10;
             this.cmbR_FileName.Name = "cmbR_FileName";
             this.cmbR_FileName.ReadOnly = false;
             this.cmbR_FileName.RecentItemsFileName = "SQLite_LocalDB_FileName.xml";
-            this.cmbR_FileName.RecentItemsFolder = "";
-            this.cmbR_FileName.Size = new System.Drawing.Size(278, 21);
+            this.cmbR_FileName.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Roaming\\RecentComboBoxItems";
+            this.cmbR_FileName.Size = new System.Drawing.Size(421, 21);
             this.cmbR_FileName.TabIndex = 12;
             // 
             // btn_SQLiteInfo
             // 
-            this.btn_SQLiteInfo.Location = new System.Drawing.Point(128, 128);
+            this.btn_SQLiteInfo.Location = new System.Drawing.Point(128, 152);
             this.btn_SQLiteInfo.Name = "btn_SQLiteInfo";
-            this.btn_SQLiteInfo.Size = new System.Drawing.Size(86, 52);
+            this.btn_SQLiteInfo.Size = new System.Drawing.Size(86, 29);
             this.btn_SQLiteInfo.TabIndex = 13;
             this.btn_SQLiteInfo.Text = "SQLite Info";
             this.btn_SQLiteInfo.UseVisualStyleBackColor = true;
@@ -139,9 +150,9 @@
             // 
             // btn_Backup
             // 
-            this.btn_Backup.Location = new System.Drawing.Point(12, 128);
+            this.btn_Backup.Location = new System.Drawing.Point(12, 152);
             this.btn_Backup.Name = "btn_Backup";
-            this.btn_Backup.Size = new System.Drawing.Size(86, 52);
+            this.btn_Backup.Size = new System.Drawing.Size(86, 29);
             this.btn_Backup.TabIndex = 14;
             this.btn_Backup.Text = "Backup";
             this.btn_Backup.UseVisualStyleBackColor = true;
@@ -149,10 +160,13 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
@@ -160,9 +174,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = null;
             this.usrc_NavigationButtons1.Image_OK = null;
             this.usrc_NavigationButtons1.Image_PREV = null;
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(231, 128);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(333, 68);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(573, 26);
             this.usrc_NavigationButtons1.TabIndex = 15;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -178,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(574, 199);
+            this.ClientSize = new System.Drawing.Size(574, 191);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.btn_Backup);
             this.Controls.Add(this.btn_SQLiteInfo);

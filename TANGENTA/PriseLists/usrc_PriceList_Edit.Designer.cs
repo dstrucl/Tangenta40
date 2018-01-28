@@ -50,7 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 51);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -63,8 +63,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.txt_PriceList_Name);
             this.splitContainer1.Panel2.Controls.Add(this.lbl_PriceList_Name);
             this.splitContainer1.Panel2.Controls.Add(this.usrc_EditTable_Shop_Prices);
-            this.splitContainer1.Size = new System.Drawing.Size(890, 709);
-            this.splitContainer1.SplitterDistance = 150;
+            this.splitContainer1.Size = new System.Drawing.Size(869, 617);
+            this.splitContainer1.SplitterDistance = 130;
             this.splitContainer1.TabIndex = 3;
             // 
             // usrc_EditTable_PriceList
@@ -78,7 +78,7 @@
             this.usrc_EditTable_PriceList.Location = new System.Drawing.Point(3, 3);
             this.usrc_EditTable_PriceList.Name = "usrc_EditTable_PriceList";
             this.usrc_EditTable_PriceList.SelectionButtonVisible = false;
-            this.usrc_EditTable_PriceList.Size = new System.Drawing.Size(880, 139);
+            this.usrc_EditTable_PriceList.Size = new System.Drawing.Size(859, 97);
             this.usrc_EditTable_PriceList.TabIndex = 0;
             this.usrc_EditTable_PriceList.Title = "label1";
             this.usrc_EditTable_PriceList.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -118,7 +118,7 @@
             this.usrc_EditTable_Shop_Prices.Location = new System.Drawing.Point(3, 34);
             this.usrc_EditTable_Shop_Prices.Name = "usrc_EditTable_Shop_Prices";
             this.usrc_EditTable_Shop_Prices.SelectionButtonVisible = false;
-            this.usrc_EditTable_Shop_Prices.Size = new System.Drawing.Size(881, 514);
+            this.usrc_EditTable_Shop_Prices.Size = new System.Drawing.Size(860, 469);
             this.usrc_EditTable_Shop_Prices.TabIndex = 7;
             this.usrc_EditTable_Shop_Prices.Title = "label1";
             this.usrc_EditTable_Shop_Prices.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -129,9 +129,8 @@
             // 
             // rdb_OnlyUnvalid
             // 
-            this.rdb_OnlyUnvalid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyUnvalid.AutoSize = true;
-            this.rdb_OnlyUnvalid.Location = new System.Drawing.Point(186, 727);
+            this.rdb_OnlyUnvalid.Location = new System.Drawing.Point(183, 32);
             this.rdb_OnlyUnvalid.Name = "rdb_OnlyUnvalid";
             this.rdb_OnlyUnvalid.Size = new System.Drawing.Size(85, 17);
             this.rdb_OnlyUnvalid.TabIndex = 6;
@@ -141,9 +140,8 @@
             // 
             // rdb_All
             // 
-            this.rdb_All.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_All.AutoSize = true;
-            this.rdb_All.Location = new System.Drawing.Point(387, 727);
+            this.rdb_All.Location = new System.Drawing.Point(384, 32);
             this.rdb_All.Name = "rdb_All";
             this.rdb_All.Size = new System.Drawing.Size(36, 17);
             this.rdb_All.TabIndex = 5;
@@ -153,9 +151,8 @@
             // 
             // rdb_OnlyValid
             // 
-            this.rdb_OnlyValid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyValid.AutoSize = true;
-            this.rdb_OnlyValid.Location = new System.Drawing.Point(11, 727);
+            this.rdb_OnlyValid.Location = new System.Drawing.Point(8, 32);
             this.rdb_OnlyValid.Name = "rdb_OnlyValid";
             this.rdb_OnlyValid.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyValid.TabIndex = 4;
@@ -165,9 +162,9 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -179,9 +176,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 718);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(890, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(869, 26);
             this.usrc_NavigationButtons1.TabIndex = 7;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -203,7 +200,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Name = "usrc_PriceList_Edit";
-            this.Size = new System.Drawing.Size(896, 784);
+            this.Size = new System.Drawing.Size(875, 671);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

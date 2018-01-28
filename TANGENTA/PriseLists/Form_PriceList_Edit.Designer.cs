@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PriceList_Edit));
-            this.usrc_PriceList_Edit = new usrc_PriceList_Edit();
+            this.usrc_PriceList_Edit = new PriseLists.usrc_PriceList_Edit();
             this.SuspendLayout();
             // 
             // usrc_PriceList_Edit
@@ -38,18 +38,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_PriceList_Edit.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.usrc_PriceList_Edit.Location = new System.Drawing.Point(5, 12);
+            this.usrc_PriceList_Edit.Location = new System.Drawing.Point(1, 1);
             this.usrc_PriceList_Edit.Name = "usrc_PriceList_Edit";
-            this.usrc_PriceList_Edit.Size = new System.Drawing.Size(940, 793);
+            this.usrc_PriceList_Edit.Size = new System.Drawing.Size(768, 620);
             this.usrc_PriceList_Edit.TabIndex = 0;
-            this.usrc_PriceList_Edit.Button_Cancel_Click += new usrc_PriceList_Edit.delegate_Cancel(this.usrc_PriceListType_Edit_Button_Cancel_Click);
-            this.usrc_PriceList_Edit.Button_OK_Click += new usrc_PriceList_Edit.delegate_OK(this.usrc_PriceListType_Edit_Button_OK_Click);
+            this.usrc_PriceList_Edit.Button_Cancel_Click += new PriseLists.usrc_PriceList_Edit.delegate_Cancel(this.usrc_PriceListType_Edit_Button_Cancel_Click);
+            this.usrc_PriceList_Edit.Button_OK_Click += new PriseLists.usrc_PriceList_Edit.delegate_OK(this.usrc_PriceListType_Edit_Button_OK_Click);
             // 
             // Form_PriceList_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(957, 808);
+            this.ClientSize = new System.Drawing.Size(767, 624);
             this.Controls.Add(this.usrc_PriceList_Edit);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_PriceList_Edit";

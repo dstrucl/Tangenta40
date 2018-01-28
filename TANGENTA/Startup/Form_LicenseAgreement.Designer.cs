@@ -44,9 +44,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.rdb_NotAcceptLicenseAgreement);
             this.groupBox1.Controls.Add(this.rdb_AcceptLicenseAgreement);
-            this.groupBox1.Location = new System.Drawing.Point(3, 226);
+            this.groupBox1.Location = new System.Drawing.Point(3, 355);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(533, 55);
+            this.groupBox1.Size = new System.Drawing.Size(600, 55);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
@@ -75,12 +75,13 @@
             this.btn_Print.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Print.Location = new System.Drawing.Point(190, 318);
+            this.btn_Print.Location = new System.Drawing.Point(187, 416);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(149, 27);
+            this.btn_Print.Size = new System.Drawing.Size(216, 27);
             this.btn_Print.TabIndex = 4;
             this.btn_Print.Text = "Print";
             this.btn_Print.UseVisualStyleBackColor = false;
+            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // webBrowser1
             // 
@@ -90,18 +91,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(2, 4);
+            this.webBrowser1.Location = new System.Drawing.Point(2, 30);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(22, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(534, 221);
+            this.webBrowser1.Size = new System.Drawing.Size(599, 327);
             this.webBrowser1.TabIndex = 5;
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -113,9 +114,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(10, 285);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(515, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(602, 27);
             this.usrc_NavigationButtons1.TabIndex = 6;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -131,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(536, 352);
+            this.ClientSize = new System.Drawing.Size(603, 449);
             this.ControlBox = false;
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.btn_Print);

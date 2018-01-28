@@ -40,6 +40,7 @@
             this.btn_Remove = new System.Windows.Forms.Button();
             this.dgvx_StockTakeAdditionalCost = new DataGridView_2xls.DataGridView2xls();
             this.btn_Exit = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_Cost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_StockTakeAdditionalCost)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +72,7 @@
             this.txt_Description.Location = new System.Drawing.Point(292, 36);
             this.txt_Description.Multiline = true;
             this.txt_Description.Name = "txt_Description";
-            this.txt_Description.Size = new System.Drawing.Size(225, 38);
+            this.txt_Description.Size = new System.Drawing.Size(275, 38);
             this.txt_Description.TabIndex = 3;
             // 
             // lbl_StocTakeCostName
@@ -149,7 +150,7 @@
             this.dgvx_StockTakeAdditionalCost.Name = "dgvx_StockTakeAdditionalCost";
             this.dgvx_StockTakeAdditionalCost.ReadOnly = true;
             this.dgvx_StockTakeAdditionalCost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_StockTakeAdditionalCost.Size = new System.Drawing.Size(524, 426);
+            this.dgvx_StockTakeAdditionalCost.Size = new System.Drawing.Size(574, 426);
             this.dgvx_StockTakeAdditionalCost.TabIndex = 0;
             // 
             // btn_Exit
@@ -163,11 +164,19 @@
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(527, 2);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(39, 28);
+            this.usrc_Help1.TabIndex = 11;
+            // 
             // Form_StockTake_AdditionalCost_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 506);
+            this.ClientSize = new System.Drawing.Size(576, 506);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_Remove);
             this.Controls.Add(this.btn_Update);
@@ -204,5 +213,6 @@
         private System.Windows.Forms.Button btn_Update;
         private System.Windows.Forms.Button btn_Remove;
         private System.Windows.Forms.Button btn_Exit;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

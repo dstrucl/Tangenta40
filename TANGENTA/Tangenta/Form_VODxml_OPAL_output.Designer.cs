@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_VODxml_OPAL_output));
+            ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM2 = new ComboBox_Recent.myIteM();
             this.btn_SelectFolder = new System.Windows.Forms.Button();
             this.lbl_Folder = new System.Windows.Forms.Label();
             this.lbl_FileNames = new System.Windows.Forms.Label();
@@ -61,6 +63,7 @@
             this.lbl_End_Customes_Name = new System.Windows.Forms.Label();
             this.nmUpDn_End_Customers_Code = new System.Windows.Forms.NumericUpDown();
             this.lbl_Konto_VAT_general_rate = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -137,7 +140,7 @@
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(940, 9);
+            this.btn_Cancel.Location = new System.Drawing.Point(875, 9);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(79, 37);
             this.btn_Cancel.TabIndex = 18;
@@ -153,14 +156,15 @@
             this.cmbR_FilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbR_FilePath.FormattingEnabled = true;
             this.cmbR_FilePath.InsertOnKeyPress = true;
+            this.cmbR_FilePath.Items.AddRange(new object[] {
+            myIteM1});
             this.cmbR_FilePath.Key = "Folder";
             this.cmbR_FilePath.Location = new System.Drawing.Point(21, 75);
             this.cmbR_FilePath.MaxRecentCount = 10;
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\riaanxl" +
-    "u01\\RecentComboBoxItems";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Roaming\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
@@ -173,14 +177,15 @@
             this.cmb_VOD_xml_shema.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_VOD_xml_shema.FormattingEnabled = true;
             this.cmb_VOD_xml_shema.InsertOnKeyPress = true;
+            this.cmb_VOD_xml_shema.Items.AddRange(new object[] {
+            myIteM2});
             this.cmb_VOD_xml_shema.Key = "Folder";
             this.cmb_VOD_xml_shema.Location = new System.Drawing.Point(23, 27);
             this.cmb_VOD_xml_shema.MaxRecentCount = 10;
             this.cmb_VOD_xml_shema.Name = "cmb_VOD_xml_shema";
             this.cmb_VOD_xml_shema.ReadOnly = false;
             this.cmb_VOD_xml_shema.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmb_VOD_xml_shema.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\6bo6a" +
-    "c9o01\\RecentComboBoxItems";
+            this.cmb_VOD_xml_shema.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Roaming\\RecentComboBoxItems";
             this.cmb_VOD_xml_shema.Size = new System.Drawing.Size(411, 23);
             this.cmb_VOD_xml_shema.TabIndex = 21;
             // 
@@ -500,11 +505,19 @@
             this.lbl_Konto_VAT_general_rate.Text = "Znesek_z_ddv  Kartice  Konto = ";
             this.lbl_Konto_VAT_general_rate.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(966, 9);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(49, 37);
+            this.usrc_Help1.TabIndex = 38;
+            // 
             // Form_VODxml_OPAL_output
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1026, 716);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_Konto_VAT_general_rate);
             this.Controls.Add(this.nmUpDn_End_Customers_Code);
             this.Controls.Add(this.txt_End_Customers_Name);
@@ -597,5 +610,6 @@
         private System.Windows.Forms.Label lbl_End_Customes_Name;
         private System.Windows.Forms.NumericUpDown nmUpDn_End_Customers_Code;
         private System.Windows.Forms.Label lbl_Konto_VAT_general_rate;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

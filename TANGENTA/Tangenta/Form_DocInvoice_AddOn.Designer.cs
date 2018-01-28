@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DocInvoice_AddOn));
-            this.m_usrc_DocInvoice_AddOn = new Tangenta.usrc_DocInvoice_AddOn();
+            this.m_usrc_DocInvoice_AddOn = new usrc_DocInvoice_AddOn();
             this.SuspendLayout();
             // 
             // m_usrc_DocInvoice_AddOn

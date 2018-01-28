@@ -183,6 +183,10 @@
       <Project>{c086ec32-85f5-43ca-a457-040ca7beaa9e}</Project>
       <Name>TextBoxRecent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Help\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>

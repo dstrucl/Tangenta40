@@ -35,14 +35,15 @@
             this.rdb_OnlyNotInOffer = new System.Windows.Forms.RadioButton();
             this.rdb_All = new System.Windows.Forms.RadioButton();
             this.rdb_OnlyInOffer = new System.Windows.Forms.RadioButton();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(128, 578);
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.Location = new System.Drawing.Point(788, 1);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(55, 24);
+            this.btn_Cancel.Size = new System.Drawing.Size(62, 24);
             this.btn_Cancel.TabIndex = 4;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
@@ -50,10 +51,10 @@
             // 
             // btn_OK
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(4, 578);
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_OK.Location = new System.Drawing.Point(699, 1);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(55, 24);
+            this.btn_OK.Size = new System.Drawing.Size(73, 24);
             this.btn_OK.TabIndex = 3;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = true;
@@ -67,10 +68,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable.GetRandomData = false;
-            this.usrc_EditTable.Location = new System.Drawing.Point(4, 3);
+            this.usrc_EditTable.Location = new System.Drawing.Point(4, 28);
             this.usrc_EditTable.Name = "usrc_EditTable";
             this.usrc_EditTable.SelectionButtonVisible = false;
-            this.usrc_EditTable.Size = new System.Drawing.Size(897, 569);
+            this.usrc_EditTable.Size = new System.Drawing.Size(897, 577);
             this.usrc_EditTable.TabIndex = 0;
             this.usrc_EditTable.Title = "";
             this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -82,9 +83,8 @@
             // 
             // rdb_OnlyNotInOffer
             // 
-            this.rdb_OnlyNotInOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyNotInOffer.AutoSize = true;
-            this.rdb_OnlyNotInOffer.Location = new System.Drawing.Point(411, 582);
+            this.rdb_OnlyNotInOffer.Location = new System.Drawing.Point(207, 5);
             this.rdb_OnlyNotInOffer.Name = "rdb_OnlyNotInOffer";
             this.rdb_OnlyNotInOffer.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyNotInOffer.TabIndex = 9;
@@ -95,33 +95,42 @@
             // 
             // rdb_All
             // 
-            this.rdb_All.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_All.AutoSize = true;
-            this.rdb_All.Location = new System.Drawing.Point(625, 582);
+            this.rdb_All.Location = new System.Drawing.Point(421, 5);
             this.rdb_All.Name = "rdb_All";
             this.rdb_All.Size = new System.Drawing.Size(36, 17);
             this.rdb_All.TabIndex = 8;
             this.rdb_All.TabStop = true;
             this.rdb_All.Text = "All";
             this.rdb_All.UseVisualStyleBackColor = true;
+            this.rdb_All.CheckedChanged += new System.EventHandler(this.rdb_All_CheckedChanged_1);
             // 
             // rdb_OnlyInOffer
             // 
-            this.rdb_OnlyInOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyInOffer.AutoSize = true;
-            this.rdb_OnlyInOffer.Location = new System.Drawing.Point(216, 582);
+            this.rdb_OnlyInOffer.Location = new System.Drawing.Point(12, 5);
             this.rdb_OnlyInOffer.Name = "rdb_OnlyInOffer";
             this.rdb_OnlyInOffer.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyInOffer.TabIndex = 7;
             this.rdb_OnlyInOffer.TabStop = true;
             this.rdb_OnlyInOffer.Text = "Only Valid";
             this.rdb_OnlyInOffer.UseVisualStyleBackColor = true;
+            this.rdb_OnlyInOffer.CheckedChanged += new System.EventHandler(this.rdb_OnlyInOffer_CheckedChanged_1);
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(861, 1);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(39, 24);
+            this.usrc_Help1.TabIndex = 10;
             // 
             // Form_Templates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(905, 607);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.rdb_OnlyNotInOffer);
             this.Controls.Add(this.rdb_All);
             this.Controls.Add(this.rdb_OnlyInOffer);
@@ -148,6 +157,6 @@
         private System.Windows.Forms.RadioButton rdb_OnlyNotInOffer;
         private System.Windows.Forms.RadioButton rdb_All;
         private System.Windows.Forms.RadioButton rdb_OnlyInOffer;
-
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

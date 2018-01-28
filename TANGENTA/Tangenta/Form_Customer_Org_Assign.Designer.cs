@@ -34,6 +34,7 @@
             this.btn_Yes = new System.Windows.Forms.Button();
             this.btn_No = new System.Windows.Forms.Button();
             this.lbl_Org = new System.Windows.Forms.TextBox();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // lbl_Instruction_part1
@@ -85,18 +86,27 @@
             // 
             this.lbl_Org.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbl_Org.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Org.Location = new System.Drawing.Point(55, 34);
+            this.lbl_Org.Location = new System.Drawing.Point(29, 30);
             this.lbl_Org.Multiline = true;
             this.lbl_Org.Name = "lbl_Org";
             this.lbl_Org.ReadOnly = true;
             this.lbl_Org.Size = new System.Drawing.Size(667, 158);
             this.lbl_Org.TabIndex = 5;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(702, 0);
+            this.usrc_Help1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(38, 30);
+            this.usrc_Help1.TabIndex = 6;
+            // 
             // Form_Customer_Org_Assign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(763, 288);
+            this.ClientSize = new System.Drawing.Size(743, 288);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_Org);
             this.Controls.Add(this.btn_No);
             this.Controls.Add(this.btn_Yes);
@@ -123,5 +133,6 @@
         private System.Windows.Forms.Button btn_Yes;
         private System.Windows.Forms.Button btn_No;
         private System.Windows.Forms.TextBox lbl_Org;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

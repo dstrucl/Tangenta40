@@ -71,6 +71,7 @@
             this.lbl_ToReturn = new System.Windows.Forms.Label();
             this.txt__Amount = new System.Windows.Forms.TextBox();
             this.lbl_Amount = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_7
@@ -232,9 +233,9 @@
             // 
             this.btn_Delete.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Delete.Location = new System.Drawing.Point(731, 12);
+            this.btn_Delete.Location = new System.Drawing.Point(715, 12);
             this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Size = new System.Drawing.Size(119, 62);
+            this.btn_Delete.Size = new System.Drawing.Size(94, 62);
             this.btn_Delete.TabIndex = 13;
             this.btn_Delete.Text = "DEL";
             this.btn_Delete.UseVisualStyleBackColor = false;
@@ -342,7 +343,7 @@
             this.btn_BackSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_BackSpace.Location = new System.Drawing.Point(612, 12);
             this.btn_BackSpace.Name = "btn_BackSpace";
-            this.btn_BackSpace.Size = new System.Drawing.Size(113, 62);
+            this.btn_BackSpace.Size = new System.Drawing.Size(97, 62);
             this.btn_BackSpace.TabIndex = 22;
             this.btn_BackSpace.Text = "<---";
             this.btn_BackSpace.UseVisualStyleBackColor = false;
@@ -567,11 +568,19 @@
             this.lbl_Amount.Text = "Amount:";
             this.lbl_Amount.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(815, 12);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(34, 62);
+            this.usrc_Help1.TabIndex = 44;
+            // 
             // Form_DocInvoice_PaymentCash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(865, 709);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.txt_AmountReceived);
             this.Controls.Add(this.lbl_AmountReceived);
             this.Controls.Add(this.txt_ToReturn);
@@ -671,5 +680,6 @@
         private System.Windows.Forms.Label lbl_ToReturn;
         private System.Windows.Forms.TextBox txt__Amount;
         private System.Windows.Forms.Label lbl_Amount;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

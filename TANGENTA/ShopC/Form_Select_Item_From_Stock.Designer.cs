@@ -34,6 +34,7 @@
             this.lbl_Selected = new System.Windows.Forms.Label();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Item_From_Stock)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,9 +66,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_Item_From_Stock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_Item_From_Stock.DataGridViewWithRowNumber = false;
-            this.dgvx_Item_From_Stock.Location = new System.Drawing.Point(13, 43);
+            this.dgvx_Item_From_Stock.Location = new System.Drawing.Point(13, 39);
             this.dgvx_Item_From_Stock.Name = "dgvx_Item_From_Stock";
-            this.dgvx_Item_From_Stock.Size = new System.Drawing.Size(761, 349);
+            this.dgvx_Item_From_Stock.Size = new System.Drawing.Size(768, 352);
             this.dgvx_Item_From_Stock.TabIndex = 0;
             this.dgvx_Item_From_Stock.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_Item_From_Stock_CellContentClick);
             // 
@@ -76,7 +77,7 @@
             this.lbl_Selected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_Selected.AutoSize = true;
             this.lbl_Selected.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_Selected.Location = new System.Drawing.Point(7, 403);
+            this.lbl_Selected.Location = new System.Drawing.Point(7, 402);
             this.lbl_Selected.Name = "lbl_Selected";
             this.lbl_Selected.Size = new System.Drawing.Size(49, 13);
             this.lbl_Selected.TabIndex = 3;
@@ -84,9 +85,9 @@
             // 
             // btn_OK
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_OK.Location = new System.Drawing.Point(294, 403);
+            this.btn_OK.Location = new System.Drawing.Point(575, 7);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(70, 26);
             this.btn_OK.TabIndex = 4;
@@ -96,21 +97,29 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(485, 403);
+            this.btn_Cancel.Location = new System.Drawing.Point(651, 7);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(70, 26);
             this.btn_Cancel.TabIndex = 5;
             this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(728, 7);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(53, 26);
+            this.usrc_Help1.TabIndex = 6;
+            // 
             // Form_Select_Item_From_Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(786, 439);
+            this.ClientSize = new System.Drawing.Size(786, 438);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lbl_Selected);
@@ -133,5 +142,6 @@
         private System.Windows.Forms.Label lbl_Selected;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

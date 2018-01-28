@@ -55,7 +55,7 @@
             // chk_StockCheckAtStartup
             // 
             this.chk_StockCheckAtStartup.AutoSize = true;
-            this.chk_StockCheckAtStartup.Location = new System.Drawing.Point(10, 205);
+            this.chk_StockCheckAtStartup.Location = new System.Drawing.Point(9, 233);
             this.chk_StockCheckAtStartup.Name = "chk_StockCheckAtStartup";
             this.chk_StockCheckAtStartup.Size = new System.Drawing.Size(138, 17);
             this.chk_StockCheckAtStartup.TabIndex = 3;
@@ -76,7 +76,7 @@
             // lbl_DataBaseVersion
             // 
             this.lbl_DataBaseVersion.AutoSize = true;
-            this.lbl_DataBaseVersion.Location = new System.Drawing.Point(16, 5);
+            this.lbl_DataBaseVersion.Location = new System.Drawing.Point(12, 36);
             this.lbl_DataBaseVersion.Name = "lbl_DataBaseVersion";
             this.lbl_DataBaseVersion.Size = new System.Drawing.Size(95, 13);
             this.lbl_DataBaseVersion.TabIndex = 5;
@@ -89,9 +89,9 @@
             this.grp_OperationMode.Controls.Add(this.rdb_MultiUserOperation);
             this.grp_OperationMode.Controls.Add(this.lbl_Administrator_Password);
             this.grp_OperationMode.Controls.Add(this.usrc_Password1);
-            this.grp_OperationMode.Location = new System.Drawing.Point(10, 30);
+            this.grp_OperationMode.Location = new System.Drawing.Point(8, 56);
             this.grp_OperationMode.Name = "grp_OperationMode";
-            this.grp_OperationMode.Size = new System.Drawing.Size(375, 168);
+            this.grp_OperationMode.Size = new System.Drawing.Size(377, 168);
             this.grp_OperationMode.TabIndex = 6;
             this.grp_OperationMode.TabStop = false;
             this.grp_OperationMode.Text = "Operation Mode";
@@ -132,7 +132,7 @@
             // chk_ShopC_ExclusivelySellFromStock
             // 
             this.chk_ShopC_ExclusivelySellFromStock.AutoSize = true;
-            this.chk_ShopC_ExclusivelySellFromStock.Location = new System.Drawing.Point(10, 228);
+            this.chk_ShopC_ExclusivelySellFromStock.Location = new System.Drawing.Point(9, 256);
             this.chk_ShopC_ExclusivelySellFromStock.Name = "chk_ShopC_ExclusivelySellFromStock";
             this.chk_ShopC_ExclusivelySellFromStock.Size = new System.Drawing.Size(190, 17);
             this.chk_ShopC_ExclusivelySellFromStock.TabIndex = 7;
@@ -141,9 +141,9 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -155,9 +155,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 268);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(385, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(392, 26);
             this.usrc_NavigationButtons1.TabIndex = 2;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -172,7 +172,7 @@
             // chk_MultiCurrency
             // 
             this.chk_MultiCurrency.AutoSize = true;
-            this.chk_MultiCurrency.Location = new System.Drawing.Point(10, 251);
+            this.chk_MultiCurrency.Location = new System.Drawing.Point(9, 279);
             this.chk_MultiCurrency.Name = "chk_MultiCurrency";
             this.chk_MultiCurrency.Size = new System.Drawing.Size(93, 17);
             this.chk_MultiCurrency.TabIndex = 8;
@@ -183,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(393, 331);
+            this.ClientSize = new System.Drawing.Size(393, 311);
             this.Controls.Add(this.chk_MultiCurrency);
             this.Controls.Add(this.chk_ShopC_ExclusivelySellFromStock);
             this.Controls.Add(this.grp_OperationMode);

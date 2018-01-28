@@ -32,6 +32,7 @@
             this.wb1 = new System.Windows.Forms.WebBrowser();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // wb1
@@ -82,11 +83,19 @@
             this.usrc_ShopsInuse1.Size = new System.Drawing.Size(662, 118);
             this.usrc_ShopsInuse1.TabIndex = 11;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(625, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(36, 34);
+            this.usrc_Help1.TabIndex = 12;
+            // 
             // Form_ShopsInUse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 405);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_ShopsInuse1);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.wb1);
@@ -102,5 +111,6 @@
         private System.Windows.Forms.WebBrowser wb1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private usrc_ShopsInuse usrc_ShopsInuse1;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

@@ -20,6 +20,7 @@ using DBTypes;
 using TangentaDB;
 using CodeTables;
 using TangentaTableClass;
+using HUDCMS;
 
 namespace Tangenta
 {

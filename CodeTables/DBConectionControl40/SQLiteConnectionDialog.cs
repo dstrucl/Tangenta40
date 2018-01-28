@@ -41,6 +41,8 @@ namespace DBConnectionControl40
             m_ParentForm = xnav.parentForm;
             this.Owner = xnav.parentForm;
             InitializeComponent();
+            lbl_Folder.Tag = cmbR_FilePath;
+            this.lbl_FileName.Tag = cmbR_FileName;
             nav = xnav;
             nav.ShowHelp(this.GetType().ToString());
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)

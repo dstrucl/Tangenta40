@@ -38,6 +38,7 @@
             this.grp_DocTypeSettings = new System.Windows.Forms.GroupBox();
             this.chk_Edit_DocType_Settings = new System.Windows.Forms.CheckBox();
             this.btn_Exit = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.grp_DocTypeSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             // 
             this.btn_CheckInvoice.Location = new System.Drawing.Point(212, 6);
             this.btn_CheckInvoice.Name = "btn_CheckInvoice";
-            this.btn_CheckInvoice.Size = new System.Drawing.Size(388, 38);
+            this.btn_CheckInvoice.Size = new System.Drawing.Size(309, 38);
             this.btn_CheckInvoice.TabIndex = 5;
             this.btn_CheckInvoice.Text = "CheckInvoice";
             this.btn_CheckInvoice.UseVisualStyleBackColor = true;
@@ -137,11 +138,19 @@
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(528, 8);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(79, 36);
+            this.usrc_Help1.TabIndex = 12;
+            // 
             // Form_MainFiscal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(689, 158);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.chk_Edit_DocType_Settings);
             this.Controls.Add(this.btn_CheckInvoice);
@@ -172,5 +181,6 @@
         private System.Windows.Forms.GroupBox grp_DocTypeSettings;
         private System.Windows.Forms.CheckBox chk_Edit_DocType_Settings;
         private System.Windows.Forms.Button btn_Exit;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

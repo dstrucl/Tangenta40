@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DURS_output));
+            ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
             this.btn_SelectFolder = new System.Windows.Forms.Button();
             this.lbl_Folder = new System.Windows.Forms.Label();
             this.lbl_FileNames = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.cmbR_FilePath = new ComboBox_Recent.ComboBox_RecentList();
             this.btn_View = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_SelectFolder
@@ -104,14 +106,15 @@
             this.cmbR_FilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbR_FilePath.FormattingEnabled = true;
             this.cmbR_FilePath.InsertOnKeyPress = true;
+            this.cmbR_FilePath.Items.AddRange(new object[] {
+            myIteM1});
             this.cmbR_FilePath.Key = "Folder";
             this.cmbR_FilePath.Location = new System.Drawing.Point(25, 41);
             this.cmbR_FilePath.MaxRecentCount = 10;
             this.cmbR_FilePath.Name = "cmbR_FilePath";
             this.cmbR_FilePath.ReadOnly = false;
             this.cmbR_FilePath.RecentItemsFileName = "SQlite_LocalDB_FilePath.xml";
-            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\logi\\AppData\\Local\\Microsoft\\VisualStudio\\14.0\\ProjectAssemblies\\riaanxl" +
-    "u01\\RecentComboBoxItems";
+            this.cmbR_FilePath.RecentItemsFolder = "C:\\Users\\Damjan\\AppData\\Roaming\\RecentComboBoxItems";
             this.cmbR_FilePath.Size = new System.Drawing.Size(578, 23);
             this.cmbR_FilePath.TabIndex = 14;
             // 
@@ -128,11 +131,20 @@
             this.btn_View.Visible = false;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(626, 5);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(56, 22);
+            this.usrc_Help1.TabIndex = 20;
+            // 
             // Form_DURS_output
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(690, 187);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_View);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_Save);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_View;
         internal ComboBox_Recent.ComboBox_RecentList cmbR_FilePath;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

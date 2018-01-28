@@ -36,6 +36,7 @@
             this.cmb_StornoReason = new System.Windows.Forms.ComboBox();
             this.lbl_WriteReason = new System.Windows.Forms.Label();
             this.lbl_SelectExistingReason = new System.Windows.Forms.Label();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // txt_StornoReason
@@ -58,7 +59,7 @@
             this.lbl_StornoMessage.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lbl_StornoMessage.Location = new System.Drawing.Point(14, 8);
             this.lbl_StornoMessage.Name = "lbl_StornoMessage";
-            this.lbl_StornoMessage.Size = new System.Drawing.Size(664, 49);
+            this.lbl_StornoMessage.Size = new System.Drawing.Size(644, 49);
             this.lbl_StornoMessage.TabIndex = 1;
             this.lbl_StornoMessage.Text = "label1";
             // 
@@ -119,11 +120,19 @@
             this.lbl_SelectExistingReason.TabIndex = 6;
             this.lbl_SelectExistingReason.Text = "label1";
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(664, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(35, 28);
+            this.usrc_Help1.TabIndex = 7;
+            // 
             // Form_Storno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 393);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_SelectExistingReason);
             this.Controls.Add(this.lbl_WriteReason);
             this.Controls.Add(this.cmb_StornoReason);
@@ -149,5 +158,6 @@
         private System.Windows.Forms.ComboBox cmb_StornoReason;
         private System.Windows.Forms.Label lbl_WriteReason;
         private System.Windows.Forms.Label lbl_SelectExistingReason;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

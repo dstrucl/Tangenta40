@@ -105,9 +105,9 @@
             // 
             this.lbl_Instruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Instruction.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lbl_Instruction.Location = new System.Drawing.Point(15, 9);
+            this.lbl_Instruction.Location = new System.Drawing.Point(3, 9);
             this.lbl_Instruction.Name = "lbl_Instruction";
-            this.lbl_Instruction.Size = new System.Drawing.Size(414, 66);
+            this.lbl_Instruction.Size = new System.Drawing.Size(442, 66);
             this.lbl_Instruction.TabIndex = 14;
             this.lbl_Instruction.Text = "lbl_Instruction";
             // 

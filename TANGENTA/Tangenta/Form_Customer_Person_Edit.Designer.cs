@@ -33,14 +33,15 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.btn_BankAccounts = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(128, 578);
+            this.btn_Cancel.Location = new System.Drawing.Point(795, 3);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(55, 24);
             this.btn_Cancel.TabIndex = 4;
@@ -49,11 +50,11 @@
             // 
             // btn_OK
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_OK.Location = new System.Drawing.Point(4, 578);
+            this.btn_OK.Location = new System.Drawing.Point(726, 3);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(55, 24);
+            this.btn_OK.Size = new System.Drawing.Size(63, 24);
             this.btn_OK.TabIndex = 3;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = false;
@@ -88,11 +89,19 @@
             this.btn_BankAccounts.UseVisualStyleBackColor = false;
             this.btn_BankAccounts.Click += new System.EventHandler(this.btn_BankAccounts_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(857, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(44, 24);
+            this.usrc_Help1.TabIndex = 7;
+            // 
             // Form_Customer_Person_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(905, 607);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_BankAccounts);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
@@ -113,6 +122,6 @@
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_BankAccounts;
-
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

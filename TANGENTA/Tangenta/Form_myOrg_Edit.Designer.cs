@@ -48,12 +48,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.usrc_NavigationButtons1);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Office);
             this.splitContainer1.Panel1.Controls.Add(this.btn_BankAccounts);
             this.splitContainer1.Panel1.Controls.Add(this.usrc_EditRow);
@@ -61,18 +61,16 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_MyOrganisation);
-            this.splitContainer1.Size = new System.Drawing.Size(1082, 702);
-            this.splitContainer1.SplitterDistance = 563;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(866, 625);
+            this.splitContainer1.SplitterDistance = 501;
             this.splitContainer1.TabIndex = 0;
             // 
             // btn_Office
             // 
             this.btn_Office.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Office.Location = new System.Drawing.Point(5, 15);
-            this.btn_Office.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_Office.Location = new System.Drawing.Point(4, 33);
             this.btn_Office.Name = "btn_Office";
-            this.btn_Office.Size = new System.Drawing.Size(332, 32);
+            this.btn_Office.Size = new System.Drawing.Size(266, 26);
             this.btn_Office.TabIndex = 11;
             this.btn_Office.Text = "Organisation Bank Account";
             this.btn_Office.UseVisualStyleBackColor = false;
@@ -81,10 +79,9 @@
             // btn_BankAccounts
             // 
             this.btn_BankAccounts.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_BankAccounts.Location = new System.Drawing.Point(345, 15);
-            this.btn_BankAccounts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_BankAccounts.Location = new System.Drawing.Point(276, 34);
             this.btn_BankAccounts.Name = "btn_BankAccounts";
-            this.btn_BankAccounts.Size = new System.Drawing.Size(239, 32);
+            this.btn_BankAccounts.Size = new System.Drawing.Size(191, 26);
             this.btn_BankAccounts.TabIndex = 10;
             this.btn_BankAccounts.Text = "Organisation Bank Account";
             this.btn_BankAccounts.UseVisualStyleBackColor = false;
@@ -100,11 +97,11 @@
             this.usrc_EditRow.bNewDataEntry = false;
             this.usrc_EditRow.Changed = false;
             this.usrc_EditRow.GetRandomData = false;
-            this.usrc_EditRow.Location = new System.Drawing.Point(5, 52);
-            this.usrc_EditRow.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.usrc_EditRow.Location = new System.Drawing.Point(4, 42);
+            this.usrc_EditRow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_EditRow.Name = "usrc_EditRow";
             this.usrc_EditRow.SelectionButtonVisible = true;
-            this.usrc_EditRow.Size = new System.Drawing.Size(1070, 504);
+            this.usrc_EditRow.Size = new System.Drawing.Size(856, 454);
             this.usrc_EditRow.TabIndex = 0;
             this.usrc_EditRow.Title = "";
             this.usrc_EditRow.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -126,19 +123,18 @@
             this.dgvx_MyOrganisation.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvx_MyOrganisation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_MyOrganisation.DataGridViewWithRowNumber = false;
-            this.dgvx_MyOrganisation.Location = new System.Drawing.Point(4, 8);
-            this.dgvx_MyOrganisation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvx_MyOrganisation.Location = new System.Drawing.Point(3, 6);
             this.dgvx_MyOrganisation.MultiSelect = false;
             this.dgvx_MyOrganisation.Name = "dgvx_MyOrganisation";
             this.dgvx_MyOrganisation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_MyOrganisation.Size = new System.Drawing.Size(1070, 116);
+            this.dgvx_MyOrganisation.Size = new System.Drawing.Size(856, 105);
             this.dgvx_MyOrganisation.TabIndex = 0;
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -150,10 +146,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 701);
-            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(2, 1);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(1074, 81);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(861, 25);
             this.usrc_NavigationButtons1.TabIndex = 1;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -167,13 +162,11 @@
             // 
             // Form_myOrg_Edit
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1082, 781);
-            this.Controls.Add(this.usrc_NavigationButtons1);
+            this.ClientSize = new System.Drawing.Size(866, 625);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_myOrg_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyOrganisationData_EditForm";

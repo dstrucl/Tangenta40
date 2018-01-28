@@ -44,6 +44,7 @@
             this.rdb_ThisMonth = new System.Windows.Forms.RadioButton();
             this.rdb_LastYear = new System.Windows.Forms.RadioButton();
             this.rdb_LastWeek = new System.Windows.Forms.RadioButton();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_OK
@@ -51,7 +52,7 @@
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_OK.Location = new System.Drawing.Point(254, 173);
+            this.btn_OK.Location = new System.Drawing.Point(581, 3);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(81, 34);
             this.btn_OK.TabIndex = 0;
@@ -65,7 +66,7 @@
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(386, 173);
+            this.btn_Cancel.Location = new System.Drawing.Point(668, 3);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(81, 34);
             this.btn_Cancel.TabIndex = 1;
@@ -75,7 +76,7 @@
             // dateTimePicker_From
             // 
             this.dateTimePicker_From.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dateTimePicker_From.Location = new System.Drawing.Point(100, 119);
+            this.dateTimePicker_From.Location = new System.Drawing.Point(103, 162);
             this.dateTimePicker_From.Name = "dateTimePicker_From";
             this.dateTimePicker_From.Size = new System.Drawing.Size(271, 38);
             this.dateTimePicker_From.TabIndex = 2;
@@ -83,7 +84,7 @@
             // dateTimePicker_To
             // 
             this.dateTimePicker_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dateTimePicker_To.Location = new System.Drawing.Point(510, 118);
+            this.dateTimePicker_To.Location = new System.Drawing.Point(513, 161);
             this.dateTimePicker_To.Name = "dateTimePicker_To";
             this.dateTimePicker_To.Size = new System.Drawing.Size(271, 38);
             this.dateTimePicker_To.TabIndex = 3;
@@ -92,7 +93,7 @@
             // 
             this.lbl_From.AutoSize = true;
             this.lbl_From.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_From.Location = new System.Drawing.Point(17, 122);
+            this.lbl_From.Location = new System.Drawing.Point(20, 165);
             this.lbl_From.Name = "lbl_From";
             this.lbl_From.Size = new System.Drawing.Size(50, 31);
             this.lbl_From.TabIndex = 4;
@@ -102,7 +103,7 @@
             // 
             this.lbl_To.AutoSize = true;
             this.lbl_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_To.Location = new System.Drawing.Point(421, 121);
+            this.lbl_To.Location = new System.Drawing.Point(424, 164);
             this.lbl_To.Name = "lbl_To";
             this.lbl_To.Size = new System.Drawing.Size(44, 31);
             this.lbl_To.TabIndex = 5;
@@ -113,7 +114,7 @@
             this.rdb_All.AutoSize = true;
             this.rdb_All.Checked = true;
             this.rdb_All.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_All.Location = new System.Drawing.Point(27, 10);
+            this.rdb_All.Location = new System.Drawing.Point(30, 53);
             this.rdb_All.Name = "rdb_All";
             this.rdb_All.Size = new System.Drawing.Size(58, 33);
             this.rdb_All.TabIndex = 6;
@@ -125,7 +126,7 @@
             // 
             this.rdb_CurrentDay.AutoSize = true;
             this.rdb_CurrentDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_CurrentDay.Location = new System.Drawing.Point(116, 10);
+            this.rdb_CurrentDay.Location = new System.Drawing.Point(119, 53);
             this.rdb_CurrentDay.Name = "rdb_CurrentDay";
             this.rdb_CurrentDay.Size = new System.Drawing.Size(99, 33);
             this.rdb_CurrentDay.TabIndex = 7;
@@ -136,7 +137,7 @@
             // 
             this.rdb_ThisWeek.AutoSize = true;
             this.rdb_ThisWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ThisWeek.Location = new System.Drawing.Point(250, 10);
+            this.rdb_ThisWeek.Location = new System.Drawing.Point(253, 53);
             this.rdb_ThisWeek.Name = "rdb_ThisWeek";
             this.rdb_ThisWeek.Size = new System.Drawing.Size(146, 33);
             this.rdb_ThisWeek.TabIndex = 8;
@@ -147,7 +148,7 @@
             // 
             this.rdb_LastMonth.AutoSize = true;
             this.rdb_LastMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_LastMonth.Location = new System.Drawing.Point(23, 66);
+            this.rdb_LastMonth.Location = new System.Drawing.Point(26, 109);
             this.rdb_LastMonth.Name = "rdb_LastMonth";
             this.rdb_LastMonth.Size = new System.Drawing.Size(147, 33);
             this.rdb_LastMonth.TabIndex = 9;
@@ -158,7 +159,7 @@
             // 
             this.rdb_ThisYear.AutoSize = true;
             this.rdb_ThisYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ThisYear.Location = new System.Drawing.Point(205, 66);
+            this.rdb_ThisYear.Location = new System.Drawing.Point(208, 109);
             this.rdb_ThisYear.Name = "rdb_ThisYear";
             this.rdb_ThisYear.Size = new System.Drawing.Size(135, 33);
             this.rdb_ThisYear.TabIndex = 10;
@@ -169,7 +170,7 @@
             // 
             this.rdb_TimeSpan.AutoSize = true;
             this.rdb_TimeSpan.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_TimeSpan.Location = new System.Drawing.Point(581, 65);
+            this.rdb_TimeSpan.Location = new System.Drawing.Point(584, 108);
             this.rdb_TimeSpan.Name = "rdb_TimeSpan";
             this.rdb_TimeSpan.Size = new System.Drawing.Size(149, 33);
             this.rdb_TimeSpan.TabIndex = 11;
@@ -180,7 +181,7 @@
             // 
             this.rdb_ThisMonth.AutoSize = true;
             this.rdb_ThisMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ThisMonth.Location = new System.Drawing.Point(645, 12);
+            this.rdb_ThisMonth.Location = new System.Drawing.Point(648, 55);
             this.rdb_ThisMonth.Name = "rdb_ThisMonth";
             this.rdb_ThisMonth.Size = new System.Drawing.Size(150, 33);
             this.rdb_ThisMonth.TabIndex = 12;
@@ -191,7 +192,7 @@
             // 
             this.rdb_LastYear.AutoSize = true;
             this.rdb_LastYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_LastYear.Location = new System.Drawing.Point(386, 66);
+            this.rdb_LastYear.Location = new System.Drawing.Point(389, 109);
             this.rdb_LastYear.Name = "rdb_LastYear";
             this.rdb_LastYear.Size = new System.Drawing.Size(132, 33);
             this.rdb_LastYear.TabIndex = 13;
@@ -202,18 +203,26 @@
             // 
             this.rdb_LastWeek.AutoSize = true;
             this.rdb_LastWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_LastWeek.Location = new System.Drawing.Point(438, 10);
+            this.rdb_LastWeek.Location = new System.Drawing.Point(441, 53);
             this.rdb_LastWeek.Name = "rdb_LastWeek";
             this.rdb_LastWeek.Size = new System.Drawing.Size(143, 33);
             this.rdb_LastWeek.TabIndex = 14;
             this.rdb_LastWeek.Text = "Last Week";
             this.rdb_LastWeek.UseVisualStyleBackColor = true;
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(767, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(58, 34);
+            this.usrc_Help1.TabIndex = 15;
+            // 
             // Form_Select_TimeSpan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(829, 219);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.rdb_LastWeek);
             this.Controls.Add(this.rdb_LastYear);
             this.Controls.Add(this.rdb_ThisMonth);
@@ -255,5 +264,6 @@
         private System.Windows.Forms.RadioButton rdb_ThisMonth;
         private System.Windows.Forms.RadioButton rdb_LastYear;
         private System.Windows.Forms.RadioButton rdb_LastWeek;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

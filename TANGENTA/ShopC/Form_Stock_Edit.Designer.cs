@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Stock_Edit));
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // usrc_EditTable
@@ -40,10 +41,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable.GetRandomData = false;
-            this.usrc_EditTable.Location = new System.Drawing.Point(6, 7);
+            this.usrc_EditTable.Location = new System.Drawing.Point(6, 41);
             this.usrc_EditTable.Name = "usrc_EditTable";
             this.usrc_EditTable.SelectionButtonVisible = false;
-            this.usrc_EditTable.Size = new System.Drawing.Size(894, 596);
+            this.usrc_EditTable.Size = new System.Drawing.Size(894, 562);
             this.usrc_EditTable.TabIndex = 0;
             this.usrc_EditTable.Title = "";
             this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -54,11 +55,19 @@
             this.usrc_EditTable.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_after_UpdateDataBase);
             this.usrc_EditTable.RowReferenceFromTable_Check_NoChangeToOther += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_RowReferenceFromTable_Check_NoChangeToOther(this.usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Location = new System.Drawing.Point(857, 2);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(43, 33);
+            this.usrc_Help1.TabIndex = 1;
+            // 
             // Form_Stock_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(905, 607);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Stock_Edit";
@@ -72,6 +81,6 @@
         #endregion
 
         private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable;
-
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

@@ -37,6 +37,7 @@
             this.dgvx_Notice = new DataGridView_2xls.DataGridView2xls();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -49,7 +50,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -63,7 +64,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_Notice);
-            this.splitContainer1.Size = new System.Drawing.Size(808, 380);
+            this.splitContainer1.Size = new System.Drawing.Size(808, 405);
             this.splitContainer1.SplitterDistance = 479;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -84,7 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(7, 46);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(468, 327);
+            this.richTextBox1.Size = new System.Drawing.Size(468, 352);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
@@ -120,17 +121,17 @@
             this.dgvx_Notice.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvx_Notice.Location = new System.Drawing.Point(0, 0);
             this.dgvx_Notice.Name = "dgvx_Notice";
-            this.dgvx_Notice.Size = new System.Drawing.Size(325, 380);
+            this.dgvx_Notice.Size = new System.Drawing.Size(325, 405);
             this.dgvx_Notice.TabIndex = 0;
             // 
             // btn_OK
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_OK.Location = new System.Drawing.Point(11, 397);
+            this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_OK.Location = new System.Drawing.Point(555, 2);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(89, 40);
+            this.btn_OK.Size = new System.Drawing.Size(89, 31);
             this.btn_OK.TabIndex = 1;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = false;
@@ -138,22 +139,31 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(158, 397);
+            this.btn_Cancel.Location = new System.Drawing.Point(650, 2);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(89, 40);
+            this.btn_Cancel.Size = new System.Drawing.Size(89, 31);
             this.btn_Cancel.TabIndex = 2;
             this.btn_Cancel.UseVisualStyleBackColor = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(745, 2);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(59, 31);
+            this.usrc_Help1.TabIndex = 3;
             // 
             // Form_Notice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 442);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.splitContainer1);
@@ -181,5 +191,6 @@
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_Delete;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

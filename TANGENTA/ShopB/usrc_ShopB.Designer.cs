@@ -43,6 +43,7 @@
             this.btn_edit_ShopB_Items = new System.Windows.Forms.Button();
             this.lbl_ShopB_Items = new System.Windows.Forms.Label();
             this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -210,7 +211,7 @@
             this.btn_edit_ShopB_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_edit_ShopB_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_edit_ShopB_Items.Image = global::ShopB.Properties.Resources.Edit;
-            this.btn_edit_ShopB_Items.Location = new System.Drawing.Point(766, 0);
+            this.btn_edit_ShopB_Items.Location = new System.Drawing.Point(742, 1);
             this.btn_edit_ShopB_Items.Name = "btn_edit_ShopB_Items";
             this.btn_edit_ShopB_Items.Size = new System.Drawing.Size(32, 25);
             this.btn_edit_ShopB_Items.TabIndex = 18;
@@ -221,7 +222,7 @@
             // 
             this.lbl_ShopB_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_ShopB_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ShopB_Items.Location = new System.Drawing.Point(616, 5);
+            this.lbl_ShopB_Items.Location = new System.Drawing.Point(594, 6);
             this.lbl_ShopB_Items.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_ShopB_Items.Name = "lbl_ShopB_Items";
             this.lbl_ShopB_Items.Size = new System.Drawing.Size(146, 17);
@@ -238,9 +239,18 @@
             this.usrc_PriceList1.TabIndex = 22;
             this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(777, 1);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(32, 25);
+            this.usrc_Help1.TabIndex = 23;
+            // 
             // usrc_ShopB
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.lbl_ShopB_Name);
@@ -278,5 +288,6 @@
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public PriseLists.usrc_PriceList usrc_PriceList1;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

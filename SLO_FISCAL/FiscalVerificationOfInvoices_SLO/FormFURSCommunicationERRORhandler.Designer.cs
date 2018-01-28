@@ -34,15 +34,15 @@
             this.lbl_ErrorMessage = new System.Windows.Forms.Label();
             this.btn_CheckInternetConnection = new System.Windows.Forms.Button();
             this.btn_SendLater = new System.Windows.Forms.Button();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
             // btn_TryAagin
             // 
             this.btn_TryAagin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_TryAagin.Location = new System.Drawing.Point(255, 378);
-            this.btn_TryAagin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_TryAagin.Location = new System.Drawing.Point(204, 302);
             this.btn_TryAagin.Name = "btn_TryAagin";
-            this.btn_TryAagin.Size = new System.Drawing.Size(226, 69);
+            this.btn_TryAagin.Size = new System.Drawing.Size(181, 55);
             this.btn_TryAagin.TabIndex = 0;
             this.btn_TryAagin.Text = "Try Again";
             this.btn_TryAagin.UseVisualStyleBackColor = true;
@@ -51,10 +51,9 @@
             // btn_WriteInSalesBook
             // 
             this.btn_WriteInSalesBook.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_WriteInSalesBook.Location = new System.Drawing.Point(747, 378);
-            this.btn_WriteInSalesBook.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_WriteInSalesBook.Location = new System.Drawing.Point(598, 302);
             this.btn_WriteInSalesBook.Name = "btn_WriteInSalesBook";
-            this.btn_WriteInSalesBook.Size = new System.Drawing.Size(226, 69);
+            this.btn_WriteInSalesBook.Size = new System.Drawing.Size(181, 55);
             this.btn_WriteInSalesBook.TabIndex = 1;
             this.btn_WriteInSalesBook.Text = "Write In Sales Book";
             this.btn_WriteInSalesBook.UseVisualStyleBackColor = true;
@@ -68,10 +67,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Message.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Message.Location = new System.Drawing.Point(8, 62);
-            this.lbl_Message.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_Message.Location = new System.Drawing.Point(6, 87);
             this.lbl_Message.Name = "lbl_Message";
-            this.lbl_Message.Size = new System.Drawing.Size(720, 306);
+            this.lbl_Message.Size = new System.Drawing.Size(576, 208);
             this.lbl_Message.TabIndex = 2;
             this.lbl_Message.Text = "label1";
             // 
@@ -81,20 +79,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_ErrorMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_ErrorMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lbl_ErrorMessage.Location = new System.Drawing.Point(8, 11);
-            this.lbl_ErrorMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_ErrorMessage.Location = new System.Drawing.Point(6, 34);
             this.lbl_ErrorMessage.Name = "lbl_ErrorMessage";
-            this.lbl_ErrorMessage.Size = new System.Drawing.Size(720, 50);
+            this.lbl_ErrorMessage.Size = new System.Drawing.Size(576, 40);
             this.lbl_ErrorMessage.TabIndex = 3;
             this.lbl_ErrorMessage.Text = "label1";
             // 
             // btn_CheckInternetConnection
             // 
             this.btn_CheckInternetConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_CheckInternetConnection.Location = new System.Drawing.Point(501, 378);
-            this.btn_CheckInternetConnection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_CheckInternetConnection.Location = new System.Drawing.Point(401, 302);
             this.btn_CheckInternetConnection.Name = "btn_CheckInternetConnection";
-            this.btn_CheckInternetConnection.Size = new System.Drawing.Size(226, 69);
+            this.btn_CheckInternetConnection.Size = new System.Drawing.Size(181, 55);
             this.btn_CheckInternetConnection.TabIndex = 4;
             this.btn_CheckInternetConnection.Text = "Check Internet_Connection";
             this.btn_CheckInternetConnection.UseVisualStyleBackColor = true;
@@ -103,21 +99,29 @@
             // btn_SendLater
             // 
             this.btn_SendLater.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_SendLater.Location = new System.Drawing.Point(11, 378);
-            this.btn_SendLater.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_SendLater.Location = new System.Drawing.Point(9, 302);
             this.btn_SendLater.Name = "btn_SendLater";
-            this.btn_SendLater.Size = new System.Drawing.Size(226, 69);
+            this.btn_SendLater.Size = new System.Drawing.Size(181, 55);
             this.btn_SendLater.TabIndex = 5;
             this.btn_SendLater.Text = "Send Later";
             this.btn_SendLater.UseVisualStyleBackColor = true;
             this.btn_SendLater.Click += new System.EventHandler(this.btn_SendLater_Click);
             // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(535, 0);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(50, 31);
+            this.usrc_Help1.TabIndex = 6;
+            // 
             // FormFURSCommunicationERRORhandler
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(738, 454);
+            this.ClientSize = new System.Drawing.Size(590, 363);
             this.ControlBox = false;
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_SendLater);
             this.Controls.Add(this.btn_CheckInternetConnection);
             this.Controls.Add(this.lbl_ErrorMessage);
@@ -125,7 +129,6 @@
             this.Controls.Add(this.btn_WriteInSalesBook);
             this.Controls.Add(this.btn_TryAagin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormFURSCommunicationERRORhandler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormFURSCommunicationERRORhandler";
@@ -141,5 +144,6 @@
         private System.Windows.Forms.Label lbl_ErrorMessage;
         private System.Windows.Forms.Button btn_CheckInternetConnection;
         private System.Windows.Forms.Button btn_SendLater;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }
