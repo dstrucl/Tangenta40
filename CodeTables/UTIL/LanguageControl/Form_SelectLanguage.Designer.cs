@@ -42,7 +42,7 @@
             // lbl_SelectLanguage
             // 
             this.lbl_SelectLanguage.AutoSize = true;
-            this.lbl_SelectLanguage.Location = new System.Drawing.Point(54, 36);
+            this.lbl_SelectLanguage.Location = new System.Drawing.Point(56, 76);
             this.lbl_SelectLanguage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_SelectLanguage.Name = "lbl_SelectLanguage";
             this.lbl_SelectLanguage.Size = new System.Drawing.Size(115, 17);
@@ -54,10 +54,10 @@
             this.cmb_Language.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_Language.FormattingEnabled = true;
-            this.cmb_Language.Location = new System.Drawing.Point(39, 269);
+            this.cmb_Language.Location = new System.Drawing.Point(41, 278);
             this.cmb_Language.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_Language.Name = "cmb_Language";
-            this.cmb_Language.Size = new System.Drawing.Size(161, 25);
+            this.cmb_Language.Size = new System.Drawing.Size(218, 25);
             this.cmb_Language.TabIndex = 1;
             this.cmb_Language.SelectedIndexChanged += new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
             // 
@@ -65,7 +65,7 @@
             // 
             this.lbl_ProgramName.AutoSize = true;
             this.lbl_ProgramName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ProgramName.Location = new System.Drawing.Point(53, 7);
+            this.lbl_ProgramName.Location = new System.Drawing.Point(55, 47);
             this.lbl_ProgramName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_ProgramName.Name = "lbl_ProgramName";
             this.lbl_ProgramName.Size = new System.Drawing.Size(175, 26);
@@ -74,7 +74,7 @@
             // 
             // pic_Program_Icon
             // 
-            this.pic_Program_Icon.Location = new System.Drawing.Point(2, 2);
+            this.pic_Program_Icon.Location = new System.Drawing.Point(4, 42);
             this.pic_Program_Icon.Margin = new System.Windows.Forms.Padding(2);
             this.pic_Program_Icon.Name = "pic_Program_Icon";
             this.pic_Program_Icon.Size = new System.Drawing.Size(46, 47);
@@ -87,20 +87,24 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::LanguageControl.Properties.Resources.LanguageStandardIcon;
-            this.pictureBox1.Location = new System.Drawing.Point(2, 58);
+            this.pictureBox1.Location = new System.Drawing.Point(2, 97);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(240, 200);
+            this.pictureBox1.Size = new System.Drawing.Size(297, 177);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
             // usrc_NavigationButtons1
             // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
@@ -108,10 +112,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(29, 307);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(2, 9);
             this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(199, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(297, 31);
             this.usrc_NavigationButtons1.TabIndex = 7;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -127,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(243, 381);
+            this.ClientSize = new System.Drawing.Size(300, 314);
             this.ControlBox = false;
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.lbl_ProgramName);

@@ -25,7 +25,7 @@ namespace HUDCMS
             set { m_LocalUrl = value; }
         }
 
-        private string m_RemoteUrl = "Remote URL:";
+        private string m_RemoteUrl = "";
         public string RemoteUrl
         {
             get { return m_RemoteUrl; }

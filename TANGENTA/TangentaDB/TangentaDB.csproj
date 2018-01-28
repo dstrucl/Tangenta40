@@ -263,6 +263,10 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
+      <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
+      <Name>Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>

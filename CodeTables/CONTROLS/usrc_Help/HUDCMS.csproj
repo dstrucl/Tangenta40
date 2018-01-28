@@ -67,6 +67,14 @@
     <Compile Include="Form_Help.Designer.cs">
       <DependentUpon>Form_Help.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_HUDCMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_HUDCMS.Designer.cs">
+      <DependentUpon>Form_HUDCMS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="hctrl.cs" />
+    <Compile Include="HUDCMS_static.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +104,9 @@
     <EmbeddedResource Include="Form_Help.resx">
       <DependentUpon>Form_Help.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_HUDCMS.resx">
+      <DependentUpon>Form_HUDCMS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -118,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Help_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UTIL\Global\Global.csproj">
+      <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
+      <Name>Global</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -49,7 +49,7 @@
             // 
             this.btn2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn2.Location = new System.Drawing.Point(253, 0);
+            this.btn2.Location = new System.Drawing.Point(208, 0);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(81, 27);
             this.btn2.TabIndex = 1;
@@ -61,7 +61,7 @@
             // 
             this.btn3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn3.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn3.Location = new System.Drawing.Point(340, 0);
+            this.btn3.Location = new System.Drawing.Point(295, 0);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(81, 27);
             this.btn3.TabIndex = 2;
@@ -71,9 +71,10 @@
             // 
             // usrc_Help1
             // 
-            this.usrc_Help1.Location = new System.Drawing.Point(87, 0);
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(383, 0);
             this.usrc_Help1.Name = "usrc_Help1";
-            this.usrc_Help1.Size = new System.Drawing.Size(28, 27);
+            this.usrc_Help1.Size = new System.Drawing.Size(38, 27);
             this.usrc_Help1.TabIndex = 3;
             // 
             // usrc_NavigationButtons

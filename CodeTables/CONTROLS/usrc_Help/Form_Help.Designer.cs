@@ -37,10 +37,10 @@
             this.m_webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_webBrowser.Location = new System.Drawing.Point(2, 4);
+            this.m_webBrowser.Location = new System.Drawing.Point(2, 3);
             this.m_webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.m_webBrowser.Name = "m_webBrowser";
-            this.m_webBrowser.Size = new System.Drawing.Size(839, 590);
+            this.m_webBrowser.Size = new System.Drawing.Size(839, 584);
             this.m_webBrowser.TabIndex = 0;
             // 
             // Form_Help

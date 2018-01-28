@@ -199,7 +199,7 @@ namespace ShopC
                                                                 tbl_Item,
                                                                 "Item_$$Code desc", CurrentItem_ID, this);
             }
-            edt_Item_dlg.Owner = StaticLib.Func.GetParentForm(this);
+            edt_Item_dlg.Owner = Global.f.GetParentForm(this);
             edt_Item_dlg.Show();
         }
 

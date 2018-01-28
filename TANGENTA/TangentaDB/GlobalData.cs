@@ -150,7 +150,7 @@ namespace TangentaDB
                     //No data rows for financial year for Current Year
                     if (Default_FinancialYear != CurrentYear)
                     {
-                        if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_CurrentComputerTimeIsInNewYear, ":" + CurrentYear.ToString() + "\r\n" + lng.s_OpenNewFiscalYearYesNo.s + ":" + CurrentYear.ToString() + " ?", lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (XMessage.Box.Show(Global.f.GetParentForm(cmb_FinancialYear), lng.s_CurrentComputerTimeIsInNewYear, ":" + CurrentYear.ToString() + "\r\n" + lng.s_OpenNewFiscalYearYesNo.s + ":" + CurrentYear.ToString() + " ?", lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             bNewFinancialYear = true;
                             DataRow dr = dt_FinancialYears.NewRow();
@@ -184,7 +184,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (XMessage.Box.Show(StaticLib.Func.GetParentForm(cmb_FinancialYear), lng.s_SetNewFinancial, ":" + CurrentYear.ToString() + lng.s_AsDefaultFinancialYear.s, lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (XMessage.Box.Show(Global.f.GetParentForm(cmb_FinancialYear), lng.s_SetNewFinancial, ":" + CurrentYear.ToString() + lng.s_AsDefaultFinancialYear.s, lng.s_HappyNewYear.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             Default_FinancialYear = CurrentYear;
                         }

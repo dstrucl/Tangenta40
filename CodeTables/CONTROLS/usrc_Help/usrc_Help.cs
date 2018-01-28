@@ -19,6 +19,8 @@ namespace HUDCMS
 {
     public partial class usrc_Help: UserControl
     {
+        internal Form pForm = null;
+        public Form_Help hlp_dlg = null;
         public usrc_Help()
         {
             InitializeComponent();
@@ -26,9 +28,12 @@ namespace HUDCMS
 
         private void btn_Help_Click(object sender, EventArgs e)
         {
-            Form_Help hlp_dlg = new Form_Help();
-            hlp_dlg.ShowDialog();
-
+            pForm = Global.f.GetParentForm(this);
+            if (hlp_dlg==null)
+            {
+                hlp_dlg = new Form_Help(pForm);
+            }
+            hlp_dlg.Show();
         }
     }
 }

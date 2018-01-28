@@ -396,6 +396,15 @@ namespace Tangenta
 
                     string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
 
+                    HUDCMS.HUDCMS_static.Language = "";
+
+                    HUDCMS.HUDCMS_static.ApplicationPath = Path.GetDirectoryName(Application.ExecutablePath);
+
+                    HUDCMS.HUDCMS_static.ApplicationVersion = Global.f.GetAssemblyVersion(Assembly.GetExecutingAssembly().GetName().Version.Build,
+                                                                                          Assembly.GetExecutingAssembly().GetName().Version.Major,
+                                                                                          Assembly.GetExecutingAssembly().GetName().Version.MajorRevision,
+                                                                                          Assembly.GetExecutingAssembly().GetName().Version.Minor,
+                                                                                          Assembly.GetExecutingAssembly().GetName().Version.MinorRevision);
                     Parse_CommandLineArguments(CommandLineArguments);
 
                 DoResetNew:
@@ -419,9 +428,13 @@ namespace Tangenta
                         }
                     }
 
+                    HUDCMS.HUDCMS_static.Language = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
+
+                    
+
 
                     if (bResetNew)
                     {

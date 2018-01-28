@@ -46,9 +46,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 12);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(9, 17);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(318, 22);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(320, 28);
             this.usrc_NavigationButtons1.TabIndex = 0;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(341, 55);
+            this.ClientSize = new System.Drawing.Size(341, 62);
             this.ControlBox = false;
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

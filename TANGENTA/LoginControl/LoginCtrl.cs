@@ -333,7 +333,7 @@ namespace LoginControl
                     {
                         awp = new AWP();
                     }
-                    awp.Init(StaticLib.Func.GetParentForm(this), this, xcon, xdelegate_Edit_myOrganisationPerson);
+                    awp.Init(Global.f.GetParentForm(this), this, xcon, xdelegate_Edit_myOrganisationPerson);
                     break;
                 case eDataTableCreationMode.STD:
                     if (std == null)
@@ -341,7 +341,7 @@ namespace LoginControl
                         std = new STD();
                     }
                     string Err = null;
-                    std.Init(StaticLib.Func.GetParentForm(this), this,xcon,DBParam,Language_id, ref bCancel,ref Err);
+                    std.Init(Global.f.GetParentForm(this), this,xcon,DBParam,Language_id, ref bCancel,ref Err);
                     break;
             }
         }
@@ -413,12 +413,12 @@ namespace LoginControl
                     Navigation xnav = new Navigation(null);
                     xnav.m_eButtons = Navigation.eButtons.OkCancel;
                     AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(xnav,this.ParentForm, awp);
-                    AWP_usr_mangaer.ShowDialog(StaticLib.Func.GetParentForm(this));
+                    AWP_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
                     break;
 
                 case eDataTableCreationMode.STD:
                     STD_UserManager STD_usr_mangaer = new STD_UserManager(this.ParentForm, std);
-                    STD_usr_mangaer.ShowDialog(StaticLib.Func.GetParentForm(this));
+                    STD_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
                     break;
             }
         }
@@ -428,7 +428,7 @@ namespace LoginControl
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
-                    Form pForm = StaticLib.Func.GetParentForm(this);
+                    Form pForm = Global.f.GetParentForm(this);
                     AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, UserName, awp);
                     awp_usr_info.ShowDialog(pForm);
                     break;

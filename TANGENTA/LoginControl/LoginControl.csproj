@@ -328,6 +328,10 @@
       <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
       <Name>Excell_Export_base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
+      <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
+      <Name>Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968F4-DD18-406E-93A5-9EA7BEFCD0B0}</Project>
       <Name>LanguageControl</Name>

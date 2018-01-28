@@ -52,7 +52,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
                 this.Owner = xOwner;
@@ -152,7 +152,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
                 this.Owner = xOwner;
@@ -174,7 +174,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
                 this.Owner = xOwner;
@@ -273,7 +273,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
                 this.Owner = xOwner;
@@ -374,7 +374,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            Form xOwner = StaticLib.Func.GetParentForm(owner);
+            Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
                 this.Owner = xOwner;
