@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace usrc_Help
+namespace HUDCMS
 {
     public partial class usrc_web_Help : UserControl
     {

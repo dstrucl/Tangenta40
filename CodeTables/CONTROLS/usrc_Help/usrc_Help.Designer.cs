@@ -1,4 +1,4 @@
-﻿namespace usrc_Help
+﻿namespace HUDCMS
 {
     partial class usrc_Help
     {
@@ -34,7 +34,7 @@
             // btn_Help
             // 
             this.btn_Help.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Help.Image = global::usrc_Help.Properties.Resources.Help_bmp;
+            this.btn_Help.Image = Properties.Resources.Help_bmp;
             this.btn_Help.Location = new System.Drawing.Point(0, 0);
             this.btn_Help.Name = "btn_Help";
             this.btn_Help.Size = new System.Drawing.Size(56, 61);

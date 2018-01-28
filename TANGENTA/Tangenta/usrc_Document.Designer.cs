@@ -35,7 +35,7 @@ namespace Tangenta
             this.btn_Backup = new System.Windows.Forms.Button();
             this.btn_CodeTables = new System.Windows.Forms.Button();
             this.m_usrc_InvoiceMan = new Tangenta.usrc_InvoiceMan();
-            this.m_usrc_Help = new usrc_Help.usrc_Help();
+            this.m_usrc_Help = new HUDCMS.usrc_Help();
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.usrc_TangentaPrint1 = new TangentaPrint.usrc_TangentaPrint();
             this.loginControl1 = new LoginControl.LoginCtrl();
@@ -167,7 +167,7 @@ namespace Tangenta
 
         internal usrc_InvoiceMan m_usrc_InvoiceMan;
         private System.Windows.Forms.Button btn_Exit;
-        private usrc_Help.usrc_Help m_usrc_Help;
+        private HUDCMS.usrc_Help m_usrc_Help;
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Backup;
         private System.Windows.Forms.Button btn_CodeTables;

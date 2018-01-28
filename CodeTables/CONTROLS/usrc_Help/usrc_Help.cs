@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace usrc_Help
+namespace HUDCMS
 {
     public partial class usrc_Help: UserControl
     {

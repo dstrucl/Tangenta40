@@ -7,8 +7,8 @@
     <ProjectGuid>{8A897934-E12F-4A85-A1C5-0360F4BD69E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>usrc_Help</RootNamespace>
-    <AssemblyName>usrc_Help</AssemblyName>
+    <RootNamespace>HUDCMS</RootNamespace>
+    <AssemblyName>HUDCMS</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

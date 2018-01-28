@@ -1,4 +1,4 @@
-﻿namespace usrc_Help
+﻿namespace HUDCMS
 {
     partial class usrc_web_Help
     {

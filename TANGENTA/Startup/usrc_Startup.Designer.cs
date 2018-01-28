@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lbl_StartUp = new System.Windows.Forms.Label();
-            this.usrc_web_Help1 = new usrc_Help.usrc_web_Help();
+            this.usrc_web_Help1 = new HUDCMS.usrc_web_Help();
             this.SuspendLayout();
             // 
             // lbl_StartUp
@@ -74,6 +74,6 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_StartUp;
-        public usrc_Help.usrc_web_Help usrc_web_Help1;
+        public HUDCMS.usrc_web_Help usrc_web_Help1;
     }
 }

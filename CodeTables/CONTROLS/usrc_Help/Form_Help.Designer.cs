@@ -1,4 +1,4 @@
-﻿namespace usrc_Help
+﻿namespace HUDCMS
 {
     partial class Form_Help
     {
