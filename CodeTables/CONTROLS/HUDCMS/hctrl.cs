@@ -69,14 +69,53 @@ namespace HUDCMS
             }
         }
 
-        public hctrl(Control c,hctrl xparent)
+        public hctrl(Control xc,hctrl xparent)
         {
-            this.ctrl = c;
+            this.ctrl = xc;
             this.parentctrl = xparent;
-            xScr = xparent.xScr + c.Left;
-            yScr = xparent.yScr + c.Top;
-            ctrlbmp = new Bitmap(c.Width, c.Height);
-            c.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, c.Width, c.Height));
+            xScr = xparent.xScr + xc.Left;
+            yScr = xparent.yScr + xc.Top;
+            ctrlbmp = new Bitmap(xc.Width, xc.Height);
+            xc.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, xc.Width, xc.Height));
+            foreach (Control c in xc.Controls)
+            {
+                if (c is UserControl)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is SplitContainer)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is Panel)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is GroupBox)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is Label)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is Button)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is TextBox)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is ComboBox)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is NumericUpDown)
+                {
+                    AddSubCtrl(c);
+                }
+            }
         }
 
         private void AddSubCtrl(Control c)

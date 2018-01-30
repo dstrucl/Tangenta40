@@ -78,7 +78,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Help\HUDCMS.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
       <Name>HUDCMS</Name>
     </ProjectReference>

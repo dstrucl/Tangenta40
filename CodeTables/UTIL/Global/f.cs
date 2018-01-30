@@ -35,7 +35,7 @@ namespace Global
 
         public static string GetAssemblyVersion(int build, int major, short majorRevision, int minor, short minorRevision)
         {
-            string sAssemblyVersion = "V" + build.ToString() + "M" + major.ToString() + "R" + majorRevision.ToString() + "m" + minor.ToString() + "r" + minorRevision.ToString();
+            string sAssemblyVersion = "V" + major.ToString() + "_" + majorRevision.ToString() + "_" + minor.ToString() + "_" + minorRevision.ToString();
             return sAssemblyVersion;
         }
     }

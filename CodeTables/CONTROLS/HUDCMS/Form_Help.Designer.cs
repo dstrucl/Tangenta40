@@ -29,27 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Help));
-            this.m_webBrowser = new System.Windows.Forms.WebBrowser();
+            this.usrc_web_Help1 = new HUDCMS.usrc_web_Help();
             this.SuspendLayout();
             // 
-            // m_webBrowser
+            // usrc_web_Help1
             // 
-            this.m_webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_webBrowser.Location = new System.Drawing.Point(2, 3);
-            this.m_webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.m_webBrowser.Name = "m_webBrowser";
-            this.m_webBrowser.Size = new System.Drawing.Size(839, 584);
-            this.m_webBrowser.TabIndex = 0;
+            this.usrc_web_Help1.BackColor = System.Drawing.Color.LemonChiffon;
+            this.usrc_web_Help1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_web_Help1.LocalUrl = "Local URL:";
+            this.usrc_web_Help1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_web_Help1.Name = "usrc_web_Help1";
+            this.usrc_web_Help1.RemoteUrl = "";
+            this.usrc_web_Help1.Size = new System.Drawing.Size(1123, 731);
+            this.usrc_web_Help1.TabIndex = 0;
             // 
             // Form_Help
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 594);
-            this.Controls.Add(this.m_webBrowser);
+            this.ClientSize = new System.Drawing.Size(1123, 731);
+            this.Controls.Add(this.usrc_web_Help1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_Help";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form_Help_Load);
@@ -59,6 +60,6 @@
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser m_webBrowser;
+        private usrc_web_Help usrc_web_Help1;
     }
 }

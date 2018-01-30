@@ -20,41 +20,20 @@ namespace HUDCMS
 {
     public partial class Form_Help : Form
     {
-        Form pForm = null;
-        internal string RelativeURL = null;
-        internal string ModuleName = null;
-        internal string HtmlFileName = null;
-        internal string sLocalHtmlFile = null;
-        internal Form_HUDCMS frm_HUDCMS = null;
 
-        public Form_Help(Form xpForm)
+        private usrc_Help mH = null;
+
+        public Form_Help(usrc_Help xusrc_Help)
         {
             InitializeComponent();
-            pForm = xpForm;
+
+            mH = xusrc_Help;
         }
 
         private void Form_Help_Load(object sender, EventArgs e)
         {
-
-            if (HUDCMS_static.GetLocalHtmlFile(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref  sLocalHtmlFile))
-            {
-                if (File.Exists(sLocalHtmlFile))
-                {
-                    this.m_webBrowser.Url = new Uri("file:///" + sLocalHtmlFile);
-                }
-                else
-                {
-                    //Local File does not exist
-                    frm_HUDCMS = new Form_HUDCMS(pForm, sLocalHtmlFile);
-                    frm_HUDCMS.Owner = this;
-                    frm_HUDCMS.Show();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Can not get relative URL");
-            }
-
+            usrc_web_Help1.Init(mH);
+            usrc_web_Help1.Refresh();
         }
     }
 }

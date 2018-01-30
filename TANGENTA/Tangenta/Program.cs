@@ -320,9 +320,8 @@ namespace Tangenta
             command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lng.s_commandline_DOCPROFORMAINVOICE.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lng.s_commandline_CHANGE_CONNECTION.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lng.s_commandline_RESETNEW.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lng.s_commandline_RS232MONITOR.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lng.s_commandline_AUTONEXT.s));
+//            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));
+//            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lng.s_commandline_AUTONEXT.s));
 
             NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation(null);
             if (Auto_NEXT)

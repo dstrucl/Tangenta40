@@ -101,13 +101,13 @@
       <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
       <Name>Check</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Help\HUDCMS.csproj">
-      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
-      <Name>HUDCMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>

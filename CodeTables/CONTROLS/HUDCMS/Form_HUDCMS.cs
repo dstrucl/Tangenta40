@@ -12,19 +12,31 @@ namespace HUDCMS
     public partial class Form_HUDCMS : Form
     {
         private hctrl hc = null;
-        Form pForm = null;
-        string sLocalHtmlFile = null;
-        public Form_HUDCMS(Form xpForm, string xsLocalHtmlFile)
+        private usrc_Help mH = null;
+
+        public Form_HUDCMS(usrc_Help xH)
         {
             InitializeComponent();
-            pForm = xpForm;
-            sLocalHtmlFile = xsLocalHtmlFile;
-            hc = new hctrl(pForm);
-            if (hc.ctrlbmp != null)
+            mH = xH;
+            hc = new hctrl(mH.pForm);
+            int y= 0;
+            CreateControls(ref y,hc);
+        }
+
+        private void CreateControls(ref int y, hctrl hc)
+        {
+
+            if (hc.pForm!=null)
             {
-                pic_Form.Width = hc.ctrlbmp.Width;
-                pic_Form.Height = hc.ctrlbmp.Height;
-                pic_Form.Image = hc.ctrlbmp;
+                //this is a Form control
+                usrc_Form uForm = new usrc_Form();
+                uForm.Init(hc);
+                uForm.Top = y;
+                uForm.Left = 2;
+                uForm.Width = this.Width - uForm.Left;
+                uForm.Visible = true;
+                HUDCMS_static.SetControlAnchorAll(uForm);
+                this.Controls.Add(uForm);
             }
         }
     }

@@ -567,8 +567,6 @@ namespace Tangenta
 
         public static ltext s_AUTONEXT_missing_parameter = new ltext(new string[] { "/AUTONEXT missing or parsing error for Auto_NEXT_in_miliseconds!/r/n(Example:\"/AUTONEXT==10\")\r\nAuto_NEXT_in_miliseconds = 10ms : is default value", "/AUTONEXT manjka parameter - število milisikund za skok na naslednji korak!\r\n\"/AUTONEXT=10\")\r\nAuto_NEXT_in_miliseconds = 10ms : je privzeta vrednost s katero bo program nadaljeval." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
-        public static ltext s_commandline_RS232MONITOR = new ltext(new string[] { "Activates RS232 Monitor for Leuze sensor.\r\n With RS232 Monitor Form you can see data streem from Leuze Sensor", "Aktivira RS232 Monitor.\r\n Z njim lahko spreljate prihod podatkov od Leuze senzorja,\r\nki prečita postavljena orodja (črke) za prešanje tablice." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
-
         public static ltext s_commandline_DOCINVOICE = new ltext(new string[] { "Starts program to edit or view Invoices", "Zažene program tako, da začnete najprej urejati ali pregledovati račune" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_commandline_DOCPROFORMAINVOICE = new ltext(new string[] { "Starts program to edit or view proforma invoices", "Zažene program tako, da začnete najprej urejati predračune" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
