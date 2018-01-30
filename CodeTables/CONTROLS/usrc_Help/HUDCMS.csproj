@@ -50,9 +50,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FastColoredTextBox">
-      <HintPath>..\..\..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -78,11 +75,6 @@
     </Compile>
     <Compile Include="hctrl.cs" />
     <Compile Include="HUDCMS_static.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -95,23 +87,11 @@
       <DependentUpon>usrc_Help.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="usrc_Control.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Control.Designer.cs">
-      <DependentUpon>usrc_Control.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_web_Help.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_web_Help.Designer.cs">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_RootControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_RootControl.Designer.cs">
-      <DependentUpon>usrc_RootControl.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -122,21 +102,11 @@
     <EmbeddedResource Include="Form_HUDCMS.resx">
       <DependentUpon>Form_HUDCMS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Help.resx">
       <DependentUpon>usrc_Help.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Control.resx">
-      <DependentUpon>usrc_Control.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_web_Help.resx">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_RootControl.resx">
-      <DependentUpon>usrc_RootControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -152,17 +122,10 @@
     <None Include="Resources\Help_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SelectFile\SelectFile.csproj">
-      <Project>{6850b603-25a4-4b91-a85a-8ab4cdebf48f}</Project>
-      <Name>SelectFile</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\UTIL\Global\Global.csproj">
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Edit.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

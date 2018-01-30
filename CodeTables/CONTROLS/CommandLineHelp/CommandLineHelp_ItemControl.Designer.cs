@@ -34,9 +34,11 @@
             // 
             // txt_Help
             // 
+            this.txt_Help.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Help.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_Help.Location = new System.Drawing.Point(25, 1);
-            this.txt_Help.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Help.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Help.Multiline = true;
             this.txt_Help.Name = "txt_Help";
             this.txt_Help.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -61,7 +63,7 @@
             this.Controls.Add(this.chk_select);
             this.Controls.Add(this.txt_Help);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CommandLineHelp_ItemControl";
             this.Size = new System.Drawing.Size(651, 112);
             this.ResumeLayout(false);

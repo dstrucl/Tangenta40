@@ -42,6 +42,18 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c);
                 }
+                else if (c is CheckBox)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is RadioButton)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is DateTimePicker)
+                {
+                    AddSubCtrl(c);
+                }
                 else if (c is GroupBox)
                 {
                     AddSubCtrl(c);
@@ -67,7 +79,10 @@ namespace HUDCMS
                     AddSubCtrl(c);
                 }
             }
+            Create_position_sorted_subctrl();
         }
+
+       
 
         public hctrl(Control xc,hctrl xparent)
         {
@@ -75,8 +90,15 @@ namespace HUDCMS
             this.parentctrl = xparent;
             xScr = xparent.xScr + xc.Left;
             yScr = xparent.yScr + xc.Top;
-            ctrlbmp = new Bitmap(xc.Width, xc.Height);
-            xc.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, xc.Width, xc.Height));
+            if ((xc.Width > 0) && (xc.Height > 0))
+            {
+                ctrlbmp = new Bitmap(xc.Width, xc.Height);
+                xc.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, xc.Width, xc.Height));
+            }
+            else
+            {
+                ctrlbmp = null;
+            }
             foreach (Control c in xc.Controls)
             {
                 if (c is UserControl)
@@ -91,6 +113,18 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c);
                 }
+                else if (c is CheckBox)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is RadioButton)
+                {
+                    AddSubCtrl(c);
+                }
+                else if (c is DateTimePicker)
+                {
+                    AddSubCtrl(c);
+                }
                 else if (c is GroupBox)
                 {
                     AddSubCtrl(c);
@@ -116,6 +150,7 @@ namespace HUDCMS
                     AddSubCtrl(c);
                 }
             }
+            Create_position_sorted_subctrl();
         }
 
         private void AddSubCtrl(Control c)
@@ -125,6 +160,72 @@ namespace HUDCMS
                 subctrl = new List<hctrl>();
             }
             subctrl.Add(new hctrl(c,this));
+        }
+
+        private void Create_position_sorted_subctrl()
+        {
+            if (subctrl != null)
+            {
+                int iCount = subctrl.Count;
+
+                for (int i=0;i<iCount;i++)
+                {
+                    for (int j = i + 1; j < iCount; j++)
+                    {
+                        if (subctrl_j_before_subctrl_i(j,i))
+                        {
+                            raplace(j, i);
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        private void raplace(int j, int i)
+        {
+            var item = subctrl[j];
+            subctrl.RemoveAt(j);
+            if (i > j) i--;
+            // the actual index could have shifted due to the removal
+            subctrl.Insert(i, item);
+        }
+
+        private bool subctrl_j_before_subctrl_i(int j, int i)
+        {
+            hctrl hcj = subctrl[j];
+            hctrl hci = subctrl[i];
+            if ((midy(hcj) < midy(hci)-10)&& (midy(hcj) < midy(hci) + 10))
+            {
+                //above
+                return true;
+
+            }
+            else if ((midy(hcj) > midy(hci) - 10) && (midy(hcj) > midy(hci) + 10))
+            {
+                //below
+                return false;
+            }
+            else
+            {
+                // in same row compare xScr
+                if (hcj.xScr < hci.xScr)
+                {
+                    //before
+                    return true;
+                }
+                else
+                {
+                    //after
+                    return false;
+                }
+            }
+
+        }
+
+        private int midy(hctrl hcj)
+        {
+           return hcj.yScr + hcj.height / 2;
         }
     }
 }

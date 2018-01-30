@@ -9,15 +9,18 @@ using System.Windows.Forms;
 
 namespace HUDCMS
 {
-    public partial class usrc_Form : UserControl
+    public partial class usrc_RootControl : UserControl
     {
-        public usrc_Form()
+        private usrc_Help uH = null;
+
+        public usrc_RootControl()
         {
             InitializeComponent();
         }
 
-        internal void Init(hctrl hc)
+        internal void Init(usrc_Help xuH, hctrl hc)
         {
+            uH = xuH;
             if (hc.pForm != null)
             {
                 string sModal = null;
@@ -30,11 +33,11 @@ namespace HUDCMS
                     sModal = "No";
                 }
                 this.lbl_Dialog.Text = HUDCMS_static.slng_FormName + "=" + hc.pForm.Name + " " + HUDCMS_static.slng_FormTitle +":\""+ hc.pForm.Text+"\" Modal:" + sModal;
-                this.pic_Form.Image = hc.ctrlbmp;
+                this.pic_Control.Image = hc.ctrlbmp;
             }
             else
             {
-                MessageBox.Show("ERROR:usrc_Form:(hc.pForm != null)");
+                this.lbl_Dialog.Text = HUDCMS_static.slng_UserControlName + "=" + hc.ctrl.Name;
             }
         }
     }

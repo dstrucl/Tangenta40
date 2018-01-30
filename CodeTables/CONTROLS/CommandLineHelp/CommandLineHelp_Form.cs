@@ -77,7 +77,9 @@ namespace CommandLineHelp
             foreach (CommandLineHelp cmdlnhlp in m_CommandLineHelpList)
             {
                 helpctrl_last = new CommandLineHelp_ItemControl(cmdlnhlp);
+                helpctrl_last.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
                 helpctrl_last.Top = y;
+                helpctrl_last.Width = this.panel_Help.Width - 20;
                 this.panel_Help.Controls.Add(helpctrl_last);
                 helpctrl_last.Left = 10;
                 y = helpctrl_last.Bottom + 10;
