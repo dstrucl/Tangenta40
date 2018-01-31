@@ -160,7 +160,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Global", "CodeTables\UTIL\G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HUDCMS", "CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj", "{8A897934-E12F-4A85-A1C5-0360F4BD69E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectFile", "SelectFile\SelectFile.csproj", "{6850B603-25A4-4B91-A85A-8AB4CDEBF48F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectFile", "CodeTables\CONTROLS\SelectFile\SelectFile.csproj", "{6850B603-25A4-4B91-A85A-8AB4CDEBF48F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
