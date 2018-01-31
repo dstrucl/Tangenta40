@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_File = new System.Windows.Forms.TextBox();
             this.btn_Save = new System.Windows.Forms.Button();
-            this.btn_Edit = new System.Windows.Forms.Button();
+            this.rbtn_Edit = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -64,22 +64,23 @@
             this.btn_Save.UseVisualStyleBackColor = true;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
-            // btn_Edit
+            // rbtn_Edit
             // 
-            this.btn_Edit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Edit.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.btn_Edit.Location = new System.Drawing.Point(758, 4);
-            this.btn_Edit.Name = "btn_Edit";
-            this.btn_Edit.Size = new System.Drawing.Size(62, 26);
-            this.btn_Edit.TabIndex = 4;
-            this.btn_Edit.Text = "Edit";
-            this.btn_Edit.UseVisualStyleBackColor = true;
+            this.rbtn_Edit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbtn_Edit.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_Edit.Location = new System.Drawing.Point(758, 4);
+            this.rbtn_Edit.Name = "rbtn_Edit";
+            this.rbtn_Edit.Size = new System.Drawing.Size(62, 26);
+            this.rbtn_Edit.TabIndex = 4;
+            this.rbtn_Edit.Text = "Edit";
+            this.rbtn_Edit.UseVisualStyleBackColor = true;
+            this.rbtn_Edit.CheckedChanged += new System.EventHandler(this.rbtn_Edit_CheckedChanged);
             // 
             // usrc_SelectFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.btn_Edit);
+            this.Controls.Add(this.rbtn_Edit);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.txt_File);
             this.Controls.Add(this.label1);
@@ -95,6 +96,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_File;
         private System.Windows.Forms.Button btn_Save;
-        private System.Windows.Forms.Button btn_Edit;
+        private System.Windows.Forms.RadioButton rbtn_Edit;
     }
 }

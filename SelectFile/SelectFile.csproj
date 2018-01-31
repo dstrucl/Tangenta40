@@ -58,5 +58,11 @@
       <DependentUpon>usrc_SelectFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeTables\UTIL\Global\Global.csproj">
+      <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
+      <Name>Global</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,6 +16,37 @@ namespace SelectFile
         public delegate bool delegate_SaveFile(string FileName, ref string Err);
         public event delegate_SaveFile SaveFile = null;
 
+        public delegate bool delegate_EditFile(string FileName, ref string Err);
+        public event delegate_EditFile EditFile = null;
+
+
+        public bool RadioEditButton
+        {
+            get { return rbtn_Edit.Checked; }
+            set
+            {
+                rbtn_Edit.Checked = value;
+            }
+        }
+
+        private void Uncheck_usrc_SelectFileRadioEditButton_in_SubCtrls(Control BaseCtrl,usrc_SelectFile myusrc_SelectFile)
+        {
+            foreach (Control ctrl in BaseCtrl.Controls)
+            {
+                if (ctrl is usrc_SelectFile)
+                {
+                    if ((usrc_SelectFile)ctrl!= myusrc_SelectFile)
+                    {
+                        ((usrc_SelectFile)ctrl).RadioEditButton = false;
+                    }
+                }
+                if (ctrl.Controls!=null)
+                {
+                    Uncheck_usrc_SelectFileRadioEditButton_in_SubCtrls(ctrl, myusrc_SelectFile);
+                }
+            }
+        }
+
         private string m_InitialDirectory = @"C:\";
         public string InitialDirectory
         {
@@ -143,6 +174,16 @@ namespace SelectFile
                     }
                 }
                 showfiledialog(path);
+            }
+        }
+
+        private void rbtn_Edit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtn_Edit.Checked)
+            {
+                //uncheck all other rbtn_Edit
+                Form bBaseForm = Global.f.GetParentForm(this);
+                Uncheck_usrc_SelectFileRadioEditButton_in_SubCtrls(bBaseForm, this);
             }
         }
     }

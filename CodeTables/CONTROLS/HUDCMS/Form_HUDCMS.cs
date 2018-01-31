@@ -40,7 +40,7 @@ namespace HUDCMS
             usrc_SelectStyleFile.Title = "Save style file";
             usrc_SelectStyleFile.Text = "Style file:";
 
-            CreateControls(ref y,0,hc,this);
+            CreateControls(ref y,0,hc,this.panel1);
         }
 
         private void CreateControls(ref int y,int level, hctrl xhc,Control xctrl)
@@ -75,12 +75,12 @@ namespace HUDCMS
             else
             {
                 usrc_Control uctrl = new usrc_Control();
+                uctrl.Parent = xctrl;
                 uctrl.Init(mH,xhc);
                 uctrl.Top = y;
                 uctrl.Left = 3;
-                uctrl.Width = this.Width - uctrl.Left- level*4;
+                uctrl.Width = xctrl.Width - uctrl.Left - 3;
                 uctrl.Visible = true;
-                uctrl.Parent = xctrl;
                 xctrl.Controls.Add(uctrl);
                 uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 if (xhc.subctrl != null)

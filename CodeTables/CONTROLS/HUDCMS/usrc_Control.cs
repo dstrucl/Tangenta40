@@ -14,6 +14,13 @@ namespace HUDCMS
     public partial class usrc_Control : UserControl
     {
         private usrc_Help uH = null;
+        private int m_MaxPanelHeight = 400;
+        public int MaxPanelHeight
+        {
+            get { return m_MaxPanelHeight; }
+            set { m_MaxPanelHeight = value; }
+        }
+
         public usrc_Control()
         {
             InitializeComponent();
@@ -24,73 +31,56 @@ namespace HUDCMS
         {
             uH = xuH;
             string sText = "";
-            if (xhc.ctrl is Button)
+            if (xhc.ctrl is UserControl)
             {
-                sText = "  TEXT:\"" + ((Button)xhc.ctrl).Text + "\"";
+                this.lbl_Control.ForeColor = Color.DarkBlue;
             }
-            else if (xhc.ctrl is GroupBox)
+            else
             {
-                sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\""; ;
+                this.lbl_Control.ForeColor = Color.Black;
+                if (xhc.ctrl is Button)
+                {
+                    sText = "  TEXT:\"" + ((Button)xhc.ctrl).Text + "\"";
+                }
+                else if (xhc.ctrl is GroupBox)
+                {
+                    sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\""; ;
+                }
+                else if (xhc.ctrl is Label)
+                {
+                    sText = "  TEXT:\"" + ((Label)xhc.ctrl).Text + "\""; ;
+                }
             }
-            else if (xhc.ctrl is Label)
-            {
-                sText = "  TEXT:\"" + ((Label)xhc.ctrl).Text + "\""; ;
-            }
+
+            
             this.lbl_Control.Text = HUDCMS_static.slng_UserControlName + "=" + xhc.ctrl.Name+ "  Type:"+ xhc.ctrl.GetType().ToString()+ sText;
 
             if (xhc.ctrlbmp != null)
             {
                 this.usrc_SelectPictureFile.Enabled = true;
                 this.pic_Control.Image = xhc.ctrlbmp;
-                if (xhc.ctrlbmp.Width < this.splitContainer1.Width / 2)
+                this.pic_Control.SizeMode = PictureBoxSizeMode.Normal;
+                this.pic_Control.Width = xhc.ctrlbmp.Width;
+                this.pic_Control.Height = xhc.ctrlbmp.Height;
+                this.usrc_SelectPictureFile.Title = "Save Image";
+                string path = Path.GetDirectoryName(uH.sLocalHtmlFile);
+                this.usrc_SelectPictureFile.FileName = path + "\\" + xhc.ctrl.Name + ".png";
+                this.usrc_SelectPictureFile.Text = this.usrc_SelectPictureFile.FileName;
+                this.usrc_SelectPictureFile.InitialDirectory = path;
+                this.usrc_SelectPictureFile.DefaultExtension = "png";
+                this.usrc_SelectPictureFile.Filter = "Image files (*.png)|*.png|(*.jpg)|*.jpg|All files (*.*)|*.*";
+                this.panel1.Height = this.pic_Control.Bottom + 4;
+                if (this.panel1.Height>MaxPanelHeight)
                 {
-                    this.splitContainer1.Orientation = Orientation.Vertical;
-                    this.splitContainer1.SplitterDistance = xhc.ctrlbmp.Width;
-                    this.pic_Control.SizeMode = PictureBoxSizeMode.Normal;
-                    this.pic_Control.Width = xhc.ctrlbmp.Width;
-                    this.pic_Control.Height = xhc.ctrlbmp.Height;
-                    if (xhc.ctrlbmp.Height > 200)
-                    {
-                        this.splitContainer1.Height = xhc.ctrlbmp.Height + 4;
-                    }
-                    else
-                    {
-                        this.splitContainer1.Height = 200;
-                    }
+                    this.panel1.Height = MaxPanelHeight;
                 }
-                else
-                {
-                    this.splitContainer1.Orientation = Orientation.Horizontal;
-                    if (xhc.ctrlbmp.Height > 200)
-                    {
-                        this.splitContainer1.SplitterDistance = 300;
-                        this.pic_Control.SizeMode = PictureBoxSizeMode.Normal;
-                        this.pic_Control.Width = xhc.ctrlbmp.Width;
-                        this.pic_Control.Height = xhc.ctrlbmp.Height;
-                        this.splitContainer1.Height = 4 + 600;
-                    }
-                    else
-                    {
-                        this.pic_Control.SizeMode = PictureBoxSizeMode.Normal;
-                        this.splitContainer1.SplitterDistance = xhc.ctrlbmp.Height;
-                        this.splitContainer1.Height = xhc.ctrlbmp.Height + 200;
-                        this.pic_Control.Width = xhc.ctrlbmp.Width;
-                        this.pic_Control.Height = xhc.ctrlbmp.Height;
-                    }
-                    this.usrc_SelectPictureFile.Title = "Save Image";
-                    string path = Path.GetDirectoryName(uH.sLocalHtmlFile);
-                    this.usrc_SelectPictureFile.FileName = path + "\\" + xhc.ctrl.Name + ".png";
-                    this.usrc_SelectPictureFile.Text = this.usrc_SelectPictureFile.FileName;
-                    this.usrc_SelectPictureFile.InitialDirectory = path;
-                    this.usrc_SelectPictureFile.DefaultExtension = "png";
-                    this.usrc_SelectPictureFile.Filter = "Image files (*.png)|*.png|(*.jpg)|*.jpg|All files (*.*)|*.*";
-                }
+                this.Height = this.panel1.Bottom + 4;
             }
             else
             {
                 this.usrc_SelectPictureFile.Enabled = false;
             }
-                this.Height = this.splitContainer1.Bottom + 4;
+               
             this.Refresh();
         }
 
@@ -109,6 +99,11 @@ namespace HUDCMS
                 Err = ex.Message;
             }
             return false;            
+        }
+
+        private void pic_Control_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
