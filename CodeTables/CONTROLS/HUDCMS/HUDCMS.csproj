@@ -53,6 +53,9 @@
     <Reference Include="FastColoredTextBox">
       <HintPath>..\..\..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
+    <Reference Include="RadioButtonGlobal">
+      <HintPath>..\RadioButtonGlobal\obj\Debug\RadioButtonGlobal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

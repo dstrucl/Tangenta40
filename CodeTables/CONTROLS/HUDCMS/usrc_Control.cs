@@ -13,6 +13,8 @@ namespace HUDCMS
 {
     public partial class usrc_Control : UserControl
     {
+       
+
         private usrc_Help uH = null;
         private int m_MaxPanelHeight = 400;
         public int MaxPanelHeight
@@ -104,6 +106,14 @@ namespace HUDCMS
         private void pic_Control_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButtonGlobal1_CheckChanged()
+        {
+            if (radioButtonGlobal1.Checked)
+            {
+                // show inner html
+            }
         }
     }
 }

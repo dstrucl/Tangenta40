@@ -53,10 +53,6 @@
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
-    <Reference Include="HUDCMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CodeTables\CONTROLS\usrc_Help\bin\Debug\HUDCMS.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -162,6 +158,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DigitalRune.Windows.TextEditor\DigitalRune.Windows.TextEditor.csproj">
       <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
       <Name>DigitalRune.Windows.TextEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ListControls-master\Source\EWSListControls.csproj">
       <Project>{8b77e8dd-a857-4a6e-bca3-93ac56b80f57}</Project>

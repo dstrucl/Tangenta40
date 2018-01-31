@@ -69,10 +69,6 @@
     <Reference Include="GongShell">
       <HintPath>..\..\DLL\GongShell.dll</HintPath>
     </Reference>
-    <Reference Include="HUDCMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\CONTROLS\usrc_Help\bin\Debug\HUDCMS.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.8.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DLL\MySql.Data.dll</HintPath>
@@ -331,13 +327,13 @@
       <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
       <Name>ComboBox_Recent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UTIL\IniFile\IniFile.csproj">
-      <Project>{8de992ca-da95-4aef-ab52-01332a034536}</Project>
-      <Name>IniFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>

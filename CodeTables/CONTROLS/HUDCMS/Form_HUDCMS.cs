@@ -20,8 +20,7 @@ namespace HUDCMS
             InitializeComponent();
             mH = xH;
             hc = new hctrl(mH.pForm);
-            int y= grp_Style.Bottom+4;
-
+            int y= 2;
             usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.sLocalHtmlFile);
             usrc_SelectHtmlFile.FileName = mH.sLocalHtmlFile;
             usrc_SelectStyleFile.Title = "Save HTML file";
@@ -50,13 +49,13 @@ namespace HUDCMS
             {
                 //this is a Root Control
                 usrc_RootControl uRoot = new usrc_RootControl();
+                uRoot.Parent = xctrl;
                 uRoot.Init(mH,xhc);
                 uRoot.Top = y;
-                uRoot.Left = 3+ level*3;
-                uRoot.Width = this.Width - uRoot.Left;
-                uRoot.Visible = true;
-                uRoot.Parent = xctrl;
+                uRoot.Left = 3;
+                uRoot.Width = this.Width - uRoot.Left - 3;
                 HUDCMS_static.SetControlAnchorTopLeftRight(uRoot);
+                uRoot.Visible = true;
                 xctrl.Controls.Add(uRoot);
                 y += uRoot.Height + 4;
                 if (xhc.subctrl != null)
@@ -95,24 +94,7 @@ namespace HUDCMS
                     }
                     uctrl.Height = ysub;
                 }
-//                AddParentsSize(uctrl.Parent, uctrl.Height+4);
                 y += uctrl.Height + 8;
-            }
-        }
-
-        private void AddParentsSize(Control parent, int height)
-        {
-            parent.Height += height+4;
-            if (parent.Parent!=null)
-            {
-                if (parent.Parent is Form)
-                {
-                    return;
-                }
-                else
-                {
-                    AddParentsSize(parent.Parent, height);
-                }
             }
         }
 

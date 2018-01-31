@@ -50,10 +50,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HUDCMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CodeTables\CONTROLS\usrc_Help\bin\Debug\HUDCMS.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -128,6 +124,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
       <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
       <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
