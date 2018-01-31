@@ -76,6 +76,7 @@
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(38, 27);
             this.usrc_Help1.TabIndex = 3;
+            this.usrc_Help1.HelpClicked += new HUDCMS.usrc_Help.delegate_HelpClicked(this.usrc_Help1_HelpClicked);
             // 
             // usrc_NavigationButtons
             // 

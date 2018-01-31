@@ -350,11 +350,37 @@ namespace Tangenta
             CommandLineHelpNav.btn3_ToolTip_Text = "Exit program Tangenta";
             CommandLineHelpNav.ExitProgramQuestionInLanguage = lng.s_RealyWantToExitProgram.s;
 
-            CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, CommandLineHelpNav, Properties.Resources.Tangenta_Question);
+            CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help,
+                                                                                                    CommandLineHelpNav, 
+                                                                                                    Properties.Resources.Tangenta_Question,
+                                                                                                    Properties.Settings.Default.HelpLocalPath,
+                                                                                                    Properties.Settings.Default.HelpRemoteURL);
             CommandLineHelpNav.ChildDialog = hlp_frm;
             CommandLineHelpNav.ShowDialog();
             if ((CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {
+                bool bHelpSettingsChanged = false;
+                if (hlp_frm.LocalHelpPath!=null)
+                {
+                    if (hlp_frm.LocalHelpPath.Length > 0)
+                    {
+                        Properties.Settings.Default.HelpLocalPath = hlp_frm.LocalHelpPath;
+                        bHelpSettingsChanged = true;
+                    }
+                }
+                if (hlp_frm.RemoteHelpURL!=null)
+                {
+                    if (hlp_frm.RemoteHelpURL.Length > 0)
+                    {
+                        Properties.Settings.Default.HelpRemoteURL = hlp_frm.RemoteHelpURL;
+                        bHelpSettingsChanged = true;
+                    }
+                }
+                if (bHelpSettingsChanged)
+                {
+                    Properties.Settings.Default.Save();
+                }
+
                 CommandLineArguments = hlp_frm.CommandLineArguments;
                 Parse_CommandLineArguments(CommandLineArguments);
             }

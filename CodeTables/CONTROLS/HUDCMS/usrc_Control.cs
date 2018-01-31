@@ -33,12 +33,14 @@ namespace HUDCMS
         {
             uH = xuH;
             string sText = "";
+            string sControl = HUDCMS_static.slng_UserControlName;
             if (xhc.ctrl is UserControl)
             {
                 this.lbl_Control.ForeColor = Color.DarkBlue;
             }
             else
             {
+                sControl = "Control";
                 this.lbl_Control.ForeColor = Color.Black;
                 if (xhc.ctrl is Button)
                 {
@@ -55,7 +57,7 @@ namespace HUDCMS
             }
 
             
-            this.lbl_Control.Text = HUDCMS_static.slng_UserControlName + "=" + xhc.ctrl.Name+ "  Type:"+ xhc.ctrl.GetType().ToString()+ sText;
+            this.lbl_Control.Text = sControl + "=" + xhc.ctrl.Name+ "  Type:"+ xhc.ctrl.GetType().ToString()+ sText;
 
             if (xhc.ctrlbmp != null)
             {

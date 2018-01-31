@@ -22,14 +22,36 @@ namespace CommandLineHelp
         List<CommandLineHelp> m_CommandLineHelpList = null;
         CommandLineHelp_ItemControl helpctrl_last;
         NavigationButtons.Navigation nav = null;
+        public string LocalHelpPath = null;
+        public string RemoteHelpURL = null;
 
         public string[] CommandLineArguments = null;
 
-        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, NavigationButtons.Navigation xnav, Icon xFormIcon)
+        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, NavigationButtons.Navigation xnav, Icon xFormIcon,
+                                    string xLocalHelpPath,
+                                    string xRemoteHelpURL)
         {
             InitializeComponent();
+            LocalHelpPath = xLocalHelpPath;
+            RemoteHelpURL = xRemoteHelpURL;
             m_CommandLineHelpList = CommandLineHelpList;
             nav = xnav;
+            if (RemoteHelpURL!=null)
+            {
+                if (RemoteHelpURL.Length>0)
+                {
+                    txt_RemoteHelpURL.Text = RemoteHelpURL;
+                }
+            }
+
+            if (LocalHelpPath != null)
+            {
+                if (LocalHelpPath.Length > 0)
+                {
+                    usrc_SelectLocalHelpFolder.InitialDirectory = LocalHelpPath;
+                }
+            }
+
             usrc_NavigationButtons1.Init(nav);
             if (xFormIcon!=null)
             {
@@ -39,6 +61,8 @@ namespace CommandLineHelp
 
         private void do_OK()
         {
+            LocalHelpPath = usrc_SelectLocalHelpFolder.SelectedFolder;
+            RemoteHelpURL = txt_RemoteHelpURL.Text;
             List<string> cmds = new List<string>();
             foreach (Control ctrl in this.panel_Help.Controls)
             {
@@ -120,6 +144,37 @@ namespace CommandLineHelp
                     break;
             }
 
+        }
+
+        private void usrc_NavigationButtons1_HelpClicked()
+        {
+            LocalHelpPath = usrc_SelectLocalHelpFolder.SelectedFolder;
+            RemoteHelpURL = txt_RemoteHelpURL.Text;
+            if (RemoteHelpURL!=null)
+            {
+                if (RemoteHelpURL.Length>0)
+                {
+                    HUDCMS.HUDCMS_static.RemoteHelpURL = RemoteHelpURL;
+                }
+            }
+            if (LocalHelpPath != null)
+            {
+                if (LocalHelpPath.Length > 0)
+                {
+                    HUDCMS.HUDCMS_static.LocalHelpPath = LocalHelpPath;
+                }
+            }
+
+        }
+
+        private void CommandLineHelp_Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // this code is because of a bug in FolderBrowserDialog
+            // see https://www.experts-exchange.com/questions/24413526/Child-Dialog-Closes-Parent-Dialog-in-VB-NET.html
+            if (e.CloseReason == CloseReason.None)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

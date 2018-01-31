@@ -20,6 +20,9 @@ namespace HUDCMS
 {
     public partial class usrc_Help: UserControl
     {
+        public delegate void delegate_HelpClicked();
+        public event delegate_HelpClicked HelpClicked = null;
+
         internal Form pForm = null;
 
 
@@ -110,6 +113,10 @@ namespace HUDCMS
 
         private void btn_Help_Click(object sender, EventArgs e)
         {
+            if (HelpClicked!=null)
+            {
+                HelpClicked();
+            }
             pForm = Global.f.GetParentForm(this);
 
             RemoteURL_accessible = GetRemoteURL();

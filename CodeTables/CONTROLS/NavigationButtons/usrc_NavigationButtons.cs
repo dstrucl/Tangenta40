@@ -17,6 +17,8 @@ namespace NavigationButtons
         public delegate void delegate_button_pressed(Navigation.eEvent evt);
         public event delegate_button_pressed ButtonPressed;
 
+        public event HUDCMS.usrc_Help.delegate_HelpClicked HelpClicked = null;
+
         public System.Windows.Forms.Timer Timer_Next = null;
 
         public Navigation.eButtons m_eButtons = Navigation.eButtons.OkCancel;
@@ -334,6 +336,14 @@ namespace NavigationButtons
                 {
                     m_nav.DialogShown = true;
                 }
+            }
+        }
+
+        private void usrc_Help1_HelpClicked()
+        {
+            if (HelpClicked!=null)
+            {
+                HelpClicked();
             }
         }
     }

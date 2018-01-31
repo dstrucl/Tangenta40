@@ -478,5 +478,29 @@ namespace Tangenta.Properties {
                 this["bFVI_SLO"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HelpLocalPath {
+            get {
+                return ((string)(this["HelpLocalPath"]));
+            }
+            set {
+                this["HelpLocalPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://dstrucl.github.io/Tangenta-Help/")]
+        public string HelpRemoteURL {
+            get {
+                return ((string)(this["HelpRemoteURL"]));
+            }
+            set {
+                this["HelpRemoteURL"] = value;
+            }
+        }
     }
 }

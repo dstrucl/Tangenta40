@@ -60,7 +60,9 @@ namespace CommandLineHelp
             CommandLineHelpNav.btn3_Visible = false;
             CommandLineHelpNav.btn2_ToolTip_Text = "";
             CommandLineHelpNav.btn3_ToolTip_Text = "";
-            CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, CommandLineHelpNav, m_FormIcon);
+            string xRemoteHelpURL = "";
+            string xLocalHelpPath = "";
+                CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, CommandLineHelpNav, m_FormIcon, xLocalHelpPath, xRemoteHelpURL);
             hlpfrm.ShowDialog();
         }
     }
