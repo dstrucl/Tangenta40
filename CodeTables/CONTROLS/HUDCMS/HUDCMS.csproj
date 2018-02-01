@@ -88,6 +88,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="usrc_EditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControl.Designer.cs">
+      <DependentUpon>usrc_EditControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Help.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -107,12 +113,6 @@
     <Compile Include="usrc_web_Help.Designer.cs">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_RootControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_RootControl.Designer.cs">
-      <DependentUpon>usrc_RootControl.cs</DependentUpon>
-    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +126,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControl.resx">
+      <DependentUpon>usrc_EditControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Help.resx">
       <DependentUpon>usrc_Help.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,9 +137,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_web_Help.resx">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_RootControl.resx">
-      <DependentUpon>usrc_RootControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

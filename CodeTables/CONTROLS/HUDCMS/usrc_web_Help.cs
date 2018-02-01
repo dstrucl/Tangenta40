@@ -92,6 +92,14 @@ namespace HUDCMS
 
         private void btn_HUDCMS_Click(object sender, EventArgs e)
         {
+            if (frm_HUDCMS != null)
+            {
+                if (frm_HUDCMS.IsDisposed)
+                {
+                    frm_HUDCMS = null;
+                }
+            }
+            
             if (frm_HUDCMS==null)
             {
                 frm_HUDCMS = new Form_HUDCMS(mH);

@@ -37,7 +37,7 @@
             // label1
             // 
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Location = new System.Drawing.Point(5, 0);
+            this.label1.Location = new System.Drawing.Point(5, 2);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 20);
@@ -49,20 +49,20 @@
             // 
             this.txt_File.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_File.Location = new System.Drawing.Point(102, 0);
+            this.txt_File.Location = new System.Drawing.Point(102, 2);
             this.txt_File.Margin = new System.Windows.Forms.Padding(2);
             this.txt_File.Name = "txt_File";
-            this.txt_File.Size = new System.Drawing.Size(234, 20);
+            this.txt_File.Size = new System.Drawing.Size(233, 22);
             this.txt_File.TabIndex = 1;
             // 
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Save.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.btn_Save.Location = new System.Drawing.Point(343, 0);
+            this.btn_Save.Location = new System.Drawing.Point(342, 0);
             this.btn_Save.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(50, 20);
+            this.btn_Save.Size = new System.Drawing.Size(50, 25);
             this.btn_Save.TabIndex = 3;
             this.btn_Save.Text = "Save";
             this.btn_Save.UseVisualStyleBackColor = true;
@@ -71,10 +71,10 @@
             // btn_Edit
             // 
             this.btn_Edit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Edit.Location = new System.Drawing.Point(400, 0);
+            this.btn_Edit.Location = new System.Drawing.Point(399, 0);
             this.btn_Edit.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Edit.Name = "btn_Edit";
-            this.btn_Edit.Size = new System.Drawing.Size(50, 20);
+            this.btn_Edit.Size = new System.Drawing.Size(50, 25);
             this.btn_Edit.TabIndex = 4;
             this.btn_Edit.Text = "Edit";
             this.btn_Edit.UseVisualStyleBackColor = true;
@@ -89,7 +89,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_SelectFile";
-            this.Size = new System.Drawing.Size(453, 20);
+            this.Size = new System.Drawing.Size(452, 27);
             this.ResumeLayout(false);
             this.PerformLayout();
 

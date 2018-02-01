@@ -17,6 +17,31 @@ namespace RadioButtonGlobal
         public delegate void delegateCheckChanged();
         public event delegateCheckChanged CheckChanged = null;
 
+        private Color m_ParentBackColor = System.Drawing.SystemColors.Control;
+        public Color ParentBackColor
+        {
+            get
+            {
+                return m_ParentBackColor;
+            }
+            set
+            {
+                m_ParentBackColor = value;
+            }
+        }
+
+        private Color m_HighlightBackColor = System.Drawing.SystemColors.ActiveCaption;
+        public Color HighlightBackColor
+        {
+            get
+            {
+                return m_HighlightBackColor;
+            }
+            set
+            {
+                m_HighlightBackColor = value;
+            }
+        }
 
         public bool Checked
         {
@@ -36,6 +61,11 @@ namespace RadioButtonGlobal
                     if ((RadioButtonGlobal)ctrl != rdbg)
                     {
                         ((RadioButtonGlobal)ctrl).Checked = false;
+                        ((RadioButtonGlobal)ctrl).Parent.BackColor = ParentBackColor;
+                        if (((RadioButtonGlobal)ctrl).Parent.Parent!=null)
+                        {
+                            ((RadioButtonGlobal)ctrl).Parent.Parent.BackColor = ParentBackColor;
+                        }
                     }
                 }
                 if (ctrl.Controls != null)
@@ -55,6 +85,7 @@ namespace RadioButtonGlobal
             {
                 Form bBaseControl = f.GetParentForm(this);
                 Uncheck_usrc_SelectFileRadioEditButton_in_SubCtrls(bBaseControl,this);
+                this.Parent.BackColor = HighlightBackColor;
             }
             if (CheckChanged!=null)
             {

@@ -34,7 +34,7 @@ namespace HUDCMS
         internal string ModuleName = null;
         internal string HtmlFileName = null;
         internal string sLocalHtmlFile = null;
-        internal Form_HUDCMS frm_HUDCMS = null;
+
 
         private bool m_RemoteURL_accessible = false;
 

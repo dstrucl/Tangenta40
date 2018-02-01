@@ -47,29 +47,52 @@ namespace HUDCMS
 
             if (xhc.parentctrl==null)
             {
-                //this is a Root Control
-                usrc_RootControl uRoot = new usrc_RootControl();
-                uRoot.Parent = xctrl;
-                uRoot.Init(mH,xhc);
-                uRoot.Top = y;
-                uRoot.Left = 3;
-                uRoot.Width = this.Width - uRoot.Left - 3;
-                HUDCMS_static.SetControlAnchorTopLeftRight(uRoot);
-                uRoot.Visible = true;
-                xctrl.Controls.Add(uRoot);
-                y += uRoot.Height + 4;
+                usrc_Control uctrl = new usrc_Control();
+                uctrl.Parent = xctrl;
+                uctrl.Init(mH, xhc);
+                uctrl.Top = y;
+                uctrl.Left = 3;
+                uctrl.Width = xctrl.Width - uctrl.Left - 3;
+                uctrl.Visible = true;
+                xctrl.Controls.Add(uctrl);
+                uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 if (xhc.subctrl != null)
                 {
-                    int ysub = uRoot.Height + 4;
+                    int ysub = uctrl.Height + 4;
                     foreach (hctrl hc in xhc.subctrl)
                     {
                         if (hc.ctrl.Visible)
                         {
-                            CreateControls(ref ysub, level + 1, hc, uRoot);
+                            CreateControls(ref ysub, level + 1, hc, uctrl);
                         }
                     }
-                    uRoot.Height = ysub;
+                    uctrl.Height = ysub;
                 }
+                y += uctrl.Height + 8;
+
+                ////this is a Root Control
+                //usrc_RootControl uRoot = new usrc_RootControl();
+                //uRoot.Parent = xctrl;
+                //uRoot.Init(mH,xhc);
+                //uRoot.Top = y;
+                //uRoot.Left = 3;
+                //uRoot.Width = this.Width - uRoot.Left - 3;
+                //HUDCMS_static.SetControlAnchorTopLeftRight(uRoot);
+                //uRoot.Visible = true;
+                //xctrl.Controls.Add(uRoot);
+                //y += uRoot.Height + 4;
+                //if (xhc.subctrl != null)
+                //{
+                //    int ysub = uRoot.Height + 4;
+                //    foreach (hctrl hc in xhc.subctrl)
+                //    {
+                //        if (hc.ctrl.Visible)
+                //        {
+                //            CreateControls(ref ysub, level + 1, hc, uRoot);
+                //        }
+                //    }
+                //    uRoot.Height = ysub;
+                //}
             }
             else
             {
@@ -99,6 +122,11 @@ namespace HUDCMS
         }
 
         private void usrc_SelectStyleFile_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }

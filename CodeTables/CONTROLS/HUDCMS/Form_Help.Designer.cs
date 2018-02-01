@@ -50,7 +50,7 @@
             this.ClientSize = new System.Drawing.Size(1123, 731);
             this.Controls.Add(this.usrc_web_Help1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_Help";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form_Help_Load);
@@ -60,6 +60,6 @@
 
         #endregion
 
-        private usrc_web_Help usrc_web_Help1;
+        internal usrc_web_Help usrc_web_Help1;
     }
 }
