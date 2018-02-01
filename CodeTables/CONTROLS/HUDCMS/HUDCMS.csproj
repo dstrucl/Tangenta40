@@ -53,9 +53,6 @@
     <Reference Include="FastColoredTextBox">
       <HintPath>..\..\..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
-    <Reference Include="RadioButtonGlobal">
-      <HintPath>..\RadioButtonGlobal\obj\Debug\RadioButtonGlobal.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -158,6 +155,10 @@
     <ProjectReference Include="..\..\UTIL\Global\Global.csproj">
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadioButtonGlobal\RadioButtonGlobal.csproj">
+      <Project>{0e56257c-c52c-4606-ae91-80a0b361637a}</Project>
+      <Name>RadioButtonGlobal</Name>
     </ProjectReference>
     <ProjectReference Include="..\SelectFile\SelectFile.csproj">
       <Project>{6850b603-25a4-4b91-a85a-8ab4cdebf48f}</Project>

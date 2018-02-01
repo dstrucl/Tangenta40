@@ -79,6 +79,7 @@ namespace HUDCMS
                     this.panel1.Height = MaxPanelHeight;
                 }
                 this.Height = this.panel1.Bottom + 4;
+                this.usrc_SelectPictureFile.SaveFile += usrc_SelectPictureFile_SaveFile;
             }
             else
             {

@@ -49,6 +49,7 @@ namespace CommandLineHelp
                 if (LocalHelpPath.Length > 0)
                 {
                     usrc_SelectLocalHelpFolder.InitialDirectory = LocalHelpPath;
+                    usrc_SelectLocalHelpFolder.SelectedFolder = LocalHelpPath;
                 }
             }
 

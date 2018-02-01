@@ -58,9 +58,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SelectFolder">
-      <HintPath>..\SelectFolder\obj\Debug\SelectFolder.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -140,6 +137,10 @@
     <ProjectReference Include="..\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SelectFolder\SelectFolder.csproj">
+      <Project>{394eedbc-7a8f-4e6f-b32d-2877aef48eae}</Project>
+      <Name>SelectFolder</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
