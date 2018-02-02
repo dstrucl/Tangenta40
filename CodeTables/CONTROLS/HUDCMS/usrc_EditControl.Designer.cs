@@ -36,13 +36,15 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_Control = new System.Windows.Forms.TextBox();
             this.usrc_SelectPictureFile = new SelectFile.usrc_SelectFile();
+            this.txt_ControlName = new System.Windows.Forms.TextBox();
+            this.lbl_ControlName = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Add
             // 
-            this.btn_Add.Location = new System.Drawing.Point(35, 79);
+            this.btn_Add.Location = new System.Drawing.Point(35, 103);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(73, 29);
             this.btn_Add.TabIndex = 15;
@@ -58,9 +60,9 @@
             this.listView1.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
             listViewGroup2});
-            this.listView1.Location = new System.Drawing.Point(35, 114);
+            this.listView1.Location = new System.Drawing.Point(35, 160);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(165, 256);
+            this.listView1.Size = new System.Drawing.Size(165, 201);
             this.listView1.TabIndex = 14;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -74,15 +76,15 @@
             this.panel2.AutoScrollMinSize = new System.Drawing.Size(24, 24);
             this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(434, 76);
+            this.panel2.Location = new System.Drawing.Point(434, 114);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(287, 294);
+            this.panel2.Size = new System.Drawing.Size(287, 290);
             this.panel2.TabIndex = 13;
             // 
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 29);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(263, 261);
             this.pictureBox1.TabIndex = 0;
@@ -92,7 +94,7 @@
             // 
             this.txt_Control.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Control.Location = new System.Drawing.Point(13, 15);
+            this.txt_Control.Location = new System.Drawing.Point(13, 9);
             this.txt_Control.Name = "txt_Control";
             this.txt_Control.ReadOnly = true;
             this.txt_Control.Size = new System.Drawing.Size(703, 22);
@@ -106,24 +108,46 @@
             this.usrc_SelectPictureFile.FileName = "";
             this.usrc_SelectPictureFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             this.usrc_SelectPictureFile.InitialDirectory = "C:\\";
-            this.usrc_SelectPictureFile.Location = new System.Drawing.Point(13, 42);
+            this.usrc_SelectPictureFile.Location = new System.Drawing.Point(15, 69);
             this.usrc_SelectPictureFile.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_SelectPictureFile.Name = "usrc_SelectPictureFile";
             this.usrc_SelectPictureFile.Size = new System.Drawing.Size(709, 29);
             this.usrc_SelectPictureFile.TabIndex = 11;
             this.usrc_SelectPictureFile.Title = "Save File";
             // 
+            // txt_ControlName
+            // 
+            this.txt_ControlName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_ControlName.Location = new System.Drawing.Point(116, 39);
+            this.txt_ControlName.Name = "txt_ControlName";
+            this.txt_ControlName.ReadOnly = true;
+            this.txt_ControlName.Size = new System.Drawing.Size(600, 22);
+            this.txt_ControlName.TabIndex = 16;
+            this.txt_ControlName.Text = "txt_ControlName";
+            // 
+            // lbl_ControlName
+            // 
+            this.lbl_ControlName.AutoSize = true;
+            this.lbl_ControlName.Location = new System.Drawing.Point(16, 42);
+            this.lbl_ControlName.Name = "lbl_ControlName";
+            this.lbl_ControlName.Size = new System.Drawing.Size(94, 17);
+            this.lbl_ControlName.TabIndex = 17;
+            this.lbl_ControlName.Text = "Control Name";
+            // 
             // usrc_EditControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_ControlName);
+            this.Controls.Add(this.txt_ControlName);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.txt_Control);
             this.Controls.Add(this.usrc_SelectPictureFile);
             this.Name = "usrc_EditControl";
-            this.Size = new System.Drawing.Size(724, 385);
+            this.Size = new System.Drawing.Size(724, 419);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -139,5 +163,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txt_Control;
         private SelectFile.usrc_SelectFile usrc_SelectPictureFile;
+        private System.Windows.Forms.TextBox txt_ControlName;
+        private System.Windows.Forms.Label lbl_ControlName;
     }
 }

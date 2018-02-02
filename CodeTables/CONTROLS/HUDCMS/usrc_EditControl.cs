@@ -20,8 +20,9 @@ namespace HUDCMS
         internal void Init(usrc_Control usrc_Control)
         {
             m_usrc_Control = usrc_Control;
-            this.txt_Control.Text = m_usrc_Control.lbl_Control.Text;
-            this.txt_Control.ForeColor = m_usrc_Control.lbl_Control.ForeColor;
+            this.txt_Control.Text = m_usrc_Control.txt_Control.Text;
+            this.txt_Control.ForeColor = m_usrc_Control.txt_Control.ForeColor;
+            this.txt_ControlName.Text = m_usrc_Control.txt_ControlName.Text;
             this.pictureBox1.Image = m_usrc_Control.pic_Control.Image;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
             if (m_usrc_Control.hc.ctrlbmp != null)

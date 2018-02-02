@@ -20,6 +20,93 @@ namespace HUDCMS
         public Screen pScreen = null;
         public Bitmap ctrlbmp = null;
 
+        public int Bottom {
+            get
+            {
+                if (ctrl!=null)
+                {
+                    return ctrl.Bottom;
+                }
+                else
+                {
+                    if (pForm != null)
+                    {
+                        return pForm.Bottom;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+
+        public int Top
+        {
+            get
+            {
+                if (ctrl != null)
+                {
+                    return ctrl.Top;
+                }
+                else
+                {
+                    if (pForm != null)
+                    {
+                        return pForm.Top;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+
+        public int Left
+        {
+            get
+            {
+                if (ctrl != null)
+                {
+                    return ctrl.Left;
+                }
+                else
+                {
+                    if (pForm != null)
+                    {
+                        return pForm.Left;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+
+        public int Right
+        {
+            get
+            {
+                if (ctrl != null)
+                {
+                    return ctrl.Right;
+                }
+                else
+                {
+                    if (pForm != null)
+                    {
+                        return pForm.Right;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+
         public hctrl(Form pForm)
         {
             this.pForm = pForm;
@@ -227,5 +314,46 @@ namespace HUDCMS
         {
            return hcj.yScr + hcj.height / 2;
         }
+
+        public string GetName()
+        {
+            if (parentctrl != null)
+            {
+                string sctrlname = "ERROR";
+                if (ctrl != null)
+                {
+                    sctrlname = ctrl.Name;
+                }
+                else if (pForm != null)
+                {
+                    sctrlname = pForm.Name;
+                }
+                else
+                {
+                    MessageBox.Show("ERROR:HUDCSM:hctrl:(ctrl == null)&&(pForm != null)!");
+                    return "ERROR";
+                }
+
+                string sname =parentctrl.GetName()+"."+ sctrlname;
+                return sname;
+            }
+            else
+            {
+                if (ctrl != null)
+                {
+                    return ctrl.Name;
+                }
+                else if (pForm != null)
+                {
+                    return pForm.Name;
+                }
+                else
+                {
+                    MessageBox.Show("ERROR:HUDCSM:hctrl:(ctrl == null)&&(pForm != null)!");
+                    return "ERROR";
+                }
+            }
+        }
+
     }
 }
