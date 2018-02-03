@@ -47,8 +47,7 @@ namespace HUDCMS
         private void CreateControls(ref int y,int level, hctrl xhc,Control xctrl)
         {
 
-            if (xhc.parentctrl==null)
-            {
+           
                 usrc_Control uctrl = new usrc_Control();
                 uctrl.Parent = xctrl;
                 uctrl.Init(mH, xhc);
@@ -56,8 +55,8 @@ namespace HUDCMS
                 uctrl.Left = 3;
                 uctrl.Width = xctrl.Width - uctrl.Left - 3;
                 uctrl.Visible = true;
-                xctrl.Controls.Add(uctrl);
                 uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                xctrl.Controls.Add(uctrl);
                 if (xhc.subctrl != null)
                 {
                     int ysub = uctrl.Height + 4;
@@ -71,56 +70,6 @@ namespace HUDCMS
                     uctrl.Height = ysub;
                 }
                 y += uctrl.Height + 8;
-
-                ////this is a Root Control
-                //usrc_RootControl uRoot = new usrc_RootControl();
-                //uRoot.Parent = xctrl;
-                //uRoot.Init(mH,xhc);
-                //uRoot.Top = y;
-                //uRoot.Left = 3;
-                //uRoot.Width = this.Width - uRoot.Left - 3;
-                //HUDCMS_static.SetControlAnchorTopLeftRight(uRoot);
-                //uRoot.Visible = true;
-                //xctrl.Controls.Add(uRoot);
-                //y += uRoot.Height + 4;
-                //if (xhc.subctrl != null)
-                //{
-                //    int ysub = uRoot.Height + 4;
-                //    foreach (hctrl hc in xhc.subctrl)
-                //    {
-                //        if (hc.ctrl.Visible)
-                //        {
-                //            CreateControls(ref ysub, level + 1, hc, uRoot);
-                //        }
-                //    }
-                //    uRoot.Height = ysub;
-                //}
-            }
-            else
-            {
-                usrc_Control uctrl = new usrc_Control();
-                uctrl.Parent = xctrl;
-                uctrl.Init(mH,xhc);
-                uctrl.Top = y;
-                uctrl.Left = 3;
-                uctrl.Width = xctrl.Width - uctrl.Left - 3;
-                uctrl.Visible = true;
-                xctrl.Controls.Add(uctrl);
-                uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                if (xhc.subctrl != null)
-                {
-                    int ysub = uctrl.Height + 4;
-                    foreach (hctrl hc in xhc.subctrl)
-                    {
-                        if (hc.ctrl.Visible)
-                        {
-                            CreateControls(ref ysub, level + 1, hc, uctrl);
-                        }
-                    }
-                    uctrl.Height = ysub;
-                }
-                y += uctrl.Height + 8;
-            }
         }
 
         internal void ShowAvailableLinks()
