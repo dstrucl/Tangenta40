@@ -11,7 +11,7 @@ namespace HUDCMS
 {
     public partial class usrc_EditControl : UserControl
     {
-        usrc_Control m_usrc_Control = null;
+        internal usrc_Control m_usrc_Control = null;
         public usrc_EditControl()
         {
             InitializeComponent();

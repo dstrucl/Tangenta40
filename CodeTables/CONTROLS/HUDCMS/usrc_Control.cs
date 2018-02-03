@@ -58,6 +58,8 @@ namespace HUDCMS
             {
                 this.pic_Control.Height = hc.ctrlbmp.Height;
             }
+            this.lbl_LinkedControls.Left = this.pic_Control.Right + 4;
+            this.list_Link.Left = this.pic_Control.Right + 4;
         }
         internal void Init(usrc_Help xuH, hctrl xhc)
         {
@@ -204,40 +206,26 @@ namespace HUDCMS
                 {
                     if (this.Parent is usrc_Control)
                     {
-                        if (((usrc_Control)this.Parent).hc.ctrl != null)
+                        if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
                         {
-                            if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
+                            Bitmap myBitmap = new Bitmap(((usrc_Control)this.Parent).hc.ctrlbmp);
+                            System.Drawing.Imaging.PixelFormat format =
+                                myBitmap.PixelFormat;
+                            Bitmap cloneBitmap = myBitmap.Clone(snap_rect, format);
+
+
+                            if (this.hc.ctrlbmp != null)
                             {
-                                ((usrc_Control)this.Parent).hc.ctrlbmp.Dispose();
-                                ((usrc_Control)this.Parent).hc.ctrlbmp = null;
+                                this.hc.ctrlbmp.Dispose();
+                                this.hc.ctrlbmp = null;
                             }
-                            this.hc.ctrlbmp = new Bitmap(snap_rect.Width, snap_rect.Height);
-                            ((usrc_Control)this.Parent).hc.ctrl.DrawToBitmap(((usrc_Control)this.Parent).hc.ctrlbmp, snap_rect);
+                            this.hc.ctrlbmp = cloneBitmap;
                             this.Set_pic_Control();
                             this.pic_Control.Refresh();
-
-                        }
-                        else if (((usrc_Control)this.Parent).hc.pForm != null)
-                        {
-                            if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
+                            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control == this)
                             {
-                                Bitmap myBitmap = new Bitmap(((usrc_Control)this.Parent).hc.ctrlbmp);
-                                Rectangle cloneRect = snap_rect;
-                                System.Drawing.Imaging.PixelFormat format =
-                                    myBitmap.PixelFormat;
-                                Bitmap cloneBitmap = myBitmap.Clone(cloneRect, format);
-
-
-                                if (this.hc.ctrlbmp != null)
-                                {
-                                    this.hc.ctrlbmp.Dispose();
-                                    this.hc.ctrlbmp = null;
-                                }
-                                this.hc.ctrlbmp = cloneBitmap;
-                                this.Set_pic_Control();
-                                this.pic_Control.Refresh();
+                                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
                             }
-
                         }
                     }
                 }
