@@ -13,6 +13,7 @@ namespace HUDCMS
 {
     public partial class usrc_Control : UserControl
     {
+        internal int SnapShotMargin = 4;
         internal List<usrc_Control> AvailableLink = null;
         internal List<usrc_Control> Link = null;
 
@@ -234,10 +235,10 @@ namespace HUDCMS
 
         private void GetParentSnapshotArea(ref Rectangle snap_rect, usrc_Control xusrc_Control, List<usrc_Control> link)
         {
-            int xLeft = GetLeftMost(xusrc_Control, link);
-            int yTop = GetTopMost(xusrc_Control, link);
-            int xRight = GetRightMost(xusrc_Control, link);
-            int yBottom = GetBottomMost(xusrc_Control, link);
+            int xLeft = GetLeftMost(xusrc_Control, link)- SnapShotMargin;
+            int yTop = GetTopMost(xusrc_Control, link)-SnapShotMargin;
+            int xRight = GetRightMost(xusrc_Control, link) + SnapShotMargin; 
+            int yBottom = GetBottomMost(xusrc_Control, link) + SnapShotMargin; 
             snap_rect = new Rectangle(xLeft, yTop, xRight - xLeft, yBottom - yTop);
         }
 

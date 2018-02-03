@@ -25,6 +25,19 @@ namespace HUDCMS
             {
                 if (ctrl!=null)
                 {
+                    if (ctrl.Parent !=null)
+                    {
+                        if (ctrl.Parent is Form)
+                        {
+
+                            Point locationOnForm = RelativeToFormPosition(ctrl, (Form)ctrl.Parent);
+                            if (locationOnForm.Y != ctrl.Top)
+                            {
+                                int TopMargin = locationOnForm.Y - ctrl.Top;
+                                return ctrl.Bottom+ TopMargin; 
+                            }
+                        }
+                    }
                     return ctrl.Bottom;
                 }
                 else
@@ -47,6 +60,14 @@ namespace HUDCMS
             {
                 if (ctrl != null)
                 {
+                    if (ctrl.Parent != null)
+                    {
+                        if (ctrl.Parent is Form)
+                        {
+                            Point locationOnForm = RelativeToFormPosition(ctrl, (Form)ctrl.Parent);
+                            return locationOnForm.Y;
+                        }
+                    }
                     return ctrl.Top;
                 }
                 else
@@ -69,6 +90,14 @@ namespace HUDCMS
             {
                 if (ctrl != null)
                 {
+                    if (ctrl.Parent != null)
+                    {
+                        if (ctrl.Parent is Form)
+                        {
+                            Point locationOnForm = RelativeToFormPosition(ctrl, (Form)ctrl.Parent);
+                            return locationOnForm.X;
+                        }
+                    }
                     return ctrl.Left;
                 }
                 else
@@ -91,6 +120,18 @@ namespace HUDCMS
             {
                 if (ctrl != null)
                 {
+                    if (ctrl.Parent != null)
+                    {
+                        if (ctrl.Parent is Form)
+                        {
+                            Point locationOnForm = RelativeToFormPosition(ctrl, (Form)ctrl.Parent);
+                            if (locationOnForm.X != ctrl.Left)
+                            {
+                                int LeftMargin = locationOnForm.X - ctrl.Left;
+                                return ctrl.Right + LeftMargin;
+                            }
+                        }
+                    }
                     return ctrl.Right;
                 }
                 else
@@ -239,6 +280,16 @@ namespace HUDCMS
             }
             Create_position_sorted_subctrl();
         }
+
+        private Point RelativeToFormPosition(Control xctrl, Form form)
+        {
+            Point controlLoc = form.PointToScreen(xctrl.Location);
+            Point relativeLoc = new Point(controlLoc.X - form.Location.X, controlLoc.Y - form.Location.Y);
+            return relativeLoc;
+        }
+
+
+
 
         private void AddSubCtrl(Control c)
         {
