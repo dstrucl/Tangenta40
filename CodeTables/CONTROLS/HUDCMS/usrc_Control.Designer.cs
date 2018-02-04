@@ -30,13 +30,13 @@
         {
             this.txt_Control = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbl_LinkedControls = new System.Windows.Forms.Label();
-            this.list_Link = new System.Windows.Forms.ListBox();
             this.btn_Link = new System.Windows.Forms.Button();
             this.lbl_Name = new System.Windows.Forms.Label();
             this.txt_ControlName = new System.Windows.Forms.TextBox();
             this.radioButtonGlobal1 = new RadioButtonGlobal.RadioButtonGlobal();
             this.pic_Control = new System.Windows.Forms.PictureBox();
+            this.list_Link = new System.Windows.Forms.ListBox();
+            this.lbl_LinkedControls = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Control)).BeginInit();
             this.SuspendLayout();
@@ -74,38 +74,18 @@
             this.panel1.Size = new System.Drawing.Size(486, 166);
             this.panel1.TabIndex = 6;
             // 
-            // lbl_LinkedControls
-            // 
-            this.lbl_LinkedControls.AutoSize = true;
-            this.lbl_LinkedControls.Location = new System.Drawing.Point(165, 57);
-            this.lbl_LinkedControls.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_LinkedControls.Name = "lbl_LinkedControls";
-            this.lbl_LinkedControls.Size = new System.Drawing.Size(80, 13);
-            this.lbl_LinkedControls.TabIndex = 11;
-            this.lbl_LinkedControls.Text = "Linked Controls";
-            // 
-            // list_Link
-            // 
-            this.list_Link.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.list_Link.FormattingEnabled = true;
-            this.list_Link.HorizontalScrollbar = true;
-            this.list_Link.Location = new System.Drawing.Point(165, 73);
-            this.list_Link.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.list_Link.Name = "list_Link";
-            this.list_Link.Size = new System.Drawing.Size(143, 82);
-            this.list_Link.TabIndex = 10;
-            this.list_Link.Visible = false;
-            // 
             // btn_Link
             // 
             this.btn_Link.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Link.Image = global::HUDCMS.Properties.Resources.Link;
-            this.btn_Link.Location = new System.Drawing.Point(422, 57);
-            this.btn_Link.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Link.Image = global::HUDCMS.Properties.Resources.NoLink;
+            this.btn_Link.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_Link.Location = new System.Drawing.Point(400, 57);
+            this.btn_Link.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Link.Name = "btn_Link";
-            this.btn_Link.Size = new System.Drawing.Size(62, 26);
+            this.btn_Link.Size = new System.Drawing.Size(84, 48);
             this.btn_Link.TabIndex = 9;
+            this.btn_Link.Text = "Add Link";
+            this.btn_Link.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Link.UseVisualStyleBackColor = true;
             this.btn_Link.Click += new System.EventHandler(this.btn_Link_Click);
             // 
@@ -124,7 +104,7 @@
             this.txt_ControlName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_ControlName.Location = new System.Drawing.Point(52, 30);
-            this.txt_ControlName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_ControlName.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ControlName.Name = "txt_ControlName";
             this.txt_ControlName.ReadOnly = true;
             this.txt_ControlName.Size = new System.Drawing.Size(364, 20);
@@ -137,7 +117,7 @@
             this.radioButtonGlobal1.Checked = false;
             this.radioButtonGlobal1.HighlightBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(247)))), ((int)(((byte)(132)))));
             this.radioButtonGlobal1.Location = new System.Drawing.Point(422, 26);
-            this.radioButtonGlobal1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonGlobal1.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonGlobal1.Name = "radioButtonGlobal1";
             this.radioButtonGlobal1.ParentBackColor = System.Drawing.SystemColors.Control;
             this.radioButtonGlobal1.Size = new System.Drawing.Size(62, 25);
@@ -154,6 +134,29 @@
             this.pic_Control.TabIndex = 4;
             this.pic_Control.TabStop = false;
             this.pic_Control.Click += new System.EventHandler(this.pic_Control_Click);
+            // 
+            // list_Link
+            // 
+            this.list_Link.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.list_Link.FormattingEnabled = true;
+            this.list_Link.HorizontalScrollbar = true;
+            this.list_Link.Location = new System.Drawing.Point(165, 73);
+            this.list_Link.Margin = new System.Windows.Forms.Padding(2);
+            this.list_Link.Name = "list_Link";
+            this.list_Link.Size = new System.Drawing.Size(143, 82);
+            this.list_Link.TabIndex = 10;
+            this.list_Link.Visible = false;
+            // 
+            // lbl_LinkedControls
+            // 
+            this.lbl_LinkedControls.AutoSize = true;
+            this.lbl_LinkedControls.Location = new System.Drawing.Point(165, 57);
+            this.lbl_LinkedControls.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_LinkedControls.Name = "lbl_LinkedControls";
+            this.lbl_LinkedControls.Size = new System.Drawing.Size(80, 13);
+            this.lbl_LinkedControls.TabIndex = 11;
+            this.lbl_LinkedControls.Text = "Linked Controls";
             // 
             // usrc_Control
             // 
@@ -179,7 +182,7 @@
         internal System.Windows.Forms.TextBox txt_ControlName;
         private RadioButtonGlobal.RadioButtonGlobal radioButtonGlobal1;
         internal System.Windows.Forms.Button btn_Link;
-        private System.Windows.Forms.ListBox list_Link;
-        private System.Windows.Forms.Label lbl_LinkedControls;
+        internal System.Windows.Forms.ListBox list_Link;
+        internal System.Windows.Forms.Label lbl_LinkedControls;
     }
 }

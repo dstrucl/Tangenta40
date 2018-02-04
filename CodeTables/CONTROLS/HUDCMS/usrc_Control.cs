@@ -13,12 +13,26 @@ namespace HUDCMS
 {
     public partial class usrc_Control : UserControl
     {
-        internal int SnapShotMargin = 4;
+        
         internal List<usrc_Control> AvailableLink = null;
         internal List<usrc_Control> Link = null;
 
         internal hctrl hc = null;
         internal usrc_Help uH = null;
+
+        private bool bLink = false;
+
+        internal int SnapShotMargin
+        {
+            get
+            {
+                if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control==this)
+                {
+                    return uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.SnapShotMargin;
+                }
+                return 0;
+            }
+        }
 
         public string ControlName
         {
@@ -176,57 +190,83 @@ namespace HUDCMS
         private void btn_Link_Click(object sender, EventArgs e)
         {
             //Link Form_HUDCMS.usrc_Control_Selected with this !
-            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected !=null)
+            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected != null)
             {
-                usrc_Control Control_Selected = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected;
-                if (Control_Selected.Link == null)
+                if (bLink)
                 {
-                    Control_Selected.Link = new List<usrc_Control>();
+                    usrc_Control Control_Selected = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected;
+                    if (Control_Selected.Link == null)
+                    {
+                        Control_Selected.Link = new List<usrc_Control>();
+                    }
+                    RemoveLink(Control_Selected.Link, this);
+                    Control_Selected.CreateImageOfLinkedControls();
+                    btn_Link.Image = Properties.Resources.NoLink;
+                    btn_Link.Text = "Add Link";
+                    bLink = false;
                 }
-                AddLink(Control_Selected.Link, this);
-                Control_Selected.CreateImageOfLinkedControls();
+                else
+                {
+                    usrc_Control Control_Selected = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected;
+                    if (Control_Selected.Link == null)
+                    {
+                        Control_Selected.Link = new List<usrc_Control>();
+                    }
+                    AddLink(Control_Selected.Link, this);
+                    Control_Selected.CreateImageOfLinkedControls();
+                    btn_Link.Image = Properties.Resources.Link;
+                    btn_Link.Text = "Remove Link";
+                    bLink = true;
+                }
             }
         }
 
-        private void CreateImageOfLinkedControls()
+        private bool HasLinksToOtherControls()
         {
-            this.list_Link.Visible = false;
-            this.list_Link.DataSource = null;
             if (this.Link != null)
             {
                 if (this.Link.Count > 0)
                 {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void CreateImageOfLinkedControls()
+        {
+            this.list_Link.Visible = false;
+            this.list_Link.DataSource = null;
+            if (this.Parent != null)
+            {
+                if (this.Parent is usrc_Control)
+                {
                     this.list_Link.Visible = true;
+                    this.lbl_LinkedControls.Visible = true;
                     this.list_Link.DataSource = Link;
                     this.list_Link.DisplayMember = "ControlName";
                     this.list_Link.ValueMember = "ControlName";
-                }
-                Rectangle snap_rect = new Rectangle();
-                GetParentSnapshotArea(ref snap_rect, this, this.Link);
-                if (this.Parent != null)
-                {
-                    if (this.Parent is usrc_Control)
+                    Rectangle snap_rect = new Rectangle();
+                    GetParentSnapshotArea(ref snap_rect, this, this.Link);
+
+                    if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
                     {
-                        if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
+                        Bitmap myBitmap = new Bitmap(((usrc_Control)this.Parent).hc.ctrlbmp);
+                        System.Drawing.Imaging.PixelFormat format =
+                            myBitmap.PixelFormat;
+                        Bitmap cloneBitmap = myBitmap.Clone(snap_rect, format);
+
+
+                        if (this.hc.ctrlbmp != null)
                         {
-                            Bitmap myBitmap = new Bitmap(((usrc_Control)this.Parent).hc.ctrlbmp);
-                            System.Drawing.Imaging.PixelFormat format =
-                                myBitmap.PixelFormat;
-                            Bitmap cloneBitmap = myBitmap.Clone(snap_rect, format);
-
-
-                            if (this.hc.ctrlbmp != null)
-                            {
-                                this.hc.ctrlbmp.Dispose();
-                                this.hc.ctrlbmp = null;
-                            }
-                            this.hc.ctrlbmp = cloneBitmap;
-                            this.Set_pic_Control();
-                            this.pic_Control.Refresh();
-                            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control == this)
-                            {
-                                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
-                            }
+                            this.hc.ctrlbmp.Dispose();
+                            this.hc.ctrlbmp = null;
+                        }
+                        this.hc.ctrlbmp = cloneBitmap;
+                        this.Set_pic_Control();
+                        this.pic_Control.Refresh();
+                        if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control == this)
+                        {
+                            uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
                         }
                     }
                 }
@@ -247,12 +287,12 @@ namespace HUDCMS
             bool bDefined = false;
             int bottom = -1;
 
-            foreach(usrc_Control c in link)
+            foreach (usrc_Control c in link)
             {
                 if (!bDefined)
                 {
-                     bottom = c.hc.Bottom;
-                     bDefined = true;
+                    bottom = c.hc.Bottom;
+                    bDefined = true;
                 }
                 else
                 {
@@ -265,16 +305,32 @@ namespace HUDCMS
             return bottom;
         }
 
+        private bool LinkExist(List<usrc_Control> link)
+        {
+            if (link!=null)
+            {
+                return link.Count > 0;
+            }
+            return  false;
+        }
+
         private int GetBottomMost(usrc_Control xusrc_Control, List<usrc_Control> link)
         {
-            int bottom_most_in_Link = GetBottomMost(link);
-            if (xusrc_Control.hc.Bottom > bottom_most_in_Link)
+            if (LinkExist(link))
             {
-                return xusrc_Control.hc.Bottom;
+                int bottom_most_in_Link = GetBottomMost(link);
+                if (xusrc_Control.hc.Bottom > bottom_most_in_Link)
+                {
+                    return xusrc_Control.hc.Bottom;
+                }
+                else
+                {
+                    return bottom_most_in_Link;
+                }
             }
             else
             {
-                return bottom_most_in_Link;
+                return xusrc_Control.hc.Bottom;
             }
         }
 
@@ -302,14 +358,21 @@ namespace HUDCMS
 
         private int GetRightMost(usrc_Control xusrc_Control, List<usrc_Control> link)
         {
-            int right_most_in_Link = GetRightMost(link);
-            if (xusrc_Control.hc.Right > right_most_in_Link)
+            if (LinkExist(link))
             {
-                return xusrc_Control.hc.Right;
+                int right_most_in_Link = GetRightMost(link);
+                if (xusrc_Control.hc.Right > right_most_in_Link)
+                {
+                    return xusrc_Control.hc.Right;
+                }
+                else
+                {
+                    return right_most_in_Link;
+                }
             }
             else
             {
-                return right_most_in_Link;
+                return xusrc_Control.hc.Right;
             }
         }
 
@@ -337,14 +400,21 @@ namespace HUDCMS
 
         private int GetTopMost(usrc_Control xusrc_Control, List<usrc_Control> link)
         {
-            int top_most_in_Link = GetRightMost(link);
-            if (xusrc_Control.hc.Top < top_most_in_Link)
+            if (LinkExist(link))
             {
-                return xusrc_Control.hc.Top;
+                int top_most_in_Link = GetRightMost(link);
+                if (xusrc_Control.hc.Top < top_most_in_Link)
+                {
+                    return xusrc_Control.hc.Top;
+                }
+                else
+                {
+                    return top_most_in_Link;
+                }
             }
             else
             {
-                return top_most_in_Link;
+                return xusrc_Control.hc.Top;
             }
         }
 
@@ -372,14 +442,21 @@ namespace HUDCMS
 
         private int GetLeftMost(usrc_Control xusrc_Control, List<usrc_Control> link)
         {
-            int left_most_in_Link = GetLeftMost(link);
-            if (xusrc_Control.hc.Left < left_most_in_Link)
+            if (LinkExist(link))
             {
-                return xusrc_Control.hc.Left;
+                int left_most_in_Link = GetLeftMost(link);
+                if (xusrc_Control.hc.Left < left_most_in_Link)
+                {
+                    return xusrc_Control.hc.Left;
+                }
+                else
+                {
+                    return left_most_in_Link;
+                }
             }
             else
             {
-                return left_most_in_Link;
+                return xusrc_Control.hc.Left;
             }
         }
 
@@ -397,6 +474,21 @@ namespace HUDCMS
                     }
                 }
                 link.Add(xusrc_Control);
+            }
+        }
+
+        private void RemoveLink(List<usrc_Control> link, usrc_Control xusrc_Control)
+        {
+            if (LinkExist(link))
+            {
+                foreach (usrc_Control c in link)
+                {
+                    if (c == xusrc_Control)
+                    {
+                        link.Remove(xusrc_Control);
+                        return;
+                    }
+                }
             }
         }
     }

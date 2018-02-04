@@ -17,6 +17,14 @@ namespace HUDCMS
             InitializeComponent();
         }
 
+        public int SnapShotMargin
+        {
+            get
+            {
+                return Convert.ToInt32(nmUpDn_SnapShotMargin.Value);
+            }
+        }
+
         internal void Init(usrc_Control usrc_Control)
         {
             m_usrc_Control = usrc_Control;
@@ -25,6 +33,12 @@ namespace HUDCMS
             this.txt_ControlName.Text = m_usrc_Control.txt_ControlName.Text;
             this.pictureBox1.Image = m_usrc_Control.pic_Control.Image;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
+            this.lbl_LinkedControls.Text = m_usrc_Control.lbl_LinkedControls.Text;
+            this.lbl_LinkedControls.Visible = this.lbl_LinkedControls.Visible;
+            this.list_Link.Visible = m_usrc_Control.list_Link.Visible;
+            this.list_Link.DataSource = m_usrc_Control.Link;
+            this.list_Link.DisplayMember = "ControlName";
+            this.list_Link.ValueMember = "ControlName";
             if (m_usrc_Control.hc.ctrlbmp != null)
             {
                 this.pictureBox1.Size = m_usrc_Control.hc.ctrlbmp.Size;
