@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace HUDCMS
 {
@@ -15,13 +17,19 @@ namespace HUDCMS
         private hctrl hc = null;
         private usrc_Help mH = null;
         internal usrc_Control usrc_Control_Selected = null;
+        XDocument xhtml = null;
+        internal XDocument xhtml_Loaded = null;
+
+        XElement html_html = null;
+        XElement html_head = null;
+        XElement html_title = null;
+        XElement html_body = null;
 
         public Form_HUDCMS(usrc_Help xH)
         {
             InitializeComponent();
             mH = xH;
             hc = new hctrl(mH.pForm);
-            int y= 2;
             usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.sLocalHtmlFile);
             usrc_SelectHtmlFile.FileName = mH.sLocalHtmlFile;
             usrc_SelectStyleFile.Title = "Save HTML file";
@@ -40,9 +48,97 @@ namespace HUDCMS
             usrc_SelectStyleFile.Title = "Save style file";
             usrc_SelectStyleFile.Text = "Style file:";
 
-            CreateControls(ref y,0,hc,this.panel1);
-            HideLinks();
+       
         }
+
+        private void Form_HUDCMS_Load(object sender, EventArgs e)
+        {
+
+            string sHtmFileName = usrc_SelectHtmlFile.FileName;
+            try
+            {
+                xhtml_Loaded = XDocument.Load(sHtmFileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR: XDocument.Load file=\"" + sHtmFileName + "\" failed :Exception = " + ex.Message);
+            }
+
+            int y = 2;
+            CreateControls(ref y, 0, hc, this.panel1);
+            HideLinks();
+
+        }
+        internal bool SaveXHTML(ref XDocument xh)
+        {
+            if (xh == null)
+            {
+                xh = new XDocument();
+
+                html_html = new XElement("html");
+
+
+
+
+                xh.AddFirst(html_html);
+
+                foreach (Control c in this.panel1.Controls)
+                {
+                    if (c is usrc_Control)
+                    {
+                        if (html_head == null)
+                        {
+                            if (((usrc_Control)c).hc.pForm != null)
+                            {
+                                html_head = new XElement("head");
+                                html_title = new XElement("title");
+                                string sTitle = ((usrc_Control)c).hc.pForm.Text;
+                                if (sTitle.Length == 0)
+                                {
+                                    sTitle = ((usrc_Control)c).hc.pForm.GetType().ToString();
+                                }
+                                html_title.Value = sTitle;
+                                html_body = new XElement("body");
+
+                                html_head.Add(html_title);
+                                html_html.Add(html_head);
+                                html_html.Add(html_body);
+
+                            }
+                            else if (((usrc_Control)c).hc.ctrl != null)
+                            {
+                                html_head = new XElement("head");
+                                html_title = new XElement("title");
+                                string sTitle = ((usrc_Control)c).hc.ctrl.Text;
+                                if (sTitle.Length == 0)
+                                {
+                                    sTitle = ((usrc_Control)c).hc.ctrl.GetType().ToString();
+                                }
+                                html_title.Value = sTitle;
+                                html_body = new XElement("body");
+
+                                html_head.Add(html_title);
+                                html_html.Add(html_head);
+                                html_html.Add(html_body);
+
+                            }
+                        }
+                        ((usrc_Control)c).CreateNode(xh, ref html_body);
+                    }
+                }
+
+                //save xhtml
+                string sHtmFileName = usrc_SelectHtmlFile.FileName;
+                if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, sHtmFileName))
+                {
+                    xh.Save(sHtmFileName);
+                }
+
+            }
+
+            return false;
+        }
+
 
         private void CreateControls(ref int y,int level, hctrl xhc,Control xctrl)
         {
@@ -293,5 +389,12 @@ namespace HUDCMS
         {
 
         }
+
+        private void btn_Create_Click(object sender, EventArgs e)
+        {
+            SaveXHTML(ref this.xhtml);
+        }
+
+       
     }
 }

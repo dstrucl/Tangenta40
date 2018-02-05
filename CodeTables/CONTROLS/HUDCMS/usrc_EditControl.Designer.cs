@@ -28,173 +28,202 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_Control = new System.Windows.Forms.TextBox();
-            this.usrc_SelectPictureFile = new SelectFile.usrc_SelectFile();
             this.txt_ControlName = new System.Windows.Forms.TextBox();
             this.lbl_ControlName = new System.Windows.Forms.Label();
-            this.list_Link = new System.Windows.Forms.ListBox();
-            this.lbl_LinkedControls = new System.Windows.Forms.Label();
-            this.nmUpDn_SnapShotMargin = new System.Windows.Forms.NumericUpDown();
-            this.lbl_SnapShotMargin = new System.Windows.Forms.Label();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SnapShotMargin)).BeginInit();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.usrc_EditControl_Title1 = new HUDCMS.usrc_EditControl_Title();
+            this.usrc_EditControl_About1 = new HUDCMS.usrc_EditControl_About();
+            this.usrc_EditControl_Image1 = new HUDCMS.usrc_EditControl_Image();
+            this.usrc_EditControl_Description1 = new HUDCMS.usrc_EditControl_Description();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel2.AutoScroll = true;
-            this.panel2.AutoScrollMargin = new System.Drawing.Size(20, 20);
-            this.panel2.AutoScrollMinSize = new System.Drawing.Size(24, 24);
-            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(10, 93);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(407, 194);
-            this.panel2.TabIndex = 13;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(2, 24);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(385, 149);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // txt_Control
             // 
             this.txt_Control.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Control.Location = new System.Drawing.Point(10, 7);
-            this.txt_Control.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_Control.Location = new System.Drawing.Point(13, 9);
+            this.txt_Control.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_Control.Name = "txt_Control";
             this.txt_Control.ReadOnly = true;
-            this.txt_Control.Size = new System.Drawing.Size(627, 20);
+            this.txt_Control.Size = new System.Drawing.Size(831, 22);
             this.txt_Control.TabIndex = 12;
-            // 
-            // usrc_SelectPictureFile
-            // 
-            this.usrc_SelectPictureFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_SelectPictureFile.DefaultExtension = "txt";
-            this.usrc_SelectPictureFile.FileName = "";
-            this.usrc_SelectPictureFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            this.usrc_SelectPictureFile.InitialDirectory = "C:\\";
-            this.usrc_SelectPictureFile.Location = new System.Drawing.Point(11, 56);
-            this.usrc_SelectPictureFile.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_SelectPictureFile.Name = "usrc_SelectPictureFile";
-            this.usrc_SelectPictureFile.Size = new System.Drawing.Size(631, 24);
-            this.usrc_SelectPictureFile.TabIndex = 11;
-            this.usrc_SelectPictureFile.Title = "Save File";
             // 
             // txt_ControlName
             // 
             this.txt_ControlName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_ControlName.Location = new System.Drawing.Point(87, 32);
-            this.txt_ControlName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_ControlName.Location = new System.Drawing.Point(116, 39);
+            this.txt_ControlName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_ControlName.Name = "txt_ControlName";
             this.txt_ControlName.ReadOnly = true;
-            this.txt_ControlName.Size = new System.Drawing.Size(550, 20);
+            this.txt_ControlName.Size = new System.Drawing.Size(728, 22);
             this.txt_ControlName.TabIndex = 16;
             this.txt_ControlName.Text = "txt_ControlName";
             // 
             // lbl_ControlName
             // 
             this.lbl_ControlName.AutoSize = true;
-            this.lbl_ControlName.Location = new System.Drawing.Point(12, 34);
-            this.lbl_ControlName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_ControlName.Location = new System.Drawing.Point(16, 42);
             this.lbl_ControlName.Name = "lbl_ControlName";
-            this.lbl_ControlName.Size = new System.Drawing.Size(71, 13);
+            this.lbl_ControlName.Size = new System.Drawing.Size(94, 17);
             this.lbl_ControlName.TabIndex = 17;
             this.lbl_ControlName.Text = "Control Name";
             // 
-            // list_Link
+            // splitContainer1
             // 
-            this.list_Link.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.list_Link.FormattingEnabled = true;
-            this.list_Link.HorizontalScrollbar = true;
-            this.list_Link.Location = new System.Drawing.Point(421, 161);
-            this.list_Link.Margin = new System.Windows.Forms.Padding(2);
-            this.list_Link.Name = "list_Link";
-            this.list_Link.Size = new System.Drawing.Size(143, 43);
-            this.list_Link.TabIndex = 18;
-            this.list_Link.Visible = false;
+            this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer1.Location = new System.Drawing.Point(13, 81);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // lbl_LinkedControls
+            // splitContainer1.Panel1
             // 
-            this.lbl_LinkedControls.AutoSize = true;
-            this.lbl_LinkedControls.Location = new System.Drawing.Point(421, 145);
-            this.lbl_LinkedControls.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_LinkedControls.Name = "lbl_LinkedControls";
-            this.lbl_LinkedControls.Size = new System.Drawing.Size(80, 13);
-            this.lbl_LinkedControls.TabIndex = 19;
-            this.lbl_LinkedControls.Text = "Linked Controls";
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
             // 
-            // nmUpDn_SnapShotMargin
+            // splitContainer1.Panel2
             // 
-            this.nmUpDn_SnapShotMargin.Location = new System.Drawing.Point(515, 98);
-            this.nmUpDn_SnapShotMargin.Name = "nmUpDn_SnapShotMargin";
-            this.nmUpDn_SnapShotMargin.Size = new System.Drawing.Size(56, 20);
-            this.nmUpDn_SnapShotMargin.TabIndex = 20;
-            this.nmUpDn_SnapShotMargin.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(825, 793);
+            this.splitContainer1.SplitterDistance = 363;
+            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.TabIndex = 22;
             // 
-            // lbl_SnapShotMargin
+            // splitContainer3
             // 
-            this.lbl_SnapShotMargin.AutoSize = true;
-            this.lbl_SnapShotMargin.Location = new System.Drawing.Point(421, 100);
-            this.lbl_SnapShotMargin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_SnapShotMargin.Name = "lbl_SnapShotMargin";
-            this.lbl_SnapShotMargin.Size = new System.Drawing.Size(89, 13);
-            this.lbl_SnapShotMargin.TabIndex = 21;
-            this.lbl_SnapShotMargin.Text = "Snap shot margin";
+            this.splitContainer3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer3.Panel1.Controls.Add(this.usrc_EditControl_Title1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer3.Panel2.Controls.Add(this.usrc_EditControl_About1);
+            this.splitContainer3.Size = new System.Drawing.Size(825, 363);
+            this.splitContainer3.SplitterDistance = 152;
+            this.splitContainer3.SplitterWidth = 6;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer2.Panel1.Controls.Add(this.usrc_EditControl_Image1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer2.Panel2.Controls.Add(this.usrc_EditControl_Description1);
+            this.splitContainer2.Size = new System.Drawing.Size(825, 424);
+            this.splitContainer2.SplitterDistance = 214;
+            this.splitContainer2.SplitterWidth = 6;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // usrc_EditControl_Title1
+            // 
+            this.usrc_EditControl_Title1.AutoScroll = true;
+            this.usrc_EditControl_Title1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_Title1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Title1.Name = "usrc_EditControl_Title1";
+            this.usrc_EditControl_Title1.Size = new System.Drawing.Size(821, 148);
+            this.usrc_EditControl_Title1.TabIndex = 0;
+            // 
+            // usrc_EditControl_About1
+            // 
+            this.usrc_EditControl_About1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_About1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_About1.Name = "usrc_EditControl_About1";
+            this.usrc_EditControl_About1.Size = new System.Drawing.Size(821, 201);
+            this.usrc_EditControl_About1.TabIndex = 0;
+            // 
+            // usrc_EditControl_Image1
+            // 
+            this.usrc_EditControl_Image1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_Image1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Image1.Name = "usrc_EditControl_Image1";
+            this.usrc_EditControl_Image1.Size = new System.Drawing.Size(821, 210);
+            this.usrc_EditControl_Image1.TabIndex = 0;
+            // 
+            // usrc_EditControl_Description1
+            // 
+            this.usrc_EditControl_Description1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_Description1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Description1.Name = "usrc_EditControl_Description1";
+            this.usrc_EditControl_Description1.Size = new System.Drawing.Size(821, 200);
+            this.usrc_EditControl_Description1.TabIndex = 0;
             // 
             // usrc_EditControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lbl_SnapShotMargin);
-            this.Controls.Add(this.nmUpDn_SnapShotMargin);
-            this.Controls.Add(this.list_Link);
-            this.Controls.Add(this.lbl_LinkedControls);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.lbl_ControlName);
             this.Controls.Add(this.txt_ControlName);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.txt_Control);
-            this.Controls.Add(this.usrc_SelectPictureFile);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "usrc_EditControl";
-            this.Size = new System.Drawing.Size(642, 382);
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SnapShotMargin)).EndInit();
+            this.Size = new System.Drawing.Size(852, 877);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txt_Control;
-        private SelectFile.usrc_SelectFile usrc_SelectPictureFile;
         private System.Windows.Forms.TextBox txt_ControlName;
         private System.Windows.Forms.Label lbl_ControlName;
-        private System.Windows.Forms.ListBox list_Link;
-        private System.Windows.Forms.Label lbl_LinkedControls;
-        internal System.Windows.Forms.NumericUpDown nmUpDn_SnapShotMargin;
-        private System.Windows.Forms.Label lbl_SnapShotMargin;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        internal usrc_EditControl_Title usrc_EditControl_Title1;
+        internal usrc_EditControl_About usrc_EditControl_About1;
+        internal usrc_EditControl_Image usrc_EditControl_Image1;
+        internal usrc_EditControl_Description usrc_EditControl_Description1;
     }
 }

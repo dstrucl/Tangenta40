@@ -94,6 +94,30 @@
     <Compile Include="usrc_EditControl.Designer.cs">
       <DependentUpon>usrc_EditControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_EditControl_About.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControl_About.Designer.cs">
+      <DependentUpon>usrc_EditControl_About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControl_Description.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControl_Description.Designer.cs">
+      <DependentUpon>usrc_EditControl_Description.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControl_Image.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControl_Image.Designer.cs">
+      <DependentUpon>usrc_EditControl_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControl_Title.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControl_Title.Designer.cs">
+      <DependentUpon>usrc_EditControl_Title.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Help.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -128,6 +152,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditControl.resx">
       <DependentUpon>usrc_EditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControl_About.resx">
+      <DependentUpon>usrc_EditControl_About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControl_Description.resx">
+      <DependentUpon>usrc_EditControl_Description.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControl_Image.resx">
+      <DependentUpon>usrc_EditControl_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControl_Title.resx">
+      <DependentUpon>usrc_EditControl_Title.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Help.resx">
       <DependentUpon>usrc_Help.cs</DependentUpon>

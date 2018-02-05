@@ -33,7 +33,7 @@ namespace SelectFile
             get { return m_FileName; }
             set { m_FileName = value;
                 txt_File.Text = m_FileName;
-                }
+            }
         }
 
         private string m_Title = "Save File";
@@ -107,46 +107,67 @@ namespace SelectFile
             }
         }
 
-        private void btn_Save_Click(object sender, EventArgs e)
+        public static bool CreateFolder(Control parentcontrol,string path)
         {
-            FileName = txt_File.Text;
-            string path = Path.GetDirectoryName(FileName);
-            if (Directory.Exists(path))
+            if (MessageBox.Show(parentcontrol, "Folder does not exist:\"" + path + "\" CreateFolder", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) 
             {
-                showfiledialog(path);
+                string[] folders = path.Split('\\');
+                int iCount = folders.Length;
+                string sfolder = "";
+                for (int i = 0; i<iCount; i++)
+                {
+                    sfolder += folders[i];
+                    if (Directory.Exists(sfolder))
+                    {
+                        sfolder += "\\";
+                        continue;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(sfolder);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Create directory\"" + sfolder + "\" failed! Exception=" + ex.Message);
+                            return false;
+                        }
+                    }
+                    sfolder += "\\";
+                }
+                return true;
             }
             else
             {
-                if (MessageBox.Show(this,"Folder does not exist:\"" + path + "\" CreateFolder","?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.Yes);
-                {
-                    string[] folders = path.Split('\\');
-                    int iCount = folders.Length;
-                    string sfolder = "";
-                    for (int i=0;i<iCount;i++)
-                    {
-                        sfolder += folders[i];
-                        if (Directory.Exists(sfolder))
-                        {
-                            sfolder += "\\";
-                            continue;
-                        }
-                        else
-                        {
-                            try
-                            {
-                                Directory.CreateDirectory(sfolder);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Create directory\"" + sfolder + "\" failed! Exception=" + ex.Message);
-                                return;
-                            }
-                        }
-                        sfolder += "\\";
-                    }
-                }
-                showfiledialog(path);
+                return false;
             }
+        }
+        public static bool CreateFolderIfNotExist(Control parentcontrol, string filename)
+        {
+            string path = Path.GetDirectoryName(filename);
+            if (Directory.Exists(path))
+            {
+                return true;
+            }
+            else
+            {
+                return CreateFolder(parentcontrol, path);
+            }
+        }
+            private void btn_Save_Click(object sender, EventArgs e)
+            {
+              FileName = txt_File.Text;
+              string path = Path.GetDirectoryName(FileName);
+              if (Directory.Exists(path))
+              {
+                showfiledialog(path);
+              }
+              else
+                {
+                CreateFolder(this, path);
+                showfiledialog(path);
+                }
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)

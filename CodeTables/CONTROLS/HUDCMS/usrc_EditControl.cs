@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace HUDCMS
 {
@@ -21,59 +22,75 @@ namespace HUDCMS
         {
             get
             {
-                return Convert.ToInt32(nmUpDn_SnapShotMargin.Value);
+                return Convert.ToInt32(usrc_EditControl_Image1.nmUpDn_SnapShotMargin.Value);
             }
         }
 
         internal void Init(usrc_Control usrc_Control)
         {
+            if (m_usrc_Control!=null)
+            {
+                m_usrc_Control.Title = usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+                m_usrc_Control.About = usrc_EditControl_About1.fctb_CtrlAbout.Text;
+                m_usrc_Control.ImageCaption = usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+                m_usrc_Control.Description = usrc_EditControl_Description1.fctb_CtrlDescription.Text;
+            }
+            
+
             m_usrc_Control = usrc_Control;
+
+            usrc_EditControl_Title1.fctb_CtrlTitle.Text = m_usrc_Control.Title;
+            usrc_EditControl_About1.fctb_CtrlAbout.Text = m_usrc_Control.About;
+            usrc_EditControl_Image1.fctb_CtrlImageCaption.Text = m_usrc_Control.ImageCaption;
+            usrc_EditControl_Description1.fctb_CtrlDescription.Text = m_usrc_Control.Description;
+
+
             this.txt_Control.Text = m_usrc_Control.txt_Control.Text;
             this.txt_Control.ForeColor = m_usrc_Control.txt_Control.ForeColor;
             this.txt_ControlName.Text = m_usrc_Control.txt_ControlName.Text;
-            this.pictureBox1.Image = m_usrc_Control.pic_Control.Image;
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
-            this.lbl_LinkedControls.Text = m_usrc_Control.lbl_LinkedControls.Text;
-            this.lbl_LinkedControls.Visible = this.lbl_LinkedControls.Visible;
-            this.list_Link.Visible = m_usrc_Control.list_Link.Visible;
-            this.list_Link.DataSource = m_usrc_Control.Link;
-            this.list_Link.DisplayMember = "ControlName";
-            this.list_Link.ValueMember = "ControlName";
+            this.usrc_EditControl_Image1.pic_Control.Image = m_usrc_Control.pic_Control.Image;
+            this.usrc_EditControl_Image1.pic_Control.SizeMode = PictureBoxSizeMode.Normal;
+            this.usrc_EditControl_Image1.lbl_LinkedControls.Text = m_usrc_Control.lbl_LinkedControls.Text;
+            this.usrc_EditControl_Image1.lbl_LinkedControls.Visible = m_usrc_Control.lbl_LinkedControls.Visible;
+            this.usrc_EditControl_Image1.list_Link.Visible = m_usrc_Control.list_Link.Visible;
+            this.usrc_EditControl_Image1.list_Link.DataSource = m_usrc_Control.Link;
+            this.usrc_EditControl_Image1.list_Link.DisplayMember = "ControlName";
+            this.usrc_EditControl_Image1.list_Link.ValueMember = "ControlName";
             if (m_usrc_Control.hc.ctrlbmp != null)
             {
-                this.pictureBox1.Size = m_usrc_Control.hc.ctrlbmp.Size;
+                this.usrc_EditControl_Image1.pic_Control.Size = m_usrc_Control.hc.ctrlbmp.Size;
             }
-            panel2.AutoScroll = true;
-            panel2.PerformLayout();
             this.BackColor = usrc_Control.BackColor;
 
+            string sPictureFile = m_usrc_Control.Name + ".png";
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.FileName = sPictureFile;
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.Title = "Save Image";
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.Enabled = true;
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.Title = "Save Image";
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.Text = this.usrc_EditControl_Image1.usrc_SelectPictureFile.FileName;
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.InitialDirectory = HUDCMS_static.LocalHelpPath;
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.DefaultExtension = "png";
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.Filter = "Image files (*.png)|*.png|(*.jpg)|*.jpg|All files (*.*)|*.*";
+
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.SaveFile += Usrc_SelectPictureFile_SaveFile; ;
+            this.usrc_EditControl_Image1.usrc_SelectPictureFile.Enabled = true;
+
         }
-        // this.usrc_SelectPictureFile.Title = "Save Image";
-        //                this.usrc_SelectPictureFile.Enabled = true;
-        ////     this.usrc_SelectPictureFile.Title = "Save Image";
-        //         this.usrc_SelectPictureFile.FileName = path + "\\" + xhc.ctrl.Name + ".png";
-        //        this.usrc_SelectPictureFile.Text = this.usrc_SelectPictureFile.FileName;
-        //        this.usrc_SelectPictureFile.InitialDirectory = path;
-        //        this.usrc_SelectPictureFile.DefaultExtension = "png";
-        //        this.usrc_SelectPictureFile.Filter = "Image files (*.png)|*.png|(*.jpg)|*.jpg|All files (*.*)|*.*";
 
-        //  this.usrc_SelectPictureFile.SaveFile += usrc_SelectPictureFile_SaveFile;
-        // this.usrc_SelectPictureFile.Enabled = false;
+        private bool Usrc_SelectPictureFile_SaveFile(string FileName, ref string Err)
+        {
+            Err = null;
+            try
+            {
+                this.usrc_EditControl_Image1.pic_Control.Image.Save(FileName, ImageFormat.Png);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Err = ex.Message;
+            }
+            return false;
+        }
 
-
-        //private bool usrc_SelectPictureFile_SaveFile(string FileName, ref string Err)
-        //{
-        //    Err = null;
-        //    try
-        //    {
-        //        this.pic_Control.Image.Save(FileName, ImageFormat.Png);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Err = ex.Message;
-        //    }
-        //    return false;
-        //}
     }
 }
