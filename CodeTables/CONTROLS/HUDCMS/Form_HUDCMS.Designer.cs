@@ -131,6 +131,7 @@
             this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_EditControl1.Name = "usrc_EditControl1";
             this.usrc_EditControl1.Size = new System.Drawing.Size(716, 636);
+            this.usrc_EditControl1.SnapShotMargin = 4;
             this.usrc_EditControl1.TabIndex = 1;
             // 
             // usrc_SelectHtmlFile
@@ -177,8 +178,8 @@
         private SelectFile.usrc_SelectFile usrc_SelectHtmlFile;
         private System.Windows.Forms.Button btn_Create;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Panel panel1;
         private SelectFile.usrc_SelectFile usrc_SelectStyleFile;
         internal usrc_EditControl usrc_EditControl1;
+        internal System.Windows.Forms.Panel panel1;
     }
 }

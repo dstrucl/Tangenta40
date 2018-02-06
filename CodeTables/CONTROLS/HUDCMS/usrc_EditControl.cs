@@ -24,6 +24,38 @@ namespace HUDCMS
             {
                 return Convert.ToInt32(usrc_EditControl_Image1.nmUpDn_SnapShotMargin.Value);
             }
+            set
+            {
+                usrc_EditControl_Image1.nmUpDn_SnapShotMargin.Value = value;
+                if (m_usrc_Control!=null)
+                {
+                    m_usrc_Control.SnapShotMargin = Convert.ToInt32(usrc_EditControl_Image1.nmUpDn_SnapShotMargin.Value);
+                }
+            }
+        }
+
+        internal static bool GetUsrcEditControl(Control ctrl, ref usrc_EditControl m_usrc_EditControl)
+        {
+            if (ctrl is usrc_EditControl)
+            {
+                m_usrc_EditControl = (usrc_EditControl)ctrl;
+                return true;
+            }
+            else if (ctrl.Parent!=null)
+            {
+                if (GetUsrcEditControl(ctrl.Parent, ref m_usrc_EditControl))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         internal void Init(usrc_Control usrc_Control)
@@ -74,6 +106,7 @@ namespace HUDCMS
 
             this.usrc_EditControl_Image1.usrc_SelectPictureFile.SaveFile += Usrc_SelectPictureFile_SaveFile; ;
             this.usrc_EditControl_Image1.usrc_SelectPictureFile.Enabled = true;
+            this.SnapShotMargin = m_usrc_Control.SnapShotMargin;
 
         }
 

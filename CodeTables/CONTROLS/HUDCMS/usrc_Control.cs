@@ -25,7 +25,21 @@ namespace HUDCMS
         internal XElement xAbout = null;
         internal XElement xDescription = null;
 
+        internal string[] sLink = null;
+
         private string m_Title = "";
+
+        internal new Color BackColor
+        {
+            get
+            {
+                return base.BackColor;
+            }
+            set
+            {
+                base.BackColor = value;
+            }
+        }
 
         internal string Title
         {
@@ -63,17 +77,44 @@ namespace HUDCMS
         internal hctrl hc = null;
         internal usrc_Help uH = null;
 
-        private bool bLink = false;
+        private bool m_bLink = false;
+        internal bool bLinked
+        {
+            get
+            {
+                return m_bLink;
+            }
+            set
+            {
+                m_bLink = value;
+                if (m_bLink)
+                {
+                    btn_Link.Image = Properties.Resources.Link;
+                    btn_Link.Text = "Remove Link";
+                    btn_Link.Visible = true;
+                }
+                else
+                {
+                    btn_Link.Image = Properties.Resources.NoLink;
+                    btn_Link.Text = "Add Link";
+                }
+            }
+        }
 
+        private int m_SnapShotMargin = 4;
         internal int SnapShotMargin
         {
             get
             {
                 if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control==this)
                 {
-                    return uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.SnapShotMargin;
+                    m_SnapShotMargin = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.SnapShotMargin;
                 }
-                return 0;
+                return m_SnapShotMargin;
+            }
+            set
+            {
+                m_SnapShotMargin = value;
             }
         }
 
@@ -144,12 +185,63 @@ namespace HUDCMS
             set { m_MaxPanelWidth = value; }
         }
 
+        public bool HasLink
+        {
+            get
+            {
+                if (sLink != null)
+                {
+                    return (sLink.Count() > 0);
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         internal void CreateNode(XDocument xh,ref XElement xn)
         {
 
             xel = new XElement("TControl");
-            XAttribute attribute = new XAttribute("name", ControlName);
-            xel.Add(attribute);
+            XAttribute attribute_name = new XAttribute("name", ControlName);
+            string simage_included = "0";
+            if (chk_ImageIncluded.Checked)
+            {
+                simage_included = "1";
+            }
+            XAttribute attribute_imageincluded = new XAttribute("imageincluded", simage_included);
+            string sLink = "";
+            if (Link!=null)
+            {
+                if (Link.Count > 0)
+                {
+                    foreach (usrc_Control c in Link)
+                    {
+                        if (sLink.Length == 0)
+                        {
+                            sLink = c.ControlName;
+                        }
+                        else
+                        {
+                            sLink += "," + c.ControlName;
+                        }
+                    }
+                }
+            }
+            XAttribute attribute_link = new XAttribute("link", sLink);
+
+            string smargin = SnapShotMargin.ToString();
+            XAttribute attribute_margin = new XAttribute("margin", smargin);
+
+            xel.Add(attribute_name);
+            xel.Add(attribute_imageincluded);
+            xel.Add(attribute_link);
+            xel.Add(attribute_margin);
+
+
+
             if (Title.Length > 0)
             {
                 xdiv_Title = new XElement("div");
@@ -163,7 +255,8 @@ namespace HUDCMS
                 xTitle_Heading = new XElement(html_Heading);
                 XAttribute xdiv_Title_Heading_class = new XAttribute("class", "Title");
                 xTitle_Heading.Add(xdiv_Title_Heading_class);
-                xTitle_Heading.Value = Title;
+                usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", Title);
+                //xTitle_Heading.Value = Title;
 
                 xdiv_Title.Add(xTitle_Heading);
 
@@ -172,25 +265,29 @@ namespace HUDCMS
                     xdiv_About = new XElement("div");
                     XAttribute xdiv_About_class = new XAttribute("class", "About");
                     xdiv_About.Add(xdiv_About_class);
-                    xdiv_About.Value = About;
+                    usrc_Control.ReplaceInnerXml(xdiv_About,"About",About);
                     xdiv_Title.Add(xdiv_About);
                 }
 
-                ximg = new XElement("img");
-                XAttribute img_src = new XAttribute("src", ImageSource);
-                XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
-                XAttribute img_height = new XAttribute("height", ImageHeight.ToString());
-                ximg.Add(img_src);
-                ximg.Add(img_width);
-                ximg.Add(img_height);
-                xdiv_Title.Add(ximg);
+                if (this.chk_ImageIncluded.Checked)
+                {
+                    ximg = new XElement("img");
+                    XAttribute img_src = new XAttribute("src", ImageSource);
+                    XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
+                    XAttribute img_height = new XAttribute("height", ImageHeight.ToString());
+                    ximg.Add(img_src);
+                    ximg.Add(img_width);
+                    ximg.Add(img_height);
+                    xdiv_Title.Add(ximg);
+                }
 
                 if (Description.Length > 0)
                 {
                     xdiv_Description = new XElement("div");
                     XAttribute xdiv_Description_class = new XAttribute("class", "Description");
                     xdiv_Description.Add(xdiv_Description_class);
-                    xdiv_Description.Value = Description;
+                    usrc_Control.ReplaceInnerXml(xdiv_Description, "Description", Description);
+                    //xdiv_Description.Value = Description;
                     xdiv_Title.Add(xdiv_Description);
                 }
 
@@ -228,6 +325,18 @@ namespace HUDCMS
                 }
             }
             xn.Add(xel);
+
+        }
+
+        public static void ReplaceInnerXml(XElement xdiv_About,string classname, string about)
+        {
+            //Here is an example in C# that uses ReplaceNodes and XElement.Parse:
+
+//            xdiv_About.
+
+            xdiv_About.ReplaceNodes(XElement.Parse("<div class=\""+ classname + "\">" + about + "</div>").Nodes());
+
+
 
         }
 
@@ -326,12 +435,76 @@ namespace HUDCMS
             {
                
             }
-            this.list_Link.Visible = false;
-            
-            this.list_Link.DataSource = null;
-            if (this.Link!=null)
+
+            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded != null)
             {
-                if (this.Link.Count>0)
+                XDocument doc = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded;
+                XElement xel = null;
+                if (FindXElement(doc, ref xel, "TControl", "name", ControlName))
+                {
+                    string simageincluded =xel.Attribute("imageincluded").Value;
+                    chk_ImageIncluded.Checked = true;
+                    if (simageincluded.Equals("0"))
+                    {
+                        chk_ImageIncluded.Checked = false;
+                    }
+
+                    this.sLink = null;
+                    string sLinks = xel.Attribute("link").Value;
+                    if (sLinks != null)
+                    {
+                        if (sLinks.Length > 0)
+                        {
+                            sLink = sLinks.Split(',');
+                        }
+                    }
+
+                    string smargin = xel.Attribute("margin").Value;
+                    if (smargin != null)
+                    {
+                        if (smargin.Length > 0)
+                        {
+                            SnapShotMargin = Convert.ToInt32(smargin);
+                        }
+                    }
+
+                    XElement xel_Title = null;
+                    if (FindXElement(xel, ref xel_Title, "div", "class", "Title"))
+                    {
+                        XElement xel_Title_Header = null;
+                        if (FindXElement(xel_Title, ref xel_Title_Header, "h1", "class", "Title"))
+                        {
+                            //Title = xel_Title_Header.Value;
+                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                        }
+                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
+                        {
+                            //Title = xel_Title_Header.Value;
+                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                        }
+                        XElement xel_About = null;
+                        if (FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
+                        {
+                            //About = xel_About.Value;
+                            About = usrc_Control.InnerXml(xel_About); 
+                        }
+                        XElement xel_Description = null;
+                        if (FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
+                        {
+                            //Description = xel_Description.Value;
+                            Description = usrc_Control.InnerXml(xel_About); 
+                        }
+                    }
+               
+                }
+            }
+
+            this.list_Link.Visible = false;
+
+            this.list_Link.DataSource = null;
+            if (this.Link != null)
+            {
+                if (this.Link.Count > 0)
                 {
                     this.list_Link.Visible = true;
                     this.list_Link.DataSource = Link;
@@ -341,39 +514,53 @@ namespace HUDCMS
             }
             this.lbl_LinkedControls.Visible = this.list_Link.Visible;
 
-            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded != null)
+
+            SetDefault_BackColor();
+            this.Refresh();
+        }
+
+        internal static bool Find_usrc_Control(Control ctrl, string slnk, ref usrc_Control usrc_Control_found)
+        {
+            if (ctrl != null)
             {
-                XDocument doc = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded;
-                XElement xel = null;
-                if (FindXElement(doc, ref xel, "TControl", "name", ControlName))
+                if (ctrl is usrc_Control)
                 {
-                    XElement xel_Title = null;
-                    if (FindXElement(xel, ref xel_Title, "div", "class", "Title"))
+                    string sControlName = ((usrc_Control)ctrl).ControlName;
+                    if (sControlName.Equals(slnk))
                     {
-                        XElement xel_Title_Header = null;
-                        if (FindXElement(xel_Title, ref xel_Title_Header, "h1", "class", "Title"))
+                        usrc_Control_found = (usrc_Control)ctrl;
+                        return true;
+                    }
+                    foreach (Control c in ctrl.Controls)
+                    {
+                        if (c is usrc_Control)
                         {
-                                Title = xel_Title_Header.Value;
-                        }
-                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
-                        {
-                            Title = xel_Title_Header.Value;
-                        }
-                        XElement xel_About = null;
-                        if (FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
-                        {
-                            About = xel_About.Value;
-                        }
-                        XElement xel_Description = null;
-                        if (FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
-                        {
-                            About = xel_Description.Value;
+                            if (Find_usrc_Control(c, slnk, ref usrc_Control_found))
+                            {
+                                return true;
+                            }
                         }
                     }
-               
+                }
+                else
+                {
+                    foreach (Control c in ctrl.Controls)
+                    {
+                        if (c is usrc_Control)
+                        {
+                            if (Find_usrc_Control(c, slnk, ref usrc_Control_found))
+                            {
+                                return true;
+                            }
+                        }
+                    }
                 }
             }
+            return false;
+        }
 
+        private Color SetDefault_BackColor()
+        {
             if (this.Title.Length > 0)
             {
                 this.BackColor = Color.LightYellow;
@@ -382,20 +569,24 @@ namespace HUDCMS
             {
                 this.BackColor = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.BackColor;
             }
-            this.Refresh();
+            return this.BackColor;
+        }
+        public static string InnerXml(XElement element)
+        {
+
+            XmlReader oReader = element.CreateReader();
+            oReader.MoveToContent();
+            return oReader.ReadInnerXml();
+         
         }
 
         internal bool FindXElement(XDocument doc,ref XElement element, string element_name, string AttributeName, string AttributeValue)
         {
             element = null;
 
-            //IEnumerable<System.Xml.Linq.XElement> qElements = from e in doc.Elements()
-            //                                                  where e.Attribute(AttributeName).Value == AttributeValue
-            //                                                  select e;
             IEnumerable<System.Xml.Linq.XElement> qElements = from c in doc.Descendants(element_name)
                                                               where c.Attribute(AttributeName).Value == AttributeValue
                                                               select c;
-
             if (qElements != null)
             {
                 if (qElements.Count() > 0)
@@ -440,16 +631,7 @@ namespace HUDCMS
                         {
                             return false;
                         }
-                        
-                        //if (qElements.Count() == 1)
-                        //{
-                        //}
-                        //else
-                        //{
-                        //    //MessageBox.Show("WARNING multiple TControl elements found where name = \"" + ControlName + "\"");
-                        //}
                     }
-
                 }
             }
             catch (Exception ex)
@@ -458,11 +640,6 @@ namespace HUDCMS
             }
 
             return false;
-        }
-
-            private void pic_Control_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void radioButtonGlobal1_CheckChanged()
@@ -487,7 +664,7 @@ namespace HUDCMS
             //Link Form_HUDCMS.usrc_Control_Selected with this !
             if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected != null)
             {
-                if (bLink)
+                if (bLinked)
                 {
                     usrc_Control Control_Selected = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected;
                     if (Control_Selected.Link == null)
@@ -496,9 +673,7 @@ namespace HUDCMS
                     }
                     RemoveLink(Control_Selected.Link, this, Control_Selected);
                     Control_Selected.CreateImageOfLinkedControls();
-                    btn_Link.Image = Properties.Resources.NoLink;
-                    btn_Link.Text = "Add Link";
-                    bLink = false;
+                    bLinked = false;
                 }
                 else
                 {
@@ -509,9 +684,7 @@ namespace HUDCMS
                     }
                     AddLink(Control_Selected.Link, this, Control_Selected);
                     Control_Selected.CreateImageOfLinkedControls();
-                    btn_Link.Image = Properties.Resources.Link;
-                    btn_Link.Text = "Remove Link";
-                    bLink = true;
+                    bLinked = true;
                 }
             }
         }
@@ -527,7 +700,8 @@ namespace HUDCMS
             }
             return false;
         }
-        private void CreateImageOfLinkedControls()
+
+        internal void CreateImageOfLinkedControls()
         {
             this.list_Link.Visible = false;
             this.list_Link.DataSource = null;
@@ -809,6 +983,37 @@ namespace HUDCMS
                 usrc_Control_Selected.list_Link.Visible = false;
                 usrc_Control_Selected.Refresh();
             }
+        }
+
+        private void radioButtonGlobal1_SetBackColor(object ctrl)
+        {
+            if (ctrl is usrc_Control)
+            {
+                SetDefault_BackColor();
+                if (((usrc_Control)ctrl).Parent != null)
+                {
+                    if (((usrc_Control)ctrl).Parent  is usrc_Control)
+                    {
+                        ((usrc_Control)((usrc_Control)ctrl).Parent).SetDefault_BackColor();
+                    }
+                }
+            }
+            else if (ctrl is Panel)
+            {
+                if (((Panel)ctrl).Parent != null)
+                {
+                    if (((Panel)ctrl).Parent is usrc_Control)
+                    {
+                        Color backcolor = ((usrc_Control)((Panel)ctrl).Parent).SetDefault_BackColor();
+                        ((Panel)ctrl).BackColor = backcolor;
+                    }
+                }
+            }
+        }
+
+        private void chk_IncludeImage(object sender, EventArgs e)
+        {
+
         }
     }
 }

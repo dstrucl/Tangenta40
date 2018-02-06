@@ -17,6 +17,9 @@ namespace RadioButtonGlobal
         public delegate void delegateCheckChanged();
         public event delegateCheckChanged CheckChanged = null;
 
+        public delegate void delegateSetBackColor(object Control);
+        public event delegateSetBackColor SetBackColor = null;
+
         private Color m_ParentBackColor = System.Drawing.SystemColors.Control;
         public Color ParentBackColor
         {
@@ -61,10 +64,9 @@ namespace RadioButtonGlobal
                     if ((RadioButtonGlobal)ctrl != rdbg)
                     {
                         ((RadioButtonGlobal)ctrl).Checked = false;
-                        ((RadioButtonGlobal)ctrl).Parent.BackColor = ParentBackColor;
-                        if (((RadioButtonGlobal)ctrl).Parent.Parent!=null)
+                        if (SetBackColor!=null)
                         {
-                            ((RadioButtonGlobal)ctrl).Parent.Parent.BackColor = ParentBackColor;
+                            SetBackColor(((RadioButtonGlobal)ctrl).Parent);
                         }
                     }
                 }

@@ -67,10 +67,55 @@ namespace HUDCMS
             int y = 2;
             CreateControls(ref y, 0, hc, this.panel1);
             HideLinks();
-
+            SetLinks(this.panel1);
         }
+
+        private void SetLinks(Control ctrl)
+        {
+            if (ctrl is usrc_Control)
+            {
+                string[] xslink = ((usrc_Control)ctrl).sLink;
+                string ctrl_name = ((usrc_Control) ctrl).ControlName;
+                if (((usrc_Control)ctrl).HasLink)
+                {
+                    if (((usrc_Control)ctrl).Link ==null)
+                    {
+                        ((usrc_Control)ctrl).Link = new List<usrc_Control>();
+                    }
+                    else
+                    {
+                        ((usrc_Control)ctrl).Link.Clear();
+                    }
+                    foreach (string sctrl_name in ((usrc_Control)ctrl).sLink)
+                    {
+                        usrc_Control xusrc_Control_Linked = null; 
+                        if (usrc_Control.Find_usrc_Control(this.panel1, sctrl_name,ref xusrc_Control_Linked))
+                        {
+                            ((usrc_Control)ctrl).Link.Add(xusrc_Control_Linked);
+                            xusrc_Control_Linked.bLinked = true;
+                        }
+                    }
+                    ((usrc_Control)ctrl).CreateImageOfLinkedControls();
+                }
+            }
+            foreach (Control c in ctrl.Controls)
+            {
+                if (c is usrc_Control)
+                {
+                    SetLinks(c);
+                }
+            }
+        }
+
         internal bool SaveXHTML(ref XDocument xh)
         {
+            if (this.usrc_Control_Selected!=null)
+            {
+                this.usrc_EditControl1.m_usrc_Control.Title = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+                this.usrc_EditControl1.m_usrc_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
+                this.usrc_EditControl1.m_usrc_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
+                this.usrc_EditControl1.m_usrc_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+            }
             if (xh == null)
             {
                 xh = new XDocument();
@@ -394,7 +439,5 @@ namespace HUDCMS
         {
             SaveXHTML(ref this.xhtml);
         }
-
-       
     }
 }

@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_EditControl_Image));
             this.lbl_Image = new System.Windows.Forms.Label();
-            this.usrc_SelectPictureFile = new SelectFile.usrc_SelectFile();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.fctb_CtrlImageCaption = new FastColoredTextBoxNS.FastColoredTextBox();
             this.lbl_SnapShotMargin = new System.Windows.Forms.Label();
@@ -41,6 +40,7 @@
             this.lbl_ImageCaption = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pic_Control = new System.Windows.Forms.PictureBox();
+            this.usrc_SelectPictureFile = new SelectFile.usrc_SelectFile();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,21 +60,6 @@
             this.lbl_Image.Size = new System.Drawing.Size(62, 24);
             this.lbl_Image.TabIndex = 40;
             this.lbl_Image.Text = "Image";
-            // 
-            // usrc_SelectPictureFile
-            // 
-            this.usrc_SelectPictureFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_SelectPictureFile.DefaultExtension = "txt";
-            this.usrc_SelectPictureFile.FileName = "";
-            this.usrc_SelectPictureFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            this.usrc_SelectPictureFile.InitialDirectory = "C:\\";
-            this.usrc_SelectPictureFile.Location = new System.Drawing.Point(77, 13);
-            this.usrc_SelectPictureFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.usrc_SelectPictureFile.Name = "usrc_SelectPictureFile";
-            this.usrc_SelectPictureFile.Size = new System.Drawing.Size(675, 30);
-            this.usrc_SelectPictureFile.TabIndex = 34;
-            this.usrc_SelectPictureFile.Title = "Save File";
             // 
             // splitContainer1
             // 
@@ -164,6 +149,7 @@
             0,
             0,
             0});
+            this.nmUpDn_SnapShotMargin.ValueChanged += new System.EventHandler(this.nmUpDn_SnapShotMargin_ValueChanged);
             // 
             // list_Link
             // 
@@ -220,6 +206,21 @@
             this.pic_Control.Size = new System.Drawing.Size(395, 209);
             this.pic_Control.TabIndex = 0;
             this.pic_Control.TabStop = false;
+            // 
+            // usrc_SelectPictureFile
+            // 
+            this.usrc_SelectPictureFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_SelectPictureFile.DefaultExtension = "txt";
+            this.usrc_SelectPictureFile.FileName = "";
+            this.usrc_SelectPictureFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            this.usrc_SelectPictureFile.InitialDirectory = "C:\\";
+            this.usrc_SelectPictureFile.Location = new System.Drawing.Point(77, 13);
+            this.usrc_SelectPictureFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.usrc_SelectPictureFile.Name = "usrc_SelectPictureFile";
+            this.usrc_SelectPictureFile.Size = new System.Drawing.Size(675, 30);
+            this.usrc_SelectPictureFile.TabIndex = 34;
+            this.usrc_SelectPictureFile.Title = "Save File";
             // 
             // usrc_EditControl_Image
             // 
