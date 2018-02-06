@@ -107,7 +107,7 @@ namespace HUDCMS
             }
         }
 
-        internal bool SaveXHTML(ref XDocument xh)
+        internal bool SaveXHTML(string html_file,ref XDocument xh, ref string Err)
         {
             if (this.usrc_Control_Selected!=null)
             {
@@ -173,10 +173,17 @@ namespace HUDCMS
                 }
 
                 //save xhtml
-                string sHtmFileName = usrc_SelectHtmlFile.FileName;
-                if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, sHtmFileName))
+                if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file,ref Err))
                 {
-                    xh.Save(sHtmFileName);
+                    try
+                    {
+                        xh.Save(html_file);
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                 }
 
             }
@@ -435,9 +442,9 @@ namespace HUDCMS
 
         }
 
-        private void btn_Create_Click(object sender, EventArgs e)
+        private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
         {
-            SaveXHTML(ref this.xhtml);
+            return SaveXHTML(FileName,ref this.xhtml, ref Err);
         }
     }
 }

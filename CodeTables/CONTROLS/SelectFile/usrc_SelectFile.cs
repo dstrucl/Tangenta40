@@ -44,7 +44,7 @@ namespace SelectFile
         }
 
         private string m_Text = "Save File";
-        public override string Text
+        public new string Text
         {
             get { return m_Text; }
             set { m_Text = value;
@@ -107,8 +107,9 @@ namespace SelectFile
             }
         }
 
-        public static bool CreateFolder(Control parentcontrol,string path)
+        public static bool CreateFolder(Control parentcontrol,string path, ref string Err)
         {
+            Err = null;
             if (MessageBox.Show(parentcontrol, "Folder does not exist:\"" + path + "\" CreateFolder", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) 
             {
                 string[] folders = path.Split('\\');
@@ -130,7 +131,7 @@ namespace SelectFile
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Create directory\"" + sfolder + "\" failed! Exception=" + ex.Message);
+                            Err = "Create directory\"" + sfolder + "\" failed! Exception=" + ex.Message;
                             return false;
                         }
                     }
@@ -143,8 +144,10 @@ namespace SelectFile
                 return false;
             }
         }
-        public static bool CreateFolderIfNotExist(Control parentcontrol, string filename)
+
+        public static bool CreateFolderIfNotExist(Control parentcontrol, string filename, ref string Err)
         {
+            Err = null;
             string path = Path.GetDirectoryName(filename);
             if (Directory.Exists(path))
             {
@@ -152,22 +155,32 @@ namespace SelectFile
             }
             else
             {
-                return CreateFolder(parentcontrol, path);
+                return CreateFolder(parentcontrol, path, ref Err);
             }
         }
-            private void btn_Save_Click(object sender, EventArgs e)
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            string Err = null;
+            FileName = txt_File.Text;
+            string path = Path.GetDirectoryName(FileName);
+            if (Directory.Exists(path))
             {
-              FileName = txt_File.Text;
-              string path = Path.GetDirectoryName(FileName);
-              if (Directory.Exists(path))
-              {
-                showfiledialog(path);
-              }
-              else
+            showfiledialog(path);
+            }
+            else
+            {
+                if (CreateFolder(this, path, ref Err))
                 {
-                CreateFolder(this, path);
-                showfiledialog(path);
+                    showfiledialog(path);
                 }
+                else
+                {
+                    if (Err!=null)
+                    {
+                        MessageBox.Show(Err);
+                    }
+                }
+            }
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
