@@ -294,6 +294,7 @@ namespace HUDCMS
         {
             this.ctrl = null;
             this.pForm = null;
+            this.dgvc = dgvc;
             this.parentctrl = xparent;
             this.ctrlbmp = null;
             xScr = 0;
@@ -323,7 +324,10 @@ namespace HUDCMS
             {
                 foreach (DataGridViewColumn dgvc in ((DataGridView)c).Columns)
                 {
-                    newhc.AddSubCtrl(dgvc);
+                    if (dgvc.Visible)
+                    {
+                        newhc.AddSubCtrl(dgvc);
+                    }
                 }
             }
         }

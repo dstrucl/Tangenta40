@@ -390,20 +390,29 @@ namespace HUDCMS
             }
             else
             {
-                sControl = "Control";
-                this.txt_Control.ForeColor = Color.Black;
-                if (xhc.ctrl is Button)
+                if (xhc.ctrl != null)
                 {
-                    sText = "  TEXT:\"" + ((Button)xhc.ctrl).Text + "\"";
+                    sControl = "Control";
+                    this.txt_Control.ForeColor = Color.Black;
+                    if (xhc.ctrl is Button)
+                    {
+                        sText = "  TEXT:\"" + ((Button)xhc.ctrl).Text + "\"";
+                    }
+                    else if (xhc.ctrl is GroupBox)
+                    {
+                        sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\""; 
+                    }
+                    else if (xhc.ctrl is Label)
+                    {
+                        sText = "  TEXT:\"" + ((Label)xhc.ctrl).Text + "\""; 
+                    }
                 }
-                else if (xhc.ctrl is GroupBox)
+                else if (xhc.dgvc != null)
                 {
-                    sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\""; ;
+                    sControl = "DataGridViewColumn";
+                    sText = "  TEXT:\"" + xhc.dgvc.HeaderText + "\""; 
                 }
-                else if (xhc.ctrl is Label)
-                {
-                    sText = "  TEXT:\"" + ((Label)xhc.ctrl).Text + "\""; ;
-                }
+
             }
 
 
@@ -413,7 +422,11 @@ namespace HUDCMS
                 {
                     this.txt_Control.Text = sControl + "=" + xhc.pForm.Name + "  Type:" + xhc.pForm.GetType().ToString() + sText;
                 }
-                else
+                else if (xhc.dgvc != null)
+                {
+                    this.txt_Control.Text = sControl + "=" + xhc.dgvc.Name + "  Type:" + xhc.dgvc.GetType().ToString() + sText;
+                }
+                else 
                 {
                     MessageBox.Show("ERROR:HUDCMS:usrc_Control:(xhc.ctrl == null)&&(xhc.pForm != null)!");
                 }
