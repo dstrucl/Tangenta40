@@ -19,7 +19,7 @@ namespace HUDCMS.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,38 @@ namespace HUDCMS.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to body {
+        ///		font-family: Arial, Helvetica, sans-serif;
+        ///        background-color: white;
+        ///        display: block;
+        ///        margin-top: 4px;
+        ///        width: 860px;
+        ///    }
+        ///
+        ///    h1.Title {
+        ///        font-size: 0.6cm;
+        ///        padding-top: 0.5cm;
+        ///        padding-left: 0.5cm;
+        ///        padding-right: 0.5cm;
+        ///        padding-bottom: 0cm;
+        ///    }
+        ///
+        ///    h2.Title {
+        ///        font-size: 0.5cm;
+        ///        line-height: 2.4em;
+        ///        padding-top: 0.6cm;
+        ///        padding-left: 0.5cm;
+        ///        padding-right: 0.5cm;
+        ///    }
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaultStyle {
+            get {
+                return ResourceManager.GetString("DefaultStyle", resourceCulture);
             }
         }
         

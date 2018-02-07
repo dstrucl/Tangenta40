@@ -480,6 +480,10 @@ namespace Tangenta
                         }
                     }
 
+                    HUDCMS.HUDCMS_static.LocalHelpPath = Properties.Settings.Default.HelpLocalPath;
+                    HUDCMS.HUDCMS_static.RemoteHelpURL = Properties.Settings.Default.HelpRemoteURL;
+
+
                     if (bResetNew)
                     {
                         goto DoResetNew;

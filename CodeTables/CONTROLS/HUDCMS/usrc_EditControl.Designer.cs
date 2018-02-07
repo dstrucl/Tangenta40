@@ -33,11 +33,11 @@
             this.lbl_ControlName = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.usrc_EditControl_About1 = new HUDCMS.usrc_EditControl_About();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.usrc_EditControl_Image1 = new HUDCMS.usrc_EditControl_Image();
-            this.usrc_EditControl_Description1 = new HUDCMS.usrc_EditControl_Description();
             this.usrc_EditControl_Title1 = new HUDCMS.usrc_EditControl_Title();
+            this.usrc_EditControl_About1 = new HUDCMS.usrc_EditControl_About();
+            this.usrc_EditControl_Description1 = new HUDCMS.usrc_EditControl_Description();
+            this.usrc_EditControl_Image1 = new HUDCMS.usrc_EditControl_Image();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -130,14 +130,6 @@
             this.splitContainer3.SplitterWidth = 6;
             this.splitContainer3.TabIndex = 0;
             // 
-            // usrc_EditControl_About1
-            // 
-            this.usrc_EditControl_About1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl_About1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl_About1.Name = "usrc_EditControl_About1";
-            this.usrc_EditControl_About1.Size = new System.Drawing.Size(639, 150);
-            this.usrc_EditControl_About1.TabIndex = 0;
-            // 
             // splitContainer2
             // 
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -160,14 +152,21 @@
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 0;
             // 
-            // usrc_EditControl_Image1
+            // usrc_EditControl_Title1
             // 
-            this.usrc_EditControl_Image1.AutoScroll = true;
-            this.usrc_EditControl_Image1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl_Image1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl_Image1.Name = "usrc_EditControl_Image1";
-            this.usrc_EditControl_Image1.Size = new System.Drawing.Size(639, 158);
-            this.usrc_EditControl_Image1.TabIndex = 0;
+            this.usrc_EditControl_Title1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_Title1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Title1.Name = "usrc_EditControl_Title1";
+            this.usrc_EditControl_Title1.Size = new System.Drawing.Size(639, 111);
+            this.usrc_EditControl_Title1.TabIndex = 0;
+            // 
+            // usrc_EditControl_About1
+            // 
+            this.usrc_EditControl_About1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_About1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_About1.Name = "usrc_EditControl_About1";
+            this.usrc_EditControl_About1.Size = new System.Drawing.Size(639, 150);
+            this.usrc_EditControl_About1.TabIndex = 0;
             // 
             // usrc_EditControl_Description1
             // 
@@ -177,13 +176,14 @@
             this.usrc_EditControl_Description1.Size = new System.Drawing.Size(639, 149);
             this.usrc_EditControl_Description1.TabIndex = 0;
             // 
-            // usrc_EditControl_Title1
+            // usrc_EditControl_Image1
             // 
-            this.usrc_EditControl_Title1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl_Title1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl_Title1.Name = "usrc_EditControl_Title1";
-            this.usrc_EditControl_Title1.Size = new System.Drawing.Size(639, 111);
-            this.usrc_EditControl_Title1.TabIndex = 0;
+            this.usrc_EditControl_Image1.AutoScroll = true;
+            this.usrc_EditControl_Image1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_Image1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Image1.Name = "usrc_EditControl_Image1";
+            this.usrc_EditControl_Image1.Size = new System.Drawing.Size(639, 158);
+            this.usrc_EditControl_Image1.TabIndex = 0;
             // 
             // usrc_EditControl
             // 
@@ -221,8 +221,8 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         internal usrc_EditControl_About usrc_EditControl_About1;
-        internal usrc_EditControl_Image usrc_EditControl_Image1;
         internal usrc_EditControl_Description usrc_EditControl_Description1;
         internal usrc_EditControl_Title usrc_EditControl_Title1;
+        internal usrc_EditControl_Image usrc_EditControl_Image1;
     }
 }

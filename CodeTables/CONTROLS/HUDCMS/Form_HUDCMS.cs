@@ -32,19 +32,14 @@ namespace HUDCMS
             hc = new hctrl(mH.pForm);
             usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.sLocalHtmlFile);
             usrc_SelectHtmlFile.FileName = mH.sLocalHtmlFile;
-            usrc_SelectStyleFile.Title = "Save HTML file";
+            usrc_SelectHtmlFile.Title = "Save HTML file";
             usrc_SelectHtmlFile.Text = "HTML file:";
             this.usrc_SelectHtmlFile.DefaultExtension = "html";
             this.usrc_SelectHtmlFile.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
 
-            string[] folders = mH.RelativeURL.Split('/');
-            string sStylePath = "";
-            if (folders.Length>0)
-            {
-                sStylePath = HUDCMS_static.ApplicationPath+"\\"+folders[0];
-            }
+            string sStylePath = Path.GetDirectoryName(mH.sLocalHtmlFile);
             usrc_SelectStyleFile.InitialDirectory = sStylePath;
-            usrc_SelectStyleFile.FileName = sStylePath + "\\TangentaHelp.css";
+            usrc_SelectStyleFile.FileName = sStylePath + "\\style.css";
             usrc_SelectStyleFile.Title = "Save style file";
             usrc_SelectStyleFile.Text = "Style file:";
 

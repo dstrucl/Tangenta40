@@ -240,15 +240,26 @@ namespace HUDCMS
         {
             bool result = false;
             Err = null;
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Timeout = 1200; // miliseconds
-            webRequest.Method = "HEAD";
 
-            HttpWebResponse response = null;
+            System.Net.WebRequest wc = System.Net.WebRequest.Create(url); //args[0]);
 
+            ((HttpWebRequest)wc).UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/0.2.153.1 Safari/525.19";
+            wc.Timeout = 1000;
+            wc.Method = "HEAD";
+
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+
+            //WebRequest webRequest = WebRequest.Create(url);
+            //webRequest.Timeout = 1200; // miliseconds
+            //webRequest.Method = "HEAD";
+
+            //HttpWebResponse response = null;
+            WebResponse response = null;
             try
             {
-                response = (HttpWebResponse)webRequest.GetResponse();
+                response = wc.GetResponse();
+//                response = (HttpWebResponse)webRequest.GetResponse();
                 result = true;
             }
             catch (WebException webException)

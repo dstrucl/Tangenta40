@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Net;
 
 namespace HUDCMS
 {
@@ -60,6 +61,8 @@ namespace HUDCMS
            
             if (mH.RemoteURL_accessible)
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
                 chk_local.Checked = false;
                 btn_HUDCMS.Visible = false;
                 lbl_URL.Text = mH.RemoteURL;

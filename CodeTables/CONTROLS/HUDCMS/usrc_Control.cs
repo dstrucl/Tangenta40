@@ -301,29 +301,32 @@ namespace HUDCMS
                 }
 
                 xel.Add(xdiv_Title);
-
                 string Err = null;
-                try
+
+                if ((this.hc.ctrlbmp != null)&& (this.chk_ImageIncluded.Checked))
                 {
-                    string ximage_path = Path.GetDirectoryName(uH.sLocalHtmlFile);
-                    if (ximage_path != null)
+                    try
                     {
-                        if (ximage_path.Length > 0)
+                        string ximage_path = Path.GetDirectoryName(uH.sLocalHtmlFile);
+                        if (ximage_path != null)
                         {
-                            if (ximage_path[ximage_path.Length - 1] != '\\')
+                            if (ximage_path.Length > 0)
                             {
-                                ximage_path += '\\';
+                                if (ximage_path[ximage_path.Length - 1] != '\\')
+                                {
+                                    ximage_path += '\\';
+                                }
                             }
                         }
-                    }
 
-                    string ximage_file = ximage_path + ImageSource;
-                    this.pic_Control.Image.Save(ximage_file, ImageFormat.Png);
-                }
-                catch (Exception ex)
-                {
-                    Err = ex.Message;
-                    MessageBox.Show("ERROR:Can not save:\"" + ImageSource + "\"" + Err);
+                        string ximage_file = ximage_path + ImageSource;
+                        this.pic_Control.Image.Save(ximage_file, ImageFormat.Png);
+                    }
+                    catch (Exception ex)
+                    {
+                        Err = ex.Message;
+                        MessageBox.Show("ERROR:Can not save:\"" + ImageSource + "\"" + Err);
+                    }
                 }
             }
             foreach (Control c in this.Controls)
@@ -455,7 +458,15 @@ namespace HUDCMS
             }
             else
             {
-               
+                if (this.hc.dgvc != null)
+                {
+                    this.chk_ImageIncluded.Visible = false;
+                    this.pic_Control.Visible = false;
+                    Title = this.hc.dgvc.HeaderText;
+                    this.panel1.Height = this.radioButtonGlobal1.Bottom + 6;
+                    this.Height = this.panel1.Bottom + 4;
+                    this.btn_Link.Visible = false;
+                }
             }
 
             if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded != null)
@@ -550,9 +561,17 @@ namespace HUDCMS
                     Title = hc.pForm.Text;
                     HeadingTag = "h1";
                 }
-                else
+                else if (hc.ctrl != null)
                 {
                     HeadingTag = "h2";
+                }
+                else if (hc.dgvc != null)
+                {
+                    HeadingTag = "h3";
+                }
+                else
+                {
+                    HeadingTag = "h4";
                 }
             }
 
@@ -707,8 +726,11 @@ namespace HUDCMS
                 uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Enabled = true;
                 uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
                 uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected = this;
-                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.HideLinks();
-                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.ShowAvailableLinks();
+                if (hc.dgvc == null)
+                {
+                    uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.HideLinks();
+                    uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.ShowAvailableLinks();
+                }
             }
         }
 

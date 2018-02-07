@@ -60,17 +60,36 @@ namespace HUDCMS
 
         internal void Init(usrc_Control usrc_Control)
         {
+
             if (m_usrc_Control!=null)
             {
+                // save previous user_Control edited data!
                 m_usrc_Control.Title = usrc_EditControl_Title1.fctb_CtrlTitle.Text;
                 m_usrc_Control.HeadingTag = usrc_EditControl_Title1.cmb_HtmlTag.Text;
                 m_usrc_Control.About = usrc_EditControl_About1.fctb_CtrlAbout.Text;
-                m_usrc_Control.ImageCaption = usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+                if (m_usrc_Control.hc.ctrlbmp != null)
+                {
+                    m_usrc_Control.ImageCaption = usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+                }
                 m_usrc_Control.Description = usrc_EditControl_Description1.fctb_CtrlDescription.Text;
+                
             }
-            
 
+
+            // now set new control to  edit !
             m_usrc_Control = usrc_Control;
+
+            if (m_usrc_Control.hc.ctrlbmp != null)
+            {
+                usrc_EditControl_Image1.Enabled = true;
+                splitContainer2.Panel1Collapsed = false;
+            }
+            else
+            {
+                usrc_EditControl_Image1.Enabled = false;
+                splitContainer2.Panel1Collapsed = true;
+            }
+
 
             string stitle = "";
             if (m_usrc_Control.Title!=null)
@@ -78,7 +97,7 @@ namespace HUDCMS
                 stitle = m_usrc_Control.Title;
             }
 
-            usrc_EditControl_Title1.fctb_CtrlTitle.Text = m_usrc_Control.Title;
+            usrc_EditControl_Title1.fctb_CtrlTitle.Text = stitle;
             usrc_EditControl_Title1.SetHeadingTag(m_usrc_Control.HeadingTag);
             usrc_EditControl_About1.fctb_CtrlAbout.Text = m_usrc_Control.About;
             usrc_EditControl_Image1.fctb_CtrlImageCaption.Text = m_usrc_Control.ImageCaption;

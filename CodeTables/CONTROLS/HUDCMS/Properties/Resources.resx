@@ -117,6 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DefaultStyle" xml:space="preserve">
+    <value>body {
+		font-family: Arial, Helvetica, sans-serif;
+        background-color: white;
+        display: block;
+        margin-top: 4px;
+        width: 860px;
+    }
+
+    h1.Title {
+        font-size: 0.6cm;
+        padding-top: 0.5cm;
+        padding-left: 0.5cm;
+        padding-right: 0.5cm;
+        padding-bottom: 0cm;
+    }
+
+    h2.Title {
+        font-size: 0.5cm;
+        line-height: 2.4em;
+        padding-top: 0.6cm;
+        padding-left: 0.5cm;
+        padding-right: 0.5cm;
+    }
+
+	
+    h3.Title {
+        font-size: 0.4cm;
+        padding-top: 0.6cm;
+        padding-left: 0.5cm;
+        padding-right: 10px;
+	}
+	
+    div.About{
+        font-size: 0.4cm;
+        padding-top: 0.2cm;
+        padding-left: 0.8cm;
+        padding-right: 0.5cm;
+        padding-bottom: 0.2cm;
+	}
+	
+	img {
+        padding-top: 0.5cm;
+        padding-left: 0.5cm;
+	}</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

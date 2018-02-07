@@ -64,6 +64,8 @@ namespace CommandLineHelp
         {
             LocalHelpPath = usrc_SelectLocalHelpFolder.SelectedFolder;
             RemoteHelpURL = txt_RemoteHelpURL.Text;
+            HUDCMS.HUDCMS_static.LocalHelpPath = this.LocalHelpPath;
+            HUDCMS.HUDCMS_static.RemoteHelpURL = this.RemoteHelpURL;
             List<string> cmds = new List<string>();
             foreach (Control ctrl in this.panel_Help.Controls)
             {

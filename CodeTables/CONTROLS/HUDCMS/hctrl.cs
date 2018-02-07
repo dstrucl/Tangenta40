@@ -420,6 +420,13 @@ namespace HUDCMS
                 {
                     sctrlname = pForm.Name;
                 }
+                else if (dgvc != null)
+                {
+                    //string sdgvcname = dgvc.Name.Replace("_$", "_");
+                    //sdgvcname = sdgvcname.Replace("$", "");
+                    //sctrlname = sdgvcname;
+                    sctrlname = dgvc.Name;
+                }
                 else
                 {
                     MessageBox.Show("ERROR:HUDCSM:hctrl:(ctrl == null)&&(pForm != null)!");
