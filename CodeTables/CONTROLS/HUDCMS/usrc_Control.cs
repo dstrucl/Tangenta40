@@ -47,6 +47,14 @@ namespace HUDCMS
             set { m_Title = value; }
         }
 
+        private string m_HeadingTag = "h1";
+
+        internal string HeadingTag
+        {
+            get { return m_HeadingTag; }
+            set { m_HeadingTag = value; }
+        }
+
         private string m_About = "";
 
         internal string About
@@ -235,10 +243,13 @@ namespace HUDCMS
             string smargin = SnapShotMargin.ToString();
             XAttribute attribute_margin = new XAttribute("margin", smargin);
 
+            XAttribute attribute_heading = new XAttribute("heading", HeadingTag);
+
             xel.Add(attribute_name);
             xel.Add(attribute_imageincluded);
             xel.Add(attribute_link);
             xel.Add(attribute_margin);
+            xel.Add(attribute_heading);
 
 
 
@@ -247,17 +258,15 @@ namespace HUDCMS
                 xdiv_Title = new XElement("div");
                 XAttribute xdiv_Title_class = new XAttribute("class", "Title");
                 xdiv_Title.Add(xdiv_Title_class);
-                string html_Heading = "h1";
-                if (hc.ctrl!=null)
-                {
-                    html_Heading = "h2";
-                }
-                xTitle_Heading = new XElement(html_Heading);
+                xTitle_Heading = new XElement(HeadingTag);
                 XAttribute xdiv_Title_Heading_class = new XAttribute("class", "Title");
                 xTitle_Heading.Add(xdiv_Title_Heading_class);
-                usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", Title);
-                //xTitle_Heading.Value = Title;
 
+
+                usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", Title);
+
+
+                
                 xdiv_Title.Add(xTitle_Heading);
 
                 if (About.Length > 0)
@@ -468,6 +477,8 @@ namespace HUDCMS
                         }
                     }
 
+                    HeadingTag = xel.Attribute("heading").Value;
+
                     XElement xel_Title = null;
                     if (FindXElement(xel, ref xel_Title, "div", "class", "Title"))
                     {
@@ -482,6 +493,27 @@ namespace HUDCMS
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
                         }
+                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
+                        {
+                            //Title = xel_Title_Header.Value;
+                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                        }
+                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
+                        {
+                            //Title = xel_Title_Header.Value;
+                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                        }
+                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
+                        {
+                            //Title = xel_Title_Header.Value;
+                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                        }
+                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
+                        {
+                            //Title = xel_Title_Header.Value;
+                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                        }
+
                         XElement xel_About = null;
                         if (FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
                         {
@@ -496,6 +528,18 @@ namespace HUDCMS
                         }
                     }
                
+                }
+            }
+            else
+            {
+                if (hc.pForm!=null)
+                {
+                    Title = hc.pForm.Text;
+                    HeadingTag = "h1";
+                }
+                else
+                {
+                    HeadingTag = "h2";
                 }
             }
 
@@ -647,6 +691,7 @@ namespace HUDCMS
             if (radioButtonGlobal1.Checked)
             {
                 this.BackColor = radioButtonGlobal1.HighlightBackColor;
+                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Enabled = true;
                 uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
                 uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected = this;
                 uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.HideLinks();

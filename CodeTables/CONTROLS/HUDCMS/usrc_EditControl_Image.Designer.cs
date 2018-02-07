@@ -112,6 +112,7 @@
             this.fctb_CtrlImageCaption.CommentPrefix = null;
             this.fctb_CtrlImageCaption.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_CtrlImageCaption.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fctb_CtrlImageCaption.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_CtrlImageCaption.IsReplaceMode = false;
             this.fctb_CtrlImageCaption.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_CtrlImageCaption.LeftBracket = '<';
@@ -224,8 +225,7 @@
             // 
             // usrc_EditControl_Image
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.lbl_Image);

@@ -63,6 +63,7 @@ namespace HUDCMS
             if (m_usrc_Control!=null)
             {
                 m_usrc_Control.Title = usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+                m_usrc_Control.HeadingTag = usrc_EditControl_Title1.cmb_HtmlTag.Text;
                 m_usrc_Control.About = usrc_EditControl_About1.fctb_CtrlAbout.Text;
                 m_usrc_Control.ImageCaption = usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
                 m_usrc_Control.Description = usrc_EditControl_Description1.fctb_CtrlDescription.Text;
@@ -71,7 +72,14 @@ namespace HUDCMS
 
             m_usrc_Control = usrc_Control;
 
+            string stitle = "";
+            if (m_usrc_Control.Title!=null)
+            {
+                stitle = m_usrc_Control.Title;
+            }
+
             usrc_EditControl_Title1.fctb_CtrlTitle.Text = m_usrc_Control.Title;
+            usrc_EditControl_Title1.SetHeadingTag(m_usrc_Control.HeadingTag);
             usrc_EditControl_About1.fctb_CtrlAbout.Text = m_usrc_Control.About;
             usrc_EditControl_Image1.fctb_CtrlImageCaption.Text = m_usrc_Control.ImageCaption;
             usrc_EditControl_Description1.fctb_CtrlDescription.Text = m_usrc_Control.Description;

@@ -45,7 +45,7 @@
             this.lbl_Description.TabIndex = 38;
             this.lbl_Description.Text = "Description";
             // 
-            // fctb_Description
+            // fctb_CtrlDescription
             // 
             this.fctb_CtrlDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -61,28 +61,32 @@
         '\"',
         '\'',
         '\''};
+            this.fctb_CtrlDescription.AutoIndentCharsPatterns = "";
             this.fctb_CtrlDescription.AutoScrollMinSize = new System.Drawing.Size(31, 18);
             this.fctb_CtrlDescription.BackBrush = null;
             this.fctb_CtrlDescription.CharHeight = 18;
             this.fctb_CtrlDescription.CharWidth = 10;
+            this.fctb_CtrlDescription.CommentPrefix = null;
             this.fctb_CtrlDescription.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_CtrlDescription.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fctb_CtrlDescription.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_CtrlDescription.IsReplaceMode = false;
             this.fctb_CtrlDescription.Language = FastColoredTextBoxNS.Language.HTML;
+            this.fctb_CtrlDescription.LeftBracket = '<';
+            this.fctb_CtrlDescription.LeftBracket2 = '(';
             this.fctb_CtrlDescription.Location = new System.Drawing.Point(3, 52);
-            this.fctb_CtrlDescription.Name = "fctb_Description";
+            this.fctb_CtrlDescription.Name = "fctb_CtrlDescription";
             this.fctb_CtrlDescription.Paddings = new System.Windows.Forms.Padding(0);
+            this.fctb_CtrlDescription.RightBracket = '>';
+            this.fctb_CtrlDescription.RightBracket2 = ')';
             this.fctb_CtrlDescription.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fctb_CtrlDescription.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_Description.ServiceColors")));
+            this.fctb_CtrlDescription.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_CtrlDescription.ServiceColors")));
             this.fctb_CtrlDescription.Size = new System.Drawing.Size(724, 210);
             this.fctb_CtrlDescription.TabIndex = 37;
             this.fctb_CtrlDescription.Zoom = 100;
             // 
             // usrc_EditControl_Description
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.lbl_Description);
             this.Controls.Add(this.fctb_CtrlDescription);
             this.Name = "usrc_EditControl_Description";

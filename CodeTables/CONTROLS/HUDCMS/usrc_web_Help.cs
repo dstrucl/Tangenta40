@@ -119,6 +119,11 @@ namespace HUDCMS
                 btn_HUDCMS.Visible = false;
             }
         }
+
+        internal void ReloadHtml()
+        {
+            this.webBrowser1.Refresh();
+        }
     }
 }
 

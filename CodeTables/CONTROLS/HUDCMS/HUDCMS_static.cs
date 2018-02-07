@@ -288,7 +288,7 @@ namespace HUDCMS
                         }
                         else
                         {
-                            return m_ApplicationVersion + "/" + slang + "/"; ;
+                            return m_ApplicationVersion + "/" + slang + "/"; 
                         }
                     }
                 }

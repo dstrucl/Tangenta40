@@ -77,7 +77,7 @@ namespace SelectFile
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = this.InitialDirectory;
             saveFileDialog1.Title = this.Title;
-            saveFileDialog1.FileName = this.FileName;
+            saveFileDialog1.FileName = this.FileName.Replace('/','\\');
             saveFileDialog1.CheckFileExists = false;
             saveFileDialog1.CheckPathExists = true;
             saveFileDialog1.DefaultExt = this.DefaultExtension;

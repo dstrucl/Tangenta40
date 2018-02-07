@@ -111,82 +111,86 @@ namespace HUDCMS
         {
             if (this.usrc_Control_Selected!=null)
             {
+
                 this.usrc_EditControl1.m_usrc_Control.Title = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+                this.usrc_EditControl1.m_usrc_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
                 this.usrc_EditControl1.m_usrc_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
                 this.usrc_EditControl1.m_usrc_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
                 this.usrc_EditControl1.m_usrc_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
             }
-            if (xh == null)
+            if (xh != null)
             {
-                xh = new XDocument();
-
-                html_html = new XElement("html");
-
-
-
-
-                xh.AddFirst(html_html);
-
-                foreach (Control c in this.panel1.Controls)
-                {
-                    if (c is usrc_Control)
-                    {
-                        if (html_head == null)
-                        {
-                            if (((usrc_Control)c).hc.pForm != null)
-                            {
-                                html_head = new XElement("head");
-                                html_title = new XElement("title");
-                                string sTitle = ((usrc_Control)c).hc.pForm.Text;
-                                if (sTitle.Length == 0)
-                                {
-                                    sTitle = ((usrc_Control)c).hc.pForm.GetType().ToString();
-                                }
-                                html_title.Value = sTitle;
-                                html_body = new XElement("body");
-
-                                html_head.Add(html_title);
-                                html_html.Add(html_head);
-                                html_html.Add(html_body);
-
-                            }
-                            else if (((usrc_Control)c).hc.ctrl != null)
-                            {
-                                html_head = new XElement("head");
-                                html_title = new XElement("title");
-                                string sTitle = ((usrc_Control)c).hc.ctrl.Text;
-                                if (sTitle.Length == 0)
-                                {
-                                    sTitle = ((usrc_Control)c).hc.ctrl.GetType().ToString();
-                                }
-                                html_title.Value = sTitle;
-                                html_body = new XElement("body");
-
-                                html_head.Add(html_title);
-                                html_html.Add(html_head);
-                                html_html.Add(html_body);
-
-                            }
-                        }
-                        ((usrc_Control)c).CreateNode(xh, ref html_body);
-                    }
-                }
-
-                //save xhtml
-                if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file,ref Err))
-                {
-                    try
-                    {
-                        xh.Save(html_file);
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                }
-
+                xh = null;
             }
+
+            xh = new XDocument();
+
+            html_html = new XElement("html");
+
+
+
+
+            xh.AddFirst(html_html);
+
+            foreach (Control c in this.panel1.Controls)
+            {
+                if (c is usrc_Control)
+                {
+                    if (html_head == null)
+                    {
+                        if (((usrc_Control)c).hc.pForm != null)
+                        {
+                            html_head = new XElement("head");
+                            html_title = new XElement("title");
+                            string sTitle = ((usrc_Control)c).hc.pForm.Text;
+                            if (sTitle.Length == 0)
+                            {
+                                sTitle = ((usrc_Control)c).hc.pForm.GetType().ToString();
+                            }
+                            html_title.Value = sTitle;
+                            html_body = new XElement("body");
+
+                            html_head.Add(html_title);
+                            html_html.Add(html_head);
+                            html_html.Add(html_body);
+
+                        }
+                        else if (((usrc_Control)c).hc.ctrl != null)
+                        {
+                            html_head = new XElement("head");
+                            html_title = new XElement("title");
+                            string sTitle = ((usrc_Control)c).hc.ctrl.Text;
+                            if (sTitle.Length == 0)
+                            {
+                                sTitle = ((usrc_Control)c).hc.ctrl.GetType().ToString();
+                            }
+                            html_title.Value = sTitle;
+                            html_body = new XElement("body");
+
+                            html_head.Add(html_title);
+                            html_html.Add(html_head);
+                            html_html.Add(html_body);
+
+                        }
+                    }
+                    ((usrc_Control)c).CreateNode(xh, ref html_body);
+                }
+            }
+
+            //save xhtml
+            if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file,ref Err))
+            {
+                try
+                {
+                    xh.Save(html_file);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
 
             return false;
         }
@@ -210,7 +214,14 @@ namespace HUDCMS
                     int ysub = uctrl.Height + 4;
                     foreach (hctrl hc in xhc.subctrl)
                     {
-                        if (hc.ctrl.Visible)
+                        if (hc.ctrl != null)
+                        {
+                            if (hc.ctrl.Visible)
+                            {
+                                CreateControls(ref ysub, level + 1, hc, uctrl);
+                            }
+                        }
+                        else if (hc.dgvc != null)
                         {
                             CreateControls(ref ysub, level + 1, hc, uctrl);
                         }
@@ -444,7 +455,25 @@ namespace HUDCMS
 
         private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
         {
-            return SaveXHTML(FileName,ref this.xhtml, ref Err);
+            if (SaveXHTML(FileName,ref this.xhtml, ref Err))
+            {
+                if (mH!=null)
+                {
+                    if (mH.hlp_dlg != null)
+                    {
+                        if (mH.hlp_dlg.usrc_web_Help1 != null)
+                        {
+                            mH.hlp_dlg.usrc_web_Help1.ReloadHtml();
+                        }
+                    }
+                }
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

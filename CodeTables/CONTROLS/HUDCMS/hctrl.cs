@@ -10,13 +10,14 @@ namespace HUDCMS
     public class hctrl
     {
         public Control ctrl = null;
+        public Form pForm = null;
+        public DataGridViewColumn dgvc = null;
         public hctrl parentctrl = null;
         public List<hctrl> subctrl = null;
         public int xScr = -1;
         public int yScr = -1;
         public int width = 0;
         public int height = 0;
-        public Form pForm = null;
         public Screen pScreen = null;
         public Bitmap ctrlbmp = null;
 
@@ -206,6 +207,10 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c);
                 }
+                else if (c is DataGridView)
+                {
+                    AddSubCtrl(c);
+                }
             }
             Create_position_sorted_subctrl();
         }
@@ -277,9 +282,24 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c);
                 }
+                else if (c is DataGridView)
+                {
+                    AddSubCtrl(c);
+                }
             }
             Create_position_sorted_subctrl();
         }
+
+        public hctrl(DataGridViewColumn dgvc, hctrl xparent)
+        {
+            this.ctrl = null;
+            this.pForm = null;
+            this.parentctrl = xparent;
+            this.ctrlbmp = null;
+            xScr = 0;
+            yScr = 0;
+        }
+
 
         private Point RelativeToFormPosition(Control xctrl, Form form)
         {
@@ -297,7 +317,25 @@ namespace HUDCMS
             {
                 subctrl = new List<hctrl>();
             }
-            subctrl.Add(new hctrl(c,this));
+            hctrl newhc = new hctrl(c, this);
+            subctrl.Add(newhc);
+            if (c is DataGridView)
+            {
+                foreach (DataGridViewColumn dgvc in ((DataGridView)c).Columns)
+                {
+                    newhc.AddSubCtrl(dgvc);
+                }
+            }
+        }
+
+        private void AddSubCtrl(DataGridViewColumn dgvc)
+        {
+            if (subctrl == null)
+            {
+                subctrl = new List<hctrl>();
+            }
+            hctrl newhc = new hctrl(dgvc, this);
+            subctrl.Add(newhc);
         }
 
         private void Create_position_sorted_subctrl()
@@ -317,7 +355,6 @@ namespace HUDCMS
                     }
                 }
             }
-            
         }
 
         private void raplace(int j, int i)
