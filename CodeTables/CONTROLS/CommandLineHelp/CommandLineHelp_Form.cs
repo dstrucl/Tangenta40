@@ -40,7 +40,7 @@ namespace CommandLineHelp
             {
                 if (RemoteHelpURL.Length>0)
                 {
-                    txt_RemoteHelpURL.Text = RemoteHelpURL;
+                    this.usrc_HelpSettings1.txt_RemoteHelpURL.Text = RemoteHelpURL;
                 }
             }
 
@@ -48,8 +48,8 @@ namespace CommandLineHelp
             {
                 if (LocalHelpPath.Length > 0)
                 {
-                    usrc_SelectLocalHelpFolder.InitialDirectory = LocalHelpPath;
-                    usrc_SelectLocalHelpFolder.SelectedFolder = LocalHelpPath;
+                    this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.InitialDirectory = LocalHelpPath;
+                    this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.SelectedFolder = LocalHelpPath;
                 }
             }
 
@@ -58,12 +58,16 @@ namespace CommandLineHelp
             {
                 this.Icon = xFormIcon;
             }
+            lng.s_grp_HelpSettings.Text(this.usrc_HelpSettings1.grp_HelpSettings);
+            lng.s_LocalHelpAddress.Text(this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.label1);
+            lng.s_RemoteHelpAddress.Text(this.usrc_HelpSettings1.lbl_RemoteURL);
+            lng.s_CommandLineParameters.Text(this.grp_CommandLineParameters);
         }
 
         private void do_OK()
         {
-            LocalHelpPath = usrc_SelectLocalHelpFolder.SelectedFolder;
-            RemoteHelpURL = txt_RemoteHelpURL.Text;
+            LocalHelpPath = this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.SelectedFolder;
+            RemoteHelpURL = this.usrc_HelpSettings1.txt_RemoteHelpURL.Text;
             HUDCMS.HUDCMS_static.LocalHelpPath = this.LocalHelpPath;
             HUDCMS.HUDCMS_static.RemoteHelpURL = this.RemoteHelpURL;
             List<string> cmds = new List<string>();
@@ -106,9 +110,9 @@ namespace CommandLineHelp
             {
                 helpctrl_last = new CommandLineHelp_ItemControl(cmdlnhlp);
                 helpctrl_last.Name = helpctrl_last.Name+"["+iName+"]";
-                helpctrl_last.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
                 helpctrl_last.Top = y;
                 helpctrl_last.Width = this.panel_Help.Width - 20;
+                helpctrl_last.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
                 this.panel_Help.Controls.Add(helpctrl_last);
                 helpctrl_last.Left = 10;
                 y = helpctrl_last.Bottom + 10;
@@ -154,8 +158,8 @@ namespace CommandLineHelp
 
         private void usrc_NavigationButtons1_HelpClicked()
         {
-            LocalHelpPath = usrc_SelectLocalHelpFolder.SelectedFolder;
-            RemoteHelpURL = txt_RemoteHelpURL.Text;
+            LocalHelpPath = this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.SelectedFolder;
+            RemoteHelpURL = this.usrc_HelpSettings1.txt_RemoteHelpURL.Text;
             if (RemoteHelpURL!=null)
             {
                 if (RemoteHelpURL.Length>0)

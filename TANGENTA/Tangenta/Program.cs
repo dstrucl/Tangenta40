@@ -457,8 +457,9 @@ namespace Tangenta
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
+                    HUDCMS.HUDCMS_static.slng_LocalURL = lng.s_LocalHelpFolder.s;
 
-                    
+
 
 
                     if (bResetNew)

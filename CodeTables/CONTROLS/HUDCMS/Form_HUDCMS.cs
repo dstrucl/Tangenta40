@@ -30,14 +30,14 @@ namespace HUDCMS
             InitializeComponent();
             mH = xH;
             hc = new hctrl(mH.pForm);
-            usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.sLocalHtmlFile);
-            usrc_SelectHtmlFile.FileName = mH.sLocalHtmlFile;
+            usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.LocalHtmlFile);
+            usrc_SelectHtmlFile.FileName = mH.LocalHtmlFile;
             usrc_SelectHtmlFile.Title = "Save HTML file";
             usrc_SelectHtmlFile.Text = "HTML file:";
             this.usrc_SelectHtmlFile.DefaultExtension = "html";
             this.usrc_SelectHtmlFile.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
 
-            string sStylePath = Path.GetDirectoryName(mH.sLocalHtmlFile);
+            string sStylePath = Path.GetDirectoryName(mH.LocalHtmlFile);
             usrc_SelectStyleFile.InitialDirectory = sStylePath;
             usrc_SelectStyleFile.FileName = sStylePath + "\\style.css";
             usrc_SelectStyleFile.Title = "Save style file";

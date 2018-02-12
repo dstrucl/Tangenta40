@@ -31,6 +31,18 @@ namespace CommandLineHelp
 
         public static ltext s_Cancel = new ltext( new string[]{"Cancel",
                                                   "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
-   
-  }
+
+        public static ltext s_grp_HelpSettings = new ltext(new string[]{"Help addresss settings",
+                                                                    "Nastavitev naslova za pomoč"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+
+        
+        public static ltext s_LocalHelpAddress = new ltext(new string[]{"Local Help folder",
+                                                                        "Lokalna mapa za pomoč"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+
+        public static ltext s_RemoteHelpAddress = new ltext(new string[]{"Remote Help URL",
+                                                                         "Naslov pomoči na internetu"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+
+        public static ltext s_CommandLineParameters= new ltext(new string[]{"Command line paramaters",
+                                                                         "Parametri komandne vrstice"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+    }
 }

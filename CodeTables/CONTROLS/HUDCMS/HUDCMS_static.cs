@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
 
@@ -67,10 +68,12 @@ namespace HUDCMS
                     {
                         m_ApplicationVersion = "";
                     }
-                    return ApplicationPath +  ApplicationVersion;
+                    return ApplicationPath + "Tangenta-Help/";
                 }
             }
-            set { m_LocalHelpPath = value; }
+            set {
+                m_LocalHelpPath = value;
+            }
         }
 
         private static string m_RemoteHelpURL = "";
@@ -215,6 +218,35 @@ namespace HUDCMS
             set { m_RemoteUrl = value; }
         }
 
+        public static string RemoteDomain
+        {
+            get
+            {
+                if (m_RemoteHelpURL != null)
+                {
+                    if (m_RemoteHelpURL.Length > 0)
+                    {
+                        int iStartDomain = RemoteUrl.IndexOf("//");
+                        if (iStartDomain<0)
+                        {
+                            iStartDomain = RemoteUrl.IndexOf("/");
+                        }
+                        if (iStartDomain >= 0)
+                        {
+                            string s = RemoteUrl.Substring(iStartDomain);
+                            int iEndDomain = s.IndexOf("/");
+                            if (iEndDomain>=0)
+                            {
+                                s = s.Substring(0, iEndDomain);
+                            }
+                            return s;
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
         private static string m_ApplicationPath = "";
         public static string ApplicationPath
         {
@@ -236,19 +268,66 @@ namespace HUDCMS
             set { m_Language = value; }
         }
 
+        public static bool GetDomainFromUrl(string url,ref string domain,ref string Err)
+        {
+            Err = null;
+            try
+            {
+                Uri myUri = new Uri(url);
+                domain = myUri.Host;  // host is "www.contoso.com"
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Err = ex.Message;
+                return false;
+            }
+        }
+        public static bool DomainAccesible(string url, ref string Err)
+        {
+            string host = null;
+            if (GetDomainFromUrl(url, ref host, ref Err))
+            {
+                try
+                {
+                    Ping myPing = new Ping();
+                    byte[] buffer = new byte[32];
+                    int timeout = 1000;
+                    PingOptions pingOptions = new PingOptions();
+                    PingReply reply = myPing.Send(host, timeout, buffer, pingOptions);
+                    bool bres = (reply.Status == IPStatus.Success);
+                    if (!bres)
+                    {
+                        Err = host + " is not accessible!";
+                    }
+                    return bres;
+                }
+                catch (Exception ex)
+                {
+                    Err = host + " doesn't exist: " + ex.Message;
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
+
         public static bool URLExists(string url, ref string Err)
         {
+        
+
             bool result = false;
             Err = null;
-
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.WebRequest wc = System.Net.WebRequest.Create(url); //args[0]);
-
             ((HttpWebRequest)wc).UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/0.2.153.1 Safari/525.19";
             wc.Timeout = 1000;
             wc.Method = "HEAD";
 
-            //ServicePointManager.Expect100Continue = true;
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
             //WebRequest webRequest = WebRequest.Create(url);
             //webRequest.Timeout = 1200; // miliseconds

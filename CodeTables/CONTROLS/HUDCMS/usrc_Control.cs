@@ -27,7 +27,6 @@ namespace HUDCMS
 
         internal string[] sLink = null;
 
-        private string m_Title = "";
 
         internal new Color BackColor
         {
@@ -41,10 +40,20 @@ namespace HUDCMS
             }
         }
 
+        private string m_Title = "";
+
         internal string Title
         {
             get { return m_Title; }
             set { m_Title = value; }
+        }
+
+        private string m_ID = "";
+
+        internal string ID
+        {
+            get { return m_ID; }
+            set { m_ID = value; }
         }
 
         private string m_HeadingTag = "h1";
@@ -260,7 +269,15 @@ namespace HUDCMS
                 xdiv_Title.Add(xdiv_Title_class);
                 xTitle_Heading = new XElement(HeadingTag);
                 XAttribute xdiv_Title_Heading_class = new XAttribute("class", "Title");
+                if (ID.Length==0)
+                {
+                    Guid id = Guid.NewGuid();
+                    ID = id.ToString();
+                }
+                XAttribute xdiv_Title_Heading_id = new XAttribute("id", ID);
+
                 xTitle_Heading.Add(xdiv_Title_Heading_class);
+                xTitle_Heading.Add(xdiv_Title_Heading_id);
 
 
                 usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", Title);
@@ -307,7 +324,7 @@ namespace HUDCMS
                 {
                     try
                     {
-                        string ximage_path = Path.GetDirectoryName(uH.sLocalHtmlFile);
+                        string ximage_path = Path.GetDirectoryName(uH.LocalHtmlFile);
                         if (ximage_path != null)
                         {
                             if (ximage_path.Length > 0)
@@ -446,7 +463,7 @@ namespace HUDCMS
                 Set_pic_Control();
 
 
-                string path = Path.GetDirectoryName(uH.sLocalHtmlFile);
+                string path = Path.GetDirectoryName(uH.LocalHtmlFile);
        
                 this.panel1.Height = this.pic_Control.Bottom + 4;
                 if (this.panel1.Height>MaxPanelHeight)
@@ -475,7 +492,7 @@ namespace HUDCMS
                 XElement xel = null;
                 if (FindXElement(doc, ref xel, "TControl", "name", ControlName))
                 {
-                    string simageincluded =xel.Attribute("imageincluded").Value;
+                    string simageincluded = xel.Attribute("imageincluded").Value;
                     chk_ImageIncluded.Checked = true;
                     if (simageincluded.Equals("0"))
                     {
@@ -511,52 +528,58 @@ namespace HUDCMS
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
+                            ID = xel_Title_Header.Attribute("id").Value;
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
+                            ID = xel_Title_Header.Attribute("id").Value;
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
+                            ID = xel_Title_Header.Attribute("id").Value;
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
+                            ID = xel_Title_Header.Attribute("id").Value;
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
+                            ID = xel_Title_Header.Attribute("id").Value;
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
+                            ID = xel_Title_Header.Attribute("id").Value;
                         }
 
                         XElement xel_About = null;
                         if (FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
                         {
                             //About = xel_About.Value;
-                            About = usrc_Control.InnerXml(xel_About); 
+                            About = usrc_Control.InnerXml(xel_About);
                         }
                         XElement xel_Description = null;
                         if (FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
                         {
                             //Description = xel_Description.Value;
-                            Description = usrc_Control.InnerXml(xel_About); 
+                            Description = usrc_Control.InnerXml(xel_About);
                         }
                     }
-               
+
                 }
             }
             else
             {
-                if (hc.pForm!=null)
+                if (hc.pForm != null)
                 {
                     Title = hc.pForm.Text;
                     HeadingTag = "h1";
@@ -573,7 +596,16 @@ namespace HUDCMS
                 {
                     HeadingTag = "h4";
                 }
+
+                if (hc.ctrl != null)
+                {
+                    if (hc.ctrl is GroupBox)
+                    {
+                        Title = ((GroupBox)hc.ctrl).Text;
+                    }
+                }
             }
+
 
             this.list_Link.Visible = false;
 
@@ -590,7 +622,12 @@ namespace HUDCMS
             }
             this.lbl_LinkedControls.Visible = this.list_Link.Visible;
 
-
+            if (ID.Length == 0)
+            {
+                Guid id = Guid.NewGuid();
+                ID = id.ToString();
+            }
+            txt_ID.Text = ID;
             SetDefault_BackColor();
             this.Refresh();
         }

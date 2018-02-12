@@ -28,32 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.lbl_URL = new System.Windows.Forms.Label();
             this.chk_local = new System.Windows.Forms.CheckBox();
             this.btn_HUDCMS = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(2, 27);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(683, 517);
-            this.webBrowser1.TabIndex = 0;
-            // 
             // lbl_URL
             // 
             this.lbl_URL.AutoSize = true;
+            this.lbl_URL.ForeColor = System.Drawing.Color.Silver;
             this.lbl_URL.Location = new System.Drawing.Point(5, 2);
             this.lbl_URL.Name = "lbl_URL";
-            this.lbl_URL.Size = new System.Drawing.Size(46, 17);
+            this.lbl_URL.Size = new System.Drawing.Size(35, 13);
             this.lbl_URL.TabIndex = 1;
             this.lbl_URL.Text = "label1";
             // 
@@ -61,10 +47,11 @@
             // 
             this.chk_local.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_local.AutoSize = true;
-            this.chk_local.Location = new System.Drawing.Point(527, 3);
+            this.chk_local.ForeColor = System.Drawing.Color.Gray;
+            this.chk_local.Location = new System.Drawing.Point(546, 3);
             this.chk_local.Name = "chk_local";
             this.chk_local.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chk_local.Size = new System.Drawing.Size(98, 21);
+            this.chk_local.Size = new System.Drawing.Size(80, 17);
             this.chk_local.TabIndex = 2;
             this.chk_local.Text = "checkBox1";
             this.chk_local.UseVisualStyleBackColor = true;
@@ -88,10 +75,8 @@
             this.Controls.Add(this.btn_HUDCMS);
             this.Controls.Add(this.chk_local);
             this.Controls.Add(this.lbl_URL);
-            this.Controls.Add(this.webBrowser1);
             this.Name = "usrc_web_Help";
             this.Size = new System.Drawing.Size(686, 545);
-            this.Load += new System.EventHandler(this.usrc_web_Help_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,7 +84,6 @@
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser webBrowser1;
         public System.Windows.Forms.Label lbl_URL;
         private System.Windows.Forms.CheckBox chk_local;
         private System.Windows.Forms.Button btn_HUDCMS;

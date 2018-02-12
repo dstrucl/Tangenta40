@@ -25,6 +25,8 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_LocalHelpFolder = new ltext(new string[] { "Help from local folder", "Pomoč iz lokalne mape" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
+
         public static ltext s_SelectNotice = new ltext(new string[] { "Select Notice", "Izber dopis" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_Notice.cs
 
         public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext(new string[]{"Database is empty. If you want to preview this program first, then let this program to insert imaginary initial sample data of your organisation (Organisation1) and you will change this data later to your real organisation data, than select:",

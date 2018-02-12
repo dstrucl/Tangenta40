@@ -131,6 +131,12 @@
     <Compile Include="usrc_Control.Designer.cs">
       <DependentUpon>usrc_Control.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_helpSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_helpSettings.Designer.cs">
+      <DependentUpon>usrc_helpSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_web_Help.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     <EmbeddedResource Include="usrc_Control.resx">
       <DependentUpon>usrc_Control.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_helpSettings.resx">
+      <DependentUpon>usrc_helpSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_web_Help.resx">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +209,10 @@
       <Project>{6850b603-25a4-4b91-a85a-8ab4cdebf48f}</Project>
       <Name>SelectFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SelectFolder\SelectFolder.csproj">
+      <Project>{394eedbc-7a8f-4e6f-b32d-2877aef48eae}</Project>
+      <Name>SelectFolder</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Edit.bmp" />
@@ -209,6 +222,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\NoLink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HUDCMS.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

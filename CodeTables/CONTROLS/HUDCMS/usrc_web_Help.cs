@@ -18,14 +18,41 @@ namespace HUDCMS
 
         internal usrc_Help mH = null;
         internal Form_HUDCMS frm_HUDCMS = null;
-
+        private System.Windows.Forms.WebBrowser webBrowser1 = null;
 
         Uri uri = null;
         public usrc_web_Help()
         {
             InitializeComponent();
+            AddWebBrowser();
+
             lbl_URL.Text = "";
             chk_local.Text = HUDCMS_static.slng_LocalURL;
+        }
+
+        private void AddWebBrowser()
+        {
+            this.SuspendLayout();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.AllowWebBrowserDrop = false;
+            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
+            this.webBrowser1.Location = new System.Drawing.Point(0, 27);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            int cx = this.Width;
+            int cy = this.Height - 27;
+            this.webBrowser1.Size = new System.Drawing.Size(cx, cy);
+            this.webBrowser1.TabIndex = 0;
+            this.Controls.Add(this.webBrowser1);
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         private string m_LocalUrl = "Local URL:";
@@ -61,12 +88,9 @@ namespace HUDCMS
            
             if (mH.RemoteURL_accessible)
             {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
                 chk_local.Checked = false;
                 btn_HUDCMS.Visible = false;
-                lbl_URL.Text = mH.RemoteURL;
-                this.webBrowser1.Url = new Uri(mH.RemoteURL);
+                ShowRemoteURL();
             }
             else
             {
@@ -74,8 +98,7 @@ namespace HUDCMS
                 {
                     chk_local.Checked = true;
                     btn_HUDCMS.Visible = true;
-                    lbl_URL.Text = mH.sLocalHtmlFile;
-                    this.webBrowser1.Url = new Uri("file:///"+mH.sLocalHtmlFile);
+                    ShowLocalHtmlFile();
                 }
                 else
                 {
@@ -87,11 +110,38 @@ namespace HUDCMS
             }
         }
 
-
-        private void usrc_web_Help_Load(object sender, EventArgs e)
+        private void ShowRemoteURL()
         {
-            
+            lbl_URL.Text = mH.RemoteURL;
+            if (this.webBrowser1!=null)
+            {
+                this.Controls.Remove(this.webBrowser1);
+                this.webBrowser1.Dispose();
+                this.webBrowser1 = null;
+                AddWebBrowser();
+            }
+            this.webBrowser1.Url = new Uri(mH.RemoteURL);
+            //this.webBrowser1.Navigate(mH.RemoteURL);
+            this.webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
+            this.Refresh();
         }
+
+        private void ShowLocalHtmlFile()
+        {
+            lbl_URL.Text = mH.LocalHtmlFile;
+            if (this.webBrowser1 != null)
+            {
+                this.Controls.Remove(this.webBrowser1);
+                this.webBrowser1.Dispose();
+                this.webBrowser1 = null;
+                AddWebBrowser();
+            }
+            this.webBrowser1.Url = new Uri("file:///" + mH.LocalHtmlFile);
+//            this.webBrowser1.Navigate("file:///" + mH.LocalHtmlFile);
+            this.webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
+            this.Refresh();
+        }
+
 
         private void btn_HUDCMS_Click(object sender, EventArgs e)
         {
@@ -116,10 +166,12 @@ namespace HUDCMS
             if (chk_local.Checked)
             {
                 btn_HUDCMS.Visible = true;
+                ShowLocalHtmlFile();
             }
             else
             {
                 btn_HUDCMS.Visible = false;
+                ShowRemoteURL();
             }
         }
 

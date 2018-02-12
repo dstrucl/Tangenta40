@@ -37,35 +37,33 @@
             this.txt_Help.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Help.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Help.Location = new System.Drawing.Point(25, 1);
-            this.txt_Help.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_Help.Location = new System.Drawing.Point(19, 1);
             this.txt_Help.Multiline = true;
             this.txt_Help.Name = "txt_Help";
             this.txt_Help.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_Help.Size = new System.Drawing.Size(621, 106);
+            this.txt_Help.Size = new System.Drawing.Size(574, 87);
             this.txt_Help.TabIndex = 0;
             // 
             // chk_select
             // 
             this.chk_select.AutoSize = true;
-            this.chk_select.Location = new System.Drawing.Point(5, 41);
+            this.chk_select.Location = new System.Drawing.Point(4, 33);
+            this.chk_select.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chk_select.Name = "chk_select";
-            this.chk_select.Size = new System.Drawing.Size(18, 17);
+            this.chk_select.Size = new System.Drawing.Size(15, 14);
             this.chk_select.TabIndex = 1;
             this.chk_select.UseVisualStyleBackColor = true;
             // 
             // CommandLineHelp_ItemControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.chk_select);
             this.Controls.Add(this.txt_Help);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CommandLineHelp_ItemControl";
-            this.Size = new System.Drawing.Size(651, 112);
+            this.Size = new System.Drawing.Size(597, 91);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -33,7 +33,19 @@ namespace HUDCMS
         internal string RelativeURL = null;
         internal string ModuleName = null;
         internal string HtmlFileName = null;
-        internal string sLocalHtmlFile = null;
+        private string m_sLocalHtmlFile = null;
+
+        internal string LocalHtmlFile
+        {
+            get
+            {
+                return m_sLocalHtmlFile;
+            }
+            set
+            {
+                m_sLocalHtmlFile = value;
+            }
+        }
 
 
         private bool m_RemoteURL_accessible = false;
@@ -71,7 +83,8 @@ namespace HUDCMS
         {
             if (HUDCMS_static.GetRemoteURL(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref RemoteURL))
             {
-                if (HUDCMS_static.URLExists(RemoteURL, ref Err_Remote))
+                //if (HUDCMS_static.URLExists(RemoteURL, ref Err_Remote))
+                if (HUDCMS_static.DomainAccesible(RemoteURL, ref Err_Remote))
                 {
                     return true;
                 }
@@ -90,8 +103,10 @@ namespace HUDCMS
         internal bool GetLocalURL()
         {
             Err_Local = null;
+            string sLocalHtmlFile = null;
             if (HUDCMS_static.GetLocalHtmlFile(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref sLocalHtmlFile))
             {
+                LocalHtmlFile = sLocalHtmlFile;
                 if (File.Exists(sLocalHtmlFile))
                 {
                     return true;
