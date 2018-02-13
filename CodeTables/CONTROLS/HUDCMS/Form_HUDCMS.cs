@@ -24,6 +24,7 @@ namespace HUDCMS
         XElement html_head = null;
         XElement html_title = null;
         XElement html_body = null;
+        XElement html_iframe = null;
 
         public Form_HUDCMS(usrc_Help xH)
         {
@@ -136,7 +137,11 @@ namespace HUDCMS
                         if (((usrc_Control)c).hc.pForm != null)
                         {
                             html_head = new XElement("head");
+
+                            AddStylesheet(ref html_head);
+
                             html_title = new XElement("title");
+
                             string sTitle = ((usrc_Control)c).hc.pForm.Text;
                             if (sTitle.Length == 0)
                             {
@@ -144,6 +149,20 @@ namespace HUDCMS
                             }
                             html_title.Value = sTitle;
                             html_body = new XElement("body");
+                            //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
+
+                            html_iframe = new XElement("iframe");
+                            XAttribute atr_html_iframe_src = new XAttribute("src", "../Header.html");
+                            XAttribute atr_html_iframe_style = new XAttribute("style", "border:none");
+                            XAttribute atr_html_frame_width = new XAttribute("width", "714");
+                            XAttribute atr_html_frame_height = new XAttribute("height", "150");
+                            html_iframe.Add(atr_html_iframe_src);
+                            html_iframe.Add(atr_html_iframe_style);
+                            html_iframe.Add(atr_html_frame_width);
+                            html_iframe.Add(atr_html_frame_height);
+                            html_iframe.Value = "";
+
+                            html_body.Add(html_iframe);
 
                             html_head.Add(html_title);
                             html_html.Add(html_head);
@@ -153,14 +172,32 @@ namespace HUDCMS
                         else if (((usrc_Control)c).hc.ctrl != null)
                         {
                             html_head = new XElement("head");
+
+                            AddStylesheet(ref html_head);
+
                             html_title = new XElement("title");
+
                             string sTitle = ((usrc_Control)c).hc.ctrl.Text;
                             if (sTitle.Length == 0)
                             {
                                 sTitle = ((usrc_Control)c).hc.ctrl.GetType().ToString();
                             }
                             html_title.Value = sTitle;
+
                             html_body = new XElement("body");
+
+                            html_iframe = new XElement("iframe");
+                            XAttribute atr_html_iframe_src = new XAttribute("src", "../Header.html");
+                            XAttribute atr_html_iframe_style = new XAttribute("style", "border:none");
+                            XAttribute atr_html_frame_width = new XAttribute("width", "714");
+                            XAttribute atr_html_frame_height = new XAttribute("height", "150");
+                            html_iframe.Add(atr_html_iframe_src);
+                            html_iframe.Add(atr_html_iframe_style);
+                            html_iframe.Add(atr_html_frame_width);
+                            html_iframe.Add(atr_html_frame_height);
+                            html_iframe.Value = "";
+
+                            html_body.Add(html_iframe);
 
                             html_head.Add(html_title);
                             html_html.Add(html_head);
@@ -190,6 +227,53 @@ namespace HUDCMS
             return false;
         }
 
+        private void AddStylesheet(ref XElement html_head)
+        {
+            if (html_head==null)
+            {
+                html_head = new XElement("head");
+            }
+            XElement html_link_stylesheet = new XElement("link");
+            XAttribute attribute_html_link_stylesheet_rel = new XAttribute("rel", "stylesheet");
+            XAttribute attribute_html_link_stylesheet_type = new XAttribute("type", "text/css");
+            string styleFile = this.usrc_SelectStyleFile.FileName;
+            if (styleFile.Length==0)
+            {
+                this.usrc_SelectStyleFile.FileName =HUDCMS_static.LocalHelpPath+ "style.css";
+                styleFile = this.usrc_SelectStyleFile.FileName;
+            }
+
+            if (!File.Exists(styleFile))
+            {
+                if (MessageBox.Show(this, "Style file :\"" + styleFile + "\" does not exist!\r\nCreate it from default stylesheet?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        File.WriteAllText(styleFile, Properties.Resources.DefaultStyle);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(this, "Style file :\"" + styleFile + "\" noit created. Exception=" + ex.Message);
+                    }
+                }
+            }
+
+            string shtml_file = this.usrc_SelectHtmlFile.FileName;
+
+            System.Uri uri1 = new Uri(styleFile);
+
+            System.Uri uri2 = new Uri(shtml_file);
+
+            Uri relativeUri = uri2.MakeRelativeUri(uri1);
+            string styleFile_Relative = relativeUri.ToString();
+
+
+            XAttribute attribute_html_link_stylesheet_href = new XAttribute("href", styleFile_Relative);
+            html_link_stylesheet.Add(attribute_html_link_stylesheet_rel);
+            html_link_stylesheet.Add(attribute_html_link_stylesheet_type);
+            html_link_stylesheet.Add(attribute_html_link_stylesheet_href);
+            html_head.Add(html_link_stylesheet);
+        }
 
         private void CreateControls(ref int y,int level, hctrl xhc,Control xctrl)
         {

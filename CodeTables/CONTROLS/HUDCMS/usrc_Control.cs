@@ -399,7 +399,13 @@ namespace HUDCMS
             hc = xhc;
             string sText = "";
             string sControl = HUDCMS_static.slng_UserControlName;
-            if (xhc.ctrl is Form)
+            if (xhc.pForm !=null)
+            {
+                sControl = "Form";
+                this.txt_Control.ForeColor = Color.DarkGreen;
+                this.txt_Control.BackColor = Color.White;
+            }
+            else if (xhc.ctrl is Form)
             {
                 sControl = "Form";
                 this.txt_Control.ForeColor = Color.DarkGreen;
@@ -407,6 +413,7 @@ namespace HUDCMS
             else if (xhc.ctrl is UserControl)
             {
                 this.txt_Control.ForeColor = Color.DarkBlue;
+                this.txt_Control.BackColor = Color.White;
             }
             else
             {
@@ -420,7 +427,9 @@ namespace HUDCMS
                     }
                     else if (xhc.ctrl is GroupBox)
                     {
-                        sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\""; 
+                        sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\"";
+                        this.txt_Control.ForeColor = Color.DarkViolet;
+                        this.txt_Control.BackColor = Color.White;
                     }
                     else if (xhc.ctrl is Label)
                     {
