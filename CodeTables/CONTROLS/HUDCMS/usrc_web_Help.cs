@@ -10,6 +10,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Net;
+using System.Diagnostics;
+using System.Security.Permissions;
+using Microsoft.Win32;
+
 
 namespace HUDCMS
 {
@@ -26,8 +30,69 @@ namespace HUDCMS
             InitializeComponent();
             AddWebBrowser();
 
-            lbl_URL.Text = "";
+            txt_URL.Text = "";
             chk_local.Text = HUDCMS_static.slng_LocalURL;
+            var appName = Process.GetCurrentProcess().ProcessName + ".exe";
+            SetIE8KeyforWebBrowserControl(appName);
+        }
+
+        private void SetIE8KeyforWebBrowserControl(string appName)
+        {
+            RegistryKey Regkey = null;
+            try
+            {
+                // For 64 bit machine
+                if (Environment.Is64BitOperatingSystem)
+                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+                else  //For 32 bit machine
+                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+
+                // If the path is not correct or
+                // if the user haven't priviledges to access the registry
+                if (Regkey == null)
+                {
+                    MessageBox.Show("Application Settings Failed - Address Not found");
+                    return;
+                }
+
+                string FindAppkey = Convert.ToString(Regkey.GetValue(appName));
+
+                // Check if key is already present
+                if (FindAppkey == "11001")
+                {
+                    MessageBox.Show("Required Application Settings Present");
+                    Regkey.Close();
+                    return;
+                }
+
+                    // If a key is not present add the key, Key value 11000 (decimal)
+                if (string.IsNullOrEmpty(FindAppkey))
+                    Regkey.SetValue(appName, unchecked((int)11001), RegistryValueKind.DWord);
+
+                if (FindAppkey == "8000")
+                {
+                    Regkey.SetValue(appName, unchecked((int)11001), RegistryValueKind.DWord);
+                }
+
+                    // Check for the key after adding
+                  FindAppkey = Convert.ToString(Regkey.GetValue(appName));
+
+                if (FindAppkey == "11001")
+                    MessageBox.Show("Application Settings Applied Successfully");
+                else
+                    MessageBox.Show("Application Settings Failed, Ref: " + FindAppkey);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Application Settings Failed");
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Close the Registry
+                if (Regkey != null)
+                    Regkey.Close();
+            }
         }
 
         private void AddWebBrowser()
@@ -77,7 +142,8 @@ namespace HUDCMS
             }
             uri = new Uri(sUrl);
             webBrowser1.Url = uri;
-            lbl_URL.Text = sUrl;
+            txt_URL.Text = sUrl;
+            txt_URL.BackColor = this.BackColor;
             webBrowser1.Refresh();
 
         }
@@ -104,15 +170,17 @@ namespace HUDCMS
                 {
                     chk_local.Checked = false;
                     btn_HUDCMS.Visible = false;
-                    lbl_URL.Text = mH.Err_Local;
+                    txt_URL.Text = mH.Err_Local;
                     this.webBrowser1.DocumentText = mH.Err_Remote; 
                 }
             }
+            txt_URL.BackColor = this.BackColor;
+            txt_URL.ForeColor = Color.LightGray;
         }
 
         private void ShowRemoteURL()
         {
-            lbl_URL.Text = mH.RemoteURL;
+            txt_URL.Text = mH.RemoteURL;
             if (this.webBrowser1!=null)
             {
                 this.Controls.Remove(this.webBrowser1);
@@ -128,7 +196,7 @@ namespace HUDCMS
 
         private void ShowLocalHtmlFile()
         {
-            lbl_URL.Text = mH.LocalHtmlFile;
+            txt_URL.Text = mH.LocalHtmlFile;
             if (this.webBrowser1 != null)
             {
                 this.Controls.Remove(this.webBrowser1);

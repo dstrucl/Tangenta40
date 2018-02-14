@@ -28,20 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_URL = new System.Windows.Forms.Label();
+            this.txt_URL = new System.Windows.Forms.TextBox();
             this.chk_local = new System.Windows.Forms.CheckBox();
             this.btn_HUDCMS = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lbl_URL
+            // txt_URL
             // 
-            this.lbl_URL.AutoSize = true;
-            this.lbl_URL.ForeColor = System.Drawing.Color.Silver;
-            this.lbl_URL.Location = new System.Drawing.Point(5, 2);
-            this.lbl_URL.Name = "lbl_URL";
-            this.lbl_URL.Size = new System.Drawing.Size(35, 13);
-            this.lbl_URL.TabIndex = 1;
-            this.lbl_URL.Text = "label1";
+            this.txt_URL.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_URL.ForeColor = System.Drawing.Color.Silver;
+            this.txt_URL.Location = new System.Drawing.Point(5, 2);
+            this.txt_URL.Name = "txt_URL";
+            this.txt_URL.ReadOnly = true;
+            this.txt_URL.Size = new System.Drawing.Size(437, 13);
+            this.txt_URL.TabIndex = 1;
+            this.txt_URL.Text = "label1";
             // 
             // chk_local
             // 
@@ -74,7 +75,7 @@
             this.BackColor = System.Drawing.Color.GreenYellow;
             this.Controls.Add(this.btn_HUDCMS);
             this.Controls.Add(this.chk_local);
-            this.Controls.Add(this.lbl_URL);
+            this.Controls.Add(this.txt_URL);
             this.Name = "usrc_web_Help";
             this.Size = new System.Drawing.Size(686, 545);
             this.ResumeLayout(false);
@@ -84,7 +85,7 @@
 
         #endregion
 
-        public System.Windows.Forms.Label lbl_URL;
+        public System.Windows.Forms.TextBox txt_URL;
         private System.Windows.Forms.CheckBox chk_local;
         private System.Windows.Forms.Button btn_HUDCMS;
     }
