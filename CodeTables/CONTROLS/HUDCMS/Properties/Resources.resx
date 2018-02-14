@@ -182,4 +182,51 @@
   <data name="NoLink" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NoLink.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Header" xml:space="preserve">
+    <value>&lt;div class="header"&gt; 
+		&lt;canvas id="TangentaLogo" width="60" height="50"&gt;&lt;/canvas&gt;
+		&lt;script type="text/javascript"&gt;
+		var canvas, context, canvaso, contexto;
+		canvaso = document.getElementById('TangentaLogo');
+		context = canvaso.getContext('2d');
+		context.lineWidth = 1;
+
+		// Draw vertical line
+		context.strokeStyle ='#936b20';
+		context.beginPath();
+		context.moveTo(30, 0);
+		context.lineTo(30, 50);
+		context.stroke();
+
+		// Draw large arc
+		context.beginPath();
+		context.arc(54, 26, 24,0.6*Math.PI,1.5*Math.PI, false);
+		context.stroke();
+
+		// Draw head circle
+		context.beginPath();
+		context.fillStyle = "#E2FFB0"/*"#CEF988";*/
+		context.arc(34, 6, 4,0,2*Math.PI, false);
+		context.fill();
+		context.stroke();
+
+		context.closePath();
+		context.restore();
+
+		&lt;/script&gt;
+ 		 
+		 &lt;div class="header_border_with_radius"&gt;
+			&lt;div class = "header_menu"&gt;
+			 &lt;span&gt;&lt;a href="../Tangenta.html"&gt;TANGENTA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Invoice.html"&gt;RAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../ProformaInvoice.html"&gt;PREDRAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Stock.html"&gt;ZALOGE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../PriceList.html"&gt;CENIKI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Printing.html"&gt;TISKANJE RAČUNOV&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../InvoicingOverview.html"&gt;PREGLED FAKTUR&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Support.html"&gt;PODPORA&lt;/a&gt;&lt;/span&gt;
+			 &lt;/div&gt;
+		&lt;/div&gt;				
+	&lt;/div&gt;</value>
+  </data>
 </root>

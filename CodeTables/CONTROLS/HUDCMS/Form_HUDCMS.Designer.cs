@@ -35,7 +35,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grp_Header = new System.Windows.Forms.GroupBox();
-            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.fctb_Header = new FastColoredTextBoxNS.FastColoredTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
@@ -49,7 +49,7 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.grp_Header.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fctb_Header)).BeginInit();
             this.SuspendLayout();
             // 
             // grp_Style
@@ -133,7 +133,7 @@
             // grp_Header
             // 
             this.grp_Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.grp_Header.Controls.Add(this.fastColoredTextBox1);
+            this.grp_Header.Controls.Add(this.fctb_Header);
             this.grp_Header.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grp_Header.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.grp_Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -146,9 +146,9 @@
             this.grp_Header.TabStop = false;
             this.grp_Header.Text = "Header";
             // 
-            // fastColoredTextBox1
+            // fctb_Header
             // 
-            this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
+            this.fctb_Header.AutoCompleteBracketsList = new char[] {
         '(',
         ')',
         '{',
@@ -159,23 +159,30 @@
         '\"',
         '\'',
         '\''};
-            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(179, 14);
-            this.fastColoredTextBox1.BackBrush = null;
-            this.fastColoredTextBox1.CharHeight = 14;
-            this.fastColoredTextBox1.CharWidth = 8;
-            this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fastColoredTextBox1.IsReplaceMode = false;
-            this.fastColoredTextBox1.Location = new System.Drawing.Point(2, 23);
-            this.fastColoredTextBox1.Name = "fastColoredTextBox1";
-            this.fastColoredTextBox1.Paddings = new System.Windows.Forms.Padding(0);
-            this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
-            this.fastColoredTextBox1.Size = new System.Drawing.Size(419, 59);
-            this.fastColoredTextBox1.TabIndex = 0;
-            this.fastColoredTextBox1.Text = "fastColoredTextBox1";
-            this.fastColoredTextBox1.Zoom = 100;
+            this.fctb_Header.AutoIndentCharsPatterns = "";
+            this.fctb_Header.AutoScrollMinSize = new System.Drawing.Size(115, 14);
+            this.fctb_Header.BackBrush = null;
+            this.fctb_Header.CharHeight = 14;
+            this.fctb_Header.CharWidth = 8;
+            this.fctb_Header.CommentPrefix = null;
+            this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctb_Header.IsReplaceMode = false;
+            this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
+            this.fctb_Header.LeftBracket = '<';
+            this.fctb_Header.LeftBracket2 = '(';
+            this.fctb_Header.Location = new System.Drawing.Point(2, 23);
+            this.fctb_Header.Name = "fctb_Header";
+            this.fctb_Header.Paddings = new System.Windows.Forms.Padding(0);
+            this.fctb_Header.RightBracket = '>';
+            this.fctb_Header.RightBracket2 = ')';
+            this.fctb_Header.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fctb_Header.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_Header.ServiceColors")));
+            this.fctb_Header.Size = new System.Drawing.Size(419, 59);
+            this.fctb_Header.TabIndex = 0;
+            this.fctb_Header.Text = "fctb_Header";
+            this.fctb_Header.Zoom = 100;
             // 
             // panel1
             // 
@@ -237,7 +244,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.grp_Header.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fctb_Header)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -251,6 +258,6 @@
         internal SelectFile.usrc_SelectFile usrc_SelectHtmlFile;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.GroupBox grp_Header;
-        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
+        private FastColoredTextBoxNS.FastColoredTextBox fctb_Header;
     }
 }

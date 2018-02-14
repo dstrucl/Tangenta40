@@ -20,11 +20,22 @@ namespace HUDCMS
         XDocument xhtml = null;
         internal XDocument xhtml_Loaded = null;
 
+        private string m_Header = "";
+
+        internal string Header
+        {
+            get { return m_Header; }
+            set { m_Header = value;
+                fctb_Header.Text = m_Header;
+                }
+        }
+
         XElement html_html = null;
         XElement html_head = null;
         XElement html_title = null;
         XElement html_body = null;
-        XElement html_iframe = null;
+        XElement THeader = null;
+
 
         public Form_HUDCMS(usrc_Help xH)
         {
@@ -39,7 +50,13 @@ namespace HUDCMS
             this.usrc_SelectHtmlFile.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
 
             string sStylePath = Path.GetDirectoryName(mH.LocalHtmlFile);
+            int index_of_last_map = sStylePath.LastIndexOf('\\');
+            if (index_of_last_map > 0)
+            {
+                sStylePath = sStylePath.Substring(0, index_of_last_map);
+            }
             usrc_SelectStyleFile.InitialDirectory = sStylePath;
+
             usrc_SelectStyleFile.FileName = sStylePath + "\\style.css";
             usrc_SelectStyleFile.Title = "Save style file";
             usrc_SelectStyleFile.Text = "Style file:";
@@ -49,6 +66,19 @@ namespace HUDCMS
 
         private void Form_HUDCMS_Load(object sender, EventArgs e)
         {
+
+            if (Properties.Settings.Default.Header == null)
+            {
+                Properties.Settings.Default.Header = Properties.Resources.Header;
+                Properties.Settings.Default.Save();
+            }
+            else if (Properties.Settings.Default.Header.Length == 0)
+            {
+                Properties.Settings.Default.Header = Properties.Resources.Header;
+                Properties.Settings.Default.Save();
+            }
+
+            Header = Properties.Settings.Default.Header;
 
             string sHtmFileName = usrc_SelectHtmlFile.FileName;
             try
@@ -151,19 +181,10 @@ namespace HUDCMS
                             html_body = new XElement("body");
                             //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
 
-                            html_iframe = new XElement("iframe");
-                            XAttribute atr_html_iframe_src = new XAttribute("src", "../Header.html");
-                            XAttribute atr_html_iframe_style = new XAttribute("style", "border:none");
-                            XAttribute atr_html_frame_width = new XAttribute("width", "714");
-                            XAttribute atr_html_frame_height = new XAttribute("height", "150");
-                            html_iframe.Add(atr_html_iframe_src);
-                            html_iframe.Add(atr_html_iframe_style);
-                            html_iframe.Add(atr_html_frame_width);
-                            html_iframe.Add(atr_html_frame_height);
-                            html_iframe.Value = "";
-
-                            html_body.Add(html_iframe);
-
+                            THeader = new XElement("THeader");
+                            Header = fctb_Header.Text;
+                            usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
+                            html_body.Add(THeader);
                             html_head.Add(html_title);
                             html_html.Add(html_head);
                             html_html.Add(html_body);
@@ -186,18 +207,10 @@ namespace HUDCMS
 
                             html_body = new XElement("body");
 
-                            html_iframe = new XElement("iframe");
-                            XAttribute atr_html_iframe_src = new XAttribute("src", "../Header.html");
-                            XAttribute atr_html_iframe_style = new XAttribute("style", "border:none");
-                            XAttribute atr_html_frame_width = new XAttribute("width", "714");
-                            XAttribute atr_html_frame_height = new XAttribute("height", "150");
-                            html_iframe.Add(atr_html_iframe_src);
-                            html_iframe.Add(atr_html_iframe_style);
-                            html_iframe.Add(atr_html_frame_width);
-                            html_iframe.Add(atr_html_frame_height);
-                            html_iframe.Value = "";
-
-                            html_body.Add(html_iframe);
+                            THeader = new XElement("THeader");
+                            Header = fctb_Header.Text;
+                            usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
+                            html_body.Add(THeader);
 
                             html_head.Add(html_title);
                             html_html.Add(html_head);

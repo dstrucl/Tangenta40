@@ -103,6 +103,32 @@ namespace HUDCMS.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;div class=&quot;header&quot;&gt; 
+        ///		&lt;canvas id=&quot;TangentaLogo&quot; width=&quot;60&quot; height=&quot;50&quot;&gt;&lt;/canvas&gt;
+        ///		&lt;script type=&quot;text/javascript&quot;&gt;
+        ///		var canvas, context, canvaso, contexto;
+        ///		canvaso = document.getElementById(&apos;TangentaLogo&apos;);
+        ///		context = canvaso.getContext(&apos;2d&apos;);
+        ///		context.lineWidth = 1;
+        ///
+        ///		// Draw vertical line
+        ///		context.strokeStyle =&apos;#936b20&apos;;
+        ///		context.beginPath();
+        ///		context.moveTo(30, 0);
+        ///		context.lineTo(30, 50);
+        ///		context.stroke();
+        ///
+        ///		// Draw large arc
+        ///		context.beginPath();
+        ///		context.arc(54, 26, 2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Header {
+            get {
+                return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Help_bmp {

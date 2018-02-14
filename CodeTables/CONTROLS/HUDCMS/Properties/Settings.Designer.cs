@@ -34,5 +34,17 @@ namespace HUDCMS.Properties {
                 this["HelpFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Header {
+            get {
+                return ((string)(this["Header"]));
+            }
+            set {
+                this["Header"] = value;
+            }
+        }
     }
 }
