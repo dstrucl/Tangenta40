@@ -428,7 +428,7 @@ namespace TangentaSampleDB
 
         public bool Startup_05_Show_Form_EditMyOrgSampleData(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
-            xnav.ShowForm(new Form_EditMyOrgSampleData(this, xnav, oIcon), "TangentaSampleDB.Form_EditMyOrgSampleData");
+            xnav.ShowForm(new Form_EditMyOrgSampleData(this, xnav, oIcon), typeof(Form_EditMyOrgSampleData).ToString());
             return true;
         }
 
@@ -446,7 +446,7 @@ namespace TangentaSampleDB
             {
                 DefaultCountry_State_A3 = "SVN";
             }
-            xnav.ShowForm(new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry_State_A3, lng.s_SelectCountryWhereYouPayTaxes.s, xnav), "Country_ISO_3166.Form_Select_Country_ISO_3166");
+            xnav.ShowForm(new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry_State_A3, lng.s_SelectCountryWhereYouPayTaxes.s, xnav), typeof(Country_ISO_3166.Form_Select_Country_ISO_3166).ToString());
             return true;
         }
 

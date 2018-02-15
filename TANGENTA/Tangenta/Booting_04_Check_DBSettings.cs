@@ -155,7 +155,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_04_onformresult_ShowDBSettings;
-            xnav.ShowForm(new Form_DBSettings(xnav, Program.AdministratorLockedPassword), "Tangenta.Form_DBSettings");
+            xnav.ShowForm(new Form_DBSettings(xnav, Program.AdministratorLockedPassword), typeof(Form_DBSettings).ToString());
             return true;
         }
 

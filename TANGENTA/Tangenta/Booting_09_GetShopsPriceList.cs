@@ -64,7 +64,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_09_onformresult_Form_ShopsPriceLists_Edit;
-            xnav.ShowForm(new Form_PriceList_Edit(false, usrc_PriceList_Edit.eShopType.ShopB, xnav), "Tangenta.Form_PriceList_Edit");
+            xnav.ShowForm(new Form_PriceList_Edit(false, usrc_PriceList_Edit.eShopType.ShopB, xnav), typeof(Form_PriceList_Edit).ToString());
             return true;
         }
 

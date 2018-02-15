@@ -339,11 +339,20 @@ namespace NavigationButtons
             }
         }
 
-        private void usrc_Help1_HelpClicked()
+        private void usrc_Help1_HelpClicked(ref string prefix)
         {
+            switch (m_eButtons)
+            {
+                case Navigation.eButtons.PrevNextExit:
+                    prefix = "nav_";
+                    break;
+                case Navigation.eButtons.OkCancel:
+                    prefix = "";
+                    break;
+            }
             if (HelpClicked!=null)
             {
-                HelpClicked();
+                HelpClicked(ref prefix);
             }
         }
     }

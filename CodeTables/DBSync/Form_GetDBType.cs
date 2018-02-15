@@ -34,7 +34,7 @@ namespace DBSync
             //}
             nav = xnav;
             this.Owner = xnav.OwnerForm;
-            nav.ShowHelp(this.GetType().ToString());
+            nav.ShowHelp(this,this.GetType().ToString());
             m_eButtons = nav.m_eButtons;
             usrc_NavigationButtons1.Init(nav);
             lng.s_SelectDatabase.Text(lbl_SelectDataBase);

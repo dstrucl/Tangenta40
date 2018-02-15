@@ -194,7 +194,7 @@ namespace Tangenta
                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_FVI_check;
-            xnav.ShowForm(new Form_FVI_check(xnav), "Tangenta.Form_FVI_check");
+            xnav.ShowForm(new Form_FVI_check(xnav), typeof(Form_FVI_check).ToString());
             return true;
         }
 
@@ -505,7 +505,7 @@ namespace Tangenta
         {
             bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
             startup_OnFormResult_proc = Startup_05_onformresult_FiscalVerificationOfInvoices_SLO_Form_Settings;
-            xnav.ShowForm(new FiscalVerificationOfInvoices_SLO.Form_Settings(frm.m_usrc_Main.usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL), "FiscalVerificationOfInvoices_SLO.Form_Settings");
+            xnav.ShowForm(new FiscalVerificationOfInvoices_SLO.Form_Settings(frm.m_usrc_Main.usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL), typeof(FiscalVerificationOfInvoices_SLO.Form_Settings).ToString());
             return true;
         }
 

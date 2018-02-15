@@ -15,6 +15,7 @@ namespace HUDCMS
 {
     public partial class usrc_Control : UserControl
     {
+        Form_HUDCMS xfrm_HUDCMS = null;
 
         internal XElement xel = null;
         internal XElement xdiv_Title = null;
@@ -123,9 +124,9 @@ namespace HUDCMS
         {
             get
             {
-                if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control==this)
+                if (xfrm_HUDCMS.usrc_EditControl1.m_usrc_Control==this)
                 {
-                    m_SnapShotMargin = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.SnapShotMargin;
+                    m_SnapShotMargin = xfrm_HUDCMS.usrc_EditControl1.SnapShotMargin;
                 }
                 return m_SnapShotMargin;
             }
@@ -185,7 +186,7 @@ namespace HUDCMS
 
         public string ControlName
         {
-            get { return hc.GetName(); }
+            get { return uH.Prefix+hc.GetName(); }
         }
 
         private int m_MaxPanelHeight = 400;
@@ -465,7 +466,7 @@ namespace HUDCMS
                 this.txt_Control.Text = sControl + "=" + xhc.ctrl.Name + "  Type:" + xhc.ctrl.GetType().ToString() + sText;
             }
 
-            txt_ControlName.Text = hc.GetName();
+            txt_ControlName.Text = uH.Prefix+hc.GetName();
 
             if (hc.ctrlbmp != null)
             {
@@ -495,11 +496,20 @@ namespace HUDCMS
                 }
             }
 
-            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded != null)
+            xfrm_HUDCMS = null;
+             if (uH.hlp_dlg!=null)
             {
-                XDocument doc = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.xhtml_Loaded;
+                xfrm_HUDCMS = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS;
+            }
+            else
+            {
+                xfrm_HUDCMS =(Form_HUDCMS) Global.f.GetParentForm(this);
+            }
+            if (xfrm_HUDCMS.xhtml_Loaded != null)
+            {
+                XDocument doc = xfrm_HUDCMS.xhtml_Loaded;
                 XElement xel = null;
-                if (FindXElement(doc, ref xel, "TControl", "name", ControlName))
+                if (FindXElement(doc, ref xel, "TControl", "name",ControlName))
                 {
                     string simageincluded = xel.Attribute("imageincluded").Value;
                     chk_ImageIncluded.Checked = true;
@@ -701,7 +711,7 @@ namespace HUDCMS
             }
             else
             {
-                this.BackColor = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.BackColor;
+                this.BackColor = xfrm_HUDCMS.BackColor;
             }
             return this.BackColor;
         }
@@ -781,13 +791,13 @@ namespace HUDCMS
             if (radioButtonGlobal1.Checked)
             {
                 this.BackColor = radioButtonGlobal1.HighlightBackColor;
-                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Enabled = true;
-                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
-                uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected = this;
+                xfrm_HUDCMS.usrc_EditControl1.Enabled = true;
+                xfrm_HUDCMS.usrc_EditControl1.Init(this);
+                xfrm_HUDCMS.usrc_Control_Selected = this;
                 if (hc.dgvc == null)
                 {
-                    uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.HideLinks();
-                    uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.ShowAvailableLinks();
+                    xfrm_HUDCMS.HideLinks();
+                    xfrm_HUDCMS.ShowAvailableLinks();
                 }
             }
         }
@@ -800,11 +810,11 @@ namespace HUDCMS
         private void btn_Link_Click(object sender, EventArgs e)
         {
             //Link Form_HUDCMS.usrc_Control_Selected with this !
-            if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected != null)
+            if (xfrm_HUDCMS.usrc_Control_Selected != null)
             {
                 if (bLinked)
                 {
-                    usrc_Control Control_Selected = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected;
+                    usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
                     if (Control_Selected.Link == null)
                     {
                         Control_Selected.Link = new List<usrc_Control>();
@@ -815,7 +825,7 @@ namespace HUDCMS
                 }
                 else
                 {
-                    usrc_Control Control_Selected = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_Control_Selected;
+                    usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
                     if (Control_Selected.Link == null)
                     {
                         Control_Selected.Link = new List<usrc_Control>();
@@ -880,9 +890,9 @@ namespace HUDCMS
                         this.hc.ctrlbmp = cloneBitmap;
                         this.Set_pic_Control();
                         this.pic_Control.Refresh();
-                        if (uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.m_usrc_Control == this)
+                        if (xfrm_HUDCMS.usrc_EditControl1.m_usrc_Control == this)
                         {
-                            uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS.usrc_EditControl1.Init(this);
+                            xfrm_HUDCMS.usrc_EditControl1.Init(this);
                         }
                     }
                 }

@@ -160,18 +160,18 @@ namespace HUDCMS
             set { m_RemoteUrl = value; }
         }
 
-        public void Show(string sUrl,string html)
+        public void Show(Form xpForm,string sNameSpaceAndTypePath)
         {
-            if (uri!=null)
+            if (mH == null)
             {
-                uri = null;
+                mH = new usrc_Help();
             }
-            uri = new Uri(sUrl);
-            webBrowser1.Url = uri;
-            txt_URL.Text = sUrl;
-            txt_URL.BackColor = this.BackColor;
-            webBrowser1.Refresh();
-
+            mH.Visible = false;
+            mH.pForm = xpForm;
+            mH.Prefix = "st_";
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix, sNameSpaceAndTypePath);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix, sNameSpaceAndTypePath);
+            Init(mH);
         }
 
         internal void Init(usrc_Help xH)

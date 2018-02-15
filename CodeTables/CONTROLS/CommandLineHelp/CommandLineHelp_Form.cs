@@ -156,7 +156,7 @@ namespace CommandLineHelp
 
         }
 
-        private void usrc_NavigationButtons1_HelpClicked()
+        private void usrc_NavigationButtons1_HelpClicked(ref string prefix)
         {
             LocalHelpPath = this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.SelectedFolder;
             RemoteHelpURL = this.usrc_HelpSettings1.txt_RemoteHelpURL.Text;
@@ -174,7 +174,6 @@ namespace CommandLineHelp
                     HUDCMS.HUDCMS_static.LocalHelpPath = LocalHelpPath;
                 }
             }
-
         }
 
         private void CommandLineHelp_Form_FormClosing(object sender, FormClosingEventArgs e)

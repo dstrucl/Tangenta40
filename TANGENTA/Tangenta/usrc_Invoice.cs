@@ -701,11 +701,11 @@ namespace Tangenta
         {
             if (myOrg.myOrg_Office_list.Count > 0)
             {
-                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav), "Tangenta.Form_myOrg_Office_Data");
+                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav),typeof(Form_myOrg_Office_Data).ToString());
             }
             else
             {
-                xnav.ShowForm(new Form_myOrg_Office_Data(-1, xnav), "Tangenta.Form_myOrg_Office_Data");
+                xnav.ShowForm(new Form_myOrg_Office_Data(-1, xnav), typeof(Form_myOrg_Office_Data).ToString());
             }
             return true;
         }
@@ -730,7 +730,7 @@ namespace Tangenta
 
         internal bool Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav), "Tangenta.Form_myOrg_Office_Data_FVI_SLO_RealEstateBP");
+            xnav.ShowForm(new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
             return true;
         }
 
@@ -753,14 +753,14 @@ namespace Tangenta
 
         internal bool Startup_05_ShowForm_Form_myOrg_Person_Edit(long x_Office_ID,bool bAllowNew, NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_myOrg_Person_Edit(x_Office_ID,xnav), "Tangenta.Form_myOrg_Person_Edit");
+            xnav.ShowForm(new Form_myOrg_Person_Edit(x_Office_ID,xnav), typeof(Form_myOrg_Person_Edit).ToString());
             return true;
         }
 
 
         internal bool Startup_05_ShowForm_EditMyOrganisation_Data(bool bAllowNew, NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav), "Tangenta.Form_myOrg_Edit");
+            xnav.ShowForm(new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav), typeof(Form_myOrg_Edit).ToString());
             return true;
         }
 
@@ -1046,7 +1046,7 @@ namespace Tangenta
         internal void Startup_07_Show_Form_Taxation_Edit(NavigationButtons.Navigation xnav)
         {
             SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
-            xnav.ShowForm(new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc", xnav), "Tangenta.Form_Taxation_Edit");
+            xnav.ShowForm(new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc", xnav), typeof(Form_Taxation_Edit).ToString());
         }
 
         private bool Edit_Taxation()
@@ -1786,7 +1786,7 @@ namespace Tangenta
                 GlobalData.BaseCurrency = new xCurrency();
             }
             long DefaultCurrency_ID = myOrg.Default_Currency_ID;
-            xnav.ShowForm(new Form_Select_DefaultCurrency(DefaultCurrency_ID, ref GlobalData.BaseCurrency, xnav), "Tangenta.Form_Select_DefaultCurrency");
+            xnav.ShowForm(new Form_Select_DefaultCurrency(DefaultCurrency_ID, ref GlobalData.BaseCurrency, xnav), typeof(Form_Select_DefaultCurrency).ToString());
         }
 
         internal bool Startup_06_set_DefaultCurrency(Form_Select_DefaultCurrency sel_basecurrency_dlg, ref string Err)

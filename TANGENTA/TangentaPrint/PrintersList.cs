@@ -193,7 +193,7 @@ namespace TangentaPrint
 
         public static bool Startup_12_Show_Form_DefinePrinters(Navigation xnav)
         {
-            xnav.ShowForm(new Form_DefinePrinters(ref dt, xnav, null), "PrintersList.Form_DefinePrinters");
+            xnav.ShowForm(new Form_DefinePrinters(ref dt, xnav, null), typeof(Form_DefinePrinters).ToString());
             return true;
         }
 

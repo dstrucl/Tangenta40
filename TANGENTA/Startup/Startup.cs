@@ -93,14 +93,14 @@ namespace Startup
         public bool Startup_01_Do_showform_TangentaLicence(NavigationButtons.Navigation xnav)
         {
             // return  true for step over
-            xnav.ShowForm(new Form_LicenseAgreement(xnav), "Tangenta.Tangenta-LicenseAgreement");
+            xnav.ShowForm(new Form_LicenseAgreement(xnav), typeof(Form_LicenseAgreement).ToString());
             return true; //
         }
 
 
         public bool Startup_00_Do_showform_TangentaAbout( NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_Navigate(xnav), "Tangenta.Tangenta_about");
+            xnav.ShowForm(new Form_Navigate(xnav), typeof(usrc_Startup).ToString());
             return true;
         }
 

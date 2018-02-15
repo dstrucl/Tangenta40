@@ -837,7 +837,7 @@ namespace DBConnectionControl40
 
         public bool Startup_03_Show_TestConnectionForm(Form pParentForm,NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s), "DBConnection.TestConnectionForm");
+            xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s),typeof(TestConnectionForm).ToString());
             return true;
         }
 
@@ -1411,13 +1411,13 @@ namespace DBConnectionControl40
                     {
                         ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
                     }
-                    nav.ShowForm(ConnectionDialog, "DBConnection.ConnectionDialog");
+                    nav.ShowForm(ConnectionDialog, ConnectionDialog.GetType().ToString());
                     return true;
 
                 case eDBType.SQLITE:
 
                     SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, this.RecentItemsFolder, this.BackupFolder, nav, this.ConnectionName);
-                    nav.ShowForm(SQLiteConnectionDialog, "DBConnection.SQLiteConnectionDialog");
+                    nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
                     return true;
 
 
@@ -1477,12 +1477,12 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        nav.ShowForm(SQLiteConnectionDialog, "DBConnection.SQLiteConnectionDialog");
+                        nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
                     }
                 }
                 else 
                 {
-                    nav.ShowForm(ConnectionDialog, "DBConnection.ConnectionDialog");
+                    nav.ShowForm(ConnectionDialog, ConnectionDialog.GetType().ToString());
                 }
 
                 if (nav.bDoModal)

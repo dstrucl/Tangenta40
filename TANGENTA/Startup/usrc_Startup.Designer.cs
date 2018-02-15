@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lbl_StartUp = new System.Windows.Forms.Label();
             this.usrc_web_Help1 = new HUDCMS.usrc_web_Help();
             this.SuspendLayout();
@@ -39,7 +38,7 @@
             this.lbl_StartUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_StartUp.Location = new System.Drawing.Point(18, 12);
             this.lbl_StartUp.Name = "lbl_StartUp";
-            this.lbl_StartUp.Size = new System.Drawing.Size(93, 32);
+            this.lbl_StartUp.Size = new System.Drawing.Size(70, 26);
             this.lbl_StartUp.TabIndex = 0;
             this.lbl_StartUp.Text = "label1";
             // 

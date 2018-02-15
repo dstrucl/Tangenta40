@@ -147,7 +147,7 @@ namespace HUDCMS
             set { m_slng_LocalURL = value; }
         }
 
-        public static bool GetLocalHtmlFile(Form pForm, ref string ModuleName, ref string HtmlFileName, ref string RemoteURL,ref string sLocalHtmlFile)
+        public static bool GetLocalHtmlFile(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string RemoteURL,ref string sLocalHtmlFile)
         {
 
             if (m_ApplicationPath != null)
@@ -158,7 +158,7 @@ namespace HUDCMS
                     {
                         m_ApplicationPath += "/";
                     }
-                    if (GetRelativeURL(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL))
+                    if (GetRelativeURL(pForm, prefix, ref ModuleName, ref HtmlFileName, ref RelativeURL))
                     {
                         if (LocalHelpPath!=null)
                         {
@@ -178,7 +178,39 @@ namespace HUDCMS
             return false;
         }
 
-        public static bool GetRemoteURL(Form pForm, ref string ModuleName, ref string HtmlFileName, ref string RelativeURL, ref string sRemoteURL)
+        public static bool GetLocalHtmlFile(string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string RemoteURL, ref string sLocalHtmlFile)
+        {
+
+            if (m_ApplicationPath != null)
+            {
+                if (m_ApplicationPath.Length > 0)
+                {
+                    if (m_ApplicationPath[m_ApplicationPath.Length - 1] != '/')
+                    {
+                        m_ApplicationPath += "/";
+                    }
+                    if (GetRelativeURL(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL))
+                    {
+                        if (LocalHelpPath != null)
+                        {
+                            if (LocalHelpPath.Length > 0)
+                            {
+                                if ((LocalHelpPath[LocalHelpPath.Length - 1] != '/') && (LocalHelpPath[LocalHelpPath.Length - 1] != '\\'))
+                                {
+                                    LocalHelpPath += '/';
+                                }
+                            }
+                        }
+                        sLocalHtmlFile = LocalHelpPath + RelativeURL;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+        public static bool GetRemoteURL(Form pForm, string prefix,ref string ModuleName, ref string HtmlFileName, ref string RelativeURL, ref string sRemoteURL)
         {
 
             if (m_RemoteUrl != null)
@@ -189,7 +221,28 @@ namespace HUDCMS
                     {
                         m_RemoteUrl += "/";
                     }
-                    if (GetRelativeURL(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL))
+                    if (GetRelativeURL(pForm,prefix, ref ModuleName, ref HtmlFileName, ref RelativeURL))
+                    {
+                        sRemoteURL = RemoteUrl + RelativeURL;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool GetRemoteURL(string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string RelativeURL, ref string sRemoteURL)
+        {
+
+            if (m_RemoteUrl != null)
+            {
+                if (m_RemoteUrl.Length > 0)
+                {
+                    if (m_RemoteUrl[m_RemoteUrl.Length - 1] != '/')
+                    {
+                        m_RemoteUrl += "/";
+                    }
+                    if (GetRelativeURL(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL))
                     {
                         sRemoteURL = RemoteUrl + RelativeURL;
                         return true;
@@ -200,10 +253,10 @@ namespace HUDCMS
         }
 
 
-        public static bool LocalUrl(Form pForm, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL, ref string sLocalUrl)
+        public static bool LocalUrl(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL, ref string sLocalUrl)
         {
             string sFile = null;
-             if (GetLocalHtmlFile(pForm, ref ModuleName, ref HtmlFileName, ref xRelativeURL, ref sFile))
+             if (GetLocalHtmlFile(pForm, prefix, ref ModuleName, ref HtmlFileName, ref xRelativeURL, ref sFile))
             {
                 sLocalUrl =  "file:///" + sFile;
                 return true;
@@ -403,7 +456,7 @@ namespace HUDCMS
 
     
 
-        public static bool GetRelativeURL(Form pForm, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL)
+        public static bool GetRelativeURL(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL)
         {
             if (pForm != null)
             {
@@ -411,7 +464,7 @@ namespace HUDCMS
                 if (s.Length > 0)
                 {
                     ModuleName = "";
-                    HtmlFileName = s[s.Length - 1] + ".html";
+                    HtmlFileName = prefix + s[s.Length - 1] + ".html";
                     for (int i = 0; i < s.Length - 1; i++)
                     {
                         ModuleName += s[i] + "/";
@@ -422,5 +475,26 @@ namespace HUDCMS
             }
             return false;
         }
+
+        public static bool GetRelativeURL(string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL)
+        {
+            if (sNameSpaceDotType != null)
+            {
+                string[] s = sNameSpaceDotType.Split(new char[] { '.' });
+                if (s.Length > 0)
+                {
+                    ModuleName = "";
+                    HtmlFileName = prefix+s[s.Length - 1] + ".html";
+                    for (int i = 0; i < s.Length - 1; i++)
+                    {
+                        ModuleName += s[i] + "/";
+                    }
+                    xRelativeURL = RelativeBaseURL + ModuleName + HtmlFileName;
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

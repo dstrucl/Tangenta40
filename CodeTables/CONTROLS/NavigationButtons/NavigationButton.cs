@@ -115,7 +115,7 @@ namespace NavigationButtons
             ChildDialog.FormClosing += ChildDialog_FormClosing;
             if (sHelpToShow!=null)
             {
-                ShowHelp(sHelpToShow);
+                ShowHelp(ChildDialog,sHelpToShow);
             }
             ChildDialog.Show();
             m_DialogShown = true;
@@ -151,12 +151,11 @@ namespace NavigationButtons
         }
 
 
-        public void ShowHelp(string FormTypeAsString)
+        public void ShowHelp(Form pForm,string sNameSpaceDotType)
         {
-            string sUrl = ShowHelpResolver(FormTypeAsString);
-            if (sUrl != null)
+            if (sNameSpaceDotType != null)
             {
-                show_help(sUrl, "");
+                show_help(pForm, sNameSpaceDotType);
             }
         }
 
@@ -164,19 +163,22 @@ namespace NavigationButtons
         {
             if (FormTypeAsString != null)
             {
-                int idot = FormTypeAsString.IndexOf(".");
-                if (idot >= 0)
+                string[]s = FormTypeAsString.Split(new char[] { '.' });
+                if (s.Length==2)
                 {
-                    string stoken = FormTypeAsString.Substring(idot + 1);
-                    return HelpURL + lngRPM_strings.LanguagePrefix + "_" + stoken + ".html";
+                    return s[0] + '/' + s[1];
+                }
+                else
+                {
+                    MessageBox.Show("Error:ShowHelpResolver can not find namespace and object type!");
                 }
             }
             return null;
         }
 
-        private void show_help(string sURL, string s_Local_Html)
+        private void show_help(Form pForm,string sNameSpaceAndType)
         {
-            web_Help.Show(sURL, s_Local_Html);
+            web_Help.Show(pForm,sNameSpaceAndType);
         }
 
         public class LicenseAgreementAcceptedTime

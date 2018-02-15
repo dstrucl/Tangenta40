@@ -305,7 +305,7 @@ namespace DBSync
                 xnav.ChildDialog.Dispose();
             }
 
-            xnav.ShowForm(new Form_GetDBType(DataBaseType, xnav),"DBSync.Form_GetDBType");
+            xnav.ShowForm(new Form_GetDBType(DataBaseType, xnav),typeof(Form_GetDBType).ToString());
             return true;
         }
 

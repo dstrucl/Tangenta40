@@ -64,7 +64,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_11_onformresult_Form_Items_Samples;
-            xnav.ShowForm(new Form_Items_Samples(xnav, lng.s_Shop_C.s), "TangentaSampleDB.Form_Items_Samples");
+            xnav.ShowForm(new Form_Items_Samples(xnav, lng.s_Shop_C.s), typeof(Form_Items_Samples).ToString());
             return true;
         }
 
@@ -126,7 +126,7 @@ namespace Tangenta
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)));
             xnav.ShowForm(new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
-                                                            "Item_$$Code desc", xnav), "ShopC.Form_ShopC_Item_Edit");
+                                                            "Item_$$Code desc", xnav), typeof(Form_ShopC_Item_Edit).ToString());
             return true;
         }
 

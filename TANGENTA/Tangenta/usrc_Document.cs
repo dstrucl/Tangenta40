@@ -174,7 +174,7 @@ namespace Tangenta
 
         internal bool Startup_08_Show_Form_ProgramSettings(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_ProgramSettings(this, xnav), "Tangenta.Form_ProgramSettings");
+            xnav.ShowForm(new Form_ProgramSettings(this, xnav), typeof(Form_ProgramSettings).ToString());
             return true;
         }
 
@@ -412,7 +412,7 @@ namespace Tangenta
 
         internal bool Startup_05_Show_Form_CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_CheckInsertSampleData(myStartup, xnav), "Tangenta.Form_CheckInsertSampleData");
+            xnav.ShowForm(new Form_CheckInsertSampleData(myStartup, xnav), typeof(Form_CheckInsertSampleData).ToString());
             return true;
         }
 

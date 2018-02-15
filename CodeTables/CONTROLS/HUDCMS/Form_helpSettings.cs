@@ -26,7 +26,7 @@ namespace HUDCMS
         {
             HUDCMS_static.RemoteHelpURL = this.usrc_HelpSettings1.txt_RemoteHelpURL.Text;
             HUDCMS_static.LocalHelpPath = this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.SelectedFolder;
-            uH.GetLocalURL();
+            uH.GetLocalURL(uH.Prefix);
             wH.ReloadHtml();
             this.DialogResult = DialogResult.OK;
             this.Close();

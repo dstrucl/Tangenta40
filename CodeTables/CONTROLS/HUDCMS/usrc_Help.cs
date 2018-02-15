@@ -20,11 +20,11 @@ namespace HUDCMS
 {
     public partial class usrc_Help: UserControl
     {
-        public delegate void delegate_HelpClicked();
+        public delegate void delegate_HelpClicked(ref string prefix);
         public event delegate_HelpClicked HelpClicked = null;
 
         internal Form pForm = null;
-
+        internal string Prefix = "";
 
         public Form_Help hlp_dlg = null;
 
@@ -79,9 +79,9 @@ namespace HUDCMS
             InitializeComponent();
         }
 
-        internal bool GetRemoteURL()
+        internal bool GetRemoteURL(string prefix)
         {
-            if (HUDCMS_static.GetRemoteURL(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref RemoteURL))
+            if (HUDCMS_static.GetRemoteURL(pForm,prefix, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref RemoteURL))
             {
                 //if (HUDCMS_static.URLExists(RemoteURL, ref Err_Remote))
                 if (HUDCMS_static.DomainAccesible(RemoteURL, ref Err_Remote))
@@ -100,11 +100,58 @@ namespace HUDCMS
             }
         }
 
-        internal bool GetLocalURL()
+        internal bool GetRemoteURL(string prefix,string  sNameSpaceDotType)
+        {
+            if (HUDCMS_static.GetRemoteURL(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref RemoteURL))
+            {
+                //if (HUDCMS_static.URLExists(RemoteURL, ref Err_Remote))
+                if (HUDCMS_static.DomainAccesible(RemoteURL, ref Err_Remote))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Err_Remote = "Can not get RemoteURL";
+                return false;
+            }
+        }
+
+        internal bool GetLocalURL(string prefix)
         {
             Err_Local = null;
             string sLocalHtmlFile = null;
-            if (HUDCMS_static.GetLocalHtmlFile(pForm, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref sLocalHtmlFile))
+            if (HUDCMS_static.GetLocalHtmlFile(pForm, prefix, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref sLocalHtmlFile))
+            {
+                LocalHtmlFile = sLocalHtmlFile;
+                if (File.Exists(sLocalHtmlFile))
+                {
+                    return true;
+                }
+                else
+                {
+                    //Local File does not exist
+                    Err_Local = HUDCMS_static.slng_LocalHtmlFile + ":\"" + sLocalHtmlFile + "\" " + HUDCMS_static.slng_doesNotExist;
+                    return false;
+                }
+            }
+            else
+            {
+                Err_Local = HUDCMS_static.slng_Can_not_get_relative_URL;
+                return false;
+            }
+
+        }
+
+        internal bool GetLocalURL(string prefix,string sNameSpaceDotType)
+        {
+            Err_Local = null;
+            string sLocalHtmlFile = null;
+            if (HUDCMS_static.GetLocalHtmlFile(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref sLocalHtmlFile))
             {
                 LocalHtmlFile = sLocalHtmlFile;
                 if (File.Exists(sLocalHtmlFile))
@@ -130,12 +177,12 @@ namespace HUDCMS
         {
             if (HelpClicked!=null)
             {
-                HelpClicked();
+                HelpClicked(ref Prefix);
             }
             pForm = Global.f.GetParentForm(this);
 
-            RemoteURL_accessible = GetRemoteURL();
-            LocalHtmlFile_exist = GetLocalURL();
+            RemoteURL_accessible = GetRemoteURL(Prefix);
+            LocalHtmlFile_exist = GetLocalURL(Prefix);
 
             if (hlp_dlg==null)
             {

@@ -44,7 +44,7 @@ namespace DBConnectionControl40
             lbl_Folder.Tag = cmbR_FilePath;
             this.lbl_FileName.Tag = cmbR_FileName;
             nav = xnav;
-            nav.ShowHelp(this.GetType().ToString());
+            nav.ShowHelp(this,this.GetType().ToString());
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
             {
                 btn_Backup.Visible = false;
