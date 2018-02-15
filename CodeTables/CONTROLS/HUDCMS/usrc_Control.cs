@@ -537,37 +537,37 @@ namespace HUDCMS
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
-                            ID = xel_Title_Header.Attribute("id").Value;
+                            Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
-                            ID = xel_Title_Header.Attribute("id").Value;
+                            Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
-                            ID = xel_Title_Header.Attribute("id").Value;
+                            Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
-                            ID = xel_Title_Header.Attribute("id").Value;
+                            Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
-                            ID = xel_Title_Header.Attribute("id").Value;
+                            Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             Title = usrc_Control.InnerXml(xel_Title_Header);
-                            ID = xel_Title_Header.Attribute("id").Value;
+                            Set_ID(xel_Title_Header.Attribute("id"));
                         }
 
                         XElement xel_About = null;
@@ -580,7 +580,7 @@ namespace HUDCMS
                         if (FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
                         {
                             //Description = xel_Description.Value;
-                            Description = usrc_Control.InnerXml(xel_About);
+                            Description = usrc_Control.InnerXml(xel_Description);
                         }
                     }
 
@@ -639,6 +639,18 @@ namespace HUDCMS
             txt_ID.Text = ID;
             SetDefault_BackColor();
             this.Refresh();
+        }
+
+        private void Set_ID(XAttribute xAttribute)
+        {
+            if (xAttribute != null)
+            {
+                ID = xAttribute.Value;
+            }
+            else
+            {
+                ID = Guid.NewGuid().ToString();
+            }
         }
 
         internal static bool Find_usrc_Control(Control ctrl, string slnk, ref usrc_Control usrc_Control_found)
@@ -880,7 +892,15 @@ namespace HUDCMS
         private void GetParentSnapshotArea(ref Rectangle snap_rect, usrc_Control xusrc_Control, List<usrc_Control> link)
         {
             int xLeft = GetLeftMost(xusrc_Control, link)- SnapShotMargin;
+            if (xLeft<0)
+            {
+                xLeft = 0;
+            }
             int yTop = GetTopMost(xusrc_Control, link)-SnapShotMargin;
+            if (yTop<0)
+            {
+                yTop = 0;
+            }
             int xRight = GetRightMost(xusrc_Control, link) + SnapShotMargin; 
             int yBottom = GetBottomMost(xusrc_Control, link) + SnapShotMargin; 
             snap_rect = new Rectangle(xLeft, yTop, xRight - xLeft, yBottom - yTop);

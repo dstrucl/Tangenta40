@@ -31,6 +31,7 @@ namespace Tangenta
             this.chk_LogFile_DLL.Checked = true; 
             lng.s_Yes.Text(btn_Yes);
             lng.s_No.Text(btn_No);
+            lng.s_Form_Reset_Properties_Settings_Default.Text(this);
         }
 
         private void btn_Yes_Click(object sender, EventArgs e)

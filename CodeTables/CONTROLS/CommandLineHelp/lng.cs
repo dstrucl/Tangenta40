@@ -24,7 +24,7 @@ namespace CommandLineHelp
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        public static ltext s_CommandLineHelp = new ltext( new string[]{"Command Line Help", "Pomoč za komandno vrstico"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+        public static ltext s_CommandLineHelp = new ltext( new string[]{"Help settings and command line parameters help", "Nastavitev za pomoč in pomoč za komandno vrstico"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
 
         public static ltext s_OK = new ltext( new string[]{"OK",
                                                          "V redu"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs

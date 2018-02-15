@@ -36,8 +36,9 @@
             // 
             // btn1
             // 
+            this.btn1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn1.Location = new System.Drawing.Point(0, 0);
+            this.btn1.Location = new System.Drawing.Point(121, 0);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(81, 27);
             this.btn1.TabIndex = 0;

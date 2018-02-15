@@ -100,6 +100,14 @@ namespace HUDCMS
                                                              set { m_slng_Can_not_get_relative_URL = value; }
                                                             }
 
+        private static string m_slng_JavaScriptElementsWillNotBoShownInHelp = "Java script will not work in help files!\r\n";
+
+        public static string slng_JavaScriptElementsWillNotBoShownInHelp
+        {
+            get { return m_slng_Can_not_get_relative_URL; }
+            set { m_slng_Can_not_get_relative_URL = value; }
+        }
+            
         internal static void SetControlAnchorTopLeftRight(Control ctrl)
         {
             ctrl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
@@ -378,7 +386,14 @@ namespace HUDCMS
                         }
                         else
                         {
-                            return m_ApplicationVersion + "/" + slang + "/"; 
+                            if (m_ApplicationVersion[m_ApplicationVersion.Length - 1] == '/')
+                            {
+                                return m_ApplicationVersion + slang + "/";
+                            }
+                            else
+                            {
+                                return m_ApplicationVersion + "/" + slang + "/";
+                            }
                         }
                     }
                 }

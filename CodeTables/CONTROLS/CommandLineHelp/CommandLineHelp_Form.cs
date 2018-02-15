@@ -62,6 +62,7 @@ namespace CommandLineHelp
             lng.s_LocalHelpAddress.Text(this.usrc_HelpSettings1.usrc_SelectLocalHelpFolder.label1);
             lng.s_RemoteHelpAddress.Text(this.usrc_HelpSettings1.lbl_RemoteURL);
             lng.s_CommandLineParameters.Text(this.grp_CommandLineParameters);
+            lng.s_CommandLineHelp.Text(this);
         }
 
         private void do_OK()
@@ -118,7 +119,6 @@ namespace CommandLineHelp
                 y = helpctrl_last.Bottom + 10;
                 iName++;
             }
-            this.Text = lng.s_CommandLineHelp.s;
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

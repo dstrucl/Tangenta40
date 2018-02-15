@@ -74,6 +74,12 @@
     <Compile Include="Form_Help.Designer.cs">
       <DependentUpon>Form_Help.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_helpSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_helpSettings.Designer.cs">
+      <DependentUpon>Form_helpSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_HUDCMS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Form_Help.resx">
       <DependentUpon>Form_Help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_helpSettings.resx">
+      <DependentUpon>Form_helpSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_HUDCMS.resx">
       <DependentUpon>Form_HUDCMS.cs</DependentUpon>

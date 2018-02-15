@@ -33,14 +33,14 @@ namespace Tangenta
         internal const string TANGENTA_SETTINGS_SUB_FOLDER = "\\Settings";
         internal const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\SQliteBackup";
         internal const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\VODshema";
-        const string const_command_DOCINVOICE = "DOCINVOICE";
-        const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
-        const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
-        const string const_command_RESETNEW = "RESETNEW";
-        const string const_command_AUTONEXT = "AUTONEXT";
-        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
-        const string const_command_SYMULATOR = "SYMULATOR";
-        const string const_command_RS232MONITOR = "RS232MONITOR";
+        const string const_command_DOCINVOICE = "/DOCINVOICE";
+        const string const_command_DOCPROFORMAINVOICE = "/DOCPROFORMAINVOICE";
+        const string const_command_CHANGE_CONNECTION = "/CHANGE-CONNECTION";
+        const string const_command_RESETNEW = "/RESETNEW";
+        const string const_command_AUTONEXT = "/AUTONEXT";
+        const string const_command_DIAGNOSTIC = "/DIAGNOSTIC";
+        const string const_command_SYMULATOR = "/SYMULATOR";
+        const string const_command_RS232MONITOR = "/RS232MONITOR";
 
         public const string const_DocInvoice = "DocInvoice";
         public const string const_DocProformaInvoice = "DocProformaInvoice";
@@ -457,9 +457,12 @@ namespace Tangenta
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
+
                     HUDCMS.HUDCMS_static.slng_LocalURL = lng.s_LocalHelpFolder.s;
-
-
+                    HUDCMS.HUDCMS_static.slng_LocalHtmlFile = lng.s_slng_LocalHtmlFile.s;
+                    HUDCMS.HUDCMS_static.slng_doesNotExist = lng.s_slng_dowsNotExist.s;
+                    HUDCMS.HUDCMS_static.slng_Can_not_get_relative_URL = lng.s_slng_Can_not_get_relative_URL.s;
+                    HUDCMS.HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp = lng.s_slng_JavaScriptElementsWillNotBoShownInHelp.s;
 
 
                     if (bResetNew)

@@ -33,59 +33,79 @@ namespace HUDCMS
             txt_URL.Text = "";
             chk_local.Text = HUDCMS_static.slng_LocalURL;
             var appName = Process.GetCurrentProcess().ProcessName + ".exe";
-            SetIE8KeyforWebBrowserControl(appName);
+            string Err = null;
+            if (!SetIE8KeyforWebBrowserControl(appName,11001, ref Err))
+            {
+                MessageBox.Show(HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp,
+                                Err);
+            }
         }
 
-        private void SetIE8KeyforWebBrowserControl(string appName)
+        private bool SetIE8KeyforWebBrowserControl(string appName,int IEVersion, ref string Err)
         {
             RegistryKey Regkey = null;
+            string sRegKey = null;
             try
             {
                 // For 64 bit machine
                 if (Environment.Is64BitOperatingSystem)
-                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+                {
+                    sRegKey = @"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey, true);
+                }
                 else  //For 32 bit machine
-                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+                {
+                    sRegKey = @"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey, true);
+                }
 
                 // If the path is not correct or
                 // if the user haven't priviledges to access the registry
                 if (Regkey == null)
                 {
-                    MessageBox.Show("Application Settings Failed - Address Not found");
-                    return;
+                    Err = "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" Failed - Registry Key not found!";
+                    return false;
                 }
 
                 string FindAppkey = Convert.ToString(Regkey.GetValue(appName));
 
                 // Check if key is already present
-                if (FindAppkey == "11001")
+                if (FindAppkey == IEVersion.ToString())
                 {
-                    MessageBox.Show("Required Application Settings Present");
                     Regkey.Close();
-                    return;
+                    return true;
                 }
 
-                    // If a key is not present add the key, Key value 11000 (decimal)
+                // If a key is not present add the key, Key value 11000 (decimal)
                 if (string.IsNullOrEmpty(FindAppkey))
                     Regkey.SetValue(appName, unchecked((int)11001), RegistryValueKind.DWord);
 
-                if (FindAppkey == "8000")
+                if (FindAppkey != IEVersion.ToString())
                 {
-                    Regkey.SetValue(appName, unchecked((int)11001), RegistryValueKind.DWord);
+                    Regkey.SetValue(appName, unchecked((int)IEVersion), RegistryValueKind.DWord);
                 }
 
-                    // Check for the key after adding
-                  FindAppkey = Convert.ToString(Regkey.GetValue(appName));
+                // Check for the key after adding
+                FindAppkey = Convert.ToString(Regkey.GetValue(appName));
 
-                if (FindAppkey == "11001")
-                    MessageBox.Show("Application Settings Applied Successfully");
+                if (FindAppkey == IEVersion.ToString())
+                {
+                    if (Regkey != null)
+                        Regkey.Close();
+                    return true;
+                }
                 else
-                    MessageBox.Show("Application Settings Failed, Ref: " + FindAppkey);
+                { 
+                   Err="Internet Explorer Registry Settings \""+ sRegKey + "\" for \""+ appName + "\" not written, width emulation version DWORD:" + FindAppkey;
+                    if (Regkey != null)
+                        Regkey.Close();
+                    return false;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Application Settings Failed");
-                MessageBox.Show(ex.Message);
+                Err= "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" Failed:" + ex.Message;
+                return false;
             }
             finally
             {
@@ -115,9 +135,15 @@ namespace HUDCMS
             int cy = this.Height - 27;
             this.webBrowser1.Size = new System.Drawing.Size(cx, cy);
             this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompleted;
             this.Controls.Add(this.webBrowser1);
             this.ResumeLayout(false);
             this.PerformLayout();
+        }
+
+        private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            this.txt_URL.Text = webBrowser1.Url.ToString();
         }
 
         private string m_LocalUrl = "Local URL:";
@@ -183,6 +209,7 @@ namespace HUDCMS
             txt_URL.Text = mH.RemoteURL;
             if (this.webBrowser1!=null)
             {
+                this.webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompleted;
                 this.Controls.Remove(this.webBrowser1);
                 this.webBrowser1.Dispose();
                 this.webBrowser1 = null;
@@ -199,6 +226,7 @@ namespace HUDCMS
             txt_URL.Text = mH.LocalHtmlFile;
             if (this.webBrowser1 != null)
             {
+                this.webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompleted;
                 this.Controls.Remove(this.webBrowser1);
                 this.webBrowser1.Dispose();
                 this.webBrowser1 = null;
@@ -229,7 +257,7 @@ namespace HUDCMS
             frm_HUDCMS.Show();
         }
 
-        private void chk_local_CheckedChanged(object sender, EventArgs e)
+        internal void ReloadHtml()
         {
             if (chk_local.Checked)
             {
@@ -243,9 +271,16 @@ namespace HUDCMS
             }
         }
 
-        internal void ReloadHtml()
+        private void chk_local_CheckedChanged(object sender, EventArgs e)
         {
-            this.webBrowser1.Refresh();
+            ReloadHtml();
+        }
+
+
+        private void txt_URL_DoubleClick(object sender, EventArgs e)
+        {
+            Form_helpSettings frm_helpSettings = new Form_helpSettings(mH,this);
+            frm_helpSettings.ShowDialog();
         }
     }
 }

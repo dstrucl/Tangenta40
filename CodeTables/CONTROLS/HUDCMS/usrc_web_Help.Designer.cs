@@ -35,14 +35,17 @@
             // 
             // txt_URL
             // 
+            this.txt_URL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_URL.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_URL.ForeColor = System.Drawing.Color.Silver;
             this.txt_URL.Location = new System.Drawing.Point(5, 2);
             this.txt_URL.Name = "txt_URL";
             this.txt_URL.ReadOnly = true;
-            this.txt_URL.Size = new System.Drawing.Size(437, 13);
+            this.txt_URL.Size = new System.Drawing.Size(514, 13);
             this.txt_URL.TabIndex = 1;
             this.txt_URL.Text = "label1";
+            this.txt_URL.DoubleClick += new System.EventHandler(this.txt_URL_DoubleClick);
             // 
             // chk_local
             // 

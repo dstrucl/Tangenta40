@@ -25,6 +25,16 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Form_Reset_Properties_Settings_Default = new ltext(new string[] { "Reset properties to default values", "Ponastavitev nastavitev na začetno tovarniško vrednost"});// referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Reset_Properties_Settings_Default.cs
+
+        public static ltext s_slng_JavaScriptElementsWillNotBoShownInHelp = new ltext(new string[] { "Help will not show graphic elements written in Javascript!\r\n", "Prikazane pomoči ne bodo prikazovale grafičnih elementov napisanih v javascript jeziku!\r\n" });
+
+        public static ltext s_slng_Can_not_get_relative_URL = new ltext(new string[] { "Can not get relative URL!", "Neuspešno isklanje relativne poti za URL!" });
+
+        public static ltext s_slng_dowsNotExist = new ltext(new string[] { " does not exist "," ne obstaja "});
+
+        public static ltext s_slng_LocalHtmlFile = new ltext(new string[] { "Local Html help", "Lokalna html pomoč" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
+
         public static ltext s_LocalHelpFolder = new ltext(new string[] { "Help from local folder", "Pomoč iz lokalne mape" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_SelectNotice = new ltext(new string[] { "Select Notice", "Izber dopis" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_Notice.cs
