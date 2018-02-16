@@ -33,14 +33,14 @@ namespace Tangenta
         internal const string TANGENTA_SETTINGS_SUB_FOLDER = "\\Settings";
         internal const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\SQliteBackup";
         internal const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\VODshema";
-        const string const_command_DOCINVOICE = "/DOCINVOICE";
-        const string const_command_DOCPROFORMAINVOICE = "/DOCPROFORMAINVOICE";
-        const string const_command_CHANGE_CONNECTION = "/CHANGE-CONNECTION";
-        const string const_command_RESETNEW = "/RESETNEW";
-        const string const_command_AUTONEXT = "/AUTONEXT";
-        const string const_command_DIAGNOSTIC = "/DIAGNOSTIC";
-        const string const_command_SYMULATOR = "/SYMULATOR";
-        const string const_command_RS232MONITOR = "/RS232MONITOR";
+        const string const_command_DOCINVOICE = "DOCINVOICE";
+        const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
+        const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
+        const string const_command_RESETNEW = "RESETNEW";
+        const string const_command_AUTONEXT = "AUTONEXT";
+        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
+        const string const_command_SYMULATOR = "SYMULATOR";
+        const string const_command_RS232MONITOR = "RS232MONITOR";
 
         public const string const_DocInvoice = "DocInvoice";
         public const string const_DocProformaInvoice = "DocProformaInvoice";
@@ -316,10 +316,10 @@ namespace Tangenta
                                                                bool bLanguageSelectDialogShown,
                                                                ref bool bExitBeforeLogFileInitialised)
         {
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCINVOICE, lng.s_commandline_DOCINVOICE.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lng.s_commandline_DOCPROFORMAINVOICE.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lng.s_commandline_CHANGE_CONNECTION.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lng.s_commandline_RESETNEW.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_DOCINVOICE, lng.s_commandline_DOCINVOICE.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_DOCPROFORMAINVOICE, lng.s_commandline_DOCPROFORMAINVOICE.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_CHANGE_CONNECTION, lng.s_commandline_CHANGE_CONNECTION.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_RESETNEW, lng.s_commandline_RESETNEW.s));
 //            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));
 //            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lng.s_commandline_AUTONEXT.s));
 

@@ -31,9 +31,7 @@ namespace Startup
             usrc_NavigationButtons1.Visible_EXIT = true;
             this.rdb_AcceptLicenseAgreement.CheckedChanged += new System.EventHandler(this.rdb_AcceptLicenseAgreement_CheckedChanged);
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
-            string sUrl = nav.ShowHelpResolver("Tangenta.Tangenta-LicenseAgreement");
-            uri = new Uri(sUrl);
-            this.webBrowser1.Url = uri;
+            this.usrc_web_Help1.ShowLicenceAgreement();
         }
 
         private void do_OK()

@@ -104,8 +104,8 @@ namespace HUDCMS
 
         public static string slng_JavaScriptElementsWillNotBoShownInHelp
         {
-            get { return m_slng_Can_not_get_relative_URL; }
-            set { m_slng_Can_not_get_relative_URL = value; }
+            get { return m_slng_JavaScriptElementsWillNotBoShownInHelp; }
+            set { m_slng_JavaScriptElementsWillNotBoShownInHelp = value; }
         }
             
         internal static void SetControlAnchorTopLeftRight(Control ctrl)

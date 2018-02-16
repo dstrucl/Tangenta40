@@ -23,6 +23,7 @@ namespace HUDCMS
         internal usrc_Help mH = null;
         internal Form_HUDCMS frm_HUDCMS = null;
         private System.Windows.Forms.WebBrowser webBrowser1 = null;
+        private bool bShowOnlyLicenceAgreement = false;
 
         Uri uri = null;
         public usrc_web_Help()
@@ -32,13 +33,6 @@ namespace HUDCMS
 
             txt_URL.Text = "";
             chk_local.Text = HUDCMS_static.slng_LocalURL;
-            var appName = Process.GetCurrentProcess().ProcessName + ".exe";
-            string Err = null;
-            if (!SetIE8KeyforWebBrowserControl(appName,11001, ref Err))
-            {
-                MessageBox.Show(HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp,
-                                Err);
-            }
         }
 
         private bool SetIE8KeyforWebBrowserControl(string appName,int IEVersion, ref string Err)
@@ -174,6 +168,23 @@ namespace HUDCMS
             Init(mH);
         }
 
+        public void ShowLicenceAgreement()
+        {
+            if (mH == null)
+            {
+                mH = new usrc_Help();
+            }
+            mH.Visible = false;
+            mH.pForm = null;
+            mH.Prefix = "";
+            string sLicenseAgreement = "Startup.LicenseAgreement";
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix, sLicenseAgreement);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix, sLicenseAgreement);
+            bShowOnlyLicenceAgreement = true;
+            btn_HUDCMS.Visible = false;            
+            Init(mH);
+        }
+
         internal void Init(usrc_Help xH)
         {
             mH = xH;
@@ -189,7 +200,10 @@ namespace HUDCMS
                 if (mH.LocalHtmlFile_exist)
                 {
                     chk_local.Checked = true;
-                    btn_HUDCMS.Visible = true;
+                    if (!bShowOnlyLicenceAgreement)
+                    {
+                        btn_HUDCMS.Visible = true;
+                    }
                     ShowLocalHtmlFile();
                 }
                 else
@@ -261,7 +275,10 @@ namespace HUDCMS
         {
             if (chk_local.Checked)
             {
-                btn_HUDCMS.Visible = true;
+                if (!bShowOnlyLicenceAgreement)
+                {
+                    btn_HUDCMS.Visible = true;
+                }
                 ShowLocalHtmlFile();
             }
             else
@@ -281,6 +298,17 @@ namespace HUDCMS
         {
             Form_helpSettings frm_helpSettings = new Form_helpSettings(mH,this);
             frm_helpSettings.ShowDialog();
+        }
+
+        private void usrc_web_Help_Load(object sender, EventArgs e)
+        {
+            var appName = Process.GetCurrentProcess().ProcessName + ".exe";
+            string Err = null;
+            if (!SetIE8KeyforWebBrowserControl(appName, 11001, ref Err))
+            {
+                MessageBox.Show(HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp,
+                                Err);
+            }
         }
     }
 }

@@ -16,5 +16,10 @@ namespace MNet.SLOTaxService.Services
     {
       CryptoConfig.AddAlgorithm(typeof(RSAPKCS1SHA256SignatureDescription), "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     }
-  }
+
+     public static System.Net.SecurityProtocolType SetTLSProtocol()
+     {
+          return System.Net.SecurityProtocolType.Ssl3;
+     }
+}
 }

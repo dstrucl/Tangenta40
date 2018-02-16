@@ -33,8 +33,8 @@
             this.rdb_NotAcceptLicenseAgreement = new System.Windows.Forms.RadioButton();
             this.rdb_AcceptLicenseAgreement = new System.Windows.Forms.RadioButton();
             this.btn_Print = new System.Windows.Forms.Button();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
+            this.usrc_web_Help1 = new HUDCMS.usrc_web_Help();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,21 +83,6 @@
             this.btn_Print.UseVisualStyleBackColor = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.AllowNavigation = false;
-            this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(2, 30);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(22, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(599, 327);
-            this.webBrowser1.TabIndex = 5;
-            // 
             // usrc_NavigationButtons1
             // 
             this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -128,13 +113,26 @@
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
+            // usrc_web_Help1
+            // 
+            this.usrc_web_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_web_Help1.BackColor = System.Drawing.Color.Beige;
+            this.usrc_web_Help1.LocalUrl = "Local URL:";
+            this.usrc_web_Help1.Location = new System.Drawing.Point(3, 26);
+            this.usrc_web_Help1.Name = "usrc_web_Help1";
+            this.usrc_web_Help1.RemoteUrl = "";
+            this.usrc_web_Help1.Size = new System.Drawing.Size(600, 330);
+            this.usrc_web_Help1.TabIndex = 7;
+            // 
             // Form_LicenseAgreement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(603, 449);
             this.ControlBox = false;
-            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.usrc_web_Help1);
             this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.usrc_NavigationButtons1);
@@ -154,7 +152,7 @@
         private System.Windows.Forms.RadioButton rdb_NotAcceptLicenseAgreement;
         private System.Windows.Forms.RadioButton rdb_AcceptLicenseAgreement;
         private System.Windows.Forms.Button btn_Print;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
+        private HUDCMS.usrc_web_Help usrc_web_Help1;
     }
 }

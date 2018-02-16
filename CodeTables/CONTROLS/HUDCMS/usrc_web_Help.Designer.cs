@@ -81,6 +81,7 @@
             this.Controls.Add(this.txt_URL);
             this.Name = "usrc_web_Help";
             this.Size = new System.Drawing.Size(686, 545);
+            this.Load += new System.EventHandler(this.usrc_web_Help_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
