@@ -4,14 +4,13 @@
 // <author>Matjaz Prtenjak</author>
 //-----------------------------------------------------------------------
 
-using System.Security.Cryptography.Xml;
 using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Xml;
 using System.Xml;
 using MNet.SLOTaxService.Messages;
 using MNet.SLOTaxService.Utils;
-using Security.Cryptography;
 
 namespace MNet.SLOTaxService.Services
 {

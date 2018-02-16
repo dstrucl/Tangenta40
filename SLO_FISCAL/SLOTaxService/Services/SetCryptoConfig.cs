@@ -5,21 +5,21 @@
 //-----------------------------------------------------------------------
 
 using System.Deployment.Internal.CodeSigning;
+using System.Net;
 using System.Security.Cryptography;
-using Security.Cryptography;
 
 namespace MNet.SLOTaxService.Services
 {
-  public class SetCryptoConfig
+  internal class SetCryptoConfig
   {
     public static void SetAlgorithm()
     {
       CryptoConfig.AddAlgorithm(typeof(RSAPKCS1SHA256SignatureDescription), "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     }
 
-     public static System.Net.SecurityProtocolType SetTLSProtocol()
-     {
-          return System.Net.SecurityProtocolType.Ssl3;
-     }
-}
+    public static SecurityProtocolType SetTLSProtocol()
+    {
+      return SecurityProtocolType.Tls12;
+    }
+  }
 }

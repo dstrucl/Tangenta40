@@ -25,9 +25,8 @@ namespace MNet.SLOTaxService.Services
       HttpWebRequest request = this.createWebRequest(message, messageType);
 
       ServicePointManager.Expect100Continue = true;
-            ////ServicePointManager.SecurityProtocol = System.Security.Authentication.SslProtocols.Tls;
-    ServicePointManager.SecurityProtocol = SetCryptoConfig.SetTLSProtocol();
-    ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => { return true; });
+      ServicePointManager.SecurityProtocol = SetCryptoConfig.SetTLSProtocol();
+      ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => { return true; });
 
       request.ClientCertificates.Add(this.settings.Certificate);
       using (Stream stream = request.GetRequestStream())

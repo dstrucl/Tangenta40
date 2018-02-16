@@ -62,7 +62,7 @@ namespace MNet.SLOTaxService.Messages
       }
 
       this.MessageType = message.MessageType;
-      this.OriginalMessage = message.Message;
+      this.originalMessage = message.Message;
       this.MessageSendToFurs = (step >= SendingStep.SoapEnvelopeGenerated) ? message.MessageSendToFurs : null;
       this.MessageReceivedFromFurs = (step >= SendingStep.MessageSend) ? message.MessageReceivedFromFurs : null;
 
@@ -94,7 +94,7 @@ namespace MNet.SLOTaxService.Messages
 
     private void processSend()
     {
-      this.getProtectedID(this.OriginalMessage);
+      this.getProtectedID(this.originalMessage);
       if (this.MessageReceivedFromFurs == null)
       {
         this.Success = false;
@@ -124,13 +124,13 @@ namespace MNet.SLOTaxService.Messages
       this.BarCodes = (id == null) ? null : BarCodes.Create(checkedDocument);
     }
 
-        //TANGENTA dodano
-        //private XmlDocument originalMessage;
-        private XmlDocument originalMessage;
-        public XmlDocument OriginalMessage
-        {
-            get { return this.originalMessage; }
-            set { this.originalMessage = value; }
-        }
+    //TANGENTA dodano
+    //private XmlDocument originalMessage;
+    private XmlDocument originalMessage;
+    public XmlDocument OriginalMessage
+    {
+        get { return this.originalMessage; }
+        set { this.originalMessage = value; }
     }
+   }
 }
