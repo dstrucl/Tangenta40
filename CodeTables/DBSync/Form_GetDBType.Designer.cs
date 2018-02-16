@@ -37,21 +37,18 @@
             // 
             // lbl_SelectDataBase
             // 
-            this.lbl_SelectDataBase.AutoSize = true;
             this.lbl_SelectDataBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_SelectDataBase.Location = new System.Drawing.Point(16, 7);
-            this.lbl_SelectDataBase.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_SelectDataBase.Location = new System.Drawing.Point(15, 32);
             this.lbl_SelectDataBase.Name = "lbl_SelectDataBase";
-            this.lbl_SelectDataBase.Size = new System.Drawing.Size(0, 25);
+            this.lbl_SelectDataBase.Size = new System.Drawing.Size(299, 32);
             this.lbl_SelectDataBase.TabIndex = 0;
             // 
             // rdb_SQLite
             // 
             this.rdb_SQLite.AutoSize = true;
-            this.rdb_SQLite.Location = new System.Drawing.Point(23, 53);
-            this.rdb_SQLite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_SQLite.Location = new System.Drawing.Point(74, 71);
             this.rdb_SQLite.Name = "rdb_SQLite";
-            this.rdb_SQLite.Size = new System.Drawing.Size(72, 21);
+            this.rdb_SQLite.Size = new System.Drawing.Size(57, 17);
             this.rdb_SQLite.TabIndex = 1;
             this.rdb_SQLite.TabStop = true;
             this.rdb_SQLite.Text = "SQLite";
@@ -60,10 +57,9 @@
             // rdb_MSSQL
             // 
             this.rdb_MSSQL.AutoSize = true;
-            this.rdb_MSSQL.Location = new System.Drawing.Point(212, 53);
-            this.rdb_MSSQL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_MSSQL.Location = new System.Drawing.Point(178, 71);
             this.rdb_MSSQL.Name = "rdb_MSSQL";
-            this.rdb_MSSQL.Size = new System.Drawing.Size(77, 21);
+            this.rdb_MSSQL.Size = new System.Drawing.Size(62, 17);
             this.rdb_MSSQL.TabIndex = 2;
             this.rdb_MSSQL.TabStop = true;
             this.rdb_MSSQL.Text = "MSSQL";
@@ -71,10 +67,9 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
@@ -86,10 +81,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(6, 82);
-            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(328, 82);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(326, 27);
             this.usrc_NavigationButtons1.TabIndex = 3;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -103,16 +97,15 @@
             // 
             // Form_GetDBType
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(347, 177);
+            this.ClientSize = new System.Drawing.Size(326, 100);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.rdb_MSSQL);
             this.Controls.Add(this.rdb_SQLite);
             this.Controls.Add(this.lbl_SelectDataBase);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_GetDBType";
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

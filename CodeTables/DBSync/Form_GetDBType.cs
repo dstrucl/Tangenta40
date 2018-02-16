@@ -28,10 +28,6 @@ namespace DBSync
         public Form_GetDBType(string sdbtype, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
-            //if (xImage_Cancel!=null)
-            //{
-            //    this.btn_Exit.Image = xImage_Cancel;
-            //}
             nav = xnav;
             this.Owner = xnav.OwnerForm;
             nav.ShowHelp(this,this.GetType().ToString());
