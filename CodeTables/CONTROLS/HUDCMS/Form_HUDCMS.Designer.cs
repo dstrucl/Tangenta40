@@ -1,4 +1,6 @@
-﻿namespace HUDCMS
+﻿using FastColoredTextBoxNS;
+
+namespace HUDCMS
 {
     partial class Form_HUDCMS
     {
@@ -39,6 +41,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
+            this.cmbr_GeneralHelpFiles = new ComboBox_Recent.ComboBox_RecentList();
+            this.lbl_GeneralHelp = new System.Windows.Forms.Label();
+            this.btn_EditGeneralHelpFile = new System.Windows.Forms.Button();
+            this.btn_EditGeneralStyles = new System.Windows.Forms.Button();
+            this.lbl_GeneralStyles = new System.Windows.Forms.Label();
+            this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -83,6 +91,7 @@
             this.usrc_SelectStyleFile.Size = new System.Drawing.Size(410, 27);
             this.usrc_SelectStyleFile.TabIndex = 0;
             this.usrc_SelectStyleFile.Title = "Save File";
+            this.usrc_SelectStyleFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectStyleFile_EditFile);
             // 
             // splitContainer1
             // 
@@ -90,7 +99,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(2, 59);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 83);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -103,7 +112,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_EditControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1022, 512);
+            this.splitContainer1.Size = new System.Drawing.Size(1022, 545);
             this.splitContainer1.SplitterDistance = 439;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 8;
@@ -125,8 +134,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panel1);
-            this.splitContainer2.Size = new System.Drawing.Size(423, 430);
-            this.splitContainer2.SplitterDistance = 84;
+            this.splitContainer2.Size = new System.Drawing.Size(423, 463);
+            this.splitContainer2.SplitterDistance = 90;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 8;
             // 
@@ -141,7 +150,7 @@
             this.grp_Header.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Header.Name = "grp_Header";
             this.grp_Header.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Header.Size = new System.Drawing.Size(423, 84);
+            this.grp_Header.Size = new System.Drawing.Size(423, 90);
             this.grp_Header.TabIndex = 7;
             this.grp_Header.TabStop = false;
             this.grp_Header.Text = "Header";
@@ -180,7 +189,7 @@
             this.fctb_Header.RightBracket2 = ')';
             this.fctb_Header.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctb_Header.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_Header.ServiceColors")));
-            this.fctb_Header.Size = new System.Drawing.Size(419, 59);
+            this.fctb_Header.Size = new System.Drawing.Size(419, 65);
             this.fctb_Header.TabIndex = 0;
             this.fctb_Header.Text = "fctb_Header";
             this.fctb_Header.Zoom = 100;
@@ -194,7 +203,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 340);
+            this.panel1.Size = new System.Drawing.Size(423, 367);
             this.panel1.TabIndex = 7;
             // 
             // usrc_EditControl1
@@ -205,7 +214,7 @@
             this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_EditControl1.Name = "usrc_EditControl1";
-            this.usrc_EditControl1.Size = new System.Drawing.Size(574, 508);
+            this.usrc_EditControl1.Size = new System.Drawing.Size(574, 541);
             this.usrc_EditControl1.SnapShotMargin = 4;
             this.usrc_EditControl1.TabIndex = 1;
             // 
@@ -215,21 +224,107 @@
             this.usrc_SelectHtmlFile.FileName = "";
             this.usrc_SelectHtmlFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             this.usrc_SelectHtmlFile.InitialDirectory = "C:\\";
-            this.usrc_SelectHtmlFile.Location = new System.Drawing.Point(11, 13);
+            this.usrc_SelectHtmlFile.Location = new System.Drawing.Point(11, 55);
             this.usrc_SelectHtmlFile.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_SelectHtmlFile.Name = "usrc_SelectHtmlFile";
-            this.usrc_SelectHtmlFile.Size = new System.Drawing.Size(1003, 27);
+            this.usrc_SelectHtmlFile.Size = new System.Drawing.Size(1011, 26);
             this.usrc_SelectHtmlFile.TabIndex = 9;
             this.usrc_SelectHtmlFile.Title = "Save File";
             this.usrc_SelectHtmlFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectHtmlFile_SaveFile);
             this.usrc_SelectHtmlFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectHtmlFile_EditFile);
+            // 
+            // cmbr_GeneralHelpFiles
+            // 
+            this.cmbr_GeneralHelpFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbr_GeneralHelpFiles.AskToCreateRecentItemsFolder = false;
+            this.cmbr_GeneralHelpFiles.DisplayMember = "text";
+            this.cmbr_GeneralHelpFiles.DisplayTime = true;
+            this.cmbr_GeneralHelpFiles.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbr_GeneralHelpFiles.FormattingEnabled = true;
+            this.cmbr_GeneralHelpFiles.InsertOnKeyPress = true;
+            this.cmbr_GeneralHelpFiles.Key = null;
+            this.cmbr_GeneralHelpFiles.Location = new System.Drawing.Point(113, 4);
+            this.cmbr_GeneralHelpFiles.MaxRecentCount = 10;
+            this.cmbr_GeneralHelpFiles.Name = "cmbr_GeneralHelpFiles";
+            this.cmbr_GeneralHelpFiles.ReadOnly = false;
+            this.cmbr_GeneralHelpFiles.RecentItemsFileName = null;
+            this.cmbr_GeneralHelpFiles.RecentItemsFolder = "";
+            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(819, 21);
+            this.cmbr_GeneralHelpFiles.TabIndex = 10;
+            // 
+            // lbl_GeneralHelp
+            // 
+            this.lbl_GeneralHelp.AutoSize = true;
+            this.lbl_GeneralHelp.Location = new System.Drawing.Point(10, 7);
+            this.lbl_GeneralHelp.Name = "lbl_GeneralHelp";
+            this.lbl_GeneralHelp.Size = new System.Drawing.Size(96, 13);
+            this.lbl_GeneralHelp.TabIndex = 11;
+            this.lbl_GeneralHelp.Text = "General Help Files:";
+            // 
+            // btn_EditGeneralHelpFile
+            // 
+            this.btn_EditGeneralHelpFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(938, 2);
+            this.btn_EditGeneralHelpFile.Name = "btn_EditGeneralHelpFile";
+            this.btn_EditGeneralHelpFile.Size = new System.Drawing.Size(75, 23);
+            this.btn_EditGeneralHelpFile.TabIndex = 12;
+            this.btn_EditGeneralHelpFile.Text = "Edit";
+            this.btn_EditGeneralHelpFile.UseVisualStyleBackColor = true;
+            this.btn_EditGeneralHelpFile.Click += new System.EventHandler(this.btn_EditGeneralHelpFile_Click);
+            // 
+            // btn_EditGeneralStyles
+            // 
+            this.btn_EditGeneralStyles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(938, 29);
+            this.btn_EditGeneralStyles.Name = "btn_EditGeneralStyles";
+            this.btn_EditGeneralStyles.Size = new System.Drawing.Size(75, 23);
+            this.btn_EditGeneralStyles.TabIndex = 15;
+            this.btn_EditGeneralStyles.Text = "Edit";
+            this.btn_EditGeneralStyles.UseVisualStyleBackColor = true;
+            this.btn_EditGeneralStyles.Click += new System.EventHandler(this.btn_EditGeneralStyles_Click);
+            // 
+            // lbl_GeneralStyles
+            // 
+            this.lbl_GeneralStyles.AutoSize = true;
+            this.lbl_GeneralStyles.Location = new System.Drawing.Point(10, 32);
+            this.lbl_GeneralStyles.Name = "lbl_GeneralStyles";
+            this.lbl_GeneralStyles.Size = new System.Drawing.Size(94, 13);
+            this.lbl_GeneralStyles.TabIndex = 14;
+            this.lbl_GeneralStyles.Text = "General Style files:";
+            // 
+            // cmbr_GeneralStyleFiles
+            // 
+            this.cmbr_GeneralStyleFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbr_GeneralStyleFiles.AskToCreateRecentItemsFolder = false;
+            this.cmbr_GeneralStyleFiles.DisplayMember = "text";
+            this.cmbr_GeneralStyleFiles.DisplayTime = true;
+            this.cmbr_GeneralStyleFiles.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbr_GeneralStyleFiles.FormattingEnabled = true;
+            this.cmbr_GeneralStyleFiles.InsertOnKeyPress = true;
+            this.cmbr_GeneralStyleFiles.Key = null;
+            this.cmbr_GeneralStyleFiles.Location = new System.Drawing.Point(113, 29);
+            this.cmbr_GeneralStyleFiles.MaxRecentCount = 10;
+            this.cmbr_GeneralStyleFiles.Name = "cmbr_GeneralStyleFiles";
+            this.cmbr_GeneralStyleFiles.ReadOnly = false;
+            this.cmbr_GeneralStyleFiles.RecentItemsFileName = null;
+            this.cmbr_GeneralStyleFiles.RecentItemsFolder = "";
+            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(819, 21);
+            this.cmbr_GeneralStyleFiles.TabIndex = 13;
             // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1025, 571);
+            this.ClientSize = new System.Drawing.Size(1025, 628);
+            this.Controls.Add(this.btn_EditGeneralStyles);
+            this.Controls.Add(this.lbl_GeneralStyles);
+            this.Controls.Add(this.cmbr_GeneralStyleFiles);
+            this.Controls.Add(this.btn_EditGeneralHelpFile);
+            this.Controls.Add(this.lbl_GeneralHelp);
+            this.Controls.Add(this.cmbr_GeneralHelpFiles);
             this.Controls.Add(this.usrc_SelectHtmlFile);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -248,6 +343,7 @@
             this.grp_Header.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctb_Header)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -261,5 +357,11 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.GroupBox grp_Header;
         private FastColoredTextBoxNS.FastColoredTextBox fctb_Header;
+        private ComboBox_Recent.ComboBox_RecentList cmbr_GeneralHelpFiles;
+        private System.Windows.Forms.Label lbl_GeneralHelp;
+        private System.Windows.Forms.Button btn_EditGeneralHelpFile;
+        private System.Windows.Forms.Button btn_EditGeneralStyles;
+        private System.Windows.Forms.Label lbl_GeneralStyles;
+        private ComboBox_Recent.ComboBox_RecentList cmbr_GeneralStyleFiles;
     }
 }

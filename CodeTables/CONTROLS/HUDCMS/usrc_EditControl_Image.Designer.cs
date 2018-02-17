@@ -1,4 +1,6 @@
-﻿namespace HUDCMS
+﻿using FastColoredTextBoxNS;
+
+namespace HUDCMS
 {
     partial class usrc_EditControl_Image
     {
@@ -32,7 +34,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_EditControl_Image));
             this.lbl_Image = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.fctb_CtrlImageCaption = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.fctb_CtrlImageCaption = new FastColoredTextBox();
             this.lbl_SnapShotMargin = new System.Windows.Forms.Label();
             this.nmUpDn_SnapShotMargin = new System.Windows.Forms.NumericUpDown();
             this.list_Link = new System.Windows.Forms.ListBox();
@@ -114,7 +116,7 @@
             this.fctb_CtrlImageCaption.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_CtrlImageCaption.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_CtrlImageCaption.IsReplaceMode = false;
-            this.fctb_CtrlImageCaption.Language = FastColoredTextBoxNS.Language.HTML;
+            this.fctb_CtrlImageCaption.Language = Language.HTML;
             this.fctb_CtrlImageCaption.LeftBracket = '<';
             this.fctb_CtrlImageCaption.LeftBracket2 = '(';
             this.fctb_CtrlImageCaption.Location = new System.Drawing.Point(6, 134);
@@ -123,7 +125,7 @@
             this.fctb_CtrlImageCaption.RightBracket = '>';
             this.fctb_CtrlImageCaption.RightBracket2 = ')';
             this.fctb_CtrlImageCaption.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fctb_CtrlImageCaption.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_CtrlImageCaption.ServiceColors")));
+            this.fctb_CtrlImageCaption.ServiceColors = ((ServiceColors)(resources.GetObject("fctb_CtrlImageCaption.ServiceColors")));
             this.fctb_CtrlImageCaption.Size = new System.Drawing.Size(494, 114);
             this.fctb_CtrlImageCaption.TabIndex = 54;
             this.fctb_CtrlImageCaption.Zoom = 100;
@@ -258,6 +260,6 @@
         internal System.Windows.Forms.Label lbl_LinkedControls;
         internal System.Windows.Forms.PictureBox pic_Control;
         internal SelectFile.usrc_SelectFile usrc_SelectPictureFile;
-        internal FastColoredTextBoxNS.FastColoredTextBox fctb_CtrlImageCaption;
+        internal FastColoredTextBox fctb_CtrlImageCaption;
     }
 }

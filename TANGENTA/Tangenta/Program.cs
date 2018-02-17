@@ -491,6 +491,7 @@ namespace Tangenta
                     HUDCMS.HUDCMS_static.slng_doesNotExist = lng.s_slng_dowsNotExist.s;
                     HUDCMS.HUDCMS_static.slng_Can_not_get_relative_URL = lng.s_slng_Can_not_get_relative_URL.s;
                     HUDCMS.HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp = lng.s_slng_JavaScriptElementsWillNotBoShownInHelp.s;
+                    HUDCMS.HUDCMS_static.slng_WriteSomethingAbout = lng.s_slng_WriteSomethingAbout.s;
 
 
                     if (bResetNew)

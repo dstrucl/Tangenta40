@@ -163,6 +163,70 @@ namespace HUDCMS.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @import url(&quot;reset.css&quot;);
+        ///
+        ///body {
+        ///    font-family: Verdana, Arial, Helvetica, sans-serif;
+        ///    font-size: 13px;
+        ///	background-color:whitesmoke;
+        ///    color:#333
+        ///}
+        ///
+        ///  
+        ///  .side {
+        ///     display:inline-block;
+        ///	 font-size: 200%;
+        ///    }
+        ///	
+        ///	div {
+        ///		font-family: Verdana;
+        ///		color: brown;
+        ///		font-size: 150%;
+        ///	}
+        ///
+        ///	div.relative {
+        ///		position: relative;
+        ///		top: 10px;
+        ///		width: 1200px;
+        ///		height: 40px;
+        ///	} 
+        ///
+        ///	div.title_position {
+        ///		position: absolute;
+        ///		top: 5px;
+        ///		left: 280px;
+        ///		width: 920px;
+        ///		heigh [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GeneralHelpStyle {
+            get {
+                return ResourceManager.GetString("GeneralHelpStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        /// &lt;head&gt;
+        ///	&lt;meta http-equiv=&apos;Content-Type&apos; content=&apos;text/html;charset=UTF-8&apos;/&gt;
+        ///	&lt;meta name=&quot;description&quot; content=&quot;Tangenta invoicing&quot;/&gt;
+        ///	&lt;meta name=&quot;keywords&quot; content=&quot;Invoice,Invoicing,Estimates,Customers,SQLite,MSSSQL&quot;/&gt;
+        ///	&lt;meta name=&quot;author&quot; content=&quot;Damjan Štrucl Hrnčič&quot;/&gt;
+        ///	&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;	
+        ///	&lt;link rel=&quot;stylesheet&quot; 
+        ///		 type=&quot;text/css&quot; 
+        ///		 href=&quot;GeneralHelp.css&quot; /&gt;
+        ///     &lt;title&gt;TANGENTA-INVOICING&lt;/title&gt;
+        /// &lt;/head&gt;
+        /// &lt;body&gt;
+        ///  &lt;div class= [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GeneralHelpTemplate {
+            get {
+                return ResourceManager.GetString("GeneralHelpTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;div class=&quot;header&quot;&gt; 
         ///		&lt;canvas id=&quot;TangentaLogo&quot; width=&quot;60&quot; height=&quot;50&quot;&gt;&lt;/canvas&gt;
         ///		&lt;script type=&quot;text/javascript&quot;&gt;

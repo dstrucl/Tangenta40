@@ -533,12 +533,18 @@ namespace ComboBox_Recent
     }
     public class myIteM
     {
-       public string item;
-       public DateTime time;
-       public string text
-       {
-           get { return item; }
-       }
+        public string item;
+        public DateTime time;
+        public object m_Value = null;
+        public string text
+        {
+            get { return item; }
+        }
+        public object Value
+        {
+            get { return m_Value; }
+            set { m_Value = value; }
+        }
     }
 }
 

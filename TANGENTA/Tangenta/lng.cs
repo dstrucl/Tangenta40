@@ -25,6 +25,8 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_slng_WriteSomethingAbout = new ltext(new string[] { " Write something about ", " Napišite nekaj o " });
+
         public static ltext s_Form_Reset_Properties_Settings_Default = new ltext(new string[] { "Reset properties to default values", "Ponastavitev nastavitev na začetno tovarniško vrednost"});// referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Reset_Properties_Settings_Default.cs
 
         public static ltext s_slng_JavaScriptElementsWillNotBoShownInHelp = new ltext(new string[] { "Help will not show graphic elements written in Javascript!\r\n", "Prikazane pomoči ne bodo prikazovale grafičnih elementov napisanih v javascript jeziku!\r\n" });

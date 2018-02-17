@@ -9,11 +9,32 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using FastColoredTextBoxNS;
 
 namespace HUDCMS
 {
     public partial class Form_HUDCMS : Form
     {
+        public const string HTML_index = "index";
+        public const string HTML_download = "download";
+        public const string HTML_Tangenta = "Tangenta";
+        public const string HTML_News = "News";
+        public const string HTML_About = "About";
+        public const string HTML_Invoice= "Invoice";
+        public const string HTML_ProformaInvoice = "ProformaInvoice";
+        public const string HTML_InstallationFinished = "InstallationFinished";
+        public const string HTML_Stock = "Stock";
+        public const string HTML_PriceList = "PriceList";
+        public const string HTML_InvoicingOverview = "InvoicingOverview";
+        public const string HTML_Support = "Support";
+
+        public const string CSS_GeneralHelp = "GeneralHelp";
+        public const string CSS_TIndex = "TIndex";
+        public const string CSS_style = "style";
+        public const string CSS_reset = "reset";
+
+        private List<GeneralHelpFile> generalHelpFile_List = null;
+        private List<GeneralHelpFile> generalStyleFile_List = null;
         private Form_FCTB_Editor frm_FCTB_Editor = null;
         private hctrl hc = null;
         private usrc_Help mH = null;
@@ -81,6 +102,8 @@ namespace HUDCMS
 
             Header = Properties.Settings.Default.Header;
 
+            SetGeneralHelpFiles();
+
             string sHtmFileName = usrc_SelectHtmlFile.FileName;
             try
             {
@@ -95,6 +118,63 @@ namespace HUDCMS
             CreateControls(ref y, 0, hc, this.panel1);
             HideLinks();
             SetLinks(this.panel1);
+        }
+
+        private void SetGeneralHelpFiles()
+        {
+            if (generalHelpFile_List==null)
+            {
+                generalHelpFile_List = new List<GeneralHelpFile>();
+            }
+            else
+            {
+                generalHelpFile_List.Clear();
+            }
+
+            string fext = ".html";
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_News, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_index, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_download, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_Tangenta, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_About, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_InstallationFinished, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_Invoice, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_ProformaInvoice, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_Stock, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_PriceList, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_InvoicingOverview, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_Tangenta, fext));
+            generalHelpFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, HTML_Support, fext));
+            foreach (GeneralHelpFile ghp in generalHelpFile_List)
+            {
+                ComboBox_Recent.myIteM mitm = new ComboBox_Recent.myIteM();
+                mitm.item = ghp.FileName;
+                mitm.Value = ghp.Name;
+                cmbr_GeneralHelpFiles.Items.Add(mitm);
+            }
+            cmbr_GeneralHelpFiles.SelectedIndex = 0;
+
+            if (generalStyleFile_List == null)
+            {
+                generalStyleFile_List = new List<GeneralHelpFile>();
+            }
+            else
+            {
+                generalStyleFile_List.Clear();
+            }
+            fext = ".css"; 
+            generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_GeneralHelp,fext));
+            generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_TIndex, fext));
+            generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_style, fext));
+            generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_reset, fext));
+            foreach (GeneralHelpFile ghs in generalStyleFile_List)
+            {
+                ComboBox_Recent.myIteM mitm = new ComboBox_Recent.myIteM();
+                mitm.item = ghs.FileName;
+                mitm.Value = ghs.Name;
+                cmbr_GeneralStyleFiles.Items.Add(mitm);
+            }
+            cmbr_GeneralStyleFiles.SelectedIndex = 0;
         }
 
         private void SetLinks(Control ctrl)
@@ -536,15 +616,6 @@ namespace HUDCMS
             }
         }
 
-        private void usrc_SelectStyleFile_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
         {
@@ -569,9 +640,9 @@ namespace HUDCMS
             }
         }
 
-        private bool usrc_SelectHtmlFile_EditFile(string FileName)
+        private void EditFile(string xFileName)
         {
-            if (frm_FCTB_Editor==null)
+            if (frm_FCTB_Editor == null)
             {
                 frm_FCTB_Editor = new Form_FCTB_Editor();
                 frm_FCTB_Editor.Owner = this;
@@ -581,9 +652,112 @@ namespace HUDCMS
                 frm_FCTB_Editor = new Form_FCTB_Editor();
                 frm_FCTB_Editor.Owner = this;
             }
-            frm_FCTB_Editor.CreateTab(FileName);
+            frm_FCTB_Editor.CreateTab(xFileName);
             frm_FCTB_Editor.Show();
+        }
+
+        private bool usrc_SelectHtmlFile_EditFile(string xFileName)
+        {
+            EditFile(xFileName);
             return true;
+        }
+
+        private bool usrc_SelectStyleFile_EditFile(string xFileName)
+        {
+            EditFile(xFileName);
+            return true;
+        }
+
+
+        private void btn_EditGeneralHelpFile_Click(object sender, EventArgs e)
+        {
+            string sFileName = this.cmbr_GeneralHelpFiles.Text;
+            if (sFileName.Length > 0)
+            {
+                if (File.Exists(sFileName))
+                {
+                    EditFile(sFileName);
+                }
+                else
+                {
+                    string s = null;
+                    //check if GeneralHelp.css
+                    string sGeneralHelpStyleFile = GeneralHelpFile.SetFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, "GeneralHelp", ".css");
+                    if (!File.Exists(sGeneralHelpStyleFile))
+                    {
+                        s = Properties.Resources.GeneralHelpStyle;
+                        try
+                        {
+                            File.WriteAllText(sGeneralHelpStyleFile, s);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("ERROR: Can not write \"" + sGeneralHelpStyleFile + "\"\r\nException = " + ex.Message);
+                        }
+                    }
+                    try
+                    {
+                        string sfile = null;
+                        s = Properties.Resources.GeneralHelpTemplate;
+                        int iLastIndexOfFolder = sFileName.LastIndexOf('/');
+                        if (iLastIndexOfFolder > 0)
+                        {
+                            string sf = sFileName.Substring(iLastIndexOfFolder);
+                            int iIndexOfExtension = sf.IndexOf('.');
+                            if (iIndexOfExtension > 0)
+                            {
+                                sfile = sf.Substring(0, iIndexOfExtension);
+                            }
+                        }
+                        if (sfile != null)
+                        {
+                            s = s.Replace("(@@Title@@)", sfile);
+                            s = s.Replace("(@@About@@)", HUDCMS_static.slng_WriteSomethingAbout + sfile);
+                        }
+                        File.WriteAllText(sFileName, s);
+                        EditFile(sFileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR: Can not write \"" + sFileName + "\"\r\nException = " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Help file name is not defined !");
+            }
+        }
+
+        private void btn_EditGeneralStyles_Click(object sender, EventArgs e)
+        {
+            string sFileName = this.cmbr_GeneralStyleFiles.Text;
+            if (sFileName.Length > 0)
+            {
+                if (File.Exists(sFileName))
+                {
+                    EditFile(sFileName);
+                }
+                else
+                {
+                    string s = null;
+                    s = Properties.Resources.GeneralHelpStyle;
+                    try
+                    {
+                        File.WriteAllText(sFileName, s);
+                        EditFile(sFileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR: Can not write \"" + sFileName + "\"\r\nException = " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Style File name is not defined !");
+            }
         }
     }
 }
+

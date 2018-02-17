@@ -1,4 +1,5 @@
 ﻿using DBTypes;
+using FastColoredTextBoxNS;
 
 namespace TangentaPrint
 {
@@ -217,7 +218,7 @@ namespace TangentaPrint
             this.textEditorControl1.Name = "textEditorControl1";
             this.textEditorControl1.Paddings = new System.Windows.Forms.Padding(0);
             this.textEditorControl1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.textEditorControl1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("textEditorControl1.ServiceColors")));
+            this.textEditorControl1.ServiceColors = ((ServiceColors)(resources.GetObject("textEditorControl1.ServiceColors")));
             this.textEditorControl1.Size = new System.Drawing.Size(494, 491);
             this.textEditorControl1.TabIndex = 1;
             this.textEditorControl1.Text = "fastColoredTextBox1";

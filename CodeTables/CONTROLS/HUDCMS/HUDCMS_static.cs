@@ -93,6 +93,13 @@ namespace HUDCMS
         public static string slng_doesNotExist { get { return m_slng_doesNotExist; }
                                                  set { m_slng_doesNotExist = value; }
                                                 }
+        private static string m_slng_WriteSomethingAbout = "Write something about ";
+
+        public static string slng_WriteSomethingAbout
+        {
+            get { return m_slng_WriteSomethingAbout; }
+            set { m_slng_WriteSomethingAbout = value; }
+        }
 
         private static string m_slng_Can_not_get_relative_URL = "ERROR:Can not_get relative URL";
 
@@ -417,7 +424,7 @@ namespace HUDCMS
             return result;
         }
 
-        private static string RelativeBaseURL
+        private static string Relative_ApplicationVersionAndLangugagePath
         {
             get
             {
@@ -454,7 +461,22 @@ namespace HUDCMS
             }
         }
 
-    
+        public static string Local_ApplicationVersionAndLangugagePath
+        {
+            get
+            {
+                return LocalHelpPath + Relative_ApplicationVersionAndLangugagePath;
+            }
+        }
+
+        public static string Remote_ApplicationVersionAndLangugagePath
+        {
+            get
+            {
+                return RemoteUrl + Relative_ApplicationVersionAndLangugagePath;
+            }
+        }
+
 
         public static bool GetRelativeURL(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL)
         {
@@ -469,7 +491,7 @@ namespace HUDCMS
                     {
                         ModuleName += s[i] + "/";
                     }
-                    xRelativeURL = RelativeBaseURL + ModuleName + HtmlFileName;
+                    xRelativeURL = Relative_ApplicationVersionAndLangugagePath + ModuleName + HtmlFileName;
                     return true;
                 }
             }
@@ -489,7 +511,7 @@ namespace HUDCMS
                     {
                         ModuleName += s[i] + "/";
                     }
-                    xRelativeURL = RelativeBaseURL + ModuleName + HtmlFileName;
+                    xRelativeURL = Relative_ApplicationVersionAndLangugagePath + ModuleName + HtmlFileName;
                     return true;
                 }
             }

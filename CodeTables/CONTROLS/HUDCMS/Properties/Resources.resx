@@ -224,7 +224,9 @@
 			 &lt;span&gt;&lt;a href="../PriceList.html"&gt;CENIKI&lt;/a&gt;&lt;/span&gt;,
 			 &lt;span&gt;&lt;a href="../Printing.html"&gt;TISKANJE RAČUNOV&lt;/a&gt;&lt;/span&gt;,
 			 &lt;span&gt;&lt;a href="../InvoicingOverview.html"&gt;PREGLED FAKTUR&lt;/a&gt;&lt;/span&gt;,
-			 &lt;span&gt;&lt;a href="../Support.html"&gt;PODPORA&lt;/a&gt;&lt;/span&gt;
+			 &lt;span&gt;&lt;a href="../Support.html"&gt;PODPORA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../News.html"&gt;NOVICE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../About.html"&gt;O PROGRAMU&lt;/a&gt;&lt;/span&gt;
 			 &lt;/div&gt;
 		&lt;/div&gt;				
 	&lt;/div&gt;</value>
@@ -264,5 +266,238 @@
   </data>
   <data name="undo_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\undo_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GeneralHelpStyle" xml:space="preserve">
+    <value>@import url("reset.css");
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+	background-color:whitesmoke;
+    color:#333
+}
+
+  
+  .side {
+     display:inline-block;
+	 font-size: 200%;
+    }
+	
+	div {
+		font-family: Verdana;
+		color: brown;
+		font-size: 150%;
+	}
+
+	div.relative {
+		position: relative;
+		top: 10px;
+		width: 1200px;
+		height: 40px;
+	} 
+
+	div.title_position {
+		position: absolute;
+		top: 5px;
+		left: 280px;
+		width: 920px;
+		height: 40px;
+	}	
+
+	div.download_position {
+		position: absolute;
+		top: 0px;
+		left: 650px;
+		width: 360px;
+		height: 40px;
+	}	
+	
+	input.download_button
+	{
+		font-family: Verdana;
+		color: brown;
+		font-size: 100%;
+	}
+	
+	div.keyfeatures{
+		position: absolute;
+		top: 2px;
+		left: 430px;
+		font-size: 70%;
+		font-weight: bold;
+		text-align: center;
+	}	
+	
+	div.content1position {
+		position: absolute;
+		top: 30px;
+		left: 140px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content2position {
+		position: absolute;
+		top: 100px;
+		left: 75px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content3position {
+		position: absolute;
+		top: 150px;
+		left: 30px;
+		font-size: 70%;
+		text-align: center;
+	}	
+
+	div.content4position {
+		position: absolute;
+		top: 210px;
+		left: 30px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content5position {
+		position: absolute;
+		top: 280px;
+		left: 55px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content6position {
+		position: absolute;
+		top: 310px;
+		left: 125px;
+		font-size: 70%;
+		text-align: Left;
+	}	
+	
+	div.content7position {
+		position: absolute;
+		top: 370px;
+		left: 158px;
+		font-size: 70%;
+		text-align: Left;
+	}	
+	
+p {
+    padding: 10px;
+}
+
+#wrapper {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+#contentwrap {
+    width: 1000;
+    float: left;
+    margin: 0 auto;
+}
+
+div.content {
+	position: absolute;
+	top: 38px;
+	left: 75px;
+	width: 1020px;
+	height: 430px;
+/*	border: 3px solid #000000;*/
+	/* IE10+ */ 
+background-image: -ms-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, top top, left top, color-stop(0, #f8ffe8), color-stop(100, #DBF5A7), color-stop(100, #E8FFD4));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* W3C Markup */ 
+background-image: linear-gradient(to top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+	
+/*    background: #E2FFB0;*/
+    border-radius: 215px;
+    border: 1px solid #ceeb9c;
+    margin: 5px;
+}</value>
+  </data>
+  <data name="GeneralHelpTemplate" xml:space="preserve">
+    <value>&lt;html&gt;
+ &lt;head&gt;
+	&lt;meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/&gt;
+	&lt;meta name="description" content="Tangenta invoicing"/&gt;
+	&lt;meta name="keywords" content="Invoice,Invoicing,Estimates,Customers,SQLite,MSSSQL"/&gt;
+	&lt;meta name="author" content="Damjan Štrucl Hrnčič"/&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;	
+	&lt;link rel="stylesheet" 
+		 type="text/css" 
+		 href="GeneralHelp.css" /&gt;
+     &lt;title&gt;TANGENTA-INVOICING&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div class="header"&gt; 
+		&lt;canvas id="TangentaLogo" width="60" height="50"&gt;&lt;/canvas&gt;
+		&lt;script type="text/javascript"&gt;
+		var canvas, context, canvaso, contexto;
+		canvaso = document.getElementById('TangentaLogo');
+		context = canvaso.getContext('2d');
+		context.lineWidth = 1;
+
+		// Draw vertical line
+		context.strokeStyle ='#936b20';
+		context.beginPath();
+		context.moveTo(30, 0);
+		context.lineTo(30, 50);
+		context.stroke();
+
+		// Draw large arc
+		context.beginPath();
+		context.arc(54, 26, 24,0.6*Math.PI,1.5*Math.PI, false);
+		context.stroke();
+
+		// Draw head circle
+		context.beginPath();
+		context.fillStyle = "#E2FFB0"/*"#CEF988";*/
+		context.arc(34, 6, 4,0,2*Math.PI, false);
+		context.fill();
+		context.stroke();
+
+		context.closePath();
+		context.restore();
+
+		&lt;/script&gt;
+ 		 
+		 &lt;div class="header_border_with_radius"&gt;
+			&lt;div class = "header_menu"&gt;
+			 &lt;span&gt;&lt;a href="../Tangenta.html"&gt;TANGENTA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Invoice.html"&gt;RAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../ProformaInvoice.html"&gt;PREDRAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Stock.html"&gt;ZALOGE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../PriceList.html"&gt;CENIKI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Printing.html"&gt;TISKANJE RAČUNOV&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../InvoicingOverview.html"&gt;PREGLED FAKTUR&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Support.html"&gt;PODPORA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../News.html"&gt;NOVICE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../About.html"&gt;O PROGRAMU&lt;/a&gt;&lt;/span&gt;
+			 &lt;/div&gt;
+		&lt;/div&gt;		
+	&lt;/div&gt;
+	&lt;h1 class= "Title"&gt;
+	(@@Title@@)
+	&lt;/h1&gt;
+	&lt;div class= "About"&gt;
+	(@@About@@)
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
   </data>
 </root>

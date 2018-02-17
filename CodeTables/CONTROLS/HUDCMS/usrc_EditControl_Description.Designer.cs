@@ -1,4 +1,6 @@
-﻿namespace HUDCMS
+﻿using FastColoredTextBoxNS;
+
+namespace HUDCMS
 {
     partial class usrc_EditControl_Description
     {
@@ -70,7 +72,7 @@
             this.fctb_CtrlDescription.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_CtrlDescription.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_CtrlDescription.IsReplaceMode = false;
-            this.fctb_CtrlDescription.Language = FastColoredTextBoxNS.Language.HTML;
+            this.fctb_CtrlDescription.Language = Language.HTML;
             this.fctb_CtrlDescription.LeftBracket = '<';
             this.fctb_CtrlDescription.LeftBracket2 = '(';
             this.fctb_CtrlDescription.Location = new System.Drawing.Point(3, 52);
@@ -79,7 +81,7 @@
             this.fctb_CtrlDescription.RightBracket = '>';
             this.fctb_CtrlDescription.RightBracket2 = ')';
             this.fctb_CtrlDescription.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fctb_CtrlDescription.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_CtrlDescription.ServiceColors")));
+            this.fctb_CtrlDescription.ServiceColors = ((ServiceColors)(resources.GetObject("fctb_CtrlDescription.ServiceColors")));
             this.fctb_CtrlDescription.Size = new System.Drawing.Size(724, 210);
             this.fctb_CtrlDescription.TabIndex = 37;
             this.fctb_CtrlDescription.Zoom = 100;
@@ -100,6 +102,6 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_Description;
-        internal FastColoredTextBoxNS.FastColoredTextBox fctb_CtrlDescription;
+        internal FastColoredTextBox fctb_CtrlDescription;
     }
 }

@@ -32,7 +32,6 @@ namespace Tangenta
     {
         public const string XML_ROOT_NAME = "Tangenta_Xml";
 
-        public string RecentItemsFolder = null;
         public startup m_startup = null;
         internal string m_XmlFileName = null;
         public startup_step[] StartupStep = null;

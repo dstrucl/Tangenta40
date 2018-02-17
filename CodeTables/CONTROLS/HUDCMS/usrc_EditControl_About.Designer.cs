@@ -1,4 +1,6 @@
-﻿namespace HUDCMS
+﻿using FastColoredTextBoxNS;
+
+namespace HUDCMS
 {
     partial class usrc_EditControl_About
     {
@@ -79,7 +81,7 @@
             this.fctb_CtrlAbout.RightBracket = '>';
             this.fctb_CtrlAbout.RightBracket2 = ')';
             this.fctb_CtrlAbout.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fctb_CtrlAbout.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_CtrlAbout.ServiceColors")));
+            this.fctb_CtrlAbout.ServiceColors = ((ServiceColors)(resources.GetObject("fctb_CtrlAbout.ServiceColors")));
             this.fctb_CtrlAbout.Size = new System.Drawing.Size(937, 444);
             this.fctb_CtrlAbout.TabIndex = 35;
             this.fctb_CtrlAbout.Zoom = 100;
