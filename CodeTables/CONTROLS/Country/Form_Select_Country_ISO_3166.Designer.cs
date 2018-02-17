@@ -45,19 +45,18 @@
             this.dgvx_ISO_3166.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_ISO_3166.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_ISO_3166.DataGridViewWithRowNumber = false;
-            this.dgvx_ISO_3166.Location = new System.Drawing.Point(3, 36);
+            this.dgvx_ISO_3166.Location = new System.Drawing.Point(3, 59);
             this.dgvx_ISO_3166.MultiSelect = false;
             this.dgvx_ISO_3166.Name = "dgvx_ISO_3166";
             this.dgvx_ISO_3166.ReadOnly = true;
             this.dgvx_ISO_3166.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_ISO_3166.Size = new System.Drawing.Size(641, 427);
+            this.dgvx_ISO_3166.Size = new System.Drawing.Size(641, 428);
             this.dgvx_ISO_3166.TabIndex = 0;
-            this.dgvx_ISO_3166.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_ISO_3166_CellContentClick);
             // 
             // txt_SelectCountry
             // 
             this.txt_SelectCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_SelectCountry.Location = new System.Drawing.Point(5, 8);
+            this.txt_SelectCountry.Location = new System.Drawing.Point(5, 33);
             this.txt_SelectCountry.Name = "txt_SelectCountry";
             this.txt_SelectCountry.Size = new System.Drawing.Size(345, 22);
             this.txt_SelectCountry.TabIndex = 3;
@@ -65,12 +64,13 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
@@ -78,9 +78,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 469);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(641, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(646, 27);
             this.usrc_NavigationButtons1.TabIndex = 4;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -96,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 533);
+            this.ClientSize = new System.Drawing.Size(646, 491);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.txt_SelectCountry);
             this.Controls.Add(this.dgvx_ISO_3166);

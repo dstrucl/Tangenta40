@@ -12,7 +12,7 @@ namespace CodeTables.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -116,6 +116,257 @@ namespace CodeTables.Properties {
             }
             set {
                 this["b_order_by_ID_desc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Fuchsia")]
+        public global::System.Drawing.Color i0_StatusColor1 {
+            get {
+                return ((global::System.Drawing.Color)(this["i0_StatusColor1"]));
+            }
+            set {
+                this["i0_StatusColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        public global::System.Drawing.Color i0_StatusColor2 {
+            get {
+                return ((global::System.Drawing.Color)(this["i0_StatusColor2"]));
+            }
+            set {
+                this["i0_StatusColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 192")]
+        public global::System.Drawing.Color i1_StausColor1 {
+            get {
+                return ((global::System.Drawing.Color)(this["i1_StausColor1"]));
+            }
+            set {
+                this["i1_StausColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 255, 255")]
+        public global::System.Drawing.Color i1_StausColor2 {
+            get {
+                return ((global::System.Drawing.Color)(this["i1_StausColor2"]));
+            }
+            set {
+                this["i1_StausColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 64, 0")]
+        public global::System.Drawing.Color i2_StausColor1 {
+            get {
+                return ((global::System.Drawing.Color)(this["i2_StausColor1"]));
+            }
+            set {
+                this["i2_StausColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 128, 0")]
+        public global::System.Drawing.Color i2_StausColor2 {
+            get {
+                return ((global::System.Drawing.Color)(this["i2_StausColor2"]));
+            }
+            set {
+                this["i2_StausColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 218, 165")]
+        public global::System.Drawing.Color i3_StausColor1 {
+            get {
+                return ((global::System.Drawing.Color)(this["i3_StausColor1"]));
+            }
+            set {
+                this["i3_StausColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color i3_StausColor2 {
+            get {
+                return ((global::System.Drawing.Color)(this["i3_StausColor2"]));
+            }
+            set {
+                this["i3_StausColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("99, 106, 134")]
+        public global::System.Drawing.Color idefault_StausColor1 {
+            get {
+                return ((global::System.Drawing.Color)(this["idefault_StausColor1"]));
+            }
+            set {
+                this["idefault_StausColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("99, 106, 134")]
+        public global::System.Drawing.Color idefault_StausColor2 {
+            get {
+                return ((global::System.Drawing.Color)(this["idefault_StausColor2"]));
+            }
+            set {
+                this["idefault_StausColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 128, 0")]
+        public global::System.Drawing.Color Color_0 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_0"]));
+            }
+            set {
+                this["Color_0"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("204, 186, 199")]
+        public global::System.Drawing.Color Color_1 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_1"]));
+            }
+            set {
+                this["Color_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("199, 204, 186")]
+        public global::System.Drawing.Color Color_2 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_2"]));
+            }
+            set {
+                this["Color_2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("186, 199, 204")]
+        public global::System.Drawing.Color Color_3 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_3"]));
+            }
+            set {
+                this["Color_3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("204, 186, 199")]
+        public global::System.Drawing.Color Color_4 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_4"]));
+            }
+            set {
+                this["Color_4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("199, 204, 186")]
+        public global::System.Drawing.Color Color_5 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_5"]));
+            }
+            set {
+                this["Color_5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("186, 199, 204")]
+        public global::System.Drawing.Color Color_6 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_6"]));
+            }
+            set {
+                this["Color_6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("204, 186, 199")]
+        public global::System.Drawing.Color Color_7 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_7"]));
+            }
+            set {
+                this["Color_7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("199, 204, 186")]
+        public global::System.Drawing.Color Color_8 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_8"]));
+            }
+            set {
+                this["Color_8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("186, 199, 204")]
+        public global::System.Drawing.Color Color_9 {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_9"]));
+            }
+            set {
+                this["Color_9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color Setting {
+            get {
+                return ((global::System.Drawing.Color)(this["Setting"]));
+            }
+            set {
+                this["Setting"] = value;
             }
         }
     }

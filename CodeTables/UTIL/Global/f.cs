@@ -12,7 +12,7 @@ namespace Global
         public static Form GetParentForm(Control xctrl)
         {
             Control ctrlParent = xctrl.Parent;
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 200; i++)
             {
                 if (ctrlParent != null)
                 {
@@ -30,6 +30,7 @@ namespace Global
                     return null;
                 }
             }
+            MessageBox.Show("ERROR:More than 200 parent controls are not supported in Global:f:GetParentForm(Control xctrl) (file Global.cs)");
             return null;
         }
 

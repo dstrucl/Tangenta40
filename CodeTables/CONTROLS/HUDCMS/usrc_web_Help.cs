@@ -20,10 +20,13 @@ namespace HUDCMS
     public partial class usrc_web_Help : UserControl
     {
 
+        public delegate void delagete_DocumentCompleted(string url);
+        public event delagete_DocumentCompleted DocumentCompleted = null;
+
         internal usrc_Help mH = null;
         internal Form_HUDCMS frm_HUDCMS = null;
         private System.Windows.Forms.WebBrowser webBrowser1 = null;
-        private bool bShowOnlyLicenceAgreement = false;
+        private bool bHideEditButton = false;
 
         Uri uri = null;
         public usrc_web_Help()
@@ -33,80 +36,6 @@ namespace HUDCMS
 
             txt_URL.Text = "";
             chk_local.Text = HUDCMS_static.slng_LocalURL;
-        }
-
-        private bool SetIE8KeyforWebBrowserControl(string appName,int IEVersion, ref string Err)
-        {
-            RegistryKey Regkey = null;
-            string sRegKey = null;
-            try
-            {
-                // For 64 bit machine
-                if (Environment.Is64BitOperatingSystem)
-                {
-                    sRegKey = @"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION";
-                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey, true);
-                }
-                else  //For 32 bit machine
-                {
-                    sRegKey = @"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
-                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey, true);
-                }
-
-                // If the path is not correct or
-                // if the user haven't priviledges to access the registry
-                if (Regkey == null)
-                {
-                    Err = "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" Failed - Registry Key not found!";
-                    return false;
-                }
-
-                string FindAppkey = Convert.ToString(Regkey.GetValue(appName));
-
-                // Check if key is already present
-                if (FindAppkey == IEVersion.ToString())
-                {
-                    Regkey.Close();
-                    return true;
-                }
-
-                // If a key is not present add the key, Key value 11000 (decimal)
-                if (string.IsNullOrEmpty(FindAppkey))
-                    Regkey.SetValue(appName, unchecked((int)11001), RegistryValueKind.DWord);
-
-                if (FindAppkey != IEVersion.ToString())
-                {
-                    Regkey.SetValue(appName, unchecked((int)IEVersion), RegistryValueKind.DWord);
-                }
-
-                // Check for the key after adding
-                FindAppkey = Convert.ToString(Regkey.GetValue(appName));
-
-                if (FindAppkey == IEVersion.ToString())
-                {
-                    if (Regkey != null)
-                        Regkey.Close();
-                    return true;
-                }
-                else
-                { 
-                   Err="Internet Explorer Registry Settings \""+ sRegKey + "\" for \""+ appName + "\" not written, width emulation version DWORD:" + FindAppkey;
-                    if (Regkey != null)
-                        Regkey.Close();
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Err= "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" Failed:" + ex.Message;
-                return false;
-            }
-            finally
-            {
-                // Close the Registry
-                if (Regkey != null)
-                    Regkey.Close();
-            }
         }
 
         private void AddWebBrowser()
@@ -138,6 +67,10 @@ namespace HUDCMS
         private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             this.txt_URL.Text = webBrowser1.Url.ToString();
+            if (DocumentCompleted!=null)
+            {
+                DocumentCompleted(this.txt_URL.Text);
+            }
         }
 
         private string m_LocalUrl = "Local URL:";
@@ -156,6 +89,7 @@ namespace HUDCMS
 
         public void Show(Form xpForm,string sNameSpaceAndTypePath)
         {
+            bHideEditButton = false;
             if (mH == null)
             {
                 mH = new usrc_Help();
@@ -170,6 +104,7 @@ namespace HUDCMS
 
         public void ShowLicenceAgreement()
         {
+            bHideEditButton = true;
             if (mH == null)
             {
                 mH = new usrc_Help();
@@ -180,8 +115,41 @@ namespace HUDCMS
             string sLicenseAgreement = "Startup.LicenseAgreement";
             mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix, sLicenseAgreement);
             mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix, sLicenseAgreement);
-            bShowOnlyLicenceAgreement = true;
             btn_HUDCMS.Visible = false;            
+            Init(mH);
+        }
+
+        public void ShowNews()
+        {
+            if (mH == null)
+            {
+                mH = new usrc_Help();
+            }
+            mH.Visible = false;
+            mH.pForm = null;
+            mH.Prefix = "";
+            string sNews = "News";
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix, sNews);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix, sNews);
+            bHideEditButton = false;
+            btn_HUDCMS.Visible = false;
+            Init(mH);
+        }
+
+        public void ShowInstallationFinished()
+        {
+            bHideEditButton = false;
+            if (mH == null)
+            {
+                mH = new usrc_Help();
+            }
+            mH.Visible = false;
+            mH.pForm = null;
+            mH.Prefix = "";
+            string sNews = "InstallationFinished";
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix, sNews);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix, sNews);
+            btn_HUDCMS.Visible = false;
             Init(mH);
         }
 
@@ -200,7 +168,7 @@ namespace HUDCMS
                 if (mH.LocalHtmlFile_exist)
                 {
                     chk_local.Checked = true;
-                    if (!bShowOnlyLicenceAgreement)
+                    if (!bHideEditButton)
                     {
                         btn_HUDCMS.Visible = true;
                     }
@@ -220,6 +188,7 @@ namespace HUDCMS
 
         private void ShowRemoteURL()
         {
+            bHideEditButton = false;
             txt_URL.Text = mH.RemoteURL;
             if (this.webBrowser1!=null)
             {
@@ -237,6 +206,7 @@ namespace HUDCMS
 
         private void ShowLocalHtmlFile()
         {
+            bHideEditButton = false;
             txt_URL.Text = mH.LocalHtmlFile;
             if (this.webBrowser1 != null)
             {
@@ -275,7 +245,7 @@ namespace HUDCMS
         {
             if (chk_local.Checked)
             {
-                if (!bShowOnlyLicenceAgreement)
+                if (!bHideEditButton)
                 {
                     btn_HUDCMS.Visible = true;
                 }
@@ -302,13 +272,6 @@ namespace HUDCMS
 
         private void usrc_web_Help_Load(object sender, EventArgs e)
         {
-            var appName = Process.GetCurrentProcess().ProcessName + ".exe";
-            string Err = null;
-            if (!SetIE8KeyforWebBrowserControl(appName, 11001, ref Err))
-            {
-                MessageBox.Show(HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp,
-                                Err);
-            }
         }
     }
 }

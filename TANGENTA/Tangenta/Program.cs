@@ -142,6 +142,7 @@ namespace Tangenta
         {
             internal static bool Tangenta_EXE = false;
             internal static bool DBConnectionControlXX_EXE = false;
+            internal static bool CodeTables_DLL = false;
             internal static bool LangugaControl_DLL = false;
             internal static bool TangentaPrint_DLL = false;
             internal static bool FiscalVerification_DLL = false;
@@ -458,6 +459,14 @@ namespace Tangenta
                                                                                           Assembly.GetExecutingAssembly().GetName().Version.MajorRevision,
                                                                                           Assembly.GetExecutingAssembly().GetName().Version.Minor,
                                                                                           Assembly.GetExecutingAssembly().GetName().Version.MinorRevision);
+
+                    var appName = Process.GetCurrentProcess().ProcessName + ".exe";
+                    if (!HUDCMS.HUDCMS_static.SetIE8KeyforWebBrowserControl(appName, 11001, ref Err))
+                    {
+                        MessageBox.Show(HUDCMS.HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp,
+                                        Err);
+                    }
+
                     Parse_CommandLineArguments(CommandLineArguments);
 
                 DoResetNew:
@@ -716,6 +725,8 @@ namespace Tangenta
             {
                 Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
                 Reset2FactorySettings.DBConnectionControlXX_EXE = frm_set.bDBConnectionControlXX_EXE;
+                Reset2FactorySettings.CodeTables_DLL = frm_set.bCodeTables_DLL;
+                Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
                 Reset2FactorySettings.LangugaControl_DLL = frm_set.bLangugaControl_DLL;
                 Reset2FactorySettings.TangentaPrint_DLL = frm_set.bTangentaPrint_DLL;
                 Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
@@ -724,9 +735,15 @@ namespace Tangenta
             {
                 Reset2FactorySettings.Tangenta_EXE = false;
                 Reset2FactorySettings.DBConnectionControlXX_EXE = false;
+                Reset2FactorySettings.CodeTables_DLL = false;
                 Reset2FactorySettings.LangugaControl_DLL = false;
                 Reset2FactorySettings.TangentaPrint_DLL = false;
                 Reset2FactorySettings.FiscalVerification_DLL = false;
+            }
+
+            if (Reset2FactorySettings.CodeTables_DLL)
+            {
+                CodeTables.SQLTable.ResetSettings();
             }
         }
 

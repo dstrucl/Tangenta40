@@ -55,6 +55,7 @@
             this.usrc_web_Help1.RemoteUrl = "Remote URL:";
             this.usrc_web_Help1.Size = new System.Drawing.Size(474, 629);
             this.usrc_web_Help1.TabIndex = 1;
+            this.usrc_web_Help1.DocumentCompleted += new HUDCMS.usrc_web_Help.delagete_DocumentCompleted(this.usrc_web_Help1_DocumentCompleted);
             // 
             // usrc_Startup
             // 

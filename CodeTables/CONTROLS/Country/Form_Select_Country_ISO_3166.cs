@@ -157,10 +157,5 @@ namespace Country_ISO_3166
 
             }
         }
-
-        private void dgvx_ISO_3166_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

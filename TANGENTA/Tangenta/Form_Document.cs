@@ -30,6 +30,7 @@ namespace Tangenta
 {
     public partial class Form_Document : Form
     {
+        private Form_FirstTimeInstallationGreeting frm_Form_FirstTimeInstallationGreeting = null;
         public const string XML_ROOT_NAME = "Tangenta_Xml";
 
         public startup m_startup = null;
@@ -147,6 +148,8 @@ namespace Tangenta
             booting_12_GetPrinters = new Booting_12_GetPrinters(this, m_startup);
             booting_13_Login = new Booting_13_Login(this, m_startup);
 
+            m_startup.ShowNews();
+            m_startup.m_usrc_Startup.WebBrowserControl_DocumentCompleted += M_usrc_Startup_WebBrowserControl_DocumentCompleted;
 
             StartupStep = new startup_step[]
             {
@@ -202,6 +205,14 @@ namespace Tangenta
             m_startup.m_usrc_Startup.Finished += M_usrc_Startup_Finished;
 
             Program.nav.oStartup = m_startup;
+        }
+
+        private void M_usrc_Startup_WebBrowserControl_DocumentCompleted(string url)
+        {
+            if (url.Contains("News.html"))
+            {
+                m_startup.StartExecution();//when Startup has finished event M_usrc_Startup_Finished is triggered
+            }
         }
 
         private void M_usrc_Startup_ExitPrev()
@@ -388,23 +399,6 @@ namespace Tangenta
 
         }
 
-        private void btn_Edit_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void usrc_Invoice_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void m_usrc_Main_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Exit()
         {
             Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceMan.m_usrc_InvoiceTable.Current_Doc_ID;
@@ -486,8 +480,6 @@ namespace Tangenta
         {
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():before m_startup.Execute!");
 
-            m_startup.StartExecution();//when Startup has finished event M_usrc_Startup_Finished is triggered
-
         }
 
         private void M_usrc_Startup_Finished()
@@ -496,6 +488,20 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
 
+            if (Program.bFirstTimeInstallation)
+            {
+                if (frm_Form_FirstTimeInstallationGreeting==null)
+                {
+                    frm_Form_FirstTimeInstallationGreeting = new Form_FirstTimeInstallationGreeting();
+                    frm_Form_FirstTimeInstallationGreeting.Owner = this;
+                }
+                else if (frm_Form_FirstTimeInstallationGreeting.IsDisposed)
+                {
+                    frm_Form_FirstTimeInstallationGreeting = new Form_FirstTimeInstallationGreeting();
+                    frm_Form_FirstTimeInstallationGreeting.Owner = this;
+                }
+                frm_Form_FirstTimeInstallationGreeting.Show();
+            }
             Program.bFirstTimeInstallation = false;
             m_usrc_Main.Init(null);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -502,21 +503,105 @@ namespace HUDCMS
         {
             if (sNameSpaceDotType != null)
             {
-                string[] s = sNameSpaceDotType.Split(new char[] { '.' });
-                if (s.Length > 0)
+                int indexofdot = sNameSpaceDotType.IndexOf('.');
+                if (indexofdot > 0)
+                { 
+                    string[] s = sNameSpaceDotType.Split(new char[] { '.' });
+                    if (s.Length > 0)
+                    {
+                        ModuleName = "";
+                        HtmlFileName = prefix + s[s.Length - 1] + ".html";
+                        for (int i = 0; i < s.Length - 1; i++)
+                        {
+                            ModuleName += s[i] + "/";
+                        }
+                        xRelativeURL = Relative_ApplicationVersionAndLangugagePath + ModuleName + HtmlFileName;
+                        return true;
+                    }
+                }
+                else
                 {
                     ModuleName = "";
-                    HtmlFileName = prefix+s[s.Length - 1] + ".html";
-                    for (int i = 0; i < s.Length - 1; i++)
-                    {
-                        ModuleName += s[i] + "/";
-                    }
-                    xRelativeURL = Relative_ApplicationVersionAndLangugagePath + ModuleName + HtmlFileName;
+                    HtmlFileName = prefix + sNameSpaceDotType + ".html";
+                    xRelativeURL = Relative_ApplicationVersionAndLangugagePath +  HtmlFileName;
                     return true;
                 }
             }
             return false;
         }
 
+        public static bool SetIE8KeyforWebBrowserControl(string appName, int IEVersion, ref string Err)
+        {
+            RegistryKey Regkey = null;
+            string sRegKey = null;
+            try
+            {
+                // For 64 bit machine
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    sRegKey = @"SOFTWARE\\Wow6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey, true);
+                }
+                else  //For 32 bit machine
+                {
+                    sRegKey = @"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+                    Regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey, true);
+                }
+
+                // If the path is not correct or
+                // if the user haven't priviledges to access the registry
+                if (Regkey == null)
+                {
+                    Err = "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" Failed - Registry Key not found!";
+                    return false;
+                }
+
+                string FindAppkey = Convert.ToString(Regkey.GetValue(appName));
+
+                // Check if key is already present
+                if (FindAppkey == IEVersion.ToString())
+                {
+                    Regkey.Close();
+                    return true;
+                }
+
+                // If a key is not present add the key, Key value 11000 (decimal)
+                if (string.IsNullOrEmpty(FindAppkey))
+                    Regkey.SetValue(appName, unchecked((int)11001), RegistryValueKind.DWord);
+
+                if (FindAppkey != IEVersion.ToString())
+                {
+                    Regkey.SetValue(appName, unchecked((int)IEVersion), RegistryValueKind.DWord);
+                }
+
+                // Check for the key after adding
+                FindAppkey = Convert.ToString(Regkey.GetValue(appName));
+
+                if (FindAppkey == IEVersion.ToString())
+                {
+                    if (Regkey != null)
+                        Regkey.Close();
+                    return true;
+                }
+                else
+                {
+                    Err = "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" not written, width emulation version DWORD:" + FindAppkey;
+                    if (Regkey != null)
+                        Regkey.Close();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Err = "Internet Explorer Registry Settings \"" + sRegKey + "\" for \"" + appName + "\" Failed:" + ex.Message;
+                return false;
+            }
+            finally
+            {
+                // Close the Registry
+                if (Regkey != null)
+                    Regkey.Close();
+            }
+        }
     }
 }

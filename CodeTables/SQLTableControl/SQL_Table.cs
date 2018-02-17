@@ -38,6 +38,12 @@ namespace CodeTables
 
         bool m_SelectionButtonVisible = true;
 
+        public static void ResetSettings()
+        {
+            Properties.Settings.Default.Reset();
+            Properties.Settings.Default.Save();
+        }
+
         public bool SelectionButtonVisible
         {
             get
@@ -214,29 +220,29 @@ namespace CodeTables
             //DefineView_ColorList.Add(Color.FromArgb(204, 186, 167));
             //DefineView_ColorList.Add(Color.FromArgb(127, 127, 127));
 
-            ColorList.Add(Color.FromArgb(186, 199, 204));
-            ColorList.Add(Color.FromArgb(204, 186, 199));
-            ColorList.Add(Color.FromArgb(199, 204, 186));
-            ColorList.Add(Color.FromArgb(186, 199, 204));
-            ColorList.Add(Color.FromArgb(204, 186, 199));
-            ColorList.Add(Color.FromArgb(199, 204, 186));
-            ColorList.Add(Color.FromArgb(186, 199, 204));
-            ColorList.Add(Color.FromArgb(204, 186, 199));
-            ColorList.Add(Color.FromArgb(199, 204, 186));
-            ColorList.Add(Color.FromArgb(186, 199, 204));
+            ColorList.Add(Properties.Settings.Default.Color_0);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Properties.Settings.Default.Color_1);// Color.FromArgb(204, 186, 199));
+            ColorList.Add(Properties.Settings.Default.Color_2);// Color.FromArgb(199, 204, 186));
+            ColorList.Add(Properties.Settings.Default.Color_3);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Properties.Settings.Default.Color_4);// Color.FromArgb(204, 186, 199));
+            ColorList.Add(Properties.Settings.Default.Color_5);// Color.FromArgb(199, 204, 186));
+            ColorList.Add(Properties.Settings.Default.Color_6);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Properties.Settings.Default.Color_7);// Color.FromArgb(204, 186, 199));
+            ColorList.Add(Properties.Settings.Default.Color_8);// Color.FromArgb(199, 204, 186));
+            ColorList.Add(Properties.Settings.Default.Color_9);// Color.FromArgb(186, 199, 204));
 
 
 
-            DefineView_ColorList.Add(Color.FromArgb(186, 199, 204));
-            DefineView_ColorList.Add(Color.FromArgb(204, 186, 199));
-            DefineView_ColorList.Add(Color.FromArgb(199, 204, 186));
-            DefineView_ColorList.Add(Color.FromArgb(186, 199, 204));
-            DefineView_ColorList.Add(Color.FromArgb(204, 186, 199));
-            DefineView_ColorList.Add(Color.FromArgb(199, 204, 186));
-            DefineView_ColorList.Add(Color.FromArgb(186, 199, 204));
-            DefineView_ColorList.Add(Color.FromArgb(204, 186, 199));
-            DefineView_ColorList.Add(Color.FromArgb(199, 204, 186));
-            DefineView_ColorList.Add(Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_0);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_1);// Color.FromArgb(204, 186, 199));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_2);// Color.FromArgb(199, 204, 186));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_3);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_4);// Color.FromArgb(204, 186, 199));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_5);// Color.FromArgb(199, 204, 186));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_6);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_7);// Color.FromArgb(204, 186, 199));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_8);// Color.FromArgb(199, 204, 186));
+            DefineView_ColorList.Add(Properties.Settings.Default.Color_9);// Color.FromArgb(186, 199, 204));
 
 
         }

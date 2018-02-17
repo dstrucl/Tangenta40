@@ -61,27 +61,27 @@ namespace CodeTables
                 {
                     case 0:
                         //Raw active
-                        StatusColor1 = Color.FromArgb(161, 182, 155);
-                        StatusColor2 = Color.FromArgb(108, 136, 100);
+                        StatusColor1 = Properties.Settings.Default.i0_StatusColor1;// Color.FromArgb(161, 182, 155);
+                        StatusColor2 = Properties.Settings.Default.i0_StatusColor2;// Color.FromArgb(108, 136, 100);
                         break;
                     case 1:
                         //Raw inactive
-                        StatusColor1 = Color.FromArgb(161, 182, 155);
-                        StatusColor2 = Color.FromArgb(154, 160, 182);
+                        StatusColor1 = Properties.Settings.Default.i1_StausColor1;// Color.FromArgb(161, 182, 155);
+                        StatusColor2 = Properties.Settings.Default.i1_StausColor2;// Color.FromArgb(154, 160, 182);
                         break;
                     case 2:
                         // Dry active
-                        StatusColor1 = Color.Goldenrod;
-                        StatusColor2 = Color.DarkGoldenrod;
+                        StatusColor1 = Properties.Settings.Default.i2_StausColor1;// Color.Goldenrod;
+                        StatusColor2 = Properties.Settings.Default.i2_StausColor2;// Color.DarkGoldenrod;
                         break;
                     case 3:
                         // Dry inactive
-                        StatusColor1 = Color.Goldenrod;
-                        StatusColor2 = Color.FromArgb(99, 106, 134);
+                        StatusColor1 = Properties.Settings.Default.i3_StausColor1;// Color.Goldenrod;
+                        StatusColor2 = Properties.Settings.Default.i3_StausColor2;// Color.FromArgb(99, 106, 134);
                         break;
                     default:
-                        StatusColor1 = Color.FromArgb(99, 106, 134);
-                        StatusColor2 = Color.FromArgb(99, 106, 134);
+                        StatusColor1 = Properties.Settings.Default.idefault_StausColor1;// Color.FromArgb(99, 106, 134);
+                        StatusColor2 = Properties.Settings.Default.idefault_StausColor2;// Color.FromArgb(99, 106, 134);
                         break;
                 }
             }
@@ -127,23 +127,6 @@ namespace CodeTables
         private int _mY=0;
         private int _StatusBarColorIndex=0;
 
-        //public DefineView_InputControl()
-        //{
-        //    Font = new Font("Arial", 10);
-        //    FillDegree = 10;
-        //    RoundedCornerAngle = 10;
-        //    Margin = new Padding(0);
-        //    LeftText = "LT";
-        //    StatusText = "Not set";
-        //    MainText = "Hec";
-        //    RightText = "RT";
-        //    LeftBarSize = 5;
-        //    StatusBarSize = 5;
-            
-        //    RightBarSize = 5;
-        //    StatusBarColor = 99;
-        //    AllowDrag = true;
-        //}
 
         public DefineView_InputControl(Column col, List<DefineView_InputControl> inpCtrlList, string sImportExportLine, bool bNumber,ref int iCtrl)
         {

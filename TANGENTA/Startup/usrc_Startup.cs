@@ -12,6 +12,9 @@ namespace Startup
 {
     public partial class usrc_Startup : UserControl
     {
+        public delegate void delegate_WebBrowserControl_DocumentCompleted(string url);
+        public event delegate_WebBrowserControl_DocumentCompleted WebBrowserControl_DocumentCompleted = null;
+
         public delegate void delegate_ExitProgram();
         public event delegate_ExitProgram ExitProgram = null;
 
@@ -97,6 +100,19 @@ namespace Startup
         {
             this.usrc_web_Help1.Left = lbl_StartUp.Left + xusrc_startup_step_Width + 5;
             this.usrc_web_Help1.Width = this.Width - (lbl_StartUp.Left + xusrc_startup_step_Width + 5);
+        }
+
+        internal void ShowNews()
+        {
+            this.usrc_web_Help1.ShowNews();
+        }
+
+        private void usrc_web_Help1_DocumentCompleted(string url)
+        {
+            if (WebBrowserControl_DocumentCompleted!=null)
+            {
+                WebBrowserControl_DocumentCompleted(url);
+            }
         }
     }
 }

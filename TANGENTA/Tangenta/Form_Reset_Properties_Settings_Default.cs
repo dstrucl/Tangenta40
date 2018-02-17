@@ -14,6 +14,7 @@ namespace Tangenta
     {
         internal bool bTangenta_EXE = false;
         internal bool bDBConnectionControlXX_EXE = false;
+        internal bool bCodeTables_DLL = false;
         internal bool bFiscalVerification_DLL = false;
         internal bool bLangugaControl_DLL = false;
         internal bool bTangentaPrint_DLL = false;
@@ -25,6 +26,7 @@ namespace Tangenta
             lng.s_AreYouSure_ToResetSettingsToInitialvalues.Text(label1);
             this.chk_Tangenta_EXE.Checked = true;
             this.chk_DBConnectionControl_DLL.Checked = true;
+            this.chk_CodeTables_DLL.Checked = true;
             this.chk_LanguageControl_DLL.Checked = true;
             this.chk_TangentaPrint_DLL.Checked = true;
             this.chk_FiscalVerifiaction.Checked = false;
@@ -38,6 +40,7 @@ namespace Tangenta
         {
             bTangenta_EXE = this.chk_Tangenta_EXE.Checked;
             bDBConnectionControlXX_EXE = this.chk_DBConnectionControl_DLL.Checked;
+            bCodeTables_DLL = this.chk_CodeTables_DLL.Checked;
             bLangugaControl_DLL = this.chk_LanguageControl_DLL.Checked;
             bTangentaPrint_DLL = this.chk_TangentaPrint_DLL.Checked;
             bFiscalVerification_DLL = this.chk_FiscalVerifiaction.Checked;

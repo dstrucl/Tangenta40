@@ -123,6 +123,12 @@
     <Compile Include="Booting_02_Check_DBType.cs" />
     <Compile Include="Booting_01_TangentaLicence.cs" />
     <Compile Include="Booting_00_TangentaAbout.cs" />
+    <Compile Include="Form_FirstTimeInstallationGreeting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_FirstTimeInstallationGreeting.Designer.cs">
+      <DependentUpon>Form_FirstTimeInstallationGreeting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Select_Notice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -580,6 +586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_FirstTimeInstallationGreeting.resx">
+      <DependentUpon>Form_FirstTimeInstallationGreeting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_FVI_check.resx">
       <DependentUpon>Form_FVI_check.cs</DependentUpon>

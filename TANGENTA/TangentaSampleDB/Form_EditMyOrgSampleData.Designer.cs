@@ -48,11 +48,11 @@ namespace TangentaSampleDB
             this.m_usrc_SampleDataEdit.HorisontallOffsetToLabel = 4;
             this.m_usrc_SampleDataEdit.lblVerticalOffset = 4;
             this.m_usrc_SampleDataEdit.LeftMargin = 10;
-            this.m_usrc_SampleDataEdit.Location = new System.Drawing.Point(1, 25);
+            this.m_usrc_SampleDataEdit.Location = new System.Drawing.Point(1, 30);
             this.m_usrc_SampleDataEdit.MinEditBoxWidth = 64;
             this.m_usrc_SampleDataEdit.Name = "m_usrc_SampleDataEdit";
             this.m_usrc_SampleDataEdit.RightMargin = 10;
-            this.m_usrc_SampleDataEdit.Size = new System.Drawing.Size(574, 477);
+            this.m_usrc_SampleDataEdit.Size = new System.Drawing.Size(574, 469);
             this.m_usrc_SampleDataEdit.TabIndex = 0;
             this.m_usrc_SampleDataEdit.TopMargin = 30;
             this.m_usrc_SampleDataEdit.VerticalDistance = 5;
@@ -75,9 +75,9 @@ namespace TangentaSampleDB
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(1, 0);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(575, 22);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(577, 27);
             this.usrc_NavigationButtons1.TabIndex = 1;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";

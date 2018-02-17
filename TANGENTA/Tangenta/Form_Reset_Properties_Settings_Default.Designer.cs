@@ -39,6 +39,7 @@
             this.chk_LogFile_DLL = new System.Windows.Forms.CheckBox();
             this.chk_TangentaPrint_DLL = new System.Windows.Forms.CheckBox();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.chk_CodeTables_DLL = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_Yes
@@ -67,7 +68,7 @@
             // 
             this.label1.Location = new System.Drawing.Point(7, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(465, 99);
+            this.label1.Size = new System.Drawing.Size(465, 88);
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
             // 
@@ -124,7 +125,7 @@
             // chk_TangentaPrint_DLL
             // 
             this.chk_TangentaPrint_DLL.AutoSize = true;
-            this.chk_TangentaPrint_DLL.Location = new System.Drawing.Point(328, 130);
+            this.chk_TangentaPrint_DLL.Location = new System.Drawing.Point(435, 130);
             this.chk_TangentaPrint_DLL.Name = "chk_TangentaPrint_DLL";
             this.chk_TangentaPrint_DLL.Size = new System.Drawing.Size(116, 17);
             this.chk_TangentaPrint_DLL.TabIndex = 8;
@@ -133,16 +134,27 @@
             // 
             // usrc_Help1
             // 
-            this.usrc_Help1.Location = new System.Drawing.Point(427, 7);
+            this.usrc_Help1.Location = new System.Drawing.Point(549, 8);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(44, 27);
             this.usrc_Help1.TabIndex = 9;
+            // 
+            // chk_CodeTables_DLL
+            // 
+            this.chk_CodeTables_DLL.AutoSize = true;
+            this.chk_CodeTables_DLL.Location = new System.Drawing.Point(323, 130);
+            this.chk_CodeTables_DLL.Name = "chk_CodeTables_DLL";
+            this.chk_CodeTables_DLL.Size = new System.Drawing.Size(106, 17);
+            this.chk_CodeTables_DLL.TabIndex = 10;
+            this.chk_CodeTables_DLL.Text = "CodeTables.DLL";
+            this.chk_CodeTables_DLL.UseVisualStyleBackColor = true;
             // 
             // Form_Reset_Properties_Settings_Default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 251);
+            this.ClientSize = new System.Drawing.Size(605, 251);
+            this.Controls.Add(this.chk_CodeTables_DLL);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.chk_TangentaPrint_DLL);
             this.Controls.Add(this.chk_LogFile_DLL);
@@ -177,5 +189,6 @@
         private System.Windows.Forms.CheckBox chk_LogFile_DLL;
         private System.Windows.Forms.CheckBox chk_TangentaPrint_DLL;
         private HUDCMS.usrc_Help usrc_Help1;
+        private System.Windows.Forms.CheckBox chk_CodeTables_DLL;
     }
 }

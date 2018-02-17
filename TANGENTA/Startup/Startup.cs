@@ -183,5 +183,10 @@ namespace Startup
                 return true;
             }
         }
+
+        public void ShowNews()
+        {
+            m_usrc_Startup.ShowNews();
+        }
     }
 }

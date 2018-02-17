@@ -44,7 +44,6 @@
             this.m_usrc_Main.Size = new System.Drawing.Size(1000, 720);
             this.m_usrc_Main.TabIndex = 0;
             this.m_usrc_Main.Exit_Click += new Tangenta.usrc_Document.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
-            this.m_usrc_Main.Load += new System.EventHandler(this.m_usrc_Main_Load);
             // 
             // Form_Document
             // 

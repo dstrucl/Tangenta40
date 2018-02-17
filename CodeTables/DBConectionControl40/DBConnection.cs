@@ -837,7 +837,8 @@ namespace DBConnectionControl40
 
         public bool Startup_03_Show_TestConnectionForm(Form pParentForm,NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s),typeof(TestConnectionForm).ToString());
+            //xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s),typeof(TestConnectionForm).ToString());
+            xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s), null);
             return true;
         }
 
