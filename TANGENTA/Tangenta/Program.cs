@@ -312,6 +312,33 @@ namespace Tangenta
 
         public enum eCommandLineHelpResult {OK,DO_SELECT_LANGUAGE,EXIT }
 
+
+        public static void SaveHelpSettings(string LocalHelpPath,string RemoteHelpURL)
+        {
+            bool xbHelpSettingsChanged = false;
+            if (LocalHelpPath != null)
+            {
+                if (LocalHelpPath.Length > 0)
+                {
+                    Properties.Settings.Default.HelpLocalPath = LocalHelpPath;
+                    xbHelpSettingsChanged = true;
+                }
+            }
+            if (RemoteHelpURL != null)
+            {
+                if (RemoteHelpURL.Length > 0)
+                {
+                    Properties.Settings.Default.HelpRemoteURL = RemoteHelpURL;
+                    xbHelpSettingsChanged = true;
+                }
+            }
+            if (xbHelpSettingsChanged)
+            {
+                Properties.Settings.Default.Save();
+            }
+
+        }
+
         public static eCommandLineHelpResult DoCommandLineHelp(ref string[] CommandLineArguments,
                                                                bool bLanguageSelectDialogShown,
                                                                ref bool bExitBeforeLogFileInitialised)
@@ -354,7 +381,8 @@ namespace Tangenta
                                                                                                     CommandLineHelpNav, 
                                                                                                     Properties.Resources.Tangenta_Question,
                                                                                                     Properties.Settings.Default.HelpLocalPath,
-                                                                                                    Properties.Settings.Default.HelpRemoteURL);
+                                                                                                    Properties.Settings.Default.HelpRemoteURL,
+                                                                                                    SaveHelpSettings);
             CommandLineHelpNav.ChildDialog = hlp_frm;
             CommandLineHelpNav.ShowDialog();
             if ((CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))

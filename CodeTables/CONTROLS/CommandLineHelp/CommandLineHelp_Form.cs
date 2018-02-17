@@ -19,21 +19,27 @@ namespace CommandLineHelp
 {
     public partial class CommandLineHelp_Form : Form
     {
+        public delegate void delegate_SaveHelpSetting(string LocalHelpPath, string RemoteHelpURL);
+
         List<CommandLineHelp> m_CommandLineHelpList = null;
         CommandLineHelp_ItemControl helpctrl_last;
         NavigationButtons.Navigation nav = null;
         public string LocalHelpPath = null;
         public string RemoteHelpURL = null;
 
+        delegate_SaveHelpSetting SaveHelpSetting = null;
+
         public string[] CommandLineArguments = null;
 
         public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, NavigationButtons.Navigation xnav, Icon xFormIcon,
                                     string xLocalHelpPath,
-                                    string xRemoteHelpURL)
+                                    string xRemoteHelpURL,
+                                    delegate_SaveHelpSetting xSaveHelpSetting)
         {
             InitializeComponent();
             LocalHelpPath = xLocalHelpPath;
             RemoteHelpURL = xRemoteHelpURL;
+            SaveHelpSetting = xSaveHelpSetting;
             m_CommandLineHelpList = CommandLineHelpList;
             nav = xnav;
             if (RemoteHelpURL!=null)
@@ -173,6 +179,10 @@ namespace CommandLineHelp
                 {
                     HUDCMS.HUDCMS_static.LocalHelpPath = LocalHelpPath;
                 }
+            }
+            if (SaveHelpSetting!=null)
+            {
+                SaveHelpSetting(HUDCMS.HUDCMS_static.LocalHelpPath, HUDCMS.HUDCMS_static.RemoteHelpURL);
             }
         }
 

@@ -14,6 +14,7 @@ namespace HUDCMS
 {
     public partial class Form_HUDCMS : Form
     {
+        private Form_FCTB_Editor frm_FCTB_Editor = null;
         private hctrl hc = null;
         private usrc_Help mH = null;
         internal usrc_Control usrc_Control_Selected = null;
@@ -566,6 +567,23 @@ namespace HUDCMS
             {
                 return false;
             }
+        }
+
+        private bool usrc_SelectHtmlFile_EditFile(string FileName)
+        {
+            if (frm_FCTB_Editor==null)
+            {
+                frm_FCTB_Editor = new Form_FCTB_Editor();
+                frm_FCTB_Editor.Owner = this;
+            }
+            if (frm_FCTB_Editor.IsDisposed)
+            {
+                frm_FCTB_Editor = new Form_FCTB_Editor();
+                frm_FCTB_Editor.Owner = this;
+            }
+            frm_FCTB_Editor.CreateTab(FileName);
+            frm_FCTB_Editor.Show();
+            return true;
         }
     }
 }

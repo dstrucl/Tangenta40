@@ -74,7 +74,7 @@
     <Compile Include="Form_FCTB_Editor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_FCTB_Editor.Designer.cs">
+    <Compile Include="Form_FCTB_Editor.designer.cs">
       <DependentUpon>Form_FCTB_Editor.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Help.cs">
@@ -165,6 +165,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_FCTB_Editor.resx">
+      <DependentUpon>Form_FCTB_Editor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Help.resx">
       <DependentUpon>Form_Help.cs</DependentUpon>
     </EmbeddedResource>

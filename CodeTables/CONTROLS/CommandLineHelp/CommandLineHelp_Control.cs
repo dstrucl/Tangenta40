@@ -14,11 +14,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using static CommandLineHelp.CommandLineHelp_Form;
 
 namespace CommandLineHelp
 {
     public partial class CommandLineHelp_Control : UserControl
     {
+
+        public delegate_SaveHelpSetting SaveHelpSetting = null;
         Image m_Image_Button_Cancel = null;
         Icon m_FormIcon = null;
         public Image Image_Button_Cancel
@@ -62,7 +65,7 @@ namespace CommandLineHelp
             CommandLineHelpNav.btn3_ToolTip_Text = "";
             string xRemoteHelpURL = "";
             string xLocalHelpPath = "";
-                CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, CommandLineHelpNav, m_FormIcon, xLocalHelpPath, xRemoteHelpURL);
+                CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, CommandLineHelpNav, m_FormIcon, xLocalHelpPath, xRemoteHelpURL, SaveHelpSetting);
             hlpfrm.ShowDialog();
         }
     }
