@@ -66,8 +66,17 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TabStrip">
+      <HintPath>..\..\..\DLL\TabStrip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_FCTB_Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_FCTB_Editor.Designer.cs">
+      <DependentUpon>Form_FCTB_Editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Help.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,6 +248,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\HUDCMS.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backward0_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bookmark--plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_libraries.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit-padding-top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layer--minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layer--plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lightning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\property.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redo_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
