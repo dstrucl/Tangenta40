@@ -298,5 +298,172 @@ namespace ColorSettings
                 }
             }
         }
+
+        internal static bool CreateSourceFile(ref string filename)
+        {
+            string folder = null;
+            string err = null;
+            if (SetApplicationDataSubFolder(ref folder, "Colors", ref err))
+            {
+                if (folder.Length > 0)
+                {
+                    if (folder[folder.Length - 1] != '\\')
+                    {
+                        folder += "\\";
+                    }
+                }
+                filename = folder + "ShemeList.cs";
+                if (File.Exists(filename))
+                {
+                    try
+                    {
+                        File.Delete(filename);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR:Sheme:ResetSettings() file not deleted:\"" + filename + "\"!\r\nException = " + ex.Message);
+                    }
+                }
+
+                StringBuilder source = new StringBuilder(15000);
+                string TopPart = @"
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ColorSettings
+{
+    public static class ShemeList
+    {
+        public static List<ColorSheme> items = new List<ColorSheme>();
+
+";
+                source.Append(TopPart);
+
+                DataTable dtSheme = dsColorSheme.Tables["Sheme"];
+                foreach (DataRow drsheme in dtSheme.Rows)
+                {
+                    source.Append("\r\n      public static ColorSheme ");
+                    int idsheme = (int)drsheme["ID"];
+                    string name = (string)drsheme["Name"];
+                    bool read_only = (bool)drsheme["ReadOnly"];
+                    string sreadonly = "false";
+                    if (read_only)
+                    {
+                        sreadonly = "true";
+                    }
+                    source.Append(name);
+                    source.Append(" = new ColorSettings.ColorSheme(");
+                    source.Append(sreadonly);
+                    source.Append(", \"");
+                    source.Append(name);
+                    source.Append("\"");
+                    source.Append(@", new System.Drawing.Color[]
+        {");
+                    DataTable dtColors = dsColorSheme.Tables["Colors"];
+                    DataRow[] drcolors = dtColors.Select("Sheme_ID=" + idsheme.ToString());
+                    int drcolorslength = drcolors.Length;
+                    if (drcolorslength>0)
+                    {
+                        for(int j=0;j<10;j++)
+                        {
+                           string shtmlColor = (string) drcolors[0]["Color" + j.ToString()];
+                            source.Append("\r\n    System.Drawing.ColorTranslator.FromHtml(\"");
+                            source.Append(shtmlColor);
+                            if (j < 9)
+                            {
+                                source.Append("\"),");
+                            }
+                            else
+                            {
+                                source.Append("\")");
+                            }
+                        }
+                    }
+                    source.Append("\r\n        });");
+                }
+                string BottomPart = @"
+        internal static void SetDefault()
+        {
+            items.Clear();
+            items.Add(Nature);
+            items.Add(Techno);
+            items.Add(SunSet);
+            items.Add(Retro);
+            items.Add(Shimmering);
+            items.Add(MediterraneanDark);
+            items.Add(MagentasAndYelows);
+            items.Add(Custom);
+            foreach (ColorSheme sheme in items)
+            {
+                CreateSheme(sheme, false);
+            }
+        }
+
+        private static void CreateSheme(ColorSheme sheme, bool read_only)
+        {
+            DataTable Sheme = ColorSettings.Sheme.dsColorSheme.Tables[""Sheme""];
+            DataRow drColorSheme = Sheme.NewRow();
+                drColorSheme[""Name""] = sheme.Name;
+                drColorSheme[""ReadOnly""] = read_only;
+                int id = (int)drColorSheme[""ID""];
+                Sheme.Rows.Add(drColorSheme);
+                DataTable Colors = ColorSettings.Sheme.dsColorSheme.Tables[""Colors""];
+                DataRow drColorValue = Colors.NewRow();
+                drColorValue[""Sheme_ID""] = id;
+                for (int i = 0; i < 10; i++)
+                {
+                    if (sheme.color.Length > i)
+                    {
+                        drColorValue[""Color"" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.color[i]);
+                    }
+                    else
+                    {
+                        int grv = (i * 20) % 256;
+                        drColorValue[""Color"" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
+                    }
+                }
+                Colors.Rows.Add(drColorValue);
+            }
+
+            internal static void SetShemeList()
+            {
+                items.Clear();
+                DataTable dtSheme = ColorSettings.Sheme.dsColorSheme.Tables[""Sheme""];
+                foreach (DataRow drsheme in dtSheme.Rows)
+                {
+                    string name = (string)drsheme[""Name""];
+                    ColorSheme colorsheme = ColorSettings.Sheme.Get(name, true);
+                    if (colorsheme != null)
+                    {
+                        items.Add(colorsheme);
+                    }
+                }
+            }
+        }
+    }
+";
+                source.Append(BottomPart);
+
+                try
+                {
+                    File.WriteAllText(filename, source.ToString());
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("File:\"" + filename + "\" not written");
+                }
+                return false;
+            }
+            else
+            {
+                MessageBox.Show("Can not set SetApplicationDataSubFolder! in Sheme:CreateSourceFile(..)!");
+                return false;
+            }
+        }
     }
 }

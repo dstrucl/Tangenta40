@@ -49,7 +49,7 @@
             this.ClientSize = new System.Drawing.Size(602, 404);
             this.Controls.Add(this.usrc_web_Help1);
             this.Name = "Form_FirstTimeInstallationGreeting";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_FirstTimeInstallationGreeting";
             this.Load += new System.EventHandler(this.Form_FirstTimeInstallationGreeting_Load);
             this.ResumeLayout(false);

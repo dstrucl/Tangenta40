@@ -71,8 +71,11 @@ namespace ColorSettings
 
         private void usrc_SelectColorSheme_DoubleClick(object sender, EventArgs e)
         {
-            Form_FCTB_Editor fctb_Editor = new Form_FCTB_Editor();
-            fctb_Editor.ShowDialog();
+            if ((ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                Form_FCTB_Editor fctb_Editor = new Form_FCTB_Editor();
+                fctb_Editor.ShowDialog();
+            }
         }
     }
 }
