@@ -516,6 +516,8 @@ namespace Tangenta
 
         public static ltext s_rdb_CustomDiscount = new ltext(new string[] { "Discount:", "Popust:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Discount.cs
 
+        public static ltext s_grp_ColorSettings = new ltext(new string[] { "Color Settings", "Barvne nastavitve" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
         public static ltext s_ElectronicDevice_ID = new ltext(new string[] { "Electronic Device ID", "Oznaka blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_chk_AllowToEditText = new ltext(new string[] { "Allow to edit controls text", "Urejanje besedil v oknih" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs

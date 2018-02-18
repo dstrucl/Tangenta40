@@ -38,6 +38,7 @@
             this.Name = "usrc_SelectColorSheme";
             this.Size = new System.Drawing.Size(539, 203);
             this.Load += new System.EventHandler(this.usrc_SelectColorSheme_Load);
+            this.DoubleClick += new System.EventHandler(this.usrc_SelectColorSheme_DoubleClick);
             this.ResumeLayout(false);
 
         }

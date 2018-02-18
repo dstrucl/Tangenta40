@@ -21,7 +21,7 @@ namespace ColorSettings
         {
             int y = 0;
             int i = 0;
-            foreach (ColorSheme sheme in Sheme.ShemeList)
+            foreach (ColorSheme sheme in ShemeList.items)
             {
                 usrc_ColorSheme usrc_colorsheme = new usrc_ColorSheme();
                 usrc_colorsheme.Name = sheme.Name;
@@ -67,6 +67,12 @@ namespace ColorSettings
                     Properties.Settings.Default.Save();
                 }
             }
+        }
+
+        private void usrc_SelectColorSheme_DoubleClick(object sender, EventArgs e)
+        {
+            Form_FCTB_Editor fctb_Editor = new Form_FCTB_Editor();
+            fctb_Editor.ShowDialog();
         }
     }
 }

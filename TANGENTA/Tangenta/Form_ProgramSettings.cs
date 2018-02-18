@@ -43,6 +43,7 @@ namespace Tangenta
             lng.s_FullScreen.Text(chk_FullScreen);
             lng.s_chk_AllowToEditText.Text(chk_AllowToEditText);
             lng.s_ElectronicDevice_ID.Text(lbL_ElectronicDevice_ID);
+            lng.s_grp_ColorSettings.Text(grp_ColorSettings);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sTextArr;

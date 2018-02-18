@@ -19,7 +19,6 @@ namespace ColorSettings
 
         public static dsColorSheme dsColorSheme = new dsColorSheme();
 
-        public static List<ColorSheme> ShemeList = new List<ColorSheme>();
 
         public static int Count
         {
@@ -136,161 +135,10 @@ namespace ColorSettings
             return ColorShemeCurrent;
         }
 
-        public static ColorSheme Techno = new ColorSettings.ColorSheme(true, "Techno", new System.Drawing.Color[]
-        {
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-            System.Drawing.Color.FromArgb(199, 204, 186),
-            System.Drawing.Color.FromArgb(186, 199, 204),
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-            System.Drawing.Color.FromArgb(199, 204, 186),
-            System.Drawing.Color.FromArgb(186, 199, 204),
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199)
-        });
-
-        public static ColorSheme Nature = new ColorSettings.ColorSheme(true, "Nature", new System.Drawing.Color[]
-        {
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-            System.Drawing.Color.FromArgb(199, 204, 186),
-            System.Drawing.Color.FromArgb(186, 199, 204),
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-            System.Drawing.Color.FromArgb(199, 204, 186),
-            System.Drawing.ColorTranslator.FromHtml("#ffffff"),
-            System.Drawing.ColorTranslator.FromHtml("#e2ffba"),
-            System.Drawing.ColorTranslator.FromHtml("#936b20")
-        });
-
-
-        public static ColorSheme SunSet = new ColorSettings.ColorSheme(true, "SunSet", new System.Drawing.Color[]
-        {
-            System.Drawing.ColorTranslator.FromHtml("#36688D"),
-            System.Drawing.ColorTranslator.FromHtml("#F3CD05"),
-            System.Drawing.ColorTranslator.FromHtml("#F49F05"),
-            System.Drawing.ColorTranslator.FromHtml("#F18904"),
-            System.Drawing.ColorTranslator.FromHtml("#BDA589"),
-            System.Drawing.ColorTranslator.FromHtml("#36688D"),
-            System.Drawing.ColorTranslator.FromHtml("#F3CD05"),
-            System.Drawing.ColorTranslator.FromHtml("#F49F05"),
-            System.Drawing.ColorTranslator.FromHtml("#F18904"),
-            System.Drawing.ColorTranslator.FromHtml("#BDA589")
-        });
-
-        public static ColorSheme Retro = new ColorSettings.ColorSheme(true, "Retro", new System.Drawing.Color[]
-        {
-            System.Drawing.ColorTranslator.FromHtml("#A7414A"),
-            System.Drawing.ColorTranslator.FromHtml("#282726"),
-            System.Drawing.ColorTranslator.FromHtml("#6A8A82"),
-            System.Drawing.ColorTranslator.FromHtml("#A37C27"),
-            System.Drawing.ColorTranslator.FromHtml("#563838"),
-            System.Drawing.ColorTranslator.FromHtml("#A7414A"),
-            System.Drawing.ColorTranslator.FromHtml("#282726"),
-            System.Drawing.ColorTranslator.FromHtml("#6A8A82"),
-            System.Drawing.ColorTranslator.FromHtml("#A37C27"),
-            System.Drawing.ColorTranslator.FromHtml("#563838"),
-        });
-
-        public static ColorSheme Shimmering = new ColorSettings.ColorSheme(true, "Shimmering", new System.Drawing.Color[]
-{
-            System.Drawing.ColorTranslator.FromHtml("#0444BF"),
-            System.Drawing.ColorTranslator.FromHtml("#0584F2"),
-            System.Drawing.ColorTranslator.FromHtml("#0AAFF1"),
-            System.Drawing.ColorTranslator.FromHtml("#EDF259"),
-            System.Drawing.ColorTranslator.FromHtml("#A79674"),
-            System.Drawing.ColorTranslator.FromHtml("#0444BF"),
-            System.Drawing.ColorTranslator.FromHtml("#0584F2"),
-            System.Drawing.ColorTranslator.FromHtml("#0AAFF1"),
-            System.Drawing.ColorTranslator.FromHtml("#EDF259"),
-            System.Drawing.ColorTranslator.FromHtml("#A79674")
-});
-
-        public static ColorSheme MediterraneanDark = new ColorSettings.ColorSheme(true, "MediterraneanDark", new System.Drawing.Color[]
-{
-            System.Drawing.ColorTranslator.FromHtml("#ABA6BF"),
-            System.Drawing.ColorTranslator.FromHtml("#595775"),
-            System.Drawing.ColorTranslator.FromHtml("#583E2E"),
-            System.Drawing.ColorTranslator.FromHtml("#F1E0D6"),
-            System.Drawing.ColorTranslator.FromHtml("#BF988F"),
-            System.Drawing.ColorTranslator.FromHtml("#ABA6BF"),
-            System.Drawing.ColorTranslator.FromHtml("#595775"),
-            System.Drawing.ColorTranslator.FromHtml("#583E2E"),
-            System.Drawing.ColorTranslator.FromHtml("#F1E0D6"),
-            System.Drawing.ColorTranslator.FromHtml("#BF988F")
-});
-
-        public static ColorSheme MagentasAndYelows = new ColorSettings.ColorSheme(true, "MagentasAndYelows", new System.Drawing.Color[]
-{
-            System.Drawing.ColorTranslator.FromHtml("#DAA2DA"),
-            System.Drawing.ColorTranslator.FromHtml("#DBB4DA"),
-            System.Drawing.ColorTranslator.FromHtml("#DE8CF0"),
-            System.Drawing.ColorTranslator.FromHtml("#BED905"),
-            System.Drawing.ColorTranslator.FromHtml("#93A806"),
-            System.Drawing.ColorTranslator.FromHtml("#DAA2DA"),
-            System.Drawing.ColorTranslator.FromHtml("#DBB4DA"),
-            System.Drawing.ColorTranslator.FromHtml("#DE8CF0"),
-            System.Drawing.ColorTranslator.FromHtml("#BED905"),
-            System.Drawing.ColorTranslator.FromHtml("#93A806")
-});
-
-        public static ColorSheme Custom = new ColorSettings.ColorSheme(true, "Custom", new System.Drawing.Color[]
-        {
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-            System.Drawing.Color.FromArgb(199, 204, 186),
-            System.Drawing.Color.FromArgb(186, 199, 204),
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-            System.Drawing.Color.FromArgb(199, 204, 186),
-            System.Drawing.Color.FromArgb(186, 199, 204),
-            System.Drawing.Color.FromArgb(255, 128, 0),
-            System.Drawing.Color.FromArgb(204, 186, 199),
-        });
 
         public static void SetDeafult()
         {
-            ShemeList.Clear();
-            ShemeList.Add(Nature);
-            ShemeList.Add(Techno);
-            ShemeList.Add(SunSet);
-            ShemeList.Add(Retro);
-            ShemeList.Add(Shimmering);
-            ShemeList.Add(MediterraneanDark);
-            ShemeList.Add(MagentasAndYelows);
-            ShemeList.Add(Custom);
-            foreach (ColorSheme sheme in ShemeList)
-            {
-                CreateSheme(sheme, false);
-            }
-        }
-
-
-        private static void CreateSheme(ColorSheme sheme, bool read_only)
-        {
-            DataTable Sheme = dsColorSheme.Tables["Sheme"];
-            DataRow drColorSheme = Sheme.NewRow();
-            drColorSheme["Name"] = sheme.Name;
-            drColorSheme["ReadOnly"] = read_only;
-            int id = (int) drColorSheme["ID"];
-            Sheme.Rows.Add(drColorSheme);
-            DataTable Colors = dsColorSheme.Tables["Colors"];
-            DataRow drColorValue = Colors.NewRow();
-            drColorValue["Sheme_ID"] = id;
-            for (int i = 0; i < 10; i++)
-            {
-                if (sheme.color.Length > i)
-                {
-                    drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.color[i]);
-                }
-                else
-                {
-                    int grv = (i * 20) % 256;
-                    drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
-                }
-            }
-            Colors.Rows.Add(drColorValue);
+            ShemeList.SetDefault();
         }
 
         public static bool Load(ref string Err)
@@ -373,17 +221,7 @@ namespace ColorSettings
 
         private static void SetShemeList()
         {
-            ShemeList.Clear();
-            DataTable dtSheme = dsColorSheme.Tables["Sheme"];
-            foreach (DataRow drsheme in dtSheme.Rows)
-            {
-                string name = (string)drsheme["Name"];
-                ColorSheme colorsheme = Get(name,true);
-                if (colorsheme!=null)
-                {
-                    ShemeList.Add(colorsheme);
-                }
-            }
+            ShemeList.SetShemeList();
         }
 
         private static void GrantFolderAccess(string Folder)
