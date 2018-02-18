@@ -436,7 +436,8 @@ namespace Tangenta
 
         private bool AskToExit()
         {
-            if ((Program.nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) && (Program.bFirstTimeInstallation))
+            if (((Program.nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) && (Program.bFirstTimeInstallation)) ||
+                ((Program.nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)&&(Program.nav.m_eButtons== Navigation.eButtons.PrevNextExit)))
             {
                 return true;
             }

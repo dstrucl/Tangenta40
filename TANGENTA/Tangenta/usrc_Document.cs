@@ -50,52 +50,6 @@ namespace Tangenta
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
-        public bool Get_ProgramSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            if (fs.Get_JOURNAL_TYPE_ID())
-            {
-            do_Get_ProgramSettings:
-                if (Get_ProgramSettings(xnav, true))
-                {
-                    switch (xnav.eExitResult)
-                    {
-                        case NavigationButtons.Navigation.eEvent.NEXT:
-                            if (Get_FVI(xnav))
-                            {
-                                switch (xnav.eExitResult)
-                                {
-                                    case NavigationButtons.Navigation.eEvent.NEXT:
-                                        //myStartup.eNextStep++;
-                                        return true;
-                                    case NavigationButtons.Navigation.eEvent.PREV:
-                                        goto do_Get_ProgramSettings;
-
-                                    case NavigationButtons.Navigation.eEvent.EXIT:
-                                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                        return true;
-
-
-                                }
-                            }
-                            break;
-
-                        case NavigationButtons.Navigation.eEvent.PREV:
-                            //myStartup.eNextStep--;
-                            return true;
-                        case NavigationButtons.Navigation.eEvent.EXIT:
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return true;
-                    }
-                }
-                else
-                {
-                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                }
-                return true;
-            }
-            return false;
-        }
-
         private bool Get_FVI(Navigation xnav)
         {
             Program.b_FVI_SLO = false;
@@ -106,7 +60,7 @@ namespace Tangenta
                     Program.b_FVI_SLO = true;
                     if (Program.bFirstTimeInstallation)
                     {
-                    Do_Form_FVI_check:
+                        Do_Form_FVI_check:
                         xnav.ChildDialog = new Form_FVI_check(xnav);
                         xnav.ShowDialog();
                         if (Program.b_FVI_SLO)
@@ -117,7 +71,7 @@ namespace Tangenta
                                 if (FVI_SLO_RealEstateBP_rows_count == 0)
                                 {
 
-                                Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
+                                    Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
                                     xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
                                     xnav.ShowDialog();
@@ -237,7 +191,7 @@ namespace Tangenta
             }
         }
 
-        internal bool Startup_12_Get_Printer(startup myStartup,  ref string Err)
+        internal bool Startup_12_Get_Printer(startup myStartup, ref string Err)
         {
             //Insert default templates for Proforma Invoice and for 
             if (f_doc.InsertDefault())
@@ -252,7 +206,7 @@ namespace Tangenta
                 else
                 {
                     return false;
-                  
+
                 }
             }
             else
@@ -310,7 +264,7 @@ namespace Tangenta
             return this.m_usrc_InvoiceMan.Initialise(Main_Form);
         }
 
-    
+
         internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
         {
             if (m_usrc_InvoiceMan != null)
@@ -352,12 +306,8 @@ namespace Tangenta
 
             if (Program.b_FVI_SLO)
             {
-                
+
                 Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
-                //if (Program.Reset2FactorySettings.FiscalVerification_DLL)
-                //{
-                //    Program.usrc_FVI_SLO1.Settings_Reset(this);
-                //}
             }
 
             if (Program.b_FVI_SLO)
@@ -416,7 +366,7 @@ namespace Tangenta
             return true;
         }
 
-       
+
 
         internal bool GetDBSettings(ref string Err)
         {
@@ -529,245 +479,27 @@ namespace Tangenta
                 return false; // No DataRows;
             }
         }
-
-        //internal bool CheckDataBaseVersion(startup myStartup, ref string Err)
-        //{
-        //    if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
-        //    {
-        //        return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
-        //    }
-        //    else
-        //    {
-        //        if (MessageBox.Show(this.Main_Form, lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n" + lng.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-        //        {
-        //            myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
-        //            return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
-        //        }
-        //        else
-        //        {
-        //            Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n" + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
-        //            //myStartup.eNextStep = startup_step.eStep.Cancel;
-        //            return false;
-        //        }
-        //    }
-        //}
-
-        private bool GetMissingDBSettings(string name)
-        {
-            MessageBox.Show(this, lng.s_No_DB_Settings_for.s + " " + name);
-            NavigationButtons.Navigation nav_FormDBSettings = new Navigation(null);
-            nav_FormDBSettings.bDoModal = true;
-            nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
-            nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
-        repeat_Form_DBSettings:
-            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword);
-            nav_FormDBSettings.ShowDialog();
-            if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
-            {
-                Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
-
-                Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
-                Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
-                Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
-                Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).ShopC_ExclusivelySellFromStock;
-                Program.OperationMode.MultiCurrency = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiCurrencyOperation;
-                return true;
-            }
-            else
-            {
-                if (MessageBox.Show(this, lng.s_WithoutDatabaseSettingsProgramCanNotRun_ExitOKOrCancel.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
-                    goto repeat_Form_DBSettings;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        internal bool InsertSampleData(startup myStartup, NavigationButtons.Navigation xnav, ref string Err)
-        {
-        do_CheckInsertSampleData:
-            if (!xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
-            {
-                myStartup.bInsertSampleData = CheckInsertSampleData(myStartup, xnav);
-                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                {
-                    //myStartup.eNextStep = startup_step.eStep.Check_DataBase; //go back
-                    return true;
-                }
-                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                {
-                    myStartup.bCanceled = true;
-                    //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    return false;
-                }
-            }
-
-            if (myStartup.bInsertSampleData)
-            {
-                bool bCanceled = false;
-                if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.sbd, xnav, Properties.Resources.Tangenta_Icon, ref Err))
-                {
-                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    {
-                        if (xnav.LastStartupDialog_TYPE.Equals("Country_ISO_3166.Form_Select_Country_ISO_3166"))
-                        {
-                            goto do_CheckInsertSampleData;
-                        }
-                        myStartup.sbd.DeleteAll();
-                        //myStartup.eNextStep--; //go back 
-                        return true;
-                    }
-                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                    {
-                        bCanceled = true;
-                        myStartup.bCanceled = bCanceled;
-                    }
-                    if (bCanceled)
-                    {
-                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    }
-                    else
-                    {
-                        //myStartup.eNextStep = startup_step.eStep.GetOrganisationData;
-                        return GlobalData.Type_definitions_Read();
-                    }
-                    return true;
-                }
-                else
-                {
-                    myStartup.bCanceled = bCanceled;
-                    if (bCanceled)
-                    {
-                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                        return false;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show(Err);
-                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                if (fs.Init_Default_DB(ref Err))
-                {
-                    if (GlobalData.Type_definitions_Read())
-                    {
-                        //myStartup.eNextStep++;
-                        return true;
-                    }
-                    else
-                    {
-                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show(Err);
-                    //myStartup.eNextStep = startup_step.eStep.Cancel;
-                    return false;
-                }
-            }
-        }
-
-        internal fs.enum_GetDBSettings eGetDBSettings_Result(startup myStartup)
-        {
-            return myStartup.eGetDBSettings_Result;
-
-            //bool bResult = false;
-            //switch (myStartup.eGetDBSettings_Result)
-            //{
-
-            //    case fs.enum_GetDBSettings.DBSettings_OK:
-            //        bResult = CheckDataBaseVersion(myStartup, ref Err);
-            //        if (bResult)
-            //        {
-            //            //if (Program.bFirstTimeInstallation)
-            //            //{
-            //            //    if (fs.GetTableRowsCount("myOrganisation_Person") == 0)
-            //            //    {
-            //            //        //DataBase Is Empty!
-            //            //        bResult = InsertSampleData(myStartup, xnav, ref Err);
-            //            //        if (xnav.eExitResult == Navigation.eEvent.PREV)
-            //            //        {
-            //            //            goto do_Form_DBSettings;
-            //            //        }
-            //            //    }
-            //            //}
-            //        }
-            //        return bResult;
-
-            //    case fs.enum_GetDBSettings.No_Data_Rows:
-            //    //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
-            //        xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword);
-            //        xnav.ShowForm();
-
-            //        return bResult;
-
-            //    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-            //        LogFile.Error.Show(Err);
-            //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-            //        return false;
-
-            //    case fs.enum_GetDBSettings.No_TextValue:
-            //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-            //        return false;
-
-            //    case fs.enum_GetDBSettings.No_ReadOnly:
-            //        Err = "ERROR enum_GetDBSettings return No_ReadOnly!";
-            //        LogFile.Error.Show(Err);
-            //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-            //        return false;
-
-            //    default:
-            //        Err = "ERROR enum_GetDBSettings not handled!";
-            //        LogFile.Error.Show(Err);
-            //        //myStartup.eNextStep = startup_step.eStep.Cancel;
-            //        return false;
-
-            //}
-        }
-
-        //internal bool Evaluate_CheckDBVersion(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        //{
-        //    return CheckDataBaseVersion(myStartup, ref Err);
-        //}
-
-        internal bool Evaluate_Form_DBSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
-            Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
-            Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
-            Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)xnav.ChildDialog).ShopC_ExclusivelySellFromStock;
-            Program.OperationMode.MultiCurrency = ((Form_DBSettings)xnav.ChildDialog).MultiCurrencyOperation;
-            
-            bool bResult = InsertSampleData(myStartup, xnav, ref Err);
-            return true;
-        }
+    
+       
+    
 
         private bool getWorkPeriod(long myOrganisation_Person_ID, ref long xAtom_WorkPeriod_ID)
-    {
-            string Err = null;
-            if(GlobalData.GetWorkPeriod(myOrganisation_Person_ID,f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
-            {
-                xAtom_WorkPeriod_ID = GlobalData.Atom_WorkPeriod_ID;
-                return true;
-            }
-            else
-            {
-                xAtom_WorkPeriod_ID = -1;
-                GlobalData.Atom_WorkPeriod_ID = -1;
-                return false;
-            }
-    }
+        {
+                string Err = null;
+                if(GlobalData.GetWorkPeriod(myOrganisation_Person_ID,f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                {
+                    xAtom_WorkPeriod_ID = GlobalData.Atom_WorkPeriod_ID;
+                    return true;
+                }
+                else
+                {
+                    xAtom_WorkPeriod_ID = -1;
+                    GlobalData.Atom_WorkPeriod_ID = -1;
+                    return false;
+                }
+        }
     
-    public bool call_Edit_myOrganisationPerson(Form parentform,long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new)
+        public bool call_Edit_myOrganisationPerson(Form parentform,long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new)
         {
             Navigation xnav = new Navigation(null);
             xnav.m_eButtons = Navigation.eButtons.OkCancel;

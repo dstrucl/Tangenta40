@@ -169,13 +169,13 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string WorkingPlace_Name {
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color Color_DocProformaInvoiceForeGround {
             get {
-                return ((string)(this["WorkingPlace_Name"]));
+                return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceForeGround"]));
             }
             set {
-                this["WorkingPlace_Name"] = value;
+                this["Color_DocProformaInvoiceForeGround"] = value;
             }
         }
         
@@ -500,6 +500,18 @@ namespace Tangenta.Properties {
             }
             set {
                 this["HelpRemoteURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color Color_DocInvoiceForeGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocInvoiceForeGround"]));
+            }
+            set {
+                this["Color_DocInvoiceForeGround"] = value;
             }
         }
     }

@@ -641,11 +641,11 @@ namespace Tangenta
         {
             if (IsDocInvoice)
             {
-                this.BackColor = Properties.Settings.Default.Color_DocInvoiceBackGround;
+                this.BackColor = Colors.DocInvoice.BackColor;
             }
             else
             {
-                this.BackColor = Properties.Settings.Default.Color_DocProformaInvoiceBackGround;
+                this.BackColor = Colors.DocProformaInvoice.BackColor;
             }
             if (Program.MainForm != null)
             {

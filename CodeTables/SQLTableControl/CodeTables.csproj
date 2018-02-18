@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASet.cs" />
+    <Compile Include="Colors.cs" />
     <Compile Include="CreateTables_WindowsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -336,6 +337,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CONTROLS\Crom.Controls\Crom.Controls.csproj">
       <Project>{F2999C1D-BED3-4D47-A8AC-8027334ECDC1}</Project>
       <Name>Crom.Controls</Name>

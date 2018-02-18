@@ -31,10 +31,13 @@ namespace Startup
         public usrc_startup_step(startup_step xstartup_step)
         {
             InitializeComponent();
+            this.ForeColor = Colors.usrc_startup_step.ForeColor;
+            this.BackColor = Colors.usrc_startup_step.BackColor;
             startup_step = xstartup_step;
             startup_step.m_usrc_startup_step = this;
             this.lbl_startup_step.Text = startup_step.s_Title;
             Set_UNDEFINED();
+            this.lbl_startup_step.ForeColor = this.ForeColor;
         }
 
         private void Set_UNDEFINED()

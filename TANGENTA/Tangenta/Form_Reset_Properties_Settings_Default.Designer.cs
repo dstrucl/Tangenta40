@@ -40,6 +40,7 @@
             this.chk_TangentaPrint_DLL = new System.Windows.Forms.CheckBox();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.chk_CodeTables_DLL = new System.Windows.Forms.CheckBox();
+            this.chk_ColorSettings_DLL = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_Yes
@@ -149,11 +150,22 @@
             this.chk_CodeTables_DLL.Text = "CodeTables.DLL";
             this.chk_CodeTables_DLL.UseVisualStyleBackColor = true;
             // 
+            // chk_ColorSettings_DLL
+            // 
+            this.chk_ColorSettings_DLL.AutoSize = true;
+            this.chk_ColorSettings_DLL.Location = new System.Drawing.Point(402, 168);
+            this.chk_ColorSettings_DLL.Name = "chk_ColorSettings_DLL";
+            this.chk_ColorSettings_DLL.Size = new System.Drawing.Size(111, 17);
+            this.chk_ColorSettings_DLL.TabIndex = 11;
+            this.chk_ColorSettings_DLL.Text = "ColorSettings.DLL";
+            this.chk_ColorSettings_DLL.UseVisualStyleBackColor = true;
+            // 
             // Form_Reset_Properties_Settings_Default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 251);
+            this.Controls.Add(this.chk_ColorSettings_DLL);
             this.Controls.Add(this.chk_CodeTables_DLL);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.chk_TangentaPrint_DLL);
@@ -190,5 +202,6 @@
         private System.Windows.Forms.CheckBox chk_TangentaPrint_DLL;
         private HUDCMS.usrc_Help usrc_Help1;
         private System.Windows.Forms.CheckBox chk_CodeTables_DLL;
+        private System.Windows.Forms.CheckBox chk_ColorSettings_DLL;
     }
 }

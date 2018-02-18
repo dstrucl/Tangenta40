@@ -147,6 +147,7 @@ namespace Tangenta
             internal static bool TangentaPrint_DLL = false;
             internal static bool FiscalVerification_DLL = false;
             internal static bool LogFile_DLL = false;
+            internal static bool ColorSettings_DLL = false;
         }
 
         public static bool bFirstTimeInstallation = false;
@@ -467,6 +468,7 @@ namespace Tangenta
                                         Err);
                     }
 
+
                     Parse_CommandLineArguments(CommandLineArguments);
 
                 DoResetNew:
@@ -531,6 +533,7 @@ namespace Tangenta
                         goto DoResetNew;
                     }
 
+                    ColorSettings.Sheme.Load(ref Err);
 
                     IniFolder = Application.CommonAppDataPath;
                     int iLen = IniFolder.Length;
@@ -730,6 +733,7 @@ namespace Tangenta
                 Reset2FactorySettings.LangugaControl_DLL = frm_set.bLangugaControl_DLL;
                 Reset2FactorySettings.TangentaPrint_DLL = frm_set.bTangentaPrint_DLL;
                 Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
+                Reset2FactorySettings.ColorSettings_DLL = frm_set.bColorSettings_DLL;
             }
             else
             {
@@ -739,12 +743,19 @@ namespace Tangenta
                 Reset2FactorySettings.LangugaControl_DLL = false;
                 Reset2FactorySettings.TangentaPrint_DLL = false;
                 Reset2FactorySettings.FiscalVerification_DLL = false;
+                Reset2FactorySettings.ColorSettings_DLL = false;
             }
 
             if (Reset2FactorySettings.CodeTables_DLL)
             {
                 CodeTables.SQLTable.ResetSettings();
             }
+
+            if (Reset2FactorySettings.ColorSettings_DLL)
+            {
+                ColorSettings.Sheme.ResetSettings();
+            }
+
         }
 
         internal static bool DoLoginAsAdministrator(Form frm)

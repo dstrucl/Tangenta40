@@ -19,6 +19,7 @@ namespace Tangenta
         internal bool bLangugaControl_DLL = false;
         internal bool bTangentaPrint_DLL = false;
         internal bool bLogFile_DLL = false;
+        internal bool bColorSettings_DLL = false;
 
         public Form_Reset_Properties_Settings_Default()
         {
@@ -30,7 +31,8 @@ namespace Tangenta
             this.chk_LanguageControl_DLL.Checked = true;
             this.chk_TangentaPrint_DLL.Checked = true;
             this.chk_FiscalVerifiaction.Checked = false;
-            this.chk_LogFile_DLL.Checked = true; 
+            this.chk_LogFile_DLL.Checked = true;
+            this.chk_ColorSettings_DLL.Checked = true;
             lng.s_Yes.Text(btn_Yes);
             lng.s_No.Text(btn_No);
             lng.s_Form_Reset_Properties_Settings_Default.Text(this);
@@ -45,6 +47,7 @@ namespace Tangenta
             bTangentaPrint_DLL = this.chk_TangentaPrint_DLL.Checked;
             bFiscalVerification_DLL = this.chk_FiscalVerifiaction.Checked;
             bLogFile_DLL = this.chk_LogFile_DLL.Checked;
+            bColorSettings_DLL = this.chk_ColorSettings_DLL.Checked;
             Close();
             this.DialogResult = DialogResult.Yes;
         }

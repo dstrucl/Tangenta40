@@ -41,6 +41,9 @@
             this.btn_DBSettings = new System.Windows.Forms.Button();
             this.lbl_AppData = new System.Windows.Forms.Label();
             this.txt_ApplicationDataFolder = new System.Windows.Forms.TextBox();
+            this.grp_ColorSettings = new System.Windows.Forms.GroupBox();
+            this.usrc_SelectColorSheme1 = new ColorSettings.usrc_SelectColorSheme();
+            this.grp_ColorSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // chk_AllowToEditText
@@ -159,8 +162,9 @@
             // 
             // lbl_AppData
             // 
+            this.lbl_AppData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_AppData.AutoSize = true;
-            this.lbl_AppData.Location = new System.Drawing.Point(8, 274);
+            this.lbl_AppData.Location = new System.Drawing.Point(-1, 436);
             this.lbl_AppData.Name = "lbl_AppData";
             this.lbl_AppData.Size = new System.Drawing.Size(88, 13);
             this.lbl_AppData.TabIndex = 42;
@@ -171,17 +175,40 @@
             this.txt_ApplicationDataFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_ApplicationDataFolder.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(6, 249);
+            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 452);
             this.txt_ApplicationDataFolder.Name = "txt_ApplicationDataFolder";
             this.txt_ApplicationDataFolder.ReadOnly = true;
             this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(570, 20);
             this.txt_ApplicationDataFolder.TabIndex = 41;
             // 
+            // grp_ColorSettings
+            // 
+            this.grp_ColorSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grp_ColorSettings.Controls.Add(this.usrc_SelectColorSheme1);
+            this.grp_ColorSettings.Location = new System.Drawing.Point(10, 240);
+            this.grp_ColorSettings.Name = "grp_ColorSettings";
+            this.grp_ColorSettings.Size = new System.Drawing.Size(561, 191);
+            this.grp_ColorSettings.TabIndex = 43;
+            this.grp_ColorSettings.TabStop = false;
+            this.grp_ColorSettings.Text = "Color Settings";
+            // 
+            // usrc_SelectColorSheme1
+            // 
+            this.usrc_SelectColorSheme1.AutoScroll = true;
+            this.usrc_SelectColorSheme1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_SelectColorSheme1.Location = new System.Drawing.Point(3, 16);
+            this.usrc_SelectColorSheme1.Name = "usrc_SelectColorSheme1";
+            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(555, 172);
+            this.usrc_SelectColorSheme1.TabIndex = 0;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(576, 297);
+            this.ClientSize = new System.Drawing.Size(576, 475);
+            this.Controls.Add(this.grp_ColorSettings);
             this.Controls.Add(this.lbl_AppData);
             this.Controls.Add(this.txt_ApplicationDataFolder);
             this.Controls.Add(this.btn_DBSettings);
@@ -199,6 +226,7 @@
             this.Name = "Form_ProgramSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit_Form";
+            this.grp_ColorSettings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,5 +245,7 @@
         private System.Windows.Forms.Button btn_DBSettings;
         private System.Windows.Forms.Label lbl_AppData;
         private System.Windows.Forms.TextBox txt_ApplicationDataFolder;
+        private System.Windows.Forms.GroupBox grp_ColorSettings;
+        private ColorSettings.usrc_SelectColorSheme usrc_SelectColorSheme1;
     }
 }

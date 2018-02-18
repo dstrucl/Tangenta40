@@ -95,6 +95,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Management.Automation.6.1.7601.17515\lib\net40\System.Management.Automation.dll</HintPath>
@@ -123,6 +124,7 @@
     <Compile Include="Booting_02_Check_DBType.cs" />
     <Compile Include="Booting_01_TangentaLicence.cs" />
     <Compile Include="Booting_00_TangentaAbout.cs" />
+    <Compile Include="Colors.cs" />
     <Compile Include="Form_FirstTimeInstallationGreeting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -828,6 +830,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\Check\Check.csproj">
       <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
       <Name>Check</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
       <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>

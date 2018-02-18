@@ -48,6 +48,8 @@ namespace Startup
 
         public void Init()
         {
+            this.BackColor = Colors.usrc_startup.BackColor;
+            this.lbl_StartUp.ForeColor = Colors.usrc_startup.ForeColor;
             int iStep = 0;
             int iCountStep1 = m_startup.Steps.Count();
             for (iStep = 0; iStep < iCountStep1; iStep++)
@@ -62,6 +64,8 @@ namespace Startup
                 xusrc_startup_step.ExitProgram += Xusrc_startup_step_ExitProgram;
                 xusrc_startup_step.ExitPrev += Xusrc_startup_step_ExitPrev;
                 xusrc_startup_step.Finished += Xusrc_startup_step_Finished;
+                xusrc_startup_step.BackColor = Colors.usrc_startup_step.BackColor;
+                xusrc_startup_step.ForeColor = Colors.usrc_startup_step.ForeColor;
                 this.Controls.Add(xusrc_startup_step);
             }
         }

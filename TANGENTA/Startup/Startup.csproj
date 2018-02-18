@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colors.cs" />
     <Compile Include="Form_LicenseAgreement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +101,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\Check\Check.csproj">
       <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
       <Name>Check</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>

@@ -37,7 +37,7 @@
             // lbl_startup_step
             // 
             this.lbl_startup_step.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_startup_step.ForeColor = System.Drawing.Color.Teal;
+            this.lbl_startup_step.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lbl_startup_step.Location = new System.Drawing.Point(2, 7);
             this.lbl_startup_step.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_startup_step.Name = "lbl_startup_step";
@@ -60,6 +60,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.check1);
             this.Controls.Add(this.lbl_startup_step);
             this.Margin = new System.Windows.Forms.Padding(2);

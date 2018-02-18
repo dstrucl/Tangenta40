@@ -36,6 +36,7 @@
             // 
             this.lbl_StartUp.AutoSize = true;
             this.lbl_StartUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_StartUp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lbl_StartUp.Location = new System.Drawing.Point(18, 12);
             this.lbl_StartUp.Name = "lbl_StartUp";
             this.lbl_StartUp.Size = new System.Drawing.Size(70, 26);
@@ -60,7 +61,7 @@
             // usrc_Startup
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.usrc_web_Help1);
             this.Controls.Add(this.lbl_StartUp);
             this.Name = "usrc_Startup";
