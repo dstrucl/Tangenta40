@@ -102,7 +102,7 @@ namespace Tangenta
             this.m_usrc_Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Help.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.m_usrc_Help.Location = new System.Drawing.Point(866, 1);
-            this.m_usrc_Help.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.m_usrc_Help.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_Help.Name = "m_usrc_Help";
             this.m_usrc_Help.Size = new System.Drawing.Size(40, 31);
             this.m_usrc_Help.TabIndex = 5;
@@ -115,7 +115,7 @@ namespace Tangenta
             this.usrc_FVI_SLO1.FursTESTEnvironment = false;
             this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(733, 1);
-            this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.MessageBox_Length = 100;
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(40, 31);
@@ -127,7 +127,7 @@ namespace Tangenta
             this.usrc_TangentaPrint1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_TangentaPrint1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_TangentaPrint1.Location = new System.Drawing.Point(777, 1);
-            this.usrc_TangentaPrint1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_TangentaPrint1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_TangentaPrint1.Name = "usrc_TangentaPrint1";
             this.usrc_TangentaPrint1.Size = new System.Drawing.Size(40, 31);
             this.usrc_TangentaPrint1.TabIndex = 7;
@@ -138,7 +138,7 @@ namespace Tangenta
             | System.Windows.Forms.AnchorStyles.Right)));
             this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.AWP;
             this.loginControl1.Location = new System.Drawing.Point(493, 1);
-            this.loginControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.loginControl1.MinPasswordLength = 5;
             this.loginControl1.Name = "loginControl1";
             this.loginControl1.RecentItemsFolder = "";
@@ -172,7 +172,7 @@ namespace Tangenta
         private System.Windows.Forms.Button btn_Backup;
         private System.Windows.Forms.Button btn_CodeTables;
         private usrc_TangentaPrint usrc_TangentaPrint1;
-        private LoginControl.LoginCtrl loginControl1;
         internal FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
+        internal LoginControl.LoginCtrl loginControl1;
     }
 }

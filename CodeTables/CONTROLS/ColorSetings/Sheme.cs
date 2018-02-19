@@ -71,6 +71,22 @@ namespace ColorSettings
             }
         }
 
+
+        
+        private static string m_slng_Form_ColorPicker_Caption = "Select color pair";
+
+        public static string slng_Form_ColorPicker_Caption
+        {
+            get
+            {
+                return m_slng_Form_ColorPicker_Caption;
+            }
+            set
+            {
+                m_slng_Form_ColorPicker_Caption = value;
+            }
+        }
+
         private static ColorSheme ColorShemeCurrent = new ColorSheme();
         private static ColorSheme ColorShemeTemp = new ColorSheme();
 

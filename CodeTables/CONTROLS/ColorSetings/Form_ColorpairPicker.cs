@@ -46,6 +46,7 @@ namespace ColorSettings
             this.usrc_ColorPicker_BackColor.ColorPickerType = Sheme.slng_BackColor;
             this.usrc_ColorPicker_ForeColor.ColorSelected = m_ForeColorSelected;
             this.usrc_ColorPicker_BackColor.ColorSelected = m_BackColorSelected;
+            this.Text = Sheme.slng_Form_ColorPicker_Caption;
         }
 
         private void btn_OK_Click(object sender, EventArgs e)

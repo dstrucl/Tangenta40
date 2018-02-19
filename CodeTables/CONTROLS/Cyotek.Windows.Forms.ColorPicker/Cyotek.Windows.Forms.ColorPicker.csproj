@@ -153,6 +153,12 @@
     <None Include="Resources\palette-load.png" />
     <None Include="Resources\palette-save.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ColorPicker.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color Picker.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

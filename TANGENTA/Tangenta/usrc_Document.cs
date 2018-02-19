@@ -615,7 +615,7 @@ namespace Tangenta
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            if (Program.DoLoginAsAdministrator((Form)this.Parent))
+            if (Program.OpenTheDoor(Global.f.GetParentForm(this),typeof(Form_ProgramSettings)))
             {
                 NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation(null);
                 nav_Form_ProgramSettings.bDoModal = true;

@@ -25,6 +25,12 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext slng_AndFontSize  = new ltext(new string[] { " and font size = ", " in velikostjo pisave = " });
+        public static ltext slng_BackColor = new ltext(new string[] { " Back color ", " Barva ozadja " });
+        public static ltext slng_ForeColor = new ltext(new string[] { " Fore color ", " Barva pisave (ospredja) " });
+        public static ltext slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily = new ltext(new string[] { " This is text to demostrate color pair of textbox for Font Family:", " To je besedilo ki prikazuje kako izgleda to besedilo v dolčeni barvi pri obliki pisave tipa:" });
+
+
         public static ltext s_slng_WriteSomethingAbout = new ltext(new string[] { " Write something about ", " Napišite nekaj o " });
 
         public static ltext s_Form_Reset_Properties_Settings_Default = new ltext(new string[] { "Reset properties to default values", "Ponastavitev nastavitev na začetno tovarniško vrednost"});// referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Reset_Properties_Settings_Default.cs

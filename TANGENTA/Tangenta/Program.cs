@@ -187,6 +187,25 @@ namespace Tangenta
                 return typeof(Tangenta.Program).Assembly.GetName().Name;
             }
         }
+
+        public static bool IsAdministratorUser
+        {
+            get
+            {
+                if (Program.MainForm!=null)
+                {
+                    if (Program.MainForm.m_usrc_Main!=null)
+                    {
+                        if (Program.MainForm.m_usrc_Main.loginControl1!=null)
+                        {
+                            return Program.MainForm.m_usrc_Main.loginControl1.IsAdministrator;
+                        }
+                    }
+                }
+                return false;
+            }
+
+        } 
         #endregion
 
         #region Methods
@@ -533,6 +552,7 @@ namespace Tangenta
                         goto DoResetNew;
                     }
 
+                    SetColorSettingsText();
                     ColorSettings.Sheme.Load(ref Err);
 
                     IniFolder = Application.CommonAppDataPath;
@@ -647,6 +667,15 @@ namespace Tangenta
             }
         }
 
+        private static void SetColorSettingsText()
+        {
+            ColorSettings.Sheme.slng_AndFontSize = lng.slng_AndFontSize.s;
+            ColorSettings.Sheme.slng_BackColor = lng.slng_BackColor.s;
+            ColorSettings.Sheme.slng_ForeColor = lng.slng_ForeColor.s;
+            ColorSettings.Sheme.slng_Form_ColorPicker_Caption = lng.slng_BackColor.s;
+            ColorSettings.Sheme.slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily = lng.slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily.s;
+        }
+
         private static void SetAllModulesLanguages()
         {
             lng.SetDictionary();
@@ -682,6 +711,8 @@ namespace Tangenta
             uwpfGUI.lng.SetDictionary();
             LoginControl.lng.SetDictionary();
         }
+
+       
 
         private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)
         {
@@ -769,6 +800,26 @@ namespace Tangenta
                 }
             }
             return false;
+        }
+
+        internal static bool OpenTheDoor(Form parent_form,Type form_Type)
+        {
+            if (form_Type.Equals(typeof(Form_ProgramSettings)))
+            {
+                if (OperationMode.MultiUser)
+                {
+                    return Program.IsAdministratorUser;
+                    
+                }
+                else 
+                {
+                    return DoLoginAsAdministrator(parent_form);
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
