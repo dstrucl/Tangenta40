@@ -1,4 +1,5 @@
 
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,299 +13,291 @@ namespace ColorSettings
 {
     public static class ShemeList
     {
-		public static readonly int ColorPairsCount = 16;
-		
+        public static readonly int ColorPairsCount = 16;
+
         public static List<ColorSheme> items = new List<ColorSheme>();
 
 
         public static ColorSheme Nature = new ColorSettings.ColorSheme(false, "Nature", new ColorPair[]
           {
-
-    new ColorPair(ColorTranslator.FromHtml("#000000"),
-                  ColorTranslator.FromHtml("#F9FEE7")),
-    new ColorPair(ColorTranslator.FromHtml("#000000"),
-                  ColorTranslator.FromHtml("#F7F9DB")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#EAFAC5")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DEF0A6")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#61AC53")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#CCBAC7")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#C7CCBA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#FFFFFF")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#E2FFBA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#936B20"))
-        });
-
-      public static ColorSheme Techno = new ColorSettings.ColorSheme(false, "Techno", new ColorPair[]
-        {
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F3F3F3")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DBDBDB")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#C7CCBA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#7BBFF2")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#CCBAC7")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#C7CCBA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("Silver")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#804000")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC"))
-        });
-      public static ColorSheme SunSet = new ColorSettings.ColorSheme(false, "SunSet", new ColorPair[]
-        {
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#36688D")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F3CD05")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F49F05")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BDA589")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#36688D")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F3CD05")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F49F05")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BDA589")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904"))
-					
-        });
-      public static ColorSheme Retro = new ColorSettings.ColorSheme(false, "Retro", new ColorPair[]
-        {
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#A7414A")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#282726")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#6A8A82")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#A37C27")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#563838")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#A7414A")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#282726")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#6A8A82")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#A37C27")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#563838")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904"))
-					
-        });
-      public static ColorSheme Shimmering = new ColorSettings.ColorSheme(false, "Shimmering", new ColorPair[]
-        {
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#0444BF")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#0584F2")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#0AAFF1")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#EDF259")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#A79674")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#0444BF")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#0584F2")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#0AAFF1")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#EDF259")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#A79674")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904"))
-					
-        });
-      public static ColorSheme MediterraneanDark = new ColorSettings.ColorSheme(false, "MediterraneanDark", new ColorPair[]
-        {
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#ABA6BF")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#595775")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#583E2E")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F1E0D6")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BF988F")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#ABA6BF")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#595775")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#583E2E")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F1E0D6")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BF988F")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904"))
-        });
-      public static ColorSheme MagentasAndYelows = new ColorSettings.ColorSheme(false, "MagentasAndYelows", new ColorPair[]
-        {
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DAA2DA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DBB4DA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DE8CF0")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BED905")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#93A806")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DAA2DA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DBB4DA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#DE8CF0")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BED905")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#93A806")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904"))
-					
-        });
-      public static ColorSheme Custom = new ColorSettings.ColorSheme(false, "Custom", new ColorPair[]
-        {
-			
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#FF8000")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#CCBAC7")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#C7CCBA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#FF8000")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#CCBAC7")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#C7CCBA")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#BAC7CC")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#FF8000")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#CCBAC7")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904")),
-	new ColorPair(ColorTranslator.FromHtml("#000000"),
-					ColorTranslator.FromHtml("#F18904"))
-
-        });
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F9FEE7")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F7F9DB")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#EAFAC5")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DEF0A6")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#61AC53")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#CCBAC7")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#E2FFBA")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#936B20")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#936B20")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#936B20")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#936B20")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#936B20")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#936B20"))  // Color15
+          });
+        public static ColorSheme Techno = new ColorSettings.ColorSheme(false, "Techno", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F3F3F3")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DBDBDB")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#7BBFF2")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#CCBAC7")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("Silver")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC"))  // Color15
+          });
+        public static ColorSheme SunSet = new ColorSettings.ColorSheme(false, "SunSet", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#36688D")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F3CD05")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F49F05")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BDA589")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#36688D")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F3CD05")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F49F05")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904"))  // Color15
+          });
+        public static ColorSheme Retro = new ColorSettings.ColorSheme(false, "Retro", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#A7414A")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#282726")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#6A8A82")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#A37C27")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#563838")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#A7414A")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#282726")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#6A8A82")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#A37C27")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904"))  // Color15
+          });
+        public static ColorSheme Shimmering = new ColorSettings.ColorSheme(false, "Shimmering", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#0444BF")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#0584F2")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#0AAFF1")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#EDF259")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#A79674")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#0444BF")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#0584F2")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#0AAFF1")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#EDF259")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904"))  // Color15
+          });
+        public static ColorSheme MediterraneanDark = new ColorSettings.ColorSheme(false, "MediterraneanDark", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#ABA6BF")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#595775")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#583E2E")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F1E0D6")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BF988F")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#ABA6BF")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#595775")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#583E2E")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F1E0D6")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904"))  // Color15
+          });
+        public static ColorSheme MagentasAndYelows = new ColorSettings.ColorSheme(false, "MagentasAndYelows", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DAA2DA")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DBB4DA")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DE8CF0")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BED905")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#93A806")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DAA2DA")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DBB4DA")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#DE8CF0")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BED905")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904"))  // Color15
+          });
+        public static ColorSheme Custom = new ColorSettings.ColorSheme(false, "Custom", new ColorPair[]
+          {
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#FF8000")),  // Color0
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#CCBAC7")),  // Color1
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color2
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color3
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#FF8000")),  // Color4
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#CCBAC7")),  // Color5
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color6
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#BAC7CC")),  // Color7
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#FF8000")),  // Color8
+ new ColorPair(ColorTranslator.FromHtml("#936B20"),
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color9
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color10
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color11
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color12
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color13
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904")),  // Color14
+ new ColorPair(ColorTranslator.FromHtml("#000000"),
+                 ColorTranslator.FromHtml("#F18904"))  // Color15
+          });
 
         internal static void SetDefault()
         {
@@ -327,61 +320,61 @@ namespace ColorSettings
         {
             DataTable Sheme = ColorSettings.Sheme.dsColorSheme.Tables["Sheme"];
             DataRow drColorSheme = Sheme.NewRow();
-                drColorSheme["Name"] = sheme.Name;
-                drColorSheme["ReadOnly"] = read_only;
-                int id = (int)drColorSheme["ID"];
-                Sheme.Rows.Add(drColorSheme);
-                DataTable Colors = ColorSettings.Sheme.dsColorSheme.Tables["Colors"];
+            drColorSheme["Name"] = sheme.Name;
+            drColorSheme["ReadOnly"] = read_only;
+            int id = (int)drColorSheme["ID"];
+            Sheme.Rows.Add(drColorSheme);
+            DataTable Colors = ColorSettings.Sheme.dsColorSheme.Tables["Colors"];
 
-                DataRow drColorValue = Colors.NewRow();
-                drColorValue["Sheme_ID"] = id;
-                drColorValue["Type"] = "fore";
-                for (int i = 0; i < ColorPairsCount; i++)
+            DataRow drColorValue = Colors.NewRow();
+            drColorValue["Sheme_ID"] = id;
+            drColorValue["Type"] = "fore";
+            for (int i = 0; i < ColorPairsCount; i++)
+            {
+                if (sheme.Colorpair.Length > i)
                 {
-                    if (sheme.Colorpair.Length > i)
-                    {
-                        drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.Colorpair[i].ForeColor);
-                    }
-                    else
-                    {
-                        int grv = (i * 20) % 256;
-                        drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
-                    }
+                    drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.Colorpair[i].ForeColor);
                 }
-                Colors.Rows.Add(drColorValue);
+                else
+                {
+                    int grv = (i * 20) % 256;
+                    drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
+                }
+            }
+            Colors.Rows.Add(drColorValue);
 
-                drColorValue = Colors.NewRow();
-                drColorValue["Sheme_ID"] = id;
-                drColorValue["Type"] = "back";
-                for (int i = 0; i < ColorPairsCount; i++)
+            drColorValue = Colors.NewRow();
+            drColorValue["Sheme_ID"] = id;
+            drColorValue["Type"] = "back";
+            for (int i = 0; i < ColorPairsCount; i++)
+            {
+                if (sheme.Colorpair.Length > i)
                 {
-                    if (sheme.Colorpair.Length > i)
-                    {
-                        drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.Colorpair[i].BackColor);
-                    }
-                    else
-                    {
-                        int grv = (i * 20) % 256;
-                        drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
-                    }
+                    drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.Colorpair[i].BackColor);
                 }
-                Colors.Rows.Add(drColorValue);
+                else
+                {
+                    int grv = (i * 20) % 256;
+                    drColorValue["Color" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
+                }
+            }
+            Colors.Rows.Add(drColorValue);
 
         }
 
         internal static void SetShemeList()
+        {
+            items.Clear();
+            DataTable dtSheme = ColorSettings.Sheme.dsColorSheme.Tables["Sheme"];
+            foreach (DataRow drsheme in dtSheme.Rows)
             {
-                items.Clear();
-                DataTable dtSheme = ColorSettings.Sheme.dsColorSheme.Tables["Sheme"];
-                foreach (DataRow drsheme in dtSheme.Rows)
+                string name = (string)drsheme["Name"];
+                ColorSheme colorsheme = ColorSettings.Sheme.Get(name, true);
+                if (colorsheme != null)
                 {
-                    string name = (string)drsheme["Name"];
-                    ColorSheme colorsheme = ColorSettings.Sheme.Get(name, true);
-                    if (colorsheme != null)
-                    {
-                        items.Add(colorsheme);
-                    }
+                    items.Add(colorsheme);
                 }
             }
         }
     }
+}

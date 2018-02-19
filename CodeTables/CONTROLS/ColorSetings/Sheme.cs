@@ -479,7 +479,7 @@ namespace ColorSettings
                     source.Append(", \"");
                     source.Append(name);
                     source.Append("\"");
-                    source.Append(@", new System.Drawing.Color[]
+                    source.Append(@", new ColorPair[]
         {");
                     DataTable dtColors = dsColorSheme.Tables["Colors"];
                     DataRow[] drcolorsfore = dtColors.Select("Sheme_ID=" + idsheme.ToString()+" and Type = 'fore'");
@@ -501,11 +501,11 @@ namespace ColorSettings
                                 source.Append(shtmlColorback);
                                 if (j < ShemeList.ColorPairsCount-1)
                                 {
-                                    source.Append("\")),");
+                                    source.Append("\")),  // Color"+j.ToString());
                                 }
                                 else
                                 {
-                                    source.Append("\"))");
+                                    source.Append("\"))  // Color"+j.ToString());
                                 }
                             }
                         }
