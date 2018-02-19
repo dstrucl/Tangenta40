@@ -12,7 +12,7 @@
   <xs:element name="dsColorSheme" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsColorSheme" msprop:Generator_UserDSName="dsColorSheme">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Sheme" msprop:Generator_TableClassName="ShemeDataTable" msprop:Generator_TableVarName="tableSheme" msprop:Generator_TablePropName="Sheme" msprop:Generator_RowDeletingName="ShemeRowDeleting" msprop:Generator_RowChangingName="ShemeRowChanging" msprop:Generator_RowEvHandlerName="ShemeRowChangeEventHandler" msprop:Generator_RowDeletedName="ShemeRowDeleted" msprop:Generator_UserTableName="Sheme" msprop:Generator_RowChangedName="ShemeRowChanged" msprop:Generator_RowEvArgName="ShemeRowChangeEvent" msprop:Generator_RowClassName="ShemeRow">
+        <xs:element name="Sheme" msprop:Generator_TableClassName="ShemeDataTable" msprop:Generator_TableVarName="tableSheme" msprop:Generator_RowChangedName="ShemeRowChanged" msprop:Generator_TablePropName="Sheme" msprop:Generator_RowDeletingName="ShemeRowDeleting" msprop:Generator_RowChangingName="ShemeRowChanging" msprop:Generator_RowEvHandlerName="ShemeRowChangeEventHandler" msprop:Generator_RowDeletedName="ShemeRowDeleted" msprop:Generator_RowClassName="ShemeRow" msprop:Generator_UserTableName="Sheme" msprop:Generator_RowEvArgName="ShemeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" minOccurs="0" />
@@ -21,10 +21,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Colors" msprop:Generator_TableClassName="ColorsDataTable" msprop:Generator_TableVarName="tableColors" msprop:Generator_TablePropName="Colors" msprop:Generator_RowDeletingName="ColorsRowDeleting" msprop:Generator_RowChangingName="ColorsRowChanging" msprop:Generator_RowEvHandlerName="ColorsRowChangeEventHandler" msprop:Generator_RowDeletedName="ColorsRowDeleted" msprop:Generator_UserTableName="Colors" msprop:Generator_RowChangedName="ColorsRowChanged" msprop:Generator_RowEvArgName="ColorsRowChangeEvent" msprop:Generator_RowClassName="ColorsRow">
+        <xs:element name="Colors" msprop:Generator_TableClassName="ColorsDataTable" msprop:Generator_TableVarName="tableColors" msprop:Generator_RowChangedName="ColorsRowChanged" msprop:Generator_TablePropName="Colors" msprop:Generator_RowDeletingName="ColorsRowDeleting" msprop:Generator_RowChangingName="ColorsRowChanging" msprop:Generator_RowEvHandlerName="ColorsRowChangeEventHandler" msprop:Generator_RowDeletedName="ColorsRowDeleted" msprop:Generator_RowClassName="ColorsRow" msprop:Generator_UserTableName="Colors" msprop:Generator_RowEvArgName="ColorsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Sheme_ID" msprop:Generator_ColumnVarNameInTable="columnSheme_ID" msprop:Generator_ColumnPropNameInRow="Sheme_ID" msprop:Generator_ColumnPropNameInTable="Sheme_IDColumn" msprop:Generator_UserColumnName="Sheme_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_UserColumnName="Type" type="xs:string" minOccurs="0" />
               <xs:element name="Color0" msprop:Generator_ColumnVarNameInTable="columnColor0" msprop:Generator_ColumnPropNameInRow="Color0" msprop:Generator_ColumnPropNameInTable="Color0Column" msprop:Generator_UserColumnName="Color0" type="xs:string" minOccurs="0" />
               <xs:element name="Color1" msprop:Generator_ColumnVarNameInTable="columnColor1" msprop:Generator_ColumnPropNameInRow="Color1" msprop:Generator_ColumnPropNameInTable="Color1Column" msprop:Generator_UserColumnName="Color1" type="xs:string" minOccurs="0" />
               <xs:element name="Color2" msprop:Generator_ColumnVarNameInTable="columnColor2" msprop:Generator_ColumnPropNameInRow="Color2" msprop:Generator_ColumnPropNameInTable="Color2Column" msprop:Generator_UserColumnName="Color2" type="xs:string" minOccurs="0" />
@@ -35,6 +36,12 @@
               <xs:element name="Color7" msprop:Generator_ColumnVarNameInTable="columnColor7" msprop:Generator_ColumnPropNameInRow="Color7" msprop:Generator_ColumnPropNameInTable="Color7Column" msprop:Generator_UserColumnName="Color7" type="xs:string" minOccurs="0" />
               <xs:element name="Color8" msprop:Generator_ColumnVarNameInTable="columnColor8" msprop:Generator_ColumnPropNameInRow="Color8" msprop:Generator_ColumnPropNameInTable="Color8Column" msprop:Generator_UserColumnName="Color8" type="xs:string" minOccurs="0" />
               <xs:element name="Color9" msprop:Generator_ColumnVarNameInTable="columnColor9" msprop:Generator_ColumnPropNameInRow="Color9" msprop:Generator_ColumnPropNameInTable="Color9Column" msprop:Generator_UserColumnName="Color9" type="xs:string" minOccurs="0" />
+              <xs:element name="Color10" msprop:Generator_ColumnVarNameInTable="columnColor10" msprop:Generator_ColumnPropNameInRow="Color10" msprop:Generator_ColumnPropNameInTable="Color10Column" msprop:Generator_UserColumnName="Color10" type="xs:string" minOccurs="0" />
+              <xs:element name="Color11" msprop:Generator_ColumnVarNameInTable="columnColor11" msprop:Generator_ColumnPropNameInRow="Color11" msprop:Generator_ColumnPropNameInTable="Color11Column" msprop:Generator_UserColumnName="Color11" type="xs:string" minOccurs="0" />
+              <xs:element name="Color12" msprop:Generator_ColumnVarNameInTable="columnColor12" msprop:Generator_ColumnPropNameInRow="Color12" msprop:Generator_ColumnPropNameInTable="Color12Column" msprop:Generator_UserColumnName="Color12" type="xs:string" minOccurs="0" />
+              <xs:element name="Color13" msprop:Generator_ColumnVarNameInTable="columnColor13" msprop:Generator_ColumnPropNameInRow="Color13" msprop:Generator_ColumnPropNameInTable="Color13Column" msprop:Generator_UserColumnName="Color13" type="xs:string" minOccurs="0" />
+              <xs:element name="Color14" msprop:Generator_ColumnVarNameInTable="columnColor14" msprop:Generator_ColumnPropNameInRow="Color14" msprop:Generator_ColumnPropNameInTable="Color14Column" msprop:Generator_UserColumnName="Color14" type="xs:string" minOccurs="0" />
+              <xs:element name="Color15" msprop:Generator_ColumnVarNameInTable="columnColor15" msprop:Generator_ColumnPropNameInRow="Color15" msprop:Generator_ColumnPropNameInTable="Color15Column" msprop:Generator_UserColumnName="Color15" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -47,7 +54,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_Colors_Sheme" msdata:parent="Sheme" msdata:child="Colors" msdata:parentkey="ID" msdata:childkey="Sheme_ID" msprop:Generator_UserChildTable="Colors" msprop:Generator_ChildPropName="GetColorsRows" msprop:Generator_UserRelationName="FK_Colors_Sheme" msprop:Generator_ParentPropName="ShemeRow" msprop:Generator_RelationVarName="relationFK_Colors_Sheme" msprop:Generator_UserParentTable="Sheme" />
+      <msdata:Relationship name="FK_Colors_Sheme" msdata:parent="Sheme" msdata:child="Colors" msdata:parentkey="ID" msdata:childkey="Sheme_ID" msprop:Generator_UserChildTable="Colors" msprop:Generator_ChildPropName="GetColorsRows" msprop:Generator_UserRelationName="FK_Colors_Sheme" msprop:Generator_RelationVarName="relationFK_Colors_Sheme" msprop:Generator_UserParentTable="Sheme" msprop:Generator_ParentPropName="ShemeRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

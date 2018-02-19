@@ -35,21 +35,21 @@ namespace ColorSettings
                 }
         }
 
-        public System.Drawing.Color[] color = null;
+        public ColorPair[] Colorpair = null;
 
-        public ColorSheme(bool read_only,string name, System.Drawing.Color[] xcolor)
+        public ColorSheme(bool read_only,string name, ColorPair[] xcolorpairs)
         {
             m_ReadOnly = read_only;
             m_Name = name;
-            if (xcolor!=null)
+            if (xcolorpairs != null)
             {
-                int icollength = xcolor.Length;
-                if (icollength > 0)
+                int icolpairslength = xcolorpairs.Length;
+                if (icolpairslength > 0)
                 {
-                    color = new System.Drawing.Color[icollength];
-                    for (int i=0;i< icollength;i++)
+                    Colorpair = new ColorPair[icolpairslength];
+                    for (int i=0;i< icolpairslength; i++)
                     {
-                        color[i] = xcolor[i];
+                        Colorpair[i] = new ColorPair(xcolorpairs[i].ForeColor, xcolorpairs[i].BackColor);
                     }
                 }
             }
@@ -58,7 +58,5 @@ namespace ColorSettings
         public ColorSheme()
         {
         }
-
-
     }
 }

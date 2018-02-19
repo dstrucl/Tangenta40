@@ -9,21 +9,15 @@ namespace ColorSettings
 {
     public class CtrlColors
     {
-        private int m_BackColorIndex = 0;
+        private int m_ColorpairIndex = 0;
 
         private System.Drawing.Color foreColor = System.Drawing.Color.Black;
         private System.Drawing.Color backColor = System.Drawing.Color.White;
 
-        public int BackColorIndex
+        public int ColorpairIndex
         {
-            get { return m_BackColorIndex; }
-            set { m_BackColorIndex = value; }
-        }
-        private int m_ForeColorIndex = 0;
-        public int ForeColorIndex
-        {
-            get { return m_ForeColorIndex; }
-            set { m_ForeColorIndex = value; }
+            get { return m_ColorpairIndex; }
+            set { m_ColorpairIndex = value; }
         }
 
         private string m_Name = "";
@@ -40,9 +34,9 @@ namespace ColorSettings
                 ColorSheme csheme = Sheme.Current();
                 if (csheme!=null)
                 {
-                    if (csheme.color.Length> m_BackColorIndex)
+                    if (csheme.Colorpair.Length > m_ColorpairIndex)
                     {
-                        return csheme.color[m_BackColorIndex];
+                        return csheme.Colorpair[m_ColorpairIndex].BackColor;
                     }
                 }
                 return backColor;
@@ -56,24 +50,21 @@ namespace ColorSettings
                 ColorSheme csheme = Sheme.Current();
                 if (csheme != null)
                 {
-                    if (csheme.color.Length > m_ForeColorIndex)
+                    if (csheme.Colorpair.Length > m_ColorpairIndex)
                     {
-                        return csheme.color[m_ForeColorIndex];
+                        return csheme.Colorpair[m_ColorpairIndex].ForeColor;
                     }
                 }
                 return foreColor;
             }
         }
 
-        public CtrlColors(string name,int backcolorindex, int forecolorindex, System.Drawing.Color backcolor, System.Drawing.Color forecolor)
+        public CtrlColors(string name, int colorpairindex, System.Drawing.Color backcolor, System.Drawing.Color forecolor)
         {
             m_Name = name;
-            m_BackColorIndex = backcolorindex;
-            m_ForeColorIndex = forecolorindex;
+            m_ColorpairIndex = colorpairindex;
             backColor = backcolor;
             foreColor = forecolor;
         }
-
-
     }
 }

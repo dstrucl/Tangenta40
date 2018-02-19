@@ -602,6 +602,8 @@ namespace ColorSettings {
             
             private global::System.Data.DataColumn columnSheme_ID;
             
+            private global::System.Data.DataColumn columnType;
+            
             private global::System.Data.DataColumn columnColor0;
             
             private global::System.Data.DataColumn columnColor1;
@@ -621,6 +623,18 @@ namespace ColorSettings {
             private global::System.Data.DataColumn columnColor8;
             
             private global::System.Data.DataColumn columnColor9;
+            
+            private global::System.Data.DataColumn columnColor10;
+            
+            private global::System.Data.DataColumn columnColor11;
+            
+            private global::System.Data.DataColumn columnColor12;
+            
+            private global::System.Data.DataColumn columnColor13;
+            
+            private global::System.Data.DataColumn columnColor14;
+            
+            private global::System.Data.DataColumn columnColor15;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -660,6 +674,14 @@ namespace ColorSettings {
             public global::System.Data.DataColumn Sheme_IDColumn {
                 get {
                     return this.columnSheme_ID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TypeColumn {
+                get {
+                    return this.columnType;
                 }
             }
             
@@ -745,6 +767,54 @@ namespace ColorSettings {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Color10Column {
+                get {
+                    return this.columnColor10;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Color11Column {
+                get {
+                    return this.columnColor11;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Color12Column {
+                get {
+                    return this.columnColor12;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Color13Column {
+                get {
+                    return this.columnColor13;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Color14Column {
+                get {
+                    return this.columnColor14;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Color15Column {
+                get {
+                    return this.columnColor15;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -780,10 +850,29 @@ namespace ColorSettings {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ColorsRow AddColorsRow(ShemeRow parentShemeRowByFK_Colors_Sheme, string Color0, string Color1, string Color2, string Color3, string Color4, string Color5, string Color6, string Color7, string Color8, string Color9) {
+            public ColorsRow AddColorsRow(
+                        ShemeRow parentShemeRowByFK_Colors_Sheme, 
+                        string Type, 
+                        string Color0, 
+                        string Color1, 
+                        string Color2, 
+                        string Color3, 
+                        string Color4, 
+                        string Color5, 
+                        string Color6, 
+                        string Color7, 
+                        string Color8, 
+                        string Color9, 
+                        string Color10, 
+                        string Color11, 
+                        string Color12, 
+                        string Color13, 
+                        string Color14, 
+                        string Color15) {
                 ColorsRow rowColorsRow = ((ColorsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
+                        Type,
                         Color0,
                         Color1,
                         Color2,
@@ -793,7 +882,13 @@ namespace ColorSettings {
                         Color6,
                         Color7,
                         Color8,
-                        Color9};
+                        Color9,
+                        Color10,
+                        Color11,
+                        Color12,
+                        Color13,
+                        Color14,
+                        Color15};
                 if ((parentShemeRowByFK_Colors_Sheme != null)) {
                     columnValuesArray[0] = parentShemeRowByFK_Colors_Sheme[0];
                 }
@@ -820,6 +915,7 @@ namespace ColorSettings {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columnSheme_ID = base.Columns["Sheme_ID"];
+                this.columnType = base.Columns["Type"];
                 this.columnColor0 = base.Columns["Color0"];
                 this.columnColor1 = base.Columns["Color1"];
                 this.columnColor2 = base.Columns["Color2"];
@@ -830,6 +926,12 @@ namespace ColorSettings {
                 this.columnColor7 = base.Columns["Color7"];
                 this.columnColor8 = base.Columns["Color8"];
                 this.columnColor9 = base.Columns["Color9"];
+                this.columnColor10 = base.Columns["Color10"];
+                this.columnColor11 = base.Columns["Color11"];
+                this.columnColor12 = base.Columns["Color12"];
+                this.columnColor13 = base.Columns["Color13"];
+                this.columnColor14 = base.Columns["Color14"];
+                this.columnColor15 = base.Columns["Color15"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -837,6 +939,8 @@ namespace ColorSettings {
             private void InitClass() {
                 this.columnSheme_ID = new global::System.Data.DataColumn("Sheme_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSheme_ID);
+                this.columnType = new global::System.Data.DataColumn("Type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnType);
                 this.columnColor0 = new global::System.Data.DataColumn("Color0", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnColor0);
                 this.columnColor1 = new global::System.Data.DataColumn("Color1", typeof(string), null, global::System.Data.MappingType.Element);
@@ -857,6 +961,18 @@ namespace ColorSettings {
                 base.Columns.Add(this.columnColor8);
                 this.columnColor9 = new global::System.Data.DataColumn("Color9", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnColor9);
+                this.columnColor10 = new global::System.Data.DataColumn("Color10", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor10);
+                this.columnColor11 = new global::System.Data.DataColumn("Color11", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor11);
+                this.columnColor12 = new global::System.Data.DataColumn("Color12", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor12);
+                this.columnColor13 = new global::System.Data.DataColumn("Color13", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor13);
+                this.columnColor14 = new global::System.Data.DataColumn("Color14", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor14);
+                this.columnColor15 = new global::System.Data.DataColumn("Color15", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor15);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1125,6 +1241,22 @@ namespace ColorSettings {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Type {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.TypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Type\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.TypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public string Color0 {
                 get {
                     try {
@@ -1285,6 +1417,102 @@ namespace ColorSettings {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color10 {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.Color10Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color10\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.Color10Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color11 {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.Color11Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color11\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.Color11Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color12 {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.Color12Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color12\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.Color12Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color13 {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.Color13Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color13\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.Color13Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color14 {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.Color14Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color14\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.Color14Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color15 {
+                get {
+                    try {
+                        return ((string)(this[this.tableColors.Color15Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color15\' in table \'Colors\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableColors.Color15Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ShemeRow ShemeRow {
                 get {
                     return ((ShemeRow)(this.GetParentRow(this.Table.ParentRelations["FK_Colors_Sheme"])));
@@ -1304,6 +1532,18 @@ namespace ColorSettings {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetSheme_IDNull() {
                 this[this.tableColors.Sheme_IDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTypeNull() {
+                return this.IsNull(this.tableColors.TypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTypeNull() {
+                this[this.tableColors.TypeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1424,6 +1664,78 @@ namespace ColorSettings {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetColor9Null() {
                 this[this.tableColors.Color9Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColor10Null() {
+                return this.IsNull(this.tableColors.Color10Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColor10Null() {
+                this[this.tableColors.Color10Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColor11Null() {
+                return this.IsNull(this.tableColors.Color11Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColor11Null() {
+                this[this.tableColors.Color11Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColor12Null() {
+                return this.IsNull(this.tableColors.Color12Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColor12Null() {
+                this[this.tableColors.Color12Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColor13Null() {
+                return this.IsNull(this.tableColors.Color13Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColor13Null() {
+                this[this.tableColors.Color13Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColor14Null() {
+                return this.IsNull(this.tableColors.Color14Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColor14Null() {
+                this[this.tableColors.Color14Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColor15Null() {
+                return this.IsNull(this.tableColors.Color15Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColor15Null() {
+                this[this.tableColors.Color15Column] = global::System.Convert.DBNull;
             }
         }
         

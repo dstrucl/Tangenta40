@@ -31,14 +31,15 @@ namespace ColorSettings
         internal void Init(ColorSheme sheme)
         {
             m_color_sheme = sheme;
-            int icolors = m_color_sheme.color.Length;
+            int icolors = m_color_sheme.Colorpair.Length;
             for (int i =0;i< icolors;i++)
             {
                 Label lbl = GetLabel(i);
                 if (lbl!=null)
                 {
                     lbl.Tag = i;
-                    lbl.BackColor = m_color_sheme.color[i];
+                    lbl.BackColor = m_color_sheme.Colorpair[i].BackColor;
+                    lbl.ForeColor = m_color_sheme.Colorpair[i].ForeColor;
                     lbl.Click += Lbl_Click;
                 }
             }
@@ -49,21 +50,18 @@ namespace ColorSettings
             if (sender is Label)
             {
                 Label lbl = (Label)sender;
-                ColorDialog MyDialog = new ColorDialog();
-                // Keeps the user from selecting a custom color.
-                MyDialog.AllowFullOpen = true;
-                // Allows the user to get help. (The default is false.)
-                MyDialog.ShowHelp = true;
-                // Sets the initial color select to the current label color.
-                MyDialog.Color = lbl.BackColor;
-
+                Color forecolor = m_color_sheme.Colorpair[(int)lbl.Tag].ForeColor;
+                Color backcolor = m_color_sheme.Colorpair[(int)lbl.Tag].BackColor;
+                Form_ColorpairPicker frm_ColorpairPicker = new Form_ColorpairPicker(forecolor, backcolor);
                 // Update the label color if the user clicks OK 
-                if (MyDialog.ShowDialog() == DialogResult.OK)
+                if (frm_ColorpairPicker.ShowDialog() == DialogResult.OK)
                 {
-                    lbl.BackColor = MyDialog.Color;
+                    lbl.ForeColor = frm_ColorpairPicker.ForeColorSelected;
+                    lbl.BackColor = frm_ColorpairPicker.BackColorSelected;
                     if (ColorChanged!=null)
                     {
-                        m_color_sheme.color[(int)lbl.Tag] = MyDialog.Color;
+                        m_color_sheme.Colorpair[(int)lbl.Tag].ForeColor = frm_ColorpairPicker.ForeColorSelected;
+                        m_color_sheme.Colorpair[(int)lbl.Tag].BackColor = frm_ColorpairPicker.BackColorSelected;
                         ColorChanged(m_color_sheme);
                     }
                 }
@@ -86,6 +84,11 @@ namespace ColorSettings
                 }
             }
             return null;
+        }
+
+        private void lbl_Col0_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

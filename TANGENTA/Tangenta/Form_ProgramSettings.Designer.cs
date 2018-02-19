@@ -130,7 +130,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(576, 26);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(797, 26);
             this.usrc_NavigationButtons1.TabIndex = 39;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -164,7 +164,7 @@
             // 
             this.lbl_AppData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_AppData.AutoSize = true;
-            this.lbl_AppData.Location = new System.Drawing.Point(-1, 436);
+            this.lbl_AppData.Location = new System.Drawing.Point(-1, 623);
             this.lbl_AppData.Name = "lbl_AppData";
             this.lbl_AppData.Size = new System.Drawing.Size(88, 13);
             this.lbl_AppData.TabIndex = 42;
@@ -175,10 +175,10 @@
             this.txt_ApplicationDataFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_ApplicationDataFolder.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 452);
+            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 639);
             this.txt_ApplicationDataFolder.Name = "txt_ApplicationDataFolder";
             this.txt_ApplicationDataFolder.ReadOnly = true;
-            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(570, 20);
+            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(791, 20);
             this.txt_ApplicationDataFolder.TabIndex = 41;
             // 
             // grp_ColorSettings
@@ -189,7 +189,7 @@
             this.grp_ColorSettings.Controls.Add(this.usrc_SelectColorSheme1);
             this.grp_ColorSettings.Location = new System.Drawing.Point(10, 240);
             this.grp_ColorSettings.Name = "grp_ColorSettings";
-            this.grp_ColorSettings.Size = new System.Drawing.Size(561, 191);
+            this.grp_ColorSettings.Size = new System.Drawing.Size(782, 378);
             this.grp_ColorSettings.TabIndex = 43;
             this.grp_ColorSettings.TabStop = false;
             this.grp_ColorSettings.Text = "Color Settings";
@@ -200,14 +200,14 @@
             this.usrc_SelectColorSheme1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_SelectColorSheme1.Location = new System.Drawing.Point(3, 16);
             this.usrc_SelectColorSheme1.Name = "usrc_SelectColorSheme1";
-            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(555, 172);
+            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(776, 359);
             this.usrc_SelectColorSheme1.TabIndex = 0;
             // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(576, 475);
+            this.ClientSize = new System.Drawing.Size(797, 662);
             this.Controls.Add(this.grp_ColorSettings);
             this.Controls.Add(this.lbl_AppData);
             this.Controls.Add(this.txt_ApplicationDataFolder);
@@ -221,7 +221,6 @@
             this.Controls.Add(this.lbl_Language);
             this.Controls.Add(this.cmb_Language);
             this.Controls.Add(this.chk_AllowToEditText);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_ProgramSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

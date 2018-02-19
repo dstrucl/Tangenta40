@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -13,6 +14,62 @@ namespace ColorSettings
 {
     public static class Sheme
     {
+
+        private static string m_slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily = "This text si to demonstrate ForeColor and BackColor for font family:";
+
+        public static string slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily
+        {
+            get
+            {
+                return m_slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily;
+            }
+            set
+            {
+                m_slng_ThisTextIsToDemostrateColorPairOnLabelForFontFamily = value;
+            }
+        }
+
+        private static string m_slng_AndFontSize = " and font size = ";
+
+        public static string slng_AndFontSize
+        {
+            get
+            {
+                return m_slng_AndFontSize;
+            }
+            set
+            {
+                m_slng_AndFontSize = value;
+            }
+        }
+
+        private static string m_slng_ForeColor = "ForeColor";
+
+        public static string slng_ForeColor
+        {
+            get
+            {
+                return m_slng_ForeColor;
+            }
+            set
+            {
+                m_slng_ForeColor = value;
+            }
+        }
+
+        private static string m_slng_BackColor = "BackColor";
+
+        public static string slng_BackColor
+        {
+            get
+            {
+                return m_slng_BackColor;
+            }
+            set
+            {
+                m_slng_BackColor = value;
+            }
+        }
 
         private static ColorSheme ColorShemeCurrent = new ColorSheme();
         private static ColorSheme ColorShemeTemp = new ColorSheme();
@@ -57,20 +114,34 @@ namespace ColorSettings
                     colorsheme.ReadOnly = (bool)drs_sheme[0]["ReadOnly"];
                     int idsheme = (int)drs_sheme[0]["ID"];
                     DataTable dtcolors = dsColorSheme.Tables["Colors"];
-                    DataRow[] drs_colors = dtcolors.Select("Sheme_ID = " + idsheme.ToString());
-                    int icolorslength = drs_colors.Length;
-                    if (icolorslength > 0)
+                    DataRow[] drs_colorsfore = dtcolors.Select("Sheme_ID = " + idsheme.ToString()+" and Type = 'fore'");
+                    int icolorsforelength = drs_colorsfore.Length;
+                    DataRow[] drs_colorsback = dtcolors.Select("Sheme_ID = " + idsheme.ToString() + " and Type = 'back'");
+                    int icolorsbacklength = drs_colorsback.Length;
+                    if (icolorsforelength > 0)
                     {
-                        colorsheme.color = new System.Drawing.Color[10];
-                        for (int j = 0; j < 10; j++)
+                        if (icolorsbacklength > 0)
                         {
-                            string hexcolor = (string)drs_colors[0]["Color" + j.ToString()];
-                            colorsheme.color[j] = System.Drawing.ColorTranslator.FromHtml(hexcolor);
+                            colorsheme.Colorpair = new ColorPair[ShemeList.ColorPairsCount];
+                            for (int j = 0; j < ShemeList.ColorPairsCount; j++)
+                            {
+                                string hexcolorfore = (string)drs_colorsfore[0]["Color" + j.ToString()];
+                                string hexcolorback = (string)drs_colorsback[0]["Color" + j.ToString()];
+                                colorsheme.Colorpair[j] = new ColorPair(System.Drawing.ColorTranslator.FromHtml(hexcolorfore),
+                                                                      System.Drawing.ColorTranslator.FromHtml(hexcolorback));
+                            }
+                            return colorsheme;
                         }
-                        return colorsheme;
+                        else
+                        {
+                            MessageBox.Show("ERROR:!(icolorsbacklength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'back'\")");
+                            return null;
+                        }
+                        
                     }
                     else
                     {
+                        MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
                         return null;
                     }
                 }
@@ -94,16 +165,30 @@ namespace ColorSettings
             {
                 int idsheme = (int)drsheme[0]["ID"];
                 DataTable dtcolors = dsColorSheme.Tables["Colors"];
-                DataRow[] drcolors = dtcolors.Select("Sheme_ID=" + idsheme.ToString());
-                int drcolorslength = drcolors.Length;
-                if (drcolorslength>0)
+                DataRow[] drcolorsfore = dtcolors.Select("Sheme_ID=" + idsheme.ToString()+" and Type='fore'");
+                int drcolorsforelength = drcolorsfore.Length;
+                DataRow[] drcolorsback = dtcolors.Select("Sheme_ID=" + idsheme.ToString() + " and Type='back'");
+                int drcolorsbacklength = drcolorsfore.Length;
+                if (drcolorsforelength>0)
                 {
-                    for (int j=0;j<10;j++)
+                    if (drcolorsbacklength > 0)
                     {
-                        drcolors[0]["Color" + j.ToString()] = System.Drawing.ColorTranslator.ToHtml(csheme.color[j]);
+                        for (int j = 0; j < ShemeList.ColorPairsCount; j++)
+                        {
+                            drcolorsfore[0]["Color" + j.ToString()] = System.Drawing.ColorTranslator.ToHtml(csheme.Colorpair[j].ForeColor);
+                            drcolorsback[0]["Color" + j.ToString()] = System.Drawing.ColorTranslator.ToHtml(csheme.Colorpair[j].BackColor);
+                        }
+                        string Err = null;
+                        Write(ref Err);
                     }
-                    string Err = null;
-                    Write(ref Err);
+                    else
+                    {
+                        MessageBox.Show("ERROR:!(drcolorsbacklength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'back'\")");
+                    }
+                }
+                else
+                {
+                        MessageBox.Show("ERROR:!(drcolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
                 }
             }
         }
@@ -116,21 +201,33 @@ namespace ColorSettings
             string shemeName = (string)drsheme["Name"];
             bool bReadOnly = (bool)drsheme["ReadOnly"];
             DataTable colors = dsColorSheme.Tables["Colors"];
-            DataRow[] drscolors = colors.Select("Sheme_ID = " + idsheme.ToString());
+            DataRow[] drscolorsfore = colors.Select("Sheme_ID = " + idsheme.ToString()+" and Type='fore'");
+            DataRow[] drscolorsback = colors.Select("Sheme_ID = " + idsheme.ToString() + " and Type='back'");
             ColorShemeCurrent.Name = shemeName;
             ColorShemeCurrent.ReadOnly = bReadOnly;
-            int icolorslength = drscolors.Length;
-            if (icolorslength > 0)
+            int icolorsforelength = drscolorsfore.Length;
+            int icolorsbacklength = drscolorsback.Length;
+            if (icolorsforelength > 0)
             {
-                ColorShemeCurrent.color = new System.Drawing.Color[10];
-                for (int j = 0; j < 10; j++)
+                if (icolorsbacklength > 0)
                 {
-                    ColorShemeCurrent.color[j] = System.Drawing.ColorTranslator.FromHtml((string)drscolors[0]["Color" + j.ToString()]);
+                    ColorShemeCurrent.Colorpair = new ColorPair[ShemeList.ColorPairsCount];
+                    for (int j = 0; j < ShemeList.ColorPairsCount; j++)
+                    {
+                        ColorShemeCurrent.Colorpair[j] = new ColorPair(ColorTranslator.FromHtml((string)drscolorsfore[0]["Color" + j.ToString()]),
+                                                                       ColorTranslator.FromHtml((string)drscolorsback[0]["Color" + j.ToString()]));
+                    }
+                }
+                else
+                {
+                    ColorShemeCurrent.Colorpair = null;
+                    MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
                 }
             }
             else
             {
-                ColorShemeCurrent.color = null;
+                ColorShemeCurrent.Colorpair = null;
+                 MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
             }
             return ColorShemeCurrent;
         }
@@ -327,20 +424,25 @@ namespace ColorSettings
 
                 StringBuilder source = new StringBuilder(15000);
                 string TopPart = @"
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+
 
 namespace ColorSettings
 {
     public static class ShemeList
     {
+		public static readonly int ColorPairsCount = 16;
+		
         public static List<ColorSheme> items = new List<ColorSheme>();
 
-";
+        ";
                 source.Append(TopPart);
 
                 DataTable dtSheme = dsColorSheme.Tables["Sheme"];
@@ -364,28 +466,38 @@ namespace ColorSettings
                     source.Append(@", new System.Drawing.Color[]
         {");
                     DataTable dtColors = dsColorSheme.Tables["Colors"];
-                    DataRow[] drcolors = dtColors.Select("Sheme_ID=" + idsheme.ToString());
-                    int drcolorslength = drcolors.Length;
-                    if (drcolorslength>0)
+                    DataRow[] drcolorsfore = dtColors.Select("Sheme_ID=" + idsheme.ToString()+" and Type = 'fore'");
+                    int drcolorsforelength = drcolorsfore.Length;
+                    DataRow[] drcolorsback = dtColors.Select("Sheme_ID=" + idsheme.ToString() + " and Type = 'back'");
+                    int drcolorsbacklength = drcolorsback.Length;
+                    if (drcolorsforelength > 0)
                     {
-                        for(int j=0;j<10;j++)
+                        if (drcolorsbacklength > 0)
                         {
-                           string shtmlColor = (string) drcolors[0]["Color" + j.ToString()];
-                            source.Append("\r\n    System.Drawing.ColorTranslator.FromHtml(\"");
-                            source.Append(shtmlColor);
-                            if (j < 9)
+                            for (int j = 0; j < ShemeList.ColorPairsCount; j++)
                             {
-                                source.Append("\"),");
-                            }
-                            else
-                            {
-                                source.Append("\")");
+                                string shtmlColorfore = (string)drcolorsfore[0]["Color" + j.ToString()];
+                                string shtmlColorback = (string)drcolorsback[0]["Color" + j.ToString()];
+
+                                source.Append("\r\n new ColorPair(ColorTranslator.FromHtml(\"");
+                                source.Append(shtmlColorfore);
+                                source.Append("\"),\r\n                 ColorTranslator.FromHtml(\"");
+                                source.Append(shtmlColorback);
+                                if (j < ShemeList.ColorPairsCount-1)
+                                {
+                                    source.Append("\")),");
+                                }
+                                else
+                                {
+                                    source.Append("\"))");
+                                }
                             }
                         }
                     }
                     source.Append("\r\n        });");
                 }
                 string BottomPart = @"
+
         internal static void SetDefault()
         {
             items.Clear();
@@ -412,13 +524,15 @@ namespace ColorSettings
                 int id = (int)drColorSheme[""ID""];
                 Sheme.Rows.Add(drColorSheme);
                 DataTable Colors = ColorSettings.Sheme.dsColorSheme.Tables[""Colors""];
+
                 DataRow drColorValue = Colors.NewRow();
                 drColorValue[""Sheme_ID""] = id;
-                for (int i = 0; i < 10; i++)
+                drColorValue[""Type""] = ""fore"";
+                for (int i = 0; i < ColorPairsCount; i++)
                 {
-                    if (sheme.color.Length > i)
+                    if (sheme.Colorpair.Length > i)
                     {
-                        drColorValue[""Color"" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.color[i]);
+                        drColorValue[""Color"" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.Colorpair[i].ForeColor);
                     }
                     else
                     {
@@ -427,6 +541,24 @@ namespace ColorSettings
                     }
                 }
                 Colors.Rows.Add(drColorValue);
+
+                drColorValue = Colors.NewRow();
+                drColorValue[""Sheme_ID""] = id;
+                drColorValue[""Type""] = ""back"";
+                for (int i = 0; i < ColorPairsCount; i++)
+                {
+                    if (sheme.Colorpair.Length > i)
+                    {
+                        drColorValue[""Color"" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(sheme.Colorpair[i].BackColor);
+                    }
+                    else
+                    {
+                        int grv = (i * 20) % 256;
+                        drColorValue[""Color"" + i.ToString()] = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(grv, grv, grv));
+                    }
+                }
+                Colors.Rows.Add(drColorValue);
+
             }
 
             internal static void SetShemeList()
