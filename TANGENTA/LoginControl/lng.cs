@@ -52,7 +52,7 @@ namespace LoginControl
         public static ltext s_TotalWorkTime = new ltext(new string[] { "Total work time:", "Skupni  čas dela:" });
         
 
-        public static ltext s_Login = new ltext(new string[]{"Log-in", " Prijava"});
+        public static ltext s_Login = new ltext(new string[]{"Login", " Prijava"});
 
         public static ltext s_OK = new ltext(new string[]{"OK", " Potrdi"});
 

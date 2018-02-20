@@ -30,6 +30,14 @@ namespace ShopC
         /// </summary>
         public enum eMode { VIEW, EDIT };
 
+        public delegate bool delegate_CheckIfAdministrator();
+        public event delegate_CheckIfAdministrator CheckIfAdministrator = null;
+
+        public delegate bool delegate_CheckAccessPriceList();
+        public event delegate_CheckAccessPriceList CheckAccessPriceList = null;
+
+        public delegate bool delegate_CheckAccessStock();
+        public event delegate_CheckAccessStock CheckAccessStock = null;
 
         public delegate void delegate_ItemAdded();
 
@@ -240,6 +248,14 @@ namespace ShopC
 
         private void btn_Stock_Click(object sender, EventArgs e)
         {
+            if (CheckAccessStock!=null)
+            {
+                if (!CheckAccessStock())
+                {
+                    return;
+                }
+            }
+
             decimal count_in_baskets = 0;
             if (CountInBaskets(ref count_in_baskets))
             {
@@ -288,6 +304,7 @@ namespace ShopC
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
             Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(xnav);
+            frmSelectStockEditType.CheckIfAdministrator += FrmSelectStockEditType_CheckIfAdministrator;
             if (frmSelectStockEditType.ShowDialog(this) == DialogResult.OK)
             {
                 if (frmSelectStockEditType.eaction == Form_SelectStockEditType.eAction.do_EditStockTakeItems)
@@ -305,6 +322,15 @@ namespace ShopC
             {
                 return false;
             }
+        }
+
+        private bool FrmSelectStockEditType_CheckIfAdministrator()
+        {
+            if (CheckIfAdministrator!=null)
+            {
+                return CheckIfAdministrator();
+            }
+            return true;
         }
 
         private void btn_Items_Click(object sender, EventArgs e)
@@ -491,6 +517,18 @@ namespace ShopC
         {
             string s = "\r\n " + lng.s_Item.s + ":" + shopC_Item.UniqueName_v.v;
             XMessage.Box.Show(this, lng.s_Item_Not_In_Offer, s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+        }
+
+        private bool usrc_PriceList1_CheckAccess()
+        {
+            if (CheckAccessPriceList!=null)
+            {
+                return CheckAccessPriceList();
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

@@ -39,23 +39,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Main.AutoScroll = true;
             this.m_usrc_Main.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_Main.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.m_usrc_Main.Name = "m_usrc_Main";
-            this.m_usrc_Main.Size = new System.Drawing.Size(1000, 720);
+            this.m_usrc_Main.Size = new System.Drawing.Size(995, 643);
             this.m_usrc_Main.TabIndex = 0;
             this.m_usrc_Main.Exit_Click += new Tangenta.usrc_Document.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
             // 
             // Form_Document
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1006, 721);
+            this.ClientSize = new System.Drawing.Size(1000, 644);
             this.Controls.Add(this.m_usrc_Main);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_Document";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

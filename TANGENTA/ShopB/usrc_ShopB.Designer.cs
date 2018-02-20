@@ -238,6 +238,7 @@
             this.usrc_PriceList1.Size = new System.Drawing.Size(278, 24);
             this.usrc_PriceList1.TabIndex = 22;
             this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
+            this.usrc_PriceList1.CheckAccess += new PriseLists.usrc_PriceList.delegate_CheckAccess(this.usrc_PriceList1_CheckAccess);
             // 
             // usrc_Help1
             // 

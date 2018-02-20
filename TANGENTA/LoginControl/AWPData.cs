@@ -192,14 +192,14 @@ namespace LoginControl
 
             AllRoles.Add(new AWPRole(-1, AWP.ROLE_Administrator));
             AllRoles.Add(new AWPRole(-1, AWP.ROLE_UserManagement));
-            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WriteInvoice));
-            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WriteProformainvoice));
             AllRoles.Add(new AWPRole(-1, AWP.ROLE_StockTakeManagement));
             AllRoles.Add(new AWPRole(-1, AWP.ROLE_PriceListManagement));
-            AllRoles.Add(new AWPRole(-1, AWP.ROLE_ViewAndExport));
-            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopA));
-            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopB));
-            AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopC));
+            //AllRoles.Add(new AWPRole(-1, AWP.ROLE_WriteInvoice));
+            //AllRoles.Add(new AWPRole(-1, AWP.ROLE_WriteProformainvoice));
+            //AllRoles.Add(new AWPRole(-1, AWP.ROLE_ViewAndExport));
+            //AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopA));
+            //AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopB));
+            //AllRoles.Add(new AWPRole(-1, AWP.ROLE_WorkInShopC));
 
        
         }

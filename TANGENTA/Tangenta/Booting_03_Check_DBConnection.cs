@@ -30,6 +30,10 @@ namespace Tangenta
         internal startup_step CreateStep()
         {
             bDatabaseReset = Program.Reset2FactorySettings.DBConnectionControlXX_EXE;
+            if (Program.bChangeConnection)
+            {
+                bDatabaseReset = true;
+            }
             return new startup_step(lng.s_Startup_Check_DBConnection.s, m_startup, Program.nav,
                                     Startup_03_Check_DBConnection,
                                     Startup_03_Undo,

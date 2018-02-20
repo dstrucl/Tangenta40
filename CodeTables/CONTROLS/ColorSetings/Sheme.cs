@@ -87,6 +87,19 @@ namespace ColorSettings
             }
         }
 
+        private static string m_slng_Form_FCTB_Editor_Caption = "Default ShemeList.cs Editor";
+
+        public static string slng_Form_FCTB_Editor_Caption
+        {
+            get
+            {
+                return m_slng_Form_FCTB_Editor_Caption;
+            }
+            set
+            {
+                m_slng_Form_FCTB_Editor_Caption = value;
+            }
+        }
         private static ColorSheme ColorShemeCurrent = new ColorSheme();
         private static ColorSheme ColorShemeTemp = new ColorSheme();
 

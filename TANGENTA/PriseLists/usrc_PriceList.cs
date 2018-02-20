@@ -26,8 +26,13 @@ namespace PriseLists
         private usrc_PriceList_Edit.eShopType m_eShopType;
 
         public TangentaDB.xPriceList m_xPriceList = null;
+
         public delegate void delegate_PriceListChanged();
         public event delegate_PriceListChanged PriceListChanged = null;
+
+        public delegate bool delegate_CheckAccess();
+        public event delegate_CheckAccess CheckAccess = null;
+
 
         public usrc_PriceList()
         {
@@ -176,6 +181,13 @@ namespace PriseLists
 
         private void btn_PriceListType_Click(object sender, EventArgs e)
         {
+            if (CheckAccess!=null)
+            {
+                if (!CheckAccess())
+                {
+                    return;
+                }
+            }
             bool bPriceListChanged = false;
             this.Cursor = Cursors.WaitCursor;
             Control pctrl = null;

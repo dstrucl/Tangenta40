@@ -28,6 +28,9 @@ namespace ShopB
     {
         public enum eMode { VIEW,EDIT};
 
+        public delegate bool delegate_CheckAccessPriceList();
+        public event delegate_CheckAccessPriceList CheckAccessPriceList = null;
+
         private DataGridViewTextBoxColumn col_Discount = null;
         private DataGridViewTextBoxColumn dgv_total_discount_column = null;
 
@@ -1046,6 +1049,18 @@ namespace ShopB
             int iCount = 0;
             this.GetShopBItemData(ref iCount);
             SetGroups(m_PriceList_id);
+        }
+
+        private bool usrc_PriceList1_CheckAccess()
+        {
+            if (CheckAccessPriceList!=null)
+            {
+                return CheckAccessPriceList();
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

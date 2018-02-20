@@ -20,19 +20,19 @@ namespace XMessage
         public static DialogResult Show(Control owner,bool bStartup,ltext xltext)
         {
             Form_Box dlg = new Form_Box(owner,xltext);
-            return dlg.ShowDialog();
+            return dlg.ShowDialog(owner);
         }
 
         public static DialogResult Show(bool bStartup,Control xOwner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(xOwner, xltext, caption, buttons, oIcon, defaultButton);
-            return dlg.ShowDialog();
+            return dlg.ShowDialog(xOwner);
         }
 
         public static DialogResult Show(Control owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
-            return dlg.ShowDialog();
+            return dlg.ShowDialog(owner);
         }
 
         public static DialogResult Show(Control owner, ltext xltext,string stext, string caption, MessageBoxButtons buttons, object icon, MessageBoxDefaultButton defaultButton)
@@ -45,7 +45,7 @@ namespace XMessage
         public static DialogResult ShowTopMost(Control owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
-            return dlg.ShowDialog();
+            return dlg.ShowDialog(owner);
         }
 
 

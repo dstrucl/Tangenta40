@@ -25,6 +25,12 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_YouMustHaveOneOfThePossibleAccessRightsToEditStock = new ltext(new string[] { "You have no access rights to edit stock. Access rights to edit stock are:", "Imeti morate dodeljeno vsaj eno od naštetith pravic, da bi lahko urejali zaloge:" });
+
+        public static ltext s_YouMustHaveOneOfThePossibleAccessRightsToEditPriceList = new ltext(new string[] { "You  have no access rights to edit price lists. Access rights to edit pricelists are:", "Imeti morate dodeljeno vsaj eno od naštetith pravic, da bi lahko urejali cenike:" });
+
+        public static ltext s_YouMustHaveAdministratorRightsToEditSettings = new ltext(new string[] {"Access denied:you have no administrator rights.\r\nFor edit program settings you need administrator rights!","Dostop zavrnjen:nimate administratorskih pravic!\r\nZa urejanje nastavitev potrebujete administratorske pravice."});
+
         public static ltext slng_AndFontSize  = new ltext(new string[] { " and font size = ", " in velikostjo pisave = " });
         public static ltext slng_BackColor = new ltext(new string[] { " Back color ", " Barva ozadja " });
         public static ltext slng_ForeColor = new ltext(new string[] { " Fore color ", " Barva pisave (ospredja) " });

@@ -27,7 +27,7 @@ namespace LoginControl
             call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
             cmbR_UserName.RecentItemsFolder = awp.lctrl.RecentItemsFolder;
             this.Text = lng.s_Login.s;
-            this.btn_OK.Text = lng.s_OK.s;
+            this.btn_OK.Text = lng.s_Login.s;
             this.btn_Cancel.Text = lng.s_Cancel.s;
             lbl_UserName.Text = lng.s_UserName.s;
             lbl_Password.Text = lng.s_Password.s;

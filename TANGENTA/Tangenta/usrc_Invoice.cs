@@ -213,6 +213,9 @@ namespace Tangenta
             {
                 m_usrc_ShopC = new usrc_ShopC();
                 m_usrc_ShopC.DocInvoice = this.DocInvoice;
+                m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+                m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
+                m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
             m_usrc_ShopC.Init(this.m_ShopABC, DBtcn,Program.Shops_in_use,xnav,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
             if (xnav != null)
@@ -225,6 +228,21 @@ namespace Tangenta
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+        }
+
+        private bool M_usrc_ShopC_CheckIfAdministrator()
+        {
+            return Program.IsAdministratorUser;
+        }
+
+        private bool M_usrc_ShopC_CheckAccessStock()
+        {
+            return Door.OpenStockEdit(Global.f.GetParentForm(this));
+        }
+
+        private bool M_usrcCheckPriceListAccess()
+        {
+            return Door.OpenPriceList(Global.f.GetParentForm(this));
         }
 
         private void Set_eShopsMode_A()
@@ -327,6 +345,8 @@ namespace Tangenta
 
                 m_usrc_ShopB.DocInvoice = this.DocInvoice;
 
+                m_usrc_ShopB.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+
             }
 
             m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use, xnav);
@@ -356,8 +376,6 @@ namespace Tangenta
             m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
 
         }
-
-
 
 
         internal void Set_eShopsMode(string eShopsMode,NavigationButtons.Navigation xnav)
@@ -503,7 +521,6 @@ namespace Tangenta
 
         }
 
-
         public enum enum_GetOrganisation_Person_Data { MyOrganisation_Data_OK,
             No_MyOrganisation_Tax_ID,
             No_MyOrganisation_name,
@@ -519,10 +536,6 @@ namespace Tangenta
             Error_Load_MyOrganisation_data
 
         };
-
-
-
-
 
         private bool EventsActive;
 
@@ -593,12 +606,6 @@ namespace Tangenta
             lng.s_MyOrganisation.Text(lbl_MyOrganisation);
             lng.s_Total.Text(this.lbl_Sum);
 
-            //SetMode(m_mode);
-
-
-
-
-
         }
 
         internal void SetMode(emode mode)
@@ -633,11 +640,6 @@ namespace Tangenta
         public void EnableControls(bool b)
         {
             this.splitContainer1.Enabled = b;
-        }
-
-        private void splitContainer3_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
         }
 
         private bool EditMyOrganisation_Person_Data(int Index,NavigationButtons.Navigation xnav)
@@ -963,11 +965,7 @@ namespace Tangenta
                 return false;
             }
         }
-
-
-
-
-
+        
         void chk_Head_CheckedChanged(object sender, EventArgs e)
         {
             if (chk_Head.Checked)
@@ -1035,12 +1033,6 @@ namespace Tangenta
                     this.m_usrc_ShopB.aa_ExtraDiscount -= new usrc_ShopB.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
                 }
             }
-        }
-
-
-        private bool GetReceiptPrinter()
-        {
-            return false;// Program.usrc_TangentaPrint1.GetReceiptPrinter();
         }
 
         internal void Startup_07_Show_Form_Taxation_Edit(NavigationButtons.Navigation xnav)
@@ -1191,25 +1183,6 @@ namespace Tangenta
             if (m_ShopABC.m_xUnitList.Get(ref dt, ref Err))
             {
                 return true;
-                //if (dt.Rows.Count > 0)
-                //{
-                //    return true;
-                //}
-                //else
-                //{
-                //    dt.Clear();
-                //    if (Edit_Units())
-                //    {
-                //        if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
-                //        {
-                //            if (dt.Rows.Count > 0)
-                //            {
-                //                return true;
-                //            }
-                //        }
-                //    }
-                //    return false;
-                //}
             }
             else
             {
@@ -1362,57 +1335,6 @@ namespace Tangenta
                 return false;
             }
         }
-
-        //public bool Get_ShopC_ItemData(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
-        //{
-        //    if (Program.Shops_in_use.Contains("C"))
-        //    {
-        //        if (myStartup.bInsertSampleData)
-        //        {
-        //            if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items(xnav))
-        //            {
-        //                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-        //                return false;
-        //            }
-        //        }
-        //        if (this.m_usrc_ShopC == null)
-        //        {
-        //            Set_eShopsMode(Program.Shops_in_use,xnav);
-        //        }
-        //    }
-
-
-        //    if (GetItemData(ref iCountItemData,xnav))
-        //    {
-        //        if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
-        //        {
-        //            //myStartup.eNextStep++;
-        //            return true;
-        //        }
-        //        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-        //        {
-        //            //myStartup.eNextStep--;
-        //            return true;
-        //        }
-        //        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-        //        {
-        //            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            LogFile.Error.Show("Error:usrc_Invoice.cs:Get_ShopC_ItemData(..) xnav.eExitResult not implemented!");
-        //            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-        //        return false;
-        //    }
-        //}
-
 
         private bool GetItemData(ref int iCountItemData,NavigationButtons.Navigation xnav)
         {
@@ -1712,21 +1634,6 @@ namespace Tangenta
             }
         }
 
-        private void SetDraft_SelectedSimpleItems()
-        {
-
-        }
-
-        private bool GetDocInvoiceDraft()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool SelectDocInvoice()
-        {
-            throw new NotImplementedException();
-        }
-
         private bool DoSelectBaseCurrency(startup myStartup,NavigationButtons.Navigation xnav, ref string Err)
         {
             if (Select_BaseCurrency(xnav, ref Err))
@@ -1883,28 +1790,6 @@ namespace Tangenta
             }
         }
 
-
-
-
-
-
-
-        private void btn_Preview_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_edit_MyOrganisation_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void cmb_InvoiceType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         public void SetNewDraft(enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, long Atom_Currency_ID)
         {
             switch (eInvoiceType)
@@ -1959,23 +1844,6 @@ namespace Tangenta
                // string Err = null;
                 f_Atom_myOrganisation_Person.Get(Last_myOrganisation_Person_id, ref Atom_myOrganisation_Person_ID, ref office_name);
             }
-        }
-
-
-
-        private void lbl_PriceList_SimpleItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_PriceList_SimpleItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmb_PriceList_SimpleItem_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         public void GetPriceSum()
@@ -2583,16 +2451,6 @@ namespace Tangenta
             nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             nav_EditMyOrganisation_Data.bDoModal = true;
             EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
-        }
-
-        private void usrc_Payment_Data1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void usrc_MethodOfPayment_Data1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void usrc_Currency1_CurrencyChanged(xCurrency currency, long xAtom_Currency_ID)

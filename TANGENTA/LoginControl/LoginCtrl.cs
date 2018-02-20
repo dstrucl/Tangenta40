@@ -107,6 +107,18 @@ namespace LoginControl
             }
         }
 
+        public bool HasLoginControlRole(string[] roles)
+        {
+            if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+            {
+                return awp.HasLoginControlRole(roles);
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public string UserName
         {
             get {

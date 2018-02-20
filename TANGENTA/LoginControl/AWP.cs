@@ -12,14 +12,15 @@ namespace LoginControl
     {
         public const string ROLE_Administrator = "Administrator";
         public const string ROLE_UserManagement = "UserManagement";
-        public const string ROLE_WriteInvoice = "WriteInvoice";
-        public const string ROLE_WriteProformainvoice = "WriteProformaInvoice";
         public const string ROLE_StockTakeManagement = "StockTakeManagement";
         public const string ROLE_PriceListManagement = "PriceListManagement";
-        public const string ROLE_ViewAndExport = "ViewAndExport";
-        public const string ROLE_WorkInShopA = "WorkInShopA";
-        public const string ROLE_WorkInShopB = "WorkInShopB";
-        public const string ROLE_WorkInShopC = "WorkInShopC";
+        // next roles maybe planed in the future
+        //public const string ROLE_WriteInvoice = "WriteInvoice";
+        //public const string ROLE_WriteProformainvoice = "WriteProformaInvoice";
+        //public const string ROLE_ViewAndExport = "ViewAndExport";
+        //public const string ROLE_WorkInShopA = "WorkInShopA";
+        //public const string ROLE_WorkInShopB = "WorkInShopB";
+        //public const string ROLE_WorkInShopC = "WorkInShopC";
 
 
         internal LoginCtrl.delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
@@ -103,6 +104,21 @@ namespace LoginControl
             {
                 return m_AWPLoginData.myOrganisation_Person__per__cfn_FirstName;
             }
+        }
+
+        internal bool HasLoginControlRole(string[] oenofpossiblerequestedrole)
+        {
+            foreach (string rolepossible in oenofpossiblerequestedrole)
+            {
+                foreach (string usrrole in UserRoles)
+                {
+                    if (usrrole.Equals(rolepossible))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public string LastName
@@ -385,37 +401,6 @@ namespace LoginControl
             }
         }
 
-        public bool AWPLogout()
-        {
-            return AWPDoLogout();
-        }
-
-        private bool AWPDoLogout()
-        {
-            string Err = null;
-            //if (m_AWPLoginData.m_LoginSession_id >= 0)
-            //{
-            //    if (m_STDLoginData.m_LoginUsers_id >= 0)
-            //    {
-            //        string Res = null;
-            //        LoginDB_DataSet.LoginDB_DataSet_Procedures logProc = new LoginDB_DataSet.LoginDB_DataSet_Procedures(Login_con);
-            //        logProc.LoginSession_End(m_STDLoginData.m_LoginSession_id, ref Res, ref Err);
-            //        if (Res.Equals("OK"))
-            //        {
-            //            return true;
-            //        }
-            //        else
-            //        {
-            //            if (Err == null)
-            //            {
-            //                Err = "null";
-            //            }
-            //            LogFile.Error.Show("Error:DoLogout:LoginSession_End:Res=" + Res + ", Err=" + Err);
-            //        }
-            //    }
-            //}
-            return false;
-        }
 
         internal enum eAWP_dtLogin_Vaild_result { OK,NO_PASSWORD_FOR_FIRST_USER,NO_USERS}
 

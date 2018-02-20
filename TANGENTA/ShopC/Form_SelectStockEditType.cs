@@ -15,10 +15,14 @@ namespace ShopC
 {
     public partial class Form_SelectStockEditType : Form
     {
+        public delegate bool delegate_CheckIfAdministrator();
+        public event delegate_CheckIfAdministrator CheckIfAdministrator = null ;
+
         public enum eAction { none, do_EditItemsInStock, do_EditStockTakeItems };
         public eAction eaction = Form_SelectStockEditType.eAction.none;
         private Navigation nav = null;
         public bool b_edt_Stock_dlg_Changed = false;
+
 
         public Form_SelectStockEditType(Navigation xnav)
         {
@@ -65,8 +69,18 @@ namespace ShopC
             
         }
 
-        private void Form_SelectStockEditType_FormClosed(object sender, FormClosedEventArgs e)
+     
+        private void Form_SelectStockEditType_Load(object sender, EventArgs e)
         {
+            if (CheckIfAdministrator!=null)
+            {
+                if (!CheckIfAdministrator())
+                {
+                    this.Close();
+                    DialogResult = DialogResult.OK;
+                    eaction = eAction.do_EditStockTakeItems;
+                }
+            }
         }
     }
 }

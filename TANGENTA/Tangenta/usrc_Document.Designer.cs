@@ -79,6 +79,7 @@ namespace Tangenta
             // 
             // btn_CodeTables
             // 
+            this.btn_CodeTables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_CodeTables.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_CodeTables.Image = global::Tangenta.Properties.Resources.CodeTablesImage;
             this.btn_CodeTables.Location = new System.Drawing.Point(689, 1);

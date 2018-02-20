@@ -77,7 +77,7 @@
             this.Name = "Form_SelectStockEditType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_SelectStockEditType";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_SelectStockEditType_FormClosed);
+            this.Load += new System.EventHandler(this.Form_SelectStockEditType_Load);
             this.ResumeLayout(false);
 
         }

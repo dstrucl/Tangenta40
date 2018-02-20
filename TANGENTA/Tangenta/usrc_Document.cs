@@ -558,7 +558,7 @@ namespace Tangenta
                 {
                     if (Program.OperationMode.SingleUserLoginAsAdministrator)
                     {
-                        if (Program.DoLoginAsAdministrator((Form)this.Parent))
+                        if (Door.DoLoginAsAdministrator((Form)this.Parent))
                         {
                             if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
                             {
@@ -615,7 +615,7 @@ namespace Tangenta
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            if (Program.OpenTheDoor(Global.f.GetParentForm(this),typeof(Form_ProgramSettings)))
+            if (Door.Open(Global.f.GetParentForm(this),typeof(Form_ProgramSettings)))
             {
                 NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation(null);
                 nav_Form_ProgramSettings.bDoModal = true;

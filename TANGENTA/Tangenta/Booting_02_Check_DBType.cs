@@ -46,6 +46,11 @@ namespace Tangenta
 
             if (StaticLib.Func.SetApplicationDataSubFolder(ref frm.CodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
+                if (Program.bChangeConnection)
+                {
+                    Properties.Settings.Default.DBType ="";
+                    Properties.Settings.Default.Save();
+                }
                 sDBType = Properties.Settings.Default.DBType;
                 if (sDBType.Length == 0)
                 {

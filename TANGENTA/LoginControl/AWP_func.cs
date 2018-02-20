@@ -279,30 +279,30 @@ SELECT
             {
                 return lng.cn_Role_StockTakeManagemenent.s;
             }
-            else if (role.Equals(AWP.ROLE_ViewAndExport))
-            {
-                return lng.cn_Role_ViewAndExport.s;
-            }
-            else if (role.Equals(AWP.ROLE_WorkInShopA))
-            {
-                return lng.cn_Role_WorkInShopA.s;
-            }
-            else if (role.Equals(AWP.ROLE_WorkInShopB))
-            {
-                return lng.cn_Role_WorkInShopB.s;
-            }
-            else if (role.Equals(AWP.ROLE_WorkInShopC))
-            {
-                return lng.cn_Role_WorkInShopC.s;
-            }
-            else if (role.Equals(AWP.ROLE_WriteInvoice))
-            {
-                return lng.cn_Role_WriteInvoice.s;
-            }
-            else if (role.Equals(AWP.ROLE_WriteProformainvoice))
-            {
-                return lng.cn_Role_WriteProformaInvoice.s;
-            }
+            //else if (role.Equals(AWP.ROLE_ViewAndExport))
+            //{
+            //    return lng.cn_Role_ViewAndExport.s;
+            //}
+            //else if (role.Equals(AWP.ROLE_WorkInShopA))
+            //{
+            //    return lng.cn_Role_WorkInShopA.s;
+            //}
+            //else if (role.Equals(AWP.ROLE_WorkInShopB))
+            //{
+            //    return lng.cn_Role_WorkInShopB.s;
+            //}
+            //else if (role.Equals(AWP.ROLE_WorkInShopC))
+            //{
+            //    return lng.cn_Role_WorkInShopC.s;
+            //}
+            //else if (role.Equals(AWP.ROLE_WriteInvoice))
+            //{
+            //    return lng.cn_Role_WriteInvoice.s;
+            //}
+            //else if (role.Equals(AWP.ROLE_WriteProformainvoice))
+            //{
+            //    return lng.cn_Role_WriteProformaInvoice.s;
+            //}
             else
             {
                 LogFile.Error.Show("ERROR:AWP_func:RoleInLanguage:Role=" + role + " not implemented!");
@@ -1343,7 +1343,24 @@ SELECT
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    AWPRoles.Add(new AWPRole((long)dr["ID"], (string)dr["Role"]));
+                    string xrl = null;
+                    string rl = null;
+                    object orl = dr["Role"];
+                    if (orl is string)
+                    {
+                        rl = (string)orl;
+                        if (rl != null)
+                        {
+                            if (rl.Length > 0)
+                            {
+                                xrl = rl;
+                            }
+                        }
+                    }
+                    if (xrl != null)
+                    {
+                        AWPRoles.Add(new AWPRole((long)dr["ID"], xrl));
+                    }
                 }
                 return true;
             }

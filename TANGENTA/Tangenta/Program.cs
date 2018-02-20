@@ -788,38 +788,5 @@ namespace Tangenta
             }
 
         }
-
-        internal static bool DoLoginAsAdministrator(Form frm)
-        {
-            string AdministratorLockedPassword = null;
-            if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
-            {
-                if (Password.Password.Check(frm, null, AdministratorLockedPassword))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        internal static bool OpenTheDoor(Form parent_form,Type form_Type)
-        {
-            if (form_Type.Equals(typeof(Form_ProgramSettings)))
-            {
-                if (OperationMode.MultiUser)
-                {
-                    return Program.IsAdministratorUser;
-                    
-                }
-                else 
-                {
-                    return DoLoginAsAdministrator(parent_form);
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }
