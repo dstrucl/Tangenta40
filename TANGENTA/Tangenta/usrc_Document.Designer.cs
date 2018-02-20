@@ -132,6 +132,7 @@ namespace Tangenta
             this.usrc_TangentaPrint1.Name = "usrc_TangentaPrint1";
             this.usrc_TangentaPrint1.Size = new System.Drawing.Size(40, 31);
             this.usrc_TangentaPrint1.TabIndex = 7;
+            this.usrc_TangentaPrint1.CheckEditPrinterAccess += new TangentaPrint.usrc_TangentaPrint.delegate_CheckEditPrinterAccess(this.usrc_TangentaPrint1_CheckEditPrinterAccess);
             // 
             // loginControl1
             // 

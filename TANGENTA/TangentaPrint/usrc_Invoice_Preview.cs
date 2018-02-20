@@ -184,7 +184,7 @@ namespace TangentaPrint
             ltext xltext = new ltext();
             xltext.s = sErrorReport;
 
-            XMessage.Box.Show(this, false, xltext);
+            XMessage.Box.Show(this, false, xltext,MessageBoxIcon.Warning);
         }
 
         public bool ShowPreview(Printer printer, string shtml_doc_text)

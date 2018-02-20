@@ -23,30 +23,23 @@ namespace Tangenta
             return false;
         }
 
-        internal static bool Open(Form parent_form, Type form_Type)
+        internal static bool OpenIfUserIsAdministrator(Form parent_form)
         {
-            if (form_Type.Equals(typeof(Form_ProgramSettings)))
+            if (Program.OperationMode.MultiUser)
             {
-                if (Program.OperationMode.MultiUser)
+                if (Program.IsAdministratorUser)
                 {
-                    if (Program.IsAdministratorUser)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        XMessage.Box.Show(parent_form, false, lng.s_YouMustHaveAdministratorRightsToEditSettings);
-                        return false;
-                    }
+                    return true;
                 }
                 else
                 {
-                    return DoLoginAsAdministrator(parent_form);
+                    XMessage.Box.Show(parent_form, false, lng.s_YouMustHaveAdministratorRightsToEditSettings,MessageBoxIcon.Hand);
+                    return false;
                 }
             }
             else
             {
-                return false;
+                return DoLoginAsAdministrator(parent_form);
             }
         }
 

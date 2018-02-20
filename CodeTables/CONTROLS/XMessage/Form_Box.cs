@@ -148,7 +148,7 @@ namespace XMessage
 
         }
 
-        public Form_Box(Control owner, ltext xltext)
+        public Form_Box(Control owner, ltext xltext, object oIcon)
         {
             // TODO: Complete member initialization
             InitializeComponent();
@@ -157,6 +157,21 @@ namespace XMessage
             {
                 this.Owner = xOwner;
             }
+
+            if (oIcon is MessageBoxIcon)
+            {
+                Icon ico = SetIcon((MessageBoxIcon)oIcon);
+                if (ico != null)
+                {
+                    this.Icon = ico;
+                }
+            }
+            else if (oIcon is Icon)
+            {
+                this.Icon = (Icon)oIcon;
+            }
+
+
             this.caption = "";
             this.Text = "";
             xltext.Text(textBox1);

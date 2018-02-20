@@ -17,9 +17,9 @@ namespace XMessage
     public static class Box
     {
       
-        public static DialogResult Show(Control owner,bool bStartup,ltext xltext)
+        public static DialogResult Show(Control owner,bool bStartup,ltext xltext, object oIcon)
         {
-            Form_Box dlg = new Form_Box(owner,xltext);
+            Form_Box dlg = new Form_Box(owner,xltext, oIcon);
             return dlg.ShowDialog(owner);
         }
 

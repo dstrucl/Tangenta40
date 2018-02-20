@@ -333,7 +333,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this,false,lng.s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay);
+                    XMessage.Box.Show(this,false,lng.s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay,MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -354,7 +354,7 @@ namespace Tangenta
             }
             else
             {
-               XMessage.Box.Show(this, false, ltMsg);
+               XMessage.Box.Show(this, false, ltMsg,MessageBoxIcon.Warning);
             }
         }
 

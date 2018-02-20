@@ -49,7 +49,7 @@ namespace Tangenta
         private void btn_Print_Click(object sender, EventArgs e)
         {
             //Program.usrc_TangentaPrint1.PrintReport(m_usrc_InvoiceTable);
-            XMessage.Box.Show(this, false, lng.s_Printing_InvoiceListIsNotImplementedYet_YouCanExportDataTableToExcelAndPrintExcelFile);
+            XMessage.Box.Show(this, false, lng.s_Printing_InvoiceListIsNotImplementedYet_YouCanExportDataTableToExcelAndPrintExcelFile,MessageBoxIcon.Information);
             this.Close();
             DialogResult = DialogResult.OK;
         }

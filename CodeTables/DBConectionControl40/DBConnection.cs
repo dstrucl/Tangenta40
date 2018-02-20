@@ -69,54 +69,7 @@ namespace DBConnectionControl40
         #region PUBLIC CONSTRUCTORS
 
         public object DB_Param = null; // this object can be of type RemoteDB_data or  LocalDB_data
-
-        public DBConnectionControl_Settings.Settings_LocalDB Settings_LocalDB
-        {
-            get
-            {
-                if (DB_Param != null)
-                {
-                    if (DBType == eDBType.SQLITE)
-                    {
-                        LocalDB_data ldbdata = (LocalDB_data)DB_Param;
-                        return ldbdata.m_Settings_LocalDB;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-        }
-
-        public DBConnectionControl_Settings.Settings_RemoteDB Settings_RemoteDB
-        {
-            get
-            {
-                if (DB_Param != null)
-                {
-                    if (DBType != eDBType.SQLITE)
-                    {
-                        RemoteDB_data rdbdata = (RemoteDB_data)DB_Param;
-                        return rdbdata.m_Settings_RemoteDB;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
+        
         public DBConnectionControl_Settings.Settings_LocalDB.eType Settings_LocalDB_eType
         {
             get

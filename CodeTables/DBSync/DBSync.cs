@@ -326,11 +326,11 @@ namespace DBSync
             {
                 if (DB_for_Tangenta.m_DBTables.m_con.DBType == DBConnection.eDBType.SQLITE)
                 {
-                    return DB_for_Tangenta.m_DBTables.m_con.Settings_LocalDB.LocalDB_DataBaseFilePath() + "\\" + DB_for_Tangenta.m_DBTables.m_con.Settings_LocalDB.LocalDB_DataBaseFileName();
+                    return DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath + "\\" + DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
                 }
                 else
                 {
-                    return DB_for_Tangenta.m_DBTables.m_con.Settings_RemoteDB.DataSource();
+                    return DB_for_Tangenta.m_DBTables.m_con.DataSource;
                 }
             }
         }

@@ -122,7 +122,7 @@ namespace ShopC
             }
             else
             {
-                XMessage.Box.Show(this,true, lng.s_StockTake_Cost_Name_must_be_defined);
+                XMessage.Box.Show(this,true, lng.s_StockTake_Cost_Name_must_be_defined,MessageBoxIcon.Warning);
 
             }
         }

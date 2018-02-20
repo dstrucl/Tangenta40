@@ -322,7 +322,7 @@ namespace Tangenta
             }
             else
             {
-                XMessage.Box.Show(this, false, ltMsg);
+                XMessage.Box.Show(this, false, ltMsg,MessageBoxIcon.Exclamation);
             }
         }
 

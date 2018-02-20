@@ -13,6 +13,8 @@ namespace TangentaPrint
 {
     public partial class usrc_TangentaPrint : UserControl
     {
+        public delegate bool delegate_CheckEditPrinterAccess();
+        public event delegate_CheckEditPrinterAccess CheckEditPrinterAccess = null;
 
         public usrc_TangentaPrint()
         {
@@ -23,6 +25,13 @@ namespace TangentaPrint
 
         private void btn_Printers_Click(object sender, EventArgs e)
         {
+            if (CheckEditPrinterAccess!=null)
+            {
+                if (!CheckEditPrinterAccess())
+                {
+                    return;
+                }
+            }
             SelectPrinters();
         }
 

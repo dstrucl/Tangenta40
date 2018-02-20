@@ -746,7 +746,7 @@ namespace ShopC
                 }
                 else
                 {
-                    XMessage.Box.Show(this, false, lng.s_YouCanNotLock_StockTakeIfSumNotMatch);
+                    XMessage.Box.Show(this, false, lng.s_YouCanNotLock_StockTakeIfSumNotMatch,MessageBoxIcon.Warning);
                 }
             }
         }

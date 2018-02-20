@@ -615,7 +615,7 @@ namespace Tangenta
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            if (Door.Open(Global.f.GetParentForm(this),typeof(Form_ProgramSettings)))
+            if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
                 NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation(null);
                 nav_Form_ProgramSettings.bDoModal = true;
@@ -660,21 +660,25 @@ namespace Tangenta
 
         private void btn_CodeTables_Click(object sender, EventArgs e)
         {
-            Form_CodeTables fct_dlg = new Form_CodeTables();
-            fct_dlg.ShowDialog();
+            if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
+            {
+                Form_CodeTables fct_dlg = new Form_CodeTables();
+                fct_dlg.ShowDialog();
+            }
         }
 
         private void usrc_FVI_SLO1_PasswordCheck(ref bool PasswordOK)
         {
             PasswordOK = false;
-            string AdministratorLockedPassword = null;
-            if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
-            {
-                if (Password.Password.Check(Main_Form, null, AdministratorLockedPassword))
-                {
+            if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
+            { 
                     PasswordOK = true;
-                }
             }
+        }
+
+        private bool usrc_TangentaPrint1_CheckEditPrinterAccess()
+        {
+            return Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this));
         }
     }
 }
