@@ -20,11 +20,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
+using UniqueControlNames;
 
 namespace Tangenta
 {
     public partial class Form_myOrg_Person_Edit : Form
     {
+        UniqueControlName uctrln = new UniqueControlName();
         bool bclose = false;
         private long m_Office_ID;
         private SQLTable tbl_myOrganisation_Person;
@@ -160,7 +162,7 @@ namespace Tangenta
             if (m_tbl.TableName.ToLower().Equals("office"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Office_ID, true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, m_Office_ID, true, ref Err);
             }
         }
 

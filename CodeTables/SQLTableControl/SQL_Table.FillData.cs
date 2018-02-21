@@ -12,6 +12,7 @@ using System.Text;
 using DBConnectionControl40;
 using System.Data;
 using DBTypes;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -125,7 +126,7 @@ namespace CodeTables
             }
         }
 
-        public bool FillDataInputControl(DBConnection x_SQL_connection, long ID, bool bSetInitialValues,ref string csError)
+        public bool FillDataInputControl(DBConnection x_SQL_connection, UniqueControlName xuctrln, long ID, bool bSetInitialValues,ref string csError)
         {
             if (ID < 0)
             {
@@ -193,7 +194,7 @@ namespace CodeTables
                                     long Identity = (long)dt.Rows[0][col.Name];
                                     col.fKey.reference_ID = new ID_v();
                                     col.fKey.reference_ID.v = Identity;
-                                    if (col.fKey.fTable.FillDataInputControl(x_SQL_connection, Identity,bSetInitialValues, ref csError))
+                                    if (col.fKey.fTable.FillDataInputControl(x_SQL_connection, xuctrln, Identity,bSetInitialValues, ref csError))
                                     {
                                         if (col.fKey.fTable.myGroupBox != null)
                                         {
@@ -209,7 +210,7 @@ namespace CodeTables
                                 else if (dt.Rows[0][col.Name].GetType() == typeof(System.DBNull))
                                 {
                                     col.fKey.reference_ID = null;
-                                    col.fKey.fTable.Hide_And_Init_Reference_ID();
+                                    col.fKey.fTable.Hide_And_Init_Reference_ID(xuctrln);
                                     if (col.fKey.fTable.myGroupBox != null)
                                     {
                                         col.fKey.fTable.myGroupBox.Changed_up = false;

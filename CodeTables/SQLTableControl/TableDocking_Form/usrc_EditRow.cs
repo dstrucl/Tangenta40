@@ -17,11 +17,14 @@ using LanguageControl;
 using StaticLib;
 using System.Runtime.InteropServices;
 using NavigationButtons;
+using UniqueControlNames;
 
 namespace CodeTables.TableDocking_Form
 {
     public partial class usrc_EditRow : UserControl
     {
+
+        public UniqueControlName uctrln = new UniqueControlName();
 
         public delegate void delegate_before_New(SQLTable m_tbl, ref bool bCancel);
         public delegate void delegate_after_New(SQLTable m_tbl, bool bRes);
@@ -252,11 +255,11 @@ namespace CodeTables.TableDocking_Form
             m_DBTables = dbTables;
             m_tbl = tbl;
             m_tbl.SelectionButtonVisible = m_SelectionButtonVisible;
-            CreateInputControls(bReadOnly, xnav);
+            CreateInputControls(bReadOnly, uctrln, xnav);
             bNewDataEntry = true;
         }
 
-        private void CreateInputControls(bool bReadOnly,NavigationButtons.Navigation xnav)
+        private void CreateInputControls(bool bReadOnly,UniqueControlName xuctrln,NavigationButtons.Navigation xnav)
         {
             m_tbl.DeleteInputControls();
 
@@ -264,7 +267,7 @@ namespace CodeTables.TableDocking_Form
             size.cx = 0;
             size.cy = 0;
 
-            m_tbl.CreateInputControls(null, null, "", ref m_tbl.inpCtrlList, this.pnl_Editor, this, m_DBTables, bReadOnly, xnav);
+            m_tbl.CreateInputControls(null, xuctrln, null, "", ref m_tbl.inpCtrlList, this.pnl_Editor, this, m_DBTables, bReadOnly, xnav);
             m_tbl.myGroupBox.Left = 3;
             m_tbl.myGroupBox.Top = 3;
 
@@ -456,7 +459,7 @@ namespace CodeTables.TableDocking_Form
         {
             string csError = "";
             bNewDataEntry = false;
-            if (this.m_tbl.FillDataInputControl(m_DBTables.m_con, Identity, true,ref csError))
+            if (this.m_tbl.FillDataInputControl(m_DBTables.m_con, uctrln, Identity, true,ref csError))
             {
                 if (this.m_tbl.myGroupBox != null)
                 {
@@ -608,7 +611,8 @@ namespace CodeTables.TableDocking_Form
             }
             this.bNewDataEntry = true;
             this.m_tbl.ClearInputControls();
-            CreateInputControls(false,nav);
+            UniqueControlName xuctrln = new UniqueControlName();
+            CreateInputControls(false, xuctrln, nav);
             SetMode(eMode.NEW);
             if (after_New != null)
             {

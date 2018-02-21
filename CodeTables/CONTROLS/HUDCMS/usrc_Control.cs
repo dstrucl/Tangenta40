@@ -296,10 +296,15 @@ namespace HUDCMS
                     xdiv_Title.Add(xdiv_About);
                 }
 
+                string imagesourcename = ImageSource;
+                if (ImageSource.Length > HUDCMS_static.MAX_FILENAME_LENGTH)
+                {
+                    imagesourcename = "hashname_" + ImageSource.GetHashCode()+".png";
+                }
                 if (this.chk_ImageIncluded.Checked)
                 {
                     ximg = new XElement("img");
-                    XAttribute img_src = new XAttribute("src", ImageSource);
+                    XAttribute img_src = new XAttribute("src", imagesourcename);
                     XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
                     XAttribute img_height = new XAttribute("height", ImageHeight.ToString());
                     ximg.Add(img_src);
@@ -337,7 +342,9 @@ namespace HUDCMS
                             }
                         }
 
-                        string ximage_file = ximage_path + ImageSource;
+                      
+
+                        string ximage_file = ximage_path + imagesourcename;
                         this.pic_Control.Image.Save(ximage_file, ImageFormat.Png);
                     }
                     catch (Exception ex)

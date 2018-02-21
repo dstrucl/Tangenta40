@@ -233,6 +233,10 @@
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\UniqueControlNames\UniqueControlNames.csproj">
+      <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
+      <Name>UniqueControlNames</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RadioButtonGlobal\RadioButtonGlobal.csproj">
       <Project>{0e56257c-c52c-4606-ae91-80a0b361637a}</Project>
       <Name>RadioButtonGlobal</Name>

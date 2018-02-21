@@ -1,6 +1,6 @@
 ﻿namespace CodeTables
 {
-    partial class InputControl_DataBox
+    partial class usrc_InputControl_DataBox
     {
         /// <summary> 
         /// Required designer variable.

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UniqueControlNames;
 
 namespace HUDCMS
 {
@@ -149,7 +150,7 @@ namespace HUDCMS
             }
         }
 
-        public hctrl(Form pForm)
+        public hctrl(Form pForm, UniqueControlName xuctrln)
         {
             this.pForm = pForm;
             xScr = pForm.Left;
@@ -161,55 +162,76 @@ namespace HUDCMS
             {
                 if (c is UserControl)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is SplitContainer)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is SplitterPanel)
+                {
+                    ((SplitterPanel)c).AccessibleName = "spl" + xuctrln.Get_SplitterPanel_UniqueIndex();
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Panel)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is CheckBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is RadioButton)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is DateTimePicker)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is GroupBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Label)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Button)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is TextBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is RichTextBox)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is HScrollBar)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is VScrollBar)
+                {
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is ComboBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is NumericUpDown)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is DataGridView)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is PictureBox)
+                {
+                    AddSubCtrl(c, xuctrln);
                 }
             }
             Create_position_sorted_subctrl();
@@ -217,7 +239,7 @@ namespace HUDCMS
 
        
 
-        public hctrl(Control xc,hctrl xparent)
+        public hctrl(Control xc,hctrl xparent, UniqueControlName xuctrln)
         {
             this.ctrl = xc;
             this.parentctrl = xparent;
@@ -236,55 +258,80 @@ namespace HUDCMS
             {
                 if (c is UserControl)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is SplitContainer)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is SplitterPanel)
+                {
+                    ((SplitterPanel)c).AccessibleName = "spl" + xuctrln.Get_SplitterPanel_UniqueIndex();
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Panel)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is CheckBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is RadioButton)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is DateTimePicker)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is GroupBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Label)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Button)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is TextBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is RichTextBox)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is HScrollBar)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is VScrollBar)
+                {
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is ComboBox)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is NumericUpDown)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is PictureBox)
+                {
+                    AddSubCtrl(c, xuctrln);
                 }
                 else if (c is DataGridView)
                 {
-                    AddSubCtrl(c);
+                    AddSubCtrl(c, xuctrln);
+                }
+                else
+                {
+                    MessageBox.Show("Control not implemented: type=" + c.GetType().ToString() + " Name =\"" + c.Name + "\"");
                 }
             }
             Create_position_sorted_subctrl();
@@ -312,13 +359,13 @@ namespace HUDCMS
 
 
 
-        private void AddSubCtrl(Control c)
+        private void AddSubCtrl(Control c, UniqueControlName xuctrln)
         {
             if (subctrl==null)
             {
                 subctrl = new List<hctrl>();
             }
-            hctrl newhc = new hctrl(c, this);
+            hctrl newhc = new hctrl(c, this, xuctrln);
             subctrl.Add(newhc);
             if (c is DataGridView)
             {
@@ -411,10 +458,17 @@ namespace HUDCMS
         {
             if (parentctrl != null)
             {
-                string sctrlname = "ERROR";
+                string sctrlname = "";
                 if (ctrl != null)
                 {
-                    sctrlname = ctrl.Name;
+                    if (ctrl is SplitterPanel)
+                    {
+                        sctrlname = ((SplitterPanel)ctrl).AccessibleName;
+                    }
+                    else
+                    {
+                        sctrlname = ctrl.Name;
+                    }
                 }
                 else if (pForm != null)
                 {
@@ -433,14 +487,36 @@ namespace HUDCMS
                     return "ERROR";
                 }
 
+                if (sctrlname.Length==0)
+                {
+                    MessageBox.Show("ERROR:HUDCSM:sctrlname.Length==0!");
+                }
                 string sname =parentctrl.GetName()+"."+ sctrlname;
+
                 return sname;
             }
             else
             {
                 if (ctrl != null)
                 {
-                    return ctrl.Name;
+                    if (ctrl is SplitterPanel)
+                    {
+                        string xsctrlname = ((SplitterPanel)ctrl).AccessibleName;
+                        if (xsctrlname.Length == 0)
+                        {
+                            MessageBox.Show("ERROR:HUDCSM:xsctrlname.Length==0!");
+                        }
+                        return ((SplitterPanel)ctrl).AccessibleName;
+                    }
+                    else
+                    {
+                        string xsctrlname = ctrl.Name;
+                        if (xsctrlname.Length == 0)
+                        {
+                            MessageBox.Show("ERROR:HUDCSM:xsctrlname.Length==0!");
+                        }
+                        return ctrl.Name;
+                    }
                 }
                 else if (pForm != null)
                 {

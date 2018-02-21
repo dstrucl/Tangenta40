@@ -13,11 +13,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UniqueControlNames;
 
 namespace Tangenta
 {
     public partial class Form_myOrg_Office : Form
     {
+        UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
         string ColumnToOrderBy = "Office_$_mo_$_orgd_$_org_$$Name asc";
         long myOrganisation_ID = -1;
@@ -66,7 +68,7 @@ namespace Tangenta
             if (m_tbl.TableName.ToLower().Equals("myorganisation"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, myOrganisation_ID, true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, myOrganisation_ID, true, ref Err);
             }
         }
 

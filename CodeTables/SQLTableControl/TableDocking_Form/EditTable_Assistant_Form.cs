@@ -14,11 +14,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using UniqueControlNames;
 
 namespace CodeTables
 {
     public partial class EditTable_Assistant_Form : Form
     {
+        UniqueControlName uctrln = new UniqueControlName();
         long Identity = -1;
         usrc_myGroupBox m_MyGroupBox;
         SQLTable m_tbl;
@@ -136,7 +138,7 @@ namespace CodeTables
                     {
                         Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
                         m_MyGroupBox.pSQL_Table.iFillTableData = -1;
-                        m_MyGroupBox.FillInputControls(Identity,false);
+                        m_MyGroupBox.FillInputControls(Identity,false, uctrln);
                     }
                 }
             this.Close();

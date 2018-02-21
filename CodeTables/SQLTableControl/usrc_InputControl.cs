@@ -18,6 +18,7 @@ using System.IO;
 using StaticLib;
 using DBConnectionControl40;
 using DynEditControls;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -161,7 +162,7 @@ namespace CodeTables
         private Password.usrc_PasswordDefinition txtPassword;
         private RichTextBox RichtxtBox;
 
-        private InputControl_DataBox DataBox;
+        private usrc_InputControl_DataBox DataBox;
         private Picture_Box Picture_Box;
         private InputControl_DocumentBox Document_Box;
 
@@ -182,10 +183,11 @@ namespace CodeTables
 
         private Globals.eDBType m_eDBType;
 
-        public usrc_InputControl()
+        public usrc_InputControl(UniqueControlName xuctrln)
         {
             InitializeComponent();
             this.BackColor = Color.Transparent;
+            this.Name = "inp_ctrl" + xuctrln.Get_usrc_InputControl_UniqueIndex();
         }
 
 
@@ -911,7 +913,7 @@ namespace CodeTables
             InputControl_ValueChanged(sender);
         }
 
-        public void CreateInputControls(SQLTable pParentTbl, Type myType)
+        public void CreateInputControls(SQLTable pParentTbl, UniqueControlName xuctrln, Type myType)
         {
             m_eDBType = Globals.Get_eDBType(m_col.obj);
             usrc_lbl.ReadOnly = bReadOnly;
@@ -925,7 +927,7 @@ namespace CodeTables
                         case Column.eStyle.CheckBox:
                         case Column.eStyle.CheckBox_default_true:
                         case Column.eStyle.ReadOnly_CheckBox_default_true:
-                            chkBox = new usrc_CheckBox();
+                            chkBox = new usrc_CheckBox(xuctrln);
                             chkBox.ReadOnly = bReadOnly;
                             chkBox.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                             chkBox.Top = usrc_lbl.Top;
@@ -951,9 +953,9 @@ namespace CodeTables
                             break;
 
                         case Column.eStyle.RadioButtons:
-                            rdbButton1 = new usrc_RadioButton();
+                            rdbButton1 = new usrc_RadioButton(xuctrln);
                             rdbButton1.ReadOnly = bReadOnly;
-                            rdbButton2 = new usrc_RadioButton();
+                            rdbButton2 = new usrc_RadioButton(xuctrln);
                             rdbButton2.ReadOnly = bReadOnly;
 
                             rdbButton1.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
@@ -989,7 +991,7 @@ namespace CodeTables
                 case Globals.eDBType.DB_smallInt:
                 case Globals.eDBType.DB_Int32:
                 case Globals.eDBType.DB_Int64:
-                    nmUpDown = new usrc_NumericUpDown(bReadOnly);
+                    nmUpDown = new usrc_NumericUpDown(bReadOnly, xuctrln.Get_usrc_NumericUpDown_UniqueIndex());
                     nmUpDown.ReadOnly = bReadOnly;
                     nmUpDown.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     nmUpDown.Top = usrc_lbl.Top;
@@ -1026,7 +1028,7 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_Money:
-                    MoneyUpDown = new usrc_NumericUpDown(bReadOnly);
+                    MoneyUpDown = new usrc_NumericUpDown(bReadOnly, xuctrln.Get_usrc_NumericUpDown_UniqueIndex());
                     MoneyUpDown.ValueMultiplier = 1;
                     MoneyUpDown.Type = usrc_NumericUpDown.eType.CURRENCY;
                     MoneyUpDown.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
@@ -1052,7 +1054,7 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_decimal2:
-                    nmUpDown = new usrc_NumericUpDown(bReadOnly);
+                    nmUpDown = new usrc_NumericUpDown(bReadOnly, xuctrln.Get_usrc_NumericUpDown_UniqueIndex());
                     nmUpDown.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     nmUpDown.Top = usrc_lbl.Top;
 
@@ -1078,7 +1080,7 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_Percent:
-                    PercentUpDown = new usrc_NumericUpDown(bReadOnly);
+                    PercentUpDown = new usrc_NumericUpDown(bReadOnly, xuctrln.Get_usrc_NumericUpDown_UniqueIndex());
                     PercentUpDown.ValueMultiplier = 100;
                     PercentUpDown.Unit = " %";
                     PercentUpDown.Type = usrc_NumericUpDown.eType.PERCENT;
@@ -1105,7 +1107,7 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_DateTime:
-                    DateTimeInput = new usrc_InputControl_DateTimePicker(bReadOnly);
+                    DateTimeInput = new usrc_InputControl_DateTimePicker(xuctrln,bReadOnly);
                     DateTimeInput.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     DateTimeInput.Top = usrc_lbl.Top;
                     this.Controls.Add(DateTimeInput);
@@ -1138,7 +1140,7 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_varbinary_max:
-                    DataBox = new InputControl_DataBox();
+                    DataBox = new usrc_InputControl_DataBox(xuctrln);
                     DataBox.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     DataBox.Top = usrc_lbl.Top;
                     this.Controls.Add(DataBox);
@@ -1153,7 +1155,8 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_Image:
-                    Picture_Box = new Picture_Box(this, pParentTbl, PictureBoxWidth, PictureBoxHeight,bReadOnly);
+                    Picture_Box = new Picture_Box(this, xuctrln, pParentTbl, PictureBoxWidth, PictureBoxHeight,bReadOnly);
+                    Picture_Box.Name = "pic" + xuctrln.Get_PictureBox_UniqueIndex();
                     Picture_Box.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     Picture_Box.Top = usrc_lbl.Top;
                     if (Picture_Box.btnFolderSelect!=null)
@@ -1182,7 +1185,7 @@ namespace CodeTables
                     break;
 
                 case Globals.eDBType.DB_Document:
-                    Document_Box = new InputControl_DocumentBox(this);
+                    Document_Box = new InputControl_DocumentBox(this, xuctrln);
                     Document_Box.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     Document_Box.Top = usrc_lbl.Top;
                     if (btnFolderSelect!=null)
@@ -1214,6 +1217,7 @@ namespace CodeTables
                     if (m_col.Style == Column.eStyle.Password)
                     {
                         txtPassword = new Password.usrc_PasswordDefinition();
+                        txtPassword.Name = "upwd_" + xuctrln.Get_usrc_PasswordDefinition_UniqueIndex();
                         txtPassword.PasswordLocked = true;
                         txtPassword.Width = txtBox_Width;
                         txtPassword.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
@@ -1234,6 +1238,7 @@ namespace CodeTables
                     else
                     { 
                         txtBox = new TextBox();
+                        txtBox.Name = "txt_" + xuctrln.Get_TextBox_UniqueIndex();
                         txtBox.Width = txtBox_Width;
                         if (bReadOnly || (m_col.Style == Column.eStyle.TextBox_ReadOnly))
                         {
@@ -1262,6 +1267,7 @@ namespace CodeTables
                             if (!bReadOnly)
                             {
                                 btnFolderSelect = new Button();
+                                btnFolderSelect.Name = "btnfoldersel" + xuctrln.Get_Button_UniqueIndex();
                                 btnFolderSelect.Left = txtBox.Left + txtBox.Width + dist;
                                 btnFolderSelect.Top = usrc_lbl.Top;
                                 this.Controls.Add(btnFolderSelect);
@@ -1289,6 +1295,7 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_max:
                     m_col.Style = Column.eStyle.RichTextBox;
                     RichtxtBox = new RichTextBox();
+                    RichtxtBox.Name = "rtxt_" + xuctrln.Get_RichTextBox_UniqueIndex();
                     RichtxtBox.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     RichtxtBox.Top = usrc_lbl.Top;
                     if (bReadOnly || (m_col.Style == Column.eStyle.TextBox_ReadOnly))
@@ -1453,7 +1460,7 @@ namespace CodeTables
 
 
 
-        public void Init(SQLTable pParentTbl, Column col, List<usrc_InputControl> inpCtrlList, string sImportExportVec, bool bNumber, bool xbReadOnly)
+        public void Init(SQLTable pParentTbl, UniqueControlName xuctrln, Column col, List<usrc_InputControl> inpCtrlList, string sImportExportVec, bool bNumber, bool xbReadOnly)
         {
             bReadOnly = xbReadOnly;
             if (bReadOnly)
@@ -1492,8 +1499,8 @@ namespace CodeTables
             Type myType = col.obj.GetType().BaseType;
             m_col = col;
             //Value = Activator.CreateInstance(myType);
-            usrc_lbl.Init(m_col, m_inpCtrlList.Count, bReadOnly);
-            CreateInputControls(pParentTbl, myType);
+            usrc_lbl.Init(m_col, xuctrln, m_inpCtrlList.Count, bReadOnly);
+            CreateInputControls(pParentTbl, xuctrln, myType);
             SetDefault();
             EventHandler_Set(true);
             if (!bReadOnly)

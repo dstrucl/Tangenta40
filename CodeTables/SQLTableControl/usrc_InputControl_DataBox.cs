@@ -13,17 +13,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UniqueControlNames;
 
 namespace CodeTables
 {
-    public partial class InputControl_DataBox : UserControl
+    public partial class usrc_InputControl_DataBox : UserControl
     {
         public Byte[] Data;
 
-        public InputControl_DataBox()
+        public usrc_InputControl_DataBox(UniqueControlName xuctrln)
         {
             InitializeComponent();
-
+            this.Name = "uInputDataBox_" + xuctrln.Get_usrc_InputControl_DataBox_UniqueIndex();
         }
     }
 }

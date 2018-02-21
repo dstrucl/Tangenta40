@@ -114,6 +114,10 @@
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\UniqueControlNames\UniqueControlNames.csproj">
+      <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
+      <Name>UniqueControlNames</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Password\Password.csproj">
       <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
       <Name>Password</Name>

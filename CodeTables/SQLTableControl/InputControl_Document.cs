@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using DBTypes;
 using System.IO.Compression;
 using System.IO;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -25,9 +26,10 @@ namespace CodeTables
         private const int BUFFER_SIZE = 64 * 1024; //64kB
         public Byte[] Data;
         //public FileInfo_Box FileInfo_Box;
-        public InputControl_DocumentBox(usrc_InputControl xinpCtrl)
+        public InputControl_DocumentBox(usrc_InputControl xinpCtrl, UniqueControlName xuctrln)
         {
             InitializeComponent();
+            this.Name = "inpctrlDocBox_" + xuctrln.Get_InputControl_DocumentBox_UniqueIndex();
             inpCtrl = xinpCtrl;
         }
 

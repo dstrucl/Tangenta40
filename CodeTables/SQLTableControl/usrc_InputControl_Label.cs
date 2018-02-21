@@ -15,6 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using DBTypes;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -77,6 +78,7 @@ namespace CodeTables
             InitializeComponent();
             this.BackColor = Color.Transparent;
         }
+
 
         public void SetCheck()
         {
@@ -226,7 +228,7 @@ namespace CodeTables
         }
 
 
-        public void Init(Column xcol,int inpCtrlList_Count, bool xReadOnly )
+        public void Init(Column xcol, UniqueControlName xuctrln,int inpCtrlList_Count, bool xReadOnly )
         {
             readOnly = xReadOnly;
             m_col = xcol;
@@ -237,6 +239,7 @@ namespace CodeTables
             if ((m_col.flags & Column.Flags.UNIQUE) > 0)
             {
                 pic_Unique = new PictureBox();
+                pic_Unique.Name = "pic_" + xuctrln.Get_PictureBox_UniqueIndex();
                 pic_Unique.Image = Properties.Resources.Unique;
                 pic_Unique.Left = x;
                 pic_Unique.Top = y;
@@ -252,7 +255,7 @@ namespace CodeTables
             }
             if (m_col.nulltype == Column.nullTYPE.NULL)
             {
-                rdb_null = new usrc_RadioButton();
+                rdb_null = new usrc_RadioButton(xuctrln);
                 rdb_null.ReadOnly = readOnly;
                 rdb_null.Left = x;
                 rdb_null.AutoSize = true;
@@ -268,7 +271,7 @@ namespace CodeTables
 
                 this.Controls.Add(rdb_null);
 
-                rdb_lbl = new usrc_RadioButton();
+                rdb_lbl = new usrc_RadioButton(xuctrln);
                 rdb_lbl.ReadOnly = readOnly;
                 if (inpCtrlList_Count > 0)
                 {
@@ -297,6 +300,7 @@ namespace CodeTables
             else
             {
                 lbl = new Label();
+                lbl.Name = "xlbl_" + xuctrln.Get_Label_UniqueIndex();
                 this.Controls.Add(lbl);
                 if (inpCtrlList_Count > 0)
                 {

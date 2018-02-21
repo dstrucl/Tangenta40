@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using FastColoredTextBoxNS;
+using UniqueControlNames;
 
 namespace HUDCMS
 {
@@ -61,9 +62,10 @@ namespace HUDCMS
 
         public Form_HUDCMS(usrc_Help xH)
         {
+            UniqueControlName uctrln = new UniqueControlName();
             InitializeComponent();
             mH = xH;
-            hc = new hctrl(mH.pForm);
+            hc = new hctrl(mH.pForm, uctrln);
             usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.LocalHtmlFile);
             usrc_SelectHtmlFile.FileName = mH.LocalHtmlFile;
             usrc_SelectHtmlFile.Title = "Save HTML file";

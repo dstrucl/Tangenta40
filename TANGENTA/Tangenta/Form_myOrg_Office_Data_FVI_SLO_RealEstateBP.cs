@@ -14,11 +14,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NavigationButtons;
+using UniqueControlNames;
 
 namespace Tangenta
 {
     public partial class Form_myOrg_Office_Data_FVI_SLO_RealEstateBP : Form
     {
+        UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
         string ColumnToOrderBy = "FVI_SLO_RealEstateBP_$$Community asc";
         long m_Office_Data_ID = -1;
@@ -88,7 +90,7 @@ namespace Tangenta
             if (m_tbl.TableName.ToLower().Equals("office_data"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Office_Data_ID, true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Office_Data_ID, true, ref Err);
             }
         }
 

@@ -142,6 +142,7 @@ namespace CodeTables
             }
         }
 
+
         public static string RemoveComas(string s)
         {
             char[] trchr = {' '};

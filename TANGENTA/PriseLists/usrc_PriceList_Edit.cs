@@ -19,11 +19,13 @@ using LanguageControl;
 using NavigationButtons;
 using DBTypes;
 using TangentaDB;
+using UniqueControlNames;
 
 namespace PriseLists
 {
     public partial class usrc_PriceList_Edit : UserControl
     {
+        UniqueControlName uctrln = new UniqueControlName();
         public enum ePriceListMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
         public enum eShopType { ShopB,ShopC};
 
@@ -647,7 +649,7 @@ namespace PriseLists
             {
                 if (m_tbl.TableName.Equals("Currency"))
                 {
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, GlobalData.BaseCurrency.ID, true, ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, GlobalData.BaseCurrency.ID, true, ref Err);
                 }
             }
         }

@@ -11,6 +11,7 @@ namespace HUDCMS
 {
     public static class HUDCMS_static
     {
+        public const int MAX_FILENAME_LENGTH = 127;
 
         private static string RelativeURL = null;
 

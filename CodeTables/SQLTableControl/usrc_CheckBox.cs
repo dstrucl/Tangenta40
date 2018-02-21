@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -29,7 +30,12 @@ namespace CodeTables
                 ForeColor = Color.Gray;
             }
             
-        } 
+        }
+
+        public usrc_CheckBox(UniqueControlName xuctrln)
+        {
+            this.Name = "uchk_" + xuctrln.Get_usrc_CheckBox_UniqueIndex();
+        }
         protected override void OnClick(EventArgs e)
         {
             // pass the event up only if its not readlonly

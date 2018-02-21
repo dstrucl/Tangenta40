@@ -17,11 +17,13 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaDB;
+using UniqueControlNames;
 
 namespace ShopC
 {
     public partial class Form_StockItem_Edit : Form
     {
+        UniqueControlName uctrln = new UniqueControlName();
         DataTable dt_Stock = new DataTable();
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
@@ -87,13 +89,13 @@ namespace ShopC
                 if (m_tbl.TableName.ToLower().Equals("purchaseprice_item"))
                 {
                     string Err = null;
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, PurchasePrice_Item_ID.v, true,ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, PurchasePrice_Item_ID.v, true,ref Err);
                 }
             }
             else if (m_tbl.TableName.ToLower().Equals("item"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Item_Data.Item_ID.v,true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Item_Data.Item_ID.v,true, ref Err);
             }
         }
 

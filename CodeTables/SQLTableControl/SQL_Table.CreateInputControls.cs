@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using DBTypes;
 using LanguageControl;
 using CodeTables.TableDocking_Form;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -59,6 +60,7 @@ namespace CodeTables
         }
 
         public void CreateInputControls(SQLTable pPrevTable,
+                                        UniqueControlName xuctrln,
                                         Column fcol, 
                                         string sParentKeys, 
                                         ref List<usrc_InputControl> 
@@ -72,9 +74,9 @@ namespace CodeTables
             int iCol = 0;
             int iCount = Column.Count();
             this.pParentTable = pPrevTable;
-            this.myGroupBox = new usrc_myGroupBox();
+            this.myGroupBox = new usrc_myGroupBox(xuctrln);
             this.myGroupBox.SelectionButtonVisible = m_SelectionButtonVisible;
-            this.myGroupBox.Init(this, fcol, sParentKeys, pParentWindow, pControl, xDBTables, bReadOnly,xnav);
+            this.myGroupBox.Init(this, xuctrln,fcol, sParentKeys, pParentWindow, pControl, xDBTables, bReadOnly,xnav);
 
             if (pParentWindow.GetType() == typeof(myPanel))
             {
@@ -106,7 +108,7 @@ namespace CodeTables
                         }
 
                         sKey = sParentKeys + "*" + col.fKey.refInListOfTables.TableName + ">";
-                        col.fKey.fTable.CreateInputControls(this, col, sKey, ref inpCtrlList, this.myGroupBox, pControl, xDBTables, xbReadOnly,xnav);
+                        col.fKey.fTable.CreateInputControls(this, xuctrln, col, sKey, ref inpCtrlList, this.myGroupBox, pControl, xDBTables, xbReadOnly,xnav);
                     }
                     else
                     {
@@ -115,8 +117,8 @@ namespace CodeTables
                         if (col.IsNumber())
                         {
                             sImportExportLine = sParentKeys + col.Name + ",";
-                            inpCtrl = new usrc_InputControl();
-                            inpCtrl.Init(this, col, inpCtrlList, sImportExportLine, true,bReadOnly);
+                            inpCtrl = new usrc_InputControl(xuctrln);
+                            inpCtrl.Init(this, xuctrln, col, inpCtrlList, sImportExportLine, true,bReadOnly);
                             if (!bReadOnly)
                             {
                                 inpCtrl.ObjectChanged += new usrc_InputControl.delegate_ObjectChanged(inpCtrl_ObjectChanged);
@@ -126,8 +128,8 @@ namespace CodeTables
                         else
                         {
                             sImportExportLine = sParentKeys + col.Name + ",";
-                            inpCtrl = new usrc_InputControl();
-                            inpCtrl.Init(this, col, inpCtrlList, sImportExportLine, false,bReadOnly);
+                            inpCtrl = new usrc_InputControl(xuctrln);
+                            inpCtrl.Init(this, xuctrln,col, inpCtrlList, sImportExportLine, false,bReadOnly);
                             if (!bReadOnly)
                             { 
                                 inpCtrl.ObjectChanged += new usrc_InputControl.delegate_ObjectChanged(inpCtrl_ObjectChanged);

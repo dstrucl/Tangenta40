@@ -89,10 +89,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TextBoxRecent, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\TextBoxRecent.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASet.cs" />
@@ -112,11 +108,11 @@
     <Compile Include="IndexBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InputControl_DataBox.cs">
+    <Compile Include="usrc_InputControl_DataBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InputControl_DataBox.Designer.cs">
-      <DependentUpon>InputControl_DataBox.cs</DependentUpon>
+    <Compile Include="usrc_InputControl_DataBox.Designer.cs">
+      <DependentUpon>usrc_InputControl_DataBox.cs</DependentUpon>
     </Compile>
     <Compile Include="InputControl_Document.cs">
       <SubType>UserControl</SubType>
@@ -393,10 +389,14 @@
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UTIL\UniqueControlNames\UniqueControlNames.csproj">
+      <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
+      <Name>UniqueControlNames</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="InputControl_DataBox.resx">
-      <DependentUpon>InputControl_DataBox.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_InputControl_DataBox.resx">
+      <DependentUpon>usrc_InputControl_DataBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="InputControl_Document.resx">

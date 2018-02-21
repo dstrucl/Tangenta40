@@ -61,9 +61,10 @@ namespace SelectGender
             }
         }
 
-        public usrc_SelectGender()
+        public usrc_SelectGender(string unqique_index)
         {
             InitializeComponent();
+            this.Name = "selgender_" + unqique_index;
         }
     }
 }

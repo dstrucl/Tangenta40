@@ -18,11 +18,13 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaDB;
+using UniqueControlNames;
 
 namespace Tangenta
 {
     public partial class Form_PersonData_Edit : Form
     {
+        UniqueControlName uctrln = new UniqueControlName();
         List<long> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
         CodeTables.DBTableControl dbTables = null;
@@ -175,7 +177,7 @@ namespace Tangenta
                 if (m_tbl.TableName.ToLower().Equals("Person"))
                 {
                     string Err = null;
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Person_ID, true, ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Person_ID, true, ref Err);
                 }
             }
         }

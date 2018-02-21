@@ -14,6 +14,7 @@ using DBTypes;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -40,8 +41,9 @@ namespace CodeTables
         public PictureBox Picture;
         private usrc_InputControl inpCtrl;
         private SQLTable DBm_Image_Table;
-        public Picture_Box(usrc_InputControl xinpCtrl, SQLTable pParentTbl, int PictureBoxWidth, int PictureBoxHeight, bool xbReadOnly)
+        public Picture_Box(usrc_InputControl xinpCtrl, UniqueControlName xuctrln, SQLTable pParentTbl, int PictureBoxWidth, int PictureBoxHeight, bool xbReadOnly)
         {
+            this.Name = "picbox_" + xuctrln.Get_PictureBox_UniqueIndex();
             inpCtrl = xinpCtrl;
             DBm_Image_Table = pParentTbl;
             bReadOnly = xbReadOnly;

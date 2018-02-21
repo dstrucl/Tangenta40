@@ -18,6 +18,7 @@ using System.Reflection;
 using DBTypes;
 using System.Drawing;
 using System.IO;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -774,11 +775,11 @@ namespace CodeTables
             }
         }
 
-        internal void Hide_And_Init_Reference_ID()
+        internal void Hide_And_Init_Reference_ID(UniqueControlName xuctrln)
         {
             if (this.myGroupBox != null)
             {
-                this.myGroupBox.Hide_And_Init_Reference_ID();
+                this.myGroupBox.Hide_And_Init_Reference_ID(xuctrln);
             }
         }
 

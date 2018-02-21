@@ -13,6 +13,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -45,9 +46,10 @@ namespace CodeTables
                 txt_DateTimeReadOnly.Visible = true;
             }
         }
-        public usrc_InputControl_DateTimePicker(bool xReadOnly)
+        public usrc_InputControl_DateTimePicker(UniqueControlName xuctrln,bool xReadOnly)
         {
             InitializeComponent();
+            this.Name = "uDateTimePick_" + xuctrln.Get_usrc_InputControl_DateTimePicker();
             m_Value = dateTimePicker.MinDate;
             readOnly = xReadOnly;
             if (!readOnly)

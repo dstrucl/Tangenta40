@@ -190,9 +190,10 @@ namespace DynEditControls
             set { m_MinValue = value; }
         }
 
-        public usrc_NumericUpDown(bool xbReadOnly)
+        public usrc_NumericUpDown(bool xbReadOnly, string unique_index)
         {
             InitializeComponent();
+            this.Name = "unmUpDn_" + unique_index;
             m_ReadOnly = xbReadOnly;
             if (!m_ReadOnly)
             { 

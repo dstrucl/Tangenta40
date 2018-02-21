@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -18,6 +19,11 @@ namespace CodeTables
     {
         private bool readOnly;
 
+        public usrc_RadioButton(UniqueControlName xuctrln)
+        {
+            this.Name = "urdb_" + xuctrln.Get_usrc_RadioButton_UniqueIndex();
+        }
+        
         protected override void OnForeColorChanged(EventArgs e)
         {
             if (!ReadOnly)

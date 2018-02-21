@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using LanguageControl;
 using StaticLib;
 using DBTypes;
+using UniqueControlNames;
 
 namespace CodeTables
 {
@@ -175,9 +176,10 @@ namespace CodeTables
             }
         }
 
-        public usrc_myGroupBox()
+        public usrc_myGroupBox(UniqueControlName xuctrln)
         {
             InitializeComponent();
+            this.Name = "myGrp_" + xuctrln.Get_usrc_myGroupBox_UniqueIndex();
         }
 
         private void btnExpand_Click(object sender, EventArgs e)
@@ -201,6 +203,7 @@ namespace CodeTables
 
 
         public void Init(SQLTable pTbl,
+                         UniqueControlName xuctrln,
                          Column x_refernce_column, 
                          string sPrKeys, 
                          Object pPrevWindow, 
@@ -230,6 +233,7 @@ namespace CodeTables
              }
              bExpanded = true;
              btnExpand = new Button();
+            btnExpand.Name = "btnex_" + xuctrln.Get_Button_UniqueIndex();
              btnExpand.Text = "";
              btnExpand.Image = Resource.IconMinus.ToBitmap();
              btnExpand.Top = 14;
@@ -244,7 +248,8 @@ namespace CodeTables
              if (m_refernce_column != null)
              {
                  usrc_lbl = new usrc_InputControl_Label();
-                 usrc_lbl.Init(m_refernce_column, -1, readOnly);
+                 usrc_lbl.Name = "uinpctrl_lbl_" + xuctrln.Get_usrc_InputControl_Label_UniqueIndex();
+                 usrc_lbl.Init(m_refernce_column, xuctrln, - 1, readOnly);
                  usrc_lbl.null_selected += new usrc_InputControl_Label.delegate_null_selected(m_usrc_InputControl_Label_null_selected);
                  usrc_lbl.Left = x;
                  usrc_lbl.Top = btnExpand.Top + 3;
@@ -252,6 +257,7 @@ namespace CodeTables
                  usrc_lbl.Visible = true;
                  x = usrc_lbl.Left + x + usrc_lbl.Width + 2;
                  ixt_ID = new IndexBox();
+                 ixt_ID.Name = "ixt_"+xuctrln.Get_TextBox_UniqueIndex();
                  ixt_ID.Width = 60;
                  ixt_ID.Left = x;
                  ixt_ID.BackColor = Color.LightGray;
@@ -268,7 +274,7 @@ namespace CodeTables
              if (!readOnly)
              {
                  btnSelect = new Button();
-                 btnSelect.Text = "";
+                 btnSelect.Name = "btnex_"+ xuctrln.Get_Button_UniqueIndex();
                  btnSelect.Image = Properties.Resources.SelectRow;
                  btnSelect.Top = btnExpand.Top;
                  btnSelect.Left = x;
@@ -472,43 +478,11 @@ namespace CodeTables
             }
         }
 
-        //[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
-        //protected override void WndProc(ref Message m)
-        //{
-        //    // Listen for operating system messages.
-        //    if (m.Msg == (int)WM_RBUTTONUP)
-        //    {
-        //        if (bExpanded)
-        //        {
-        //            //MessageBox.Show("Mouse Button UP Table: " + pSQL_Table.TableName);
-        //            if (m_EditTable_Assistant_Form == null)
-        //            {
-        //                m_EditTable_Assistant_Form = new EditTable_Assistant_Form(this, pSQL_Table, m_DBTables);
-        //                m_EditTable_Assistant_Form.Show();
-        //            }
-        //            else
-        //            {
-        //                if (m_EditTable_Assistant_Form.IsDisposed)
-        //                {
-        //                    m_EditTable_Assistant_Form = new EditTable_Assistant_Form(this, pSQL_Table, m_DBTables);
-        //                    m_EditTable_Assistant_Form.Show();
-        //                }
-        //                else
-        //                {
-        //                    m_EditTable_Assistant_Form.TopLevel = true;
-        //                    m_EditTable_Assistant_Form.Focus();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    base.WndProc(ref m);
-        //}
-
-
-        internal void FillInputControls(long Identity, bool bSetInitialValues)
+ 
+        internal void FillInputControls(long Identity, bool bSetInitialValues,UniqueControlName xuctrln)
         {
             string csError = "";
-            if (!this.pSQL_Table.FillDataInputControl(m_DBTables.m_con, Identity,bSetInitialValues, ref csError))
+            if (!this.pSQL_Table.FillDataInputControl(m_DBTables.m_con, xuctrln, Identity,bSetInitialValues, ref csError))
             {
                 LogFile.Error.Show(csError);
             }
@@ -568,7 +542,7 @@ namespace CodeTables
 
         }
 
-        internal void Hide_And_Init_Reference_ID()
+        internal void Hide_And_Init_Reference_ID(UniqueControlName xuctrln)
         {
             if (ixt_ID == null)
             {
@@ -579,6 +553,7 @@ namespace CodeTables
                     x = usrc_lbl.Left + x + usrc_lbl.Width + 2;
                 }
                 ixt_ID = new IndexBox();
+                ixt_ID.Name = "ixt_" + xuctrln.Get_TextBox_UniqueIndex();
                 ixt_ID.Width = 60;
                 ixt_ID.Left = x;
                 ixt_ID.Top = btnExpand.Top;
@@ -603,7 +578,7 @@ namespace CodeTables
                 {
                     if (col.fKey != null)
                     {
-                        col.fKey.fTable.myGroupBox.InitToDefault();
+                        col.fKey.fTable.myGroupBox.InitToDefault(xuctrln);
                     }
                     else
                     {
@@ -616,9 +591,9 @@ namespace CodeTables
             }
         }
 
-        private void InitToDefault()
+        private void InitToDefault(UniqueControlName xuctrln)
         {
-            Hide_And_Init_Reference_ID();
+            Hide_And_Init_Reference_ID(xuctrln);
         }
 
 

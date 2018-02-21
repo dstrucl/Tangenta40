@@ -169,6 +169,10 @@
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\UniqueControlNames\UniqueControlNames.csproj">
+      <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
+      <Name>UniqueControlNames</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>

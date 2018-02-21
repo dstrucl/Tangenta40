@@ -9,6 +9,7 @@ using SelectGender;
 using DBTypes;
 using System.Drawing;
 using System.IO;
+using UniqueControlNames;
 
 namespace DynEditControls
 {
@@ -138,7 +139,7 @@ namespace DynEditControls
                 }
             }
 
-        public EditControl(DynGroupBox xgrp_box, object refobj, string xName, ltext lt_label, ltext lt_val, ltext lt_help)
+        public EditControl(DynGroupBox xgrp_box, UniqueControlName xuctrln, object refobj, string xName, ltext lt_label, ltext lt_val, ltext lt_help)
         {
             m_grp_box = xgrp_box;
             m_lt_help = lt_help;
@@ -162,6 +163,7 @@ namespace DynEditControls
                 if (xName.Equals("MyOrg_Person_Password"))
                 {
                     edit_control = new Password.usrc_PasswordDefinition();
+                    edit_control.Name = "upwd_" + xuctrln.Get_usrc_PasswordDefinition_UniqueIndex();
                     ((Password.usrc_PasswordDefinition)edit_control).PasswordLocked = false;
                     bool bltValDefined = false;
                     if (lt_val != null)
@@ -185,6 +187,7 @@ namespace DynEditControls
                 else
                 {
                     edit_control = new TextBox();
+                    edit_control.Name = "txt_" + xuctrln.Get_TextBox_UniqueIndex();
                     bool bltValDefined = false;
                     if (lt_val != null)
                     {
@@ -209,7 +212,7 @@ namespace DynEditControls
             {
                 if (xName.Equals("MyOrg_Person_Gender"))
                 {
-                    edit_control = new usrc_SelectGender();
+                    edit_control = new usrc_SelectGender(xuctrln.Get_usrc_SelectGender_UniqueIndex());
                     ((usrc_SelectGender)edit_control).RadioButton1IsTrue = true;
                     ((usrc_SelectGender)edit_control).RadioButton1_Text = lng.s_Male.s;
                     ((usrc_SelectGender)edit_control).RadioButton2_Text = lng.s_Female.s;
@@ -221,6 +224,7 @@ namespace DynEditControls
                 else
                 {
                     edit_control = new CheckBox();
+                    edit_control.Name = xuctrln.Get_usrc_CheckBox_UniqueIndex();
                     ((CheckBox)edit_control).Text = "";
                     if (((dbool_v)m_refobj).defined)
                     {
@@ -231,13 +235,14 @@ namespace DynEditControls
             else if (m_refobj is dDateTime_v)
             {
                 edit_control = new DateTimePicker();
+                edit_control.Name = "datetimepicker_" + xuctrln.Get_DateTimePicker_UniqueIndex();
                 edit_control.Text = "";
                 ((DateTimePicker)edit_control).Value = DateTime.Now;
                 ((dDateTime_v)m_refobj).v = ((DateTimePicker)edit_control).Value;
             }
             else if (m_refobj is dshort_v)
             {
-                edit_control = new usrc_NumericUpDown(false);
+                edit_control = new usrc_NumericUpDown(false, xuctrln.Get_usrc_NumericUpDown_UniqueIndex());
                 ((usrc_NumericUpDown)edit_control).Minimum = 0;
                 ((usrc_NumericUpDown)edit_control).Maximum = 100000;
                 ((usrc_NumericUpDown)edit_control).Value = Convert.ToDecimal(((dshort_v)m_refobj).v);
@@ -246,6 +251,7 @@ namespace DynEditControls
             else if (m_refobj is dbyte_array_v)
             {
                 edit_control = new usrc_GetImage();
+                edit_control.Name = "ugetimg_" + xuctrln.Get_usrc_GetImage_UniqueIndex();
                 if (m_refobj!=null)
                 {
                     if (((dbyte_array_v)m_refobj).v != null)
