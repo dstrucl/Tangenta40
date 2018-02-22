@@ -225,6 +225,8 @@ namespace HUDCMS
 
         private void btn_HUDCMS_Click(object sender, EventArgs e)
         {
+            Cursor cursor = this.Cursor;
+            this.Cursor = Cursors.WaitCursor;
             if (frm_HUDCMS != null)
             {
                 if (frm_HUDCMS.IsDisposed)
@@ -239,6 +241,7 @@ namespace HUDCMS
                 frm_HUDCMS.Owner = Global.f.GetParentForm(this);
             }
             frm_HUDCMS.Show();
+            this.Cursor = cursor;
         }
 
         internal void ReloadHtml()

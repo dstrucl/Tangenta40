@@ -211,11 +211,31 @@ namespace HUDCMS
                 }
                 else if (c is HScrollBar)
                 {
-                    AddSubCtrl(c, xuctrln);
+                    if (c.Parent != null)
+                    {
+                        if (!(c.Parent is DataGridView))
+                        {
+                            AddSubCtrl(c, xuctrln);
+                        }
+                    }
+                    else
+                    {
+                        AddSubCtrl(c, xuctrln);
+                    }
                 }
                 else if (c is VScrollBar)
                 {
-                    AddSubCtrl(c, xuctrln);
+                    if (c.Parent != null)
+                    {
+                        if (!(c.Parent is DataGridView))
+                        {
+                            AddSubCtrl(c, xuctrln);
+                        }
+                    }
+                    else
+                    {
+                        AddSubCtrl(c, xuctrln);
+                    }
                 }
                 else if (c is ComboBox)
                 {
@@ -307,11 +327,31 @@ namespace HUDCMS
                 }
                 else if (c is HScrollBar)
                 {
-                    AddSubCtrl(c, xuctrln);
+                    if (c.Parent != null)
+                    {
+                        if (!(c.Parent is DataGridView))
+                        {
+                            AddSubCtrl(c, xuctrln);
+                        }
+                    }
+                    else
+                    {
+                        AddSubCtrl(c, xuctrln);
+                    }
                 }
                 else if (c is VScrollBar)
                 {
-                    AddSubCtrl(c, xuctrln);
+                    if (c.Parent != null)
+                    {
+                        if (!(c.Parent is DataGridView))
+                        {
+                            AddSubCtrl(c, xuctrln);
+                        }
+                    }
+                    else
+                    {
+                        AddSubCtrl(c, xuctrln);
+                    }
                 }
                 else if (c is ComboBox)
                 {
@@ -464,6 +504,32 @@ namespace HUDCMS
                     if (ctrl is SplitterPanel)
                     {
                         sctrlname = ((SplitterPanel)ctrl).AccessibleName;
+                    }
+                    else if (ctrl is HScrollBar)
+                    {
+                        if (ctrl.Parent != null)
+                        {
+                            if (ctrl.Parent is DataGridView)
+                            {
+                                if (((HScrollBar)ctrl).Name.Length == 0)
+                                {
+                                    sctrlname = "hscrl";
+                                }
+                            }
+                        }
+                    }
+                    else if (ctrl is VScrollBar)
+                    {
+                        if (ctrl.Parent != null)
+                        {
+                            if (ctrl.Parent is DataGridView)
+                            {
+                                if (((HScrollBar)ctrl).Name.Length == 0)
+                                {
+                                    sctrlname = "hscrl";
+                                }
+                            }
+                        }
                     }
                     else
                     {

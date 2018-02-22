@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Global;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Startup
 {
     public class startup_step
     {
+        Form parentform = null;
+        Cursor parentformcursor = Cursors.Arrow;
 
         public enum Startup_check_proc_Result {CHECK_NONE,
                                                CHECK_OK,
@@ -120,7 +123,19 @@ namespace Startup
             Step = xStep;
         }
 
+        private void ShowWaitCursor()
+        {
+            if (m_usrc_startup_step != null)
+            {
+                parentform = f.GetParentForm(m_usrc_startup_step);
+                if (parentform != null)
+                {
+                    parentformcursor = parentform.Cursor;
+                    parentform.Cursor = Cursors.WaitCursor;
+                }
 
+            }
+        }
         internal bool ShowFormProcedure(delegate_startup_ShowForm_proc Do_showform)
         {
             if (Do_showform != null)
@@ -129,11 +144,22 @@ namespace Startup
             }
             if (showform_procedure!=null)
             {
+
                 SetPreviousButtonVisible();
+                ShowWaitCursor();
                 bool bRes = showform_procedure(this,nav,ref onformresult_procedure);
+                HideWaitCursor();
                 return bRes;
             }
             return false;
+        }
+
+        private void HideWaitCursor()
+        {
+            if (parentform != null)
+            {
+                parentform.Cursor = parentformcursor;
+            }
         }
 
         private void SetPreviousButtonVisible()
@@ -197,6 +223,7 @@ namespace Startup
 
         public Startup_check_proc_Result Execute_check_procedure(object oData, ref string Err)
         {
+            ShowWaitCursor();
             eResult_Of_check_procedure = check_procedure(this, oData,ref showform_procedure,  ref Err);
             switch (eResult_Of_check_procedure)
             {
@@ -204,14 +231,17 @@ namespace Startup
                     SetOK();
                     break;
             }
+            HideWaitCursor();
             return eResult_Of_check_procedure;
         }
 
 
         internal void StartExecution_ShowForm(Startup_check_proc_Result wAIT_USER_INTERACTION)
         {
+            ShowWaitCursor();
             SetWait();
             bool bRes = showform_procedure(this, nav, ref onformresult_procedure);
+            HideWaitCursor();
         }
 
         public Startup_onformresult_proc_Result Execute_onformresult_procedure(object oData, ref string Err)

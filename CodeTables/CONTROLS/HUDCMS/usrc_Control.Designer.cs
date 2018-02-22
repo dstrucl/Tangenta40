@@ -54,7 +54,7 @@
             this.txt_Control.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.txt_Control.Name = "txt_Control";
             this.txt_Control.ReadOnly = true;
-            this.txt_Control.Size = new System.Drawing.Size(482, 21);
+            this.txt_Control.Size = new System.Drawing.Size(485, 21);
             this.txt_Control.TabIndex = 3;
             this.txt_Control.Text = "Dialog";
             this.txt_Control.WordWrap = false;
@@ -75,10 +75,10 @@
             this.panel1.Controls.Add(this.txt_Control);
             this.panel1.Controls.Add(this.list_Link);
             this.panel1.Controls.Add(this.lbl_LinkedControls);
-            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Location = new System.Drawing.Point(-1, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(486, 205);
+            this.panel1.Size = new System.Drawing.Size(489, 240);
             this.panel1.TabIndex = 6;
             // 
             // lbl_ID
@@ -99,7 +99,7 @@
             this.txt_ID.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ID.Name = "txt_ID";
             this.txt_ID.ReadOnly = true;
-            this.txt_ID.Size = new System.Drawing.Size(327, 20);
+            this.txt_ID.Size = new System.Drawing.Size(330, 20);
             this.txt_ID.TabIndex = 13;
             // 
             // chk_ImageIncluded
@@ -114,14 +114,13 @@
             this.chk_ImageIncluded.TabIndex = 12;
             this.chk_ImageIncluded.Text = "Include Image";
             this.chk_ImageIncluded.UseVisualStyleBackColor = true;
-            this.chk_ImageIncluded.AppearanceChanged += new System.EventHandler(this.chk_IncludeImage);
             // 
             // btn_Link
             // 
             this.btn_Link.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Link.Image = global::HUDCMS.Properties.Resources.NoLink;
             this.btn_Link.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Link.Location = new System.Drawing.Point(400, 57);
+            this.btn_Link.Location = new System.Drawing.Point(403, 57);
             this.btn_Link.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Link.Name = "btn_Link";
             this.btn_Link.Size = new System.Drawing.Size(84, 48);
@@ -149,7 +148,7 @@
             this.txt_ControlName.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ControlName.Name = "txt_ControlName";
             this.txt_ControlName.ReadOnly = true;
-            this.txt_ControlName.Size = new System.Drawing.Size(364, 20);
+            this.txt_ControlName.Size = new System.Drawing.Size(367, 20);
             this.txt_ControlName.TabIndex = 7;
             // 
             // radioButtonGlobal1
@@ -158,7 +157,7 @@
             this.radioButtonGlobal1.BackColor = System.Drawing.SystemColors.Control;
             this.radioButtonGlobal1.Checked = false;
             this.radioButtonGlobal1.HighlightBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(247)))), ((int)(((byte)(132)))));
-            this.radioButtonGlobal1.Location = new System.Drawing.Point(422, 26);
+            this.radioButtonGlobal1.Location = new System.Drawing.Point(425, 26);
             this.radioButtonGlobal1.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonGlobal1.Name = "radioButtonGlobal1";
             this.radioButtonGlobal1.ParentBackColor = System.Drawing.SystemColors.Control;
@@ -172,7 +171,7 @@
             // 
             this.pic_Control.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.pic_Control.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic_Control.Location = new System.Drawing.Point(3, 93);
+            this.pic_Control.Location = new System.Drawing.Point(4, 93);
             this.pic_Control.Name = "pic_Control";
             this.pic_Control.Size = new System.Drawing.Size(156, 109);
             this.pic_Control.TabIndex = 4;
@@ -187,7 +186,7 @@
             this.list_Link.Location = new System.Drawing.Point(165, 93);
             this.list_Link.Margin = new System.Windows.Forms.Padding(2);
             this.list_Link.Name = "list_Link";
-            this.list_Link.Size = new System.Drawing.Size(143, 108);
+            this.list_Link.Size = new System.Drawing.Size(146, 108);
             this.list_Link.TabIndex = 10;
             this.list_Link.Visible = false;
             // 
@@ -207,6 +206,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_Control";
             this.Size = new System.Drawing.Size(490, 209);
@@ -218,7 +218,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
         internal System.Windows.Forms.TextBox txt_Control;
         internal System.Windows.Forms.PictureBox pic_Control;
         private System.Windows.Forms.Label lbl_Name;
@@ -230,5 +229,6 @@
         private System.Windows.Forms.CheckBox chk_ImageIncluded;
         private System.Windows.Forms.Label lbl_ID;
         internal System.Windows.Forms.TextBox txt_ID;
+        internal System.Windows.Forms.Panel panel1;
     }
 }

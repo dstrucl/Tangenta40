@@ -65,6 +65,7 @@ namespace CodeTables
             this.flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
 
             PictureBox pictureBox_MoveRight = new PictureBox();
+            pictureBox_MoveRight.Name = "picMoveRight";
             pictureBox_MoveRight.Image = Properties.Resources.MoveRightIcon.ToBitmap();
             pictureBox_MoveRight.Parent = this;
             pictureBox_MoveRight.Left = flowLayoutPanel2.Left + flowLayoutPanel2.Width + 3;
@@ -75,6 +76,7 @@ namespace CodeTables
             //pictureBox_MoveRight.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
 
             PictureBox pictureBox_MoveLeft = new PictureBox();
+            pictureBox_MoveRight.Name = "picMoveLeft";
             pictureBox_MoveLeft.Image = Properties.Resources.MoveLeftIcon.ToBitmap();
             pictureBox_MoveLeft.Parent = this;
             pictureBox_MoveLeft.Left = flowLayoutPanel2.Left + flowLayoutPanel2.Width + 3;
@@ -178,29 +180,6 @@ namespace CodeTables
         {
             e.Effect = DragDropEffects.Move;
         }
-
-
-        //[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
-        //protected override void WndProc(ref Message m)
-        //{
-        //    // Listen for operating system messages.
-        //    if (m.Msg == (int)Func.WM_USER_REDRAW_FORM)
-        //    {
-        //        // The WParam value identifies what is occurring.
-        //        // Invalidate to get new text painted.
-        //        MySize size = new MySize();
-        //        size.cx = 0;
-        //        size.cy = 0;
-        //        //m_tbl.myGroupBox.Top = 60;
-        //        m_tbl.Reposition_DefineView_InputControls(m_tbl.DefineView_GroupBox, ref size, 0);
-        //        m_tbl.DefineView_GroupBox.Width = size.cx;
-        //        m_tbl.DefineView_GroupBox.Height = size.cy;
-        //        m_tbl.DefineView_GroupBox.Visible = true;
-        //        this.BackColor = m_tbl.DefineView_GroupBox.BackColor;
-        //        this.Invalidate();
-        //    }
-        //    base.WndProc(ref m);
-        //}
 
 
         private void CreateView_Form_Load(object sender, EventArgs e)

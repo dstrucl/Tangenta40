@@ -117,7 +117,9 @@ namespace HUDCMS
             }
 
             int y = 2;
-            CreateControls(ref y, 0, hc, this.panel1);
+            int iAllCount = 0;
+            CreateControls(ref y, 0,0,ref iAllCount, hc, this.panel1);
+            this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
             HideLinks();
             SetLinks(this.panel1);
         }
@@ -371,39 +373,42 @@ namespace HUDCMS
             html_head.Add(html_link_stylesheet);
         }
 
-        private void CreateControls(ref int y,int level, hctrl xhc,Control xctrl)
+        private void CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,Control xctrl)
         {
 
            
-                usrc_Control uctrl = new usrc_Control();
-                uctrl.Parent = xctrl;
-                uctrl.Init(mH, xhc);
-                uctrl.Top = y;
-                uctrl.Left = 3;
-                uctrl.Width = xctrl.Width - uctrl.Left - 3;
-                uctrl.Visible = true;
-                uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                xctrl.Controls.Add(uctrl);
-                if (xhc.subctrl != null)
+            usrc_Control uctrl = new usrc_Control();
+            iAllCount++;
+            iCount = 0;
+            uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
+            uctrl.Parent = xctrl;
+            uctrl.Init(mH, xhc, level);
+            uctrl.Top = y;
+            uctrl.Left = 3;
+            uctrl.Width = xctrl.Width - uctrl.Left - 3;
+            uctrl.Visible = true;
+            uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            xctrl.Controls.Add(uctrl);
+            if (xhc.subctrl != null)
+            {
+                int ysub = uctrl.Height + 4;
+                foreach (hctrl hc in xhc.subctrl)
                 {
-                    int ysub = uctrl.Height + 4;
-                    foreach (hctrl hc in xhc.subctrl)
+                    if (hc.ctrl != null)
                     {
-                        if (hc.ctrl != null)
+                        if (hc.ctrl.Visible)
                         {
-                            if (hc.ctrl.Visible)
-                            {
-                                CreateControls(ref ysub, level + 1, hc, uctrl);
-                            }
-                        }
-                        else if (hc.dgvc != null)
-                        {
-                            CreateControls(ref ysub, level + 1, hc, uctrl);
+                            CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
                         }
                     }
-                    uctrl.Height = ysub;
+                    else if (hc.dgvc != null)
+                    {
+                        CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+                    }
                 }
-                y += uctrl.Height + 8;
+                uctrl.Height = ysub;
+            }
+            y += uctrl.Height + 4;
         }
 
         internal void ShowAvailableLinks()

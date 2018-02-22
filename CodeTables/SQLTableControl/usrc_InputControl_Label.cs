@@ -239,7 +239,7 @@ namespace CodeTables
             if ((m_col.flags & Column.Flags.UNIQUE) > 0)
             {
                 pic_Unique = new PictureBox();
-                pic_Unique.Name = "pic_" + xuctrln.Get_PictureBox_UniqueIndex();
+                pic_Unique.Name = "picUnique";
                 pic_Unique.Image = Properties.Resources.Unique;
                 pic_Unique.Left = x;
                 pic_Unique.Top = y;

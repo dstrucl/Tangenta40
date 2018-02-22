@@ -196,6 +196,14 @@ namespace HUDCMS
             set { m_MaxPanelHeight = value; }
         }
 
+        private int m_MinPanelHeight = 80;
+        public int MinPanelHeight
+        {
+            get { return m_MinPanelHeight; }
+            set { m_MinPanelHeight = value; }
+        }
+
+
         private int m_MaxPanelWidth = 400;
         public int MaxPanelWidth
         {
@@ -380,7 +388,42 @@ namespace HUDCMS
         public usrc_Control()
         {
             InitializeComponent();
-           
+            this.MouseClick += Usrc_Control_MouseClick;
+            this.panel1.MouseClick += Usrc_Control_MouseClick;
+            Size maxsize = this.MaximumSize;
+            Size newsize = new Size(int.MaxValue, int.MaxValue);
+            this.MaximumSize = newsize;
+            maxsize = this.MaximumSize;
+        }
+
+        private void Usrc_Control_MouseClick(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    {
+                        string msg = null;
+                        if (sender is usrc_Control)
+                        {
+                            msg = "Control:" + ((usrc_Control)sender).txt_Control.Text + "\r\nName=" + ((usrc_Control)sender).txt_ControlName.Text;
+                        }
+                        if (sender is Panel)
+                        {
+                            if (((Panel)sender).Parent != null)
+                            {
+                                if (((Panel)sender).Parent is usrc_Control)
+                                {
+                                    msg = "Control:" + ((usrc_Control)((Panel)sender).Parent).txt_Control.Text + "\r\nName=" + ((usrc_Control)((Panel)sender).Parent).txt_ControlName.Text;
+                                }
+                            }
+                        }
+                        if (msg != null)
+                        {
+                            MessageBox.Show(Global.f.GetParentForm(this), msg);
+                        }
+                    }
+                    break;
+            }
         }
 
         private void Set_pic_Control()
@@ -397,14 +440,23 @@ namespace HUDCMS
             {
                 this.pic_Control.Height = hc.ctrlbmp.Height;
             }
+            this.pic_Control.Top = this.chk_ImageIncluded.Bottom + 4;
             this.lbl_LinkedControls.Left = this.pic_Control.Right + 4;
             this.list_Link.Left = this.pic_Control.Right + 4;
         }
 
-        internal void Init(usrc_Help xuH, hctrl xhc)
+        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel)
         {
             uH = xuH;
             hc = xhc;
+            if (hc.ctrl != null)
+            {
+                this.Name = "uctrl_" + hc.ctrl.Name;
+            }
+            else if (hc.dgvc != null)
+            {
+                this.Name = "uctrldgvc__" + hc.dgvc.Name;
+            }
             string sText = "";
             string sControl = HUDCMS_static.slng_UserControlName;
             if (xhc.pForm !=null)
@@ -437,7 +489,7 @@ namespace HUDCMS
                     {
                         sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\"";
                         this.txt_Control.ForeColor = Color.DarkViolet;
-                        this.txt_Control.BackColor = Color.White;
+                        this.txt_Control.BackColor = Color.LightCoral;
                     }
                     else if (xhc.ctrl is Label)
                     {
@@ -473,6 +525,7 @@ namespace HUDCMS
                 this.txt_Control.Text = sControl + "=" + xhc.ctrl.Name + "  Type:" + xhc.ctrl.GetType().ToString() + sText;
             }
 
+            this.txt_Control.Text += " Level="+ iLevel.ToString();
             txt_ControlName.Text = uH.Prefix+hc.GetName();
 
             if (hc.ctrlbmp != null)
@@ -487,6 +540,10 @@ namespace HUDCMS
                 {
                     this.panel1.Height = MaxPanelHeight;
                 }
+                if (this.panel1.Height < MinPanelHeight)
+                {
+                    this.panel1.Height = MinPanelHeight;
+                }
                 this.Height = this.panel1.Bottom + 4;
              
             }
@@ -498,6 +555,10 @@ namespace HUDCMS
                     this.pic_Control.Visible = false;
                     Title = this.hc.dgvc.HeaderText;
                     this.panel1.Height = this.radioButtonGlobal1.Bottom + 6;
+                    if (this.panel1.Height < MinPanelHeight)
+                    {
+                        this.panel1.Height = MinPanelHeight;
+                    }
                     this.Height = this.panel1.Bottom + 4;
                     this.btn_Link.Visible = false;
                 }
@@ -1172,11 +1233,6 @@ namespace HUDCMS
                     }
                 }
             }
-        }
-
-        private void chk_IncludeImage(object sender, EventArgs e)
-        {
-
         }
     }
 }

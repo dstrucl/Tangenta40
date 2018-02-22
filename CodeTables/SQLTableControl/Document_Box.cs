@@ -27,6 +27,7 @@ namespace CodeTables
         public PictureBox Picture;
         public Document_Box(usrc_InputControl inpCtrl,UniqueControlName xuctrln)
         {
+            this.Name ="docbox"+ xuctrln.Get_Document_Box_UniqueIndex();
             DBm_Document = new DBm_Document();
             //FileInfo_Box = new FileInfo_Box(inpCtrl,this);
             Picture = new PictureBox();

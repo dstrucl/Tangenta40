@@ -50,6 +50,7 @@ namespace CodeTables
             if (!bReadOnly)
             {
                 btnFolderSelect = new Button();
+                btnFolderSelect.Name = "btn" + xuctrln.Get_Button_UniqueIndex();
                 xinpCtrl.Controls.Add(btnFolderSelect);
                 btnFolderSelect.Width = BtnFileSelectWidth;
                 btnFolderSelect.Height = InputBoxHeight;
@@ -62,6 +63,7 @@ namespace CodeTables
             DBm_Image = new DBm_Image();
             //FileInfo_Box = new FileInfo_Box(inpCtrl,this);
             Picture = new PictureBox();
+            Picture.Name = "pic" + xuctrln.Get_PictureBox_UniqueIndex();
             Picture.Parent = this;
             Picture.Top = 10;
             Picture.Left = 5;

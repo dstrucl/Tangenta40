@@ -1156,7 +1156,6 @@ namespace CodeTables
 
                 case Globals.eDBType.DB_Image:
                     Picture_Box = new Picture_Box(this, xuctrln, pParentTbl, PictureBoxWidth, PictureBoxHeight,bReadOnly);
-                    Picture_Box.Name = "pic" + xuctrln.Get_PictureBox_UniqueIndex();
                     Picture_Box.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     Picture_Box.Top = usrc_lbl.Top;
                     if (Picture_Box.btnFolderSelect!=null)

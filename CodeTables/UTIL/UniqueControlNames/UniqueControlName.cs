@@ -28,7 +28,7 @@ namespace UniqueControlNames
         public long Label_UniqueIndex = 0;
         public long SplitterPanel_UniqueIndex = 0;
         public long Button_UniqueIndex = 0;
-
+        public long Document_Box_UniqueIndex = 0;
 
         public string Get_usrc_InputControl_UniqueIndex()
         {
@@ -145,5 +145,11 @@ namespace UniqueControlNames
             return Button_UniqueIndex.ToString();
         }
 
+        
+        public string Get_Document_Box_UniqueIndex()
+        {
+            Document_Box_UniqueIndex++;
+            return Document_Box_UniqueIndex.ToString();
+        }
     }
 }
