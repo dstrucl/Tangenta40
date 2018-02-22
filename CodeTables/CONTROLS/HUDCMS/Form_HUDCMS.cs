@@ -118,7 +118,9 @@ namespace HUDCMS
 
             int y = 2;
             int iAllCount = 0;
-            CreateControls(ref y, 0,0,ref iAllCount, hc, this.panel1);
+            UserControl root = CreateControls(ref y, 0,0,ref iAllCount, hc, null);
+            this.panel1.Controls.Add(root);
+
             this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
             HideLinks();
             SetLinks(this.panel1);
@@ -373,7 +375,7 @@ namespace HUDCMS
             html_head.Add(html_link_stylesheet);
         }
 
-        private void CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,Control xctrl)
+        private usrc_Control CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,UserControl xctrl)
         {
 
            
@@ -381,34 +383,46 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            uctrl.Parent = xctrl;
             uctrl.Init(mH, xhc, level);
             uctrl.Top = y;
             uctrl.Left = 3;
-            uctrl.Width = xctrl.Width - uctrl.Left - 3;
+            if (xctrl != null)
+            {
+                uctrl.Width = xctrl.Width - uctrl.Left - 3;
+            }
+            else
+            {
+                uctrl.Width = this.panel1.Width - uctrl.Left - 3;
+            }
+            
             uctrl.Visible = true;
             uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            xctrl.Controls.Add(uctrl);
             if (xhc.subctrl != null)
             {
                 int ysub = uctrl.Height + 4;
+                usrc_Control child = null;
                 foreach (hctrl hc in xhc.subctrl)
                 {
                     if (hc.ctrl != null)
                     {
                         if (hc.ctrl.Visible)
                         {
-                            CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+                           child= CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+                           uctrl.Controls.Add(child);
+                            child.Parent = uctrl;
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+                        child = CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+                        uctrl.Controls.Add(child);
+                        child.Parent = uctrl;
                     }
                 }
                 uctrl.Height = ysub;
             }
             y += uctrl.Height + 4;
+            return uctrl;
         }
 
         internal void ShowAvailableLinks()

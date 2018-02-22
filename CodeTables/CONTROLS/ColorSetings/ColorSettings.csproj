@@ -33,10 +33,6 @@
     <Reference Include="FastColoredTextBox">
       <HintPath>..\..\..\DLL\FastColoredTextBox.dll</HintPath>
     </Reference>
-    <Reference Include="HUDCMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\HUDCMS.dll</HintPath>
-    </Reference>
     <Reference Include="NavigationButtons">
       <HintPath>..\NavigationButtons\obj\Debug\NavigationButtons.dll</HintPath>
     </Reference>
@@ -207,6 +203,10 @@
     <ProjectReference Include="..\Cyotek.Windows.Forms.ColorPicker\Cyotek.Windows.Forms.ColorPicker.csproj">
       <Project>{fb2a5786-cd2e-42ce-bc5d-0fce90034221}</Project>
       <Name>Cyotek.Windows.Forms.ColorPicker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
