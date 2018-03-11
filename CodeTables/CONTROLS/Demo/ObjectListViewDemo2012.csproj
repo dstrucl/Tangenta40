@@ -104,6 +104,11 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="AnimatedDecoration.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +118,10 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.Designer.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource1.resx">
       <SubType>Designer</SubType>
@@ -193,6 +202,17 @@
     <Content Include="Photos\sp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\nav_panel_Help.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_usrc_HelpSettings1_grp_HelpSettings_usrc_SelectLocalHelpFolder_label1.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_usrc_HelpSettings1_grp_HelpSettings_lbl_RemoteURL.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_usrc_HelpSettings1_grp_HelpSettings.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_grp_CommandLineParameters_panel_Help_CommandLineHelp_ItemControl_3_.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_grp_CommandLineParameters_panel_Help_CommandLineHelp_ItemControl_2_.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_grp_CommandLineParameters_panel_Help_CommandLineHelp_ItemControl_1_.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_grp_CommandLineParameters_panel_Help_CommandLineHelp_ItemControl_0_.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form_grp_CommandLineParameters.png" />
+    <None Include="Resources\nav_CommandLineHelp_Form.png" />
+    <None Include="Resources\coffee.jpg" />
     <Content Include="Resources\Espresso Maker.ico" />
     <Content Include="Persons.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -257,8 +277,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

@@ -46,7 +46,7 @@ namespace ObjectListViewDemo
             }
         }
 
-        protected ImageList SmallImageList {
+        public ImageList SmallImageList {
             get {
                 if (this.listView != null)
                     return this.listView.SmallImageList;
@@ -56,7 +56,7 @@ namespace ObjectListViewDemo
             }
         }
 
-        protected ImageList LargeImageList {
+        public ImageList LargeImageList {
             get {
                 if (this.listView != null)
                     return this.listView.LargeImageList;
@@ -73,7 +73,8 @@ namespace ObjectListViewDemo
         {
             if (treeView.ImageList == null) {
                 treeView.ImageList = new ImageList();
-                treeView.ImageList.ImageSize = new Size(16, 16);
+//                treeView.ImageList.ImageSize = new Size(16, 16);
+                treeView.ImageList.ImageSize = new Size(32, 32);
             }
             this.treeView = treeView;
         }
@@ -92,12 +93,13 @@ namespace ObjectListViewDemo
             if (listView.SmallImageList == null) {
                 listView.SmallImageList = new ImageList();
                 listView.SmallImageList.ColorDepth = ColorDepth.Depth32Bit;
-                listView.SmallImageList.ImageSize = new Size(16, 16);
+                listView.SmallImageList.ImageSize = new Size(32, 32);
             }
 
             if (listView.LargeImageList == null) {
                 listView.LargeImageList = new ImageList();
                 listView.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+//                listView.LargeImageList.ImageSize = new Size(32, 32);
                 listView.LargeImageList.ImageSize = new Size(32, 32);
             }
 
@@ -134,6 +136,12 @@ namespace ObjectListViewDemo
             return this.SmallImageCollection.IndexOfKey(path);
         }
 
+        public int GetControlImageIndex(string Name)
+        {
+            int idx = this.LargeImageCollection.IndexOfKey(Name);
+            return idx;
+        }
+
         private void AddImageToCollection(string key, ImageList imageList, Icon image) {
             if (imageList == null)
                 return;
@@ -153,6 +161,20 @@ namespace ObjectListViewDemo
                 g.DrawImage(imageAsBitmap, x, y, size.Width, size.Height);
                 imageList.Images.Add(key, bm);
             }
+        }
+
+        public void AddImageToCollection(string key, ImageList imageList, Image image)
+        {
+            if (imageList == null)
+                return;
+
+            if (imageList.ImageSize == image.Size)
+            {
+                imageList.Images.Add(key, image);
+                return;
+            }
+            Bitmap bm = new Bitmap(image,imageList.ImageSize.Width, imageList.ImageSize.Height);
+            imageList.Images.Add(key, bm);
         }
     }
     

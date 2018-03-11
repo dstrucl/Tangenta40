@@ -82,16 +82,17 @@ namespace ObjectListViewDemo {
             //        list.Add(new Person(p));
             //}
 
-            InitializeSimpleExample(list);
-            InitializeComplexExample(list);
-            InitializeDataSetExample();
-            InitializeVirtualListExample();
-            InitializeExplorerExample();
+            //InitializeSimpleExample(list);
+            //InitializeComplexExample(list);
+            //InitializeDataSetExample();
+            //InitializeVirtualListExample();
+            //InitializeExplorerExample();
             InitializeTreeListExample();
-            InitializeListPrinting();
-            InitializeFastListExample(list);
-            InitializeDragDropExample(list);
+            //InitializeListPrinting();
+            //InitializeFastListExample(list);
+            //InitializeDragDropExample(list);
             InitializeTreeDataSetExample();
+            InitializeMyTreeListExample();
         }
 
         void TimedRebuildList(ObjectListView olv) {
@@ -722,6 +723,7 @@ namespace ObjectListViewDemo {
 
             this.treeListView.HierarchicalCheckboxes = true;
             this.treeListView.HideSelection = false;
+            this.treeListView.RowHeight = 48;
             this.treeListView.CanExpandGetter = delegate(object x) {
                 return ((MyFileSystemInfo)x).IsDirectory;
             };
@@ -806,6 +808,113 @@ namespace ObjectListViewDemo {
                 }
             }
             this.treeListView.Roots = roots;
+
+        }
+
+        void InitializeMyTreeListExample()
+        {
+
+            this.MyTreeListView.HierarchicalCheckboxes = true;
+            this.MyTreeListView.HideSelection = false;
+            this.MyTreeListView.RowHeight = 32;
+            this.MyTreeListView.CanExpandGetter = delegate (object x) {
+                return ((MyControl)x).HasChildren;
+            };
+            this.MyTreeListView.ChildrenGetter = delegate (object x) {
+                MyControl myControl = (MyControl)x;
+                try
+                {
+                    return myControl.GetChildren();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    MessageBox.Show(this, ex.Message, "ObjectListViewDemo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return new ArrayList();
+                }
+            };
+
+            checkBox11.Checked = this.MyTreeListView.HierarchicalCheckboxes;
+
+            //this.treeListView.CheckBoxes = false;
+
+            // You can change the way the connection lines are drawn by changing the pen
+            TreeListView.TreeRenderer renderer = this.MyTreeListView.TreeColumnRenderer;
+            renderer.LinePen = new Pen(Color.Firebrick, 0.5f);
+            renderer.LinePen.DashStyle = DashStyle.Dot;
+
+            //-------------------------------------------------------------------
+            // Eveything after this is the same as the Explorer example tab --
+            // nothing specific to the TreeListView. It doesn't have the grouping
+            // delegates, since TreeListViews can't show groups.
+
+            // Draw the system icon next to the name
+            SysImageListHelper helper = new SysImageListHelper(this.MyTreeListView);
+            helper.AddImageToCollection("root1", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form);
+            helper.AddImageToCollection("root2", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form_grp_CommandLineParameters);
+            helper.AddImageToCollection("r1_ch1", helper.LargeImageList, Properties.Resources.limeleaf);
+            helper.AddImageToCollection("r1_ch2", helper.LargeImageList, Properties.Resources.coffee);
+            this.olvc_ctrlName.ImageGetter = delegate (object x) {
+                return helper.GetControlImageIndex(((MyControl)x).ControlName);
+            };
+
+            // Show the size of files as GB, MB and KBs. Also, group them by
+            // some meaningless divisions
+            //this.treeColumnSize.AspectGetter = delegate (object x) {
+            //    MyControl myControl = (MyControl)x;
+
+            //    if (!myControl.HasChildren)
+            //        return (long)-1;
+
+            //    try
+            //    {
+            //        return 27061962;
+            //    }
+            //    catch (System.IO.FileNotFoundException)
+            //    {
+            //        // Mono 1.2.6 throws this for hidden files
+            //        return (long)-2;
+            //    }
+            //};
+            //this.treeColumnSize.AspectToStringConverter = delegate (object x) {
+            //    if ((long)x == -1) // folder
+            //        return "";
+
+            //    return this.FormatFileSize((long)x);
+            //};
+
+            //// Show the system description for this object
+            //this.treeColumnFileType.AspectGetter = delegate (object x) {
+            //    return ShellUtilities.GetFileType(((MyFileSystemInfo)x).FullName);
+            //};
+
+            //// Show the file attributes for this object
+            //this.treeColumnAttributes.AspectGetter = delegate (object x) {
+            //    return ((MyFileSystemInfo)x).Attributes;
+            //};
+            //FlagRenderer attributesRenderer = new FlagRenderer();
+            //attributesRenderer.Add(FileAttributes.Archive, "archive");
+            //attributesRenderer.Add(FileAttributes.ReadOnly, "readonly");
+            //attributesRenderer.Add(FileAttributes.System, "system");
+            //attributesRenderer.Add(FileAttributes.Hidden, "hidden");
+            //attributesRenderer.Add(FileAttributes.Temporary, "temporary");
+            //this.treeColumnAttributes.Renderer = attributesRenderer;
+            //this.treeColumnAttributes.ClusteringStrategy = new FlagClusteringStrategy(typeof(FileAttributes));
+
+            // List all drives as the roots of the tree
+            ArrayList roots = new ArrayList();
+            //foreach (DriveInfo di in DriveInfo.GetDrives())
+            //{
+            //    if (di.IsReady)
+            //    {
+            //        roots.Add(new MyFileSystemInfo(new DirectoryInfo(di.Name)));
+            //        break;
+            //    }
+            //}
+
+            roots.Add(new MyControl("root1","type_root1"));
+            roots.Add(new MyControl("root2", "type_root2"));
+
+            this.MyTreeListView.Roots = roots;
 
         }
 
@@ -2787,6 +2896,87 @@ namespace ObjectListViewDemo {
             return Equals(left, right);
         }
         public static bool operator !=(MyFileSystemInfo left, MyFileSystemInfo right) {
+            return !Equals(left, right);
+        }
+    }
+
+    public class MyControl : IEquatable<MyControl>
+    {
+        string m_name = null;
+        string m_TypeName = null;
+        ArrayList children = new ArrayList();
+
+        public MyControl(string xname, string xtype_name)
+        {
+            if (xname.Equals("root1"))
+            {
+                children.Add(new MyControl("r1_ch1", "type_ch1"));
+                children.Add(new MyControl("r1_ch2", "type_ch2"));
+                children.Add(new MyControl("r1_ch3", "type_ch3"));
+            }
+            else if (xname.Equals("r1_ch1"))
+            {
+                children.Add(new MyControl("r1_ch1_ch1", "type_ch1"));
+                children.Add(new MyControl("r1_ch1_ch2", "type_ch2"));
+                children.Add(new MyControl("r1_ch1_ch3", "type_ch3"));
+                children.Add(new MyControl("r1_ch1_ch4", "type_ch3"));
+            }
+            else if (xname.Equals("root2"))
+            {
+                children.Add(new MyControl("r2_ch1", "type_ch1"));
+                children.Add(new MyControl("r2_ch2", "type_ch2"));
+            }
+            m_name = xname;
+            m_TypeName = xtype_name;
+        }
+
+        public string ControlName
+        {
+            get { return m_name; }
+        }
+
+        public string TypeName
+        {
+            get { return m_TypeName; }
+        }
+
+        public bool HasChildren {
+            get
+            {
+                return children.Count > 0;
+            }
+                
+        }
+
+        public IEnumerable GetChildren()
+        {
+            return children;
+        }
+        // Two file system objects are equal if they point to the same file system path
+
+        public bool Equals(MyControl other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.ControlName, this.ControlName);
+        }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(MyFileSystemInfo)) return false;
+            return Equals((MyFileSystemInfo)obj);
+        }
+        public override int GetHashCode()
+        {
+            return (this.ControlName != null ? this.ControlName.GetHashCode() : 0);
+        }
+        public static bool operator ==(MyControl left, MyControl right)
+        {
+            return Equals(left, right);
+        }
+        public static bool operator !=(MyControl left, MyControl right)
+        {
             return !Equals(left, right);
         }
     }
