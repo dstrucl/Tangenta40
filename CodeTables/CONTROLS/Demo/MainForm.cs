@@ -816,7 +816,7 @@ namespace ObjectListViewDemo {
 
             this.MyTreeListView.HierarchicalCheckboxes = true;
             this.MyTreeListView.HideSelection = false;
-            this.MyTreeListView.RowHeight = 32;
+            //this.MyTreeListView.RowHeight = 32;
             this.MyTreeListView.CanExpandGetter = delegate (object x) {
                 return ((MyControl)x).HasChildren;
             };
