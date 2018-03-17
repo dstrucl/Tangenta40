@@ -11,12 +11,13 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Collections;
+using BrightIdeasSoftware;
 
 namespace HUDCMS
 {
     public partial class MyControl : IEquatable<MyControl>
     {
-        Form_HUDCMS xfrm_HUDCMS = null;
+        internal Form_HUDCMS xfrm_HUDCMS = null;
 
         internal XElement xel = null;
         internal XElement xdiv_Title = null;
@@ -26,6 +27,7 @@ namespace HUDCMS
         internal XElement xTitle_Heading = null;
         internal XElement xAbout = null;
         internal XElement xDescription = null;
+        internal ImageRenderer helperImageRenderer = null;
 
         internal string[] sLink = null;
 
@@ -60,6 +62,17 @@ namespace HUDCMS
         {
             get { return GetControlName(); }
         }
+
+        public string ControlType
+        {
+            get { return GetControlType(); }
+        }
+
+        public int ControlImage
+        {
+            get { return this.helperImageRenderer.ImageList.Images.IndexOfKey(ControlName); }
+        }
+
 
         internal string Title
         {
@@ -212,6 +225,26 @@ namespace HUDCMS
         public string GetControlName()
         {
             return uH.Prefix+hc.GetName();
+        }
+
+        public string GetControlType()
+        {
+            if (hc.ctrl != null)
+            {
+                return hc.ctrl.GetType().ToString();
+            }
+            else if (hc.pForm != null)
+            {
+                return hc.pForm.GetType().ToString();
+            }
+            else if (hc.dgvc != null)
+            {
+                return hc.dgvc.GetType().ToString();
+            }
+            else
+            {
+                return "UNKNOWN";
+            }
         }
 
         private int m_MaxPanelHeight = 400;
@@ -460,10 +493,11 @@ namespace HUDCMS
         //    this.list_Link.Left = this.pic_Control.Right + 4;
         //}
 
-        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel)
+        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel,  ref SysImageListHelper helperControlType, ref ImageRenderer xhelperImageRenderer)
         {
             uH = xuH;
             hc = xhc;
+            helperImageRenderer = xhelperImageRenderer;
             if (hc.ctrl != null)
             {
                 this.Name = "uctrl_" + hc.ctrl.Name;
@@ -474,11 +508,24 @@ namespace HUDCMS
             }
             string sText = "";
             string sControl = HUDCMS_static.slng_UserControlName;
+            helperControlType.AddImageToCollection(GetControlType(), helperControlType.SmallImageList, GetControlTypeImage());
+
+            if (hc.ctrlbmp != null)
+            {
+                if (helperImageRenderer.ImageList==null)
+                {
+                    helperImageRenderer.ImageList = new ImageList();
+                    helperImageRenderer.ImageList.ImageSize = new Size(48, 48);
+                }
+                helperImageRenderer.ImageList.Images.Add(GetControlName(),hc.ctrlbmp);
+                //helperControlName.AddImageToCollection(GetControlName(), helperControlName.LargeImageList, hc.ctrlbmp);
+            }
             if (xhc.pForm !=null)
             {
                 sControl = "Form";
                 //                this.txt_Control.ForeColor = Color.DarkGreen;
                 //                this.txt_Control.BackColor = Color.White;
+//                helper.AddImageToCollection(xhc.pForm.GetType().ToString(), helper.LargeImageList, Prop)
             }
             else if (xhc.ctrl is Form)
             {
@@ -733,6 +780,81 @@ namespace HUDCMS
             //            txt_ID.Text = ID;
             //            SetDefault_BackColor();
             //            this.Refresh();
+        }
+
+        private Image GetControlTypeImage()
+        {
+            if (hc.ctrl != null)
+            {
+                if (hc.ctrl is Label)
+                {
+                    return Properties.Resources.ctrl_Label;
+                }
+                else if (hc.ctrl is Button)
+                {
+                    return Properties.Resources.ctrl_Button;
+                }
+                else if (hc.ctrl is RadioButton)
+                {
+                    return Properties.Resources.ctrl_RadioButton;
+                }
+                else if (hc.ctrl is CheckBox)
+                {
+                    return Properties.Resources.ctrl_CheckBox;
+                }
+                else if (hc.ctrl is ComboBox)
+                {
+                    return Properties.Resources.ctrl_ComboBox;
+                }
+                else if (hc.ctrl is CheckedListBox)
+                {
+                    return Properties.Resources.ctrl_CheckedListBox;
+                }
+                else if (hc.ctrl is DataGridView)
+                {
+                    return Properties.Resources.ctrl_DataGridView;
+                }
+                else if (hc.ctrl is NumericUpDown)
+                {
+                    return Properties.Resources.ctrl_NumericUpDown;
+                }
+                else if (hc.ctrl is TextBox)
+                {
+                    return Properties.Resources.ctrl_Text;
+                }
+                else if (hc.ctrl is RichTextBox)
+                {
+                    return Properties.Resources.ctrl_RichTextBox;
+                }
+                else if (hc.ctrl is SplitContainer)
+                {
+                    return Properties.Resources.ctrl_SplitContainer;
+                }
+                else if (hc.ctrl is Panel)
+                {
+                    return Properties.Resources.ctrl_Panel;
+                }
+                else if (hc.ctrl is GroupBox)
+                {
+                    return Properties.Resources.ctrl_GroupBox;
+                }
+                else
+                {
+                    return Properties.Resources.ctrl_UserControl;
+                }
+            }
+            else if (hc.pForm != null)
+            {
+                return Properties.Resources.ctrl_Form;
+            }
+            else if (hc.dgvc != null)
+            {
+                return Properties.Resources.ctrl_DataGridViewColumn;
+            }
+            else
+            {
+                return Properties.Resources.ctrl_UserControl; 
+            }
         }
 
         private void Set_ID(XAttribute xAttribute)

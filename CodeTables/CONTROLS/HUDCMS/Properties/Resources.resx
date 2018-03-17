@@ -500,4 +500,67 @@ background-image: linear-gradient(to top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%
 &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
+  <data name="ctrl_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Button.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_CheckBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_CheckBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_CheckedListBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_CheckedListBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_ComboBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_ComboBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_DataGridView" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_DataGridView.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_DataGridViewColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_DataGridViewColumn.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_DateTimePicker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_DateTimePicker.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Form" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Form.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_GroupBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_GroupBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Label" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Label.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_NumericUpDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_NumericUpDown.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Panel.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_PictureBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_PictureBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_RadioButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_RadioButton.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_RichTextBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_RichTextBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_SplitContainer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_SplitContainer.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_TabControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_TabControl.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Text.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_TreeView" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_TreeView.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_UserControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_UserControl.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_WebBrowser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_WebBrowser.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

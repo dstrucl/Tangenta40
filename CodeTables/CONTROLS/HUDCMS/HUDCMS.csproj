@@ -301,6 +301,29 @@
   <ItemGroup>
     <None Include="Resources\undo_16x16.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ctrl_Button.bmp" />
+    <Content Include="Resources\ctrl_CheckBox.bmp" />
+    <Content Include="Resources\ctrl_CheckedListBox.bmp" />
+    <Content Include="Resources\ctrl_ComboBox.bmp" />
+    <Content Include="Resources\ctrl_DataGridView.bmp" />
+    <Content Include="Resources\ctrl_DataGridViewColumn.bmp" />
+    <Content Include="Resources\ctrl_DateTimePicker.bmp" />
+    <Content Include="Resources\ctrl_Form.bmp" />
+    <Content Include="Resources\ctrl_GroupBox.bmp" />
+    <Content Include="Resources\ctrl_Label.bmp" />
+    <Content Include="Resources\ctrl_NumericUpDown.bmp" />
+    <Content Include="Resources\ctrl_Panel.bmp" />
+    <Content Include="Resources\ctrl_PictureBox.bmp" />
+    <Content Include="Resources\ctrl_RadioButton.bmp" />
+    <Content Include="Resources\ctrl_RichTextBox.bmp" />
+    <Content Include="Resources\ctrl_SplitContainer.bmp" />
+    <Content Include="Resources\ctrl_TabControl.bmp" />
+    <Content Include="Resources\ctrl_Text.bmp" />
+    <Content Include="Resources\ctrl_TreeView.bmp" />
+    <Content Include="Resources\ctrl_UserControl.bmp" />
+    <Content Include="Resources\ctrl_WebBrowser.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

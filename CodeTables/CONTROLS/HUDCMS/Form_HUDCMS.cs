@@ -20,6 +20,8 @@ namespace HUDCMS
     public partial class Form_HUDCMS : Form
     {
         ArrayList roots = new ArrayList();
+        SysImageListHelper helperControlType = null;
+        ImageRenderer helperImageRenderer = null;
 
         public const string HTML_index = "index";
         public const string HTML_download = "download";
@@ -171,14 +173,25 @@ namespace HUDCMS
 
             // Draw the system icon next to the name
             //this.olvc_ControlName.ImageGetter = null;
-            SysImageListHelper helper = new SysImageListHelper(this.MyTreeListView);
+            helperControlType = new SysImageListHelper(this.MyTreeListView);
             //helper.AddImageToCollection("root1", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form);
             //helper.AddImageToCollection("root2", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form_grp_CommandLineParameters);
             //helper.AddImageToCollection("r1_ch1", helper.LargeImageList, Properties.Resources.limeleaf);
             //helper.AddImageToCollection("r1_ch2", helper.LargeImageList, Properties.Resources.coffee);
-            this.olvc_ControlName.ImageGetter = delegate (object x)
+            this.olvc_ControlType.ImageGetter = delegate (object x)
             {
-                return helper.GetControlImageIndex(((MyControl)x).ControlName);
+                return helperControlType.GetControlTypeImageIndex(((MyControl)x).ControlType);
+            };
+
+            //this.olvc_ControlName.ImageGetter = delegate (object x)
+            //{
+            //    return helperControlName.GetControlImageIndex(((MyControl)x).ControlName);
+            //};
+
+            this.olvc_ControlImage.ImageGetter = delegate (object x)
+            {
+                int idx = helperImageRenderer.ImageList.Images.IndexOfKey(((MyControl)x).ControlName);
+                return idx;
             };
 
             // Show the size of files as GB, MB and KBs. Also, group them by
@@ -215,17 +228,13 @@ namespace HUDCMS
             //this.treeColumnAttributes.AspectGetter = delegate (object x) {
             //    return ((MyFileSystemInfo)x).Attributes;
             //};
-            //FlagRenderer attributesRenderer = new FlagRenderer();
-            //attributesRenderer.Add(FileAttributes.Archive, "archive");
-            //attributesRenderer.Add(FileAttributes.ReadOnly, "readonly");
-            //attributesRenderer.Add(FileAttributes.System, "system");
-            //attributesRenderer.Add(FileAttributes.Hidden, "hidden");
-            //attributesRenderer.Add(FileAttributes.Temporary, "temporary");
-            //this.treeColumnAttributes.Renderer = attributesRenderer;
-            //this.treeColumnAttributes.ClusteringStrategy = new FlagClusteringStrategy(typeof(FileAttributes));
+            helperImageRenderer = new ImageRenderer();
+            this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            MyControl myroot = CreateMyControls(0, 0, ref iAllCount, hc, null);
+            MyControl myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref helperImageRenderer);
+            this.helperImageRenderer.Aspect = (System.Int32)0;
+
             roots.Add(myroot);
             this.MyTreeListView.Roots = roots;
         }
@@ -482,7 +491,7 @@ namespace HUDCMS
         }
 
 
-        private MyControl CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl)
+        private MyControl CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType, ref ImageRenderer helperImageRenderer)
         {
 
 
@@ -490,7 +499,7 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            uctrl.Init(mH, xhc, level);
+            uctrl.Init(mH, xhc, level, ref helperControlType, ref helperImageRenderer);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -500,14 +509,14 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl);
+                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl, ref helperControlType, ref helperImageRenderer);
                             uctrl.children.Add(child);
                             child.Parent = uctrl;
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl);
+                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl,ref helperControlType, ref helperImageRenderer);
                         uctrl.children.Add(child);
                         child.Parent = uctrl;
                     }
@@ -920,6 +929,28 @@ namespace HUDCMS
             else
             {
                 MessageBox.Show("Style File name is not defined !");
+            }
+        }
+
+        private void MyTreeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sender is TreeListView)
+            {
+                TreeListView treeListView = (TreeListView)sender;
+                int selectedindex = treeListView.SelectedIndex;
+                OLVListItem olvi = treeListView.SelectedItem;
+                if (olvi != null)
+                {
+                    MyControl myctrl = (MyControl)olvi.RowObject;
+
+                    myctrl.xfrm_HUDCMS.usrc_EditControl1.Enabled = true;
+                    myctrl.xfrm_HUDCMS.usrc_EditControl1.Init(myctrl);
+                    if (hc.dgvc == null)
+                    {
+                        //xfrm_HUDCMS.HideLinks();
+                        //xfrm_HUDCMS.ShowAvailableLinks();
+                    }
+                }
             }
         }
     }
