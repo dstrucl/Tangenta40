@@ -32,6 +32,9 @@ namespace HUDCMS
         bool bImageIncluded = true;
 
         Image ImageOfControl = null;
+        internal MyControl Parent = null;
+
+
 
         private string m_Title = "";
 
@@ -43,10 +46,19 @@ namespace HUDCMS
             set { m_Name = value; }
         }
 
-        string m_ControlName = null;
+        public bool HasChildren
+        {
+            get
+            {
+                return children.Count > 0;
+            }
+
+        }
+
+        //string m_ControlName = null;
         public string ControlName
         {
-            get { return m_ControlName; }
+            get { return GetControlName(); }
         }
 
         internal string Title

@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using BrightIdeasSoftware;
 using FastColoredTextBoxNS;
 using UniqueControlNames;
 
@@ -16,6 +19,8 @@ namespace HUDCMS
 {
     public partial class Form_HUDCMS : Form
     {
+        ArrayList roots = new ArrayList();
+
         public const string HTML_index = "index";
         public const string HTML_download = "download";
         public const string HTML_Tangenta = "Tangenta";
@@ -118,13 +123,114 @@ namespace HUDCMS
 
             int y = 2;
             int iAllCount = 0;
-            UserControl root = CreateControls(ref y, 0,0,ref iAllCount, hc, null);
-            this.panel1.Controls.Add(root);
+
+            InitializeMyTreeListView(ref iAllCount);
+            //UserControl root = CreateControls(ref y, 0,0,ref iAllCount, hc, null);
+            //this.panel1.Controls.Add(root);
 
             this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
             HideLinks();
             SetLinks(this.panel1);
         }
+
+        void InitializeMyTreeListView(ref int iAllCount)
+        {
+
+            this.MyTreeListView.HierarchicalCheckboxes = true;
+            this.MyTreeListView.HideSelection = false;
+            //this.MyTreeListView.RowHeight = 32;
+            this.MyTreeListView.CanExpandGetter = delegate (object x) {
+                return ((MyControl)x).HasChildren;
+            };
+            this.MyTreeListView.ChildrenGetter = delegate (object x) {
+                MyControl myControl = (MyControl)x;
+                try
+                {
+                    return myControl.GetChildren();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    MessageBox.Show(this, ex.Message, "ObjectListViewDemo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return new ArrayList();
+                }
+            };
+
+            checkBox11.Checked = this.MyTreeListView.HierarchicalCheckboxes;
+
+            //this.treeListView.CheckBoxes = false;
+
+            // You can change the way the connection lines are drawn by changing the pen
+            TreeListView.TreeRenderer renderer = this.MyTreeListView.TreeColumnRenderer;
+            renderer.LinePen = new Pen(Color.Firebrick, 0.5f);
+            renderer.LinePen.DashStyle = DashStyle.Dot;
+
+            //-------------------------------------------------------------------
+            // Eveything after this is the same as the Explorer example tab --
+            // nothing specific to the TreeListView. It doesn't have the grouping
+            // delegates, since TreeListViews can't show groups.
+
+            // Draw the system icon next to the name
+            //this.olvc_ControlName.ImageGetter = null;
+            SysImageListHelper helper = new SysImageListHelper(this.MyTreeListView);
+            //helper.AddImageToCollection("root1", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form);
+            //helper.AddImageToCollection("root2", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form_grp_CommandLineParameters);
+            //helper.AddImageToCollection("r1_ch1", helper.LargeImageList, Properties.Resources.limeleaf);
+            //helper.AddImageToCollection("r1_ch2", helper.LargeImageList, Properties.Resources.coffee);
+            this.olvc_ControlName.ImageGetter = delegate (object x)
+            {
+                return helper.GetControlImageIndex(((MyControl)x).ControlName);
+            };
+
+            // Show the size of files as GB, MB and KBs. Also, group them by
+            // some meaningless divisions
+            //this.treeColumnSize.AspectGetter = delegate (object x) {
+            //    MyControl myControl = (MyControl)x;
+
+            //    if (!myControl.HasChildren)
+            //        return (long)-1;
+
+            //    try
+            //    {
+            //        return 27061962;
+            //    }
+            //    catch (System.IO.FileNotFoundException)
+            //    {
+            //        // Mono 1.2.6 throws this for hidden files
+            //        return (long)-2;
+            //    }
+            //};
+            //this.treeColumnSize.AspectToStringConverter = delegate (object x) {
+            //    if ((long)x == -1) // folder
+            //        return "";
+
+            //    return this.FormatFileSize((long)x);
+            //};
+
+            //// Show the system description for this object
+            //this.treeColumnFileType.AspectGetter = delegate (object x) {
+            //    return ShellUtilities.GetFileType(((MyFileSystemInfo)x).FullName);
+            //};
+
+            //// Show the file attributes for this object
+            //this.treeColumnAttributes.AspectGetter = delegate (object x) {
+            //    return ((MyFileSystemInfo)x).Attributes;
+            //};
+            //FlagRenderer attributesRenderer = new FlagRenderer();
+            //attributesRenderer.Add(FileAttributes.Archive, "archive");
+            //attributesRenderer.Add(FileAttributes.ReadOnly, "readonly");
+            //attributesRenderer.Add(FileAttributes.System, "system");
+            //attributesRenderer.Add(FileAttributes.Hidden, "hidden");
+            //attributesRenderer.Add(FileAttributes.Temporary, "temporary");
+            //this.treeColumnAttributes.Renderer = attributesRenderer;
+            //this.treeColumnAttributes.ClusteringStrategy = new FlagClusteringStrategy(typeof(FileAttributes));
+
+            // List all drives as the roots of the tree
+            MyControl myroot = CreateMyControls(0, 0, ref iAllCount, hc, null);
+            roots.Add(myroot);
+            this.MyTreeListView.Roots = roots;
+        }
+
+
 
         private void SetGeneralHelpFiles()
         {
@@ -374,6 +480,43 @@ namespace HUDCMS
             html_link_stylesheet.Add(attribute_html_link_stylesheet_href);
             html_head.Add(html_link_stylesheet);
         }
+
+
+        private MyControl CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl)
+        {
+
+
+            MyControl uctrl = new MyControl();
+            iAllCount++;
+            iCount = 0;
+            uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
+            uctrl.Init(mH, xhc, level);
+            if (xhc.subctrl != null)
+            {
+                MyControl child = null;
+                foreach (hctrl hc in xhc.subctrl)
+                {
+                    if (hc.ctrl != null)
+                    {
+                        if (hc.ctrl.Visible)
+                        {
+                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl);
+                            uctrl.children.Add(child);
+                            child.Parent = uctrl;
+                        }
+                    }
+                    else if (hc.dgvc != null)
+                    {
+                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl);
+                        uctrl.children.Add(child);
+                        child.Parent = uctrl;
+                    }
+                }
+            }
+            return uctrl;
+        }
+
+
 
         private usrc_Control CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,UserControl xctrl)
         {

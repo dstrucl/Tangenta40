@@ -38,6 +38,10 @@ namespace HUDCMS
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grp_Header = new System.Windows.Forms.GroupBox();
             this.fctb_Header = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.MyTreeListView = new BrightIdeasSoftware.TreeListView();
+            this.olvc_ControlName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
@@ -47,8 +51,6 @@ namespace HUDCMS
             this.btn_EditGeneralStyles = new System.Windows.Forms.Button();
             this.lbl_GeneralStyles = new System.Windows.Forms.Label();
             this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.treeListView1 = new BrightIdeasSoftware.TreeListView();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -64,7 +66,7 @@ namespace HUDCMS
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).BeginInit();
             this.SuspendLayout();
             // 
             // grp_Style
@@ -200,6 +202,60 @@ namespace HUDCMS
             this.fctb_Header.Text = "fctb_Header";
             this.fctb_Header.Zoom = 100;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.checkBox11);
+            this.splitContainer3.Panel1.Controls.Add(this.MyTreeListView);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.panel1);
+            this.splitContainer3.Size = new System.Drawing.Size(423, 367);
+            this.splitContainer3.SplitterDistance = 183;
+            this.splitContainer3.TabIndex = 8;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Location = new System.Drawing.Point(139, 83);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(144, 17);
+            this.checkBox11.TabIndex = 24;
+            this.checkBox11.Text = "Hierarchical Checkboxes";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            this.checkBox11.Visible = false;
+            // 
+            // MyTreeListView
+            // 
+            this.MyTreeListView.AllColumns.Add(this.olvc_ControlName);
+            this.MyTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvc_ControlName});
+            this.MyTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MyTreeListView.Location = new System.Drawing.Point(0, 0);
+            this.MyTreeListView.Name = "MyTreeListView";
+            this.MyTreeListView.OwnerDraw = true;
+            this.MyTreeListView.ShowGroups = false;
+            this.MyTreeListView.Size = new System.Drawing.Size(423, 183);
+            this.MyTreeListView.TabIndex = 0;
+            this.MyTreeListView.UseCompatibleStateImageBehavior = false;
+            this.MyTreeListView.View = System.Windows.Forms.View.Details;
+            this.MyTreeListView.VirtualMode = true;
+            // 
+            // olvc_ControlName
+            // 
+            this.olvc_ControlName.AspectName = "ControlName";
+            this.olvc_ControlName.Text = "Control Name";
+            this.olvc_ControlName.UseInitialLetterForGroup = true;
+            this.olvc_ControlName.Width = 360;
+            this.olvc_ControlName.WordWrap = true;
+            // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
@@ -319,37 +375,6 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(819, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
             // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.treeListView1);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.panel1);
-            this.splitContainer3.Size = new System.Drawing.Size(423, 367);
-            this.splitContainer3.SplitterDistance = 183;
-            this.splitContainer3.TabIndex = 8;
-            // 
-            // treeListView1
-            // 
-            this.treeListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeListView1.Location = new System.Drawing.Point(0, 0);
-            this.treeListView1.Name = "treeListView1";
-            this.treeListView1.OwnerDraw = true;
-            this.treeListView1.ShowGroups = false;
-            this.treeListView1.Size = new System.Drawing.Size(423, 183);
-            this.treeListView1.TabIndex = 0;
-            this.treeListView1.UseCompatibleStateImageBehavior = false;
-            this.treeListView1.View = System.Windows.Forms.View.Details;
-            this.treeListView1.VirtualMode = true;
-            // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -380,10 +405,11 @@ namespace HUDCMS
             this.grp_Header.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctb_Header)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,6 +432,8 @@ namespace HUDCMS
         private System.Windows.Forms.Label lbl_GeneralStyles;
         private ComboBox_Recent.ComboBox_RecentList cmbr_GeneralStyleFiles;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private BrightIdeasSoftware.TreeListView treeListView1;
+        private BrightIdeasSoftware.TreeListView MyTreeListView;
+        private System.Windows.Forms.CheckBox checkBox11;
+        private BrightIdeasSoftware.OLVColumn olvc_ControlName;
     }
 }
