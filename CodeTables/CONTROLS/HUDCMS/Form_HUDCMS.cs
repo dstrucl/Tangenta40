@@ -47,6 +47,7 @@ namespace HUDCMS
         private hctrl hc = null;
         private usrc_Help mH = null;
         internal usrc_Control usrc_Control_Selected = null;
+        internal MyControl MyControl_Selected = null;
         XDocument xhtml = null;
         internal XDocument xhtml_Loaded = null;
 
@@ -141,6 +142,8 @@ namespace HUDCMS
             this.MyTreeListView.HierarchicalCheckboxes = true;
             this.MyTreeListView.HideSelection = false;
             //this.MyTreeListView.RowHeight = 32;
+            this.MyTreeListView.UseCellFormatEvents = true;
+            this.MyTreeListView.FormatRow += MyTreeListView_FormatRow;
             this.MyTreeListView.CanExpandGetter = delegate (object x) {
                 return ((MyControl)x).HasChildren;
             };
@@ -190,7 +193,7 @@ namespace HUDCMS
 
             this.olvc_ControlImage.ImageGetter = delegate (object x)
             {
-                int idx = helperImageRenderer.ImageList.Images.IndexOfKey(((MyControl)x).ControlName);
+                int idx = helperImageRenderer.ImageList.Images.IndexOfKey(((MyControl)x).ControlUniqueName);
                 return idx;
             };
 
@@ -239,7 +242,13 @@ namespace HUDCMS
             this.MyTreeListView.Roots = roots;
         }
 
+        private void MyTreeListView_FormatRow(object sender, FormatRowEventArgs e)
+        {
+            if (sender is TreeListView)
+            {
 
+            }
+        }
 
         private void SetGeneralHelpFiles()
         {
@@ -306,20 +315,20 @@ namespace HUDCMS
                 string ctrl_name = ((usrc_Control) ctrl).ControlName;
                 if (((usrc_Control)ctrl).HasLink)
                 {
-                    if (((usrc_Control)ctrl).Link ==null)
+                    if (((usrc_Control)ctrl).usrc_Link ==null)
                     {
-                        ((usrc_Control)ctrl).Link = new List<usrc_Control>();
+                        ((usrc_Control)ctrl).usrc_Link = new List<usrc_Control>();
                     }
                     else
                     {
-                        ((usrc_Control)ctrl).Link.Clear();
+                        ((usrc_Control)ctrl).usrc_Link.Clear();
                     }
                     foreach (string sctrl_name in ((usrc_Control)ctrl).sLink)
                     {
                         usrc_Control xusrc_Control_Linked = null; 
                         if (usrc_Control.Find_usrc_Control(this.panel1, sctrl_name,ref xusrc_Control_Linked))
                         {
-                            ((usrc_Control)ctrl).Link.Add(xusrc_Control_Linked);
+                            ((usrc_Control)ctrl).usrc_Link.Add(xusrc_Control_Linked);
                             xusrc_Control_Linked.bLinked = true;
                         }
                     }
@@ -337,15 +346,26 @@ namespace HUDCMS
 
         internal bool SaveXHTML(string html_file,ref XDocument xh, ref string Err)
         {
-            if (this.usrc_Control_Selected!=null)
+            //if (this.usrc_Control_Selected!=null)
+            //{
+
+            //    this.usrc_EditControl1.m_usrc_Control.Title = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+            //    this.usrc_EditControl1.m_usrc_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
+            //    this.usrc_EditControl1.m_usrc_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
+            //    this.usrc_EditControl1.m_usrc_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
+            //    this.usrc_EditControl1.m_usrc_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+            //}
+
+            if (this.MyControl_Selected != null)
             {
 
-                this.usrc_EditControl1.m_usrc_Control.Title = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
-                this.usrc_EditControl1.m_usrc_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
-                this.usrc_EditControl1.m_usrc_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
-                this.usrc_EditControl1.m_usrc_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
-                this.usrc_EditControl1.m_usrc_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+                this.usrc_EditControl1.my_Control.HelpTitle = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+                this.usrc_EditControl1.my_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
+                this.usrc_EditControl1.my_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
+                this.usrc_EditControl1.my_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
+                this.usrc_EditControl1.my_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
             }
+
             if (xh != null)
             {
                 xh = null;
@@ -495,11 +515,11 @@ namespace HUDCMS
         {
 
 
-            MyControl uctrl = new MyControl();
+            MyControl myctrl = new MyControl();
             iAllCount++;
             iCount = 0;
-            uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            uctrl.Init(mH, xhc, level, ref helperControlType, ref helperImageRenderer);
+            myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
+            myctrl.Init(mH, xhc, level, ref helperControlType, ref helperImageRenderer);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -509,78 +529,78 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl, ref helperControlType, ref helperImageRenderer);
-                            uctrl.children.Add(child);
-                            child.Parent = uctrl;
+                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType, ref helperImageRenderer);
+                            myctrl.children.Add(child);
+                            child.Parent = myctrl;
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, uctrl,ref helperControlType, ref helperImageRenderer);
-                        uctrl.children.Add(child);
-                        child.Parent = uctrl;
+                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType, ref helperImageRenderer);
+                        myctrl.children.Add(child);
+                        child.Parent = myctrl;
                     }
                 }
             }
-            return uctrl;
+            return myctrl;
         }
 
 
 
-        private usrc_Control CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,UserControl xctrl)
-        {
+        //private usrc_Control CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,UserControl xctrl)
+        //{
 
            
-            usrc_Control uctrl = new usrc_Control();
-            iAllCount++;
-            iCount = 0;
-            uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            uctrl.Init(mH, xhc, level);
-            uctrl.Top = y;
-            uctrl.Left = 3;
-            if (xctrl != null)
-            {
-                uctrl.Width = xctrl.Width - uctrl.Left - 3;
-            }
-            else
-            {
-                uctrl.Width = this.panel1.Width - uctrl.Left - 3;
-            }
+        //    usrc_Control uctrl = new usrc_Control();
+        //    iAllCount++;
+        //    iCount = 0;
+        //    uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
+        //    uctrl.Init(mH, xhc, level);
+        //    uctrl.Top = y;
+        //    uctrl.Left = 3;
+        //    if (xctrl != null)
+        //    {
+        //        uctrl.Width = xctrl.Width - uctrl.Left - 3;
+        //    }
+        //    else
+        //    {
+        //        uctrl.Width = this.panel1.Width - uctrl.Left - 3;
+        //    }
             
-            uctrl.Visible = true;
-            uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            if (xhc.subctrl != null)
-            {
-                int ysub = uctrl.Height + 4;
-                usrc_Control child = null;
-                foreach (hctrl hc in xhc.subctrl)
-                {
-                    if (hc.ctrl != null)
-                    {
-                        if (hc.ctrl.Visible)
-                        {
-                           child= CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
-                           uctrl.Controls.Add(child);
-                            child.Parent = uctrl;
-                        }
-                    }
-                    else if (hc.dgvc != null)
-                    {
-                        child = CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
-                        uctrl.Controls.Add(child);
-                        child.Parent = uctrl;
-                    }
-                }
-                uctrl.Height = ysub;
-            }
-            y += uctrl.Height + 4;
-            return uctrl;
-        }
+        //    uctrl.Visible = true;
+        //    uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        //    if (xhc.subctrl != null)
+        //    {
+        //        int ysub = uctrl.Height + 4;
+        //        usrc_Control child = null;
+        //        foreach (hctrl hc in xhc.subctrl)
+        //        {
+        //            if (hc.ctrl != null)
+        //            {
+        //                if (hc.ctrl.Visible)
+        //                {
+        //                   child= CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+        //                   uctrl.Controls.Add(child);
+        //                    child.Parent = uctrl;
+        //                }
+        //            }
+        //            else if (hc.dgvc != null)
+        //            {
+        //                child = CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
+        //                uctrl.Controls.Add(child);
+        //                child.Parent = uctrl;
+        //            }
+        //        }
+        //        uctrl.Height = ysub;
+        //    }
+        //    y += uctrl.Height + 4;
+        //    return uctrl;
+        //}
 
         internal void ShowAvailableLinks()
         {
             usrc_Control xsel = this.usrc_Control_Selected;
-            GetAvailableParentLinks(xsel, xsel.Parent, ref xsel.AvailableLink);
+            GetAvailableParentLinks(xsel, xsel.Parent, ref xsel.usrc_AvailableLink);
             
         }
 
@@ -952,6 +972,11 @@ namespace HUDCMS
                     }
                 }
             }
+        }
+
+        private void MyTreeListView_SubItemChecking(object sender, SubItemCheckingEventArgs e)
+        {
+
         }
     }
 }

@@ -89,8 +89,11 @@ namespace HUDCMS
             set { m_Description = value; }
         }
 
-        internal List<usrc_Control> AvailableLink = null;
-        internal List<usrc_Control> Link = null;
+        internal List<usrc_Control> usrc_AvailableLink = null;
+        internal List<usrc_Control> usrc_Link = null;
+
+        internal List<MyControl> AvailableLink = null;
+        internal List<MyControl> Link = null;
 
         internal hctrl hc = null;
         internal usrc_Help uH = null;
@@ -239,11 +242,11 @@ namespace HUDCMS
             }
             XAttribute attribute_imageincluded = new XAttribute("imageincluded", simage_included);
             string sLink = "";
-            if (Link!=null)
+            if (usrc_Link!=null)
             {
-                if (Link.Count > 0)
+                if (usrc_Link.Count > 0)
                 {
-                    foreach (usrc_Control c in Link)
+                    foreach (usrc_Control c in usrc_Link)
                     {
                         if (sLink.Length == 0)
                         {
@@ -697,12 +700,12 @@ namespace HUDCMS
             this.list_Link.Visible = false;
 
             this.list_Link.DataSource = null;
-            if (this.Link != null)
+            if (this.usrc_Link != null)
             {
-                if (this.Link.Count > 0)
+                if (this.usrc_Link.Count > 0)
                 {
                     this.list_Link.Visible = true;
-                    this.list_Link.DataSource = Link;
+                    this.list_Link.DataSource = usrc_Link;
                     this.list_Link.DisplayMember = "ControlName";
                     this.list_Link.ValueMember = "ControlName";
                 }
@@ -883,22 +886,22 @@ namespace HUDCMS
                 if (bLinked)
                 {
                     usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
-                    if (Control_Selected.Link == null)
+                    if (Control_Selected.usrc_Link == null)
                     {
-                        Control_Selected.Link = new List<usrc_Control>();
+                        Control_Selected.usrc_Link = new List<usrc_Control>();
                     }
-                    RemoveLink(Control_Selected.Link, this, Control_Selected);
+                    RemoveLink(Control_Selected.usrc_Link, this, Control_Selected);
                     Control_Selected.CreateImageOfLinkedControls();
                     bLinked = false;
                 }
                 else
                 {
                     usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
-                    if (Control_Selected.Link == null)
+                    if (Control_Selected.usrc_Link == null)
                     {
-                        Control_Selected.Link = new List<usrc_Control>();
+                        Control_Selected.usrc_Link = new List<usrc_Control>();
                     }
-                    AddLink(Control_Selected.Link, this, Control_Selected);
+                    AddLink(Control_Selected.usrc_Link, this, Control_Selected);
                     Control_Selected.CreateImageOfLinkedControls();
                     bLinked = true;
                 }
@@ -907,9 +910,9 @@ namespace HUDCMS
 
         private bool HasLinksToOtherControls()
         {
-            if (this.Link != null)
+            if (this.usrc_Link != null)
             {
-                if (this.Link.Count > 0)
+                if (this.usrc_Link.Count > 0)
                 {
                     return true;
                 }
@@ -925,11 +928,11 @@ namespace HUDCMS
             {
                 if (this.Parent is usrc_Control)
                 {
-                    if (LinkExist(this.Link))
+                    if (LinkExist(this.usrc_Link))
                     {
                         this.list_Link.Visible = true;
                         this.lbl_LinkedControls.Visible = true;
-                        this.list_Link.DataSource = Link;
+                        this.list_Link.DataSource = usrc_Link;
                         this.list_Link.DisplayMember = "ControlName";
                         this.list_Link.ValueMember = "ControlName";
                     }
@@ -940,7 +943,7 @@ namespace HUDCMS
                         this.list_Link.DataSource = null;
                     }
                     Rectangle snap_rect = new Rectangle();
-                    GetParentSnapshotArea(ref snap_rect, this, this.Link);
+                    GetParentSnapshotArea(ref snap_rect, this, this.usrc_Link);
 
                     if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
                     {

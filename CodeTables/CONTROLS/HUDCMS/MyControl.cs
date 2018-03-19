@@ -38,14 +38,14 @@ namespace HUDCMS
 
 
 
-        private string m_Title = "";
+        private string m_HelpTitle = "";
 
-        string m_Name = null;
+        string m_ControlName = null;
 
-        public string Name
+        public string ControlName
         {
-            get { return m_Name; }
-            set { m_Name = value; }
+            get { return m_ControlName; }
+            set { m_ControlName = value; }
         }
 
         public bool HasChildren
@@ -58,9 +58,9 @@ namespace HUDCMS
         }
 
         //string m_ControlName = null;
-        public string ControlName
+        public string ControlUniqueName
         {
-            get { return GetControlName(); }
+            get { return GetControlUniqueName(); }
         }
 
         public string ControlType
@@ -70,14 +70,14 @@ namespace HUDCMS
 
         public int ControlImage
         {
-            get { return this.helperImageRenderer.ImageList.Images.IndexOfKey(ControlName); }
+            get { return this.helperImageRenderer.ImageList.Images.IndexOfKey(ControlUniqueName); }
         }
 
 
-        internal string Title
+        public string HelpTitle
         {
-            get { return m_Title; }
-            set { m_Title = value; }
+            get { return m_HelpTitle; }
+            set { m_HelpTitle = value; }
         }
 
         private int m_Right = 0;
@@ -178,7 +178,7 @@ namespace HUDCMS
         {
             get
             {
-                string sPictureFileName = this.ControlName;
+                string sPictureFileName = this.ControlUniqueName;
                 sPictureFileName = sPictureFileName.Replace('.', '_');
                 sPictureFileName = sPictureFileName.Replace('[', '_');
                 sPictureFileName = sPictureFileName.Replace(']', '_') + ".png"; ;
@@ -222,7 +222,7 @@ namespace HUDCMS
         //    }
         //}
 
-        public string GetControlName()
+        public string GetControlUniqueName()
         {
             return uH.Prefix+hc.GetName();
         }
@@ -289,7 +289,7 @@ namespace HUDCMS
         {
 
             xel = new XElement("TControl");
-            XAttribute attribute_name = new XAttribute("name", GetControlName());
+            XAttribute attribute_name = new XAttribute("name", GetControlUniqueName());
             string simage_included = "0";
             //if (chk_ImageIncluded.Checked)
             //{
@@ -305,11 +305,11 @@ namespace HUDCMS
                     {
                         if (sLink.Length == 0)
                         {
-                            sLink = c.ControlName;
+                            sLink = c.ControlUniqueName;
                         }
                         else
                         {
-                            sLink += "," + c.ControlName;
+                            sLink += "," + c.ControlUniqueName;
                         }
                     }
                 }
@@ -329,7 +329,7 @@ namespace HUDCMS
 
 
 
-            if (Title.Length > 0)
+            if (HelpTitle.Length > 0)
             {
                 xdiv_Title = new XElement("div");
                 XAttribute xdiv_Title_class = new XAttribute("class", "Title");
@@ -347,7 +347,7 @@ namespace HUDCMS
                 xTitle_Heading.Add(xdiv_Title_Heading_id);
 
 
-                usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", Title);
+                usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", HelpTitle);
 
 
                 
@@ -500,11 +500,11 @@ namespace HUDCMS
             helperImageRenderer = xhelperImageRenderer;
             if (hc.ctrl != null)
             {
-                this.Name = "uctrl_" + hc.ctrl.Name;
+                this.ControlName =hc.ctrl.Name;
             }
             else if (hc.dgvc != null)
             {
-                this.Name = "uctrldgvc__" + hc.dgvc.Name;
+                this.ControlName = "dgvc__" + hc.dgvc.Name;
             }
             string sText = "";
             string sControl = HUDCMS_static.slng_UserControlName;
@@ -517,19 +517,21 @@ namespace HUDCMS
                     helperImageRenderer.ImageList = new ImageList();
                     helperImageRenderer.ImageList.ImageSize = new Size(48, 48);
                 }
-                helperImageRenderer.ImageList.Images.Add(GetControlName(),hc.ctrlbmp);
+                helperImageRenderer.ImageList.Images.Add(GetControlUniqueName(),hc.ctrlbmp);
                 //helperControlName.AddImageToCollection(GetControlName(), helperControlName.LargeImageList, hc.ctrlbmp);
             }
-            if (xhc.pForm !=null)
+            if (hc.pForm !=null)
             {
                 sControl = "Form";
+                this.ControlName = hc.pForm.Name;
                 //                this.txt_Control.ForeColor = Color.DarkGreen;
                 //                this.txt_Control.BackColor = Color.White;
-//                helper.AddImageToCollection(xhc.pForm.GetType().ToString(), helper.LargeImageList, Prop)
+                //                helper.AddImageToCollection(xhc.pForm.GetType().ToString(), helper.LargeImageList, Prop)
             }
-            else if (xhc.ctrl is Form)
+            else if (hc.ctrl is Form)
             {
                 sControl = "Form";
+                this.ControlName = hc.ctrl.Name;
                 //                this.txt_Control.ForeColor = Color.DarkGreen;
             }
             else if (xhc.ctrl is UserControl)
@@ -640,7 +642,7 @@ namespace HUDCMS
             {
                 XDocument doc = xfrm_HUDCMS.xhtml_Loaded;
                 XElement xel = null;
-                if (FindXElement(doc, ref xel, "TControl", "name",ControlName))
+                if (FindXElement(doc, ref xel, "TControl", "name",ControlUniqueName))
                 {
                     string simageincluded = xel.Attribute("imageincluded").Value;
 //                    chk_ImageIncluded.Checked = true;
@@ -677,37 +679,37 @@ namespace HUDCMS
                         if (FindXElement(xel_Title, ref xel_Title_Header, "h1", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            Title = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
 
@@ -731,7 +733,7 @@ namespace HUDCMS
             {
                 if (hc.pForm != null)
                 {
-                    Title = hc.pForm.Text;
+                    HelpTitle = hc.pForm.Text;
                     HeadingTag = "h1";
                 }
                 else if (hc.ctrl != null)
@@ -751,7 +753,7 @@ namespace HUDCMS
                 {
                     if (hc.ctrl is GroupBox)
                     {
-                        Title = ((GroupBox)hc.ctrl).Text;
+                        HelpTitle = ((GroupBox)hc.ctrl).Text;
                     }
                 }
             }
@@ -948,7 +950,7 @@ namespace HUDCMS
                     }
                     else
                     {
-                        MessageBox.Show("WARNING multiple TControl elements found where name = \"" + ControlName + "\"");
+                        MessageBox.Show("WARNING multiple TControl elements found where name = \"" + ControlUniqueName + "\"");
                     }
                 }
 
@@ -1008,10 +1010,10 @@ namespace HUDCMS
         //    }
         //}
 
-        private void radioButtonGlobal1_Load(object sender, EventArgs e)
-        {
+        //private void radioButtonGlobal1_Load(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void btn_Link_Click(object sender, EventArgs e)
         {
@@ -1021,9 +1023,9 @@ namespace HUDCMS
                 if (bLinked)
                 {
                     usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
-                    if (Control_Selected.Link == null)
+                    if (Control_Selected.usrc_Link == null)
                     {
-                        Control_Selected.Link = new List<usrc_Control>();
+                        Control_Selected.usrc_Link = new List<usrc_Control>();
                     }
 //                    RemoveLink(Control_Selected.Link, this, Control_Selected);
                     Control_Selected.CreateImageOfLinkedControls();
@@ -1032,9 +1034,9 @@ namespace HUDCMS
                 else
                 {
                     usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
-                    if (Control_Selected.Link == null)
+                    if (Control_Selected.usrc_Link == null)
                     {
-                        Control_Selected.Link = new List<usrc_Control>();
+                        Control_Selected.usrc_Link = new List<usrc_Control>();
                     }
 //                    AddLink(Control_Selected.Link, this, Control_Selected);
                     Control_Selected.CreateImageOfLinkedControls();
@@ -1383,7 +1385,7 @@ namespace HUDCMS
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(other.ControlName, this.ControlName);
+            return Equals(other.ControlUniqueName, this.ControlUniqueName);
         }
         public override bool Equals(object obj)
         {
@@ -1394,7 +1396,7 @@ namespace HUDCMS
         }
         public override int GetHashCode()
         {
-            return (this.ControlName != null ? this.ControlName.GetHashCode() : 0);
+            return (this.ControlUniqueName != null ? this.ControlUniqueName.GetHashCode() : 0);
         }
         public static bool operator ==(MyControl left, MyControl right)
         {

@@ -93,9 +93,9 @@ namespace HUDCMS
 
 
             string stitle = "";
-            if (my_Control.Title != null)
+            if (my_Control.HelpTitle != null)
             {
-                stitle = my_Control.Title;
+                stitle = my_Control.HelpTitle;
             }
 
             usrc_EditControl_Title1.fctb_CtrlTitle.Text = stitle;
@@ -105,9 +105,9 @@ namespace HUDCMS
             usrc_EditControl_Description1.fctb_CtrlDescription.Text = my_Control.Description;
 
 
-            this.txt_Control.Text = my_Control.Name;// m_usrc_Control.txt_Control.Text;
+            this.txt_Control.Text = my_Control.ControlName;// m_usrc_Control.txt_Control.Text;
             //this.txt_Control.ForeColor = m_usrc_Control.txt_Control.ForeColor;
-            this.txt_ControlName.Text = my_Control.ControlName;// m_usrc_Control.txt_ControlName.Text;
+            this.txt_ControlName.Text = my_Control.ControlUniqueName;// m_usrc_Control.txt_ControlName.Text;
             this.usrc_EditControl_Image1.pic_Control.Image = my_Control.hc.ctrlbmp;// m_usrc_Control.pic_Control.Image;
             this.usrc_EditControl_Image1.pic_Control.SizeMode = PictureBoxSizeMode.Normal;
             //this.usrc_EditControl_Image1.lbl_LinkedControls.Text = m_usrc_Control.lbl_LinkedControls.Text;
@@ -122,7 +122,7 @@ namespace HUDCMS
             }
             //this.BackColor = usrc_Control.BackColor;
 
-            string sPictureFile = my_Control.Name + ".png";
+            string sPictureFile = my_Control.ControlName + ".png";
             this.usrc_EditControl_Image1.usrc_SelectPictureFile.FileName = sPictureFile;
             this.usrc_EditControl_Image1.usrc_SelectPictureFile.Title = "Save Image";
             this.usrc_EditControl_Image1.usrc_SelectPictureFile.Enabled = true;
@@ -192,7 +192,7 @@ namespace HUDCMS
             this.usrc_EditControl_Image1.lbl_LinkedControls.Text = m_usrc_Control.lbl_LinkedControls.Text;
             this.usrc_EditControl_Image1.lbl_LinkedControls.Visible = m_usrc_Control.lbl_LinkedControls.Visible;
             this.usrc_EditControl_Image1.list_Link.Visible = m_usrc_Control.list_Link.Visible;
-            this.usrc_EditControl_Image1.list_Link.DataSource = m_usrc_Control.Link;
+            this.usrc_EditControl_Image1.list_Link.DataSource = m_usrc_Control.usrc_Link;
             this.usrc_EditControl_Image1.list_Link.DisplayMember = "ControlName";
             this.usrc_EditControl_Image1.list_Link.ValueMember = "ControlName";
             if (m_usrc_Control.hc.ctrlbmp != null)

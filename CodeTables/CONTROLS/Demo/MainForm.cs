@@ -82,15 +82,15 @@ namespace ObjectListViewDemo {
             //        list.Add(new Person(p));
             //}
 
-            //InitializeSimpleExample(list);
-            //InitializeComplexExample(list);
-            //InitializeDataSetExample();
-            //InitializeVirtualListExample();
-            //InitializeExplorerExample();
+            InitializeSimpleExample(list);
+            InitializeComplexExample(list);
+            InitializeDataSetExample();
+            InitializeVirtualListExample();
+            InitializeExplorerExample();
             InitializeTreeListExample();
-            //InitializeListPrinting();
-            //InitializeFastListExample(list);
-            //InitializeDragDropExample(list);
+            InitializeListPrinting();
+            InitializeFastListExample(list);
+            InitializeDragDropExample(list);
             InitializeTreeDataSetExample();
             InitializeMyTreeListExample();
         }
