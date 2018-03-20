@@ -206,6 +206,28 @@ namespace BrightIdeasSoftware
     }
 
     /// <summary>
+    /// This editor simply shows and edits string values.
+    /// </summary>
+    [ToolboxItem(false)]
+    public class StringComboBoxCellEditor : ComboBox
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public StringComboBoxCellEditor(List<string> links)
+        {
+            this.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.ValueMember = "Key";
+
+            ArrayList values = new ArrayList();
+            foreach (string lnk in links)
+            {
+                values.Add(new ComboBoxItem(lnk, lnk));
+            }
+            this.DataSource = values;
+        }
+    }
+    /// <summary>
     /// This editor simply shows and edits boolean values using a checkbox
     /// </summary>
     [ToolboxItem(false)]

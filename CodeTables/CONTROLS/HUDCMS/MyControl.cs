@@ -285,6 +285,21 @@ namespace HUDCMS
             }
         }
 
+        public bool HasTitle
+        {
+            get
+            {
+                if (m_HelpTitle != null)
+                {
+                    return (m_HelpTitle.Length > 0);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         internal void CreateNode(XDocument xh,ref XElement xn)
         {
 
@@ -661,14 +676,14 @@ namespace HUDCMS
                         }
                     }
 
-                    //string smargin = xel.Attribute("margin").Value;
-                    //if (smargin != null)
-                    //{
-                    //    if (smargin.Length > 0)
-                    //    {
-                    //        //                            SnapShotMargin = Convert.ToInt32(smargin);
-                    //    }
-                    //}
+                    string smargin = xel.Attribute("margin").Value;
+                    if (smargin != null)
+                    {
+                        if (smargin.Length > 0)
+                        {
+                            SnapShotMargin = Convert.ToInt32(smargin);
+                        }
+                    }
 
                     HeadingTag = xel.Attribute("heading").Value;
 

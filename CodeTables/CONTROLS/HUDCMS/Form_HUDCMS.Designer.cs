@@ -47,6 +47,7 @@ namespace HUDCMS
             this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
             this.cmbr_GeneralHelpFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.lbl_GeneralHelp = new System.Windows.Forms.Label();
@@ -54,7 +55,7 @@ namespace HUDCMS
             this.btn_EditGeneralStyles = new System.Windows.Forms.Button();
             this.lbl_GeneralStyles = new System.Windows.Forms.Label();
             this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
-            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
+            this.olvc_ControlLinks = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -190,6 +191,7 @@ namespace HUDCMS
             this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctb_Header.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_Header.IsReplaceMode = false;
             this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_Header.LeftBracket = '<';
@@ -243,12 +245,14 @@ namespace HUDCMS
             this.MyTreeListView.AllColumns.Add(this.olvc_ControlName);
             this.MyTreeListView.AllColumns.Add(this.olvc_ControlImage);
             this.MyTreeListView.AllColumns.Add(this.olvc_HelpTitle);
+            this.MyTreeListView.AllColumns.Add(this.olvc_ControlLinks);
             this.MyTreeListView.AllColumns.Add(this.olvc_ControlUniqueName);
             this.MyTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvc_ControlType,
             this.olvc_ControlName,
             this.olvc_ControlImage,
             this.olvc_HelpTitle,
+            this.olvc_ControlLinks,
             this.olvc_ControlUniqueName});
             this.MyTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MyTreeListView.Location = new System.Drawing.Point(0, 0);
@@ -296,6 +300,7 @@ namespace HUDCMS
             // olvc_ControlUniqueName
             // 
             this.olvc_ControlUniqueName.AspectName = "ControlUniqueName";
+            this.olvc_ControlUniqueName.DisplayIndex = 4;
             this.olvc_ControlUniqueName.Text = "Control Unique Name";
             this.olvc_ControlUniqueName.UseInitialLetterForGroup = true;
             this.olvc_ControlUniqueName.Width = 360;
@@ -310,8 +315,20 @@ namespace HUDCMS
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(724, 180);
+            this.panel1.Size = new System.Drawing.Size(150, 46);
             this.panel1.TabIndex = 7;
+            // 
+            // usrc_EditControl1
+            // 
+            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl1.Enabled = false;
+            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.usrc_EditControl1.Name = "usrc_EditControl1";
+            this.usrc_EditControl1.Size = new System.Drawing.Size(273, 541);
+            this.usrc_EditControl1.SnapShotMargin = 4;
+            this.usrc_EditControl1.TabIndex = 1;
             // 
             // usrc_SelectHtmlFile
             // 
@@ -408,17 +425,14 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(819, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
             // 
-            // usrc_EditControl1
+            // olvc_ControlLinks
             // 
-            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl1.Enabled = false;
-            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_EditControl1.Name = "usrc_EditControl1";
-            this.usrc_EditControl1.Size = new System.Drawing.Size(273, 541);
-            this.usrc_EditControl1.SnapShotMargin = 4;
-            this.usrc_EditControl1.TabIndex = 1;
+            this.olvc_ControlLinks.AspectName = "ControlLinks";
+            this.olvc_ControlLinks.DisplayIndex = 5;
+            this.olvc_ControlLinks.Text = "Control Links";
+            this.olvc_ControlLinks.UseInitialLetterForGroup = true;
+            this.olvc_ControlLinks.Width = 180;
+            this.olvc_ControlLinks.WordWrap = true;
             // 
             // Form_HUDCMS
             // 
@@ -484,5 +498,6 @@ namespace HUDCMS
         private BrightIdeasSoftware.OLVColumn olvc_ControlImage;
         private BrightIdeasSoftware.OLVColumn olvc_ControlName;
         private BrightIdeasSoftware.OLVColumn olvc_HelpTitle;
+        private BrightIdeasSoftware.OLVColumn olvc_ControlLinks;
     }
 }

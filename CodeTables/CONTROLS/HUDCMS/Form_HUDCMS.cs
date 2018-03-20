@@ -246,7 +246,18 @@ namespace HUDCMS
         {
             if (sender is TreeListView)
             {
-
+                if (e.Item.RowObject is MyControl)
+                {
+                    MyControl myctrl = (MyControl)e.Item.RowObject;
+                    if (myctrl.HasTitle)
+                    {
+                        e.Item.ForeColor = Color.Blue;
+                    }
+                    else
+                    {
+                        e.Item.ForeColor = Color.Black;
+                    }
+                }
             }
         }
 

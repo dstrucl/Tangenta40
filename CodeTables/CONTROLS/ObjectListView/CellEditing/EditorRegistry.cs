@@ -65,6 +65,7 @@ namespace BrightIdeasSoftware {
 
         private void InitializeStandardTypes() {
             this.Register(typeof(Boolean), typeof(BooleanCellEditor));
+            this.Register(typeof(List<string>), typeof(StringComboBoxCellEditor));
             this.Register(typeof(Int16), typeof(IntUpDown));
             this.Register(typeof(Int32), typeof(IntUpDown));
             this.Register(typeof(Int64), typeof(IntUpDown));
