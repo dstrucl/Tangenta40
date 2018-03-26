@@ -32,9 +32,9 @@ namespace HUDCMS
         private void btn_Link_Click(object sender, EventArgs e)
         {
             Form_HUDCMS frm_HUDCMS = (Form_HUDCMS) Global.f.GetParentForm(this);
-            Form_AddLinks frm_AddLinks = new Form_AddLinks(frm_HUDCMS.myroot, frm_HUDCMS.helperControlType,frm_HUDCMS.helperImageRenderer);
+            Form_AddLinks frm_AddLinks = new Form_AddLinks(frm_HUDCMS);
             frm_AddLinks.ShowDialog();
-            frm_HUDCMS.helperControlType.Init(frm_HUDCMS.MyTreeListView, frm_HUDCMS.helperControlType.SmallImageList, frm_HUDCMS.helperControlType.LargeImageList);
+            
 
         }
     }

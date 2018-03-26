@@ -8,6 +8,7 @@
  * 1 May 2007  JPP  Initial Version
  */
 
+using BrightIdeasSoftware;
 using System;
 using System.Drawing;
 using System.IO;
@@ -112,13 +113,7 @@ namespace HUDCMS
             this.listView = xlistView;
         }
 
-        public void Init(ListView xlistView,ImageList xSmallImageList, ImageList xLargeImageList)
-        {
-            this.listView = xlistView;
-            this.listView.SmallImageList = xSmallImageList;
-            this.listView.LargeImageList = xLargeImageList;
-        }
-
+ 
         internal ListView listView;
 
         /// <summary>

@@ -36,7 +36,12 @@
             this.olvc_ControlLinks = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbl_ControlName = new System.Windows.Forms.Label();
+            this.txt_ControlName = new System.Windows.Forms.TextBox();
+            this.btn_AddLink = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // MyTreeListView
@@ -47,6 +52,9 @@
             this.MyTreeListView.AllColumns.Add(this.olvc_ControlLinks);
             this.MyTreeListView.AllColumns.Add(this.olvc_HelpTitle);
             this.MyTreeListView.AllColumns.Add(this.olvc_ControlUniqueName);
+            this.MyTreeListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MyTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvc_ControlType,
             this.olvc_ControlName,
@@ -54,14 +62,13 @@
             this.olvc_ControlLinks,
             this.olvc_HelpTitle,
             this.olvc_ControlUniqueName});
-            this.MyTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MyTreeListView.Location = new System.Drawing.Point(0, 0);
+            this.MyTreeListView.Location = new System.Drawing.Point(0, 88);
             this.MyTreeListView.MultiSelect = false;
             this.MyTreeListView.Name = "MyTreeListView";
             this.MyTreeListView.OwnerDraw = true;
             this.MyTreeListView.ShowGroups = false;
             this.MyTreeListView.ShowImagesOnSubItems = true;
-            this.MyTreeListView.Size = new System.Drawing.Size(755, 531);
+            this.MyTreeListView.Size = new System.Drawing.Size(755, 443);
             this.MyTreeListView.TabIndex = 1;
             this.MyTreeListView.UseCompatibleStateImageBehavior = false;
             this.MyTreeListView.View = System.Windows.Forms.View.Details;
@@ -111,16 +118,58 @@
             this.olvc_ControlUniqueName.Width = 360;
             this.olvc_ControlUniqueName.WordWrap = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(1, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(95, 82);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lbl_ControlName
+            // 
+            this.lbl_ControlName.AutoSize = true;
+            this.lbl_ControlName.Location = new System.Drawing.Point(102, 25);
+            this.lbl_ControlName.Name = "lbl_ControlName";
+            this.lbl_ControlName.Size = new System.Drawing.Size(68, 13);
+            this.lbl_ControlName.TabIndex = 3;
+            this.lbl_ControlName.Text = "ControlName";
+            // 
+            // txt_ControlName
+            // 
+            this.txt_ControlName.Location = new System.Drawing.Point(98, 45);
+            this.txt_ControlName.Name = "txt_ControlName";
+            this.txt_ControlName.Size = new System.Drawing.Size(656, 20);
+            this.txt_ControlName.TabIndex = 4;
+            // 
+            // btn_AddLink
+            // 
+            this.btn_AddLink.Image = global::HUDCMS.Properties.Resources.Link;
+            this.btn_AddLink.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_AddLink.Location = new System.Drawing.Point(209, 3);
+            this.btn_AddLink.Name = "btn_AddLink";
+            this.btn_AddLink.Size = new System.Drawing.Size(112, 36);
+            this.btn_AddLink.TabIndex = 5;
+            this.btn_AddLink.Text = "Add Link";
+            this.btn_AddLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_AddLink.UseVisualStyleBackColor = true;
+            // 
             // Form_AddLinks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 531);
+            this.Controls.Add(this.btn_AddLink);
+            this.Controls.Add(this.txt_ControlName);
+            this.Controls.Add(this.lbl_ControlName);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.MyTreeListView);
             this.Name = "Form_AddLinks";
             this.Text = "Form_EditLinks";
             ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -133,5 +182,9 @@
         private BrightIdeasSoftware.OLVColumn olvc_ControlLinks;
         private BrightIdeasSoftware.OLVColumn olvc_HelpTitle;
         private BrightIdeasSoftware.OLVColumn olvc_ControlUniqueName;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lbl_ControlName;
+        private System.Windows.Forms.TextBox txt_ControlName;
+        private System.Windows.Forms.Button btn_AddLink;
     }
 }

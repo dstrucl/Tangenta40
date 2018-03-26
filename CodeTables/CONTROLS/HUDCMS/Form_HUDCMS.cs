@@ -45,8 +45,8 @@ namespace HUDCMS
         private List<GeneralHelpFile> generalHelpFile_List = null;
         private List<GeneralHelpFile> generalStyleFile_List = null;
         private Form_FCTB_Editor frm_FCTB_Editor = null;
-        private hctrl hc = null;
-        private usrc_Help mH = null;
+        internal hctrl hc = null;
+        internal usrc_Help mH = null;
         internal usrc_Control usrc_Control_Selected = null;
         internal MyControl MyControl_Selected = null;
         XDocument xhtml = null;

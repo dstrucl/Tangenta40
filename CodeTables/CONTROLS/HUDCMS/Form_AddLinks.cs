@@ -18,27 +18,15 @@ namespace HUDCMS
         ArrayList roots = new ArrayList();
         SysImageListHelper helperControlType = null;
         ImageRenderer helperImageRenderer = null;
+        Form_HUDCMS frm_HUDCMS = null;
         MyControl myroot = null;
-        //DataTable dtPLink = new DataTable();
-        //DataTable dtLink = new DataTable();
         int iAllControls = 0;
 
-        public Form_AddLinks(MyControl xmyroot, SysImageListHelper xhelperControlType,ImageRenderer xhelperImageRenderer)
+        public Form_AddLinks(Form_HUDCMS xfrm_HUDCMS)
         {
             InitializeComponent();
-            helperControlType = xhelperControlType;
-            helperImageRenderer = xhelperImageRenderer;
-            myroot = xmyroot;
+            frm_HUDCMS = xfrm_HUDCMS;
             InitializeMyTreeListView(ref iAllControls);
-            //DataColumn dcolPLink = new DataColumn("PLink", typeof(string));
-            //DataColumn dcolLink = new DataColumn("Link", typeof(string));
-            //dtPLink.Columns.Add(dcolPLink);
-            //dtLink.Columns.Add(dcolLink);
-            //SetLinks();
-
-            //DataGridViewButtonColumn dgvbc = new DataGridViewButtonColumn();
-
-            //dataGridView1.Columns.Add
         }
 
         //private void SetLinks()
@@ -99,7 +87,9 @@ namespace HUDCMS
 
             // Draw the system icon next to the name
             //this.olvc_ControlName.ImageGetter = null;
-            helperControlType.Init(this.MyTreeListView, helperControlType.SmallImageList, helperControlType.LargeImageList);
+            //helperControlType.Init(this.MyTreeListView, helperControlType.SmallImageList, helperControlType.LargeImageList);
+
+            helperControlType = new SysImageListHelper(this.MyTreeListView);
 
             //helper.AddImageToCollection("root1", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form);
             //helper.AddImageToCollection("root2", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form_grp_CommandLineParameters);
@@ -155,12 +145,11 @@ namespace HUDCMS
             //this.treeColumnAttributes.AspectGetter = delegate (object x) {
             //    return ((MyFileSystemInfo)x).Attributes;
             //};
-            //helperImageRenderer = new ImageRenderer();
+            helperImageRenderer = new ImageRenderer();
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            //MyControl myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref helperImageRenderer);
-
+            myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount,frm_HUDCMS.hc, null, ref helperControlType, ref helperImageRenderer, ref frm_HUDCMS.mH);
             this.helperImageRenderer.Aspect = (System.Int32)0;
 
             roots.Add(myroot);
