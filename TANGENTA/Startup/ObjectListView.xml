@@ -6913,6 +6913,16 @@
             
             </summary>
         </member>
+        <member name="T:BrightIdeasSoftware.StringComboBoxCellEditor">
+            <summary>
+            This editor simply shows and edits string values.
+            </summary>
+        </member>
+        <member name="M:BrightIdeasSoftware.StringComboBoxCellEditor.#ctor(System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BrightIdeasSoftware.BooleanCellEditor2">
             <summary>
             This editor simply shows and edits boolean values using a checkbox

@@ -88,27 +88,38 @@ namespace HUDCMS
         /// This means that the image for an item must occur at the same index in the two lists. 
         /// SysImageListHelper instances handle this requirement. However, if the listview already
         /// has image lists installed, they <b>must</b> be of the same length.</remarks>
-        public SysImageListHelper(ListView listView)
+        public SysImageListHelper(ListView xlistView)
         {
-            if (listView.SmallImageList == null) {
-                listView.SmallImageList = new ImageList();
-                listView.SmallImageList.ColorDepth = ColorDepth.Depth32Bit;
-                listView.SmallImageList.ImageSize = new Size(32, 32);
+            Init(xlistView);
+        }
+
+        public void Init(ListView xlistView)
+        {
+            if (xlistView.SmallImageList == null) {
+                xlistView.SmallImageList = new ImageList();
+                xlistView.SmallImageList.ColorDepth = ColorDepth.Depth32Bit;
+                xlistView.SmallImageList.ImageSize = new Size(32, 32);
             }
 
-            if (listView.LargeImageList == null) {
-                listView.LargeImageList = new ImageList();
-                listView.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
-//                listView.LargeImageList.ImageSize = new Size(32, 32);
-                listView.LargeImageList.ImageSize = new Size(32, 32);
+            if (xlistView.LargeImageList == null) {
+                xlistView.LargeImageList = new ImageList();
+                xlistView.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+                //                listView.LargeImageList.ImageSize = new Size(32, 32);
+                xlistView.LargeImageList.ImageSize = new Size(32, 32);
             }
-
             //if (listView.SmallImageList.Images.Count != listView.LargeImageList.Images.Count)
             //    throw new ArgumentException("Small and large image lists must have the same number of items.");
-
-            this.listView = listView;
+            this.listView = xlistView;
         }
-        protected ListView listView;
+
+        public void Init(ListView xlistView,ImageList xSmallImageList, ImageList xLargeImageList)
+        {
+            this.listView = xlistView;
+            this.listView.SmallImageList = xSmallImageList;
+            this.listView.LargeImageList = xLargeImageList;
+        }
+
+        internal ListView listView;
 
         /// <summary>
         /// Return the index of the image that has the Shell Icon for the given file/directory.

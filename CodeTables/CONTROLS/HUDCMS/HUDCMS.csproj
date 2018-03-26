@@ -74,6 +74,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_AddLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AddLinks.Designer.cs">
+      <DependentUpon>Form_AddLinks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_FCTB_Editor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_AddLinks.resx">
+      <DependentUpon>Form_AddLinks.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_FCTB_Editor.resx">
       <DependentUpon>Form_FCTB_Editor.cs</DependentUpon>
     </EmbeddedResource>

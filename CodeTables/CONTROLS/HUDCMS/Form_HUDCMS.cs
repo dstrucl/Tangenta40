@@ -19,9 +19,10 @@ namespace HUDCMS
 {
     public partial class Form_HUDCMS : Form
     {
+        internal MyControl myroot = null;
         ArrayList roots = new ArrayList();
-        SysImageListHelper helperControlType = null;
-        ImageRenderer helperImageRenderer = null;
+        internal SysImageListHelper helperControlType = null;
+        internal ImageRenderer helperImageRenderer = null;
 
         public const string HTML_index = "index";
         public const string HTML_download = "download";
@@ -235,7 +236,7 @@ namespace HUDCMS
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            MyControl myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref helperImageRenderer);
+            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref helperImageRenderer, ref mH);
             this.helperImageRenderer.Aspect = (System.Int32)0;
 
             roots.Add(myroot);
@@ -522,7 +523,7 @@ namespace HUDCMS
         }
 
 
-        private MyControl CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType, ref ImageRenderer helperImageRenderer)
+        internal static MyControl  CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType, ref ImageRenderer helperImageRenderer, ref usrc_Help mH)
         {
 
 
@@ -540,14 +541,14 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType, ref helperImageRenderer);
+                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType, ref helperImageRenderer, ref mH);
                             myctrl.children.Add(child);
                             child.Parent = myctrl;
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType, ref helperImageRenderer);
+                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType, ref helperImageRenderer, ref mH);
                         myctrl.children.Add(child);
                         child.Parent = myctrl;
                     }
@@ -988,6 +989,17 @@ namespace HUDCMS
         private void MyTreeListView_SubItemChecking(object sender, SubItemCheckingEventArgs e)
         {
 
+        }
+
+        private void MyTreeListView_CellRightClick(object sender, CellRightClickEventArgs e)
+        {
+            if (sender is TreeListView)
+            {
+                if (e.Item.RowObject is MyControl)
+                {
+                    MyControl myctrl = (MyControl)e.Item.RowObject;
+                }
+            }
         }
     }
 }
