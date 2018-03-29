@@ -17,6 +17,10 @@ namespace HUDCMS
 {
     public partial class MyControl : IEquatable<MyControl>
     {
+        internal List<MyControl> children = new List<MyControl>();
+
+        internal List<MyControl> Link = null;
+
         internal Form_HUDCMS xfrm_HUDCMS = null;
 
         internal XElement xel = null;
@@ -31,9 +35,15 @@ namespace HUDCMS
 
         internal string[] sLink = null;
 
-        bool bImageIncluded = true;
+        private bool m_ImageIncluded = true;
 
-        Image ImageOfControl = null;
+        public bool ImageIncluded
+        {
+            get { return m_ImageIncluded; }
+            set { m_ImageIncluded = value; }
+        }
+
+        internal Image ImageOfControl = null;
         internal MyControl Parent = null;
 
 
@@ -71,6 +81,20 @@ namespace HUDCMS
         public int ControlImage
         {
             get { return this.helperImageRenderer.ImageList.Images.IndexOfKey(ControlUniqueName); }
+        }
+
+        public string ControlLink
+        {
+            get {
+                if (HasLink)
+                {
+                    return "Yes";
+                }
+                else
+                {
+                    return "No";
+                }
+            }
         }
 
 
@@ -125,10 +149,6 @@ namespace HUDCMS
             set { m_Description = value; }
         }
 
-        internal List<MyControl> children = new List<MyControl>();
-
-        internal List<MyControl> AvailableLink = null;
-        internal List<MyControl> Link = null;
 
         internal hctrl hc = null;
         internal usrc_Help uH = null;
@@ -306,10 +326,10 @@ namespace HUDCMS
             xel = new XElement("TControl");
             XAttribute attribute_name = new XAttribute("name", GetControlUniqueName());
             string simage_included = "0";
-            //if (chk_ImageIncluded.Checked)
-            //{
+            if (ImageIncluded)
+            {
                 simage_included = "1";
-            //}
+            }
             XAttribute attribute_imageincluded = new XAttribute("imageincluded", simage_included);
             string sLink = "";
             if (Link!=null)
@@ -331,15 +351,15 @@ namespace HUDCMS
             }
             XAttribute attribute_link = new XAttribute("link", sLink);
 
-            //string smargin = SnapShotMargin.ToString();
-            //XAttribute attribute_margin = new XAttribute("margin", smargin);
+            string smargin = SnapShotMargin.ToString();
+            XAttribute attribute_margin = new XAttribute("margin", smargin);
 
             XAttribute attribute_heading = new XAttribute("heading", HeadingTag);
 
             xel.Add(attribute_name);
             xel.Add(attribute_imageincluded);
             xel.Add(attribute_link);
-            //xel.Add(attribute_margin);
+            xel.Add(attribute_margin);
             xel.Add(attribute_heading);
 
 
@@ -382,7 +402,7 @@ namespace HUDCMS
                 {
                     imagesourcename = "hashname_" + ImageSource.GetHashCode()+".png";
                 }
-                if (bImageIncluded)
+                if (m_ImageIncluded)
                 {
                     ximg = new XElement("img");
                     XAttribute img_src = new XAttribute("src", imagesourcename);
@@ -407,7 +427,7 @@ namespace HUDCMS
                 xel.Add(xdiv_Title);
                 string Err = null;
 
-                if ((this.hc.ctrlbmp != null)&& (bImageIncluded))
+                if ((this.hc.ctrlbmp != null)&& (m_ImageIncluded))
                 {
                     try
                     {
@@ -489,29 +509,12 @@ namespace HUDCMS
         //    }
         //}
 
-        //private void Set_pic_Control()
-        //{
-        //    this.pic_Control.Image = hc.ctrlbmp;
-        //    this.pic_Control.SizeMode = PictureBoxSizeMode.Zoom;
-        //    this.pic_Control.Width = hc.ctrlbmp.Width;
-        //    if (this.pic_Control.Width > MaxPanelWidth)
-        //    {
-        //        this.pic_Control.Width = MaxPanelWidth - 60;
-        //        this.pic_Control.Height = hc.ctrlbmp.Height * this.pic_Control.Width / hc.ctrlbmp.Width + 4;
-        //    }
-        //    else
-        //    {
-        //        this.pic_Control.Height = hc.ctrlbmp.Height;
-        //    }
-        //    this.pic_Control.Top = this.chk_ImageIncluded.Bottom + 4;
-        //    this.lbl_LinkedControls.Left = this.pic_Control.Right + 4;
-        //    this.list_Link.Left = this.pic_Control.Right + 4;
-        //}
 
-        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel,  ref SysImageListHelper helperControlType, ref ImageRenderer xhelperImageRenderer)
+        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel, MyControl parent, ref SysImageListHelper helperControlType, ref ImageRenderer xhelperImageRenderer)
         {
             uH = xuH;
             hc = xhc;
+            this.Parent = parent;
             helperImageRenderer = xhelperImageRenderer;
             if (hc.ctrl != null)
             {
@@ -525,16 +528,6 @@ namespace HUDCMS
             string sControl = HUDCMS_static.slng_UserControlName;
             helperControlType.AddImageToCollection(GetControlType(), helperControlType.SmallImageList, GetControlTypeImage());
 
-            if (hc.ctrlbmp != null)
-            {
-                if (helperImageRenderer.ImageList==null)
-                {
-                    helperImageRenderer.ImageList = new ImageList();
-                    helperImageRenderer.ImageList.ImageSize = new Size(48, 48);
-                }
-                helperImageRenderer.ImageList.Images.Add(GetControlUniqueName(),hc.ctrlbmp);
-                //helperControlName.AddImageToCollection(GetControlName(), helperControlName.LargeImageList, hc.ctrlbmp);
-            }
             if (hc.pForm !=null)
             {
                 sControl = "Form";
@@ -660,10 +653,10 @@ namespace HUDCMS
                 if (FindXElement(doc, ref xel, "TControl", "name",ControlUniqueName))
                 {
                     string simageincluded = xel.Attribute("imageincluded").Value;
-//                    chk_ImageIncluded.Checked = true;
+                    ImageIncluded = true;
                     if (simageincluded.Equals("0"))
                     {
-                        //                        chk_ImageIncluded.Checked = false;
+                        ImageIncluded = false;
                     }
 
                     this.sLink = null;
@@ -774,29 +767,11 @@ namespace HUDCMS
             }
 
 
-            //            this.list_Link.Visible = false;
-
-            //            this.list_Link.DataSource = null;
-            if (this.Link != null)
-            {
-                if (this.Link.Count > 0)
-                {
-                    //this.list_Link.Visible = true;
-                    //this.list_Link.DataSource = Link;
-                    //this.list_Link.DisplayMember = "ControlName";
-                    //this.list_Link.ValueMember = "ControlName";
-                }
-            }
-            //            this.lbl_LinkedControls.Visible = this.list_Link.Visible;
-
             if (ID.Length == 0)
             {
                 Guid id = Guid.NewGuid();
                 ID = id.ToString();
             }
-            //            txt_ID.Text = ID;
-            //            SetDefault_BackColor();
-            //            this.Refresh();
         }
 
         private Image GetControlTypeImage()
@@ -886,40 +861,21 @@ namespace HUDCMS
             }
         }
 
-        internal static bool Find_usrc_Control(Control ctrl, string slnk, ref usrc_Control usrc_Control_found)
+        internal static bool Find_my_Control(MyControl ctrl, string slnk, ref MyControl my_Control_found)
         {
             if (ctrl != null)
             {
-                if (ctrl is usrc_Control)
+                string sControlName = ctrl.ControlUniqueName;
+                if (sControlName.Equals(slnk))
                 {
-                    string sControlName = ((usrc_Control)ctrl).ControlName;
-                    if (sControlName.Equals(slnk))
-                    {
-                        usrc_Control_found = (usrc_Control)ctrl;
-                        return true;
-                    }
-                    foreach (Control c in ctrl.Controls)
-                    {
-                        if (c is usrc_Control)
-                        {
-                            if (Find_usrc_Control(c, slnk, ref usrc_Control_found))
-                            {
-                                return true;
-                            }
-                        }
-                    }
+                    my_Control_found = ctrl;
+                    return true;
                 }
-                else
+                foreach (MyControl c in ctrl.children)
                 {
-                    foreach (Control c in ctrl.Controls)
+                    if (Find_my_Control(c, slnk, ref my_Control_found))
                     {
-                        if (c is usrc_Control)
-                        {
-                            if (Find_usrc_Control(c, slnk, ref usrc_Control_found))
-                            {
-                                return true;
-                            }
-                        }
+                        return true;
                     }
                 }
             }
@@ -1009,56 +965,52 @@ namespace HUDCMS
             return false;
         }
 
-        //private void radioButtonGlobal1_CheckChanged()
-        //{
-        //    if (radioButtonGlobal1.Checked)
-        //    {
-        //        this.BackColor = radioButtonGlobal1.HighlightBackColor;
-        //        xfrm_HUDCMS.usrc_EditControl1.Enabled = true;
-        //        xfrm_HUDCMS.usrc_EditControl1.Init(this);
-        //        xfrm_HUDCMS.usrc_Control_Selected = this;
-        //        if (hc.dgvc == null)
-        //        {
-        //            xfrm_HUDCMS.HideLinks();
-        //            xfrm_HUDCMS.ShowAvailableLinks();
-        //        }
-        //    }
-        //}
-
-        //private void radioButtonGlobal1_Load(object sender, EventArgs e)
-        //{
-
-        //}
-
-        private void btn_Link_Click(object sender, EventArgs e)
+    
+        internal void ShowLink()
         {
             //Link Form_HUDCMS.usrc_Control_Selected with this !
-            if (xfrm_HUDCMS.usrc_Control_Selected != null)
+            if (xfrm_HUDCMS.MyControl_Selected != null)
             {
-                if (bLinked)
-                {
-                    usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
-                    if (Control_Selected.usrc_Link == null)
-                    {
-                        Control_Selected.usrc_Link = new List<usrc_Control>();
-                    }
-//                    RemoveLink(Control_Selected.Link, this, Control_Selected);
+                    MyControl Control_Selected = xfrm_HUDCMS.MyControl_Selected;
                     Control_Selected.CreateImageOfLinkedControls();
-                    bLinked = false;
+            }
+        }
+
+        private void SetLinks()
+        {
+            string[] xslink = sLink;
+            string ctrl_name = ControlName;
+            if (HasLink)
+            {
+                if (Link == null)
+                {
+                    Link = new List<MyControl>();
                 }
                 else
                 {
-                    usrc_Control Control_Selected = xfrm_HUDCMS.usrc_Control_Selected;
-                    if (Control_Selected.usrc_Link == null)
+                    Link.Clear();
+                }
+                foreach (string sctrl_name in sLink)
+                {
+                    MyControl my_Control_Linked = null;
+                    MyControl myparent = this.Parent;
+                    while (myparent != null)
                     {
-                        Control_Selected.usrc_Link = new List<usrc_Control>();
+                        if (MyControl.Find_my_Control(myparent, sctrl_name, ref my_Control_Linked))
+                        {
+                            Link.Add(my_Control_Linked);
+                            my_Control_Linked.bLinked = true;
+                        }
+                        myparent = myparent.Parent;
                     }
-//                    AddLink(Control_Selected.Link, this, Control_Selected);
-                    Control_Selected.CreateImageOfLinkedControls();
-                    bLinked = true;
+                }
+                if (Link.Count > 0)
+                {
+                    CreateImageOfLinkedControls();
                 }
             }
         }
+
 
         private bool HasLinksToOtherControls()
         {
@@ -1074,52 +1026,28 @@ namespace HUDCMS
 
         internal void CreateImageOfLinkedControls()
         {
-            //          this.list_Link.Visible = false;
-            //            this.list_Link.DataSource = null;
-            //            if (this.Parent != null)
-            //            {
-            //                if (this.Parent is usrc_Control)
-            //                {
-            if (LinkExist(this.Link))
-                    {
-                        //this.list_Link.Visible = true;
-                        //this.lbl_LinkedControls.Visible = true;
-                        //this.list_Link.DataSource = Link;
-                        //this.list_Link.DisplayMember = "ControlName";
-                        //this.list_Link.ValueMember = "ControlName";
-                    }
-                    else
-                    {
-                    //    this.list_Link.Visible = false;
-                    //    this.lbl_LinkedControls.Visible = false;
-                    //    this.list_Link.DataSource = null;
-                    }
-                    Rectangle snap_rect = new Rectangle();
-                    GetParentSnapshotArea(ref snap_rect, this, this.Link);
+            Rectangle snap_rect = new Rectangle();
+            GetParentSnapshotArea(ref snap_rect, this, this.Link);
 
-                    //if (((usrc_Control)this.Parent).hc.ctrlbmp != null)
-                    //{
-                    //    Bitmap myBitmap = new Bitmap(((usrc_Control)this.Parent).hc.ctrlbmp);
-                    //    System.Drawing.Imaging.PixelFormat format =
-                    //        myBitmap.PixelFormat;
-                    //    Bitmap cloneBitmap = myBitmap.Clone(snap_rect, format);
+            if (this.hc.ctrlbmp != null)
+            {
+                Bitmap myBitmap = new Bitmap(this.Parent.hc.ctrlbmp);
+                System.Drawing.Imaging.PixelFormat format =
+                    myBitmap.PixelFormat;
+                Bitmap cloneBitmap = myBitmap.Clone(snap_rect, format);
 
 
-                    //    if (this.hc.ctrlbmp != null)
-                    //    {
-                    //        this.hc.ctrlbmp.Dispose();
-                    //        this.hc.ctrlbmp = null;
-                    //    }
-                    //    this.hc.ctrlbmp = cloneBitmap;
-                    //    this.Set_pic_Control();
-                    //    this.pic_Control.Refresh();
-                    //    if (xfrm_HUDCMS.usrc_EditControl1.m_usrc_Control == this)
-                    //    {
-                    //        xfrm_HUDCMS.usrc_EditControl1.Init(this);
-                    //    }
-                    //}
-//                }
-//            }
+                if (this.hc.ctrlbmp != null)
+                {
+                    this.hc.ctrlbmp.Dispose();
+                    this.hc.ctrlbmp = null;
+                }
+                this.hc.ctrlbmp = cloneBitmap;
+                if (xfrm_HUDCMS.usrc_EditControl1.my_Control == this)
+                {
+                    xfrm_HUDCMS.usrc_EditControl1.Set_pic_Control(this.hc);
+                }
+            }
         }
 
         private void GetParentSnapshotArea(ref Rectangle snap_rect, MyControl myControl, List<MyControl> link)
@@ -1155,7 +1083,7 @@ namespace HUDCMS
                 {
                     if (c.hc.Bottom > bottom)
                     {
-                        bottom = c.hc.ctrl.Bottom;
+                        bottom = c.hc.Bottom;
                     }
                 }
             }

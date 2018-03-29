@@ -34,20 +34,22 @@ namespace HUDCMS
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_EditControl_Image));
             this.lbl_Image = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.chk_ImageIncluded = new System.Windows.Forms.CheckBox();
+            this.dgv_link = new System.Windows.Forms.DataGridView();
+            this.btn_Link = new System.Windows.Forms.Button();
             this.fctb_CtrlImageCaption = new FastColoredTextBoxNS.FastColoredTextBox();
             this.lbl_SnapShotMargin = new System.Windows.Forms.Label();
             this.nmUpDn_SnapShotMargin = new System.Windows.Forms.NumericUpDown();
-            this.list_Link = new System.Windows.Forms.ListBox();
             this.lbl_LinkedControls = new System.Windows.Forms.Label();
             this.lbl_ImageCaption = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pic_Control = new System.Windows.Forms.PictureBox();
             this.usrc_SelectPictureFile = new SelectFile.usrc_SelectFile();
-            this.btn_Link = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_link)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fctb_CtrlImageCaption)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SnapShotMargin)).BeginInit();
             this.panel2.SuspendLayout();
@@ -76,21 +78,64 @@ namespace HUDCMS
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Panel1.Controls.Add(this.chk_ImageIncluded);
+            this.splitContainer1.Panel1.Controls.Add(this.dgv_link);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Link);
             this.splitContainer1.Panel1.Controls.Add(this.fctb_CtrlImageCaption);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_SnapShotMargin);
             this.splitContainer1.Panel1.Controls.Add(this.nmUpDn_SnapShotMargin);
-            this.splitContainer1.Panel1.Controls.Add(this.list_Link);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_LinkedControls);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_ImageCaption);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(924, 262);
-            this.splitContainer1.SplitterDistance = 517;
+            this.splitContainer1.Size = new System.Drawing.Size(699, 262);
+            this.splitContainer1.SplitterDistance = 357;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 43;
+            // 
+            // chk_ImageIncluded
+            // 
+            this.chk_ImageIncluded.AutoSize = true;
+            this.chk_ImageIncluded.Checked = true;
+            this.chk_ImageIncluded.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_ImageIncluded.Location = new System.Drawing.Point(7, 6);
+            this.chk_ImageIncluded.Margin = new System.Windows.Forms.Padding(2);
+            this.chk_ImageIncluded.Name = "chk_ImageIncluded";
+            this.chk_ImageIncluded.Size = new System.Drawing.Size(93, 17);
+            this.chk_ImageIncluded.TabIndex = 57;
+            this.chk_ImageIncluded.Text = "Include Image";
+            this.chk_ImageIncluded.UseVisualStyleBackColor = true;
+            // 
+            // dgv_link
+            // 
+            this.dgv_link.AllowUserToAddRows = false;
+            this.dgv_link.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_link.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_link.Location = new System.Drawing.Point(7, 46);
+            this.dgv_link.MultiSelect = false;
+            this.dgv_link.Name = "dgv_link";
+            this.dgv_link.ReadOnly = true;
+            this.dgv_link.Size = new System.Drawing.Size(242, 82);
+            this.dgv_link.TabIndex = 56;
+            this.dgv_link.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_link_CellClick);
+            // 
+            // btn_Link
+            // 
+            this.btn_Link.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Link.Image = global::HUDCMS.Properties.Resources.NoLink;
+            this.btn_Link.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_Link.Location = new System.Drawing.Point(254, 80);
+            this.btn_Link.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Link.Name = "btn_Link";
+            this.btn_Link.Size = new System.Drawing.Size(100, 48);
+            this.btn_Link.TabIndex = 55;
+            this.btn_Link.Text = "Add Link";
+            this.btn_Link.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btn_Link.UseVisualStyleBackColor = true;
+            this.btn_Link.Click += new System.EventHandler(this.btn_Link_Click);
             // 
             // fctb_CtrlImageCaption
             // 
@@ -120,22 +165,23 @@ namespace HUDCMS
             this.fctb_CtrlImageCaption.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_CtrlImageCaption.LeftBracket = '<';
             this.fctb_CtrlImageCaption.LeftBracket2 = '(';
-            this.fctb_CtrlImageCaption.Location = new System.Drawing.Point(6, 134);
+            this.fctb_CtrlImageCaption.Location = new System.Drawing.Point(6, 151);
             this.fctb_CtrlImageCaption.Name = "fctb_CtrlImageCaption";
             this.fctb_CtrlImageCaption.Paddings = new System.Windows.Forms.Padding(0);
             this.fctb_CtrlImageCaption.RightBracket = '>';
             this.fctb_CtrlImageCaption.RightBracket2 = ')';
             this.fctb_CtrlImageCaption.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctb_CtrlImageCaption.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_CtrlImageCaption.ServiceColors")));
-            this.fctb_CtrlImageCaption.Size = new System.Drawing.Size(494, 114);
+            this.fctb_CtrlImageCaption.Size = new System.Drawing.Size(334, 97);
             this.fctb_CtrlImageCaption.TabIndex = 54;
             this.fctb_CtrlImageCaption.Zoom = 100;
             this.fctb_CtrlImageCaption.Load += new System.EventHandler(this.fastColoredTextBox1_Load);
             // 
             // lbl_SnapShotMargin
             // 
+            this.lbl_SnapShotMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_SnapShotMargin.AutoSize = true;
-            this.lbl_SnapShotMargin.Location = new System.Drawing.Point(216, 29);
+            this.lbl_SnapShotMargin.Location = new System.Drawing.Point(251, 30);
             this.lbl_SnapShotMargin.Name = "lbl_SnapShotMargin";
             this.lbl_SnapShotMargin.Size = new System.Drawing.Size(89, 13);
             this.lbl_SnapShotMargin.TabIndex = 53;
@@ -143,7 +189,8 @@ namespace HUDCMS
             // 
             // nmUpDn_SnapShotMargin
             // 
-            this.nmUpDn_SnapShotMargin.Location = new System.Drawing.Point(342, 29);
+            this.nmUpDn_SnapShotMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nmUpDn_SnapShotMargin.Location = new System.Drawing.Point(279, 49);
             this.nmUpDn_SnapShotMargin.Margin = new System.Windows.Forms.Padding(4);
             this.nmUpDn_SnapShotMargin.Name = "nmUpDn_SnapShotMargin";
             this.nmUpDn_SnapShotMargin.Size = new System.Drawing.Size(75, 20);
@@ -155,23 +202,10 @@ namespace HUDCMS
             0});
             this.nmUpDn_SnapShotMargin.ValueChanged += new System.EventHandler(this.nmUpDn_SnapShotMargin_ValueChanged);
             // 
-            // list_Link
-            // 
-            this.list_Link.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.list_Link.FormattingEnabled = true;
-            this.list_Link.HorizontalScrollbar = true;
-            this.list_Link.Location = new System.Drawing.Point(15, 29);
-            this.list_Link.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.list_Link.Name = "list_Link";
-            this.list_Link.Size = new System.Drawing.Size(139, 69);
-            this.list_Link.TabIndex = 50;
-            this.list_Link.Visible = false;
-            // 
             // lbl_LinkedControls
             // 
             this.lbl_LinkedControls.AutoSize = true;
-            this.lbl_LinkedControls.Location = new System.Drawing.Point(13, 9);
+            this.lbl_LinkedControls.Location = new System.Drawing.Point(14, 30);
             this.lbl_LinkedControls.Name = "lbl_LinkedControls";
             this.lbl_LinkedControls.Size = new System.Drawing.Size(80, 13);
             this.lbl_LinkedControls.TabIndex = 51;
@@ -180,7 +214,7 @@ namespace HUDCMS
             // lbl_ImageCaption
             // 
             this.lbl_ImageCaption.AutoSize = true;
-            this.lbl_ImageCaption.Location = new System.Drawing.Point(3, 110);
+            this.lbl_ImageCaption.Location = new System.Drawing.Point(4, 135);
             this.lbl_ImageCaption.Name = "lbl_ImageCaption";
             this.lbl_ImageCaption.Size = new System.Drawing.Size(43, 13);
             this.lbl_ImageCaption.TabIndex = 49;
@@ -197,16 +231,18 @@ namespace HUDCMS
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(401, 262);
+            this.panel2.Size = new System.Drawing.Size(336, 262);
             this.panel2.TabIndex = 36;
             // 
             // pic_Control
             // 
+            this.pic_Control.BackColor = System.Drawing.Color.Gray;
             this.pic_Control.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pic_Control.Location = new System.Drawing.Point(3, 30);
+            this.pic_Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pic_Control.Location = new System.Drawing.Point(0, 0);
             this.pic_Control.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pic_Control.Name = "pic_Control";
-            this.pic_Control.Size = new System.Drawing.Size(395, 209);
+            this.pic_Control.Size = new System.Drawing.Size(336, 262);
             this.pic_Control.TabIndex = 0;
             this.pic_Control.TabStop = false;
             // 
@@ -221,24 +257,9 @@ namespace HUDCMS
             this.usrc_SelectPictureFile.Location = new System.Drawing.Point(77, 13);
             this.usrc_SelectPictureFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.usrc_SelectPictureFile.Name = "usrc_SelectPictureFile";
-            this.usrc_SelectPictureFile.Size = new System.Drawing.Size(675, 30);
+            this.usrc_SelectPictureFile.Size = new System.Drawing.Size(450, 30);
             this.usrc_SelectPictureFile.TabIndex = 34;
             this.usrc_SelectPictureFile.Title = "Save File";
-            // 
-            // btn_Link
-            // 
-            this.btn_Link.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Link.Image = global::HUDCMS.Properties.Resources.NoLink;
-            this.btn_Link.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Link.Location = new System.Drawing.Point(172, 50);
-            this.btn_Link.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Link.Name = "btn_Link";
-            this.btn_Link.Size = new System.Drawing.Size(84, 48);
-            this.btn_Link.TabIndex = 55;
-            this.btn_Link.Text = "Add Link";
-            this.btn_Link.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_Link.UseVisualStyleBackColor = true;
-            this.btn_Link.Click += new System.EventHandler(this.btn_Link_Click);
             // 
             // usrc_EditControl_Image
             // 
@@ -248,12 +269,13 @@ namespace HUDCMS
             this.Controls.Add(this.lbl_Image);
             this.Controls.Add(this.usrc_SelectPictureFile);
             this.Name = "usrc_EditControl_Image";
-            this.Size = new System.Drawing.Size(930, 319);
+            this.Size = new System.Drawing.Size(705, 319);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_link)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fctb_CtrlImageCaption)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SnapShotMargin)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -271,11 +293,12 @@ namespace HUDCMS
         internal System.Windows.Forms.NumericUpDown nmUpDn_SnapShotMargin;
         private System.Windows.Forms.Label lbl_ImageCaption;
         private System.Windows.Forms.Panel panel2;
-        internal System.Windows.Forms.ListBox list_Link;
         internal System.Windows.Forms.Label lbl_LinkedControls;
         internal System.Windows.Forms.PictureBox pic_Control;
         internal SelectFile.usrc_SelectFile usrc_SelectPictureFile;
         internal FastColoredTextBox fctb_CtrlImageCaption;
         internal System.Windows.Forms.Button btn_Link;
+        internal System.Windows.Forms.DataGridView dgv_link;
+        internal System.Windows.Forms.CheckBox chk_ImageIncluded;
     }
 }

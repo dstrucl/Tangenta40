@@ -20,6 +20,7 @@ namespace HUDCMS
         ImageRenderer helperImageRenderer = null;
         Form_HUDCMS frm_HUDCMS = null;
         MyControl myroot = null;
+        MyControl SelectedControl = null;
         int iAllControls = 0;
 
         public Form_AddLinks(Form_HUDCMS xfrm_HUDCMS)
@@ -50,7 +51,7 @@ namespace HUDCMS
         void InitializeMyTreeListView(ref int iAllCount)
         {
 
-            this.MyTreeListView.HierarchicalCheckboxes = true;
+            this.MyTreeListView.HierarchicalCheckboxes = false;
             this.MyTreeListView.HideSelection = false;
             //this.MyTreeListView.RowHeight = 32;
             this.MyTreeListView.UseCellFormatEvents = true;
@@ -173,6 +174,45 @@ namespace HUDCMS
                         e.Item.ForeColor = Color.Black;
                     }
                 }
+            }
+        }
+
+        private void MyTreeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sender is TreeListView)
+            {
+                TreeListView treeListView = (TreeListView)sender;
+                int selectedindex = treeListView.SelectedIndex;
+                OLVListItem olvi = treeListView.SelectedItem;
+                if (olvi != null)
+                {
+                    if (olvi.RowObject is MyControl)
+                    {
+                        this.SelectedControl = (MyControl)olvi.RowObject;
+                        if (frm_HUDCMS.hc.dgvc == null)
+                        {
+                            if (SelectedControl.hc.ctrlbmp != null)
+                            {
+                                this.pictureBox1.Image = SelectedControl.hc.ctrlbmp;
+                                this.txt_ControlUniqueName.Text = SelectedControl.ControlUniqueName;
+                            }
+                            //xfrm_HUDCMS.HideLinks();
+                            //xfrm_HUDCMS.ShowAvailableLinks();
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btn_AddLink_Click(object sender, EventArgs e)
+        {
+            if (SelectedControl!=null)
+            {
+                frm_HUDCMS.usrc_EditControl1.AddLink(SelectedControl);
             }
         }
     }

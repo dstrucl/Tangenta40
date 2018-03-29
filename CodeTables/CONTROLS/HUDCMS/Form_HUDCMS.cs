@@ -133,16 +133,15 @@ namespace HUDCMS
             //this.panel1.Controls.Add(root);
 
             this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
-            HideLinks();
-            SetLinks(this.panel1);
+            //HideLinks();
+            //SetLinks(myroot);
         }
 
         void InitializeMyTreeListView(ref int iAllCount)
         {
 
-            this.MyTreeListView.HierarchicalCheckboxes = true;
+            this.MyTreeListView.HierarchicalCheckboxes = false;
             this.MyTreeListView.HideSelection = false;
-            //this.MyTreeListView.RowHeight = 32;
             this.MyTreeListView.UseCellFormatEvents = true;
             this.MyTreeListView.FormatRow += MyTreeListView_FormatRow;
             this.MyTreeListView.CanExpandGetter = delegate (object x) {
@@ -161,9 +160,6 @@ namespace HUDCMS
                 }
             };
 
-            checkBox11.Checked = this.MyTreeListView.HierarchicalCheckboxes;
-
-            //this.treeListView.CheckBoxes = false;
 
             // You can change the way the connection lines are drawn by changing the pen
             TreeListView.TreeRenderer renderer = this.MyTreeListView.TreeColumnRenderer;
@@ -176,12 +172,7 @@ namespace HUDCMS
             // delegates, since TreeListViews can't show groups.
 
             // Draw the system icon next to the name
-            //this.olvc_ControlName.ImageGetter = null;
             helperControlType = new SysImageListHelper(this.MyTreeListView);
-            //helper.AddImageToCollection("root1", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form);
-            //helper.AddImageToCollection("root2", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form_grp_CommandLineParameters);
-            //helper.AddImageToCollection("r1_ch1", helper.LargeImageList, Properties.Resources.limeleaf);
-            //helper.AddImageToCollection("r1_ch2", helper.LargeImageList, Properties.Resources.coffee);
             this.olvc_ControlType.ImageGetter = delegate (object x)
             {
                 return helperControlType.GetControlTypeImageIndex(((MyControl)x).ControlType);
@@ -237,6 +228,8 @@ namespace HUDCMS
 
             // List all drives as the roots of the tree
             myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref helperImageRenderer, ref mH);
+            SetLinks(myroot,ref helperImageRenderer);
+
             this.helperImageRenderer.Aspect = (System.Int32)0;
 
             roots.Add(myroot);
@@ -356,21 +349,68 @@ namespace HUDCMS
             }
         }
 
+        private void SetLinks(MyControl ctrl, ref ImageRenderer helperImageRenderer)
+        {
+            if (ctrl !=null)
+            {
+                string[] xslink = ctrl.sLink;
+                string ctrl_name = ctrl.ControlName;
+                if (ctrl.HasLink)
+                {
+                    if (ctrl.Link == null)
+                    {
+                        ctrl.Link = new List<MyControl>();
+                    }
+                    else
+                    {
+                        ctrl.Link.Clear();
+                    }
+                    foreach (string sctrl_name in ctrl.sLink)
+                    {
+                        MyControl my_Control_Linked = null;
+                        MyControl myparent = ctrl.Parent;
+
+
+                        while (myparent != null)
+                        {
+                            if (MyControl.Find_my_Control(myparent, sctrl_name, ref my_Control_Linked))
+                            {
+                                ctrl.Link.Add(my_Control_Linked);
+                                my_Control_Linked.bLinked = true;
+                            }
+                            myparent = myparent.Parent;
+                        }
+                    }
+                    if (ctrl.Link.Count > 0)
+                    {
+                        ctrl.CreateImageOfLinkedControls();
+                    }
+                }
+                foreach (MyControl c in ctrl.children)
+                {
+                    SetLinks(c,ref helperImageRenderer);
+                }
+                if (ctrl.hc.ctrlbmp != null)
+                {
+                    if (helperImageRenderer.ImageList == null)
+                    {
+                        helperImageRenderer.ImageList = new ImageList();
+                        helperImageRenderer.ImageList.ImageSize = new Size(48, 48);
+                    }
+                    helperImageRenderer.ImageList.Images.Add(ctrl.GetControlUniqueName(), ctrl.hc.ctrlbmp);
+                    //helperControlName.AddImageToCollection(GetControlName(), helperControlName.LargeImageList, hc.ctrlbmp);
+                    ctrl.helperImageRenderer = helperImageRenderer;
+                }
+            }
+        }
+
         internal bool SaveXHTML(string html_file,ref XDocument xh, ref string Err)
         {
-            //if (this.usrc_Control_Selected!=null)
-            //{
-
-            //    this.usrc_EditControl1.m_usrc_Control.Title = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
-            //    this.usrc_EditControl1.m_usrc_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
-            //    this.usrc_EditControl1.m_usrc_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
-            //    this.usrc_EditControl1.m_usrc_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
-            //    this.usrc_EditControl1.m_usrc_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
-            //}
 
             if (this.MyControl_Selected != null)
             {
-
+                this.usrc_EditControl1.my_Control.ImageIncluded = this.usrc_EditControl1.usrc_EditControl_Image1.chk_ImageIncluded.Checked;
+                this.usrc_EditControl1.my_Control.ImageOfControl = (Image) this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image.Clone();
                 this.usrc_EditControl1.my_Control.HelpTitle = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
                 this.usrc_EditControl1.my_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
                 this.usrc_EditControl1.my_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
@@ -388,17 +428,13 @@ namespace HUDCMS
             html_html = new XElement("html");
 
 
-
-
             xh.AddFirst(html_html);
 
-            foreach (Control c in this.panel1.Controls)
-            {
-                if (c is usrc_Control)
+                if (myroot != null)
                 {
                     if (html_head == null)
                     {
-                        if (((usrc_Control)c).hc.pForm != null)
+                        if (myroot.hc.pForm != null)
                         {
                             html_head = new XElement("head");
 
@@ -406,10 +442,10 @@ namespace HUDCMS
 
                             html_title = new XElement("title");
 
-                            string sTitle = ((usrc_Control)c).hc.pForm.Text;
+                            string sTitle = myroot.hc.pForm.Text;
                             if (sTitle.Length == 0)
                             {
-                                sTitle = ((usrc_Control)c).hc.pForm.GetType().ToString();
+                                sTitle = myroot.hc.pForm.GetType().ToString();
                             }
                             html_title.Value = sTitle;
                             html_body = new XElement("body");
@@ -424,7 +460,7 @@ namespace HUDCMS
                             html_html.Add(html_body);
 
                         }
-                        else if (((usrc_Control)c).hc.ctrl != null)
+                        else if (myroot.hc.ctrl != null)
                         {
                             html_head = new XElement("head");
 
@@ -432,10 +468,10 @@ namespace HUDCMS
 
                             html_title = new XElement("title");
 
-                            string sTitle = ((usrc_Control)c).hc.ctrl.Text;
+                            string sTitle = myroot.hc.ctrl.Text;
                             if (sTitle.Length == 0)
                             {
-                                sTitle = ((usrc_Control)c).hc.ctrl.GetType().ToString();
+                                sTitle = myroot.hc.ctrl.GetType().ToString();
                             }
                             html_title.Value = sTitle;
 
@@ -452,9 +488,13 @@ namespace HUDCMS
 
                         }
                     }
-                    ((usrc_Control)c).CreateNode(xh, ref html_body);
+                    myroot.CreateNode(xh, ref html_body);
                 }
-            }
+                else
+                {
+                    MessageBox.Show("ERROR:myroot == null in Form_HUDCMS!");
+                    return false;
+                }
 
             //save xhtml
             if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file,ref Err))
@@ -466,12 +506,17 @@ namespace HUDCMS
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show("ERROR:xh.Save(html_file) in Form_HUDCMS!\r\nException=" + ex.Message);
+                    return false;
 
                 }
             }
+            else
+            {
+                MessageBox.Show("ERROR:SelectFile.usrc_SelectFile.CreateFolderIfNotExist(..) in Form_HUDCMS!");
+                return false;
 
-
-            return false;
+            }
         }
 
         private void AddStylesheet(ref XElement html_head)
@@ -531,7 +576,7 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            myctrl.Init(mH, xhc, level, ref helperControlType, ref helperImageRenderer);
+            myctrl.Init(mH, xhc, level, xctrl, ref helperControlType, ref helperImageRenderer);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -543,14 +588,12 @@ namespace HUDCMS
                         {
                             child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType, ref helperImageRenderer, ref mH);
                             myctrl.children.Add(child);
-                            child.Parent = myctrl;
                         }
                     }
                     else if (hc.dgvc != null)
                     {
                         child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType, ref helperImageRenderer, ref mH);
                         myctrl.children.Add(child);
-                        child.Parent = myctrl;
                     }
                 }
             }
@@ -973,14 +1016,17 @@ namespace HUDCMS
                 OLVListItem olvi = treeListView.SelectedItem;
                 if (olvi != null)
                 {
-                    MyControl myctrl = (MyControl)olvi.RowObject;
-
-                    myctrl.xfrm_HUDCMS.usrc_EditControl1.Enabled = true;
-                    myctrl.xfrm_HUDCMS.usrc_EditControl1.Init(myctrl);
-                    if (hc.dgvc == null)
+                    if (olvi.RowObject is MyControl)
                     {
-                        //xfrm_HUDCMS.HideLinks();
-                        //xfrm_HUDCMS.ShowAvailableLinks();
+                        MyControl myctrl = (MyControl)olvi.RowObject;
+                        myctrl.xfrm_HUDCMS.MyControl_Selected = myctrl;
+                        myctrl.xfrm_HUDCMS.usrc_EditControl1.Enabled = true;
+                        myctrl.xfrm_HUDCMS.usrc_EditControl1.Init(myctrl);
+                        if (hc.dgvc == null)
+                        {
+                            //xfrm_HUDCMS.HideLinks();
+                            //xfrm_HUDCMS.ShowAvailableLinks();
+                        }
                     }
                 }
             }
@@ -1000,6 +1046,11 @@ namespace HUDCMS
                     MyControl myctrl = (MyControl)e.Item.RowObject;
                 }
             }
+        }
+
+        private void usrc_SelectHtmlFile_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

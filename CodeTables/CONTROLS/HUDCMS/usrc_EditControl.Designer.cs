@@ -36,8 +36,8 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.usrc_EditControl_Title1 = new HUDCMS.usrc_EditControl_Title();
             this.usrc_EditControl_About1 = new HUDCMS.usrc_EditControl_About();
-            this.usrc_EditControl_Description1 = new HUDCMS.usrc_EditControl_Description();
             this.usrc_EditControl_Image1 = new HUDCMS.usrc_EditControl_Image();
+            this.usrc_EditControl_Description1 = new HUDCMS.usrc_EditControl_Description();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,7 +60,7 @@
             this.txt_Control.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_Control.Name = "txt_Control";
             this.txt_Control.ReadOnly = true;
-            this.txt_Control.Size = new System.Drawing.Size(649, 22);
+            this.txt_Control.Size = new System.Drawing.Size(649, 20);
             this.txt_Control.TabIndex = 12;
             // 
             // txt_ControlName
@@ -71,7 +71,7 @@
             this.txt_ControlName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_ControlName.Name = "txt_ControlName";
             this.txt_ControlName.ReadOnly = true;
-            this.txt_ControlName.Size = new System.Drawing.Size(546, 22);
+            this.txt_ControlName.Size = new System.Drawing.Size(546, 20);
             this.txt_ControlName.TabIndex = 16;
             this.txt_ControlName.Text = "txt_ControlName";
             // 
@@ -80,7 +80,7 @@
             this.lbl_ControlName.AutoSize = true;
             this.lbl_ControlName.Location = new System.Drawing.Point(16, 42);
             this.lbl_ControlName.Name = "lbl_ControlName";
-            this.lbl_ControlName.Size = new System.Drawing.Size(94, 17);
+            this.lbl_ControlName.Size = new System.Drawing.Size(71, 13);
             this.lbl_ControlName.TabIndex = 17;
             this.lbl_ControlName.Text = "Control Name";
             // 
@@ -103,7 +103,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(643, 602);
-            this.splitContainer1.SplitterDistance = 275;
+            this.splitContainer1.SplitterDistance = 189;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 22;
             // 
@@ -125,8 +125,8 @@
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer3.Panel2.Controls.Add(this.usrc_EditControl_About1);
-            this.splitContainer3.Size = new System.Drawing.Size(643, 275);
-            this.splitContainer3.SplitterDistance = 115;
+            this.splitContainer3.Size = new System.Drawing.Size(643, 189);
+            this.splitContainer3.SplitterDistance = 57;
             this.splitContainer3.SplitterWidth = 6;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -147,8 +147,8 @@
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel2.Controls.Add(this.usrc_EditControl_Description1);
-            this.splitContainer2.Size = new System.Drawing.Size(643, 321);
-            this.splitContainer2.SplitterDistance = 162;
+            this.splitContainer2.Size = new System.Drawing.Size(643, 407);
+            this.splitContainer2.SplitterDistance = 254;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -157,7 +157,7 @@
             this.usrc_EditControl_Title1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_EditControl_Title1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditControl_Title1.Name = "usrc_EditControl_Title1";
-            this.usrc_EditControl_Title1.Size = new System.Drawing.Size(639, 111);
+            this.usrc_EditControl_Title1.Size = new System.Drawing.Size(639, 53);
             this.usrc_EditControl_Title1.TabIndex = 0;
             // 
             // usrc_EditControl_About1
@@ -165,25 +165,28 @@
             this.usrc_EditControl_About1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_EditControl_About1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditControl_About1.Name = "usrc_EditControl_About1";
-            this.usrc_EditControl_About1.Size = new System.Drawing.Size(639, 150);
+            this.usrc_EditControl_About1.Size = new System.Drawing.Size(639, 122);
             this.usrc_EditControl_About1.TabIndex = 0;
-            // 
-            // usrc_EditControl_Description1
-            // 
-            this.usrc_EditControl_Description1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl_Description1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl_Description1.Name = "usrc_EditControl_Description1";
-            this.usrc_EditControl_Description1.Size = new System.Drawing.Size(639, 149);
-            this.usrc_EditControl_Description1.TabIndex = 0;
             // 
             // usrc_EditControl_Image1
             // 
             this.usrc_EditControl_Image1.AutoScroll = true;
             this.usrc_EditControl_Image1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_EditControl_Image1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Image1.MaxPanelHeight = 400;
+            this.usrc_EditControl_Image1.MaxPanelWidth = 400;
+            this.usrc_EditControl_Image1.MinPanelHeight = 80;
             this.usrc_EditControl_Image1.Name = "usrc_EditControl_Image1";
-            this.usrc_EditControl_Image1.Size = new System.Drawing.Size(639, 158);
+            this.usrc_EditControl_Image1.Size = new System.Drawing.Size(639, 250);
             this.usrc_EditControl_Image1.TabIndex = 0;
+            // 
+            // usrc_EditControl_Description1
+            // 
+            this.usrc_EditControl_Description1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl_Description1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl_Description1.Name = "usrc_EditControl_Description1";
+            this.usrc_EditControl_Description1.Size = new System.Drawing.Size(639, 143);
+            this.usrc_EditControl_Description1.TabIndex = 0;
             // 
             // usrc_EditControl
             // 

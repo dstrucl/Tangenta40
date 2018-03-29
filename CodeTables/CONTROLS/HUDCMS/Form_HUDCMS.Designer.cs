@@ -39,16 +39,14 @@ namespace HUDCMS
             this.grp_Header = new System.Windows.Forms.GroupBox();
             this.fctb_Header = new FastColoredTextBoxNS.FastColoredTextBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.MyTreeListView = new BrightIdeasSoftware.TreeListView();
             this.olvc_ControlType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlImage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlLinks = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
             this.cmbr_GeneralHelpFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.lbl_GeneralHelp = new System.Windows.Forms.Label();
@@ -56,6 +54,7 @@ namespace HUDCMS
             this.btn_EditGeneralStyles = new System.Windows.Forms.Button();
             this.lbl_GeneralStyles = new System.Windows.Forms.Label();
             this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
+            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -85,7 +84,7 @@ namespace HUDCMS
             this.grp_Style.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Style.Name = "grp_Style";
             this.grp_Style.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Style.Size = new System.Drawing.Size(1465, 68);
+            this.grp_Style.Size = new System.Drawing.Size(677, 68);
             this.grp_Style.TabIndex = 6;
             this.grp_Style.TabStop = false;
             this.grp_Style.Text = "Style";
@@ -102,7 +101,7 @@ namespace HUDCMS
             this.usrc_SelectStyleFile.Location = new System.Drawing.Point(12, 27);
             this.usrc_SelectStyleFile.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_SelectStyleFile.Name = "usrc_SelectStyleFile";
-            this.usrc_SelectStyleFile.Size = new System.Drawing.Size(1447, 27);
+            this.usrc_SelectStyleFile.Size = new System.Drawing.Size(659, 27);
             this.usrc_SelectStyleFile.TabIndex = 0;
             this.usrc_SelectStyleFile.Title = "Save File";
             this.usrc_SelectStyleFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectStyleFile_EditFile);
@@ -126,8 +125,8 @@ namespace HUDCMS
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_EditControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(2039, 545);
-            this.splitContainer1.SplitterDistance = 1476;
+            this.splitContainer1.Size = new System.Drawing.Size(1080, 552);
+            this.splitContainer1.SplitterDistance = 688;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 8;
             // 
@@ -148,7 +147,7 @@ namespace HUDCMS
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1460, 463);
+            this.splitContainer2.Size = new System.Drawing.Size(672, 470);
             this.splitContainer2.SplitterDistance = 90;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 8;
@@ -164,7 +163,7 @@ namespace HUDCMS
             this.grp_Header.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Header.Name = "grp_Header";
             this.grp_Header.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Header.Size = new System.Drawing.Size(1460, 90);
+            this.grp_Header.Size = new System.Drawing.Size(672, 90);
             this.grp_Header.TabIndex = 7;
             this.grp_Header.TabStop = false;
             this.grp_Header.Text = "Header";
@@ -202,7 +201,7 @@ namespace HUDCMS
             this.fctb_Header.RightBracket2 = ')';
             this.fctb_Header.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctb_Header.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_Header.ServiceColors")));
-            this.fctb_Header.Size = new System.Drawing.Size(1456, 65);
+            this.fctb_Header.Size = new System.Drawing.Size(668, 65);
             this.fctb_Header.TabIndex = 0;
             this.fctb_Header.Text = "fctb_Header";
             this.fctb_Header.Zoom = 100;
@@ -216,27 +215,15 @@ namespace HUDCMS
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.checkBox11);
             this.splitContainer3.Panel1.Controls.Add(this.MyTreeListView);
             // 
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.panel1);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(1460, 367);
+            this.splitContainer3.Size = new System.Drawing.Size(672, 374);
             this.splitContainer3.SplitterDistance = 183;
             this.splitContainer3.TabIndex = 8;
-            // 
-            // checkBox11
-            // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(396, 323);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(144, 17);
-            this.checkBox11.TabIndex = 24;
-            this.checkBox11.Text = "Hierarchical Checkboxes";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            this.checkBox11.Visible = false;
             // 
             // MyTreeListView
             // 
@@ -260,7 +247,7 @@ namespace HUDCMS
             this.MyTreeListView.OwnerDraw = true;
             this.MyTreeListView.ShowGroups = false;
             this.MyTreeListView.ShowImagesOnSubItems = true;
-            this.MyTreeListView.Size = new System.Drawing.Size(1460, 367);
+            this.MyTreeListView.Size = new System.Drawing.Size(672, 374);
             this.MyTreeListView.TabIndex = 0;
             this.MyTreeListView.UseCompatibleStateImageBehavior = false;
             this.MyTreeListView.View = System.Windows.Forms.View.Details;
@@ -289,6 +276,14 @@ namespace HUDCMS
             this.olvc_ControlImage.Text = "Control Image";
             this.olvc_ControlImage.Width = 107;
             // 
+            // olvc_ControlLinks
+            // 
+            this.olvc_ControlLinks.AspectName = "ControlLink";
+            this.olvc_ControlLinks.Text = "Link";
+            this.olvc_ControlLinks.UseInitialLetterForGroup = true;
+            this.olvc_ControlLinks.Width = 40;
+            this.olvc_ControlLinks.WordWrap = true;
+            // 
             // olvc_HelpTitle
             // 
             this.olvc_HelpTitle.AspectName = "HelpTitle";
@@ -296,14 +291,6 @@ namespace HUDCMS
             this.olvc_HelpTitle.UseInitialLetterForGroup = true;
             this.olvc_HelpTitle.Width = 360;
             this.olvc_HelpTitle.WordWrap = true;
-            // 
-            // olvc_ControlLinks
-            // 
-            this.olvc_ControlLinks.AspectName = "ControlLinks";
-            this.olvc_ControlLinks.Text = "Control Links";
-            this.olvc_ControlLinks.UseInitialLetterForGroup = true;
-            this.olvc_ControlLinks.Width = 180;
-            this.olvc_ControlLinks.WordWrap = true;
             // 
             // olvc_ControlUniqueName
             // 
@@ -325,18 +312,6 @@ namespace HUDCMS
             this.panel1.Size = new System.Drawing.Size(150, 46);
             this.panel1.TabIndex = 7;
             // 
-            // usrc_EditControl1
-            // 
-            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl1.Enabled = false;
-            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_EditControl1.Name = "usrc_EditControl1";
-            this.usrc_EditControl1.Size = new System.Drawing.Size(554, 541);
-            this.usrc_EditControl1.SnapShotMargin = 4;
-            this.usrc_EditControl1.TabIndex = 1;
-            // 
             // usrc_SelectHtmlFile
             // 
             this.usrc_SelectHtmlFile.DefaultExtension = "txt";
@@ -351,6 +326,7 @@ namespace HUDCMS
             this.usrc_SelectHtmlFile.Title = "Save File";
             this.usrc_SelectHtmlFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectHtmlFile_SaveFile);
             this.usrc_SelectHtmlFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectHtmlFile_EditFile);
+            this.usrc_SelectHtmlFile.Load += new System.EventHandler(this.usrc_SelectHtmlFile_Load);
             // 
             // cmbr_GeneralHelpFiles
             // 
@@ -369,7 +345,7 @@ namespace HUDCMS
             this.cmbr_GeneralHelpFiles.ReadOnly = false;
             this.cmbr_GeneralHelpFiles.RecentItemsFileName = null;
             this.cmbr_GeneralHelpFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(1836, 21);
+            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(940, 21);
             this.cmbr_GeneralHelpFiles.TabIndex = 10;
             // 
             // lbl_GeneralHelp
@@ -384,7 +360,7 @@ namespace HUDCMS
             // btn_EditGeneralHelpFile
             // 
             this.btn_EditGeneralHelpFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(1955, 2);
+            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(1059, 2);
             this.btn_EditGeneralHelpFile.Name = "btn_EditGeneralHelpFile";
             this.btn_EditGeneralHelpFile.Size = new System.Drawing.Size(75, 23);
             this.btn_EditGeneralHelpFile.TabIndex = 12;
@@ -395,7 +371,7 @@ namespace HUDCMS
             // btn_EditGeneralStyles
             // 
             this.btn_EditGeneralStyles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(1955, 29);
+            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(1059, 29);
             this.btn_EditGeneralStyles.Name = "btn_EditGeneralStyles";
             this.btn_EditGeneralStyles.Size = new System.Drawing.Size(75, 23);
             this.btn_EditGeneralStyles.TabIndex = 15;
@@ -429,15 +405,27 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.ReadOnly = false;
             this.cmbr_GeneralStyleFiles.RecentItemsFileName = null;
             this.cmbr_GeneralStyleFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(1836, 21);
+            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(940, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
+            // 
+            // usrc_EditControl1
+            // 
+            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl1.Enabled = false;
+            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.usrc_EditControl1.Name = "usrc_EditControl1";
+            this.usrc_EditControl1.Size = new System.Drawing.Size(383, 548);
+            this.usrc_EditControl1.SnapShotMargin = 4;
+            this.usrc_EditControl1.TabIndex = 1;
             // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(2042, 628);
+            this.ClientSize = new System.Drawing.Size(960, 822);
             this.Controls.Add(this.btn_EditGeneralStyles);
             this.Controls.Add(this.lbl_GeneralStyles);
             this.Controls.Add(this.cmbr_GeneralStyleFiles);
@@ -462,7 +450,6 @@ namespace HUDCMS
             this.grp_Header.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctb_Header)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
@@ -490,7 +477,6 @@ namespace HUDCMS
         private ComboBox_Recent.ComboBox_RecentList cmbr_GeneralStyleFiles;
         private System.Windows.Forms.SplitContainer splitContainer3;
         internal BrightIdeasSoftware.TreeListView MyTreeListView;
-        private System.Windows.Forms.CheckBox checkBox11;
         private BrightIdeasSoftware.OLVColumn olvc_ControlUniqueName;
         private BrightIdeasSoftware.OLVColumn olvc_ControlType;
         private BrightIdeasSoftware.OLVColumn olvc_ControlImage;
