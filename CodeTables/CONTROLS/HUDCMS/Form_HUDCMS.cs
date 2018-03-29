@@ -129,12 +129,8 @@ namespace HUDCMS
             int iAllCount = 0;
 
             InitializeMyTreeListView(ref iAllCount);
-            //UserControl root = CreateControls(ref y, 0,0,ref iAllCount, hc, null);
-            //this.panel1.Controls.Add(root);
 
             this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
-            //HideLinks();
-            //SetLinks(myroot);
         }
 
         void InitializeMyTreeListView(ref int iAllCount)
@@ -178,10 +174,6 @@ namespace HUDCMS
                 return helperControlType.GetControlTypeImageIndex(((MyControl)x).ControlType);
             };
 
-            //this.olvc_ControlName.ImageGetter = delegate (object x)
-            //{
-            //    return helperControlName.GetControlImageIndex(((MyControl)x).ControlName);
-            //};
 
             this.olvc_ControlImage.ImageGetter = delegate (object x)
             {
@@ -189,45 +181,11 @@ namespace HUDCMS
                 return idx;
             };
 
-            // Show the size of files as GB, MB and KBs. Also, group them by
-            // some meaningless divisions
-            //this.treeColumnSize.AspectGetter = delegate (object x) {
-            //    MyControl myControl = (MyControl)x;
-
-            //    if (!myControl.HasChildren)
-            //        return (long)-1;
-
-            //    try
-            //    {
-            //        return 27061962;
-            //    }
-            //    catch (System.IO.FileNotFoundException)
-            //    {
-            //        // Mono 1.2.6 throws this for hidden files
-            //        return (long)-2;
-            //    }
-            //};
-            //this.treeColumnSize.AspectToStringConverter = delegate (object x) {
-            //    if ((long)x == -1) // folder
-            //        return "";
-
-            //    return this.FormatFileSize((long)x);
-            //};
-
-            //// Show the system description for this object
-            //this.treeColumnFileType.AspectGetter = delegate (object x) {
-            //    return ShellUtilities.GetFileType(((MyFileSystemInfo)x).FullName);
-            //};
-
-            //// Show the file attributes for this object
-            //this.treeColumnAttributes.AspectGetter = delegate (object x) {
-            //    return ((MyFileSystemInfo)x).Attributes;
-            //};
             helperImageRenderer = new ImageRenderer();
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref helperImageRenderer, ref mH);
+            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType,  ref mH);
             SetLinks(myroot,ref helperImageRenderer);
 
             this.helperImageRenderer.Aspect = (System.Int32)0;
@@ -349,7 +307,7 @@ namespace HUDCMS
             }
         }
 
-        private void SetLinks(MyControl ctrl, ref ImageRenderer helperImageRenderer)
+        internal static void SetLinks(MyControl ctrl, ref ImageRenderer helperImageRenderer)
         {
             if (ctrl !=null)
             {
@@ -432,61 +390,58 @@ namespace HUDCMS
 
                 if (myroot != null)
                 {
-                    if (html_head == null)
+                    if (myroot.hc.pForm != null)
                     {
-                        if (myroot.hc.pForm != null)
+                        html_head = new XElement("head");
+
+                        AddStylesheet(ref html_head);
+
+                        html_title = new XElement("title");
+
+                        string sTitle = myroot.hc.pForm.Text;
+                        if (sTitle.Length == 0)
                         {
-                            html_head = new XElement("head");
-
-                            AddStylesheet(ref html_head);
-
-                            html_title = new XElement("title");
-
-                            string sTitle = myroot.hc.pForm.Text;
-                            if (sTitle.Length == 0)
-                            {
-                                sTitle = myroot.hc.pForm.GetType().ToString();
-                            }
-                            html_title.Value = sTitle;
-                            html_body = new XElement("body");
-                            //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
-
-                            THeader = new XElement("THeader");
-                            Header = fctb_Header.Text;
-                            usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
-                            html_body.Add(THeader);
-                            html_head.Add(html_title);
-                            html_html.Add(html_head);
-                            html_html.Add(html_body);
-
+                            sTitle = myroot.hc.pForm.GetType().ToString();
                         }
-                        else if (myroot.hc.ctrl != null)
+                        html_title.Value = sTitle;
+                        html_body = new XElement("body");
+                        //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
+
+                        THeader = new XElement("THeader");
+                        Header = fctb_Header.Text;
+                        usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
+                        html_body.Add(THeader);
+                        html_head.Add(html_title);
+                        html_html.Add(html_head);
+                        html_html.Add(html_body);
+
+                    }
+                    else if (myroot.hc.ctrl != null)
+                    {
+                        html_head = new XElement("head");
+
+                        AddStylesheet(ref html_head);
+
+                        html_title = new XElement("title");
+
+                        string sTitle = myroot.hc.ctrl.Text;
+                        if (sTitle.Length == 0)
                         {
-                            html_head = new XElement("head");
-
-                            AddStylesheet(ref html_head);
-
-                            html_title = new XElement("title");
-
-                            string sTitle = myroot.hc.ctrl.Text;
-                            if (sTitle.Length == 0)
-                            {
-                                sTitle = myroot.hc.ctrl.GetType().ToString();
-                            }
-                            html_title.Value = sTitle;
-
-                            html_body = new XElement("body");
-
-                            THeader = new XElement("THeader");
-                            Header = fctb_Header.Text;
-                            usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
-                            html_body.Add(THeader);
-
-                            html_head.Add(html_title);
-                            html_html.Add(html_head);
-                            html_html.Add(html_body);
-
+                            sTitle = myroot.hc.ctrl.GetType().ToString();
                         }
+                        html_title.Value = sTitle;
+
+                        html_body = new XElement("body");
+
+                        THeader = new XElement("THeader");
+                        Header = fctb_Header.Text;
+                        usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
+                        html_body.Add(THeader);
+
+                        html_head.Add(html_title);
+                        html_html.Add(html_head);
+                        html_html.Add(html_body);
+
                     }
                     myroot.CreateNode(xh, ref html_body);
                 }
@@ -568,7 +523,7 @@ namespace HUDCMS
         }
 
 
-        internal static MyControl  CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType, ref ImageRenderer helperImageRenderer, ref usrc_Help mH)
+        internal static MyControl  CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  ref usrc_Help mH)
         {
 
 
@@ -576,7 +531,7 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            myctrl.Init(mH, xhc, level, xctrl, ref helperControlType, ref helperImageRenderer);
+            myctrl.Init(mH, xhc, level, xctrl, ref helperControlType);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -586,13 +541,13 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType, ref helperImageRenderer, ref mH);
+                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  ref mH);
                             myctrl.children.Add(child);
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType, ref helperImageRenderer, ref mH);
+                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  ref mH);
                         myctrl.children.Add(child);
                     }
                 }

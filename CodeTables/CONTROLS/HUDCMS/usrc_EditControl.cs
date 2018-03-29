@@ -68,7 +68,15 @@ namespace HUDCMS
             {
                 // save previous user_Control edited data!
                 my_Control.ImageIncluded = usrc_EditControl_Image1.chk_ImageIncluded.Checked;
-                my_Control.ImageOfControl = (Image)usrc_EditControl_Image1.pic_Control.Image.Clone();
+                if (usrc_EditControl_Image1.pic_Control.Image != null)
+                {
+                    my_Control.ImageOfControl = (Image)usrc_EditControl_Image1.pic_Control.Image.Clone();
+                }
+                else
+                {
+                    my_Control.ImageOfControl = null;
+                }
+
                 my_Control.HelpTitle = usrc_EditControl_Title1.fctb_CtrlTitle.Text;
                 my_Control.HeadingTag = usrc_EditControl_Title1.cmb_HtmlTag.Text;
                 my_Control.About = usrc_EditControl_About1.fctb_CtrlAbout.Text;

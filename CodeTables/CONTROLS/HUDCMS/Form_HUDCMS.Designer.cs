@@ -47,6 +47,7 @@ namespace HUDCMS
             this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
             this.cmbr_GeneralHelpFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.lbl_GeneralHelp = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@ namespace HUDCMS
             this.btn_EditGeneralStyles = new System.Windows.Forms.Button();
             this.lbl_GeneralStyles = new System.Windows.Forms.Label();
             this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
-            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -84,7 +84,7 @@ namespace HUDCMS
             this.grp_Style.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Style.Name = "grp_Style";
             this.grp_Style.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Style.Size = new System.Drawing.Size(677, 68);
+            this.grp_Style.Size = new System.Drawing.Size(598, 68);
             this.grp_Style.TabIndex = 6;
             this.grp_Style.TabStop = false;
             this.grp_Style.Text = "Style";
@@ -101,7 +101,7 @@ namespace HUDCMS
             this.usrc_SelectStyleFile.Location = new System.Drawing.Point(12, 27);
             this.usrc_SelectStyleFile.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_SelectStyleFile.Name = "usrc_SelectStyleFile";
-            this.usrc_SelectStyleFile.Size = new System.Drawing.Size(659, 27);
+            this.usrc_SelectStyleFile.Size = new System.Drawing.Size(580, 27);
             this.usrc_SelectStyleFile.TabIndex = 0;
             this.usrc_SelectStyleFile.Title = "Save File";
             this.usrc_SelectStyleFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectStyleFile_EditFile);
@@ -125,8 +125,8 @@ namespace HUDCMS
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_EditControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1080, 552);
-            this.splitContainer1.SplitterDistance = 688;
+            this.splitContainer1.Size = new System.Drawing.Size(956, 734);
+            this.splitContainer1.SplitterDistance = 609;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 8;
             // 
@@ -147,8 +147,8 @@ namespace HUDCMS
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(672, 470);
-            this.splitContainer2.SplitterDistance = 90;
+            this.splitContainer2.Size = new System.Drawing.Size(593, 652);
+            this.splitContainer2.SplitterDistance = 124;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 8;
             // 
@@ -163,7 +163,7 @@ namespace HUDCMS
             this.grp_Header.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Header.Name = "grp_Header";
             this.grp_Header.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Header.Size = new System.Drawing.Size(672, 90);
+            this.grp_Header.Size = new System.Drawing.Size(593, 124);
             this.grp_Header.TabIndex = 7;
             this.grp_Header.TabStop = false;
             this.grp_Header.Text = "Header";
@@ -190,6 +190,7 @@ namespace HUDCMS
             this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctb_Header.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_Header.IsReplaceMode = false;
             this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_Header.LeftBracket = '<';
@@ -201,7 +202,7 @@ namespace HUDCMS
             this.fctb_Header.RightBracket2 = ')';
             this.fctb_Header.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctb_Header.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_Header.ServiceColors")));
-            this.fctb_Header.Size = new System.Drawing.Size(668, 65);
+            this.fctb_Header.Size = new System.Drawing.Size(589, 99);
             this.fctb_Header.TabIndex = 0;
             this.fctb_Header.Text = "fctb_Header";
             this.fctb_Header.Zoom = 100;
@@ -221,7 +222,7 @@ namespace HUDCMS
             // 
             this.splitContainer3.Panel2.Controls.Add(this.panel1);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(672, 374);
+            this.splitContainer3.Size = new System.Drawing.Size(593, 522);
             this.splitContainer3.SplitterDistance = 183;
             this.splitContainer3.TabIndex = 8;
             // 
@@ -247,7 +248,7 @@ namespace HUDCMS
             this.MyTreeListView.OwnerDraw = true;
             this.MyTreeListView.ShowGroups = false;
             this.MyTreeListView.ShowImagesOnSubItems = true;
-            this.MyTreeListView.Size = new System.Drawing.Size(672, 374);
+            this.MyTreeListView.Size = new System.Drawing.Size(593, 522);
             this.MyTreeListView.TabIndex = 0;
             this.MyTreeListView.UseCompatibleStateImageBehavior = false;
             this.MyTreeListView.View = System.Windows.Forms.View.Details;
@@ -311,6 +312,18 @@ namespace HUDCMS
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(150, 46);
             this.panel1.TabIndex = 7;
+            // 
+            // usrc_EditControl1
+            // 
+            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControl1.Enabled = false;
+            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.usrc_EditControl1.Name = "usrc_EditControl1";
+            this.usrc_EditControl1.Size = new System.Drawing.Size(338, 730);
+            this.usrc_EditControl1.SnapShotMargin = 4;
+            this.usrc_EditControl1.TabIndex = 1;
             // 
             // usrc_SelectHtmlFile
             // 
@@ -408,23 +421,10 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(940, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
             // 
-            // usrc_EditControl1
-            // 
-            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl1.Enabled = false;
-            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_EditControl1.Name = "usrc_EditControl1";
-            this.usrc_EditControl1.Size = new System.Drawing.Size(383, 548);
-            this.usrc_EditControl1.SnapShotMargin = 4;
-            this.usrc_EditControl1.TabIndex = 1;
-            // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(960, 822);
             this.Controls.Add(this.btn_EditGeneralStyles);
             this.Controls.Add(this.lbl_GeneralStyles);

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AddLinks));
             this.MyTreeListView = new BrightIdeasSoftware.TreeListView();
             this.olvc_ControlType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -158,8 +159,9 @@
             this.Controls.Add(this.lbl_ControlUniqueName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.MyTreeListView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_AddLinks";
-            this.Text = "Form_EditLinks";
+            this.Text = "Manage Links";
             ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

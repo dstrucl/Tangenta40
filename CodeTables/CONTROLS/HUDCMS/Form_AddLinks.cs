@@ -53,7 +53,6 @@ namespace HUDCMS
 
             this.MyTreeListView.HierarchicalCheckboxes = false;
             this.MyTreeListView.HideSelection = false;
-            //this.MyTreeListView.RowHeight = 32;
             this.MyTreeListView.UseCellFormatEvents = true;
             this.MyTreeListView.FormatRow += MyTreeListView_FormatRow;
             this.MyTreeListView.CanExpandGetter = delegate (object x) {
@@ -87,24 +86,14 @@ namespace HUDCMS
             // delegates, since TreeListViews can't show groups.
 
             // Draw the system icon next to the name
-            //this.olvc_ControlName.ImageGetter = null;
-            //helperControlType.Init(this.MyTreeListView, helperControlType.SmallImageList, helperControlType.LargeImageList);
 
             helperControlType = new SysImageListHelper(this.MyTreeListView);
 
-            //helper.AddImageToCollection("root1", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form);
-            //helper.AddImageToCollection("root2", helper.LargeImageList, Properties.Resources.nav_CommandLineHelp_Form_grp_CommandLineParameters);
-            //helper.AddImageToCollection("r1_ch1", helper.LargeImageList, Properties.Resources.limeleaf);
-            //helper.AddImageToCollection("r1_ch2", helper.LargeImageList, Properties.Resources.coffee);
             this.olvc_ControlType.ImageGetter = delegate (object x)
             {
                 return helperControlType.GetControlTypeImageIndex(((MyControl)x).ControlType);
             };
 
-            //this.olvc_ControlName.ImageGetter = delegate (object x)
-            //{
-            //    return helperControlName.GetControlImageIndex(((MyControl)x).ControlName);
-            //};
 
             this.olvc_ControlImage.ImageGetter = delegate (object x)
             {
@@ -112,45 +101,14 @@ namespace HUDCMS
                 return idx;
             };
 
-            // Show the size of files as GB, MB and KBs. Also, group them by
-            // some meaningless divisions
-            //this.treeColumnSize.AspectGetter = delegate (object x) {
-            //    MyControl myControl = (MyControl)x;
-
-            //    if (!myControl.HasChildren)
-            //        return (long)-1;
-
-            //    try
-            //    {
-            //        return 27061962;
-            //    }
-            //    catch (System.IO.FileNotFoundException)
-            //    {
-            //        // Mono 1.2.6 throws this for hidden files
-            //        return (long)-2;
-            //    }
-            //};
-            //this.treeColumnSize.AspectToStringConverter = delegate (object x) {
-            //    if ((long)x == -1) // folder
-            //        return "";
-
-            //    return this.FormatFileSize((long)x);
-            //};
-
-            //// Show the system description for this object
-            //this.treeColumnFileType.AspectGetter = delegate (object x) {
-            //    return ShellUtilities.GetFileType(((MyFileSystemInfo)x).FullName);
-            //};
-
-            //// Show the file attributes for this object
-            //this.treeColumnAttributes.AspectGetter = delegate (object x) {
-            //    return ((MyFileSystemInfo)x).Attributes;
-            //};
             helperImageRenderer = new ImageRenderer();
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount,frm_HUDCMS.hc, null, ref helperControlType, ref helperImageRenderer, ref frm_HUDCMS.mH);
+            myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount,frm_HUDCMS.hc, null, ref helperControlType,  ref frm_HUDCMS.mH);
+
+            Form_HUDCMS.SetLinks(myroot, ref helperImageRenderer);
+
             this.helperImageRenderer.Aspect = (System.Int32)0;
 
             roots.Add(myroot);

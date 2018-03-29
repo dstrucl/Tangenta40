@@ -311,6 +311,7 @@
     <None Include="Resources\undo_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\AddLink.ico" />
     <Content Include="Resources\ctrl_Button.bmp" />
     <Content Include="Resources\ctrl_CheckBox.bmp" />
     <Content Include="Resources\ctrl_CheckedListBox.bmp" />

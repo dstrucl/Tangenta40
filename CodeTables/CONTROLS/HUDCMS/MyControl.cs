@@ -80,7 +80,17 @@ namespace HUDCMS
 
         public int ControlImage
         {
-            get { return this.helperImageRenderer.ImageList.Images.IndexOfKey(ControlUniqueName); }
+            get
+            {
+                if (this.helperImageRenderer != null)
+                {
+                    return this.helperImageRenderer.ImageList.Images.IndexOfKey(ControlUniqueName);
+                }
+                else
+                {
+                    return -1;
+                }
+            }
         }
 
         public string ControlLink
@@ -446,6 +456,10 @@ namespace HUDCMS
                       
 
                         string ximage_file = ximage_path + imagesourcename;
+                        if (this.ImageOfControl==null)
+                        {
+                            this.ImageOfControl = this.hc.ctrlbmp;
+                        }
                         this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
                     }
                     catch (Exception ex)
@@ -479,43 +493,12 @@ namespace HUDCMS
         {
         }
 
-        //private void Usrc_Control_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    switch (e.Button)
-        //    {
-        //        case MouseButtons.Right:
-        //            {
-        //                string msg = null;
-        //                if (sender is usrc_Control)
-        //                {
-        //                    msg = "Control:" + ((usrc_Control)sender).txt_Control.Text + "\r\nName=" + ((usrc_Control)sender).txt_ControlName.Text;
-        //                }
-        //                if (sender is Panel)
-        //                {
-        //                    if (((Panel)sender).Parent != null)
-        //                    {
-        //                        if (((Panel)sender).Parent is usrc_Control)
-        //                        {
-        //                            msg = "Control:" + ((usrc_Control)((Panel)sender).Parent).txt_Control.Text + "\r\nName=" + ((usrc_Control)((Panel)sender).Parent).txt_ControlName.Text;
-        //                        }
-        //                    }
-        //                }
-        //                if (msg != null)
-        //                {
-        //                    MessageBox.Show(Global.f.GetParentForm(this), msg);
-        //                }
-        //            }
-        //            break;
-        //    }
-        //}
-
-
-        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel, MyControl parent, ref SysImageListHelper helperControlType, ref ImageRenderer xhelperImageRenderer)
+   
+        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel, MyControl parent, ref SysImageListHelper helperControlType)
         {
             uH = xuH;
             hc = xhc;
             this.Parent = parent;
-            helperImageRenderer = xhelperImageRenderer;
             if (hc.ctrl != null)
             {
                 this.ControlName =hc.ctrl.Name;
@@ -532,20 +515,14 @@ namespace HUDCMS
             {
                 sControl = "Form";
                 this.ControlName = hc.pForm.Name;
-                //                this.txt_Control.ForeColor = Color.DarkGreen;
-                //                this.txt_Control.BackColor = Color.White;
-                //                helper.AddImageToCollection(xhc.pForm.GetType().ToString(), helper.LargeImageList, Prop)
             }
             else if (hc.ctrl is Form)
             {
                 sControl = "Form";
                 this.ControlName = hc.ctrl.Name;
-                //                this.txt_Control.ForeColor = Color.DarkGreen;
             }
             else if (xhc.ctrl is UserControl)
             {
-                //                this.txt_Control.ForeColor = Color.DarkBlue;
-                //                this.txt_Control.BackColor = Color.White;
             }
             else
             {
@@ -560,8 +537,6 @@ namespace HUDCMS
                     else if (xhc.ctrl is GroupBox)
                     {
                         sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\"";
-                        //                        this.txt_Control.ForeColor = Color.DarkViolet;
-                        //                        this.txt_Control.BackColor = Color.LightCoral;
                     }
                     else if (xhc.ctrl is Label)
                     {
@@ -594,45 +569,19 @@ namespace HUDCMS
             }
             else
             {
-                //                this.txt_Control.Text = sControl + "=" + xhc.ctrl.Name + "  Type:" + xhc.ctrl.GetType().ToString() + sText;
             }
 
-            //            this.txt_Control.Text += " Level="+ iLevel.ToString();
-            //            txt_ControlName.Text = uH.Prefix+hc.GetName();
 
             if (hc.ctrlbmp != null)
             {
-                //                Set_pic_Control();
-
 
                 string path = Path.GetDirectoryName(uH.LocalHtmlFile);
-
-                //                this.panel1.Height = this.pic_Control.Bottom + 4;
-                //                if (this.panel1.Height>MaxPanelHeight)
-                //                {
-                //                this.panel1.Height = MaxPanelHeight;
-                //            }
-                //if (this.panel1.Height < MinPanelHeight)
-                //{
-                //    this.panel1.Height = MinPanelHeight;
-                //}
-                //this.Height = this.panel1.Bottom + 4;
              
             }
             else
             {
                 if (this.hc.dgvc != null)
                 {
-                    //this.chk_ImageIncluded.Visible = false;
-                    //this.pic_Control.Visible = false;
-                    //Title = this.hc.dgvc.HeaderText;
-                    //this.panel1.Height = this.radioButtonGlobal1.Bottom + 6;
-                    //if (this.panel1.Height < MinPanelHeight)
-                    //{
-                    //    this.panel1.Height = MinPanelHeight;
-                    //}
-                    //this.Height = this.panel1.Bottom + 4;
-                    //this.btn_Link.Visible = false;
                 }
             }
 
@@ -643,7 +592,6 @@ namespace HUDCMS
             }
             else
             {
-             //   xfrm_HUDCMS =(Form_HUDCMS) Global.f.GetParentForm(this);
             }
 
             if (xfrm_HUDCMS.xhtml_Loaded != null)
@@ -882,18 +830,6 @@ namespace HUDCMS
             return false;
         }
 
-        //private Color SetDefault_BackColor()
-        //{
-        //    if (this.Title.Length > 0)
-        //    {
-        //        //                this.BackColor = Color.LightYellow;
-        //    }
-        //    else
-        //    {
-        //        //                this.BackColor = xfrm_HUDCMS.BackColor;
-        //    }
-        //    return this.BackColor;
-        //}
         public static string InnerXml(XElement element)
         {
 
@@ -1259,64 +1195,10 @@ namespace HUDCMS
                     }
                 }
                 link.Add(xusrc_Control);
-                //xusrc_Control_Selected.lbl_LinkedControls.Visible = true;
-                //xusrc_Control_Selected.list_Link.Visible = true;
-
             }
         }
 
-        private void RemoveLink(List<MyControl> link, MyControl xusrc_Control, MyControl usrc_Control_Selected)
-        {
-            if (LinkExist(link))
-            {
-                foreach (MyControl c in link)
-                {
-                    if (c == xusrc_Control)
-                    {
-                        link.Remove(xusrc_Control);
-                        if (!LinkExist(link))
-                        {
-                            //usrc_Control_Selected.lbl_LinkedControls.Visible = false;
-                            //usrc_Control_Selected.list_Link.Visible = false;
-                            //usrc_Control_Selected.Refresh();
-                        }
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                //usrc_Control_Selected.lbl_LinkedControls.Visible = false;
-                //usrc_Control_Selected.list_Link.Visible = false;
-                //usrc_Control_Selected.Refresh();
-            }
-        }
 
-        //private void radioButtonGlobal1_SetBackColor(object ctrl)
-        //{
-        //    if (ctrl is usrc_Control)
-        //    {
-        //        SetDefault_BackColor();
-        //        if (((usrc_Control)ctrl).Parent != null)
-        //        {
-        //            if (((usrc_Control)ctrl).Parent  is usrc_Control)
-        //            {
-        //                ((usrc_Control)((usrc_Control)ctrl).Parent).SetDefault_BackColor();
-        //            }
-        //        }
-        //    }
-        //    else if (ctrl is Panel)
-        //    {
-        //        if (((Panel)ctrl).Parent != null)
-        //        {
-        //            if (((Panel)ctrl).Parent is usrc_Control)
-        //            {
-        //                Color backcolor = ((usrc_Control)((Panel)ctrl).Parent).SetDefault_BackColor();
-        //                ((Panel)ctrl).BackColor = backcolor;
-        //            }
-        //        }
-        //    }
-        //}
 
         public IEnumerable GetChildren()
         {
