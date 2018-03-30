@@ -216,42 +216,7 @@ namespace HUDCMS
             }
         }
 
-        //public int ImageWidth
-        //{
-        //    get
-        //    {
-
-        //        string Err = null;
-        //        try
-        //        {
-        //            return this.pic_Control.Image.Width;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Err = ex.Message;
-        //            return 0;
-        //        }
-        //    }
-        //}
-
-        //public int ImageHeight
-        //{
-        //    get
-        //    {
-
-        //        string Err = null;
-        //        try
-        //        {
-        //            return this.pic_Control.Image.Height;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Err = ex.Message;
-        //            return 0;
-        //        }
-        //    }
-        //}
-
+   
         public string GetControlUniqueName()
         {
             return uH.Prefix+hc.GetName();
@@ -407,13 +372,16 @@ namespace HUDCMS
                     xdiv_Title.Add(xdiv_About);
                 }
 
-                string imagesourcename = ImageSource;
-                if (ImageSource.Length > HUDCMS_static.MAX_FILENAME_LENGTH)
+
+                string Err = null;
+
+                if ((this.hc.ctrlbmp != null) && m_ImageIncluded)
                 {
-                    imagesourcename = "hashname_" + ImageSource.GetHashCode()+".png";
-                }
-                if (m_ImageIncluded)
-                {
+                    string imagesourcename = ImageSource;
+                    if (ImageSource.Length > HUDCMS_static.MAX_FILENAME_LENGTH)
+                    {
+                        imagesourcename = "hashname_" + ImageSource.GetHashCode() + ".png";
+                    }
                     ximg = new XElement("img");
                     XAttribute img_src = new XAttribute("src", imagesourcename);
                     //                    XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
@@ -422,23 +390,7 @@ namespace HUDCMS
                     //                    ximg.Add(img_width);
                     //                    ximg.Add(img_height);
                     xdiv_Title.Add(ximg);
-                }
 
-                if (Description.Length > 0)
-                {
-                    xdiv_Description = new XElement("div");
-                    XAttribute xdiv_Description_class = new XAttribute("class", "Description");
-                    xdiv_Description.Add(xdiv_Description_class);
-                    usrc_Control.ReplaceInnerXml(xdiv_Description, "Description", Description);
-                    //xdiv_Description.Value = Description;
-                    xdiv_Title.Add(xdiv_Description);
-                }
-
-                xel.Add(xdiv_Title);
-                string Err = null;
-
-                if ((this.hc.ctrlbmp != null)&& (m_ImageIncluded))
-                {
                     try
                     {
                         string ximage_path = Path.GetDirectoryName(uH.LocalHtmlFile);
@@ -453,10 +405,10 @@ namespace HUDCMS
                             }
                         }
 
-                      
+
 
                         string ximage_file = ximage_path + imagesourcename;
-                        if (this.ImageOfControl==null)
+                        if (this.ImageOfControl == null)
                         {
                             this.ImageOfControl = this.hc.ctrlbmp;
                         }
@@ -467,6 +419,23 @@ namespace HUDCMS
                         Err = ex.Message;
                         MessageBox.Show("ERROR:Can not save:\"" + ImageSource + "\"" + Err);
                     }
+                }
+
+                if (Description.Length > 0)
+                {
+                    xdiv_Description = new XElement("div");
+                    XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                    xdiv_Description.Add(xdiv_Description_class);
+                    usrc_Control.ReplaceInnerXml(xdiv_Description, "Description", Description);
+                    //xdiv_Description.Value = Description;
+                    xdiv_Title.Add(xdiv_Description);
+                }
+
+                xel.Add(xdiv_Title);
+
+                if ((this.hc.ctrlbmp != null)&& (m_ImageIncluded))
+                {
+                  
                 }
             }
             foreach (MyControl c in this.children)
@@ -506,6 +475,7 @@ namespace HUDCMS
             else if (hc.dgvc != null)
             {
                 this.ControlName = "dgvc__" + hc.dgvc.Name;
+                this.m_ImageIncluded = false;
             }
             string sText = "";
             string sControl = HUDCMS_static.slng_UserControlName;
@@ -560,6 +530,7 @@ namespace HUDCMS
                 }
                 else if (xhc.dgvc != null)
                 {
+                    this.m_ImageIncluded = false;
                     //                    this.txt_Control.Text = sControl + "=" + xhc.dgvc.Name + "  Type:" + xhc.dgvc.GetType().ToString() + sText;
                 }
                 else 

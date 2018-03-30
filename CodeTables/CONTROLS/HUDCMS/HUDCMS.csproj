@@ -104,6 +104,12 @@
     <Compile Include="Form_HUDCMS.Designer.cs">
       <DependentUpon>Form_HUDCMS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SetGitFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SetGitFolder.Designer.cs">
+      <DependentUpon>Form_SetGitFolder.cs</DependentUpon>
+    </Compile>
     <Compile Include="GeneralHelpFile.cs" />
     <Compile Include="hctrl.cs" />
     <Compile Include="HUDCMS_static.cs" />
@@ -191,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_HUDCMS.resx">
       <DependentUpon>Form_HUDCMS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SetGitFolder.resx">
+      <DependentUpon>Form_SetGitFolder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -57,10 +57,12 @@ namespace HUDCMS
         private void btn_Link_Click(object sender, EventArgs e)
         {
             Form_HUDCMS frm_HUDCMS = (Form_HUDCMS) Global.f.GetParentForm(this);
-            Form_AddLinks frm_AddLinks = new Form_AddLinks(frm_HUDCMS);
-            frm_AddLinks.ShowDialog();
-            
-
+            if (frm_HUDCMS.frm_AddLinks==null)
+            {
+                frm_HUDCMS.frm_AddLinks = new Form_AddLinks(frm_HUDCMS);
+                frm_HUDCMS.frm_AddLinks.Owner = frm_HUDCMS;
+            }
+            frm_HUDCMS.frm_AddLinks.Show();
         }
 
 

@@ -19,6 +19,7 @@ namespace HUDCMS
 {
     public partial class Form_HUDCMS : Form
     {
+        internal Form_AddLinks frm_AddLinks = null;
         internal MyControl myroot = null;
         ArrayList roots = new ArrayList();
         internal SysImageListHelper helperControlType = null;
@@ -368,7 +369,14 @@ namespace HUDCMS
             if (this.MyControl_Selected != null)
             {
                 this.usrc_EditControl1.my_Control.ImageIncluded = this.usrc_EditControl1.usrc_EditControl_Image1.chk_ImageIncluded.Checked;
-                this.usrc_EditControl1.my_Control.ImageOfControl = (Image) this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image.Clone();
+                if (this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image != null)
+                {
+                    this.usrc_EditControl1.my_Control.ImageOfControl = (Image)this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image.Clone();
+                }
+                else
+                {
+                    this.usrc_EditControl1.my_Control.ImageOfControl = null;
+                }
                 this.usrc_EditControl1.my_Control.HelpTitle = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
                 this.usrc_EditControl1.my_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
                 this.usrc_EditControl1.my_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;

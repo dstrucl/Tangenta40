@@ -55,6 +55,8 @@ namespace HUDCMS
             this.btn_EditGeneralStyles = new System.Windows.Forms.Button();
             this.lbl_GeneralStyles = new System.Windows.Forms.Label();
             this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
+            this.chk_UseGit = new System.Windows.Forms.CheckBox();
+            this.btn_GitFolder = new System.Windows.Forms.Button();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -190,7 +192,6 @@ namespace HUDCMS
             this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fctb_Header.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_Header.IsReplaceMode = false;
             this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_Header.LeftBracket = '<';
@@ -334,7 +335,7 @@ namespace HUDCMS
             this.usrc_SelectHtmlFile.Location = new System.Drawing.Point(11, 55);
             this.usrc_SelectHtmlFile.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_SelectHtmlFile.Name = "usrc_SelectHtmlFile";
-            this.usrc_SelectHtmlFile.Size = new System.Drawing.Size(1011, 26);
+            this.usrc_SelectHtmlFile.Size = new System.Drawing.Size(944, 26);
             this.usrc_SelectHtmlFile.TabIndex = 9;
             this.usrc_SelectHtmlFile.Title = "Save File";
             this.usrc_SelectHtmlFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectHtmlFile_SaveFile);
@@ -358,7 +359,7 @@ namespace HUDCMS
             this.cmbr_GeneralHelpFiles.ReadOnly = false;
             this.cmbr_GeneralHelpFiles.RecentItemsFileName = null;
             this.cmbr_GeneralHelpFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(940, 21);
+            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(717, 21);
             this.cmbr_GeneralHelpFiles.TabIndex = 10;
             // 
             // lbl_GeneralHelp
@@ -418,14 +419,35 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.ReadOnly = false;
             this.cmbr_GeneralStyleFiles.RecentItemsFileName = null;
             this.cmbr_GeneralStyleFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(940, 21);
+            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(717, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
+            // 
+            // chk_UseGit
+            // 
+            this.chk_UseGit.AutoSize = true;
+            this.chk_UseGit.Location = new System.Drawing.Point(840, 7);
+            this.chk_UseGit.Name = "chk_UseGit";
+            this.chk_UseGit.Size = new System.Drawing.Size(114, 17);
+            this.chk_UseGit.TabIndex = 16;
+            this.chk_UseGit.Text = "Use Git Repository";
+            this.chk_UseGit.UseVisualStyleBackColor = true;
+            // 
+            // btn_GitFolder
+            // 
+            this.btn_GitFolder.Location = new System.Drawing.Point(842, 27);
+            this.btn_GitFolder.Name = "btn_GitFolder";
+            this.btn_GitFolder.Size = new System.Drawing.Size(111, 23);
+            this.btn_GitFolder.TabIndex = 17;
+            this.btn_GitFolder.Text = "Git Folder";
+            this.btn_GitFolder.UseVisualStyleBackColor = true;
             // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(960, 822);
+            this.Controls.Add(this.btn_GitFolder);
+            this.Controls.Add(this.chk_UseGit);
             this.Controls.Add(this.btn_EditGeneralStyles);
             this.Controls.Add(this.lbl_GeneralStyles);
             this.Controls.Add(this.cmbr_GeneralStyleFiles);
@@ -483,5 +505,7 @@ namespace HUDCMS
         private BrightIdeasSoftware.OLVColumn olvc_ControlName;
         private BrightIdeasSoftware.OLVColumn olvc_HelpTitle;
         private BrightIdeasSoftware.OLVColumn olvc_ControlLinks;
+        private System.Windows.Forms.CheckBox chk_UseGit;
+        private System.Windows.Forms.Button btn_GitFolder;
     }
 }

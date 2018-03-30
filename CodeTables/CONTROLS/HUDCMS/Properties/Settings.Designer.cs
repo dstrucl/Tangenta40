@@ -46,5 +46,17 @@ namespace HUDCMS.Properties {
                 this["Header"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GitFolder {
+            get {
+                return ((string)(this["GitFolder"]));
+            }
+            set {
+                this["GitFolder"] = value;
+            }
+        }
     }
 }
