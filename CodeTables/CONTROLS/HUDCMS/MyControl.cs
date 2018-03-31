@@ -417,13 +417,17 @@ namespace HUDCMS
                         {
                             string std_err = null;
                             string std_out = null;
-                            if (Git.Add(ximage_file, ref std_out, ref std_err))
+                            switch (Git.CheckIfFileInRepository(ximage_file, ref std_out, ref std_err))
                             {
-                                MessageBox.Show(std_out + "\r\n" + std_err);
-                            }
-                            else
-                            {
-                                MessageBox.Show(std_err);
+                                case Git.eCheckIfFileInRepository.FileIsNotInRepository:
+                                    if (!Git.Add(ximage_file, ref std_out, ref std_err))
+                                    {
+                                        MessageBox.Show(std_err);
+                                    }
+                                    break;
+                                case Git.eCheckIfFileInRepository.ERROR:
+                                    MessageBox.Show(std_err);
+                                    break;
                             }
                         }
 

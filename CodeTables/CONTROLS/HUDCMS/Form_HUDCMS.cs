@@ -441,15 +441,19 @@ namespace HUDCMS
                     xh.Save(html_file);
                     if (Properties.Settings.Default.UseGit)
                     {
-                        string std_err = null;
-                        string std_out = null;
-                        if (Git.Add(html_file,ref std_out,ref std_err))
+                        string std_err = "";
+                        string std_out = "";
+                        switch (Git.CheckIfFileInRepository(html_file, ref std_out, ref std_err))
                         {
-                            MessageBox.Show(std_out+"\r\n"+std_err);
-                        }
-                        else
-                        {
-                            MessageBox.Show(std_err);
+                            case Git.eCheckIfFileInRepository.FileIsNotInRepository:
+                                if (!Git.Add(html_file, ref std_out, ref std_err))
+                                {
+                                    MessageBox.Show(std_err);
+                                }
+                                break;
+                            case Git.eCheckIfFileInRepository.ERROR:
+                                MessageBox.Show(std_err);
+                                break;
                         }
                     }
                     return true;
