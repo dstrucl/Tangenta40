@@ -48,7 +48,6 @@ namespace HUDCMS
         private Form_FCTB_Editor frm_FCTB_Editor = null;
         internal hctrl hc = null;
         internal usrc_Help mH = null;
-        internal usrc_Control usrc_Control_Selected = null;
         internal MyControl MyControl_Selected = null;
         XDocument xhtml = null;
         internal XDocument xhtml_Loaded = null;
@@ -132,6 +131,16 @@ namespace HUDCMS
             InitializeMyTreeListView(ref iAllCount);
 
             this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
+
+            if (Properties.Settings.Default.GitExeFile.Length==0)
+            {
+                Properties.Settings.Default.UseGit = false;
+                Properties.Settings.Default.Save();
+            }
+            chk_UseGit.Checked = Properties.Settings.Default.UseGit;
+
+            this.chk_UseGit.CheckedChanged += new System.EventHandler(this.chk_UseGit_CheckedChanged);
+            btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit; 
         }
 
         void InitializeMyTreeListView(ref int iAllCount)
@@ -271,42 +280,7 @@ namespace HUDCMS
             cmbr_GeneralStyleFiles.SelectedIndex = 0;
         }
 
-        private void SetLinks(Control ctrl)
-        {
-            if (ctrl is usrc_Control)
-            {
-                string[] xslink = ((usrc_Control)ctrl).sLink;
-                string ctrl_name = ((usrc_Control) ctrl).ControlName;
-                if (((usrc_Control)ctrl).HasLink)
-                {
-                    if (((usrc_Control)ctrl).usrc_Link ==null)
-                    {
-                        ((usrc_Control)ctrl).usrc_Link = new List<usrc_Control>();
-                    }
-                    else
-                    {
-                        ((usrc_Control)ctrl).usrc_Link.Clear();
-                    }
-                    foreach (string sctrl_name in ((usrc_Control)ctrl).sLink)
-                    {
-                        usrc_Control xusrc_Control_Linked = null; 
-                        if (usrc_Control.Find_usrc_Control(this.panel1, sctrl_name,ref xusrc_Control_Linked))
-                        {
-                            ((usrc_Control)ctrl).usrc_Link.Add(xusrc_Control_Linked);
-                            xusrc_Control_Linked.bLinked = true;
-                        }
-                    }
-                    ((usrc_Control)ctrl).CreateImageOfLinkedControls();
-                }
-            }
-            foreach (Control c in ctrl.Controls)
-            {
-                if (c is usrc_Control)
-                {
-                    SetLinks(c);
-                }
-            }
-        }
+    
 
         internal static void SetLinks(MyControl ctrl, ref ImageRenderer helperImageRenderer)
         {
@@ -417,7 +391,7 @@ namespace HUDCMS
 
                         THeader = new XElement("THeader");
                         Header = fctb_Header.Text;
-                        usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
+                        MyControl.ReplaceInnerXml(THeader, "THeader", Header);
                         html_body.Add(THeader);
                         html_head.Add(html_title);
                         html_html.Add(html_head);
@@ -443,7 +417,7 @@ namespace HUDCMS
 
                         THeader = new XElement("THeader");
                         Header = fctb_Header.Text;
-                        usrc_Control.ReplaceInnerXml(THeader, "THeader", Header);
+                        MyControl.ReplaceInnerXml(THeader, "THeader", Header);
                         html_body.Add(THeader);
 
                         html_head.Add(html_title);
@@ -465,6 +439,19 @@ namespace HUDCMS
                 try
                 {
                     xh.Save(html_file);
+                    if (Properties.Settings.Default.UseGit)
+                    {
+                        string std_err = null;
+                        string std_out = null;
+                        if (Git.Add(html_file,ref std_out,ref std_err))
+                        {
+                            MessageBox.Show(std_out+"\r\n"+std_err);
+                        }
+                        else
+                        {
+                            MessageBox.Show(std_err);
+                        }
+                    }
                     return true;
                 }
                 catch (Exception ex)
@@ -563,119 +550,8 @@ namespace HUDCMS
             return myctrl;
         }
 
+         
 
-
-        //private usrc_Control CreateControls(ref int y, int level, int iCount,ref int iAllCount, hctrl xhc,UserControl xctrl)
-        //{
-
-           
-        //    usrc_Control uctrl = new usrc_Control();
-        //    iAllCount++;
-        //    iCount = 0;
-        //    uctrl.Name = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-        //    uctrl.Init(mH, xhc, level);
-        //    uctrl.Top = y;
-        //    uctrl.Left = 3;
-        //    if (xctrl != null)
-        //    {
-        //        uctrl.Width = xctrl.Width - uctrl.Left - 3;
-        //    }
-        //    else
-        //    {
-        //        uctrl.Width = this.panel1.Width - uctrl.Left - 3;
-        //    }
-            
-        //    uctrl.Visible = true;
-        //    uctrl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        //    if (xhc.subctrl != null)
-        //    {
-        //        int ysub = uctrl.Height + 4;
-        //        usrc_Control child = null;
-        //        foreach (hctrl hc in xhc.subctrl)
-        //        {
-        //            if (hc.ctrl != null)
-        //            {
-        //                if (hc.ctrl.Visible)
-        //                {
-        //                   child= CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
-        //                   uctrl.Controls.Add(child);
-        //                    child.Parent = uctrl;
-        //                }
-        //            }
-        //            else if (hc.dgvc != null)
-        //            {
-        //                child = CreateControls(ref ysub, level + 1, iCount++, ref iAllCount, hc, uctrl);
-        //                uctrl.Controls.Add(child);
-        //                child.Parent = uctrl;
-        //            }
-        //        }
-        //        uctrl.Height = ysub;
-        //    }
-        //    y += uctrl.Height + 4;
-        //    return uctrl;
-        //}
-
-        internal void ShowAvailableLinks()
-        {
-            usrc_Control xsel = this.usrc_Control_Selected;
-            GetAvailableParentLinks(xsel, xsel.Parent, ref xsel.usrc_AvailableLink);
-            
-        }
-
-        private bool GetAvailableParentLinks(usrc_Control xsel, Control xsel_parent, ref List<usrc_Control> link)
-        {
-            usrc_Control owner_usrc_Control = null;
-            bool bAtLeastOneVisible = false;
-            if (xsel_parent != null)
-            {
-                if (xsel_parent is usrc_Control)
-                {
-                    owner_usrc_Control = (usrc_Control)xsel_parent;
-                }
-            }
-            if (owner_usrc_Control!=null)
-            {
-                foreach (Control ctrl in owner_usrc_Control.Controls)
-                {
-                    if (ctrl is usrc_Control)
-                    {
-                        if (ctrl != xsel)
-                        {
-                          if (VisbleOnOwnerControl(owner_usrc_Control, (usrc_Control)ctrl))
-                            {
-                                if (link==null)
-                                {
-                                    link = new List<usrc_Control>();
-                                }
-                                link.Add((usrc_Control)ctrl);
-                                bAtLeastOneVisible = true;
-                            }
-                        }
-                    }
-                }
-                return bAtLeastOneVisible;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool VisbleOnOwnerControl(usrc_Control owner_usrc_Control, usrc_Control ctrl)
-        {
-            hctrl owner_hc = owner_usrc_Control.hc;
-            hctrl xhc = ctrl.hc;
-            if (InsideOwner(owner_hc, xhc))
-            {
-                ctrl.btn_Link.Visible = true;
-                return true;
-            }
-            else
-            {
-                ctrl.btn_Link.Visible = false;
-                return false;
-            }
-        }
 
         private bool InsideOwner(hctrl owner_hc, hctrl xhc)
         {
@@ -800,30 +676,6 @@ namespace HUDCMS
             {
                 MessageBox.Show("ERROR:HUDCMS:Form_HUDCMS:GetWidth:(xhc.ctrl==null)&&(xhc.pForm == null)");
                 return -1;
-            }
-        }
-
-        internal void HideLinks(Control xctrl)
-        {
-            foreach (Control ctrl in xctrl.Controls)
-            {
-                if (ctrl is usrc_Control)
-                {
-                    ((usrc_Control)ctrl).btn_Link.Visible = false;
-                    HideLinks(ctrl);
-                }
-            }
-        }
-
-        internal void HideLinks()
-        {
-            foreach (Control ctrl in this.panel1.Controls)
-            {
-                if (ctrl is usrc_Control)
-                {
-                    ((usrc_Control)ctrl).btn_Link.Visible = false;
-                    HideLinks(ctrl);
-                }
             }
         }
 
@@ -1014,6 +866,43 @@ namespace HUDCMS
         private void usrc_SelectHtmlFile_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_SetGitExeFile_Click(object sender, EventArgs e)
+        {
+            if (GetGitSettings())
+            {
+                chk_UseGit.Checked = true;
+            }
+            else
+            {
+                chk_UseGit.Checked = false;
+            }
+        }
+
+        private bool GetGitSettings()
+        {
+            Form_SetGitExeFile frm_SetGitExeFile = new Form_SetGitExeFile();
+            frm_SetGitExeFile.ShowDialog();
+            return Properties.Settings.Default.GitExeFile.Length > 0;
+        }
+
+        private void chk_UseGit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_UseGit.Checked)
+            {
+                string sGitExeFile = Properties.Settings.Default.GitExeFile;
+                if (sGitExeFile.Length == 0)
+                {
+                    if (!GetGitSettings())
+                    {
+                        chk_UseGit.Checked = false;
+                    }
+                }
+            }
+            Properties.Settings.Default.UseGit = chk_UseGit.Checked;
+            Properties.Settings.Default.Save();
+            btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit;
         }
     }
 }

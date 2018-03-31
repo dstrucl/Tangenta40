@@ -13,8 +13,13 @@ namespace SelectFile
 {
     public partial class usrc_SelectFile : UserControl
     {
+        OpenFileDialog openFileDialog1 = null;
+        public enum eType { SELECT,SAVE};
         public delegate bool delegate_SaveFile(string FileName, ref string Err);
         public event delegate_SaveFile SaveFile = null;
+
+        public delegate bool delegate_SelectFile(string FileName, ref string Err);
+        public event delegate_SelectFile SelectFile = null;
 
         public delegate bool delegate_EditFile(string FileName);
         public event delegate_EditFile EditFile = null;
@@ -25,6 +30,16 @@ namespace SelectFile
             get { return m_InitialDirectory; }
             set { m_InitialDirectory = value; }
 
+        }
+
+        private eType m_eType = eType.SAVE;
+        public eType Type
+        {
+            get { return m_eType; }
+            set
+            {
+                m_eType = value;
+            }
         }
 
         private string m_FileName = "";
@@ -43,12 +58,34 @@ namespace SelectFile
             set { m_Title = value; }
         }
 
-        private string m_Text = "Save File";
-        public new string Text
+        private string m_LableText = "Save File";
+        public  string LabelText
         {
-            get { return m_Text; }
-            set { m_Text = value;
-                label1.Text = m_Text;
+            get { return m_LableText; }
+            set { m_LableText = value;
+                label1.Text = m_LableText;
+            }
+        }
+
+        private string m_ButtonSelectText = "Save";
+        public new string ButtonSelectText
+        {
+            get { return m_ButtonSelectText; }
+            set
+            {
+                m_ButtonSelectText = value;
+                btn_Select.Text = m_ButtonSelectText;
+            }
+        }
+
+        private bool m_ButtonEditVisible = true;
+        public new bool ButtonEditVisible
+        {
+            get { return m_ButtonEditVisible; }
+            set
+            {
+                m_ButtonEditVisible = value;
+                btn_Edit.Visible = m_ButtonEditVisible;
             }
         }
 
@@ -71,7 +108,7 @@ namespace SelectFile
             InitializeComponent();
         }
 
-        private void showfiledialog(string path)
+        private void showSaveFileDialog(string path)
         {
             InitialDirectory = path;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -158,31 +195,85 @@ namespace SelectFile
                 return CreateFolder(parentcontrol, path, ref Err);
             }
         }
-        private void btn_Save_Click(object sender, EventArgs e)
+        private void btn_Select_Click(object sender, EventArgs e)
         {
             string Err = null;
+            string path = null;
             FileName = txt_File.Text;
-            string path = Path.GetDirectoryName(FileName);
-            if (Directory.Exists(path))
+            if (FileName.Length > 0)
             {
-            showfiledialog(path);
-            }
-            else
-            {
-                if (CreateFolder(this, path, ref Err))
+                path = Path.GetDirectoryName(FileName);
+                if (Directory.Exists(path))
                 {
-                    showfiledialog(path);
+                    selectFileDialog(path);
                 }
                 else
                 {
-                    if (Err!=null)
+                    if (CreateFolder(this, path, ref Err))
                     {
-                        MessageBox.Show(Err);
+                        selectFileDialog(path);
                     }
+                    else
+                    {
+                        if (Err != null)
+                        {
+                            MessageBox.Show(Err);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                path = "";
+                selectFileDialog(path);
+            }
+        }
+
+        private void selectFileDialog(string path)
+        {
+            switch (Type)
+            {
+                case eType.SAVE:
+                    showSaveFileDialog(path);
+                    break;
+                case eType.SELECT:
+                    showSelectFileDialog(path);
+                    break;
+
+            }
+        }
+
+        private void showSelectFileDialog(string path)
+        {
+            InitialDirectory = path;
+            if (openFileDialog1!=null)
+            {
+                openFileDialog1.Dispose();
+                openFileDialog1 = null;
+            }
+            openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = this.InitialDirectory;
+            openFileDialog1.Title = this.Title;
+            openFileDialog1.FileName = this.FileName.Replace('/', '\\');
+            openFileDialog1.CheckFileExists = false;
+            openFileDialog1.CheckPathExists = true;
+            openFileDialog1.DefaultExt = this.DefaultExtension;
+            openFileDialog1.Filter = this.Filter;
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.txt_File.Text = openFileDialog1.FileName;
+                FileName = this.txt_File.Text;
+                if (SelectFile!=null)
+                {
+                    string Err = null;
+                    SelectFile(FileName, ref Err);
                 }
             }
         }
 
+  
         private void btn_Edit_Click(object sender, EventArgs e)
         {
             if (EditFile!=null)

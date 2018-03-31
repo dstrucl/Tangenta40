@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txt_File = new System.Windows.Forms.TextBox();
-            this.btn_Save = new System.Windows.Forms.Button();
+            this.btn_Select = new System.Windows.Forms.Button();
             this.btn_Edit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,21 +52,21 @@
             this.txt_File.Location = new System.Drawing.Point(102, 2);
             this.txt_File.Margin = new System.Windows.Forms.Padding(2);
             this.txt_File.Name = "txt_File";
-            this.txt_File.Size = new System.Drawing.Size(233, 22);
+            this.txt_File.Size = new System.Drawing.Size(233, 20);
             this.txt_File.TabIndex = 1;
             // 
-            // btn_Save
+            // btn_Select
             // 
-            this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Save.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.btn_Save.Location = new System.Drawing.Point(342, 0);
-            this.btn_Save.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(50, 25);
-            this.btn_Save.TabIndex = 3;
-            this.btn_Save.Text = "Save";
-            this.btn_Save.UseVisualStyleBackColor = true;
-            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            this.btn_Select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Select.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.btn_Select.Location = new System.Drawing.Point(342, 0);
+            this.btn_Select.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Select.Name = "btn_Select";
+            this.btn_Select.Size = new System.Drawing.Size(50, 25);
+            this.btn_Select.TabIndex = 3;
+            this.btn_Select.Text = "...";
+            this.btn_Select.UseVisualStyleBackColor = true;
+            this.btn_Select.Click += new System.EventHandler(this.btn_Select_Click);
             // 
             // btn_Edit
             // 
@@ -84,7 +84,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.btn_Edit);
-            this.Controls.Add(this.btn_Save);
+            this.Controls.Add(this.btn_Select);
             this.Controls.Add(this.txt_File);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -99,7 +99,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_File;
-        private System.Windows.Forms.Button btn_Save;
+        private System.Windows.Forms.Button btn_Select;
         private System.Windows.Forms.Button btn_Edit;
     }
 }

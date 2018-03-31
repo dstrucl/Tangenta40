@@ -357,7 +357,7 @@ namespace HUDCMS
                 xTitle_Heading.Add(xdiv_Title_Heading_id);
 
 
-                usrc_Control.ReplaceInnerXml(xTitle_Heading, "Title", HelpTitle);
+                MyControl.ReplaceInnerXml(xTitle_Heading, "Title", HelpTitle);
 
 
                 
@@ -368,7 +368,7 @@ namespace HUDCMS
                     xdiv_About = new XElement("div");
                     XAttribute xdiv_About_class = new XAttribute("class", "About");
                     xdiv_About.Add(xdiv_About_class);
-                    usrc_Control.ReplaceInnerXml(xdiv_About,"About",About);
+                    MyControl.ReplaceInnerXml(xdiv_About,"About",About);
                     xdiv_Title.Add(xdiv_About);
                 }
 
@@ -413,6 +413,20 @@ namespace HUDCMS
                             this.ImageOfControl = this.hc.ctrlbmp;
                         }
                         this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
+                        if (Properties.Settings.Default.UseGit)
+                        {
+                            string std_err = null;
+                            string std_out = null;
+                            if (Git.Add(ximage_file, ref std_out, ref std_err))
+                            {
+                                MessageBox.Show(std_out + "\r\n" + std_err);
+                            }
+                            else
+                            {
+                                MessageBox.Show(std_err);
+                            }
+                        }
+
                     }
                     catch (Exception ex)
                     {
@@ -426,7 +440,7 @@ namespace HUDCMS
                     xdiv_Description = new XElement("div");
                     XAttribute xdiv_Description_class = new XAttribute("class", "Description");
                     xdiv_Description.Add(xdiv_Description_class);
-                    usrc_Control.ReplaceInnerXml(xdiv_Description, "Description", Description);
+                    MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
                     //xdiv_Description.Value = Description;
                     xdiv_Title.Add(xdiv_Description);
                 }
@@ -606,37 +620,37 @@ namespace HUDCMS
                         if (FindXElement(xel_Title, ref xel_Title_Header, "h1", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
                         else if (FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
-                            HelpTitle = usrc_Control.InnerXml(xel_Title_Header);
+                            HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
 
@@ -644,13 +658,13 @@ namespace HUDCMS
                         if (FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
                         {
                             //About = xel_About.Value;
-                            About = usrc_Control.InnerXml(xel_About);
+                            About = MyControl.InnerXml(xel_About);
                         }
                         XElement xel_Description = null;
                         if (FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
                         {
                             //Description = xel_Description.Value;
-                            Description = usrc_Control.InnerXml(xel_Description);
+                            Description = MyControl.InnerXml(xel_Description);
                         }
                     }
 

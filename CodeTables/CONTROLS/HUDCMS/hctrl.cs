@@ -369,6 +369,10 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c, xuctrln);
                 }
+                else if (c is UpDownBase)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
                 else
                 {
                     MessageBox.Show("Control not implemented: type=" + c.GetType().ToString() + " Name =\"" + c.Name + "\"");

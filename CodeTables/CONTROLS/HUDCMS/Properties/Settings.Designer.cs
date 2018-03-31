@@ -50,12 +50,24 @@ namespace HUDCMS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string GitFolder {
+        public string GitExeFile {
             get {
-                return ((string)(this["GitFolder"]));
+                return ((string)(this["GitExeFile"]));
             }
             set {
-                this["GitFolder"] = value;
+                this["GitExeFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseGit {
+            get {
+                return ((bool)(this["UseGit"]));
+            }
+            set {
+                this["UseGit"] = value;
             }
         }
     }
