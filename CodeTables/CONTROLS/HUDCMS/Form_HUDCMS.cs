@@ -697,6 +697,10 @@ namespace HUDCMS
                             mH.hlp_dlg.usrc_web_Help1.ReloadHtml();
                         }
                     }
+                    else if (mH.uwebHelp!=null)
+                    {
+                        mH.uwebHelp.ReloadHtml();
+                    }
                 }
                 return true;
 

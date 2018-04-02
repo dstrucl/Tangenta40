@@ -240,7 +240,9 @@ namespace HUDCMS
                 frm_HUDCMS = new Form_HUDCMS(mH);
                 frm_HUDCMS.Owner = Global.f.GetParentForm(this);
             }
+            mH.uwebHelp = this;
             frm_HUDCMS.Show();
+
             this.Cursor = cursor;
         }
 
@@ -275,6 +277,31 @@ namespace HUDCMS
 
         private void usrc_web_Help_Load(object sender, EventArgs e)
         {
+        }
+
+        private void btn_WebBrowserGoBack_Click(object sender, EventArgs e)
+        {
+            if (this.webBrowser1!=null)
+            {
+                this.webBrowser1.GoBack();
+            }
+        }
+
+        private void btn_WebBrowserGoHome_Click(object sender, EventArgs e)
+        {
+            if (this.webBrowser1 != null)
+            {
+                this.webBrowser1.GoHome();
+            }
+
+        }
+
+        private void btn_WebBrowserGoForward_Click(object sender, EventArgs e)
+        {
+            if (this.webBrowser1 != null)
+            {
+                this.webBrowser1.GoForward();
+            }
         }
     }
 }

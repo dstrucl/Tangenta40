@@ -27,6 +27,7 @@ namespace HUDCMS
         internal string Prefix = "";
 
         public Form_Help hlp_dlg = null;
+        internal usrc_web_Help uwebHelp = null;
 
 
         internal string RemoteURL = null;

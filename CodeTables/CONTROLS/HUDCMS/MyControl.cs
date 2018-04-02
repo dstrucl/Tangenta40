@@ -579,8 +579,9 @@ namespace HUDCMS
             {
                 xfrm_HUDCMS = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS;
             }
-            else
+            else if (uH.uwebHelp != null)
             {
+                xfrm_HUDCMS = uH.uwebHelp.frm_HUDCMS;
             }
 
             if (xfrm_HUDCMS.xhtml_Loaded != null)
