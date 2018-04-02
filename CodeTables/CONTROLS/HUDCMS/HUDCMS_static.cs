@@ -11,6 +11,9 @@ namespace HUDCMS
 {
     public static class HUDCMS_static
     {
+        public delegate bool delegate_ControlInfo(object o, ref string title, ref string about, ref string description);
+        public static delegate_ControlInfo ControlInfo = null;
+
         public const int MAX_FILENAME_LENGTH = 127;
 
         private static string RelativeURL = null;
@@ -187,7 +190,7 @@ namespace HUDCMS
             return false;
         }
 
-        public static bool GetLocalHtmlFile(string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string RemoteURL, ref string sLocalHtmlFile)
+        public static bool GetLocalHtmlFile(Form xpForm,string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string RemoteURL, ref string sLocalHtmlFile)
         {
 
             if (m_ApplicationPath != null)
@@ -198,7 +201,7 @@ namespace HUDCMS
                     {
                         m_ApplicationPath += "/";
                     }
-                    if (GetRelativeURL(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL))
+                    if (GetRelativeURL(xpForm,prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL))
                     {
                         if (LocalHelpPath != null)
                         {
@@ -240,7 +243,7 @@ namespace HUDCMS
             return false;
         }
 
-        public static bool GetRemoteURL(string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string RelativeURL, ref string sRemoteURL)
+        public static bool GetRemoteURL(Form xpForm,string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string RelativeURL, ref string sRemoteURL)
         {
 
             if (m_RemoteUrl != null)
@@ -251,7 +254,7 @@ namespace HUDCMS
                     {
                         m_RemoteUrl += "/";
                     }
-                    if (GetRelativeURL(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL))
+                    if (GetRelativeURL(xpForm,prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL))
                     {
                         sRemoteURL = RemoteUrl + RelativeURL;
                         return true;
@@ -488,7 +491,16 @@ namespace HUDCMS
                 if (s.Length > 0)
                 {
                     ModuleName = "";
-                    HtmlFileName = prefix + s[s.Length - 1] + ".html";
+                    string sFormName = null;
+                    if (FormHasName(pForm,ref sFormName))
+                    {
+                        HtmlFileName = prefix + sFormName + ".html";
+                    }
+                    else
+                    {
+                        HtmlFileName = prefix + s[s.Length - 1] + ".html";
+                    }
+                    
                     for (int i = 0; i < s.Length - 1; i++)
                     {
                         ModuleName += s[i] + "/";
@@ -500,7 +512,23 @@ namespace HUDCMS
             return false;
         }
 
-        public static bool GetRelativeURL(string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL)
+        private static bool FormHasName(Form pForm, ref string sFormName)
+        {
+            if (pForm!=null)
+            {
+                if (pForm.Name != null)
+                {
+                    if (pForm.Name.Length>0)
+                    {
+                        sFormName = pForm.Name;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool GetRelativeURL(Form xpForm, string prefix,string sNameSpaceDotType, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL)
         {
             if (sNameSpaceDotType != null)
             {
@@ -511,7 +539,15 @@ namespace HUDCMS
                     if (s.Length > 0)
                     {
                         ModuleName = "";
-                        HtmlFileName = prefix + s[s.Length - 1] + ".html";
+                        string sFormName = null;
+                        if (FormHasName(xpForm, ref sFormName))
+                        {
+                            HtmlFileName = prefix + sFormName + ".html";
+                        }
+                        else
+                        {
+                            HtmlFileName = prefix + s[s.Length - 1] + ".html";
+                        }
                         for (int i = 0; i < s.Length - 1; i++)
                         {
                             ModuleName += s[i] + "/";

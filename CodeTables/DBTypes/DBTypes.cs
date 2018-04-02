@@ -1788,6 +1788,35 @@ namespace DBTypes
             return null;
         }
 
+        public static int GetMaxColumnStringLength(Type baseType)
+        {
+            int len = -1;
+            string stype = baseType.ToString();
+            string stoken_DB_varchar = "DB_varchar_";
+            int index_of_DB_varchar = stype.IndexOf(stoken_DB_varchar);
+            if (index_of_DB_varchar>=0)
+            {
+                int indexoflength = index_of_DB_varchar + stoken_DB_varchar.Length;
+                string slength = stype.Substring(indexoflength);
+                if (slength.Equals("max"))
+                {
+                    len = Int32.MaxValue;
+                }
+                else
+                {
+                    try
+                    {
+                        len = Convert.ToInt32(slength);
+                    }
+                    catch
+                    {
+                        len = -1;
+                    }
+                }
+            }
+            return len;
+        }
+
         public static bool IsNumber(Type baseType, Type myDBTypes, ref string csError)
         {
             FieldInfo[] DBTypesInfo = myDBTypes.GetFields();
@@ -2957,6 +2986,7 @@ namespace DBTypes
             }
             return obj;
         }
+
     }
 
 

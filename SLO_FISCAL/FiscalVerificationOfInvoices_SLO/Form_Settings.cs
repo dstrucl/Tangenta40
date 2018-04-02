@@ -44,7 +44,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
             usrc_NavigationButtons1.Init(nav);
             Properties.Settings.Default.timeOutInSec = SetValue(nm_UpDown_timeOutInSec,Properties.Settings.Default.timeOutInSec);
-            Properties.Settings.Default.timeToShowSuccessfulFURSResult = SetValue(this.nm_TimeToShoqSuccessfulFURS_Transaction, Properties.Settings.Default.timeToShowSuccessfulFURSResult);
+            Properties.Settings.Default.timeToShowSuccessfulFURSResult = SetValue(this.nm_TimeToShowSuccessfulFURS_Transaction, Properties.Settings.Default.timeToShowSuccessfulFURSResult);
             Properties.Settings.Default.QRImageWidth = SetValue(this.nm_QRSizeWidth, Properties.Settings.Default.QRImageWidth);
             Properties.Settings.Default.Last_SalesBookInvoice_SetNumber = SetValue(nm_UpDn_SalesBookInvoice_Last_SetNumber, Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
             Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber = SetValue(nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook, Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
@@ -148,7 +148,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.usrc_FURS_environment_settings.Save();
             this.usrc_FURS_environment_settings_TEST.Save();
             Properties.Settings.Default.timeOutInSec = Convert.ToInt32(this.nm_UpDown_timeOutInSec.Value);
-            Properties.Settings.Default.timeToShowSuccessfulFURSResult = Convert.ToInt32(this.nm_TimeToShoqSuccessfulFURS_Transaction.Value);
+            Properties.Settings.Default.timeToShowSuccessfulFURSResult = Convert.ToInt32(this.nm_TimeToShowSuccessfulFURS_Transaction.Value);
             Properties.Settings.Default.QRImageWidth = Convert.ToInt32(this.nm_QRSizeWidth.Value);
 
             Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber = this.txt_SalesBookInvoice_Current_SerialNumber.Text;

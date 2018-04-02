@@ -23,6 +23,7 @@ namespace TangentaSampleDB
         public Form_Items_Samples(NavigationButtons.Navigation xnav,string shopName)
         {
             InitializeComponent();
+            this.Name += shopName;
             m_shopName = shopName;
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);

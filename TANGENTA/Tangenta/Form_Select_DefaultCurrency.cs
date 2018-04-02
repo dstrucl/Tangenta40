@@ -60,7 +60,7 @@ namespace Tangenta
                 if (dtCurrency.Rows.Count > 0)
                 {
                     dgvx_Currency.DataSource = dtCurrency;
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
+                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Currency)));
                     tbl.Set_DataGridViewImageColumns_Headers(dgvx_Currency);
 
                     if (DefaultCurrency_ID >= 0)

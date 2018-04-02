@@ -483,6 +483,10 @@ namespace HUDCMS
    
         internal void Init(usrc_Help xuH, hctrl xhc, int iLevel, MyControl parent, ref SysImageListHelper helperControlType)
         {
+            string xControlInfo_title = "";
+            string xControlInfo_about = "";
+            string xControlInfo_description = "";
+
             uH = xuH;
             hc = xhc;
             this.Parent = parent;
@@ -701,6 +705,22 @@ namespace HUDCMS
                     {
                         HelpTitle = ((GroupBox)hc.ctrl).Text;
                     }
+                    else
+                    {
+                        if (HUDCMS_static.ControlInfo!=null)
+                        {
+                            if (HUDCMS_static.ControlInfo(hc.ctrl,ref xControlInfo_title,ref xControlInfo_about, ref xControlInfo_description))
+                            {
+                                HelpTitle = xControlInfo_title;
+                                About = xControlInfo_about;
+                                Description = xControlInfo_description;
+                            }
+                        }
+                    }
+                }
+                else if (hc.dgvc != null)
+                {
+                    HelpTitle = hc.dgvc.HeaderText;
                 }
             }
 

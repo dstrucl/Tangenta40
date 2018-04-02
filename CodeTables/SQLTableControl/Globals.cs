@@ -507,5 +507,46 @@ namespace CodeTables
             }
             return bRet;
         }
+
+        public static bool ControlInfo(object ctrl,ref string title,ref string about, ref string description)
+        {
+            if (ctrl != null)
+            {
+                if (ctrl is usrc_InputControl)
+                {
+                    usrc_InputControl uinpctrl = (usrc_InputControl)ctrl;
+                    Column xcol = uinpctrl.m_col;
+                    if (xcol != null)
+                    {
+                        title = xcol.Name_in_language.s;
+                        string xdescription = "";
+                        if ((xcol.flags & Column.Flags.UNIQUE)!=0)
+                        {
+                            xdescription += lng.s_WriteUniqueValue.s;
+                        }
+                        switch (xcol.nulltype)
+                        {
+                            case Column.nullTYPE.NULL:
+                              if (xdescription!=null)
+                              {
+                                    xdescription +="\r\n"+ lng.s_ThisInformationIsOptional.s;
+                              }
+                              else
+                                {
+                                    xdescription += "\r\n" + lng.s_ThisInformationIsCompulsory.s;
+                                }
+                                break;
+                        }
+                        int len = xcol.GetMaxColumnStringLength();
+                        if (len>0)
+                        {
+                            xdescription += "\r\n" + lng.s_MaxInformationColumnTextLengthIs.s+len.ToString()+ " "+lng.s_Characters.s+".";
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

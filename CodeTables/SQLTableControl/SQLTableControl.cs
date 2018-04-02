@@ -187,6 +187,7 @@ namespace CodeTables
             string ErrMSSQLNameToLong = null;
             for (iTable = 0; iTable < iTableCount; iTable++)
             {
+                Application.DoEvents();
                 string table_view = null;
                 StringBuilder SQLCreateView_InDataBase = items[iTable].SQLCreateView_InDataBase(items);
                 if (SQLCreateView_InDataBase.Length > 0)

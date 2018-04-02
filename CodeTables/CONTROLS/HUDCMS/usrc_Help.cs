@@ -101,9 +101,9 @@ namespace HUDCMS
             }
         }
 
-        internal bool GetRemoteURL(string prefix,string  sNameSpaceDotType)
+        internal bool GetRemoteURL(Form xpForm,string prefix,string  sNameSpaceDotType)
         {
-            if (HUDCMS_static.GetRemoteURL(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref RemoteURL))
+            if (HUDCMS_static.GetRemoteURL(xpForm,prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref RemoteURL))
             {
                 //if (HUDCMS_static.URLExists(RemoteURL, ref Err_Remote))
                 if (HUDCMS_static.DomainAccesible(RemoteURL, ref Err_Remote))
@@ -148,11 +148,11 @@ namespace HUDCMS
 
         }
 
-        internal bool GetLocalURL(string prefix,string sNameSpaceDotType)
+        internal bool GetLocalURL(Form xpForm,string prefix,string sNameSpaceDotType)
         {
             Err_Local = null;
             string sLocalHtmlFile = null;
-            if (HUDCMS_static.GetLocalHtmlFile(prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref sLocalHtmlFile))
+            if (HUDCMS_static.GetLocalHtmlFile(xpForm,prefix, sNameSpaceDotType, ref ModuleName, ref HtmlFileName, ref RelativeURL, ref sLocalHtmlFile))
             {
                 LocalHtmlFile = sLocalHtmlFile;
                 if (File.Exists(sLocalHtmlFile))

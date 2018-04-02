@@ -353,7 +353,16 @@ namespace CodeTables
 
         public static ltext s_null_means_nod_data = new ltext(new string[] { "null means no data", "nič pomeni da podatka ni" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\usrc_InputControl_Label.cs
 
-        public static ltext s_ValueMustBeUnique = new ltext(new string[] { "Value must be unique!", "Podatek mora biti unikaten!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\usrc_InputControl_Label.cs
+        public static ltext s_ValueMustBeUnique = new ltext(new string[] { "Value must be unique!", "Podatek mora biti unikaten!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
+
+        public static ltext s_WriteUniqueValue = new ltext(new string[] { "Write unique value", "Podatek, ki ga vpišete, mora biti unikaten!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
+
+        public static ltext s_ThisInformationIsOptional = new ltext(new string[] { "This information is optional!", "Podatek ni obvezen!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
+        public static ltext s_ThisInformationIsCompulsory = new ltext(new string[] { "This information is compulsory!", "Podatek je obvezen!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
+        
+        public static ltext s_MaxInformationColumnTextLengthIs = new ltext(new string[] { "Max text length is ", "Največja možna dolžina besedila je" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
+
+        public static ltext s_Characters = new ltext(new string[] { "characters", "znakov" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
 
         public static ltext s_null = new ltext(new string[] { "null", "brez" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\usrc_InputControl_Label.cs
 

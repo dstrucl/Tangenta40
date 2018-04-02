@@ -32,7 +32,7 @@
             this.chk_DebugAndTest = new System.Windows.Forms.CheckBox();
             this.lbl_timeOutInSec = new System.Windows.Forms.Label();
             this.nm_UpDown_timeOutInSec = new System.Windows.Forms.NumericUpDown();
-            this.nm_TimeToShoqSuccessfulFURS_Transaction = new System.Windows.Forms.NumericUpDown();
+            this.nm_TimeToShowSuccessfulFURS_Transaction = new System.Windows.Forms.NumericUpDown();
             this.lbl_TimeToShowFURSSuccessfulResult = new System.Windows.Forms.Label();
             this.nm_QRSizeWidth = new System.Windows.Forms.NumericUpDown();
             this.lbl_QRSizeWidth = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShowSuccessfulFURS_Transaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -67,7 +67,7 @@
             // chk_DebugAndTest
             // 
             this.chk_DebugAndTest.AutoSize = true;
-            this.chk_DebugAndTest.Location = new System.Drawing.Point(342, 36);
+            this.chk_DebugAndTest.Location = new System.Drawing.Point(342, 72);
             this.chk_DebugAndTest.Name = "chk_DebugAndTest";
             this.chk_DebugAndTest.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chk_DebugAndTest.Size = new System.Drawing.Size(91, 17);
@@ -79,7 +79,7 @@
             // lbl_timeOutInSec
             // 
             this.lbl_timeOutInSec.AutoSize = true;
-            this.lbl_timeOutInSec.Location = new System.Drawing.Point(11, 36);
+            this.lbl_timeOutInSec.Location = new System.Drawing.Point(11, 72);
             this.lbl_timeOutInSec.Name = "lbl_timeOutInSec";
             this.lbl_timeOutInSec.Size = new System.Drawing.Size(252, 13);
             this.lbl_timeOutInSec.TabIndex = 10;
@@ -87,7 +87,7 @@
             // 
             // nm_UpDown_timeOutInSec
             // 
-            this.nm_UpDown_timeOutInSec.Location = new System.Drawing.Point(279, 33);
+            this.nm_UpDown_timeOutInSec.Location = new System.Drawing.Point(279, 69);
             this.nm_UpDown_timeOutInSec.Maximum = new decimal(new int[] {
             120,
             0,
@@ -109,16 +109,16 @@
             // 
             // nm_TimeToShoqSuccessfulFURS_Transaction
             // 
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Location = new System.Drawing.Point(279, 8);
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Maximum = new decimal(new int[] {
+            this.nm_TimeToShowSuccessfulFURS_Transaction.Location = new System.Drawing.Point(279, 44);
+            this.nm_TimeToShowSuccessfulFURS_Transaction.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Name = "nm_TimeToShoqSuccessfulFURS_Transaction";
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Size = new System.Drawing.Size(49, 20);
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.TabIndex = 15;
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = new decimal(new int[] {
+            this.nm_TimeToShowSuccessfulFURS_Transaction.Name = "nm_TimeToShoqSuccessfulFURS_Transaction";
+            this.nm_TimeToShowSuccessfulFURS_Transaction.Size = new System.Drawing.Size(49, 20);
+            this.nm_TimeToShowSuccessfulFURS_Transaction.TabIndex = 15;
+            this.nm_TimeToShowSuccessfulFURS_Transaction.Value = new decimal(new int[] {
             10,
             0,
             0,
@@ -127,7 +127,7 @@
             // lbl_TimeToShowFURSSuccessfulResult
             // 
             this.lbl_TimeToShowFURSSuccessfulResult.AutoSize = true;
-            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(11, 10);
+            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(11, 46);
             this.lbl_TimeToShowFURSSuccessfulResult.Name = "lbl_TimeToShowFURSSuccessfulResult";
             this.lbl_TimeToShowFURSSuccessfulResult.Size = new System.Drawing.Size(253, 13);
             this.lbl_TimeToShowFURSSuccessfulResult.TabIndex = 14;
@@ -135,7 +135,7 @@
             // 
             // nm_QRSizeWidth
             // 
-            this.nm_QRSizeWidth.Location = new System.Drawing.Point(432, 10);
+            this.nm_QRSizeWidth.Location = new System.Drawing.Point(432, 46);
             this.nm_QRSizeWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -158,7 +158,7 @@
             // lbl_QRSizeWidth
             // 
             this.lbl_QRSizeWidth.AutoSize = true;
-            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(339, 11);
+            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(339, 47);
             this.lbl_QRSizeWidth.Name = "lbl_QRSizeWidth";
             this.lbl_QRSizeWidth.Size = new System.Drawing.Size(82, 13);
             this.lbl_QRSizeWidth.TabIndex = 16;
@@ -167,7 +167,7 @@
             // rdb_FURS_Environment
             // 
             this.rdb_FURS_Environment.AutoSize = true;
-            this.rdb_FURS_Environment.Location = new System.Drawing.Point(14, 58);
+            this.rdb_FURS_Environment.Location = new System.Drawing.Point(14, 94);
             this.rdb_FURS_Environment.Name = "rdb_FURS_Environment";
             this.rdb_FURS_Environment.Size = new System.Drawing.Size(140, 17);
             this.rdb_FURS_Environment.TabIndex = 20;
@@ -178,7 +178,7 @@
             // rdb_FURS_TEST_Environment
             // 
             this.rdb_FURS_TEST_Environment.AutoSize = true;
-            this.rdb_FURS_TEST_Environment.Location = new System.Drawing.Point(160, 59);
+            this.rdb_FURS_TEST_Environment.Location = new System.Drawing.Point(160, 95);
             this.rdb_FURS_TEST_Environment.Name = "rdb_FURS_TEST_Environment";
             this.rdb_FURS_TEST_Environment.Size = new System.Drawing.Size(174, 17);
             this.rdb_FURS_TEST_Environment.TabIndex = 21;
@@ -193,7 +193,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(8, 79);
+            this.splitContainer1.Location = new System.Drawing.Point(8, 115);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -204,8 +204,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(814, 406);
-            this.splitContainer1.SplitterDistance = 160;
+            this.splitContainer1.Size = new System.Drawing.Size(814, 449);
+            this.splitContainer1.SplitterDistance = 176;
             this.splitContainer1.TabIndex = 22;
             // 
             // usrc_FURS_environment_settings
@@ -216,7 +216,7 @@
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(810, 156);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(810, 172);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -227,7 +227,7 @@
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(810, 238);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(810, 265);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
             // 
             // txt_SalesBookInvoice_Current_SerialNumber
@@ -248,7 +248,7 @@
             this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_Last_SetNumber);
             this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_Current_SerialNumber);
             this.grp_SalesBookInvoice.Controls.Add(this.txt_SalesBookInvoice_Current_SerialNumber);
-            this.grp_SalesBookInvoice.Location = new System.Drawing.Point(488, -3);
+            this.grp_SalesBookInvoice.Location = new System.Drawing.Point(488, 33);
             this.grp_SalesBookInvoice.Name = "grp_SalesBookInvoice";
             this.grp_SalesBookInvoice.Size = new System.Drawing.Size(282, 79);
             this.grp_SalesBookInvoice.TabIndex = 27;
@@ -346,26 +346,26 @@
             // 
             // usrc_NavigationButtons1
             // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
             this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
-            this.usrc_NavigationButtons1.Image_Cancel = null;
-            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_Cancel = global::FiscalVerificationOfInvoices_SLO.Properties.Resources.Exit;
+            this.usrc_NavigationButtons1.Image_EXIT = global::FiscalVerificationOfInvoices_SLO.Properties.Resources.Exit;
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(7, 491);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(-2, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(763, 62);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(827, 27);
             this.usrc_NavigationButtons1.TabIndex = 28;
-            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
-            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_Cancel = "";
+            this.usrc_NavigationButtons1.Text_EXIT = "";
             this.usrc_NavigationButtons1.Text_NEXT = "";
             this.usrc_NavigationButtons1.Text_OK = "";
             this.usrc_NavigationButtons1.Text_PREV = "";
@@ -377,7 +377,7 @@
             // usrc_Help1
             // 
             this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Help1.Location = new System.Drawing.Point(776, 4);
+            this.usrc_Help1.Location = new System.Drawing.Point(776, 40);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(47, 27);
             this.usrc_Help1.TabIndex = 29;
@@ -396,7 +396,7 @@
             this.Controls.Add(this.rdb_FURS_Environment);
             this.Controls.Add(this.nm_QRSizeWidth);
             this.Controls.Add(this.lbl_QRSizeWidth);
-            this.Controls.Add(this.nm_TimeToShoqSuccessfulFURS_Transaction);
+            this.Controls.Add(this.nm_TimeToShowSuccessfulFURS_Transaction);
             this.Controls.Add(this.lbl_TimeToShowFURSSuccessfulResult);
             this.Controls.Add(this.nm_UpDown_timeOutInSec);
             this.Controls.Add(this.lbl_timeOutInSec);
@@ -407,7 +407,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nastavitve za komunikacijo z DAVČNO UPRAVO";
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShowSuccessfulFURS_Transaction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -427,7 +427,7 @@
         private System.Windows.Forms.CheckBox chk_DebugAndTest;
         private System.Windows.Forms.Label lbl_timeOutInSec;
         private System.Windows.Forms.NumericUpDown nm_UpDown_timeOutInSec;
-        private System.Windows.Forms.NumericUpDown nm_TimeToShoqSuccessfulFURS_Transaction;
+        private System.Windows.Forms.NumericUpDown nm_TimeToShowSuccessfulFURS_Transaction;
         private System.Windows.Forms.Label lbl_TimeToShowFURSSuccessfulResult;
         private System.Windows.Forms.NumericUpDown nm_QRSizeWidth;
         private System.Windows.Forms.Label lbl_QRSizeWidth;

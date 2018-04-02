@@ -373,6 +373,16 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c, xuctrln);
                 }
+                else if (c is System.Windows.Forms.UpDownBase)
+                {
+                    //AddSubCtrl(c, xuctrln);
+                    continue;
+                }
+                else if (c.GetType().ToString().Equals("System.Windows.Forms.UpDownBase+UpDownButtons"))
+                {
+                    //AddSubCtrl(c, xuctrln);
+                    continue;
+                }
                 else
                 {
                     MessageBox.Show("Control not implemented: type=" + c.GetType().ToString() + " Name =\"" + c.Name + "\"");
@@ -559,7 +569,17 @@ namespace HUDCMS
 
                 if (sctrlname.Length==0)
                 {
-                    MessageBox.Show("ERROR:HUDCSM:sctrlname.Length==0!");
+                    if (ctrl.Parent!=null)
+                    {
+                        if (ctrl.Parent is NumericUpDown)
+                        {
+                            sctrlname = ((NumericUpDown)ctrl.Parent).Name + "_" + ctrl.GetType().ToString().Replace(".", "_");
+                        }
+                    }
+                    if (sctrlname.Length == 0)
+                    {
+                        MessageBox.Show("ERROR:HUDCSM:sctrlname.Length==0!");
+                    }
                 }
                 string sname =parentctrl.GetName()+"."+ sctrlname;
 

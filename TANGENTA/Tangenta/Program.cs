@@ -501,7 +501,20 @@ namespace Tangenta
                     }
 
 
-                DoSelectLanguage:
+                    HUDCMS.HUDCMS_static.Language = LanguageControl.DynSettings.LanguagePrefix;
+                    NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
+                    NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
+                    NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
+
+                    HUDCMS.HUDCMS_static.slng_LocalURL = lng.s_LocalHelpFolder.s;
+                    HUDCMS.HUDCMS_static.slng_LocalHtmlFile = lng.s_slng_LocalHtmlFile.s;
+                    HUDCMS.HUDCMS_static.slng_doesNotExist = lng.s_slng_dowsNotExist.s;
+                    HUDCMS.HUDCMS_static.slng_Can_not_get_relative_URL = lng.s_slng_Can_not_get_relative_URL.s;
+                    HUDCMS.HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp = lng.s_slng_JavaScriptElementsWillNotBoShownInHelp.s;
+                    HUDCMS.HUDCMS_static.slng_WriteSomethingAbout = lng.s_slng_WriteSomethingAbout.s;
+                    HUDCMS.HUDCMS_static.ControlInfo = CodeTables.Globals.ControlInfo;
+
+                    DoSelectLanguage:
                     if (!bLanguageSelected)
                     {
                         SelectLanguage(ref bLanguageSelectDialogShown, ref bLanguageSelected, ref bExitBeforeLogFileInitialised);
@@ -522,7 +535,7 @@ namespace Tangenta
                     HUDCMS.HUDCMS_static.slng_Can_not_get_relative_URL = lng.s_slng_Can_not_get_relative_URL.s;
                     HUDCMS.HUDCMS_static.slng_JavaScriptElementsWillNotBoShownInHelp = lng.s_slng_JavaScriptElementsWillNotBoShownInHelp.s;
                     HUDCMS.HUDCMS_static.slng_WriteSomethingAbout = lng.s_slng_WriteSomethingAbout.s;
-
+                    HUDCMS.HUDCMS_static.ControlInfo = CodeTables.Globals.ControlInfo;
 
                     if (bResetNew)
                     {
