@@ -91,7 +91,7 @@ namespace HUDCMS
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Size = new System.Drawing.Size(699, 262);
-            this.splitContainer1.SplitterDistance = 357;
+            this.splitContainer1.SplitterDistance = 338;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 43;
             // 
@@ -118,7 +118,7 @@ namespace HUDCMS
             this.dgv_link.MultiSelect = false;
             this.dgv_link.Name = "dgv_link";
             this.dgv_link.ReadOnly = true;
-            this.dgv_link.Size = new System.Drawing.Size(242, 82);
+            this.dgv_link.Size = new System.Drawing.Size(223, 82);
             this.dgv_link.TabIndex = 56;
             this.dgv_link.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_link_CellClick);
             // 
@@ -127,7 +127,7 @@ namespace HUDCMS
             this.btn_Link.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Link.Image = global::HUDCMS.Properties.Resources.NoLink;
             this.btn_Link.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Link.Location = new System.Drawing.Point(254, 80);
+            this.btn_Link.Location = new System.Drawing.Point(235, 80);
             this.btn_Link.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Link.Name = "btn_Link";
             this.btn_Link.Size = new System.Drawing.Size(100, 48);
@@ -161,6 +161,7 @@ namespace HUDCMS
             this.fctb_CtrlImageCaption.CommentPrefix = null;
             this.fctb_CtrlImageCaption.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_CtrlImageCaption.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fctb_CtrlImageCaption.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_CtrlImageCaption.IsReplaceMode = false;
             this.fctb_CtrlImageCaption.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_CtrlImageCaption.LeftBracket = '<';
@@ -172,7 +173,7 @@ namespace HUDCMS
             this.fctb_CtrlImageCaption.RightBracket2 = ')';
             this.fctb_CtrlImageCaption.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctb_CtrlImageCaption.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_CtrlImageCaption.ServiceColors")));
-            this.fctb_CtrlImageCaption.Size = new System.Drawing.Size(334, 97);
+            this.fctb_CtrlImageCaption.Size = new System.Drawing.Size(315, 97);
             this.fctb_CtrlImageCaption.TabIndex = 54;
             this.fctb_CtrlImageCaption.Zoom = 100;
             this.fctb_CtrlImageCaption.Load += new System.EventHandler(this.fastColoredTextBox1_Load);
@@ -181,7 +182,7 @@ namespace HUDCMS
             // 
             this.lbl_SnapShotMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_SnapShotMargin.AutoSize = true;
-            this.lbl_SnapShotMargin.Location = new System.Drawing.Point(251, 30);
+            this.lbl_SnapShotMargin.Location = new System.Drawing.Point(232, 30);
             this.lbl_SnapShotMargin.Name = "lbl_SnapShotMargin";
             this.lbl_SnapShotMargin.Size = new System.Drawing.Size(89, 13);
             this.lbl_SnapShotMargin.TabIndex = 53;
@@ -190,7 +191,7 @@ namespace HUDCMS
             // nmUpDn_SnapShotMargin
             // 
             this.nmUpDn_SnapShotMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nmUpDn_SnapShotMargin.Location = new System.Drawing.Point(279, 49);
+            this.nmUpDn_SnapShotMargin.Location = new System.Drawing.Point(260, 49);
             this.nmUpDn_SnapShotMargin.Margin = new System.Windows.Forms.Padding(4);
             this.nmUpDn_SnapShotMargin.Name = "nmUpDn_SnapShotMargin";
             this.nmUpDn_SnapShotMargin.Size = new System.Drawing.Size(75, 20);
@@ -231,18 +232,17 @@ namespace HUDCMS
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(336, 262);
+            this.panel2.Size = new System.Drawing.Size(355, 262);
             this.panel2.TabIndex = 36;
             // 
             // pic_Control
             // 
             this.pic_Control.BackColor = System.Drawing.Color.Gray;
             this.pic_Control.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pic_Control.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pic_Control.Location = new System.Drawing.Point(0, 0);
+            this.pic_Control.Location = new System.Drawing.Point(3, 39);
             this.pic_Control.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pic_Control.Name = "pic_Control";
-            this.pic_Control.Size = new System.Drawing.Size(336, 262);
+            this.pic_Control.Size = new System.Drawing.Size(458, 371);
             this.pic_Control.TabIndex = 0;
             this.pic_Control.TabStop = false;
             // 
@@ -250,16 +250,20 @@ namespace HUDCMS
             // 
             this.usrc_SelectPictureFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_SelectPictureFile.ButtonEditVisible = true;
+            this.usrc_SelectPictureFile.ButtonSelectText = "Save";
             this.usrc_SelectPictureFile.DefaultExtension = "txt";
             this.usrc_SelectPictureFile.FileName = "";
             this.usrc_SelectPictureFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             this.usrc_SelectPictureFile.InitialDirectory = "C:\\";
+            this.usrc_SelectPictureFile.LabelText = "Save File";
             this.usrc_SelectPictureFile.Location = new System.Drawing.Point(77, 13);
             this.usrc_SelectPictureFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.usrc_SelectPictureFile.Name = "usrc_SelectPictureFile";
             this.usrc_SelectPictureFile.Size = new System.Drawing.Size(450, 30);
             this.usrc_SelectPictureFile.TabIndex = 34;
             this.usrc_SelectPictureFile.Title = "Save File";
+            this.usrc_SelectPictureFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
             // 
             // usrc_EditControl_Image
             // 
