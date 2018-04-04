@@ -468,9 +468,16 @@ namespace HUDCMS
         {
             //Here is an example in C# that uses ReplaceNodes and XElement.Parse:
 
-//            xdiv_About.
+            //            xdiv_About.
 
-            xdiv_About.ReplaceNodes(XElement.Parse("<div class=\""+ classname + "\">" + about + "</div>").Nodes());
+            try
+            {
+                xdiv_About.ReplaceNodes(XElement.Parse("<div class=\"" + classname + "\">" + about + "</div>").Nodes());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR:HUDCMS:MyControl:ReplaceInnerXml(...):Exception=" + ex.Message);
+            }
 
 
 
