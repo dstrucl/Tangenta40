@@ -265,16 +265,16 @@ namespace HUDCMS
         }
 
 
-        public static bool LocalUrl(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL, ref string sLocalUrl)
-        {
-            string sFile = null;
-             if (GetLocalHtmlFile(pForm, prefix, ref ModuleName, ref HtmlFileName, ref xRelativeURL, ref sFile))
-            {
-                sLocalUrl =  "file:///" + sFile;
-                return true;
-            }
-             return false;
-        }
+        //public static bool LocalUrl(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL, ref string sLocalUrl)
+        //{
+        //    string sFile = null;
+        //     if (GetLocalHtmlFile(pForm, prefix, ref ModuleName, ref HtmlFileName, ref xRelativeURL, ref sFile))
+        //    {
+        //        sLocalUrl =  "file:///" + sFile;
+        //        return true;
+        //    }
+        //     return false;
+        //}
 
         private static string m_RemoteUrl = "https://dstrucl.github.io/Tangenta-Help/";
         public static string RemoteUrl
@@ -321,6 +321,8 @@ namespace HUDCMS
         }
 
         private static string m_ApplicationPath = "";
+
+
         public static string ApplicationPath
         {
             get { return m_ApplicationPath; }
@@ -338,8 +340,40 @@ namespace HUDCMS
         public static string Language
         {
             get { return m_Language; }
-            set { m_Language = value; }
+            set {m_Language = value;
+                }
         }
+
+        private static void ChangeURL(string old_Language,string new_Language )
+        {
+            string s_old_Language_Pattern = "/" + old_Language + "/";
+            string s_new_Language_Pattern = "/" + new_Language + "/";
+            if (m_RemoteUrl.Contains(s_old_Language_Pattern))
+            {
+                m_RemoteUrl.Replace(s_old_Language_Pattern, s_new_Language_Pattern);
+            }
+            if (m_RemoteHelpURL.Contains(s_old_Language_Pattern))
+            {
+                m_RemoteHelpURL.Replace(s_old_Language_Pattern, s_new_Language_Pattern);
+            }
+
+            
+        }
+
+        public static List<string> LanguagePrefixList = null;
+
+        private static int m_LanguageID = 0;
+
+        public static int LanguageID
+        {
+            get { return m_LanguageID; }
+            set
+            {
+                m_LanguageID = value;
+                Language = LanguagePrefixList[m_LanguageID];
+            }
+        }
+
 
         public static bool GetDomainFromUrl(string url,ref string domain,ref string Err)
         {

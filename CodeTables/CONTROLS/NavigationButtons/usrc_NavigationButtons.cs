@@ -316,6 +316,18 @@ namespace NavigationButtons
             }
         }
 
+        public bool AnswerForExitIsTrue()
+        {
+            if (MessageBox.Show(this, ExitQuestion, "?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
         private void btn3_Click(object sender, EventArgs e)
         {
             if (ButtonPressed != null)
@@ -323,7 +335,7 @@ namespace NavigationButtons
                 switch (m_eButtons)
                 {
                     case Navigation.eButtons.PrevNextExit:
-                        if (MessageBox.Show(this, ExitQuestion, "?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (AnswerForExitIsTrue())
                         {
                             ButtonPressed(Navigation.eEvent.EXIT);
                         }

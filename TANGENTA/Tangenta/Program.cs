@@ -470,6 +470,11 @@ namespace Tangenta
 
                     string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
 
+                    LanguageControl.DynSettings.InitLanguagePrefixList();
+
+                    HUDCMS.HUDCMS_static.LanguagePrefixList = LanguageControl.DynSettings.LanguagePrefixList;
+                    HUDCMS.HUDCMS_static.LanguageID = LanguageControl.DynSettings.LanguageID;
+
                     HUDCMS.HUDCMS_static.Language = "";
 
                     HUDCMS.HUDCMS_static.ApplicationPath = Path.GetDirectoryName(Application.ExecutablePath);
@@ -502,6 +507,8 @@ namespace Tangenta
 
 
                     HUDCMS.HUDCMS_static.Language = LanguageControl.DynSettings.LanguagePrefix;
+                    HUDCMS.HUDCMS_static.LanguageID = LanguageControl.DynSettings.LanguageID;
+
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
@@ -525,6 +532,8 @@ namespace Tangenta
                     }
 
                     HUDCMS.HUDCMS_static.Language = LanguageControl.DynSettings.LanguagePrefix;
+                    HUDCMS.HUDCMS_static.LanguageID = LanguageControl.DynSettings.LanguageID;
+
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
@@ -558,9 +567,18 @@ namespace Tangenta
 
                     HUDCMS.HUDCMS_static.LocalHelpPath = Properties.Settings.Default.HelpLocalPath;
                     HUDCMS.HUDCMS_static.RemoteHelpURL = Properties.Settings.Default.HelpRemoteURL;
+                    if (System.Diagnostics.Debugger.IsAttached)
+                    {
+                        // code or timeout value when running tests in debug mode
+                        if (Properties.Settings.Default.HelpLocalPath.Length == 0)
+                        {
+                            Properties.Settings.Default.HelpLocalPath = "C:\\Tangenta-Help\\";
+                            Properties.Settings.Default.Save();
+                            HUDCMS.HUDCMS_static.LocalHelpPath = Properties.Settings.Default.HelpLocalPath;
+                        }
+                    }
 
-
-                    if (bResetNew)
+                        if (bResetNew)
                     {
                         goto DoResetNew;
                     }

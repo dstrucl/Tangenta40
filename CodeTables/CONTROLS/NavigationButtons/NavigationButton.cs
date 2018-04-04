@@ -132,14 +132,56 @@ namespace NavigationButtons
 
         private void ChildDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (delegateChildDialogClosing != null)
+            if (Form_X_button_AnswerForExitIsFalse(sender))
             {
-                delegateChildDialogClosing(ChildDialog);
+                if (delegateChildDialogClosing != null)
+                {
+                    delegateChildDialogClosing(ChildDialog);
+                }
+                else
+                {
+                    DialogClosingNotifier.NotifySomethingReady();
+                }
             }
             else
             {
-                DialogClosingNotifier.NotifySomethingReady();
+                e.Cancel = true;
             }
+        }
+
+        private usrc_NavigationButtons Get_usrc_NavigationButtons(object sender)
+        {
+            if (sender is Form)
+            {
+                IEnumerable<usrc_NavigationButtons> unavbuttons = ((Form)sender).Controls.OfType<usrc_NavigationButtons>();
+                if (unavbuttons != null)
+                {
+                    if (unavbuttons.Count() > 0)
+                    {
+                        return unavbuttons.ElementAt(0);
+                    }
+                }
+            }
+            return null;
+        }
+        private bool Form_X_button_AnswerForExitIsFalse(object sender)
+        {
+            usrc_NavigationButtons unavb = Get_usrc_NavigationButtons(sender);
+            if (unavb!=null)
+            {
+                if (unavb.m_eButtons == eButtons.PrevNextExit)
+                {
+                    if (unavb.m_nav.eExitResult == eEvent.NOTHING)
+                    {
+                        if (!unavb.AnswerForExitIsTrue())
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+
         }
 
         public void ShowDialog(Form parent)

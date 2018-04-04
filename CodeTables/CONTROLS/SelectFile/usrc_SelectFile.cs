@@ -128,11 +128,7 @@ namespace SelectFile
                 if (SaveFile != null)
                 {
                     string Err = null;
-                    if (SaveFile(FileName, ref Err))
-                    {
-                        MessageBox.Show("File:\"" + FileName + "\" saved OK!");
-                    }
-                    else
+                    if (!SaveFile(FileName, ref Err))
                     {
                         if (Err == null)
                         {

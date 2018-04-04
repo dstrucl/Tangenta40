@@ -20,6 +20,8 @@ namespace HUDCMS
     public partial class usrc_web_Help : UserControl
     {
 
+        Font font_allreadysaved = null;
+        Font font_saved = null;
         public delegate void delagete_DocumentCompleted(string url);
         public event delagete_DocumentCompleted DocumentCompleted = null;
 
@@ -33,9 +35,16 @@ namespace HUDCMS
         {
             InitializeComponent();
             AddWebBrowser();
-
+            txt_Saved.Text = "";
             txt_URL.Text = "";
             chk_local.Text = HUDCMS_static.slng_LocalURL;
+            FontFamily ffamily = txt_Saved.Font.FontFamily;
+            float fsize = txt_Saved.Font.Size;
+
+            font_allreadysaved = new Font(ffamily, fsize, FontStyle.Bold);
+            font_saved = new Font(ffamily, fsize, FontStyle.Regular);
+            cmb_Language.DataSource = HUDCMS_static.LanguagePrefixList;
+            cmb_Language.SelectedIndex = HUDCMS_static.LanguageID;
         }
 
         private void AddWebBrowser()
@@ -192,6 +201,7 @@ namespace HUDCMS
             }
             txt_URL.BackColor = this.BackColor;
             txt_URL.ForeColor = Color.LightGray;
+            this.cmb_Language.SelectedIndexChanged += new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
         }
 
         private void ShowRemoteURL()
@@ -299,9 +309,15 @@ namespace HUDCMS
         {
             if (this.webBrowser1 != null)
             {
-                this.webBrowser1.GoHome();
+                if (chk_local.Checked)
+                {
+                    this.webBrowser1.Navigate("file:///"+HUDCMS_static.LocalHelpPath);
+                }
+                else
+                {
+                    this.webBrowser1.Navigate(HUDCMS_static.RemoteHelpURL);
+                }
             }
-
         }
 
         private void btn_WebBrowserGoForward_Click(object sender, EventArgs e)
@@ -310,6 +326,42 @@ namespace HUDCMS
             {
                 this.webBrowser1.GoForward();
             }
+        }
+
+        public void ShowSaved(string err)
+        {
+            if (err == null)
+            {
+                DateTime dt = DateTime.Now;
+                txt_Saved.Font = font_allreadysaved;
+                txt_Saved.ForeColor = Color.Green;
+                txt_Saved.Text = "Saved:" + dt.Hour.ToString() + ":" + dt.Minute.ToString() + ":" + dt.Second.ToString();
+            }
+            else
+            {
+                txt_Saved.ForeColor = Color.Red;
+                txt_Saved.Text = "ERROR save:" + err;
+            }
+            timer_LastSave.Interval = 10000;
+            timer_LastSave.Enabled = true;
+
+        }
+
+        private void timer_LastSave_Tick(object sender, EventArgs e)
+        {
+            txt_Saved.Font = font_saved;
+            txt_Saved.ForeColor = Color.Gray;
+            timer_LastSave.Enabled = false;
+        }
+
+        private void cmb_Language_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmb_Language.SelectedIndexChanged -= new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
+            HUDCMS_static.LanguageID = cmb_Language.SelectedIndex;
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix);
+            Init(mH);
+            ReloadHtml();
         }
     }
 }

@@ -35,13 +35,37 @@ namespace LanguageControl
         public static ltext s_language = new ltext("English", "Slovensko");
 
 
+
+
         public static bool AllowToEditText = false;
 
+        public static List<string> LanguagePrefixList = null;
 
         internal static List<language_library> LanguageLibraryList = new List<language_library>();
 
+
+        public static string GetLanguagePrefix(int Languge_ID)
+        {
+            switch (Languge_ID)
+            {
+                case 0:
+                    return "eng";
+                case 1:
+                    return "slo";
+
+            }
+            return "???";
+        }
+        public static void InitLanguagePrefixList()
+        {
+            LanguagePrefixList = new List<string>();
+            LanguagePrefixList.Add(GetLanguagePrefix(English_ID));
+            LanguagePrefixList.Add(GetLanguagePrefix(Slovensko_ID));
+        }
+
         public static void Init()
         {
+
             LanguageSettingsFolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + LANGUAGE_SETTINGS_SUB_FOLDER;
             if (!Directory.Exists(LanguageSettingsFolderName))
             {
@@ -68,16 +92,7 @@ namespace LanguageControl
         public static string LanguagePrefix
         { get
             {
-
-                switch (LanguageID)
-                {
-                    case English_ID:
-                        return "eng";
-                    case Slovensko_ID:
-                        return "slo";
-                    default:
-                        return "unknown_lang";
-                }
+                return GetLanguagePrefix(LanguageID);
             }
         }
 

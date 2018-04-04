@@ -694,19 +694,36 @@ namespace HUDCMS
                     {
                         if (mH.hlp_dlg.usrc_web_Help1 != null)
                         {
+                            mH.hlp_dlg.usrc_web_Help1.ShowSaved(null);
                             mH.hlp_dlg.usrc_web_Help1.ReloadHtml();
                         }
                     }
                     else if (mH.uwebHelp!=null)
                     {
+                        mH.uwebHelp.ShowSaved(null);
                         mH.uwebHelp.ReloadHtml();
                     }
+
                 }
                 return true;
 
             }
             else
             {
+                if (mH != null)
+                {
+                    if (mH.hlp_dlg != null)
+                    {
+                        if (mH.hlp_dlg.usrc_web_Help1 != null)
+                        {
+                            mH.hlp_dlg.usrc_web_Help1.ShowSaved(Err);
+                        }
+                    }
+                    else if (mH.uwebHelp != null)
+                    {
+                        mH.uwebHelp.ShowSaved(Err);
+                    }
+                }
                 return false;
             }
         }
