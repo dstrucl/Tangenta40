@@ -24,7 +24,7 @@ namespace TangentaSampleDB
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        public static ltext s_Form_EditMyOrgSampleData = new ltext(new string[] { "Sample data for organisation name Company1. You can change them to your organisation data.", "Vzorčni podatki organizacije z imenom Podjetje1, ki jih lahko spremenite v tem dialogu v podatke vaše organizacije." });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\Form_EditMyOrgSampleData.cs
+        public static ltext s_Form_EditMyOrgSampleData = new ltext(new string[] { "Sample data for organisation name CompanyX. You can change them to your organisation data.", "Vzorčni podatki organizacije z imenom PodjetjeX, ki jih lahko spremenite v tem dialogu v podatke vaše organizacije." });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\Form_EditMyOrgSampleData.cs
 
         public static ltext s_YouHaveChangedSomeDataButNotAllSampleData_YouShouldChangeAllSampleDataToYourRealData = new ltext(new string[] { "You have only changed some of sample data!\r\nIf you want to run this application with your real data, press OK and then change all sample data to your real organisation data.If you want to run this application with your modified sample data press Cancel", "Spremenili ste samo nekatere vzorčne podatke.\r\nČe želite, da bo program uporabljal prave podatke pritisnite gumb \"V redu\" in spremenite vse vzorčne podatke v prave podatke.\r\nČe želite, da bo program uporabljal spremenjene vzorčne podatke in tekel kot demo aplikacija pritisnite gumb \"Prekini\"" });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\Form_EditMyOrgSampleData.cs
 
@@ -75,7 +75,7 @@ namespace TangentaSampleDB
 
         public static ltext s_PieceAbr = new ltext(new string[] { "Pcs", "Kom." });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\SampleDB.cs
 
-        public static ltext s_SelectCountryWhereYouPayTaxes = new ltext(new string[] { "Country of tax residency", "Država katere ste davčni zavezanec" });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\SampleDB.cs
+        public static ltext s_SelectCountryWhereYouPayTaxes = new ltext(new string[] { "Country of tax residency", "Država v kateri ste davčni zavezanec" });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\SampleDB.cs
 
         public static ltext PriceList_Description = new ltext(new string[] { "Price list for usual customers.", "Cenik za stalne stranke." });   // referenced in C:\Tangenta40\TANGENTA\TangentaSampleDB\SampleDB.cs
 

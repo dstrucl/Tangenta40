@@ -328,7 +328,8 @@ namespace NavigationButtons
             }
 
         }
-        private void btn3_Click(object sender, EventArgs e)
+
+        public void ExitClicked(ref bool bCancelExit)
         {
             if (ButtonPressed != null)
             {
@@ -338,6 +339,10 @@ namespace NavigationButtons
                         if (AnswerForExitIsTrue())
                         {
                             ButtonPressed(Navigation.eEvent.EXIT);
+                        }
+                        else
+                        {
+                            bCancelExit = true;
                         }
                         break;
                     case Navigation.eButtons.OkCancel:
@@ -349,6 +354,11 @@ namespace NavigationButtons
                     m_nav.DialogShown = true;
                 }
             }
+        }
+        private void btn3_Click(object sender, EventArgs e)
+        {
+            bool bCancelExit = false;
+            ExitClicked(ref bCancelExit);
         }
 
         private void usrc_Help1_HelpClicked(ref string prefix)

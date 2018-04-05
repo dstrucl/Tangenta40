@@ -39,6 +39,11 @@ namespace Country_ISO_3166
             dgvx_ISO_3166.Columns["a2"].HeaderText = lng.ss_Abbreviation.s + " a2";
             dgvx_ISO_3166.Columns["a3"].HeaderText = lng.ss_Abbreviation.s + " a3";
             dgvx_ISO_3166.Columns["num"].HeaderText = lng.s_Number.s;
+            dgvx_ISO_3166.Columns["Currency Name"].HeaderText = lng.s_Currency_Name.s;
+            dgvx_ISO_3166.Columns["Currency Abbreviation"].HeaderText = lng.s_Currency.s;
+            dgvx_ISO_3166.Columns["Currency Symbol"].HeaderText = lng.s_Currency_Symbol.s;
+            dgvx_ISO_3166.Columns["Currency Code"].HeaderText = lng.s_Currency_Code.s;
+            dgvx_ISO_3166.Columns["Currency Decimal Places"].HeaderText = lng.s_Currency_DecimalPlaces.s;
             if (xTitle != null)
             {
                 this.Text = xTitle;

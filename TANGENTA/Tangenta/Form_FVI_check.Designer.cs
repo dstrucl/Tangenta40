@@ -52,7 +52,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, -1);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(444, 25);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(444, 27);
             this.usrc_NavigationButtons1.TabIndex = 0;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -70,7 +70,7 @@
             this.chk_FVI.AutoSize = true;
             this.chk_FVI.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_FVI.Location = new System.Drawing.Point(36, 178);
-            this.chk_FVI.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chk_FVI.Margin = new System.Windows.Forms.Padding(2);
             this.chk_FVI.Name = "chk_FVI";
             this.chk_FVI.Size = new System.Drawing.Size(166, 35);
             this.chk_FVI.TabIndex = 1;
@@ -95,12 +95,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(443, 224);
-            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chk_FVI);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_FVI_check";

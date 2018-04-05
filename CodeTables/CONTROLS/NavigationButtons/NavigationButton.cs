@@ -132,20 +132,30 @@ namespace NavigationButtons
 
         private void ChildDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Form_X_button_AnswerForExitIsFalse(sender))
+            usrc_NavigationButtons unavb = Get_usrc_NavigationButtons(sender);
+            if (unavb != null)
             {
-                if (delegateChildDialogClosing != null)
+                if (unavb.m_eButtons == eButtons.PrevNextExit)
                 {
-                    delegateChildDialogClosing(ChildDialog);
+                    if (unavb.m_nav.eExitResult == eEvent.NOTHING)
+                    {
+                        bool bCancelExit = false;
+                        unavb.ExitClicked(ref bCancelExit);
+                        if (bCancelExit)
+                        {
+                            e.Cancel = true;
+                        }
+                        return;
+                    }
                 }
-                else
-                {
-                    DialogClosingNotifier.NotifySomethingReady();
-                }
+            }
+            if (delegateChildDialogClosing != null)
+            {
+                delegateChildDialogClosing(ChildDialog);
             }
             else
             {
-                e.Cancel = true;
+                DialogClosingNotifier.NotifySomethingReady();
             }
         }
 
@@ -164,7 +174,7 @@ namespace NavigationButtons
             }
             return null;
         }
-        private bool Form_X_button_AnswerForExitIsFalse(object sender)
+        private bool Form_X_button_AnswerForExitIsTrue(object sender)
         {
             usrc_NavigationButtons unavb = Get_usrc_NavigationButtons(sender);
             if (unavb!=null)
@@ -173,14 +183,15 @@ namespace NavigationButtons
                 {
                     if (unavb.m_nav.eExitResult == eEvent.NOTHING)
                     {
-                        if (!unavb.AnswerForExitIsTrue())
+                        if (unavb.AnswerForExitIsTrue())
                         {
-                            return false;
+                            unavb.m_nav.eExitResult = eEvent.EXIT;
+                            return true;
                         }
                     }
                 }
             }
-            return true;
+            return false;
 
         }
 

@@ -33,5 +33,19 @@ namespace Country_ISO_3166
         public static ltext s_Country = new ltext(new string[]{"Country",
                                          "Država"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
 
+        public static ltext s_Currency_Name = new ltext(new string[]{"Currency Name",
+                                         "Ime valute"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+
+        public static ltext s_Currency = new ltext(new string[]{"Currency",
+                                         "Valuta"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+
+        public static ltext s_Currency_Symbol = new ltext(new string[]{"Currency Symbol",
+                                         "Znak valute"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+
+        public static ltext s_Currency_Code = new ltext(new string[]{"Currency Code",
+                                         "Koda valute"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+
+        public static ltext s_Currency_DecimalPlaces = new ltext(new string[]{"Currency decimal places",
+                                         "Število decimalk valute"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
     }
 }
