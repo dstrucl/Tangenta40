@@ -43,8 +43,11 @@ namespace HUDCMS
 
             font_allreadysaved = new Font(ffamily, fsize, FontStyle.Bold);
             font_saved = new Font(ffamily, fsize, FontStyle.Regular);
-            cmb_Language.DataSource = HUDCMS_static.LanguagePrefixList;
-            cmb_Language.SelectedIndex = HUDCMS_static.LanguageID;
+            if (!this.DesignMode)
+            {
+                cmb_Language.DataSource = HUDCMS_static.LanguagePrefixList;
+                cmb_Language.SelectedIndex = HUDCMS_static.LanguageID;
+            }
         }
 
         private void AddWebBrowser()
