@@ -126,6 +126,8 @@ namespace NavigationButtons
             eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
             LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
             bDoModal = true;
+            ChildDialog.FormClosing -= ChildDialog_FormClosing; //delete previous event handler!
+            ChildDialog.FormClosing += ChildDialog_FormClosing;
             ChildDialog.ShowDialog();
             m_DialogShown = true;
         }
@@ -155,7 +157,10 @@ namespace NavigationButtons
             }
             else
             {
-                DialogClosingNotifier.NotifySomethingReady();
+                if (DialogClosingNotifier != null)
+                {
+                    DialogClosingNotifier.NotifySomethingReady();
+                }
             }
         }
 
@@ -174,26 +179,7 @@ namespace NavigationButtons
             }
             return null;
         }
-        private bool Form_X_button_AnswerForExitIsTrue(object sender)
-        {
-            usrc_NavigationButtons unavb = Get_usrc_NavigationButtons(sender);
-            if (unavb!=null)
-            {
-                if (unavb.m_eButtons == eButtons.PrevNextExit)
-                {
-                    if (unavb.m_nav.eExitResult == eEvent.NOTHING)
-                    {
-                        if (unavb.AnswerForExitIsTrue())
-                        {
-                            unavb.m_nav.eExitResult = eEvent.EXIT;
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
 
-        }
 
         public void ShowDialog(Form parent)
         {

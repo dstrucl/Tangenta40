@@ -33,15 +33,16 @@ namespace Tangenta
                     switch (evt)
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
-                            if (do_OK())
+                            nav.eExitResult = evt;
+                            if (!do_OK())
                             {
-                                nav.eExitResult = evt;
+                                nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                             }
                             break;
 
                         case NavigationButtons.Navigation.eEvent.CANCEL:
-                            do_Cancel();
                             nav.eExitResult = evt;
+                            do_Cancel();
                             break;
                     }
                     break;
@@ -51,10 +52,7 @@ namespace Tangenta
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
                             nav.eExitResult = evt;
-                            if (do_OK())
-                            {
-                            }
-                            else
+                            if (!do_OK())
                             {
                                 nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                             }

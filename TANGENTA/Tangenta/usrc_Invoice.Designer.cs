@@ -77,7 +77,7 @@
             this.lbl_Issuer.Location = new System.Drawing.Point(8, 48);
             this.lbl_Issuer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Issuer.Name = "lbl_Issuer";
-            this.lbl_Issuer.Size = new System.Drawing.Size(91, 20);
+            this.lbl_Issuer.Size = new System.Drawing.Size(78, 17);
             this.lbl_Issuer.TabIndex = 2;
             this.lbl_Issuer.Text = "Izdajatelj:";
             // 
@@ -131,7 +131,7 @@
             this.cmb_select_my_Organisation_Person.FormattingEnabled = true;
             this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(151, 45);
             this.cmb_select_my_Organisation_Person.Name = "cmb_select_my_Organisation_Person";
-            this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(166, 28);
+            this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(166, 24);
             this.cmb_select_my_Organisation_Person.TabIndex = 21;
             // 
             // txt_Number
@@ -140,7 +140,7 @@
             this.txt_Number.Location = new System.Drawing.Point(91, 3);
             this.txt_Number.Name = "txt_Number";
             this.txt_Number.ReadOnly = true;
-            this.txt_Number.Size = new System.Drawing.Size(92, 29);
+            this.txt_Number.Size = new System.Drawing.Size(92, 24);
             this.txt_Number.TabIndex = 22;
             // 
             // lbl_Number
@@ -149,7 +149,7 @@
             this.lbl_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Number.Location = new System.Drawing.Point(2, 4);
             this.lbl_Number.Name = "lbl_Number";
-            this.lbl_Number.Size = new System.Drawing.Size(96, 25);
+            this.lbl_Number.Size = new System.Drawing.Size(77, 20);
             this.lbl_Number.TabIndex = 23;
             this.lbl_Number.Text = "Številka:";
             // 
@@ -193,7 +193,7 @@
             this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Head.Location = new System.Drawing.Point(191, 1);
             this.chk_Head.Name = "chk_Head";
-            this.chk_Head.Size = new System.Drawing.Size(81, 28);
+            this.chk_Head.Size = new System.Drawing.Size(72, 28);
             this.chk_Head.TabIndex = 37;
             this.chk_Head.Text = "Glava";
             this.chk_Head.UseVisualStyleBackColor = true;
@@ -246,7 +246,7 @@
             this.lbl_MyOrganisation.Location = new System.Drawing.Point(8, 16);
             this.lbl_MyOrganisation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_MyOrganisation.Name = "lbl_MyOrganisation";
-            this.lbl_MyOrganisation.Size = new System.Drawing.Size(146, 20);
+            this.lbl_MyOrganisation.Size = new System.Drawing.Size(126, 17);
             this.lbl_MyOrganisation.TabIndex = 34;
             this.lbl_MyOrganisation.Text = "My Organisation";
             // 
@@ -268,9 +268,9 @@
             // 
             this.chk_Storno.AutoSize = true;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(346, 4);
+            this.chk_Storno.Location = new System.Drawing.Point(352, 4);
             this.chk_Storno.Name = "chk_Storno";
-            this.chk_Storno.Size = new System.Drawing.Size(80, 24);
+            this.chk_Storno.Size = new System.Drawing.Size(69, 21);
             this.chk_Storno.TabIndex = 39;
             this.chk_Storno.Text = "Storno";
             this.chk_Storno.UseVisualStyleBackColor = true;
@@ -282,7 +282,7 @@
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Show_Shops.Location = new System.Drawing.Point(263, 0);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
-            this.btn_Show_Shops.Size = new System.Drawing.Size(79, 29);
+            this.btn_Show_Shops.Size = new System.Drawing.Size(85, 29);
             this.btn_Show_Shops.TabIndex = 41;
             this.btn_Show_Shops.Text = "trgovine";
             this.btn_Show_Shops.UseVisualStyleBackColor = false;
@@ -301,10 +301,10 @@
             // usrc_Currency1
             // 
             this.usrc_Currency1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Currency1.Location = new System.Drawing.Point(430, 0);
-            this.usrc_Currency1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_Currency1.Location = new System.Drawing.Point(435, 0);
+            this.usrc_Currency1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Currency1.Name = "usrc_Currency1";
-            this.usrc_Currency1.Size = new System.Drawing.Size(194, 29);
+            this.usrc_Currency1.Size = new System.Drawing.Size(189, 29);
             this.usrc_Currency1.TabIndex = 42;
             this.usrc_Currency1.CurrencyChanged += new Tangenta.usrc_Currency.delegate_CurrencyChanged(this.usrc_Currency1_CurrencyChanged);
             // 

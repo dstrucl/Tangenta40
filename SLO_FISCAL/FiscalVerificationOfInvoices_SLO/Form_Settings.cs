@@ -170,16 +170,16 @@ namespace FiscalVerificationOfInvoices_SLO
                     switch (evt)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
+                            nav.eExitResult = evt;
                             Do_OK();
-                                nav.eExitResult = evt;
                             return;
                         case NavigationButtons.Navigation.eEvent.PREV:
-                            Do_Cancel();
                             nav.eExitResult = evt;
+                            Do_Cancel();
                             return;
                         case NavigationButtons.Navigation.eEvent.EXIT:
-                            Do_Cancel();
                             nav.eExitResult = evt;
+                            Do_Cancel();
                             return;
                     }
                     break;
@@ -187,12 +187,12 @@ namespace FiscalVerificationOfInvoices_SLO
                     switch (evt)
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
-                            Do_OK();
                             nav.eExitResult = evt;
+                            Do_OK();
                             return;
                         case NavigationButtons.Navigation.eEvent.CANCEL:
-                            Do_Cancel();
                             nav.eExitResult = evt;
+                            Do_Cancel();
                             return;
                     }
                     break;

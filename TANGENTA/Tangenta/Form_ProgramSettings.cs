@@ -183,18 +183,19 @@ namespace Tangenta
                     switch (evt)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            if (do_OK())
+                            nav.eExitResult = evt;
+                            if (!do_OK())
                             {
-                                nav.eExitResult = evt;
+                                nav.eExitResult = Navigation.eEvent.NOTHING;
                             }
                             return;
                         case NavigationButtons.Navigation.eEvent.PREV:
-                            do_Cancel();
                             nav.eExitResult = evt;
+                            do_Cancel();
                             return;
                         case NavigationButtons.Navigation.eEvent.EXIT:
-                            do_Cancel();
                             nav.eExitResult = evt;
+                            do_Cancel();
                             return;
                     }
                     break;
@@ -202,14 +203,15 @@ namespace Tangenta
                     switch (evt)
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
-                            if (do_OK())
+                            nav.eExitResult = evt;
+                            if (!do_OK())
                             {
-                                nav.eExitResult = evt;
+                                nav.eExitResult = Navigation.eEvent.NOTHING;
                             }
                             return;
                         case NavigationButtons.Navigation.eEvent.CANCEL:
-                            do_Cancel();
                             nav.eExitResult = evt;
+                            do_Cancel();
                             return;
                     }
                     break;

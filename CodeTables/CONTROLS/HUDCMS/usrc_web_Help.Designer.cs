@@ -58,10 +58,10 @@
             // 
             this.chk_local.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_local.ForeColor = System.Drawing.Color.Gray;
-            this.chk_local.Location = new System.Drawing.Point(591, 5);
+            this.chk_local.Location = new System.Drawing.Point(590, 1);
             this.chk_local.Name = "chk_local";
             this.chk_local.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chk_local.Size = new System.Drawing.Size(146, 17);
+            this.chk_local.Size = new System.Drawing.Size(146, 28);
             this.chk_local.TabIndex = 2;
             this.chk_local.Text = "checkBox1";
             this.chk_local.UseVisualStyleBackColor = true;

@@ -248,20 +248,21 @@ namespace Tangenta
                         switch (evt)
                         {
                             case NavigationButtons.Navigation.eEvent.NEXT:
-                                if (do_OK())
+                                nav.eExitResult = evt;
+                                if (!do_OK())
                                 {
-                                    nav.eExitResult = evt;
+                                    nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                                 }
                                 break;
                             case NavigationButtons.Navigation.eEvent.PREV:
+                                nav.eExitResult = evt;
                                 Close();
                                 DialogResult = DialogResult.OK;
-                                nav.eExitResult = evt;
                                 break;
                             case NavigationButtons.Navigation.eEvent.EXIT:
+                                nav.eExitResult = evt;
                                 Close();
                                 DialogResult = DialogResult.OK;
-                                nav.eExitResult = evt;
                                 break;
                         }
                     }
@@ -271,15 +272,17 @@ namespace Tangenta
                         switch (evt)
                         {
                             case NavigationButtons.Navigation.eEvent.OK:
-                                if (do_OK())
+                                nav.eExitResult = evt;
+                                if (!do_OK())
                                 {
-                                    nav.eExitResult = evt;
+                                    nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                                 }
                                 break;
                             case NavigationButtons.Navigation.eEvent.CANCEL:
-                                if (do_Cancel())
+                                nav.eExitResult = evt;
+                                if (!do_Cancel())
                                 {
-                                    nav.eExitResult = evt;
+                                    nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING; 
                                 }
                                 break;
                         }
