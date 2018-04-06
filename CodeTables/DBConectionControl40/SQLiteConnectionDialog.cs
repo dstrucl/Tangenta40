@@ -82,7 +82,7 @@ namespace DBConnectionControl40
                 else
                 {
                     cmbR_FilePath.Text = "C:\\";
-                    DataBaseFile_name = "LocalDB.sqlite";
+                    DataBaseFile_name = lng.s_DefaultDataBaseName.s + ".sqlite";
 
                 }
                 cmbR_FileName.Text = DataBaseFile_name;

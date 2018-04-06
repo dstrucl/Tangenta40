@@ -183,9 +183,5 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(long office_ID, ref DataTable dtOfficeData_of_Office_ID)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

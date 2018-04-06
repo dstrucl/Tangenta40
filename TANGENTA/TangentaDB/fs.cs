@@ -501,6 +501,17 @@ namespace TangentaDB
             return true;
         }
 
+        public static long NumberOfProformaInvoicesInDatabase()
+        {
+            return GetTableRowsCount("DocProformaInvoice");
+        }
+
+        public static long NumberOInvoicesInDatabase()
+        {
+            return GetTableRowsCount("DocInvoice");
+        }
+
+
         public static int GetFirstIntParamFromString(string s)
         {
             int num = -1;
@@ -2211,10 +2222,6 @@ namespace TangentaDB
             }
         }
 
-        public static bool IssueDoc(string docInvoice, DocInvoice_AddOn addOnDI, long doc_ID)
-        {
-            throw new NotImplementedException();
-        }
 
         public static bool Get_string_table_ID(string TableName, string ColumnName, string_v s_v, ref long_v ID_v)
         {
@@ -2406,6 +2413,7 @@ namespace TangentaDB
 
 
         private static int BUFFER_SIZE = 64 * 1024; //64kB
+
 
         public static byte[] Compress(byte[] inputData)
         {

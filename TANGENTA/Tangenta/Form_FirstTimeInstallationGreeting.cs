@@ -16,6 +16,7 @@ namespace Tangenta
         public Form_FirstTimeInstallationGreeting()
         {
             InitializeComponent();
+            lng.s_Help.Text(this);
         }
 
         private void Form_FirstTimeInstallationGreeting_Load(object sender, EventArgs e)

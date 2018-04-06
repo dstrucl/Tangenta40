@@ -514,5 +514,17 @@ namespace Tangenta.Properties {
                 this["Color_DocInvoiceForeGround"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InstallationFinished {
+            get {
+                return ((bool)(this["InstallationFinished"]));
+            }
+            set {
+                this["InstallationFinished"] = value;
+            }
+        }
     }
 }

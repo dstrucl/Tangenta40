@@ -357,7 +357,7 @@ namespace CodeTables
 
         public static ltext s_WriteUniqueValue = new ltext(new string[] { "Write unique value", "Podatek, ki ga vpišete, mora biti unikaten!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
 
-        public static ltext s_ThisInformationIsOptional = new ltext(new string[] { "This information is optional!", "Podatek ni obvezen!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
+        public static ltext s_ThisInformationIsOptional = new ltext(new string[] { "This information is optional.", "Podatek ni obvezen." });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
         public static ltext s_ThisInformationIsCompulsory = new ltext(new string[] { "This information is compulsory!", "Podatek je obvezen!" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
         
         public static ltext s_MaxInformationColumnTextLengthIs = new ltext(new string[] { "Max text length is ", "Največja možna dolžina besedila je" });   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\Globals.cs
@@ -436,6 +436,12 @@ namespace CodeTables
 
         public static ltext s_Delete = new ltext(new string[]{"Drop Table ",
                                         "Zbriši Tabelo" });
+
+        public static ltext s_NameOfTableInDatabaseIs = new ltext(new string[]{"Name of table in database is ",
+                                                                             "Ime tabele v podatkovni bazi je " });
+
+        public static ltext s_NameOfColumnInDataBaseTable = new ltext(new string[]{"Name of column in database table ",
+                                                                             "Ime stolpca v tabeli podatkovne baze " });
 
     }
 }

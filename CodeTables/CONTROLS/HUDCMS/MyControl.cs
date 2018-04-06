@@ -708,20 +708,17 @@ namespace HUDCMS
 
                 if (hc.ctrl != null)
                 {
-                    if (hc.ctrl is GroupBox)
+                    if (GetControlInfo(ref xControlInfo_title,ref xControlInfo_about,ref xControlInfo_description))
                     {
-                        HelpTitle = ((GroupBox)hc.ctrl).Text;
+                        HelpTitle = xControlInfo_title;
+                        About = xControlInfo_about;
+                        Description = xControlInfo_description;
                     }
-                    else
+                    else if (hc.ctrl is GroupBox)
                     {
-                        if (HUDCMS_static.ControlInfo!=null)
+                        if (!ParentIs_usrc_myGroupBox(hc.ctrl))
                         {
-                            if (HUDCMS_static.ControlInfo(hc.ctrl,ref xControlInfo_title,ref xControlInfo_about, ref xControlInfo_description))
-                            {
-                                HelpTitle = xControlInfo_title;
-                                About = xControlInfo_about;
-                                Description = xControlInfo_description;
-                            }
+                            HelpTitle = ((GroupBox)hc.ctrl).Text;
                         }
                     }
                 }
@@ -737,6 +734,30 @@ namespace HUDCMS
                 Guid id = Guid.NewGuid();
                 ID = id.ToString();
             }
+        }
+
+        private bool ParentIs_usrc_myGroupBox(Control ctrl)
+        {
+            if (ctrl.Parent!=null)
+            {
+                if (ctrl.Parent.GetType().ToString().Contains("usrc_myGroupBox"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool GetControlInfo(ref string xControlInfo_title, ref string xControlInfo_about, ref string xControlInfo_description)
+        {
+            if (HUDCMS_static.ControlInfo != null)
+            {
+                if (HUDCMS_static.ControlInfo(hc.ctrl, ref xControlInfo_title, ref xControlInfo_about, ref xControlInfo_description))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private Image GetControlTypeImage()

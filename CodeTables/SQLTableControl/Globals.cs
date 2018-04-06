@@ -512,7 +512,17 @@ namespace CodeTables
         {
             if (ctrl != null)
             {
-                if (ctrl is usrc_InputControl)
+                if (ctrl is usrc_myGroupBox)
+                {
+                    usrc_myGroupBox umygroupbox = (usrc_myGroupBox)ctrl;
+                    if (umygroupbox.pSQL_Table!=null)
+                    {
+                        title = umygroupbox.grpBox.Text;
+                        description += lng.s_NameOfTableInDatabaseIs.s+"\""+ umygroupbox.pSQL_Table.TableName +"\".";
+                        return true;
+                    }
+                }
+                else if (ctrl is usrc_InputControl)
                 {
                     usrc_InputControl uinpctrl = (usrc_InputControl)ctrl;
                     Column xcol = uinpctrl.m_col;
@@ -540,8 +550,23 @@ namespace CodeTables
                         int len = xcol.GetMaxColumnStringLength();
                         if (len>0)
                         {
-                            xdescription += "\r\n" + lng.s_MaxInformationColumnTextLengthIs.s+len.ToString()+ " "+lng.s_Characters.s+".";
+                            xdescription += "\r\n" + lng.s_MaxInformationColumnTextLengthIs.s+" "+len.ToString()+ " "+lng.s_Characters.s+".";
                         }
+
+                        string scolumnname = null;
+                        if (xcol.ownerTable!=null)
+                        {
+                            if (xcol.ownerTable.TableName != null)
+                            {
+                                scolumnname = "\r\n" + lng.s_NameOfColumnInDataBaseTable.s + "\"" + xcol.ownerTable.TableName + "\":\"" + xcol.Name + "\".";
+                            }
+                        }
+                        if (scolumnname == null)
+                        {
+                            scolumnname = "\r\n" + lng.s_NameOfColumnInDataBaseTable.s +":\"" + xcol.Name + "\".";
+                        }
+                        xdescription += scolumnname;
+                        description = xdescription;
                         return true;
                     }
                 }

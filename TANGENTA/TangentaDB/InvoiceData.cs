@@ -1726,10 +1726,6 @@ namespace TangentaDB
 
 
 
-        private void GetFursDecimalString(decimal grossSum)
-        {
-            throw new NotImplementedException();
-        }
 
 
         public bool CreateHTML_PrintingElementList(ref StringBuilder html_doc_template, ref HTML_PrintingElement_List PrintingElement_List, ref bool bError)

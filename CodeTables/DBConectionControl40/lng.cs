@@ -240,5 +240,9 @@ namespace DBConnectionControl40
 
         public static ltext s_Select = new ltext(new string[]{"Select",
                                                  "Izberite " });
+
+        public static ltext s_DefaultDataBaseName = new ltext(new string[]{"OrganisationX",
+                                                 "PodjetjeX" });
+
     }
 }

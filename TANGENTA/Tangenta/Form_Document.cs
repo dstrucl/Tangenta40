@@ -489,7 +489,11 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
 
-            if (Program.bFirstTimeInstallation)
+            //if (Program.bFirstTimeInstallation)
+            long iCountNumberOfAllInvoices = fs.NumberOInvoicesInDatabase();
+            long iCountNumberOfAllProformaInvoices = fs.NumberOfProformaInvoicesInDatabase();
+
+            if (iCountNumberOfAllInvoices + iCountNumberOfAllProformaInvoices == 0)
             {
                 if (frm_Form_FirstTimeInstallationGreeting==null)
                 {
@@ -520,6 +524,7 @@ namespace Tangenta
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
         }
+
 
         private void CheckOrganisationDataChange()
         {
