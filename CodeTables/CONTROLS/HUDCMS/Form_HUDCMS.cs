@@ -942,6 +942,12 @@ namespace HUDCMS
             Properties.Settings.Default.Save();
             btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit;
         }
+
+        private void btn_ZIP_Click(object sender, EventArgs e)
+        {
+            Form_ZIP frm_zip = new Form_ZIP();
+            frm_zip.ShowDialog(this);
+        }
     }
 }
 

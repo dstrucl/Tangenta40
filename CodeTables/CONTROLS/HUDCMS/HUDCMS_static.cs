@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace HUDCMS
 {
@@ -13,6 +14,7 @@ namespace HUDCMS
     {
         public delegate bool delegate_ControlInfo(object o, ref string title, ref string about, ref string description);
         public static delegate_ControlInfo ControlInfo = null;
+
 
         public const int MAX_FILENAME_LENGTH = 127;
 
@@ -545,6 +547,105 @@ namespace HUDCMS
             }
             return false;
         }
+
+        public static void Unzip_Help(string ZipFile)
+        {
+            if (ApplicationPath!=null)
+            {
+                if (ApplicationPath.Length>0)
+                {
+                    string zipsource = null;
+                    string apppath = null;
+                    if (ApplicationPath[ApplicationPath.Length-1]=='\\')
+                    {
+                        apppath =  ApplicationPath;
+                    }
+                    else
+                    {
+                        apppath = ApplicationPath + '\\';
+                    }
+                    zipsource = apppath + ZipFile;
+
+                    if (File.Exists(zipsource))
+                    {
+                        string HelpDirectory = apppath + "Tangenta-Help";
+
+                        if (Unzip(zipsource, HelpDirectory))
+                        {
+                            try
+                            {
+                                File.Delete(zipsource);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("ERROR:HUDCMS_static:Unzip_Help:can not delete file:" + zipsource + "\r\nException=" + ex.Message);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        internal static string GetApplicationHelpFolder()
+        {
+            if (ApplicationPath != null)
+            {
+                if (ApplicationPath.Length > 0)
+                {
+                    string apppath = null;
+                    if ((ApplicationPath[ApplicationPath.Length - 1] == '\\')|| (ApplicationPath[ApplicationPath.Length - 1] == '/'))
+                    {
+                        apppath = ApplicationPath;
+                    }
+                    else
+                    {
+                        apppath = ApplicationPath + '\\';
+                    }
+                    string HelpDirectory = apppath + "Tangenta-Help";
+                    return HelpDirectory;
+                }
+            }
+            return null;
+        }
+
+        internal static bool Unzip(string zipPath, string extractPath)
+        {
+            //string startPath = @"c:\example\start";
+            //string zipPath = @"c:\example\result.zip";
+            //string extractPath = @"c:\example\extract";
+            try
+            {
+                System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Warning: Can not extract zip file:" + zipPath + "\r\nException =" + ex.Message);
+                return false;
+            }
+
+        }
+
+        internal static bool Zip(string startPath,string zipPath)
+        {
+            //string startPath = @"c:\example\start";
+            //string zipPath = @"c:\example\result.zip";
+            //string extractPath = @"c:\example\extract";
+            try
+            {
+                System.IO.Compression.ZipFile.CreateFromDirectory(startPath, zipPath);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Warning: Can not make zip file:" + zipPath + "\r\nException =" + ex.Message);
+                return false;
+            }
+
+        }
+
+
 
         private static bool FormHasName(Form pForm, ref string sFormName)
         {

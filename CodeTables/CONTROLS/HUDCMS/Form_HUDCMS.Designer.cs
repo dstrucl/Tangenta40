@@ -57,6 +57,7 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.chk_UseGit = new System.Windows.Forms.CheckBox();
             this.btn_SetGitExeFile = new System.Windows.Forms.Button();
+            this.btn_ZIP = new System.Windows.Forms.Button();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -446,19 +447,31 @@ namespace HUDCMS
             // btn_SetGitExeFile
             // 
             this.btn_SetGitExeFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SetGitExeFile.Location = new System.Drawing.Point(842, 27);
+            this.btn_SetGitExeFile.Location = new System.Drawing.Point(840, 27);
             this.btn_SetGitExeFile.Name = "btn_SetGitExeFile";
-            this.btn_SetGitExeFile.Size = new System.Drawing.Size(111, 23);
+            this.btn_SetGitExeFile.Size = new System.Drawing.Size(66, 23);
             this.btn_SetGitExeFile.TabIndex = 17;
             this.btn_SetGitExeFile.Text = "Git Folder";
             this.btn_SetGitExeFile.UseVisualStyleBackColor = true;
             this.btn_SetGitExeFile.Click += new System.EventHandler(this.btn_SetGitExeFile_Click);
+            // 
+            // btn_ZIP
+            // 
+            this.btn_ZIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ZIP.Location = new System.Drawing.Point(912, 27);
+            this.btn_ZIP.Name = "btn_ZIP";
+            this.btn_ZIP.Size = new System.Drawing.Size(42, 23);
+            this.btn_ZIP.TabIndex = 18;
+            this.btn_ZIP.Text = "ZIP";
+            this.btn_ZIP.UseVisualStyleBackColor = true;
+            this.btn_ZIP.Click += new System.EventHandler(this.btn_ZIP_Click);
             // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(960, 822);
+            this.Controls.Add(this.btn_ZIP);
             this.Controls.Add(this.btn_SetGitExeFile);
             this.Controls.Add(this.chk_UseGit);
             this.Controls.Add(this.btn_EditGeneralStyles);
@@ -520,5 +533,6 @@ namespace HUDCMS
         private BrightIdeasSoftware.OLVColumn olvc_ControlLinks;
         private System.Windows.Forms.CheckBox chk_UseGit;
         private System.Windows.Forms.Button btn_SetGitExeFile;
+        private System.Windows.Forms.Button btn_ZIP;
     }
 }

@@ -62,6 +62,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Log" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,6 +112,12 @@
     </Compile>
     <Compile Include="Form_SetGitExeFile.Designer.cs">
       <DependentUpon>Form_SetGitExeFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ZIP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ZIP.Designer.cs">
+      <DependentUpon>Form_ZIP.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneralHelpFile.cs" />
     <Compile Include="Git.cs" />
@@ -195,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SetGitExeFile.resx">
       <DependentUpon>Form_SetGitExeFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ZIP.resx">
+      <DependentUpon>Form_ZIP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

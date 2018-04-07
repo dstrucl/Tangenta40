@@ -456,6 +456,7 @@ namespace Tangenta
         [STAThread]
         static void Main()
         {
+
             bool bExitBeforeLogFileInitialised = false;
             string Err = null;
             rpc = new RPC.RPC();
@@ -478,6 +479,8 @@ namespace Tangenta
                     HUDCMS.HUDCMS_static.Language = "";
 
                     HUDCMS.HUDCMS_static.ApplicationPath = Path.GetDirectoryName(Application.ExecutablePath);
+
+                    HUDCMS.HUDCMS_static.Unzip_Help("Tangenta-Help.zip");
 
                     HUDCMS.HUDCMS_static.ApplicationVersion = Global.f.GetAssemblyVersion(Assembly.GetExecutingAssembly().GetName().Version.Build,
                                                                                           Assembly.GetExecutingAssembly().GetName().Version.Major,
@@ -697,6 +700,7 @@ namespace Tangenta
                 rpc.End();
             }
         }
+
 
         private static void SetColorSettingsText()
         {
