@@ -767,6 +767,32 @@ Section "Tangenta Invoice" SecMain
     File ".\bin\Release\Tangenta-Help.zip"
 
 
+	File ".\bin\Release\Cyotek.Windows.Forms.ColorPicker.xml"
+	File ".\bin\Release\EWSoftware.ListControls.xml"
+	File ".\bin\Release\FastColoredTextBox.xml"
+	File ".\bin\Release\GongShell.xml"
+	File ".\bin\Release\ObjectListView.xml"
+
+	File ".\bin\Release\CodeTables.dll.config"
+	File ".\bin\Release\ColorSettings.dll.config"
+	File ".\bin\Release\ComboBox_Recent.dll.config"
+	File ".\bin\Release\Crom.Controls.dll.config"
+	File ".\bin\Release\DBConnectionControl40.dll.config"
+	File ".\bin\Release\DBConnectionControl_Settings.dll.config"
+	File ".\bin\Release\DBTypes.dll.config"
+	File ".\bin\Release\DynEditControls.dll.config"
+	File ".\bin\Release\FiscalVerificationOfInvoices_SLO.dll.config"
+	File ".\bin\Release\Form_Discount.dll.config"
+	File ".\bin\Release\HUDCMS.dll.config"
+	File ".\bin\Release\LogFile.dll.config"
+	File ".\bin\Release\LoginControl.dll.config"
+	File ".\bin\Release\SearchLocalNetwork.dll.config"
+	File ".\bin\Release\ShopA.dll.config"
+	File ".\bin\Release\ShopB.dll.config"
+	File ".\bin\Release\ShopC.dll.config"
+	File ".\bin\Release\Tangenta.exe.config"
+	File ".\bin\Release\TangentaDB.dll.config"
+	File ".\bin\Release\TangentaPrint.dll.config"
 
 ;--- External DLLs -- 
 
@@ -1169,6 +1195,33 @@ Section "Uninstall"
   Delete $INSTDIR\"PdfSharp.dll"
   Delete $INSTDIR\"PdfSharp.Charting.dll"
 
+	Delete $INSTDIR\"Cyotek.Windows.Forms.ColorPicker.xml"
+	Delete $INSTDIR\"EWSoftware.ListControls.xml"
+	Delete $INSTDIR\"FastColoredTextBox.xml"
+	Delete $INSTDIR\"GongShell.xml"
+	Delete $INSTDIR\"ObjectListView.xml"
+	Delete $INSTDIR\"CodeTables.dll.config"
+	Delete $INSTDIR\"ColorSettings.dll.config"
+	Delete $INSTDIR\"ComboBox_Recent.dll.config"
+	Delete $INSTDIR\"Crom.Controls.dll.config"
+	Delete $INSTDIR\"DBConnectionControl40.dll.config"
+	Delete $INSTDIR\"DBConnectionControl_Settings.dll.config"
+	Delete $INSTDIR\"DBTypes.dll.config"
+	Delete $INSTDIR\"DynEditControls.dll.config"
+	Delete $INSTDIR\"FiscalVerificationOfInvoices_SLO.dll.config"
+	Delete $INSTDIR\"Form_Discount.dll.config"
+	Delete $INSTDIR\"HUDCMS.dll.config"
+	Delete $INSTDIR\"LogFile.dll.config"
+	Delete $INSTDIR\"LoginControl.dll.config"
+	Delete $INSTDIR\"SearchLocalNetwork.dll.config"
+	Delete $INSTDIR\"ShopA.dll.config"
+	Delete $INSTDIR\"ShopB.dll.config"
+	Delete $INSTDIR\"ShopC.dll.config"
+	Delete $INSTDIR\"Tangenta.exe.config"
+	Delete $INSTDIR\"TangentaDB.dll.config"
+	Delete $INSTDIR\"TangentaPrint.dll.config
+
+  
 ;</FilesToUninstall>
 
 ;  !insertmacro UNINSTALLICONSET cyril
