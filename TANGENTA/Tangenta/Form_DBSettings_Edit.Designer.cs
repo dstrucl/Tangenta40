@@ -37,7 +37,7 @@
             // 
             // btn_OK
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Location = new System.Drawing.Point(593, 1);
             this.btn_OK.Name = "btn_OK";
@@ -49,7 +49,7 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(662, 1);
@@ -79,6 +79,7 @@
             // 
             // usrc_Help1
             // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Help1.Location = new System.Drawing.Point(729, 1);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(40, 25);

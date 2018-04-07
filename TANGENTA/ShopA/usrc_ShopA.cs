@@ -44,19 +44,10 @@ namespace ShopA
         DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
         SQLTable t_DocInvoice_ShopA_Item = null;
 
-        private string m_DocInvoice = "DocInvoice";
 
         public string DocInvoice
         {
-            get { return m_DocInvoice; }
-            set
-            {
-                m_DocInvoice = value;
-                if (usrc_Editor1!=null)
-                {
-                    usrc_Editor1.DocInvoice = m_DocInvoice;
-                }
-            }
+            get { return m_ShopABC.DocInvoice; }
         }
 
         public bool IsDocInvoice

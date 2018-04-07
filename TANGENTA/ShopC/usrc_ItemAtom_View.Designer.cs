@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.chk_V_NeverExpires = new ShopC.usrc_checkmark();
             this.lbl_Expiry = new System.Windows.Forms.Label();
             this.lbl_V_Quantity = new System.Windows.Forms.Label();
@@ -73,7 +74,6 @@
             this.txt_V_FromStock = new System.Windows.Forms.TextBox();
             this.lbl_FromStock = new System.Windows.Forms.Label();
             this.dgvx_DocInvoice_Atom_Item_Stock = new DataGridView_2xls.DataGridView2xls();
-            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -138,6 +138,14 @@
             this.splitContainer1.Size = new System.Drawing.Size(857, 425);
             this.splitContainer1.SplitterDistance = 290;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // usrc_Help1
+            // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(813, 4);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(35, 32);
+            this.usrc_Help1.TabIndex = 66;
             // 
             // chk_V_NeverExpires
             // 
@@ -582,13 +590,6 @@
             this.dgvx_DocInvoice_Atom_Item_Stock.ShowRowErrors = false;
             this.dgvx_DocInvoice_Atom_Item_Stock.Size = new System.Drawing.Size(841, 88);
             this.dgvx_DocInvoice_Atom_Item_Stock.TabIndex = 39;
-            // 
-            // usrc_Help1
-            // 
-            this.usrc_Help1.Location = new System.Drawing.Point(813, 4);
-            this.usrc_Help1.Name = "usrc_Help1";
-            this.usrc_Help1.Size = new System.Drawing.Size(35, 32);
-            this.usrc_Help1.TabIndex = 66;
             // 
             // usrc_Atom_Item_View
             // 

@@ -188,6 +188,7 @@ namespace HUDCMS
             if (hlp_dlg==null)
             {
                 hlp_dlg = new Form_Help(this);
+                hlp_dlg.Owner = pForm;
                 hlp_dlg.FormClosed += Hlp_dlg_FormClosed;
             }
             hlp_dlg.Show();

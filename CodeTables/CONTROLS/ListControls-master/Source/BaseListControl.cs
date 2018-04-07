@@ -1324,6 +1324,7 @@ namespace EWSoftware.ListControls
             selectedIndex = -1;
             flatStyle = FlatStyle.Standard;
             enforceDefaultSelection = true;
+            this.Name = "BaseListControl1";
         }
         #endregion
 

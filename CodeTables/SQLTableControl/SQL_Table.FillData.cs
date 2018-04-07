@@ -247,7 +247,7 @@ namespace CodeTables
                         }
                     }
                 }
-                Show_And_Init_Reference_ID();
+                Show_And_Init_Reference_ID(xuctrln);
                 iFillTableData--;
                 return true;
             }

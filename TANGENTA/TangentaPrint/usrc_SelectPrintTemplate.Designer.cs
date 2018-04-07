@@ -165,9 +165,9 @@
             this.cmb_SelectPrintTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_SelectPrintTemplate.DropDownFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(177, 67);
+            this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(158, 67);
             this.cmb_SelectPrintTemplate.Name = "cmb_SelectPrintTemplate";
-            this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(431, 21);
+            this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(450, 21);
             this.cmb_SelectPrintTemplate.TabIndex = 25;
             this.cmb_SelectPrintTemplate.Text = "cmb_SelectPrintTemplate";
             // 

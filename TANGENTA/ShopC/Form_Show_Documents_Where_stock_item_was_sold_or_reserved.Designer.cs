@@ -55,6 +55,7 @@
             // 
             // btn_Exit
             // 
+            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(468, 2);
@@ -66,6 +67,7 @@
             // 
             // usrc_Help1
             // 
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Help1.Location = new System.Drawing.Point(553, 2);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(49, 25);

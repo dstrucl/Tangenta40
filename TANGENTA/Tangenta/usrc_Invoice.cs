@@ -54,10 +54,6 @@ namespace Tangenta
                 {
                     this.m_ShopABC.DocInvoice = m_DocInvoice;
                 }
-                if (this.m_usrc_ShopA != null)
-                {
-                    this.m_usrc_ShopA.DocInvoice = m_DocInvoice;
-                }
                 if (this.m_usrc_ShopB!= null)
                 {
                     this.m_usrc_ShopB.DocInvoice = m_DocInvoice;

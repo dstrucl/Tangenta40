@@ -198,7 +198,7 @@ namespace ShopA_dbfunc
                 return false;
             }
             object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID, ref oret, ref Err, "DocInvoice_ShopA_Item"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID, ref oret, ref Err, docInvoice+"_ShopA_Item"))
             {
                 return true;
             }

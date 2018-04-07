@@ -466,7 +466,7 @@ namespace CodeTables.TableDocking_Form
                     this.m_tbl.myGroupBox.Changed_up = false;
                 }
                 SetMode(eMode.VIEW);
-                this.m_tbl.Show_And_Init_Reference_ID();
+                this.m_tbl.Show_And_Init_Reference_ID(uctrln);
                 if (after_FillDataInputControl!=null)
                 {
                     after_FillDataInputControl(this.m_tbl, Identity);

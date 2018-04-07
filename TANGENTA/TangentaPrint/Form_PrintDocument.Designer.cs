@@ -35,12 +35,13 @@ namespace TangentaPrint
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintDocument));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.m_usrc_Invoice_Preview = new TangentaPrint.usrc_Invoice_Preview();
+            this.textEditorControl1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_SaveTemplate = new System.Windows.Forms.Button();
             this.chk_EditTemplate = new System.Windows.Forms.CheckBox();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.m_usrc_SelectPrintTemplate = new TangentaPrint.usrc_SelectPrintTemplate();
-            this.textEditorControl1 = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -131,6 +132,39 @@ namespace TangentaPrint
             this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(523, 521);
             this.m_usrc_Invoice_Preview.TabIndex = 0;
             // 
+            // textEditorControl1
+            // 
+            this.textEditorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textEditorControl1.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.textEditorControl1.AutoScrollMinSize = new System.Drawing.Size(179, 14);
+            this.textEditorControl1.BackBrush = null;
+            this.textEditorControl1.CharHeight = 14;
+            this.textEditorControl1.CharWidth = 8;
+            this.textEditorControl1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textEditorControl1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.textEditorControl1.IsReplaceMode = false;
+            this.textEditorControl1.Location = new System.Drawing.Point(3, 30);
+            this.textEditorControl1.Name = "textEditorControl1";
+            this.textEditorControl1.Paddings = new System.Windows.Forms.Padding(0);
+            this.textEditorControl1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.textEditorControl1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("textEditorControl1.ServiceColors")));
+            this.textEditorControl1.Size = new System.Drawing.Size(494, 491);
+            this.textEditorControl1.TabIndex = 1;
+            this.textEditorControl1.Text = "fastColoredTextBox1";
+            this.textEditorControl1.Zoom = 100;
+            // 
             // btn_Refresh
             // 
             this.btn_Refresh.Location = new System.Drawing.Point(331, 140);
@@ -165,7 +199,7 @@ namespace TangentaPrint
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Exit.Location = new System.Drawing.Point(934, 4);
+            this.btn_Exit.Location = new System.Drawing.Point(888, 2);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(101, 34);
             this.btn_Exit.TabIndex = 11;
@@ -190,39 +224,13 @@ namespace TangentaPrint
             this.m_usrc_SelectPrintTemplate.Size = new System.Drawing.Size(1038, 132);
             this.m_usrc_SelectPrintTemplate.TabIndex = 9;
             // 
-            // textEditorControl1
+            // usrc_Help1
             // 
-            this.textEditorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEditorControl1.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.textEditorControl1.AutoScrollMinSize = new System.Drawing.Size(179, 14);
-            this.textEditorControl1.BackBrush = null;
-            this.textEditorControl1.CharHeight = 14;
-            this.textEditorControl1.CharWidth = 8;
-            this.textEditorControl1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textEditorControl1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.textEditorControl1.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.textEditorControl1.IsReplaceMode = false;
-            this.textEditorControl1.Location = new System.Drawing.Point(3, 30);
-            this.textEditorControl1.Name = "textEditorControl1";
-            this.textEditorControl1.Paddings = new System.Windows.Forms.Padding(0);
-            this.textEditorControl1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.textEditorControl1.ServiceColors = ((ServiceColors)(resources.GetObject("textEditorControl1.ServiceColors")));
-            this.textEditorControl1.Size = new System.Drawing.Size(494, 491);
-            this.textEditorControl1.TabIndex = 1;
-            this.textEditorControl1.Text = "fastColoredTextBox1";
-            this.textEditorControl1.Zoom = 100;
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(995, 2);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(45, 34);
+            this.usrc_Help1.TabIndex = 12;
             // 
             // Form_PrintDocument
             // 
@@ -230,6 +238,7 @@ namespace TangentaPrint
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(1041, 695);
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.chk_EditTemplate);
             this.Controls.Add(this.btn_SaveTemplate);
@@ -260,5 +269,6 @@ namespace TangentaPrint
         private usrc_Invoice_Preview m_usrc_Invoice_Preview;
         private System.Windows.Forms.Button btn_Exit;
         private FastColoredTextBoxNS.FastColoredTextBox textEditorControl1;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

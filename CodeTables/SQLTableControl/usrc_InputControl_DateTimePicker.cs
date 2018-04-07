@@ -33,6 +33,7 @@ namespace CodeTables
             if (txt_DateTimeReadOnly==null)
             { 
                 txt_DateTimeReadOnly = new TextBox();
+                txt_DateTimeReadOnly.Name = "txtDateTimeROnly1";
                 txt_DateTimeReadOnly.Visible = true;
                 txt_DateTimeReadOnly.Left = dateTimePicker.Left;
                 txt_DateTimeReadOnly.Top = dateTimePicker.Top;

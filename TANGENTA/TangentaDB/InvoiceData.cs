@@ -431,11 +431,15 @@ namespace TangentaDB
                     int isbLen = html.Length;
                     sb = new StringBuilder(html.ToString(0, index_of_page_number));
                     sb.Append(iPage.ToString());
-                    sb.Append(html.ToString(index_of_page_number + page_number_length, isbLen - index_of_page_number + page_number_length));
-                    index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
+                    sb.Append(html.ToString(index_of_page_number + page_number_length, isbLen - index_of_page_number - page_number_length));
+                    index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, index_of_page_number+1, ref page_number_length);
                     if (index_of_page_number >= 0)
                     {
                         iPage++;
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
                 GeneralToken.tNumberOfPages.Set(iPage.ToString());

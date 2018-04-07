@@ -84,8 +84,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_Tax1);
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_Unit1);
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_Price1);
-            this.splitContainer1.Size = new System.Drawing.Size(678, 149);
-            this.splitContainer1.SplitterDistance = 173;
+            this.splitContainer1.Size = new System.Drawing.Size(694, 149);
+            this.splitContainer1.SplitterDistance = 177;
             this.splitContainer1.TabIndex = 0;
             // 
             // usrc_Edit_Item_Description1
@@ -96,7 +96,7 @@
             this.usrc_Edit_Item_Description1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usrc_Edit_Item_Description1.Location = new System.Drawing.Point(2, 54);
             this.usrc_Edit_Item_Description1.Name = "usrc_Edit_Item_Description1";
-            this.usrc_Edit_Item_Description1.Size = new System.Drawing.Size(168, 90);
+            this.usrc_Edit_Item_Description1.Size = new System.Drawing.Size(172, 90);
             this.usrc_Edit_Item_Description1.TabIndex = 3;
             // 
             // btn_EditItem
@@ -128,7 +128,7 @@
             this.usrc_Edit_Item_Name1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usrc_Edit_Item_Name1.Location = new System.Drawing.Point(94, 2);
             this.usrc_Edit_Item_Name1.Name = "usrc_Edit_Item_Name1";
-            this.usrc_Edit_Item_Name1.Size = new System.Drawing.Size(76, 44);
+            this.usrc_Edit_Item_Name1.Size = new System.Drawing.Size(80, 44);
             this.usrc_Edit_Item_Name1.TabIndex = 4;
             // 
             // btn_AddNewLine
@@ -138,7 +138,7 @@
             this.btn_AddNewLine.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_AddNewLine.Location = new System.Drawing.Point(225, 109);
             this.btn_AddNewLine.Name = "btn_AddNewLine";
-            this.btn_AddNewLine.Size = new System.Drawing.Size(272, 35);
+            this.btn_AddNewLine.Size = new System.Drawing.Size(284, 35);
             this.btn_AddNewLine.TabIndex = 3;
             this.btn_AddNewLine.Text = "Vpiši v novo vrstico";
             this.btn_AddNewLine.UseVisualStyleBackColor = false;
@@ -227,7 +227,7 @@
             // chk_PriceWithTax
             // 
             this.chk_PriceWithTax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chk_PriceWithTax.Location = new System.Drawing.Point(310, 13);
+            this.chk_PriceWithTax.Location = new System.Drawing.Point(322, 13);
             this.chk_PriceWithTax.Name = "chk_PriceWithTax";
             this.chk_PriceWithTax.Size = new System.Drawing.Size(141, 24);
             this.chk_PriceWithTax.TabIndex = 5;
@@ -264,12 +264,11 @@
             // 
             // usrc_Editor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_Editor";
-            this.Size = new System.Drawing.Size(678, 149);
+            this.Size = new System.Drawing.Size(694, 149);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

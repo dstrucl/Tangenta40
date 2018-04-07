@@ -767,11 +767,11 @@ namespace CodeTables
         }
 
 
-        internal void Show_And_Init_Reference_ID()
+        internal void Show_And_Init_Reference_ID(UniqueControlName xuctrln)
         {
             if (this.myGroupBox != null)
             {
-                  this.myGroupBox.Show_And_Init_Reference_ID();
+                  this.myGroupBox.Show_And_Init_Reference_ID(xuctrln);
             }
         }
 

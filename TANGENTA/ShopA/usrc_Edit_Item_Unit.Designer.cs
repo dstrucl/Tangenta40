@@ -75,7 +75,7 @@
             0,
             0});
             this.nm_dQuantity.Name = "nm_dQuantity";
-            this.nm_dQuantity.Size = new System.Drawing.Size(97, 20);
+            this.nm_dQuantity.Size = new System.Drawing.Size(82, 20);
             this.nm_dQuantity.TabIndex = 6;
             this.nm_dQuantity.ValueChanged += new System.EventHandler(this.nm_dQuantity_ValueChanged);
             // 
@@ -89,7 +89,7 @@
             0,
             0});
             this.nm_PricePerUnit.Name = "nm_PricePerUnit";
-            this.nm_PricePerUnit.Size = new System.Drawing.Size(96, 20);
+            this.nm_PricePerUnit.Size = new System.Drawing.Size(84, 20);
             this.nm_PricePerUnit.TabIndex = 18;
             this.nm_PricePerUnit.ValueChanged += new System.EventHandler(this.nm_PricePerUnit_ValueChanged);
             // 
@@ -124,8 +124,7 @@
             // 
             // usrc_Edit_Item_Unit
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.chk_Unit);
             this.Controls.Add(this.lbl_PricePerUnit);
@@ -136,7 +135,7 @@
             this.Controls.Add(this.cmb_Unit);
             this.Controls.Add(this.lbl_Item_Unit);
             this.Name = "usrc_Edit_Item_Unit";
-            this.Size = new System.Drawing.Size(252, 78);
+            this.Size = new System.Drawing.Size(241, 78);
             ((System.ComponentModel.ISupportInitialize)(this.nm_dQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_PricePerUnit)).EndInit();
             this.ResumeLayout(false);

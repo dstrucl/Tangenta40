@@ -373,6 +373,14 @@ namespace HUDCMS
                 {
                     AddSubCtrl(c, xuctrln);
                 }
+                else if (c is WebBrowser)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
+                else if (c is ScrollableControl)
+                {
+                    AddSubCtrl(c, xuctrln);
+                }
                 else if (c is System.Windows.Forms.UpDownBase)
                 {
                     //AddSubCtrl(c, xuctrln);

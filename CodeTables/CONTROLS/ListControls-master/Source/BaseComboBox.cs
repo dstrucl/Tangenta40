@@ -57,6 +57,7 @@ namespace EWSoftware.ListControls
                 owner = cb;
                 this.BorderStyle = System.Windows.Forms.BorderStyle.None;
                 this.Text = String.Empty;
+                this.Name = "BaseComboBox1";
             }
 
             /// <summary>

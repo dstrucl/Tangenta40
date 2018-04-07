@@ -36,15 +36,11 @@ namespace ShopA
         public decimal Discount = 0;
         public decimal EndPriceWithDiscountAndTax = 0;
 
-        private string m_DocInvoice = "DocInvoice";
+        //private string m_DocInvoice = "DocInvoice";
 
         public string DocInvoice
         {
-            get { return m_DocInvoice; }
-            set
-            {
-                m_DocInvoice = value;
-            }
+            get { return m_ShopABC.DocInvoice; }
         }
 
         public bool IsDocInvoice

@@ -232,7 +232,7 @@ namespace TangentaPrint
                             else
                             {
                                 sb_html_doc_text = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_Printing_ElementList, xPageHeight);
-                                m_InvoiceData.InsertPageNumbers(ref sb_html_doc_text);
+                                s = sb_html_doc_text.ToString();
                             }
                         }
                         this.htmlPanel1.Text = s;

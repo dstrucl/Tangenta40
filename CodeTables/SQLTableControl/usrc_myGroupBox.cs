@@ -488,7 +488,7 @@ namespace CodeTables
             }
         }
 
-        internal void Show_And_Init_Reference_ID()
+        internal void Show_And_Init_Reference_ID(UniqueControlName xuctrln)
         {
 
 
@@ -501,6 +501,7 @@ namespace CodeTables
                     x = usrc_lbl.Left + x + usrc_lbl.Width + 2;
                 }
                 ixt_ID = new IndexBox();
+                ixt_ID.Name = "ixt_" + xuctrln.Get_TextBox_UniqueIndex();
                 ixt_ID.Width = 60;
                 ixt_ID.Left = x;
                 ixt_ID.Top = btnExpand.Top;
