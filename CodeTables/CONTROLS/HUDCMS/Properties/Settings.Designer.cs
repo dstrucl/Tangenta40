@@ -38,12 +38,12 @@ namespace HUDCMS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Header {
+        public string slo_Header {
             get {
-                return ((string)(this["Header"]));
+                return ((string)(this["slo_Header"]));
             }
             set {
-                this["Header"] = value;
+                this["slo_Header"] = value;
             }
         }
         
@@ -68,6 +68,18 @@ namespace HUDCMS.Properties {
             }
             set {
                 this["UseGit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string eng_Header {
+            get {
+                return ((string)(this["eng_Header"]));
+            }
+            set {
+                this["eng_Header"] = value;
             }
         }
     }

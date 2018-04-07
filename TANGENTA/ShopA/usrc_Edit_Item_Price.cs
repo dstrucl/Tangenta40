@@ -34,6 +34,7 @@ namespace ShopA
         {
             InitializeComponent();
             nm_Price.ValueChanged += Nm_Price_ValueChanged;
+            lng.s_lbl_Item_Price.Text(lbl_Item_Price);
         }
 
         private void Nm_Price_ValueChanged(object sender, EventArgs e)

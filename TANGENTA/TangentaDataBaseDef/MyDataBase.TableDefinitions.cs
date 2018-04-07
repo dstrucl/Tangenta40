@@ -838,8 +838,8 @@ namespace TangentaDataBaseDef
             /* 28 */
             t_Taxation = new SQLTable((Object)new Taxation(),"tax", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Taxation);
             t_Taxation.AddColumn((Object)mt.m_Taxation.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Taxation.AddColumn((Object)mt.m_Taxation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Name", "Ime") );
-            t_Taxation.AddColumn((Object)mt.m_Taxation.Rate, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Rate", "Stopnja") );
+            t_Taxation.AddColumn((Object)mt.m_Taxation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Name", "Ime") );
+            t_Taxation.AddColumn((Object)mt.m_Taxation.Rate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Rate", "Stopnja") );
             m_DBTables.items.Add(t_Taxation);
 
             /* 29 */
@@ -960,8 +960,8 @@ namespace TangentaDataBaseDef
         /* 43 */
             t_Atom_Taxation = new SQLTable((Object)new Atom_Taxation(),"atax", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_Taxation);
             t_Atom_Taxation.AddColumn((Object)mt.m_Atom_Taxation.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_Taxation.AddColumn((Object)mt.m_Atom_Taxation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "Taxation Name", "Naziv obdavčitve") );
-            t_Atom_Taxation.AddColumn((Object)mt.m_Atom_Taxation.Rate, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.TextBox, new ltext( "Taxation Rate", "Davčna Stopnja") );
+            t_Atom_Taxation.AddColumn((Object)mt.m_Atom_Taxation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Taxation Name", "Naziv obdavčitve") );
+            t_Atom_Taxation.AddColumn((Object)mt.m_Atom_Taxation.Rate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Taxation Rate", "Davčna Stopnja") );
             m_DBTables.items.Add(t_Atom_Taxation);
 
         /* 44 */

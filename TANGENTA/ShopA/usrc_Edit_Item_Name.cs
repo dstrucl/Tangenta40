@@ -29,6 +29,7 @@ namespace ShopA
         public usrc_Edit_Item_Name()
         {
             InitializeComponent();
+            lng.s_lbl_ItemName.Text(lbl_ItemName);
         }
 
         private void txt_ItemName_KeyPress(object sender, KeyPressEventArgs e)

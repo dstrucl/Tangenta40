@@ -100,18 +100,7 @@ namespace HUDCMS
         private void Form_HUDCMS_Load(object sender, EventArgs e)
         {
 
-            if (Properties.Settings.Default.Header == null)
-            {
-                Properties.Settings.Default.Header = Properties.Resources.Header;
-                Properties.Settings.Default.Save();
-            }
-            else if (Properties.Settings.Default.Header.Length == 0)
-            {
-                Properties.Settings.Default.Header = Properties.Resources.Header;
-                Properties.Settings.Default.Save();
-            }
-
-            Header = Properties.Settings.Default.Header;
+            SetHeader();
 
             SetGeneralHelpFiles();
 
@@ -141,6 +130,30 @@ namespace HUDCMS
 
             this.chk_UseGit.CheckedChanged += new System.EventHandler(this.chk_UseGit_CheckedChanged);
             btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit; 
+        }
+
+        private void SetHeader()
+        {
+            Header = Properties.Settings.Default.eng_Header;
+            switch (HUDCMS_static.LanguageID)
+            {
+                case 0:
+                    if (Properties.Settings.Default.eng_Header.Length == 0)
+                    {
+                        Properties.Settings.Default.eng_Header = Properties.Resources.eng_Header;
+                        Properties.Settings.Default.Save();
+                    }
+                    Header = Properties.Settings.Default.eng_Header;
+                    break;
+                case 1:
+                    if (Properties.Settings.Default.slo_Header.Length == 0)
+                    {
+                        Properties.Settings.Default.slo_Header = Properties.Resources.slo_Header;
+                        Properties.Settings.Default.Save();
+                    }
+                    Header = Properties.Settings.Default.slo_Header;
+                    break;
+            }
         }
 
         void InitializeMyTreeListView(ref int iAllCount)

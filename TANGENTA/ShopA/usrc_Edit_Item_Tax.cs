@@ -107,6 +107,7 @@ namespace ShopA
         public void Init(xTaxationList xTaxationList)
         {
             m_xTaxationList = xTaxationList;
+            lng.s_lbl_Item_TaxRate.Text(lbl_Item_TaxRate);
             this.cmb_TaxRate.DataSource = m_xTaxationList.items;
             this.cmb_TaxRate.DisplayMember = "Name";
             this.cmb_TaxRate.ValueMember = "Index";

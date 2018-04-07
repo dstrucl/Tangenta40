@@ -35,5 +35,33 @@ namespace ShopA
 
         public static ltext s_Price_for = new ltext(new string[] { "Price for", "Cena za " });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Unit.cs
 
+        public static ltext s_btn_AddNewLine = new ltext(new string[] { "Add new line", "Vpiši v novo vrstico" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Editor.cs
+
+        public static ltext s_lbl_EndNetPrice = new ltext(new string[] { "Net price", "Neto cena" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Editor.cs
+
+        public static ltext s_lbl_EndPriceWidthDisocunt = new ltext(new string[] { "End price with discount", "Končna cena z davkom in popustom" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Editor.cs
+
+        public static ltext s_lbl_Tax = new ltext(new string[] { "Tax", "Davek" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Editor.cs
+
+        public static ltext s_chk_PriceWithTax = new ltext(new string[] { "Write price with tax", "Vnos cen z davkom" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Editor.cs
+
+        public static ltext s_btn_Discount = new ltext(new string[] { "Discount", "Popust" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Editor.cs
+
+        public static ltext s_chk_Unit = new ltext(new string[] { "Unit", "Merska enota" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Unit.cs
+
+        public static ltext s_lbl_PricePerUnit = new ltext(new string[] { "Price per unit", "Cena na enoto" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Unit.cs
+
+        public static ltext s_lbl_Quantity = new ltext(new string[] { "Quantity", "Količina" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Unit.cs
+
+        public static ltext s_lbl_Item_Unit = new ltext(new string[] { "Unit", "Merska enota" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Unit.cs
+
+        public static ltext s_lbl_Item_TaxRate = new ltext(new string[] { "Tax rate", "Davek" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Tax.cs
+
+        public static ltext s_lbl_Item_Price = new ltext(new string[] { "Price", "Cena" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Price.cs
+        
+        public static ltext s_lbl_ItemName = new ltext(new string[] { "Item name", "Ime postavke" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Name.cs
+
+        public static ltext s_lbl_Item_Description = new ltext(new string[] { "Price", "Cena" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Description.cs
+        
     }
 }

@@ -24,6 +24,7 @@ namespace ShopA
         public usrc_Edit_Item_Description()
         {
             InitializeComponent();
+            lng.s_lbl_Item_Description.Text(lbl_Item_Description);
         }
 
         internal void Fill(ref DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item)

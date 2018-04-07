@@ -51,7 +51,7 @@
             // lbl_Item_Price
             // 
             this.lbl_Item_Price.AutoSize = true;
-            this.lbl_Item_Price.Location = new System.Drawing.Point(3, 1);
+            this.lbl_Item_Price.Location = new System.Drawing.Point(3, 2);
             this.lbl_Item_Price.Name = "lbl_Item_Price";
             this.lbl_Item_Price.Size = new System.Drawing.Size(32, 13);
             this.lbl_Item_Price.TabIndex = 17;

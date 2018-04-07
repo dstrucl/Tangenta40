@@ -35,7 +35,7 @@
             // lbl_Item_TaxRate
             // 
             this.lbl_Item_TaxRate.AutoSize = true;
-            this.lbl_Item_TaxRate.Location = new System.Drawing.Point(3, 0);
+            this.lbl_Item_TaxRate.Location = new System.Drawing.Point(3, 2);
             this.lbl_Item_TaxRate.Name = "lbl_Item_TaxRate";
             this.lbl_Item_TaxRate.Size = new System.Drawing.Size(90, 13);
             this.lbl_Item_TaxRate.TabIndex = 2;

@@ -77,6 +77,11 @@ namespace ShopA
             this.usrc_Edit_Item_Unit1.Init(m_ShopABC.m_xUnitList);
             chk_PriceWithTax.Checked = Properties.Settings.Default.EnterPriceWithTax;
             chk_PriceWithTax.CheckedChanged += Chk_PriceWithTax_CheckedChanged;
+            lng.s_btn_AddNewLine.Text(btn_AddNewLine);
+            lng.s_lbl_EndNetPrice.Text(lbl_EndNetPrice);
+            lng.s_lbl_EndPriceWidthDisocunt.Text(lbl_EndPriceWidthDisocunt);
+            lng.s_lbl_Tax.Text(lbl_Tax);
+            lng.s_chk_PriceWithTax.Text(chk_PriceWithTax);
         }
 
         private void Chk_PriceWithTax_CheckedChanged(object sender, EventArgs e)
@@ -246,16 +251,6 @@ namespace ShopA
             {
                 m_tool_SelectItem.Focus();
             }
-        }
-
-        private void lbl_Tax_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbl_Tax_Value_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

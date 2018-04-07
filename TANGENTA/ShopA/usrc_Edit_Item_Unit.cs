@@ -207,6 +207,11 @@ namespace ShopA
             m_xUnitList = xxUnitList;
             Set_DataSource();
             this.cmb_Unit.SelectedValueChanged += new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
+            lng.s_chk_Unit.Text(chk_Unit);
+            lng.s_lbl_PricePerUnit.Text(lbl_PricePerUnit);
+            lng.s_lbl_Quantity.Text(lbl_Quantity);
+            lng.s_chk_Unit.Text(chk_Unit);
+            lng.s_lbl_Item_Unit.Text(lbl_Item_Unit);
         }
 
         internal void Fill(ref Unit xUnit)

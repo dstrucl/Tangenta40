@@ -5,7 +5,7 @@
     <Setting Name="HelpFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Header" Type="System.String" Scope="User">
+    <Setting Name="slo_Header" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="GitExeFile" Type="System.String" Scope="User">
@@ -13,6 +13,9 @@
     </Setting>
     <Setting Name="UseGit" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="eng_Header" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
