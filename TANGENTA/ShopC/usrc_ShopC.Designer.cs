@@ -63,8 +63,8 @@
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer3.Panel2.Controls.Add(this.usrc_ItemList);
             this.splitContainer3.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer3.Size = new System.Drawing.Size(1260, 505);
-            this.splitContainer3.SplitterDistance = 597;
+            this.splitContainer3.Size = new System.Drawing.Size(886, 505);
+            this.splitContainer3.SplitterDistance = 419;
             this.splitContainer3.TabIndex = 1;
             // 
             // usrc_Atom_ItemsList
@@ -77,7 +77,7 @@
             this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
             this.usrc_Atom_ItemsList.NumberOfItemsPerPage = 10;
-            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(583, 493);
+            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(405, 493);
             this.usrc_Atom_ItemsList.TabIndex = 5;
             // 
             // usrc_ItemList
@@ -91,7 +91,7 @@
             this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_ItemList.Name = "usrc_ItemList";
             this.usrc_ItemList.NumberOfItemsPerPage = 10;
-            this.usrc_ItemList.Size = new System.Drawing.Size(653, 496);
+            this.usrc_ItemList.Size = new System.Drawing.Size(457, 496);
             this.usrc_ItemList.TabIndex = 22;
             // 
             // lbl_ShopC_Name
@@ -100,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_ShopC_Name.AutoSize = true;
             this.lbl_ShopC_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ShopC_Name.Location = new System.Drawing.Point(343, 5);
+            this.lbl_ShopC_Name.Location = new System.Drawing.Point(285, 5);
             this.lbl_ShopC_Name.Name = "lbl_ShopC_Name";
             this.lbl_ShopC_Name.Size = new System.Drawing.Size(103, 17);
             this.lbl_ShopC_Name.TabIndex = 4;
@@ -111,7 +111,7 @@
             this.btn_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Stock.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Stock.Image = global::ShopC.Properties.Resources.Edit;
-            this.btn_Stock.Location = new System.Drawing.Point(1064, 3);
+            this.btn_Stock.Location = new System.Drawing.Point(690, 3);
             this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stock.Name = "btn_Stock";
             this.btn_Stock.Size = new System.Drawing.Size(37, 28);
@@ -124,7 +124,7 @@
             this.lbl_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Items.AutoSize = true;
             this.lbl_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Items.Location = new System.Drawing.Point(1147, 8);
+            this.lbl_Items.Location = new System.Drawing.Point(773, 8);
             this.lbl_Items.Name = "lbl_Items";
             this.lbl_Items.Size = new System.Drawing.Size(49, 17);
             this.lbl_Items.TabIndex = 20;
@@ -135,7 +135,7 @@
             this.btn_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Items.Image = global::ShopC.Properties.Resources.Edit;
-            this.btn_Items.Location = new System.Drawing.Point(1216, 3);
+            this.btn_Items.Location = new System.Drawing.Point(842, 3);
             this.btn_Items.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Items.Name = "btn_Items";
             this.btn_Items.Size = new System.Drawing.Size(37, 28);
@@ -148,7 +148,7 @@
             this.lbl_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Stock.AutoSize = true;
             this.lbl_Stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Stock.Location = new System.Drawing.Point(982, 9);
+            this.lbl_Stock.Location = new System.Drawing.Point(608, 9);
             this.lbl_Stock.Name = "lbl_Stock";
             this.lbl_Stock.Size = new System.Drawing.Size(58, 17);
             this.lbl_Stock.TabIndex = 5;
@@ -167,7 +167,7 @@
             // chk_AutomaticSelectionOfItemFromStock
             // 
             this.chk_AutomaticSelectionOfItemFromStock.AutoSize = true;
-            this.chk_AutomaticSelectionOfItemFromStock.Location = new System.Drawing.Point(508, 7);
+            this.chk_AutomaticSelectionOfItemFromStock.Location = new System.Drawing.Point(394, 7);
             this.chk_AutomaticSelectionOfItemFromStock.Name = "chk_AutomaticSelectionOfItemFromStock";
             this.chk_AutomaticSelectionOfItemFromStock.Size = new System.Drawing.Size(199, 17);
             this.chk_AutomaticSelectionOfItemFromStock.TabIndex = 23;
@@ -187,7 +187,7 @@
             this.Controls.Add(this.lbl_Stock);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_ShopC";
-            this.Size = new System.Drawing.Size(1260, 538);
+            this.Size = new System.Drawing.Size(886, 538);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();

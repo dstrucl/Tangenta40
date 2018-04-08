@@ -30,6 +30,8 @@ namespace Tangenta
 {
     public partial class Form_Document : Form
     {
+        private string default_FormName = null;
+
         private Form_FirstTimeInstallationGreeting frm_Form_FirstTimeInstallationGreeting = null;
         public const string XML_ROOT_NAME = "Tangenta_Xml";
 
@@ -65,7 +67,7 @@ namespace Tangenta
         {
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
-
+            default_FormName = this.Name;
             Program.nav = new NavigationButtons.Navigation();
             if (Program.Auto_NEXT)
             {
@@ -401,15 +403,15 @@ namespace Tangenta
 
         private void Exit()
         {
-            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceMan.m_usrc_InvoiceTable.Current_Doc_ID;
+            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceTable.Current_Doc_ID;
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
-            if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA != null)
+            if (m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA != null)
             {
-                if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                if (m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
                 {
-                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                    m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                    m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
             long atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
@@ -523,8 +525,123 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
+            SetNewFormName();
+            m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
         }
 
+        private void M_usrc_Main_LayoutChanged()
+        {
+            SetNewFormName();
+        }
+
+        private void SetNewFormName()
+        {
+            string sNewName = default_FormName+"_";
+
+            if (Program.OperationMode.MultiUser)
+            {
+                sNewName += "M";
+            }
+            else
+            {
+                sNewName += "S";
+            }
+            if (m_usrc_Main.m_usrc_Invoice_Visible)
+            {
+                sNewName += "I";
+                if (m_usrc_Main.m_usrc_Invoice_ViewMode)
+                {
+                    sNewName += "V";
+                }
+                else
+                {
+                    sNewName += "E";
+                }
+                if (m_usrc_Main.ShopA_Visible)
+                {
+                    sNewName += "A";
+                }
+                if (m_usrc_Main.ShopB_Visible)
+                {
+                    sNewName += "B";
+                }
+                if (m_usrc_Main.ShopC_Visible)
+                {
+                    sNewName += "C";
+                }
+            }
+
+            if (m_usrc_Main.m_usrc_InvoiceTable_Visible)
+            {
+                sNewName += "T";
+            }
+
+            this.Name = sNewName;
+
+            /* All Possible combinations:
+               MIVA
+               MIVB
+               MIVC
+               MIVAB
+               MIVBC
+               MIVABC
+
+               SIVA
+               SIVB
+               SIVC
+               SIVAB
+               SIVBC
+               SIVABC
+
+               MIEA
+               MIEB
+               MIEC
+               MIEAB
+               MIEBC
+               MIEABC
+
+               SIEA
+               SIEB
+               SIEC
+               SIEAB
+               SIEBC
+               SIEABC
+
+               MIVAT
+               MIVBT
+               MIVCT
+               MIVABT
+               MIVBCT
+               MIVABCT
+
+               SIVAT
+               SIVBT
+               SIVCT
+               SIVABT
+               SIVBCT
+               SIVABCT
+
+               MIEAT
+               MIEBT
+               MIECT
+               MIEABT
+               MIEBCT
+               MIEABCT
+
+               SIEAT
+               SIEBT
+               SIECT
+               SIEABT
+               SIEBCT
+               SIEABCT
+
+               MT
+               ST
+
+               Total 50 possible combinations
+
+             */
+        }
 
         private void CheckOrganisationDataChange()
         {

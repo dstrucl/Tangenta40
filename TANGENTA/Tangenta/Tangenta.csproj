@@ -487,12 +487,6 @@
     <Compile Include="usrc_InvoiceTable.Designer.cs">
       <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Document.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Document.Designer.cs">
-      <DependentUpon>usrc_Document.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_AddOn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -745,9 +739,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_InvoiceTable.resx">
       <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Document.resx">
-      <DependentUpon>usrc_Document.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_AddOn.resx">
       <DependentUpon>usrc_AddOn.cs</DependentUpon>

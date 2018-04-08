@@ -37,7 +37,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_07_GetTaxation(ref Err))
+            if (frm.m_usrc_Main.m_usrc_Invoice.Startup_07_GetTaxation(ref Err))
             {
                 return Startup_check_proc_Result.CHECK_OK;
             }
@@ -53,7 +53,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_07_onformresult_Form_Taxation_Edit;
-            frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_07_Show_Form_Taxation_Edit(xnav);
+            frm.m_usrc_Main.m_usrc_Invoice.Startup_07_Show_Form_Taxation_Edit(xnav);
             return true;
         }
 

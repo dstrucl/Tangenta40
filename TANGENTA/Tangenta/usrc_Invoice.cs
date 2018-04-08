@@ -39,6 +39,9 @@ namespace Tangenta
 
         private string m_DocInvoice = Program.const_DocInvoice;
 
+        public delegate void delegate_LayoutChanged();
+        public event delegate_LayoutChanged LayoutChanged = null;
+
         public string DocInvoice
         {
             get { return m_DocInvoice; }
@@ -581,6 +584,21 @@ namespace Tangenta
                 }
             }
         }
+
+        public bool ShopA_Visible
+        {
+            get { return Properties.Settings.Default.eShopsMode.Contains("A"); }
+        }
+        public bool ShopB_Visible
+        {
+            get { return Properties.Settings.Default.eShopsMode.Contains("B"); }
+        }
+
+        public bool ShopC_Visible
+        {
+            get { return Properties.Settings.Default.eShopsMode.Contains("B"); }
+        }
+
 
         public usrc_Invoice()
         {
@@ -2437,8 +2455,15 @@ namespace Tangenta
         private void btn_Select_Shops_Click(object sender, EventArgs e)
         {
             Form_ShowShops frm_sel_shops = new Form_ShowShops(this);
-            frm_sel_shops.ShowDialog(this);
-            Set_eShopsMode(Properties.Settings.Default.eShopsMode, null);
+            if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
+            {
+                Set_eShopsMode(Properties.Settings.Default.eShopsMode, null);
+                if (LayoutChanged!=null)
+                {
+                    LayoutChanged();
+                }
+            }
+            
         }
 
         private void btn_MyOrganisation_Click(object sender, EventArgs e)

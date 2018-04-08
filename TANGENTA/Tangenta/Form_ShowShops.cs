@@ -166,7 +166,7 @@ namespace Tangenta
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             Close();
-            DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void Form_SelectPanels_Load(object sender, EventArgs e)

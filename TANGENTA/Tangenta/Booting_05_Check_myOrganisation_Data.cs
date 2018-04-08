@@ -333,7 +333,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_EditMyOrganisation_Data;
-            frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
+            frm.m_usrc_Main.m_usrc_Invoice.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
             return true;
         }
 
@@ -376,7 +376,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Office_Data;
-           return frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
+           return frm.m_usrc_Main.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Office_Data(startup_step myStartup_step,
@@ -418,7 +418,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Person_Edit;
-            frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
+            frm.m_usrc_Main.m_usrc_Invoice.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
             return true;
         }
 
@@ -461,7 +461,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
-           return frm.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
+           return frm.m_usrc_Main.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(startup_step myStartup_step,

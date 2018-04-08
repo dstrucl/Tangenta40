@@ -26,13 +26,13 @@ namespace Tangenta
     {
         private int default_language_ID = -1;
         private int newLanguage = -1;
-        private usrc_Document m_usrc_Main;
+        private usrc_InvoiceMan m_usrc_Main;
         private bool bChanged = false;
         NavigationButtons.Navigation nav = null;
         private Form LogManager_dlg = null;
         bool bDBSettingsChanged = false;
 
-        public Form_ProgramSettings(usrc_Document usrc_Main,NavigationButtons.Navigation xnav)
+        public Form_ProgramSettings(usrc_InvoiceMan usrc_Main,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
