@@ -480,8 +480,6 @@ namespace Tangenta
 
                     HUDCMS.HUDCMS_static.ApplicationPath = Path.GetDirectoryName(Application.ExecutablePath);
 
-                    HUDCMS.HUDCMS_static.Unzip_Help("Tangenta-Help.zip");
-
                     HUDCMS.HUDCMS_static.ApplicationVersion = Global.f.GetAssemblyVersion(Assembly.GetExecutingAssembly().GetName().Version.Build,
                                                                                           Assembly.GetExecutingAssembly().GetName().Version.Major,
                                                                                           Assembly.GetExecutingAssembly().GetName().Version.MajorRevision,

@@ -266,18 +266,7 @@ namespace HUDCMS
             return false;
         }
 
-
-        //public static bool LocalUrl(Form pForm,string prefix, ref string ModuleName, ref string HtmlFileName, ref string xRelativeURL, ref string sLocalUrl)
-        //{
-        //    string sFile = null;
-        //     if (GetLocalHtmlFile(pForm, prefix, ref ModuleName, ref HtmlFileName, ref xRelativeURL, ref sFile))
-        //    {
-        //        sLocalUrl =  "file:///" + sFile;
-        //        return true;
-        //    }
-        //     return false;
-        //}
-
+        
         private static string m_RemoteUrl = "https://dstrucl.github.io/Tangenta-Help/";
         public static string RemoteUrl
         {
