@@ -78,6 +78,7 @@ namespace Tangenta
         }
 
 
+
         public ControlTagForHelp(bool xbMultiUser,
                                  bool xm_usrc_Invoice_Visible,
                                  bool xm_usrc_Invoice_ViewMode,
@@ -101,6 +102,46 @@ namespace Tangenta
             bdatabaseempty = xbDataBaseEmpty;
             docinvoice = xDocInvoice;
 
+        }
+
+        public void Init(ref List<HUDCMS.TagForHelp> TagForHelpList)
+        {
+            if (TagForHelpList==null)
+            {
+                TagForHelpList = new List<HUDCMS.TagForHelp>();
+
+                TagForHelpList.Add(new HUDCMS.TagForHelp("bmultiuser", new string[] { "true", "false" }));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoice_visible", new string[] { "true", "false" })));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoice_visible", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("Shops", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bshopa_visible", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bshopa_visible", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bshopb_visible", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bshopb_visible", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bshopc_visible", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bshopc_visible", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoicetable_visible", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoicetable_visible", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoice_headvisible", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoice_headvisible", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bdatabaseempty", "true"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("bdatabaseempty", "false"));
+
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("InvoiceType", "DocInvoice"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("InvoiceType", "DocProformaInvoice"));
+
+            }
+
+        }
+        public void Fill()
+        {
             controlnameextension = "_";
             if (bmultiuser)
             {
@@ -110,6 +151,7 @@ namespace Tangenta
             {
                 controlnameextension += "S";
             }
+
             if (bm_usrc_invoice_viewmode)
             {
                 controlnameextension += "I";
@@ -158,6 +200,7 @@ namespace Tangenta
             {
                 controlnameextension += "P";
             }
+
         }
     }
 }

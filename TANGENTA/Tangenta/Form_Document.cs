@@ -764,5 +764,11 @@ namespace Tangenta
             }
             frm_Document_WizzardForHelp.Show();
         }
+
+        public bool WizControlInfo(Control ctrl, ref string title, ref List<TagForHelp> TagForHelp_About, ref List<TagForHelp> TagForHelp_Description)
+        {
+
+            return false;
+        }
     }
 }

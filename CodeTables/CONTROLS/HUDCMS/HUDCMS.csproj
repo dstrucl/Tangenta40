@@ -135,6 +135,13 @@
     </Compile>
     <Compile Include="MyControl.cs" />
     <Compile Include="ShellUtilities.cs" />
+    <Compile Include="TagForHelp.cs" />
+    <Compile Include="usrc_TagForHelp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_TagForHelp.Designer.cs">
+      <DependentUpon>usrc_TagForHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_EditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
