@@ -130,6 +130,8 @@ namespace HUDCMS
 
             this.chk_UseGit.CheckedChanged += new System.EventHandler(this.chk_UseGit_CheckedChanged);
             btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit; 
+
+            btn_Wizzard.Enabled = (HUDCMS_static.ShowWizzard != null);
         }
 
         private void SetHeader()
@@ -947,6 +949,32 @@ namespace HUDCMS
         {
             Form_ZIP frm_zip = new Form_ZIP();
             frm_zip.ShowDialog(this);
+        }
+
+        private void btn_Wizzard_Click(object sender, EventArgs e)
+        {
+            if (myroot != null)
+            {
+                if (myroot.hc != null)
+                {
+                    if (HUDCMS_static.ShowWizzard != null)
+                    {
+                        Control xctrl = null;
+                        if (myroot.hc.pForm != null)
+                        {
+                            xctrl = myroot.hc.pForm;
+                        }
+                        else if (myroot.hc.ctrl != null)
+                        {
+                            xctrl = myroot.hc.ctrl;
+                        }
+                        if (xctrl != null)
+                        {
+                            HUDCMS_static.ShowWizzard(xctrl);
+                        }
+                    }
+                }
+            }
         }
     }
 }

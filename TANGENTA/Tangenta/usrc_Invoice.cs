@@ -332,6 +332,23 @@ namespace Tangenta
             this.splitContainer3.Panel2.Controls.Add(m_usrc_ShopC);
         }
 
+        internal void WizzardShow_ShopsVisible(string xshops_inuse)
+        {
+            Properties.Settings.Default.eShopsInUse = xshops_inuse;
+            this.Set_eShopsMode(xshops_inuse, null);
+            if (LayoutChanged!=null)
+            {
+                LayoutChanged();
+            }
+            this.Refresh();
+        }
+
+        internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
+        {
+            chk_Head.Checked = bvisible;
+            this.Refresh();
+        }
+
         private void New_ShopB(NavigationButtons.Navigation xnav)
 
         {

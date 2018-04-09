@@ -310,6 +310,50 @@ namespace Tangenta
             return bRes;
         }
 
+        internal void WizzardShow_ShopsVisible(string xshops_inuse)
+        {
+            m_usrc_Invoice.WizzardShow_ShopsVisible(xshops_inuse);
+        }
+
+        internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
+        {
+            m_usrc_Invoice.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+        }
+
+        internal void WizzardShow_InvoiceTable_Visible(bool bvisible)
+        {
+            if (bvisible)
+            {
+                SetMode(usrc_InvoiceMan.eMode.Shops_and_InvoiceTable);
+            }
+            else
+            {
+                SetMode(usrc_InvoiceMan.eMode.Shops);
+            }
+            if (LayoutChanged!=null)
+            {
+                LayoutChanged();
+            }
+            this.Refresh();
+        }
+
+        internal void WizzardShow_DocInvoice(string xDocInvoice)
+        {
+            if (xDocInvoice.Equals(Program.const_DocProformaInvoice))
+            {
+                cmb_InvoiceType.SelectedIndex = 1;
+            }
+            else if (xDocInvoice.Equals(Program.const_DocInvoice))
+            {
+                cmb_InvoiceType.SelectedIndex = 0;
+            }
+            this.Refresh();
+            if (LayoutChanged != null)
+            {
+                LayoutChanged();
+            }
+        }
+
         private bool SetFinancialYears()
         {
             int Default_FinancialYear = Properties.Settings.Default.FinancialYear;
@@ -735,6 +779,10 @@ namespace Tangenta
             SetBackGroundColor();
             SetDocInvoiceOrDocPoformaInvoice();
             SetFinancialYears();
+            if (LayoutChanged!=null)
+            {
+                LayoutChanged();
+            }
         }
 
         private void SetBackGroundColor()

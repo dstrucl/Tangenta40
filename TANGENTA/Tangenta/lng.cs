@@ -687,5 +687,55 @@ namespace Tangenta
         internal static ltext s_MultiCurrency  = new ltext(new string[] { "Multi Currency operation ", "Več valutno poslovanje" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
 
         internal static ltext s_Help = new ltext(new string[] { "Help", "Pomoč" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_FirstTimeInstallationGreeting.cs
+
+        /* bMultiUser */
+        internal static ltext shlp_About_FormDocument_Multiuser = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_Multiuser = new ltext(new string[] {"", ""}); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        internal static ltext shlp_About_FormDocument_SingleUser = new ltext(new string[] {"", ""}); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_SingleUser = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        internal static ltext shlp_About_SettingsControls_MultiUser = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_SettingsControls_MultiUser = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        internal static ltext shlp_About_SettingsControls_SingleUser = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_SettingsControls_SingleUser = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bm_usrc_invoice_visible */
+        internal static ltext shlp_About_FormDocument_bm_usrc_invoice_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bm_usrc_invoice_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bm_usrc_invoice_viewmode */
+        internal static ltext shlp_About_FormDocument_bm_usrc_invoice_viewmode = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bm_usrc_invoice_viewmode = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bshopa_visible */
+        internal static ltext shlp_About_FormDocument_bshopa_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bshopa_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bshopb_visible */
+        internal static ltext shlp_About_FormDocument_bshopb_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bshopb_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bshopc_visible */
+        internal static ltext shlp_About_FormDocument_bshopc_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bshopc_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bm_usrc_invoicetable_visible */
+        internal static ltext shlp_About_FormDocument_bm_usrc_invoicetable_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bm_usrc_invoicetable_visible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bm_usrc_invoice_headvisible */
+        internal static ltext shlp_About_FormDocument_bm_usrc_invoice_headvisible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bm_usrc_invoice_headvisible = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* bdatabaseempty */
+        internal static ltext shlp_About_FormDocument_bdatabaseempty = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_bdatabaseempty = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
+        /* docinvoice */
+        internal static ltext shlp_About_FormDocument_docinvoice = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+        internal static ltext shlp_Descripion_FormDocument_docinvoice = new ltext(new string[] { "", "" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\ControlTagForHelp.cs
+
     }
 }

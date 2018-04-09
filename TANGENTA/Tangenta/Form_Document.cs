@@ -25,6 +25,7 @@ using static Startup.startup_step;
 using NavigationButtons;
 using TangentaSampleDB;
 using Country_ISO_3166;
+using HUDCMS;
 
 namespace Tangenta
 {
@@ -62,11 +63,13 @@ namespace Tangenta
         internal Booting_12_GetPrinters booting_12_GetPrinters = null;
         internal Booting_13_Login booting_13_Login = null;
 
+        private Form_Document_WizzardForHelp frm_Document_WizzardForHelp = null;
 
         public Form_Document()
         {
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
+            HUDCMS_static.ShowWizzard = this.ShowWizzard;
             default_FormName = this.Name;
             Program.nav = new NavigationButtons.Navigation();
             if (Program.Auto_NEXT)
@@ -207,6 +210,26 @@ namespace Tangenta
             m_startup.m_usrc_Startup.Finished += M_usrc_Startup_Finished;
 
             Program.nav.oStartup = m_startup;
+        }
+
+        internal void WizzardShow_ShopsVisible(string xshops_inuse)
+        {
+            m_usrc_Main.WizzardShow_ShopsVisible(xshops_inuse);
+        }
+
+        internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
+        {
+            m_usrc_Main.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+        }
+
+        internal void WizzardShow_InvoiceTable_Visible(bool bvisible)
+        {
+            m_usrc_Main.WizzardShow_InvoiceTable_Visible(bvisible);
+        }
+
+        internal void WizzardShow_DocInvoice(string xDocInvoice)
+        {
+            m_usrc_Main.WizzardShow_DocInvoice(xDocInvoice);
         }
 
         private void M_usrc_Startup_WebBrowserControl_DocumentCompleted(string url)
@@ -434,6 +457,7 @@ namespace Tangenta
         private void m_usrc_Main_Exit_Click()
         {
              this.Close();
+            HUDCMS_static.ShowWizzard = null;
         }
 
         private bool AskToExit()
@@ -463,6 +487,7 @@ namespace Tangenta
             {
                 Exit();
                 e.Cancel = false;
+                HUDCMS_static.ShowWizzard = null;
                 return;
             }
             else
@@ -471,6 +496,7 @@ namespace Tangenta
                 {
                     Exit();
                     e.Cancel = false;
+                    HUDCMS_static.ShowWizzard = null;
                 }
                 else
                 {
@@ -525,64 +551,65 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
-            SetNewFormName();
+            SetNewFormTag();
             m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
         }
 
         private void M_usrc_Main_LayoutChanged()
         {
-            SetNewFormName();
+            SetNewFormTag();
         }
 
-        private void SetNewFormName()
+        private void SetNewFormTag()
         {
-            string sNewName = default_FormName+"_";
+            string sNewTag = "";
 
             if (Program.OperationMode.MultiUser)
             {
-                sNewName += "M";
+                sNewTag += "M";
             }
             else
             {
-                sNewName += "S";
+                sNewTag += "S";
             }
             if (m_usrc_Main.m_usrc_Invoice_Visible)
             {
-                sNewName += "I";
+                sNewTag += "I";
                 if (m_usrc_Main.m_usrc_Invoice_ViewMode)
                 {
-                    sNewName += "V";
+                    sNewTag += "V";
                 }
                 else
                 {
-                    sNewName += "E";
+                    sNewTag += "E";
                 }
                 if (m_usrc_Main.ShopA_Visible)
                 {
-                    sNewName += "A";
+                    sNewTag += "A";
                 }
                 if (m_usrc_Main.ShopB_Visible)
                 {
-                    sNewName += "B";
+                    sNewTag += "B";
                 }
                 if (m_usrc_Main.ShopC_Visible)
                 {
-                    sNewName += "C";
+                    sNewTag += "C";
                 }
             }
 
             if (m_usrc_Main.m_usrc_InvoiceTable_Visible)
             {
-                sNewName += "T";
+                sNewTag += "T";
             }
 
-            this.Name = sNewName;
+            this.Tag = sNewTag;
 
             /* All Possible combinations:
                MIVA
                MIVB
                MIVC
                MIVAB
+               MIVAC
                MIVBC
                MIVABC
 
@@ -590,6 +617,7 @@ namespace Tangenta
                SIVB
                SIVC
                SIVAB
+               SIVAC
                SIVBC
                SIVABC
 
@@ -597,6 +625,7 @@ namespace Tangenta
                MIEB
                MIEC
                MIEAB
+               MIEAC
                MIEBC
                MIEABC
 
@@ -604,6 +633,7 @@ namespace Tangenta
                SIEB
                SIEC
                SIEAB
+               SIEAC
                SIEBC
                SIEABC
 
@@ -611,6 +641,7 @@ namespace Tangenta
                MIVBT
                MIVCT
                MIVABT
+               MIVACT
                MIVBCT
                MIVABCT
 
@@ -618,6 +649,7 @@ namespace Tangenta
                SIVBT
                SIVCT
                SIVABT
+               SIVACT
                SIVBCT
                SIVABCT
 
@@ -625,6 +657,7 @@ namespace Tangenta
                MIEBT
                MIECT
                MIEABT
+               MIEACT
                MIEBCT
                MIEABCT
 
@@ -632,13 +665,14 @@ namespace Tangenta
                SIEBT
                SIECT
                SIEABT
+               SIEACT
                SIEBCT
                SIEABCT
 
                MT
                ST
 
-               Total 50 possible combinations
+               Total 58 possible combinations
 
              */
         }
@@ -711,6 +745,24 @@ namespace Tangenta
                     }
                 }
             }
+        }
+
+        public void ShowWizzard(Control ctrl)
+        {
+            if (frm_Document_WizzardForHelp!=null)
+            {
+                if (frm_Document_WizzardForHelp.IsDisposed)
+                {
+                    frm_Document_WizzardForHelp = null;
+                }
+
+            }
+            if (frm_Document_WizzardForHelp==null)
+            {
+                frm_Document_WizzardForHelp = new Form_Document_WizzardForHelp(ctrl);
+                frm_Document_WizzardForHelp.Owner = this;
+            }
+            frm_Document_WizzardForHelp.Show();
         }
     }
 }

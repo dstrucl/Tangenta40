@@ -58,6 +58,7 @@ namespace HUDCMS
             this.chk_UseGit = new System.Windows.Forms.CheckBox();
             this.btn_SetGitExeFile = new System.Windows.Forms.Button();
             this.btn_ZIP = new System.Windows.Forms.Button();
+            this.btn_Wizzard = new System.Windows.Forms.Button();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -370,7 +371,7 @@ namespace HUDCMS
             this.cmbr_GeneralHelpFiles.ReadOnly = false;
             this.cmbr_GeneralHelpFiles.RecentItemsFileName = null;
             this.cmbr_GeneralHelpFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(717, 21);
+            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(646, 21);
             this.cmbr_GeneralHelpFiles.TabIndex = 10;
             // 
             // lbl_GeneralHelp
@@ -466,11 +467,23 @@ namespace HUDCMS
             this.btn_ZIP.UseVisualStyleBackColor = true;
             this.btn_ZIP.Click += new System.EventHandler(this.btn_ZIP_Click);
             // 
+            // btn_Wizzard
+            // 
+            this.btn_Wizzard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Wizzard.Location = new System.Drawing.Point(765, 4);
+            this.btn_Wizzard.Name = "btn_Wizzard";
+            this.btn_Wizzard.Size = new System.Drawing.Size(65, 21);
+            this.btn_Wizzard.TabIndex = 19;
+            this.btn_Wizzard.Text = "Wizzard";
+            this.btn_Wizzard.UseVisualStyleBackColor = true;
+            this.btn_Wizzard.Click += new System.EventHandler(this.btn_Wizzard_Click);
+            // 
             // Form_HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(960, 822);
+            this.Controls.Add(this.btn_Wizzard);
             this.Controls.Add(this.btn_ZIP);
             this.Controls.Add(this.btn_SetGitExeFile);
             this.Controls.Add(this.chk_UseGit);
@@ -534,5 +547,6 @@ namespace HUDCMS
         private System.Windows.Forms.CheckBox chk_UseGit;
         private System.Windows.Forms.Button btn_SetGitExeFile;
         private System.Windows.Forms.Button btn_ZIP;
+        private System.Windows.Forms.Button btn_Wizzard;
     }
 }

@@ -125,6 +125,13 @@
     <Compile Include="Booting_01_TangentaLicence.cs" />
     <Compile Include="Booting_00_TangentaAbout.cs" />
     <Compile Include="Colors.cs" />
+    <Compile Include="ControlTagForHelp.cs" />
+    <Compile Include="Form_Document_WizzardForHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Document_WizzardForHelp.Designer.cs">
+      <DependentUpon>Form_Document_WizzardForHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_FirstTimeInstallationGreeting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -580,6 +587,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_DocProformaInvoice_AddOn.resx">
       <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Document_WizzardForHelp.resx">
+      <DependentUpon>Form_Document_WizzardForHelp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
