@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HUDCMS
 {
-    public class TagForHelp
+    public class HelpWizzardTag
     {
+        public delegate void delegate_ShowWizzard(Control ctrl);
+        public  delegate_ShowWizzard ShowWizzard = null;
+
         private string name = null;
         public string Name
         {
@@ -23,7 +27,11 @@ namespace HUDCMS
         public string FileName = null;
         public string Text = null;
 
-        public TagForHelp(string xname, string[] xvalues)
+        public HelpWizzardTag()
+        {
+        }
+
+        public HelpWizzardTag(string xname, string[] xvalues)
         {
             name = xname;
             values = xvalues;

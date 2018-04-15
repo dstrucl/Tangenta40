@@ -104,13 +104,13 @@ namespace Tangenta
 
         }
 
-        public void Init(ref List<HUDCMS.TagForHelp> TagForHelpList)
+        public void Init(ref List<HUDCMS.HelpWizzardTag> TagForHelpList)
         {
             if (TagForHelpList==null)
             {
-                TagForHelpList = new List<HUDCMS.TagForHelp>();
+                TagForHelpList = new List<HUDCMS.HelpWizzardTag>();
 
-                TagForHelpList.Add(new HUDCMS.TagForHelp("bmultiuser", new string[] { "true", "false" }));
+//                TagForHelpList.Add(new HUDCMS.TagForHelp("bmultiuser", new string[] { "true", "false" }));
 
                 //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoice_visible", new string[] { "true", "false" })));
                 //TagForHelpList.Add(new HUDCMS.TagForHelp("bm_usrc_invoice_visible", "false"));

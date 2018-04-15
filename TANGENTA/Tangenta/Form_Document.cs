@@ -69,7 +69,6 @@ namespace Tangenta
         {
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
-            HUDCMS_static.ShowWizzard = this.ShowWizzard;
             default_FormName = this.Name;
             Program.nav = new NavigationButtons.Navigation();
             if (Program.Auto_NEXT)
@@ -457,7 +456,6 @@ namespace Tangenta
         private void m_usrc_Main_Exit_Click()
         {
              this.Close();
-            HUDCMS_static.ShowWizzard = null;
         }
 
         private bool AskToExit()
@@ -487,7 +485,6 @@ namespace Tangenta
             {
                 Exit();
                 e.Cancel = false;
-                HUDCMS_static.ShowWizzard = null;
                 return;
             }
             else
@@ -496,7 +493,6 @@ namespace Tangenta
                 {
                     Exit();
                     e.Cancel = false;
-                    HUDCMS_static.ShowWizzard = null;
                 }
                 else
                 {
@@ -562,6 +558,9 @@ namespace Tangenta
 
         private void SetNewFormTag()
         {
+            HUDCMS.HelpWizzardTag hlpwizTag = new HelpWizzardTag();
+            hlpwizTag.ShowWizzard = this.ShowWizzard;
+            this.Tag = hlpwizTag;
             string sNewTag = "";
 
             if (Program.OperationMode.MultiUser)
@@ -765,7 +764,7 @@ namespace Tangenta
             frm_Document_WizzardForHelp.Show();
         }
 
-        public bool WizControlInfo(Control ctrl, ref string title, ref List<TagForHelp> TagForHelp_About, ref List<TagForHelp> TagForHelp_Description)
+        public bool WizControlInfo(Control ctrl, ref string title, ref List<HelpWizzardTag> TagForHelp_About, ref List<HelpWizzardTag> TagForHelp_Description)
         {
 
             return false;

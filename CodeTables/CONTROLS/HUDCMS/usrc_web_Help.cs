@@ -26,6 +26,7 @@ namespace HUDCMS
         public event delagete_DocumentCompleted DocumentCompleted = null;
 
         internal usrc_Help mH = null;
+        internal Form_Wizzard frm_Wizzard = null;
         internal Form_HUDCMS frm_HUDCMS = null;
         private System.Windows.Forms.WebBrowser webBrowser1 = null;
         private bool bHideEditButton = false;
@@ -79,7 +80,7 @@ namespace HUDCMS
         private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             this.txt_URL.Text = webBrowser1.Url.ToString();
-            if (DocumentCompleted!=null)
+            if (DocumentCompleted != null)
             {
                 DocumentCompleted(this.txt_URL.Text);
             }
@@ -99,7 +100,7 @@ namespace HUDCMS
             set { m_RemoteUrl = value; }
         }
 
-        public void Show(Form xpForm,string sNameSpaceAndTypePath)
+        public void Show(Form xpForm, string sNameSpaceAndTypePath)
         {
             bHideEditButton = false;
             if (mH == null)
@@ -109,8 +110,8 @@ namespace HUDCMS
             mH.Visible = false;
             mH.pForm = xpForm;
             mH.Prefix = "st_";
-            mH.LocalHtmlFile_exist = mH.GetLocalURL(xpForm,mH.Prefix, sNameSpaceAndTypePath);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(xpForm,mH.Prefix, sNameSpaceAndTypePath);
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(xpForm, mH.Prefix, sNameSpaceAndTypePath);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(xpForm, mH.Prefix, sNameSpaceAndTypePath);
             Init(mH);
         }
 
@@ -125,9 +126,9 @@ namespace HUDCMS
             mH.pForm = null;
             mH.Prefix = "";
             string sLicenseAgreement = "Startup.LicenseAgreement";
-            mH.LocalHtmlFile_exist = mH.GetLocalURL(null,mH.Prefix, sLicenseAgreement);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(null,mH.Prefix, sLicenseAgreement);
-            btn_HUDCMS.Visible = false;            
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(null, mH.Prefix, sLicenseAgreement);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sLicenseAgreement);
+            btn_HUDCMS.Visible = false;
             Init(mH);
         }
 
@@ -141,8 +142,8 @@ namespace HUDCMS
             mH.pForm = null;
             mH.Prefix = "";
             string sNews = "News";
-            mH.LocalHtmlFile_exist = mH.GetLocalURL(null,mH.Prefix, sNews);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(null,mH.Prefix, sNews);
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(null, mH.Prefix, sNews);
+            mH.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sNews);
             bHideEditButton = false;
             btn_HUDCMS.Visible = false;
             Init(mH);
@@ -159,7 +160,7 @@ namespace HUDCMS
             mH.pForm = null;
             mH.Prefix = "";
             string sNews = "InstallationFinished";
-            mH.LocalHtmlFile_exist = mH.GetLocalURL(null,mH.Prefix, sNews);
+            mH.LocalHtmlFile_exist = mH.GetLocalURL(null, mH.Prefix, sNews);
             mH.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sNews);
             btn_HUDCMS.Visible = false;
             Init(mH);
@@ -211,7 +212,7 @@ namespace HUDCMS
         {
             bHideEditButton = false;
             txt_URL.Text = mH.RemoteURL;
-            if (this.webBrowser1!=null)
+            if (this.webBrowser1 != null)
             {
                 this.webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompleted;
                 this.Controls.Remove(this.webBrowser1);
@@ -238,28 +239,59 @@ namespace HUDCMS
                 AddWebBrowser();
             }
             this.webBrowser1.Url = new Uri("file:///" + mH.LocalHtmlFile);
-//            this.webBrowser1.Navigate("file:///" + mH.LocalHtmlFile);
+            //            this.webBrowser1.Navigate("file:///" + mH.LocalHtmlFile);
             this.webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
             this.Refresh();
         }
 
 
+        private bool ControlHasHelpWizzardTag(Control ctrl)
+        {
+            if (ctrl.Tag!=null)
+            {
+                if (ctrl.Tag is HelpWizzardTag)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void btn_HUDCMS_Click(object sender, EventArgs e)
         {
             Cursor cursor = this.Cursor;
             this.Cursor = Cursors.WaitCursor;
-            if (frm_HUDCMS != null)
+            Form parentform = Global.f.GetParentForm(this);
+            if (ControlHasHelpWizzardTag(parentform))
             {
-                if (frm_HUDCMS.IsDisposed)
+                if (frm_Wizzard != null)
                 {
-                    frm_HUDCMS = null;
+                    if (frm_Wizzard.IsDisposed)
+                    {
+                        frm_Wizzard = null;
+                    }
+                }
+
+                if (frm_Wizzard == null)
+                {
+                    frm_Wizzard = new Form_Wizzard(mH);
+                    frm_Wizzard.Owner = parentform;
                 }
             }
-            
-            if (frm_HUDCMS==null)
+            else
             {
-                frm_HUDCMS = new Form_HUDCMS(mH);
-                frm_HUDCMS.Owner = Global.f.GetParentForm(this);
+                if (frm_HUDCMS != null)
+                {
+                    if (frm_HUDCMS.IsDisposed)
+                    {
+                        frm_HUDCMS = null;
+                    }
+                }
+
+                if (frm_HUDCMS == null)
+                {
+                    frm_HUDCMS = new Form_HUDCMS(mH);
+                    frm_HUDCMS.Owner = parentform;
+                }
             }
             mH.uwebHelp = this;
             frm_HUDCMS.Show();

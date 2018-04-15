@@ -17,8 +17,12 @@ using UniqueControlNames;
 
 namespace HUDCMS
 {
-    public partial class Form_HUDCMS : Form
+    public partial class Form_Wizzard : Form
     {
+        public delegate bool delegate_WizControlInfo(Control ctrl, ref string title, ref List<HelpWizzardTag> TagForHelp_About, ref List<HelpWizzardTag> TagForHelp_Description);
+        public static delegate_WizControlInfo WizControlInfo = null;
+
+
         internal Form_AddLinks frm_AddLinks = null;
         internal MyControl myroot = null;
         ArrayList roots = new ArrayList();
@@ -69,7 +73,7 @@ namespace HUDCMS
         XElement THeader = null;
 
 
-        public Form_HUDCMS(usrc_Help xH)
+        public Form_Wizzard(usrc_Help xH)
         {
             UniqueControlName uctrln = new UniqueControlName();
             InitializeComponent();
@@ -950,6 +954,39 @@ namespace HUDCMS
             frm_zip.ShowDialog(this);
         }
 
+        private void btn_Wizzard_Click(object sender, EventArgs e)
+        {
+            if (myroot != null)
+            {
+                if (myroot.hc != null)
+                {
+                    Control xctrl = null;
+                    if (myroot.hc.pForm != null)
+                    {
+                        xctrl = myroot.hc.pForm;
+                    }
+                    else if (myroot.hc.ctrl != null)
+                    {
+                        xctrl = myroot.hc.ctrl;
+                    }
+                    if (xctrl != null)
+                    {
+                        if (xctrl.Tag!=null)
+                        {
+                            if (xctrl.Tag is HelpWizzardTag)
+                            {
+                                HelpWizzardTag hlpwt = (HelpWizzardTag)xctrl.Tag;
+                                if (hlpwt.ShowWizzard!=null)
+                                {
+                                    hlpwt.ShowWizzard(xctrl);
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

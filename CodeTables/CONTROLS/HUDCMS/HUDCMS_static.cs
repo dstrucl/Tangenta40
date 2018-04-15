@@ -15,11 +15,6 @@ namespace HUDCMS
         public delegate bool delegate_ControlInfo(object o, ref string title, ref string about, ref string description);
         public static delegate_ControlInfo ControlInfo = null;
 
-        public delegate bool delegate_WizControlInfo(Control ctrl, ref string title, ref List<TagForHelp> TagForHelp_About , ref List<TagForHelp> TagForHelp_Description);
-        public static delegate_WizControlInfo WizControlInfo = null;
-
-        public delegate void delegate_ShowWizzard(Control ctrl);
-        public static delegate_ShowWizzard ShowWizzard = null;
 
 
         public const int MAX_FILENAME_LENGTH = 127;

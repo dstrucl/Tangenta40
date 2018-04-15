@@ -77,6 +77,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_Wizzard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Wizzard.Designer.cs">
+      <DependentUpon>Form_Wizzard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_AddLinks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,7 +141,37 @@
     </Compile>
     <Compile Include="MyControl.cs" />
     <Compile Include="ShellUtilities.cs" />
-    <Compile Include="TagForHelp.cs" />
+    <Compile Include="HelpWizzardTag.cs" />
+    <Compile Include="usrc_EditControlWizzard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard.Designer.cs">
+      <DependentUpon>usrc_EditControlWizzard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_About.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_About.Designer.cs">
+      <DependentUpon>usrc_EditControlWizzard_About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_Description.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_Description.Designer.cs">
+      <DependentUpon>usrc_EditControlWizzard_Description.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_Image.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_Image.Designer.cs">
+      <DependentUpon>usrc_EditControlWizzard_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_Title.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_EditControlWizzard_Title.Designer.cs">
+      <DependentUpon>usrc_EditControlWizzard_Title.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_TagForHelp.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -191,9 +227,18 @@
     <Compile Include="usrc_web_Help.Designer.cs">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_WizElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_WizElement.Designer.cs">
+      <DependentUpon>usrc_WizElement.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_Wizzard.resx">
+      <DependentUpon>Form_Wizzard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_AddLinks.resx">
       <DependentUpon>Form_AddLinks.cs</DependentUpon>
     </EmbeddedResource>
@@ -219,17 +264,32 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControlWizzard.resx">
+      <DependentUpon>usrc_EditControlWizzard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditControl.resx">
       <DependentUpon>usrc_EditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControlWizzard_About.resx">
+      <DependentUpon>usrc_EditControlWizzard_About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditControl_About.resx">
       <DependentUpon>usrc_EditControl_About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControlWizzard_Description.resx">
+      <DependentUpon>usrc_EditControlWizzard_Description.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditControl_Description.resx">
       <DependentUpon>usrc_EditControl_Description.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControlWizzard_Image.resx">
+      <DependentUpon>usrc_EditControlWizzard_Image.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditControl_Image.resx">
       <DependentUpon>usrc_EditControl_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_EditControlWizzard_Title.resx">
+      <DependentUpon>usrc_EditControlWizzard_Title.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditControl_Title.resx">
       <DependentUpon>usrc_EditControl_Title.cs</DependentUpon>
@@ -240,8 +300,14 @@
     <EmbeddedResource Include="usrc_helpSettings.resx">
       <DependentUpon>usrc_helpSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_TagForHelp.resx">
+      <DependentUpon>usrc_TagForHelp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_web_Help.resx">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_WizElement.resx">
+      <DependentUpon>usrc_WizElement.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
