@@ -12,29 +12,18 @@ namespace HUDCMS
         public delegate void delegate_ShowWizzard(Control ctrl);
         public  delegate_ShowWizzard ShowWizzard = null;
 
-        private string name = null;
-        public string Name
-        {
-            get { return name; }
-        }
+        public delegate bool delegate_FillTextContent(HelpWizzardTagDC[] hlpTagDCs,ref string About, ref string Description);
+        public delegate_FillTextContent FillTextContent = null;
 
-        public string[] values = null;
-        public string[] Values
-        {
-            get { return values; }
-        }
 
-        public string FileName = null;
-        public string Text = null;
+        public HelpWizzardTagDC[] tagDCs = null;
 
-        public HelpWizzardTag()
+        public HelpWizzardTag(HelpWizzardTagDC[] xtagDCs, delegate_ShowWizzard xdelegate_ShowWizzard,
+                                                delegate_FillTextContent xFillTextContent)
         {
-        }
-
-        public HelpWizzardTag(string xname, string[] xvalues)
-        {
-            name = xname;
-            values = xvalues;
+            tagDCs = xtagDCs;
+            ShowWizzard = xdelegate_ShowWizzard;
+            FillTextContent = xFillTextContent;
         }
     }
 }

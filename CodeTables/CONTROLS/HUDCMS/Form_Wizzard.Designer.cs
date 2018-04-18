@@ -47,7 +47,7 @@ namespace HUDCMS
             this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.usrc_EditControl1 = new HUDCMS.usrc_EditControl();
+            this.usrc_EditControlWizzard1 = new HUDCMS.usrc_EditControlWizzard();
             this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
             this.cmbr_GeneralHelpFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.lbl_GeneralHelp = new System.Windows.Forms.Label();
@@ -132,7 +132,7 @@ namespace HUDCMS
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.usrc_EditControl1);
+            this.splitContainer1.Panel2.Controls.Add(this.usrc_EditControlWizzard1);
             this.splitContainer1.Size = new System.Drawing.Size(1103, 734);
             this.splitContainer1.SplitterDistance = 414;
             this.splitContainer1.SplitterWidth = 5;
@@ -322,15 +322,15 @@ namespace HUDCMS
             // 
             // usrc_EditControl1
             // 
-            this.usrc_EditControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_EditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditControl1.Enabled = false;
-            this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_EditControl1.Name = "usrc_EditControl1";
-            this.usrc_EditControl1.Size = new System.Drawing.Size(680, 730);
-            this.usrc_EditControl1.SnapShotMargin = 4;
-            this.usrc_EditControl1.TabIndex = 1;
+            this.usrc_EditControlWizzard1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_EditControlWizzard1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditControlWizzard1.Enabled = false;
+            this.usrc_EditControlWizzard1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditControlWizzard1.Margin = new System.Windows.Forms.Padding(2);
+            this.usrc_EditControlWizzard1.Name = "usrc_EditControl1";
+            this.usrc_EditControlWizzard1.Size = new System.Drawing.Size(680, 730);
+            this.usrc_EditControlWizzard1.SnapShotMargin = 4;
+            this.usrc_EditControlWizzard1.TabIndex = 1;
             // 
             // usrc_SelectHtmlFile
             // 
@@ -523,7 +523,7 @@ namespace HUDCMS
         private System.Windows.Forms.GroupBox grp_Style;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private SelectFile.usrc_SelectFile usrc_SelectStyleFile;
-        internal usrc_EditControl usrc_EditControl1;
+        internal usrc_EditControlWizzard usrc_EditControlWizzard1;
         internal System.Windows.Forms.Panel panel1;
         internal SelectFile.usrc_SelectFile usrc_SelectHtmlFile;
         private System.Windows.Forms.SplitContainer splitContainer2;
