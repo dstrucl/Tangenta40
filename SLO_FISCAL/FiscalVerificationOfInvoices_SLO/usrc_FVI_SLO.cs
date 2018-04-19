@@ -400,33 +400,43 @@ namespace FiscalVerificationOfInvoices_SLO
             string xfurscertificateFileName_TEST = Properties.Settings.Default.furscertificateFileName_TEST;
             if (xfurscertificateFileName_TEST.Length == 0)
             {
-                string FullAssemblyPath = System.Reflection.Assembly.GetEntryAssembly().Location;
-                string FullTestCertificatePath = Path.GetDirectoryName(FullAssemblyPath);
-                if (FullTestCertificatePath.Length > 0)
+                return SaveTestCertficate();
+            }
+            return true;
+        }
+
+        private bool SaveTestCertficate()
+        {
+            string FullAssemblyPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            string FullTestCertificatePath = Path.GetDirectoryName(FullAssemblyPath);
+            if (FullTestCertificatePath.Length > 0)
+            {
+                if (FullTestCertificatePath[FullTestCertificatePath.Length - 1] == '\\')
                 {
-                    if (FullTestCertificatePath[FullTestCertificatePath.Length - 1] == '\\')
-                    {
-                        FullTestCertificatePath += TestCertificate.TestCertName;
-                    }
-                    else
-                    {
-                        FullTestCertificatePath += '\\' + TestCertificate.TestCertName;
-                    }
-                    if (TestCertificate.Save(ref FullTestCertificatePath))
-                    {
-                        Properties.Settings.Default.furscertificateFileName_TEST = FullTestCertificatePath;
-                        Properties.Settings.Default.fursCertPass_TEST = "269BODLY9RBL";
-                        this.FursTESTEnvironment = true;
-                        Properties.Settings.Default.Save();
-                    }
+                    FullTestCertificatePath += TestCertificate.TestCertName;
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:FiscalVerification_SLO:usrc_FVI_SLO:usrc_FVI_SLO():FullTestCertificatePath.Length==0!");
+                    FullTestCertificatePath += '\\' + TestCertificate.TestCertName;
+                }
+                if (TestCertificate.Save(ref FullTestCertificatePath))
+                {
+                    Properties.Settings.Default.furscertificateFileName_TEST = FullTestCertificatePath;
+                    Properties.Settings.Default.fursCertPass_TEST = "269BODLY9RBL";
+                    this.FursTESTEnvironment = true;
+                    Properties.Settings.Default.Save();
+                    return true;
+                }
+                else
+                {
                     return false;
                 }
             }
-            return true;
+            else
+            {
+                LogFile.Error.Show("ERROR:FiscalVerification_SLO:usrc_FVI_SLO:usrc_FVI_SLO():FullTestCertificatePath.Length==0!");
+                return false;
+            }
         }
 
         private void usrc_FVI_SLO_Load(object sender, EventArgs e)
@@ -526,6 +536,13 @@ namespace FiscalVerificationOfInvoices_SLO
                 {
                     DEBUG = Properties.Settings.Default.DEBUG;
                     timeOutInSec = Properties.Settings.Default.timeOutInSec;
+                    if (bTest)
+                    {
+                        if (!File.Exists(FursCertificateFileName))
+                        {
+                            SaveTestCertficate();
+                        }
+                    }
                     if (thread_fvi.Start(message_box, MessageBox_Length,FursTESTEnvironment, FursCertificateFileName, FursCertificatePassword, FursWebServiceURL, FursXmlNamespace, timeOutInSec, ref ErrReason))
                     {
                         timer_MessagePump.Enabled = true;

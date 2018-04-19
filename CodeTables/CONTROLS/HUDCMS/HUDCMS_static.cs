@@ -518,24 +518,40 @@ namespace HUDCMS
                 {
                     ModuleName = "";
                     string sFormName = null;
+                    string WizzardDir = "";
+                    string filesufix = "";
+                    WizzardgGetExtension(pForm, ref WizzardDir, ref filesufix);
                     if (FormHasName(pForm,ref sFormName))
                     {
-                        HtmlFileName = prefix + sFormName + ".html";
+                        HtmlFileName = prefix + sFormName + filesufix+ ".html";
                     }
                     else
                     {
-                        HtmlFileName = prefix + s[s.Length - 1] + ".html";
+                        HtmlFileName = prefix + s[s.Length - 1] + filesufix+ ".html";
                     }
                     
                     for (int i = 0; i < s.Length - 1; i++)
                     {
                         ModuleName += s[i] + "/";
                     }
-                    xRelativeURL = Relative_ApplicationVersionAndLangugagePath + ModuleName + HtmlFileName;
+                    xRelativeURL = Relative_ApplicationVersionAndLangugagePath + ModuleName + WizzardDir+HtmlFileName;
                     return true;
                 }
             }
             return false;
+        }
+
+        private static void WizzardgGetExtension(Form pForm, ref string wizzardDir, ref string filesufix)
+        {
+            if (pForm.Tag!=null)
+            {
+                if (pForm.Tag is HelpWizzardTag)
+                {
+                    HelpWizzardTag hlpwizzardtag = (HelpWizzardTag)pForm.Tag;
+                    wizzardDir = "wiz/";
+                    filesufix = hlpwizzardtag.FileSuffix;
+                }
+            }
         }
 
         public static void Unzip_Help(string ZipFile)

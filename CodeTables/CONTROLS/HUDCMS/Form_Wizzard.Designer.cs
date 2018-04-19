@@ -48,7 +48,7 @@ namespace HUDCMS
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.usrc_EditControlWizzard1 = new HUDCMS.usrc_EditControlWizzard();
-            this.usrc_SelectHtmlFile = new SelectFile.usrc_SelectFile();
+            this.usrc_SelectXMLFile = new SelectFile.usrc_SelectFile();
             this.cmbr_GeneralHelpFiles = new ComboBox_Recent.ComboBox_RecentList();
             this.lbl_GeneralHelp = new System.Windows.Forms.Label();
             this.btn_EditGeneralHelpFile = new System.Windows.Forms.Button();
@@ -334,24 +334,24 @@ namespace HUDCMS
             // 
             // usrc_SelectHtmlFile
             // 
-            this.usrc_SelectHtmlFile.BackColor = System.Drawing.Color.Lime;
-            this.usrc_SelectHtmlFile.ButtonEditVisible = true;
-            this.usrc_SelectHtmlFile.ButtonSelectText = "Save";
-            this.usrc_SelectHtmlFile.DefaultExtension = "txt";
-            this.usrc_SelectHtmlFile.FileName = "";
-            this.usrc_SelectHtmlFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            this.usrc_SelectHtmlFile.InitialDirectory = "C:\\";
-            this.usrc_SelectHtmlFile.LabelText = "Save File";
-            this.usrc_SelectHtmlFile.Location = new System.Drawing.Point(2, 55);
-            this.usrc_SelectHtmlFile.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_SelectHtmlFile.Name = "usrc_SelectHtmlFile";
-            this.usrc_SelectHtmlFile.Size = new System.Drawing.Size(956, 26);
-            this.usrc_SelectHtmlFile.TabIndex = 9;
-            this.usrc_SelectHtmlFile.Title = "Save File";
-            this.usrc_SelectHtmlFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
-            this.usrc_SelectHtmlFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectHtmlFile_SaveFile);
-            this.usrc_SelectHtmlFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectHtmlFile_EditFile);
-            this.usrc_SelectHtmlFile.Load += new System.EventHandler(this.usrc_SelectHtmlFile_Load);
+            this.usrc_SelectXMLFile.BackColor = System.Drawing.Color.Lime;
+            this.usrc_SelectXMLFile.ButtonEditVisible = true;
+            this.usrc_SelectXMLFile.ButtonSelectText = "Save";
+            this.usrc_SelectXMLFile.DefaultExtension = "txt";
+            this.usrc_SelectXMLFile.FileName = "";
+            this.usrc_SelectXMLFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            this.usrc_SelectXMLFile.InitialDirectory = "C:\\";
+            this.usrc_SelectXMLFile.LabelText = "Save File";
+            this.usrc_SelectXMLFile.Location = new System.Drawing.Point(2, 55);
+            this.usrc_SelectXMLFile.Margin = new System.Windows.Forms.Padding(2);
+            this.usrc_SelectXMLFile.Name = "usrc_SelectHtmlFile";
+            this.usrc_SelectXMLFile.Size = new System.Drawing.Size(956, 26);
+            this.usrc_SelectXMLFile.TabIndex = 9;
+            this.usrc_SelectXMLFile.Title = "Save File";
+            this.usrc_SelectXMLFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
+            this.usrc_SelectXMLFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectHtmlFile_SaveFile);
+            this.usrc_SelectXMLFile.EditFile += new SelectFile.usrc_SelectFile.delegate_EditFile(this.usrc_SelectHtmlFile_EditFile);
+            this.usrc_SelectXMLFile.Load += new System.EventHandler(this.usrc_SelectHtmlFile_Load);
             // 
             // cmbr_GeneralHelpFiles
             // 
@@ -492,12 +492,12 @@ namespace HUDCMS
             this.Controls.Add(this.btn_EditGeneralHelpFile);
             this.Controls.Add(this.lbl_GeneralHelp);
             this.Controls.Add(this.cmbr_GeneralHelpFiles);
-            this.Controls.Add(this.usrc_SelectHtmlFile);
+            this.Controls.Add(this.usrc_SelectXMLFile);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Wizzard";
             this.Text = "Form_HUDCMS";
-            this.Load += new System.EventHandler(this.Form_HUDCMS_Load);
+            this.Load += new System.EventHandler(this.Form_Wizzard_Load);
             this.grp_Style.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -525,7 +525,7 @@ namespace HUDCMS
         private SelectFile.usrc_SelectFile usrc_SelectStyleFile;
         internal usrc_EditControlWizzard usrc_EditControlWizzard1;
         internal System.Windows.Forms.Panel panel1;
-        internal SelectFile.usrc_SelectFile usrc_SelectHtmlFile;
+        internal SelectFile.usrc_SelectFile usrc_SelectXMLFile;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.GroupBox grp_Header;
         private FastColoredTextBoxNS.FastColoredTextBox fctb_Header;

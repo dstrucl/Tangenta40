@@ -867,8 +867,8 @@ namespace Tangenta
         {
             string sparam1 = "@par_DocInvoiceTime_Start";
             string sparam2 = "@par_DocInvoiceTime_End";
-            dtStartTime = xdtStartTime;
-            dtEndTime = xdtEndTime;
+            dtStartTime = new DateTime(xdtStartTime.Year, xdtStartTime.Month, xdtStartTime.Day);
+            dtEndTime = new DateTime(xdtEndTime.Year, xdtEndTime.Month, xdtEndTime.Day); ;
             lpar_ExtraCondition = null;
             lpar_ExtraCondition = new List<DBConnectionControl40.SQL_Parameter>();
             SQL_Parameter par1 = new SQL_Parameter(sparam1, SQL_Parameter.eSQL_Parameter.Datetime, false, dtStartTime);

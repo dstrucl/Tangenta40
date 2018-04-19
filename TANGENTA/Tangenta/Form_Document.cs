@@ -635,29 +635,53 @@ namespace Tangenta
 
             HUDCMS.HelpWizzardTag hlpwizTag = new HelpWizzardTag(TagDCs, this.HelpWizzardShow, this.HelpWizzardFillTextContent);
 
+            string sNewTag = "_";
 
+            long numberOfAll = -1;
 
-            this.Tag = hlpwizTag;
-            string sNewTag = "";
+            if (this.m_usrc_Main.IsDocInvoice)
+            {
+                numberOfAll = fs.NumberOInvoicesInDatabase();
+                sNewTag += "i";
+            }
+            else if (this.m_usrc_Main.IsDocProformaInvoice)
+            {
+                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                sNewTag += "p";
+            }
+
+            if (numberOfAll<0)
+            {
+                LogFile.Error.Show("ERROR:Tangenta:Form_Document:SetNewFormTag:  numberOfAll invoices or proforma invoices < 0 !");
+            }
+            else if (numberOfAll==0)
+            {
+                sNewTag += "Z";
+            }
+            else if (numberOfAll > 0)
+            {
+                sNewTag += "N";
+            }
+
 
             if (Program.OperationMode.MultiUser)
             {
-                sNewTag += "M";
+                sNewTag += "m";
             }
             else
             {
-                sNewTag += "S";
+                sNewTag += "s";
             }
             if (m_usrc_Main.m_usrc_Invoice_Visible)
             {
                 sNewTag += "I";
                 if (m_usrc_Main.m_usrc_Invoice_ViewMode)
                 {
-                    sNewTag += "V";
+                    sNewTag += "v";
                 }
                 else
                 {
-                    sNewTag += "E";
+                    sNewTag += "e";
                 }
                 if (m_usrc_Main.ShopA_Visible)
                 {
@@ -675,78 +699,243 @@ namespace Tangenta
 
             if (m_usrc_Main.m_usrc_InvoiceTable_Visible)
             {
-                sNewTag += "T";
+                sNewTag += "t";
             }
 
-            this.Tag = sNewTag;
+            hlpwizTag.FileSuffix = sNewTag;
+
+            this.Tag = hlpwizTag;
+
 
             /* All Possible combinations:
-               MIVA
-               MIVB
-               MIVC
-               MIVAB
-               MIVAC
-               MIVBC
-               MIVABC
+               iZmIvA
+               iZmIvB
+               iZmIvC
+               iZmIvAB
+               iZmIvAC
+               iZmIvBC
+               iZmIvABC
+               iZsIvA
+               iZsIvB
+               iZsIvC
+               iZsIvAB
+               iZsIvAC
+               iZsIvBC
+               iZsIvABC
+               iZmIeA
+               iZmIeB
+               iZmIeC
+               iZmIeAB
+               iZmIeAC
+               iZmIeBC
+               iZmIeABC
+               iZsIeA
+               iZsIeB
+               iZsIeC
+               iZsIeAB
+               iZsIeAC
+               iZsIeBC
+               iZsIeABC
+               iZmIvAt
+               iZmIvBt
+               iZmIvCt
+               iZmIvABt
+               iZmIvACt
+               iZmIvBCt
+               iZmIvABCt
+               iZsIvAt
+               iZsIvBt
+               iZsIvCt
+               iZsIvABt
+               iZsIvACt
+               iZsIvBCt
+               iZsIvABCt
+               iZmIeAt
+               iZmIeBt
+               iZmIeCt
+               iZmIeABt
+               iZmIeACt
+               iZmIeBCt
+               iZmIeABCt
+               iZsIeAt
+               iZsIeBt
+               iZsIeCt
+               iZsIeABt
+               iZsIeACt
+               iZsIeBCt
+               iZsIeABCt
+               iNmIvA
+               iNmIvB
+               iNmIvC
+               iNmIvAB
+               iNmIvAC
+               iNmIvBC
+               iNmIvABC
+               iNsIvA
+               iNsIvB
+               iNsIvC
+               iNsIvAB
+               iNsIvAC
+               iNsIvBC
+               iNsIvABC
+               iNmIeA
+               iNmIeB
+               iNmIeC
+               iNmIeAB
+               iNmIeAC
+               iNmIeBC
+               iNmIeABC
+               iNsIeA
+               iNsIeB
+               iNsIeC
+               iNsIeAB
+               iNsIeAC
+               iNsIeBC
+               iNsIeABC
+               iNmIvAt
+               iNmIvBt
+               iNmIvCt
+               iNmIvABt
+               iNmIvACt
+               iNmIvBCt
+               iNmIvABCt
+               iNsIvAt
+               iNsIvBt
+               iNsIvCt
+               iNsIvABt
+               iNsIvACt
+               iNsIvBCt
+               iNsIvABCt
+               iNmIeAt
+               iNmIeBt
+               iNmIeCt
+               iNmIeABt
+               iNmIeACt
+               iNmIeBCt
+               iNmIeABCt
+               iNsIeAt
+               iNsIeBt
+               iNsIeCt
+               iNsIeABt
+               iNsIeACt
+               iNsIeBCt
+               iNsIeABCt
 
-               SIVA
-               SIVB
-               SIVC
-               SIVAB
-               SIVAC
-               SIVBC
-               SIVABC
+               pZmIvA
+               pZmIvB
+               pZmIvC
+               pZmIvAB
+               pZmIvAC
+               pZmIvBC
+               pZmIvABC
+               pZsIvA
+               pZsIvB
+               pZsIvC
+               pZsIvAB
+               pZsIvAC
+               pZsIvBC
+               pZsIvABC
+               pZmIeA
+               pZmIeB
+               pZmIeC
+               pZmIeAB
+               pZmIeAC
+               pZmIeBC
+               pZmIeABC
+               pZsIeA
+               pZsIeB
+               pZsIeC
+               pZsIeAB
+               pZsIeAC
+               pZsIeBC
+               pZsIeABC
+               pZmIvAt
+               pZmIvBt
+               pZmIvCt
+               pZmIvABt
+               pZmIvACt
+               pZmIvBCt
+               pZmIvABCt
+               pZsIvAt
+               pZsIvBt
+               pZsIvCt
+               pZsIvABt
+               pZsIvACt
+               pZsIvBCt
+               pZsIvABCt
+               pZmIeAt
+               pZmIeBt
+               pZmIeCt
+               pZmIeABt
+               pZmIeACt
+               pZmIeBCt
+               pZmIeABCt
+               pZsIeAt
+               pZsIeBt
+               pZsIeCt
+               pZsIeABt
+               pZsIeACt
+               pZsIeBCt
+               pZsIeABCt
+               pNmIvA
+               pNmIvB
+               pNmIvC
+               pNmIvAB
+               pNmIvAC
+               pNmIvBC
+               pNmIvABC
+               pNsIvA
+               pNsIvB
+               pNsIvC
+               pNsIvAB
+               pNsIvAC
+               pNsIvBC
+               pNsIvABC
+               pNmIeA
+               pNmIeB
+               pNmIeC
+               pNmIeAB
+               pNmIeAC
+               pNmIeBC
+               pNmIeABC
+               pNsIeA
+               pNsIeB
+               pNsIeC
+               pNsIeAB
+               pNsIeAC
+               pNsIeBC
+               pNsIeABC
+               pNmIvAt
+               pNmIvBt
+               pNmIvCt
+               pNmIvABt
+               pNmIvACt
+               pNmIvBCt
+               pNmIvABCt
+               pNsIvAt
+               pNsIvBt
+               pNsIvCt
+               pNsIvABt
+               pNsIvACt
+               pNsIvBCt
+               pNsIvABCt
+               pNmIeAt
+               pNmIeBt
+               pNmIeCt
+               pNmIeABt
+               pNmIeACt
+               pNmIeBCt
+               pNmIeABCt
+               pNsIeAt
+               pNsIeBt
+               pNsIeCt
+               pNsIeABt
+               pNsIeACt
+               pNsIeBCt
+               pNsIeABCt
 
-               MIEA
-               MIEB
-               MIEC
-               MIEAB
-               MIEAC
-               MIEBC
-               MIEABC
-
-               SIEA
-               SIEB
-               SIEC
-               SIEAB
-               SIEAC
-               SIEBC
-               SIEABC
-
-               MIVAT
-               MIVBT
-               MIVCT
-               MIVABT
-               MIVACT
-               MIVBCT
-               MIVABCT
-
-               SIVAT
-               SIVBT
-               SIVCT
-               SIVABT
-               SIVACT
-               SIVBCT
-               SIVABCT
-
-               MIEAT
-               MIEBT
-               MIECT
-               MIEABT
-               MIEACT
-               MIEBCT
-               MIEABCT
-
-               SIEAT
-               SIEBT
-               SIECT
-               SIEABT
-               SIEACT
-               SIEBCT
-               SIEABCT
-
-               MT
-               ST
+               mt
+               st
 
                Total 58 possible combinations
 

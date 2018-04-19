@@ -260,42 +260,53 @@ namespace HUDCMS
         {
             Cursor cursor = this.Cursor;
             this.Cursor = Cursors.WaitCursor;
+
             Form parentform = Global.f.GetParentForm(this);
-            if (ControlHasHelpWizzardTag(parentform))
-            {
-                if (frm_Wizzard != null)
-                {
-                    if (frm_Wizzard.IsDisposed)
-                    {
-                        frm_Wizzard = null;
-                    }
-                }
 
-                if (frm_Wizzard == null)
+            Form formforhelp = null;
+            if (mH.pForm!=null)
+            {
+                formforhelp = mH.pForm;
+            }
+            if (formforhelp != null)
+            {
+                if (ControlHasHelpWizzardTag(formforhelp))
                 {
-                    frm_Wizzard = new Form_Wizzard(mH);
-                    frm_Wizzard.Owner = parentform;
+                    if (frm_Wizzard != null)
+                    {
+                        if (frm_Wizzard.IsDisposed)
+                        {
+                            frm_Wizzard = null;
+                        }
+                    }
+
+                    if (frm_Wizzard == null)
+                    {
+                        frm_Wizzard = new Form_Wizzard(mH);
+                        frm_Wizzard.Owner = parentform;
+                    }
+                    mH.uwebHelp = this;
+                    frm_Wizzard.Show();
+                }
+                else
+                {
+                    if (frm_HUDCMS != null)
+                    {
+                        if (frm_HUDCMS.IsDisposed)
+                        {
+                            frm_HUDCMS = null;
+                        }
+                    }
+
+                    if (frm_HUDCMS == null)
+                    {
+                        frm_HUDCMS = new Form_HUDCMS(mH);
+                        frm_HUDCMS.Owner = parentform;
+                    }
+                    mH.uwebHelp = this;
+                    frm_HUDCMS.Show();
                 }
             }
-            else
-            {
-                if (frm_HUDCMS != null)
-                {
-                    if (frm_HUDCMS.IsDisposed)
-                    {
-                        frm_HUDCMS = null;
-                    }
-                }
-
-                if (frm_HUDCMS == null)
-                {
-                    frm_HUDCMS = new Form_HUDCMS(mH);
-                    frm_HUDCMS.Owner = parentform;
-                }
-            }
-            mH.uwebHelp = this;
-            frm_HUDCMS.Show();
-
             this.Cursor = cursor;
         }
 

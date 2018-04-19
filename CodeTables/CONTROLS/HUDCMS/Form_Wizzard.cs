@@ -19,6 +19,9 @@ namespace HUDCMS
 {
     public partial class Form_Wizzard : Form
     {
+        internal HelpWizzardTag wizzardTag = null;
+
+        internal string LocalXmlFileName = null;
 
         internal Form_AddLinks frm_AddLinks = null;
         internal MyControl myroot = null;
@@ -76,21 +79,38 @@ namespace HUDCMS
             InitializeComponent();
             mH = xH;
             hc = new hctrl(mH.pForm, uctrln);
-            usrc_SelectHtmlFile.InitialDirectory = Path.GetDirectoryName(mH.LocalHtmlFile);
-            usrc_SelectHtmlFile.FileName = mH.LocalHtmlFile;
-            usrc_SelectHtmlFile.Title = "Save HTML file";
-            usrc_SelectHtmlFile.Text = "HTML file:";
-            this.usrc_SelectHtmlFile.DefaultExtension = "html";
-            this.usrc_SelectHtmlFile.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
+
+            wizzardTag = (HelpWizzardTag) mH.pForm.Tag;
+            usrc_SelectXMLFile.InitialDirectory = Path.GetDirectoryName(mH.LocalHtmlFile);
+            int indexof_filesufix_plus_html_extension = mH.LocalHtmlFile.IndexOf(wizzardTag.FileSuffix + ".html");
+            if (indexof_filesufix_plus_html_extension>0)
+            {
+                LocalXmlFileName = mH.LocalHtmlFile.Substring(0, indexof_filesufix_plus_html_extension) + ".xml";
+            }
+            else
+            {
+                LocalXmlFileName = null;
+                return;
+            }
+            
+            usrc_SelectXMLFile.FileName = LocalXmlFileName;
+            usrc_SelectXMLFile.Title = "Save XML file";
+            usrc_SelectXMLFile.Text = "XML file:";
+            this.usrc_SelectXMLFile.DefaultExtension = "xml";
+            this.usrc_SelectXMLFile.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
             string sStylePath = Path.GetDirectoryName(mH.LocalHtmlFile);
             int index_of_last_map = sStylePath.LastIndexOf('\\');
             if (index_of_last_map > 0)
             {
                 sStylePath = sStylePath.Substring(0, index_of_last_map);
+                index_of_last_map = sStylePath.LastIndexOf('\\');
+                if (index_of_last_map > 0)
+                {
+                    sStylePath = sStylePath.Substring(0, index_of_last_map);
+                    usrc_SelectStyleFile.InitialDirectory = sStylePath;
+                }
             }
-            usrc_SelectStyleFile.InitialDirectory = sStylePath;
-
             usrc_SelectStyleFile.FileName = sStylePath + "\\style.css";
             usrc_SelectStyleFile.Title = "Save style file";
             usrc_SelectStyleFile.Text = "Style file:";
@@ -98,21 +118,28 @@ namespace HUDCMS
        
         }
 
-        private void Form_HUDCMS_Load(object sender, EventArgs e)
+        private void Form_Wizzard_Load(object sender, EventArgs e)
         {
+            if (LocalXmlFileName == null)
+            {
+                MessageBox.Show(this, "ERROR:LocalXmlFileName == null");
+                this.Close();
+                DialogResult = DialogResult.Abort;
+                return;
+            }
 
             SetHeader();
 
             SetGeneralHelpFiles();
 
-            string sHtmFileName = usrc_SelectHtmlFile.FileName;
+            string sXmlFileName = usrc_SelectXMLFile.FileName;
             try
             {
-                xhtml_Loaded = XDocument.Load(sHtmFileName);
+                xhtml_Loaded = XDocument.Load(sXmlFileName);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR: XDocument.Load file=\"" + sHtmFileName + "\" failed :Exception = " + ex.Message);
+                MessageBox.Show("ERROR: XDocument.Load file=\"" + sXmlFileName + "\" failed :Exception = " + ex.Message);
             }
 
             int y = 2;
@@ -120,7 +147,7 @@ namespace HUDCMS
 
             InitializeMyTreeListView(ref iAllCount);
 
-            this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
+            this.Text = sXmlFileName + "  Number of controls=" + iAllCount.ToString();
 
             if (Properties.Settings.Default.GitExeFile.Length==0)
             {
@@ -519,7 +546,7 @@ namespace HUDCMS
                 }
             }
 
-            string shtml_file = this.usrc_SelectHtmlFile.FileName;
+            string shtml_file = this.usrc_SelectXMLFile.FileName;
 
             System.Uri uri1 = new Uri(styleFile);
 
@@ -874,9 +901,9 @@ namespace HUDCMS
                     if (olvi.RowObject is MyControl)
                     {
                         MyControl myctrl = (MyControl)olvi.RowObject;
-                        myctrl.xfrm_HUDCMS.MyControl_Selected = myctrl;
-                        myctrl.xfrm_HUDCMS.usrc_EditControl1.Enabled = true;
-                        myctrl.xfrm_HUDCMS.usrc_EditControl1.Init(myctrl);
+                        myctrl.xfrm_Wizzard.MyControl_Selected = myctrl;
+                        myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Enabled = true;
+                        myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Init(myctrl);
                         if (hc.dgvc == null)
                         {
                             //xfrm_HUDCMS.HideLinks();

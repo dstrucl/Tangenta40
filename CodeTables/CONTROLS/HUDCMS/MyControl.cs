@@ -22,6 +22,7 @@ namespace HUDCMS
         internal List<MyControl> Link = null;
 
         internal Form_HUDCMS xfrm_HUDCMS = null;
+        internal Form_Wizzard xfrm_Wizzard = null;
 
         internal XElement xel = null;
         internal XElement xdiv_Title = null;
@@ -589,15 +590,17 @@ namespace HUDCMS
              if (uH.hlp_dlg!=null)
             {
                 xfrm_HUDCMS = uH.hlp_dlg.usrc_web_Help1.frm_HUDCMS;
+                xfrm_Wizzard = uH.hlp_dlg.usrc_web_Help1.frm_Wizzard;
             }
             else if (uH.uwebHelp != null)
             {
                 xfrm_HUDCMS = uH.uwebHelp.frm_HUDCMS;
+                xfrm_Wizzard = null;
             }
 
-            if (xfrm_HUDCMS.xhtml_Loaded != null)
+            XDocument doc = null;
+            if (Get_xhtml_Loaded(ref doc))
             {
-                XDocument doc = xfrm_HUDCMS.xhtml_Loaded;
                 XElement xel = null;
                 if (FindXElement(doc, ref xel, "TControl", "name",ControlUniqueName))
                 {
@@ -733,6 +736,25 @@ namespace HUDCMS
             {
                 Guid id = Guid.NewGuid();
                 ID = id.ToString();
+            }
+        }
+
+        private bool Get_xhtml_Loaded(ref XDocument doc)
+        {
+            if (xfrm_HUDCMS != null)
+            {
+                doc = xfrm_HUDCMS.xhtml_Loaded;
+                return doc != null;
+            }
+            else if (xfrm_Wizzard != null)
+            {
+                doc = xfrm_Wizzard.xhtml_Loaded;
+                return doc != null; 
+            }
+            else
+            {
+                MessageBox.Show("ERROR:HUDCMS:MyControl:Get_xhtml_Loaded:  (xfrm_HUDCMS == null)&&(xfrm_Wizzard == null)");
+                return false;
             }
         }
 
@@ -943,10 +965,43 @@ namespace HUDCMS
         internal void ShowLink()
         {
             //Link Form_HUDCMS.usrc_Control_Selected with this !
-            if (xfrm_HUDCMS.MyControl_Selected != null)
+            if (Get_MyControl_Selected())
             {
-                    MyControl Control_Selected = xfrm_HUDCMS.MyControl_Selected;
+                MyControl Control_Selected = null;
+                if (xfrm_HUDCMS != null)
+                {
+                    Control_Selected = xfrm_HUDCMS.MyControl_Selected;
+                }
+                else if (xfrm_Wizzard != null)
+                {
+                    Control_Selected = xfrm_Wizzard.MyControl_Selected;
+                }
+
+                if (Control_Selected != null)
+                {
                     Control_Selected.CreateImageOfLinkedControls();
+                }
+                else
+                {
+                    MessageBox.Show("ERROR:HUDCMS:MyControl:ShowLink: (xfrm_HUDCMS==null)&& (xfrm_Wizzard==null)");
+                }
+            }
+        }
+
+        private bool Get_MyControl_Selected()
+        {
+            if (xfrm_HUDCMS != null)
+            {
+                return (xfrm_HUDCMS.MyControl_Selected != null);
+            }
+            else if (xfrm_Wizzard != null)
+            {
+                return (xfrm_Wizzard.MyControl_Selected != null);
+            }
+            else
+            {
+                MessageBox.Show("ERROR:HUDCMS:MyControl:Get_MyControl_Selected: (xfrm_HUDCMS==null)&& (xfrm_Wizzard==null)");
+                return false;
             }
         }
 
@@ -1017,9 +1072,23 @@ namespace HUDCMS
                     this.hc.ctrlbmp = null;
                 }
                 this.hc.ctrlbmp = cloneBitmap;
-                if (xfrm_HUDCMS.usrc_EditControl1.my_Control == this)
+                if (xfrm_HUDCMS != null)
                 {
-                    xfrm_HUDCMS.usrc_EditControl1.Set_pic_Control(this.hc);
+                    if (xfrm_HUDCMS.usrc_EditControl1.my_Control == this)
+                    {
+                        xfrm_HUDCMS.usrc_EditControl1.Set_pic_Control(this.hc);
+                    }
+                }
+                else if (xfrm_Wizzard != null)
+                {
+                    if (xfrm_Wizzard.usrc_EditControlWizzard1.my_Control == this)
+                    {
+                        xfrm_Wizzard.usrc_EditControlWizzard1.Set_pic_Control(this.hc);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("ERROR:HUDCMS:MyControl:CreateImageOfLinkedControls:(xfrm_Wizzard == null) && (xfrm_HUDCMS == null)");
                 }
             }
         }

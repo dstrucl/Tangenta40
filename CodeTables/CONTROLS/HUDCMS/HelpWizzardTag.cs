@@ -15,6 +15,12 @@ namespace HUDCMS
         public delegate bool delegate_FillTextContent(HelpWizzardTagDC[] hlpTagDCs,ref string About, ref string Description);
         public delegate_FillTextContent FillTextContent = null;
 
+        private string filessufix = null;
+        public string FileSuffix
+        {
+            get { return filessufix; }
+            set { filessufix = value; }
+        }
 
         public HelpWizzardTagDC[] tagDCs = null;
 
