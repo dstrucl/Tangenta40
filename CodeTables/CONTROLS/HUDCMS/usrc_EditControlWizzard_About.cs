@@ -15,5 +15,21 @@ namespace HUDCMS
         {
             InitializeComponent();
         }
+
+        public void Init(HelpWizzardTag hlpTag)
+        {
+            if (hlpTag!=null)
+            {
+                foreach (HelpWizzardTagDC hlptagdc in hlpTag.tagDCs)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERROR:HUDCMS:usrc_EditControlWizzard_About:Init:hlpTag==null !");
+            }
+        }
+
     }
 }
