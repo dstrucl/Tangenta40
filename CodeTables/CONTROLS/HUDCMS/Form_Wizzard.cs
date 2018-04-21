@@ -903,7 +903,7 @@ namespace HUDCMS
                         MyControl myctrl = (MyControl)olvi.RowObject;
                         myctrl.xfrm_Wizzard.MyControl_Selected = myctrl;
                         myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Enabled = true;
-                        myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Init(myctrl);
+                        myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Init(myctrl, wizzardTag);
                         if (hc.dgvc == null)
                         {
                             //xfrm_HUDCMS.HideLinks();

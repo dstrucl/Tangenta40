@@ -1,6 +1,6 @@
 ﻿namespace HUDCMS
 {
-    partial class usrc_WizElement
+    partial class usrc_HelpWizzardTagDC
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_WizElement));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_HelpWizzardTagDC));
             this.lbl_Condition = new System.Windows.Forms.Label();
             this.txt_Condition = new System.Windows.Forms.TextBox();
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();

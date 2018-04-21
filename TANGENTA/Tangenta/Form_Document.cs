@@ -559,78 +559,42 @@ namespace Tangenta
         private void SetNewFormTag()
         {
 
-            HUDCMS.HelpWizzardTagDC tagDCAboutTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "AboutTop", "Write Abut On Top",null, null);
+            HUDCMS.HelpWizzardTagDC tagDCTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Top", "Write on top",null, null);
 
-            HUDCMS.HelpWizzardTagDC tagDCAbout_MultiUser_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT,"MultiUser", "Operation mode is multi user", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "MultiUser", "Operation mode is single user", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "Invoice or proforma invoice is visible", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "Invoice or proforma invoice is not visible", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices is visible", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices  is not visible", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "You can only view the selected invoice or proforma invoice", "enum", "ViewMode");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "You can edit the selected invoice pr profroma inovice", "enum", "EditMode");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", "Shop A is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", null, "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", "Shop B is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", null, "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", "Shop C is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCAbout_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", null, "bool", "false");
+            HUDCMS.HelpWizzardTagDC tagDC_MultiUser_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT,"MultiUser", "Operation mode is multi user", "bool", "true");
+            HUDCMS.HelpWizzardTagDC tagDC_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "MultiUser", "Operation mode is single user", "bool", "false");
+            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "Invoice or proforma invoice is visible", "bool", "true");
+            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "Invoice or proforma invoice is not visible", "bool", "false");
+            HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices is visible", "bool", "true");
+            HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices  is not visible", "bool", "false");
+            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "You can only view the selected invoice or proforma invoice", "enum", "ViewMode");
+            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "You can edit the selected invoice pr profroma inovice", "enum", "EditMode");
+            HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", "Shop A is shown", "bool", "true");
+            HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", null, "bool", "false");
+            HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", "Shop B is shown", "bool", "true");
+            HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", null, "bool", "false");
+            HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", "Shop C is shown", "bool", "true");
+            HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", null, "bool", "false");
 
-            HUDCMS.HelpWizzardTagDC tagDCAboutBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "AboutBottom", "Write Abut On Bottom", null, null);
+            HUDCMS.HelpWizzardTagDC tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "Write  on bottom", null, null);
 
-            HUDCMS.HelpWizzardTagDC tagDCDescriptionTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "DescriptionTop", "Write description top", null, null);
-
-            HUDCMS.HelpWizzardTagDC tagDCDescription_MultiUser_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "MultiUser", "Operation mode is multi user", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "MultiUser", "Operation mode is single user", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "usrc_Invoice_Visible", "Invoice or proforma invoice is visible", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "usrc_Invoice_Visible", "Invoice or proforma invoice is not visible", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices is visible", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices  is not visible", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "usrc_Invoice_Mode", "You can only view the selected invoice or proforma invoice", "enum", "ViewMode");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "usrc_Invoice_Mode", "You can edit the selected invoice pr profroma inovice", "enum", "EditMode");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "ShopA", "Shop A is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "ShopA", null, "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "ShopB", "Shop B is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "ShopB", null, "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "ShopC", "Shop C is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDCDescription_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "ShopC", null, "bool", "false");
-
-            HUDCMS.HelpWizzardTagDC tagDCDescriptionBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.DESCRIPTION, "DescriptionBottom", "Write description bottom", null, null);
 
             HUDCMS.HelpWizzardTagDC[] TagDCs = new HUDCMS.HelpWizzardTagDC[] {
-            tagDCAboutTop,
-            tagDCAbout_MultiUser_true,
-            tagDCAbout_MultiUser_false,
-            tagDCAbout_usrc_Invoice_Visible_true,
-            tagDCAbout_usrc_Invoice_Visible_false,
-            tagDCAbout_usrc_InvoiceTable_Visible_true,
-            tagDCAbout_usrc_InvoiceTable_Visible_false,
-            tagDCAbout_usrc_Invoice_Mode_ViewMode,
-            tagDCAbout_usrc_Invoice_Mode_EditMode,
-            tagDCAbout_ShopA_Visible_true,
-            tagDCAbout_ShopA_Visible_false,
-            tagDCAbout_ShopB_Visible_true,
-            tagDCAbout_ShopB_Visible_false,
-            tagDCAbout_ShopC_Visible_true,
-            tagDCAboutBottom,
-
-            tagDCDescriptionTop,
-            tagDCAbout_ShopC_Visible_false,
-            tagDCDescription_MultiUser_true,
-            tagDCDescription_MultiUser_false,
-            tagDCDescription_usrc_Invoice_Visible_true,
-            tagDCDescription_usrc_Invoice_Visible_false,
-            tagDCDescription_usrc_InvoiceTable_Visible_true,
-            tagDCDescription_usrc_InvoiceTable_Visible_false,
-            tagDCDescription_usrc_Invoice_Mode_ViewMode,
-            tagDCDescription_usrc_Invoice_Mode_EditMode,
-            tagDCDescription_ShopA_Visible_true,
-            tagDCDescription_ShopA_Visible_false,
-            tagDCDescription_ShopB_Visible_true,
-            tagDCDescription_ShopB_Visible_false,
-            tagDCDescription_ShopC_Visible_true,
-            tagDCDescription_ShopC_Visible_false,
-            tagDCDescriptionBottom
+            tagDCTop,
+            tagDC_MultiUser_true,
+            tagDC_MultiUser_false,
+            tagDC_usrc_Invoice_Visible_true,
+            tagDC_usrc_Invoice_Visible_false,
+            tagDC_usrc_InvoiceTable_Visible_true,
+            tagDC_usrc_InvoiceTable_Visible_false,
+            tagDC_usrc_Invoice_Mode_ViewMode,
+            tagDC_usrc_Invoice_Mode_EditMode,
+            tagDC_ShopA_Visible_true,
+            tagDC_ShopA_Visible_false,
+            tagDC_ShopB_Visible_true,
+            tagDC_ShopB_Visible_false,
+            tagDC_ShopC_Visible_true,
+            tagDCBottom,
             };
 
             HUDCMS.HelpWizzardTag hlpwizTag = new HelpWizzardTag(TagDCs, this.HelpWizzardShow, this.HelpWizzardFillTextContent);

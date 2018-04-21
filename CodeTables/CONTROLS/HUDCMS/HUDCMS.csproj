@@ -228,11 +228,11 @@
     <Compile Include="usrc_web_Help.Designer.cs">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_WizElement.cs">
+    <Compile Include="usrc_HelpWizzardTagDC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_WizElement.Designer.cs">
-      <DependentUpon>usrc_WizElement.cs</DependentUpon>
+    <Compile Include="usrc_HelpWizzardTagDC.Designer.cs">
+      <DependentUpon>usrc_HelpWizzardTagDC.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -307,8 +307,8 @@
     <EmbeddedResource Include="usrc_web_Help.resx">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_WizElement.resx">
-      <DependentUpon>usrc_WizElement.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_HelpWizzardTagDC.resx">
+      <DependentUpon>usrc_HelpWizzardTagDC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
