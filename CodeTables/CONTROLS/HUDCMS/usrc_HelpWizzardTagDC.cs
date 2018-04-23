@@ -21,8 +21,21 @@ namespace HUDCMS
         internal void Init(HelpWizzardTagDC xhlptagdc)
         {
             Hlptagdc = xhlptagdc;
-            this.txt_Condition.Text = "Name:" + Hlptagdc.Name + ",Type:" + Hlptagdc.Type + ",Condition:" + Hlptagdc.condtition;
+            if (Hlptagdc.Name != null)
+            {
+                this.txt_Name.Text = Hlptagdc.Name;
+            }
+            if (Hlptagdc.Type != null)
+            {
+                this.txt_Type.Text = Hlptagdc.Type;
+            }
+            if (Hlptagdc.condtition != null)
+            {
+                this.txt_Condition.Text = Hlptagdc.condtition;
+                this.txt_Name.Text += "$" + Hlptagdc.condtition;
+            }
             this.fastColoredTextBox1.Text = Hlptagdc.Text;
         }
+        
     }
 }

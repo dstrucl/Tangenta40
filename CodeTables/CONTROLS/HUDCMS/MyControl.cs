@@ -371,8 +371,20 @@ namespace HUDCMS
                     xdiv_About = new XElement("div");
                     XAttribute xdiv_About_class = new XAttribute("class", "About");
                     xdiv_About.Add(xdiv_About_class);
-                    MyControl.ReplaceInnerXml(xdiv_About,"About",About);
+                    //MyControl.ReplaceInnerXml(xdiv_About,"About",About);
+                    MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
                     xdiv_Title.Add(xdiv_About);
+                }
+                else if (HlpWizTag !=null)
+                {
+                    if (HlpWizTag.HasAbout())
+                    {
+                        xdiv_About = new XElement("div");
+                        XAttribute xdiv_About_class = new XAttribute("class", "About");
+                        xdiv_About.Add(xdiv_About_class);
+                        MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
+                        xdiv_Title.Add(xdiv_About);
+                    }
                 }
 
 
@@ -465,6 +477,25 @@ namespace HUDCMS
             }
             xn.Add(xel);
 
+        }
+
+        private static void ReplaceInnerXml(XElement xdiv_About, HelpWizzardTagDC[] tagDCs)
+        {
+            foreach(HelpWizzardTagDC tdc in tagDCs)
+            {
+                if (tdc.Text != null)
+                {
+                    if (tdc.Text.Length > 0)
+                    {
+                        XElement xdiv_tdc = new XElement("tagdc");
+                        string classname = tdc.Name + "$" + tdc.Condition;
+                        XAttribute xdiv_tdc_Name = new XAttribute("class", classname);
+                        xdiv_tdc.Add(xdiv_tdc_Name);
+                        MyControl.ReplaceInnerXml(xdiv_tdc, classname, tdc.Text);
+                        xdiv_About.Add(xdiv_tdc);
+                    }
+                }
+            }
         }
 
         public static void ReplaceInnerXml(XElement xdiv_About,string classname, string about)

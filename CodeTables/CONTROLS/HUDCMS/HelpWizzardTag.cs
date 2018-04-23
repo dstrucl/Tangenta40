@@ -48,5 +48,19 @@ namespace HUDCMS
             FillTextContent = xhlpwiztag.FillTextContent;
         }
 
+        internal bool HasAbout()
+        {
+            if (About!=null)
+            {
+                foreach(HelpWizzardTagDC tdc in About.tagDCs)
+                {
+                    if (tdc.Text.Length>0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
