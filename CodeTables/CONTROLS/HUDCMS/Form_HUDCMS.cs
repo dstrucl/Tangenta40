@@ -536,7 +536,7 @@ namespace HUDCMS
         }
 
 
-        internal static MyControl  CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  ref usrc_Help mH)
+        internal static MyControl  CreateMyControls(int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  ref usrc_Help mH)
         {
 
 
@@ -544,7 +544,7 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            myctrl.Init(mH, xhc, level, xctrl, ref helperControlType);
+            myctrl.Init(null,mH, xhc, level, xctrl, ref helperControlType);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -554,13 +554,13 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  ref mH);
+                            child = CreateMyControls(level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  ref mH);
                             myctrl.children.Add(child);
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  ref mH);
+                        child = CreateMyControls(level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  ref mH);
                         myctrl.children.Add(child);
                     }
                 }

@@ -75,7 +75,6 @@
             this.fastColoredTextBox1.CharWidth = 8;
             this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBox1.IsReplaceMode = false;
             this.fastColoredTextBox1.Location = new System.Drawing.Point(3, 33);
             this.fastColoredTextBox1.Name = "fastColoredTextBox1";
@@ -87,14 +86,14 @@
             this.fastColoredTextBox1.Text = "fastColoredTextBox1";
             this.fastColoredTextBox1.Zoom = 100;
             // 
-            // usrc_WizElement
+            // usrc_HelpWizzardTagDC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.fastColoredTextBox1);
             this.Controls.Add(this.txt_Condition);
             this.Controls.Add(this.lbl_Condition);
-            this.Name = "usrc_WizElement";
+            this.Name = "usrc_HelpWizzardTagDC";
             this.Size = new System.Drawing.Size(561, 198);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.ResumeLayout(false);
@@ -106,6 +105,6 @@
 
         private System.Windows.Forms.Label lbl_Condition;
         private System.Windows.Forms.TextBox txt_Condition;
-        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
+        internal FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
     }
 }

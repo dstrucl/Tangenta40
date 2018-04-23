@@ -12,15 +12,17 @@ namespace HUDCMS
 {
     public partial class usrc_HelpWizzardTagDC : UserControl
     {
+        internal HelpWizzardTagDC Hlptagdc = null;
         public usrc_HelpWizzardTagDC()
         {
             InitializeComponent();
         }
 
-        internal void Init(HelpWizzardTagDC hlptagdc)
+        internal void Init(HelpWizzardTagDC xhlptagdc)
         {
-            this.txt_Condition.Text = "Name:" + hlptagdc.Name + ",Type:" + hlptagdc.Type + ",Condition:" + hlptagdc.condtition;
-            this.fastColoredTextBox1.Text = hlptagdc.Text;
+            Hlptagdc = xhlptagdc;
+            this.txt_Condition.Text = "Name:" + Hlptagdc.Name + ",Type:" + Hlptagdc.Type + ",Condition:" + Hlptagdc.condtition;
+            this.fastColoredTextBox1.Text = Hlptagdc.Text;
         }
     }
 }

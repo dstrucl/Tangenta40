@@ -128,6 +128,7 @@
     <Compile Include="GeneralHelpFile.cs" />
     <Compile Include="Git.cs" />
     <Compile Include="hctrl.cs" />
+    <Compile Include="HelpWizzardTagContent.cs" />
     <Compile Include="HelpWizzardTagDC.cs" />
     <Compile Include="HUDCMS_static.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

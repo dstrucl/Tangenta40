@@ -21,7 +21,7 @@ namespace HUDCMS
             if (hlpTag != null)
             {
                 int y = this.lbl_Description.Bottom + 10;
-                foreach (HelpWizzardTagDC hlptagdc in hlpTag.tagDCs)
+                foreach (HelpWizzardTagDC hlptagdc in hlpTag.Description.tagDCs)
                 {
                     usrc_HelpWizzardTagDC hlpwiztagdc = new usrc_HelpWizzardTagDC();
                     hlpwiztagdc.Init(hlptagdc);

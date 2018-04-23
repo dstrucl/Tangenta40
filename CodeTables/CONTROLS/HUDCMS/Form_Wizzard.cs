@@ -19,7 +19,7 @@ namespace HUDCMS
 {
     public partial class Form_Wizzard : Form
     {
-        internal HelpWizzardTag wizzardTag = null;
+        internal HelpWizzardTag hlpwiztag = null;
 
         internal string LocalXmlFileName = null;
 
@@ -80,9 +80,20 @@ namespace HUDCMS
             mH = xH;
             hc = new hctrl(mH.pForm, uctrln);
 
-            wizzardTag = (HelpWizzardTag) mH.pForm.Tag;
+            hlpwiztag = null;
+            if (hc.pForm != null)
+            {
+                if (hc.pForm.Tag != null)
+                {
+                    if (hc.pForm.Tag is HelpWizzardTag)
+                    {
+                        hlpwiztag = (HelpWizzardTag)hc.pForm.Tag;
+                    }
+                }
+            }
+
             usrc_SelectXMLFile.InitialDirectory = Path.GetDirectoryName(mH.LocalHtmlFile);
-            int indexof_filesufix_plus_html_extension = mH.LocalHtmlFile.IndexOf(wizzardTag.FileSuffix + ".html");
+            int indexof_filesufix_plus_html_extension = mH.LocalHtmlFile.IndexOf(hlpwiztag.FileSuffix + ".html");
             if (indexof_filesufix_plus_html_extension>0)
             {
                 LocalXmlFileName = mH.LocalHtmlFile.Substring(0, indexof_filesufix_plus_html_extension) + ".xml";
@@ -237,7 +248,7 @@ namespace HUDCMS
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType,  ref mH);
+            myroot = CreateMyControls(hlpwiztag, 0, 0, ref iAllCount, hc, null, ref helperControlType,  ref mH);
             SetLinks(myroot,ref helperImageRenderer);
 
             this.helperImageRenderer.Aspect = (System.Int32)0;
@@ -395,7 +406,11 @@ namespace HUDCMS
                 }
                 this.usrc_EditControlWizzard1.my_Control.HelpTitle = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text;
                 this.usrc_EditControlWizzard1.my_Control.HeadingTag = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.cmb_HtmlTag.Text;
+
+                this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.GetData();
                 //this.usrc_EditControlWizzard1.my_Control.About = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text;
+
+
                 //this.usrc_EditControlWizzard1.my_Control.Description = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text;
                 this.usrc_EditControlWizzard1.my_Control.ImageCaption = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
             }
@@ -564,7 +579,7 @@ namespace HUDCMS
         }
 
 
-        internal static MyControl  CreateMyControls( int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  ref usrc_Help mH)
+        internal static MyControl  CreateMyControls(HelpWizzardTag xHlpWizTag, int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  ref usrc_Help mH)
         {
 
 
@@ -572,7 +587,7 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            myctrl.Init(mH, xhc, level, xctrl, ref helperControlType);
+            myctrl.Init(xHlpWizTag,mH, xhc, level, xctrl, ref helperControlType);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -582,13 +597,13 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  ref mH);
+                            child = CreateMyControls(xHlpWizTag, level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  ref mH);
                             myctrl.children.Add(child);
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls( level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  ref mH);
+                        child = CreateMyControls(xHlpWizTag, level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  ref mH);
                         myctrl.children.Add(child);
                     }
                 }
@@ -903,7 +918,7 @@ namespace HUDCMS
                         MyControl myctrl = (MyControl)olvi.RowObject;
                         myctrl.xfrm_Wizzard.MyControl_Selected = myctrl;
                         myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Enabled = true;
-                        myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Init(myctrl, wizzardTag);
+                        myctrl.xfrm_Wizzard.usrc_EditControlWizzard1.Init(myctrl);
                         if (hc.dgvc == null)
                         {
                             //xfrm_HUDCMS.HideLinks();

@@ -23,6 +23,7 @@ namespace HUDCMS
         public string Text
         {
             get { return text; }
+            set { text = value; }
         }
 
         public string type = null;
@@ -34,7 +35,7 @@ namespace HUDCMS
         public string condtition = null;
         public string Condition
         {
-            get { return Condition; }
+            get { return condtition; }
         }
 
         public HelpWizzardTagDC(eTip xeTip,string xname, string xtext,string xtype, string xcondition)

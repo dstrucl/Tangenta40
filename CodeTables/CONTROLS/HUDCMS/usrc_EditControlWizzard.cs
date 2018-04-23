@@ -60,7 +60,7 @@ namespace HUDCMS
         //    }
         //}
 
-        internal void Init(MyControl myControl,HelpWizzardTag wiztag)
+        internal void Init(MyControl myControl)
         {
 
             if (my_Control != null)
@@ -78,11 +78,15 @@ namespace HUDCMS
 
                 my_Control.HelpTitle = usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text;
                 my_Control.HeadingTag = usrc_EditControlWizzard_Title1.cmb_HtmlTag.Text;
+
+                usrc_EditControlWizzard_About1.GetData();
                 //my_Control.About = usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text;
+
                 if (my_Control.hc.ctrlbmp != null)
                 {
                     my_Control.ImageCaption = usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
                 }
+
                 //my_Control.Description = usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text;
 
             }
@@ -112,11 +116,11 @@ namespace HUDCMS
             usrc_EditControlWizzard_Image1.chk_ImageIncluded.Checked = my_Control.ImageIncluded;
             usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text = stitle;
             usrc_EditControlWizzard_Title1.SetHeadingTag(my_Control.HeadingTag);
-            usrc_EditControlWizzard_About1.Init(wiztag);
+            usrc_EditControlWizzard_About1.Init(my_Control.HlpWizTag);
             //usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text = my_Control.About;
 
             usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text = my_Control.ImageCaption;
-            usrc_EditControlWizzard_Description1.Init(wiztag);
+            usrc_EditControlWizzard_Description1.Init(my_Control.HlpWizTag);
             //usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text = my_Control.Description;
 
 

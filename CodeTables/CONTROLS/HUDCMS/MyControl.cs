@@ -24,6 +24,8 @@ namespace HUDCMS
         internal Form_HUDCMS xfrm_HUDCMS = null;
         internal Form_Wizzard xfrm_Wizzard = null;
 
+        internal HelpWizzardTag HlpWizTag = null;
+
         internal XElement xel = null;
         internal XElement xdiv_Title = null;
         internal XElement xdiv_About = null;
@@ -489,11 +491,18 @@ namespace HUDCMS
         }
 
    
-        internal void Init(usrc_Help xuH, hctrl xhc, int iLevel, MyControl parent, ref SysImageListHelper helperControlType)
+        internal void Init(HelpWizzardTag xHlpWizTag, usrc_Help xuH, hctrl xhc, int iLevel, MyControl parent, ref SysImageListHelper helperControlType)
         {
             string xControlInfo_title = "";
             string xControlInfo_about = "";
             string xControlInfo_description = "";
+
+            if (xHlpWizTag != null)
+            {
+               
+               this.HlpWizTag = new HelpWizzardTag(xHlpWizTag);
+               
+            }
 
             uH = xuH;
             hc = xhc;
@@ -737,6 +746,7 @@ namespace HUDCMS
                 Guid id = Guid.NewGuid();
                 ID = id.ToString();
             }
+
         }
 
         private bool Get_xhtml_Loaded(ref XDocument doc)

@@ -22,14 +22,31 @@ namespace HUDCMS
             set { filessufix = value; }
         }
 
-        public HelpWizzardTagDC[] tagDCs = null;
+        public HelpWizzardTagContent About = null;
+        public HelpWizzardTagContent Description = null;
 
         public HelpWizzardTag(HelpWizzardTagDC[] xtagDCs, delegate_ShowWizzard xdelegate_ShowWizzard,
                                                 delegate_FillTextContent xFillTextContent)
         {
-            tagDCs = xtagDCs;
+            About = HelpWizzardTagContent.Clone(xtagDCs);
+            Description = HelpWizzardTagContent.Clone(xtagDCs);
             ShowWizzard = xdelegate_ShowWizzard;
             FillTextContent = xFillTextContent;
         }
+
+        public HelpWizzardTag(HelpWizzardTag xhlpwiztag)
+        {
+            if (xhlpwiztag.About != null)
+            {
+                About = HelpWizzardTagContent.Clone(xhlpwiztag.About.tagDCs);
+            }
+            if (xhlpwiztag.Description != null)
+            {
+                Description = HelpWizzardTagContent.Clone(xhlpwiztag.Description.tagDCs);
+            }
+            ShowWizzard = xhlpwiztag.ShowWizzard;
+            FillTextContent = xhlpwiztag.FillTextContent;
+        }
+
     }
 }
