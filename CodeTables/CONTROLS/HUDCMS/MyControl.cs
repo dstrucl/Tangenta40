@@ -12,6 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Collections;
 using BrightIdeasSoftware;
+using UniqueControlNames;
 
 namespace HUDCMS
 {
@@ -219,7 +220,39 @@ namespace HUDCMS
             }
         }
 
-   
+        public static bool MakeHtml(Control ctrl_for_help, string sNewTag, string[] sTagConditions,string styleFile, MyControl source_root_ctrl, ref string sResult)
+        {
+            if (ctrl_for_help !=null)
+            {
+                if (ctrl_for_help is Form)
+                {
+                    UniqueControlName uctrln = new UniqueControlName();
+                    hctrl xhc = new hctrl((Form)ctrl_for_help, uctrln);
+                    int level = 0;
+                    int icount = 0;
+                    int iAllCount = 0;
+                    MyControl destination_root_ctrl = Form_HUDCMS.CreateMyControlsFromWizzardSource(source_root_ctrl, sNewTag, sTagConditions,level, icount, ref iAllCount, xhc,null);
+                    XDocument xh = null;
+                    string header = "";
+                    XElement html_html = null;
+                    XElement html_head = null;
+                    XElement html_title = null;
+                    XElement html_body = null;
+                    XElement THeader = null;
+                    string Err = null;
+                    Form_HUDCMS.SaveXHTML((Form)ctrl_for_help, ref xh, destination_root_ctrl.ControlUniqueName + sNewTag, styleFile, header, ref header, destination_root_ctrl,
+                        ref html_html,
+                        ref html_head,
+                        ref html_title,
+                        ref html_body,
+                        ref THeader,
+                        ref Err
+                        );
+                }
+            }
+            return false;
+        }
+
         public string GetControlUniqueName()
         {
             return uH.Prefix+hc.GetName();
@@ -366,23 +399,28 @@ namespace HUDCMS
                 
                 xdiv_Title.Add(xTitle_Heading);
 
-                if (About.Length > 0)
+                xdiv_About = null;
+
+                if (this.HlpWizTag != null)
                 {
-                    xdiv_About = new XElement("div");
-                    XAttribute xdiv_About_class = new XAttribute("class", "About");
-                    xdiv_About.Add(xdiv_About_class);
-                    //MyControl.ReplaceInnerXml(xdiv_About,"About",About);
-                    MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
-                    xdiv_Title.Add(xdiv_About);
-                }
-                else if (HlpWizTag !=null)
-                {
-                    if (HlpWizTag.HasAbout())
+                    if (this.HlpWizTag.HasAbout())
                     {
                         xdiv_About = new XElement("div");
                         XAttribute xdiv_About_class = new XAttribute("class", "About");
                         xdiv_About.Add(xdiv_About_class);
                         MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
+                        xdiv_Title.Add(xdiv_About);
+                    }
+                }
+
+                if (xdiv_About == null)
+                {
+                    if (About.Length > 0)
+                    {
+                        xdiv_About = new XElement("div");
+                        XAttribute xdiv_About_class = new XAttribute("class", "About");
+                        xdiv_About.Add(xdiv_About_class);
+                        MyControl.ReplaceInnerXml(xdiv_About, "About", About);
                         xdiv_Title.Add(xdiv_About);
                     }
                 }
@@ -487,7 +525,7 @@ namespace HUDCMS
                 {
                     if (tdc.Text.Length > 0)
                     {
-                        XElement xdiv_tdc = new XElement("tagdc");
+                        XElement xdiv_tdc = new XElement("HelpWizzardTagDC");
                         string classname = tdc.Name + "$" + tdc.Condition;
                         XAttribute xdiv_tdc_Name = new XAttribute("class", classname);
                         xdiv_tdc.Add(xdiv_tdc_Name);
@@ -642,7 +680,7 @@ namespace HUDCMS
             if (Get_xhtml_Loaded(ref doc))
             {
                 XElement xel = null;
-                if (FindXElement(doc, ref xel, "TControl", "name",ControlUniqueName))
+                if (MyControl.FindXElement(doc, ref xel, "TControl", "name",ControlUniqueName,ControlUniqueName))
                 {
                     string simageincluded = xel.Attribute("imageincluded").Value;
                     ImageIncluded = true;
@@ -673,40 +711,40 @@ namespace HUDCMS
                     HeadingTag = xel.Attribute("heading").Value;
 
                     XElement xel_Title = null;
-                    if (FindXElement(xel, ref xel_Title, "div", "class", "Title"))
+                    if (MyControl.FindXElement(xel, ref xel_Title, "div", "class", "Title"))
                     {
                         XElement xel_Title_Header = null;
-                        if (FindXElement(xel_Title, ref xel_Title_Header, "h1", "class", "Title"))
+                        if (MyControl.FindXElement(xel_Title, ref xel_Title_Header, "h1", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
-                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
+                        else if (MyControl.FindXElement(xel_Title, ref xel_Title_Header, "h2", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
-                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
+                        else if (MyControl.FindXElement(xel_Title, ref xel_Title_Header, "h3", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
-                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
+                        else if (MyControl.FindXElement(xel_Title, ref xel_Title_Header, "h4", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
-                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
+                        else if (MyControl.FindXElement(xel_Title, ref xel_Title_Header, "h5", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             HelpTitle = MyControl.InnerXml(xel_Title_Header);
                             Set_ID(xel_Title_Header.Attribute("id"));
                         }
-                        else if (FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
+                        else if (MyControl.FindXElement(xel_Title, ref xel_Title_Header, "h6", "class", "Title"))
                         {
                             //Title = xel_Title_Header.Value;
                             HelpTitle = MyControl.InnerXml(xel_Title_Header);
@@ -714,13 +752,18 @@ namespace HUDCMS
                         }
 
                         XElement xel_About = null;
-                        if (FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
+                        if (MyControl.FindXElement(xel_Title, ref xel_About, "div", "class", "About"))
                         {
                             //About = xel_About.Value;
                             About = MyControl.InnerXml(xel_About);
+                            if (this.HlpWizTag!=null)
+                            {
+                                this.HlpWizTag.About.Parse(About,ControlUniqueName);
+                            }
+
                         }
                         XElement xel_Description = null;
-                        if (FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
+                        if (MyControl.FindXElement(xel_Title, ref xel_Description, "div", "class", "Description"))
                         {
                             //Description = xel_Description.Value;
                             Description = MyControl.InnerXml(xel_Description);
@@ -778,6 +821,186 @@ namespace HUDCMS
                 ID = id.ToString();
             }
 
+        }
+
+        internal void InitFromWizzardSource(MyControl source_root_control, string sNewTag, string[] sTagConditions, hctrl xhc, int iLevel, MyControl parent)
+        {
+            string xControlInfo_title = "";
+            string xControlInfo_about = "";
+            string xControlInfo_description = "";
+
+            uH = null;
+            hc = xhc;
+            this.Parent = parent;
+            if (hc.ctrl != null)
+            {
+                this.ControlName = hc.ctrl.Name;
+            }
+            else if (hc.dgvc != null)
+            {
+                this.ControlName = "dgvc__" + hc.dgvc.Name;
+                this.m_ImageIncluded = false;
+            }
+            string sText = "";
+            string sControl = HUDCMS_static.slng_UserControlName;
+
+            if (hc.pForm != null)
+            {
+                sControl = "Form";
+                this.ControlName = hc.pForm.Name;
+            }
+            else if (hc.ctrl is Form)
+            {
+                sControl = "Form";
+                this.ControlName = hc.ctrl.Name;
+            }
+            else if (xhc.ctrl is UserControl)
+            {
+            }
+            else
+            {
+                if (xhc.ctrl != null)
+                {
+                    sControl = "Control";
+                    //                    this.txt_Control.ForeColor = Color.Black;
+                    if (xhc.ctrl is Button)
+                    {
+                        sText = "  TEXT:\"" + ((Button)xhc.ctrl).Text + "\"";
+                    }
+                    else if (xhc.ctrl is GroupBox)
+                    {
+                        sText = "  TEXT:\"" + ((GroupBox)xhc.ctrl).Text + "\"";
+                    }
+                    else if (xhc.ctrl is Label)
+                    {
+                        sText = "  TEXT:\"" + ((Label)xhc.ctrl).Text + "\"";
+                    }
+                }
+                else if (xhc.dgvc != null)
+                {
+                    sControl = "DataGridViewColumn";
+                    sText = "  TEXT:\"" + xhc.dgvc.HeaderText + "\"";
+                }
+
+            }
+
+
+            if (xhc.ctrl == null)
+            {
+                if (xhc.pForm != null)
+                {
+                    //                    this.txt_Control.Text = sControl + "=" + xhc.pForm.Name + "  Type:" + xhc.pForm.GetType().ToString() + sText;
+                }
+                else if (xhc.dgvc != null)
+                {
+                    this.m_ImageIncluded = false;
+                    //                    this.txt_Control.Text = sControl + "=" + xhc.dgvc.Name + "  Type:" + xhc.dgvc.GetType().ToString() + sText;
+                }
+                else
+                {
+                    MessageBox.Show("ERROR:HUDCMS:usrc_Control:(xhc.ctrl == null)&&(xhc.pForm != null)!");
+                }
+            }
+            else
+            {
+            }
+
+
+            if (hc.ctrlbmp != null)
+            {
+
+                string path = Path.GetDirectoryName(uH.LocalHtmlFile);
+
+            }
+            else
+            {
+                if (this.hc.dgvc != null)
+                {
+                }
+            }
+
+            xfrm_HUDCMS = null;
+            xfrm_Wizzard = null;
+
+            if (hc.pForm != null)
+            {
+                HelpTitle = hc.pForm.Text;
+                HeadingTag = "h1";
+            }
+            else if (hc.ctrl != null)
+            {
+                HeadingTag = "h2";
+            }
+            else if (hc.dgvc != null)
+            {
+                HeadingTag = "h3";
+            }
+            else
+            {
+                HeadingTag = "h4";
+            }
+
+            if (hc.ctrl != null)
+            {
+                if (GetControlInfo(ref xControlInfo_title, ref xControlInfo_about, ref xControlInfo_description))
+                {
+                    HelpTitle = xControlInfo_title;
+                    About = xControlInfo_about;
+                    Description = xControlInfo_description;
+                }
+                else if (hc.ctrl is GroupBox)
+                {
+                    if (!ParentIs_usrc_myGroupBox(hc.ctrl))
+                    {
+                        HelpTitle = ((GroupBox)hc.ctrl).Text;
+                    }
+                }
+            }
+            else if (hc.dgvc != null)
+            {
+                HelpTitle = hc.dgvc.HeaderText;
+            }
+
+            string sAbout = "";
+            source_root_control.GetAboutFromHelpWizzardTag(sTagConditions, ref sAbout);
+            About = sAbout;
+
+            if (ID.Length == 0)
+            {
+                Guid id = Guid.NewGuid();
+                ID = id.ToString();
+            }
+        }
+
+        private void GetAboutFromHelpWizzardTag(string[] sTagConditions, ref string sAbout)
+        {
+            sAbout = "";
+            if (HlpWizTag!=null)
+            {
+                if (HlpWizTag.About != null)
+                {
+                    foreach (string tagcond in sTagConditions)
+                    {
+                        foreach (HelpWizzardTagDC tagdc in HlpWizTag.About.tagDCs)
+                        {
+                            if (tagdc.Condition==null)
+                            {
+                                if (tagdc.Text != null)
+                                {
+                                    sAbout += tagdc.Text;
+                                }
+                            }
+                            else if (tagdc.NamedCondition.Equals(tagcond))
+                            {
+                                if (tagdc.Text != null)
+                                {
+                                    sAbout += tagdc.Text;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private bool Get_xhtml_Loaded(ref XDocument doc)
@@ -940,7 +1163,7 @@ namespace HUDCMS
          
         }
 
-        internal bool FindXElement(XDocument doc,ref XElement element, string element_name, string AttributeName, string AttributeValue)
+        internal static bool FindXElement(XDocument doc,ref XElement element, string element_name, string AttributeName, string AttributeValue, string xControlUniqueName)
         {
             element = null;
 
@@ -958,7 +1181,7 @@ namespace HUDCMS
                     }
                     else
                     {
-                        MessageBox.Show("WARNING multiple TControl elements found where name = \"" + ControlUniqueName + "\"");
+                        MessageBox.Show("WARNING multiple TControl elements found where name = \"" + xControlUniqueName + "\"");
                     }
                 }
 
@@ -966,7 +1189,7 @@ namespace HUDCMS
             return false;
         }
 
-        internal bool FindXElement(XElement el, ref XElement element,string element_name,string AttributeName,string AttributeValue)
+        internal static bool FindXElement(XElement el, ref XElement element,string element_name,string AttributeName,string AttributeValue)
         {
             element = null;
             try

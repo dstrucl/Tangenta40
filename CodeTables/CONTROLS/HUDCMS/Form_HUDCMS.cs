@@ -30,7 +30,7 @@ namespace HUDCMS
         public const string HTML_Tangenta = "Tangenta";
         public const string HTML_News = "News";
         public const string HTML_About = "About";
-        public const string HTML_Invoice= "Invoice";
+        public const string HTML_Invoice = "Invoice";
         public const string HTML_ProformaInvoice = "ProformaInvoice";
         public const string HTML_InstallationFinished = "InstallationFinished";
         public const string HTML_Stock = "Stock";
@@ -57,9 +57,11 @@ namespace HUDCMS
         internal string Header
         {
             get { return m_Header; }
-            set { m_Header = value;
+            set
+            {
+                m_Header = value;
                 fctb_Header.Text = m_Header;
-                }
+            }
         }
 
         XElement html_html = null;
@@ -94,7 +96,7 @@ namespace HUDCMS
             usrc_SelectStyleFile.Title = "Save style file";
             usrc_SelectStyleFile.Text = "Style file:";
 
-       
+
         }
 
         private void Form_HUDCMS_Load(object sender, EventArgs e)
@@ -121,7 +123,7 @@ namespace HUDCMS
 
             this.Text = sHtmFileName + "  Number of controls=" + iAllCount.ToString();
 
-            if (Properties.Settings.Default.GitExeFile.Length==0)
+            if (Properties.Settings.Default.GitExeFile.Length == 0)
             {
                 Properties.Settings.Default.UseGit = false;
                 Properties.Settings.Default.Save();
@@ -129,7 +131,7 @@ namespace HUDCMS
             chk_UseGit.Checked = Properties.Settings.Default.UseGit;
 
             this.chk_UseGit.CheckedChanged += new System.EventHandler(this.chk_UseGit_CheckedChanged);
-            btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit; 
+            btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit;
 
         }
 
@@ -164,10 +166,12 @@ namespace HUDCMS
             this.MyTreeListView.HideSelection = false;
             this.MyTreeListView.UseCellFormatEvents = true;
             this.MyTreeListView.FormatRow += MyTreeListView_FormatRow;
-            this.MyTreeListView.CanExpandGetter = delegate (object x) {
+            this.MyTreeListView.CanExpandGetter = delegate (object x)
+            {
                 return ((MyControl)x).HasChildren;
             };
-            this.MyTreeListView.ChildrenGetter = delegate (object x) {
+            this.MyTreeListView.ChildrenGetter = delegate (object x)
+            {
                 MyControl myControl = (MyControl)x;
                 try
                 {
@@ -209,8 +213,8 @@ namespace HUDCMS
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType,  ref mH);
-            SetLinks(myroot,ref helperImageRenderer);
+            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref mH);
+            SetLinks(myroot, ref helperImageRenderer);
 
             this.helperImageRenderer.Aspect = (System.Int32)0;
 
@@ -239,7 +243,7 @@ namespace HUDCMS
 
         private void SetGeneralHelpFiles()
         {
-            if (generalHelpFile_List==null)
+            if (generalHelpFile_List == null)
             {
                 generalHelpFile_List = new List<GeneralHelpFile>();
             }
@@ -279,8 +283,8 @@ namespace HUDCMS
             {
                 generalStyleFile_List.Clear();
             }
-            fext = ".css"; 
-            generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_GeneralHelp,fext));
+            fext = ".css";
+            generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_GeneralHelp, fext));
             generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_TIndex, fext));
             generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_style, fext));
             generalStyleFile_List.Add(new GeneralHelpFile(HUDCMS_static.Local_ApplicationVersionAndLangugagePath, CSS_reset, fext));
@@ -294,11 +298,11 @@ namespace HUDCMS
             cmbr_GeneralStyleFiles.SelectedIndex = 0;
         }
 
-    
+
 
         internal static void SetLinks(MyControl ctrl, ref ImageRenderer helperImageRenderer)
         {
-            if (ctrl !=null)
+            if (ctrl != null)
             {
                 string[] xslink = ctrl.sLink;
                 string ctrl_name = ctrl.ControlName;
@@ -335,7 +339,7 @@ namespace HUDCMS
                 }
                 foreach (MyControl c in ctrl.children)
                 {
-                    SetLinks(c,ref helperImageRenderer);
+                    SetLinks(c, ref helperImageRenderer);
                 }
                 if (ctrl.hc.ctrlbmp != null)
                 {
@@ -351,27 +355,20 @@ namespace HUDCMS
             }
         }
 
-        internal bool SaveXHTML(string html_file,ref XDocument xh, ref string Err)
+        internal static bool SaveXHTML(Form parent_form, ref XDocument xh,
+                                  string html_file,
+                                  string styleFile,
+                    string header,
+                    ref string xheader,
+                    MyControl myroot,
+                    ref XElement html_html,
+                    ref XElement html_head,
+                    ref XElement html_title,
+                    ref XElement html_body,
+                    ref XElement THeader,
+                    ref string Err
+            )
         {
-
-            if (this.MyControl_Selected != null)
-            {
-                this.usrc_EditControl1.my_Control.ImageIncluded = this.usrc_EditControl1.usrc_EditControl_Image1.chk_ImageIncluded.Checked;
-                if (this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image != null)
-                {
-                    this.usrc_EditControl1.my_Control.ImageOfControl = (Image)this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image.Clone();
-                }
-                else
-                {
-                    this.usrc_EditControl1.my_Control.ImageOfControl = null;
-                }
-                this.usrc_EditControl1.my_Control.HelpTitle = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
-                this.usrc_EditControl1.my_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
-                this.usrc_EditControl1.my_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
-                this.usrc_EditControl1.my_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
-                this.usrc_EditControl1.my_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
-            }
-
             if (xh != null)
             {
                 xh = null;
@@ -384,71 +381,90 @@ namespace HUDCMS
 
             xh.AddFirst(html_html);
 
-                if (myroot != null)
+            if (myroot != null)
+            {
+                if (myroot.hc.pForm != null)
                 {
-                    if (myroot.hc.pForm != null)
+                    html_head = new XElement("head");
+
+                    if (styleFile.Length == 0)
                     {
-                        html_head = new XElement("head");
-
-                        AddStylesheet(ref html_head);
-
-                        html_title = new XElement("title");
-
-                        string sTitle = myroot.hc.pForm.Text;
-                        if (sTitle.Length == 0)
-                        {
-                            sTitle = myroot.hc.pForm.GetType().ToString();
-                        }
-                        html_title.Value = sTitle;
-                        html_body = new XElement("body");
-                        //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
-
-                        THeader = new XElement("THeader");
-                        Header = fctb_Header.Text;
-                        MyControl.ReplaceInnerXml(THeader, "THeader", Header);
-                        html_body.Add(THeader);
-                        html_head.Add(html_title);
-                        html_html.Add(html_head);
-                        html_html.Add(html_body);
-
+                        styleFile = HUDCMS_static.LocalHelpPath + "style.css";
                     }
-                    else if (myroot.hc.ctrl != null)
+                    if (!File.Exists(styleFile))
                     {
-                        html_head = new XElement("head");
-
-                        AddStylesheet(ref html_head);
-
-                        html_title = new XElement("title");
-
-                        string sTitle = myroot.hc.ctrl.Text;
-                        if (sTitle.Length == 0)
+                        if (MessageBox.Show(parent_form, "Style file :\"" + styleFile + "\" does not exist!\r\nCreate it from default stylesheet?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
-                            sTitle = myroot.hc.ctrl.GetType().ToString();
+                            try
+                            {
+                                File.WriteAllText(styleFile, Properties.Resources.DefaultStyle);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(parent_form, "Style file :\"" + styleFile + "\" noit created. Exception=" + ex.Message);
+                            }
                         }
-                        html_title.Value = sTitle;
-
-                        html_body = new XElement("body");
-
-                        THeader = new XElement("THeader");
-                        Header = fctb_Header.Text;
-                        MyControl.ReplaceInnerXml(THeader, "THeader", Header);
-                        html_body.Add(THeader);
-
-                        html_head.Add(html_title);
-                        html_html.Add(html_head);
-                        html_html.Add(html_body);
-
                     }
-                    myroot.CreateNode(xh, ref html_body);
+
+
+                    AddStylesheet(parent_form,ref html_head, styleFile, html_file);
+
+                    html_title = new XElement("title");
+
+                    string sTitle = myroot.hc.pForm.Text;
+                    if (sTitle.Length == 0)
+                    {
+                        sTitle = myroot.hc.pForm.GetType().ToString();
+                    }
+                    html_title.Value = sTitle;
+                    html_body = new XElement("body");
+                    //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
+
+                    THeader = new XElement("THeader");
+                    xheader = header;
+                    MyControl.ReplaceInnerXml(THeader, "THeader", header);
+                    html_body.Add(THeader);
+                    html_head.Add(html_title);
+                    html_html.Add(html_head);
+                    html_html.Add(html_body);
+
                 }
-                else
+                else if (myroot.hc.ctrl != null)
                 {
-                    MessageBox.Show("ERROR:myroot == null in Form_HUDCMS!");
-                    return false;
+                    html_head = new XElement("head");
+
+                    AddStylesheet(parent_form,ref html_head, styleFile, html_file);
+
+                    html_title = new XElement("title");
+
+                    string sTitle = myroot.hc.ctrl.Text;
+                    if (sTitle.Length == 0)
+                    {
+                        sTitle = myroot.hc.ctrl.GetType().ToString();
+                    }
+                    html_title.Value = sTitle;
+
+                    html_body = new XElement("body");
+
+                    THeader = new XElement("THeader");
+                    MyControl.ReplaceInnerXml(THeader, "THeader", header);
+                    html_body.Add(THeader);
+
+                    html_head.Add(html_title);
+                    html_html.Add(html_head);
+                    html_html.Add(html_body);
+
                 }
+                myroot.CreateNode(xh, ref html_body);
+            }
+            else
+            {
+                MessageBox.Show("ERROR:myroot == null in Form_HUDCMS!");
+                return false;
+            }
 
             //save xhtml
-            if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file,ref Err))
+            if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(parent_form, html_file, ref Err))
             {
                 try
                 {
@@ -487,7 +503,50 @@ namespace HUDCMS
             }
         }
 
-        private void AddStylesheet(ref XElement html_head)
+        internal bool DoSaveXHTML(string html_file,ref XDocument xh, ref string Err)
+        {
+
+            if (this.MyControl_Selected != null)
+            {
+                this.usrc_EditControl1.my_Control.ImageIncluded = this.usrc_EditControl1.usrc_EditControl_Image1.chk_ImageIncluded.Checked;
+                if (this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image != null)
+                {
+                    this.usrc_EditControl1.my_Control.ImageOfControl = (Image)this.usrc_EditControl1.usrc_EditControl_Image1.pic_Control.Image.Clone();
+                }
+                else
+                {
+                    this.usrc_EditControl1.my_Control.ImageOfControl = null;
+                }
+                this.usrc_EditControl1.my_Control.HelpTitle = this.usrc_EditControl1.usrc_EditControl_Title1.fctb_CtrlTitle.Text;
+                this.usrc_EditControl1.my_Control.HeadingTag = this.usrc_EditControl1.usrc_EditControl_Title1.cmb_HtmlTag.Text;
+                this.usrc_EditControl1.my_Control.About = this.usrc_EditControl1.usrc_EditControl_About1.fctb_CtrlAbout.Text;
+                this.usrc_EditControl1.my_Control.Description = this.usrc_EditControl1.usrc_EditControl_Description1.fctb_CtrlDescription.Text;
+                this.usrc_EditControl1.my_Control.ImageCaption = this.usrc_EditControl1.usrc_EditControl_Image1.fctb_CtrlImageCaption.Text;
+            }
+            string sHeader = null;
+
+            string styleFile =this.usrc_SelectStyleFile.FileName;
+
+
+            if (Form_HUDCMS.SaveXHTML(this, ref xh, html_file, styleFile, fctb_Header.Text, ref sHeader, myroot,
+                          ref html_html,
+                          ref html_head,
+                          ref html_title,
+                          ref html_body,
+                          ref THeader,
+                          ref Err))
+            {
+                Header = sHeader;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        internal static void AddStylesheet(Form pParentForm,ref XElement html_head, string styleFile, string shtml_file)
         {
             if (html_head==null)
             {
@@ -496,29 +555,8 @@ namespace HUDCMS
             XElement html_link_stylesheet = new XElement("link");
             XAttribute attribute_html_link_stylesheet_rel = new XAttribute("rel", "stylesheet");
             XAttribute attribute_html_link_stylesheet_type = new XAttribute("type", "text/css");
-            string styleFile = this.usrc_SelectStyleFile.FileName;
-            if (styleFile.Length==0)
-            {
-                this.usrc_SelectStyleFile.FileName =HUDCMS_static.LocalHelpPath+ "style.css";
-                styleFile = this.usrc_SelectStyleFile.FileName;
-            }
-
-            if (!File.Exists(styleFile))
-            {
-                if (MessageBox.Show(this, "Style file :\"" + styleFile + "\" does not exist!\r\nCreate it from default stylesheet?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        File.WriteAllText(styleFile, Properties.Resources.DefaultStyle);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(this, "Style file :\"" + styleFile + "\" noit created. Exception=" + ex.Message);
-                    }
-                }
-            }
-
-            string shtml_file = this.usrc_SelectHtmlFile.FileName;
+             
+         
 
             System.Uri uri1 = new Uri(styleFile);
 
@@ -568,7 +606,39 @@ namespace HUDCMS
             return myctrl;
         }
 
-         
+
+        internal static MyControl CreateMyControlsFromWizzardSource(MyControl source_root_control,string sNewTag, string[] sTagConditions,int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl)
+        {
+
+
+            MyControl myctrl = new MyControl();
+            iAllCount++;
+            iCount = 0;
+            myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
+            myctrl.InitFromWizzardSource(source_root_control, sNewTag, sTagConditions,  xhc, level, xctrl);
+            if (xhc.subctrl != null)
+            {
+                MyControl child = null;
+                foreach (hctrl hc in xhc.subctrl)
+                {
+                    if (hc.ctrl != null)
+                    {
+                        if (hc.ctrl.Visible)
+                        {
+                            child = CreateMyControlsFromWizzardSource(source_root_control, sNewTag, sTagConditions, level + 1, iCount++, ref iAllCount, hc, myctrl);
+                            myctrl.children.Add(child);
+                        }
+                    }
+                    else if (hc.dgvc != null)
+                    {
+                        child = CreateMyControlsFromWizzardSource(source_root_control, sNewTag, sTagConditions,level + 1, iCount++, ref iAllCount, hc, myctrl);
+                        myctrl.children.Add(child);
+                    }
+                }
+            }
+            return myctrl;
+        }
+
 
 
         private bool InsideOwner(hctrl owner_hc, hctrl xhc)
@@ -700,7 +770,7 @@ namespace HUDCMS
 
         private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
         {
-            if (SaveXHTML(FileName,ref this.xhtml, ref Err))
+            if (DoSaveXHTML(FileName,ref this.xhtml, ref Err))
             {
                 if (mH!=null)
                 {

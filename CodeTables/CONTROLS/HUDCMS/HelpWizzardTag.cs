@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace HUDCMS
 {
     public class HelpWizzardTag
     {
-        public delegate void delegate_ShowWizzard(Control ctrl);
+        public delegate void delegate_ShowWizzard(Control ctrl, MyControl root_ctrl, string styleFile);
         public  delegate_ShowWizzard ShowWizzard = null;
 
         public delegate bool delegate_FillTextContent(HelpWizzardTagDC[] hlpTagDCs,ref string About, ref string Description);
@@ -54,13 +55,18 @@ namespace HUDCMS
             {
                 foreach(HelpWizzardTagDC tdc in About.tagDCs)
                 {
-                    if (tdc.Text.Length>0)
+                    if (tdc.Text != null)
                     {
-                        return true;
+                        if (tdc.Text.Length > 0)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
             return false;
         }
+
+ 
     }
 }

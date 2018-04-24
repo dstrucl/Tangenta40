@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HUDCMS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,17 +17,20 @@ namespace Tangenta
         int istep_m_usrc_InvoiceTable_Visible = 0;
         int istep_Head = 0;
         int istep_Shop = 0;
-
+        HUDCMS.MyControl root_ctrl = null;
         private bool bRun = false;
         private Control control_ForWizzard = null;
         private Form_Document form_document = null;
+        string styleFile = null;
 
 
 
-        public Form_Document_WizzardForHelp(Control ctrl)
+        public Form_Document_WizzardForHelp(Control ctrl, HUDCMS.MyControl xroot_ctrl, string xstyleFile)
         {
             InitializeComponent();
             control_ForWizzard = ctrl;
+            root_ctrl = xroot_ctrl;
+            styleFile = xstyleFile;
         }
 
         private void bn_Cancel_Click(object sender, EventArgs e)
@@ -108,6 +112,7 @@ namespace Tangenta
             WriteStep();
             this.Refresh();
             ExecuteStep();
+
             timer1.Enabled = true;
             if (SetStep())
             {
@@ -175,6 +180,22 @@ namespace Tangenta
                 case 6:
                     txt_ShopsVisible.Text = "6: A,B,C";
                     break;
+            }
+        }
+
+        private bool MakeHtml(string styleFile)
+        {
+            long numberOfAllControls = -1;
+            string[] sTagConditions = null;
+            string sNewTag = form_document.GetStringTag(ref numberOfAllControls, ref sTagConditions);
+            string sResult = null;
+            if (HUDCMS.MyControl.MakeHtml(this, sNewTag, sTagConditions, styleFile, root_ctrl, ref sResult))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

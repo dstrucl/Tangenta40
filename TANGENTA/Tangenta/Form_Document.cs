@@ -33,6 +33,31 @@ namespace Tangenta
     {
         private string default_FormName = null;
 
+        HUDCMS.HelpWizzardTagDC tagDCTop = null;
+
+        HUDCMS.HelpWizzardTagDC tagDC_DocType_Invoice = null;
+        HUDCMS.HelpWizzardTagDC tagDC_DocType_ProformeInvoice = null;
+        HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_MultiUser_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_MultiUser_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_ViewMode = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_EditMode = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_false = null;
+
+        HUDCMS.HelpWizzardTagDC tagDCBottom = null;
+
+        internal HUDCMS.HelpWizzardTagDC[] TagDCs = null;
+
         private Form_FirstTimeInstallationGreeting frm_Form_FirstTimeInstallationGreeting = null;
         public const string XML_ROOT_NAME = "Tangenta_Xml";
 
@@ -556,31 +581,143 @@ namespace Tangenta
             SetNewFormTag();
         }
 
+
+        internal string GetStringTag(ref long numberOfAll, ref string[] sTagConditions)
+        {
+            string sNewTag = "_";
+            List<string> tag_conditions = new List<string>();
+            if (this.m_usrc_Main.IsDocInvoice)
+            {
+                numberOfAll = fs.NumberOInvoicesInDatabase();
+                sNewTag += "i";
+                tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
+            }
+            else if (this.m_usrc_Main.IsDocProformaInvoice)
+            {
+                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                sNewTag += "p";
+                tag_conditions.Add(tagDC_DocType_ProformeInvoice.NamedCondition);
+            }
+
+            if (numberOfAll < 0)
+            {
+                LogFile.Error.Show("ERROR:Tangenta:Form_Document:SetNewFormTag:  numberOfAll invoices or proforma invoices < 0 !");
+            }
+            else if (numberOfAll == 0)
+            {
+                sNewTag += "Z";
+                tag_conditions.Add(tagDC_EmptyDB_true.NamedCondition);
+            }
+            else if (numberOfAll > 0)
+            {
+                sNewTag += "N";
+                tag_conditions.Add(tagDC_EmptyDB_false.NamedCondition);
+            }
+
+
+            if (Program.OperationMode.MultiUser)
+            {
+                sNewTag += "m";
+                tag_conditions.Add(tagDC_MultiUser_true.NamedCondition);
+            }
+            else
+            {
+                sNewTag += "s";
+                tag_conditions.Add(tagDC_MultiUser_false.NamedCondition);
+            }
+            if (m_usrc_Main.m_usrc_Invoice_Visible)
+            {
+                sNewTag += "I";
+                tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
+                if (m_usrc_Main.m_usrc_Invoice_ViewMode)
+                {
+                    sNewTag += "v";
+                    tag_conditions.Add(tagDC_usrc_Invoice_Mode_ViewMode.NamedCondition);
+                }
+                else
+                {
+                    sNewTag += "e";
+                    tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
+                }
+                if (m_usrc_Main.ShopA_Visible)
+                {
+                    sNewTag += "A";
+                    tag_conditions.Add(tagDC_ShopA_Visible_true.NamedCondition);
+                }
+                else
+                {
+                    tag_conditions.Add(tagDC_ShopA_Visible_false.NamedCondition);
+                }
+                if (m_usrc_Main.ShopB_Visible)
+                {
+                    sNewTag += "B";
+                    tag_conditions.Add(tagDC_ShopB_Visible_true.NamedCondition);
+                }
+                else
+                {
+                    tag_conditions.Add(tagDC_ShopB_Visible_false.NamedCondition);
+                }
+                if (m_usrc_Main.ShopC_Visible)
+                {
+                    sNewTag += "C";
+                    tag_conditions.Add(tagDC_ShopC_Visible_true.NamedCondition);
+                }
+                else
+                {
+                    tag_conditions.Add(tagDC_ShopC_Visible_false.NamedCondition);
+                }
+            }
+
+            if (m_usrc_Main.m_usrc_InvoiceTable_Visible)
+            {
+                sNewTag += "t";
+                tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_true.NamedCondition);
+            }
+            else
+            {
+                tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_false.NamedCondition);
+            }
+            int iconditions_count = tag_conditions.Count;
+            sTagConditions = new string[iconditions_count];
+            for (int i=0;i< iconditions_count;i++)
+            {
+                sTagConditions[i] = tag_conditions[i];
+            }
+            return sNewTag;
+        }
         private void SetNewFormTag()
         {
 
-            HUDCMS.HelpWizzardTagDC tagDCTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Top", "Write on top",null, null);
+            tagDCTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Top", "",null, null);
 
-            HUDCMS.HelpWizzardTagDC tagDC_MultiUser_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT,"MultiUser", "Operation mode is multi user", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDC_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "MultiUser", "Operation mode is single user", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "Invoice or proforma invoice is visible", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "Invoice or proforma invoice is not visible", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices is visible", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "Table of invoices or proforma invoices  is not visible", "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "You can only view the selected invoice or proforma invoice", "enum", "ViewMode");
-            HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "You can edit the selected invoice pr profroma inovice", "enum", "EditMode");
-            HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", "Shop A is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", null, "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", "Shop B is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", null, "bool", "false");
-            HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", "Shop C is shown", "bool", "true");
-            HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", null, "bool", "false");
+            tagDC_DocType_Invoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "Invoice");
+            tagDC_DocType_ProformeInvoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "ProformaInvoice");
+            tagDC_EmptyDB_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "true");
+            tagDC_EmptyDB_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "false");
+            tagDC_MultiUser_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT,"MultiUser", "", "bool", "true");
+            tagDC_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "MultiUser", "", "bool", "false");
+            tagDC_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "", "bool", "true");
+            tagDC_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "", "bool", "false");
+            tagDC_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "", "bool", "true");
+            tagDC_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "", "bool", "false");
+            tagDC_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "", "enum", "ViewMode");
+            tagDC_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "", "enum", "EditMode");
+            tagDC_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", "", "bool", "true");
+            tagDC_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", null, "bool", "false");
+            tagDC_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", "", "bool", "true");
+            tagDC_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", null, "bool", "false");
+            tagDC_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", "", "bool", "true");
+            tagDC_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", null, "bool", "false");
 
-            HUDCMS.HelpWizzardTagDC tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "Write  on bottom", null, null);
+            tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "", null, null);
 
 
-            HUDCMS.HelpWizzardTagDC[] TagDCs = new HUDCMS.HelpWizzardTagDC[] {
+            TagDCs = new HUDCMS.HelpWizzardTagDC[] {
             tagDCTop,
+            tagDC_DocType_Invoice,
+            tagDC_DocType_ProformeInvoice,
+            tagDC_EmptyDB_true,
+            tagDC_EmptyDB_false,
             tagDC_MultiUser_true,
             tagDC_MultiUser_false,
             tagDC_usrc_Invoice_Visible_true,
@@ -594,79 +731,20 @@ namespace Tangenta
             tagDC_ShopB_Visible_true,
             tagDC_ShopB_Visible_false,
             tagDC_ShopC_Visible_true,
+            tagDC_ShopC_Visible_false,
             tagDCBottom,
             };
 
             HUDCMS.HelpWizzardTag hlpwizTag = new HelpWizzardTag(TagDCs, this.HelpWizzardShow, this.HelpWizzardFillTextContent);
 
-            string sNewTag = "_";
+           
 
             long numberOfAll = -1;
-
-            if (this.m_usrc_Main.IsDocInvoice)
-            {
-                numberOfAll = fs.NumberOInvoicesInDatabase();
-                sNewTag += "i";
-            }
-            else if (this.m_usrc_Main.IsDocProformaInvoice)
-            {
-                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
-                sNewTag += "p";
-            }
-
-            if (numberOfAll<0)
-            {
-                LogFile.Error.Show("ERROR:Tangenta:Form_Document:SetNewFormTag:  numberOfAll invoices or proforma invoices < 0 !");
-            }
-            else if (numberOfAll==0)
-            {
-                sNewTag += "Z";
-            }
-            else if (numberOfAll > 0)
-            {
-                sNewTag += "N";
-            }
-
-
-            if (Program.OperationMode.MultiUser)
-            {
-                sNewTag += "m";
-            }
-            else
-            {
-                sNewTag += "s";
-            }
-            if (m_usrc_Main.m_usrc_Invoice_Visible)
-            {
-                sNewTag += "I";
-                if (m_usrc_Main.m_usrc_Invoice_ViewMode)
-                {
-                    sNewTag += "v";
-                }
-                else
-                {
-                    sNewTag += "e";
-                }
-                if (m_usrc_Main.ShopA_Visible)
-                {
-                    sNewTag += "A";
-                }
-                if (m_usrc_Main.ShopB_Visible)
-                {
-                    sNewTag += "B";
-                }
-                if (m_usrc_Main.ShopC_Visible)
-                {
-                    sNewTag += "C";
-                }
-            }
-
-            if (m_usrc_Main.m_usrc_InvoiceTable_Visible)
-            {
-                sNewTag += "t";
-            }
+            string[] sTagConditions = null;
+            string sNewTag = GetStringTag(ref numberOfAll, ref sTagConditions);
 
             hlpwizTag.FileSuffix = sNewTag;
+            hlpwizTag.ShowWizzard = HelpWizzardShow;
 
             this.Tag = hlpwizTag;
 
@@ -976,7 +1054,7 @@ namespace Tangenta
             }
         }
 
-        public void HelpWizzardShow(Control ctrl)
+        public void HelpWizzardShow(Control ctrl, MyControl root_ctrl, string xstyleFile)
         {
             if (frm_Document_WizzardForHelp!=null)
             {
@@ -988,7 +1066,7 @@ namespace Tangenta
             }
             if (frm_Document_WizzardForHelp==null)
             {
-                frm_Document_WizzardForHelp = new Form_Document_WizzardForHelp(ctrl);
+                frm_Document_WizzardForHelp = new Form_Document_WizzardForHelp(ctrl, root_ctrl, xstyleFile);
                 frm_Document_WizzardForHelp.Owner = this;
             }
             frm_Document_WizzardForHelp.Show();

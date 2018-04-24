@@ -29,10 +29,10 @@ namespace HUDCMS
             {
                 this.txt_Type.Text = Hlptagdc.Type;
             }
-            if (Hlptagdc.condtition != null)
+            if (Hlptagdc.condition != null)
             {
-                this.txt_Condition.Text = Hlptagdc.condtition;
-                this.txt_Name.Text += "$" + Hlptagdc.condtition;
+                this.txt_Condition.Text = Hlptagdc.condition;
+                this.txt_Name.Text += "$" + Hlptagdc.condition;
             }
             this.fastColoredTextBox1.Text = Hlptagdc.Text;
         }

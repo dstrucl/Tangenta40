@@ -32,12 +32,16 @@ namespace HUDCMS
             get { return type; }
         }
 
-        public string condtition = null;
+        public string condition = null;
         public string Condition
         {
-            get { return condtition; }
+            get { return condition; }
         }
 
+        public string NamedCondition
+        {
+            get { return Name + "$" + Condition; }
+        }
         public HelpWizzardTagDC(eTip xeTip,string xname, string xtext,string xtype, string xcondition)
         {
 
@@ -45,7 +49,7 @@ namespace HUDCMS
             name = xname;
             text = xtext;
             type = xtype;
-            condtition = xcondition;
+            condition = xcondition;
         }
 
     }
