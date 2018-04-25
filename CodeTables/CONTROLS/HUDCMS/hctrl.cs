@@ -267,8 +267,15 @@ namespace HUDCMS
             yScr = xparent.yScr + xc.Top;
             if ((xc.Width > 0) && (xc.Height > 0))
             {
-                ctrlbmp = new Bitmap(xc.Width, xc.Height);
-                xc.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, xc.Width, xc.Height));
+                try
+                {
+                    ctrlbmp = new Bitmap(xc.Width, xc.Height);
+                    xc.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, xc.Width, xc.Height));
+                }
+                catch (Exception ex)
+                {
+                    ctrlbmp = null;
+                }
             }
             else
             {

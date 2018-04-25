@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,6 +40,28 @@ namespace Global
         {
             string sAssemblyVersion = "V" + major.ToString() + "_" + majorRevision.ToString() + "_" + minor.ToString() + "_" + minorRevision.ToString();
             return sAssemblyVersion;
+        }
+
+        private static SHA1CryptoServiceProvider my_SHA1CryptoServiceProvider = new SHA1CryptoServiceProvider();
+
+        public static string GetHash_SHA1(byte[] byteArray)
+        {
+            string hash = "";
+            hash = Convert.ToBase64String(my_SHA1CryptoServiceProvider.ComputeHash(byteArray));
+            return hash;
+        }
+        public static string GetHash_UrlTokenEncode(byte[] byteArray)
+        {
+            string hash = "";
+            hash = System.Web.HttpServerUtility.UrlTokenEncode(my_SHA1CryptoServiceProvider.ComputeHash(byteArray));
+            return hash;
+        }
+
+        public static byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            return ms.ToArray();
         }
     }
 }

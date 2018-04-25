@@ -33,6 +33,7 @@ namespace Tangenta
         public usrc_ShopB m_usrc_ShopB = null;
         public usrc_ShopC m_usrc_ShopC = null;
 
+        public string ShopsMode = "";
 
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
         NavigationButtons.Navigation nav = null;
@@ -246,6 +247,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_A()
         {
+            ShopsMode = "A";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -255,6 +257,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_B()
         {
+            ShopsMode = "B";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -264,6 +267,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_C()
         {
+            ShopsMode = "C";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -274,6 +278,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_AB()
         {
+            ShopsMode = "AB";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -289,6 +294,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_BC()
         {
+            ShopsMode = "BC";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -303,6 +309,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_AC()
         {
+            ShopsMode = "AC";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -317,6 +324,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_ABC()
         {
+            ShopsMode = "ABC";
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -602,18 +610,18 @@ namespace Tangenta
             }
         }
 
-        public bool ShopA_Visible
+        public bool ShopA_DefaultVisible
         {
             get { return Properties.Settings.Default.eShopsMode.Contains("A"); }
         }
-        public bool ShopB_Visible
+        public bool ShopB_DefaultVisible
         {
             get { return Properties.Settings.Default.eShopsMode.Contains("B"); }
         }
 
-        public bool ShopC_Visible
+        public bool ShopC_DefaultVisible
         {
-            get { return Properties.Settings.Default.eShopsMode.Contains("B"); }
+            get { return Properties.Settings.Default.eShopsMode.Contains("Ç"); }
         }
 
 

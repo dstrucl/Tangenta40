@@ -112,7 +112,7 @@ namespace Tangenta
             WriteStep();
             this.Refresh();
             ExecuteStep();
-
+            MakeHtml(styleFile);
             timer1.Enabled = true;
             if (SetStep())
             {
@@ -189,7 +189,7 @@ namespace Tangenta
             string[] sTagConditions = null;
             string sNewTag = form_document.GetStringTag(ref numberOfAllControls, ref sTagConditions);
             string sResult = null;
-            if (HUDCMS.MyControl.MakeHtml(this, sNewTag, sTagConditions, styleFile, root_ctrl, ref sResult))
+            if (HUDCMS.MyControl.MakeHtml(form_document, sNewTag, sTagConditions, styleFile, root_ctrl, ref sResult))
             {
                 return true;
             }

@@ -240,7 +240,14 @@ namespace HUDCMS
                     XElement html_body = null;
                     XElement THeader = null;
                     string Err = null;
-                    Form_HUDCMS.SaveXHTML((Form)ctrl_for_help, ref xh, destination_root_ctrl.ControlUniqueName + sNewTag, styleFile, header, ref header, destination_root_ctrl,
+                    string modulename = null;
+                    string htmlfilename = null;
+                    string remoteurl = null;
+                    string s_local_htmlFile = null;
+                    if (HUDCMS_static.GetLocalHtmlFile((Form)ctrl_for_help, "", ref modulename, ref htmlfilename, ref remoteurl, ref s_local_htmlFile))
+                    {
+                        string htmlfile = s_local_htmlFile;
+                    Form_HUDCMS.SaveXHTML((Form)ctrl_for_help, ref xh, htmlfile, styleFile, header, ref header, destination_root_ctrl,
                         ref html_html,
                         ref html_head,
                         ref html_title,
@@ -248,6 +255,7 @@ namespace HUDCMS
                         ref THeader,
                         ref Err
                         );
+                    }
                 }
             }
             return false;
@@ -255,7 +263,14 @@ namespace HUDCMS
 
         public string GetControlUniqueName()
         {
-            return uH.Prefix+hc.GetName();
+            if (uH != null)
+            {
+                return uH.Prefix + hc.GetName();
+            }
+            else
+            {
+                return hc.GetName();
+            }
         }
 
         public string GetControlType()
@@ -446,7 +461,38 @@ namespace HUDCMS
 
                     try
                     {
-                        string ximage_path = Path.GetDirectoryName(uH.LocalHtmlFile);
+                        string ximage_path = null;
+                        if (uH != null)
+                        {
+                            ximage_path = Path.GetDirectoryName(uH.LocalHtmlFile);
+                        }
+                        else
+                        {
+                            Form pfrm = null;
+                            if (this.hc.pForm!=null)
+                            {
+                                pfrm = this.hc.pForm;
+                            }
+                            else
+                            {
+                                if (this.hc.ctrl!=null)
+                                {
+                                    pfrm = Global.f.GetParentForm(this.hc.ctrl);
+                                }
+                            }
+                            if (pfrm != null)
+                            {
+                                string modulename = null;
+                                string htmlfile = null;
+                                string remoteurl = null;
+                                string slocalhtmlfile = null;
+                                if (HUDCMS_static.GetLocalHtmlFile(pfrm, "", ref modulename, ref htmlfile, ref remoteurl, ref slocalhtmlfile))
+                                {
+                                    ximage_path = Path.GetDirectoryName(slocalhtmlfile);
+                                }
+                            }
+                        }
+
                         if (ximage_path != null)
                         {
                             if (ximage_path.Length > 0)
@@ -458,30 +504,64 @@ namespace HUDCMS
                             }
                         }
 
-
-
-                        string ximage_file = ximage_path + imagesourcename;
+                        string imagehash = null;
                         if (this.ImageOfControl == null)
                         {
                             this.ImageOfControl = this.hc.ctrlbmp;
+                            byte[] byteimage = Global.f.imageToByteArray(ImageOfControl);
+                            imagehash = Global.f.GetHash_UrlTokenEncode(byteimage);
                         }
-                        this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
-                        if (Properties.Settings.Default.UseGit)
+
+                        string ximage_file = null;
+                        if (imagehash != null)
                         {
-                            string std_err = null;
-                            string std_out = null;
-                            switch (Git.CheckIfFileInRepository(ximage_file, ref std_out, ref std_err))
+                            int ipospng = imagesourcename.IndexOf(".png");
+                            if (ipospng>=0)
                             {
-                                case Git.eCheckIfFileInRepository.FileIsNotInRepository:
-                                    if (!Git.Add(ximage_file, ref std_out, ref std_err))
-                                    {
-                                        MessageBox.Show(std_err);
-                                    }
-                                    break;
-                                case Git.eCheckIfFileInRepository.ERROR:
-                                    MessageBox.Show(std_err);
-                                    break;
+                                imagesourcename = imagesourcename.Substring(0, ipospng) + "_" + imagehash + ".png";
                             }
+                            ximage_file = ximage_path + imagesourcename;;
+                        }
+                        if (ximage_file != null)
+                        {
+                            if (!File.Exists(ximage_file))
+                            {
+                                bool bsaved = false;
+                                try
+                                {
+                                    this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
+                                    bsaved = true;
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("ERROR:HUDCMS:MyControl.cs:CreateNode: this.ImageOfControl.Save(..):Exception=" + ex.Message);
+                                }
+
+                                if (bsaved)
+                                {
+                                    if (Properties.Settings.Default.UseGit)
+                                    {
+                                        string std_err = null;
+                                        string std_out = null;
+                                        switch (Git.CheckIfFileInRepository(ximage_file, ref std_out, ref std_err))
+                                        {
+                                            case Git.eCheckIfFileInRepository.FileIsNotInRepository:
+                                                if (!Git.Add(ximage_file, ref std_out, ref std_err))
+                                                {
+                                                    MessageBox.Show(std_err);
+                                                }
+                                                break;
+                                            case Git.eCheckIfFileInRepository.ERROR:
+                                                MessageBox.Show(std_err);
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR:HUDCMS:MyControl:CreateNode:imagehash==null!");
                         }
 
                     }
@@ -906,18 +986,7 @@ namespace HUDCMS
             }
 
 
-            if (hc.ctrlbmp != null)
-            {
-
-                string path = Path.GetDirectoryName(uH.LocalHtmlFile);
-
-            }
-            else
-            {
-                if (this.hc.dgvc != null)
-                {
-                }
-            }
+         
 
             xfrm_HUDCMS = null;
             xfrm_Wizzard = null;
@@ -962,13 +1031,41 @@ namespace HUDCMS
             }
 
             string sAbout = "";
-            source_root_control.GetAboutFromHelpWizzardTag(sTagConditions, ref sAbout);
+            MyControl matching_source_control = source_root_control.GetMatchingControl(this);
+            if (matching_source_control != null)
+            {
+                matching_source_control.GetAboutFromHelpWizzardTag(sTagConditions, ref sAbout);
+                sAbout = sAbout.Replace("$lt$", "<");
+                sAbout = sAbout.Replace("$gt$", ">");
+            }
             About = sAbout;
-
+            
             if (ID.Length == 0)
             {
                 Guid id = Guid.NewGuid();
                 ID = id.ToString();
+            }
+        }
+
+        private MyControl GetMatchingControl(MyControl xmyControl)
+        {
+            string thisControlUniqueName = this.GetControlUniqueName();
+            string xmyControlUniqueName = xmyControl.GetControlUniqueName();
+            if (thisControlUniqueName.Equals(xmyControlUniqueName))
+            {
+                return this;
+            }
+            else
+            {
+                foreach (MyControl mc in this.children)
+                {
+                    MyControl mctrl = mc.GetMatchingControl(xmyControl);
+                    if (mctrl!=null)
+                    {
+                        return mctrl;
+                    }
+                }
+                return null;
             }
         }
 
@@ -979,18 +1076,31 @@ namespace HUDCMS
             {
                 if (HlpWizTag.About != null)
                 {
-                    foreach (string tagcond in sTagConditions)
+                    foreach (HelpWizzardTagDC tagdc in HlpWizTag.About.tagDCs)
                     {
-                        foreach (HelpWizzardTagDC tagdc in HlpWizTag.About.tagDCs)
+                        if (tagdc.Condition == null)
                         {
-                            if (tagdc.Condition==null)
+                            if (tagdc.Name.Equals("Top"))
                             {
                                 if (tagdc.Text != null)
                                 {
                                     sAbout += tagdc.Text;
                                 }
                             }
-                            else if (tagdc.NamedCondition.Equals(tagcond))
+                        }
+                        foreach (string tagcond in sTagConditions)
+                        {
+                            if (tagdc.NamedCondition.Equals(tagcond))
+                            {
+                                if (tagdc.Text != null)
+                                {
+                                    sAbout += tagdc.Text;
+                                }
+                            }
+                        }
+                        if (tagdc.Condition == null)
+                        {
+                            if (tagdc.Name.Equals("Bottom"))
                             {
                                 if (tagdc.Text != null)
                                 {

@@ -104,7 +104,7 @@ namespace Tangenta
             get {
                     if (m_usrc_Invoice!=null)
                     {
-                        return m_usrc_Invoice.ShopA_Visible;
+                        return m_usrc_Invoice.ShopsMode.Contains("A");
                     }
                     else
                     {
@@ -119,7 +119,7 @@ namespace Tangenta
             {
                 if (m_usrc_Invoice != null)
                 {
-                    return m_usrc_Invoice.ShopB_Visible;
+                    return m_usrc_Invoice.ShopsMode.Contains("B");
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace Tangenta
             {
                 if (m_usrc_Invoice != null)
                 {
-                    return m_usrc_Invoice.ShopC_Visible;
+                    return m_usrc_Invoice.ShopsMode.Contains("C");
                 }
                 else
                 {
