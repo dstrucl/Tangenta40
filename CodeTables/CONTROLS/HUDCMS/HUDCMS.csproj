@@ -77,6 +77,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bookmark.cs" />
+    <Compile Include="BookmarkDic.cs" />
     <Compile Include="Form_Wizzard.cs">
       <SubType>Form</SubType>
     </Compile>

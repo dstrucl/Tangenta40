@@ -143,6 +143,20 @@ namespace Tangenta
             }
         }
 
+        public bool m_usrc_InvoiceHead_Visible
+        {
+            get
+            {
+                if (m_usrc_Invoice != null)
+                {
+                    return m_usrc_Invoice.HeadVisible;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public usrc_InvoiceMan()
         {
@@ -597,6 +611,15 @@ namespace Tangenta
             }
             return false;
         }
+
+        internal void HelpReload()
+        {
+            if (m_usrc_Help!=null)
+            {
+                m_usrc_Help.Reload();
+            }
+        }
+
         private void New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();

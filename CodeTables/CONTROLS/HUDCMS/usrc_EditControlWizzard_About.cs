@@ -68,7 +68,7 @@ namespace HUDCMS
             }
         }
 
-        private static List<usrc_HelpWizzardTagDC> Get_usrc_HelpWizzardTagDC_list(UserControl usrctrl)
+        internal static List<usrc_HelpWizzardTagDC> Get_usrc_HelpWizzardTagDC_list(UserControl usrctrl)
         {
             List<usrc_HelpWizzardTagDC> xusrc_HelpWizzardTagDC_List = new List<usrc_HelpWizzardTagDC>(); ;
             foreach (Control ctrl in usrctrl.Controls)

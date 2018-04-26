@@ -36,31 +36,31 @@ namespace HUDCMS
             }
         }
 
-        //internal static bool GetUsrcEditControl(Control ctrl, ref usrc_EditControl m_usrc_EditControl)
-        //{
-        //    if (ctrl is usrc_EditControl)
-        //    {
-        //        m_usrc_EditControl = (usrc_EditControl)ctrl;
-        //        return true;
-        //    }
-        //    else if (ctrl.Parent!=null)
-        //    {
-        //        if (GetUsrcEditControl(ctrl.Parent, ref m_usrc_EditControl))
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+        internal static bool GetUsrcEditControlWizzard(Control ctrl, ref usrc_EditControlWizzard m_usrc_EditControlWizzard)
+        {
+            if (ctrl is usrc_EditControlWizzard)
+            {
+                m_usrc_EditControlWizzard = (usrc_EditControlWizzard)ctrl;
+                return true;
+            }
+            else if (ctrl.Parent != null)
+            {
+                if (GetUsrcEditControlWizzard(ctrl.Parent, ref m_usrc_EditControlWizzard))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+       }
 
-        internal void Init(MyControl myControl)
+            internal void Init(MyControl myControl)
         {
 
             if (my_Control != null)
@@ -115,6 +115,7 @@ namespace HUDCMS
 
             usrc_EditControlWizzard_Image1.chk_ImageIncluded.Checked = my_Control.ImageIncluded;
             usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text = stitle;
+            usrc_EditControlWizzard_Title1.txt_ID.Text = my_Control.ID;
             usrc_EditControlWizzard_Title1.SetHeadingTag(my_Control.HeadingTag);
             usrc_EditControlWizzard_About1.Init(my_Control.HlpWizTag);
             //usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text = my_Control.About;

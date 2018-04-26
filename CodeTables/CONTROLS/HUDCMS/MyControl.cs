@@ -231,7 +231,8 @@ namespace HUDCMS
                     int level = 0;
                     int icount = 0;
                     int iAllCount = 0;
-                    MyControl destination_root_ctrl = Form_HUDCMS.CreateMyControlsFromWizzardSource(source_root_ctrl, sNewTag, sTagConditions,level, icount, ref iAllCount, xhc,null);
+                    int localbookmarkid = 1;
+                    MyControl destination_root_ctrl = Form_HUDCMS.CreateMyControlsFromWizzardSource(source_root_ctrl, sNewTag, sTagConditions,level, icount, ref iAllCount, xhc,null, ref localbookmarkid);
                     XDocument xh = null;
                     string header = "";
                     XElement html_html = null;
@@ -255,6 +256,7 @@ namespace HUDCMS
                         ref THeader,
                         ref Err
                         );
+                        xhc.DoDispose();
                     }
                 }
             }
@@ -399,8 +401,8 @@ namespace HUDCMS
                 XAttribute xdiv_Title_Heading_class = new XAttribute("class", "Title");
                 if (ID.Length==0)
                 {
-                    Guid id = Guid.NewGuid();
-                    ID = id.ToString();
+                    //Guid id = Guid.NewGuid();
+                    ID = SetID();
                 }
                 XAttribute xdiv_Title_Heading_id = new XAttribute("id", ID);
 
@@ -415,6 +417,7 @@ namespace HUDCMS
                 xdiv_Title.Add(xTitle_Heading);
 
                 xdiv_About = null;
+                xdiv_Description = null;
 
                 if (this.HlpWizTag != null)
                 {
@@ -425,6 +428,14 @@ namespace HUDCMS
                         xdiv_About.Add(xdiv_About_class);
                         MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
                         xdiv_Title.Add(xdiv_About);
+                    }
+                    if (this.HlpWizTag.HasDescription())
+                    {
+                        xdiv_Description = new XElement("div");
+                        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                        xdiv_Description.Add(xdiv_Description_class);
+                        MyControl.ReplaceInnerXml(xdiv_Description, this.HlpWizTag.Description.tagDCs);
+                        xdiv_Title.Add(xdiv_Description);
                     }
                 }
 
@@ -440,6 +451,17 @@ namespace HUDCMS
                     }
                 }
 
+                if (xdiv_Description == null)
+                {
+                    if (Description.Length > 0)
+                    {
+                        xdiv_Description = new XElement("div");
+                        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                        xdiv_Description.Add(xdiv_Description_class);
+                        MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
+                        xdiv_Title.Add(xdiv_Description);
+                    }
+                }
 
                 string Err = null;
 
@@ -450,6 +472,25 @@ namespace HUDCMS
                     {
                         imagesourcename = "hashname_" + ImageSource.GetHashCode() + ".png";
                     }
+
+                    string imagehash = null;
+                    if (this.ImageOfControl == null)
+                    {
+                        this.ImageOfControl = this.hc.ctrlbmp;
+                        byte[] byteimage = Global.f.imageToByteArray(ImageOfControl);
+                        imagehash = Global.f.GetHash_UrlTokenEncode(byteimage);
+                    }
+
+                    string ximage_file = null;
+                    if (imagehash != null)
+                    {
+                        int ipospng = imagesourcename.IndexOf(".png");
+                        if (ipospng >= 0)
+                        {
+                            imagesourcename = imagesourcename.Substring(0, ipospng) + "_" + imagehash + ".png";
+                        }
+                    }
+
                     ximg = new XElement("img");
                     XAttribute img_src = new XAttribute("src", imagesourcename);
                     //                    XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
@@ -504,24 +545,8 @@ namespace HUDCMS
                             }
                         }
 
-                        string imagehash = null;
-                        if (this.ImageOfControl == null)
-                        {
-                            this.ImageOfControl = this.hc.ctrlbmp;
-                            byte[] byteimage = Global.f.imageToByteArray(ImageOfControl);
-                            imagehash = Global.f.GetHash_UrlTokenEncode(byteimage);
-                        }
+                        ximage_file = ximage_path + imagesourcename; ;
 
-                        string ximage_file = null;
-                        if (imagehash != null)
-                        {
-                            int ipospng = imagesourcename.IndexOf(".png");
-                            if (ipospng>=0)
-                            {
-                                imagesourcename = imagesourcename.Substring(0, ipospng) + "_" + imagehash + ".png";
-                            }
-                            ximage_file = ximage_path + imagesourcename;;
-                        }
                         if (ximage_file != null)
                         {
                             if (!File.Exists(ximage_file))
@@ -897,13 +922,13 @@ namespace HUDCMS
 
             if (ID.Length == 0)
             {
-                Guid id = Guid.NewGuid();
-                ID = id.ToString();
+                //Guid id = Guid.NewGuid();
+                ID = SetID();
             }
 
         }
 
-        internal void InitFromWizzardSource(MyControl source_root_control, string sNewTag, string[] sTagConditions, hctrl xhc, int iLevel, MyControl parent)
+        internal void InitFromWizzardSource(MyControl source_root_control, string sNewTag, string[] sTagConditions, hctrl xhc, int iLevel, MyControl parent, ref int xLocalBookmarkID)
         {
             string xControlInfo_title = "";
             string xControlInfo_about = "";
@@ -1031,19 +1056,25 @@ namespace HUDCMS
             }
 
             string sAbout = "";
+            string sDescription = "";
             MyControl matching_source_control = source_root_control.GetMatchingControl(this);
             if (matching_source_control != null)
             {
+                this.HelpTitle = matching_source_control.HelpTitle;
                 matching_source_control.GetAboutFromHelpWizzardTag(sTagConditions, ref sAbout);
+                matching_source_control.GetDescriptionFromHelpWizzardTag(sTagConditions, ref sDescription);
                 sAbout = sAbout.Replace("$lt$", "<");
                 sAbout = sAbout.Replace("$gt$", ">");
+                sDescription = sDescription.Replace("$lt$", "<");
+                sDescription = sDescription.Replace("$gt$", ">");
             }
             About = sAbout;
+            Description = sDescription;
             
             if (ID.Length == 0)
             {
-                Guid id = Guid.NewGuid();
-                ID = id.ToString();
+                //Guid id = Guid.NewGuid();
+                ID = SetID();
             }
         }
 
@@ -1105,6 +1136,50 @@ namespace HUDCMS
                                 if (tagdc.Text != null)
                                 {
                                     sAbout += tagdc.Text;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void GetDescriptionFromHelpWizzardTag(string[] sTagConditions, ref string sDescription)
+        {
+            sDescription = "";
+            if (HlpWizTag != null)
+            {
+                if (HlpWizTag.Description != null)
+                {
+                    foreach (HelpWizzardTagDC tagdc in HlpWizTag.Description.tagDCs)
+                    {
+                        if (tagdc.Condition == null)
+                        {
+                            if (tagdc.Name.Equals("Top"))
+                            {
+                                if (tagdc.Text != null)
+                                {
+                                    sDescription += tagdc.Text;
+                                }
+                            }
+                        }
+                        foreach (string tagcond in sTagConditions)
+                        {
+                            if (tagdc.NamedCondition.Equals(tagcond))
+                            {
+                                if (tagdc.Text != null)
+                                {
+                                    sDescription += tagdc.Text;
+                                }
+                            }
+                        }
+                        if (tagdc.Condition == null)
+                        {
+                            if (tagdc.Name.Equals("Bottom"))
+                            {
+                                if (tagdc.Text != null)
+                                {
+                                    sDescription += tagdc.Text;
                                 }
                             }
                         }
@@ -1236,11 +1311,22 @@ namespace HUDCMS
             if (xAttribute != null)
             {
                 ID = xAttribute.Value;
+                if (ID.Length >= 32)
+                {
+                    ID = SetID();
+                }
             }
             else
             {
-                ID = Guid.NewGuid().ToString();
+                //ID = Guid.NewGuid().ToString();
+                ID = SetID();
             }
+        }
+
+        private string SetID()
+        {
+            string sid = HUDCMS.BookmarkDic.GetBookmark(GetControlUniqueName());
+            return sid;
         }
 
         internal static bool Find_my_Control(MyControl ctrl, string slnk, ref MyControl my_Control_found)

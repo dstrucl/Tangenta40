@@ -52,6 +52,7 @@
             this.txt_URL.Size = new System.Drawing.Size(327, 13);
             this.txt_URL.TabIndex = 1;
             this.txt_URL.Text = "label1";
+            this.txt_URL.TextChanged += new System.EventHandler(this.txt_URL_TextChanged);
             this.txt_URL.DoubleClick += new System.EventHandler(this.txt_URL_DoubleClick);
             // 
             // chk_local

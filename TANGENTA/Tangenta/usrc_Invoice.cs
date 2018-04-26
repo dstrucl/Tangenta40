@@ -355,6 +355,7 @@ namespace Tangenta
         {
             chk_Head.Checked = bvisible;
             this.Refresh();
+            this.Refresh();
         }
 
         private void New_ShopB(NavigationButtons.Navigation xnav)
@@ -407,7 +408,7 @@ namespace Tangenta
             if (Properties.Settings.Default.eShopsInUse.Length == 1)
             {
                 eShopsMode = Properties.Settings.Default.eShopsInUse;
-                this.btn_Show_Shops.Visible = false;
+ //               this.btn_Show_Shops.Visible = false;
             }
             else
             {
@@ -624,6 +625,12 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsMode.Contains("Ç"); }
         }
 
+        public bool HeadVisible
+        {
+            get {
+                 return this.chk_Head.Checked;
+                }
+        }
 
         public usrc_Invoice()
         {
@@ -2503,6 +2510,14 @@ namespace Tangenta
         {
             GlobalData.BaseCurrency = currency;
             Atom_Currency_ID = xAtom_Currency_ID;
+        }
+
+        private void chk_Head_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (LayoutChanged != null)
+            {
+                LayoutChanged();
+            }
         }
     }
 }

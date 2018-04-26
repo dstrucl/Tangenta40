@@ -35,5 +35,11 @@ namespace HUDCMS
             usrc_web_Help1.Init(mH);
             usrc_web_Help1.Refresh();
         }
+
+        internal void Reload()
+        {
+            usrc_web_Help1.Init(mH);
+            usrc_web_Help1.Refresh();
+        }
     }
 }

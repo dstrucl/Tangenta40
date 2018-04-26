@@ -197,6 +197,7 @@
             this.chk_Head.TabIndex = 37;
             this.chk_Head.Text = "Glava";
             this.chk_Head.UseVisualStyleBackColor = true;
+            this.chk_Head.CheckedChanged += new System.EventHandler(this.chk_Head_CheckedChanged_1);
             // 
             // splitContainer2
             // 

@@ -67,6 +67,23 @@ namespace HUDCMS
             return false;
         }
 
- 
+        internal bool HasDescription()
+        {
+            if (Description != null)
+            {
+                foreach (HelpWizzardTagDC tdc in Description.tagDCs)
+                {
+                    if (tdc.Text != null)
+                    {
+                        if (tdc.Text.Length > 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }

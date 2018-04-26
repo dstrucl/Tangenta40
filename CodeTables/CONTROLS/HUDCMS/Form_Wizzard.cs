@@ -408,6 +408,7 @@ namespace HUDCMS
                 this.usrc_EditControlWizzard1.my_Control.HeadingTag = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.cmb_HtmlTag.Text;
 
                 this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.GetData();
+                this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.GetData();
                 //this.usrc_EditControlWizzard1.my_Control.About = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text;
 
 

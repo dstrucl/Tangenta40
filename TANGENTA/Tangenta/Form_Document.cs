@@ -43,6 +43,8 @@ namespace Tangenta
         HUDCMS.HelpWizzardTagDC tagDC_MultiUser_false = null;
         HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_true = null;
         HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceHead_Visible_true = null;
+        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceHead_Visible_false = null;
         HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_true = null;
         HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_false = null;
         HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_ViewMode = null;
@@ -579,6 +581,7 @@ namespace Tangenta
         private void M_usrc_Main_LayoutChanged()
         {
             SetNewFormTag();
+            m_usrc_Main.HelpReload();
         }
 
 
@@ -625,19 +628,38 @@ namespace Tangenta
                 sNewTag += "s";
                 tag_conditions.Add(tagDC_MultiUser_false.NamedCondition);
             }
+
             if (m_usrc_Main.m_usrc_Invoice_Visible)
             {
                 sNewTag += "I";
                 tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
-                if (m_usrc_Main.m_usrc_Invoice_ViewMode)
+
+                if (m_usrc_Main.m_usrc_InvoiceHead_Visible)
                 {
-                    sNewTag += "v";
-                    tag_conditions.Add(tagDC_usrc_Invoice_Mode_ViewMode.NamedCondition);
+                    sNewTag += "h1";
+                    tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
                 }
                 else
                 {
-                    sNewTag += "e";
-                    tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
+                    sNewTag += "h0";
+                    tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
+                }
+
+                if (m_usrc_Main.m_usrc_Invoice_ViewMode)
+                {
+                    if (sNewTag.Contains("N"))
+                    {
+                        sNewTag += "v";
+                        tag_conditions.Add(tagDC_usrc_Invoice_Mode_ViewMode.NamedCondition);
+                    }
+                }
+                else
+                {
+                    if (sNewTag.Contains("N"))
+                    {
+                        sNewTag += "e";
+                        tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
+                    }
                 }
                 if (m_usrc_Main.ShopA_Visible)
                 {
@@ -648,6 +670,7 @@ namespace Tangenta
                 {
                     tag_conditions.Add(tagDC_ShopA_Visible_false.NamedCondition);
                 }
+
                 if (m_usrc_Main.ShopB_Visible)
                 {
                     sNewTag += "B";
@@ -698,6 +721,8 @@ namespace Tangenta
             tagDC_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "MultiUser", "", "bool", "false");
             tagDC_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "", "bool", "true");
             tagDC_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "", "bool", "false");
+            tagDC_usrc_InvoiceHead_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceHead_Visible", "", "bool", "true");
+            tagDC_usrc_InvoiceHead_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceHead_Visible", "", "bool", "false");
             tagDC_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "", "bool", "true");
             tagDC_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "", "bool", "false");
             tagDC_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "", "enum", "ViewMode");
@@ -722,6 +747,8 @@ namespace Tangenta
             tagDC_MultiUser_false,
             tagDC_usrc_Invoice_Visible_true,
             tagDC_usrc_Invoice_Visible_false,
+            tagDC_usrc_InvoiceHead_Visible_true,
+            tagDC_usrc_InvoiceHead_Visible_false,
             tagDC_usrc_InvoiceTable_Visible_true,
             tagDC_usrc_InvoiceTable_Visible_false,
             tagDC_usrc_Invoice_Mode_ViewMode,

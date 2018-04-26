@@ -607,7 +607,7 @@ namespace HUDCMS
         }
 
 
-        internal static MyControl CreateMyControlsFromWizzardSource(MyControl source_root_control,string sNewTag, string[] sTagConditions,int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl)
+        internal static MyControl CreateMyControlsFromWizzardSource(MyControl source_root_control,string sNewTag, string[] sTagConditions,int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl,ref int xLocalBookmarkID)
         {
 
 
@@ -615,7 +615,7 @@ namespace HUDCMS
             iAllCount++;
             iCount = 0;
             myctrl.ControlName = "uctrl_" + level.ToString() + "_" + iCount.ToString();
-            myctrl.InitFromWizzardSource(source_root_control, sNewTag, sTagConditions,  xhc, level, xctrl);
+            myctrl.InitFromWizzardSource(source_root_control, sNewTag, sTagConditions,  xhc, level, xctrl, ref xLocalBookmarkID);
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
@@ -625,13 +625,13 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControlsFromWizzardSource(source_root_control, sNewTag, sTagConditions, level + 1, iCount++, ref iAllCount, hc, myctrl);
+                            child = CreateMyControlsFromWizzardSource(source_root_control, sNewTag, sTagConditions, level + 1, iCount++, ref iAllCount, hc, myctrl, ref xLocalBookmarkID);
                             myctrl.children.Add(child);
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControlsFromWizzardSource(source_root_control, sNewTag, sTagConditions,level + 1, iCount++, ref iAllCount, hc, myctrl);
+                        child = CreateMyControlsFromWizzardSource(source_root_control, sNewTag, sTagConditions,level + 1, iCount++, ref iAllCount, hc, myctrl, ref xLocalBookmarkID);
                         myctrl.children.Add(child);
                     }
                 }

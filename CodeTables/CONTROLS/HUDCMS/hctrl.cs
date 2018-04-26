@@ -257,7 +257,21 @@ namespace HUDCMS
             Create_position_sorted_subctrl();
         }
 
-       
+        internal void DoDispose()
+        {
+            if (this.subctrl != null)
+            {
+                foreach (hctrl hc in this.subctrl)
+                {
+                    hc.DoDispose();
+                }
+            }
+            if (this.ctrlbmp != null)
+            {
+                this.ctrlbmp.Dispose();
+                this.ctrlbmp = null;
+            }
+        }
 
         public hctrl(Control xc,hctrl xparent, UniqueControlName xuctrln)
         {

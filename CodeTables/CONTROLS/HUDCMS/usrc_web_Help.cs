@@ -409,6 +409,11 @@ namespace HUDCMS
             Init(mH);
             ReloadHtml();
         }
+
+        private void txt_URL_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

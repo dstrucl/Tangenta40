@@ -13,6 +13,9 @@ namespace Tangenta
 {
     public partial class Form_Document_WizzardForHelp : Form
     {
+        public const int SCREEN_RESOLUTION_WIDTH = 1024;
+        public const int SCREEN_RESOLUTION_HEIGHT = 900;
+
         int istep_DocInvoice = 0;
         int istep_m_usrc_InvoiceTable_Visible = 0;
         int istep_Head = 0;
@@ -113,9 +116,9 @@ namespace Tangenta
             this.Refresh();
             ExecuteStep();
             MakeHtml(styleFile);
-            timer1.Enabled = true;
             if (SetStep())
             {
+                timer1.Enabled = true;
                 return;
             }
             else
@@ -255,6 +258,10 @@ namespace Tangenta
                         form_document.WizzardShow_ShopsVisible("ABC");
                         break;
                 }
+                form_document.Width = SCREEN_RESOLUTION_WIDTH;
+                form_document.Height = SCREEN_RESOLUTION_HEIGHT;
+                form_document.WindowState = FormWindowState.Normal;
+                form_document.Refresh();
             }
         }
 
@@ -263,6 +270,10 @@ namespace Tangenta
             if (control_ForWizzard is Form_Document)
             {
                 form_document = (Form_Document)control_ForWizzard;
+                form_document.Width =  SCREEN_RESOLUTION_WIDTH;
+                form_document.Height = SCREEN_RESOLUTION_HEIGHT;
+                form_document.WindowState = FormWindowState.Normal;
+                form_document.Refresh();
             }
             else
             {

@@ -11,7 +11,7 @@ namespace HUDCMS
 {
     public partial class usrc_EditControlWizzard_Image : UserControl
     {
-        usrc_EditControl m_usrc_EditControl = null;
+        usrc_EditControlWizzard m_usrc_EditControlWizzard = null;
 
         private int m_MaxPanelHeight = 400;
         public int MaxPanelHeight
@@ -44,13 +44,16 @@ namespace HUDCMS
 
         private void fastColoredTextBox1_Load(object sender, EventArgs e)
         {
-            usrc_EditControl.GetUsrcEditControl(this, ref m_usrc_EditControl);
+            usrc_EditControlWizzard.GetUsrcEditControlWizzard(this, ref m_usrc_EditControlWizzard);
         }
 
         private void nmUpDn_SnapShotMargin_ValueChanged(object sender, EventArgs e)
         {
             this.nmUpDn_SnapShotMargin.ValueChanged -= new System.EventHandler(this.nmUpDn_SnapShotMargin_ValueChanged);
-            m_usrc_EditControl.SnapShotMargin = Convert.ToInt32(nmUpDn_SnapShotMargin.Value);
+            if (m_usrc_EditControlWizzard != null)
+            {
+                m_usrc_EditControlWizzard.SnapShotMargin = Convert.ToInt32(nmUpDn_SnapShotMargin.Value);
+            }
             this.nmUpDn_SnapShotMargin.ValueChanged += new System.EventHandler(this.nmUpDn_SnapShotMargin_ValueChanged);
         }
 
@@ -93,11 +96,11 @@ namespace HUDCMS
                 {
                     if (e.ColumnIndex == dgv_link.Columns["Remove"].Index)
                     {
-                        m_usrc_EditControl.dtLink.Rows.RemoveAt(e.RowIndex);
-                        m_usrc_EditControl.my_Control.Link.RemoveAt(e.RowIndex);
+                        m_usrc_EditControlWizzard.dtLink.Rows.RemoveAt(e.RowIndex);
+                        m_usrc_EditControlWizzard.my_Control.Link.RemoveAt(e.RowIndex);
                         this.dgv_link.Refresh();
-                        m_usrc_EditControl.set_dgv_link(m_usrc_EditControl.my_Control);
-                        m_usrc_EditControl.my_Control.ShowLink();
+                        m_usrc_EditControlWizzard.set_dgv_link(m_usrc_EditControlWizzard.my_Control);
+                        m_usrc_EditControlWizzard.my_Control.ShowLink();
                     }
                 }
             }

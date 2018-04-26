@@ -111,6 +111,7 @@ namespace HUDCMS
 
             usrc_EditControl_Image1.chk_ImageIncluded.Checked = my_Control.ImageIncluded;
             usrc_EditControl_Title1.fctb_CtrlTitle.Text = stitle;
+            usrc_EditControl_Title1.txt_ID.Text = my_Control.ID;
             usrc_EditControl_Title1.SetHeadingTag(my_Control.HeadingTag);
             usrc_EditControl_About1.fctb_CtrlAbout.Text = my_Control.About;
             usrc_EditControl_Image1.fctb_CtrlImageCaption.Text = my_Control.ImageCaption;
