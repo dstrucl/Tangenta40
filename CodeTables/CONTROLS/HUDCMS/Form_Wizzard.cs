@@ -19,6 +19,9 @@ namespace HUDCMS
 {
     public partial class Form_Wizzard : Form
     {
+
+        private string localBookmarkDicFile = null;
+
         internal HelpWizzardTag hlpwiztag = null;
 
         internal string LocalXmlFileName = null;
@@ -138,6 +141,10 @@ namespace HUDCMS
                 DialogResult = DialogResult.Abort;
                 return;
             }
+
+            string localfiledirectory = Path.GetDirectoryName(LocalXmlFileName);
+            localBookmarkDicFile = localfiledirectory + "\\BookmarkDic.xml";
+            HUDCMS.BookmarkDic.Init(localBookmarkDicFile);
 
             SetHeader();
 
@@ -1025,6 +1032,16 @@ namespace HUDCMS
                     }
                 }
             }
+        }
+
+        private void btn_ViewBookmardDic_Click(object sender, EventArgs e)
+        {
+            HUDCMS.BookmarkDic.ShowBookmarkDic(this);
+        }
+
+        private void Form_Wizzard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            HUDCMS.BookmarkDic.CloseBookmarkDic();
         }
     }
 }

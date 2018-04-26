@@ -1326,6 +1326,7 @@ namespace HUDCMS
         private string SetID()
         {
             string sid = HUDCMS.BookmarkDic.GetBookmark(GetControlUniqueName());
+            sid = sid.Replace("#", "");
             return sid;
         }
 

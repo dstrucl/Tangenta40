@@ -59,6 +59,7 @@ namespace HUDCMS
             this.btn_SetGitExeFile = new System.Windows.Forms.Button();
             this.btn_ZIP = new System.Windows.Forms.Button();
             this.btn_Wizzard = new System.Windows.Forms.Button();
+            this.btn_ViewBookmardDic = new System.Windows.Forms.Button();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -320,19 +321,19 @@ namespace HUDCMS
             this.panel1.Size = new System.Drawing.Size(150, 46);
             this.panel1.TabIndex = 7;
             // 
-            // usrc_EditControl1
+            // usrc_EditControlWizzard1
             // 
             this.usrc_EditControlWizzard1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usrc_EditControlWizzard1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_EditControlWizzard1.Enabled = false;
             this.usrc_EditControlWizzard1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditControlWizzard1.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_EditControlWizzard1.Name = "usrc_EditControl1";
+            this.usrc_EditControlWizzard1.Name = "usrc_EditControlWizzard1";
             this.usrc_EditControlWizzard1.Size = new System.Drawing.Size(680, 730);
             this.usrc_EditControlWizzard1.SnapShotMargin = 4;
             this.usrc_EditControlWizzard1.TabIndex = 1;
             // 
-            // usrc_SelectHtmlFile
+            // usrc_SelectXMLFile
             // 
             this.usrc_SelectXMLFile.BackColor = System.Drawing.Color.Lime;
             this.usrc_SelectXMLFile.ButtonEditVisible = true;
@@ -344,7 +345,7 @@ namespace HUDCMS
             this.usrc_SelectXMLFile.LabelText = "Save File";
             this.usrc_SelectXMLFile.Location = new System.Drawing.Point(2, 55);
             this.usrc_SelectXMLFile.Margin = new System.Windows.Forms.Padding(2);
-            this.usrc_SelectXMLFile.Name = "usrc_SelectHtmlFile";
+            this.usrc_SelectXMLFile.Name = "usrc_SelectXMLFile";
             this.usrc_SelectXMLFile.Size = new System.Drawing.Size(956, 26);
             this.usrc_SelectXMLFile.TabIndex = 9;
             this.usrc_SelectXMLFile.Title = "Save File";
@@ -477,11 +478,23 @@ namespace HUDCMS
             this.btn_Wizzard.UseVisualStyleBackColor = true;
             this.btn_Wizzard.Click += new System.EventHandler(this.btn_Wizzard_Click);
             // 
+            // btn_ViewBookmardDic
+            // 
+            this.btn_ViewBookmardDic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ViewBookmardDic.Location = new System.Drawing.Point(987, 56);
+            this.btn_ViewBookmardDic.Name = "btn_ViewBookmardDic";
+            this.btn_ViewBookmardDic.Size = new System.Drawing.Size(113, 24);
+            this.btn_ViewBookmardDic.TabIndex = 20;
+            this.btn_ViewBookmardDic.Text = "Bookmark Dictionary";
+            this.btn_ViewBookmardDic.UseVisualStyleBackColor = true;
+            this.btn_ViewBookmardDic.Click += new System.EventHandler(this.btn_ViewBookmardDic_Click);
+            // 
             // Form_Wizzard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1107, 822);
+            this.Controls.Add(this.btn_ViewBookmardDic);
             this.Controls.Add(this.btn_Wizzard);
             this.Controls.Add(this.btn_ZIP);
             this.Controls.Add(this.btn_SetGitExeFile);
@@ -497,6 +510,7 @@ namespace HUDCMS
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Wizzard";
             this.Text = "Form_HUDCMS";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Wizzard_FormClosing);
             this.Load += new System.EventHandler(this.Form_Wizzard_Load);
             this.grp_Style.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -547,5 +561,6 @@ namespace HUDCMS
         private System.Windows.Forms.Button btn_SetGitExeFile;
         private System.Windows.Forms.Button btn_ZIP;
         private System.Windows.Forms.Button btn_Wizzard;
+        private System.Windows.Forms.Button btn_ViewBookmardDic;
     }
 }
