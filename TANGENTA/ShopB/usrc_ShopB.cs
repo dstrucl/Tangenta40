@@ -64,7 +64,6 @@ namespace ShopB
                 m_DocInvoice = value;
             }
         }
-
         public bool IsDocInvoice
         {
             get
@@ -75,6 +74,21 @@ namespace ShopB
         {
             get
             { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
+        public int NumberOfGroupLevels
+        {
+            get
+            {
+                if (m_usrc_Item_Group_Handler!=null)
+                {
+                    return m_usrc_Item_Group_Handler.NumberOfGroupLevels;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
 
         public usrc_ShopB()

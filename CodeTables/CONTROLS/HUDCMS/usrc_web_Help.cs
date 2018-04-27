@@ -272,6 +272,14 @@ namespace HUDCMS
             {
                 if (ControlHasHelpWizzardTag(formforhelp))
                 {
+                    if (formforhelp.Tag is HelpWizzardTag)
+                    {
+                        HelpWizzardTag hlpwiztag = (HelpWizzardTag)formforhelp.Tag;
+                        formforhelp.Width = hlpwiztag.DefaultControlWidth;
+                        formforhelp.Height = hlpwiztag.DefaultControlHeight;
+                        formforhelp.WindowState = FormWindowState.Normal;
+                        formforhelp.Refresh();
+                    }
                     if (frm_Wizzard != null)
                     {
                         if (frm_Wizzard.IsDisposed)

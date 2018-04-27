@@ -72,26 +72,29 @@ namespace BrightIdeasSoftware {
 
                 Branch br = this.Branch;
 
-                Rectangle paddedRectangle = this.ApplyCellPadding(r);
+                if (br != null)
+                {
+                    Rectangle paddedRectangle = this.ApplyCellPadding(r);
 
-                Rectangle expandGlyphRectangle = paddedRectangle;
-                expandGlyphRectangle.Offset((br.Level - 1) * PIXELS_PER_LEVEL, 0);
-                expandGlyphRectangle.Width = PIXELS_PER_LEVEL;
-                expandGlyphRectangle.Height = PIXELS_PER_LEVEL;
-                expandGlyphRectangle.Y = this.AlignVertically(paddedRectangle, expandGlyphRectangle);
-                int expandGlyphRectangleMidVertical = expandGlyphRectangle.Y + (expandGlyphRectangle.Height/2);
+                    Rectangle expandGlyphRectangle = paddedRectangle;
+                    expandGlyphRectangle.Offset((br.Level - 1) * PIXELS_PER_LEVEL, 0);
+                    expandGlyphRectangle.Width = PIXELS_PER_LEVEL;
+                    expandGlyphRectangle.Height = PIXELS_PER_LEVEL;
+                    expandGlyphRectangle.Y = this.AlignVertically(paddedRectangle, expandGlyphRectangle);
+                    int expandGlyphRectangleMidVertical = expandGlyphRectangle.Y + (expandGlyphRectangle.Height / 2);
 
-                if (this.IsShowLines)
-                    this.DrawLines(g, r, this.LinePen, br, expandGlyphRectangleMidVertical);
+                    if (this.IsShowLines)
+                        this.DrawLines(g, r, this.LinePen, br, expandGlyphRectangleMidVertical);
 
-                if (br.CanExpand) 
-                    this.DrawExpansionGlyph(g, expandGlyphRectangle, br.IsExpanded);
+                    if (br.CanExpand)
+                        this.DrawExpansionGlyph(g, expandGlyphRectangle, br.IsExpanded);
 
-                int indent = br.Level * PIXELS_PER_LEVEL;
-                paddedRectangle.Offset(indent, 0);
-                paddedRectangle.Width -= indent;
+                    int indent = br.Level * PIXELS_PER_LEVEL;
+                    paddedRectangle.Offset(indent, 0);
+                    paddedRectangle.Width -= indent;
 
-                this.DrawImageAndText(g, paddedRectangle);
+                    this.DrawImageAndText(g, paddedRectangle);
+                }
             }
 
             /// <summary>
@@ -209,25 +212,33 @@ namespace BrightIdeasSoftware {
                 Branch br = this.Branch;
 
                 Rectangle r = this.Bounds;
-                if (br.CanExpand) {
-                    r.Offset((br.Level - 1) * PIXELS_PER_LEVEL, 0);
-                    r.Width = PIXELS_PER_LEVEL;
-                    if (r.Contains(x, y)) {
-                        hti.HitTestLocation = HitTestLocation.ExpandButton;
-                        return;
+                if (br != null)
+                {
+                    if (br.CanExpand)
+                    {
+                        r.Offset((br.Level - 1) * PIXELS_PER_LEVEL, 0);
+                        r.Width = PIXELS_PER_LEVEL;
+                        if (r.Contains(x, y))
+                        {
+                            hti.HitTestLocation = HitTestLocation.ExpandButton;
+                            return;
+                        }
                     }
-                }
 
-                r = this.Bounds;
-                int indent = br.Level * PIXELS_PER_LEVEL;
-                r.X += indent;
-                r.Width -= indent;
+                    r = this.Bounds;
+                    int indent = br.Level * PIXELS_PER_LEVEL;
+                    r.X += indent;
+                    r.Width -= indent;
 
-                // Ignore events in the indent zone
-                if (x < r.Left) {
-                    hti.HitTestLocation = HitTestLocation.Nothing;
-                } else {
-                    this.StandardHitTest(g, hti, r, x, y);
+                    // Ignore events in the indent zone
+                    if (x < r.Left)
+                    {
+                        hti.HitTestLocation = HitTestLocation.Nothing;
+                    }
+                    else
+                    {
+                        this.StandardHitTest(g, hti, r, x, y);
+                    }
                 }
             }
 

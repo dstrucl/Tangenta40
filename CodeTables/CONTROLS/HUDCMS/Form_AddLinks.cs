@@ -19,6 +19,7 @@ namespace HUDCMS
         SysImageListHelper helperControlType = null;
         ImageRenderer helperImageRenderer = null;
         Form_HUDCMS frm_HUDCMS = null;
+        Form_Wizzard frm_Wizzard = null;
         MyControl myroot = null;
         MyControl SelectedControl = null;
         int iAllControls = 0;
@@ -30,12 +31,19 @@ namespace HUDCMS
             InitializeMyTreeListView(ref iAllControls);
         }
 
+        public Form_AddLinks(Form_Wizzard xfrm_Wizzard)
+        {
+            InitializeComponent();
+            frm_Wizzard = xfrm_Wizzard;
+            InitializeMyTreeListView(ref iAllControls);
+        }
+
         //private void SetLinks()
         //{
         //   MyControl roor myctrl.Parent
         //   while (myctrl.Parent!=null)
-            
-            
+
+
         //}
 
         private void lbl_SnapShotMargin_Click(object sender, EventArgs e)
@@ -105,9 +113,19 @@ namespace HUDCMS
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount,frm_HUDCMS.hc, null, ref helperControlType,  ref frm_HUDCMS.mH);
+            if (frm_HUDCMS != null)
+            {
+                myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount, frm_HUDCMS.hc, null, ref helperControlType, ref frm_HUDCMS.mH);
+                Form_HUDCMS.SetLinks(myroot, ref helperImageRenderer);
+            }
 
-            Form_HUDCMS.SetLinks(myroot, ref helperImageRenderer);
+            if (frm_Wizzard != null)
+            {
+                HelpWizzardTag xHlpWizTag = (HelpWizzardTag)frm_Wizzard.myroot.hc.pForm.Tag;
+                myroot = Form_Wizzard.CreateMyControls(xHlpWizTag,0, 0, ref iAllCount, frm_Wizzard.hc, null, ref helperControlType, ref frm_Wizzard.mH);
+                Form_Wizzard.SetLinks(myroot, ref helperImageRenderer);
+            }
+
 
             this.helperImageRenderer.Aspect = (System.Int32)0;
 
@@ -147,20 +165,41 @@ namespace HUDCMS
                     if (olvi.RowObject is MyControl)
                     {
                         this.SelectedControl = (MyControl)olvi.RowObject;
-                        if (frm_HUDCMS.hc.dgvc == null)
+                        if (frm_HUDCMS != null)
                         {
-                            if (SelectedControl.hc.ctrlbmp != null)
+                            if (frm_HUDCMS.hc.dgvc == null)
                             {
-                                this.pictureBox1.Image = SelectedControl.hc.ctrlbmp;
-                                this.txt_ControlUniqueName.Text = SelectedControl.ControlUniqueName;
+                                if (SelectedControl.hc.ctrlbmp != null)
+                                {
+                                    this.pictureBox1.Image = SelectedControl.hc.ctrlbmp;
+                                    this.txt_ControlUniqueName.Text = SelectedControl.ControlUniqueName;
+                                }
+                                //xfrm_HUDCMS.HideLinks();
+                                //xfrm_HUDCMS.ShowAvailableLinks();
                             }
-                            //xfrm_HUDCMS.HideLinks();
-                            //xfrm_HUDCMS.ShowAvailableLinks();
-                        }
-                        else
-                        {
+                            else
+                            {
 
+                            }
                         }
+                        if (frm_Wizzard != null)
+                        {
+                            if (frm_Wizzard.hc.dgvc == null)
+                            {
+                                if (SelectedControl.hc.ctrlbmp != null)
+                                {
+                                    this.pictureBox1.Image = SelectedControl.hc.ctrlbmp;
+                                    this.txt_ControlUniqueName.Text = SelectedControl.ControlUniqueName;
+                                }
+                                //xfrm_HUDCMS.HideLinks();
+                                //xfrm_HUDCMS.ShowAvailableLinks();
+                            }
+                            else
+                            {
+
+                            }
+                        }
+
                     }
                 }
             }
@@ -170,7 +209,14 @@ namespace HUDCMS
         {
             if (SelectedControl!=null)
             {
-                frm_HUDCMS.usrc_EditControl1.AddLink(SelectedControl);
+                if (frm_HUDCMS != null)
+                {
+                    frm_HUDCMS.usrc_EditControl1.AddLink(SelectedControl);
+                }
+                if (frm_Wizzard != null)
+                {
+                    frm_Wizzard.usrc_EditControlWizzard1.AddLink(SelectedControl);
+                }
             }
         }
     }

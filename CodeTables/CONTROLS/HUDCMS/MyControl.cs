@@ -429,37 +429,19 @@ namespace HUDCMS
                         MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
                         xdiv_Title.Add(xdiv_About);
                     }
-                    if (this.HlpWizTag.HasDescription())
-                    {
-                        xdiv_Description = new XElement("div");
-                        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
-                        xdiv_Description.Add(xdiv_Description_class);
-                        MyControl.ReplaceInnerXml(xdiv_Description, this.HlpWizTag.Description.tagDCs);
-                        xdiv_Title.Add(xdiv_Description);
-                    }
                 }
-
-                if (xdiv_About == null)
+                else
                 {
-                    if (About.Length > 0)
+                    if (xdiv_About == null)
                     {
-                        xdiv_About = new XElement("div");
-                        XAttribute xdiv_About_class = new XAttribute("class", "About");
-                        xdiv_About.Add(xdiv_About_class);
-                        MyControl.ReplaceInnerXml(xdiv_About, "About", About);
-                        xdiv_Title.Add(xdiv_About);
-                    }
-                }
-
-                if (xdiv_Description == null)
-                {
-                    if (Description.Length > 0)
-                    {
-                        xdiv_Description = new XElement("div");
-                        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
-                        xdiv_Description.Add(xdiv_Description_class);
-                        MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
-                        xdiv_Title.Add(xdiv_Description);
+                        if (About.Length > 0)
+                        {
+                            xdiv_About = new XElement("div");
+                            XAttribute xdiv_About_class = new XAttribute("class", "About");
+                            xdiv_About.Add(xdiv_About_class);
+                            MyControl.ReplaceInnerXml(xdiv_About, "About", About);
+                            xdiv_Title.Add(xdiv_About);
+                        }
                     }
                 }
 
@@ -597,14 +579,28 @@ namespace HUDCMS
                     }
                 }
 
-                if (Description.Length > 0)
+                if (this.HlpWizTag != null)
                 {
-                    xdiv_Description = new XElement("div");
-                    XAttribute xdiv_Description_class = new XAttribute("class", "Description");
-                    xdiv_Description.Add(xdiv_Description_class);
-                    MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
-                    //xdiv_Description.Value = Description;
-                    xdiv_Title.Add(xdiv_Description);
+                    if (this.HlpWizTag.HasDescription())
+                    {
+                        xdiv_Description = new XElement("div");
+                        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                        xdiv_Description.Add(xdiv_Description_class);
+                        MyControl.ReplaceInnerXml(xdiv_Description, this.HlpWizTag.Description.tagDCs);
+                        xdiv_Title.Add(xdiv_Description);
+                    }
+                }
+                else
+                {
+                    if (Description.Length > 0)
+                    {
+                        xdiv_Description = new XElement("div");
+                        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                        xdiv_Description.Add(xdiv_Description_class);
+                        MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
+                        //xdiv_Description.Value = Description;
+                        xdiv_Title.Add(xdiv_Description);
+                    }
                 }
 
                 xel.Add(xdiv_Title);
@@ -872,6 +868,10 @@ namespace HUDCMS
                         {
                             //Description = xel_Description.Value;
                             Description = MyControl.InnerXml(xel_Description);
+                            if (this.HlpWizTag != null)
+                            {
+                                this.HlpWizTag.Description.Parse(Description, ControlUniqueName);
+                            }
                         }
                     }
 

@@ -51,10 +51,20 @@ namespace Tangenta
         HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_EditMode = null;
         HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_true = null;
         HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_false = null;
+
         HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_true = null;
         HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups0 = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups1 = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups2 = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups3 = null;
+
         HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_true = null;
         HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_false = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups0 = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups1 = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups2 = null;
+        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups3 = null;
 
         HUDCMS.HelpWizzardTagDC tagDCBottom = null;
 
@@ -585,9 +595,10 @@ namespace Tangenta
         }
 
 
-        internal string GetStringTag(ref long numberOfAll, ref string[] sTagConditions)
+        internal string GetStringTag(ref long numberOfAll, ref string[] sTagConditions, ref string sXMLFiletag)
         {
             string sNewTag = "_";
+            sXMLFiletag = "_";
             List<string> tag_conditions = new List<string>();
             if (this.m_usrc_Main.IsDocInvoice)
             {
@@ -609,11 +620,13 @@ namespace Tangenta
             else if (numberOfAll == 0)
             {
                 sNewTag += "Z";
+                sXMLFiletag += "Z";
                 tag_conditions.Add(tagDC_EmptyDB_true.NamedCondition);
             }
             else if (numberOfAll > 0)
             {
                 sNewTag += "N";
+                sXMLFiletag += "N";
                 tag_conditions.Add(tagDC_EmptyDB_false.NamedCondition);
             }
 
@@ -621,11 +634,13 @@ namespace Tangenta
             if (Program.OperationMode.MultiUser)
             {
                 sNewTag += "m";
+                sXMLFiletag += "m";
                 tag_conditions.Add(tagDC_MultiUser_true.NamedCondition);
             }
             else
             {
                 sNewTag += "s";
+                sXMLFiletag += "s";
                 tag_conditions.Add(tagDC_MultiUser_false.NamedCondition);
             }
 
@@ -658,6 +673,7 @@ namespace Tangenta
                     if (sNewTag.Contains("N"))
                     {
                         sNewTag += "e";
+                        sXMLFiletag += "e";
                         tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
                     }
                 }
@@ -675,6 +691,10 @@ namespace Tangenta
                 {
                     sNewTag += "B";
                     tag_conditions.Add(tagDC_ShopB_Visible_true.NamedCondition);
+                    if (sNewTag.Contains("e"))
+                    {
+                        GetNumberOfShopBGroupsLevel(tag_conditions,ref sNewTag, ref sXMLFiletag);
+                    }
                 }
                 else
                 {
@@ -684,6 +704,10 @@ namespace Tangenta
                 {
                     sNewTag += "C";
                     tag_conditions.Add(tagDC_ShopC_Visible_true.NamedCondition);
+                    if (sNewTag.Contains("e"))
+                    {
+                        GetNumberOfShopCGroupsLevel(tag_conditions,ref sNewTag, ref sXMLFiletag);
+                    }
                 }
                 else
                 {
@@ -708,6 +732,67 @@ namespace Tangenta
             }
             return sNewTag;
         }
+
+        private void GetNumberOfShopBGroupsLevel(List<string> tagconditions,ref string sNewTag, ref string sXMLFileTag)
+        {
+            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_Invoice.NumberOfShopBGroupLevels;
+            switch (numberofshopBgroupslevel)
+            {
+                case 0:
+                    sNewTag += "X0";
+                    sXMLFileTag += "X0";
+                    tagconditions.Add(tagDC_ShopB_Groups0.NamedCondition);
+                    break;
+                case 1:
+                    sNewTag += "X1";
+                    sXMLFileTag += "X1";
+                    tagconditions.Add(tagDC_ShopB_Groups1.NamedCondition);
+                    break;
+                case 2:
+                    sNewTag += "X2";
+                    sXMLFileTag += "X2";
+                    tagconditions.Add(tagDC_ShopB_Groups2.NamedCondition);
+                    break;
+                case 3:
+                    sNewTag += "X3";
+                    sXMLFileTag += "X3";
+                    tagconditions.Add(tagDC_ShopB_Groups3.NamedCondition);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void GetNumberOfShopCGroupsLevel(List<string> tagconditions, ref string sNewTag, ref string sXMLFileTag)
+        {
+            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_Invoice.NumberOfShopBGroupLevels;
+            switch (numberofshopBgroupslevel)
+            {
+                case 0:
+                    sNewTag += "Y0";
+                    sXMLFileTag += "Y0";
+                    tagconditions.Add(tagDC_ShopC_Groups0.NamedCondition);
+                    break;
+                case 1:
+                    sNewTag += "Y1";
+                    sXMLFileTag += "Y1";
+                    tagconditions.Add(tagDC_ShopC_Groups1.NamedCondition);
+                    break;
+                case 2:
+                    sNewTag += "Y2";
+                    sXMLFileTag += "Y2";
+                    tagconditions.Add(tagDC_ShopC_Groups2.NamedCondition);
+                    break;
+                case 3:
+                    sNewTag += "Y3";
+                    sXMLFileTag += "Y3";
+                    tagconditions.Add(tagDC_ShopC_Groups3.NamedCondition);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void SetNewFormTag()
         {
 
@@ -729,10 +814,22 @@ namespace Tangenta
             tagDC_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "", "enum", "EditMode");
             tagDC_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", "", "bool", "true");
             tagDC_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", null, "bool", "false");
+
             tagDC_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", "", "bool", "true");
             tagDC_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", null, "bool", "false");
+            tagDC_ShopB_Groups0 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level0");
+            tagDC_ShopB_Groups1 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level1");
+            tagDC_ShopB_Groups2 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level2");
+            tagDC_ShopB_Groups3 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level3");
+
             tagDC_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", "", "bool", "true");
             tagDC_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", null, "bool", "false");
+            tagDC_ShopC_Groups0 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level0");
+            tagDC_ShopC_Groups1 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level1");
+            tagDC_ShopC_Groups2 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level2");
+            tagDC_ShopC_Groups3 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level3");
+
+
 
             tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "", null, null);
 
@@ -756,8 +853,16 @@ namespace Tangenta
             tagDC_ShopA_Visible_true,
             tagDC_ShopA_Visible_false,
             tagDC_ShopB_Visible_true,
+            tagDC_ShopB_Groups0,
+            tagDC_ShopB_Groups1,
+            tagDC_ShopB_Groups2,
+            tagDC_ShopB_Groups3,
             tagDC_ShopB_Visible_false,
             tagDC_ShopC_Visible_true,
+            tagDC_ShopC_Groups0,
+            tagDC_ShopC_Groups1,
+            tagDC_ShopC_Groups2,
+            tagDC_ShopC_Groups3,
             tagDC_ShopC_Visible_false,
             tagDCBottom,
             };
@@ -768,9 +873,12 @@ namespace Tangenta
 
             long numberOfAll = -1;
             string[] sTagConditions = null;
-            string sNewTag = GetStringTag(ref numberOfAll, ref sTagConditions);
+
+            string sxmlfilesuffix = "";
+            string sNewTag = GetStringTag(ref numberOfAll, ref sTagConditions, ref sxmlfilesuffix);
 
             hlpwizTag.FileSuffix = sNewTag;
+            hlpwizTag.XmlFileSuffix = sxmlfilesuffix;
             hlpwizTag.ShowWizzard = HelpWizzardShow;
 
             this.Tag = hlpwizTag;

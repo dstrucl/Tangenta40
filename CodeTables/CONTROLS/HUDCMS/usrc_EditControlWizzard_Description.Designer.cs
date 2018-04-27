@@ -46,6 +46,7 @@ namespace HUDCMS
             // usrc_EditControlWizzard_Description
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScroll = true;
             this.Controls.Add(this.lbl_Description);
             this.Name = "usrc_EditControlWizzard_Description";
             this.Size = new System.Drawing.Size(730, 269);

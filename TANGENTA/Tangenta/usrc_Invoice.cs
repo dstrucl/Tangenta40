@@ -147,6 +147,35 @@ namespace Tangenta
             ProformaInvoice
         };
 
+        public int NumberOfShopBGroupLevels
+        {
+            get
+            {
+                if (this.m_usrc_ShopB != null)
+                {
+                    return m_usrc_ShopB.NumberOfGroupLevels;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public int NumberOfShopCGroupLevels
+        {
+            get
+            {
+                if (this.m_usrc_ShopC != null)
+                {
+                    return m_usrc_ShopC.NumberOfGroupLevels;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
 
 
         public enum_Invoice eInvoiceType

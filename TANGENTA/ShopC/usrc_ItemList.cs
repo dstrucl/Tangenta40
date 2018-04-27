@@ -60,6 +60,8 @@ namespace ShopC
                 }
         }
 
+        
+
         private bool m_bExclusivelySellFromStock = false;
         public bool ExclusivelySellFromStock
         {
@@ -80,6 +82,22 @@ namespace ShopC
         DBTablesAndColumnNames DBtcn;
         int ipnl_Items_Width_default = -1;
         private long m_PriceList_ID = -1;
+
+
+        public int NumberOfGroupLevels
+        {
+            get
+            {
+                if (m_usrc_Item_Group_Handler!=null)
+                {
+                    return m_usrc_Item_Group_Handler.NumberOfGroupLevels;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
 
         public usrc_ItemList()
         {

@@ -103,6 +103,22 @@ namespace ShopC
         }
 
 
+        public int NumberOfGroupLevels
+        {
+            get
+            {
+                if (this.usrc_ItemList != null)
+                {
+                    return usrc_ItemList.NumberOfGroupLevels;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+
         public usrc_ShopC()
         {
             InitializeComponent();

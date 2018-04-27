@@ -10,6 +10,10 @@ namespace HUDCMS
 {
     public class HelpWizzardTag
     {
+        public int DefaultControlWidth = 1024;
+        public int DefaultControlHeight = 900;
+
+
         public delegate void delegate_ShowWizzard(Control ctrl, MyControl root_ctrl, string styleFile);
         public  delegate_ShowWizzard ShowWizzard = null;
 
@@ -21,6 +25,13 @@ namespace HUDCMS
         {
             get { return filessufix; }
             set { filessufix = value; }
+        }
+
+        private string xmlfilessufix = null;
+        public string XmlFileSuffix
+        {
+            get { return xmlfilessufix; }
+            set { xmlfilessufix = value; }
         }
 
         public HelpWizzardTagContent About = null;

@@ -13,8 +13,6 @@ namespace Tangenta
 {
     public partial class Form_Document_WizzardForHelp : Form
     {
-        public const int SCREEN_RESOLUTION_WIDTH = 1024;
-        public const int SCREEN_RESOLUTION_HEIGHT = 900;
 
         int istep_DocInvoice = 0;
         int istep_m_usrc_InvoiceTable_Visible = 0;
@@ -190,7 +188,8 @@ namespace Tangenta
         {
             long numberOfAllControls = -1;
             string[] sTagConditions = null;
-            string sNewTag = form_document.GetStringTag(ref numberOfAllControls, ref sTagConditions);
+            string sxmlfilesuffix = null;
+            string sNewTag = form_document.GetStringTag(ref numberOfAllControls, ref sTagConditions, ref sxmlfilesuffix);
             string sResult = null;
             if (HUDCMS.MyControl.MakeHtml(form_document, sNewTag, sTagConditions, styleFile, root_ctrl, ref sResult))
             {
@@ -258,10 +257,18 @@ namespace Tangenta
                         form_document.WizzardShow_ShopsVisible("ABC");
                         break;
                 }
-                form_document.Width = SCREEN_RESOLUTION_WIDTH;
-                form_document.Height = SCREEN_RESOLUTION_HEIGHT;
-                form_document.WindowState = FormWindowState.Normal;
-                form_document.Refresh();
+
+                if (form_document.Tag!=null)
+                {
+                    if (form_document.Tag is HelpWizzardTag)
+                    {
+                        HelpWizzardTag hlpwiztag = (HelpWizzardTag)form_document.Tag;
+                        form_document.Width = hlpwiztag.DefaultControlWidth;
+                        form_document.Height = hlpwiztag.DefaultControlHeight; 
+                        form_document.WindowState = FormWindowState.Normal;
+                        form_document.Refresh();
+                    }
+                }
             }
         }
 
@@ -270,10 +277,17 @@ namespace Tangenta
             if (control_ForWizzard is Form_Document)
             {
                 form_document = (Form_Document)control_ForWizzard;
-                form_document.Width =  SCREEN_RESOLUTION_WIDTH;
-                form_document.Height = SCREEN_RESOLUTION_HEIGHT;
-                form_document.WindowState = FormWindowState.Normal;
-                form_document.Refresh();
+                if (form_document.Tag!=null)
+                {
+                    if (form_document.Tag is HelpWizzardTag)
+                    {
+                        HelpWizzardTag hlpwiztag = (HelpWizzardTag)form_document.Tag;
+                        form_document.Width = hlpwiztag.DefaultControlWidth;
+                        form_document.Height = hlpwiztag.DefaultControlHeight;
+                        form_document.WindowState = FormWindowState.Normal;
+                        form_document.Refresh();
+                    }
+                }
             }
             else
             {

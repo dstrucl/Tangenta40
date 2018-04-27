@@ -99,7 +99,7 @@ namespace HUDCMS
             int indexof_filesufix_plus_html_extension = mH.LocalHtmlFile.IndexOf(hlpwiztag.FileSuffix + ".html");
             if (indexof_filesufix_plus_html_extension>0)
             {
-                LocalXmlFileName = mH.LocalHtmlFile.Substring(0, indexof_filesufix_plus_html_extension) + ".xml";
+                LocalXmlFileName = mH.LocalHtmlFile.Substring(0, indexof_filesufix_plus_html_extension) + hlpwiztag.XmlFileSuffix+ ".xml";
             }
             else
             {

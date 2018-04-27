@@ -59,13 +59,21 @@ namespace HUDCMS
 
         private void btn_Link_Click(object sender, EventArgs e)
         {
-            Form_HUDCMS frm_HUDCMS = (Form_HUDCMS) Global.f.GetParentForm(this);
-            if (frm_HUDCMS.frm_AddLinks==null)
+            Form_Wizzard frm_Wizzard = (Form_Wizzard) Global.f.GetParentForm(this);
+            if (frm_Wizzard.frm_AddLinks!=null)
             {
-                frm_HUDCMS.frm_AddLinks = new Form_AddLinks(frm_HUDCMS);
-                frm_HUDCMS.frm_AddLinks.Owner = frm_HUDCMS;
+                if (frm_Wizzard.frm_AddLinks.IsDisposed)
+                {
+                    frm_Wizzard.frm_AddLinks = null;
+                }
             }
-            frm_HUDCMS.frm_AddLinks.Show();
+            
+            if (frm_Wizzard.frm_AddLinks==null)
+            {
+                frm_Wizzard.frm_AddLinks = new Form_AddLinks(frm_Wizzard);
+                frm_Wizzard.frm_AddLinks.Owner = frm_Wizzard;
+            }
+            frm_Wizzard.frm_AddLinks.Show();
         }
 
 
