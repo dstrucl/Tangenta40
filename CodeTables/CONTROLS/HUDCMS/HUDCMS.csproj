@@ -77,8 +77,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bookmark.cs" />
     <Compile Include="BookmarkDic.cs" />
+    <Compile Include="Form_ViewImageFileResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ViewImageFileResults.Designer.cs">
+      <DependentUpon>Form_ViewImageFileResults.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ViewBookmarkDic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +144,7 @@
     <Compile Include="HelpWizzardTagContent.cs" />
     <Compile Include="HelpWizzardTagDC.cs" />
     <Compile Include="HUDCMS_static.cs" />
+    <Compile Include="ImageFileResults.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -246,6 +252,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_ViewImageFileResults.resx">
+      <DependentUpon>Form_ViewImageFileResults.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ViewBookmarkDic.resx">
       <DependentUpon>Form_ViewBookmarkDic.cs</DependentUpon>
     </EmbeddedResource>

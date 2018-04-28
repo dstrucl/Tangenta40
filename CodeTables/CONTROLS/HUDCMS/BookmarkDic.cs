@@ -14,7 +14,7 @@ namespace HUDCMS
         private static DataColumn dcol_ControlUniqueName = null;
         private static DataColumn dcol_ID = null;
         private static string dicXMLfile = null;
-        private static Form_ViewBookmarkDic frmvbkdic = null;
+        private static Form_ViewImageFileResults frmvbkdic = null;
 
         public static void Init(string xdicXMLfile)
         {
@@ -108,7 +108,7 @@ namespace HUDCMS
             }
             if (frmvbkdic == null)
             {
-                frmvbkdic = new Form_ViewBookmarkDic(dic);
+                frmvbkdic = new Form_ViewImageFileResults(dic);
                 frmvbkdic.Owner = pOwner;
             }
             frmvbkdic.Show();

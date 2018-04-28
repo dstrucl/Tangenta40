@@ -537,6 +537,7 @@ namespace HUDCMS
                                 try
                                 {
                                     this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
+                                    HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.SAVED);
                                     bsaved = true;
                                 }
                                 catch (Exception ex)
@@ -564,6 +565,10 @@ namespace HUDCMS
                                         }
                                     }
                                 }
+                            }
+                            else
+                            {
+                                HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.EXIST);
                             }
                         }
                         else

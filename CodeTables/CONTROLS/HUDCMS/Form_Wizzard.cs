@@ -145,6 +145,7 @@ namespace HUDCMS
             string localfiledirectory = Path.GetDirectoryName(LocalXmlFileName);
             localBookmarkDicFile = localfiledirectory + "\\BookmarkDic.xml";
             HUDCMS.BookmarkDic.Init(localBookmarkDicFile);
+            HUDCMS.ImageFileResults.Init();
 
             SetHeader();
 
@@ -1042,6 +1043,13 @@ namespace HUDCMS
         private void Form_Wizzard_FormClosing(object sender, FormClosingEventArgs e)
         {
             HUDCMS.BookmarkDic.CloseBookmarkDic();
+            HUDCMS.ImageFileResults.CloseImageFileResults();
+
+        }
+
+        private void btn_Images_Click(object sender, EventArgs e)
+        {
+            HUDCMS.ImageFileResults.ShowImageFileResults(this);
         }
     }
 }

@@ -60,6 +60,7 @@ namespace HUDCMS
             this.btn_ZIP = new System.Windows.Forms.Button();
             this.btn_Wizzard = new System.Windows.Forms.Button();
             this.btn_ViewBookmardDic = new System.Windows.Forms.Button();
+            this.btn_Images = new System.Windows.Forms.Button();
             this.grp_Style.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -199,6 +200,7 @@ namespace HUDCMS
             this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctb_Header.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_Header.IsReplaceMode = false;
             this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_Header.LeftBracket = '<';
@@ -481,19 +483,31 @@ namespace HUDCMS
             // btn_ViewBookmardDic
             // 
             this.btn_ViewBookmardDic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ViewBookmardDic.Location = new System.Drawing.Point(987, 56);
+            this.btn_ViewBookmardDic.Location = new System.Drawing.Point(1023, 56);
             this.btn_ViewBookmardDic.Name = "btn_ViewBookmardDic";
-            this.btn_ViewBookmardDic.Size = new System.Drawing.Size(113, 24);
+            this.btn_ViewBookmardDic.Size = new System.Drawing.Size(77, 24);
             this.btn_ViewBookmardDic.TabIndex = 20;
-            this.btn_ViewBookmardDic.Text = "Bookmark Dictionary";
+            this.btn_ViewBookmardDic.Text = "Bookmarks";
             this.btn_ViewBookmardDic.UseVisualStyleBackColor = true;
             this.btn_ViewBookmardDic.Click += new System.EventHandler(this.btn_ViewBookmardDic_Click);
+            // 
+            // btn_Images
+            // 
+            this.btn_Images.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Images.Location = new System.Drawing.Point(963, 56);
+            this.btn_Images.Name = "btn_Images";
+            this.btn_Images.Size = new System.Drawing.Size(54, 24);
+            this.btn_Images.TabIndex = 21;
+            this.btn_Images.Text = "Images";
+            this.btn_Images.UseVisualStyleBackColor = true;
+            this.btn_Images.Click += new System.EventHandler(this.btn_Images_Click);
             // 
             // Form_Wizzard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1107, 822);
+            this.Controls.Add(this.btn_Images);
             this.Controls.Add(this.btn_ViewBookmardDic);
             this.Controls.Add(this.btn_Wizzard);
             this.Controls.Add(this.btn_ZIP);
@@ -562,5 +576,6 @@ namespace HUDCMS
         private System.Windows.Forms.Button btn_ZIP;
         private System.Windows.Forms.Button btn_Wizzard;
         private System.Windows.Forms.Button btn_ViewBookmardDic;
+        private System.Windows.Forms.Button btn_Images;
     }
 }
