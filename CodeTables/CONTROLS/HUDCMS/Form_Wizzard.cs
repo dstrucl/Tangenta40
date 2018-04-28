@@ -144,7 +144,15 @@ namespace HUDCMS
 
             string localfiledirectory = Path.GetDirectoryName(LocalXmlFileName);
             localBookmarkDicFile = localfiledirectory + "\\BookmarkDic.xml";
+
+            if (!HUDCMS_static.GetBookmarkFile(LocalXmlFileName, ref localBookmarkDicFile))
+            {
+                MessageBox.Show("ERROR:HUDCMS:Form_Wizzard:Form_Wizzard_Load: Cannot get BookmarkFile!");
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
             HUDCMS.BookmarkDic.Init(localBookmarkDicFile);
+
             HUDCMS.ImageFileResults.Init();
 
             SetHeader();

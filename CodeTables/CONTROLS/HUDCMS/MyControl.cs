@@ -531,51 +531,29 @@ namespace HUDCMS
 
                         if (ximage_file != null)
                         {
-                            if (!File.Exists(ximage_file))
+                            if (HlpWizTag != null)
                             {
-                                bool bsaved = false;
-                                try
+                                if (!File.Exists(ximage_file))
                                 {
-                                    this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
-                                    HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.SAVED);
-                                    bsaved = true;
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("ERROR:HUDCMS:MyControl.cs:CreateNode: this.ImageOfControl.Save(..):Exception=" + ex.Message);
-                                }
-
-                                if (bsaved)
-                                {
-                                    if (Properties.Settings.Default.UseGit)
+                                    if (SaveImage(ximage_file))
                                     {
-                                        string std_err = null;
-                                        string std_out = null;
-                                        switch (Git.CheckIfFileInRepository(ximage_file, ref std_out, ref std_err))
-                                        {
-                                            case Git.eCheckIfFileInRepository.FileIsNotInRepository:
-                                                if (!Git.Add(ximage_file, ref std_out, ref std_err))
-                                                {
-                                                    MessageBox.Show(std_err);
-                                                }
-                                                break;
-                                            case Git.eCheckIfFileInRepository.ERROR:
-                                                MessageBox.Show(std_err);
-                                                break;
-                                        }
+                                        HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.SAVED);
                                     }
+                                }
+                                else
+                                {
+                                    HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.EXIST);
                                 }
                             }
                             else
                             {
-                                HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.EXIST);
+                                SaveImage(ximage_file);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("ERROR:HUDCMS:MyControl:CreateNode:imagehash==null!");
+                                MessageBox.Show("ERROR:HUDCMS:MyControl:CreateNode:imagehash==null!");
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -621,6 +599,43 @@ namespace HUDCMS
             }
             xn.Add(xel);
 
+        }
+
+        private bool SaveImage(string ximage_file)
+        {
+            bool bsaved = false;
+            try
+            {
+                this.ImageOfControl.Save(ximage_file, ImageFormat.Png);
+                bsaved = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR:HUDCMS:MyControl.cs:CreateNode: this.ImageOfControl.Save(..):Exception=" + ex.Message);
+                return false;
+            }
+
+            if (bsaved)
+            {
+                if (Properties.Settings.Default.UseGit)
+                {
+                    string std_err = null;
+                    string std_out = null;
+                    switch (Git.CheckIfFileInRepository(ximage_file, ref std_out, ref std_err))
+                    {
+                        case Git.eCheckIfFileInRepository.FileIsNotInRepository:
+                            if (!Git.Add(ximage_file, ref std_out, ref std_err))
+                            {
+                                MessageBox.Show(std_err);
+                            }
+                            break;
+                        case Git.eCheckIfFileInRepository.ERROR:
+                            MessageBox.Show(std_err);
+                            break;
+                    }
+                }
+            }
+            return true;
         }
 
         private static void ReplaceInnerXml(XElement xdiv_About, HelpWizzardTagDC[] tagDCs)

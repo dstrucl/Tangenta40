@@ -91,6 +91,7 @@ namespace HUDCMS
             set { m_RemoteHelpURL = value; }
         }
 
+
         private static string m_slng_LocalHtmlFile = "Local html file ";
 
         public static string slng_LocalHtmlFile { get { return m_slng_LocalHtmlFile; }
@@ -780,6 +781,21 @@ namespace HUDCMS
                 if (Regkey != null)
                     Regkey.Close();
             }
+        }
+
+        public static bool GetBookmarkFile(string filepath, ref string sbookmarkfile)
+        {
+            if (filepath != null)
+            {
+                int idx_appVersion = filepath.IndexOf(ApplicationVersion);
+                if (idx_appVersion >= 0)
+                {
+                    sbookmarkfile = filepath.Substring(0, idx_appVersion) + "\\"+ApplicationVersion+"\\BookmarkDic.xml";
+                    return true;
+                }
+            }
+            return false;
+
         }
     }
 }

@@ -19,6 +19,7 @@ namespace HUDCMS
 {
     public partial class Form_HUDCMS : Form
     {
+        private string localBookmarkDicFile = null;
         internal Form_AddLinks frm_AddLinks = null;
         internal MyControl myroot = null;
         ArrayList roots = new ArrayList();
@@ -107,6 +108,18 @@ namespace HUDCMS
             SetGeneralHelpFiles();
 
             string sHtmFileName = usrc_SelectHtmlFile.FileName;
+
+
+
+            if (!HUDCMS_static.GetBookmarkFile(sHtmFileName, ref localBookmarkDicFile))
+            {
+                MessageBox.Show("ERROR:HUDCMS:Form_HUDCMS:Form_HUDCMS_Load: Cannot get BookmarkFile!");
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
+            HUDCMS.BookmarkDic.Init(localBookmarkDicFile);
+            HUDCMS.ImageFileResults.Init();
+
             try
             {
                 xhtml_Loaded = XDocument.Load(sHtmFileName);
