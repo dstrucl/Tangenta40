@@ -25,7 +25,7 @@ using Startup;
 
 namespace Tangenta
 {
-    public partial class usrc_Invoice : UserControl
+    public partial class usrc_DocumentEditor : UserControl
     {
         public long Atom_Currency_ID = -1;
 
@@ -35,7 +35,7 @@ namespace Tangenta
 
         public string ShopsMode = "";
 
-        usrc_InvoiceMan m_usrc_InvoiceMan = null;
+        usrc_DocumentMan m_usrc_DocumentMan = null;
         NavigationButtons.Navigation nav = null;
 
         private string m_DocInvoice = Program.const_DocInvoice;
@@ -83,8 +83,8 @@ namespace Tangenta
 
         public enum emode
         {
-            view_eInvoiceType,
-            edit_eInvoiceType
+            view_eDocumentType,
+            edit_eDocumentType
         }
 
         public delegate void delegate_Storno(bool bStorno);
@@ -107,7 +107,7 @@ namespace Tangenta
         public long Last_myOrganisation_id = 1;
         public long Last_myOrganisation_Person_id = 1;
 
-        public emode m_mode = emode.view_eInvoiceType;
+        public emode m_mode = emode.view_eDocumentType;
 
         public DBTablesAndColumnNames DBtcn = null;
 
@@ -661,11 +661,11 @@ namespace Tangenta
                 }
         }
 
-        public usrc_Invoice()
+        public usrc_DocumentEditor()
         {
             InitializeComponent();
             usrc_AddOn1.Init(this);
-            m_mode = emode.view_eInvoiceType;
+            m_mode = emode.view_eDocumentType;
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_Number.Text(lbl_Number);
@@ -686,7 +686,7 @@ namespace Tangenta
         internal void SetMode(emode mode)
         {
             m_mode = mode;
-            if (mode == emode.edit_eInvoiceType)
+            if (mode == emode.edit_eDocumentType)
             {
                 this.m_usrc_ShopA.SetMode(usrc_ShopA.eMode.EDIT);
                 this.m_usrc_ShopB.SetMode(usrc_ShopB.eMode.EDIT);
@@ -699,7 +699,7 @@ namespace Tangenta
                 this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.VIEW);
             }
 
-            if (mode == emode.view_eInvoiceType)
+            if (mode == emode.view_eDocumentType)
             {
                 chk_Storno.Visible = true;
                 lng.s_Print.Text(btn_Issue);
@@ -841,9 +841,9 @@ namespace Tangenta
             return true;
         }
 
-        public bool Initialise(usrc_InvoiceMan xusrc_InvoiceMan)
+        public bool Initialise(usrc_DocumentMan xusrc_DocumentMan)
         {
-            m_usrc_InvoiceMan = xusrc_InvoiceMan;
+            m_usrc_DocumentMan = xusrc_DocumentMan;
             lng.s_Head.Text(chk_Head);
             chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
@@ -1659,13 +1659,13 @@ namespace Tangenta
                 this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
                 if (m_ShopABC.m_CurrentInvoice.bDraft)
                 {
-                    SetMode(emode.edit_eInvoiceType);
+                    SetMode(emode.edit_eDocumentType);
                     this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
                     this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                 }
                 else
                 {
-                    SetMode(emode.view_eInvoiceType);
+                    SetMode(emode.view_eDocumentType);
                     this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
                     this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     chk_Storno_CanBe_ManualyChanged = false;
@@ -1692,7 +1692,7 @@ namespace Tangenta
             }
             else
             {
-                SetMode(emode.view_eInvoiceType);
+                SetMode(emode.view_eDocumentType);
                 if (m_ShopABC.Get(false, DocInvoice_ID, ref Err)) // Get invoice with Invoice_ID
                 {
                     this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
@@ -1877,7 +1877,7 @@ namespace Tangenta
                     }
                     if (SetNewInvoiceDraft(xFinancialYear, xcurrency, Atom_Currency_ID))
                     {
-                        SetMode(emode.edit_eInvoiceType);
+                        SetMode(emode.edit_eDocumentType);
                     }
                     return;
 
@@ -1896,7 +1896,7 @@ namespace Tangenta
                 if (m_ShopABC.m_CurrentInvoice.Doc_ID >= 0)
                 {
                     this.txt_Number.Text = m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentInvoice.DraftNumber.ToString();
-                    SetMode(emode.edit_eInvoiceType);
+                    SetMode(emode.edit_eDocumentType);
                 }
 
                 return true;

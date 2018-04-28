@@ -24,14 +24,14 @@ namespace Tangenta
     public partial class Form_DURS_output : Form
     {
         public string DURS_Destination_Folder = "";
-        usrc_InvoiceTable m_usrc_InvoiceTable = null;
+        usrc_TableOfDocuments m_usrc_InvoiceTable = null;
         public string filename_DURS_IZPIS_RACUNI_GLAVE_TXT = "IZPIS RAČUNI GLAVE.TXT";
         public string filename_DURS_IZPIS_RACUNI_POSTAVKE_TXT = "IZPIS RAČUNI POSTAVKE.TXT";
         DataTable dt_DURS_Invoices = new DataTable();
         string Postavke = null;
         string Glava = null;
 
-        public Form_DURS_output(usrc_InvoiceTable xusrc_InvoiceTable)
+        public Form_DURS_output(usrc_TableOfDocuments xusrc_InvoiceTable)
         {
             InitializeComponent();
             m_usrc_InvoiceTable = xusrc_InvoiceTable;

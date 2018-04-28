@@ -22,7 +22,7 @@ namespace Tangenta
 {
     public partial class usrc_AddOn : UserControl
     {
-        internal usrc_Invoice m_usrc_Invoice = null;
+        internal usrc_DocumentEditor m_usrc_Invoice = null;
 
         private bool IsDocInvoice
         {
@@ -59,7 +59,7 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public void Init(usrc_Invoice x_usrc_Invoice)
+        public void Init(usrc_DocumentEditor x_usrc_Invoice)
         {
             m_usrc_Invoice = x_usrc_Invoice;
         }

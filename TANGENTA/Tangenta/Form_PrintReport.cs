@@ -22,9 +22,9 @@ namespace Tangenta
 {
     public partial class Form_PrintReport : Form
     {
-        private usrc_InvoiceTable m_usrc_InvoiceTable = null;
+        private usrc_TableOfDocuments m_usrc_InvoiceTable = null;
 
-        public Form_PrintReport(usrc_InvoiceTable xusrc_InvoiceTable)
+        public Form_PrintReport(usrc_TableOfDocuments xusrc_InvoiceTable)
         {
             InitializeComponent();
             m_usrc_InvoiceTable = xusrc_InvoiceTable;

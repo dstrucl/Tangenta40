@@ -22,13 +22,13 @@ namespace Tangenta
 {
     public partial class Form_Select_TimeSpan : Form
     {
-        private usrc_InvoiceTable m_usrc_InvoiceTable;
-        private usrc_InvoiceTable.eMode Org_Mode;
+        private usrc_TableOfDocuments m_usrc_InvoiceTable;
+        private usrc_TableOfDocuments.eMode Org_Mode;
         private DateTime Org_dtStartTime;
         private DateTime Org_dtEndTime;
 
 
-        public Form_Select_TimeSpan(usrc_InvoiceTable xusrc_InvoiceTable)
+        public Form_Select_TimeSpan(usrc_TableOfDocuments xusrc_InvoiceTable)
         {
             // TODO: Complete member initialization
             InitializeComponent();
@@ -54,32 +54,32 @@ namespace Tangenta
 
             switch (m_usrc_InvoiceTable.Mode)
             {
-                case usrc_InvoiceTable.eMode.All:
+                case usrc_TableOfDocuments.eMode.All:
                     rdb_All.Checked = true;
                     break;
-                case usrc_InvoiceTable.eMode.Today:
+                case usrc_TableOfDocuments.eMode.Today:
                     this.rdb_CurrentDay.Checked = true;
                     break;
 
-                case usrc_InvoiceTable.eMode.ThisWeek:
+                case usrc_TableOfDocuments.eMode.ThisWeek:
                     this.rdb_ThisWeek.Checked = true;
                     break;
-                case usrc_InvoiceTable.eMode.LastWeek:
+                case usrc_TableOfDocuments.eMode.LastWeek:
                     this.rdb_LastWeek.Checked = true;
                     break;
-                case usrc_InvoiceTable.eMode.ThisMonth:
+                case usrc_TableOfDocuments.eMode.ThisMonth:
                     this.rdb_ThisMonth.Checked = true;
                     break;
-                case usrc_InvoiceTable.eMode.LastMonth:
+                case usrc_TableOfDocuments.eMode.LastMonth:
                     this.rdb_LastMonth.Checked = true;
                     break;
-                case usrc_InvoiceTable.eMode.ThisYear:
+                case usrc_TableOfDocuments.eMode.ThisYear:
                     this.rdb_ThisYear.Checked = true;
                     break;
-                case usrc_InvoiceTable.eMode.LastYear:
+                case usrc_TableOfDocuments.eMode.LastYear:
                     this.rdb_LastYear.Text = lng.s_LastYear.s;
                     break;
-                case usrc_InvoiceTable.eMode.TimeSpan:
+                case usrc_TableOfDocuments.eMode.TimeSpan:
                     this.rdb_TimeSpan.Checked = true;
                     break;
             }
@@ -115,7 +115,7 @@ namespace Tangenta
             {
                 dateTimePicker_From.Enabled = true;
                 dateTimePicker_To.Enabled = true;
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
             }
             else
             {
@@ -131,7 +131,7 @@ namespace Tangenta
                 DateTime dtNow = DateTime.Now;
                 DateTime dtStartTime = new DateTime(dtNow.Year, 1, 1);
                 DateTime dtEndTime = new DateTime(dtNow.Year+1, 1, 1);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.ThisYear, dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ThisYear, dtStartTime, dtEndTime);
             }
 
         }
@@ -142,7 +142,7 @@ namespace Tangenta
             {
                 m_usrc_InvoiceTable.lpar_ExtraCondition = null;
                 m_usrc_InvoiceTable.ExtraCondition = null;
-                m_usrc_InvoiceTable.SetMode(usrc_InvoiceTable.eMode.All, lng.s_AllData.s);
+                m_usrc_InvoiceTable.SetMode(usrc_TableOfDocuments.eMode.All, lng.s_AllData.s);
             }
         }
 
@@ -153,7 +153,7 @@ namespace Tangenta
                 DateTime dtNow = DateTime.Now;
                 DateTime dtStartTime = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day);
                 DateTime dtEndTime = dtStartTime.AddDays(1);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.Today,dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.Today,dtStartTime, dtEndTime);
             }
         }
 
@@ -191,7 +191,7 @@ namespace Tangenta
 
                 }
                 DateTime dtEndTime = dtStartTime.AddDays(7);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.LastWeek,dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.LastWeek,dtStartTime, dtEndTime);
             }
         }
 
@@ -234,7 +234,7 @@ namespace Tangenta
 
                 }
                 DateTime dtEndTime = dtStartTime.AddDays(7);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.ThisWeek, dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ThisWeek, dtStartTime, dtEndTime);
             }
 
         }
@@ -259,7 +259,7 @@ namespace Tangenta
 
                 DateTime dtStartTime = new DateTime(dtNow.Year, dtNow.Month, 1);
                 DateTime dtEndTime = new DateTime(y, m, 1);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.ThisMonth, dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ThisMonth, dtStartTime, dtEndTime);
             }
         }
 
@@ -282,7 +282,7 @@ namespace Tangenta
 
                 DateTime dtStartTime = new DateTime(y, m, 1);
                 DateTime dtEndTime = new DateTime(dtNow.Year, dtNow.Month, 1);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.LastMonth, dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.LastMonth, dtStartTime, dtEndTime);
             }
         }
 
@@ -293,19 +293,19 @@ namespace Tangenta
                 DateTime dtNow = DateTime.Now;
                 DateTime dtStartTime = new DateTime(dtNow.Year-1, 1, 1);
                 DateTime dtEndTime = new DateTime(dtNow.Year, 1, 1);
-                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.LastYear, dtStartTime, dtEndTime);
+                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.LastYear, dtStartTime, dtEndTime);
             }
 
         }
 
         private void dateTimePicker_From_ValueChanged(object sender, EventArgs e)
         {
-            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
         }
 
         private void dateTimePicker_To_ValueChanged(object sender, EventArgs e)
         {
-            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
         }
     }
 }

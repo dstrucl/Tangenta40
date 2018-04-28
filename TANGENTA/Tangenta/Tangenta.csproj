@@ -482,17 +482,17 @@
     <Compile Include="usrc_DocProformaInvoice_AddOn .Designer.cs">
       <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_InvoiceMan.cs">
+    <Compile Include="usrc_DocumentMan.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_InvoiceMan.Designer.cs">
-      <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
+    <Compile Include="usrc_DocumentMan.Designer.cs">
+      <DependentUpon>usrc_DocumentMan.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_InvoiceTable.cs">
+    <Compile Include="usrc_TableOfDocuments.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_InvoiceTable.Designer.cs">
-      <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
+    <Compile Include="usrc_TableOfDocuments.Designer.cs">
+      <DependentUpon>usrc_TableOfDocuments.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_AddOn.cs">
       <SubType>UserControl</SubType>
@@ -744,11 +744,11 @@
     <EmbeddedResource Include="usrc_DocProformaInvoice_AddOn .resx">
       <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_InvoiceMan.resx">
-      <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_DocumentMan.resx">
+      <DependentUpon>usrc_DocumentMan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_InvoiceTable.resx">
-      <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_TableOfDocuments.resx">
+      <DependentUpon>usrc_TableOfDocuments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_AddOn.resx">
       <DependentUpon>usrc_AddOn.cs</DependentUpon>
@@ -790,8 +790,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Invoice.resx">
-      <DependentUpon>usrc_Invoice.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_DocumentEditor.resx">
+      <DependentUpon>usrc_DocumentEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
@@ -812,11 +812,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="StartupWindowThread.cs" />
-    <Compile Include="usrc_Invoice.cs">
+    <Compile Include="usrc_DocumentEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Invoice.Designer.cs">
-      <DependentUpon>usrc_Invoice.cs</DependentUpon>
+    <Compile Include="usrc_DocumentEditor.Designer.cs">
+      <DependentUpon>usrc_DocumentEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Price_ItemOrService.cs">
       <SubType>UserControl</SubType>

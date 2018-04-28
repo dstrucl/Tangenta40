@@ -21,12 +21,12 @@ namespace Tangenta
 {
     public partial class Form_ShopsInUse : Form
     {
-        private usrc_InvoiceMan m_usrc_Main;
+        private usrc_DocumentMan m_usrc_Main;
         private bool bResetShopsInUse = false;
         NavigationButtons.Navigation nav = null;
 
 
-        public Form_ShopsInUse(NavigationButtons.Navigation xnav, bool xbResetShopsInUse, usrc_InvoiceMan xusrc_Main)
+        public Form_ShopsInUse(NavigationButtons.Navigation xnav, bool xbResetShopsInUse, usrc_DocumentMan xusrc_Main)
         {
             InitializeComponent();
             nav = xnav;

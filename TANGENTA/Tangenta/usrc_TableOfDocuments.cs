@@ -24,7 +24,7 @@ using DBTypes;
 
 namespace Tangenta
 {
-    public partial class usrc_InvoiceTable : UserControl
+    public partial class usrc_TableOfDocuments : UserControl
     {
         public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear, TimeSpan };
         public delegate void delegate_SelectedInvoiceChanged(long Invoice_ID, bool bInitialise);
@@ -60,7 +60,7 @@ namespace Tangenta
             }
         }
 
-        private usrc_Invoice.enum_Invoice enum_Invoice;
+        private usrc_DocumentEditor.enum_Invoice enum_Invoice;
         private int iColIndex_DocInvoice_Draft = -1;
         private int iColIndex_DocInvoice_IssueDate = -1;
         private int iColIndex_DocProformaInvoice_IssueDate = -1;
@@ -124,7 +124,7 @@ namespace Tangenta
         }
 
 
-    public usrc_InvoiceTable()
+    public usrc_TableOfDocuments()
         {
             InitializeComponent();
             ExtensionMethods.DoubleBuffered(this.dgvx_XInvoice, true);
@@ -155,7 +155,7 @@ namespace Tangenta
             }
         }
 
-        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice,
+        internal int Init(usrc_DocumentEditor.enum_Invoice xenum_Invoice,
                           bool bNew,
                           bool bInitialise_usrc_Invoice,
                           int iFinancialYear,
@@ -888,7 +888,7 @@ namespace Tangenta
         internal void SetTimeSpanParam(eMode eMode, DateTime xdtStartTime, DateTime xdtEndTime)
         {
             Mode = eMode;
-            if (eMode == usrc_InvoiceTable.eMode.All)
+            if (eMode == usrc_TableOfDocuments.eMode.All)
             {
                 lbl_From_To.Text = lng.s_ShowAll.s;
                 sFromTo_Suffix = "";
@@ -900,36 +900,36 @@ namespace Tangenta
                 SetTimeSpanParam_Ex(xdtStartTime, xdtEndTime);
                 switch (eMode)
                 {
-                    case usrc_InvoiceTable.eMode.Today:
+                    case usrc_TableOfDocuments.eMode.Today:
                         lbl_From_To.Text = lng.s_Today.s + " " + sDate(dtStartTime);
                         sFromTo_Suffix = sDate_Suffix(dtStartTime);
                         break;
-                    case usrc_InvoiceTable.eMode.ThisWeek:
+                    case usrc_TableOfDocuments.eMode.ThisWeek:
                         lbl_From_To.Text = lng.s_ThisWeek.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
 
-                    case usrc_InvoiceTable.eMode.LastWeek:
+                    case usrc_TableOfDocuments.eMode.LastWeek:
                         lbl_From_To.Text = lng.s_LastWeek.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_InvoiceTable.eMode.ThisMonth:
+                    case usrc_TableOfDocuments.eMode.ThisMonth:
                         lbl_From_To.Text = lng.s_ThisMonth.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_InvoiceTable.eMode.LastMonth:
+                    case usrc_TableOfDocuments.eMode.LastMonth:
                         lbl_From_To.Text = lng.s_LastMonth.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_InvoiceTable.eMode.ThisYear:
+                    case usrc_TableOfDocuments.eMode.ThisYear:
                         lbl_From_To.Text = lng.s_ThisYear.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_InvoiceTable.eMode.LastYear:
+                    case usrc_TableOfDocuments.eMode.LastYear:
                         lbl_From_To.Text = lng.s_LastYear.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_InvoiceTable.eMode.TimeSpan:
+                    case usrc_TableOfDocuments.eMode.TimeSpan:
                         lbl_From_To.Text = lng.s_TimeSpan.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;

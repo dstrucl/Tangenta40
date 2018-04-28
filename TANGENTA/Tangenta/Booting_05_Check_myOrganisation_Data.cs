@@ -52,29 +52,29 @@ namespace Tangenta
                 Program.b_FVI_SLO = false;
             }
 
-            usrc_Invoice.eGetOrganisationDataResult eres = frm.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
+            usrc_DocumentEditor.eGetOrganisationDataResult eres = frm.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
             switch (eres)
             {
-                case usrc_Invoice.eGetOrganisationDataResult.OK:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.OK:
                     return Startup_check_proc_Result.CHECK_OK;
-                case usrc_Invoice.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
                     startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
-                case usrc_Invoice.eGetOrganisationDataResult.NO_COUNTRY:
-                case usrc_Invoice.eGetOrganisationDataResult.NO_ZIP:
-                case usrc_Invoice.eGetOrganisationDataResult.NO_CITY:
-                case usrc_Invoice.eGetOrganisationDataResult.NO_STREET_NAME:
-                case usrc_Invoice.eGetOrganisationDataResult.NO_HOUSE_NUMBER:
-                case usrc_Invoice.eGetOrganisationDataResult.NO_TAX_ID:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_COUNTRY:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ZIP:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_CITY:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_STREET_NAME:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_HOUSE_NUMBER:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_TAX_ID:
                     startup_ShowForm_proc = Startup_05_Show_Form_CheckInsertSampleData;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
-                case usrc_Invoice.eGetOrganisationDataResult.NO_OFFICE:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_OFFICE:
                     startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
-                case usrc_Invoice.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
                     if (myOrg.myOrg_Office_list!=null)
                     {
                         if (myOrg.myOrg_Office_list.Count>0)
@@ -88,7 +88,7 @@ namespace Tangenta
                     startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
-                case usrc_Invoice.eGetOrganisationDataResult.NO_REAL_ESTATE:
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_REAL_ESTATE:
                     if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
                     {
                         if (Properties.Settings.Default.bFVI_SLO.Length == 0)
@@ -333,7 +333,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_EditMyOrganisation_Data;
-            frm.m_usrc_Main.m_usrc_Invoice.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
             return true;
         }
 
@@ -376,7 +376,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Office_Data;
-           return frm.m_usrc_Main.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data(xnav);
+           return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_myOrg_Office_Data(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Office_Data(startup_step myStartup_step,
@@ -418,7 +418,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Person_Edit;
-            frm.m_usrc_Main.m_usrc_Invoice.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
             return true;
         }
 
@@ -461,7 +461,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
-           return frm.m_usrc_Main.m_usrc_Invoice.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
+           return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(startup_step myStartup_step,

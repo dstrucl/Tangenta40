@@ -150,6 +150,7 @@ namespace ShopC
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_InvoiceDB = xm_InvoiceDB;
             this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
+            this.chk_AutomaticSelectionOfItemFromStock.Visible = false; 
             DBtcn = xDBtcn;
             if (DBtcn == null)
             {

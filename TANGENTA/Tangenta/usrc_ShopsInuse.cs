@@ -15,6 +15,7 @@ namespace Tangenta
         public usrc_ShopsInuse()
         {
             InitializeComponent();
+            lng.s_Shops_In_Use.Text(grp_ShopsInUse);
             lng.s_chk_A_in_use.Text(chk_A_in_use);
             lng.s_chk_B_in_use.Text(chk_B_in_use);
             lng.s_chk_C_in_use.Text(chk_C_in_use);

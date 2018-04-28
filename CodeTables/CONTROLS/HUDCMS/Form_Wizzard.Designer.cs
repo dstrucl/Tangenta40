@@ -200,7 +200,6 @@ namespace HUDCMS
             this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fctb_Header.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_Header.IsReplaceMode = false;
             this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_Header.LeftBracket = '<';
@@ -373,7 +372,7 @@ namespace HUDCMS
             this.cmbr_GeneralHelpFiles.ReadOnly = false;
             this.cmbr_GeneralHelpFiles.RecentItemsFileName = null;
             this.cmbr_GeneralHelpFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(793, 21);
+            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(754, 21);
             this.cmbr_GeneralHelpFiles.TabIndex = 10;
             // 
             // lbl_GeneralHelp
@@ -388,9 +387,9 @@ namespace HUDCMS
             // btn_EditGeneralHelpFile
             // 
             this.btn_EditGeneralHelpFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(1206, 2);
+            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(870, 3);
             this.btn_EditGeneralHelpFile.Name = "btn_EditGeneralHelpFile";
-            this.btn_EditGeneralHelpFile.Size = new System.Drawing.Size(75, 23);
+            this.btn_EditGeneralHelpFile.Size = new System.Drawing.Size(34, 23);
             this.btn_EditGeneralHelpFile.TabIndex = 12;
             this.btn_EditGeneralHelpFile.Text = "Edit";
             this.btn_EditGeneralHelpFile.UseVisualStyleBackColor = true;
@@ -399,9 +398,9 @@ namespace HUDCMS
             // btn_EditGeneralStyles
             // 
             this.btn_EditGeneralStyles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(1206, 29);
+            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(943, 27);
             this.btn_EditGeneralStyles.Name = "btn_EditGeneralStyles";
-            this.btn_EditGeneralStyles.Size = new System.Drawing.Size(75, 23);
+            this.btn_EditGeneralStyles.Size = new System.Drawing.Size(34, 23);
             this.btn_EditGeneralStyles.TabIndex = 15;
             this.btn_EditGeneralStyles.Text = "Edit";
             this.btn_EditGeneralStyles.UseVisualStyleBackColor = true;
@@ -433,7 +432,7 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.ReadOnly = false;
             this.cmbr_GeneralStyleFiles.RecentItemsFileName = null;
             this.cmbr_GeneralStyleFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(864, 21);
+            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(829, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
             // 
             // chk_UseGit

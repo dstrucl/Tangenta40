@@ -42,7 +42,7 @@ namespace Tangenta
             {
                 if (BaseCurrency_Text != null)
                 {
-                    frm.m_usrc_Main.m_usrc_Invoice.usrc_Currency1.Init(GlobalData.BaseCurrency);
+                    frm.m_usrc_Main.m_usrc_DocumentEditor.usrc_Currency1.Init(GlobalData.BaseCurrency);
                     return Startup_check_proc_Result.CHECK_OK;
                 }
                 else
@@ -59,7 +59,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_06_onformresult_Form_Select_DefaultCurrency;
-            frm.m_usrc_Main.m_usrc_Invoice.Startup_06_Show_Form_Select_DefaultCurrency(xnav);
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_06_Show_Form_Select_DefaultCurrency(xnav);
             return true;
         }
 
@@ -74,7 +74,7 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is Form_Select_DefaultCurrency)
                     {
-                        if (frm.m_usrc_Main.m_usrc_Invoice.Startup_06_set_DefaultCurrency((Form_Select_DefaultCurrency)form, ref Err))
+                        if (frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_06_set_DefaultCurrency((Form_Select_DefaultCurrency)form, ref Err))
                         {
                             return Startup_onformresult_proc_Result.NEXT;
                         }

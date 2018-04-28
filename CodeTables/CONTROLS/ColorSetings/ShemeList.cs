@@ -41,17 +41,17 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#936B20"),
                  ColorTranslator.FromHtml("#FFFFFF")),  // Color9
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#936B20")),  // Color10
+                 ColorTranslator.FromHtml("#F5F7D4")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#936B20")),  // Color11
+                 ColorTranslator.FromHtml("#FFFFFF")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#936B20")),  // Color12
+                 ColorTranslator.FromHtml("#F2F2F2")),  // Color12
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#936B20")),  // Color13
+                 ColorTranslator.FromHtml("#EAFAC5")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#936B20")),  // Color14
+                 ColorTranslator.FromHtml("#DEF0A6")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#936B20"))  // Color15
+                 ColorTranslator.FromHtml("#EAFAC5"))  // Color15
           });
         public static ColorSheme Techno = new ColorSettings.ColorSheme(false, "Techno", new ColorPair[]
           {
@@ -84,7 +84,7 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#BAC7CC")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#BAC7CC")),  // Color14
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#BAC7CC"))  // Color15
           });
@@ -119,7 +119,7 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color14
+                 ColorTranslator.FromHtml("#F49F05")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904"))  // Color15
           });
@@ -154,9 +154,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color14
+                 ColorTranslator.FromHtml("#6A8A82")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904"))  // Color15
+                 ColorTranslator.FromHtml("#A37C27"))  // Color15
           });
         public static ColorSheme Shimmering = new ColorSettings.ColorSheme(false, "Shimmering", new ColorPair[]
           {
@@ -189,9 +189,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color14
+                 ColorTranslator.FromHtml("#0AAFF1")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904"))  // Color15
+                 ColorTranslator.FromHtml("#EDF259"))  // Color15
           });
         public static ColorSheme MediterraneanDark = new ColorSettings.ColorSheme(false, "MediterraneanDark", new ColorPair[]
           {
@@ -224,9 +224,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color14
+                 ColorTranslator.FromHtml("#583E2E")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904"))  // Color15
+                 ColorTranslator.FromHtml("#F1E0D6"))  // Color15
           });
         public static ColorSheme MagentasAndYelows = new ColorSettings.ColorSheme(false, "MagentasAndYelows", new ColorPair[]
           {
@@ -259,9 +259,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color14
+                 ColorTranslator.FromHtml("#DE8CF0")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904"))  // Color15
+                 ColorTranslator.FromHtml("#BED905"))  // Color15
           });
         public static ColorSheme Custom = new ColorSettings.ColorSheme(false, "Custom", new ColorPair[]
           {
@@ -294,9 +294,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color14
+                 ColorTranslator.FromHtml("#C7CCBA")),  // Color14
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904"))  // Color15
+                 ColorTranslator.FromHtml("#BAC7CC"))  // Color15
           });
 
         internal static void SetDefault()

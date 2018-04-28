@@ -87,7 +87,7 @@ namespace HUDCMS
             this.grp_Style.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Style.Name = "grp_Style";
             this.grp_Style.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Style.Size = new System.Drawing.Size(348, 68);
+            this.grp_Style.Size = new System.Drawing.Size(384, 68);
             this.grp_Style.TabIndex = 6;
             this.grp_Style.TabStop = false;
             this.grp_Style.Text = "Style";
@@ -107,7 +107,7 @@ namespace HUDCMS
             this.usrc_SelectStyleFile.Location = new System.Drawing.Point(12, 27);
             this.usrc_SelectStyleFile.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_SelectStyleFile.Name = "usrc_SelectStyleFile";
-            this.usrc_SelectStyleFile.Size = new System.Drawing.Size(330, 27);
+            this.usrc_SelectStyleFile.Size = new System.Drawing.Size(366, 27);
             this.usrc_SelectStyleFile.TabIndex = 0;
             this.usrc_SelectStyleFile.Title = "Save File";
             this.usrc_SelectStyleFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
@@ -132,8 +132,8 @@ namespace HUDCMS
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_EditControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(956, 734);
-            this.splitContainer1.SplitterDistance = 359;
+            this.splitContainer1.Size = new System.Drawing.Size(1054, 734);
+            this.splitContainer1.SplitterDistance = 395;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 8;
             // 
@@ -154,7 +154,7 @@ namespace HUDCMS
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(343, 652);
+            this.splitContainer2.Size = new System.Drawing.Size(379, 652);
             this.splitContainer2.SplitterDistance = 124;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 8;
@@ -170,7 +170,7 @@ namespace HUDCMS
             this.grp_Header.Margin = new System.Windows.Forms.Padding(2);
             this.grp_Header.Name = "grp_Header";
             this.grp_Header.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Header.Size = new System.Drawing.Size(343, 124);
+            this.grp_Header.Size = new System.Drawing.Size(379, 124);
             this.grp_Header.TabIndex = 7;
             this.grp_Header.TabStop = false;
             this.grp_Header.Text = "Header";
@@ -197,6 +197,7 @@ namespace HUDCMS
             this.fctb_Header.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctb_Header.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctb_Header.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctb_Header.IsReplaceMode = false;
             this.fctb_Header.Language = FastColoredTextBoxNS.Language.HTML;
             this.fctb_Header.LeftBracket = '<';
@@ -208,7 +209,7 @@ namespace HUDCMS
             this.fctb_Header.RightBracket2 = ')';
             this.fctb_Header.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctb_Header.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb_Header.ServiceColors")));
-            this.fctb_Header.Size = new System.Drawing.Size(339, 99);
+            this.fctb_Header.Size = new System.Drawing.Size(375, 99);
             this.fctb_Header.TabIndex = 0;
             this.fctb_Header.Text = "fctb_Header";
             this.fctb_Header.Zoom = 100;
@@ -228,7 +229,7 @@ namespace HUDCMS
             // 
             this.splitContainer3.Panel2.Controls.Add(this.panel1);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(343, 522);
+            this.splitContainer3.Size = new System.Drawing.Size(379, 522);
             this.splitContainer3.SplitterDistance = 183;
             this.splitContainer3.TabIndex = 8;
             // 
@@ -254,7 +255,7 @@ namespace HUDCMS
             this.MyTreeListView.OwnerDraw = true;
             this.MyTreeListView.ShowGroups = false;
             this.MyTreeListView.ShowImagesOnSubItems = true;
-            this.MyTreeListView.Size = new System.Drawing.Size(343, 522);
+            this.MyTreeListView.Size = new System.Drawing.Size(379, 522);
             this.MyTreeListView.TabIndex = 0;
             this.MyTreeListView.UseCompatibleStateImageBehavior = false;
             this.MyTreeListView.View = System.Windows.Forms.View.Details;
@@ -327,7 +328,7 @@ namespace HUDCMS
             this.usrc_EditControl1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditControl1.Margin = new System.Windows.Forms.Padding(2);
             this.usrc_EditControl1.Name = "usrc_EditControl1";
-            this.usrc_EditControl1.Size = new System.Drawing.Size(588, 730);
+            this.usrc_EditControl1.Size = new System.Drawing.Size(650, 730);
             this.usrc_EditControl1.SnapShotMargin = 4;
             this.usrc_EditControl1.TabIndex = 1;
             // 
@@ -369,7 +370,7 @@ namespace HUDCMS
             this.cmbr_GeneralHelpFiles.ReadOnly = false;
             this.cmbr_GeneralHelpFiles.RecentItemsFileName = null;
             this.cmbr_GeneralHelpFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(717, 21);
+            this.cmbr_GeneralHelpFiles.Size = new System.Drawing.Size(772, 21);
             this.cmbr_GeneralHelpFiles.TabIndex = 10;
             // 
             // lbl_GeneralHelp
@@ -384,9 +385,9 @@ namespace HUDCMS
             // btn_EditGeneralHelpFile
             // 
             this.btn_EditGeneralHelpFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(1059, 2);
+            this.btn_EditGeneralHelpFile.Location = new System.Drawing.Point(892, 4);
             this.btn_EditGeneralHelpFile.Name = "btn_EditGeneralHelpFile";
-            this.btn_EditGeneralHelpFile.Size = new System.Drawing.Size(75, 23);
+            this.btn_EditGeneralHelpFile.Size = new System.Drawing.Size(37, 23);
             this.btn_EditGeneralHelpFile.TabIndex = 12;
             this.btn_EditGeneralHelpFile.Text = "Edit";
             this.btn_EditGeneralHelpFile.UseVisualStyleBackColor = true;
@@ -395,9 +396,9 @@ namespace HUDCMS
             // btn_EditGeneralStyles
             // 
             this.btn_EditGeneralStyles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(1059, 29);
+            this.btn_EditGeneralStyles.Location = new System.Drawing.Point(892, 27);
             this.btn_EditGeneralStyles.Name = "btn_EditGeneralStyles";
-            this.btn_EditGeneralStyles.Size = new System.Drawing.Size(75, 23);
+            this.btn_EditGeneralStyles.Size = new System.Drawing.Size(37, 23);
             this.btn_EditGeneralStyles.TabIndex = 15;
             this.btn_EditGeneralStyles.Text = "Edit";
             this.btn_EditGeneralStyles.UseVisualStyleBackColor = true;
@@ -429,14 +430,14 @@ namespace HUDCMS
             this.cmbr_GeneralStyleFiles.ReadOnly = false;
             this.cmbr_GeneralStyleFiles.RecentItemsFileName = null;
             this.cmbr_GeneralStyleFiles.RecentItemsFolder = "";
-            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(717, 21);
+            this.cmbr_GeneralStyleFiles.Size = new System.Drawing.Size(772, 21);
             this.cmbr_GeneralStyleFiles.TabIndex = 13;
             // 
             // chk_UseGit
             // 
             this.chk_UseGit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_UseGit.AutoSize = true;
-            this.chk_UseGit.Location = new System.Drawing.Point(840, 7);
+            this.chk_UseGit.Location = new System.Drawing.Point(938, 7);
             this.chk_UseGit.Name = "chk_UseGit";
             this.chk_UseGit.Size = new System.Drawing.Size(114, 17);
             this.chk_UseGit.TabIndex = 16;
@@ -446,7 +447,7 @@ namespace HUDCMS
             // btn_SetGitExeFile
             // 
             this.btn_SetGitExeFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SetGitExeFile.Location = new System.Drawing.Point(840, 27);
+            this.btn_SetGitExeFile.Location = new System.Drawing.Point(938, 27);
             this.btn_SetGitExeFile.Name = "btn_SetGitExeFile";
             this.btn_SetGitExeFile.Size = new System.Drawing.Size(66, 23);
             this.btn_SetGitExeFile.TabIndex = 17;
@@ -457,7 +458,7 @@ namespace HUDCMS
             // btn_ZIP
             // 
             this.btn_ZIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ZIP.Location = new System.Drawing.Point(912, 27);
+            this.btn_ZIP.Location = new System.Drawing.Point(1010, 27);
             this.btn_ZIP.Name = "btn_ZIP";
             this.btn_ZIP.Size = new System.Drawing.Size(42, 23);
             this.btn_ZIP.TabIndex = 18;
@@ -469,7 +470,7 @@ namespace HUDCMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(960, 822);
+            this.ClientSize = new System.Drawing.Size(1058, 822);
             this.Controls.Add(this.btn_ZIP);
             this.Controls.Add(this.btn_SetGitExeFile);
             this.Controls.Add(this.chk_UseGit);

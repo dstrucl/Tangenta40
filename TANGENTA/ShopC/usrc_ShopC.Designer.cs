@@ -64,7 +64,7 @@
             this.splitContainer3.Panel2.Controls.Add(this.usrc_ItemList);
             this.splitContainer3.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer3.Size = new System.Drawing.Size(886, 505);
-            this.splitContainer3.SplitterDistance = 419;
+            this.splitContainer3.SplitterDistance = 418;
             this.splitContainer3.TabIndex = 1;
             // 
             // usrc_Atom_ItemsList
@@ -77,7 +77,7 @@
             this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
             this.usrc_Atom_ItemsList.NumberOfItemsPerPage = 10;
-            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(405, 493);
+            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(404, 493);
             this.usrc_Atom_ItemsList.TabIndex = 5;
             // 
             // usrc_ItemList
@@ -91,7 +91,7 @@
             this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_ItemList.Name = "usrc_ItemList";
             this.usrc_ItemList.NumberOfItemsPerPage = 10;
-            this.usrc_ItemList.Size = new System.Drawing.Size(457, 496);
+            this.usrc_ItemList.Size = new System.Drawing.Size(458, 496);
             this.usrc_ItemList.TabIndex = 22;
             // 
             // lbl_ShopC_Name
@@ -173,6 +173,7 @@
             this.chk_AutomaticSelectionOfItemFromStock.TabIndex = 23;
             this.chk_AutomaticSelectionOfItemFromStock.Text = "AutomaticSelectionOfItemFromStock";
             this.chk_AutomaticSelectionOfItemFromStock.UseVisualStyleBackColor = true;
+            this.chk_AutomaticSelectionOfItemFromStock.Visible = false;
             // 
             // usrc_ShopC
             // 

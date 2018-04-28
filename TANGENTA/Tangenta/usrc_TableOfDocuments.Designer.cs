@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_InvoiceTable
+    partial class usrc_TableOfDocuments
     {
         /// <summary> 
         /// Required designer variable.

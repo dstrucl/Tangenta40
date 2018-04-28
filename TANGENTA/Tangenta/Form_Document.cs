@@ -462,15 +462,15 @@ namespace Tangenta
 
         private void Exit()
         {
-            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceTable.Current_Doc_ID;
+            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID;
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
-            if (m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA != null)
+            if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA != null)
             {
-                if (m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
                 {
-                    m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                    m_usrc_Main.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                    m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                    m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
             long atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
@@ -735,7 +735,7 @@ namespace Tangenta
 
         private void GetNumberOfShopBGroupsLevel(List<string> tagconditions,ref string sNewTag, ref string sXMLFileTag)
         {
-            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_Invoice.NumberOfShopBGroupLevels;
+            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
             switch (numberofshopBgroupslevel)
             {
                 case 0:
@@ -765,7 +765,7 @@ namespace Tangenta
 
         private void GetNumberOfShopCGroupsLevel(List<string> tagconditions, ref string sNewTag, ref string sXMLFileTag)
         {
-            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_Invoice.NumberOfShopBGroupLevels;
+            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
             switch (numberofshopBgroupslevel)
             {
                 case 0:

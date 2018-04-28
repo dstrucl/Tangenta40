@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_Invoice
+    partial class usrc_DocumentEditor
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Invoice));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_DocumentEditor));
             this.txt_MyOrganisation = new System.Windows.Forms.TextBox();
             this.lbl_Issuer = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();

@@ -12,6 +12,8 @@ namespace ColorSettings
 {
     public partial class usrc_SelectColorSheme : UserControl
     {
+        public delegate void delegate_ColorShemeChanged();
+        public event delegate_ColorShemeChanged ColorShemeChanged = null;
         public usrc_SelectColorSheme()
         {
             InitializeComponent();
@@ -55,6 +57,10 @@ namespace ColorSettings
         private void Usrc_colorsheme_ColorChanged(ColorSheme csheme)
         {
             Sheme.Save(csheme);
+            if (ColorShemeChanged!=null)
+            {
+                ColorShemeChanged();
+            }
         }
 
         private void Rdb_colorSheme_CheckedChanged(object sender, EventArgs e)
@@ -65,6 +71,10 @@ namespace ColorSettings
                 {
                     Properties.Settings.Default.CurrentColorsIndex = (int)((RadioButton)sender).Tag;
                     Properties.Settings.Default.Save();
+                    if (ColorShemeChanged != null)
+                    {
+                        ColorShemeChanged();
+                    }
                 }
             }
         }

@@ -25,7 +25,7 @@ using static Tangenta.Program;
 
 namespace Tangenta
 {
-    public partial class usrc_InvoiceMan : UserControl
+    public partial class usrc_DocumentMan : UserControl
     {
         Form Main_Form = null;
 
@@ -34,9 +34,9 @@ namespace Tangenta
 
         public delegate void delegate_Exit_Click();
 
-        internal usrc_Invoice.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
+        internal usrc_DocumentEditor.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
         {
-            usrc_Invoice.eGetOrganisationDataResult eres = this.m_usrc_Invoice.GetOrganisationData();
+            usrc_DocumentEditor.eGetOrganisationDataResult eres = this.m_usrc_DocumentEditor.GetOrganisationData();
             return eres;
 
         }
@@ -51,15 +51,15 @@ namespace Tangenta
         public enum eMode { Shops, InvoiceTable, Shops_and_InvoiceTable };
         public eMode Mode = eMode.Shops_and_InvoiceTable;
         Form m_pparent = null;
-        public List<Tangenta.usrc_Invoice.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_Invoice.InvoiceType>();
-        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocInvoice = null;
-        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocProformaInvoice = null;
+        public List<Tangenta.usrc_DocumentEditor.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_DocumentEditor.InvoiceType>();
+        public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocInvoice = null;
+        public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocProformaInvoice = null;
         public DataTable dt_FinancialYears = new DataTable();
         private string m_DocInvoice = Program.const_DocInvoice;
 
         internal bool m_usrc_Invoice_ViewMode
         {
-            get { return m_usrc_Invoice.m_mode == usrc_Invoice.emode.view_eInvoiceType; }
+            get { return m_usrc_DocumentEditor.m_mode == usrc_DocumentEditor.emode.view_eDocumentType; }
         }
 
         public string DocInvoice
@@ -72,8 +72,8 @@ namespace Tangenta
                 {
                     m_DocInvoice = value;
                 }
-                m_usrc_Invoice.DocInvoice = m_DocInvoice;
-                m_usrc_InvoiceTable.DocInvoice = m_DocInvoice;
+                m_usrc_DocumentEditor.DocInvoice = m_DocInvoice;
+                m_usrc_TableOfDocuments.DocInvoice = m_DocInvoice;
             }
         }
 
@@ -102,9 +102,9 @@ namespace Tangenta
         public bool ShopA_Visible
         {
             get {
-                    if (m_usrc_Invoice!=null)
+                    if (m_usrc_DocumentEditor!=null)
                     {
-                        return m_usrc_Invoice.ShopsMode.Contains("A");
+                        return m_usrc_DocumentEditor.ShopsMode.Contains("A");
                     }
                     else
                     {
@@ -117,9 +117,9 @@ namespace Tangenta
         { 
             get
             {
-                if (m_usrc_Invoice != null)
+                if (m_usrc_DocumentEditor != null)
                 {
-                    return m_usrc_Invoice.ShopsMode.Contains("B");
+                    return m_usrc_DocumentEditor.ShopsMode.Contains("B");
                 }
                 else
                 {
@@ -132,9 +132,9 @@ namespace Tangenta
         {
             get
             {
-                if (m_usrc_Invoice != null)
+                if (m_usrc_DocumentEditor != null)
                 {
-                    return m_usrc_Invoice.ShopsMode.Contains("C");
+                    return m_usrc_DocumentEditor.ShopsMode.Contains("C");
                 }
                 else
                 {
@@ -147,9 +147,9 @@ namespace Tangenta
         {
             get
             {
-                if (m_usrc_Invoice != null)
+                if (m_usrc_DocumentEditor != null)
                 {
-                    return m_usrc_Invoice.HeadVisible;
+                    return m_usrc_DocumentEditor.HeadVisible;
                 }
                 else
                 {
@@ -158,14 +158,14 @@ namespace Tangenta
             }
         }
 
-        public usrc_InvoiceMan()
+        public usrc_DocumentMan()
         {
             InitializeComponent();
             m_UpgradeDB = new UpgradeDB_inThread(this);
             Program.usrc_TangentaPrint1 = this.usrc_TangentaPrint1;
             lng.s_btn_New.Text(btn_New);
             lng.s_Year.Text(lbl_FinancialYear);
-            m_usrc_Invoice.LayoutChanged += M_usrc_Invoice_LayoutChanged;
+            m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         }
 
         private void M_usrc_Invoice_LayoutChanged()
@@ -193,7 +193,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_InvoiceMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
+                LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
                 Mode = eMode.Shops_and_InvoiceTable;
             }
         }
@@ -225,21 +225,21 @@ namespace Tangenta
         internal bool InitialiseMan(Form pparent)
         {
             m_pparent = pparent;
-            return m_usrc_Invoice.Initialise(this);
+            return m_usrc_DocumentEditor.Initialise(this);
         }
 
         internal bool InitMan(NavigationButtons.Navigation xnav)
         {
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():start!");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():start!");
             Program.Cursor_Wait();
 
             if (this.cmb_InvoiceType == null)
             {
-                LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():this.cmb_InvoiceType == null");
+                LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():this.cmb_InvoiceType == null");
             }
             else
             {
-                LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():this.cmb_InvoiceType != null");
+                LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():this.cmb_InvoiceType != null");
             }
 
             this.cmb_InvoiceType.SelectedIndexChanged -= new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
@@ -247,7 +247,7 @@ namespace Tangenta
 
             string sLastDocInvoiceType = null;
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before if (Program.RunAs == null)");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before if (Program.RunAs == null)");
 
             if (Program.RunAs == null)
             {
@@ -267,7 +267,7 @@ namespace Tangenta
                 sLastDocInvoiceType = Program.RunAs;
             }
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before if (sLastDocInvoiceType.Equals(..))");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before if (sLastDocInvoiceType.Equals(..))");
 
             if (sLastDocInvoiceType.Equals(Program.const_DocInvoice))
             {
@@ -284,16 +284,16 @@ namespace Tangenta
                 Properties.Settings.Default.Save();
             }
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType!");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType!");
 
-            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lng.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.TaxInvoice);
+            InvoiceType_DocInvoice = new Tangenta.usrc_DocumentEditor.InvoiceType(lng.s_Invoice.s, Tangenta.usrc_DocumentEditor.enum_Invoice.TaxInvoice);
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocInvoice)");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocInvoice)");
             List_InvoiceType.Add(InvoiceType_DocInvoice);
 
-            InvoiceType_DocProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lng.s_DocProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
+            InvoiceType_DocProformaInvoice = new Tangenta.usrc_DocumentEditor.InvoiceType(lng.s_DocProformaInvoice.s, Tangenta.usrc_DocumentEditor.enum_Invoice.ProformaInvoice);
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocProformaInvoice);");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocProformaInvoice);");
 
             List_InvoiceType.Add(InvoiceType_DocProformaInvoice);
             this.cmb_InvoiceType.DataSource = null;
@@ -302,7 +302,7 @@ namespace Tangenta
             this.cmb_InvoiceType.ValueMember = "eInvoiceType";
             Set_cmb_InvoiceType_selected_index();
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before SetFinancialYears()");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before SetFinancialYears()");
 
 
             if (!SetFinancialYears())
@@ -313,7 +313,7 @@ namespace Tangenta
 
             splitContainer1.Panel2Collapsed = false;
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before SetDocument(xnav)");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before SetDocument(xnav)");
 
             bool bRes = SetDocument(xnav);
 
@@ -326,23 +326,23 @@ namespace Tangenta
 
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
-            m_usrc_Invoice.WizzardShow_ShopsVisible(xshops_inuse);
+            m_usrc_DocumentEditor.WizzardShow_ShopsVisible(xshops_inuse);
         }
 
         internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
         {
-            m_usrc_Invoice.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+            m_usrc_DocumentEditor.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
         }
 
         internal void WizzardShow_InvoiceTable_Visible(bool bvisible)
         {
             if (bvisible)
             {
-                SetMode(usrc_InvoiceMan.eMode.Shops_and_InvoiceTable);
+                SetMode(usrc_DocumentMan.eMode.Shops_and_InvoiceTable);
             }
             else
             {
-                SetMode(usrc_InvoiceMan.eMode.Shops);
+                SetMode(usrc_DocumentMan.eMode.Shops);
             }
             if (LayoutChanged!=null)
             {
@@ -383,7 +383,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_InvoiceMan:Init:GlobalData.SetFinancialYears Failed!");
+                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:Init:GlobalData.SetFinancialYears Failed!");
                 return false;
             }
 
@@ -391,12 +391,12 @@ namespace Tangenta
 
         private void Set_cmb_InvoiceType_selected_index()
         {
-            switch (this.m_usrc_Invoice.eInvoiceType)
+            switch (this.m_usrc_DocumentEditor.eInvoiceType)
             {
-                case usrc_Invoice.enum_Invoice.TaxInvoice:
+                case usrc_DocumentEditor.enum_Invoice.TaxInvoice:
                     this.cmb_InvoiceType.SelectedIndex = 0;
                     break;
-                case usrc_Invoice.enum_Invoice.ProformaInvoice:
+                case usrc_DocumentEditor.enum_Invoice.ProformaInvoice:
                     this.cmb_InvoiceType.SelectedIndex = 1;
                     break;
             }
@@ -405,25 +405,25 @@ namespace Tangenta
 
         internal bool SetDocument(NavigationButtons.Navigation xnav)
         {
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 
-            int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
+            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
-            if (!m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID))
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
+            if (!m_usrc_DocumentEditor.Init(xnav, this.m_usrc_TableOfDocuments.Current_Doc_ID))
             {
                 Program.Cursor_Arrow();
                 return false;
             }
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before SetInitialMode()");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
 
             SetInitialMode();
 
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():after SetInitialMode()");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
 
             SetMode(Mode);
-            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():End procedure ");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
             return true;
         }
 
@@ -439,7 +439,7 @@ namespace Tangenta
                     Properties.Settings.Default.FinancialYear = iFinancialYear;
                     Properties.Settings.Default.Save();
                     SetFinancialYears();
-                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
         }
@@ -457,7 +457,7 @@ namespace Tangenta
             {
                 Doc_ID_to_show_v = new long_v(DocInvoice_id);
             }
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
         }
 
         private void m_usrc_Invoice_DocProformaInvoiceSaved(long DocProformaInvoice_id)
@@ -469,14 +469,14 @@ namespace Tangenta
             {
                 Doc_ID_to_show_v = new long_v(DocProformaInvoice_id);
             }
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long DocInvoice_ID,bool bInitialise)
         {
             if (DocInvoice_ID >= 0)
             {
-                if (m_usrc_Invoice.DoCurrent(DocInvoice_ID))
+                if (m_usrc_DocumentEditor.DoCurrent(DocInvoice_ID))
                 {
                 }
             }
@@ -507,25 +507,25 @@ namespace Tangenta
         private void New_Empty_Doc(xCurrency currency,long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
-            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
+            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_DocumentEditor.InvoiceType)
             {
-                Tangenta.usrc_Invoice.InvoiceType xInvoiceType = (Tangenta.usrc_Invoice.InvoiceType)cmb_InvoiceType.SelectedItem;
-                Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
+                Tangenta.usrc_DocumentEditor.InvoiceType xInvoiceType = (Tangenta.usrc_DocumentEditor.InvoiceType)cmb_InvoiceType.SelectedItem;
+                Tangenta.usrc_DocumentEditor.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
                 if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 {
                     System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
                     int FinancialYear = (int)drv.Row.ItemArray[0];
 
-                    m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear, currency, xAtom_Currency_ID);
+                    m_usrc_DocumentEditor.SetNewDraft(eInvType, FinancialYear, currency, xAtom_Currency_ID);
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
-                    m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
-                    m_usrc_InvoiceTable.Init(eInvType, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+                    m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
+                    m_usrc_TableOfDocuments.Init(eInvType, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
                 }
                 else
                 {
                     Program.Cursor_Arrow();
-                    LogFile.Error.Show("ERROR:usrc_InvoiceMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+                    LogFile.Error.Show("ERROR:usrc_DocumentMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
                 }
             }
             Program.Cursor_Arrow();
@@ -541,7 +541,7 @@ namespace Tangenta
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xShopC_Data_Item_List))
+            if (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xShopC_Data_Item_List))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -552,7 +552,7 @@ namespace Tangenta
                     xdt_ShopB_Items.Clear();
                     xdt_ShopB_Items.Columns.Clear();
                 }
-                if (this.m_usrc_Invoice.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopB_Items))
                 {
                     if (xdt_ShopA_Items == null)
                     {
@@ -563,7 +563,7 @@ namespace Tangenta
                         xdt_ShopA_Items.Clear();
                         xdt_ShopA_Items.Columns.Clear();
                     }
-                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopA_Items))
+                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopA_Items))
                     {
                         return true;
                     }
@@ -572,39 +572,39 @@ namespace Tangenta
             return false;
         }
 
-        private bool WriteShopABC_items(Tangenta.usrc_Invoice.enum_Invoice xeInvType,
+        private bool WriteShopABC_items(Tangenta.usrc_DocumentEditor.enum_Invoice xeInvType,
                                         List<object> xShopC_Data_Item_List, 
                                         DataTable xdt_ShopB_Items, 
                                         DataTable xdt_ShopA_Items)
         {
-            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopA_Items))
+            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopA_Items))
             {
-                if (this.m_usrc_Invoice.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocInvoice, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopB_Items))
                 {
-                    switch (this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocInvoice,
-                                                                                                                    this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice,
+                    switch (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocInvoice,
+                                                                                                                    this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice,
                                                                                                                     xShopC_Data_Item_List,
-                                                                                                                    this.m_usrc_Invoice.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock,
-                                                                                                                    this.m_usrc_Invoice.m_usrc_ShopC.proc_Select_ShopC_Item_from_Stock,
-                                                                                                                    this.m_usrc_Invoice.m_usrc_ShopC.proc_Item_Not_In_Offer))
+                                                                                                                    this.m_usrc_DocumentEditor.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock,
+                                                                                                                    this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Select_ShopC_Item_from_Stock,
+                                                                                                                    this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Item_Not_In_Offer))
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
-                            Properties.Settings.Default.FinancialYear = this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear;
+                            Properties.Settings.Default.FinancialYear = this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear;
                             Properties.Settings.Default.Save();
-                            m_usrc_InvoiceTable.Init(xeInvType, true, false, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear, null);
+                            m_usrc_TableOfDocuments.Init(xeInvType, true, false, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear, null);
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear);
+                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear);
                             cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
-                            if (this.m_usrc_Invoice.m_usrc_ShopC != null)
+                            if (this.m_usrc_DocumentEditor.m_usrc_ShopC != null)
                             {
-                                this.m_usrc_Invoice.m_usrc_ShopC.usrc_ItemList.Paint_Current_Group();
+                                this.m_usrc_DocumentEditor.m_usrc_ShopC.usrc_ItemList.Paint_Current_Group();
                             }
                             return true;
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_NO_ITEM_IN_DB:
-                            LogFile.Error.Show("ERROR:usrc_InvoiceMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
+                            LogFile.Error.Show("ERROR:usrc_DocumentMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
                             break;
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_DB:
-                            LogFile.Error.Show("ERROR:usrc_InvoiceMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
+                            LogFile.Error.Show("ERROR:usrc_DocumentMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
                             break;
                     }
                 }
@@ -623,10 +623,10 @@ namespace Tangenta
         private void New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
-            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
+            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_DocumentEditor.InvoiceType)
             {
-                Tangenta.usrc_Invoice.InvoiceType xInvoiceType = (Tangenta.usrc_Invoice.InvoiceType)cmb_InvoiceType.SelectedItem;
-                Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
+                Tangenta.usrc_DocumentEditor.InvoiceType xInvoiceType = (Tangenta.usrc_DocumentEditor.InvoiceType)cmb_InvoiceType.SelectedItem;
+                Tangenta.usrc_DocumentEditor.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
                 if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 {
                     List<object> xShopC_Data_Item_List = null;
@@ -634,21 +634,21 @@ namespace Tangenta
                     DataTable xdt_ShopA_Items = null;
                     if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                     {
-                        m_usrc_Invoice.SetNewDraft(eInvType, xFinancialYear, currency, xAtom_Currency_ID);
+                        m_usrc_DocumentEditor.SetNewDraft(eInvType, xFinancialYear, currency, xAtom_Currency_ID);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
-                        m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
+                        m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
                         WriteShopABC_items(eInvType,
                                            xShopC_Data_Item_List,
                                            xdt_ShopB_Items,
                                            xdt_ShopA_Items);
-                        m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear, null);
+                        m_usrc_TableOfDocuments.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear, null);
                     }
                 }
                 else
                 {
                     Program.Cursor_Arrow();
-                    LogFile.Error.Show("ERROR:usrc_InvoiceMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+                    LogFile.Error.Show("ERROR:usrc_DocumentMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
                 }
             }
             Program.Cursor_Arrow();
@@ -658,11 +658,11 @@ namespace Tangenta
         private void New_Copy_To_Another_DocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
-            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
+            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_DocumentEditor.InvoiceType)
             {
-                Tangenta.usrc_Invoice.InvoiceType xInvoiceType = (Tangenta.usrc_Invoice.InvoiceType)cmb_InvoiceType.SelectedItem;
-                Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
-                Tangenta.usrc_Invoice.enum_Invoice New_eInvType = usrc_Invoice.enum_Invoice.TaxInvoice;
+                Tangenta.usrc_DocumentEditor.InvoiceType xInvoiceType = (Tangenta.usrc_DocumentEditor.InvoiceType)cmb_InvoiceType.SelectedItem;
+                Tangenta.usrc_DocumentEditor.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
+                Tangenta.usrc_DocumentEditor.enum_Invoice New_eInvType = usrc_DocumentEditor.enum_Invoice.TaxInvoice;
                 if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 {
                     List<object> xShopC_Data_Item_List = null;
@@ -670,19 +670,19 @@ namespace Tangenta
                     DataTable xdt_ShopA_Items = null;
                     if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                     {
-                        if (eInvType == usrc_Invoice.enum_Invoice.TaxInvoice)
+                        if (eInvType == usrc_DocumentEditor.enum_Invoice.TaxInvoice)
                         {
                             DocInvoice = Program.const_DocProformaInvoice;
-                            New_eInvType = usrc_Invoice.enum_Invoice.ProformaInvoice;
+                            New_eInvType = usrc_DocumentEditor.enum_Invoice.ProformaInvoice;
                         }
-                        else if (eInvType == usrc_Invoice.enum_Invoice.ProformaInvoice)
+                        else if (eInvType == usrc_DocumentEditor.enum_Invoice.ProformaInvoice)
                         {
                             DocInvoice = Program.const_DocInvoice;
-                            New_eInvType = usrc_Invoice.enum_Invoice.TaxInvoice;
+                            New_eInvType = usrc_DocumentEditor.enum_Invoice.TaxInvoice;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:Tangenta:usrc_InvoiceMan:usrc_Invoice.enum_Invoice not implemented:" + eInvType.ToString());
+                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:usrc_Invoice.enum_Invoice not implemented:" + eInvType.ToString());
                             return;
                         }
                         SetDocInvoiceOrDocPoformaInvoice();
@@ -690,20 +690,20 @@ namespace Tangenta
                         Set_cmb_InvoiceType_selected_index();
                         this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
-                        m_usrc_Invoice.SetNewDraft(New_eInvType, xFinancialYear, currency, xAtom_Currency_ID);
+                        m_usrc_DocumentEditor.SetNewDraft(New_eInvType, xFinancialYear, currency, xAtom_Currency_ID);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
-                        m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
+                        m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
                         WriteShopABC_items(New_eInvType,
                                         xShopC_Data_Item_List,
                                         xdt_ShopB_Items,
                                         xdt_ShopA_Items);
-                        m_usrc_InvoiceTable.Init(New_eInvType, true, false, Properties.Settings.Default.FinancialYear, null);
+                        m_usrc_TableOfDocuments.Init(New_eInvType, true, false, Properties.Settings.Default.FinancialYear, null);
                     }
                     else
                     {
                         Program.Cursor_Arrow();
-                        LogFile.Error.Show("ERROR:usrc_InvoiceMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+                        LogFile.Error.Show("ERROR:usrc_DocumentMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
                     }
                 }
             }
@@ -714,26 +714,26 @@ namespace Tangenta
         private void m_usrc_Invoice_Customer_Person_Changed(long Customer_Person_ID)
         {
             Customer_Changed = true;
-            if (this.m_usrc_InvoiceTable.Visible)
+            if (this.m_usrc_TableOfDocuments.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false,Properties.Settings.Default.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false,Properties.Settings.Default.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_aa_Customer_Org_Changed(long Customer_Org_ID)
         {
             Customer_Changed = true;
-            if (this.m_usrc_InvoiceTable.Visible)
+            if (this.m_usrc_TableOfDocuments.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_Storno(bool bStorno)
         {
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
         }
 
         private void m_usrc_Invoice_Load(object sender, EventArgs e)
@@ -765,7 +765,7 @@ namespace Tangenta
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()
         {
-            this.m_usrc_InvoiceTable.Activate_dgvx_XInvoice_SelectionChanged();
+            this.m_usrc_TableOfDocuments.Activate_dgvx_XInvoice_SelectionChanged();
         }
 
         private void SetDocInvoiceOrDocPoformaInvoice()
@@ -777,12 +777,12 @@ namespace Tangenta
             {
                 if (Program.b_FVI_SLO)
                 {
-                    if (this.m_usrc_Invoice.m_InvoiceData.AddOnDI == null)
+                    if (this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI == null)
                     {
-                        this.m_usrc_Invoice.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
+                        this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
-                    this.m_usrc_Invoice.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_Invoice.m_ShopABC, this.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
+                    this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                    Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -808,15 +808,23 @@ namespace Tangenta
             }
         }
 
-        private void SetBackGroundColor()
+        internal void SetBackGroundColor()
         {
             if (IsDocInvoice)
             {
                 this.BackColor = Colors.DocInvoice.BackColor;
+                this.pnl_MainMenu.BackColor = Colors.DocInvoice.BackColor;
+                this.splitContainer1.BackColor = Colors.DocInvoice.BackColor;
+                this.m_usrc_DocumentEditor.BackColor = Colors.m_usrc_DocumentEditor.BackColor;
+                this.m_usrc_TableOfDocuments.BackColor = Colors.m_usrc_TableOfDocuments.BackColor;
             }
             else
             {
                 this.BackColor = Colors.DocProformaInvoice.BackColor;
+                this.pnl_MainMenu.BackColor = Colors.DocProformaInvoice.BackColor;
+                this.splitContainer1.BackColor = Colors.DocProformaInvoice.BackColor;
+                this.m_usrc_DocumentEditor.BackColor = Colors.m_usrc_DocumentEditor.BackColor;
+                this.m_usrc_TableOfDocuments.BackColor = Colors.m_usrc_TableOfDocuments.BackColor;
             }
             if (Program.MainForm != null)
             {
@@ -930,11 +938,11 @@ namespace Tangenta
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
 
-                            if (m_usrc_Invoice != null)
+                            if (m_usrc_DocumentEditor != null)
                             {
-                                if (m_usrc_Invoice.DBtcn != null)
+                                if (m_usrc_DocumentEditor.DBtcn != null)
                                 {
-                                    m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
+                                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
                                     return true;
                                 }
                             }
@@ -1040,11 +1048,11 @@ namespace Tangenta
 
         internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
         {
-            if (m_usrc_Invoice != null)
+            if (m_usrc_DocumentEditor != null)
             {
-                if (m_usrc_Invoice.DBtcn != null)
+                if (m_usrc_DocumentEditor.DBtcn != null)
                 {
-                    m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
+                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
                     if (xnav.eExitResult == Navigation.eEvent.NEXT)
                     {
                         //myStartup.eNextStep++;
@@ -1087,7 +1095,7 @@ namespace Tangenta
                 }
             }
 
-            LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_InvoiceMan.Init(xnav)!");
+            LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_DocumentMan.Init(xnav)!");
 
             if (this.InitMan(xnav))
             {
@@ -1099,12 +1107,12 @@ namespace Tangenta
                         {
                             if (Program.b_FVI_SLO)
                             {
-                                this.m_usrc_Invoice.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                if (Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_Invoice.m_ShopABC, this.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_Invoice.m_InvoiceData.AddOnDPI))
+                                this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                if (Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
                                 {
                                     this.SetDocument(xnav);
                                 }
-                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_InvoiceMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
+                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
                             }
                         }
                     }

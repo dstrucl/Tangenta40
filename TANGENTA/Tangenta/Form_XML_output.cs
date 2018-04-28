@@ -24,7 +24,7 @@ namespace Tangenta
     public partial class Form_XML_output : Form
     {
         public string XML_Destination_Folder = "";
-        usrc_InvoiceTable m_usrc_InvoiceTable = null;
+        usrc_TableOfDocuments m_usrc_InvoiceTable = null;
         public string IZPIS_RACUNI_GLAVE = "IZPIS_RACUNI_GLAVE";
         public string IZPIS_RACUNI_POSTAVKE = "IZPIS_RACUNI_POSTAVKE";
         public string filename_XML_IZPIS_RACUNI_GLAVE_TXT = null;
@@ -44,7 +44,7 @@ namespace Tangenta
 
         
         
-        public Form_XML_output(usrc_InvoiceTable xusrc_InvoiceTable)
+        public Form_XML_output(usrc_TableOfDocuments xusrc_InvoiceTable)
         {
             InitializeComponent();
             m_usrc_InvoiceTable = xusrc_InvoiceTable;

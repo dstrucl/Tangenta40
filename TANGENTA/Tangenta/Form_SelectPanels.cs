@@ -20,29 +20,29 @@ namespace Tangenta
 {
     public partial class Form_SelectPanels : Form
     {
-        usrc_InvoiceMan m_usrc_InvoiceMan = null;
-        public Form_SelectPanels(usrc_InvoiceMan x_usrc_InvoiceMan)
+        usrc_DocumentMan m_usrc_DocumentMan = null;
+        public Form_SelectPanels(usrc_DocumentMan x_usrc_DocumentMan)
         {
             InitializeComponent();
             rdb_Items.Checked = false;
             rdb_ItemsAndDoc.Checked = false;
             rdb_Doc.Checked = false;
-            m_usrc_InvoiceMan = x_usrc_InvoiceMan;
-            if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Shops)
+            m_usrc_DocumentMan = x_usrc_DocumentMan;
+            if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops)
             {
                 rdb_Items.Checked = true;
             }
-            else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Shops_and_InvoiceTable)
+            else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops_and_InvoiceTable)
             {
                 rdb_ItemsAndDoc.Checked = true;
             }
-            else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.InvoiceTable)
+            else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.InvoiceTable)
             {
                 rdb_Doc.Checked = true;
             }
             else
             {
-                LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_InvoiceMan.Mode illegal Mode!");
+                LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_DocumentMan.Mode illegal Mode!");
             }
 
             this.rdb_Doc.CheckedChanged += new System.EventHandler(this.rdb_Doc_CheckedChanged);
@@ -55,7 +55,7 @@ namespace Tangenta
         {
             if (rdb_Items.Checked)
             {
-                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Shops);
+                m_usrc_DocumentMan.SetMode(usrc_DocumentMan.eMode.Shops);
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -65,11 +65,11 @@ namespace Tangenta
         {
             if (rdb_ItemsAndDoc.Checked)
             {
-                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Shops_and_InvoiceTable);
-                if (m_usrc_InvoiceMan.Customer_Changed)
+                m_usrc_DocumentMan.SetMode(usrc_DocumentMan.eMode.Shops_and_InvoiceTable);
+                if (m_usrc_DocumentMan.Customer_Changed)
                 {
-                    m_usrc_InvoiceMan.Customer_Changed = false;
-                    m_usrc_InvoiceMan.m_usrc_InvoiceTable.Init(m_usrc_InvoiceMan.m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                    m_usrc_DocumentMan.Customer_Changed = false;
+                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
             Close();
@@ -80,11 +80,11 @@ namespace Tangenta
         {
             if (rdb_Doc.Checked)
             {
-                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.InvoiceTable);
-                if (m_usrc_InvoiceMan.Customer_Changed)
+                m_usrc_DocumentMan.SetMode(usrc_DocumentMan.eMode.InvoiceTable);
+                if (m_usrc_DocumentMan.Customer_Changed)
                 {
-                    m_usrc_InvoiceMan.Customer_Changed = false;
-                    m_usrc_InvoiceMan.m_usrc_InvoiceTable.Init(m_usrc_InvoiceMan.m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                    m_usrc_DocumentMan.Customer_Changed = false;
+                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
             Close();
@@ -99,8 +99,8 @@ namespace Tangenta
 
         private void Form_SelectPanels_Load(object sender, EventArgs e)
         {
-            this.Top = m_usrc_InvoiceMan.btn_SelectPanels.Top + m_usrc_InvoiceMan.btn_SelectPanels.Height;
-            this.Left = m_usrc_InvoiceMan.btn_SelectPanels.Left;
+            this.Top = m_usrc_DocumentMan.btn_SelectPanels.Top + m_usrc_DocumentMan.btn_SelectPanels.Height;
+            this.Left = m_usrc_DocumentMan.btn_SelectPanels.Left;
         }
     }
 }

@@ -433,13 +433,13 @@ namespace Tangenta
         public static ltext s_OK = new ltext(new string[]{"OK",
                                                  "V redu"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocProformaInvoice_AddOn .cs
 
-        public static ltext s_Year = new ltext(new string[] { "Year", "Leto" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceMan.cs
+        public static ltext s_Year = new ltext(new string[] { "Year", "Leto" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
 
         public static ltext s_DocProformaInvoice = new ltext(new string[]{"Proforma-Invoice",
-                                                         "Predračun"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceMan.cs
+                                                         "Predračun"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
 
         public static ltext s_btn_New = new ltext(new string[]{"New",
-                                                    "Nov"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceMan.cs
+                                                    "Nov"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
 
         public static ltext s_IssueDate = new ltext(new string[] { "Issue date", "Čas izdaje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
 

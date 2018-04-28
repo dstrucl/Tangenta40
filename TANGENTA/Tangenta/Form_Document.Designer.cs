@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Document));
-            this.m_usrc_Main = new Tangenta.usrc_InvoiceMan();
+            this.m_usrc_Main = new Tangenta.usrc_DocumentMan();
             this.SuspendLayout();
             // 
             // m_usrc_Main
@@ -42,7 +42,7 @@
             this.m_usrc_Main.Name = "m_usrc_Main";
             this.m_usrc_Main.Size = new System.Drawing.Size(1000, 643);
             this.m_usrc_Main.TabIndex = 0;
-            this.m_usrc_Main.Exit_Click += new Tangenta.usrc_InvoiceMan.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
+            this.m_usrc_Main.Exit_Click += new Tangenta.usrc_DocumentMan.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
             // 
             // Form_Document
             // 
@@ -67,7 +67,7 @@
 
         #endregion
 
-        internal usrc_InvoiceMan m_usrc_Main;
+        internal usrc_DocumentMan m_usrc_Main;
     }
 }
 

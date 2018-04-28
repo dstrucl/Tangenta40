@@ -27,7 +27,7 @@ namespace Tangenta
         public string VOD_xsd_shema_file = "";
         DataSet ds_VOD = new DataSet();
         public string XML_Destination_Folder = "";
-        usrc_InvoiceTable m_usrc_InvoiceTable = null;
+        usrc_TableOfDocuments m_usrc_InvoiceTable = null;
         public string IZPIS_RACUNI_GLAVE = "VOD";
         public string filename_XML_IZPIS_RACUNI_GLAVE_TXT = null;
         DataTable dt_XML_Invoices = new DataTable();
@@ -49,7 +49,7 @@ namespace Tangenta
 
         
         
-        public Form_VODxml_OPAL_output(usrc_InvoiceTable xusrc_InvoiceTable)
+        public Form_VODxml_OPAL_output(usrc_TableOfDocuments xusrc_InvoiceTable)
         {
             InitializeComponent();
             m_usrc_InvoiceTable = xusrc_InvoiceTable;
