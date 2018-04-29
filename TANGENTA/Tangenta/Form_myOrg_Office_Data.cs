@@ -19,12 +19,12 @@ namespace Tangenta
 {
     public partial class Form_myOrg_Office_Data : Form
     {
-        UniqueControlName uctrln = new UniqueControlName();
+        private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
-        string ColumnToOrderBy = "Office_Data_$_office_$$Name asc";
-        long m_Office_ID = -1;
-        SQLTable tbl_Office_Data = null;
-        NavigationButtons.Navigation nav = null;
+        private string ColumnToOrderBy = "Office_Data_$_office_$$Name asc";
+        private long m_Office_ID = -1;
+        private SQLTable tbl_Office_Data = null;
+        private NavigationButtons.Navigation nav = null;
 
         public Form_myOrg_Office_Data(long xOffice_ID,NavigationButtons.Navigation xnav)
         {

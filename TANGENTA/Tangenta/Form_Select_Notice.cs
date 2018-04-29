@@ -15,7 +15,7 @@ namespace Tangenta
     {
         public long_v Notice_ID_v = null;
         public string_v NoticeText_v = null;
-        DataTable dtNotice = null;
+        private DataTable dtNotice = null;
         public Form_Select_Notice()
         {
             InitializeComponent();

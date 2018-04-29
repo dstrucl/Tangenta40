@@ -21,7 +21,7 @@ namespace Tangenta
 {
     public partial class Form_ShowShops : Form
     {
-        usrc_DocumentEditor m_usrc_Invoice = null;
+        private usrc_DocumentEditor m_usrc_Invoice = null;
         public Form_ShowShops(usrc_DocumentEditor x_usrc_Invoice)
         {
             InitializeComponent();

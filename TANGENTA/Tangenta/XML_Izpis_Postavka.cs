@@ -21,7 +21,7 @@ namespace Tangenta
 {
     public class XML_Izpis_Postavka
     {
-        Form frm_parent = null;
+        private Form frm_parent = null;
         public List<XML_Postavka> XML_Postavka_List = new List<XML_Postavka>();
 
         public XML_Izpis_Postavka(Form_XML_output frm)

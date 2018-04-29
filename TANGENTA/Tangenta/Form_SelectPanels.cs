@@ -20,7 +20,7 @@ namespace Tangenta
 {
     public partial class Form_SelectPanels : Form
     {
-        usrc_DocumentMan m_usrc_DocumentMan = null;
+        private usrc_DocumentMan m_usrc_DocumentMan = null;
         public Form_SelectPanels(usrc_DocumentMan x_usrc_DocumentMan)
         {
             InitializeComponent();

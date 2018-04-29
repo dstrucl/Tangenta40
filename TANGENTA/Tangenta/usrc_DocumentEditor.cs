@@ -34,9 +34,8 @@ namespace Tangenta
         public usrc_ShopC m_usrc_ShopC = null;
 
         public string ShopsMode = "";
-
-        usrc_DocumentMan m_usrc_DocumentMan = null;
-        NavigationButtons.Navigation nav = null;
+        private usrc_DocumentMan m_usrc_DocumentMan = null;
+        private NavigationButtons.Navigation nav = null;
 
         private string m_DocInvoice = Program.const_DocInvoice;
 
@@ -1061,8 +1060,8 @@ namespace Tangenta
                 return false;
             }
         }
-        
-        void chk_Head_CheckedChanged(object sender, EventArgs e)
+
+        private void chk_Head_CheckedChanged(object sender, EventArgs e)
         {
             if (chk_Head.Checked)
             {
@@ -2036,22 +2035,22 @@ namespace Tangenta
             GetPriceSum();
         }
 
-        void usrc_ShopB_ItemUpdated(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ItemUpdated(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        void usrc_ShopB_ExtraDiscount(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ExtraDiscount(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        void usrc_ShopB_ItemRemoved(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ItemRemoved(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        void usrc_ShopB_ItemAdded(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ItemAdded(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }

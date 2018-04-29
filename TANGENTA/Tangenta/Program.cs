@@ -26,21 +26,21 @@ using TangentaPrint;
 
 namespace Tangenta
 {
-    static class Program
+    internal static class Program
     {
 
         #region Constants
         internal const string TANGENTA_SETTINGS_SUB_FOLDER = "\\Settings";
         internal const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\SQliteBackup";
         internal const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\VODshema";
-        const string const_command_DOCINVOICE = "DOCINVOICE";
-        const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
-        const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
-        const string const_command_RESETNEW = "RESETNEW";
-        const string const_command_AUTONEXT = "AUTONEXT";
-        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
-        const string const_command_SYMULATOR = "SYMULATOR";
-        const string const_command_RS232MONITOR = "RS232MONITOR";
+        private const string const_command_DOCINVOICE = "DOCINVOICE";
+        private const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
+        private const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
+        private const string const_command_RESETNEW = "RESETNEW";
+        private const string const_command_AUTONEXT = "AUTONEXT";
+        private const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
+        private const string const_command_SYMULATOR = "SYMULATOR";
+        private const string const_command_RS232MONITOR = "RS232MONITOR";
 
         public const string const_DocInvoice = "DocInvoice";
         public const string const_DocProformaInvoice = "DocProformaInvoice";
@@ -161,7 +161,7 @@ namespace Tangenta
         #region External WIN_API
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
+        extern private static  bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("User32")]
         extern public static int GetGuiResources(IntPtr hProcess, int uiFlags);
@@ -454,7 +454,7 @@ namespace Tangenta
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
 
             bool bExitBeforeLogFileInitialised = false;

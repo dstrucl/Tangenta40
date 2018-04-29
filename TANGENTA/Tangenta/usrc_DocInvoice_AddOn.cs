@@ -177,7 +177,7 @@ namespace Tangenta
             }
         }
 
-        void rdb_AllreadyPayed_CheckedChanged(object sender, EventArgs e)
+        private void rdb_AllreadyPayed_CheckedChanged(object sender, EventArgs e)
         {
             if (rdb_AllreadyPayed.Checked)
             {

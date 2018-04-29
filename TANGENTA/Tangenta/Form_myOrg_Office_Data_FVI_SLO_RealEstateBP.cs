@@ -20,12 +20,12 @@ namespace Tangenta
 {
     public partial class Form_myOrg_Office_Data_FVI_SLO_RealEstateBP : Form
     {
-        UniqueControlName uctrln = new UniqueControlName();
+        private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
-        string ColumnToOrderBy = "FVI_SLO_RealEstateBP_$$Community asc";
-        long m_Office_Data_ID = -1;
-        SQLTable tbl_FVI_SLO_RealEstateBP = null;
-        NavigationButtons.Navigation nav = null;
+        private string ColumnToOrderBy = "FVI_SLO_RealEstateBP_$$Community asc";
+        private long m_Office_Data_ID = -1;
+        private SQLTable tbl_FVI_SLO_RealEstateBP = null;
+        private NavigationButtons.Navigation nav = null;
 
 
         public Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(long xOffice_Data_ID,NavigationButtons.Navigation xnav)

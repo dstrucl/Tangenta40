@@ -23,7 +23,7 @@ namespace Tangenta
     {
         private usrc_DocumentMan m_usrc_Main;
         private bool bResetShopsInUse = false;
-        NavigationButtons.Navigation nav = null;
+        private NavigationButtons.Navigation nav = null;
 
 
         public Form_ShopsInUse(NavigationButtons.Navigation xnav, bool xbResetShopsInUse, usrc_DocumentMan xusrc_Main)

@@ -21,7 +21,7 @@ namespace Tangenta
 {
     public partial class Form_DocInvoice_PaymentCash : Form
     {
-        decimal GrossSum = 0;
+        private decimal GrossSum = 0;
         private decimal m_Cash_AmountReceived = 0;
         private decimal m_Cash_ToReturn = 0;
 

@@ -23,8 +23,8 @@ namespace Tangenta
     public partial class Form_XML_FilesPreview : Form
     {
         private Form_XML_output m_form_XML_output;
-        DataTable dt_Invoice = new DataTable();
-        DataTable dt_Item = new DataTable();
+        private DataTable dt_Invoice = new DataTable();
+        private DataTable dt_Item = new DataTable();
 
         public Form_XML_FilesPreview()
         {

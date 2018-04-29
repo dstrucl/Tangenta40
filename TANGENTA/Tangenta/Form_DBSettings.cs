@@ -14,7 +14,7 @@ namespace Tangenta
 {
     public partial class Form_DBSettings : Form
     {
-        NavigationButtons.Navigation nav = null;
+        private NavigationButtons.Navigation nav = null;
         public string AdministratorLockedPassword { get { return this.usrc_Password1.Text; } }
         public bool MultiuserOperationWithLogin { get { return rdb_MultiUserOperation.Checked; } }
         public bool SingleUserLoginAsAdministrator { get { return chk_SingleUserLoginAsAdministrator.Checked; } }

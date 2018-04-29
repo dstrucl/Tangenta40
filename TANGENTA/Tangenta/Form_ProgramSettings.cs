@@ -28,9 +28,9 @@ namespace Tangenta
         private int newLanguage = -1;
         private usrc_DocumentMan m_usrc_Main;
         private bool bChanged = false;
-        NavigationButtons.Navigation nav = null;
+        private NavigationButtons.Navigation nav = null;
         private Form LogManager_dlg = null;
-        bool bDBSettingsChanged = false;
+        private bool bDBSettingsChanged = false;
 
         public Form_ProgramSettings(usrc_DocumentMan usrc_Main,NavigationButtons.Navigation xnav)
         {
@@ -98,7 +98,7 @@ namespace Tangenta
 
         }
 
-        void chk_AllowToEditText_CheckedChanged(object sender, EventArgs e)
+        private void chk_AllowToEditText_CheckedChanged(object sender, EventArgs e)
         {
             bChanged = true;
             DynSettings.AllowToEditText = chk_AllowToEditText.Checked;

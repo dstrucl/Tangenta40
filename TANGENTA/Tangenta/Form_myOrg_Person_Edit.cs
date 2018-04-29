@@ -26,12 +26,12 @@ namespace Tangenta
 {
     public partial class Form_myOrg_Person_Edit : Form
     {
-        UniqueControlName uctrln = new UniqueControlName();
-        bool bclose = false;
+        private UniqueControlName uctrln = new UniqueControlName();
+        private bool bclose = false;
         private long m_Office_ID;
         private SQLTable tbl_myOrganisation_Person;
         private string ColumnToOrderBy = "myOrganisation_Person_$_per_$_cln_$$LastName asc";
-        NavigationButtons.Navigation nav = null;
+        private NavigationButtons.Navigation nav = null;
 
         public Form_myOrg_Person_Edit(long xOffice_ID,NavigationButtons.Navigation xnav)
         {

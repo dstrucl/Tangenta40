@@ -21,7 +21,7 @@ namespace Tangenta
 {
     public class DURS_Izpis_Postavka
     {
-        Form frm_parent = null;
+        private Form frm_parent = null;
         public List<DURS_Postavka> DURS_Postavka_List = new List<DURS_Postavka>();
 
         public DURS_Izpis_Postavka(Form_DURS_output frm)

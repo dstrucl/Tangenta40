@@ -24,11 +24,11 @@ namespace Tangenta
 {
     public partial class Form_Expiry_Check : Form
     {
-        string m_sNoExpiryDate = null;
-        string m_sNoSaleBeforeExpiryDateInDays = null;
-        string m_sNoDiscardBeforeExpiryDateInDays = null;
-        DataTable dt_ExpiryCheck = null;
-        int iSaleBeforeExpiryDateInDays_COUNT = 0;
+        private string m_sNoExpiryDate = null;
+        private string m_sNoSaleBeforeExpiryDateInDays = null;
+        private string m_sNoDiscardBeforeExpiryDateInDays = null;
+        private DataTable dt_ExpiryCheck = null;
+        private int iSaleBeforeExpiryDateInDays_COUNT = 0;
         public Form_Expiry_Check()
         {
             InitializeComponent();

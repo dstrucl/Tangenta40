@@ -35,8 +35,7 @@ namespace Tangenta
         public long_v Customer_OrganisationData_ID_v = null;
         public long_v Customer_Person_ID_v = null;
         public NavigationButtons.Navigation nav = null;
-
-        List<CustomerItem> CustomerItemType_List = null;
+        private List<CustomerItem> CustomerItemType_List = null;
         public usrc_Customer()
         {
             InitializeComponent();

@@ -40,14 +40,13 @@ namespace Tangenta
         internal DateTime DateOfBirth = DateTime.MinValue;
         public long Person_ID = -1;
         public long CustomerPerson_ID = -1;
-
-        List<long> List_of_Inserted_Items_ID = null; 
-        DataTable dt_Item = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        long_v ID_v = null;
-        string ColumnOrderBy = "";
-        NavigationButtons.Navigation nav = null;
+        private List<long> List_of_Inserted_Items_ID = null;
+        private DataTable dt_Item = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private long_v ID_v = null;
+        private string ColumnOrderBy = "";
+        private NavigationButtons.Navigation nav = null;
 
         public Form_Customer_Person_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {

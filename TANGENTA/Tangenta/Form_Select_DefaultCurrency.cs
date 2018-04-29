@@ -26,9 +26,8 @@ namespace Tangenta
         private long DefaultCurrency_ID = -1;
         public long Currency_ID = -1;
         public TangentaDB.xCurrency m_xCurrency = null;
-        NavigationButtons.Navigation nav = null;
-
-        DataTable dtCurrency = new DataTable();
+        private NavigationButtons.Navigation nav = null;
+        private DataTable dtCurrency = new DataTable();
         public Form_Select_DefaultCurrency(long xDefaultCurrency_ID, ref TangentaDB.xCurrency xxCurrency, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();

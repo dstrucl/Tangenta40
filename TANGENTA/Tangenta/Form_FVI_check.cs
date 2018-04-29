@@ -13,7 +13,7 @@ namespace Tangenta
 {
     public partial class Form_FVI_check : Form
     {
-        NavigationButtons.Navigation nav = null;
+        private NavigationButtons.Navigation nav = null;
         public Form_FVI_check(NavigationButtons.Navigation xnav)
         {
             InitializeComponent();

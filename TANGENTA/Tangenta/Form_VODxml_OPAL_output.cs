@@ -25,12 +25,12 @@ namespace Tangenta
     public partial class Form_VODxml_OPAL_output : Form
     {
         public string VOD_xsd_shema_file = "";
-        DataSet ds_VOD = new DataSet();
+        private DataSet ds_VOD = new DataSet();
         public string XML_Destination_Folder = "";
-        usrc_TableOfDocuments m_usrc_InvoiceTable = null;
+        private usrc_TableOfDocuments m_usrc_InvoiceTable = null;
         public string IZPIS_RACUNI_GLAVE = "VOD";
         public string filename_XML_IZPIS_RACUNI_GLAVE_TXT = null;
-        DataTable dt_XML_Invoices = new DataTable();
+        private DataTable dt_XML_Invoices = new DataTable();
 
 
 
@@ -43,9 +43,8 @@ namespace Tangenta
         private DataTable dt_Obracunsko_obdobje = null;
         private DataTable dt_Partner = null;
         private DataTable dt_Knjizba = null;
-
-        int iObracunsko_Obdobje = 0;
-        int iLeto_Obracunskega_Obdobja = 0;
+        private int iObracunsko_Obdobje = 0;
+        private int iLeto_Obracunskega_Obdobja = 0;
 
         
         

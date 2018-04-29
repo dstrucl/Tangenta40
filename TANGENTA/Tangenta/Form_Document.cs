@@ -32,41 +32,36 @@ namespace Tangenta
     public partial class Form_Document : Form
     {
         private string default_FormName = null;
-
-        HUDCMS.HelpWizzardTagDC tagDCTop = null;
-
-        HUDCMS.HelpWizzardTagDC tagDC_DocType_Invoice = null;
-        HUDCMS.HelpWizzardTagDC tagDC_DocType_ProformeInvoice = null;
-        HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_MultiUser_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_MultiUser_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceHead_Visible_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceHead_Visible_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_ViewMode = null;
-        HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_EditMode = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_false = null;
-
-        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups0 = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups1 = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups2 = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups3 = null;
-
-        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_true = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_false = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups0 = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups1 = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups2 = null;
-        HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups3 = null;
-
-        HUDCMS.HelpWizzardTagDC tagDCBottom = null;
+        private HUDCMS.HelpWizzardTagDC tagDCTop = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_DocType_Invoice = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_DocType_ProformeInvoice = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_MultiUser_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_MultiUser_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Visible_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceHead_Visible_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceHead_Visible_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_InvoiceTable_Visible_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_ViewMode = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_usrc_Invoice_Mode_EditMode = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopA_Visible_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopB_Visible_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups0 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups1 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups2 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopB_Groups3 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopC_Visible_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups0 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups1 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups2 = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_ShopC_Groups3 = null;
+        private HUDCMS.HelpWizzardTagDC tagDCBottom = null;
 
         internal HUDCMS.HelpWizzardTagDC[] TagDCs = null;
 
@@ -107,6 +102,7 @@ namespace Tangenta
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
             default_FormName = this.Name;
+            this.Icon = Properties.Resources.Tangenta_Icon;
             Program.nav = new NavigationButtons.Navigation();
             if (Program.Auto_NEXT)
             {
@@ -382,10 +378,7 @@ namespace Tangenta
             Properties.Settings.Default.Save();
         }
 
-
-
-
-        void Main_Form_KeyUp(object sender, KeyEventArgs e)
+        private void Main_Form_KeyUp(object sender, KeyEventArgs e)
         {
             
             if (e.KeyCode == Keys.F10)

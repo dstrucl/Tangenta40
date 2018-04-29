@@ -38,11 +38,11 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#FFFFFF")),  // Color7
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#E2FFBA")),  // Color8
+                 ColorTranslator.FromHtml("#F9BCC2")),  // Color8
  new ColorPair(ColorTranslator.FromHtml("#936B20"),
                  ColorTranslator.FromHtml("#FFFFFF")),  // Color9
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F5F7D4")),  // Color10
+                 ColorTranslator.FromHtml("#DEF0A6")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#FFFFFF")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),

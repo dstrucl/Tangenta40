@@ -23,10 +23,10 @@ namespace Tangenta
 {
     public partial class Form_myOrg_Edit : Form
     {
-        DataTable dt_my_company = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        NavigationButtons.Navigation nav = null;
+        private DataTable dt_my_company = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private NavigationButtons.Navigation nav = null;
 
         public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew, NavigationButtons.Navigation xnav)
         {

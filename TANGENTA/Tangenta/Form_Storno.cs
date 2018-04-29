@@ -25,8 +25,8 @@ namespace Tangenta
 
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
-        DataTable dt_journal_invoice_type = new DataTable();
-        long m_Invoice_ID = -1;
+        private DataTable dt_journal_invoice_type = new DataTable();
+        private long m_Invoice_ID = -1;
         public string m_sInvoiceToStorno = null;
         public string m_Reason = null;
 

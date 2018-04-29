@@ -24,15 +24,15 @@ namespace Tangenta
 {
     public partial class Form_PersonData_Edit : Form
     {
-        UniqueControlName uctrln = new UniqueControlName();
-        List<long> List_of_Inserted_Items_ID = null; 
-        DataTable dt_Item = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        long_v ID_v = null;
-        string ColumnOrderBy = "";
-        string sWhereCondition = "";
-        NavigationButtons.Navigation nav = null;
+        private UniqueControlName uctrln = new UniqueControlName();
+        private List<long> List_of_Inserted_Items_ID = null;
+        private DataTable dt_Item = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private long_v ID_v = null;
+        private string ColumnOrderBy = "";
+        private string sWhereCondition = "";
+        private NavigationButtons.Navigation nav = null;
         private long m_Person_ID = -1;
 
         public Form_PersonData_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy,NavigationButtons.Navigation xnav)

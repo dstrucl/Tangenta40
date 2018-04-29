@@ -27,7 +27,7 @@ namespace Tangenta
 {
     public partial class usrc_DocumentMan : UserControl
     {
-        Form Main_Form = null;
+        private Form Main_Form = null;
 
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
@@ -50,7 +50,7 @@ namespace Tangenta
 
         public enum eMode { Shops, InvoiceTable, Shops_and_InvoiceTable };
         public eMode Mode = eMode.Shops_and_InvoiceTable;
-        Form m_pparent = null;
+        private Form m_pparent = null;
         public List<Tangenta.usrc_DocumentEditor.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_DocumentEditor.InvoiceType>();
         public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocInvoice = null;
         public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocProformaInvoice = null;

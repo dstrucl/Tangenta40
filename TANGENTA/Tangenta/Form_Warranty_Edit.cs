@@ -21,11 +21,11 @@ namespace Tangenta
 {
     public partial class Form_Warranty_Edit : Form
     {
-        DataTable dt_Warranty = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        string ColumnOrderBy = null;
-        NavigationButtons.Navigation nav = null;
+        private DataTable dt_Warranty = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private string ColumnOrderBy = null;
+        private NavigationButtons.Navigation nav = null;
 
         public Form_Warranty_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,NavigationButtons.Navigation xnav)
         {

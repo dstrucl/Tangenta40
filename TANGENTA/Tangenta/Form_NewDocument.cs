@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using HUDCMS;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,23 @@ namespace Tangenta
 {
     public partial class Form_NewDocument : Form
     {
+        private HUDCMS.HelpWizzardTagDC tagDCTop = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_DocType_Invoice = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_DocType_ProformaInvoice = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_EmptyDB_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDCBottom = null;
+
+        internal HUDCMS.HelpWizzardTagDC[] TagDCs = null;
+
+
         public enum e_NewDocument { New_Empty, New_Copy_Of_SameDocType, New_Copy_To_Another_DocType,UNKNOWN}
 
-        usrc_DocumentMan m_usrc_DocumentMan = null;
+        private usrc_DocumentMan m_usrc_DocumentMan = null;
         public e_NewDocument eNewDocumentResult = e_NewDocument.UNKNOWN;
         public int FinancialYear = -1;
+
+        private Form_NewDocument_WizzardForHelp frm_NewDocument_WizzardForHelp = null;
 
         public Form_NewDocument(usrc_DocumentMan xusrc_DocumentMan)
         {
@@ -75,6 +88,7 @@ namespace Tangenta
                 this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber);
             }
             usrc_Currency1.Init(GlobalData.BaseCurrency);
+            SetNewFormTag();
         }
 
         private void btn_New_Empty_Click(object sender, EventArgs e)
@@ -106,6 +120,113 @@ namespace Tangenta
             FinancialYear = ixFinancialYear;
             this.Close();
             DialogResult = DialogResult.OK;
+        }
+
+        private void SetNewFormTag()
+        {
+
+            tagDCTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Top", "", null, null);
+
+            tagDC_DocType_Invoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "Invoice");
+            tagDC_DocType_ProformaInvoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "ProformaInvoice");
+
+            tagDC_EmptyDB_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "true");
+            tagDC_EmptyDB_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "false");
+
+
+            tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "", null, null);
+
+
+            TagDCs = new HUDCMS.HelpWizzardTagDC[] {
+            tagDCTop,
+            tagDC_DocType_Invoice,
+            tagDC_DocType_ProformaInvoice,
+            tagDC_EmptyDB_true,
+            tagDC_EmptyDB_false,
+            tagDCBottom
+            };
+
+            HUDCMS.HelpWizzardTag hlpwizTag = new HelpWizzardTag(TagDCs, null,null);
+            hlpwizTag.DefaultControlWidth = this.Width;
+            hlpwizTag.DefaultControlHeight = this.Height;
+
+
+
+            long numberOfAll = -1;
+            string[] sTagConditions = null;
+
+            string sxmlfilesuffix = "";
+            string sNewTag = GetStringTag(ref numberOfAll, ref sTagConditions, ref sxmlfilesuffix);
+
+            hlpwizTag.FileSuffix = sNewTag;
+            hlpwizTag.XmlFileSuffix = sxmlfilesuffix;
+            hlpwizTag.ShowWizzard = HelpWizzardShow;
+
+            this.Tag = hlpwizTag;
+        }
+
+        internal string GetStringTag(ref long numberOfAll, ref string[] sTagConditions, ref string sXMLFiletag)
+        {
+            string sNewTag = "_";
+            sXMLFiletag = "_";
+            List<string> tag_conditions = new List<string>();
+            if (this.m_usrc_DocumentMan.IsDocInvoice)
+            {
+                numberOfAll = fs.NumberOInvoicesInDatabase();
+                sNewTag += "i";
+                sXMLFiletag += "i";
+                tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
+            }
+            else if (this.m_usrc_DocumentMan.IsDocProformaInvoice)
+            {
+                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                sNewTag += "p";
+                sXMLFiletag += "p";
+                tag_conditions.Add(tagDC_DocType_ProformaInvoice.NamedCondition);
+            }
+
+            if (numberOfAll < 0)
+            {
+                LogFile.Error.Show("ERROR:Tangenta:Form_Document:SetNewFormTag:  numberOfAll invoices or proforma invoices < 0 !");
+            }
+            else if (numberOfAll == 0)
+            {
+                sNewTag += "Z";
+                sXMLFiletag += "Z";
+                tag_conditions.Add(tagDC_EmptyDB_true.NamedCondition);
+            }
+            else if (numberOfAll > 0)
+            {
+                sNewTag += "N";
+                sXMLFiletag += "N";
+                tag_conditions.Add(tagDC_EmptyDB_false.NamedCondition);
+            }
+
+            int iconditions_count = tag_conditions.Count;
+            sTagConditions = new string[iconditions_count];
+            for (int i = 0; i < iconditions_count; i++)
+            {
+                sTagConditions[i] = tag_conditions[i];
+            }
+            return sNewTag;
+        }
+
+        public void HelpWizzardShow(Control ctrl, MyControl root_ctrl, string xstyleFile)
+        {
+            if (frm_NewDocument_WizzardForHelp != null)
+            {
+                if (frm_NewDocument_WizzardForHelp.IsDisposed)
+                {
+                    frm_NewDocument_WizzardForHelp = null;
+                }
+
+            }
+            if (frm_NewDocument_WizzardForHelp == null)
+            {
+                frm_NewDocument_WizzardForHelp = new Form_NewDocument_WizzardForHelp(ctrl, root_ctrl, xstyleFile);
+                frm_NewDocument_WizzardForHelp.Owner = this;
+            }
+            frm_NewDocument_WizzardForHelp.Show();
         }
     }
 }

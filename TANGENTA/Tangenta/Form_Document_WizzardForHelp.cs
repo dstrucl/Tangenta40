@@ -13,16 +13,15 @@ namespace Tangenta
 {
     public partial class Form_Document_WizzardForHelp : Form
     {
-
-        int istep_DocInvoice = 0;
-        int istep_m_usrc_InvoiceTable_Visible = 0;
-        int istep_Head = 0;
-        int istep_Shop = 0;
-        HUDCMS.MyControl root_ctrl = null;
+        private int istep_DocInvoice = 0;
+        private int istep_m_usrc_InvoiceTable_Visible = 0;
+        private int istep_Head = 0;
+        private int istep_Shop = 0;
+        private HUDCMS.MyControl root_ctrl = null;
         private bool bRun = false;
         private Control control_ForWizzard = null;
         private Form_Document form_document = null;
-        string styleFile = null;
+        private string styleFile = null;
 
 
 

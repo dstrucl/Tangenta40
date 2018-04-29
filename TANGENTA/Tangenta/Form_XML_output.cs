@@ -24,18 +24,20 @@ namespace Tangenta
     public partial class Form_XML_output : Form
     {
         public string XML_Destination_Folder = "";
-        usrc_TableOfDocuments m_usrc_InvoiceTable = null;
+        private usrc_TableOfDocuments m_usrc_InvoiceTable = null;
         public string IZPIS_RACUNI_GLAVE = "IZPIS_RACUNI_GLAVE";
         public string IZPIS_RACUNI_POSTAVKE = "IZPIS_RACUNI_POSTAVKE";
         public string filename_XML_IZPIS_RACUNI_GLAVE_TXT = null;
         public string filename_XML_IZPIS_RACUNI_POSTAVKE_TXT = null;
+
         //string XML_IZPIS_RACUNI_GLAVE_TXT = "";
         //string XML_IZPIS_RACUNI_POSTAVKE_TXT = "";
-        DataTable dt_XML_Invoices = new DataTable();
+        private DataTable dt_XML_Invoices = new DataTable();
+
         //string Postavke = null;
         //string Glava = null;
-        DataTable dt_IZPIS_RACUNI_GLAVE = null;
-        DataTable dt_IZPIS_RACUNI_POSTAVKE = null;
+        private DataTable dt_IZPIS_RACUNI_GLAVE = null;
+        private DataTable dt_IZPIS_RACUNI_POSTAVKE = null;
 
 
 

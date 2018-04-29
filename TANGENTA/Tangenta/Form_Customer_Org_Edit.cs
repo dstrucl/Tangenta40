@@ -38,14 +38,13 @@ namespace Tangenta
         internal string City = null;
         internal string State = null;
         internal string Country = null;
-
-        List<long> List_of_Inserted_Items_ID = null; 
-        DataTable dt_Item = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        long_v ID_v = null;
-        string ColumnOrderBy = "";
-        NavigationButtons.Navigation nav = null;
+        private List<long> List_of_Inserted_Items_ID = null;
+        private DataTable dt_Item = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private long_v ID_v = null;
+        private string ColumnOrderBy = "";
+        private NavigationButtons.Navigation nav = null;
         public long Customer_OrganisationData_ID = -1;
 
 

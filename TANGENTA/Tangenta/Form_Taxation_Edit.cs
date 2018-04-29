@@ -21,11 +21,11 @@ namespace Tangenta
 {
     public partial class Form_Taxation_Edit : Form
     {
-        DataTable dt_Taxation = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        string ColumnOrderBy = null;
-        NavigationButtons.Navigation nav = null;
+        private DataTable dt_Taxation = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private string ColumnOrderBy = null;
+        private NavigationButtons.Navigation nav = null;
 
         public Form_Taxation_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {

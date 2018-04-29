@@ -21,11 +21,11 @@ namespace Tangenta
 {
     public partial class Form_TermsOfPayment_Edit : Form
     {
-        DataTable dt_TermsOfPayment = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        string ColumnOrderBy = null;
-        NavigationButtons.Navigation nav = null;
+        private DataTable dt_TermsOfPayment = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private string ColumnOrderBy = null;
+        private NavigationButtons.Navigation nav = null;
 
         private long m_TermsOfPayment_ID = -1;
         public long TermsOfPayment_ID
