@@ -29,6 +29,14 @@ namespace XMessage
         {
             InitializeComponent();
             this.Icon = SystemIcons.Information;
+            SetColor();
+        }
+        private void SetColor()
+        {
+            this.BackColor = Colors.MessageBox.BackColor;
+            this.ForeColor = Colors.MessageBox.ForeColor;
+            textBox1.BackColor = Colors.MessageBox.BackColor;
+            textBox1.ForeColor = Colors.MessageBox.ForeColor;
         }
 
         public Icon SetIcon(MessageBoxIcon icon)
@@ -50,8 +58,10 @@ namespace XMessage
         }
         public Form_Box(Control owner, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
+
             // TODO: Complete member initialization
             InitializeComponent();
+            SetColor();
             Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
@@ -152,6 +162,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
+            SetColor();
             Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
@@ -189,6 +200,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
+            SetColor();
             Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
@@ -288,6 +300,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
+            SetColor();
             Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {
@@ -389,6 +402,7 @@ namespace XMessage
         {
             // TODO: Complete member initialization
             InitializeComponent();
+            SetColor();
             Form xOwner = Global.f.GetParentForm(owner);
             if (xOwner != null)
             {

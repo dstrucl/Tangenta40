@@ -24,6 +24,8 @@ namespace ShopB
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_CtrlColor_ShopB = new ltext(new string[] { "Shop B colors", "Barvi prodajalne B" }); 
+
         public static ltext s_Shop_B = new ltext( new string[]{"B", "B"});   // referenced in C:\Tangenta40\TANGENTA\ShopB\Form_SimpleItem_Edit.cs
 
         public static ltext s_OnlyInOffer = new ltext(new string[] { "Only in offer", "Samo tiste v ponudbi" });   // referenced in C:\Tangenta40\TANGENTA\ShopB\Form_SimpleItem_Edit.cs

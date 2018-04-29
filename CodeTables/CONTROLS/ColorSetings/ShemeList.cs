@@ -13,6 +13,7 @@ namespace ColorSettings
 {
     public static class ShemeList
     {
+
         public static readonly int ColorPairsCount = 16;
 
         public static List<ColorSheme> items = new List<ColorSheme>();
@@ -78,7 +79,7 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#BAC7CC")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#BAC7CC")),  // Color11
+                 ColorTranslator.FromHtml("#CDD5D9")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#BAC7CC")),  // Color12
  new ColorPair(ColorTranslator.FromHtml("#000000"),
@@ -113,9 +114,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color11
+                 ColorTranslator.FromHtml("#FECFB8")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color12
+                 ColorTranslator.FromHtml("#FDDFAE")),  // Color12
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
@@ -126,11 +127,11 @@ namespace ColorSettings
         public static ColorSheme Retro = new ColorSettings.ColorSheme(false, "Retro", new ColorPair[]
           {
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#A7414A")),  // Color0
+                 ColorTranslator.FromHtml("#C87884")),  // Color0
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#282726")),  // Color1
+                 ColorTranslator.FromHtml("#A8A79D")),  // Color1
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#6A8A82")),  // Color2
+                 ColorTranslator.FromHtml("#B3C0BF")),  // Color2
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#A37C27")),  // Color3
  new ColorPair(ColorTranslator.FromHtml("#000000"),
@@ -148,9 +149,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color11
+                 ColorTranslator.FromHtml("#FCE5CE")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color12
+                 ColorTranslator.FromHtml("#EEFDA9")),  // Color12
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
@@ -183,9 +184,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color11
+                 ColorTranslator.FromHtml("#F6EF92")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color12
+                 ColorTranslator.FromHtml("#FED58A")),  // Color12
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),
@@ -288,9 +289,9 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color10
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color11
+                 ColorTranslator.FromHtml("#FBCFA1")),  // Color11
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#F18904")),  // Color12
+                 ColorTranslator.FromHtml("#D9F7FB")),  // Color12
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#F18904")),  // Color13
  new ColorPair(ColorTranslator.FromHtml("#000000"),

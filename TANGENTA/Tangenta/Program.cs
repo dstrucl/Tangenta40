@@ -473,6 +473,7 @@ namespace Tangenta
 
                     LanguageControl.DynSettings.InitLanguagePrefixList();
 
+
                     HUDCMS.HUDCMS_static.LanguagePrefixList = LanguageControl.DynSettings.LanguagePrefixList;
                     HUDCMS.HUDCMS_static.LanguageID = LanguageControl.DynSettings.LanguageID;
 
@@ -539,6 +540,12 @@ namespace Tangenta
                     NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
 
+                    ColorSettings.ControlColorDic.ImageCancel = Properties.Resources.Exit;
+                    ColorSettings.ControlColorDic.sColorIndex = lng.s_ColorSettings_ControlColorDic_ColorIndex.s;
+                    ColorSettings.ControlColorDic.sColorOfIndex = lng.s_ColorSettings_ControlColorDic_ColorOfIndex.s;
+                    ColorSettings.ControlColorDic.sOfColorPallete = lng.s_ColorSettings_ControlColorDic_sOfColorPallete.s;
+                    ColorSettings.ControlColorDic.sIsUsedOnTheseControls = lng.s_ColorSettings_ControlColorDic_sIsUsedOnTheseControls.s;
+
                     HUDCMS.HUDCMS_static.slng_LocalURL = lng.s_LocalHelpFolder.s;
                     HUDCMS.HUDCMS_static.slng_LocalHtmlFile = lng.s_slng_LocalHtmlFile.s;
                     HUDCMS.HUDCMS_static.slng_doesNotExist = lng.s_slng_dowsNotExist.s;
@@ -584,6 +591,7 @@ namespace Tangenta
                         goto DoResetNew;
                     }
 
+                    XMessage.Colors.Init();
                     SetColorSettingsText();
                     ColorSettings.Sheme.Load(ref Err);
 

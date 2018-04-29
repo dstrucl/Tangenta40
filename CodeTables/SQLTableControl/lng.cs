@@ -24,6 +24,12 @@ namespace CodeTables
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_CtrlColor_EditTable = new ltext(new string[] { "Edit table color", "Barva urajanja tabele" });
+        public static ltext s_CtrlColor_EditSubTable = new ltext(new string[] { "Edit sub-table color", "Barva urejanje pod-tabele" });
+        public static ltext s_CtrlColor_EditSubSubTable = new ltext(new string[] { "Edit sub-sub-table color", "Barva urejanja pod-pod-tabele" });
+        public static ltext s_CtrlColor_EditSubSubSubTable = new ltext(new string[] { "Edit sub-sub-sub-table color", "Barva urejanja pod-pod-pod-tabele" });
+
+
         public static ltext s_NumberOfTabelsToCreate = new ltext( new string[]{"Number Of Tabels To Create = ",
                                                                  "Število tabel v podatkovni bazi : "});   // referenced in C:\Tangenta40\CodeTables\SQLTableControl\CreateTables_WindowsForm.cs
 

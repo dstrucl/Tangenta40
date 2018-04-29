@@ -24,6 +24,10 @@ namespace Startup
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_CtrlColors_StartupStep = new ltext(new string[] { "Startup step colors", "Barvi zagonskega koraka" });   // referenced in C:\Tangenta40\TANGENTA\Startup\Form_LicenseAgreement.cs
+
+        public static ltext s_CtrlColors_Startup = new ltext(new string[] { "Startup colors", "Barvi zagonskega dialoga" });   // referenced in C:\Tangenta40\TANGENTA\Startup\Form_LicenseAgreement.cs
+
         public static ltext s_License_agreement = new ltext(new string[] { "License agreement", "Licenčna pogodba" });   // referenced in C:\Tangenta40\TANGENTA\Startup\Form_LicenseAgreement.cs
 
         public static ltext s_I_accept_the_terms_in_the_license_agreement = new ltext(new string[] { "I accept the terms in the license agreement", "V celoti sprejemam pogoje in določila licenčne pogodbe" });   // referenced in C:\Tangenta40\TANGENTA\Startup\Form_LicenseAgreement.cs

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colors.cs" />
     <Compile Include="DataGridViewButtonImageCell.cs" />
     <Compile Include="DataGridViewButtonImageColumn.cs" />
     <Compile Include="DataGridViewImageButtonSelectCell.cs" />
@@ -167,6 +168,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>

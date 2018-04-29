@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorPair.cs" />
+    <Compile Include="ControlColorDic.cs" />
     <Compile Include="CtrlColors.cs" />
     <Compile Include="dsColorSheme.cs">
       <DependentUpon>dsColorSheme.xsd</DependentUpon>

@@ -111,7 +111,12 @@ namespace ShopB
         public delegate void delegate_ExtraDiscount(long ID, DataTable dt_SelectedShopBItem);
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
-       
+
+        public void SetColor()
+        {
+            this.BackColor = Colors.ShopB.BackColor;
+            this.ForeColor = Colors.ShopB.ForeColor;
+        }
 
         public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use, NavigationButtons.Navigation xnav)
         {
@@ -160,7 +165,8 @@ namespace ShopB
             string Err = null;
             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_B.s;
-        }
+            SetColor();
+       }
 
         public void SetMode(eMode mode)
         {

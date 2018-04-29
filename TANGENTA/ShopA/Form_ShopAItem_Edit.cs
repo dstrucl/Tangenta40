@@ -30,7 +30,7 @@ namespace ShopA
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
-            this.Text = lng.s_ShopB_Items.s;
+            this.Text = lng.s_ShopA_Items.s;
             if (!usrc_EditTable.Init(dbTables, tbl,null,ColumnToOrderBy,false,null,null,false,null))
             {
                 bclose = true;

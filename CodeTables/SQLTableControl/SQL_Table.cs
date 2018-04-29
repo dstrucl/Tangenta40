@@ -18,6 +18,7 @@ using LanguageControl;
 using System.Drawing;
 using StaticLib;
 using DBTypes;
+using ColorSettings;
 
 namespace CodeTables
 {
@@ -190,9 +191,9 @@ namespace CodeTables
 
         public string sThisVar = "";
 
-        private List<Color> ColorList = new List<Color>();
+        private List<ColorPair> ColorList = new List<ColorPair>();
 
-        private List<Color> DefineView_ColorList = new List<Color>();
+        private List<ColorPair> DefineView_ColorList = new List<ColorPair>();
 
         private void InitColors()
         {
@@ -220,29 +221,29 @@ namespace CodeTables
             //DefineView_ColorList.Add(Color.FromArgb(204, 186, 167));
             //DefineView_ColorList.Add(Color.FromArgb(127, 127, 127));
 
-            ColorList.Add(Colors.ColorLevel0.BackColor);// Color.FromArgb(186, 199, 204));
-            ColorList.Add(Colors.ColorLevel1.BackColor);// Color.FromArgb(204, 186, 199));
-            ColorList.Add(Colors.ColorLevel2.BackColor);// Color.FromArgb(199, 204, 186));
-            ColorList.Add(Colors.ColorLevel3.BackColor);// Color.FromArgb(186, 199, 204));
-            ColorList.Add(Colors.ColorLevel4.BackColor);// Color.FromArgb(204, 186, 199));
-            ColorList.Add(Colors.ColorLevel5.BackColor);// Color.FromArgb(199, 204, 186));
-            ColorList.Add(Colors.ColorLevel6.BackColor);// Color.FromArgb(186, 199, 204));
-            ColorList.Add(Colors.ColorLevel7.BackColor);// Color.FromArgb(204, 186, 199));
-            ColorList.Add(Colors.ColorLevel8.BackColor);// Color.FromArgb(199, 204, 186));
-            ColorList.Add(Colors.ColorLevel9.BackColor);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Colors.EditTable.Colorpair);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Colors.EditSubTable.Colorpair);// Color.FromArgb(204, 186, 199));
+            ColorList.Add(Colors.EditSubSubTable.Colorpair);// Color.FromArgb(199, 204, 186));
+            ColorList.Add(Colors.EditSubSubSubTable.Colorpair);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Colors.EditTable.Colorpair);// Color.FromArgb(204, 186, 199));
+            ColorList.Add(Colors.EditSubTable.Colorpair);// Color.FromArgb(199, 204, 186));
+            ColorList.Add(Colors.EditSubSubTable.Colorpair);// Color.FromArgb(186, 199, 204));
+            ColorList.Add(Colors.EditSubSubSubTable.Colorpair);// Color.FromArgb(204, 186, 199));
+            ColorList.Add(Colors.EditTable.Colorpair);// Color.FromArgb(199, 204, 186));
+            ColorList.Add(Colors.EditSubSubTable.Colorpair);// Color.FromArgb(186, 199, 204));
 
 
 
-            DefineView_ColorList.Add(Colors.ColorLevel0.BackColor);// Color.FromArgb(186, 199, 204));
-            DefineView_ColorList.Add(Colors.ColorLevel1.BackColor);// Color.FromArgb(204, 186, 199));
-            DefineView_ColorList.Add(Colors.ColorLevel2.BackColor);// Color.FromArgb(199, 204, 186));
-            DefineView_ColorList.Add(Colors.ColorLevel3.BackColor);// Color.FromArgb(186, 199, 204));
-            DefineView_ColorList.Add(Colors.ColorLevel4.BackColor);// Color.FromArgb(204, 186, 199));
-            DefineView_ColorList.Add(Colors.ColorLevel5.BackColor);// Color.FromArgb(199, 204, 186));
-            DefineView_ColorList.Add(Colors.ColorLevel6.BackColor);// Color.FromArgb(186, 199, 204));
-            DefineView_ColorList.Add(Colors.ColorLevel7.BackColor);// Color.FromArgb(204, 186, 199));
-            DefineView_ColorList.Add(Colors.ColorLevel8.BackColor);// Color.FromArgb(199, 204, 186));
-            DefineView_ColorList.Add(Colors.ColorLevel9.BackColor);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Colors.EditTable.Colorpair);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Colors.EditSubTable.Colorpair);// Color.FromArgb(204, 186, 199));
+            DefineView_ColorList.Add(Colors.EditSubSubTable.Colorpair);// Color.FromArgb(199, 204, 186));
+            DefineView_ColorList.Add(Colors.EditSubSubSubTable.Colorpair);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Colors.EditTable.Colorpair);// Color.FromArgb(204, 186, 199));
+            DefineView_ColorList.Add(Colors.EditSubTable.Colorpair);// Color.FromArgb(199, 204, 186));
+            DefineView_ColorList.Add(Colors.EditSubSubTable.Colorpair);// Color.FromArgb(186, 199, 204));
+            DefineView_ColorList.Add(Colors.EditSubSubSubTable.Colorpair);// Color.FromArgb(204, 186, 199));
+            DefineView_ColorList.Add(Colors.EditTable.Colorpair);// Color.FromArgb(199, 204, 186));
+            DefineView_ColorList.Add(Colors.EditSubTable.Colorpair);// Color.FromArgb(186, 199, 204));
 
 
         }

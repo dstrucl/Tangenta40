@@ -134,7 +134,8 @@ namespace ShopC
                 usrc_item.ItemAdded2Basket += new usrc_Item.delegate_ItemAdded2Basket(usrc_item_ItemAdded);
                 usrc_item.ItemChanged += usrc_item_ItemChanged;
                 usrc_item.StockChanged += usrc_item_StockChanged;
-                usrc_item.BackColor = GlobalData.Color_Stock;
+                usrc_item.BackColor = Colors.ItemFromStock.BackColor;
+                usrc_item.ForeColor = Colors.ItemFromStock.ForeColor;
                 usrc_Item_aray[i] = usrc_item;
                 this.pnl_Items.Controls.Add(usrc_item);
             }

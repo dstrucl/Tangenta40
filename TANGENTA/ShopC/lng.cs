@@ -24,6 +24,10 @@ namespace ShopC
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_CtrlColor_ItemFromFactory = new ltext(new string[] { "Item from factory colors", "Barvi artikla, ki ni v zalogi" });
+        public static ltext s_CtrlColor_ItemFromProduction = new ltext(new string[] { "Item from stock colors", "Barvi artikla iz zaloge" });
+
+        public static ltext s_CtrlColor_ShopC = new ltext(new string[] { "Shop C colors", "Barvi prodajalne C" });
 
         public static ltext s_Stock_ImportTime = new ltext(new string[] { "Stock Import Time", "Čas vnosa v zalogo" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
         public static ltext s_Stock_ExpiryDate = new ltext(new string[] { "Stock expiry date", "Rok uporabe v zalogi" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs

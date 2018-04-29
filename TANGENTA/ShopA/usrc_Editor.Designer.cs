@@ -308,8 +308,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private usrc_Edit_Item_Tax usrc_Edit_Item_Tax1;
         private usrc_Edit_Item_Unit usrc_Edit_Item_Unit1;
         private usrc_Edit_Item_Price usrc_Edit_Item_Price1;
@@ -327,6 +325,7 @@
         private System.Windows.Forms.TextBox txt_Discount;
         private System.Windows.Forms.Label lbl_NetPrice_Value;
         private System.Windows.Forms.Label lbl_EndNetPrice;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        internal System.Windows.Forms.SplitContainer splitContainer1;
+        internal System.Windows.Forms.SplitContainer splitContainer2;
     }
 }

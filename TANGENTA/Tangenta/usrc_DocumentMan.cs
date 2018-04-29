@@ -318,7 +318,7 @@ namespace Tangenta
             bool bRes = SetDocument(xnav);
 
             this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
-            SetBackGroundColor();
+            SetColor();
 
             Program.Cursor_Arrow();
             return bRes;
@@ -480,7 +480,7 @@ namespace Tangenta
                 {
                 }
             }
-            SetBackGroundColor();
+            SetColor();
         }
 
 
@@ -799,7 +799,7 @@ namespace Tangenta
 
                     break;
             }
-            SetBackGroundColor();
+            SetColor();
             SetDocInvoiceOrDocPoformaInvoice();
             SetFinancialYears();
             if (LayoutChanged!=null)
@@ -808,23 +808,27 @@ namespace Tangenta
             }
         }
 
-        internal void SetBackGroundColor()
+        internal void SetColor()
         {
             if (IsDocInvoice)
             {
                 this.BackColor = Colors.DocInvoice.BackColor;
                 this.pnl_MainMenu.BackColor = Colors.DocInvoice.BackColor;
+                this.pnl_MainMenu.ForeColor = Colors.DocInvoice.ForeColor;
                 this.splitContainer1.BackColor = Colors.DocInvoice.BackColor;
-                this.m_usrc_DocumentEditor.BackColor = Colors.m_usrc_DocumentEditor.BackColor;
+                this.m_usrc_DocumentEditor.SetColor();
                 this.m_usrc_TableOfDocuments.BackColor = Colors.m_usrc_TableOfDocuments.BackColor;
+                this.m_usrc_TableOfDocuments.ForeColor = Colors.m_usrc_TableOfDocuments.ForeColor;
             }
             else
             {
                 this.BackColor = Colors.DocProformaInvoice.BackColor;
                 this.pnl_MainMenu.BackColor = Colors.DocProformaInvoice.BackColor;
+                this.pnl_MainMenu.ForeColor = Colors.DocProformaInvoice.ForeColor;
                 this.splitContainer1.BackColor = Colors.DocProformaInvoice.BackColor;
-                this.m_usrc_DocumentEditor.BackColor = Colors.m_usrc_DocumentEditor.BackColor;
+                this.m_usrc_DocumentEditor.SetColor();
                 this.m_usrc_TableOfDocuments.BackColor = Colors.m_usrc_TableOfDocuments.BackColor;
+                this.m_usrc_TableOfDocuments.ForeColor = Colors.m_usrc_TableOfDocuments.ForeColor;
             }
             if (Program.MainForm != null)
             {

@@ -308,7 +308,8 @@ namespace CodeTables
             {
                 Level = ColorList.Count - 1;
             }
-            pmyGroupBox.BackColor = ColorList[Level];
+            pmyGroupBox.BackColor = ColorList[Level].BackColor;
+            pmyGroupBox.ForeColor = ColorList[Level].ForeColor;
             if (pmyGroupBox.bExpanded)
             {
                 foreach (MyControl ctrl in pmyGroupBox.controls)

@@ -138,7 +138,12 @@ namespace ShopC
             get { return chk_AutomaticSelectionOfItemFromStock.Checked; }
         }
 
-        
+        public void SetColor()
+        {
+            this.BackColor = Colors.ShopC.BackColor;
+            this.ForeColor = Colors.ShopC.ForeColor;
+            Reset();
+        }
 
         public void Init(TangentaDB.ShopABC xm_InvoiceDB,
                         DBTablesAndColumnNames xDBtcn,
@@ -168,6 +173,7 @@ namespace ShopC
             string Err = null;
 
             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC, ShopsInUse, xnav, ref Err);
+            SetColor();
         }
 
         void usrc_Atom_ItemsList_After_Atom_Item_Remove()

@@ -24,8 +24,11 @@ namespace ShopA
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        public static ltext s_ShopB_Items = new ltext( new string[]{"Shop B Items",
-                                                   "Artikli/Storitve prodajalne B"});   // referenced in C:\Tangenta40\TANGENTA\ShopA\Form_ShopAItem_Edit.cs
+        public static ltext s_CtrlColor_ShopA = new ltext(new string[]{"Shop A colors",
+                                                   "Barvi prodajalne A"});   // referenced in C:\Tangenta40\TANGENTA\ShopA\Form_ShopAItem_Edit.cs
+
+        public static ltext s_ShopA_Items = new ltext( new string[]{"Shop A Items",
+                                                   "Artikli/Storitve prodajalne A"});   // referenced in C:\Tangenta40\TANGENTA\ShopA\Form_ShopAItem_Edit.cs
 
         public static ltext s_Select_ShopA_Item = new ltext(new string[] { "Select Item", "Izberite Artikel" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\Form_Tool_SelectItem.cs
 

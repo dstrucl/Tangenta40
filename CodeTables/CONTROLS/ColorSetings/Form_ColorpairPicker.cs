@@ -37,11 +37,42 @@ namespace ColorSettings
             }
         }
 
-        public Form_ColorpairPicker(Color xforecolor, Color xbackcolor)
+        public Form_ColorpairPicker(string slblIndex,Color xforecolor, Color xbackcolor)
         {
             InitializeComponent();
             m_ForeColorSelected = xforecolor;
             m_BackColorSelected = xbackcolor;
+            lbl_Index.Text = ControlColorDic.sColorIndex + slblIndex + " : ";
+            if (ControlColorDic.ImageCancel!=null)
+            {
+                btn_Cancel.Text = "";
+                btn_Cancel.Image = ControlColorDic.ImageCancel;
+                btn_Cancel.ImageAlign = ContentAlignment.MiddleCenter;
+            }
+            int icol = -1;
+            try
+            {
+                icol = Convert.ToInt32(slblIndex);
+            }
+            catch (Exception ex)
+            {
+                icol = -1;
+            }
+            if (icol>=0)
+            {
+                if (ControlColorDic.dic[icol]!=null)
+                {
+                    foreach(string s in ControlColorDic.dic[icol])
+                    {
+                        cmb_ControlsOfColorIndex.Items.Add(s);
+                    }
+                    if (cmb_ControlsOfColorIndex.Items.Count>0)
+                    {
+                        cmb_ControlsOfColorIndex.SelectedIndex = 0;
+                    }
+
+                }
+            }
             this.usrc_ColorPicker_ForeColor.ColorPickerType = Sheme.slng_ForeColor;
             this.usrc_ColorPicker_BackColor.ColorPickerType = Sheme.slng_BackColor;
             this.usrc_ColorPicker_ForeColor.ColorSelected = m_ForeColorSelected;

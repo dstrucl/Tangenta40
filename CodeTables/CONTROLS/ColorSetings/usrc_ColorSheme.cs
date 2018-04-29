@@ -41,6 +41,7 @@ namespace ColorSettings
                     lbl.BackColor = m_color_sheme.Colorpair[i].BackColor;
                     lbl.ForeColor = m_color_sheme.Colorpair[i].ForeColor;
                     lbl.Click += Lbl_Click;
+                    toolTip1.SetToolTip(lbl, ControlColorDic.GetControlNames(i));
                 }
             }
         }
@@ -52,7 +53,9 @@ namespace ColorSettings
                 Label lbl = (Label)sender;
                 Color forecolor = m_color_sheme.Colorpair[(int)lbl.Tag].ForeColor;
                 Color backcolor = m_color_sheme.Colorpair[(int)lbl.Tag].BackColor;
-                Form_ColorpairPicker frm_ColorpairPicker = new Form_ColorpairPicker(forecolor, backcolor);
+                string slblname = lbl.Name;
+                string slbl_Index = slblname.Substring(("lbl_Col").Length);
+                Form_ColorpairPicker frm_ColorpairPicker = new Form_ColorpairPicker(slbl_Index,forecolor, backcolor);
                 // Update the label color if the user clicks OK 
                 if (frm_ColorpairPicker.ShowDialog() == DialogResult.OK)
                 {
@@ -89,6 +92,25 @@ namespace ColorSettings
         private void lbl_Col0_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void lbl_Col0_MouseHover(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+            if (sender!=null)
+            {
+                if (e.AssociatedControl is Label)
+                {
+                    string slblname = ((Label)e.AssociatedControl).Name;
+
+                    string slbl_Index = slblname.Substring(("lbl_Col").Length);
+                    toolTip1.ToolTipTitle = ControlColorDic.sColorIndex + slbl_Index + ControlColorDic.sOfColorPallete+ m_color_sheme.Name + ControlColorDic.sIsUsedOnTheseControls;
+                }
+            }
         }
     }
 }

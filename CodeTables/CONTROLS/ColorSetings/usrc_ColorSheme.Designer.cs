@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbl_Col0 = new System.Windows.Forms.Label();
             this.lbl_Col1 = new System.Windows.Forms.Label();
             this.lbl_Col2 = new System.Windows.Forms.Label();
@@ -44,18 +45,21 @@
             this.lbl_Col13 = new System.Windows.Forms.Label();
             this.lbl_Col14 = new System.Windows.Forms.Label();
             this.lbl_Col15 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lbl_Col0
             // 
             this.lbl_Col0.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lbl_Col0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbl_Col0.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Col0.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Col0.Location = new System.Drawing.Point(4, 4);
             this.lbl_Col0.Name = "lbl_Col0";
             this.lbl_Col0.Size = new System.Drawing.Size(29, 40);
             this.lbl_Col0.TabIndex = 0;
             this.lbl_Col0.Text = "0 ";
+            this.toolTip1.SetToolTip(this.lbl_Col0, "To je tooltip 1");
+            this.lbl_Col0.MouseHover += new System.EventHandler(this.lbl_Col0_MouseHover);
             // 
             // lbl_Col1
             // 
@@ -67,6 +71,7 @@
             this.lbl_Col1.Size = new System.Drawing.Size(29, 40);
             this.lbl_Col1.TabIndex = 1;
             this.lbl_Col1.Text = "1";
+            this.toolTip1.SetToolTip(this.lbl_Col1, "To je tooltip na lblCol1\r\nControl1,\r\nControl2,\r\nControl3\r\n\r\n\r\n");
             // 
             // lbl_Col2
             // 
@@ -222,6 +227,12 @@
             this.lbl_Col15.TabIndex = 15;
             this.lbl_Col15.Text = "15";
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ShowAlways = true;
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
+            // 
             // usrc_ColorSheme
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -265,5 +276,6 @@
         private System.Windows.Forms.Label lbl_Col13;
         private System.Windows.Forms.Label lbl_Col14;
         private System.Windows.Forms.Label lbl_Col15;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

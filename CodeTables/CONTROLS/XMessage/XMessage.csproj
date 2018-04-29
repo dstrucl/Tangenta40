@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Box.cs" />
+    <Compile Include="Colors.cs" />
     <Compile Include="Form_Box.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +93,10 @@
     <ProjectReference Include="..\..\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

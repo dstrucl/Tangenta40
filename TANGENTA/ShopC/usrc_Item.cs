@@ -334,11 +334,13 @@ namespace ShopC
                         }
                         Set_bottom_line();
                     }
-                    this.BackColor = DefaultColor;
+                    this.BackColor = Colors.ItemFromStock.BackColor;
+                    this.ForeColor = Colors.ItemFromStock.ForeColor;
                     break;
 
                 case eMode.STOCK:
-                    this.BackColor = DefaultColor;
+                    this.BackColor = Colors.ItemFromStock.BackColor;
+                    this.ForeColor = Colors.ItemFromStock.ForeColor;
                     break;
 
                 case eMode.FACTORY:
@@ -402,7 +404,9 @@ namespace ShopC
                     }
 
                     //m_Arrangement.Set(0, btn_NoStock, nmUpDn_FactoryQuantity, m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Contains(m_Item_Data));
-                    this.BackColor = GlobalData.Color_Factory;
+                    this.BackColor = Colors.ItemFromFactory.BackColor;
+                    this.ForeColor = Colors.ItemFromFactory.ForeColor;
+
                     break;
             }
             ShowPriceAndDiscount();

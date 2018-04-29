@@ -1017,6 +1017,27 @@ namespace Tangenta
             return DoCurrent(Document_ID);
         }
 
+        internal void SetColor()
+        {
+            this.BackColor = Colors.m_usrc_DocumentEditor.BackColor;
+            this.ForeColor = Colors.m_usrc_DocumentEditor.ForeColor;
+            this.splitContainer2.Panel1.BackColor = Colors.HeadColor.BackColor;
+            this.splitContainer2.Panel1.ForeColor = Colors.HeadColor.ForeColor;
+
+            if (m_usrc_ShopA!=null)
+            {
+                m_usrc_ShopA.SetColor();
+            }
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.SetColor();
+            }
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.SetColor();
+            }
+        }
+
         public bool DoCurrent(long ID)
         {
             if (DoGetCurrent(ID))

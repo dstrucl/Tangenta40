@@ -33,9 +33,11 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
-            this.usrc_ColorPicker_BackColor = new ColorSettings.usrc_ColorPicker();
-            this.usrc_ColorPicker_ForeColor = new ColorSettings.usrc_ColorPicker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lbl_Index = new System.Windows.Forms.Label();
+            this.usrc_ColorPicker_ForeColor = new ColorSettings.usrc_ColorPicker();
+            this.usrc_ColorPicker_BackColor = new ColorSettings.usrc_ColorPicker();
+            this.cmb_ControlsOfColorIndex = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -84,32 +86,6 @@
             this.usrc_Help1.Size = new System.Drawing.Size(59, 30);
             this.usrc_Help1.TabIndex = 10;
             // 
-            // usrc_ColorPicker_BackColor
-            // 
-            this.usrc_ColorPicker_BackColor.AutoScroll = true;
-            this.usrc_ColorPicker_BackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_ColorPicker_BackColor.ColorPickerType = "";
-            this.usrc_ColorPicker_BackColor.ColorSelected = System.Drawing.Color.White;
-            this.usrc_ColorPicker_BackColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_ColorPicker_BackColor.Location = new System.Drawing.Point(0, 0);
-            this.usrc_ColorPicker_BackColor.Name = "usrc_ColorPicker_BackColor";
-            this.usrc_ColorPicker_BackColor.Size = new System.Drawing.Size(648, 352);
-            this.usrc_ColorPicker_BackColor.TabIndex = 7;
-            this.usrc_ColorPicker_BackColor.ColorChanged += new ColorSettings.usrc_ColorPicker.delegate_ColorChanged(this.usrc_ColorPicker_BackColor_ColorChanged);
-            // 
-            // usrc_ColorPicker_ForeColor
-            // 
-            this.usrc_ColorPicker_ForeColor.AutoScroll = true;
-            this.usrc_ColorPicker_ForeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_ColorPicker_ForeColor.ColorPickerType = "";
-            this.usrc_ColorPicker_ForeColor.ColorSelected = System.Drawing.Color.White;
-            this.usrc_ColorPicker_ForeColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_ColorPicker_ForeColor.Location = new System.Drawing.Point(0, 0);
-            this.usrc_ColorPicker_ForeColor.Name = "usrc_ColorPicker_ForeColor";
-            this.usrc_ColorPicker_ForeColor.Size = new System.Drawing.Size(648, 317);
-            this.usrc_ColorPicker_ForeColor.TabIndex = 6;
-            this.usrc_ColorPicker_ForeColor.ColorChanged += new ColorSettings.usrc_ColorPicker.delegate_ColorChanged(this.usrc_ColorPicker_ForeColor_ColorChanged);
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -132,11 +108,56 @@
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 11;
             // 
+            // lbl_Index
+            // 
+            this.lbl_Index.Location = new System.Drawing.Point(12, 11);
+            this.lbl_Index.Name = "lbl_Index";
+            this.lbl_Index.Size = new System.Drawing.Size(233, 13);
+            this.lbl_Index.TabIndex = 12;
+            this.lbl_Index.Text = "lbl_Index";
+            this.lbl_Index.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // usrc_ColorPicker_ForeColor
+            // 
+            this.usrc_ColorPicker_ForeColor.AutoScroll = true;
+            this.usrc_ColorPicker_ForeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_ColorPicker_ForeColor.ColorPickerType = "";
+            this.usrc_ColorPicker_ForeColor.ColorSelected = System.Drawing.Color.White;
+            this.usrc_ColorPicker_ForeColor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_ColorPicker_ForeColor.Location = new System.Drawing.Point(0, 0);
+            this.usrc_ColorPicker_ForeColor.Name = "usrc_ColorPicker_ForeColor";
+            this.usrc_ColorPicker_ForeColor.Size = new System.Drawing.Size(648, 317);
+            this.usrc_ColorPicker_ForeColor.TabIndex = 6;
+            this.usrc_ColorPicker_ForeColor.ColorChanged += new ColorSettings.usrc_ColorPicker.delegate_ColorChanged(this.usrc_ColorPicker_ForeColor_ColorChanged);
+            // 
+            // usrc_ColorPicker_BackColor
+            // 
+            this.usrc_ColorPicker_BackColor.AutoScroll = true;
+            this.usrc_ColorPicker_BackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_ColorPicker_BackColor.ColorPickerType = "";
+            this.usrc_ColorPicker_BackColor.ColorSelected = System.Drawing.Color.White;
+            this.usrc_ColorPicker_BackColor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_ColorPicker_BackColor.Location = new System.Drawing.Point(0, 0);
+            this.usrc_ColorPicker_BackColor.Name = "usrc_ColorPicker_BackColor";
+            this.usrc_ColorPicker_BackColor.Size = new System.Drawing.Size(648, 352);
+            this.usrc_ColorPicker_BackColor.TabIndex = 7;
+            this.usrc_ColorPicker_BackColor.ColorChanged += new ColorSettings.usrc_ColorPicker.delegate_ColorChanged(this.usrc_ColorPicker_BackColor_ColorChanged);
+            // 
+            // cmb_ControlsOfColorIndex
+            // 
+            this.cmb_ControlsOfColorIndex.FormattingEnabled = true;
+            this.cmb_ControlsOfColorIndex.Location = new System.Drawing.Point(251, 8);
+            this.cmb_ControlsOfColorIndex.Name = "cmb_ControlsOfColorIndex";
+            this.cmb_ControlsOfColorIndex.Size = new System.Drawing.Size(274, 21);
+            this.cmb_ControlsOfColorIndex.TabIndex = 13;
+            // 
             // Form_ColorpairPicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(886, 719);
+            this.Controls.Add(this.cmb_ControlsOfColorIndex);
+            this.Controls.Add(this.lbl_Index);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Cancel);
@@ -164,5 +185,7 @@
         private System.Windows.Forms.Button btn_Cancel;
         private HUDCMS.usrc_Help usrc_Help1;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label lbl_Index;
+        private System.Windows.Forms.ComboBox cmb_ControlsOfColorIndex;
     }
 }

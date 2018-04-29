@@ -24,6 +24,8 @@ namespace XMessage
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_CtrlColor_MessageBox = new ltext(new string[] { "MessageBox color", "Barva sporoèilnega dialoga" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+
         public static ltext s_Abort = new ltext( new string[]{"Abort", "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
         public static ltext s_Retry = new ltext(new string[] { "Retry", "Ponovi" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs

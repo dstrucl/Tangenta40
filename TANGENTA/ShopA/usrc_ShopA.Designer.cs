@@ -113,10 +113,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private DataGridView_2xls.DataGridView2xls dgvx_ShopA;
         public usrc_Editor usrc_Editor1;
         private HUDCMS.usrc_Help usrc_Help1;
+        internal System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

@@ -44,8 +44,8 @@ namespace TangentaDB
 
         public static xCurrency BaseCurrency = null;
 
-        public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-        public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+        //public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+        //public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 
         public enum ePaymentType : int { ANY_TYPE,
                                          CASH,
@@ -518,7 +518,10 @@ namespace TangentaDB
                         {
                             if (Payment_definitions_Read())
                             {
-                                return true;
+                                if (fs.Get_JOURNAL_TYPE_ID())
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }

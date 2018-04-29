@@ -9,9 +9,11 @@ namespace Tangenta
 {
     public static class Colors
     {
-        public static CtrlColors DocInvoice = new CtrlColors("DocInvoice", 14, Properties.Settings.Default.Color_DocInvoiceBackGround, Properties.Settings.Default.Color_DocInvoiceForeGround);
-        public static CtrlColors DocProformaInvoice= new CtrlColors("DocProformaInvoice", 15, Properties.Settings.Default.Color_DocProformaInvoiceBackGround, Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
-        public static CtrlColors m_usrc_DocumentEditor = new CtrlColors("DocumentEditor", 11, Properties.Settings.Default.Color_DocProformaInvoiceBackGround, Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
-        public static CtrlColors m_usrc_TableOfDocuments = new CtrlColors("TableOfDocuments", 12, Properties.Settings.Default.Color_DocProformaInvoiceBackGround, Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
+        public static CtrlColors HeadColor = new CtrlColors(lng.s_CtrlColors_HeadColor.s, 7, Properties.Settings.Default.Color_DocInvoiceBackGround, Properties.Settings.Default.Color_DocInvoiceForeGround);
+        public static CtrlColors DocInvoice = new CtrlColors(lng.s_CtrlColors_DocInvoice.s, 14, Properties.Settings.Default.Color_DocInvoiceBackGround, Properties.Settings.Default.Color_DocInvoiceForeGround);
+        public static CtrlColors DocProformaInvoice= new CtrlColors(lng.s_CtrlColors_DocProformaInvoice.s, 15, Properties.Settings.Default.Color_DocProformaInvoiceBackGround, Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
+        public static CtrlColors m_usrc_DocumentEditor = new CtrlColors(lng.s_CtrlColors_DocumentEditor.s, 11, Properties.Settings.Default.Color_DocProformaInvoiceBackGround, Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
+        public static CtrlColors m_usrc_TableOfDocuments = new CtrlColors(lng.s_CtrlColors_TableOfDocuments.s, 12, Properties.Settings.Default.Color_DocProformaInvoiceBackGround, Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
+
     }
 }

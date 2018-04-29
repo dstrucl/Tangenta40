@@ -10,16 +10,9 @@ namespace CodeTables
 {
     public static class Colors
     {
-        public static CtrlColors ColorLevel0 = new CtrlColors("ColorLevel0", 0, Properties.Settings.Default.Color_0, Color.Black);
-        public static CtrlColors ColorLevel1 = new CtrlColors("ColorLevel1", 1, Properties.Settings.Default.Color_1, Color.Black);
-        public static CtrlColors ColorLevel2 = new CtrlColors("ColorLevel2", 2, Properties.Settings.Default.Color_2, Color.Black);
-        public static CtrlColors ColorLevel3 = new CtrlColors("ColorLevel3", 3, Properties.Settings.Default.Color_3, Color.Black);
-        public static CtrlColors ColorLevel4 = new CtrlColors("ColorLevel4", 0, Properties.Settings.Default.Color_0, Color.Black);
-        public static CtrlColors ColorLevel5 = new CtrlColors("ColorLevel5", 1, Properties.Settings.Default.Color_1, Color.Black);
-        public static CtrlColors ColorLevel6 = new CtrlColors("ColorLevel6", 2, Properties.Settings.Default.Color_2, Color.Black);
-        public static CtrlColors ColorLevel7 = new CtrlColors("ColorLevel7", 3, Properties.Settings.Default.Color_2, Color.Black);
-        public static CtrlColors ColorLevel8 = new CtrlColors("ColorLevel8", 0, Properties.Settings.Default.Color_2, Color.Black);
-        public static CtrlColors ColorLevel9 = new CtrlColors("ColorLevel9", 1, Properties.Settings.Default.Color_2, Color.Black);
-
+        public static CtrlColors EditTable = new CtrlColors(lng.s_CtrlColor_EditTable.s, 0, Properties.Settings.Default.Color_0, Color.Black);
+        public static CtrlColors EditSubTable = new CtrlColors(lng.s_CtrlColor_EditSubTable.s, 1, Properties.Settings.Default.Color_1, Color.Black);
+        public static CtrlColors EditSubSubTable = new CtrlColors(lng.s_CtrlColor_EditSubSubTable.s, 2, Properties.Settings.Default.Color_2, Color.Black);
+        public static CtrlColors EditSubSubSubTable = new CtrlColors(lng.s_CtrlColor_EditSubSubSubTable.s, 3, Properties.Settings.Default.Color_3, Color.Black);
     }
 }

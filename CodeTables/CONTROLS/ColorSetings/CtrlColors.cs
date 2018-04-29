@@ -11,8 +11,9 @@ namespace ColorSettings
     {
         private int m_ColorpairIndex = 0;
 
-        private System.Drawing.Color foreColor = System.Drawing.Color.Black;
-        private System.Drawing.Color backColor = System.Drawing.Color.White;
+        private ColorPair colorpair = null;
+        //private System.Drawing.Color foreColor = System.Drawing.Color.Black;
+        //private System.Drawing.Color backColor = System.Drawing.Color.White;
 
         public int ColorpairIndex
         {
@@ -39,7 +40,7 @@ namespace ColorSettings
                         return csheme.Colorpair[m_ColorpairIndex].BackColor;
                     }
                 }
-                return backColor;
+                return colorpair.BackColor;
             }
         }
 
@@ -55,7 +56,23 @@ namespace ColorSettings
                         return csheme.Colorpair[m_ColorpairIndex].ForeColor;
                     }
                 }
-                return foreColor;
+                return colorpair.ForeColor;
+            }
+        }
+
+        public ColorPair Colorpair
+        {
+            get
+            {
+                ColorSheme csheme = Sheme.Current();
+                if (csheme != null)
+                {
+                    if (csheme.Colorpair.Length > m_ColorpairIndex)
+                    {
+                        return csheme.Colorpair[m_ColorpairIndex];
+                    }
+                }
+                return colorpair;
             }
         }
 
@@ -63,8 +80,8 @@ namespace ColorSettings
         {
             m_Name = name;
             m_ColorpairIndex = colorpairindex;
-            backColor = backcolor;
-            foreColor = forecolor;
+            ControlColorDic.Add(colorpairindex, m_Name);
+            colorpair = new ColorPair(forecolor, backcolor);
         }
     }
 }
