@@ -14,5 +14,9 @@ namespace CodeTables
         public static CtrlColors EditSubTable = new CtrlColors(lng.s_CtrlColor_EditSubTable.s, 1, Properties.Settings.Default.Color_1, Color.Black);
         public static CtrlColors EditSubSubTable = new CtrlColors(lng.s_CtrlColor_EditSubSubTable.s, 2, Properties.Settings.Default.Color_2, Color.Black);
         public static CtrlColors EditSubSubSubTable = new CtrlColors(lng.s_CtrlColor_EditSubSubSubTable.s, 3, Properties.Settings.Default.Color_3, Color.Black);
+        public static void Init()
+        {
+
+        }
     }
 }

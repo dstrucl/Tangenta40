@@ -67,6 +67,7 @@ namespace ShopA
         {
             InitializeComponent();
             t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+            lng.s_ShopA_Name.Text(this.lbl_ShopA_Name);
         }
 
         public void SetColor()
@@ -81,6 +82,8 @@ namespace ShopA
             this.usrc_Editor1.splitContainer2.Panel1.ForeColor = Colors.ShopA.ForeColor;
             this.usrc_Editor1.splitContainer2.Panel2.BackColor = Colors.ShopA.BackColor;
             this.usrc_Editor1.splitContainer2.Panel2.ForeColor = Colors.ShopA.ForeColor;
+            lbl_ShopA_Name.BackColor = Colors.ShopA.BackColor;
+            lbl_ShopA_Name.ForeColor = Colors.ShopA.ForeColor; ;
         }
 
         public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNames xDBtcn)

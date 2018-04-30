@@ -163,8 +163,8 @@ namespace ShopC
                 DBtcn = new DBTablesAndColumnNames();
             }
 
-            lng.s_Shop_C.Text(lbl_ShopC_Name);
-
+            lng.s_ShopC_Name.Text(lbl_ShopC_Name);
+            lbl_ShopC_Name.Visible = true;
             this.usrc_Atom_ItemsList.Init(usrc_ItemList, xm_InvoiceDB, xDBtcn);
             this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
 

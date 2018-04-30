@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dgv_SelectedShopB_Items = new System.Windows.Forms.DataGridView();
             this.pnl_DataGrid = new System.Windows.Forms.Panel();
@@ -87,22 +87,22 @@
             this.dgv_SelectedShopB_Items.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgv_SelectedShopB_Items.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgv_SelectedShopB_Items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_SelectedShopB_Items.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_SelectedShopB_Items.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgv_SelectedShopB_Items.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_SelectedShopB_Items.GridColor = System.Drawing.SystemColors.ControlText;
             this.dgv_SelectedShopB_Items.Location = new System.Drawing.Point(0, 0);
             this.dgv_SelectedShopB_Items.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_SelectedShopB_Items.Name = "dgv_SelectedShopB_Items";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.dgv_SelectedShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.dgv_SelectedShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgv_SelectedShopB_Items.RowTemplate.Height = 24;
             this.dgv_SelectedShopB_Items.Size = new System.Drawing.Size(330, 409);
             this.dgv_SelectedShopB_Items.TabIndex = 0;
@@ -142,23 +142,23 @@
             this.dgv_ShopB_Items.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgv_ShopB_Items.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_ShopB_Items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_ShopB_Items.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_ShopB_Items.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgv_ShopB_Items.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_ShopB_Items.Location = new System.Drawing.Point(0, 0);
             this.dgv_ShopB_Items.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_ShopB_Items.MultiSelect = false;
             this.dgv_ShopB_Items.Name = "dgv_ShopB_Items";
             this.dgv_ShopB_Items.ReadOnly = true;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(0, 5, 0, 10);
-            this.dgv_ShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(0, 5, 0, 10);
+            this.dgv_ShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgv_ShopB_Items.RowTemplate.Height = 32;
             this.dgv_ShopB_Items.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv_ShopB_Items.Size = new System.Drawing.Size(328, 409);
@@ -184,16 +184,13 @@
             // 
             // lbl_ShopB_Name
             // 
-            this.lbl_ShopB_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_ShopB_Name.AutoSize = true;
             this.lbl_ShopB_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ShopB_Name.Location = new System.Drawing.Point(287, 5);
+            this.lbl_ShopB_Name.Location = new System.Drawing.Point(5, 5);
             this.lbl_ShopB_Name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_ShopB_Name.Name = "lbl_ShopB_Name";
-            this.lbl_ShopB_Name.Size = new System.Drawing.Size(148, 17);
+            this.lbl_ShopB_Name.Size = new System.Drawing.Size(142, 17);
             this.lbl_ShopB_Name.TabIndex = 3;
-            this.lbl_ShopB_Name.Text = "Opravljene Storitve";
+            this.lbl_ShopB_Name.Text = "Shop B";
             // 
             // lbl_GroupPath
             // 
@@ -227,15 +224,15 @@
             this.lbl_ShopB_Items.Name = "lbl_ShopB_Items";
             this.lbl_ShopB_Items.Size = new System.Drawing.Size(146, 17);
             this.lbl_ShopB_Items.TabIndex = 4;
-            this.lbl_ShopB_Items.Text = "Storitve";
+            this.lbl_ShopB_Items.Text = "Items B";
             this.lbl_ShopB_Items.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // usrc_PriceList1
             // 
             this.usrc_PriceList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.usrc_PriceList1.Location = new System.Drawing.Point(4, 0);
+            this.usrc_PriceList1.Location = new System.Drawing.Point(150, 2);
             this.usrc_PriceList1.Name = "usrc_PriceList1";
-            this.usrc_PriceList1.Size = new System.Drawing.Size(278, 24);
+            this.usrc_PriceList1.Size = new System.Drawing.Size(260, 24);
             this.usrc_PriceList1.TabIndex = 22;
             this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             this.usrc_PriceList1.CheckAccess += new PriseLists.usrc_PriceList.delegate_CheckAccess(this.usrc_PriceList1_CheckAccess);
@@ -252,9 +249,9 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_Help1);
+            this.Controls.Add(this.lbl_ShopB_Name);
             this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.lbl_GroupPath);
-            this.Controls.Add(this.lbl_ShopB_Name);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.lbl_ShopB_Items);
             this.Controls.Add(this.btn_edit_ShopB_Items);

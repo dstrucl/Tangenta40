@@ -591,7 +591,14 @@ namespace Tangenta
                         goto DoResetNew;
                     }
 
+                    Colors.Init();
+                    Startup.Colors.Init();
+                    CodeTables.Colors.Init();
+                    ShopA.Colors.Init();
+                    ShopB.Colors.Init();
+                    ShopC.Colors.Init();
                     XMessage.Colors.Init();
+
                     SetColorSettingsText();
                     ColorSettings.Sheme.Load(ref Err);
 

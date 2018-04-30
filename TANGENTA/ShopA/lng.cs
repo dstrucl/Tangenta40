@@ -24,6 +24,8 @@ namespace ShopA
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_ShopA_Name = new ltext(new string[]{"Shop A","Prodajalna A"});   
+
         public static ltext s_CtrlColor_ShopA = new ltext(new string[]{"Shop A colors",
                                                    "Barvi prodajalne A"});   // referenced in C:\Tangenta40\TANGENTA\ShopA\Form_ShopAItem_Edit.cs
 
@@ -64,7 +66,7 @@ namespace ShopA
         
         public static ltext s_lbl_ItemName = new ltext(new string[] { "Item name", "Ime postavke" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Name.cs
 
-        public static ltext s_lbl_Item_Description = new ltext(new string[] { "Price", "Cena" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Description.cs
+        public static ltext s_lbl_Item_Description = new ltext(new string[] { "Description", "Opis" });   // referenced in C:\Tangenta40\TANGENTA\ShopA\usrc_Edit_Item_Description.cs
         
     }
 }

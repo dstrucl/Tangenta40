@@ -66,6 +66,10 @@ namespace Tangenta
             lng.s_Shop_A.sText(DynSettings.LanguageID, txt_ShopA_Name.Text);
             lng.s_Shop_B.sText(DynSettings.LanguageID, txt_ShopB_Name.Text);
             lng.s_Shop_C.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
+            ShopA.lng.s_ShopA_Name.sText(DynSettings.LanguageID, txt_ShopA_Name.Text);
+            ShopB.lng.s_ShopB_Name.sText(DynSettings.LanguageID, txt_ShopB_Name.Text);
+            ShopC.lng.s_ShopC_Name.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
+
             DynSettings.LanguageTextSave();
             Properties.Settings.Default.eShopsInUse = shinuse;
             Properties.Settings.Default.Save();

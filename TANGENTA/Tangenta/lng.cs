@@ -184,19 +184,19 @@ namespace Tangenta
 
         public static ltext s_Show_Shops = new ltext(new string[] { "Shops", "Prodajalne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_A = new ltext(new string[] { "A", "A" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_A = new ltext(new string[] { "Shop A", "Prodajalna A" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_B = new ltext(new string[] { "B", "B" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_B = new ltext(new string[] { "Shop B", "Prodajalna B" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_C = new ltext(new string[] { "C", "C" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_C = new ltext(new string[] { "Shop C", "Prodajalna C" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_AB = new ltext(new string[] { s_Shop_A.sText(0) + "&" + s_Shop_B.sText(0), s_Shop_A.sText(1) + "&" + s_Shop_B.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_AB = new ltext(new string[] { s_Shop_A.sText(0) + " & " + s_Shop_B.sText(0), s_Shop_A.sText(1) + " & " + s_Shop_B.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_BC = new ltext(new string[] { s_Shop_B.sText(0) + "&" + s_Shop_C.sText(0), s_Shop_B.sText(1) + "&" + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_BC = new ltext(new string[] { s_Shop_B.sText(0) + " & " + s_Shop_C.sText(0), s_Shop_B.sText(1) + " & " + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_AC = new ltext(new string[] { s_Shop_A.sText(0) + "&" + s_Shop_C.sText(0), s_Shop_A.sText(1) + "&" + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_AC = new ltext(new string[] { s_Shop_A.sText(0) + " & " + s_Shop_C.sText(0), s_Shop_A.sText(1) + " & " + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        public static ltext s_Shop_ABC = new ltext(new string[] { s_Shop_A.sText(0) + "&" + s_Shop_B.sText(0) + "&" + s_Shop_C.sText(0), s_Shop_A.sText(1) + "&" + s_Shop_B.sText(1) + "&" + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Shop_ABC = new ltext(new string[] { s_Shop_A.sText(0) + " & " + s_Shop_B.sText(0) + " & " + s_Shop_C.sText(0), s_Shop_A.sText(1) + " & " + s_Shop_B.sText(1) + "&" + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
         public static ltext s_Shops_In_Use = new ltext(new string[] { "Shops in use", "Prodajalne v uporabi" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShopsInUse.cs
 

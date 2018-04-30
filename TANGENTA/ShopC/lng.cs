@@ -82,7 +82,7 @@ namespace ShopC
         public static ltext s_Cancel = new ltext(new string[]{"Cancel",
                                           "Prekini"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
-        public static ltext s_Shop_C = new ltext(new string[] { "C", "C" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_ShopC_Item_Edit.cs
+        public static ltext s_ShopC_Name = new ltext(new string[] { "Shop C", "Prodajalna C" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_ShopC_Item_Edit.cs
 
         public static ltext s_OnlyInOffer = new ltext(new string[] { "Only in offer", "Samo tiste v ponudbi" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_ShopC_Item_Edit.cs
 

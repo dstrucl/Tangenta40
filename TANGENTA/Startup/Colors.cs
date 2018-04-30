@@ -12,5 +12,10 @@ namespace Startup
     {
         public static CtrlColors usrc_startup_step = new CtrlColors(lng.s_CtrlColors_StartupStep.s, 9, Color.White,Color.Brown);
         public static CtrlColors usrc_startup = new CtrlColors(lng.s_CtrlColors_Startup.s, 9, Color.White, Color.Brown);
+        public static void Init()
+        {
+
+        }
+
     }
 }

@@ -95,7 +95,6 @@ namespace ShopB
         {
             InitializeComponent();
             idgv_ShopB_Items_Width_default = this.dgv_ShopB_Items.Width;
-            lng.s_lbl_SelectedSimpleItems.Text(lbl_ShopB_Name);
             lng.s_lbl_SimpleItems.Text(lbl_ShopB_Items);
         }
 
@@ -120,7 +119,7 @@ namespace ShopB
 
         public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use, NavigationButtons.Navigation xnav)
         {
-            lng.s_Shop_B.Text(lbl_ShopB_Name);
+            lng.s_ShopB_Name.Text(lbl_ShopB_Name);
 
             Layout = eLayout.NONE;
             m_InvoiceDB = x_InvoiceDB;

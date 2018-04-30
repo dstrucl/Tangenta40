@@ -30,8 +30,9 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
-            this.usrc_Editor1 = new ShopA.usrc_Editor();
             this.dgvx_ShopA = new DataGridView_2xls.DataGridView2xls();
+            this.lbl_ShopA_Name = new System.Windows.Forms.Label();
+            this.usrc_Editor1 = new ShopA.usrc_Editor();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -41,9 +42,11 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 20);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -55,8 +58,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_ShopA);
-            this.splitContainer1.Size = new System.Drawing.Size(722, 549);
-            this.splitContainer1.SplitterDistance = 183;
+            this.splitContainer1.Size = new System.Drawing.Size(722, 529);
+            this.splitContainer1.SplitterDistance = 175;
             this.splitContainer1.TabIndex = 0;
             // 
             // usrc_Help1
@@ -66,18 +69,6 @@
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(26, 29);
             this.usrc_Help1.TabIndex = 1;
-            // 
-            // usrc_Editor1
-            // 
-            this.usrc_Editor1.AutoScroll = true;
-            this.usrc_Editor1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_Editor1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_Editor1.Name = "usrc_Editor1";
-            this.usrc_Editor1.Size = new System.Drawing.Size(722, 183);
-            this.usrc_Editor1.TabIndex = 0;
-            this.usrc_Editor1.AddRow += new ShopA.usrc_Editor.delegate_AddRow(this.usrc_Editor1_AddRow);
-            this.usrc_Editor1.EditUnits += new ShopA.usrc_Editor.delegate_EditUnis(this.usrc_Editor1_EditUnits);
             // 
             // dgvx_ShopA
             // 
@@ -93,13 +84,38 @@
             this.dgvx_ShopA.Name = "dgvx_ShopA";
             this.dgvx_ShopA.ReadOnly = true;
             this.dgvx_ShopA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_ShopA.Size = new System.Drawing.Size(722, 362);
+            this.dgvx_ShopA.Size = new System.Drawing.Size(722, 350);
             this.dgvx_ShopA.TabIndex = 0;
             this.dgvx_ShopA.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_ShopA_CellMouseUp);
+            // 
+            // lbl_ShopA_Name
+            // 
+            this.lbl_ShopA_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.lbl_ShopA_Name.Location = new System.Drawing.Point(3, 0);
+            this.lbl_ShopA_Name.Name = "lbl_ShopA_Name";
+            this.lbl_ShopA_Name.Size = new System.Drawing.Size(716, 19);
+            this.lbl_ShopA_Name.TabIndex = 8;
+            this.lbl_ShopA_Name.Text = "A";
+            // 
+            // usrc_Editor1
+            // 
+            this.usrc_Editor1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Editor1.AutoScroll = true;
+            this.usrc_Editor1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_Editor1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_Editor1.Name = "usrc_Editor1";
+            this.usrc_Editor1.Size = new System.Drawing.Size(722, 182);
+            this.usrc_Editor1.TabIndex = 0;
+            this.usrc_Editor1.AddRow += new ShopA.usrc_Editor.delegate_AddRow(this.usrc_Editor1_AddRow);
+            this.usrc_Editor1.EditUnits += new ShopA.usrc_Editor.delegate_EditUnis(this.usrc_Editor1_EditUnits);
             // 
             // usrc_ShopA
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.lbl_ShopA_Name);
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_ShopA";
             this.Size = new System.Drawing.Size(722, 549);
@@ -117,5 +133,6 @@
         public usrc_Editor usrc_Editor1;
         private HUDCMS.usrc_Help usrc_Help1;
         internal System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label lbl_ShopA_Name;
     }
 }

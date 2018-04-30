@@ -96,15 +96,12 @@
             // 
             // lbl_ShopC_Name
             // 
-            this.lbl_ShopC_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_ShopC_Name.AutoSize = true;
             this.lbl_ShopC_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ShopC_Name.Location = new System.Drawing.Point(285, 5);
+            this.lbl_ShopC_Name.Location = new System.Drawing.Point(5, 7);
             this.lbl_ShopC_Name.Name = "lbl_ShopC_Name";
-            this.lbl_ShopC_Name.Size = new System.Drawing.Size(103, 17);
+            this.lbl_ShopC_Name.Size = new System.Drawing.Size(142, 17);
             this.lbl_ShopC_Name.TabIndex = 4;
-            this.lbl_ShopC_Name.Text = "Izbrani Artikli";
+            this.lbl_ShopC_Name.Text = "Shop C";
             // 
             // btn_Stock
             // 
@@ -157,9 +154,9 @@
             // usrc_PriceList1
             // 
             this.usrc_PriceList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.usrc_PriceList1.Location = new System.Drawing.Point(1, 0);
+            this.usrc_PriceList1.Location = new System.Drawing.Point(150, 4);
             this.usrc_PriceList1.Name = "usrc_PriceList1";
-            this.usrc_PriceList1.Size = new System.Drawing.Size(278, 24);
+            this.usrc_PriceList1.Size = new System.Drawing.Size(260, 24);
             this.usrc_PriceList1.TabIndex = 22;
             this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             this.usrc_PriceList1.CheckAccess += new PriseLists.usrc_PriceList.delegate_CheckAccess(this.usrc_PriceList1_CheckAccess);
@@ -167,7 +164,7 @@
             // chk_AutomaticSelectionOfItemFromStock
             // 
             this.chk_AutomaticSelectionOfItemFromStock.AutoSize = true;
-            this.chk_AutomaticSelectionOfItemFromStock.Location = new System.Drawing.Point(394, 7);
+            this.chk_AutomaticSelectionOfItemFromStock.Location = new System.Drawing.Point(414, 9);
             this.chk_AutomaticSelectionOfItemFromStock.Name = "chk_AutomaticSelectionOfItemFromStock";
             this.chk_AutomaticSelectionOfItemFromStock.Size = new System.Drawing.Size(199, 17);
             this.chk_AutomaticSelectionOfItemFromStock.TabIndex = 23;
@@ -178,13 +175,13 @@
             // usrc_ShopC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.lbl_ShopC_Name);
             this.Controls.Add(this.chk_AutomaticSelectionOfItemFromStock);
             this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.splitContainer3);
             this.Controls.Add(this.lbl_Items);
             this.Controls.Add(this.btn_Stock);
             this.Controls.Add(this.btn_Items);
-            this.Controls.Add(this.lbl_ShopC_Name);
             this.Controls.Add(this.lbl_Stock);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_ShopC";

@@ -173,7 +173,7 @@ namespace ShopC
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
-            this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_C.s;
+            this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
             m_bExclusivelySellFromStock = xbExclusivelySellFromStock;
             Init();
         }

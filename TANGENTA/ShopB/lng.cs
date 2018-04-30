@@ -41,9 +41,9 @@ namespace ShopB
         public static ltext s_Items = new ltext(new string[]{"Items",
                                                 "Artikli"});   // referenced in C:\Tangenta40\TANGENTA\ShopB\Form_SimpleItem_Edit.cs
 
-        public static ltext s_lbl_SimpleItems = new ltext(new string[] { "Items B", "Trgovina B" });   // referenced in C:\Tangenta40\TANGENTA\ShopB\usrc_ShopB.cs
+        public static ltext s_lbl_SimpleItems = new ltext(new string[] { "Items", "Artikli" });   // referenced in C:\Tangenta40\TANGENTA\ShopB\usrc_ShopB.cs
 
-        public static ltext s_lbl_SelectedSimpleItems = new ltext(new string[] { "Selected in Store B", "Izbrano iz B" });   // referenced in C:\Tangenta40\TANGENTA\ShopB\usrc_ShopB.cs
+        public static ltext s_ShopB_Name = new ltext(new string[] { "Shop B", "Prodajalna B" });   // referenced in C:\Tangenta40\TANGENTA\ShopB\usrc_ShopB.cs
 
         public static ltext s_dgv_SimpleItems_column_SimpleItem_Abbreviation = new ltext(new string[] { "Abbreviation", "Oznaka" });   // referenced in C:\Tangenta40\TANGENTA\ShopB\usrc_ShopB.cs
 

@@ -30,7 +30,7 @@ namespace ColorSettings
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#DEF0A6")),  // Color3
  new ColorPair(ColorTranslator.FromHtml("#000000"),
-                 ColorTranslator.FromHtml("#61AC53")),  // Color4
+                 ColorTranslator.FromHtml("#D6E5D0")),  // Color4
  new ColorPair(ColorTranslator.FromHtml("#000000"),
                  ColorTranslator.FromHtml("#CCBAC7")),  // Color5
  new ColorPair(ColorTranslator.FromHtml("#000000"),

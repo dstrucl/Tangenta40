@@ -52,7 +52,7 @@ namespace ShopC
             tbl = xtbl;
             usrc_NavigationButtons1.Init(nav);
             ColumnOrderBy = xColumnOrderBy;
-            lng.s_Items.Text(this, " "+lng.s_Shop_C.s);
+            lng.s_Items.Text(this, " "+lng.s_ShopC_Name.s);
             rdb_OnlyInOffer.Checked = true;
             lng.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
             lng.s_AllItems.Text(this.rdb_All);
