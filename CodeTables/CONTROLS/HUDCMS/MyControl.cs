@@ -533,16 +533,17 @@ namespace HUDCMS
                         {
                             if (HlpWizTag != null)
                             {
+                                string xControlUniqueName = GetControlUniqueName();
                                 if (!File.Exists(ximage_file))
                                 {
                                     if (SaveImage(ximage_file))
                                     {
-                                        HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.SAVED);
+                                        HUDCMS.ImageFileResults.Add(xControlUniqueName, ximage_file, HUDCMS.ImageFileResults.eResult.SAVED);
                                     }
                                 }
                                 else
                                 {
-                                    HUDCMS.ImageFileResults.Add(ximage_file, HUDCMS.ImageFileResults.eResult.EXIST);
+                                    HUDCMS.ImageFileResults.Add(xControlUniqueName,ximage_file, HUDCMS.ImageFileResults.eResult.EXIST);
                                 }
                             }
                             else

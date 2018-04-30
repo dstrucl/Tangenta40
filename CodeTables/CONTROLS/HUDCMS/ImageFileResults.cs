@@ -23,6 +23,7 @@ namespace HUDCMS
                 dtImageFileFound = null;
             }
             dtImageFileFound = new DataTable();
+            DataColumn dcol_ControlUniqueName = new DataColumn("ControlUniqueName", typeof(string));
             DataColumn dcol_ImageFile = new DataColumn("ImageFile", typeof(string));
             DataColumn dcol_SavedFirstTime = new DataColumn("SavedFirstTime", typeof(DateTime));
             DataColumn dcol_Found = new DataColumn("Found", typeof(int));
@@ -33,11 +34,12 @@ namespace HUDCMS
             dtImageFileFound.Columns.Add(dcol_Comment);
         }
 
-        public static void Add(string ImageFile, eResult result)
+        public static void Add(string xControlUniqueName,string ImageFile, eResult result)
         {
             if (result == eResult.SAVED)
             {
                 DataRow dr = dtImageFileFound.NewRow();
+                dr["ControlUniqueName"] = xControlUniqueName;
                 dr["ImageFile"] = ImageFile;
                 dr["SavedFirstTime"] = DateTime.Now;
                 dr["Found"] = 0;
@@ -57,6 +59,7 @@ namespace HUDCMS
                 else
                 {
                     DataRow dr = dtImageFileFound.NewRow();
+                    dr["ControlUniqueName"] = xControlUniqueName;
                     dr["ImageFile"] = ImageFile;
                     dr["SavedFirstTime"] = DateTime.Now;
                     dr["Found"] = 0;
