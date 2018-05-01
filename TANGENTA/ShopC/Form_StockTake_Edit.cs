@@ -12,11 +12,22 @@ using TangentaTableClass;
 using LanguageControl;
 using TangentaDB;
 using DBTypes;
+using HUDCMS;
 
 namespace ShopC
 {
     public partial class Form_StockTake_Edit : Form
     {
+        private HUDCMS.HelpWizzardTagDC tagDCTop = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_StockTakeEmpty_true = null;
+        private HUDCMS.HelpWizzardTagDC tagDC_StockTakeEmpty_false = null;
+        private HUDCMS.HelpWizzardTagDC tagDCBottom = null;
+
+        internal HUDCMS.HelpWizzardTagDC[] TagDCs = null;
+
+        private Form_StockTake_Edit_WizzardForHelp frm_StockTake_Edit_WizzardForHelp = null;
+
+
         CodeTables.DBTableControl dbTables = null;
 
         private bool m_Changed = false;
@@ -116,6 +127,7 @@ namespace ShopC
                 DialogResult = DialogResult.Abort;
                 Close();
             }
+            SetNewFormTag();
         }
 
         internal bool Init()
@@ -252,6 +264,94 @@ namespace ShopC
                 }
             }
         }
+
+
+        private void SetNewFormTag()
+        {
+
+            tagDCTop = new HelpWizzardTagDC( "Top", "", null, null);
+
+
+            tagDC_StockTakeEmpty_true = new HelpWizzardTagDC( "StockTakeEmpty", "", "bool", "true");
+            tagDC_StockTakeEmpty_false = new HelpWizzardTagDC("StockTakeEmpty", "", "bool", "false");
+
+
+            tagDCBottom = new HelpWizzardTagDC("Bottom", "", null, null);
+
+
+            TagDCs = new HUDCMS.HelpWizzardTagDC[] {
+            tagDCTop,
+            tagDC_StockTakeEmpty_true,
+            tagDC_StockTakeEmpty_false,
+            tagDCBottom
+            };
+
+            HUDCMS.HelpWizzardTag hlpwizTag = new HelpWizzardTag(TagDCs, null, null);
+            hlpwizTag.DefaultControlWidth = this.Width;
+            hlpwizTag.DefaultControlHeight = this.Height;
+
+
+
+            long numberOfAll = -1;
+            string[] sTagConditions = null;
+
+            string sxmlfilesuffix = "";
+            string sNewTag = GetStringTag(ref numberOfAll, ref sTagConditions, ref sxmlfilesuffix);
+
+            hlpwizTag.FileSuffix = sNewTag;
+            hlpwizTag.XmlFileSuffix = sxmlfilesuffix;
+            hlpwizTag.ShowWizzard = HelpWizzardShow;
+
+            this.Tag = hlpwizTag;
+        }
+
+        internal string GetStringTag(ref long numberOfAll, ref string[] sTagConditions, ref string sXMLFiletag)
+        {
+            string sNewTag = "_";
+            sXMLFiletag = "_";
+            List<string> tag_conditions = new List<string>();
+            if (this.splitContainer1.Panel2Collapsed)
+            {
+                sNewTag += "ET";
+                sXMLFiletag += "ET";
+                tag_conditions.Add(tagDC_StockTakeEmpty_true.NamedCondition);
+            }
+            else 
+            {
+                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                sNewTag += "EF";
+                sXMLFiletag += "EF";
+                tag_conditions.Add(tagDC_StockTakeEmpty_false.NamedCondition);
+            }
+
+            int iconditions_count = tag_conditions.Count;
+            sTagConditions = new string[iconditions_count];
+            for (int i = 0; i < iconditions_count; i++)
+            {
+                sTagConditions[i] = tag_conditions[i];
+            }
+            return sNewTag;
+        }
+
+        public void HelpWizzardShow(Control ctrl, HUDCMS.MyControl root_ctrl, string xstyleFile)
+        {
+            if (frm_StockTake_Edit_WizzardForHelp != null)
+            {
+                if (frm_StockTake_Edit_WizzardForHelp.IsDisposed)
+                {
+                    frm_StockTake_Edit_WizzardForHelp = null;
+                }
+
+            }
+            if (frm_StockTake_Edit_WizzardForHelp == null)
+            {
+                frm_StockTake_Edit_WizzardForHelp = new Form_StockTake_Edit_WizzardForHelp(ctrl, root_ctrl, xstyleFile);
+                frm_StockTake_Edit_WizzardForHelp.Owner = this;
+            }
+            frm_StockTake_Edit_WizzardForHelp.Show();
+        }
+
+
 
         private void usrc_StockEditForSelectedStockTake1_Load(object sender, EventArgs e)
         {

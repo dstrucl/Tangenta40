@@ -789,42 +789,42 @@ namespace Tangenta
         private void SetNewFormTag()
         {
 
-            tagDCTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Top", "",null, null);
+            tagDCTop = new HelpWizzardTagDC( "Top", "",null, null);
 
-            tagDC_DocType_Invoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "Invoice");
-            tagDC_DocType_ProformeInvoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "ProformaInvoice");
-            tagDC_EmptyDB_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "true");
-            tagDC_EmptyDB_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "false");
-            tagDC_MultiUser_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT,"MultiUser", "", "bool", "true");
-            tagDC_MultiUser_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "MultiUser", "", "bool", "false");
-            tagDC_usrc_Invoice_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "", "bool", "true");
-            tagDC_usrc_Invoice_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Visible", "", "bool", "false");
-            tagDC_usrc_InvoiceHead_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceHead_Visible", "", "bool", "true");
-            tagDC_usrc_InvoiceHead_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceHead_Visible", "", "bool", "false");
-            tagDC_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "", "bool", "true");
-            tagDC_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_InvoiceTable_Visible", "", "bool", "false");
-            tagDC_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "", "enum", "ViewMode");
-            tagDC_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "usrc_Invoice_Mode", "", "enum", "EditMode");
-            tagDC_ShopA_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", "", "bool", "true");
-            tagDC_ShopA_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopA", null, "bool", "false");
+            tagDC_DocType_Invoice = new HelpWizzardTagDC( "DocType", "", "enum", "Invoice");
+            tagDC_DocType_ProformeInvoice = new HelpWizzardTagDC( "DocType", "", "enum", "ProformaInvoice");
+            tagDC_EmptyDB_true = new HelpWizzardTagDC( "DBEmpty", "", "bool", "true");
+            tagDC_EmptyDB_false = new HelpWizzardTagDC( "DBEmpty", "", "bool", "false");
+            tagDC_MultiUser_true = new HelpWizzardTagDC("MultiUser", "", "bool", "true");
+            tagDC_MultiUser_false = new HelpWizzardTagDC( "MultiUser", "", "bool", "false");
+            tagDC_usrc_Invoice_Visible_true = new HelpWizzardTagDC( "usrc_Invoice_Visible", "", "bool", "true");
+            tagDC_usrc_Invoice_Visible_false = new HelpWizzardTagDC( "usrc_Invoice_Visible", "", "bool", "false");
+            tagDC_usrc_InvoiceHead_Visible_true = new HelpWizzardTagDC( "usrc_InvoiceHead_Visible", "", "bool", "true");
+            tagDC_usrc_InvoiceHead_Visible_false = new HelpWizzardTagDC( "usrc_InvoiceHead_Visible", "", "bool", "false");
+            tagDC_usrc_InvoiceTable_Visible_true = new HelpWizzardTagDC( "usrc_InvoiceTable_Visible", "", "bool", "true");
+            tagDC_usrc_InvoiceTable_Visible_false = new HelpWizzardTagDC( "usrc_InvoiceTable_Visible", "", "bool", "false");
+            tagDC_usrc_Invoice_Mode_ViewMode = new HelpWizzardTagDC( "usrc_Invoice_Mode", "", "enum", "ViewMode");
+            tagDC_usrc_Invoice_Mode_EditMode = new HelpWizzardTagDC( "usrc_Invoice_Mode", "", "enum", "EditMode");
+            tagDC_ShopA_Visible_true = new HelpWizzardTagDC( "ShopA", "", "bool", "true");
+            tagDC_ShopA_Visible_false = new HelpWizzardTagDC( "ShopA", null, "bool", "false");
 
-            tagDC_ShopB_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", "", "bool", "true");
-            tagDC_ShopB_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopB", null, "bool", "false");
-            tagDC_ShopB_Groups0 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level0");
-            tagDC_ShopB_Groups1 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level1");
-            tagDC_ShopB_Groups2 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level2");
-            tagDC_ShopB_Groups3 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopBGroups", "", "enum", "Level3");
+            tagDC_ShopB_Visible_true = new HelpWizzardTagDC( "ShopB", "", "bool", "true");
+            tagDC_ShopB_Visible_false = new HelpWizzardTagDC( "ShopB", null, "bool", "false");
+            tagDC_ShopB_Groups0 = new HelpWizzardTagDC( "ShopBGroups", "", "enum", "Level0");
+            tagDC_ShopB_Groups1 = new HelpWizzardTagDC( "ShopBGroups", "", "enum", "Level1");
+            tagDC_ShopB_Groups2 = new HelpWizzardTagDC( "ShopBGroups", "", "enum", "Level2");
+            tagDC_ShopB_Groups3 = new HelpWizzardTagDC( "ShopBGroups", "", "enum", "Level3");
 
-            tagDC_ShopC_Visible_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", "", "bool", "true");
-            tagDC_ShopC_Visible_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopC", null, "bool", "false");
-            tagDC_ShopC_Groups0 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level0");
-            tagDC_ShopC_Groups1 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level1");
-            tagDC_ShopC_Groups2 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level2");
-            tagDC_ShopC_Groups3 = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "ShopCGroups", "", "enum", "Level3");
+            tagDC_ShopC_Visible_true = new HelpWizzardTagDC( "ShopC", "", "bool", "true");
+            tagDC_ShopC_Visible_false = new HelpWizzardTagDC( "ShopC", null, "bool", "false");
+            tagDC_ShopC_Groups0 = new HelpWizzardTagDC( "ShopCGroups", "", "enum", "Level0");
+            tagDC_ShopC_Groups1 = new HelpWizzardTagDC( "ShopCGroups", "", "enum", "Level1");
+            tagDC_ShopC_Groups2 = new HelpWizzardTagDC( "ShopCGroups", "", "enum", "Level2");
+            tagDC_ShopC_Groups3 = new HelpWizzardTagDC( "ShopCGroups", "", "enum", "Level3");
 
 
 
-            tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "", null, null);
+            tagDCBottom = new HelpWizzardTagDC( "Bottom", "", null, null);
 
 
             TagDCs = new HUDCMS.HelpWizzardTagDC[] {

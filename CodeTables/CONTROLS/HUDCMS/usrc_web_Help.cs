@@ -46,8 +46,14 @@ namespace HUDCMS
             font_saved = new Font(ffamily, fsize, FontStyle.Regular);
             if (!this.DesignMode)
             {
-                cmb_Language.DataSource = HUDCMS_static.LanguagePrefixList;
-                cmb_Language.SelectedIndex = HUDCMS_static.LanguageID;
+                if (HUDCMS_static.LanguagePrefixList != null)
+                {
+                    if (HUDCMS_static.LanguagePrefixList.Count > 0)
+                    {
+                        cmb_Language.DataSource = HUDCMS_static.LanguagePrefixList;
+                        cmb_Language.SelectedIndex = HUDCMS_static.LanguageID;
+                    }
+                }
             }
         }
 
@@ -410,12 +416,28 @@ namespace HUDCMS
 
         private void cmb_Language_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.cmb_Language.SelectedIndexChanged -= new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
-            HUDCMS_static.LanguageID = cmb_Language.SelectedIndex;
-            mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix);
-            Init(mH);
-            ReloadHtml();
+            try
+            {
+                if (cmb_Language.Items.Count > 0)
+                {
+                    int selectedindex = cmb_Language.SelectedIndex;
+                    if (selectedindex >= 0)
+                    {
+                        this.cmb_Language.SelectedIndexChanged -= new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
+                        HUDCMS_static.LanguageID = selectedindex;
+                        mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix);
+                        mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix);
+                        Init(mH);
+                        ReloadHtml();
+                        this.cmb_Language.SelectedIndexChanged += new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR:HUDCMS:usrc_web_Help:cmb_Language_SelectedIndexChanged:Exception ex =" + ex.Message);
+            }
+
         }
 
         private void txt_URL_TextChanged(object sender, EventArgs e)

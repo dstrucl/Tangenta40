@@ -75,6 +75,12 @@
     <Compile Include="Form_ItemGroups_Edit.Designer.cs">
       <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_StockTake_Edit_WizzardForHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_StockTake_Edit_WizzardForHelp.Designer.cs">
+      <DependentUpon>Form_StockTake_Edit_WizzardForHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Select_Item_From_Stock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ItemGroups_Edit.resx">
       <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_StockTake_Edit_WizzardForHelp.resx">
+      <DependentUpon>Form_StockTake_Edit_WizzardForHelp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_Item_From_Stock.resx">
       <DependentUpon>Form_Select_Item_From_Stock.cs</DependentUpon>

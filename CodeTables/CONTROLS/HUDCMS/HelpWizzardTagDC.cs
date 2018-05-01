@@ -9,10 +9,6 @@ namespace HUDCMS
     public class HelpWizzardTagDC
     {
 
-        public enum eTip { ABOUT,DESCRIPTION};
-
-        public eTip Tip = eTip.ABOUT;
-
         private string name = null;
         public string Name
         {
@@ -42,10 +38,9 @@ namespace HUDCMS
         {
             get { return Name + "$" + Condition; }
         }
-        public HelpWizzardTagDC(eTip xeTip,string xname, string xtext,string xtype, string xcondition)
+        public HelpWizzardTagDC(string xname, string xtext,string xtype, string xcondition)
         {
 
-            Tip = xeTip;
             name = xname;
             text = xtext;
             type = xtype;

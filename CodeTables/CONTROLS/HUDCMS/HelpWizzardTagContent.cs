@@ -25,7 +25,7 @@ namespace HUDCMS
                     {
                          
                         HelpWizzardTagDC stdc = stagDCs[i];
-                        HelpWizzardTagDC tdc = new HelpWizzardTagDC(stdc.Tip,
+                        HelpWizzardTagDC tdc = new HelpWizzardTagDC(
                                                         stdc.Name,
                                                         stdc.Text,
                                                         stdc.Type,

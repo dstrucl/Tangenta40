@@ -125,16 +125,16 @@ namespace Tangenta
         private void SetNewFormTag()
         {
 
-            tagDCTop = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Top", "", null, null);
+            tagDCTop = new HelpWizzardTagDC( "Top", "", null, null);
 
-            tagDC_DocType_Invoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "Invoice");
-            tagDC_DocType_ProformaInvoice = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DocType", "", "enum", "ProformaInvoice");
+            tagDC_DocType_Invoice = new HelpWizzardTagDC( "DocType", "", "enum", "Invoice");
+            tagDC_DocType_ProformaInvoice = new HelpWizzardTagDC( "DocType", "", "enum", "ProformaInvoice");
 
-            tagDC_EmptyDB_true = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "true");
-            tagDC_EmptyDB_false = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "DBEmpty", "", "bool", "false");
+            tagDC_EmptyDB_true = new HelpWizzardTagDC( "DBEmpty", "", "bool", "true");
+            tagDC_EmptyDB_false = new HelpWizzardTagDC( "DBEmpty", "", "bool", "false");
 
 
-            tagDCBottom = new HelpWizzardTagDC(HUDCMS.HelpWizzardTagDC.eTip.ABOUT, "Bottom", "", null, null);
+            tagDCBottom = new HelpWizzardTagDC( "Bottom", "", null, null);
 
 
             TagDCs = new HUDCMS.HelpWizzardTagDC[] {
