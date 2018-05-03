@@ -379,6 +379,7 @@ namespace HUDCMS
                             {
                                 ctrl.Link.Add(my_Control_Linked);
                                 my_Control_Linked.bLinked = true;
+                                break;
                             }
                             myparent = myparent.Parent;
                         }

@@ -96,6 +96,12 @@ namespace TangentaDB
         public string column_Selected_Atom_Price_ShopBItem_ID = "Selected_DocInvoice_ShopB_Item_ID";
         public Type column_Selected_Atom_Price_ShopBItem_ID_TYPE = typeof(long);
 
+        public string column_SelectedShopBItem_btn_discount = "btn_discount";
+        public  string column_SelectedShopBItem_btn_deselect = "btn_deselect";
+        public string column_total_discount = "total_discount";
+        public string btn_Select_Name = "btn_Select";
+
+
         public string column_SelectedShopBItemName = "SelectedSimpleItemName";
         public Type column_SelectedShopBItemName_TYPE = typeof(string);
         public string column_SelectedShopBItemPrice = "SelectedSimpleItemPrice";

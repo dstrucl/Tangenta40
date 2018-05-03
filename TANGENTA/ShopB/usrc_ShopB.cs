@@ -49,10 +49,6 @@ namespace ShopB
         TangentaDB.ShopABC m_InvoiceDB = null;
         DBTablesAndColumnNames DBtcn = null;
 
-        string column_SelectedShopBItem_btn_discount = "btn_discount";
-        string column_SelectedShopBItem_btn_deselect = "btn_deselect";
-        string column_total_discount = "total_discount";
-        string btn_Select_Name = "btn_Select";
 
         private string m_DocInvoice = "DocInvoice";
 
@@ -149,13 +145,11 @@ namespace ShopB
 
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_Selected_Atom_Price_ShopBItem_ID, DBtcn.column_Selected_Atom_Price_ShopBItem_ID_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemName, DBtcn.column_SelectedShopBItemName_TYPE);
-            dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemPriceWithoutTax, DBtcn.column_SelectedShopBItemPriceWithoutTax_TYPE);
+            dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemPrice, DBtcn.column_SelectedShopBItemPrice_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemPriceTax, DBtcn.column_SelectedShopBItemPriceTax_TYPE);
-
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_TaxName, DBtcn.column_SelectedShopBItem_TaxName_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_TaxRate, DBtcn.column_SelectedShopBItem_TaxRate_TYPE);
-
-            dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemPrice, DBtcn.column_SelectedShopBItemPrice_TYPE);
+            dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemPriceWithoutTax, DBtcn.column_SelectedShopBItemPriceWithoutTax_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemPriceDiscount, DBtcn.column_SelectedShopBItemPriceDiscount_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ShopBItem_ID, DBtcn.column_SelectedShopBItem_ShopBItem_ID_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemRetailPricePerUnit, DBtcn.column_SelectedShopBItemRetailPricePerUnit_TYPE);
@@ -326,7 +320,7 @@ namespace ShopB
                         dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
                         dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
                         dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
-                        dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells[column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
+                        dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
                         if (aa_ItemUpdated != null)
                         {
                             aa_ItemUpdated(PriceShopBItem_Atom_ShopBItem_ID,dt_SelectedShopBItem);
@@ -386,7 +380,7 @@ namespace ShopB
                             {
                                 SetDraftButtons();
                             }
-                            dgv_SelectedShopB_Items.Rows[dt_SelectedShopBItem.Rows.Count-1].Cells[column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
+                            dgv_SelectedShopB_Items.Rows[dt_SelectedShopBItem.Rows.Count-1].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
 
                             if (aa_ItemAdded != null)
                             {
@@ -492,11 +486,11 @@ namespace ShopB
             if ((e.ColumnIndex >= 0)&&(e.RowIndex>=0))
             {
                 SetGridButtonCountry(dgv_SelectedShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
-                if (dgv_SelectedShopB_Items.Columns[e.ColumnIndex].Name.Equals(column_SelectedShopBItem_btn_deselect))
+                if (dgv_SelectedShopB_Items.Columns[e.ColumnIndex].Name.Equals(DBtcn.column_SelectedShopBItem_btn_deselect))
                 {
                     ShopBItemDeselect(e.RowIndex);
                 }
-                if (dgv_SelectedShopB_Items.Columns[e.ColumnIndex].Name.Equals(column_SelectedShopBItem_btn_discount))
+                if (dgv_SelectedShopB_Items.Columns[e.ColumnIndex].Name.Equals(DBtcn.column_SelectedShopBItem_btn_discount))
                 {
                     SelectExtraDiscount(e.RowIndex);
                 }
@@ -673,9 +667,9 @@ namespace ShopB
             {
                 if (Layout == eLayout.VIEW)
                 {
-                    if (FindColumn(dgv_SelectedShopB_Items, column_total_discount))
+                    if (FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
                     {
-                        this.dgv_SelectedShopB_Items.Columns.Remove(column_total_discount);
+                        this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_total_discount);
                     }
                     dgv_total_discount_column = null;
                 }
@@ -685,13 +679,13 @@ namespace ShopB
                 btn_Discount = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.discount);
                 btn_Discount.HeaderText = "";
                 btn_Discount.Text = "";
-                btn_Discount.Name = column_SelectedShopBItem_btn_discount;
+                btn_Discount.Name = DBtcn.column_SelectedShopBItem_btn_discount;
                 btn_Discount.Width = 32;
-                this.dgv_SelectedShopB_Items.Columns.Insert(4, btn_Discount);
+                this.dgv_SelectedShopB_Items.Columns.Insert(2, btn_Discount);
                 DataGridViewImageButtonColumn btn_Remove = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.deselect);
                 btn_Remove.HeaderText = "Odstrani";
                 btn_Remove.Text = "-";
-                btn_Remove.Name = column_SelectedShopBItem_btn_deselect;
+                btn_Remove.Name = DBtcn.column_SelectedShopBItem_btn_deselect;
                 this.dgv_SelectedShopB_Items.Columns.Insert(0,btn_Remove);
                 Layout = eLayout.DRAFT;
             }
@@ -716,10 +710,10 @@ namespace ShopB
             {
                 if (Layout == eLayout.DRAFT)
                 {
-                    this.dgv_SelectedShopB_Items.Columns.Remove(column_SelectedShopBItem_btn_discount);
-                    this.dgv_SelectedShopB_Items.Columns.Remove(column_SelectedShopBItem_btn_deselect);
+                    this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_discount);
+                    this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_deselect);
                 }
-                if (!FindColumn(dgv_SelectedShopB_Items, column_total_discount))
+                if (!FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
                 {
                     dgv_total_discount_column = null;
                 }
@@ -728,7 +722,7 @@ namespace ShopB
                 if (dgv_total_discount_column == null)
                 {
                     dgv_total_discount_column = new DataGridViewTextBoxColumn();
-                    dgv_total_discount_column.Name = column_total_discount;
+                    dgv_total_discount_column.Name = DBtcn.column_total_discount;
                     dgv_total_discount_column.HeaderText = lng.s_TotalDiscount.s;
                     this.dgv_SelectedShopB_Items.Columns.Add(dgv_total_discount_column);
                 }
@@ -737,12 +731,12 @@ namespace ShopB
 
                 this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].HeaderText = lng.s_PriceListDiscount.s;
                 this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].HeaderText = lng.s_ExtraDiscount.s;
-                this.dgv_SelectedShopB_Items.Columns[column_total_discount].HeaderText = lng.s_TotalDiscount.s;
+                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_total_discount].HeaderText = lng.s_TotalDiscount.s;
                 if (col_Discount == null)
                 {
                     col_Discount = new DataGridViewTextBoxColumn();
                     col_Discount.HeaderText = lng.s_Discount.s;
-                    col_Discount.Name = column_SelectedShopBItem_btn_discount;
+                    col_Discount.Name = DBtcn.column_SelectedShopBItem_btn_discount;
                     col_Discount.Width = 32;
                     this.dgv_SelectedShopB_Items.Columns.Insert(4, col_Discount);
                 }
@@ -763,7 +757,7 @@ namespace ShopB
                 {
                     foreach (DataGridViewColumn dgvc in this.dgv_SelectedShopB_Items.Columns)
                     {
-                        if (dgvc.Name.Equals(column_SelectedShopBItem_btn_discount))
+                        if (dgvc.Name.Equals(DBtcn.column_SelectedShopBItem_btn_discount))
                         {
                             this.dgv_SelectedShopB_Items.Columns.Remove(dgvc);
                             break;
@@ -917,7 +911,7 @@ namespace ShopB
         {
             foreach (DataGridViewColumn dgvcol in dgv_ShopB_Items.Columns)
             {
-                if (dgvcol.Name.Equals(btn_Select_Name))
+                if (dgvcol.Name.Equals(DBtcn.btn_Select_Name))
                 {
                     return false;
                 }
@@ -1033,7 +1027,7 @@ namespace ShopB
                     DataGridViewImageButtonColumn btn = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.select);
                     btn.HeaderText = "Izberi";
                     btn.Text = "<-";
-                    btn.Name = btn_Select_Name;
+                    btn.Name = DBtcn.btn_Select_Name;
                     dgv_ShopB_Items.Columns.Insert(1, btn);
                 }
             }

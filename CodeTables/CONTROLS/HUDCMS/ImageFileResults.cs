@@ -28,6 +28,7 @@ namespace HUDCMS
             DataColumn dcol_SavedFirstTime = new DataColumn("SavedFirstTime", typeof(DateTime));
             DataColumn dcol_Found = new DataColumn("Found", typeof(int));
             DataColumn dcol_Comment = new DataColumn("Comment", typeof(string));
+            dtImageFileFound.Columns.Add(dcol_ControlUniqueName);
             dtImageFileFound.Columns.Add(dcol_ImageFile);
             dtImageFileFound.Columns.Add(dcol_SavedFirstTime);
             dtImageFileFound.Columns.Add(dcol_Found);
