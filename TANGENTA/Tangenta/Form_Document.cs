@@ -747,8 +747,8 @@ namespace Tangenta
                     tagconditions.Add(tagDC_ShopB_Groups2.NamedCondition);
                     break;
                 case 3:
-                    sNewTag += "X3";
-                    sXMLFileTag += "X3";
+                    sNewTag += "X2";
+                    sXMLFileTag += "X2";
                     tagconditions.Add(tagDC_ShopB_Groups3.NamedCondition);
                     break;
                 default:
@@ -777,8 +777,8 @@ namespace Tangenta
                     tagconditions.Add(tagDC_ShopC_Groups2.NamedCondition);
                     break;
                 case 3:
-                    sNewTag += "Y3";
-                    sXMLFileTag += "Y3";
+                    sNewTag += "Y2";
+                    sXMLFileTag += "Y2";
                     tagconditions.Add(tagDC_ShopC_Groups3.NamedCondition);
                     break;
                 default:

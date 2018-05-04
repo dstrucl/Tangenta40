@@ -811,7 +811,18 @@ namespace DBConnectionControl40
                         if (tConForm.ShowDialog(pParentForm) == DialogResult.OK)
                         {
                             tConForm.Dispose();
-                            return true;
+                            string Err = null;
+                            if (SessionConnect(ref Err))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+
+                                LogFile.Error.Show("ERROR:DBConnectionControl40:DBConnection:CheckDataBaseConnection:SessionConnect failed Err=" + Err);
+                                tConForm.Dispose();
+                                return false;
+                            }
                         }
                         else
                         {

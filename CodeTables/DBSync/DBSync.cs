@@ -195,26 +195,34 @@ namespace DBSync
         {
             string Err = null;
             int iTablesCount = -1;
-            if (DB_for_Tangenta.m_DBTables.TableCountInDatabase(ref iTablesCount))
+            if (DB_for_Tangenta_SessionConnect(ref Err))
             {
-                if (iTablesCount == 0)
+                if (DB_for_Tangenta.m_DBTables.TableCountInDatabase(ref iTablesCount))
                 {
-                    if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel))
+                    if (iTablesCount == 0)
                     {
-                        return true;
+                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
-                        return false;
+                        return true;
                     }
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             }
             else
             {
+                LogFile.Error.Show("ERROR:DBSync:DBsync:Startup_03_CheckDataBaseTables:Startup_03_CheckDataBaseTables:DB_for_Tangenta_SessionConnect failed! Err=" + Err);
                 return false;
             }
         }
