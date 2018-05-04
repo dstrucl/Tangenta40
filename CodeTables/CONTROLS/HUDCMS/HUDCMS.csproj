@@ -188,12 +188,6 @@
     <Compile Include="usrc_EditControlWizzard_Title.Designer.cs">
       <DependentUpon>usrc_EditControlWizzard_Title.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_TagForHelp.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_TagForHelp.Designer.cs">
-      <DependentUpon>usrc_TagForHelp.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_EditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -321,9 +315,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_helpSettings.resx">
       <DependentUpon>usrc_helpSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_TagForHelp.resx">
-      <DependentUpon>usrc_TagForHelp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_web_Help.resx">
       <DependentUpon>usrc_web_Help.cs</DependentUpon>

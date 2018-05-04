@@ -11,7 +11,7 @@ namespace HUDCMS
     public class HelpWizzardTag
     {
         public int DefaultControlWidth = 1024;
-        public int DefaultControlHeight = 900;
+        public int DefaultControlHeight = 768;
 
 
         public delegate void delegate_ShowWizzard(Control ctrl, MyControl root_ctrl, string styleFile);

@@ -364,6 +364,10 @@ namespace HUDCMS
             {
                 if (Link.Count > 0)
                 {
+                    if (Link.Count>2)
+                    {
+                        MessageBox.Show("Link count > 2!");
+                    }
                     foreach (MyControl c in Link)
                     {
                         if (sLink.Length == 0)

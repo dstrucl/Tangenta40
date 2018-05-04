@@ -87,6 +87,7 @@ namespace HUDCMS
                     my_Control.ImageCaption = usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
                 }
 
+                usrc_EditControlWizzard_Description1.GetData();
                 //my_Control.Description = usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text;
 
             }
