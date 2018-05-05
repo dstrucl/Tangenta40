@@ -14,7 +14,7 @@ namespace HUDCMS
         public int DefaultControlHeight = 768;
 
 
-        public delegate void delegate_ShowWizzard(Control ctrl, MyControl root_ctrl, string styleFile);
+        public delegate void delegate_ShowWizzard(Control ctrl, MyControl root_ctrl,string header, string styleFile);
         public  delegate_ShowWizzard ShowWizzard = null;
 
         public delegate bool delegate_FillTextContent(HelpWizzardTagDC[] hlpTagDCs,ref string About, ref string Description);

@@ -16,15 +16,16 @@ namespace Tangenta
         private HUDCMS.MyControl root_ctrl = null;
         private Control control_ForWizzard = null;
         private Form_NewDocument form_newdocument = null;
+        private string header = null;
         private string styleFile = null;
 
 
-
-        public Form_NewDocument_WizzardForHelp(Control ctrl, HUDCMS.MyControl xroot_ctrl, string xstyleFile)
+        public Form_NewDocument_WizzardForHelp(Control ctrl, HUDCMS.MyControl xroot_ctrl, string xheader, string xstyleFile)
         {
             InitializeComponent();
             control_ForWizzard = ctrl;
             root_ctrl = xroot_ctrl;
+            header = xheader;
             styleFile = xstyleFile;
             txt_DocumentType.Text = xstyleFile;
         }
@@ -38,20 +39,20 @@ namespace Tangenta
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            MakeHtml(styleFile);
+            MakeHtml(header,styleFile);
         }
 
 
 
 
-        private bool MakeHtml(string styleFile)
+        private bool MakeHtml(string xheader,string styleFile)
         {
             long numberOfAllControls = -1;
             string[] sTagConditions = null;
             string sxmlfilesuffix = null;
             string sNewTag = form_newdocument.GetStringTag(ref numberOfAllControls, ref sTagConditions, ref sxmlfilesuffix);
             string sResult = null;
-            if (HUDCMS.MyControl.MakeHtml(form_newdocument, sNewTag, sTagConditions, styleFile, root_ctrl, ref sResult))
+            if (HUDCMS.MyControl.MakeHtml(form_newdocument, sNewTag, sTagConditions, xheader, styleFile, root_ctrl, ref sResult))
             {
                 return true;
             }

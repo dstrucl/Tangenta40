@@ -1035,7 +1035,7 @@ namespace HUDCMS
                                 HelpWizzardTag hlpwt = (HelpWizzardTag)xctrl.Tag;
                                 if (hlpwt.ShowWizzard!=null)
                                 {
-                                    hlpwt.ShowWizzard(xctrl,myroot, this.usrc_SelectStyleFile.FileName);
+                                    hlpwt.ShowWizzard(xctrl,myroot, this.fctb_Header.Text,this.usrc_SelectStyleFile.FileName);
                                 }
                             }
                         }

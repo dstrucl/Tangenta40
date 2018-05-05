@@ -70,7 +70,11 @@ namespace CodeTables
                     {
                         int idx = m_dt.Rows.IndexOf(drs[0]);
                         dataGridView.Rows[idx].Selected = true;
-                        dataGridView.CurrentCell = dataGridView.Rows[idx].Cells[0];
+                        DataGridViewCell dgvcv = StaticLib.Func.GetFirstVisibleDataGridViewCell(dataGridView.Rows[idx]);
+                        if (dgvcv != null)
+                        {
+                            dataGridView.CurrentCell = dgvcv;
+                        }
                     }
                 }
                 

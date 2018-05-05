@@ -170,7 +170,10 @@ namespace HUDCMS
                 }
                 else if (c is SplitterPanel)
                 {
-                    ((SplitterPanel)c).AccessibleName = "spl" + xuctrln.Get_SplitterPanel_UniqueIndex();
+                    if (!Global.f.StringDefined(((SplitterPanel)c).AccessibleName))
+                    {
+                        ((SplitterPanel)c).AccessibleName = "spl" + Get_SplitterPanelIndex((SplitterPanel)c);
+                    }
                     AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Panel)
@@ -307,7 +310,10 @@ namespace HUDCMS
                 }
                 else if (c is SplitterPanel)
                 {
-                    ((SplitterPanel)c).AccessibleName = "spl" + xuctrln.Get_SplitterPanel_UniqueIndex();
+                    if (!Global.f.StringDefined(((SplitterPanel)c).AccessibleName))
+                    {
+                        ((SplitterPanel)c).AccessibleName = "spl" + Get_SplitterPanelIndex((SplitterPanel)c);
+                    }
                     AddSubCtrl(c, xuctrln);
                 }
                 else if (c is Panel)
@@ -418,6 +424,30 @@ namespace HUDCMS
                 }
             }
             Create_position_sorted_subctrl();
+        }
+
+        private string Get_SplitterPanelIndex(SplitterPanel c)
+        {
+            Control ctrl_splitContainer = c.Parent;
+            if (ctrl_splitContainer!=null)
+            {
+                if (ctrl_splitContainer is SplitContainer)
+                {
+                    SplitContainer splitContainer = (SplitContainer)ctrl_splitContainer;
+                    if (splitContainer.Controls.Count >= 2)
+                    {
+                        if (splitContainer.Controls[0] == c)
+                        {
+                            return "1";
+                        }
+                        else if (splitContainer.Controls[1] == c)
+                        {
+                            return "2";
+                        }
+                    }
+                }
+            }
+            return "";
         }
 
         public hctrl(DataGridViewColumn dgvc, hctrl xparent)

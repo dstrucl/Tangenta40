@@ -17,14 +17,15 @@ namespace ShopC
         private Control control_ForWizzard = null;
         private Form_StockTake_Edit form_stocktake_edit = null;
         private string styleFile = null;
+        private string header = null;
 
 
-
-        public Form_StockTake_Edit_WizzardForHelp(Control ctrl, HUDCMS.MyControl xroot_ctrl, string xstyleFile)
+        public Form_StockTake_Edit_WizzardForHelp(Control ctrl, HUDCMS.MyControl xroot_ctrl,string xheader, string xstyleFile)
         {
             InitializeComponent();
             control_ForWizzard = ctrl;
             root_ctrl = xroot_ctrl;
+            header = xheader;
             styleFile = xstyleFile;
             txt_DocumentType.Text = xstyleFile;
         }
@@ -38,20 +39,20 @@ namespace ShopC
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            MakeHtml(styleFile);
+            MakeHtml(header,styleFile);
         }
 
 
 
 
-        private bool MakeHtml(string styleFile)
+        private bool MakeHtml(string xheader,string styleFile)
         {
             long numberOfAllControls = -1;
             string[] sTagConditions = null;
             string sxmlfilesuffix = null;
             string sNewTag = form_stocktake_edit.GetStringTag(ref numberOfAllControls, ref sTagConditions, ref sxmlfilesuffix);
             string sResult = null;
-            if (HUDCMS.MyControl.MakeHtml(form_stocktake_edit, sNewTag, sTagConditions, styleFile, root_ctrl, ref sResult))
+            if (HUDCMS.MyControl.MakeHtml(form_stocktake_edit, sNewTag, sTagConditions, xheader,styleFile, root_ctrl, ref sResult))
             {
                 return true;
             }

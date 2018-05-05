@@ -70,7 +70,7 @@ namespace LogFile
             {
                 using (var client = new WebClient())
                 {
-                    using (var stream = client.OpenRead("http://wwww.google.com"))
+                    using (var stream = client.OpenRead("http://www.google.com"))
                     {
                         return true;
                     }

@@ -1182,7 +1182,7 @@ namespace Tangenta
             }
         }
 
-        public void HelpWizzardShow(Control ctrl, MyControl root_ctrl, string xstyleFile)
+        public void HelpWizzardShow(Control ctrl, MyControl root_ctrl,string xheader, string xstyleFile)
         {
             if (frm_Document_WizzardForHelp!=null)
             {
@@ -1194,7 +1194,7 @@ namespace Tangenta
             }
             if (frm_Document_WizzardForHelp==null)
             {
-                frm_Document_WizzardForHelp = new Form_Document_WizzardForHelp(ctrl, root_ctrl, xstyleFile);
+                frm_Document_WizzardForHelp = new Form_Document_WizzardForHelp(ctrl, root_ctrl, xheader, xstyleFile);
                 frm_Document_WizzardForHelp.Owner = this;
             }
             frm_Document_WizzardForHelp.Show();

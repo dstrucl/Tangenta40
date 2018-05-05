@@ -38,6 +38,8 @@ namespace HUDCMS
                         uhlpwiztagdc.BorderStyle = BorderStyle.Fixed3D;
                         uhlpwiztagdc.Top = y;
                         uhlpwiztagdc.Left = 4;
+                        uhlpwiztagdc.Width = this.Width - 2 * uhlpwiztagdc.Left;
+                        uhlpwiztagdc.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                         this.Controls.Add(uhlpwiztagdc);
                         y = uhlpwiztagdc.Bottom + 4;
                         usrc_HelpWizzardTagDC_list.Add(uhlpwiztagdc);

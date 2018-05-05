@@ -93,6 +93,18 @@ namespace StaticLib
 
         private static SHA1CryptoServiceProvider my_SHA1CryptoServiceProvider = new SHA1CryptoServiceProvider();
 
+        public static DataGridViewCell GetFirstVisibleDataGridViewCell(DataGridViewRow dataGridViewRow)
+        {
+            foreach (DataGridViewCell xdgvc in dataGridViewRow.Cells)
+            {
+                if (xdgvc.Visible)
+                {
+                    return xdgvc;
+                }
+            }
+            return null;
+        }
+
         public static string GetHash_SHA1(byte[] byteArray)
         {
             string hash = "";

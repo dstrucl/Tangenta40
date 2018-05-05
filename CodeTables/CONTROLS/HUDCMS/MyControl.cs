@@ -220,7 +220,7 @@ namespace HUDCMS
             }
         }
 
-        public static bool MakeHtml(Control ctrl_for_help, string sNewTag, string[] sTagConditions,string styleFile, MyControl source_root_ctrl, ref string sResult)
+        public static bool MakeHtml(Control ctrl_for_help, string sNewTag, string[] sTagConditions,string header, string styleFile, MyControl source_root_ctrl, ref string sResult)
         {
             if (ctrl_for_help !=null)
             {
@@ -234,7 +234,6 @@ namespace HUDCMS
                     int localbookmarkid = 1;
                     MyControl destination_root_ctrl = Form_HUDCMS.CreateMyControlsFromWizzardSource(source_root_ctrl, sNewTag, sTagConditions,level, icount, ref iAllCount, xhc,null, ref localbookmarkid);
                     XDocument xh = null;
-                    string header = "";
                     XElement html_html = null;
                     XElement html_head = null;
                     XElement html_title = null;

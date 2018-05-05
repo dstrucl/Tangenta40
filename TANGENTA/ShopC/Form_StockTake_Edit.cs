@@ -333,7 +333,7 @@ namespace ShopC
             return sNewTag;
         }
 
-        public void HelpWizzardShow(Control ctrl, HUDCMS.MyControl root_ctrl, string xstyleFile)
+        public void HelpWizzardShow(Control ctrl, HUDCMS.MyControl root_ctrl,string xheader, string xstyleFile)
         {
             if (frm_StockTake_Edit_WizzardForHelp != null)
             {
@@ -345,7 +345,7 @@ namespace ShopC
             }
             if (frm_StockTake_Edit_WizzardForHelp == null)
             {
-                frm_StockTake_Edit_WizzardForHelp = new Form_StockTake_Edit_WizzardForHelp(ctrl, root_ctrl, xstyleFile);
+                frm_StockTake_Edit_WizzardForHelp = new Form_StockTake_Edit_WizzardForHelp(ctrl, root_ctrl, xheader, xstyleFile);
                 frm_StockTake_Edit_WizzardForHelp.Owner = this;
             }
             frm_StockTake_Edit_WizzardForHelp.Show();

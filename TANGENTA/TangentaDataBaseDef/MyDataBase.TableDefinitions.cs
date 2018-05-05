@@ -1306,7 +1306,7 @@ namespace TangentaDataBaseDef
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.RetailPricePerUnit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Retail Price Per Unit", "Maloprodajna cena na komad") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Discount", "Popust") );
-            t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Taxation ID", "Obdavčitev ID") );
+            t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Taxation ID", "Obdavčitev ID") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Item ID", "Artikel ID") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_PriceList, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Price List ID", "Cenik ID") );
             m_DBTables.items.Add(t_Price_Item);

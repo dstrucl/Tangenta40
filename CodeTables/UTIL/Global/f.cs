@@ -63,5 +63,21 @@ namespace Global
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
             return ms.ToArray();
         }
+
+        public static bool StringDefined(string accessibleName)
+        {
+            if (accessibleName == null)
+            {
+                return false;
+            }
+            else if (accessibleName.Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
