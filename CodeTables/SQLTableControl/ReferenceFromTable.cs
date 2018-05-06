@@ -11,7 +11,6 @@
             }
         }
 
-        private string column_name = null;
 
         public string TableName
         {
@@ -28,11 +27,13 @@
             }
         }
 
+        private string column_name = null;
+
         public string ColumnName
         {
             get
             {
-                return ColumnName;
+                return column_name;
             }
         }
 

@@ -34,7 +34,19 @@ namespace CodeTables
 
         public const string VIEW_TableName_SEPARATOR = "_$_";
 
-        public ReferencesToTable ReferencesToThisTable = new ReferencesToTable();
+        private ReferencesToTable referencesToThisTable = new ReferencesToTable();
+
+        public ReferencesToTable ReferencesToThisTable
+        {
+            get
+            {
+                return referencesToThisTable;
+            }
+            set
+            {
+                referencesToThisTable = value;
+            }
+        }
 
         public string sql_CreateTable = null;
         public string sql_CreateView = null;
@@ -151,7 +163,19 @@ namespace CodeTables
         }
 
 
-        public string TableName = "";
+        public string tablename = "";
+
+        public string TableName
+        {
+            get
+            {
+                return tablename;
+            }
+            set
+            {
+                tablename = value;
+            }
+        }
 
         public string TableName_Abbreviation = null;
 

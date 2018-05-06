@@ -218,34 +218,34 @@ namespace CodeTables
                 }
             }
 
-                int jTable = 0;
-            for (jTable = 0; jTable < iTableCount; jTable++)
-            {
-                for (iTable = 0; iTable < iTableCount; iTable++)
-                {
-                    if (jTable != iTable)
-                    {
-                        foreach (Column col in items[iTable].Column)
-                        {
-                            if (!col.IsIdentity)
-                            {
-                                if (col.fKey != null)
-                                {
-                                    if (col.fKey.refInListOfTables != null)
-                                    {
-                                        if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
-                                        {
-                                            col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //    int jTable = 0;
+            //for (jTable = 0; jTable < iTableCount; jTable++)
+            //{
+            //    for (iTable = 0; iTable < iTableCount; iTable++)
+            //    {
+            //        if (jTable != iTable)
+            //        {
+            //            foreach (Column col in items[iTable].Column)
+            //            {
+            //                if (!col.IsIdentity)
+            //                {
+            //                    if (col.fKey != null)
+            //                    {
+            //                        if (col.fKey.refInListOfTables != null)
+            //                        {
+            //                            if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
+            //                            {
+            //                                col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
-
+         
             return strSqlAll;
         }
 
@@ -1450,7 +1450,20 @@ namespace CodeTables
                 }
             }
         }
-        
+
+        internal ReferencesToTable GetReferencesToTable(SQLTable sQLTable)
+        {
+            SQLTable pfound = items.Find(delegate (SQLTable p) { return p.TableName == sQLTable.TableName; });
+            if (pfound!=null)
+            {
+                return pfound.ReferencesToThisTable;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled)
         {
             while (true)

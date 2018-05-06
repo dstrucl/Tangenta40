@@ -1022,34 +1022,44 @@ namespace CodeTables
 
         private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,long id, ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ref int total_count, ref string Err)
         {
-            if (this.ReferencesToThisTable.Count > 0)
+            ReferencesToTable reftt = dbTables.GetReferencesToTable(this);
+            if (reftt != null)
             {
-                foreach (ReferenceFromTable rtf in this.ReferencesToThisTable.Items)
+                if (reftt.Count > 0)
                 {
-                    total_count = 0;
-                    DataTable dt = new DataTable();
-                    string sql_select = "select * from " + rtf.Table.TableName + " where " + rtf.ColumnName + " = " + id.ToString();
-                    if (dbTables.m_con.ReadDataTable(ref dt, sql_select, ref Err))
+                    foreach (ReferenceFromTable rtf in  reftt.Items)
                     {
-                        if (dt.Rows.Count > 0)
+                        total_count = 0;
+                        DataTable dt = new DataTable();
+                        string sql_select = "select * from " + rtf.TableName + " where " + rtf.ColumnName + " = " + id.ToString();
+                        if (dbTables.m_con.ReadDataTable(ref dt, sql_select, ref Err))
                         {
-                            total_count += dt.Rows.Count;
-                            usrc_RowReferencedFromTable x_usrc_RowReferencedFromTable = new usrc_RowReferencedFromTable();
-                            x_usrc_RowReferencedFromTable.Init(rtf.Table, this, id, dt);
-                            if (usrc_RowReferencedFromTable_List == null)
+                            if (dt.Rows.Count > 0)
                             {
-                                usrc_RowReferencedFromTable_List = new List<usrc_RowReferencedFromTable>();
+                                total_count += dt.Rows.Count;
+                                usrc_RowReferencedFromTable x_usrc_RowReferencedFromTable = new usrc_RowReferencedFromTable();
+                                x_usrc_RowReferencedFromTable.Init(rtf.Table, this, id, dt);
+                                if (usrc_RowReferencedFromTable_List == null)
+                                {
+                                    usrc_RowReferencedFromTable_List = new List<usrc_RowReferencedFromTable>();
+                                }
+                                usrc_RowReferencedFromTable_List.Add(x_usrc_RowReferencedFromTable);
                             }
-                            usrc_RowReferencedFromTable_List.Add(x_usrc_RowReferencedFromTable);
                         }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:sql_select=" + sql_select + "\r\nErr=" + Err);
-                        return false;
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:sql_select=" + sql_select + "\r\nErr=" + Err);
+                            return false;
+                        }
                     }
                 }
             }
+            else
+            {
+                LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:ReferencesToTable==null!");
+                return false;
+            }
+
             return true;
         }
 
