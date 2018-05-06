@@ -34,6 +34,8 @@ namespace CodeTables
 
         public const string VIEW_TableName_SEPARATOR = "_$_";
 
+        public ReferencesToTable ReferencesToThisTable = new ReferencesToTable();
+
         public string sql_CreateTable = null;
         public string sql_CreateView = null;
 

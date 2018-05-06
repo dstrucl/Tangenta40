@@ -967,58 +967,92 @@ namespace CodeTables
         }
 
 
-        private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,long id,ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List,ref int total_count, ref string Err)
-        {
-            total_count = 0;
-            foreach (SQLTable x_tbl in dbTables.items)
-            {
-                SQLTable tbl = new SQLTable(x_tbl);
-                tbl.CreateTableTree(dbTables.items);
-                if (tbl.Column != null)
-                {
-                    foreach (Column col in tbl.Column)
-                    {
-                        if (col.fKey != null)
-                        {
-                            if (col.fKey.fTable != null)
-                            {
-                                if (col.fKey.fTable.TableName.Equals(this.TableName))
-                                {
-                                    DataTable dt = new DataTable();
-                                    string sql_select = "select * from " + tbl.TableName + " where " + col.Name + " = " + id.ToString();
-                                    if (dbTables.m_con.ReadDataTable(ref dt, sql_select, ref Err))
-                                    {
-                                        if (dt.Rows.Count > 0)
-                                        {
-                                            total_count += dt.Rows.Count;
-                                            usrc_RowReferencedFromTable x_usrc_RowReferencedFromTable = new usrc_RowReferencedFromTable();
-                                            x_usrc_RowReferencedFromTable.Init(tbl, col.fKey.fTable, id, dt);
-                                            if (usrc_RowReferencedFromTable_List == null)
-                                            {
-                                                usrc_RowReferencedFromTable_List = new List<usrc_RowReferencedFromTable>();
-                                            }
-                                            usrc_RowReferencedFromTable_List.Add(x_usrc_RowReferencedFromTable);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:sql_select=" + sql_select + "\r\nErr=" + Err);
-                                        return false;
-                                    }
+        //private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,long id,ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List,ref int total_count, ref string Err)
+        //{
+        //    total_count = 0;
+        //    foreach (SQLTable x_tbl in dbTables.items)
+        //    {
+        //        SQLTable tbl = new SQLTable(x_tbl);
+        //        tbl.CreateTableTree(dbTables.items);
+        //        if (tbl.Column != null)
+        //        {
+        //            foreach (Column col in tbl.Column)
+        //            {
+        //                if (col.fKey != null)
+        //                {
+        //                    if (col.fKey.fTable != null)
+        //                    {
+        //                        if (col.fKey.fTable.TableName.Equals(this.TableName))
+        //                        {
+        //                            DataTable dt = new DataTable();
+        //                            string sql_select = "select * from " + tbl.TableName + " where " + col.Name + " = " + id.ToString();
+        //                            if (dbTables.m_con.ReadDataTable(ref dt, sql_select, ref Err))
+        //                            {
+        //                                if (dt.Rows.Count > 0)
+        //                                {
+        //                                    total_count += dt.Rows.Count;
+        //                                    usrc_RowReferencedFromTable x_usrc_RowReferencedFromTable = new usrc_RowReferencedFromTable();
+        //                                    x_usrc_RowReferencedFromTable.Init(tbl, col.fKey.fTable, id, dt);
+        //                                    if (usrc_RowReferencedFromTable_List == null)
+        //                                    {
+        //                                        usrc_RowReferencedFromTable_List = new List<usrc_RowReferencedFromTable>();
+        //                                    }
+        //                                    usrc_RowReferencedFromTable_List.Add(x_usrc_RowReferencedFromTable);
+        //                                }
+        //                            }
+        //                            else
+        //                            {
+        //                                LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:sql_select=" + sql_select + "\r\nErr=" + Err);
+        //                                return false;
+        //                            }
 
-                                }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:Table " + tbl.TableName + " has no columns defined !");
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
+
+        private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,long id, ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ref int total_count, ref string Err)
+        {
+            if (this.ReferencesToThisTable.Count > 0)
+            {
+                foreach (ReferenceFromTable rtf in this.ReferencesToThisTable.Items)
+                {
+                    total_count = 0;
+                    DataTable dt = new DataTable();
+                    string sql_select = "select * from " + rtf.Table.TableName + " where " + rtf.ColumnName + " = " + id.ToString();
+                    if (dbTables.m_con.ReadDataTable(ref dt, sql_select, ref Err))
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            total_count += dt.Rows.Count;
+                            usrc_RowReferencedFromTable x_usrc_RowReferencedFromTable = new usrc_RowReferencedFromTable();
+                            x_usrc_RowReferencedFromTable.Init(rtf.Table, this, id, dt);
+                            if (usrc_RowReferencedFromTable_List == null)
+                            {
+                                usrc_RowReferencedFromTable_List = new List<usrc_RowReferencedFromTable>();
                             }
+                            usrc_RowReferencedFromTable_List.Add(x_usrc_RowReferencedFromTable);
                         }
                     }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:Table " + tbl.TableName + " has no columns defined !");
-                    return false;
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:SQLTable.Update.cs:SQLTable:Get_RowReferencedFromTable_List:sql_select=" + sql_select + "\r\nErr=" + Err);
+                        return false;
+                    }
                 }
             }
             return true;
         }
+
 
         private string GetfKeyColumnName(SQLTable fTable)
         {

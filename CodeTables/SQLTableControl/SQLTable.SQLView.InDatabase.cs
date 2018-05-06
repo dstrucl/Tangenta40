@@ -55,6 +55,9 @@ namespace CodeTables
                             {
                                 if (col.fKey.fTable != null)
                                 {
+
+                                    col.fKey.fTable.ReferencesToThisTable.Add(this, col.Name);
+
                                     col.fKey.fTable.BasicColumns(ref SQL_View, ref m_Table_View, alias_table_name);
                                     if (!m_Table_View.defined)
                                     {
@@ -106,6 +109,7 @@ namespace CodeTables
             }
             return SQL_View;
         }
+
 
         private void jListClear()
         {

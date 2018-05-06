@@ -108,6 +108,8 @@
     <Compile Include="IndexBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReferenceFromTable.cs" />
+    <Compile Include="ReferencesToTable.cs" />
     <Compile Include="usrc_InputControl_DataBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

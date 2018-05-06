@@ -141,24 +141,6 @@ namespace CodeTables
 
             StringBuilder strTableAlterTable = new StringBuilder("");
 
-            //iTableCount = items.Count;
-
-            //iTable = 0;  
-            //while (iTable <iTableCount)
-            //{
-            //    SQLTable tbl = items[iTable];
-            //    if (DBtypesFunc.Is_DBm_Type(tbl.objTable)) 
-            //    {
-            //        items.RemoveAt(iTable);
-            //    }
-            //    else
-            //    {
-            //        iTable++;
-            //    }
-            //    iTableCount = items.Count;
-            //}
-
-
             for (iTable = 0; iTable < iTableCount; iTable++)
             {
                 switch (m_con.DBType)
@@ -177,7 +159,6 @@ namespace CodeTables
 
                     default:
                     break;
-
                 }
             }
             strSqlAll.Append(strTableAlterTable);
@@ -187,6 +168,7 @@ namespace CodeTables
             string ErrMSSQLNameToLong = null;
             for (iTable = 0; iTable < iTableCount; iTable++)
             {
+
                 Application.DoEvents();
                 string table_view = null;
                 StringBuilder SQLCreateView_InDataBase = items[iTable].SQLCreateView_InDataBase(items);
@@ -236,9 +218,38 @@ namespace CodeTables
                 }
             }
 
+                int jTable = 0;
+            for (jTable = 0; jTable < iTableCount; jTable++)
+            {
+                for (iTable = 0; iTable < iTableCount; iTable++)
+                {
+                    if (jTable != iTable)
+                    {
+                        foreach (Column col in items[iTable].Column)
+                        {
+                            if (!col.IsIdentity)
+                            {
+                                if (col.fKey != null)
+                                {
+                                    if (col.fKey.refInListOfTables != null)
+                                    {
+                                        if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
+                                        {
+                                            col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
 
             return strSqlAll;
         }
+
+
 
         public StringBuilder SQLcmd_DropAll_Views(DBConnection xcon)
         {
