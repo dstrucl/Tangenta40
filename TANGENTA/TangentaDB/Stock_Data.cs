@@ -99,5 +99,15 @@ namespace TangentaDB
             }
             return false;
         }
+
+        public Stock_Data()
+        {
+            Stock_ID = null;
+            Stock_ImportTime = null;
+            dQuantity = null;
+            dQuantity_New_in_Stock = null;
+            Stock_ExpiryDate = null;
+            StockTake_Draft = null;
+        }
     }
 }

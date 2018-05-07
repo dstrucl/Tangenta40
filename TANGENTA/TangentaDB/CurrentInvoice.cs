@@ -342,7 +342,7 @@ namespace TangentaDB
                             appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
                             appisd.TaxPrice = tf.set_decimal(dt.Rows[0]["TaxPrice"]);
                             //$$TODO  pias.Stock_ID = long_v.Copy(pis.Stock_ID);
-                            return true;
+                            continue;
                         }
                         else
                         {
