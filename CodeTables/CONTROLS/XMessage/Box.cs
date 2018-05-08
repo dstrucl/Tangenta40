@@ -16,7 +16,12 @@ namespace XMessage
 {
     public static class Box
     {
-      
+        public static DialogResult Show(Control owner, string sText, string scaption)
+        {
+            Form_Box dlg = new Form_Box(owner, sText,scaption);
+            return dlg.ShowDialog(owner);
+        }
+
         public static DialogResult Show(Control owner,bool bStartup,ltext xltext, object oIcon)
         {
             Form_Box dlg = new Form_Box(owner,xltext, oIcon);

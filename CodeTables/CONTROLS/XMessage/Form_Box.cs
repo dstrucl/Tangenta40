@@ -56,6 +56,30 @@ namespace XMessage
             return null;
 
         }
+
+        public Form_Box(Control owner, string stext, string scaption)
+        {
+
+            // TODO: Complete member initialization
+            InitializeComponent();
+            SetColor();
+            Form xOwner = Global.f.GetParentForm(owner);
+            if (xOwner != null)
+            {
+                this.Owner = xOwner;
+            }
+            this.text = stext;
+            this.caption = scaption;
+            this.Text = scaption;
+            textBox1.Text = stext;
+            button1.Visible = false;
+            button3.Visible = false;
+            button2.Visible = true;
+            button2.Tag = DialogResult.OK;
+            lng.s_OK.Text(button2);
+            button2.Focus();
+        }
+
         public Form_Box(Control owner, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
 

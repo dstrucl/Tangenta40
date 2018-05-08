@@ -109,6 +109,7 @@ namespace TangentaDB
 
         public static bool SetFinancialYears(ComboBox cmb_FinancialYear,ref DataTable dt_FinancialYears,bool IsDocInvoice,bool IsDocProformaInvoice,ref int Default_FinancialYear)
         {
+            //            XMessage.Box.Show(cmb_FinancialYear, "Default_FinancialYear=" + Default_FinancialYear.ToString(), "GlobalData:SetFinancialYears(..)");
             if (IsDocInvoice)
             {
                 if (!f_DocInvoice.GetExistingFinancialYears(ref dt_FinancialYears))
@@ -139,6 +140,8 @@ namespace TangentaDB
                 if (dt_FinancialYears.Rows.Count == 0)
                 {
                     //No data rows for financial year at all
+                    //                    XMessage.Box.Show(cmb_FinancialYear, "dt_FinancialYears.Rows.Count == 0" , "GlobalData:SetFinancialYears(..)");
+
                     bNewFinancialYear = true;
                     bNoFinancialYearsatAll = true;
                     DataRow dr = dt_FinancialYears.NewRow();
@@ -160,6 +163,7 @@ namespace TangentaDB
                     }
                     else
                     {
+                        //                        XMessage.Box.Show(cmb_FinancialYear, "Default_FinancialYear == CurrentYear", "GlobalData:SetFinancialYears(..)");
                         DataRow dr = dt_FinancialYears.NewRow();
                         dr["FinancialYear"] = CurrentYear;
                         dt_FinancialYears.Rows.Add(dr);
@@ -172,12 +176,14 @@ namespace TangentaDB
 
             if (Default_FinancialYear == 0)
             {
+                //                XMessage.Box.Show(cmb_FinancialYear, "Default_FinancialYear == 0", "GlobalData:SetFinancialYears(..)");
                 Default_FinancialYear = CurrentYear;
             }
             else
             {
                 if (bNewFinancialYear)
                 {
+                    //XMessage.Box.Show(cmb_FinancialYear, "bNewFinancialYear == true", "GlobalData:SetFinancialYears(..)");
                     if (bNoFinancialYearsatAll)
                     {
                         Default_FinancialYear = CurrentYear;
@@ -190,8 +196,13 @@ namespace TangentaDB
                         }
                     }
                 }
+                else
+                {
+                    //                    XMessage.Box.Show(cmb_FinancialYear, "bNewFinancialYear == false", "GlobalData:SetFinancialYears(..)");
+                }
             }
             SelectFinancialYear(cmb_FinancialYear, Default_FinancialYear);
+//            XMessage.Box.Show(cmb_FinancialYear, "after SelectFinancialYear=" + Default_FinancialYear.ToString(), "GlobalData:SetFinancialYears(..)");
             return true;
         }
 

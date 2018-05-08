@@ -52,9 +52,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ComboBox_Recent">
-      <HintPath>..\ComboBox_Recent\obj\Debug\ComboBox_Recent.dll</HintPath>
-    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLL\FastColoredTextBox.dll</HintPath>
@@ -343,6 +340,10 @@
     <ProjectReference Include="..\..\UTIL\UniqueControlNames\UniqueControlNames.csproj">
       <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
       <Name>UniqueControlNames</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
+      <Name>ComboBox_Recent</Name>
     </ProjectReference>
     <ProjectReference Include="..\ObjectListView\ObjectListView2012.csproj">
       <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
