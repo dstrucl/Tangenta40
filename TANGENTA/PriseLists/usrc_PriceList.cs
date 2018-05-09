@@ -69,6 +69,7 @@ namespace PriseLists
 
         public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, NavigationButtons.Navigation xnav, ref string Err)
         {
+            this.cmb_PriceListType.SelectedIndexChanged -= new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
             m_eShopType = xeShopType;
             m_Currency_ID = Currency_ID;
             if (m_xPriceList == null)
@@ -81,7 +82,11 @@ namespace PriseLists
                 if (xnav.LastStartupDialog_TYPE.Equals("TangentaSampleDB.Form_Items_Samples"))
                 {
                     bool bChanged = false;
-                    return DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
+                    bool bres = DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
+                    if (bres)
+                    {
+                        this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
+                    }
                 }
             }
 
@@ -111,10 +116,16 @@ namespace PriseLists
                         if (bDialogResult)
                         {
                             bool bChanged = false;
-                            return DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
+                            bool bres =   DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
+                            if (bres)
+                            {
+                                this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
+                            }
+                            return bres;
                         }
                     }
                 }
+                this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
                 return true;
             }
             else
@@ -259,5 +270,12 @@ namespace PriseLists
             }
         }
 
+        private void cmb_PriceListType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (PriceListChanged != null)
+            {
+                PriceListChanged();
+            }
+        }
     }
 }

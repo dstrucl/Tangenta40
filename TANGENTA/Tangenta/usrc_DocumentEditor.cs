@@ -918,8 +918,8 @@ namespace Tangenta
                         f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
                         if (bEdit)
                         {
-                            bool bPriceListChanged = false;
-                            this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
+                            //bool bPriceListChanged = false;
+                            //this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
 
                         }
                     }
@@ -960,8 +960,8 @@ namespace Tangenta
                             f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
                             if (bEdit)
                             {
-                                bool bPriceListChanged = false;
-                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
+                                //bool bPriceListChanged = false;
+                                //this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
                             }
                         }
                     }

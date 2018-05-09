@@ -1060,6 +1060,7 @@ namespace ShopB
         private void usrc_PriceList1_PriceListChanged()
         {
             int iCount = 0;
+            m_PriceList_id = usrc_PriceList1.ID;
             this.GetShopBItemData(ref iCount);
             SetGroups(m_PriceList_id);
         }
