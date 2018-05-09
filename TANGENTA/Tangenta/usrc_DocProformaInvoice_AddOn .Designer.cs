@@ -72,7 +72,7 @@
             // 
             this.btn_ProformaInvoice_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_ProformaInvoice_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_ProformaInvoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_ProformaInvoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_ProformaInvoice_Issue.ForeColor = System.Drawing.Color.Black;
             this.btn_ProformaInvoice_Issue.Location = new System.Drawing.Point(10, 442);
             this.btn_ProformaInvoice_Issue.Margin = new System.Windows.Forms.Padding(2);
