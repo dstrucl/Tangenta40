@@ -764,8 +764,6 @@ Section "Tangenta Invoice" SecMain
 	File ".\bin\Release\uwpfGUI.dll"
 	File ".\bin\Release\XMessage.dll"
     File ".\bin\Release\Tangenta.exe"
-    File ".\bin\Release\Tangenta-Help.zip"
-
 
 	File ".\bin\Release\Cyotek.Windows.Forms.ColorPicker.xml"
 	File ".\bin\Release\EWSoftware.ListControls.xml"

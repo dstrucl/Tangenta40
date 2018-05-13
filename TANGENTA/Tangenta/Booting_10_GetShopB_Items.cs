@@ -41,22 +41,30 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            long ShopB_Items_Count = fs.GetTableRowsCount("SimpleItem");
-            if (ShopB_Items_Count>0)
+            if (Program.Shops_in_use.Contains("B"))
             {
-                return Startup_check_proc_Result.CHECK_OK;
-            }
-            else
-            {
-                if (Program.Shops_in_use.Contains("B"))
-                {
-                    startup_ShowForm_proc = Startup_10_Show_Form_Items_Samples;
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-                }
-                else
+
+                long ShopB_Items_Count = fs.GetTableRowsCount("SimpleItem");
+                if (ShopB_Items_Count > 0)
                 {
                     return Startup_check_proc_Result.CHECK_OK;
                 }
+                else
+                {
+                    if (Program.Shops_in_use.Contains("B"))
+                    {
+                        startup_ShowForm_proc = Startup_10_Show_Form_Items_Samples;
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                    }
+                    else
+                    {
+                        return Startup_check_proc_Result.CHECK_OK;
+                    }
+                }
+            }
+            else
+            {
+                return Startup_check_proc_Result.CHECK_OK;
             }
         }
 

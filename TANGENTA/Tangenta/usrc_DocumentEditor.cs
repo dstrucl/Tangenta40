@@ -1414,9 +1414,10 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (Program.Shops_in_use.Contains("C"))
+                    if (Program.Shops_in_use.Contains("B"))
                     {
-                        MessageBox.Show(this, lng.s_No_ShopC_Items_or_no_prices_for_those_items.s);
+                        string smsg = lng.s_No_ShopB_Items_or_no_prices_for_those_items.s.Replace("%s",lng.s_Shop_B.s);
+                        MessageBox.Show(this, smsg);
                         return true;
                     }
                     else

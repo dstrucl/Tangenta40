@@ -297,5 +297,14 @@ namespace CodeTables
 
         }
 
+        private void lblDestinationWidth_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDestinationHeight_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

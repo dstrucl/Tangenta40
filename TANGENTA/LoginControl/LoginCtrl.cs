@@ -68,7 +68,14 @@ namespace LoginControl
             {
                 if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
                 {
-                    return awp.IsAdministrator;
+                    if (awp != null)
+                    {
+                        return awp.IsAdministrator;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {

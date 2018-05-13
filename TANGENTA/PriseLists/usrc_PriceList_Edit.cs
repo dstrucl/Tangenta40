@@ -159,10 +159,18 @@ namespace PriseLists
                 return false;
             }
         }
+
+        private void RemoveHandlers()
+        {
+            this.rdb_OnlyValid.CheckedChanged -= new System.EventHandler(this.rdb_OnlyValid_CheckedChanged);
+            this.rdb_All.CheckedChanged -= new System.EventHandler(this.rdb_All_CheckedChanged);
+            this.rdb_OnlyUnvalid.CheckedChanged -= new System.EventHandler(this.rdb_OnlyUnvalid_CheckedChanged);
+        }
         private void rdb_OnlyValid_CheckedChanged(object sender, EventArgs e)
         {
             if (rdb_OnlyValid.Checked)
             {
+                RemoveHandlers();
                 PriceListMode = usrc_PriceList_Edit.ePriceListMode.SELECT_VALID;
                 Init();
             }
@@ -172,6 +180,7 @@ namespace PriseLists
         {
             if (rdb_OnlyUnvalid.Checked)
             {
+                RemoveHandlers();
                 PriceListMode = usrc_PriceList_Edit.ePriceListMode.SELECT_UNVALID;
                 Init();
             }
@@ -181,6 +190,7 @@ namespace PriseLists
         {
             if (rdb_All.Checked)
             {
+                RemoveHandlers();
                 PriceListMode = usrc_PriceList_Edit.ePriceListMode.SELECT_ALL;
                 Init();
             }

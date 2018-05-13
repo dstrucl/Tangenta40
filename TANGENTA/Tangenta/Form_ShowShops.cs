@@ -210,11 +210,11 @@ namespace Tangenta
 
             if (shinuse.Equals("C"))
             {
+                rdb_A.Visible = false;
                 rdb_C.Checked = true;
                 rdb_C.Enabled = false;
                 rdb_C.Visible = true;
                 rdb_B.Visible = false;
-                rdb_C.Visible = false;
                 rdb_AB.Visible = false;
                 rdb_AC.Visible = false;
                 rdb_ABC.Visible = false;

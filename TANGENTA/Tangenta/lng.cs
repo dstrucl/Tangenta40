@@ -639,7 +639,7 @@ namespace Tangenta
 
         public static ltext s_Number = new ltext(new string[] { "Number", "Številka" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
-        public static ltext s_No_ShopC_Items_or_no_prices_for_those_items = new ltext(new string[] { "Shop %s has no items to sell or prices for them are not defined!", "V prodajalni %s ni nobenih artiklov ali pa le ti nimajo določenih prodajnih cen v ceniku!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
+        public static ltext s_No_ShopB_Items_or_no_prices_for_those_items = new ltext(new string[] { "Shop %s has no items to sell or prices for them are not defined!", "V prodajalni %s ni nobenih artiklov ali pa le ti nimajo določenih prodajnih cen v ceniku!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
         public static ltext s_NoSimpleItemData_EnterSimpleItemDataQuestion = new ltext(new string[] { "No SimpleItem data. Enter SimpleItem data ?", "Ni podatkov o vaših storitvah. Vnesite podatke o storitvah?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
