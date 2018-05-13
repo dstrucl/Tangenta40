@@ -340,11 +340,23 @@ namespace CodeTables.TableDocking_Form
                     DataRow[] drows = dt_Data.Select("ID = " + ID.ToString());
                     if (drows.Count() > 0)
                     {
+                        int iColIndexOfID = dgvx_Table.Rows[0].Cells["ID"].ColumnIndex;
+
                         foreach (DataRow dr in drows)
                         {
-                            int i = dt_Data.Rows.IndexOf(dr);
-                            dgvx_Table.Rows[i].Selected = true;
-                            dgvx_Table.CurrentCell = dgvx_Table[0, i];
+
+                            int rowIndex = -1;
+
+                            foreach (DataGridViewRow row in dgvx_Table.Rows)
+                            {
+                                if ((long)row.Cells[iColIndexOfID].Value== ID)
+                                {
+                                    rowIndex = row.Index;
+                                    dgvx_Table.Rows[rowIndex].Selected = true;
+                                    dgvx_Table.CurrentCell = dgvx_Table[0, rowIndex];
+                                    break;
+                                }
+                            }
                         }
                     }
                 }

@@ -702,6 +702,7 @@ namespace CodeTables
                             }
                             else
                             {
+                                return true;
                                 Err = "ERROR:UpdateInputControls_SQLite:(sqlite_update.Length == 0!";
                                 LogFile.Error.Show(Err);
                                 return false;

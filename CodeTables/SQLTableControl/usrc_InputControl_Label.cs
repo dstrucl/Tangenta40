@@ -92,37 +92,8 @@ namespace CodeTables
                         if (vs.defined)
                         {
                             rdb_lbl.Checked = true;
-                        }
-                        else
-                        {
-                            rdb_null.Checked = true;
-                        }
-                    }
-                    catch
-                    {
-                        // Table
-                        rdb_null.Checked = true;
-                    }
-                }
-                else
-                {
-                    rdb_null.Checked = true;
-                }
-            }
-        }
-
-        public void Init_SetCheck()
-        {
-            if (m_col.nulltype == Column.nullTYPE.NULL)
-            {
-                if (m_col.obj != null)
-                {
-                    try
-                    {
-                        ValSet vs = (ValSet)m_col.obj;
-                        if (vs.defined)
-                        {
-                            rdb_lbl.Checked = true;
+                            bool_v NewData = null;
+                            NotNullData(ref NewData);
                         }
                         else
                         {
@@ -146,16 +117,68 @@ namespace CodeTables
                 else
                 {
                     rdb_null.Checked = true;
+                    if (null_selected != null)
+                    {
+                        null_selected(true);
+                    }
+                }
+            }
+        }
+
+        public void Init_SetCheck()
+        {
+            if (m_col.nulltype == Column.nullTYPE.NULL)
+            {
+                EventHandler_Remove();
+                if (m_col.obj != null)
+                {
+                    try
+                    {
+                        ValSet vs = (ValSet)m_col.obj;
+                        if (vs.defined)
+                        {
+                            rdb_lbl.Checked = true;
+                            bool_v NewData = null;
+                            NotNullData(ref NewData);
+                        }
+                        else
+                        {
+                            rdb_null.Checked = true;
+                            if (null_selected != null)
+                            {
+                                null_selected(true);
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        // Table
+                        rdb_null.Checked = true;
+                        if (null_selected != null)
+                        {
+                            null_selected(true);
+                        }
+                    }
+                }
+                else
+                {
+                    rdb_null.Checked = true;
+                    if (null_selected != null)
+                    {
+                        null_selected(true);
+                    }
                 }
 
                 Initial_NoData = new bool_v();
                 Initial_NoData.v = rdb_null.Checked;
+                EventHandler_Set();
 
             }
         }
 
         public void NoData(bool b)
         {
+            EventHandler_Remove();
             if (b)
             {
                 if (rdb_null != null)
@@ -170,8 +193,11 @@ namespace CodeTables
                 {
                     rdb_null.Checked = false;
                     rdb_lbl.Checked = true;
+                    bool_v NewData = null;
+                    NotNullData(ref NewData);
                 }
             }
+            EventHandler_Set();
         }
 
         public bool Null_Selected
@@ -191,7 +217,7 @@ namespace CodeTables
 
         public void InitNoData(bool b)
         {
-
+            EventHandler_Remove();
             if (Initial_NoData == null)
             {
                 Initial_NoData = new bool_v();
@@ -203,6 +229,10 @@ namespace CodeTables
                 {
                     rdb_null.Checked = true;
                     rdb_lbl.Checked = false;
+                    if (null_selected != null)
+                    {
+                        null_selected(true);
+                    }
                 }
             }
             else
@@ -211,20 +241,35 @@ namespace CodeTables
                 {
                     rdb_null.Checked = false;
                     rdb_lbl.Checked = true;
+                    bool_v NewData = null;
+                    NotNullData(ref NewData);
                 }
             }
+            EventHandler_Set();
         }
 
         private void EventHandler_Set()
         {
-            rdb_null.CheckedChanged += new EventHandler(rdb_null_CheckedChanged);
-            rdb_lbl.CheckedChanged += new EventHandler(rdb_lbl_CheckedChanged);
+            if (rdb_null != null)
+            {
+                rdb_null.CheckedChanged += new EventHandler(rdb_null_CheckedChanged);
+            }
+            if (rdb_lbl != null)
+            {
+                rdb_lbl.CheckedChanged += new EventHandler(rdb_lbl_CheckedChanged);
+            }
         }
 
         private void EventHandler_Remove()
         {
-            rdb_null.CheckedChanged -= rdb_null_CheckedChanged;
-            rdb_lbl.CheckedChanged -= rdb_lbl_CheckedChanged;
+            if (rdb_null != null)
+            {
+                rdb_null.CheckedChanged -= rdb_null_CheckedChanged;
+            }
+            if (rdb_lbl != null)
+            {
+                rdb_lbl.CheckedChanged -= rdb_lbl_CheckedChanged;
+            }
         }
 
 
@@ -295,7 +340,7 @@ namespace CodeTables
                 this.Controls.Add(rdb_lbl);
                 this.Width = rdb_lbl.Left + rdb_lbl.Width + 2;
                 Init_SetCheck();
-                EventHandler_Set();
+//                EventHandler_Set();
             }
             else
             {
@@ -323,24 +368,29 @@ namespace CodeTables
 
         }
 
+        private void NotNullData(ref bool_v NewData)
+        {
+            if (bNoData_Changed(ref NewData))
+            {
+                rdb_lbl.ForeColor = Color_NewData;
+            }
+            else
+            {
+                rdb_lbl.ForeColor = Color_NoNewData;
+            }
+
+            if (null_selected != null)
+            {
+                null_selected(false);
+            }
+
+        }
         void rdb_lbl_CheckedChanged(object sender, EventArgs e)
         {
             bool_v NewData = null;
             if (rdb_lbl.Checked)
             {
-                if (bNoData_Changed(ref NewData))
-                {
-                    rdb_lbl.ForeColor = Color_NewData;
-                }
-                else
-                {
-                    rdb_lbl.ForeColor = Color_NoNewData;
-                }
-
-                if (null_selected != null)
-                {
-                    null_selected(false);
-                }
+                NotNullData(ref NewData);
             }
             else
             {
