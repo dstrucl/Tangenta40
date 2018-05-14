@@ -239,7 +239,6 @@ namespace UpgradeDB
                                    ExpiryDate,
                                    Stock_ID
                                 from Atom_ProformaInvoice_Price_Item_Stock;
-                                PRAGMA foreign_keys = ON;
                 ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
@@ -674,6 +673,21 @@ namespace UpgradeDB
                                     lparx.Add(par_LanguageIndex);
 
                                     string Name = (string)dtLanguage.Rows[i]["Name"];
+                                    if (i==0)
+                                    {
+                                        if (!Name.Equals("English"))
+                                        {
+                                            Name = "English";
+                                        }
+                                    }
+                                    if (i == 1)
+                                    {
+                                        if (!Name.Equals("Slovensko"))
+                                        {
+                                            Name = "Slovensko";
+                                        }
+                                    }
+
                                     string spar_Name = "@par_Name";
                                     SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
                                     lparx.Add(par_Name);
@@ -683,7 +697,32 @@ namespace UpgradeDB
                                     if (oDescription is string)
                                     {
                                         string spar_Description = "@par_Description";
-                                        SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, (string)oDescription);
+                                        string sDescription = (string)oDescription;
+                                        if (i==0)
+                                        {
+                                            sDescription = "English";
+                                        }
+                                        else if (i == 1)
+                                        {
+                                            sDescription = "Slovensko";
+                                        }
+                                        SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false,sDescription);
+                                        lparx.Add(par_Description);
+                                        sval_Description = spar_Description;
+                                    }
+                                    else
+                                    {
+                                        string spar_Description = "@par_Description";
+                                        string sDescription = null;
+                                        if (i == 0)
+                                        {
+                                            sDescription = "English";
+                                        }
+                                        else if (i == 1)
+                                        {
+                                            sDescription = "Slovensko";
+                                        }
+                                        SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, sDescription);
                                         lparx.Add(par_Description);
                                         sval_Description = spar_Description;
                                     }
@@ -693,10 +732,20 @@ namespace UpgradeDB
                                     if (obDefault is bool)
                                     {
                                         string spar_bDefault = "@par_bDefault";
-                                        SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, (bool)obDefault);
+                                        bool bDefault = false;
+                                        SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, bDefault);
                                         lparx.Add(par_bDefault);
                                         sval_bDefault = spar_bDefault;
                                     }
+                                    else
+                                    {
+                                        string spar_bDefault = "@par_bDefault";
+                                        bool bDefault = false;
+                                        SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, bDefault);
+                                        lparx.Add(par_bDefault);
+                                        sval_bDefault = spar_bDefault;
+                                    }
+
                                     sql = "insert into Language_NEW (LanguageIndex,Name,Description,bDefault)values(" + spar_LanguageIndex + "," + spar_Name + "," + sval_Description + "," + sval_bDefault + ")";
                                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lparx, ref Err))
                                     {

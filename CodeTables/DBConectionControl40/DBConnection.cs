@@ -4049,7 +4049,7 @@ namespace DBConnectionControl40
             string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
             if (BackupFullFileNamePath==null)
             {
-                string full_path = System.IO.Path.GetFullPath(FullFileNamePath);
+                string full_path = System.IO.Path.GetDirectoryName(FullFileNamePath);
                 string file_name = System.IO.Path.GetFileName(FullFileNamePath);
                 if ((full_path[full_path.Length-1]!='\\') && (full_path[full_path.Length - 1] != '/'))
                 {

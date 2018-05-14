@@ -594,6 +594,27 @@ namespace UpgradeDB
                                     return false;
                                 }
                             }
+                            else
+                            {
+                                sql = @"
+                                        PRAGMA foreign_keys = OFF;
+                                        DROP TABLE Supplier;
+                                        ALTER TABLE Supplier_NEW RENAME TO Supplier;
+                                        DROP TABLE PurchasePrice;
+                                        ALTER TABLE PurchasePrice_NEW RENAME TO PurchasePrice;
+                                        DROP TABLE PurchasePrice_Item;
+                                        ALTER TABLE PurchasePrice_Item_NEW RENAME TO PurchasePrice_Item;
+                                        DROP TABLE JOURNAL_PurchasePrice;
+                                        DROP TABLE JOURNAL_PurchasePrice_TYPE;
+                                        update Language set Name = 'Slovensko' where Name = 'Slovene';
+                                        PRAGMA foreign_keys = ON;
+                                        ";
+                                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
                             return true;
                         }
                         else

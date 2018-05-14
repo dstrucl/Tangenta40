@@ -24,8 +24,10 @@ using System.Drawing;
 
 namespace UpgradeDB
 {
-    public partial class UpgradeDB_inThread :Component
+    public class UpgradeDB_inThread
     {
+        public const string UPGRADEBACKUP = "UpgradeBackup_";
+
         public class Upgrade
         {
             public string DBVersion = null;
@@ -83,6 +85,10 @@ namespace UpgradeDB
         {
             int i = 0;
             int iCount = UpgradeArray.Length;
+            if (m_Full_backup_filename==null)
+            {
+                m_Full_backup_filename = Get_m_Full_backup_filename();
+            }
             for (i = 0; i < iCount; i++)
             {
                 if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
@@ -95,6 +101,14 @@ namespace UpgradeDB
             }
             CheckDataBaseTables(ref Err);
             return true;
+        }
+
+        private string Get_m_Full_backup_filename()
+        {
+            string sdbfilepath = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath;
+            string sdbfilename = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
+            return sdbfilepath+UPGRADEBACKUP+ sdbfilename;
+
         }
 
         private bool CheckDataBaseTables(ref string Err)
@@ -264,13 +278,9 @@ namespace UpgradeDB
 
         public static fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,
                                                                     ref string xFull_backup_filename,
-                                                                    ref bool bUpgradeDone,
-                                                                    ref bool bInsertSampleData,
-                                                                    ref bool bCanceled,
                                                                     ref string Err)
         {
             bool xReadOnly = false;
-            bInsertSampleData = false;
             Restore_if_UpgradeBackupFileExists(ref xFull_backup_filename);
             return fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
                                    ref myStartup.CurrentDataBaseVersionTextValue,
@@ -294,7 +304,7 @@ namespace UpgradeDB
                         {
                             full_backup_folder += '\\';
                         }
-                        full_backup_filename = full_backup_folder + "UpgradeBackup_" + DB_Name;
+                        full_backup_filename = full_backup_folder + UPGRADEBACKUP + DB_Name;
                         if (File.Exists(full_backup_filename))
                         {
                             string stext = lng.s_UpgradeBackupFileExist_restore_old_Database.s.Replace("%s", full_backup_filename);
@@ -328,14 +338,5 @@ namespace UpgradeDB
                 return true;
             }
         }
-
-        //public fs.enum_GetDBSettings Read_DBSettings(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        //{
-        //    bool bUpgradeDone = false;
-        //    bool bCanceled = false;
-        //    fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
-        //    myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
-        //    return myStartup.eGetDBSettings_Result;
-        //}
     }  
 }

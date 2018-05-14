@@ -43,8 +43,6 @@ namespace Tangenta
 
         public event delegate_Exit_Click Exit_Click;
 
-        public UpgradeDB_inThread m_UpgradeDB = null;
-
 
         internal bool Customer_Changed = false;
 
@@ -161,7 +159,6 @@ namespace Tangenta
         public usrc_DocumentMan()
         {
             InitializeComponent();
-            m_UpgradeDB = new UpgradeDB_inThread(this);
             Program.usrc_TangentaPrint1 = this.usrc_TangentaPrint1;
             lng.s_btn_New.Text(btn_New);
             lng.s_Year.Text(lbl_FinancialYear);

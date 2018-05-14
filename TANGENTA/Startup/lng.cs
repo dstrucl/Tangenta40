@@ -24,6 +24,15 @@ namespace Startup
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_DataBase = new ltext(new string[] { "Database ", "Podatkovna baza" });   // referenced in C:\Tangenta40\TANGENTA\Startup\startup.cs
+        public static ltext s_DataBase_is_of_version = new ltext(new string[] { " is of version ", " je verzije" });   // referenced in C:\Tangenta40\TANGENTA\Startup\startup.cs
+        public static ltext s_This_program_runs_with_database_version = new ltext(new string[] { "This program version runs only with database version ", "Ta program deluje samo s podatkovno bazo verzije " });   // referenced in C:\Tangenta40\TANGENTA\Startup\startup.cs
+        public static ltext s_UpgradeDataBaseToVersion = new ltext(new string[] { "Upgrade database to new version", "Ali se naj naredi nadgradnja podatkovne baze na verzijo " });   // referenced in C:\Tangenta40\TANGENTA\Startup\startup.cs
+
+        public static ltext ThisVersionOfProgramSupportsDBVersion_which_is_less_or_equal
+            = new ltext(new string[] { "This version of program supports database version which is less or equal ", "Pričujoča verzija programa Tangenta deluje lahko samo s podatkovno bazo, katere verzija je manjša ali enaka " });   // referenced in C:\Tangenta40\TANGENTA\Startup\startup.cs
+
+
         public static ltext s_CtrlColors_StartupStep = new ltext(new string[] { "Startup step colors", "Barvi zagonskega koraka" });   // referenced in C:\Tangenta40\TANGENTA\Startup\Form_LicenseAgreement.cs
 
         public static ltext s_CtrlColors_Startup = new ltext(new string[] { "Startup colors", "Barvi zagonskega dialoga" });   // referenced in C:\Tangenta40\TANGENTA\Startup\Form_LicenseAgreement.cs

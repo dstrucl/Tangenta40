@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
+using UpgradeDB;
+
 namespace Startup
 {
     public partial class usrc_Startup : UserControl
@@ -24,7 +26,8 @@ namespace Startup
         public delegate void delegate_Finished();
         public event delegate_Finished Finished = null;
 
-        
+        public UpgradeDB_inThread m_UpgradeDB = null;
+
 
         int xusrc_startup_step_Width = 0;
 
@@ -39,6 +42,7 @@ namespace Startup
         public usrc_Startup(startup xstartup)
         {
             InitializeComponent();
+            m_UpgradeDB = new UpgradeDB_inThread(this);
             m_startup = xstartup;
             lng.s_StartupProgram.Text(lbl_StartUp);
             Visible = true;

@@ -77,6 +77,60 @@ namespace Startup
                 }
             } }
 
+        public bool CheckUpgrade(ref bool bUpgradeDone, ref string Err)
+        {
+            bUpgradeDone = false;
+            int iversionread = -1;
+            int ithisprogramDBversion = -1;
+            string dbversionread = CurrentDataBaseVersionTextValue.Replace(".", "");
+            string sthisprogramDBversion = TangentaDataBaseDef.MyDataBase_Tangenta.VERSION.Replace(".", "");
+            try
+            {
+                iversionread = Convert.ToInt32(dbversionread);
+            }
+            catch
+            {
+                Err= "ERROR:Startup:startup:CheckUpgrade can not convert verison=\""+ dbversionread+"\" to int !";
+                return false;
+            }
+            try
+            {
+                ithisprogramDBversion = Convert.ToInt32(sthisprogramDBversion);
+            }
+            catch 
+            {
+                Err = "ERROR:Startup:startup:CheckUpgrade can not convert verison=\"" + dbversionread + "\" to int !";
+                return false;
+            }
+            if (ithisprogramDBversion < iversionread)
+            {
+                Err = lng.ThisVersionOfProgramSupportsDBVersion_which_is_less_or_equal.s+":"+ sthisprogramDBversion;
+                return false;
+            }
+            else if (ithisprogramDBversion > iversionread)
+            {
+                string smsg = lng.s_DataBase.s +" \""+ DBSync.DBSync.DataBase+"\""+  lng.s_DataBase_is_of_version.s + "\"" + CurrentDataBaseVersionTextValue + "\".\r\n" + lng.s_This_program_runs_with_database_version.s + ":\"" + TangentaDataBaseDef.MyDataBase_Tangenta.VERSION + "\".\r\n" +
+                lng.s_UpgradeDataBaseToVersion.s + ":\"" + TangentaDataBaseDef.MyDataBase_Tangenta.VERSION + "\" ?\r\n";
+                ltext lmsg = new ltext(new string[] { smsg, smsg });
+                if (XMessage.Box.Show(true, m_usrc_Startup, lmsg, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    bool bres = m_usrc_Startup.m_UpgradeDB.UpgradeDB(CurrentDataBaseVersionTextValue, TangentaDataBaseDef.MyDataBase_Tangenta.VERSION, ref Err);
+                    if (bres)
+                    {
+                        bUpgradeDone = true;
+                    }
+                    return bres;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         public startup(Form parent_form, NavigationButtons.Navigation xnav, Icon xFormIconQuestion,bool xbFirstTimeInstallation)
         {

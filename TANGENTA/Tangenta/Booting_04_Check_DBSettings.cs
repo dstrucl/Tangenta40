@@ -44,6 +44,54 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
+            string xFullBackupFile = null;
+            bool bUpgradeDone = false;
+            fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(m_startup, ref xFullBackupFile, ref Err);
+            Startup_check_proc_Result eres = Startup_check_proc_Result.CHECK_ERROR;
+            switch (eGetDBSettings_Result)
+            {
+                case fs.enum_GetDBSettings.DBSettings_OK:
+                    if (m_startup.CheckUpgrade(ref bUpgradeDone, ref Err))
+                    {
+                        if (bUpgradeDone)
+                        {
+                            startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
+                            eres = Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                        }
+                        else
+                        {
+                            eres = Startup_check_proc_Result.CHECK_OK;
+                        }
+                    }
+                    else
+                    {
+                        return Startup_check_proc_Result.CHECK_ERROR;
+                    }
+                    break;
+
+                case fs.enum_GetDBSettings.No_Data_Rows:
+                    //DataBaseVersion Not written !
+                    long ID_Version = -1;
+                    if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
+                    {
+                        eres = Startup_check_proc_Result.CHECK_OK;
+                    }
+                    else
+                    {
+                        eres = Startup_check_proc_Result.CHECK_ERROR;
+                    }
+                    break;
+
+                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                case fs.enum_GetDBSettings.No_ReadOnly:
+                case fs.enum_GetDBSettings.No_TextValue:
+                    return Startup_check_proc_Result.CHECK_ERROR;
+                default:
+                    return Startup_check_proc_Result.CHECK_ERROR;
+            }
+
+
+
             if (GlobalData.Type_definitions_Read())
             {
                 if (f_Currency.GetCurrencyTable(ref Err))
@@ -52,42 +100,7 @@ namespace Tangenta
                     {
                         if (frm.m_usrc_Main.GetDBSettings(ref Err))
                         {
-                            string xFullBackupFile = null;
-                            bool bUpgradeDone = false;
-                            bool bInsertSampleData = false;
-                            bool bCanceled = false;
-                            fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(m_startup, ref xFullBackupFile, ref bUpgradeDone, ref bInsertSampleData, ref bCanceled, ref Err);
-                            switch (eGetDBSettings_Result)
-                            {
-                                case fs.enum_GetDBSettings.DBSettings_OK:
-                                    if (bUpgradeDone)
-                                    {
-                                        startup_ShowForm_proc = Startup_04_ShowDBSettingsForm;
-                                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
-                                    }
-                                    else
-                                    {
-                                        return Startup_check_proc_Result.CHECK_OK;
-                                    }
-
-                                case fs.enum_GetDBSettings.No_Data_Rows:
-                                    //DataBaseVersion Not written !
-                                    long ID_Version = -1;
-                                    if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
-                                    {
-                                        return Startup_check_proc_Result.CHECK_OK;
-                                    }
-                                    else
-                                    {
-                                        return Startup_check_proc_Result.CHECK_ERROR;
-                                    }
-                                case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                case fs.enum_GetDBSettings.No_ReadOnly:
-                                case fs.enum_GetDBSettings.No_TextValue:
-                                    return Startup_check_proc_Result.CHECK_ERROR;
-                                default:
-                                    return Startup_check_proc_Result.CHECK_ERROR;
-                            }
+                            return eres;
                         }
                         else
                         {
