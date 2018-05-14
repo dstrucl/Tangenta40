@@ -157,10 +157,6 @@
       <Project>{51e8c8bc-b176-40e5-b452-c80d9421ab79}</Project>
       <Name>ThreadProcessor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Startup\Startup.csproj">
-      <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
-      <Name>Startup</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>

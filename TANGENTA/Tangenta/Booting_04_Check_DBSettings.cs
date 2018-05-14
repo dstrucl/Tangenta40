@@ -46,7 +46,7 @@ namespace Tangenta
         {
             string xFullBackupFile = null;
             bool bUpgradeDone = false;
-            fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(m_startup, ref xFullBackupFile, ref Err);
+            fs.enum_GetDBSettings eGetDBSettings_Result = UpgradeDB.UpgradeDB_inThread.Read_DBSettings_Version(ref m_startup.CurrentDataBaseVersionTextValue, ref xFullBackupFile, ref Err);
             Startup_check_proc_Result eres = Startup_check_proc_Result.CHECK_ERROR;
             switch (eGetDBSettings_Result)
             {

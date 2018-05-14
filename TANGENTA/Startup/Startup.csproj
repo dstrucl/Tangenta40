@@ -60,9 +60,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UpgradeDB">
-      <HintPath>..\usrc_Upgrade\obj\Debug\UpgradeDB.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
@@ -156,6 +153,10 @@
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\usrc_Upgrade\UpgradeDB.csproj">
+      <Project>{7eea3e02-1c5d-4451-9976-4f65f2ce1492}</Project>
+      <Name>UpgradeDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

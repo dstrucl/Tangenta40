@@ -19,7 +19,7 @@ using TangentaDB;
 using ThreadProcessor;
 using System.ComponentModel;
 using System.IO;
-using Startup;
+//using Startup;
 using System.Drawing;
 
 namespace UpgradeDB
@@ -276,14 +276,14 @@ namespace UpgradeDB
             }
         }
 
-        public static fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,
+        public static fs.enum_GetDBSettings Read_DBSettings_Version(ref string xCurrentDataBaseVersionTextValue,
                                                                     ref string xFull_backup_filename,
                                                                     ref string Err)
         {
             bool xReadOnly = false;
             Restore_if_UpgradeBackupFileExists(ref xFull_backup_filename);
             return fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
-                                   ref myStartup.CurrentDataBaseVersionTextValue,
+                                   ref xCurrentDataBaseVersionTextValue,
                                    ref xReadOnly,
                                    ref Err);
         }
