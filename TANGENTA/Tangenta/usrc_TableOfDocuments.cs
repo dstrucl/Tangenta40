@@ -38,6 +38,7 @@ namespace Tangenta
         public bool m_bInvoice = false;
         public string cond = null;
 
+        long dgSortingSelectedItem_ID = -1;
 
 
         public string ExtraCondition = null;
@@ -580,6 +581,10 @@ namespace Tangenta
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
                                     dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                                 }
+                                else
+                                {
+                                    iCurrentSelectedRow = 0;
+                                }
                             }
                             else
                             {
@@ -619,6 +624,10 @@ namespace Tangenta
                                 {
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
                                     dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
+                                }
+                                else
+                                {
+                                    iCurrentSelectedRow = 0;
                                 }
                             }
                             else
@@ -754,35 +763,38 @@ namespace Tangenta
 
         private void ShowOrEditSelectedRow(bool bInitialise)
         {
-            if (SelectedInvoiceChanged!=null)
-            { 
-                DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_XInvoice.SelectedCells;
-                if (dgvCellCollection.Count >= 1)
+            if (!(dgSortingSelectedItem_ID >= 0))
+            {
+                if (SelectedInvoiceChanged != null)
                 {
-                    //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                    if (IsDocInvoice)
+                    DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_XInvoice.SelectedCells;
+                    if (dgvCellCollection.Count >= 1)
                     {
-                        if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value is long)
+                        //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
+                        if (IsDocInvoice)
                         {
-                            long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value;
-                            this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
-                            SelectedInvoiceChanged(Identity, bInitialise);
-                            return;
+                            if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value is long)
+                            {
+                                long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value;
+                                this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
+                                SelectedInvoiceChanged(Identity, bInitialise);
+                                return;
+                            }
                         }
-                    }
-                    else if (IsDocProformaInvoice)
-                    {
-                        if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value is long)
+                        else if (IsDocProformaInvoice)
                         {
-                            long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value;
-                            this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
-                            SelectedInvoiceChanged(Identity, bInitialise);
-                            return;
+                            if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value is long)
+                            {
+                                long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value;
+                                this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
+                                SelectedInvoiceChanged(Identity, bInitialise);
+                                return;
+                            }
                         }
-                    }
 
+                    }
+                    SelectedInvoiceChanged(-1, bInitialise);
                 }
-                SelectedInvoiceChanged(-1, bInitialise);
             }
         }
 
@@ -1010,6 +1022,62 @@ namespace Tangenta
         {
             Form_PrintReport frm_print = new Form_PrintReport(this);
             frm_print.ShowDialog();
+        }
+
+        private void dgvx_XInvoice_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //If a column header was clicked
+            if ((e.RowIndex == -1)&&(e.ColumnIndex>=0))
+            {
+                //And a row is selected
+                if (!(dgvx_XInvoice.SelectedRows.Count == 0))
+                {
+                    //Record the unique value from the column called "Name"
+                    string cellid = null;
+                    if (IsDocInvoice)
+                    {
+                        cellid = "JOURNAL_DocInvoice_$_dinv_$$ID";
+                    }
+                    else
+                    {
+                        cellid = "JOURNAL_DocProformaInvoice_$_dpinv_$$ID";
+                    }
+                    dgSortingSelectedItem_ID = (long)dgvx_XInvoice.SelectedRows[0].Cells[cellid].Value;
+                }
+            }
+        }
+
+        private void dgvx_XInvoice_Sorted(object sender, EventArgs e)
+        {
+            if (dgSortingSelectedItem_ID >= 0)
+            {
+                foreach (DataGridViewRow dgRow in dgvx_XInvoice.Rows)
+                {
+                    //Locate the row after the sort
+                    string cellid = null;
+                    if (IsDocInvoice)
+                    {
+                        cellid = "JOURNAL_DocInvoice_$_dinv_$$ID";
+                    }
+                    else
+                    {
+                        cellid = "JOURNAL_DocProformaInvoice_$_dpinv_$$ID";
+                    }
+
+                    if ((long)dgRow.Cells[cellid].Value == dgSortingSelectedItem_ID)
+                    {
+                        //Clear the datagridview selections
+                        dgvx_XInvoice.ClearSelection();
+                        //Select the row at its new position
+                        dgRow.Selected = true;
+                        //Set currentcell using the 1st cell of the row in its new position
+                        dgvx_XInvoice.CurrentCell = dgRow.Cells[0];
+                        //Exit the routine
+                        break;
+                    }
+                }
+                dgSortingSelectedItem_ID = -1;
+            }
         }
     }
 }

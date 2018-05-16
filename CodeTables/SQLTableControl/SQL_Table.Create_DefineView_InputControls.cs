@@ -779,6 +779,15 @@ namespace CodeTables
         {
             if (this.myGroupBox != null)
             {
+                // undefine input controls!
+                foreach(Column col in Column)
+                {
+                    if (col.InputControl != null)
+                    {
+                        col.InputControl.Defined = false;
+                        col.InputControl.InitToDefault();
+                    }
+                }
                 this.myGroupBox.Hide_And_Init_Reference_ID(xuctrln);
             }
         }

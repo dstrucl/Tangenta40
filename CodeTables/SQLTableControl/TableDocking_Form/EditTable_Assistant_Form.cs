@@ -141,7 +141,7 @@ namespace CodeTables
                     if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                     {
                         Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
-                        m_MyGroupBox.pSQL_Table.iFillTableData = -1;
+                        m_MyGroupBox.pSQL_Table.iFillTableData = 0;
                         m_MyGroupBox.FillInputControls(Identity,false, uctrln);
                     }
                 }

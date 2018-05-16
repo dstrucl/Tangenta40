@@ -79,7 +79,6 @@
             // 
             // dgvx_XInvoice
             // 
-            this.dgvx_XInvoice.AllowDrop = true;
             this.dgvx_XInvoice.AllowUserToAddRows = false;
             this.dgvx_XInvoice.AllowUserToDeleteRows = false;
             this.dgvx_XInvoice.AllowUserToOrderColumns = true;
@@ -104,6 +103,8 @@
             this.dgvx_XInvoice.Size = new System.Drawing.Size(826, 561);
             this.dgvx_XInvoice.TabIndex = 0;
             this.dgvx_XInvoice.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_XInvoice_CellFormatting);
+            this.dgvx_XInvoice.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_XInvoice_CellMouseDown);
+            this.dgvx_XInvoice.Sorted += new System.EventHandler(this.dgvx_XInvoice_Sorted);
             // 
             // lbl_Payment1
             // 
@@ -146,7 +147,7 @@
             this.btn_TimeSpan.UseVisualStyleBackColor = false;
             this.btn_TimeSpan.Click += new System.EventHandler(this.btn_TimeSpan_Click);
             // 
-            // usrc_InvoiceTable
+            // usrc_TableOfDocuments
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.btn_Print);
@@ -158,7 +159,7 @@
             this.Controls.Add(this.btn_TimeSpan);
             this.Controls.Add(this.lbl_From_To);
             this.Controls.Add(this.dgvx_XInvoice);
-            this.Name = "usrc_InvoiceTable";
+            this.Name = "usrc_TableOfDocuments";
             this.Size = new System.Drawing.Size(831, 604);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_XInvoice)).EndInit();
             this.ResumeLayout(false);
