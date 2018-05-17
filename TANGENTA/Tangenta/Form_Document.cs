@@ -455,6 +455,11 @@ namespace Tangenta
 
         private void Exit()
         {
+            string sdb = DBSync.DBSync.DataBase;
+            if (sdb != null)
+            {
+                Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
+            }
             Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID;
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();

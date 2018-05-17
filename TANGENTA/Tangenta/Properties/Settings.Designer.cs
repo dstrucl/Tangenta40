@@ -526,5 +526,17 @@ namespace Tangenta.Properties {
                 this["InstallationFinished"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Current_DataBase {
+            get {
+                return ((string)(this["Current_DataBase"]));
+            }
+            set {
+                this["Current_DataBase"] = value;
+            }
+        }
     }
 }

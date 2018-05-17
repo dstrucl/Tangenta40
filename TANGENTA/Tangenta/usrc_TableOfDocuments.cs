@@ -569,6 +569,16 @@ namespace Tangenta
                     {
                         if (iRowsCount > 0)
                         {
+                            string sdb = DBSync.DBSync.DataBase;
+                            if (sdb != null)
+                            {
+                                if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
+                                {
+                                    Properties.Settings.Default.Current_DataBase = sdb;
+                                    Properties.Settings.Default.Current_DocInvoice_ID = -1;
+                                    Properties.Settings.Default.Save();
+                                }
+                            }
                             if (iCurrentSelectedRow >= 0)
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
@@ -612,6 +622,16 @@ namespace Tangenta
                     {
                         if (iRowsCount > 0)
                         {
+                            string sdb = DBSync.DBSync.DataBase;
+                            if (sdb != null)
+                            {
+                                if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
+                                {
+                                    Properties.Settings.Default.Current_DataBase = sdb;
+                                    Properties.Settings.Default.Current_DocProformaInvoice_ID = -1;
+                                    Properties.Settings.Default.Save();
+                                }
+                            }
                             long my_Current_DocProformaInvoice_ID = Properties.Settings.Default.Current_DocProformaInvoice_ID;
                             if (iCurrentSelectedRow >= 0)
                             {

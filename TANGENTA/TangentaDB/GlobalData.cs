@@ -198,7 +198,10 @@ namespace TangentaDB
                 }
                 else
                 {
-                    //                    XMessage.Box.Show(cmb_FinancialYear, "bNewFinancialYear == false", "GlobalData:SetFinancialYears(..)");
+                    if (!FinancialYearExist(dt_FinancialYears, Default_FinancialYear))
+                    {
+                        Default_FinancialYear = CurrentYear;
+                    }
                 }
             }
             SelectFinancialYear(cmb_FinancialYear, Default_FinancialYear);
