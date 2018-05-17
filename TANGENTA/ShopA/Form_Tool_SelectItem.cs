@@ -40,28 +40,57 @@ namespace ShopA
 
         public bool Reload()
         {
+            this.Owner.Cursor = Cursors.WaitCursor;
             this.dgvx_Item.SelectionChanged -= new System.EventHandler(this.dgvx_Item_SelectionChanged);
             string Err = null;
+            //string sql = @"SELECT
+            //    ID,
+            //    Atom_ItemShopA_$$Name,
+            //    Atom_ItemShopA_$$Description,
+            //    Atom_ItemShopA_$_tax_$$ID,
+            //    Atom_ItemShopA_$_tax_$$Name,
+            //    Atom_ItemShopA_$_tax_$$Rate,
+            //    Atom_ItemShopA_$_u_$$ID,
+            //    Atom_ItemShopA_$_u_$$Name,
+            //    Atom_ItemShopA_$_u_$$Symbol,
+            //    Atom_ItemShopA_$_u_$$DecimalPlaces,
+            //    Atom_ItemShopA_$_u_$$StorageOption,
+            //    Atom_ItemShopA_$_u_$$Description,
+            //    Atom_ItemShopA_$_sup_$$ID,
+            //    Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID,
+            //    Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Name,
+            //    Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
+            //    Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Registration_ID
+            //    FROM Atom_ItemShopA_VIEW
+            //    where Atom_ItemShopA_$$VisibleForSelection = 1";
+
             string sql = @"SELECT
-                ID,
-                Atom_ItemShopA_$$Name,
-                Atom_ItemShopA_$$Description,
-                Atom_ItemShopA_$_tax_$$ID,
-                Atom_ItemShopA_$_tax_$$Name,
-                Atom_ItemShopA_$_tax_$$Rate,
-                Atom_ItemShopA_$_u_$$ID,
-                Atom_ItemShopA_$_u_$$Name,
-                Atom_ItemShopA_$_u_$$Symbol,
-                Atom_ItemShopA_$_u_$$DecimalPlaces,
-                Atom_ItemShopA_$_u_$$StorageOption,
-                Atom_ItemShopA_$_u_$$Description,
-                Atom_ItemShopA_$_sup_$$ID,
-                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID,
-                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Name,
-                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
-                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Registration_ID
-                FROM Atom_ItemShopA_VIEW
-                where Atom_ItemShopA_$$VisibleForSelection = 1";
+            Atom_ItemShopA.ID,
+            Atom_ItemShopA.Name AS Atom_ItemShopA_$$Name,
+            Atom_ItemShopA.Description AS Atom_ItemShopA_$$Description,
+            Atom_ItemShopA_$_tax.ID AS Atom_ItemShopA_$_tax_$$ID,
+            Atom_ItemShopA_$_tax.Name AS Atom_ItemShopA_$_tax_$$Name,
+            Atom_ItemShopA_$_tax.Rate AS Atom_ItemShopA_$_tax_$$Rate,
+            Atom_ItemShopA_$_u.ID AS Atom_ItemShopA_$_u_$$ID,
+            Atom_ItemShopA_$_u.Name AS Atom_ItemShopA_$_u_$$Name,
+            Atom_ItemShopA_$_u.Symbol AS Atom_ItemShopA_$_u_$$Symbol,
+             Atom_ItemShopA_$_u.DecimalPlaces AS Atom_ItemShopA_$_u_$$DecimalPlaces,
+             Atom_ItemShopA_$_u.StorageOption AS Atom_ItemShopA_$_u_$$StorageOption,
+             Atom_ItemShopA_$_u.Description AS Atom_ItemShopA_$_u_$$Description,
+             Atom_ItemShopA_$_sup.ID AS Atom_ItemShopA_$_sup_$$ID,
+             Atom_ItemShopA_$_sup_$_c_$_orgd_$_org.ID AS Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID,
+             Atom_ItemShopA_$_sup_$_c_$_orgd_$_org.Name AS Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Name,
+             Atom_ItemShopA_$_sup_$_c_$_orgd_$_org.Tax_ID AS Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
+             Atom_ItemShopA_$_sup_$_c_$_orgd_$_org.Registration_ID AS Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Registration_ID
+             FROM Atom_ItemShopA
+             INNER JOIN Taxation Atom_ItemShopA_$_tax ON Atom_ItemShopA.Taxation_ID = Atom_ItemShopA_$_tax.ID
+             LEFT JOIN Unit Atom_ItemShopA_$_u ON Atom_ItemShopA.Unit_ID = Atom_ItemShopA_$_u.ID
+             LEFT JOIN Supplier Atom_ItemShopA_$_sup ON Atom_ItemShopA.Supplier_ID = Atom_ItemShopA_$_sup.ID
+             LEFT JOIN Contact Atom_ItemShopA_$_sup_$_c ON Atom_ItemShopA_$_sup.Contact_ID = Atom_ItemShopA_$_sup_$_c.ID
+             LEFT JOIN OrganisationData Atom_ItemShopA_$_sup_$_c_$_orgd ON Atom_ItemShopA_$_sup_$_c.OrganisationData_ID = Atom_ItemShopA_$_sup_$_c_$_orgd.ID
+             LEFT JOIN Organisation Atom_ItemShopA_$_sup_$_c_$_orgd_$_org ON Atom_ItemShopA_$_sup_$_c_$_orgd.Organisation_ID = Atom_ItemShopA_$_sup_$_c_$_orgd_$_org.ID
+             where Atom_ItemShopA.VisibleForSelection = 1";
+
             dt_Atom_ItemShopA.Clear();
             this.dgvx_Item.DataSource = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_Atom_ItemShopA,sql,ref Err))
@@ -74,10 +103,12 @@ namespace ShopA
                 dgvx_Item.Columns["Atom_ItemShopA_$_sup_$$ID"].Visible = false;
                 dgvx_Item.Columns["Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID"].Visible = false;
                 dgvx_Item.ClearSelection();
+                this.Owner.Cursor = Cursors.Arrow;
                 return true;
             }
             else
             {
+                this.Owner.Cursor = Cursors.Arrow;
                 LogFile.Error.Show("ERROR:Read_Atom_SimpleItem_Table:select ... from Atom_SimpleItem:\r\n Err=" + Err);
                 return false;
             }

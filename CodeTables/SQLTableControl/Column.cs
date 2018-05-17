@@ -75,7 +75,18 @@ namespace CodeTables
         //public ValueSetTYPE SetType = ValueSetTYPE.SET_NOTHING;
         public ForeignKey fKey = null;
 
-        public string Name;
+        private string name = null;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
 
         public ltext Name_in_language = null;
 

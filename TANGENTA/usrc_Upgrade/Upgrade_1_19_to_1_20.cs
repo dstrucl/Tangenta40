@@ -135,6 +135,7 @@ namespace UpgradeDB
 
                                insert into DocInvoice
                                (
+                               ID,
                                Draft,
                                DraftNumber,
                                FinancialYear,
@@ -153,6 +154,7 @@ namespace UpgradeDB
                                Invoice_Reference_Type
                                )
                                select 
+                                pi.ID,
                                 pi.Draft,
                                 pi.DraftNumber,
                                 pi.FinancialYear,

@@ -651,14 +651,15 @@ namespace CodeTables
 
         private Column FindColumn(string column_name)
         {
-            foreach (Column col in Column)
-            {
-                if (col.Name.Equals(column_name))
-                {
-                    return col;
-                }
-            }
-            return null;
+            return Column.Find(col => col.Name == column_name);
+            //foreach (Column col in Column)
+            //{
+            //    if (col.Name.Equals(column_name))
+            //    {
+            //        return col;
+            //    }
+            //}
+            //return null;
 
         }
 
