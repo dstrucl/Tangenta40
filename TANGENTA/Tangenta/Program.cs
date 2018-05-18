@@ -57,6 +57,7 @@ namespace Tangenta
             internal static bool StockCheckAtStartup = true;
             internal static bool ShopC_ExclusivelySellFromStock = false;
             internal static bool MultiCurrency = false;
+            internal static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
         }
 
         private static string m_RunAs = null;

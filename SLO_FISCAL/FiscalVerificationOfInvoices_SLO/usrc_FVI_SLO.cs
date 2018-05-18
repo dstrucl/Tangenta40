@@ -850,6 +850,17 @@ namespace FiscalVerificationOfInvoices_SLO
         private void btn_FVI_Click(object sender, EventArgs e)
         {
 
+            if (this.PasswordCheck!=null)
+            {
+                bool bPasswordOK = false;
+                this.PasswordCheck(ref bPasswordOK);
+                {
+                    if (!bPasswordOK)
+                    {
+                        return;
+                    }
+                }
+            }
             frm_main = new Form_MainFiscal(this);
             frm_main.PasswordCheck = this.PasswordCheck;
             frm_main.ShowDialog(this);

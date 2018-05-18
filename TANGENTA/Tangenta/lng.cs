@@ -25,6 +25,10 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_YouCanNotCreateNewInvoiceForPastFinancialYear = new ltext(new string[] { "You can not create new invoice for past financial year ", "Nov račun ni možno odpreti za preteklo finančno leto " });
+
+        public static ltext s_NumberOfMonthAfterNewYearToAllowCreateNewInvoiceIs = new ltext(new string[] { "Number of months after New Year in which you can still create new invoice for last year is", "Število mesecev po novem letu, ko nov račun v preteklem finančnem letu še lahko odprete je " });
+
 
         public static ltext s_CtrlColors_HeadColor = new ltext(new string[] { "Head colors", "Barvi glave dokumenta" });
         public static ltext s_CtrlColors_DocInvoice = new ltext(new string[] { "Invoice manager colors", "Barvi pri urejanji računov" });
@@ -692,6 +696,8 @@ namespace Tangenta
         internal static ltext s_MoreDataForPerson = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Person_Edit.cs
 
         internal static ltext s_OtherPersonDana = new ltext(new string[] { "More data for person", "Več podatkov o osebi " }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_PersonData_Edit.cs
+
+        internal static ltext s_nmUpDn_NumberOfMonthAfterNewYearToAllowCreateNewInvoice = new ltext(new string[] { "Number of months after NewYear to allow create new invoice in past year:", "Število mesecev po novem letu, ko je še dovoljeno odpreti nov račun v preteklem letu:" });
 
         internal static ltext s_chk_ShopC_ExclusivelySellFromStock = new ltext(new string[] { "In Shop C only sell from stock is enabled", "V prodajalni C je omogočena samo prodaja iz zalog" });
 

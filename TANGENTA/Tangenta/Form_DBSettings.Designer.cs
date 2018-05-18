@@ -40,7 +40,10 @@
             this.chk_ShopC_ExclusivelySellFromStock = new System.Windows.Forms.CheckBox();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.chk_MultiCurrency = new System.Windows.Forms.CheckBox();
+            this.nmUpDnOfMonthsInANewYearToAllowNewInvoice = new System.Windows.Forms.NumericUpDown();
+            this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice = new System.Windows.Forms.Label();
             this.grp_OperationMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDnOfMonthsInANewYearToAllowNewInvoice)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_Administrator_Password
@@ -179,11 +182,33 @@
             this.chk_MultiCurrency.Text = "Multi Currency";
             this.chk_MultiCurrency.UseVisualStyleBackColor = true;
             // 
+            // nmUpDnOfMonthsInANewYearToAllowNewInvoice
+            // 
+            this.nmUpDnOfMonthsInANewYearToAllowNewInvoice.Location = new System.Drawing.Point(290, 319);
+            this.nmUpDnOfMonthsInANewYearToAllowNewInvoice.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nmUpDnOfMonthsInANewYearToAllowNewInvoice.Name = "nmUpDnOfMonthsInANewYearToAllowNewInvoice";
+            this.nmUpDnOfMonthsInANewYearToAllowNewInvoice.Size = new System.Drawing.Size(71, 20);
+            this.nmUpDnOfMonthsInANewYearToAllowNewInvoice.TabIndex = 9;
+            // 
+            // lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice
+            // 
+            this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Location = new System.Drawing.Point(7, 310);
+            this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name = "lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice";
+            this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Size = new System.Drawing.Size(277, 51);
+            this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice.TabIndex = 10;
+            this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Text = "Number of month after New Year to allow create new invoice in last year";
+            // 
             // Form_DBSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(393, 311);
+            this.ClientSize = new System.Drawing.Size(393, 363);
+            this.Controls.Add(this.lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice);
+            this.Controls.Add(this.nmUpDnOfMonthsInANewYearToAllowNewInvoice);
             this.Controls.Add(this.chk_MultiCurrency);
             this.Controls.Add(this.chk_ShopC_ExclusivelySellFromStock);
             this.Controls.Add(this.grp_OperationMode);
@@ -196,6 +221,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.grp_OperationMode.ResumeLayout(false);
             this.grp_OperationMode.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDnOfMonthsInANewYearToAllowNewInvoice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,5 +239,7 @@
         private System.Windows.Forms.CheckBox chk_ShopC_ExclusivelySellFromStock;
         private Password.usrc_PasswordDefinition usrc_Password1;
         private System.Windows.Forms.CheckBox chk_MultiCurrency;
+        private System.Windows.Forms.NumericUpDown nmUpDnOfMonthsInANewYearToAllowNewInvoice;
+        private System.Windows.Forms.Label lbl_NumberOfMonthAfterNewYearToAllowCreateNewInvoice;
     }
 }

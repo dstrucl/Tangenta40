@@ -21,6 +21,21 @@ namespace Tangenta
         public bool StockCheckAtStartup { get {return chk_StockCheckAtStartup.Checked; } }
         public bool MultiCurrencyOperation { get { return chk_MultiCurrency.Checked; } }
         public bool ShopC_ExclusivelySellFromStock { get { return chk_ShopC_ExclusivelySellFromStock.Checked; }  }
+        public int NumberOfMonthAfterNewYearToAllowCreateNewInvoice
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value);
+                }
+                catch
+                {
+                    nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value = 1;
+                    return 1;
+                }
+            }
+        }
 
 
 
@@ -36,6 +51,7 @@ namespace Tangenta
             lng.s_MultiuserOperationWithLogin.Text(rdb_MultiUserOperation);
             lng.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
             lng.s_chk_ShopC_ExclusivelySellFromStock.Text(chk_ShopC_ExclusivelySellFromStock);
+            lng.s_nmUpDn_NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Text(this.nmUpDnOfMonthsInANewYearToAllowNewInvoice);
             if (AdministratorLockedPassword == null)
             {
                 this.usrc_Password1.Text =Password.Password.LockPassword("12345");
@@ -57,6 +73,7 @@ namespace Tangenta
             chk_ShopC_ExclusivelySellFromStock.Checked = Program.OperationMode.ShopC_ExclusivelySellFromStock;
             chk_StockCheckAtStartup.Checked = Program.OperationMode.StockCheckAtStartup;
             chk_MultiCurrency.Checked = Program.OperationMode.MultiCurrency;
+            nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value = Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice;
 
             if (rdb_SingleUser.Checked)
             {
@@ -156,11 +173,15 @@ namespace Tangenta
                         sbShopC_ExclusivelySellFromStock = "1";
                     }
 
+                    int iNumberOfMonthAfterNewYearToAllowCreateNewInvoice = Convert.ToInt32(nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value);
+                    string sbNumberOfMonthAfterNewYearToAllowCreateNewInvoice = iNumberOfMonthAfterNewYearToAllowCreateNewInvoice.ToString();
+
                     if ((rdb_MultiUserOperation.Checked!= Program.OperationMode.MultiUser)
                         ||(chk_StockCheckAtStartup.Checked!= Program.OperationMode.StockCheckAtStartup)
                         || (chk_SingleUserLoginAsAdministrator.Checked != Program.OperationMode.SingleUserLoginAsAdministrator)
                         || (chk_ShopC_ExclusivelySellFromStock.Checked != Program.OperationMode.ShopC_ExclusivelySellFromStock)
-                        || (chk_MultiCurrency.Checked != Program.OperationMode.MultiCurrency))
+                        || (chk_MultiCurrency.Checked != Program.OperationMode.MultiCurrency)
+                        || (iNumberOfMonthAfterNewYearToAllowCreateNewInvoice != Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice))
                     {
                         Changed = true;
                     }
@@ -185,10 +206,13 @@ namespace Tangenta
                                     if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, sbMultiCurrencyOperation, "0", ref DBSettings_ID))
                                     {
                                         Program.OperationMode.MultiCurrency = chk_MultiCurrency.Checked;
-
-                                        Close();
-                                        DialogResult = DialogResult.OK;
-                                        return true;
+                                        if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name, sbNumberOfMonthAfterNewYearToAllowCreateNewInvoice, "0", ref DBSettings_ID))
+                                        {
+                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = iNumberOfMonthAfterNewYearToAllowCreateNewInvoice;
+                                            Close();
+                                            DialogResult = DialogResult.OK;
+                                            return true;
+                                        }
                                     }
                                 }
                             }
