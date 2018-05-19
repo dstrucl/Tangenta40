@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopAItem_Edit));
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
@@ -64,10 +65,13 @@
             this.ClientSize = new System.Drawing.Size(905, 589);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_EditTable);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_ShopAItem_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShopBItem_EditForm";
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_ShopAItem_Edit_KeyUp);
             this.ResumeLayout(false);
 
         }

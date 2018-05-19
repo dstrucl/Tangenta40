@@ -213,5 +213,10 @@ namespace Tangenta
 
 
         }
+
+        private void Form_OrganisationAccount_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }

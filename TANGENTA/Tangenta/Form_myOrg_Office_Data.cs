@@ -215,5 +215,10 @@ namespace Tangenta
                     break;
             }
         }
+
+        private void Form_myOrg_Office_Data_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable1.KeyPressed(e.KeyCode);
+        }
     }
 }

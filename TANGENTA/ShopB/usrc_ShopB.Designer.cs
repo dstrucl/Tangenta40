@@ -43,7 +43,6 @@
             this.btn_edit_ShopB_Items = new System.Windows.Forms.Button();
             this.lbl_ShopB_Items = new System.Windows.Forms.Label();
             this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
-            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -236,18 +235,9 @@
             this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             this.usrc_PriceList1.CheckAccess += new PriseLists.usrc_PriceList.delegate_CheckAccess(this.usrc_PriceList1_CheckAccess);
             // 
-            // usrc_Help1
-            // 
-            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Help1.Location = new System.Drawing.Point(777, 1);
-            this.usrc_Help1.Name = "usrc_Help1";
-            this.usrc_Help1.Size = new System.Drawing.Size(32, 25);
-            this.usrc_Help1.TabIndex = 23;
-            // 
             // usrc_ShopB
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_ShopB_Name);
             this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.lbl_GroupPath);
@@ -285,6 +275,5 @@
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public PriseLists.usrc_PriceList usrc_PriceList1;
-        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

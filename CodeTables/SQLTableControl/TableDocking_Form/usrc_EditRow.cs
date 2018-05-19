@@ -287,6 +287,21 @@ namespace CodeTables.TableDocking_Form
             this.BackColor = m_tbl.myGroupBox.BackColor;
         }
 
+        public void KeyPressed(Keys k)
+        {
+            switch (k)
+            {
+                case Keys.F2:
+                    if ((this.btn_Update.Visible) & (this.btn_Update.Enabled))
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        UpdateDataBase();
+                        this.Cursor = Cursors.Arrow;
+                    }
+                    break;
+            }
+        }
+
         void myGroupBox_Unique_parameter_exist(SQLTable tbl, Column col, DataTable dt, object value,ref bool bHandled)
         {
             

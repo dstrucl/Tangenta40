@@ -19,7 +19,7 @@ namespace CodeTables
 {
     public partial class usrc_RowReferencedFromTable : UserControl
     {
-        SQLTable m_tbl = null;
+        internal SQLTable m_tbl = null;
         DataTable m_dt = null;
         SQLTable m_tbl_referenced = null;
         long m_tbl_referenced_ID = -1;

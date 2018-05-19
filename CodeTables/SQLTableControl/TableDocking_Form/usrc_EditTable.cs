@@ -245,6 +245,11 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
+        public void KeyPressed(Keys k)
+        {
+            usrc_EditRow.KeyPressed(k);
+        }
+
         public object GetColumnObject(string ColumnName)
         {
             if (tbl!=null)
@@ -526,6 +531,21 @@ namespace CodeTables.TableDocking_Form
             }
             else
             {
+                if (this.tbl!=null)
+                {
+                    if (usrc_RowReferencedFromTable_List.Count==1)
+                    {
+                        usrc_RowReferencedFromTable ut = usrc_RowReferencedFromTable_List[0];
+                        if (ut.m_tbl!=null)
+                        {
+                            if (ut.m_tbl.TableName.Equals(this.tbl.TableName))
+                            {
+                                bCancelDialog = true;
+                                return false;
+                            }
+                        }
+                    }
+                }
                 bCancelDialog = false;
                 return false;
             }

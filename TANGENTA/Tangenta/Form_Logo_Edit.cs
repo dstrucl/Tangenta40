@@ -102,5 +102,10 @@ namespace Tangenta
         {
             return default(bool);
         }
+
+        private void Form_Logo_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }

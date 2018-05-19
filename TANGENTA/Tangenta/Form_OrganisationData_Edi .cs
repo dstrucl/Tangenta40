@@ -124,5 +124,9 @@ namespace Tangenta
         {
         }
 
+        private void OrganisationData_EditForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }

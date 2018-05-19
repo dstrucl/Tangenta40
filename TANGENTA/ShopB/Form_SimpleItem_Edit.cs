@@ -148,5 +148,10 @@ namespace ShopB
             }
 
         }
+
+        private void Form_ShopB_Item_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+           this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }

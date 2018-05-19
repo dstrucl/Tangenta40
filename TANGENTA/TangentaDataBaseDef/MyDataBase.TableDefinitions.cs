@@ -60,7 +60,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.22";
+        public const string VERSION = "1.23";
         public Settings Settings = null;
 
         /* 1 */
@@ -804,7 +804,7 @@ namespace TangentaDataBaseDef
             t_Organisation.AddColumn((Object)mt.m_Organisation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation name", "Ime Firme") );
             t_Organisation.AddColumn((Object)mt.m_Organisation.Tax_ID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "TAX ID", "Davčna številka") );
             t_Organisation.AddColumn((Object)mt.m_Organisation.Registration_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "REGISTRATION ID", "Matična številka") );
-            t_Organisation.AddColumn((Object)mt.m_Organisation.TaxPayer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext("Tax payer", "Davčni zavezanec"));
+            t_Organisation.AddColumn((Object)mt.m_Organisation.TaxPayer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext("VAT payer", "Zavezanec za DDV"));
             t_Organisation.AddColumn((Object)mt.m_Organisation.m_Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1 ID", "Komentar 1 ID"));
             m_DBTables.items.Add(t_Organisation);
 
@@ -827,7 +827,7 @@ namespace TangentaDataBaseDef
             t_Item.AddColumn((Object)mt.m_Item.UniqueName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Unique Item Name", "Unikatni Naziv Artikla") );
             t_Item.AddColumn((Object)mt.m_Item.Name, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Name", "Ime Artikla"));
             t_Item.AddColumn((Object)mt.m_Item.m_Unit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Unit ID", "Enota ID"));
-            t_Item.AddColumn((Object)mt.m_Item.Code, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Code", "Št.Artikla"));
+            t_Item.AddColumn((Object)mt.m_Item.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Code", "Št.Artikla"));
             t_Item.AddColumn((Object)mt.m_Item.m_Item_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "ID item group 1", "ID skupine artiklov 1") );
             t_Item.AddColumn((Object)mt.m_Item.barcode, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Item barcode", "črtna koda") );
             t_Item.AddColumn((Object)mt.m_Item.Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Description", "Opis") );
@@ -862,7 +862,7 @@ namespace TangentaDataBaseDef
             t_SimpleItem.AddColumn((Object)mt.m_SimpleItem.Abbreviation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Abbreviation", "Kratica") );
             t_SimpleItem.AddColumn((Object)mt.m_SimpleItem.ToOffer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext( "To offer", "V ponudbi") );
             t_SimpleItem.AddColumn((Object)mt.m_SimpleItem.m_SimpleItem_Image, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Item/Service Image ID ", "Slika artikla/storitve ID") );
-            t_SimpleItem.AddColumn((Object)mt.m_SimpleItem.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Code", "Št.storitve") );
+            t_SimpleItem.AddColumn((Object)mt.m_SimpleItem.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Code", "Št.Artikla/Storitve") );
             t_SimpleItem.AddColumn((Object)mt.m_SimpleItem.m_SimpleItem_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Group", "Skupina") );
             m_DBTables.items.Add(t_SimpleItem);
 
@@ -896,9 +896,9 @@ namespace TangentaDataBaseDef
             /* 34 */
             t_Atom_SimpleItem = new SQLTable((Object)new Atom_SimpleItem(),"asi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_InvoiceItem);
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_SimpleItem, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem ID", "Artikel/Storitev ID") );
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem Name ID", "Ime Artikla/Storitve ID") );
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Image, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem Image ID", "Slika Artikla/Storitve ID") );
+            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Code", "Koda Artikla/Storitve"));
             m_DBTables.items.Add(t_Atom_SimpleItem);
 
             /* 35 */

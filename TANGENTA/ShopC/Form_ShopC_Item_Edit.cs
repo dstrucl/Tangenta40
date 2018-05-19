@@ -326,5 +326,10 @@ namespace ShopC
                 m_usrc_StockEditForSelectedStockTake.edt_Item_dlg = null;
             }
         }
+
+        private void Form_ShopC_Item_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }

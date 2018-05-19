@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_myOrg_Edit));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.btn_Office = new System.Windows.Forms.Button();
             this.btn_BankAccounts = new System.Windows.Forms.Button();
             this.usrc_EditRow = new CodeTables.TableDocking_Form.usrc_EditRow();
             this.dgvx_MyOrganisation = new DataGridView_2xls.DataGridView2xls();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,36 +63,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(866, 596);
             this.splitContainer1.SplitterDistance = 477;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // usrc_NavigationButtons1
-            // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
-            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
-            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
-            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
-            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
-            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
-            this.usrc_NavigationButtons1.Image_Cancel = null;
-            this.usrc_NavigationButtons1.Image_EXIT = null;
-            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
-            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
-            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, -1);
-            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(866, 27);
-            this.usrc_NavigationButtons1.TabIndex = 1;
-            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
-            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
-            this.usrc_NavigationButtons1.Text_NEXT = "";
-            this.usrc_NavigationButtons1.Text_OK = "";
-            this.usrc_NavigationButtons1.Text_PREV = "";
-            this.usrc_NavigationButtons1.Visible_EXIT = true;
-            this.usrc_NavigationButtons1.Visible_NEXT = true;
-            this.usrc_NavigationButtons1.Visible_PREV = true;
-            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // btn_Office
             // 
@@ -159,6 +129,36 @@
             this.dgvx_MyOrganisation.Size = new System.Drawing.Size(856, 100);
             this.dgvx_MyOrganisation.TabIndex = 0;
             // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, -1);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(866, 27);
+            this.usrc_NavigationButtons1.TabIndex = 1;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
+            // 
             // Form_myOrg_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -167,10 +167,12 @@
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_myOrg_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyOrganisationData_EditForm";
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_myOrg_Edit_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

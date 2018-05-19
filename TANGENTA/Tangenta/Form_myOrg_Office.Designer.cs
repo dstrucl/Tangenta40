@@ -104,10 +104,12 @@
             this.Controls.Add(this.btn_Office_Data_And_FVI_SLO_RealEstateBP);
             this.Controls.Add(this.usrc_EditTable1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_myOrg_Office";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_myOrg_Offices_Edit";
             this.Load += new System.EventHandler(this.Form_myOrg_Offices_Edit_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_myOrg_Office_KeyUp);
             this.ResumeLayout(false);
 
         }

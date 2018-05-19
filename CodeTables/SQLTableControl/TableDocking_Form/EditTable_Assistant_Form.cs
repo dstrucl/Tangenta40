@@ -134,19 +134,32 @@ namespace CodeTables
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-                DataGridViewSelectedCellCollection dgvCellCollection = dataGridView.SelectedCells;
-                if (dgvCellCollection.Count >= 1)
+            OnOK();
+        }
+
+        private void OnOK()
+        {
+            DataGridViewSelectedCellCollection dgvCellCollection = dataGridView.SelectedCells;
+            if (dgvCellCollection.Count >= 1)
+            {
+                //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
+                if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                 {
-                    //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                    if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
-                    {
-                        Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
-                        m_MyGroupBox.pSQL_Table.iFillTableData = 0;
-                        m_MyGroupBox.FillInputControls(Identity,false, uctrln);
-                    }
+                    Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                    m_MyGroupBox.pSQL_Table.iFillTableData = 0;
+                    m_MyGroupBox.FillInputControls(Identity, false, uctrln);
                 }
+            }
             this.Close();
             DialogResult = DialogResult.OK;
+        }
+
+        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if ((e.RowIndex>=0)&&(e.ColumnIndex>=0))
+            {
+                OnOK();
+            }
         }
     }
 }

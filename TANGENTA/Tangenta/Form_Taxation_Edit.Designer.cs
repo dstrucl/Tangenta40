@@ -93,11 +93,13 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_Taxation_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Taxation_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Taxation_EditForm_FormClosing);
             this.Load += new System.EventHandler(this.Taxation_EditForm_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_Taxation_Edit_KeyUp);
             this.ResumeLayout(false);
 
         }

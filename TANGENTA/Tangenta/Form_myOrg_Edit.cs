@@ -351,5 +351,10 @@ namespace Tangenta
                 }
             }
         }
+
+        private void Form_myOrg_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditRow.KeyPressed(e.KeyCode);
+        }
     }
 }

@@ -127,6 +127,7 @@
             this.Controls.Add(this.btn_Insert);
             this.Controls.Add(this.BtnCallSecretaryToWork);
             this.Controls.Add(this.pnl_Editor);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_EditRow";
             this.Size = new System.Drawing.Size(716, 592);

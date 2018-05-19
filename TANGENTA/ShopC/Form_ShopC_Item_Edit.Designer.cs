@@ -132,12 +132,14 @@
             this.Controls.Add(this.usrc_EditTable);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_ShopC_Item_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Item_EditForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_ShopC_Item_Edit_FormClosed);
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_ShopC_Item_Edit_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

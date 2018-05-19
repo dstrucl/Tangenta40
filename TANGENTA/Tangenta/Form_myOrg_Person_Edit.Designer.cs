@@ -103,10 +103,12 @@
             this.Controls.Add(this.btn_PersonData_Edit);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_EditTable1);
+            this.KeyPreview = true;
             this.Name = "Form_myOrg_Person_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyOrganisationData_EditForm";
             this.Load += new System.EventHandler(this.Form_myOrg_Person_Edit_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_myOrg_Person_Edit_KeyUp);
             this.ResumeLayout(false);
 
         }

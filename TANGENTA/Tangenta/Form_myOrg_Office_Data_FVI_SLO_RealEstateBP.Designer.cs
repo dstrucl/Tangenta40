@@ -42,7 +42,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditTable1.GetRandomData = false;
             this.usrc_EditTable1.Location = new System.Drawing.Point(1, 25);
-            this.usrc_EditTable1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_EditTable1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
             this.usrc_EditTable1.Size = new System.Drawing.Size(760, 530);
@@ -95,10 +95,12 @@
             this.Controls.Add(this.usrc_EditTable1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.KeyPreview = true;
             this.Name = "Form_myOrg_Office_Data_FVI_SLO_RealEstateBP";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_myOrg_Offices_Edit";
             this.Load += new System.EventHandler(this.Form_myOrg_Offices_Edit_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_KeyUp);
             this.ResumeLayout(false);
 
         }

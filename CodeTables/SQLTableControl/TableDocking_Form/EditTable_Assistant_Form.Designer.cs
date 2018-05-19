@@ -52,6 +52,7 @@
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(416, 329);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellDoubleClick);
             this.dataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView_KeyUp);
             // 
             // btn_Cancel
@@ -88,7 +89,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditTable_Assistant_Form";
             this.Text = "EditaTable_Assistant_Form";
-            this.TopMost = false;
             this.Load += new System.EventHandler(this.EditTable_Assistant_Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

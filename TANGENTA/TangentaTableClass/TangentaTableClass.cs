@@ -1830,9 +1830,9 @@ namespace TangentaTableClass
     public class Atom_SimpleItem
     {
         public ID ID = new ID();
-        public SimpleItem m_SimpleItem = new SimpleItem();
         public Atom_SimpleItem_Name m_Atom_SimpleItem_Name = new Atom_SimpleItem_Name();
         public Atom_SimpleItem_Image m_Atom_SimpleItem_Image = new Atom_SimpleItem_Image();
+        public Code Code = new Code();
     }
 
     public class Identification:DB_varchar_64

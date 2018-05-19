@@ -94,11 +94,13 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_Currency_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Currency_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Currency_Edit_FormClosing);
             this.Load += new System.EventHandler(this.Form_Currency_Edit_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_Currency_Edit_KeyUp);
             this.ResumeLayout(false);
 
         }

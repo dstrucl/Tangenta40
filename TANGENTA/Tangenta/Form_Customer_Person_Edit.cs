@@ -201,5 +201,9 @@ namespace Tangenta
             Edit_PersonAccount();
         }
 
+        private void Form_Customer_Person_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }

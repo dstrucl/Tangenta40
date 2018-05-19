@@ -95,11 +95,13 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_Logo_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Logo_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Logo_Edit_FormClosing);
             this.Load += new System.EventHandler(this.Form_Logo_Edit_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_Logo_Edit_KeyUp);
             this.ResumeLayout(false);
 
         }

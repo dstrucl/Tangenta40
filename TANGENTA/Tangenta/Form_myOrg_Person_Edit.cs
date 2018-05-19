@@ -279,5 +279,10 @@ namespace Tangenta
             this.btn_PersonData_Edit.Text = sbtn_PersonData_Edit;
 
         }
+
+        private void Form_myOrg_Person_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable1.KeyPressed(e.KeyCode);
+        }
     }
 }

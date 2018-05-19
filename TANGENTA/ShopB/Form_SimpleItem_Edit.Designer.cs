@@ -29,31 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopB_Item_Edit));
-            this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.rdb_OnlyNotInOffer = new System.Windows.Forms.RadioButton();
             this.rdb_All = new System.Windows.Forms.RadioButton();
             this.rdb_OnlyInOffer = new System.Windows.Forms.RadioButton();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
+            this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.SuspendLayout();
-            // 
-            // usrc_EditTable
-            // 
-            this.usrc_EditTable.AllowUserToAddNew = true;
-            this.usrc_EditTable.AllowUserToChange = true;
-            this.usrc_EditTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_EditTable.GetRandomData = false;
-            this.usrc_EditTable.Location = new System.Drawing.Point(4, 57);
-            this.usrc_EditTable.Name = "usrc_EditTable";
-            this.usrc_EditTable.SelectionButtonVisible = false;
-            this.usrc_EditTable.Size = new System.Drawing.Size(902, 432);
-            this.usrc_EditTable.TabIndex = 0;
-            this.usrc_EditTable.Title = "";
-            this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
-            this.usrc_EditTable.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_after_InsertInDataBase);
-            this.usrc_EditTable.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_after_UpdateDataBase);
             // 
             // rdb_OnlyNotInOffer
             // 
@@ -118,6 +99,25 @@
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
+            // usrc_EditTable
+            // 
+            this.usrc_EditTable.AllowUserToAddNew = true;
+            this.usrc_EditTable.AllowUserToChange = true;
+            this.usrc_EditTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_EditTable.GetRandomData = false;
+            this.usrc_EditTable.Location = new System.Drawing.Point(4, 57);
+            this.usrc_EditTable.Name = "usrc_EditTable";
+            this.usrc_EditTable.SelectionButtonVisible = false;
+            this.usrc_EditTable.Size = new System.Drawing.Size(902, 432);
+            this.usrc_EditTable.TabIndex = 0;
+            this.usrc_EditTable.Title = "";
+            this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
+            this.usrc_EditTable.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_EditTable.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_after_InsertInDataBase);
+            this.usrc_EditTable.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_after_UpdateDataBase);
+            // 
             // Form_ShopB_Item_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -130,10 +130,12 @@
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_ShopB_Item_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShopBItem_EditForm";
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_ShopB_Item_Edit_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

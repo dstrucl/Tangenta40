@@ -53,5 +53,10 @@ namespace ShopA
 
             }
         }
+
+        private void Form_ShopAItem_Edit_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.usrc_EditTable.KeyPressed(e.KeyCode);
+        }
     }
 }
