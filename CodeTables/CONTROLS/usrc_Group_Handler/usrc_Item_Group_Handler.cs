@@ -222,14 +222,15 @@ namespace usrc_Item_Group_Handler
                     {
                         s3_name_cond = " s3_name =='" + sGroupArr[2] + "' ";
                     }
-                    Err += " Group not found :" + s1_name_cond + " and " + s2_name_cond + " and " + s3_name_cond;
+                    //Err += " Group not found :" + s1_name_cond + " and " + s2_name_cond + " and " + s3_name_cond;
                 }
                 else
                 {
                     Err += ":sGroupArr.Count() != 3 ";
+                    LogFile.Error.Show(Err);
                 }
 
-                LogFile.Error.Show(Err);
+                
             }
             return m_CurrentGroup != null;
 
