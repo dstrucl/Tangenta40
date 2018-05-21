@@ -27,7 +27,7 @@ namespace ShopA
         DataTable dt_Atom_ItemShopA = new DataTable();
         usrc_Editor m_usrc_Editor = null;
         SQLTable t_Atom_ItemShopA = null;
-
+        long dgSortingSelectedItem_ID = -1;
 
         public Form_Tool_SelectItem(Atom_ItemShopA xAtom_ItemShopA, usrc_Editor xusrc_Editor)
         {
@@ -41,6 +41,8 @@ namespace ShopA
         public bool Reload()
         {
             this.Owner.Cursor = Cursors.WaitCursor;
+            dgvx_Item.CellMouseDown -= Dgvx_Item_CellMouseDown;
+            dgvx_Item.Sorted -= Dgvx_Item_Sorted;
             this.dgvx_Item.SelectionChanged -= new System.EventHandler(this.dgvx_Item_SelectionChanged);
             string Err = null;
             //string sql = @"SELECT
@@ -104,6 +106,9 @@ namespace ShopA
                 dgvx_Item.Columns["Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID"].Visible = false;
                 dgvx_Item.ClearSelection();
                 this.Owner.Cursor = Cursors.Arrow;
+                dgvx_Item.CellMouseDown += Dgvx_Item_CellMouseDown;
+                dgvx_Item.Sorted += Dgvx_Item_Sorted;
+                this.dgvx_Item.SelectionChanged += new System.EventHandler(this.dgvx_Item_SelectionChanged);
                 return true;
             }
             else
@@ -113,6 +118,49 @@ namespace ShopA
                 return false;
             }
         }
+
+        private void Dgvx_Item_Sorted(object sender, EventArgs e)
+        {
+            if (dgSortingSelectedItem_ID >= 0)
+            {
+                foreach (DataGridViewRow dgRow in dgvx_Item.Rows)
+                {
+                    //Locate the row after the sort
+                    string cellid = "ID";
+
+                    if ((long)dgRow.Cells[cellid].Value == dgSortingSelectedItem_ID)
+                    {
+                        //Clear the datagridview selections
+                        dgvx_Item.ClearSelection();
+                        //Select the row at its new position
+                        dgRow.Selected = true;
+                        //Set currentcell using the 1st cell of the row in its new position
+                        dgvx_Item.CurrentCell = dgRow.Cells["Atom_ItemShopA_$$Name"];
+                        //Exit the routine
+                        break;
+                    }
+                }
+                dgSortingSelectedItem_ID = -1;
+            }
+        }
+
+        private void Dgvx_Item_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //If a column header was clicked
+            if ((e.RowIndex == -1) && (e.ColumnIndex >= 0))
+            {
+                //And a row is selected
+                if (!(dgvx_Item.SelectedRows.Count == 0))
+                {
+                    //Record the unique value from the column called "Name"
+
+                    string cellid = "ID";
+
+                    dgSortingSelectedItem_ID = (long)dgvx_Item.SelectedRows[0].Cells[cellid].Value;
+                }
+            }
+        }
+
         private void Form_Tool_SelectItem_Load(object sender, EventArgs e)
         {
             Reload();
@@ -129,20 +177,19 @@ namespace ShopA
             if (dgvrcol.Count==1)
             {
                 DataGridViewRow dgvr = dgvrcol[0];
-                int iIndex = dgvx_Item.Rows.IndexOf(dgvr);
-                m_Atom_ItemShopA.ID.set(dt_Atom_ItemShopA.Rows[iIndex]["ID"]);
-                m_Atom_ItemShopA.Name.set(dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$$Name"]);
-                m_Atom_ItemShopA.Description.set(dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$$Description"]);
-                m_Atom_ItemShopA.m_Unit.ID.set(dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$_u_$$ID"]);
-                m_Atom_ItemShopA.m_Unit.Name.set(dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$_u_$$Name"]);
-                m_Atom_ItemShopA.m_Unit.Symbol.set(dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$_u_$$Symbol"]);
+                m_Atom_ItemShopA.ID.set(dgvr.Cells["ID"].Value);
+                m_Atom_ItemShopA.Name.set(dgvr.Cells["Atom_ItemShopA_$$Name"].Value);
+                m_Atom_ItemShopA.Description.set(dgvr.Cells["Atom_ItemShopA_$$Description"].Value);
+                m_Atom_ItemShopA.m_Unit.ID.set(dgvr.Cells["Atom_ItemShopA_$_u_$$ID"].Value);
+                m_Atom_ItemShopA.m_Unit.Name.set(dgvr.Cells["Atom_ItemShopA_$_u_$$Name"].Value);
+                m_Atom_ItemShopA.m_Unit.Symbol.set(dgvr.Cells["Atom_ItemShopA_$_u_$$Symbol"].Value);
                 short decimal_places = 0;
-                if (dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$_u_$$DecimalPlaces"] is int)
+                if (dgvr.Cells["Atom_ItemShopA_$_u_$$DecimalPlaces"].Value is int)
                 {
-                    decimal_places = Convert.ToInt16(dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$_u_$$DecimalPlaces"]);
+                    decimal_places = Convert.ToInt16(dgvr.Cells["Atom_ItemShopA_$_u_$$DecimalPlaces"].Value);
                     m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(decimal_places);
                 }
-                else if (dt_Atom_ItemShopA.Rows[iIndex]["Atom_ItemShopA_$_u_$$DecimalPlaces"] is System.DBNull)
+                else if (dgvr.Cells["Atom_ItemShopA_$_u_$$DecimalPlaces"].Value is System.DBNull)
                 {
                     m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(null);
                 }
@@ -153,7 +200,6 @@ namespace ShopA
 
         private void Form_Tool_SelectItem_Shown(object sender, EventArgs e)
         {
-            this.dgvx_Item.SelectionChanged += new System.EventHandler(this.dgvx_Item_SelectionChanged);
             dgvx_Item.ClearSelection();
         }
 
