@@ -60,7 +60,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.23";
+        public const string VERSION = "1.24";
         public Settings Settings = null;
 
         /* 1 */
@@ -894,10 +894,10 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_Item);
 
             /* 34 */
-            t_Atom_SimpleItem = new SQLTable((Object)new Atom_SimpleItem(),"asi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_InvoiceItem);
-            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem Name ID", "Ime Artikla/Storitve ID") );
-            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Image, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem Image ID", "Slika Artikla/Storitve ID") );
+            t_Atom_SimpleItem = new SQLTable((Object)new Atom_SimpleItem(), "asi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_InvoiceItem);
+            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SimpleItem Name ID", "Ime Artikla/Storitve ID"));
+            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Image, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SimpleItem Image ID", "Slika Artikla/Storitve ID"));
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Code", "Koda Artikla/Storitve"));
             m_DBTables.items.Add(t_Atom_SimpleItem);
 

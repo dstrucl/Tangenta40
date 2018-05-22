@@ -69,7 +69,14 @@ namespace LanguageControl
             LanguageSettingsFolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + LANGUAGE_SETTINGS_SUB_FOLDER;
             if (!Directory.Exists(LanguageSettingsFolderName))
             {
-                Directory.CreateDirectory(LanguageSettingsFolderName);
+                try
+                {
+                    Directory.CreateDirectory(LanguageSettingsFolderName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR:Canot create directory:\"" + LanguageSettingsFolderName + "\"! Exception ex = " + ex.Message);
+                }
             }
             ComboBox_Recent.ComboBox_RecentList.GrantFolderAccess(LanguageSettingsFolderName);
         }

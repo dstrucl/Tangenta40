@@ -44,7 +44,8 @@ namespace TangentaDB
                     string s_Atom_SimpleItem_Image_id = "null";
                     string SimpleItem_Name = null;
                     string SimpleItem_Abbreviation = null;
-                    if (Find_Name_Abbreviation_ShopBItem_Image(SimpleItem_ID,ref SimpleItem_Name,ref SimpleItem_Abbreviation,ref SimpleItem_Image_id))
+                    long_v code_v = null;
+                    if (Find_Name_Abbreviation_Code_ShopBItem_Image(SimpleItem_ID,ref SimpleItem_Name,ref SimpleItem_Abbreviation,ref code_v, ref SimpleItem_Image_id))
                     {
                         
 
@@ -65,18 +66,39 @@ namespace TangentaDB
                         if (f_Atom_ShopBItem_Name.Get(SimpleItem_Name, SimpleItem_Abbreviation, ref Atom_SimpleItem_Name_ID))
                         {
 
+                            if (code_v == null)
+                            {
 
-                            sql = @"insert into Atom_SimpleItem (      SimpleItem_ID,
+                                sql = @"insert into Atom_SimpleItem (      SimpleItem_ID,
                                                                     Atom_SimpleItem_Name_ID,
-                                                                    Atom_SimpleItem_Image_ID
+                                                                    Atom_SimpleItem_Image_ID,
+                                                                    Code
                                                                     ) 
                                                                     values
                                                                     (
-                                                                     "  +SimpleItem_ID.ToString() +@",
-                                                                       " +Atom_SimpleItem_Name_ID.ToString()+@",
-                                                                       " +s_Atom_SimpleItem_Image_id + @"
+                                                                     " + SimpleItem_ID.ToString() + @",
+                                                                       " + Atom_SimpleItem_Name_ID.ToString() + @",
+                                                                       " + s_Atom_SimpleItem_Image_id + @",
+                                                                       null
                                                                       )";
-                                                                    
+                            }
+                            else
+                            {
+
+                                sql = @"insert into Atom_SimpleItem (      SimpleItem_ID,
+                                                                    Atom_SimpleItem_Name_ID,
+                                                                    Atom_SimpleItem_Image_ID,
+                                                                    Code
+                                                                    ) 
+                                                                    values
+                                                                    (
+                                                                     " + SimpleItem_ID.ToString() + @",
+                                                                       " + Atom_SimpleItem_Name_ID.ToString() + @",
+                                                                       " + s_Atom_SimpleItem_Image_id + @",
+                                                                       " + code_v.v.ToString()+ @"
+                                                                      )";
+                            }
+
 
 
 
@@ -110,11 +132,12 @@ namespace TangentaDB
         }
 
 
-        private static bool Find_Name_Abbreviation_ShopBItem_Image(long SimpleItem_ID, ref string Name,ref string Abbreviation, ref long_v SimpleItem_Image_id)
+        private static bool Find_Name_Abbreviation_Code_ShopBItem_Image(long SimpleItem_ID, ref string Name,ref string Abbreviation,ref long_v code_v, ref long_v SimpleItem_Image_id)
         {
             string Err = null;
             DataTable dt = new DataTable();
-            string sql = "select Name,Abbreviation,SimpleItem_Image_ID from SimpleItem where ID = " + SimpleItem_ID.ToString();
+            code_v = null;
+            string sql = "select Name,Abbreviation,Code,SimpleItem_Image_ID from SimpleItem where ID = " + SimpleItem_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
@@ -127,6 +150,10 @@ namespace TangentaDB
                     }
                     Name = (string)dt.Rows[0]["Name"];
                     Abbreviation = (string)dt.Rows[0]["Abbreviation"];
+                    if (dt.Rows[0]["Code"] is long)
+                    {
+                        code_v = new long_v((long)dt.Rows[0]["Code"]);
+                    }
                     return true;
                 }
                 else
