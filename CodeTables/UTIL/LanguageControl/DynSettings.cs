@@ -19,7 +19,7 @@ namespace LanguageControl
 {
     public static class DynSettings
     {
-        public const string LANGUAGE_SETTINGS_SUB_FOLDER = "\\Settings";
+        public const string LANGUAGE_SETTINGS_SUB_FOLDER = "\\TangentaSettings";
         public const string LANGUAGE_COLUMN_PREFIX = "language_";
         internal const string DICTIONARY = "LanguageDictionary";
         internal const string MODULE_NAME = "ModuleName";
@@ -66,7 +66,7 @@ namespace LanguageControl
         public static void Init()
         {
 
-            LanguageSettingsFolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + LANGUAGE_SETTINGS_SUB_FOLDER;
+            LanguageSettingsFolderName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + LANGUAGE_SETTINGS_SUB_FOLDER;
             if (!Directory.Exists(LanguageSettingsFolderName))
             {
                 try

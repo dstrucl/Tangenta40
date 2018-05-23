@@ -30,9 +30,9 @@ namespace Tangenta
     {
 
         #region Constants
-        internal const string TANGENTA_SETTINGS_SUB_FOLDER = "\\Settings";
-        internal const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\SQliteBackup";
-        internal const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\VODshema";
+        internal const string TANGENTA_SETTINGS_SUB_FOLDER = "\\TangentaSettings";
+        internal const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\TangentaSQliteBackup";
+        internal const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\TangentaVODshema";
         private const string const_command_DOCINVOICE = "DOCINVOICE";
         private const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
         private const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";

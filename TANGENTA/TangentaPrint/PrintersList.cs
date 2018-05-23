@@ -11,7 +11,7 @@ namespace TangentaPrint
 {
     public static class PrintersList
     {
-        public const string PRNTERS_SETTINGS_SUB_FOLDER = "\\Settings";
+        public const string PRNTERS_SETTINGS_SUB_FOLDER = "\\TangentaSettings";
         
         public static DataTable dt = new DataTable();
         public static string PrinterListFileName = "TangentaPrinterList.xml";
@@ -81,7 +81,8 @@ namespace TangentaPrint
         public static void Init()
         {
 
-            PrinterSettingsFolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + PRNTERS_SETTINGS_SUB_FOLDER;
+
+            PrinterSettingsFolderName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + PRNTERS_SETTINGS_SUB_FOLDER;
             ComboBox_Recent.ComboBox_RecentList.GrantFolderAccess(PrinterSettingsFolderName);
 
             dcol_PrinterName = new DataColumn("PrinterName",typeof(string));

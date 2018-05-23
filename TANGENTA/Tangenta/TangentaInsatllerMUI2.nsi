@@ -102,11 +102,12 @@
 
   !define MUI_PAGE_CUSTOMFUNCTION_SHOW PageInstfilesShow
   !define MUI_PAGE_CUSTOMFUNCTION_LEAVE PostInstPage
+  
   !insertmacro MUI_PAGE_INSTFILES
 
-  !define MUI_FINISHPAGE_RUN
 ;  !define MUI_FINISHPAGE_RUN_FUNCTION CustomFinishRun
   !define MUI_FINISHPAGE_RUN_TEXT "&Start Tangenta now"
+  !define MUI_FINISHPAGE_RUN "$instdir\Tangenta.exe"
   !insertmacro MUI_PAGE_FINISH
 
   !define MUI_PAGE_CUSTOMFUNCTION_PRE un.ConfirmPagePre
@@ -823,8 +824,6 @@ Section "Tangenta Invoice" SecMain
   ;Create shortcuts
   SetOutPath "$INSTDIR"
   CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
-  CreateDirectory "$INSTDIR\Settings"
-  AccessControl::GrantOnFile "$INSTDIR\logs" "(BU)" "FullAccess"
   CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\TangentaUninstall.lnk" "$INSTDIR\TangentaUninstall.exe"
   CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Tangenta.lnk" "$INSTDIR\Tangenta.exe"
 

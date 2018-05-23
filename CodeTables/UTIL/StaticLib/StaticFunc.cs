@@ -120,28 +120,6 @@ namespace StaticLib
             return ms.ToArray();
         }
 
-        //public static bool SetApplicationSubFolder(ref string folder, string subFolder, ref string Err)
-        //{
-        //    Err = null;
-        //    string xFolder = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + subFolder;
-        //    try
-        //    {
-        //        if (!Directory.Exists(xFolder))
-        //        {
-        //            Directory.CreateDirectory(xFolder);
-        //        }
-        //        GrantFolderAccess(xFolder);
-        //        folder = xFolder;
-        //        return true;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        Err = Ex.Message + "\r\n" + Ex.StackTrace;
-        //    }
-        //    folder = null;
-        //    return false;
-        //}
-        
 
         public static string GetApplicationDataFolder()
         {
