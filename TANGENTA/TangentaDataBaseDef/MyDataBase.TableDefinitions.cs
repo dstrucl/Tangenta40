@@ -896,6 +896,7 @@ namespace TangentaDataBaseDef
             /* 34 */
             t_Atom_SimpleItem = new SQLTable((Object)new Atom_SimpleItem(), "asi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_InvoiceItem);
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_SimpleItem, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SimpleItem ID", "Artikel/Storitev ID"));
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SimpleItem Name ID", "Ime Artikla/Storitve ID"));
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.m_Atom_SimpleItem_Image, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SimpleItem Image ID", "Slika Artikla/Storitve ID"));
             t_Atom_SimpleItem.AddColumn((Object)mt.m_Atom_SimpleItem.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Code", "Koda Artikla/Storitve"));

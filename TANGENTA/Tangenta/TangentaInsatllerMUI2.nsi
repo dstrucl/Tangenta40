@@ -6,7 +6,7 @@
 ; Build environment
   !define top_srcdir @top_srcdir@
   !define srcdir @srcdir@
-  !define VERSION "1.0.0.0"
+  !define VERSION "1.0.0.1"
   !addplugindir @srcdir@
 ;--------------------------------
 ;General
@@ -505,6 +505,7 @@ Function RunUninstaller
   IfFileExists "$INSTDIR\uninstall.exe" 0 no_remove_uninstaller
 
     Delete "$R1"
+	RMDir $INSTDIR\Settings
     RMDir $INSTDIR
 
  no_remove_uninstaller:
@@ -822,6 +823,8 @@ Section "Tangenta Invoice" SecMain
   ;Create shortcuts
   SetOutPath "$INSTDIR"
   CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
+  CreateDirectory "$INSTDIR\Settings"
+  AccessControl::GrantOnFile "$INSTDIR\logs" "(BU)" "FullAccess"
   CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\TangentaUninstall.lnk" "$INSTDIR\TangentaUninstall.exe"
   CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Tangenta.lnk" "$INSTDIR\Tangenta.exe"
 
