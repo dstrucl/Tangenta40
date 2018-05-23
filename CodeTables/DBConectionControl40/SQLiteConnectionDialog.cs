@@ -114,14 +114,28 @@ namespace DBConnectionControl40
             }
             else
             {
+                string sdir = "Err_unknow_sqlite_path";
+                if (m_conData_SQLITE != null)
+                {
+                    if (m_conData_SQLITE.DataBaseFilePath != null)
+                    {
+                        sdir = m_conData_SQLITE.DataBaseFilePath;
+                    }
+                }
                 DirectoryInfo drinfo = Directory.CreateDirectory(m_conData_SQLITE.DataBaseFilePath);
                 if (drinfo != null)
                 {
-                    System.Security.AccessControl.DirectorySecurity myDirectorySecurity = drinfo.GetAccessControl();
-
-                    myDirectorySecurity.AddAccessRule(new FileSystemAccessRule(username, System.Security.AccessControl.FileSystemRights.FullControl, AccessControlType.Allow));
-                    drinfo.SetAccessControl(myDirectorySecurity);
-                }
+                    try
+                    { 
+                        System.Security.AccessControl.DirectorySecurity myDirectorySecurity = drinfo.GetAccessControl();
+                        myDirectorySecurity.AddAccessRule(new FileSystemAccessRule(username, System.Security.AccessControl.FileSystemRights.FullControl, AccessControlType.Allow));
+                        drinfo.SetAccessControl(myDirectorySecurity);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Can not set FullControl permision to folder:\"" + sdir + "\"!\r\nException:" + ex.Message + "\r\n\r\nSolution:Run program as administrator.");
+                    }
+            }
             }
             m_conData_SQLITE.DataBaseFileName = this.cmbR_FileName.Text;
             if (m_conData_SQLITE.IsValidDataBaseFile())

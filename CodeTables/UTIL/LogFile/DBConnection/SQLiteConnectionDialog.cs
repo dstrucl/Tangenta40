@@ -82,19 +82,49 @@ namespace LogFile
             string username = System.Environment.UserDomainName + "\\" + System.Environment.UserName;
             if (Directory.Exists(DirPath))
             {
+                try
+                { 
                 System.Security.AccessControl.DirectorySecurity myDirectorySecurity = Directory.GetAccessControl(DirPath);
                 myDirectorySecurity.AddAccessRule(new FileSystemAccessRule(username, System.Security.AccessControl.FileSystemRights.FullControl, AccessControlType.Allow));
                 Directory.SetAccessControl(DirPath, myDirectorySecurity);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Can not set FullControl permision to folder:\"" + DirPath + "\"!\r\nException:" + ex.Message + "\r\n\r\nSolution:Run program as administrator.");
+                }
             }
             else
             {
-                DirectoryInfo drinfo = Directory.CreateDirectory(m_conData_SQLITE.m_DataBaseFilePath);
+                string sdir = "Err_unknow_sqlite_path";
+                if (m_conData_SQLITE != null)
+                {
+                    if (m_conData_SQLITE.m_DataBaseFilePath != null)
+                    {
+                        sdir = m_conData_SQLITE.m_DataBaseFilePath;
+                    }
+                }
+                DirectoryInfo drinfo = null;
+                try
+                {
+                    drinfo = Directory.CreateDirectory(m_conData_SQLITE.m_DataBaseFilePath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Can not CreateDirectory folder:\"" +sdir + "\"!\r\nException:" + ex.Message + "\r\n\r\nSolution:Try to run program as administrator.");
+                }
+
                 if (drinfo != null)
                 {
-                    System.Security.AccessControl.DirectorySecurity myDirectorySecurity = drinfo.GetAccessControl();
-
-                    myDirectorySecurity.AddAccessRule(new FileSystemAccessRule(username, System.Security.AccessControl.FileSystemRights.FullControl, AccessControlType.Allow));
-                    drinfo.SetAccessControl(myDirectorySecurity);
+                    try
+                    {
+                        System.Security.AccessControl.DirectorySecurity myDirectorySecurity = drinfo.GetAccessControl();
+                        myDirectorySecurity.AddAccessRule(new FileSystemAccessRule(username, System.Security.AccessControl.FileSystemRights.FullControl, AccessControlType.Allow));
+                        drinfo.SetAccessControl(myDirectorySecurity);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Can not set FullControl permision to folder:\"" + sdir + "\"!\r\nException:" + ex.Message + "\r\n\r\nSolution:Run program as administrator.");
+                    }
                 }
             }
             m_conData_SQLITE.m_DataBaseFileName = this.cmbR_FileName.Text;

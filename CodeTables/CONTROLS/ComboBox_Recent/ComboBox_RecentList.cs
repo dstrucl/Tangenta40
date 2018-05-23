@@ -402,11 +402,17 @@ namespace ComboBox_Recent
                 }
 
             }
-            DirectoryInfo dInfo = new DirectoryInfo(Folder);
-            DirectorySecurity dSecurity = dInfo.GetAccessControl();
-            dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
-            dInfo.SetAccessControl(dSecurity);
-
+            try
+            {
+                DirectoryInfo dInfo = new DirectoryInfo(Folder);
+                DirectorySecurity dSecurity = dInfo.GetAccessControl();
+                dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                dInfo.SetAccessControl(dSecurity);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can not set FullControl permision to folder:\"" + Folder + "\"!\r\nException:" + ex.Message+"\r\n\r\nSolution:Run program as administrator.");
+            }
         }
 
         private bool Init()
