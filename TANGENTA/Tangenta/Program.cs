@@ -45,6 +45,7 @@ namespace Tangenta
         public const string const_DocInvoice = "DocInvoice";
         public const string const_DocProformaInvoice = "DocProformaInvoice";
 
+
         #endregion
 
         #region Variables
@@ -58,6 +59,15 @@ namespace Tangenta
             internal static bool ShopC_ExclusivelySellFromStock = false;
             internal static bool MultiCurrency = false;
             internal static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
+        }
+
+        private static string m_GitSourceVersionInfo = null;
+        public static string GitSourceVersionInfo
+        {
+            get
+            {
+                return m_GitSourceVersionInfo;
+            }
         }
 
         private static string m_RunAs = null;
@@ -451,6 +461,11 @@ namespace Tangenta
             return eCommandLineHelpResult.OK;
         }
 
+        internal static string GetInformationalVersion(Assembly assembly)
+        {
+            return FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion;
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -466,6 +481,7 @@ namespace Tangenta
             {
                 try
                 {
+                    m_GitSourceVersionInfo = GetInformationalVersion(Assembly.GetExecutingAssembly());
 
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);

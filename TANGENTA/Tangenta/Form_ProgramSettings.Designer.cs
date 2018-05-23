@@ -43,6 +43,8 @@
             this.txt_ApplicationDataFolder = new System.Windows.Forms.TextBox();
             this.grp_ColorSettings = new System.Windows.Forms.GroupBox();
             this.usrc_SelectColorSheme1 = new ColorSettings.usrc_SelectColorSheme();
+            this.lbl_GitSourceVersion = new System.Windows.Forms.Label();
+            this.txt_GitSourceVersion = new System.Windows.Forms.TextBox();
             this.grp_ColorSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,7 +180,7 @@
             this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 639);
             this.txt_ApplicationDataFolder.Name = "txt_ApplicationDataFolder";
             this.txt_ApplicationDataFolder.ReadOnly = true;
-            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(791, 20);
+            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(382, 20);
             this.txt_ApplicationDataFolder.TabIndex = 41;
             // 
             // grp_ColorSettings
@@ -203,11 +205,34 @@
             this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(776, 359);
             this.usrc_SelectColorSheme1.TabIndex = 0;
             // 
+            // lbl_GitSourceVersion
+            // 
+            this.lbl_GitSourceVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbl_GitSourceVersion.AutoSize = true;
+            this.lbl_GitSourceVersion.Location = new System.Drawing.Point(414, 623);
+            this.lbl_GitSourceVersion.Name = "lbl_GitSourceVersion";
+            this.lbl_GitSourceVersion.Size = new System.Drawing.Size(102, 13);
+            this.lbl_GitSourceVersion.TabIndex = 45;
+            this.lbl_GitSourceVersion.Text = "\"Git source version\"";
+            // 
+            // txt_GitSourceVersion
+            // 
+            this.txt_GitSourceVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_GitSourceVersion.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txt_GitSourceVersion.Location = new System.Drawing.Point(418, 639);
+            this.txt_GitSourceVersion.Name = "txt_GitSourceVersion";
+            this.txt_GitSourceVersion.ReadOnly = true;
+            this.txt_GitSourceVersion.Size = new System.Drawing.Size(371, 20);
+            this.txt_GitSourceVersion.TabIndex = 44;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(797, 662);
+            this.Controls.Add(this.lbl_GitSourceVersion);
+            this.Controls.Add(this.txt_GitSourceVersion);
             this.Controls.Add(this.grp_ColorSettings);
             this.Controls.Add(this.lbl_AppData);
             this.Controls.Add(this.txt_ApplicationDataFolder);
@@ -246,5 +271,7 @@
         private System.Windows.Forms.TextBox txt_ApplicationDataFolder;
         private System.Windows.Forms.GroupBox grp_ColorSettings;
         private ColorSettings.usrc_SelectColorSheme usrc_SelectColorSheme1;
+        private System.Windows.Forms.Label lbl_GitSourceVersion;
+        private System.Windows.Forms.TextBox txt_GitSourceVersion;
     }
 }

@@ -68,6 +68,7 @@ namespace Tangenta
                 }
             }
             txt_ApplicationDataFolder.Text = StaticLib.Func.GetApplicationDataFolder();
+            txt_GitSourceVersion.Text = Program.GitSourceVersionInfo;
             this.usrc_SelectColorSheme1.ColorShemeChanged += Usrc_SelectColorSheme1_ColorShemeChanged;
 
         }
