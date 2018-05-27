@@ -18,6 +18,9 @@ namespace TangentaDB
 {
     public static class f_Journal_DocInvoice
     {
+        public const string ORIGINALPRINT = "OriginalPrint";
+        public const string COPYPRINT = "CopyPrint";
+
         public static bool Write(long DocInvoice_ID, long Atom_WorkPeriod_ID, string Event_Type, string Event_Description, DateTime_v EventTime_v, ref long journal_docinvoice_id)
         {
             long journal_invoice_type_id = -1;
@@ -82,8 +85,37 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:f_Journal_DocInvoice:Get_journal_docinvoice_type_id:sql = " + sql + "\r\nErr=" + Err);
                 return false;
             }
-
         }
+
+        public static bool Get_journal_docinvoice_type_id(string Event_Type, ref long journal_invoice_type_id)
+        {
+            journal_invoice_type_id = -1;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Name = "@par_Name";
+            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Event_Type);
+            lpar.Add(par_Name);
+
+
+            string Err = null;
+            string sql = @"select ID from journal_docinvoice_type jdt
+                           inner join  journal_docinvoice
+                         where name = " + spar_Name;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    journal_invoice_type_id = (long)dt.Rows[0]["ID"];
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Journal_DocInvoice:Get_journal_docinvoice_type_id:sql = " + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
 
         public static bool Write(long DocInvoice_ID, long Atom_WorkPeriod_ID, long journal_invoice_type_id, DateTime_v issue_time, ref long Journal_DocInvoice_ID)
         {
@@ -122,6 +154,48 @@ namespace TangentaDB
                 return false;
             }
 
+        }
+
+        internal static bool OriginalPrinted(long docInvoice_ID)
+        {
+            string sql = @"select jdi.ID from journal_docinvoice jdi
+                         inner join journal_docinvoice_type jdit on jdi.journal_docinvoice_type_ID = jdit.ID 
+                         where jdit.Name = 'OriginalPrint' and jdi.DocInvoice_ID=" + docInvoice_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Journal_DocInvoice:Get_journal_docinvoice_type_id:sql = " + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static void GetCopyPrintedCount(long docInvoice_ID, ref int copy_printed_count)
+        {
+            string sql = @"select jdi.ID from journal_docinvoice jdi
+                         inner join journal_docinvoice_type jdit on jdi.journal_docinvoice_type_ID = jdit.ID 
+                         where jdit.Name = 'CopyPrint' and jdi.DocInvoice_ID=" + docInvoice_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    copy_printed_count= dt.Rows.Count;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Journal_DocInvoice:Get_journal_docinvoice_type_id:sql = " + sql + "\r\nErr=" + Err);
+            }
         }
     }
 }

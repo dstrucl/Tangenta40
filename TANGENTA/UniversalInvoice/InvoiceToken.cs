@@ -31,8 +31,9 @@ namespace UniversalInvoice
         public TemplateToken tTaxRateName = null;
         public TemplateToken tSumTax = null;
         public TemplateToken tTotalSum = null;
-        public TemplateToken tStorno;
-        public TemplateToken tNotice;
+        public TemplateToken tStorno = null;
+        public TemplateToken tNotice = null;
+        public TemplateToken tCopyPrintInfo = null;
 
 
         public List<TemplateToken> list = null;
@@ -89,6 +90,8 @@ namespace UniversalInvoice
             }
 
             tNotice = new TemplateToken(ltDocInvoice, lng.st_Notice, null, null);
+            tCopyPrintInfo = new TemplateToken(ltDocInvoice, lng.st_CopyPrintInfo, null, null);
+
 
             list = new List<TemplateToken>();
             list.Add(tFiscalYear);
@@ -114,6 +117,7 @@ namespace UniversalInvoice
                 list.Add(tOfferValidUntil);
             }
             list.Add(tNotice);
+            list.Add(tCopyPrintInfo);
         }
     }
 }

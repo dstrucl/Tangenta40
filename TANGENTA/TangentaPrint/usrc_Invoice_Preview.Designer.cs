@@ -33,6 +33,7 @@
             this.btn_SaveAs = new System.Windows.Forms.Button();
             this.btn_Tokens = new System.Windows.Forms.Button();
             this.htmlPanel1 = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
+            this.btn_PrintingHistory = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Print
@@ -60,7 +61,7 @@
             // btn_Tokens
             // 
             this.btn_Tokens.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Tokens.Location = new System.Drawing.Point(164, 10);
+            this.btn_Tokens.Location = new System.Drawing.Point(233, 27);
             this.btn_Tokens.Name = "btn_Tokens";
             this.btn_Tokens.Size = new System.Drawing.Size(258, 25);
             this.btn_Tokens.TabIndex = 5;
@@ -85,12 +86,23 @@
             this.htmlPanel1.Text = "htmlPanel1";
             this.htmlPanel1.UseGdiPlusTextRendering = true;
             // 
+            // btn_PrintingHistory
+            // 
+            this.btn_PrintingHistory.Location = new System.Drawing.Point(215, 3);
+            this.btn_PrintingHistory.Name = "btn_PrintingHistory";
+            this.btn_PrintingHistory.Size = new System.Drawing.Size(205, 21);
+            this.btn_PrintingHistory.TabIndex = 8;
+            this.btn_PrintingHistory.Text = "Printing History";
+            this.btn_PrintingHistory.UseVisualStyleBackColor = true;
+            this.btn_PrintingHistory.Click += new System.EventHandler(this.btn_PrintingHistory_Click);
+            // 
             // usrc_Invoice_Preview
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.btn_PrintingHistory);
             this.Controls.Add(this.htmlPanel1);
             this.Controls.Add(this.btn_Tokens);
             this.Controls.Add(this.btn_SaveAs);
@@ -108,5 +120,6 @@
         private System.Windows.Forms.Button btn_SaveAs;
         private TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel htmlPanel1;
         internal System.Windows.Forms.Button btn_Tokens;
+        private System.Windows.Forms.Button btn_PrintingHistory;
     }
 }

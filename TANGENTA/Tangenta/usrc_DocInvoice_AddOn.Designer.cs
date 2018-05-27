@@ -167,7 +167,6 @@ namespace Tangenta
             this.txt_PaymantConditionsDescription.ReadOnly = true;
             this.txt_PaymantConditionsDescription.Size = new System.Drawing.Size(642, 72);
             this.txt_PaymantConditionsDescription.TabIndex = 13;
-            this.txt_PaymantConditionsDescription.TextChanged += new System.EventHandler(this.txt_PaymantConditionsDescription_TextChanged);
             // 
             // grp_MtehodOfPaymentType
             // 

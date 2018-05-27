@@ -109,6 +109,8 @@ namespace TangentaPrint
 
         public static ltext s_SelectReceiptPrinter = new ltext(new string[] { "Select receipt printe", "Izbrati morate tiskalnik za tiskanje računov!" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Printer.cs
 
+        public static ltext s_btn_PrintingHistory = new ltext(new string[] { "Printing History", "Zgodovina Tiskanja" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Invoice_Preview.cs
+
         public static ltext s_btn_Tokens = new ltext(new string[] { "View replacement word", "Ključne besede za izdelavo predlog" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Invoice_Preview.cs
 
         public static ltext sPrinterNotFound = new ltext(new string[] { "Printer not found:", "Tiskalnik ni nameščen:" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Printer.cs

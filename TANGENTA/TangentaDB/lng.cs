@@ -24,6 +24,8 @@ namespace TangentaDB
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name); 
         }
 
+        public static ltext s_CopyPrintNumber = new ltext(new string[] { "COPY:", "KOPIJA:"});   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+
         public static ltext s_SetNewFinancial = new ltext(new string[] { " Do you want to set new financial year ", "Želite Novo leto " });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
 
         public static ltext s_AsDefaultFinancialYear = new ltext(new string[] { "\r\n as new default (selected) financial  year", " \r\n določiti kot privzeto (izbrano) finančno leto ?" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\GlobalData.cs
@@ -122,7 +124,9 @@ namespace TangentaDB
 
         public static ltext s_STORNO = new ltext(new string[] { "REVERSE", "STORNO" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
 
-        public static ltext s_journal_invoice_type_Print = new ltext(new string[] { "Print", "Tiskanja računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+        public static ltext s_journal_invoice_type_Print_Original_description = new ltext(new string[] { "Print Original", "Tiskanja originalnega računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+
+        public static ltext s_journal_invoice_type_Print_Copy_description = new ltext(new string[] { "Print Copy", "Tiskanja kopije računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
 
         public static ltext s_PaymentOnBankAccount = new ltext(new string[] { "Payment to Bank acount", "Plačilo na bančni račun" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
 

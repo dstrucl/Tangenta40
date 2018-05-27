@@ -52,10 +52,8 @@ namespace Tangenta
             lng.s_MethodOfPayment.Text(grp_MtehodOfPaymentType);
             lng.s_TermsOfPayment.Text(grp_TermsOfPayment);
             lng.s_Invoice_Issue.Text(btn_Invoice_Issue);
-            //lng.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
 
             this.rdb_Cash.CheckedChanged += new System.EventHandler(this.rdb_Cash_CheckedChanged);
-            this.rdb_Cash.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rdb_Cash_MouseUp);
             this.rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
             this.rdb_CARD.CheckedChanged += Rdb_CARD_CheckedChanged;
             this.rdb_AllreadyPayed.CheckedChanged += rdb_AllreadyPayed_CheckedChanged;
@@ -267,25 +265,6 @@ namespace Tangenta
             }
         }
 
-
-
-
-
-        private void rdb_Cash_MouseUp(object sender, MouseEventArgs e)
-        {
-            //Form_DocInvoice_PaymentCash pay_in_cash_frm = new Form_DocInvoice_PaymentCash(GrossSum);
-            //if (pay_in_cash_frm.ShowDialog() == DialogResult.OK)
-            //{
-            //    //txt_ToReturn.Text = decimal.Round(pay_in_cash_frm.money - GrossSum, Currency_DecimalPlaces).ToString();
-            //    //txt_AmountReceived.Text = pay_in_cash_frm.money.ToString();
-            //    //lbl_ToReturn.Visible = true;
-            //    //txt_ToReturn.Visible = true;
-            //    //lbl_AmountReceived.Visible = true;
-            //    //txt_AmountReceived.Visible = true;
-            //    //SetPaymentMethod(lng.s_Cash.s);
-            //}
-        }
-
         private void btn_Issue_Click(object sender, EventArgs e)
         {
 
@@ -326,96 +305,13 @@ namespace Tangenta
             }
         }
 
-        //private void DoPrint(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
-        //{
-        //    long DocInvoice_ID = -1;
-        //    int xNumberInFinancialYear = -1;
-        //    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, ref xNumberInFinancialYear))
-        //    {
-        //        m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
-
-        //        if (m_InvoiceData.SetInvoiceTime(issue_time))
-        //        {
-
-        //            if (Program.b_FVI_SLO)
-        //            {
-        //                string furs_XML = m_InvoiceData.AddOnDI.Create_furs_InvoiceXML(false,
-        //                                                                               Properties.Resources.FVI_SLO_Invoice,
-        //                                                                               Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
-        //                                                                               Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
-        //                                                                               Properties.Settings.Default.ElectronicDevice_ID,
-        //                                                                               Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,
-        //                                                                               "","",
-        //                                                                               m_InvoiceData.IssueDate_v,
-        //                                                                               m_InvoiceData.NumberInFinancialYear,
-        //                                                                               m_InvoiceData.GrossSum,
-        //                                                                               m_InvoiceData.taxSum,
-        //                                                                               m_InvoiceData.Invoice_Author
-        //                                                                               );
-        //                Image img_QR = null;
-        //                string furs_UniqeMsgID = null;
-        //                string furs_UniqeInvID = null;
-        //                string furs_BarCodeValue = null;
-        //                if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false,furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
-        //                {
-        //                    m_InvoiceData.AddOnDI.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
-        //                    m_InvoiceData.AddOnDI.FURS_EOR_v = new string_v(furs_UniqeInvID);
-        //                    m_InvoiceData.AddOnDI.FURS_QR_v = new string_v(furs_BarCodeValue);
-        //                    m_InvoiceData.AddOnDI.FURS_Image_QRcode = img_QR;
-        //                    m_InvoiceData.AddOnDI.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID);
-        //                }
-        //                else
-        //                {
-        //                    string xSerialNumber = null;
-        //                    string xSetNumber = null;
-        //                    string xInvoiceNumber = null;
-        //                    Program.usrc_FVI_SLO1.Write_SalesBookInvoice(m_InvoiceData.DocInvoice_ID_v.v, m_InvoiceData.FinancialYear, m_InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
-        //                    long FVI_SLO_SalesBookInvoice_ID = -1;
-        //                    if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(m_InvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber,ref FVI_SLO_SalesBookInvoice_ID))
-        //                    {
-        //                        MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
-
-        //                        //LK SalesBookInvoice  prestavi na gumb
-        //                        //string furs_XML_SB = m_InvoiceData.Create_furs_SalesBookInvoiceXML(Program.usrc_FVI_SLO1.XML_Template_FVI_SLO_SalesBook, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, xSetNumber, xSerialNumber);
-        //                        //if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML_SB, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
-        //                        //{
-        //                        //    m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue, img_QR);
-        //                        //    m_InvoiceData.FURS_Response_Data.Image_QRcode = img_QR;
-        //                        //    m_InvoiceData.Write_FURS_Response_Data();
-        //                        //}
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-        //    }
-        //}
-
-
-        //private void Print(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
-        //{
-        //    if (ePaymentType == GlobalData.ePaymentType.CASH)
-        //    {
-        //        Program.usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-        //    }
-        //    else
-        //    {
-        //        Program.usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, null, null, issue_time);
-        //    }
-        //}
-
-
+            
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             if (Cancel != null)
             {
                 Cancel();
             }
-        }
-
-        private void txt_PaymantConditionsDescription_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

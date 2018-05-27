@@ -32,6 +32,8 @@ namespace UniversalInvoice
 
         public static ltext st_Notice = new ltext(new string[] { "Notice", "Dopis" });   // referenced in C:\Tangenta40\TANGENTA\UniversalInvoice\GeneralToken.cs
 
+        public static ltext st_CopyPrintInfo = new ltext(new string[] { "CopyPrintInfo", "KopijaTiskInfo" });   // referenced in C:\Tangenta40\TANGENTA\UniversalInvoice\GeneralToken.cs
+
         public static ltext st_Footer = new ltext(new string[] { "Footer", "Noga" });   // referenced in C:\Tangenta40\TANGENTA\UniversalInvoice\GeneralToken.cs
 
         public static ltext st_Invoice = new ltext(new string[] { "Invoice", "Račun" });   // referenced in C:\Tangenta40\TANGENTA\UniversalInvoice\InvoiceToken.cs

@@ -30,27 +30,13 @@ namespace TangentaPrint
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Print = new System.Windows.Forms.Button();
             this.lbl_Invoice = new System.Windows.Forms.Label();
             this.lbl_Invoice_value = new System.Windows.Forms.Label();
-            this.dgvx_Journal_InvoicePrint = new DataGridView_2xls.DataGridView2xls();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.dgvx_Journal_InvoicePrint = new DataGridView_2xls.DataGridView2xls();
+            this.usrc_Help1 = new HUDCMS.usrc_Help();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Journal_InvoicePrint)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btn_Print
-            // 
-            this.btn_Print.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Print.ForeColor = System.Drawing.Color.Black;
-            this.btn_Print.Location = new System.Drawing.Point(208, 311);
-            this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(197, 55);
-            this.btn_Print.TabIndex = 7;
-            this.btn_Print.Text = "Print";
-            this.btn_Print.UseVisualStyleBackColor = false;
-            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // lbl_Invoice
             // 
@@ -58,7 +44,7 @@ namespace TangentaPrint
             this.lbl_Invoice.ForeColor = System.Drawing.Color.Black;
             this.lbl_Invoice.Location = new System.Drawing.Point(3, 8);
             this.lbl_Invoice.Name = "lbl_Invoice";
-            this.lbl_Invoice.Size = new System.Drawing.Size(242, 20);
+            this.lbl_Invoice.Size = new System.Drawing.Size(237, 20);
             this.lbl_Invoice.TabIndex = 9;
             this.lbl_Invoice.Text = "Dnevnik tiskanj računa:";
             this.lbl_Invoice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -69,10 +55,24 @@ namespace TangentaPrint
             this.lbl_Invoice_value.ForeColor = System.Drawing.Color.Black;
             this.lbl_Invoice_value.Location = new System.Drawing.Point(246, 9);
             this.lbl_Invoice_value.Name = "lbl_Invoice_value";
-            this.lbl_Invoice_value.Size = new System.Drawing.Size(360, 19);
+            this.lbl_Invoice_value.Size = new System.Drawing.Size(265, 19);
             this.lbl_Invoice_value.TabIndex = 10;
             this.lbl_Invoice_value.Text = "Dnevnik tiskanj računa:";
             this.lbl_Invoice_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
+            this.btn_Cancel.Image = global::TangentaPrint.Properties.Resources.Exit;
+            this.btn_Cancel.Location = new System.Drawing.Point(555, 3);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(57, 24);
+            this.btn_Cancel.TabIndex = 11;
+            this.btn_Cancel.UseVisualStyleBackColor = false;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // dgvx_Journal_InvoicePrint
             // 
@@ -87,31 +87,25 @@ namespace TangentaPrint
             this.dgvx_Journal_InvoicePrint.Name = "dgvx_Journal_InvoicePrint";
             this.dgvx_Journal_InvoicePrint.ReadOnly = true;
             this.dgvx_Journal_InvoicePrint.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_Journal_InvoicePrint.Size = new System.Drawing.Size(612, 271);
+            this.dgvx_Journal_InvoicePrint.Size = new System.Drawing.Size(612, 332);
             this.dgvx_Journal_InvoicePrint.TabIndex = 8;
             // 
-            // btn_Cancel
+            // usrc_Help1
             // 
-            this.btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Image = global::TangentaPrint.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(489, 311);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
-            this.btn_Cancel.TabIndex = 11;
-            this.btn_Cancel.UseVisualStyleBackColor = false;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            this.usrc_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Help1.Location = new System.Drawing.Point(517, 3);
+            this.usrc_Help1.Name = "usrc_Help1";
+            this.usrc_Help1.Size = new System.Drawing.Size(32, 24);
+            this.usrc_Help1.TabIndex = 12;
             // 
             // usrc_PrintExistingInvoice
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.lbl_Invoice_value);
             this.Controls.Add(this.lbl_Invoice);
             this.Controls.Add(this.dgvx_Journal_InvoicePrint);
-            this.Controls.Add(this.btn_Print);
             this.ForeColor = System.Drawing.Color.Red;
             this.Name = "usrc_PrintExistingInvoice";
             this.Size = new System.Drawing.Size(615, 369);
@@ -121,11 +115,10 @@ namespace TangentaPrint
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_Print;
         private DataGridView2xls dgvx_Journal_InvoicePrint;
         private System.Windows.Forms.Label lbl_Invoice;
         private System.Windows.Forms.Label lbl_Invoice_value;
         private System.Windows.Forms.Button btn_Cancel;
+        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

@@ -29,59 +29,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_Printer = new System.Windows.Forms.Label();
-            this.lbl_PrinterNameValue = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintJournal));
             this.usrc_PrintExistingInvoice1 = new TangentaPrint.usrc_PrintExistingInvoice();
-            this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
-            // 
-            // lbl_Printer
-            // 
-            this.lbl_Printer.Location = new System.Drawing.Point(3, 3);
-            this.lbl_Printer.Name = "lbl_Printer";
-            this.lbl_Printer.Size = new System.Drawing.Size(77, 21);
-            this.lbl_Printer.TabIndex = 1;
-            this.lbl_Printer.Text = "Printer:";
-            this.lbl_Printer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_PrinterNameValue
-            // 
-            this.lbl_PrinterNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_PrinterNameValue.Location = new System.Drawing.Point(96, 1);
-            this.lbl_PrinterNameValue.Name = "lbl_PrinterNameValue";
-            this.lbl_PrinterNameValue.Size = new System.Drawing.Size(581, 25);
-            this.lbl_PrinterNameValue.TabIndex = 2;
-            this.lbl_PrinterNameValue.Text = "Printer Name Value";
-            this.lbl_PrinterNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // usrc_PrintExistingInvoice1
             // 
-            this.usrc_PrintExistingInvoice1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_PrintExistingInvoice1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_PrintExistingInvoice1.ForeColor = System.Drawing.Color.Red;
-            this.usrc_PrintExistingInvoice1.Location = new System.Drawing.Point(-1, 33);
+            this.usrc_PrintExistingInvoice1.Location = new System.Drawing.Point(0, 0);
             this.usrc_PrintExistingInvoice1.Name = "usrc_PrintExistingInvoice1";
-            this.usrc_PrintExistingInvoice1.Size = new System.Drawing.Size(678, 364);
+            this.usrc_PrintExistingInvoice1.Size = new System.Drawing.Size(677, 400);
             this.usrc_PrintExistingInvoice1.TabIndex = 0;
             this.usrc_PrintExistingInvoice1.Cancel += new TangentaPrint.usrc_PrintExistingInvoice.delegate_Cancel(this.usrc_PrintExistingInvoice1_Cancel);
-            // 
-            // usrc_Help1
-            // 
-            this.usrc_Help1.Location = new System.Drawing.Point(624, 1);
-            this.usrc_Help1.Name = "usrc_Help1";
-            this.usrc_Help1.Size = new System.Drawing.Size(49, 24);
-            this.usrc_Help1.TabIndex = 3;
             // 
             // Form_PrintJournal
             // 
             this.ClientSize = new System.Drawing.Size(677, 400);
-            this.Controls.Add(this.usrc_Help1);
-            this.Controls.Add(this.lbl_PrinterNameValue);
-            this.Controls.Add(this.lbl_Printer);
             this.Controls.Add(this.usrc_PrintExistingInvoice1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_PrintJournal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
@@ -91,8 +58,5 @@
         #endregion
 
         private usrc_PrintExistingInvoice usrc_PrintExistingInvoice1;
-        private System.Windows.Forms.Label lbl_Printer;
-        private System.Windows.Forms.Label lbl_PrinterNameValue;
-        private HUDCMS.usrc_Help usrc_Help1;
     }
 }

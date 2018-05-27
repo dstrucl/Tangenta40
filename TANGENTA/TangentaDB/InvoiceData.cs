@@ -50,6 +50,8 @@ namespace TangentaDB
         public eType m_eType = eType.UNKNOWN;
         private string_v Electronic_Device_Name_v = null;
 
+        public DateTime_v PrintingTime_v = null;
+        public string PrintCopyInfo = "";
 
 
         public long_v DocInvoice_Reference_ID_v = null;
@@ -1536,6 +1538,9 @@ namespace TangentaDB
                                     {
                                         InvoiceToken.tStorno.Set(lng.s_STORNO.s);
                                     }
+
+                                    PrintCopyInfo = GetPrintCopyInfo(DocInvoice_ID);
+                                    InvoiceToken.tCopyPrintInfo.Set(PrintCopyInfo);
                                 }
 
                                 if (!Draft)
@@ -1599,6 +1604,24 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:Err=" + Err);
                 return false;
             }
+        }
+
+        private string GetPrintCopyInfo(long docInvoice_ID)
+        {
+            DateTime xtime = DateTime.Now;
+            this.PrintingTime_v = new DateTime_v(xtime);
+            if (f_Journal_DocInvoice.OriginalPrinted(docInvoice_ID))
+            {
+                int copy_printed_count = 1;
+                f_Journal_DocInvoice.GetCopyPrintedCount(docInvoice_ID, ref copy_printed_count);
+                int this_copy_number = copy_printed_count + 1;
+                return lng.s_CopyPrintNumber.s + this_copy_number.ToString() +" "+ fs.GetFURS_Time_Formated(xtime);
+            }
+            else
+            {
+                return "";
+            }
+
         }
 
         public string GetAllTokens()
@@ -1844,6 +1867,7 @@ namespace TangentaDB
             if (IsDocInvoice)
             {
                 InvoiceToken.tStorno.Replace(ref html_doc_template);
+                InvoiceToken.tCopyPrintInfo.Replace(ref html_doc_template);
             }
             InvoiceToken.tFiscalYear.Replace(ref html_doc_template);
             InvoiceToken.tInvoiceNumber.Replace(ref html_doc_template);

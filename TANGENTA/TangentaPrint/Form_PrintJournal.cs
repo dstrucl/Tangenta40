@@ -28,16 +28,12 @@ namespace TangentaPrint
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
-        public usrc_TangentaPrint m_usrc_TangentaPrint = null;
-        public Form_PrintJournal(InvoiceData xInvoiceData, string PrinterName, usrc_TangentaPrint xusrc_TangentaPrint)
+        public Form_PrintJournal(InvoiceData xInvoiceData, string PrinterName)
         {
             InitializeComponent();
-            m_usrc_TangentaPrint = xusrc_TangentaPrint;
             m_InvoiceData = xInvoiceData;
             this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
-            lng.s_Printer.Text(lbl_Printer);
-            this.lbl_PrinterNameValue.Text = PrinterName;
-            this.usrc_PrintExistingInvoice1.Init(xInvoiceData, xInvoiceData.NumberInFinancialYear.ToString(), m_usrc_TangentaPrint);
+            this.usrc_PrintExistingInvoice1.Init(xInvoiceData, xInvoiceData.NumberInFinancialYear.ToString());
         }
 
 

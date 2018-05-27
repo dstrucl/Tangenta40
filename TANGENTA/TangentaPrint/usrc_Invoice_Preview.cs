@@ -277,6 +277,7 @@ namespace TangentaPrint
         {
             InitializeComponent();
             lng.s_btn_Tokens.Text(btn_Tokens);
+            lng.s_btn_PrintingHistory.Text(btn_PrintingHistory);
             pd.PrintPage += Pd_PrintPage;
             //string html_doc = Properties.Resources.html_doc;
 
@@ -327,6 +328,37 @@ namespace TangentaPrint
             bFirstPagePrinting = true;
             pd.Print();
 
+            if (m_InvoiceData.IsDocInvoice)
+            {
+                if (m_InvoiceData.PrintCopyInfo.Length == 0)
+                {
+                    string s_journal_invoice_type = f_Journal_DocInvoice.ORIGINALPRINT;
+                    string s_journal_invoice_description = "";
+                    if (m_Printer!=null)
+                    {
+                        if (m_Printer.PrinterName != null)
+                        {
+                            s_journal_invoice_description = m_Printer.PrinterName;
+                        }
+                    }
+                    long journal_docinvoice_id = -1;
+                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
+                }
+                else
+                {
+                    string s_journal_invoice_type = f_Journal_DocInvoice.COPYPRINT;
+                    string s_journal_invoice_description = "";
+                    if (m_Printer != null)
+                    {
+                        if (m_Printer.PrinterName != null)
+                        {
+                            s_journal_invoice_description = m_Printer.PrinterName;
+                        }
+                    }
+                    long journal_docinvoice_id = -1;
+                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
+                }
+            }
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
@@ -399,6 +431,20 @@ namespace TangentaPrint
             {
                 Exit();
             }
+        }
+
+        private void btn_PrintingHistory_Click(object sender, EventArgs e)
+        {
+            string sprintername = "";
+            if (m_Printer!=null)
+            {
+                if (m_Printer.PrinterName!=null)
+                {
+                    sprintername = m_Printer.PrinterName;
+                }
+            }
+            Form_PrintJournal frm_print_journal = new Form_PrintJournal(m_InvoiceData, sprintername);
+            frm_print_journal.ShowDialog(this);
         }
     }
 }
