@@ -29,6 +29,7 @@ namespace TangentaPrint
     {
 //        PdfGenerateConfig config = new PdfGenerateConfig();
         Size pageSize = new Size();
+        bool bDocInvoicePrinted = false;
 
         PrintDocument pd = new PrintDocument();
         int iPage = 0;
@@ -308,9 +309,20 @@ namespace TangentaPrint
         }
 
 
-    private void btn_Print_Click(object sender, EventArgs e)
+        private void btn_Print_Click(object sender, EventArgs e)
         {
-            pd.PrinterSettings.PrinterName = m_Printer.PrinterName;          
+            if (bDocInvoicePrinted)
+            {
+                if (m_InvoiceData.IsDocInvoice)
+                {
+                    if (m_InvoiceData.AddOnDI.b_FVI_SLO)
+                    {
+                        XMessage.Box.Show(this, false, lng.s_InvoiceAllreadyPrintedToPrintCopyCloseAndOpenThisDialogAgain, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+            }
+            pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
             //config.PageSize = PageSize.A4;
             //config.SetMargins(20);
 
@@ -334,7 +346,7 @@ namespace TangentaPrint
                 {
                     string s_journal_invoice_type = f_Journal_DocInvoice.ORIGINALPRINT;
                     string s_journal_invoice_description = "";
-                    if (m_Printer!=null)
+                    if (m_Printer != null)
                     {
                         if (m_Printer.PrinterName != null)
                         {
@@ -358,7 +370,32 @@ namespace TangentaPrint
                     long journal_docinvoice_id = -1;
                     f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
                 }
+                bDocInvoicePrinted = true;
             }
+
+            if (m_InvoiceData.IsDocProformaInvoice)
+            {
+                string s_journal_invoice_type = f_Journal_DocProformaInvoice.PRINT;
+                string s_journal_invoice_description = "";
+                long journal_docproformainvoice_id = -1;
+                if (m_Printer != null)
+                {
+                    if (m_Printer.PrinterName != null)
+                    {
+                        s_journal_invoice_description = m_Printer.PrinterName;
+                    }
+                }
+                long journal_docproformainvoice_type_id = -1;
+                DateTime_v print_time_v = new DateTime_v(DateTime.Now);
+                if (f_Journal_DocProformaInvoice.Get_journal_DocProformaInvoice_type_id(s_journal_invoice_type, s_journal_invoice_description, ref journal_docproformainvoice_type_id))
+                {
+                    if (journal_docproformainvoice_type_id >= 0)
+                    {
+                        f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id);
+                    }
+                }
+            }
+            
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)

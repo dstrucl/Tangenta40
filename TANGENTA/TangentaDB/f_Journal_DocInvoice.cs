@@ -187,10 +187,8 @@ namespace TangentaDB
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
             {
-                if (dt.Rows.Count > 0)
-                {
-                    copy_printed_count= dt.Rows.Count;
-                }
+                copy_printed_count= dt.Rows.Count;
+                
             }
             else
             {

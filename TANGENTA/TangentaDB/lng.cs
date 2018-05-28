@@ -118,7 +118,7 @@ namespace TangentaDB
 
         public static ltext s_Bank = new ltext(new string[] { "Bank", "Banka" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
 
-        public static ltext s_Furs_Test_Environment = new ltext(new string[] { "FURS Test environment", "FURS TESTNO okolje !" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+        public static ltext s_Furs_Test_Environment = new ltext(new string[] { "FURS Test environment INVOICE NOT VALID", "FURS TESTNO okolje RAČUN NI VELJAVEN!" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
 
         public static ltext s_Shop_B = new ltext(new string[] { "B", "B" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
 

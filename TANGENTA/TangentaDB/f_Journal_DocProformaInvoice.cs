@@ -18,6 +18,8 @@ namespace TangentaDB
 {
     public static class f_Journal_DocProformaInvoice
     {
+        public  const string PRINT = "PRINT";
+
         public static bool Write(long DocProformaInvoice_ID, long Atom_WorkPeriod_ID, long journal_docproformainvoice_type_id, DateTime_v issue_time, ref long Journal_DocInvoice_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -56,7 +58,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_journal_invoice_type_id(string Event_Type, string Event_Description, ref long journal_invoice_type_id)
+        public static bool Get_journal_DocProformaInvoice_type_id(string Event_Type, string Event_Description, ref long journal_invoice_type_id)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
@@ -81,7 +83,7 @@ namespace TangentaDB
             lpar.Add(par_Description);
 
             string Err = null;
-            string sql = "select ID from journal_invoice_type where name = " + spar_Name + " and " + par_Description_cond;
+            string sql = "select ID from journal_DocProformaInvoice_type where name = " + spar_Name + " and " + par_Description_cond;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
@@ -92,15 +94,15 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = "insert into journal_invoice_type (Name,Description) values (" + spar_Name + "," + par_Description_value + ")";
+                    sql = "insert into journal_DocProformaInvoice_type (Name,Description) values (" + spar_Name + "," + par_Description_value + ")";
                     object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref journal_invoice_type_id, ref ores, ref Err, "journal_invoice_type"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref journal_invoice_type_id, ref ores, ref Err, "journal_docproformainvoice_type"))
                     {
                         return true;
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_Journal_Invoice:Get_journal_invoice_type_id:sql = " + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:f_Journal_DocProformaInvoice:Get_journal_invoice_type_id:sql = " + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }

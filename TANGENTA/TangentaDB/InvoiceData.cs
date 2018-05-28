@@ -48,7 +48,7 @@ namespace TangentaDB
         public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
-        private string_v Electronic_Device_Name_v = null;
+        public string_v Electronic_Device_Name_v = null;
 
         public DateTime_v PrintingTime_v = null;
         public string PrintCopyInfo = "";
@@ -871,6 +871,7 @@ namespace TangentaDB
                                 abo.Name as BankName,
                                 aba.TRR,
                                 aoff.Name as Atom_Office_Name,
+                                aoff.ShortName as Atom_Office_ShortName,
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
@@ -971,6 +972,7 @@ namespace TangentaDB
                                 abo.Name as BankName,
                                 aba.TRR,
                                 aoff.Name as Atom_Office_Name,
+                                aoff.ShortName as Atom_Office_ShortName,
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
@@ -1063,6 +1065,7 @@ namespace TangentaDB
                                 abo.Name as BankName,
                                 aba.TRR,
                                 aoff.Name as Atom_Office_Name,
+                                aoff.ShortName as Atom_Office_ShortName,
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
@@ -1352,6 +1355,7 @@ namespace TangentaDB
                                                                    DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["TaxPayer"]),
                                                                    DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Comment1"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Atom_Office_Name"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Atom_Office_ShortName"]), 
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["BankName"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["TRR"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Email"]),
@@ -1691,6 +1695,7 @@ namespace TangentaDB
             }
 
             UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lng.st_Customer,
+                                                       null,
                                                        null,
                                                        null,
                                                        null,

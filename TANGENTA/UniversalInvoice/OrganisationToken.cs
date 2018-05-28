@@ -23,6 +23,7 @@ namespace UniversalInvoice
         public TemplateToken tTaxPayer = null;
         public TemplateToken tComment1 = null;
         public TemplateToken tAtom_Office_Name = null;
+        public TemplateToken tAtom_Office_ShortName = null;
         public TemplateToken tBankName = null;
         public TemplateToken tTRR = null;
         public TemplateToken tEmail = null;
@@ -47,6 +48,7 @@ namespace UniversalInvoice
                                     bool_v _TaxPayer_v,
                                     string _Comment1,
                                     string _Atom_Office_Name,
+                                    string _Atom_Office_ShortName,
                                     string _BankName,
                                     string _TRR,
                                     string _Email,
@@ -61,6 +63,7 @@ namespace UniversalInvoice
             tTaxPayer                = new TemplateToken(token_prefix, new string[] { "TaxPayer", "DavčniZavezanec" }, _TaxPayer_v, null);
             tComment1                = new TemplateToken(token_prefix, new string[] { "Comment1", "Komentar1" }, _Comment1, null);
             tAtom_Office_Name        = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, _Atom_Office_Name, null);
+            tAtom_Office_ShortName   = new TemplateToken(token_prefix, new string[] { "OfficeShortName", "PoslovnaEnotaKratkoIme" }, _Atom_Office_ShortName, null);
             tBankName                = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, _BankName, null);
             tTRR                     = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, _TRR, null);
             tEmail                   = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, _Email, null);
@@ -80,6 +83,7 @@ namespace UniversalInvoice
             tTaxPayer = new TemplateToken(token_prefix, new string[] { "TaxPayer", "DavčniZavezanec" }, "", null);
             tComment1 = new TemplateToken(token_prefix, new string[] { "Comment1", "Komentar1" }, "", null);
             tAtom_Office_Name = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, "", null);
+            tAtom_Office_ShortName = new TemplateToken(token_prefix, new string[] { "OfficeShortName", "PoslovnaEnotaKratkoIme" }, "", null);
             tBankName = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, "", null);
             tTRR = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, "", null);
             tEmail = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, "", null);
@@ -99,6 +103,7 @@ namespace UniversalInvoice
             list.Add(tTaxPayer);
             list.Add(tComment1);
             list.Add(tAtom_Office_Name);
+            list.Add(tAtom_Office_ShortName);
             list.Add(tBankName);
             list.Add(tTRR);
             list.Add(tEmail);

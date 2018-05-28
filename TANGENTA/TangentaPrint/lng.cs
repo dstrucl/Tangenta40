@@ -23,8 +23,10 @@ namespace TangentaPrint
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
+        public static ltext s_InvoiceAllreadyPrintedToPrintCopyCloseAndOpenThisDialogAgain = new ltext(new string[] { "To print copy of this invoice close and open this dialog again.", "Za tiskanje kopije računa zapustite ta dialog in ponovno pritisnite na gumb Tiskanje." });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
 
-        public static ltext s_PaymentOfInvoiceAndPrint = new ltext(new string[] { "Payment and Print", "Način plačila in izdaja računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
+        public static ltext s_HistoryOfInvoiceAndPrint = new ltext(new string[] { "History of Invoice", "Zgodovina računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
+        public static ltext s_HistoryOfProformaInvoiceAndPrint = new ltext(new string[] { "History of Proforma-Invoice", "Zgodovina pred-računa ali ponudbe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
 
         public static ltext s_Printer = new ltext(new string[] { "Printer", "Tiskalnik" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
 
@@ -138,7 +140,9 @@ namespace TangentaPrint
 
         public static ltext s_LastNameOfPersonThatPrintedInvoice = new ltext(new string[] { "Last Name of person who printed invoice", "Priimek osebe, ki je natisnila račun" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_PrintExistingInvoice.cs
 
-        public static ltext s_Journal_InvoicePrint = new ltext(new string[] { "Print journal for invoice", "Dnevnik tiskanja računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_PrintExistingInvoice.cs
+        public static ltext s_Journal_Invoice = new ltext(new string[] { "Journal for invoice", "Dnevnik računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_PrintExistingInvoice.cs
+
+        public static ltext s_Journal_ProformaInvoice = new ltext(new string[] { "Journal for Proforma-invoice", "Dnevnik predračuna ali ponudbe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_PrintExistingInvoice.cs
 
         public static ltext s_Print = new ltext(new string[] { "Print", "Tiskaj" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_PrintExistingInvoice.cs
 

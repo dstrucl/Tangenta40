@@ -112,7 +112,38 @@ namespace TangentaDB
                 }
             }
 
-        public static bool DeleteAll()
+        public static bool Get(long office_ID, ref string sOfficeName, ref string sOfficeShortName)
+        {
+            string sql = @"select Name,ShortName from Office
+                                        where ID=" + office_ID.ToString();
+            string Err = null;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    object oname = dt.Rows[0]["Name"];
+                    if (oname is string)
+                    {
+                        sOfficeName = (string)oname;
+                    }
+                    object oshortname = dt.Rows[0]["ShortName"];
+                    if (oshortname is string)
+                    {
+                        sOfficeShortName = (string)oshortname;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Office:Get:" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+
+            public static bool DeleteAll()
         {
             return fs.DeleteAll("Office");
         }

@@ -19,6 +19,7 @@ namespace UniversalInvoice
         public bool_v TaxPayer_v = null;
         public string Comment1 = null;
         public string Atom_Office_Name = null;
+        public string Atom_Office_ShortName = null;
         public string BankName = null;
         public string TRR = null;
         public string Email = null;
@@ -37,6 +38,7 @@ namespace UniversalInvoice
                             bool_v _TaxPayer_v,
                             string_v _Comment1_v,
                             string _Atom_Office_Name,
+                            string _Atom_Office_ShortName,
                             string _BankName,
                             string _TRR,
                             string _Email,
@@ -65,6 +67,7 @@ namespace UniversalInvoice
 
 
             Atom_Office_Name =      _Atom_Office_Name;
+            Atom_Office_ShortName = _Atom_Office_ShortName;
             BankName =              _BankName;
             TRR =                   _TRR;
             Email =                 _Email;
@@ -89,6 +92,7 @@ namespace UniversalInvoice
                                             _TaxPayer_v,
                                             Comment1,
                                             Atom_Office_Name,
+                                            Atom_Office_ShortName,
                                             BankName,
                                             TRR,
                                             Email,
@@ -105,6 +109,7 @@ namespace UniversalInvoice
             Tax_ID = "";
             Registration_ID = "";
             Atom_Office_Name = "";
+            Atom_Office_ShortName = "";
             BankName = "";
             TRR = "";
             Email = "";

@@ -332,6 +332,7 @@ namespace TangentaDB
                                                          DBTypes.tf.set_bool(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$TaxPayer"]),
                                                          DBTypes.tf.set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$_acmt1_$$Comment"]),
                                                          null,
+                                                         null,
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]),

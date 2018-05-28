@@ -32,8 +32,30 @@ namespace TangentaPrint
         {
             InitializeComponent();
             m_InvoiceData = xInvoiceData;
-            this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
-            this.usrc_PrintExistingInvoice1.Init(xInvoiceData, xInvoiceData.NumberInFinancialYear.ToString());
+            if (m_InvoiceData.IsDocInvoice)
+            {
+                lng.s_HistoryOfInvoiceAndPrint.Text(this);
+            }
+            if (m_InvoiceData.IsDocInvoice)
+            {
+                lng.s_HistoryOfProformaInvoiceAndPrint.Text(this);
+            }
+            string sED = "";
+            if (m_InvoiceData.Electronic_Device_Name_v!=null)
+            {
+                sED = m_InvoiceData.Electronic_Device_Name_v.v;
+            }
+            string sOfficeShortName = "";
+          
+            if (m_InvoiceData.MyOrganisation!=null)
+            {
+                if (m_InvoiceData.MyOrganisation.Atom_Office_ShortName != null)
+                {
+                    sOfficeShortName = m_InvoiceData.MyOrganisation.Atom_Office_ShortName;
+                }
+            }
+            string snumber = sOfficeShortName+"-"+sED+"-"+m_InvoiceData.NumberInFinancialYear.ToString() +"/"+ m_InvoiceData.FinancialYear.ToString();
+            this.usrc_PrintExistingInvoice1.Init(xInvoiceData, snumber);
         }
 
 

@@ -184,7 +184,7 @@ namespace Tangenta
             {
                 Mode = eMode.Shops;
             }
-            else if (sManagerMode.Equals(";"))
+            else if (sManagerMode.Equals("InvoiceTable"))
             {
                 Mode = eMode.InvoiceTable;
             }
