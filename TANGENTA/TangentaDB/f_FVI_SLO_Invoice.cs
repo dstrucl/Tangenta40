@@ -69,13 +69,18 @@ namespace TangentaDB
 
         public static bool Select_InvoiceNotConfirmed(ShopABC xInvoiceDB, DocInvoice_AddOn xAddOnDI, DocProformaInvoice_AddOn xAddOnDPI, ref List<InvoiceData> list, string xCasshierName)
         {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string sempty = "";
+            string spar_EmptyString = "@par_EmptyString";
+            SQL_Parameter par_EmptyString = new SQL_Parameter(spar_EmptyString, SQL_Parameter.eSQL_Parameter.Nvarchar, false, sempty);
+            lpar.Add(par_EmptyString);
             string sql = @"select pi.ID
                                 from DocInvoice pi
                                 inner join FVI_SLO_Response fvires on fvires.DocInvoice_ID = pi.ID
-                                where pi.Draft = 0 and fvires.UniqueInvoiceID is null";
+                                where pi.Draft = 0 and ((fvires.UniqueInvoiceID is null) or (fvires.UniqueInvoiceID = "+ spar_EmptyString + "))";
             DataTable dt = new DataTable();
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
