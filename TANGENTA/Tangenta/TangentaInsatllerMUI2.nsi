@@ -18,7 +18,7 @@
   SetCompressor /SOLID LZMA
 
   ;Default installation folder
-  InstallDir "$PROGRAMFILES\Tangenta"
+  InstallDir "C:\Tangenta"
 
   ;Get installation folder from registry if available
   InstallDirRegKey HKLM "Software\Tangenta" ""

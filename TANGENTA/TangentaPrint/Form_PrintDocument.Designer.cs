@@ -34,6 +34,7 @@ namespace TangentaPrint
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintDocument));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.m_usrc_Invoice_Preview = new TangentaPrint.usrc_Invoice_Preview();
             this.textEditorControl1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_SaveTemplate = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@ namespace TangentaPrint
             this.btn_Exit = new System.Windows.Forms.Button();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.m_usrc_SelectPrintTemplate = new TangentaPrint.usrc_SelectPrintTemplate();
-            this.m_usrc_Invoice_Preview = new TangentaPrint.usrc_Invoice_Preview();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,6 +68,70 @@ namespace TangentaPrint
             this.splitContainer1.SplitterDistance = 523;
             this.splitContainer1.TabIndex = 5;
             // 
+            // m_usrc_Invoice_Preview
+            // 
+            this.m_usrc_Invoice_Preview.AutoScroll = true;
+            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.m_usrc_Invoice_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_Invoice_Preview.DocumentTemplate = new byte[] {
+        ((byte)(68)),
+        ((byte)(0)),
+        ((byte)(111)),
+        ((byte)(0)),
+        ((byte)(99)),
+        ((byte)(0)),
+        ((byte)(117)),
+        ((byte)(0)),
+        ((byte)(109)),
+        ((byte)(0)),
+        ((byte)(101)),
+        ((byte)(0)),
+        ((byte)(110)),
+        ((byte)(0)),
+        ((byte)(116)),
+        ((byte)(0)),
+        ((byte)(32)),
+        ((byte)(0)),
+        ((byte)(84)),
+        ((byte)(0)),
+        ((byte)(101)),
+        ((byte)(0)),
+        ((byte)(109)),
+        ((byte)(0)),
+        ((byte)(112)),
+        ((byte)(0)),
+        ((byte)(108)),
+        ((byte)(0)),
+        ((byte)(97)),
+        ((byte)(0)),
+        ((byte)(116)),
+        ((byte)(0)),
+        ((byte)(101)),
+        ((byte)(0)),
+        ((byte)(32)),
+        ((byte)(0)),
+        ((byte)(110)),
+        ((byte)(0)),
+        ((byte)(111)),
+        ((byte)(0)),
+        ((byte)(116)),
+        ((byte)(0)),
+        ((byte)(32)),
+        ((byte)(0)),
+        ((byte)(115)),
+        ((byte)(0)),
+        ((byte)(101)),
+        ((byte)(0)),
+        ((byte)(116)),
+        ((byte)(0))};
+            this.m_usrc_Invoice_Preview.html_doc_template_text = "Document Template not set";
+            this.m_usrc_Invoice_Preview.html_doc_text = "Error can not decode template!";
+            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
+            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(523, 521);
+            this.m_usrc_Invoice_Preview.TabIndex = 0;
+            // 
             // textEditorControl1
             // 
             this.textEditorControl1.AutoCompleteBracketsList = new char[] {
@@ -90,6 +154,7 @@ namespace TangentaPrint
             this.textEditorControl1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.textEditorControl1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.textEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textEditorControl1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.textEditorControl1.IsReplaceMode = false;
             this.textEditorControl1.Language = FastColoredTextBoxNS.Language.HTML;
             this.textEditorControl1.LeftBracket = '<';
@@ -173,70 +238,6 @@ namespace TangentaPrint
             this.m_usrc_SelectPrintTemplate.Size = new System.Drawing.Size(1038, 132);
             this.m_usrc_SelectPrintTemplate.TabIndex = 9;
             // 
-            // m_usrc_Invoice_Preview
-            // 
-            this.m_usrc_Invoice_Preview.AutoScroll = true;
-            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.m_usrc_Invoice_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_Invoice_Preview.DocumentTemplate = new byte[] {
-        ((byte)(68)),
-        ((byte)(0)),
-        ((byte)(111)),
-        ((byte)(0)),
-        ((byte)(99)),
-        ((byte)(0)),
-        ((byte)(117)),
-        ((byte)(0)),
-        ((byte)(109)),
-        ((byte)(0)),
-        ((byte)(101)),
-        ((byte)(0)),
-        ((byte)(110)),
-        ((byte)(0)),
-        ((byte)(116)),
-        ((byte)(0)),
-        ((byte)(32)),
-        ((byte)(0)),
-        ((byte)(84)),
-        ((byte)(0)),
-        ((byte)(101)),
-        ((byte)(0)),
-        ((byte)(109)),
-        ((byte)(0)),
-        ((byte)(112)),
-        ((byte)(0)),
-        ((byte)(108)),
-        ((byte)(0)),
-        ((byte)(97)),
-        ((byte)(0)),
-        ((byte)(116)),
-        ((byte)(0)),
-        ((byte)(101)),
-        ((byte)(0)),
-        ((byte)(32)),
-        ((byte)(0)),
-        ((byte)(110)),
-        ((byte)(0)),
-        ((byte)(111)),
-        ((byte)(0)),
-        ((byte)(116)),
-        ((byte)(0)),
-        ((byte)(32)),
-        ((byte)(0)),
-        ((byte)(115)),
-        ((byte)(0)),
-        ((byte)(101)),
-        ((byte)(0)),
-        ((byte)(116)),
-        ((byte)(0))};
-            this.m_usrc_Invoice_Preview.html_doc_template_text = "Document Template not set";
-            this.m_usrc_Invoice_Preview.html_doc_text = "Error can not decode template!";
-            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
-            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(523, 521);
-            this.m_usrc_Invoice_Preview.TabIndex = 0;
-            // 
             // Form_PrintDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -251,6 +252,7 @@ namespace TangentaPrint
             this.Controls.Add(this.m_usrc_SelectPrintTemplate);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form_PrintDocument";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form_SelectTemplate_Load);

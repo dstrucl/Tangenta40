@@ -44,7 +44,7 @@
 
     h1 {
         border-bottom: 0.1cm solid #5D6975;
-        color: #5D6975;
+        color: black;
         font-size: 2em;
         line-height: 1.4em;
         font-weight: normal;
@@ -157,7 +157,7 @@
         <div class="pagenumbers">page (@@PageNumber@@) of (@@NumberOfPages@@)</div>
         <div class="invoicetop">
             <h1>
-                Invoice:(@@My_Organisation_Office@@)-(@@Invoice_Cashier@@)-(@@Invoice_Number@@)/(@@Invoice_FiscalYear@@) (@@Invoice_Storno@@)
+                Invoice:(@@My_Organisation_OfficeShortName@@)-(@@Invoice_Cashier@@)-(@@Invoice_Number@@)/(@@Invoice_FiscalYear@@) (@@Invoice_Storno@@)
                 <img class="myORG_Logo" alt="Embedded Image" src="data:image/png;base64,(@@My_Organisation_Logo@@)" />
             </h1>
             <table id="customer_company">
@@ -248,8 +248,8 @@
             <div class="notice">(@@Invoice_Notice@@)</div>
         </div>
         <div id="FURS">
-            <div>FURS unique message id:"(@@Invoice_FURS_UniqueMessageID@@)"</div>
-            <div>FURS unique invoiice id:"(@@Invoice_FURS_UniqueInvoiceID@@)"</div>
+            <div>EOR:"(@@Invoice_FURS_UniqueInvoiceID@@)"</div>
+            <div>ZOI:"(@@Invoice_FURS_UniqueMessageID@@)"</div>
             <img class="QRImage" alt="Embedded Image" src="data:image/png;base64,(@@Invoice_FURS_QRCode@@)" />
         </div>
     </page>
