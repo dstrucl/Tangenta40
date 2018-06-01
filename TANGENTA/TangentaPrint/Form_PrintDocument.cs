@@ -141,38 +141,6 @@ namespace TangentaPrint
         }
 
 
-        // 
-        // m_usrc_Invoice_Preview
-        //// 
-        //public void Create_usrc_Invoice_Preview()
-        //{
-        //    if (m_usrc_Invoice_Preview!=null)
-        //    {
-        //        this.m_usrc_Invoice_Preview.Exit -= new usrc_Invoice_Preview.delegate_Exit(this.m_usrc_Invoice_Preview_Exit);
-        //        this.Controls.Remove(m_usrc_Invoice_Preview);
-        //        m_usrc_Invoice_Preview.Dispose();
-        //        m_usrc_Invoice_Preview = null;
-        //    }
-        //    m_usrc_Invoice_Preview = new usrc_Invoice_Preview();
-        //    this.m_usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-        //    | System.Windows.Forms.AnchorStyles.Left)
-        //    | System.Windows.Forms.AnchorStyles.Right)));
-        //    this.m_usrc_Invoice_Preview.AutoScroll = true;
-        //    this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-        //    this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
-        //    this.m_usrc_Invoice_Preview.html_doc_text = "Document Template not set";
-        //    this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
-        //    this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
-        //    this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
-        //    this.m_usrc_Invoice_Preview.TabIndex = 0;
-        //    this.m_usrc_Invoice_Preview.Dock = DockStyle.Fill;
-        //    this.m_usrc_Invoice_Preview.Exit += new usrc_Invoice_Preview.delegate_Exit(this.m_usrc_Invoice_Preview_Exit);
-        //    this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
-        //    m_usrc_Invoice_Preview.btn_Tokens.Visible = false;
-        //    Create_usrc_Invoice_Preview();
-        //}
-
-
         private void btn_Select_Template_Click(object sender, EventArgs e)
         {
 
@@ -192,6 +160,10 @@ namespace TangentaPrint
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
                     break;
+                case f_doc.eGetPrintDocumentTemplateResult.PRINTER_NOT_SELECTED:
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    return;
 
                 case f_doc.eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE:
                     btn_SaveTemplate.Visible = false;
@@ -340,7 +312,14 @@ namespace TangentaPrint
                                         true,
                                         ref Doc_ID))
                         {
-                            m_usrc_SelectPrintTemplate.Init();
+                            switch (m_usrc_SelectPrintTemplate.Init())
+                            {
+                                case f_doc.eGetPrintDocumentTemplateResult.ERROR:
+                                case f_doc.eGetPrintDocumentTemplateResult.PRINTER_NOT_SELECTED:
+                                    this.Close();
+                                    DialogResult = DialogResult.Cancel;
+                                    return;
+                            }
                         }
                     }
                     break;

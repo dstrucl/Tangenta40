@@ -36,7 +36,7 @@ namespace TangentaDB
         public const int Roll58_WIDTH = 58;
         public const int Roll58_HEIGHT = 99999;
 
-        public enum eGetPrintDocumentTemplateResult { OK, ERROR, NO_DOCUMENT_TEMPLATE };
+        public enum eGetPrintDocumentTemplateResult { OK, ERROR, NO_DOCUMENT_TEMPLATE,PRINTER_NOT_SELECTED };
 
 
         public static long doc_Html_Invoice_Template_A4_ID = 0;

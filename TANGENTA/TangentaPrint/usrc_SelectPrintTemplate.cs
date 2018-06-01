@@ -281,7 +281,11 @@ namespace TangentaPrint
         internal f_doc.eGetPrintDocumentTemplateResult Init()
         {
             RemoveHandlers();
-            SetPrinterSelection(m_InvoiceData);
+            if (!SetPrinterSelection(m_InvoiceData))
+            {
+                AddHandlers();
+                return f_doc.eGetPrintDocumentTemplateResult.PRINTER_NOT_SELECTED;
+            }
             Ge_doc_page_type_ID_v_FromSelectedPrinter(ref m_Doc_Page_Type_ID_v);
 
             f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
@@ -448,7 +452,7 @@ namespace TangentaPrint
         }
 
 
-        private void SetPrinterSelection(InvoiceData m_InvoiceData)
+        private bool SetPrinterSelection(InvoiceData m_InvoiceData)
         {
             this.cmb_SelectPrinter.Items.Clear();
             bool bSelected = false;
@@ -467,8 +471,12 @@ namespace TangentaPrint
             }
             else
             {
-                SelectPrinter();
+                if (!SelectPrinter())
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         private bool Match_m_MethodOfPayment(DataRow dr)

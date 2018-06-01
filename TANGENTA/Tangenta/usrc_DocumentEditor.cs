@@ -2365,6 +2365,7 @@ namespace Tangenta
         private bool Printing_DocInvoice()
         {
             TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_InvoiceData,Properties.Resources.Exit);
+            template_dlg.Owner = Global.f.GetParentForm(this);
             if (template_dlg.ShowDialog(this)==DialogResult.OK)
             {
                 return true;
