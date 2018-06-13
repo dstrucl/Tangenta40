@@ -716,14 +716,14 @@ namespace Tangenta
             this.splitContainer1.Enabled = b;
         }
 
-        private bool EditMyOrganisation_Person_Data(int Index,NavigationButtons.Navigation xnav)
+        private bool EditMyOrganisation_Person_Data(int Index, NavigationButtons.Navigation xnav)
         {
             this.Cursor = Cursors.WaitCursor;
             if (Index < myOrg.myOrg_Office_list.Count)
             {
                 NavigationButtons.Navigation nav_edt_my_company_person_dlg = null;
                 Form child_dlg = null;
-                if (xnav!=null)
+                if (xnav != null)
                 {
                     nav_edt_my_company_person_dlg = xnav;
                     child_dlg = xnav.ChildDialog;
@@ -746,33 +746,7 @@ namespace Tangenta
             }
         }
 
-        private bool Edit_myOrg_Office(NavigationButtons.Navigation xnav)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            xnav.ChildDialog = new Form_myOrg_Office(xnav);
-            this.Cursor = Cursors.Arrow;
-            xnav.ShowDialog();
-            return true;
-        }
-
-        private bool Edit_myOrg_Office_Data(NavigationButtons.Navigation xnav)
-        {
-            DialogResult dres = DialogResult.Ignore;
-            this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office_Data frm_office_data = new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav);
-            dres = frm_office_data.ShowDialog(this);
-            if (dres == DialogResult.OK)
-            {
-                this.Cursor = Cursors.Arrow;
-                return true;
-            }
-            else
-            {
-                this.Cursor = Cursors.Arrow;
-                return false;
-            }
-        }
-
+      
         internal bool Startup_05_Show_Form_myOrg_Office_Data(NavigationButtons.Navigation xnav)
         {
             if (myOrg.myOrg_Office_list.Count > 0)

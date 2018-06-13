@@ -53,8 +53,8 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btn_Office);
             this.splitContainer1.Panel1.Controls.Add(this.btn_BankAccounts);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Office);
             this.splitContainer1.Panel1.Controls.Add(this.usrc_EditRow);
             // 
             // splitContainer1.Panel2
@@ -67,18 +67,18 @@
             // btn_Office
             // 
             this.btn_Office.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Office.Location = new System.Drawing.Point(4, 33);
+            this.btn_Office.Location = new System.Drawing.Point(6, 0);
             this.btn_Office.Name = "btn_Office";
             this.btn_Office.Size = new System.Drawing.Size(266, 26);
             this.btn_Office.TabIndex = 11;
-            this.btn_Office.Text = "Organisation Bank Account";
+            this.btn_Office.Text = "Office Data";
             this.btn_Office.UseVisualStyleBackColor = false;
             this.btn_Office.Click += new System.EventHandler(this.btn_Office_Edit);
             // 
             // btn_BankAccounts
             // 
             this.btn_BankAccounts.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_BankAccounts.Location = new System.Drawing.Point(276, 34);
+            this.btn_BankAccounts.Location = new System.Drawing.Point(277, 0);
             this.btn_BankAccounts.Name = "btn_BankAccounts";
             this.btn_BankAccounts.Size = new System.Drawing.Size(191, 26);
             this.btn_BankAccounts.TabIndex = 10;
@@ -90,17 +90,15 @@
             // 
             this.usrc_EditRow.AllowUserToAddNew = true;
             this.usrc_EditRow.AllowUserToChange = true;
-            this.usrc_EditRow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_EditRow.bNewDataEntry = false;
             this.usrc_EditRow.Changed = false;
+            this.usrc_EditRow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_EditRow.GetRandomData = false;
-            this.usrc_EditRow.Location = new System.Drawing.Point(4, 42);
+            this.usrc_EditRow.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditRow.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_EditRow.Name = "usrc_EditRow";
             this.usrc_EditRow.SelectionButtonVisible = true;
-            this.usrc_EditRow.Size = new System.Drawing.Size(856, 430);
+            this.usrc_EditRow.Size = new System.Drawing.Size(866, 477);
             this.usrc_EditRow.TabIndex = 0;
             this.usrc_EditRow.Title = "";
             this.usrc_EditRow.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -115,18 +113,16 @@
             this.dgvx_MyOrganisation.AllowUserToAddRows = false;
             this.dgvx_MyOrganisation.AllowUserToDeleteRows = false;
             this.dgvx_MyOrganisation.AllowUserToOrderColumns = true;
-            this.dgvx_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_MyOrganisation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_MyOrganisation.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvx_MyOrganisation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_MyOrganisation.DataGridViewWithRowNumber = false;
-            this.dgvx_MyOrganisation.Location = new System.Drawing.Point(3, 6);
+            this.dgvx_MyOrganisation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvx_MyOrganisation.Location = new System.Drawing.Point(0, 0);
             this.dgvx_MyOrganisation.MultiSelect = false;
             this.dgvx_MyOrganisation.Name = "dgvx_MyOrganisation";
             this.dgvx_MyOrganisation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_MyOrganisation.Size = new System.Drawing.Size(856, 100);
+            this.dgvx_MyOrganisation.Size = new System.Drawing.Size(866, 115);
             this.dgvx_MyOrganisation.TabIndex = 0;
             // 
             // usrc_NavigationButtons1

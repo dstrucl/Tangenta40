@@ -319,6 +319,28 @@ namespace DBConnectionControl40
             }
         }
 
+        public enum eSQLITEFileExist { OK,NOT_EXISTS,CONNECTION_FILE_NOT_DEFINED};
+
+        internal eSQLITEFileExist SQLITEFileExist(ref string sqlitefile)
+        {
+            if (m_conData_SQLITE != null)
+            {
+                sqlitefile = m_conData_SQLITE.DataBaseFile;
+                if (File.Exists(sqlitefile))
+                {
+                    return eSQLITEFileExist.OK;
+                }
+                else
+                {
+                    return eSQLITEFileExist.NOT_EXISTS;
+                }
+            }
+            else
+            {
+                return eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED;
+            }
+        }
+
         public bool SQLite_AllwaysCreateNew
         {
             get
@@ -791,7 +813,8 @@ namespace DBConnectionControl40
         public bool Startup_03_Show_TestConnectionForm(Form pParentForm,NavigationButtons.Navigation xnav)
         {
             //xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s),typeof(TestConnectionForm).ToString());
-            xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s), null);
+            TestConnectionForm tconform = new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s);
+            xnav.ShowForm(tconform, null);
             return true;
         }
 

@@ -221,19 +221,40 @@ namespace DBConnectionControl40
                     break;
 
                 case DBConnection.eDBType.SQLITE:
-                    string sError=null;
-                    if (sqlConn.Connect(ref sError))
+                    string sqlitefile = null;
+                    string sError = null;
+                    switch (sqlConn.SQLITEFileExist(ref sqlitefile))
                     {
-                        sqlConn.Disconnect();
-                        ShowOK();
-                        this.TimerSQLiteShowOkResult.Enabled = true;
-                        return;
-                    }
-                    else
-                    {
-                        sqlConn.Disconnect();
-                        ShowError(sError);
-                        this.TimerSQLiteShowErrorResult.Enabled = true;
+                        case DBConnection.eSQLITEFileExist.OK:
+                            if (sqlConn.Connect(ref sError))
+                            {
+                                sqlConn.Disconnect();
+                                ShowOK();
+                                this.TimerSQLiteShowOkResult.Enabled = true;
+                                m_eResult = eTestConnectionFormResult.OK;
+                                return;
+                            }
+                            else
+                            {
+                                sqlConn.Disconnect();
+                                ShowError(sError);
+                                this.TimerSQLiteShowErrorResult.Enabled = true;
+                                m_eResult = eTestConnectionFormResult.FAILED;
+                            }
+                            break;
+
+                        case DBConnection.eSQLITEFileExist.NOT_EXISTS:
+                            string smsg = "SQLIte:" + lng.s_File_does_not_exist.s + " : \"" + sqlitefile + "\"";
+                            ShowError(smsg);
+                            this.TimerSQLiteShowErrorResult.Enabled = true;
+                            m_eResult = eTestConnectionFormResult.CHANGE;
+                            break;
+
+                        case DBConnection.eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED:
+                            ShowError("ERROR:DBConnectionControl40:TestConnectionForm:TestConnectionForm_Load:SQlite connection file is not defined!");
+                            this.TimerSQLiteShowErrorResult.Enabled = true;
+                            m_eResult = eTestConnectionFormResult.FAILED;
+                            break;
                     }
                     break;
             }

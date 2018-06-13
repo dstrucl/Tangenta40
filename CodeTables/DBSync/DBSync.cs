@@ -121,7 +121,16 @@ namespace DBSync
             string Err = null;
             if (LocalDB_data_SQLite.Save(MyDataBase_Tangenta.DataBaseFilePrefix,ref Err))
             {
-                return true;
+                // Connect to create SQLite file !
+                if (DB_for_Tangenta.m_DBTables.m_con.Connect(ref Err))
+                {
+                    DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

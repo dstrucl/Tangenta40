@@ -18,6 +18,7 @@ using LanguageControl;
 using CodeTables;
 using TangentaTableClass;
 using TangentaDB;
+using NavigationButtons;
 
 namespace Tangenta
 {
@@ -191,35 +192,41 @@ namespace Tangenta
             return false;
         }
 
-        internal bool Edit_OrganisationData()
+        internal bool Edit_OrganisationData(Navigation ynav)
         {
             SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData)));
             OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationData,
-                                                            " OrganisationData_$_org_$$Name desc",nav);
+                                                            " OrganisationData_$_org_$$Name desc",ynav);
             edt_Item_dlg.ShowDialog(this);
             Init();
             return true;
         }
 
-        internal bool Edit_OrganisationAccount()
+        internal bool Edit_OrganisationAccount(Navigation ynav)
         {
             SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
             Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
-                                                            " OrganisationAccount_$_org_$$Name desc",nav);
+                                                            " OrganisationAccount_$_org_$$Name desc",ynav);
             edt_Item_dlg.ShowDialog(this);
             Init();
             return true;
         }
         private void btn_OrganisationData_Click(object sender, EventArgs e)
         {
-            Edit_OrganisationData();
+            Navigation xnav = new Navigation();
+            xnav.bDoModal = true;
+            xnav.m_eButtons = Navigation.eButtons.OkCancel;
+            Edit_OrganisationData(xnav);
         }
 
         private void btn_BankAccounts_Click(object sender, EventArgs e)
         {
-            Edit_OrganisationAccount();
+            Navigation xnav = new Navigation();
+            xnav.bDoModal = true;
+            xnav.m_eButtons = Navigation.eButtons.OkCancel;
+            Edit_OrganisationAccount(xnav);
         }
 
         private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, long id, bool bRes)
@@ -234,7 +241,10 @@ namespace Tangenta
         private void btn_Office_Edit(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office frm_office = new Form_myOrg_Office(nav);
+            Navigation xnav = new Navigation();
+            xnav.bDoModal = true;
+            xnav.m_eButtons = Navigation.eButtons.OkCancel;
+            Form_myOrg_Office frm_office = new Form_myOrg_Office(xnav);
             frm_office.ShowDialog(this);
             this.Cursor = Cursors.Arrow;
         }

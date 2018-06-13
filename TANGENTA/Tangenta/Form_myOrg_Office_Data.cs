@@ -31,7 +31,15 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
+            if (!Program.b_FVI_SLO)
+            {
+                lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
+            }
+            else
+            {
+                this.btn_FVI_SLO_RealEstateBP.Visible = false;
+            }
+
             m_Office_ID = xOffice_ID;
             tbl_Office_Data = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office_Data)));
             tbl_Office_Data.SetColumnStyle("Office_ID", Column.eStyle.none);

@@ -61,7 +61,7 @@
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.Name = "btn_Office_Data_And_FVI_SLO_RealEstateBP";
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.Size = new System.Drawing.Size(303, 44);
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.TabIndex = 3;
-            this.btn_Office_Data_And_FVI_SLO_RealEstateBP.Text = "button1";
+            this.btn_Office_Data_And_FVI_SLO_RealEstateBP.Text = "Office Data And FVI_SLO_RealEstateBP";
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.UseVisualStyleBackColor = false;
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.Click += new System.EventHandler(this.btn_Office_Data_And_FVI_SLO_RealEstateBP_Click);
             // 

@@ -61,7 +61,7 @@
             this.btn_FVI_SLO_RealEstateBP.Name = "btn_FVI_SLO_RealEstateBP";
             this.btn_FVI_SLO_RealEstateBP.Size = new System.Drawing.Size(391, 34);
             this.btn_FVI_SLO_RealEstateBP.TabIndex = 3;
-            this.btn_FVI_SLO_RealEstateBP.Text = "button1";
+            this.btn_FVI_SLO_RealEstateBP.Text = "btn_FVI_SLO_RealEstateBP";
             this.btn_FVI_SLO_RealEstateBP.UseVisualStyleBackColor = false;
             this.btn_FVI_SLO_RealEstateBP.Click += new System.EventHandler(this.btn_FVI_SLO_RealEstateBP_Click);
             // 
@@ -83,7 +83,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(-1, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(869, 23);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(869, 26);
             this.usrc_NavigationButtons1.TabIndex = 4;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
