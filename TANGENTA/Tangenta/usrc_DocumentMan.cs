@@ -1194,7 +1194,7 @@ namespace Tangenta
             bool bReadOnly = false;
             Err = null;
             long lRowsCount = fs.GetTableRowsCount("DBSettings");
-            if (lRowsCount > 0)
+            if (lRowsCount > 1) //Database "Version" is wriiten after database creation in DBSettings
             {
                 switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref Program.AdministratorLockedPassword, ref bReadOnly, ref Err))
                 {
@@ -1310,6 +1310,7 @@ namespace Tangenta
                     case fs.enum_GetDBSettings.No_Data_Rows:
                         Err = DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name;
                         return false;
+
                     case fs.enum_GetDBSettings.Error_Load_DBSettings:
                         Err = fs.ERROR;
                         return false;

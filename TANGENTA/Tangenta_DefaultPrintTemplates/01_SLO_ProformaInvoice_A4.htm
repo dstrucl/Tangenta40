@@ -158,7 +158,7 @@
         <div class="pagenumbers">stran (@@ŠtevilkaStrani@@) od (@@ŠteviloStrani@@)</div>
         <div class="invoicetop">
             <h1>
-                PONUDBA št.:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Predračun_OznakaBlagajne@@)-(@@Predračun_Številka@@)/(@@Predračun_ObračunskoLeto@@)
+                PONUDBA št.:(@@Moja_Organizacija_PoslovnaEnotaKratkoIme@@)-(@@Predračun_OznakaBlagajne@@)-(@@Predračun_Številka@@)/(@@Predračun_ObračunskoLeto@@)
                 <img class="myORG_Logo" alt="Embedded Image" src="data:image/png;base64,(@@Moja_Organizacija_Logo@@)" />
             </h1>
             <table id="customer_company">
@@ -172,9 +172,10 @@
                     <tr>
                         <td>
                             <div id="project">
-                                <div><span>NASLOVU</span>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
-                                <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
-                                <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
+                                <div>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
+                                <div>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
+                                <div>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
+                                <div><span>Davčna številka:</span>(@@Stranka_Organizacija_DavčnaŠtevilka@@)</div>
                                 <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
                                 <div><span><b>Datum rač.:</b></span>(@@Predračun_Datum_izdaje_računa@@)</div>
                                 <div><span><b>Ponudba velja do:</b></span>(@@Predračun_Ponudba_velja_do@@)</div>
@@ -182,14 +183,13 @@
                         </td>
                         <td>
                             <div id="company" class="clearfix">
-                                <div>IZDAJATELJ:(@@Moja_Organizacija_Ime@@)</div>
+                                <div>(@@Moja_Organizacija_Ime@@)</div>
                                 <div>(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)</div>
                                 <div>(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)</div>
                                 <div>Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) </div>
                                 <div>Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) </div>
                                 <div>Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) </div>
-                                <div>Oznaka blagajne:(@@Predračun_OznakaBlagajne@@) </div>
-                                <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
+                                <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@)</div>
                                 <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
                                 <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
                             </div>

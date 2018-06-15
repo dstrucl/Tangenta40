@@ -67,10 +67,10 @@ namespace DBConnectionControl40
                 {
                     if (!m_conData_SQLITE.SQLite_AllwaysCreateNew)
                     {
-                       if (MessageBox.Show(this,lng.s_File_does_not_exist.s + m_conData_SQLITE.DataBaseFile+"\r\n"+lng.s_CreateNewDatabase.s+"?",lng.s_Question.s,MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1)==DialogResult.Yes)
-                       {
+                       //if (MessageBox.Show(this,lng.s_File_does_not_exist.s + m_conData_SQLITE.DataBaseFile+"\r\n"+lng.s_CreateNewDatabase.s+"?",lng.s_Question.s,MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1)==DialogResult.Yes)
+                       //{
                             
-                       }
+                       //}
                     }
                 }
             }
