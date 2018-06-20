@@ -28,6 +28,12 @@ namespace XMessage
             return dlg.ShowDialog(owner);
         }
 
+        public static DialogResult Show(Control owner, ltext xltext, object oIcon)
+        {
+            Form_Box dlg = new Form_Box(owner, xltext, oIcon);
+            return dlg.ShowDialog(owner);
+        }
+
         public static DialogResult Show(bool bStartup,Control xOwner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(xOwner, xltext, caption, buttons, oIcon, defaultButton);

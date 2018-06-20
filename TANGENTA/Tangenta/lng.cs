@@ -25,6 +25,12 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+        public static ltext s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeOfficeData 
+            = new ltext(new string[] { "There are no organisation data.\r\nYou can not enter office data unles your organisation data are writen to database.\r\nPlease write and save your organisation data to database before you enter organisation office data.", "Urejanje podatkov poslovne enote vaše organizacije ni možno dokler niste shranili (vpisali v podatkovno bazo) osnovne podatke vaše organizacije.\r\nProsim vnesite in shranite najprej podatke vaše organizacije.\r\nŠele, ko ste to naredili, lahko dodajate podatke poslovnih enot." });
+        public static ltext s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeBankAccounts 
+            = new ltext(new string[] { "There are no organisation data.\r\nYou can not enter your organisation bank account data unles your organisation data are writen to database.\r\nPlease write and save your organisation data to database before you enter organisation bank accounts.", "Urejanje podatkov  o bančnih računih vaše organizacije ni možno dokler niste shranili (vpisali v podatkovno bazo) osnovne podatke vaše organizacije.\r\nProsim vnesite in shranite najprej podatke vaše organizacije.\r\nŠele, ko ste to naredili, lahko dodajate podatke o bančnih računih vaše organizacije." });
+
         public static ltext s_YouCanNotCreateNewInvoiceForPastFinancialYear = new ltext(new string[] { "You can not create new invoice for past financial year ", "Nov račun ni možno odpreti za preteklo finančno leto " });
 
         public static ltext s_NumberOfMonthAfterNewYearToAllowCreateNewInvoiceIs = new ltext(new string[] { "Number of months after New Year in which you can still create new invoice for last year is", "Število mesecev po novem letu, ko nov račun v preteklem finančnem letu še lahko odprete je " });

@@ -263,9 +263,10 @@ namespace NavigationButtons
                     btn1.Visible = true;
                     btn3.Visible = true;
                     btn1.Image = null;
-                    btn3.Image = null;
+                    btn3.Image = Properties.Resources.Exit;
                     btn1.Text = lngRPM_strings.s_OK;
-                    btn3.Text = lngRPM_strings.s_Cancel;
+                    btn3.Text = "";//lngRPM_strings.s_Cancel;
+
                     break;
 
                 case Navigation.eButtons.PrevNextExit:

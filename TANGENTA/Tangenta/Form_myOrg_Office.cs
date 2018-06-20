@@ -26,7 +26,7 @@ namespace Tangenta
         private SQLTable tbl_Office = null;
         private NavigationButtons.Navigation nav = null;
 
-        public Form_myOrg_Office(NavigationButtons.Navigation xnav)
+        public Form_myOrg_Office(Control parentcontrol,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
@@ -41,7 +41,7 @@ namespace Tangenta
                 long_v myOrganisation_ID_v = new long_v(myOrganisation_ID);
                 string selection = "Office_$$Name,Office_$$ShortName,Office_$_mo_$_orgd_$_org_$$Name,Office_$_mo_$_orgd_$_orgt_$$OrganisationTYPE,Office_$_mo_$_orgd_$_org_$$Tax_ID,ID";
                 string where_condition = " where Office_$_mo_$$ID = " + myOrganisation_ID.ToString() + " ";
-                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false,nav))
+                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false, nav))
                 {
                     usrc_EditTable1.FillInitialData();
                 }
@@ -52,7 +52,8 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:Tangenta:Form_myOrg_Offices_Edit():myOrg.ID_v is not defined!");
+                //LogFile.Error.Show("ERROR:Tangenta:Form_myOrg_Offices_Edit():myOrg.ID_v is not defined!");
+                XMessage.Box.Show(parentcontrol, lng.s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeOfficeData, MessageBoxIcon.Information);
                 bclose = true;
             }
         }
@@ -80,6 +81,8 @@ namespace Tangenta
 
         private void Form_myOrg_Offices_Edit_Load(object sender, EventArgs e)
         {
+
+
             if (bclose)
             {
                 DialogResult = DialogResult.Abort;
@@ -188,7 +191,6 @@ namespace Tangenta
                             }
                             break;
                         case NavigationButtons.Navigation.eEvent.CANCEL:
-                            break;
                             do_Cancel();
                             break;
                     }

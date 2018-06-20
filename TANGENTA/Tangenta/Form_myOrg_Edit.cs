@@ -192,17 +192,7 @@ namespace Tangenta
             return false;
         }
 
-        internal bool Edit_OrganisationData(Navigation ynav)
-        {
-            SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData)));
-            OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                                        tbl_OrganisationData,
-                                                            " OrganisationData_$_org_$$Name desc",ynav);
-            edt_Item_dlg.ShowDialog(this);
-            Init();
-            return true;
-        }
-
+    
         internal bool Edit_OrganisationAccount(Navigation ynav)
         {
             SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
@@ -213,20 +203,21 @@ namespace Tangenta
             Init();
             return true;
         }
-        private void btn_OrganisationData_Click(object sender, EventArgs e)
-        {
-            Navigation xnav = new Navigation();
-            xnav.bDoModal = true;
-            xnav.m_eButtons = Navigation.eButtons.OkCancel;
-            Edit_OrganisationData(xnav);
-        }
+    
 
         private void btn_BankAccounts_Click(object sender, EventArgs e)
         {
-            Navigation xnav = new Navigation();
-            xnav.bDoModal = true;
-            xnav.m_eButtons = Navigation.eButtons.OkCancel;
-            Edit_OrganisationAccount(xnav);
+            if (myOrg.ID_v != null)
+            {
+                Navigation xnav = new Navigation();
+                xnav.bDoModal = true;
+                xnav.m_eButtons = Navigation.eButtons.OkCancel;
+                Edit_OrganisationAccount(xnav);
+            }
+            else
+            {
+                XMessage.Box.Show(this, lng.s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeBankAccounts, MessageBoxIcon.Information);
+            }
         }
 
         private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, long id, bool bRes)
@@ -240,13 +231,21 @@ namespace Tangenta
 
         private void btn_Office_Edit(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-            Navigation xnav = new Navigation();
-            xnav.bDoModal = true;
-            xnav.m_eButtons = Navigation.eButtons.OkCancel;
-            Form_myOrg_Office frm_office = new Form_myOrg_Office(xnav);
-            frm_office.ShowDialog(this);
-            this.Cursor = Cursors.Arrow;
+            if (myOrg.ID_v != null)
+            {
+
+                this.Cursor = Cursors.WaitCursor;
+                Navigation xnav = new Navigation();
+                xnav.bDoModal = true;
+                xnav.m_eButtons = Navigation.eButtons.OkCancel;
+                Form_myOrg_Office frm_office = new Form_myOrg_Office(this, xnav);
+                frm_office.ShowDialog(this);
+                this.Cursor = Cursors.Arrow;
+            }
+            else
+            {
+                XMessage.Box.Show(this, lng.s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeOfficeData, MessageBoxIcon.Information);
+            }
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
