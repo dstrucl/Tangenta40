@@ -27,7 +27,8 @@ namespace TangentaPrint
 {
     public partial class Form_PrintDocument : Form
     {
-       
+        public delegate bool delegate_Door_OpenIfUserIsAdministrator(Form parentform);
+        private delegate_Door_OpenIfUserIsAdministrator Door_OpenIfUserIsAdministrator = null;
         public long Default_ID = -1;
 
         private GlobalData.ePaymentType paymentType;
@@ -40,9 +41,10 @@ namespace TangentaPrint
         private long duration;
         private Image m_image_for_btn_exit = null;
 
-        public Form_PrintDocument(InvoiceData xInvoiceData,Image image_for_btn_exit)
+        public Form_PrintDocument(InvoiceData xInvoiceData,Image image_for_btn_exit, delegate_Door_OpenIfUserIsAdministrator xdoor_openifuserisadministrator)
         {
             InitializeComponent();
+            Door_OpenIfUserIsAdministrator = xdoor_openifuserisadministrator;
             m_image_for_btn_exit = image_for_btn_exit;
             this.m_InvoiceData = xInvoiceData;
             if (m_InvoiceData.IsDocInvoice)
@@ -100,26 +102,12 @@ namespace TangentaPrint
             m_usrc_Invoice_Preview.btn_Tokens.Visible = false;
             if (chk_EditTemplate.Checked)
             {
-                string AdministratorLockedPassword = null;
-                if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
+                if (Door_OpenIfUserIsAdministrator(this))
                 {
-                    if (Password.Password.Check(this,null, AdministratorLockedPassword))
-                    {
-                        splitContainer1.Panel2Collapsed = false;
-                        m_usrc_Invoice_Preview.btn_Tokens.Visible = true;
-                        btn_SaveTemplate.Visible = true;
-                        btn_Refresh.Visible = true;
-
-                    }
-                    else
-                    {
-                        chk_EditTemplate.CheckedChanged -= Chk_EditTemplate_CheckedChanged;
-                        chk_EditTemplate.Checked = false;
-                        splitContainer1.Panel2Collapsed = true;
-                        chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
-                        btn_SaveTemplate.Visible = false;
-                        btn_Refresh.Visible = false;
-                    }
+                    splitContainer1.Panel2Collapsed = false;
+                    m_usrc_Invoice_Preview.btn_Tokens.Visible = true;
+                    btn_SaveTemplate.Visible = true;
+                    btn_Refresh.Visible = true;
                 }
                 else
                 {
@@ -129,7 +117,6 @@ namespace TangentaPrint
                     chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
-
                 }
             }
             else

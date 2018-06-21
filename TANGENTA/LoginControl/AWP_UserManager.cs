@@ -333,7 +333,9 @@ namespace LoginControl
                 bRes = AWP_func.Update_LoginUsers_ID(awpld, usrc_PasswordBytes1.Changed);
                 if (bRes)
                 {
+                    LoadData(null);
                     awpld.Changed = false;
+
                 }   
             }
             return bRes;
@@ -360,10 +362,15 @@ namespace LoginControl
                     {
                         if (AWP_func.UserNameExist(txtUserName.Text, ref LoginUsers_ID))
                         {
-                            MessageBox.Show(lng.s_UserName_AllreadyExist.s);//you can not overwrite existig yuser
-                            return false;
-
-
+                            if (DBTypes.ID.IsValid(LoginUsers_ID))
+                            {
+                                MessageBox.Show(lng.s_UserName_AllreadyExist.s);//you can not overwrite existig yuser
+                                return false;
+                            }
+                            else
+                            {
+                                return UpdateAWPLoginData();
+                            }
                         }
                         else
                         {

@@ -329,7 +329,19 @@ namespace DBSync
 
         public static string DataBase
         {
-            get { return DB_for_Tangenta.m_DBTables.m_con.DataBase; }
+            get {
+                    if (DB_for_Tangenta!=null)
+                    {
+                        if (DB_for_Tangenta.m_DBTables!=null)
+                        {
+                            if (DB_for_Tangenta.m_DBTables.m_con!=null)
+                            {
+                                return DB_for_Tangenta.m_DBTables.m_con.DataBase;
+                            }
+                        }
+                    }
+                    return null;
+                }
         }
 
         public static string ServerType

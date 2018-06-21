@@ -279,6 +279,11 @@ SELECT
             {
                 return lng.cn_Role_StockTakeManagemenent.s;
             }
+            else if (role.Equals(AWP.ROLE_WriteInvoiceAndProformaInvoice))
+            {
+                return lng.cn_Role_WriteInvoiceAndProformaInvoice.s;
+            }
+
             //else if (role.Equals(AWP.ROLE_ViewAndExport))
             //{
             //    return lng.cn_Role_ViewAndExport.s;

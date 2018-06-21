@@ -14,6 +14,7 @@ namespace LoginControl
         public const string ROLE_UserManagement = "UserManagement";
         public const string ROLE_StockTakeManagement = "StockTakeManagement";
         public const string ROLE_PriceListManagement = "PriceListManagement";
+        public const string ROLE_WriteInvoiceAndProformaInvoice = "WriteInvoiceAndProformaInvoice";
         // next roles maybe planed in the future
         //public const string ROLE_WriteInvoice = "WriteInvoice";
         //public const string ROLE_WriteProformainvoice = "WriteProformaInvoice";

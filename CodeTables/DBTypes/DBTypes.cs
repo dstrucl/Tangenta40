@@ -898,6 +898,24 @@ namespace DBTypes
 
     public class ID : DB_Int64
     {
+        public static bool IsValid(object ologinUsers_ID)
+        {
+            if (ologinUsers_ID is long)
+            {
+                if (((long)ologinUsers_ID)>=0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     public class DB_Document : ValSet

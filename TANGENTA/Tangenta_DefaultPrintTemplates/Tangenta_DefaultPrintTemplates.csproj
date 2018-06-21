@@ -76,6 +76,12 @@
     <EmbeddedResource Include="01_SLO_Invoice_Roll80.htm" />
     <EmbeddedResource Include="00_ENG_Invoice_Roll80.htm" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="01_SLO_Invoice_Roll58.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="00_ENG_Invoice_Roll58.htm" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

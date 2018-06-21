@@ -314,6 +314,7 @@ namespace TangentaPrint
                                     string ElectronicDevice_ID,
                                     int BaseCurrencyDecimalPlaces,
                                     GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time,
+                                    Form_PrintDocument.delegate_Door_OpenIfUserIsAdministrator xDoor_OpenIfUserIsAdministrator,
                                     NavigationButtons.Navigation nav)
         {
 
@@ -323,7 +324,7 @@ namespace TangentaPrint
             }
             else
             {
-                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData, nav.btn3_Image);
+                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData, nav.btn3_Image, xDoor_OpenIfUserIsAdministrator);
                 print_A4_dlg.ShowDialog();
             }
         }

@@ -45,10 +45,10 @@ namespace LoginControl
             {
                 role_in_language = lng.cn_Role_UserManagement.s;
             }
-            //else if (xrole.Equals(AWP.ROLE_WriteInvoice))
-            //{
-            //    role_in_language = lng.cn_Role_WriteInvoice.s;
-            //}
+            else if (xrole.Equals(AWP.ROLE_WriteInvoiceAndProformaInvoice))
+            {
+                role_in_language = lng.cn_Role_WriteInvoiceAndProformaInvoice.s;
+            }
             //else if (xrole.Equals(AWP.ROLE_WriteProformainvoice))
             //{
             //    role_in_language = lng.cn_Role_WriteProformaInvoice.s;
