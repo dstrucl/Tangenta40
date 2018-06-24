@@ -472,7 +472,6 @@ namespace Tangenta
         [STAThread]
         private static void Main()
         {
-
             bool bExitBeforeLogFileInitialised = false;
             string Err = null;
             rpc = new RPC.RPC();

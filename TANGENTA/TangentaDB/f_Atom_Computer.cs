@@ -20,19 +20,6 @@ namespace TangentaDB
 {
     public static class f_Atom_Computer
     {
-        public static string GetMACAddress()
-        {
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            string sMacAddress = null;
-            foreach (NetworkInterface adapter in nics)
-            {
-                if (sMacAddress == String.Empty)// only return MAC Address from first card  
-                {
-                    //IPInterfaceProperties properties = adapter.GetIPProperties(); Line is not required
-                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-                }
-            } return sMacAddress;
-        }
 
         public static string LocalIPAddress()
         {
@@ -55,8 +42,8 @@ namespace TangentaDB
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string ComputerName = Environment.MachineName;
             string UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            string MAC_Address = GetMACAddress();
-            string IP_Address = GetMACAddress();
+            string MAC_Address = LogFile.LogFile.GetMACAddress();
+            string IP_Address = LogFile.LogFile.GetMACAddress();
 
 
             string Err = null;

@@ -1128,7 +1128,9 @@ namespace Tangenta
             string token_SWVersion = "$$SWVersion$$";
             string token_SourceVersion = "$$SourceVersion$$";
             string Template = @"<p>
-				<div class = 'OrgName'>"+ token_Orgname + @"</div>
+                <div class = 'MAC'>" + LogFile.LogFile.GetMACAddress() + @"</div>
+                <div class = 'MachineName'>" + Environment.MachineName + @"</div>
+				<div class = 'OrgName'>" + token_Orgname + @"</div>
 				<div class = 'VatIDLbl'>VAT-ID:</div>
 				<div class = 'VatID'>"+ token_VatID + @"</div>
 				<div class = 'Comma'>, </div>

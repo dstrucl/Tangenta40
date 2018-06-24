@@ -17,6 +17,7 @@ using System.Net;
 using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Net.NetworkInformation;
 
 namespace LogFile
 {
@@ -384,13 +385,29 @@ namespace LogFile
             return d;
         }
 
+        public static string GetMACAddress()
+        {
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            string sMacAddress = "";
+            foreach (NetworkInterface adapter in nics)
+            {
+                if (sMacAddress == String.Empty)// only return MAC Address from first card  
+                {
+                    //IPInterfaceProperties properties = adapter.GetIPProperties(); Line is not required
+                    sMacAddress = adapter.GetPhysicalAddress().ToString();
+                }
+            }
+            return sMacAddress;
+        }
+
 
         public static string GetComputerInfo()
         {
-            string scinfo = "Username=" + Environment.UserName + "; MachineName=" + Environment.MachineName;
+            string scinfo = "MAC="+ GetMACAddress() + ";Username=" + Environment.UserName + "; MachineName=" + Environment.MachineName;
             string OStype = "; OS Type=";
             if (Environment.Is64BitOperatingSystem) { OStype = "64-Bit;"; } else { OStype = "32-Bit;"; }
-            OStype += Environment.ProcessorCount.ToString() + "; Processor";
+            string CPUname = System.Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER");
+            OStype += Environment.ProcessorCount.ToString() + ";"+ CPUname;
             scinfo += ";" + OStype + ";RAM=" + GlobalMemoryStatusEX().ToString();
             return scinfo;
         }
