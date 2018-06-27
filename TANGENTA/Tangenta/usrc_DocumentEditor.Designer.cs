@@ -101,7 +101,7 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(620, 498);
+            this.splitContainer1.Size = new System.Drawing.Size(620, 499);
             this.splitContainer1.SplitterDistance = 195;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 3;
@@ -121,8 +121,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer3.Size = new System.Drawing.Size(616, 296);
-            this.splitContainer3.SplitterDistance = 124;
+            this.splitContainer3.Size = new System.Drawing.Size(616, 297);
+            this.splitContainer3.SplitterDistance = 125;
             this.splitContainer3.TabIndex = 0;
             // 
             // cmb_select_my_Organisation_Person
@@ -224,7 +224,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
             this.splitContainer2.Size = new System.Drawing.Size(620, 579);
-            this.splitContainer2.SplitterDistance = 77;
+            this.splitContainer2.SplitterDistance = 76;
             this.splitContainer2.TabIndex = 38;
             // 
             // btn_MyOrganisation
@@ -309,7 +309,7 @@
             this.usrc_Currency1.TabIndex = 42;
             this.usrc_Currency1.CurrencyChanged += new Tangenta.usrc_Currency.delegate_CurrencyChanged(this.usrc_Currency1_CurrencyChanged);
             // 
-            // usrc_Invoice
+            // usrc_DocumentEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_Currency1);
@@ -323,7 +323,7 @@
             this.Controls.Add(this.lbl_Number);
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "usrc_Invoice";
+            this.Name = "usrc_DocumentEditor";
             this.Size = new System.Drawing.Size(624, 680);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

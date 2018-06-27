@@ -42,6 +42,42 @@ namespace Tangenta
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
 
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return splitContainer1.SplitterDistance;
+            }
+            set
+            {
+                StaticLib.Func.SetSplitContainerValue(splitContainer1, value);
+            }
+        }
+
+        public int SplitContainer2_spd
+        {
+            get
+            {
+                return splitContainer2.SplitterDistance;
+            }
+            set
+            {
+                StaticLib.Func.SetSplitContainerValue(splitContainer2, value);
+            }
+        }
+
+        public int SplitContainer3_spd
+        {
+            get
+            {
+                return splitContainer3.SplitterDistance;
+            }
+            set
+            {
+                StaticLib.Func.SetSplitContainerValue(splitContainer3, value);
+            }
+        }
+
         public string DocInvoice
         {
             get { return m_DocInvoice; }
@@ -650,6 +686,18 @@ namespace Tangenta
 
         internal void SetSplitControlsSpliterDistance()
         {
+            if (Properties.Settings.Default.DocumentEditor_SplitControl2_spliterdistance>0)
+            {
+                this.SplitContainer2_spd = Properties.Settings.Default.DocumentEditor_SplitControl2_spliterdistance;
+            }
+            if (Properties.Settings.Default.DocumentEditor_SplitControl1_spliterdistance > 0)
+            {
+                this.SplitContainer1_spd = Properties.Settings.Default.DocumentEditor_SplitControl1_spliterdistance;
+            }
+            if (Properties.Settings.Default.DocumentEditor_SplitControl3_spliterdistance > 0)
+            {
+                this.SplitContainer3_spd = Properties.Settings.Default.DocumentEditor_SplitControl3_spliterdistance;
+            }
             if (m_usrc_ShopA != null)
             {
                 if (Properties.Settings.Default.ShopA_SplitControl1_spliterdistance > 0)
@@ -695,6 +743,19 @@ namespace Tangenta
 
         internal void SaveSplitControlsSpliterDistance()
         {
+            if (this.SplitContainer2_spd > 0)
+            {
+                 Properties.Settings.Default.DocumentEditor_SplitControl2_spliterdistance = this.SplitContainer2_spd;
+            }
+            if (this.SplitContainer1_spd > 0)
+            {
+                 Properties.Settings.Default.DocumentEditor_SplitControl1_spliterdistance = this.SplitContainer1_spd;
+            }
+            if (this.SplitContainer3_spd > 0)
+            {
+                 Properties.Settings.Default.DocumentEditor_SplitControl3_spliterdistance = this.SplitContainer3_spd;
+            }
+
             if (m_usrc_ShopA != null)
             {
                 if (m_usrc_ShopA.SplitContainer1_spd > 0)

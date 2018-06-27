@@ -45,7 +45,7 @@ namespace ShopA
             }
             set
             {
-                splitContainer1.SplitterDistance = value;
+                StaticLib.Func.SetSplitContainerValue(splitContainer1, value);
             }
         }
 
@@ -58,7 +58,7 @@ namespace ShopA
             }
             set
             {
-                splitContainer2.SplitterDistance = value;
+                StaticLib.Func.SetSplitContainerValue(splitContainer2, value);
             }
         }
 

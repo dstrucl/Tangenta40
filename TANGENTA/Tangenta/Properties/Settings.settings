@@ -155,5 +155,14 @@
     <Setting Name="ShopA_Editor_SplitControl2_spliterdistance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
+    <Setting Name="DocumentEditor_SplitControl1_spliterdistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="DocumentEditor_SplitControl2_spliterdistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="DocumentEditor_SplitControl3_spliterdistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

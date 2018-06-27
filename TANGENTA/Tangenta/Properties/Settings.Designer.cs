@@ -634,5 +634,41 @@ namespace Tangenta.Properties {
                 this["ShopA_Editor_SplitControl2_spliterdistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DocumentEditor_SplitControl1_spliterdistance {
+            get {
+                return ((int)(this["DocumentEditor_SplitControl1_spliterdistance"]));
+            }
+            set {
+                this["DocumentEditor_SplitControl1_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DocumentEditor_SplitControl2_spliterdistance {
+            get {
+                return ((int)(this["DocumentEditor_SplitControl2_spliterdistance"]));
+            }
+            set {
+                this["DocumentEditor_SplitControl2_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DocumentEditor_SplitControl3_spliterdistance {
+            get {
+                return ((int)(this["DocumentEditor_SplitControl3_spliterdistance"]));
+            }
+            set {
+                this["DocumentEditor_SplitControl3_spliterdistance"] = value;
+            }
+        }
     }
 }

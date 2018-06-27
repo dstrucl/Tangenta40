@@ -89,6 +89,33 @@ namespace StaticLib
 
 
         public const string ImageStoreName = "Func.ImageStore";
+
+        public static void SetSplitContainerValue(SplitContainer splitContainerx, int value)
+        {
+            if (splitContainerx.Orientation == Orientation.Vertical)
+            {
+                if (splitContainerx.Width > value + 25)
+                {
+                    splitContainerx.SplitterDistance = value;
+                }
+                else
+                {
+                    splitContainerx.SplitterDistance = splitContainerx.Width - 25;
+                }
+            }
+            else
+            {
+                if (splitContainerx.Height > value + 25)
+                {
+                    splitContainerx.SplitterDistance = value;
+                }
+                else
+                {
+                    splitContainerx.SplitterDistance = splitContainerx.Height - 25;
+                }
+            }
+        }
+
         public static ImageStore ImageStore = new ImageStore();
 
         private static SHA1CryptoServiceProvider my_SHA1CryptoServiceProvider = new SHA1CryptoServiceProvider();
