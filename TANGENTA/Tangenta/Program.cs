@@ -61,14 +61,6 @@ namespace Tangenta
             internal static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
         }
 
-        private static string m_GitSourceVersionInfo = null;
-        public static string GitSourceVersionInfo
-        {
-            get
-            {
-                return m_GitSourceVersionInfo;
-            }
-        }
 
         private static string m_RunAs = null;
 
@@ -476,11 +468,11 @@ namespace Tangenta
             string Err = null;
             rpc = new RPC.RPC();
             LogFile.LogFile.rpc = Program.rpc;
+            LogFile.LogFile.VersionControlSourceVersion = GetInformationalVersion(Assembly.GetExecutingAssembly());
             if (rpc.Start(ref Err))
             {
                 try
                 {
-                    m_GitSourceVersionInfo = GetInformationalVersion(Assembly.GetExecutingAssembly());
 
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);

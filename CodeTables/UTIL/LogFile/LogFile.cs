@@ -25,7 +25,20 @@ namespace LogFile
     public static class LogFile
     {
         public static RPC.RPC rpc = null;
-        public static string RPC_Err_msg_prefix = "";
+
+        private static string m_VersionControlSourceVersion = null;
+        public static string VersionControlSourceVersion
+        {
+            get
+            {
+                return m_VersionControlSourceVersion;
+            }
+            set
+            {
+                m_VersionControlSourceVersion = value;
+            }
+        }
+
 
         public enum eType {CLIENT,SERVER};
         public static eType m_eType = eType.CLIENT;
@@ -261,7 +274,7 @@ namespace LogFile
         {
             string ComputerInfo = GetComputerInfo();
             string sRPC_ErrMsg = "\r\n" +
-                                 "  <div class ='Prefix'>" + RPC_Err_msg_prefix + "</div>\r\n" +
+                                 "  <div class ='Sver'>" + VersionControlSourceVersion + "</div>\r\n" +
                                  "  <div class ='ComputerInfo'>" + GetComputerInfo() + "</div>\r\n" +
                                  "  <div class ='OsInfo'>" + getOSInfo() + "</div>\r\n" +
                                  "  <div class ='DotNetInfo'>" + GetDotNetVersion.GetVersionFromRegistry() + "</div>\r\n" +
