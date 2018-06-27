@@ -875,7 +875,7 @@ namespace TangentaDB
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
-                                ap.ID as Atom_MyOrganisation_Person_ID,
+                                ap.ID as Atom_Person_ID,
                                 ap.CardNumber,
                                 amcp.Job as My_Organisation_Job,
                                 Atom_Logo.Image_Hash as Logo_Hash,
@@ -976,7 +976,7 @@ namespace TangentaDB
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
-                                ap.ID as Atom_MyOrganisation_Person_ID,
+                                ap.ID as Atom_Person_ID,
                                 ap.CardNumber,
                                 amcp.Job as My_Organisation_Job,
                                 Atom_Logo.Image_Hash as Logo_Hash,
@@ -1069,7 +1069,7 @@ namespace TangentaDB
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
-                                ap.ID as Atom_MyOrganisation_Person_ID,
+                                ap.ID as Atom_Person_ID,
                                 ap.CardNumber,
                                 amcp.Job as My_Organisation_Job,
                                 Atom_Logo.Image_Hash as Logo_Hash,
@@ -1376,11 +1376,11 @@ namespace TangentaDB
 
                         sFiscalVerificationOfInvoicesNotDone = lng.s_FVI_not_done.s;
 
-                        object oAtom_MyOrganisation_Person_ID = dt_DocInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
-                        if (oAtom_MyOrganisation_Person_ID is long)
+                        object oAtom_Person_ID = dt_DocInvoice.Rows[0]["Atom_Person_ID"];
+                        if (oAtom_Person_ID is long)
                         {
-                            long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
-                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
+                            long Atom_Person_ID = (long)oAtom_Person_ID;
+                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_Person_ID);
                         }
 
                         if (IsDocInvoice)

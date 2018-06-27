@@ -508,12 +508,14 @@
             // 
             // txt_AmountReceived
             // 
+            this.txt_AmountReceived.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_AmountReceived.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_AmountReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_AmountReceived.ForeColor = System.Drawing.Color.Olive;
             this.txt_AmountReceived.Location = new System.Drawing.Point(302, 602);
             this.txt_AmountReceived.Name = "txt_AmountReceived";
             this.txt_AmountReceived.ReadOnly = true;
-            this.txt_AmountReceived.Size = new System.Drawing.Size(256, 38);
+            this.txt_AmountReceived.Size = new System.Drawing.Size(256, 31);
             this.txt_AmountReceived.TabIndex = 43;
             // 
             // lbl_AmountReceived
@@ -529,12 +531,14 @@
             // 
             // txt_ToReturn
             // 
+            this.txt_ToReturn.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_ToReturn.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_ToReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_ToReturn.ForeColor = System.Drawing.Color.Tomato;
             this.txt_ToReturn.Location = new System.Drawing.Point(302, 654);
             this.txt_ToReturn.Name = "txt_ToReturn";
             this.txt_ToReturn.ReadOnly = true;
-            this.txt_ToReturn.Size = new System.Drawing.Size(256, 38);
+            this.txt_ToReturn.Size = new System.Drawing.Size(256, 31);
             this.txt_ToReturn.TabIndex = 41;
             // 
             // lbl_ToReturn
@@ -550,11 +554,13 @@
             // 
             // txt__Amount
             // 
+            this.txt__Amount.BackColor = System.Drawing.SystemColors.Control;
+            this.txt__Amount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt__Amount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt__Amount.Location = new System.Drawing.Point(302, 553);
             this.txt__Amount.Name = "txt__Amount";
             this.txt__Amount.ReadOnly = true;
-            this.txt__Amount.Size = new System.Drawing.Size(256, 38);
+            this.txt__Amount.Size = new System.Drawing.Size(256, 31);
             this.txt__Amount.TabIndex = 39;
             // 
             // lbl_Amount
@@ -579,6 +585,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(865, 709);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.txt_AmountReceived);
