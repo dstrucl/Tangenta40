@@ -141,7 +141,6 @@ namespace Tangenta
                     this.CustomerPerson_ID = Customer_Assign_dlg.CustomerPerson_ID;
                     this.Close();
                     DialogResult = DialogResult.Yes;
-                    CustomerPerson_ID = usrc_EditTable.Identity;
                 }
                 else
                 {
