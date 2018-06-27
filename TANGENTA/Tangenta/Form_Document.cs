@@ -1145,6 +1145,7 @@ namespace Tangenta
 				<div class = 'SWVersion'>" + token_SWVersion + @"</div>
 				<div class = 'SWVersionLbl'>,Source ver.=</div>
 				<div class = 'SWVersion'>" + token_SourceVersion + @"</div>
+				<div class = 'VCsver'>" + LogFile.LogFile.VersionControlSourceVersion + @"</div>
 				</p>";
             string MyOrgItem = Template.Replace(token_Orgname, TangentaDB.myOrg.Name_v.vs);
             MyOrgItem = MyOrgItem.Replace(token_VatID, TangentaDB.myOrg.Tax_ID_v.vs);

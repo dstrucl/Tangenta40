@@ -274,7 +274,7 @@ namespace LogFile
         {
             string ComputerInfo = GetComputerInfo();
             string sRPC_ErrMsg = "\r\n" +
-                                 "  <div class ='Sver'>" + VersionControlSourceVersion + "</div>\r\n" +
+                                 "  <div class ='VCsver'>" + VersionControlSourceVersion + "</div>\r\n" +
                                  "  <div class ='ComputerInfo'>" + GetComputerInfo() + "</div>\r\n" +
                                  "  <div class ='OsInfo'>" + getOSInfo() + "</div>\r\n" +
                                  "  <div class ='DotNetInfo'>" + GetDotNetVersion.GetVersionFromRegistry() + "</div>\r\n" +
