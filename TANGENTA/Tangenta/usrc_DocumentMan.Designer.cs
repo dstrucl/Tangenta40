@@ -69,7 +69,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_TableOfDocuments);
             this.splitContainer1.Size = new System.Drawing.Size(993, 680);
-            this.splitContainer1.SplitterDistance = 589;
+            this.splitContainer1.SplitterDistance = 591;
             this.splitContainer1.TabIndex = 0;
             // 
             // m_usrc_DocumentEditor
@@ -79,7 +79,7 @@
             this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
-            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(585, 676);
+            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(587, 676);
             this.m_usrc_DocumentEditor.TabIndex = 0;
             this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
             this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
@@ -94,7 +94,7 @@
             this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
-            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(396, 676);
+            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(394, 676);
             this.m_usrc_TableOfDocuments.TabIndex = 0;
             this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 

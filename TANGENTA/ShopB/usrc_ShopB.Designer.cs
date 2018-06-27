@@ -237,7 +237,8 @@
             // 
             // usrc_ShopB
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.lbl_ShopB_Name);
             this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.lbl_GroupPath);

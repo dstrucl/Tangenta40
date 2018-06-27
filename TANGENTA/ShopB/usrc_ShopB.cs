@@ -28,6 +28,30 @@ namespace ShopB
     {
         public enum eMode { VIEW,EDIT};
 
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return splitContainer1.SplitterDistance;
+            }
+            set
+            {
+                splitContainer1.SplitterDistance = value;
+            }
+        }
+
+        public int SplitContainer2_spd
+        {
+            get
+            {
+                return splitContainer2.SplitterDistance;
+            }
+            set
+            {
+                splitContainer2.SplitterDistance = value;
+            }
+        }
+
         public delegate bool delegate_CheckAccessPriceList();
         public event delegate_CheckAccessPriceList CheckAccessPriceList = null;
 

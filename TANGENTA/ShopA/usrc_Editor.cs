@@ -37,6 +37,30 @@ namespace ShopA
         public decimal EndPriceWithDiscountAndTax = 0;
 
         //private string m_DocInvoice = "DocInvoice";
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return splitContainer1.SplitterDistance;
+            }
+            set
+            {
+                splitContainer1.SplitterDistance = value;
+            }
+        }
+
+        //private string m_DocInvoice = "DocInvoice";
+        public int SplitContainer2_spd
+        {
+            get
+            {
+                return splitContainer2.SplitterDistance;
+            }
+            set
+            {
+                splitContainer2.SplitterDistance = value;
+            }
+        }
 
         public string DocInvoice
         {

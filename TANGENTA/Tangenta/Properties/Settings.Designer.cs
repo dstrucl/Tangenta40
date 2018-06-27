@@ -538,5 +538,101 @@ namespace Tangenta.Properties {
                 this["Current_DataBase"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopC_SplitControl1_spliterdistance {
+            get {
+                return ((int)(this["ShopC_SplitControl1_spliterdistance"]));
+            }
+            set {
+                this["ShopC_SplitControl1_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopC_SplitControl2_spliterdistance {
+            get {
+                return ((int)(this["ShopC_SplitControl2_spliterdistance"]));
+            }
+            set {
+                this["ShopC_SplitControl2_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopB_SplitControl1_spliterdistance {
+            get {
+                return ((int)(this["ShopB_SplitControl1_spliterdistance"]));
+            }
+            set {
+                this["ShopB_SplitControl1_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopB_SplitControl2_spliterdistance {
+            get {
+                return ((int)(this["ShopB_SplitControl2_spliterdistance"]));
+            }
+            set {
+                this["ShopB_SplitControl2_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DocumentMan_SplitControl1_splitterdistance {
+            get {
+                return ((int)(this["DocumentMan_SplitControl1_splitterdistance"]));
+            }
+            set {
+                this["DocumentMan_SplitControl1_splitterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopA_SplitControl1_spliterdistance {
+            get {
+                return ((int)(this["ShopA_SplitControl1_spliterdistance"]));
+            }
+            set {
+                this["ShopA_SplitControl1_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopA_Editor_SplitControl1_spliterdistance {
+            get {
+                return ((int)(this["ShopA_Editor_SplitControl1_spliterdistance"]));
+            }
+            set {
+                this["ShopA_Editor_SplitControl1_spliterdistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int ShopA_Editor_SplitControl2_spliterdistance {
+            get {
+                return ((int)(this["ShopA_Editor_SplitControl2_spliterdistance"]));
+            }
+            set {
+                this["ShopA_Editor_SplitControl2_spliterdistance"] = value;
+            }
+        }
     }
 }

@@ -45,6 +45,62 @@ namespace ShopA
         SQLTable t_DocInvoice_ShopA_Item = null;
 
 
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return splitContainer1.SplitterDistance;
+            }
+            set
+            {
+                splitContainer1.SplitterDistance = value;
+            }
+        }
+
+        public int Editor_SplitContainer1_spd
+        {
+            get
+            {
+                if (usrc_Editor1 != null)
+                {
+                    return usrc_Editor1.SplitContainer1_spd;
+                }
+                else
+                {
+                   return -1;
+                }
+            }
+            set
+            {
+                if (usrc_Editor1 != null)
+                {
+                    usrc_Editor1.SplitContainer1_spd = value;
+                }
+            }
+        }
+
+        public int Editor_SplitContainer2_spd
+        {
+            get
+            {
+                if (usrc_Editor1 != null)
+                {
+                    return usrc_Editor1.SplitContainer2_spd;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            set
+            {
+                if (usrc_Editor1 != null)
+                {
+                    usrc_Editor1.SplitContainer2_spd = value;
+                }
+            }
+        }
+
         public string DocInvoice
         {
             get { return m_ShopABC.DocInvoice; }

@@ -58,6 +58,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_ShopA);
             this.splitContainer1.Size = new System.Drawing.Size(722, 529);
             this.splitContainer1.SplitterDistance = 175;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             // 
             // usrc_Editor1
@@ -88,7 +89,7 @@
             this.dgvx_ShopA.Name = "dgvx_ShopA";
             this.dgvx_ShopA.ReadOnly = true;
             this.dgvx_ShopA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_ShopA.Size = new System.Drawing.Size(722, 350);
+            this.dgvx_ShopA.Size = new System.Drawing.Size(722, 349);
             this.dgvx_ShopA.TabIndex = 0;
             this.dgvx_ShopA.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_ShopA_CellMouseUp);
             // 

@@ -55,6 +55,18 @@ namespace Tangenta
         public DataTable dt_FinancialYears = new DataTable();
         private string m_DocInvoice = Program.const_DocInvoice;
 
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return splitContainer1.SplitterDistance;
+            }
+            set
+            {
+                splitContainer1.SplitterDistance = value;
+            }
+        }
+
         internal bool m_usrc_Invoice_ViewMode
         {
             get { return m_usrc_DocumentEditor.m_mode == usrc_DocumentEditor.emode.view_eDocumentType; }
@@ -424,6 +436,17 @@ namespace Tangenta
             return true;
         }
 
+        internal void SaveSplitControlsSpliterDistance()
+        {
+            if (SplitContainer1_spd>0)
+            {
+                Properties.Settings.Default.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
+            }
+            if (this.m_usrc_DocumentEditor != null)
+            {
+                this.m_usrc_DocumentEditor.SaveSplitControlsSpliterDistance();
+            }
+        }
 
         private void Cmb_FinancialYear_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -530,6 +553,18 @@ namespace Tangenta
                 }
             }
             Program.Cursor_Arrow();
+        }
+
+        internal void SetSplitControlsSpliterDistance()
+        {
+            if (Properties.Settings.Default.DocumentMan_SplitControl1_splitterdistance>0)
+            {
+                this.splitContainer1.SplitterDistance = Properties.Settings.Default.DocumentMan_SplitControl1_splitterdistance;
+            }
+            if (m_usrc_DocumentEditor!=null)
+            {
+                m_usrc_DocumentEditor.SetSplitControlsSpliterDistance();
+            }
         }
 
         private bool Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(int financialYear)

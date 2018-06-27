@@ -38,6 +38,18 @@ namespace ShopC
             }
         }
 
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return splitContainer1.SplitterDistance;
+            }
+            set
+            {
+                splitContainer1.SplitterDistance = value;
+            }
+        }
+
         public bool IsDocInvoice
         {
             get

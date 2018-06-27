@@ -60,6 +60,30 @@ namespace ShopC
         public NavigationButtons.Navigation nav = null;
         private string m_DocInvoice = "DocInvoice";
 
+        public int SplitContainer1_spd
+        {
+            get
+            {
+                return usrc_ItemList.SplitContainer1_spd;
+            }
+            set
+            {
+                usrc_ItemList.SplitContainer1_spd = value;
+            }
+        }
+
+        public int SplitContainer2_spd
+        {
+            get {
+                return splitContainer2.SplitterDistance;
+            }
+            set
+            {
+                splitContainer2.SplitterDistance = value;
+            }
+        }
+
+
         public string DocInvoice
         {
             get { return m_DocInvoice; }
@@ -124,9 +148,12 @@ namespace ShopC
             InitializeComponent();
             lng.s_lbl_Stock.Text(lbl_Stock);
             lng.s_lbl_Items.Text(lbl_Items);
-            usrc_ItemList.Init(this.usrc_Atom_ItemsList);
             lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
+        }
 
+        private void usrc_ShopC_Load(object sender, EventArgs e)
+        {
+            usrc_ItemList.Init(this.usrc_Atom_ItemsList);
         }
 
         public long PriceList_ID
@@ -197,11 +224,11 @@ namespace ShopC
             switch (mode)
             {
                 case eMode.VIEW:
-                    splitContainer3.Panel2Collapsed = true;
+                    splitContainer2.Panel2Collapsed = true;
                     break;
 
                 case eMode.EDIT:
-                    splitContainer3.Panel2Collapsed = false;
+                    splitContainer2.Panel2Collapsed = false;
                     break;
             }
 

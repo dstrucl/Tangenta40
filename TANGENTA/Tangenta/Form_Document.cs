@@ -293,90 +293,11 @@ namespace Tangenta
         {
 
             m_XmlFileName = XML_ROOT_NAME;
-            //GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
-            //SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
-
             m_usrc_Main.Initialise(this);
         }
 
-        public void GetAllSplitContainerControlsRecusive<T>(ref List<Control> retlist, Control control) where T : Control
-        {
-            List<Control> tmpList = null;
-            foreach (Control item in control.Controls)
-            {
-                var ctr = item as T;
-                if (ctr != null)
-                {
-                    string a = ctr.Name;
-                    Type t = ctr.GetType();
-                    if (t.Equals(typeof(SplitContainer)))
-                    {
-                        retlist.Add(ctr);
-                    }
-                    if (ctr.HasChildren)
-                    {
-                        if ( tmpList == null) tmpList = new List<Control>();
-                        tmpList.Add(item);
-                    }
-                }
-            }
 
-            if (tmpList != null)
-            {
-                for (int i = 0; i < tmpList.Count; i++)
-                {
-                    GetAllSplitContainerControlsRecusive<T>(ref retlist, tmpList.ElementAt(i));
-                }
-            }
 
-        }
-
-        public  void SetSplitContainerPositions(bool firstime, ref List<Control> ctllist,string settingValues)
-        {
-            int i = 0;
-            string[] distances = settingValues.Split(';');
-
-            foreach (Control item in ctllist)
-            {
-                var ctr = item as SplitContainer;
-                if (ctr != null)
-                {
-                    if (firstime)// at first time save design values for 
-                    {
-                        if (Program.SplitConatinerControlsDefaulValues.Length > 0) Program.SplitConatinerControlsDefaulValues += ";";
-                        Program.SplitConatinerControlsDefaulValues += ctr.SplitterDistance;
-                  }
-
-                    int size = 0;
-                    if (i < distances.Length) int.TryParse(distances[i].Trim(), out size);
-
-                    int mesaurewith = ctr.Height;
-                    if (ctr.Orientation == Orientation.Vertical) mesaurewith = ctr.Width;
-                    if (size >= ctr.Panel1MinSize && size< mesaurewith - ctr.Panel2MinSize) //=SplitterDistance must be between Panel1MinSize and Width - Panel2MinSize.
-                       {
-                            ctr.SplitterDistance = size;
-                    }
-                    i++;
-                }
-            }
-        }
-
-        public  void SaveSplitContainerPositions(ref List<Control> ctllist)
-        {
-            string distances ="";
-            foreach (Control item in ctllist)
-            {
-                var ctr = item as SplitContainer;
-                if (ctr != null)
-                {
-                    if (distances.Length !=0) distances += ";";
-                    distances += ctr.SplitterDistance;
-                }
-            }
-
-            Properties.Settings.Default.SplitContainerDistanceUserSettings= distances;
-            Properties.Settings.Default.Save();
-        }
 
         private void Main_Form_KeyUp(object sender, KeyEventArgs e)
         {
@@ -455,6 +376,10 @@ namespace Tangenta
 
         private void Exit()
         {
+            if (this.m_usrc_Main!=null)
+            {
+                this.m_usrc_Main.SaveSplitControlsSpliterDistance();
+            }
             string sdb = DBSync.DBSync.DataBase;
             if (sdb != null)
             {
@@ -577,7 +502,10 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
 
+            m_usrc_Main.SetSplitControlsSpliterDistance();
+
             m_usrc_Main.Visible = true;
+
             m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");

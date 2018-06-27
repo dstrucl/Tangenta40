@@ -648,6 +648,95 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsMode.Contains("B"); }
         }
 
+        internal void SetSplitControlsSpliterDistance()
+        {
+            if (m_usrc_ShopA != null)
+            {
+                if (Properties.Settings.Default.ShopA_SplitControl1_spliterdistance > 0)
+                {
+                    m_usrc_ShopA.SplitContainer1_spd = Properties.Settings.Default.ShopA_SplitControl1_spliterdistance;
+                }
+
+                if (Properties.Settings.Default.ShopA_Editor_SplitControl1_spliterdistance > 0)
+                {
+                    m_usrc_ShopA.Editor_SplitContainer1_spd = Properties.Settings.Default.ShopA_Editor_SplitControl1_spliterdistance;
+                }
+
+                if (Properties.Settings.Default.ShopA_Editor_SplitControl2_spliterdistance > 0)
+                {
+                    m_usrc_ShopA.Editor_SplitContainer2_spd = Properties.Settings.Default.ShopA_Editor_SplitControl2_spliterdistance;
+                }
+            }
+
+            if (m_usrc_ShopB!=null)
+            {
+                if (Properties.Settings.Default.ShopB_SplitControl2_spliterdistance > 0)
+                {
+                    m_usrc_ShopB.SplitContainer2_spd = Properties.Settings.Default.ShopB_SplitControl2_spliterdistance;
+                }
+                if (Properties.Settings.Default.ShopB_SplitControl1_spliterdistance > 0)
+                {
+                    m_usrc_ShopB.SplitContainer1_spd = Properties.Settings.Default.ShopB_SplitControl1_spliterdistance;
+                }
+            }
+
+            if (m_usrc_ShopC != null)
+            {
+                if (Properties.Settings.Default.ShopC_SplitControl1_spliterdistance > 0)
+                {
+                    m_usrc_ShopC.SplitContainer1_spd = Properties.Settings.Default.ShopC_SplitControl1_spliterdistance;
+                }
+                if (Properties.Settings.Default.ShopC_SplitControl2_spliterdistance > 0)
+                {
+                    m_usrc_ShopC.SplitContainer2_spd = Properties.Settings.Default.ShopC_SplitControl2_spliterdistance;
+                }
+            }
+        }
+
+        internal void SaveSplitControlsSpliterDistance()
+        {
+            if (m_usrc_ShopA != null)
+            {
+                if (m_usrc_ShopA.SplitContainer1_spd > 0)
+                {
+                    Properties.Settings.Default.ShopA_SplitControl1_spliterdistance = m_usrc_ShopA.SplitContainer1_spd;
+                }
+                if (m_usrc_ShopA.Editor_SplitContainer1_spd > 0)
+                {
+                    Properties.Settings.Default.ShopA_Editor_SplitControl1_spliterdistance = m_usrc_ShopA.Editor_SplitContainer1_spd;
+                }
+                if (m_usrc_ShopA.Editor_SplitContainer2_spd > 0)
+                {
+                    Properties.Settings.Default.ShopA_Editor_SplitControl2_spliterdistance = m_usrc_ShopA.Editor_SplitContainer2_spd;
+                }
+            }
+
+            if (m_usrc_ShopB != null)
+            {
+                if (m_usrc_ShopB.SplitContainer1_spd > 0)
+                {
+                    Properties.Settings.Default.ShopB_SplitControl1_spliterdistance = m_usrc_ShopB.SplitContainer1_spd;
+                }
+                if (m_usrc_ShopB.SplitContainer2_spd > 0)
+                {
+                     Properties.Settings.Default.ShopB_SplitControl2_spliterdistance = m_usrc_ShopB.SplitContainer2_spd;
+                }
+            }
+
+            if (m_usrc_ShopC != null)
+            {
+                if (m_usrc_ShopC.SplitContainer2_spd > 0)
+                {
+                    Properties.Settings.Default.ShopC_SplitControl2_spliterdistance = m_usrc_ShopC.SplitContainer2_spd;
+                }
+                if (m_usrc_ShopC.SplitContainer1_spd > 0)
+                {
+                    Properties.Settings.Default.ShopC_SplitControl1_spliterdistance = m_usrc_ShopC.SplitContainer1_spd;
+                }
+            }
+        }
+
+
         public bool ShopC_DefaultVisible
         {
             get { return Properties.Settings.Default.eShopsMode.Contains("Ç"); }
