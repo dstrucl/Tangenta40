@@ -96,7 +96,14 @@ namespace StaticLib
             {
                 if (splitContainerx.Width > value + 25)
                 {
-                    splitContainerx.SplitterDistance = value;
+                    if (value >= splitContainerx.Panel1MinSize)
+                    {
+                        splitContainerx.SplitterDistance = value;
+                    }
+                    else
+                    {
+                        splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize;
+                    }
                 }
                 else
                 {
@@ -107,7 +114,14 @@ namespace StaticLib
             {
                 if (splitContainerx.Height > value + 25)
                 {
-                    splitContainerx.SplitterDistance = value;
+                    if (value >= splitContainerx.Panel1MinSize)
+                    {
+                        splitContainerx.SplitterDistance = value;
+                    }
+                    else
+                    {
+                        splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize;
+                    }
                 }
                 else
                 {

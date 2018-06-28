@@ -376,10 +376,8 @@ namespace Tangenta
 
         private void Exit()
         {
-            if (this.m_usrc_Main!=null)
-            {
-                this.m_usrc_Main.SaveSplitControlsSpliterDistance();
-            }
+            LayoutSave();
+
             string sdb = DBSync.DBSync.DataBase;
             if (sdb != null)
             {
@@ -411,6 +409,66 @@ namespace Tangenta
 
 
             //SaveSplitContainerPositions(ref Program.ListOfAllSplitConatinerControls);
+        }
+
+        private void LayoutSet()
+        {
+            if (Properties.Settings.Default.Form_Document_WindowState >= 0)
+            {
+                switch (Properties.Settings.Default.Form_Document_WindowState)
+                {
+                    case 0:
+                        this.WindowState = FormWindowState.Minimized;
+                        break;
+                    case 1:
+                        this.WindowState = FormWindowState.Normal;
+
+                        if (Properties.Settings.Default.Form_Document_Width >= 0)
+                        {
+                            this.Width = Properties.Settings.Default.Form_Document_Width;
+                        }
+
+                        if (Properties.Settings.Default.Form_Document_Height >= 0)
+                        {
+                            this.Height = Properties.Settings.Default.Form_Document_Height;
+                            this.Left = Properties.Settings.Default.Form_Document_Left;
+                            this.Top = Properties.Settings.Default.Form_Document_Top;
+
+                        }
+                        break;
+
+                    case 2:
+                        this.WindowState = FormWindowState.Maximized;
+                        break;
+                }
+            }
+            m_usrc_Main.SetSplitControlsSpliterDistance();
+        }
+
+        private void LayoutSave()
+        {
+            switch (this.WindowState)
+            {
+                case FormWindowState.Minimized:
+                    Properties.Settings.Default.Form_Document_WindowState = 0;
+                    break;
+                case FormWindowState.Normal:
+                    Properties.Settings.Default.Form_Document_WindowState = 1;
+                    Properties.Settings.Default.Form_Document_Width = this.Width;
+                    Properties.Settings.Default.Form_Document_Height = this.Height;
+                    Properties.Settings.Default.Form_Document_Left = this.Left;
+                    Properties.Settings.Default.Form_Document_Top = this.Top;
+                    break;
+                case FormWindowState.Maximized:
+                    Properties.Settings.Default.Form_Document_WindowState = 2;
+                    break;
+            }
+
+            if (this.m_usrc_Main != null)
+            {
+                this.m_usrc_Main.SaveSplitControlsSpliterDistance();
+            }
+
         }
 
         private void m_usrc_Main_Exit_Click()
@@ -502,7 +560,7 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
 
-            m_usrc_Main.SetSplitControlsSpliterDistance();
+            LayoutSet();
 
             m_usrc_Main.Visible = true;
 
@@ -513,6 +571,7 @@ namespace Tangenta
             SetNewFormTag();
             m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
         }
+
 
         private void M_usrc_Main_LayoutChanged()
         {

@@ -670,5 +670,65 @@ namespace Tangenta.Properties {
                 this["DocumentEditor_SplitControl3_spliterdistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int Form_Document_WindowState {
+            get {
+                return ((int)(this["Form_Document_WindowState"]));
+            }
+            set {
+                this["Form_Document_WindowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int Form_Document_Left {
+            get {
+                return ((int)(this["Form_Document_Left"]));
+            }
+            set {
+                this["Form_Document_Left"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int Form_Document_Top {
+            get {
+                return ((int)(this["Form_Document_Top"]));
+            }
+            set {
+                this["Form_Document_Top"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int Form_Document_Width {
+            get {
+                return ((int)(this["Form_Document_Width"]));
+            }
+            set {
+                this["Form_Document_Width"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int Form_Document_Height {
+            get {
+                return ((int)(this["Form_Document_Height"]));
+            }
+            set {
+                this["Form_Document_Height"] = value;
+            }
+        }
     }
 }
