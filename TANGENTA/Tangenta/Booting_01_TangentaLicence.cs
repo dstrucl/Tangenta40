@@ -10,7 +10,6 @@ namespace Tangenta
 {
     public  class Booting_01_TangentaLicence
     {
-        private startup_step.eStep eStep = eStep.Check_01_TangentaLicence;
 
         private Form_Document frm = null;
         private startup m_startup = null;

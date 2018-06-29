@@ -246,7 +246,7 @@ namespace UniversalInvoice
                         }
                     }
                 }
-                catch (Exception Ex)
+                catch 
                 {
 
                 }

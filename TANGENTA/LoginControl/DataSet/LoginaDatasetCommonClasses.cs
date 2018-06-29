@@ -816,13 +816,13 @@ WHERE id = " + GetIDValue(Columns);
 
     public bool update(ref string csError)
     {
-        m_sql_UpdateAll = "";
+        this.m_sql_UpdateAll = "";
         foreach (Command cmd in Commands)
         {
             switch (cmd.type)
             {
                 case Command.Type.UPDATE:
-                    m_sql_UpdateAll += "\r\n" + cmd.sql;
+                    this.m_sql_UpdateAll += "\r\n" + cmd.sql;
                     break;
                 case Command.Type.INSERT:
                     // create Insert
@@ -969,9 +969,22 @@ WHERE id = " + GetIDValue(Columns);
 // Start Class XView
 public class XView
 {
-    private bool bRead = false;
-    public enum CompareResult { o1_EQ_o2, o1_GT_o2, o1_LT_o2, not_comapared };
-    private string m_sql_UpdateAll = "";
+    private bool m_bRead = false;
+
+    private bool bRead
+        {
+            get { return m_bRead; }
+            set { m_bRead = value; }
+        }
+
+
+        public enum CompareResult { o1_EQ_o2, o1_GT_o2, o1_LT_o2, not_comapared };
+    private string m_sql_UpdateAll = null;
+    private string sql_UpdateAll
+        {
+            get { return m_sql_UpdateAll; }
+            set { m_sql_UpdateAll = value; }
+        }
     private List<Command> Commands = new List<Command>();
 
     protected string tablename;
@@ -1173,9 +1186,15 @@ public class XView
 // Start Class XTableFunction
 public class XTableFunction
 {
-    private bool bRead = false;
+    private bool m_bRead = false;
+    private bool bRead
+        {
+            get { return m_bRead; }
+            set { m_bRead = value; }
+        }
+
     public enum CompareResult { o1_EQ_o2, o1_GT_o2, o1_LT_o2, not_comapared };
-    private string m_sql_UpdateAll = "";
+
     private List<Command> Commands = new List<Command>();
 
     protected string tablefunctionname;
@@ -1386,7 +1405,7 @@ public class XTableFunction
         if (bRes)
         {
         }
-        bRead = false;
+        this.bRead = false;
         return bRes;
     }
 }

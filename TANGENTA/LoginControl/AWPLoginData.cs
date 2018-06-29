@@ -328,22 +328,19 @@ namespace LoginControl
 
             sb = Replace(sb, ref t_Job, ref myOrganisation_Person_Job);
             string sDate = null;
-            if (myOrganisation_Person__per_DateOfBirth is DateTime)
+            if (myOrganisation_Person__per_DateOfBirth != null)
             {
-                if (myOrganisation_Person__per_DateOfBirth != null)
+                if (LanguageControl.DynSettings.LanguageID == LanguageControl.DynSettings.Slovensko_ID)
                 {
-                    if (LanguageControl.DynSettings.LanguageID == LanguageControl.DynSettings.Slovensko_ID)
-                    {
-                        sDate = myOrganisation_Person__per_DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("sl-SI"));
-                    }
-                    else
-                    {
-                        sDate = myOrganisation_Person__per_DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
-                    }
-                    if (sDate != null)
-                    {
-                        sb = Replace(sb, ref t_DateOfBirth, ref sDate);
-                    }
+                    sDate = myOrganisation_Person__per_DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("sl-SI"));
+                }
+                else
+                {
+                    sDate = myOrganisation_Person__per_DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
+                }
+                if (sDate != null)
+                {
+                    sb = Replace(sb, ref t_DateOfBirth, ref sDate);
                 }
             }
             if (sDate == null)

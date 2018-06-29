@@ -141,7 +141,7 @@ namespace Tangenta
                     }
                     catch (Exception Ex)
                     {
-                        LogFile.Warning.Show("Warning: Can not write VOD shema file:" + VOD_xsd_shema_file);
+                        LogFile.Warning.Show("Warning: Can not write VOD shema file:" + VOD_xsd_shema_file+ "\r\nException="+Ex.Message);
                     }
                 }
             }

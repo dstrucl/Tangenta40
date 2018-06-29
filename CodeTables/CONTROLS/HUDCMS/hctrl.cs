@@ -289,7 +289,7 @@ namespace HUDCMS
                     ctrlbmp = new Bitmap(xc.Width, xc.Height);
                     xc.DrawToBitmap(ctrlbmp, new Rectangle(0, 0, xc.Width, xc.Height));
                 }
-                catch (Exception ex)
+                catch 
                 {
                     ctrlbmp = null;
                 }

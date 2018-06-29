@@ -1438,7 +1438,7 @@ namespace HUDCMS
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

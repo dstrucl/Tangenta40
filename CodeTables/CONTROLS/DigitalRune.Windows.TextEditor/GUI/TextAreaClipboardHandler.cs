@@ -55,7 +55,12 @@ namespace DigitalRune.Windows.TextEditor
         /// behaviour that waits for the clipboard to be available - the clipboard might never become 
         /// available if it is owned by a process that is paused by the debugger.
         /// </remarks>
-     public static ClipboardContainsTextDelegate GetClipboardContainsText;
+     private static ClipboardContainsTextDelegate m_GetClipboardContainsText = null;
+     public static ClipboardContainsTextDelegate GetClipboardContainsText
+        {
+            get { return m_GetClipboardContainsText; }
+            set { m_GetClipboardContainsText = value; }
+        }
 
         /// <summary>
         /// Gets a value indicating whether Paste is enabled (i.e. something is in the clipboard).

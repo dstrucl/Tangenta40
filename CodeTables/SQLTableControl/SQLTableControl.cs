@@ -464,7 +464,7 @@ namespace CodeTables
                     break;
             }
             StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
-            int i = 0;
+
             DataTable dt = new DataTable();
             if (this.m_con.ReadDataTable(ref dt, strCheckTable, ref csError))
             {

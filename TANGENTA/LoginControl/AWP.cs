@@ -32,7 +32,12 @@ namespace LoginControl
 
         private Form pParentForm = null;
         internal LoginCtrl lctrl = null;
-        internal DBConnection con;
+        private DBConnection m_con = null;
+        internal DBConnection con
+        {
+            get { return m_con; }
+            set { m_con = value; }
+        }
 
         public bool IsUserManager
         {

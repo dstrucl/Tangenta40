@@ -31,7 +31,6 @@ namespace HUDCMS
         private System.Windows.Forms.WebBrowser webBrowser1 = null;
         private bool bHideEditButton = false;
 
-        Uri uri = null;
         public usrc_web_Help()
         {
             InitializeComponent();

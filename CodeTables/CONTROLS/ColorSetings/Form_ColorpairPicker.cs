@@ -54,7 +54,7 @@ namespace ColorSettings
             {
                 icol = Convert.ToInt32(slblIndex);
             }
-            catch (Exception ex)
+            catch 
             {
                 icol = -1;
             }

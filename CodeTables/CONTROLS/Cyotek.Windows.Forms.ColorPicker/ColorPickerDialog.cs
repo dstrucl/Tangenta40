@@ -18,7 +18,11 @@ namespace Cyotek.Windows.Forms
 
   [DefaultEvent("PreviewColorChanged")]
   [DefaultProperty("Color")]
-  public partial class ColorPickerDialog : Form
+    /// <summary>
+    /// ColorPickerDialog
+    /// </summary>
+
+    public partial class ColorPickerDialog : Form
   {
     #region Constants
 
@@ -30,10 +34,13 @@ namespace Cyotek.Windows.Forms
 
     private Brush _textureBrush;
 
-    #endregion
+        #endregion
 
-    #region Constructors
+        #region Constructors
 
+    /// <summary>
+    /// ColorPickerDialog constructor
+    /// </summary>
     public ColorPickerDialog()
     {
       this.InitializeComponent();
@@ -46,16 +53,23 @@ namespace Cyotek.Windows.Forms
     #region Events
 
     [Category("Property Changed")]
+    /// <summary>
+    /// public event EventHandler PreviewColorChanged
+    /// </summary>
+
     public event EventHandler PreviewColorChanged
     {
       add { this.Events.AddHandler(_eventPreviewColorChanged, value); }
       remove { this.Events.RemoveHandler(_eventPreviewColorChanged, value); }
     }
 
-    #endregion
+        #endregion
 
-    #region Properties
+        #region Properties
 
+    /// <summary>
+    /// public event EventHandler PreviewColorChanged
+    /// </summary>
     public Color Color
     {
       get { return colorEditorManager.Color; }

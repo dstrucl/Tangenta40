@@ -289,7 +289,7 @@ namespace ColorSettings
                     SetShemeList();
                     return true;
                 }
-                catch (Exception ex)
+                catch 
                 {
                     SetDeafult();
                 }
@@ -622,7 +622,7 @@ namespace ColorSettings
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("File:\"" + filename + "\" not written");
+                    MessageBox.Show("File:\"" + filename + "\" not written. Exception="+ ex.Message);
                 }
                 return false;
             }

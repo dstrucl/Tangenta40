@@ -13,8 +13,6 @@ namespace Tangenta
     public class Booting_02_Check_DBType
     {
 
-        private startup_step.eStep eStep = eStep.Check_02_DataBaseType;
-
         private Form_Document frm = null;
         private startup m_startup = null;
 
@@ -44,8 +42,10 @@ namespace Tangenta
         {
             string sDBType = null;
 
-            if (StaticLib.Func.SetApplicationDataSubFolder(ref frm.CodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            string xinifolder = frm.CodeTables_IniFileFolder;
+            if (StaticLib.Func.SetApplicationDataSubFolder(ref xinifolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
+                frm.CodeTables_IniFileFolder = xinifolder;
                 if (Program.bChangeConnection)
                 {
                     Properties.Settings.Default.DBType ="";
@@ -74,6 +74,7 @@ namespace Tangenta
             }
             else
             {
+                frm.CodeTables_IniFileFolder = xinifolder;
                 return Startup_check_proc_Result.CHECK_ERROR;
             }
 

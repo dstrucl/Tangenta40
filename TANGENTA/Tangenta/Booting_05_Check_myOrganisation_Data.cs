@@ -15,8 +15,6 @@ namespace Tangenta
 {
     public class Booting_05_Check_myOrganisation_Data
     {
-        private startup_step.eStep eStep = eStep.Check_05_myOrganisation_Data;
-
         private Form_Document frm = null;
         private startup m_startup = null;
 

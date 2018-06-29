@@ -129,7 +129,6 @@ namespace HUDCMS
                 MessageBox.Show("ERROR: XDocument.Load file=\"" + sHtmFileName + "\" failed :Exception = " + ex.Message);
             }
 
-            int y = 2;
             int iAllCount = 0;
 
             InitializeMyTreeListView(ref iAllCount);
@@ -226,7 +225,7 @@ namespace HUDCMS
             this.olvc_ControlImage.Renderer = helperImageRenderer;
 
             // List all drives as the roots of the tree
-            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType, ref mH);
+            myroot = CreateMyControls(0, 0, ref iAllCount, hc, null, ref helperControlType,  mH);
             SetLinks(myroot, ref helperImageRenderer);
 
             this.helperImageRenderer.Aspect = (System.Int32)0;
@@ -588,7 +587,7 @@ namespace HUDCMS
         }
 
 
-        internal static MyControl  CreateMyControls(int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  ref usrc_Help mH)
+        internal static MyControl  CreateMyControls(int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType,  usrc_Help mH)
         {
 
 
@@ -606,13 +605,13 @@ namespace HUDCMS
                     {
                         if (hc.ctrl.Visible)
                         {
-                            child = CreateMyControls(level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  ref mH);
+                            child = CreateMyControls(level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType,  mH);
                             myctrl.children.Add(child);
                         }
                     }
                     else if (hc.dgvc != null)
                     {
-                        child = CreateMyControls(level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  ref mH);
+                        child = CreateMyControls(level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType,  mH);
                         myctrl.children.Add(child);
                     }
                 }

@@ -888,7 +888,7 @@ namespace TangentaDB
                         ",Response_DateTime = " + spar_Response_DateTime +
                         ",TestEnvironment = " + spar_TestEnvironment +
                         " where DocInvoice_ID = " + spar_Invoice_ID;
-                long id = -1;
+
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret, ref Err))
                 {
                     Set_Invoice_Furs_Token();

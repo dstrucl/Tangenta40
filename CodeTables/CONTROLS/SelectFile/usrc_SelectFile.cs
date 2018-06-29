@@ -68,7 +68,7 @@ namespace SelectFile
         }
 
         private string m_ButtonSelectText = "Save";
-        public new string ButtonSelectText
+        public string ButtonSelectText
         {
             get { return m_ButtonSelectText; }
             set
@@ -79,7 +79,7 @@ namespace SelectFile
         }
 
         private bool m_ButtonEditVisible = true;
-        public new bool ButtonEditVisible
+        public  bool ButtonEditVisible
         {
             get { return m_ButtonEditVisible; }
             set

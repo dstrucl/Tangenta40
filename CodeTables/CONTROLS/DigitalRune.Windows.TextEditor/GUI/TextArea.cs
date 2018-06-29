@@ -907,7 +907,10 @@ namespace DigitalRune.Windows.TextEditor
       return base.ProcessDialogKey(keyData);
     }
 
-    public bool HandleProcessDialogKey(object sender)
+        ///<Summary>
+        /// HandleProcessDialogKey
+        ///</Summary>
+        public bool HandleProcessDialogKey(object sender)
     {
         if (sender!=null)
         {

@@ -14,8 +14,6 @@ namespace Tangenta
     {
         public bool bDatabaseReset = false;
 
-        private startup_step.eStep eStep = eStep.Check_03_DBConnection;
-
         private Form_Document frm = null;
         private startup m_startup = null;
 
@@ -45,13 +43,16 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (DBSync.DBSync.Startup_03_Check_DBConnection_Is_DataBase_Defined(bDatabaseReset, ref frm.CodeTables_IniFileFolder, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix))
+            string xinifolder = frm.CodeTables_IniFileFolder;
+            if (DBSync.DBSync.Startup_03_Check_DBConnection_Is_DataBase_Defined(bDatabaseReset, ref xinifolder, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix, TangentaDataBaseDef.MyDataBase_Tangenta.DataBaseFilePrefix))
             {
+                frm.CodeTables_IniFileFolder = xinifolder; 
                 startup_ShowForm_proc = Startup_03_Show_TestConnectionForm;
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
             else
             {
+                frm.CodeTables_IniFileFolder = xinifolder;
                 startup_ShowForm_proc = Startup_03_Show_ConnectionDialog;
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }

@@ -25,8 +25,21 @@ namespace LoginControl
 
         private const string Column_Select = "Select";
         private Form myParent;
-        private string m_DataBaseFile;
-        private DateTime m_DataBaseFileCreationTime;
+        private string m_DataBaseFile = null;
+
+        private string DataBaseFile
+        {
+            get { return m_DataBaseFile; }
+            set { m_DataBaseFile = value; }
+        }
+
+        private DateTime m_DataBaseFileCreationTime = DateTime.MinValue;
+        private DateTime DataBaseFileCreationTime
+        {
+            get { return m_DataBaseFileCreationTime; }
+            set { m_DataBaseFileCreationTime = value; }
+        }
+
         DBConnectionControl40.DBConnection Login_con;
 
         LoginDB_DataSet.LoginUsers LoginUsers = null;
@@ -49,7 +62,7 @@ namespace LoginControl
 
             myParent = pParent;
 
-            this.txt_ComputerName_DataBaseFile_DataBaseFileCreationTime.Text = lng.s_ComputerName.s + SystemInformation.ComputerName + "  ; " + lng.s_DataBaseFile.s + m_DataBaseFile + " ; " + lng.s_DataBaseFileCreationTime.s + m_DataBaseFileCreationTime.ToString();
+            this.txt_ComputerName_DataBaseFile_DataBaseFileCreationTime.Text = lng.s_ComputerName.s + SystemInformation.ComputerName + "  ; " + lng.s_DataBaseFile.s + DataBaseFile + " ; " + lng.s_DataBaseFileCreationTime.s + DataBaseFileCreationTime.ToString();
 
 
 
@@ -175,7 +188,6 @@ namespace LoginControl
             int New_LoginUsers_id = -1;
             string Res = null;
             string Err = null;
-            Int64 id = -1;
           
 
             if (this.txtUserName.Tag != null)

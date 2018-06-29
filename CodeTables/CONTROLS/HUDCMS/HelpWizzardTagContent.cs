@@ -58,7 +58,7 @@ namespace HUDCMS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR:HUDCCMS:HelpWizzardTagContent:Parse");
+                MessageBox.Show("ERROR:HUDCCMS:HelpWizzardTagContent:Parse:Exception="+ex.Message);
             }
         }
     }

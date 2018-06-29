@@ -17,7 +17,6 @@ namespace Tangenta
     {
        
 
-        private startup_step.eStep eStep = eStep.Check_04_DBSettings;
 
         private Form_Document frm = null;
         private startup m_startup = null;

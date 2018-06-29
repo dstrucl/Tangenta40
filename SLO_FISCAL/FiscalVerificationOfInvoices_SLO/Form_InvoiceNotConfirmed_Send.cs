@@ -57,7 +57,7 @@ namespace FiscalVerificationOfInvoices_SLO
             dt.Columns.Add(dcol_IssuerLastName);
             int i = 0;
             int iCount = m_InvoiceData_List.Count;
-            string FURS_SalesBookInvoice_error = null;
+
             for (i = 0; i < iCount; i++)
             {
                 InvoiceData xinvd = m_InvoiceData_List[i];

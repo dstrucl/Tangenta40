@@ -10,8 +10,6 @@ namespace CodeTables
     {
         private List<ReferenceFromTable> tablelist = null;
 
-        private string m_columnName = null;
-
         public int Count
         {
             get

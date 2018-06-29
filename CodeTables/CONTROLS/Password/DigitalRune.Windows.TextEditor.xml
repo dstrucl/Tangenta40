@@ -9390,6 +9390,11 @@
             true if the key was processed by the control; otherwise, false.
             </returns>
         </member>
+        <member name="M:DigitalRune.Windows.TextEditor.TextArea.HandleProcessDialogKey(System.Object)">
+            <Summary>
+             HandleProcessDialogKey
+            </Summary>
+        </member>
         <member name="M:DigitalRune.Windows.TextEditor.TextArea.OnDialogKeyPress(System.Windows.Forms.KeyEventArgs)">
             <summary>
             Raises the <see cref="E:DigitalRune.Windows.TextEditor.TextArea.DialogKeyPress"/> event.
@@ -9468,7 +9473,7 @@
             <c>true</c> if the clipboard contains text; otherwise <c>false</c>.
             </returns>
         </member>
-        <member name="F:DigitalRune.Windows.TextEditor.TextAreaClipboardHandler.GetClipboardContainsText">
+        <member name="F:DigitalRune.Windows.TextEditor.TextAreaClipboardHandler.m_GetClipboardContainsText">
             <summary>
             Is called when <see cref="P:DigitalRune.Windows.TextEditor.TextAreaClipboardHandler.EnablePaste"/> is queried and checks whether the clipboards 
             contains text. If this property is <c>null</c> (the default value), the text editor uses

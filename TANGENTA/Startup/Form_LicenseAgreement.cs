@@ -13,7 +13,7 @@ namespace Startup
     public partial class Form_LicenseAgreement : Form
     {
         NavigationButtons.Navigation nav = null;
-        Uri uri = null;
+
         public Form_LicenseAgreement(NavigationButtons.Navigation xnav)
         {
             InitializeComponent();

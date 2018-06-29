@@ -132,7 +132,7 @@ namespace DBConnectionControl40
                 }
             }
 
-            catch ( Exception ex )
+            catch 
             {
                 throw new ApplicationException("Cannot Locate SQL Server.");
             }

@@ -115,14 +115,14 @@ namespace HUDCMS
             // List all drives as the roots of the tree
             if (frm_HUDCMS != null)
             {
-                myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount, frm_HUDCMS.hc, null, ref helperControlType, ref frm_HUDCMS.mH);
+                myroot = Form_HUDCMS.CreateMyControls(0, 0, ref iAllCount, frm_HUDCMS.hc, null, ref helperControlType, frm_HUDCMS.mH);
                 Form_HUDCMS.SetLinks(myroot, ref helperImageRenderer);
             }
 
             if (frm_Wizzard != null)
             {
                 HelpWizzardTag xHlpWizTag = (HelpWizzardTag)frm_Wizzard.myroot.hc.pForm.Tag;
-                myroot = Form_Wizzard.CreateMyControls(xHlpWizTag,0, 0, ref iAllCount, frm_Wizzard.hc, null, ref helperControlType, ref frm_Wizzard.mH);
+                myroot = Form_Wizzard.CreateMyControls(xHlpWizTag,0, 0, ref iAllCount, frm_Wizzard.hc, null, ref helperControlType, frm_Wizzard.mH);
                 Form_Wizzard.SetLinks(myroot, ref helperImageRenderer);
             }
 
