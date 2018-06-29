@@ -74,16 +74,24 @@ namespace Tangenta
 
         private bool do_OK()
         {
-            Program.b_FVI_SLO = chk_FVI.Checked;
-            if (Program.b_FVI_SLO)
+            Program.b_FVI_SLO = false;
+            long DBSettings_ID = -1;
+            if (chk_FVI.Checked)
             {
-                Properties.Settings.Default.bFVI_SLO = "1";
+                string sFiscalVerificationOfInvoices = "1";
+                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID))
+                {
+                    Program.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                }
             }
             else
             {
-                Properties.Settings.Default.bFVI_SLO = "0";
+                string sFiscalVerificationOfInvoices = "0";
+                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID))
+                {
+                    Program.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                }
             }
-            Properties.Settings.Default.Save();
             Close();
             DialogResult = DialogResult.OK;
             return true;

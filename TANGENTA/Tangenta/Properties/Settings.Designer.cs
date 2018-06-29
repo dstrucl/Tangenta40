@@ -470,18 +470,6 @@ namespace Tangenta.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string bFVI_SLO {
-            get {
-                return ((string)(this["bFVI_SLO"]));
-            }
-            set {
-                this["bFVI_SLO"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HelpLocalPath {
             get {
                 return ((string)(this["HelpLocalPath"]));

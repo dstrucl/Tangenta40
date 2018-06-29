@@ -43,15 +43,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (Properties.Settings.Default.bFVI_SLO.Equals("1"))
-            {
-                Program.b_FVI_SLO = true;
-            }
-            else if (Properties.Settings.Default.bFVI_SLO.Equals("0"))
-            {
-                Program.b_FVI_SLO = false;
-            }
-
+     
             usrc_DocumentEditor.eGetOrganisationDataResult eres = frm.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
             switch (eres)
             {
@@ -91,7 +83,7 @@ namespace Tangenta
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_REAL_ESTATE:
                     if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
                     {
-                        if (Properties.Settings.Default.bFVI_SLO.Length == 0)
+                        if (!FVICheckDefined())
                         {
                             startup_ShowForm_proc = Startup_05_Show_Form_FVI_check;
                             return Startup_check_proc_Result.WAIT_USER_INTERACTION;
@@ -120,6 +112,23 @@ namespace Tangenta
             }
         }
 
+        private bool FVICheckDefined()
+        {
+            string Err = null;
+            bool bReadOnly = false;
+            string sFiscalVerificationOfInvoices = null;
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, ref sFiscalVerificationOfInvoices, ref bReadOnly, ref Err))
+            {
+                case fs.enum_GetDBSettings.DBSettings_OK:
+                    return true;
+
+                case fs.enum_GetDBSettings.No_TextValue:
+                case fs.enum_GetDBSettings.No_Data_Rows:
+                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                    return false;
+            }
+            return false;
+        }
 
         private bool Startup_05_Show_Form_Select_Country_ISO_3166(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,

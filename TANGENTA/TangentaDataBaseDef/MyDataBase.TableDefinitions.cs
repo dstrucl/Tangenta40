@@ -44,6 +44,7 @@ namespace TangentaDataBaseDef
         public Settings_Item ShopC_ExclusivelySellFromStock = null;
         public Settings_Item MultiCurrencyOperation = null;
         public Settings_Item NumberOfMonthAfterNewYearToAllowCreateNewInvoice = null;
+        public Settings_Item FiscalVerificationOfInvoices = null;
 
         public Settings(string Ver)
         {
@@ -55,6 +56,7 @@ namespace TangentaDataBaseDef
             ShopC_ExclusivelySellFromStock = new Settings_Item("ShopC_ExclusivelySellFromStock", "0", false);
             MultiCurrencyOperation = new Settings_Item("MultCurrencyOperation", "0", false);
             NumberOfMonthAfterNewYearToAllowCreateNewInvoice = new Settings_Item("NumberOfMonthAfterNewYearToAllowCreateNewInvoice", "1", false);
+            FiscalVerificationOfInvoices = new Settings_Item("FiscalVerificationOfInvoices", "1", false);
         }
 
     }

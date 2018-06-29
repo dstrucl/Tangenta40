@@ -413,6 +413,8 @@ namespace Tangenta
 
         private void LayoutSet()
         {
+            m_usrc_Main.usrc_FVI_SLO1.Visible = Program.b_FVI_SLO;
+
             if (Properties.Settings.Default.Form_Document_WindowState >= 0)
             {
                 switch (Properties.Settings.Default.Form_Document_WindowState)

@@ -59,6 +59,7 @@ namespace Tangenta
             internal static bool ShopC_ExclusivelySellFromStock = false;
             internal static bool MultiCurrency = false;
             internal static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
+            internal static bool FiscalVerificationOfInvoices = false;
         }
 
 
@@ -129,14 +130,28 @@ namespace Tangenta
         internal static bool bChangeConnection = false;
         internal static bool bSymulator = false;
         internal static bool bRS232Monitor = false;
-        private static bool m_b_FVI_SLO = false;
+
+        internal static bool m_CountryHasFVI = false;
+
+        internal static bool CountryHasFVI
+        {
+            get
+            {
+                return m_CountryHasFVI;
+            }
+            set
+            {
+                m_CountryHasFVI = value;
+            }
+        }
+
         internal static bool b_FVI_SLO
         {
             get {
-                return m_b_FVI_SLO;
+                return OperationMode.FiscalVerificationOfInvoices;
                 }
             set {
-                m_b_FVI_SLO = value;
+                OperationMode.FiscalVerificationOfInvoices = value;
                 }
         }
 

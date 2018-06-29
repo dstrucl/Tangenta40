@@ -1694,16 +1694,16 @@ namespace Tangenta
                     {
                         if (myOrg.Address_v.Country_ISO_3166_a3.Equals(Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_A3))
                         {
-                            Program.b_FVI_SLO = true;
+                            Program.m_CountryHasFVI = true;
                         }
                         else
                         {
-                            Program.b_FVI_SLO = false;
+                            Program.m_CountryHasFVI = false;
                         }
                         string Err = null;
                         if (TangentaSampleDB.TangentaSampleDB.Is_Sample_DB(ref Err))
                         {
-                            if (Program.b_FVI_SLO)
+                            if (Program.m_CountryHasFVI)
                             {
                                 if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {

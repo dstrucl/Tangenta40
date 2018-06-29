@@ -113,9 +113,6 @@
     <Setting Name="Startup_TangentaLicence_Showed" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="bFVI_SLO" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="HelpLocalPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
