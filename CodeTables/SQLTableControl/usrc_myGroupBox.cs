@@ -24,7 +24,7 @@ namespace CodeTables
     public partial class usrc_myGroupBox : UserControl
     {
 
-        internal object IndexInitialValue = null;
+        //internal object IDValue = null;
 
         public delegate void delegate_ObjectChanged(SQLTable tbl, usrc_InputControl InputControl);
         public event delegate_ObjectChanged usrc_InputControl_ObjectChanged = null;
@@ -358,36 +358,9 @@ namespace CodeTables
 
         private bool DifferentToIndexInitialValue_not_null()
         {
-            if ((IndexInitialValue == null)&&(ixt_ID.Initial_ID==null))
+            if ((ixt_ID.Initial_ID_v != null) && (ixt_ID.ID_v != null))
             {
-                return false;
-            }
-            else if ((IndexInitialValue == null)&&(ixt_ID.Initial_ID!=null))
-            {
-                return true;
-            }
-            else if ((IndexInitialValue != null)&&(ixt_ID.Initial_ID==null))
-            {
-                return true;
-            }
-            else
-            {
-                if ((IndexInitialValue != null) && (!ixt_ID.Valid))
-                {
-                    return true;
-                }
-                else  if (ixt_ID.ID_v!=null)
-                {
-                    if ((long)IndexInitialValue != (long)ixt_ID.ID_v.v)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else if ((long)IndexInitialValue != (long)ixt_ID.Initial_ID)
+                if (ixt_ID.Initial_ID_v.v != ixt_ID.ID_v.v)
                 {
                     return true;
                 }
@@ -395,7 +368,21 @@ namespace CodeTables
                 {
                     return false;
                 }
+
             }
+            else if ((ixt_ID.Initial_ID_v == null) && (ixt_ID.ID_v != null))
+            {
+                return true;
+            }
+            else if ((ixt_ID.Initial_ID_v == null)&& (ixt_ID.ID_v==null))
+            {
+                return false;
+            }
+            else 
+            {
+                return true;
+            }
+            
         }
 
 
@@ -519,7 +506,7 @@ namespace CodeTables
                     ixt_ID.Text = this.pSQL_Table.current_row_ID.v.ToString();
                     if (pSQL_Table.iFillTableData > 0)
                     {
-                        IndexInitialValue = this.pSQL_Table.current_row_ID.v;
+                        ixt_ID.ID_v = new ID_v(this.pSQL_Table.current_row_ID.v);
                     }
                     ixt_ID.Enabled = true;
                     if (usrc_lbl != null)
@@ -536,7 +523,7 @@ namespace CodeTables
                     }
                     if (pSQL_Table.iFillTableData > 0)
                     {
-                        IndexInitialValue = null;
+                        ixt_ID.ID_v = null;
                     }
                 }   
             }

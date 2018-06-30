@@ -16,6 +16,15 @@ namespace CodeTables
     public class ID_v
     {
         public long v = -1;
+
+        public ID_v()
+        {
+        }
+
+        public ID_v(long xv)
+        {
+            v = xv;
+        }
     }
 
     public class ForeignKey

@@ -18,7 +18,7 @@ namespace CodeTables
     {
         public bool m_bValid = false;
 
-        public object Initial_ID = null;
+        public ID_v Initial_ID_v = null;
 
         private ID_v m_ID_v = null;
 
@@ -52,9 +52,12 @@ namespace CodeTables
                         long id = Convert.ToInt64(s);
                         if (m_ID_v == null)
                         {
-                            m_ID_v = new ID_v();
+                            m_ID_v = new ID_v(id);
                         }
-                        m_ID_v.v = id;
+                        else
+                        {
+                            m_ID_v.v = id;
+                        }
                         return m_ID_v;
                     }
                     else
@@ -65,6 +68,28 @@ namespace CodeTables
                 catch 
                 {
                     return null;
+                }
+            }
+            set
+            {
+                ID_v xid_v = value;
+                if (m_ID_v != null)
+                {
+                    if (xid_v != null)
+                    {
+                        m_ID_v.v = xid_v.v;
+                    }
+                    else
+                    {
+                        m_ID_v = xid_v;
+                    }
+                }
+                else
+                {
+                    if (xid_v != null)
+                    {
+                        m_ID_v = new ID_v(xid_v.v);
+                    }
                 }
             }
         }
@@ -81,16 +106,16 @@ namespace CodeTables
                         base.Text = s;
                         m_bValid = true;
                         base.BackColor = Color.LightGray;
-                        if (Initial_ID == null)
+                        if (Initial_ID_v == null)
                         {
                             try
                             {
-                                Initial_ID = Convert.ToInt64(s);
+                                Initial_ID_v = new ID_v(Convert.ToInt64(s));
                             }
                             catch (Exception Ex)
                             {
                                 LogFile.Error.Show("ERROR:IndexBox:public override string Text:Cannot convert \"" + s + "\" to Int64! " + Ex.Message);
-                                Initial_ID = null;
+                                Initial_ID_v = null;
                             }
                         }
                     }

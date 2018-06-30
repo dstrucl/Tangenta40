@@ -134,8 +134,7 @@ namespace CodeTables
             }
             // 1 Read row data
             iFillTableData++;
-            this.current_row_ID = new ID_v();
-            this.current_row_ID.v = ID;
+            this.current_row_ID = new ID_v(ID);
             String sSQL_ReadRow="";
             switch (x_SQL_connection.DBType)
             {
@@ -192,8 +191,7 @@ namespace CodeTables
                                 if (dt.Rows[0][col.Name].GetType() == typeof(long))
                                 {
                                     long Identity = (long)dt.Rows[0][col.Name];
-                                    col.fKey.reference_ID = new ID_v();
-                                    col.fKey.reference_ID.v = Identity;
+                                    col.fKey.reference_ID = new ID_v(Identity);
                                     if (col.fKey.fTable.FillDataInputControl(x_SQL_connection, xuctrln, Identity,bSetInitialValues, ref csError))
                                     {
                                         if (col.fKey.fTable.myGroupBox != null)
