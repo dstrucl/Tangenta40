@@ -36,6 +36,8 @@ namespace Tangenta
                                     startup_step.eStep.Check_05_myOrganisation_Data);
         }
 
+
+
         public Startup_check_proc_Result Startup_05_Check_myOrganisation_Data(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
@@ -46,7 +48,25 @@ namespace Tangenta
             switch (eres)
             {
                 case usrc_DocumentEditor.eGetOrganisationDataResult.OK:
-                    return Startup_check_proc_Result.CHECK_OK;
+                    if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
+                    {
+
+                        if (FVICheckDefined())
+                        {
+                            return Startup_check_proc_Result.CHECK_OK;
+                        }
+                        else
+                        {
+                            startup_ShowForm_proc = Startup_05_Show_Form_FVI_check;
+                            return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                        }
+                    }
+                    else
+                    {
+                        return Startup_check_proc_Result.CHECK_OK;
+                    }
+                    
+
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
                     startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
@@ -109,6 +129,112 @@ namespace Tangenta
 
             }
         }
+
+        private bool Startup_05_Show_Form_FVI_check(startup_step xstartup_step,
+                                           NavigationButtons.Navigation xnav,
+                                           ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
+        {
+            startup_OnFormResult_proc = Startup_05_onformresult_Form_FVI_check;
+            xnav.ShowForm(new Form_FVI_check(xnav), typeof(Form_FVI_check).ToString());
+            return true;
+        }
+
+        private Startup_onformresult_proc_Result Startup_05_onformresult_Form_FVI_check(startup_step myStartup_step,
+                                                                                   Form form,
+                                                                                   NavigationButtons.Navigation.eEvent eExitResult,
+                                                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                                   ref string Err)
+        {
+            switch (eExitResult)
+            {
+                case Navigation.eEvent.NEXT:
+                    // Result of Form_FVI_Check is stored in Program.bFVI_SLO and stored to Properties.Settings.Default.bFVI_SLO as string which can be ="1" or "0"
+                    usrc_DocumentEditor.eGetOrganisationDataResult eres = frm.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
+                    switch (eres)
+                    {
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.OK:
+                            return Startup_onformresult_proc_Result.NEXT;
+
+
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
+                            startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_COUNTRY:
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ZIP:
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_CITY:
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_STREET_NAME:
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_HOUSE_NUMBER:
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_TAX_ID:
+                            startup_ShowForm_proc = Startup_05_Show_Form_CheckInsertSampleData;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_OFFICE:
+                            startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
+                            if (myOrg.myOrg_Office_list != null)
+                            {
+                                if (myOrg.myOrg_Office_list.Count > 0)
+                                {
+                                    if (myOrg.myOrg_Office_list[0].ID_v != null)
+                                    {
+                                        myOffice_ID = myOrg.myOrg_Office_list[0].ID_v.v;
+                                    }
+                                }
+                            }
+                            startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_REAL_ESTATE:
+                            if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
+                            {
+                                if (!FVICheckDefined())
+                                {
+                                    startup_ShowForm_proc = Startup_05_Show_Form_FVI_check;
+                                    return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                                }
+                                else
+                                {
+                                    if (Program.b_FVI_SLO)
+                                    {
+                                        startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
+                                        return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                                    }
+                                    else
+                                    {
+                                        return Startup_onformresult_proc_Result.NEXT;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                return Startup_onformresult_proc_Result.NEXT; 
+                            }
+
+                        default:
+                            return Startup_onformresult_proc_Result.ERROR;
+
+                    }
+
+
+                case Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case Navigation.eEvent.EXIT:
+                    return Startup_onformresult_proc_Result.EXIT;
+
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
+
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_FVI_check:xnav.eExitResult not implemented for eExitResult = " + eExitResult.ToString());
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+        }
+
 
         private bool FVICheckDefined()
         {
@@ -192,45 +318,6 @@ namespace Tangenta
 
                 default:
                     LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_Select_Country_ISO_3166:eExitResult not implemented for xnav.eExitResult = " + eExitResult.ToString());
-                    return Startup_onformresult_proc_Result.ERROR;
-            }
-        }
-
-        private bool Startup_05_Show_Form_FVI_check(startup_step xstartup_step,
-                                                           NavigationButtons.Navigation xnav,
-                                                           ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
-        {
-            startup_OnFormResult_proc = Startup_05_onformresult_Form_FVI_check;
-            xnav.ShowForm(new Form_FVI_check(xnav), typeof(Form_FVI_check).ToString());
-            return true;
-        }
-
-        private Startup_onformresult_proc_Result Startup_05_onformresult_Form_FVI_check(startup_step myStartup_step,
-                                                                                   Form form,
-                                                                                   NavigationButtons.Navigation.eEvent eExitResult,
-                                                                                   ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
-                                                                                   ref string Err)
-        {
-            switch (eExitResult)
-            {
-                case Navigation.eEvent.NEXT:
-                    // Result of Form_FVI_Check is stored in Program.bFVI_SLO and stored to Properties.Settings.Default.bFVI_SLO as string which can be ="1" or "0"
-                    startup_ShowForm_proc = Startup_05_Show_Form_CheckInsertSampleData;
-                    return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
-
-
-                case Navigation.eEvent.PREV:
-                    return Startup_onformresult_proc_Result.PREV;
-
-                case Navigation.eEvent.EXIT:
-                    return Startup_onformresult_proc_Result.EXIT;
-
-                case NavigationButtons.Navigation.eEvent.NOTHING:
-                    // happens when check procedure is OK
-                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
-
-                default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_FVI_check:xnav.eExitResult not implemented for eExitResult = " + eExitResult.ToString());
                     return Startup_onformresult_proc_Result.ERROR;
             }
         }
