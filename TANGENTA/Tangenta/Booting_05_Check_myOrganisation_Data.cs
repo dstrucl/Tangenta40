@@ -244,6 +244,7 @@ namespace Tangenta
             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, ref sFiscalVerificationOfInvoices, ref bReadOnly, ref Err))
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
+                    Program.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
                     return true;
 
                 case fs.enum_GetDBSettings.No_TextValue:
