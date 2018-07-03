@@ -482,5 +482,16 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_PriceList_Name = new ltext(new string[] { "Price List Name", "Ime cenika" });
 
+        public static ltext lngt_t_Atom_ComputerName = new ltext(new string[] { "Computer Name", "Ime računalnika" });
+
+        public static ltext lngt_t_Atom_ComputerUserName = new ltext(new string[] { "Computer login username", "Uporabniško ime za prijavo v računalnik" });
+
+        public static ltext lngt_t_Atom_MAC_address = new ltext(new string[] { "Computer ethernet MAC address", "MAC naslov" });
+
+        public static ltext lngt_t_Case = new ltext(new string[] { "Case", "Zadeva" });
+
+        public static ltext lngt_t_CaseImage = new ltext(new string[] { "Case image", "Zadeva slika" });
+
+
     }
 }

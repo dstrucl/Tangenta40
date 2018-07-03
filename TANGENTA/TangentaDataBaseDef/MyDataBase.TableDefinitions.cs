@@ -640,6 +640,25 @@ namespace TangentaDataBaseDef
         /* 214 */
         public SQLTable t_PriceList_Name = null;
 
+        /* 215 */
+        public SQLTable t_Atom_ComputerName = null;
+
+        /* 216 */
+        public SQLTable t_Atom_ComputerUserName = null;
+
+        /* 217 */
+        public SQLTable t_Atom_MAC_address = null;
+
+        /* 218 */
+        public SQLTable t_Case = null;
+
+        /* 219 */
+        public SQLTable t_CaseImage = null;
+
+        /* 220 */
+        public SQLTable t_CustomerCase = null;
+
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -1872,10 +1891,10 @@ namespace TangentaDataBaseDef
         /* 150 */
             t_Atom_Computer = new SQLTable((Object)new Atom_Computer(),"acomp", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_Computer);
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer Name", "Ime računalnika") );
-            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.UserName, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer UserName", "Računalniško prijavno ime") );
+            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_ComputerName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer Name ID", "Ime računalnika ID") );
+            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_MAC_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("MAC address", "MAC naslov ID"));
+            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_ComputerUserName, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer UserName ID", "Računalniško prijavno ime ID") );
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.IP_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "IP address", "IP naslov") );
-            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.MAC_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "MAC address", "MAC naslov") );
             m_DBTables.items.Add(t_Atom_Computer);
 
         /* 151 */
@@ -2287,6 +2306,10 @@ namespace TangentaDataBaseDef
             t_Atom_ElectronicDevice = new SQLTable((Object)new Atom_ElectronicDevice(), "aed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ElectronicDevice);
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_MAC_address, Column.nullTYPE.NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("MAC Address ID", "MAC naslov ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_ComputerName, Column.nullTYPE.NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Computer Name ID", "Ime računalnika ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_ComputerUserName, Column.nullTYPE.NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Computer username ID", "Ime 'Windows' uporabnika ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_FVI_SLO_RealEstateBP, Column.nullTYPE.NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("MAC Address ID", "MAC naslov ID"));
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
             m_DBTables.items.Add(t_Atom_ElectronicDevice);
 
@@ -2458,7 +2481,45 @@ namespace TangentaDataBaseDef
             t_PriceList_Name.AddColumn((Object)mt.m_PriceList_Name.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price list name", "Ime cenika"));
             m_DBTables.items.Add(t_PriceList_Name);
 
-        }
+            /* 215 */
+            t_Atom_ComputerName = new SQLTable((Object)new Atom_ComputerName(), "acn", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ComputerName);
+            t_Atom_ComputerName.AddColumn((Object)mt.m_Atom_ComputerName.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ComputerName.AddColumn((Object)mt.m_Atom_ComputerName.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer name", "Ime računalnika"));
+            m_DBTables.items.Add(t_Atom_ComputerName);
+
+
+            /* 216 */
+            t_Atom_ComputerUserName = new SQLTable((Object)new Atom_ComputerUserName(), "acun", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ComputerUserName);
+            t_Atom_ComputerUserName.AddColumn((Object) mt.m_Atom_ComputerUserName.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ComputerUserName.AddColumn((Object) mt.m_Atom_ComputerUserName.UserName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Windows login username", "Prijavno uporabniško v operacijski sistemi"));
+            m_DBTables.items.Add(t_Atom_ComputerUserName);
+
+            /* 217 */
+            t_Atom_MAC_address = new SQLTable((Object)new Atom_MAC_address(), "amac", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_MAC_address);
+            t_Atom_MAC_address.AddColumn((Object) mt.m_Atom_MAC_address.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_MAC_address.AddColumn((Object) mt.m_Atom_MAC_address.MAC_address, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price list name", "Ime cenika"));
+            m_DBTables.items.Add(t_Atom_MAC_address);
+
+            /* 218 */
+            t_Case = new SQLTable((Object)new Case(), "case", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Case);
+            t_Case.AddColumn((Object) mt.m_Case.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Case.AddColumn((Object) mt.m_Case.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price list name", "Ime cenika"));
+            m_DBTables.items.Add(t_Case);
+
+            /* 219 */
+            t_CaseImage = new SQLTable((Object)new CaseImage(), "ci", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_CaseImage);
+            t_CaseImage.AddColumn((Object) mt.m_CaseImage.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_CaseImage.AddColumn((Object) mt.m_CaseImage.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Case Image HASH", "Slika zadeve ident."));
+            t_CaseImage.AddColumn((Object)mt.m_CaseImage.Image_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Case Image", "Slika zadeve"));
+            m_DBTables.items.Add(t_CaseImage);
+
+            /* 220 */
+            t_CustomerCase = new SQLTable((Object)new CustomerCase(), "cc", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_CustomerCase);
+            t_PriceList_Name.AddColumn((Object) mt.m_PriceList_Name.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_PriceList_Name.AddColumn((Object) mt.m_PriceList_Name.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price list name", "Ime cenika"));
+            m_DBTables.items.Add(t_PriceList_Name);
+
     }
+}
  }
 

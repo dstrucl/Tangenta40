@@ -1126,12 +1126,30 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
-    public class Atom_Computer
+    public class Atom_ComputerName
     {
         public ID ID = new ID();
         public Name Name = new Name();
+    }
+
+    public class Atom_ComputerUserName
+    {
+        public ID ID = new ID();
         public UserName UserName = new UserName();
+    }
+
+    public class Atom_MAC_address
+    {
+        public ID ID = new ID();
         public MAC_address MAC_address = new MAC_address();
+    }
+
+    public class Atom_Computer
+    {
+        public ID ID = new ID();
+        public Atom_ComputerName m_Atom_ComputerName = new Atom_ComputerName();
+        public Atom_ComputerUserName m_Atom_ComputerUserName = new Atom_ComputerUserName();
+        public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
         public IP_address IP_address = new IP_address();
         public Description Description = new Description();
     }
@@ -1139,6 +1157,10 @@ namespace TangentaTableClass
     public class Atom_ElectronicDevice
     {
         public ID ID = new ID();
+        public FVI_SLO_RealEstateBP m_FVI_SLO_RealEstateBP = new FVI_SLO_RealEstateBP();
+        public Atom_ComputerName m_Atom_ComputerName = new Atom_ComputerName();
+        public Atom_ComputerUserName m_Atom_ComputerUserName = new Atom_ComputerUserName();
+        public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
         public Name Name = new Name();
         public Description Description = new Description();
     }
@@ -2596,6 +2618,53 @@ namespace TangentaTableClass
         public EventTime EventTime = new EventTime();
     }
 
+    public class StartDate : DB_DateTime
+    {
+
+    }
+
+    public class EndDate : DB_DateTime
+    {
+
+    }
+
+    public class CaseParameter :DB_varchar_64
+    {
+
+    }
+
+
+    public class Case
+    {
+        public ID ID = new ID();
+        public Name Name  = new Name();
+        public CaseParameter CaseParameter = new CaseParameter();
+        public Active Active = new Active();
+        public Description Description = new Description();
+        public StartDate StartDate = new StartDate();
+        public EndDate EndDate = new EndDate();
+    }
+
+
+    public class CaseImage
+    {
+        public ID ID = new ID();
+        public Image_Hash Image_Hash = new Image_Hash();
+        public Image_Data Image_Data = new Image_Data();
+    }
+
+
+    public class CustomerCase
+    {
+        public ID ID = new ID();
+        public Customer_Person m_Customer_Person = new Customer_Person();
+        public Customer_Org m_Customer_Org = new Customer_Org();
+        public EventTime EventTime = new EventTime();
+        public Case m_Case = new Case();
+        public Description Description = new Description();
+        public CaseImage m_CaseImage = new CaseImage();
+    }
+
 
     public class SQL_Database_Tables_Definition
     {
@@ -3222,5 +3291,23 @@ namespace TangentaTableClass
 
         /* 214 */
         public PriceList_Name m_PriceList_Name = new PriceList_Name();
+
+        /* 215 */
+        public Atom_ComputerName m_Atom_ComputerName = new Atom_ComputerName();
+
+        /* 216 */
+        public Atom_ComputerUserName m_Atom_ComputerUserName = new Atom_ComputerUserName();
+
+        /* 217 */
+        public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
+
+        /* 218 */
+        public Case m_Case = new Case();
+
+        /* 219 */
+        public CaseImage m_CaseImage = new CaseImage();
+
+        /* 220 */
+        public CustomerCase m_CustomerCase = new CustomerCase();
     }
 }
