@@ -28,10 +28,12 @@ namespace Tangenta
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
         private NavigationButtons.Navigation nav = null;
+        private PostAddress_v myorg_PostAddress_v = null;
 
-        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew, NavigationButtons.Navigation xnav)
+        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew, NavigationButtons.Navigation xnav, PostAddress_v xmyorg_PostAddress_v)
         {
             InitializeComponent();
+            myorg_PostAddress_v = xmyorg_PostAddress_v;
             nav = xnav;
             this.usrc_NavigationButtons1.Init(nav);
             dbTables = xdbTables;
@@ -302,7 +304,35 @@ namespace Tangenta
 
         private void usrc_EditRow_FillTable(SQLTable tbl)
         {
-            if (TangentaDB.myOrg.Address_v != null)
+            if (myorg_PostAddress_v != null)
+            {
+                if ((myorg_PostAddress_v.Country_v != null))
+                {
+                    if (tbl.TableName.Equals("cCountry_Org"))
+                    {
+                        foreach (Column col in tbl.Column)
+                        {
+                            if (col.Name.Equals("Country"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_a2"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a2);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_a3"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a3);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_num"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_num);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (TangentaDB.myOrg.Address_v != null)
             {
                 if ((TangentaDB.myOrg.Address_v.Country_v != null))
                 {
@@ -334,7 +364,32 @@ namespace Tangenta
 
         private void usrc_EditRow_SetInputControlProperties(Column col, object obj)
         {
-            if (TangentaDB.myOrg.Address_v != null)
+            if (myorg_PostAddress_v!=null)
+            {
+                if ((myorg_PostAddress_v.Country_v != null))
+                {
+                    if (col.ownerTable.TableName.Equals("cCountry_Org"))
+                    {
+                        if (col.Name.Equals("Country"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_a2"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a2);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_a3"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a3);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_num"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_num);
+                        }
+                    }
+                }
+            }
+            else if (TangentaDB.myOrg.Address_v != null)
             {
                 if ((TangentaDB.myOrg.Address_v.Country_v != null))
                 {

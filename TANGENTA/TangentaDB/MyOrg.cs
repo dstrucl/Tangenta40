@@ -45,6 +45,21 @@ namespace TangentaDB
         public static long Default_Currency_ID = -1;
         public static tnr[] Default_TaxRates = null;
 
+        public static bool CountryDefined
+        {
+            get
+            {
+                if (Address_v != null)
+                {
+                    if (Address_v.Country_v != null)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+          }
+
         public static bool Get(long myOrg_id)
         {
             string Err = null;

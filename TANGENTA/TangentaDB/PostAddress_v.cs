@@ -49,6 +49,20 @@ namespace TangentaDB
             }
         }
 
+        public bool CountryDefined
+        {
+            get
+            {
+                if (Country_v != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public PostAddress_v Clone()
         {

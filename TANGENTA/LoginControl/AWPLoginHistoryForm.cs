@@ -118,19 +118,13 @@ namespace LoginControl
                         dgvc.Visible = true;
                         dgvc.DisplayIndex = 5;
                     }
-                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$$Name"))
+                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$_acn_$$Name"))
                     {
                         dgvc.HeaderText = lng.s_ComputerName.s;
                         dgvc.Visible = true;
                         dgvc.DisplayIndex = 6;
                     }
-                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$$Name"))
-                    {
-                        dgvc.HeaderText = lng.s_ComputerName.s;
-                        dgvc.Visible = true;
-                        dgvc.DisplayIndex = 7;
-                    }
-                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$$UserName"))
+                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$_acun_$$UserName"))
                     {
                         dgvc.HeaderText = lng.s_ComputerUserName.s;
                         dgvc.Visible = true;
@@ -142,7 +136,7 @@ namespace LoginControl
                         dgvc.Visible = true;
                         dgvc.DisplayIndex = 9;
                     }
-                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$$MAC_address"))
+                    else if (dgvc.Name.Equals("Atom_WorkPeriod_$_acomp_$_amac_$$Mac_address"))
                     {
                         dgvc.HeaderText = lng.s_MAC_address.s;
                         dgvc.Visible = true;

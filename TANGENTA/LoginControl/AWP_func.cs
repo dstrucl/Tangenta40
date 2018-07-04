@@ -188,10 +188,10 @@ SELECT
                     Atom_WorkPeriod_$_aed.Name AS Atom_WorkPeriod_$_aed_$$Name,
                     Atom_WorkPeriod_$_amcper_$_aoffice.Name AS Atom_WorkPeriod_$_amcper_$_aoffice_$$Name,
                     Atom_WorkPeriod_$_amcper_$_aoffice.ShortName AS Atom_WorkPeriod_$_amcper_$_aoffice_$$ShortName,
-                    Atom_WorkPeriod_$_acomp.Name AS Atom_WorkPeriod_$_acomp_$$Name,
-                    Atom_WorkPeriod_$_acomp.UserName AS Atom_WorkPeriod_$_acomp_$$UserName,
+                    Atom_WorkPeriod_$_acomp_$_acn.Name AS Atom_WorkPeriod_$_acomp_$_acn_$$Name,
+                    Atom_WorkPeriod_$_acomp_$_acun.UserName AS Atom_WorkPeriod_$_acomp_$_acun_$$UserName,
                     Atom_WorkPeriod_$_acomp.IP_address AS Atom_WorkPeriod_$_acomp_$$IP_address,
-                    Atom_WorkPeriod_$_acomp.MAC_address AS Atom_WorkPeriod_$_acomp_$$MAC_address,
+                    Atom_WorkPeriod_$_acomp_$_amac.MAC_address AS Atom_WorkPeriod_$_acomp_$_amac_$$Mac_address,
                     Atom_WorkPeriod_$_amcper_$_aper_$_acfn.FirstName AS Atom_WorkPeriod_$_amcper_$_aper_$_acfn_$$FirstName,
                     Atom_WorkPeriod_$_amcper_$_aper_$_acln.LastName AS Atom_WorkPeriod_$_amcper_$_aper_$_acln_$$LastName,
                     
@@ -208,6 +208,9 @@ SELECT
                     INNER JOIN Atom_Organisation Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
                     INNER JOIN Atom_WorkingPlace Atom_WorkPeriod_$_awplace ON Atom_WorkPeriod.Atom_WorkingPlace_ID = Atom_WorkPeriod_$_awplace.ID
                     INNER JOIN Atom_Computer Atom_WorkPeriod_$_acomp ON Atom_WorkPeriod.Atom_Computer_ID = Atom_WorkPeriod_$_acomp.ID 
+                    LEFT JOIN Atom_ComputerName Atom_WorkPeriod_$_acomp_$_acn ON Atom_WorkPeriod_$_acomp.Atom_ComputerName_ID = Atom_WorkPeriod_$_acomp_$_acn.ID 
+                    LEFT JOIN Atom_ComputerUsername Atom_WorkPeriod_$_acomp_$_acun ON Atom_WorkPeriod_$_acomp.Atom_ComputerUsername_ID = Atom_WorkPeriod_$_acomp_$_acun.ID 
+                    LEFT JOIN Atom_MAC_address Atom_WorkPeriod_$_acomp_$_amac ON Atom_WorkPeriod_$_acomp.Atom_MAC_address_ID = Atom_WorkPeriod_$_acomp_$_amac.ID 
                     INNER JOIN Atom_ElectronicDevice Atom_WorkPeriod_$_aed ON Atom_WorkPeriod.Atom_ElectronicDevice_ID = Atom_WorkPeriod_$_aed.ID 
                     LEFT JOIN Atom_WorkPeriod_TYPE Atom_WorkPeriod_$_awperiodt ON Atom_WorkPeriod.Atom_WorkPeriod_TYPE_ID = Atom_WorkPeriod_$_awperiodt.ID
                     where Atom_WorkPeriod_$_amcper.ID in " + sInCondition + " and Atom_WorkPeriod.LoginTime > "+ spar_dateFrom + " and Atom_WorkPeriod.LoginTime < "+ spar_dateTo + " order by Atom_WorkPeriod.LoginTime desc ";

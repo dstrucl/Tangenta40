@@ -937,7 +937,7 @@ namespace Tangenta
         private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
         {
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav);
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav,null);
             this.Cursor = Cursors.Arrow;
             xnav.ChildDialog = edt_my_company_dlg;
             xnav.ShowDialog();
@@ -958,9 +958,9 @@ namespace Tangenta
         }
 
 
-        internal bool Startup_05_ShowForm_EditMyOrganisation_Data(bool bAllowNew, NavigationButtons.Navigation xnav)
+        internal bool Startup_05_ShowForm_EditMyOrganisation_Data(bool bAllowNew, NavigationButtons.Navigation xnav, PostAddress_v myorg_PostAddress_v)
         {
-            xnav.ShowForm(new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav), typeof(Form_myOrg_Edit).ToString());
+            xnav.ShowForm(new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav, myorg_PostAddress_v), typeof(Form_myOrg_Edit).ToString());
             return true;
         }
 

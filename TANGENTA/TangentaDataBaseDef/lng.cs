@@ -488,9 +488,21 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_Atom_MAC_address = new ltext(new string[] { "Computer ethernet MAC address", "MAC naslov" });
 
-        public static ltext lngt_t_Case = new ltext(new string[] { "Case", "Zadeva" });
+        public static ltext lngt_t_CaseItem = new ltext(new string[] { "Case", "Zadeva" });
 
         public static ltext lngt_t_CaseImage = new ltext(new string[] { "Case image", "Zadeva slika" });
+
+        public static ltext lngt_t_CustomerCase = new ltext(new string[] { "Customer Case", "Stranke zadeva" });
+
+        public static ltext lngt_t_CaseParameter = new ltext(new string[] { "Case parameter", "Parameter zadeve" });
+
+        public static ltext lngt_t_SettingsType = new ltext(new string[] { "Settings type", "Podatkovni tip nastavitve" });
+
+        public static ltext lngt_t_SettingsValue = new ltext(new string[] { "Settings value", "Vrednost nastavitve" });
+
+        public static ltext lngt_t_ProgramModule = new ltext(new string[] { "Program module", "Programski modul" });
+
+        public static ltext lngt_t_PropertiesSettings = new ltext(new string[] { "Properties Settings", "Programske nastavitve" });
 
 
     }

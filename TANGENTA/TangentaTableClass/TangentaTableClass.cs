@@ -1130,18 +1130,21 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Name Name = new Name();
+        public Description Description = new Description();
     }
 
     public class Atom_ComputerUserName
     {
         public ID ID = new ID();
         public UserName UserName = new UserName();
+        public Description Description = new Description();
     }
 
     public class Atom_MAC_address
     {
         public ID ID = new ID();
         public MAC_address MAC_address = new MAC_address();
+        public Description Description = new Description();
     }
 
     public class Atom_Computer
@@ -1163,6 +1166,44 @@ namespace TangentaTableClass
         public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
         public Name Name = new Name();
         public Description Description = new Description();
+    }
+
+    public class SettingsType
+    {
+        public ID ID = new ID();
+        public Typ Typ = new Typ();
+        public Description Description = new Description();
+    }
+
+    public class SettingsVal:DB_varchar_264
+    {
+
+    }
+
+    public class SettingsValue
+    {
+        public ID ID = new ID();
+        public SettingsVal SettingsVal = new SettingsVal();
+    }
+
+    public class ProgramModule
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class PropertiesSettings
+    {
+        public ID ID = new ID();
+        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+        public ProgramModule m_ProgramModule = new ProgramModule();
+        public Name Name = new Name();
+        public SettingsType m_SettingsType = new SettingsType();
+        public SettingsValue m_SettingsValue = new SettingsValue();
+        public Description Description = new Description();
+        public TestEnvironment TestEnvironment = new TestEnvironment();
+
     }
 
 
@@ -2628,43 +2669,55 @@ namespace TangentaTableClass
 
     }
 
-    public class CaseParameter :DB_varchar_64
+    public class ParameterValue :DB_varchar_64
     {
 
     }
 
+    public class CaseParameter
+    {
+        public ID ID = new ID();
+        public ParameterValue ParameterValue  = new ParameterValue();
+        public Description Description = new Description();
+    }
 
-    public class Case
+    public class CaseItem
     {
         public ID ID = new ID();
         public Name Name  = new Name();
         public CaseParameter CaseParameter = new CaseParameter();
-        public Active Active = new Active();
         public Description Description = new Description();
         public StartDate StartDate = new StartDate();
         public EndDate EndDate = new EndDate();
+        public Active Active = new Active();
     }
 
 
-    public class CaseImage
+
+    public class EntryTime:DB_DateTime
     {
-        public ID ID = new ID();
-        public Image_Hash Image_Hash = new Image_Hash();
-        public Image_Data Image_Data = new Image_Data();
-    }
 
+    }
 
     public class CustomerCase
     {
         public ID ID = new ID();
         public Customer_Person m_Customer_Person = new Customer_Person();
         public Customer_Org m_Customer_Org = new Customer_Org();
-        public EventTime EventTime = new EventTime();
-        public Case m_Case = new Case();
+        public EntryTime EntryTime = new EntryTime();
+        public CaseItem m_CaseItem = new CaseItem();
         public Description Description = new Description();
-        public CaseImage m_CaseImage = new CaseImage();
     }
 
+
+    public class CaseImage
+    {
+        public ID ID = new ID();
+        public CustomerCase m_CustomerCase = new CustomerCase();
+        public Image_Hash Image_Hash = new Image_Hash();
+        public Image_Data Image_Data = new Image_Data();
+        public Description Description = new Description();
+    }
 
     public class SQL_Database_Tables_Definition
     {
@@ -3302,12 +3355,27 @@ namespace TangentaTableClass
         public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
 
         /* 218 */
-        public Case m_Case = new Case();
+        public CaseItem m_CaseItem = new CaseItem();
 
         /* 219 */
         public CaseImage m_CaseImage = new CaseImage();
 
         /* 220 */
         public CustomerCase m_CustomerCase = new CustomerCase();
+
+        /* 221 */
+        public CaseParameter m_CaseParameter = new CaseParameter();
+
+        /* 222 */
+        public SettingsType m_SettingsType = new SettingsType();
+
+        /* 223 */
+        public SettingsValue m_SettingsValue = new SettingsValue();
+
+        /* 224 */
+        public ProgramModule m_ProgramModule = new ProgramModule();
+
+        /* 225 */
+        public PropertiesSettings m_PropertiesSettings = new PropertiesSettings();
     }
 }
