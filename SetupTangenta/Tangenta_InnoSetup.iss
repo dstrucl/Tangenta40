@@ -138,6 +138,7 @@ Source: "C:\Tangenta40\TANGENTA\Tangenta\bin\AnyCPU\Release\usrc_Item_PageHandle
 Source: "C:\Tangenta40\TANGENTA\Tangenta\bin\AnyCPU\Release\uwpfGUI.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Tangenta40\TANGENTA\Tangenta\bin\AnyCPU\Release\XMessage.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "..\..\..\Tangenta40\TANGENTA\Tangenta\bin\AnyCPU\Release\10286853-1.p12"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
