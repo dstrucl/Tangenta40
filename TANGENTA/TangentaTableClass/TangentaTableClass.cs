@@ -2614,6 +2614,28 @@ namespace TangentaTableClass
         public NotActiveAfterPasswordExpires NotActiveAfterPasswordExpires = new NotActiveAfterPasswordExpires();
     }
 
+    public class LoginTag_TYPE
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+
+    }
+
+    public class LoginKeyValue:DB_varchar_264
+    {
+
+    }
+
+    public class LoginTag
+    {
+        public ID ID = new ID();
+        public LoginUsers m_LoginUsers = new LoginUsers();
+        public LoginTag_TYPE m_LoginTag_TYPE = new LoginTag_TYPE();
+        public LoginKeyValue LoginKeyValue = new LoginKeyValue();
+        public Enabled Enabled = new Enabled();
+    }
+
     public class LoginRoles
     {
         public ID ID = new ID();
@@ -3377,5 +3399,12 @@ namespace TangentaTableClass
 
         /* 225 */
         public PropertiesSettings m_PropertiesSettings = new PropertiesSettings();
+
+        /* 226 */
+        public LoginTag_TYPE m_LoginTag_TYPE = new LoginTag_TYPE();
+
+        /* 227 */
+        public LoginTag m_LoginTag = new LoginTag();
+
     }
 }

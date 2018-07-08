@@ -673,6 +673,12 @@ namespace TangentaDataBaseDef
         /* 225 */
         public SQLTable t_PropertiesSettings = null;
 
+        /* 226 */
+        public SQLTable t_LoginTag_TYPE = null;
+
+        /* 227 */
+        public SQLTable t_LoginTag = null;
+
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -2585,7 +2591,22 @@ namespace TangentaDataBaseDef
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings description", "Opis nastavitve"));
             m_DBTables.items.Add(t_PropertiesSettings);
 
+            /* 226 */
+            t_LoginTag_TYPE = new SQLTable((Object)new LoginTag_TYPE(), "ltt", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginTag_TYPE);
+            t_LoginTag_TYPE.AddColumn((Object) mt.m_LoginTag_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_LoginTag_TYPE.AddColumn((Object) mt.m_LoginTag_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login type", "Način prijave"));
+            t_LoginTag_TYPE.AddColumn((Object) mt.m_LoginTag_TYPE.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login type description", "Opis načina prijave"));
+            m_DBTables.items.Add(t_LoginTag_TYPE);
+
+            /* 227 */
+            t_LoginTag = new SQLTable((Object)new LoginTag(), "lt", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginTag);
+            t_LoginTag.AddColumn((Object) mt.m_LoginTag.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_LoginTag.AddColumn((Object) mt.m_LoginTag.m_LoginUsers, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login user  account ID", "Upirabniški račun ID"));
+            t_LoginTag.AddColumn((Object) mt.m_LoginTag.m_LoginTag_TYPE, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login type ID", "Način prijave"));
+            t_LoginTag.AddColumn((Object) mt.m_LoginTag.LoginKeyValue, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login key", "Prijavni ključ"));
+            m_DBTables.items.Add(t_LoginTag);
+
+        }
     }
-}
  }
 

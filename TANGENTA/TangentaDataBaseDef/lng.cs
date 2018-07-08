@@ -504,6 +504,11 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_PropertiesSettings = new ltext(new string[] { "Properties Settings", "Programske nastavitve" });
 
+        public static ltext lngt_t_LoginTag_TYPE = new ltext(new string[] { "Login Tag", "Vrsta prijave" });
+
+        public static ltext lngt_t_LoginTag = new ltext(new string[] { "Login Tag", "Prijavni označevalec" });
+
+
 
     }
 }
