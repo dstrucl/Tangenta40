@@ -36,7 +36,7 @@ namespace TangentaDB
         public string HouseNumber { get { return HouseNumber_v.vs; } }
         public string ZIP { get { return ZIP_v.vs; } }
         public string City { get { return City_v.vs; } }
-        public string Country{ get { return Country_v.vs; } }
+        public string Country { get { return Country_v.vs; } }
         public string Country_ISO_3166_a2 { get { return Country_ISO_3166_a2_v.vs; } }
         public string Country_ISO_3166_a3 { get { return Country_ISO_3166_a3_v.vs; } }
         public short Country_ISO_3166_num { get { return Country_ISO_3166_num_v.v; } }
@@ -49,6 +49,20 @@ namespace TangentaDB
             }
         }
 
+        public bool CountryDefined
+        {
+            get
+            {
+                if (Country_v != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public PostAddress_v Clone()
         {

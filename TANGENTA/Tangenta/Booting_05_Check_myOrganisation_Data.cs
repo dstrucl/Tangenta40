@@ -17,6 +17,7 @@ namespace Tangenta
     {
         private Form_Document frm = null;
         private startup m_startup = null;
+        public PostAddress_v myorg_PostAddress_v = null;
 
         private long myOffice_ID = -1;
 
@@ -43,7 +44,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-     
+
             usrc_DocumentEditor.eGetOrganisationDataResult eres = frm.m_usrc_Main.Startup_05_Check_myOrganisation_Data();
             switch (eres)
             {
@@ -65,7 +66,7 @@ namespace Tangenta
                     {
                         return Startup_check_proc_Result.CHECK_OK;
                     }
-                    
+
 
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
                     startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
@@ -85,9 +86,9 @@ namespace Tangenta
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
-                    if (myOrg.myOrg_Office_list!=null)
+                    if (myOrg.myOrg_Office_list != null)
                     {
-                        if (myOrg.myOrg_Office_list.Count>0)
+                        if (myOrg.myOrg_Office_list.Count > 0)
                         {
                             if (myOrg.myOrg_Office_list[0].ID_v != null)
                             {
@@ -145,6 +146,11 @@ namespace Tangenta
                                                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                                                    ref string Err)
         {
+            bool bCountryDefined = false;
+            if (myorg_PostAddress_v != null)
+            {
+                bCountryDefined = myorg_PostAddress_v.CountryDefined;
+            }
             switch (eExitResult)
             {
                 case Navigation.eEvent.NEXT:
@@ -157,8 +163,16 @@ namespace Tangenta
 
 
                         case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ORGANISATION_NAME:
-                            startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
-                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            if (!bCountryDefined)
+                            {
+                                startup_ShowForm_proc = Startup_05_Show_Form_Select_Country_ISO_3166;
+                                return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            }
+                            else
+                            {
+                                startup_ShowForm_proc = Startup_05_Show_Form_CheckInsertSampleData;
+                                return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            }
 
                         case usrc_DocumentEditor.eGetOrganisationDataResult.NO_COUNTRY:
                         case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ZIP:
@@ -210,7 +224,7 @@ namespace Tangenta
                             }
                             else
                             {
-                                return Startup_onformresult_proc_Result.NEXT; 
+                                return Startup_onformresult_proc_Result.NEXT;
                             }
 
                         default:
@@ -288,6 +302,7 @@ namespace Tangenta
                             TangentaDB.myOrg.Address_v.Country_ISO_3166_a3_v = new DBTypes.dstring_v(frm_Select_Country_ISO_3166.Country_ISO_3166_a3);
                             TangentaDB.myOrg.Address_v.Country_ISO_3166_num_v = new DBTypes.dshort_v(frm_Select_Country_ISO_3166.Country_ISO_3166_num);
                         }
+                        myorg_PostAddress_v = TangentaDB.myOrg.Address_v.Clone();
 
                         m_startup.sbd.myOrgSample.SetCountry(frm_Select_Country_ISO_3166);
 
@@ -428,7 +443,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_EditMyOrganisation_Data;
-            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav);
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_EditMyOrganisation_Data(false, xnav, myorg_PostAddress_v);
             return true;
         }
 
@@ -471,7 +486,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Office_Data;
-           return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_myOrg_Office_Data(xnav);
+            return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_myOrg_Office_Data(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Office_Data(startup_step myStartup_step,
@@ -513,7 +528,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Person_Edit;
-            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID, true, xnav);
             return true;
         }
 
@@ -556,7 +571,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
-           return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
+            return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav);
         }
 
         private Startup_onformresult_proc_Result Startup_05_onformresult_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(startup_step myStartup_step,

@@ -28,10 +28,12 @@ namespace Tangenta
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
         private NavigationButtons.Navigation nav = null;
+        private PostAddress_v myorg_PostAddress_v = null;
 
-        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew, NavigationButtons.Navigation xnav)
+        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, bool bAllowNew, NavigationButtons.Navigation xnav, PostAddress_v xmyorg_PostAddress_v)
         {
             InitializeComponent();
+            myorg_PostAddress_v = xmyorg_PostAddress_v;
             nav = xnav;
             this.usrc_NavigationButtons1.Init(nav);
             dbTables = xdbTables;
@@ -44,10 +46,10 @@ namespace Tangenta
         {
             dt_my_company.Clear();
             string sql = null;
-             sql = @"select * from myOrganisation_VIEW";
+            sql = @"select * from myOrganisation_VIEW";
 
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt_my_company,sql,ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_my_company, sql, ref Err))
             {
                 dgvx_MyOrganisation.DataSource = dt_my_company;
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_MyOrganisation, dbTables);
@@ -72,7 +74,7 @@ namespace Tangenta
             Cursor = Cursors.WaitCursor;
             if (InitDataTable(-1))
             {
-                usrc_EditRow.Init(dbTables, tbl, null,false,nav);
+                usrc_EditRow.Init(dbTables, tbl, null, false, nav);
                 usrc_EditRow.FillInitialData();
                 if (dt_my_company.Rows.Count > 0)
                 {
@@ -106,7 +108,7 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable_Update(bool res,long ID, string Err)
+        private void usrc_EditTable_Update(bool res, long ID, string Err)
         {
             if (res)
             {
@@ -119,7 +121,7 @@ namespace Tangenta
         {
             if (usrc_EditRow.Changed)
             {
-                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     if (usrc_EditRow.Save())
                     {
@@ -192,18 +194,18 @@ namespace Tangenta
             return false;
         }
 
-    
+
         internal bool Edit_OrganisationAccount(Navigation ynav)
         {
             SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
             Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
-                                                            " OrganisationAccount_$_org_$$Name desc",ynav);
+                                                            " OrganisationAccount_$_org_$$Name desc", ynav);
             edt_Item_dlg.ShowDialog(this);
             Init();
             return true;
         }
-    
+
 
         private void btn_BankAccounts_Click(object sender, EventArgs e)
         {
@@ -291,7 +293,7 @@ namespace Tangenta
                                 nav.eExitResult = evt;
                                 if (!do_Cancel())
                                 {
-                                    nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING; 
+                                    nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                                 }
                                 break;
                         }
@@ -302,7 +304,35 @@ namespace Tangenta
 
         private void usrc_EditRow_FillTable(SQLTable tbl)
         {
-            if (TangentaDB.myOrg.Address_v != null)
+            if (myorg_PostAddress_v != null)
+            {
+                if ((myorg_PostAddress_v.Country_v != null))
+                {
+                    if (tbl.TableName.Equals("cCountry_Org"))
+                    {
+                        foreach (Column col in tbl.Column)
+                        {
+                            if (col.Name.Equals("Country"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_a2"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a2);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_a3"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a3);
+                            }
+                            else if (col.Name.Equals("Country_ISO_3166_num"))
+                            {
+                                col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_num);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (TangentaDB.myOrg.Address_v != null)
             {
                 if ((TangentaDB.myOrg.Address_v.Country_v != null))
                 {
@@ -334,7 +364,32 @@ namespace Tangenta
 
         private void usrc_EditRow_SetInputControlProperties(Column col, object obj)
         {
-            if (TangentaDB.myOrg.Address_v != null)
+            if (myorg_PostAddress_v != null)
+            {
+                if ((myorg_PostAddress_v.Country_v != null))
+                {
+                    if (col.ownerTable.TableName.Equals("cCountry_Org"))
+                    {
+                        if (col.Name.Equals("Country"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_a2"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a2);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_a3"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_a3);
+                        }
+                        else if (col.Name.Equals("Country_ISO_3166_num"))
+                        {
+                            col.InputControl.SetValue(myorg_PostAddress_v.Country_ISO_3166_num);
+                        }
+                    }
+                }
+            }
+            else if (TangentaDB.myOrg.Address_v != null)
             {
                 if ((TangentaDB.myOrg.Address_v.Country_v != null))
                 {

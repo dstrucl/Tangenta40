@@ -173,7 +173,6 @@
     </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="Door.cs" />
-    <Compile Include="Resources\Address.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Form_CheckInsertSampleData.cs">
