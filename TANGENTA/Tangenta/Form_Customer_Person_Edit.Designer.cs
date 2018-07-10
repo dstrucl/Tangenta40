@@ -34,6 +34,7 @@
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.btn_BankAccounts = new System.Windows.Forms.Button();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.btn_PersonCaseFiles = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Cancel
@@ -96,11 +97,22 @@
             this.usrc_Help1.Size = new System.Drawing.Size(44, 24);
             this.usrc_Help1.TabIndex = 7;
             // 
+            // btn_PersonCaseFiles
+            // 
+            this.btn_PersonCaseFiles.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_PersonCaseFiles.Location = new System.Drawing.Point(201, 1);
+            this.btn_PersonCaseFiles.Name = "btn_PersonCaseFiles";
+            this.btn_PersonCaseFiles.Size = new System.Drawing.Size(261, 26);
+            this.btn_PersonCaseFiles.TabIndex = 8;
+            this.btn_PersonCaseFiles.Text = "Person Files";
+            this.btn_PersonCaseFiles.UseVisualStyleBackColor = false;
+            // 
             // Form_Customer_Person_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(905, 607);
+            this.Controls.Add(this.btn_PersonCaseFiles);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_BankAccounts);
             this.Controls.Add(this.btn_Cancel);
@@ -125,5 +137,6 @@
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_BankAccounts;
         private HUDCMS.usrc_Help usrc_Help1;
+        private System.Windows.Forms.Button btn_PersonCaseFiles;
     }
 }

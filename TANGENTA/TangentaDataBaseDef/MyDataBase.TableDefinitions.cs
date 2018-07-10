@@ -2545,8 +2545,8 @@ namespace TangentaDataBaseDef
             /* 220 */
             t_CustomerCase = new SQLTable((Object)new CustomerCase(), "cc", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_CustomerCase);
             t_CustomerCase.AddColumn((Object) mt.m_CustomerCase.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_CustomerCase.AddColumn((Object)mt.m_CustomerCase.m_Customer_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer org ID", "Stranka org ID"));
-            t_CustomerCase.AddColumn((Object)mt.m_CustomerCase.m_Customer_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer person ID", "Stranka oseba ID"));
+            t_CustomerCase.AddColumn((Object)mt.m_CustomerCase.m_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Person ID", "Oseba ID")); 
+            t_CustomerCase.AddColumn((Object)mt.m_CustomerCase.m_Organisation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Organisation ID", "Organiazcija ID"));
             t_CustomerCase.AddColumn((Object)mt.m_CustomerCase.EntryTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Case Entry Time", "Čas vnosa zadeve"));
             t_CustomerCase.AddColumn((Object) mt.m_CustomerCase.m_CaseItem, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Case ID", "Zadeva ID"));
             t_CustomerCase.AddColumn((Object) mt.m_CustomerCase.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Case description", "Opis zadeve"));

@@ -2724,8 +2724,8 @@ namespace TangentaTableClass
     public class CustomerCase
     {
         public ID ID = new ID();
-        public Customer_Person m_Customer_Person = new Customer_Person();
-        public Customer_Org m_Customer_Org = new Customer_Org();
+        public Person m_Person = new Person();
+        public Organisation m_Organisation = new Organisation();
         public EntryTime EntryTime = new EntryTime();
         public CaseItem m_CaseItem = new CaseItem();
         public Description Description = new Description();
