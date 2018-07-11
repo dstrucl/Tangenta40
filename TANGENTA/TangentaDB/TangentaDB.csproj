@@ -117,6 +117,7 @@
     <Compile Include="f_Atom_FVI_SLO_RealEstateBP.cs" />
     <Compile Include="f_Atom_Item_Name.cs" />
     <Compile Include="f_Atom_Logo.cs" />
+    <Compile Include="f_Atom_IP_address.cs" />
     <Compile Include="f_Atom_MAC_address.cs" />
     <Compile Include="f_Atom_myOrganisation.cs" />
     <Compile Include="f_Atom_myOrganisation_Person.cs" />

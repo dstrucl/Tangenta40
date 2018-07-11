@@ -508,7 +508,13 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_LoginTag = new ltext(new string[] { "Login Tag", "Prijavni označevalec" });
 
+        public static ltext lngt_t_WorkAreaImage = new ltext(new string[] { "Work Area Image", "Slika delovnega področja" });
 
+        public static ltext lngt_t_WorkArea = new ltext(new string[] { "Work Area", "Delovno področje" });
+
+        public static ltext lngt_t_WorkAreaDocInvoice = new ltext(new string[] { "Invoice Work Area", "Delovno področje na računu" });
+
+        public static ltext lngt_t_Atom_IP_address = new ltext(new string[] { "IP Address", "IP naslovi" });
 
     }
 }

@@ -1147,15 +1147,23 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class Atom_IP_address
+    {
+        public ID ID = new ID();
+        public IP_address IP_address = new IP_address();
+        public Description Description = new Description();
+    }
+
     public class Atom_Computer
     {
         public ID ID = new ID();
         public Atom_ComputerName m_Atom_ComputerName = new Atom_ComputerName();
         public Atom_ComputerUserName m_Atom_ComputerUserName = new Atom_ComputerUserName();
         public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
-        public IP_address IP_address = new IP_address();
+        public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
         public Description Description = new Description();
     }
+
 
     public class Atom_ElectronicDevice
     {
@@ -2741,6 +2749,30 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class WorkAreaImage
+    {
+        public ID ID = new ID();
+        public Image_Hash Image_Hash = new Image_Hash();
+        public Image_Data Image_Data = new Image_Data();
+        public Description Description = new Description();
+    }
+
+    public class WorkArea
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+        public WorkAreaImage m_WorkAreaImage = new WorkAreaImage();
+        public Active Active = new Active();
+    }
+
+    public class WorkAreaDocInvoice
+    {
+        public ID ID = new ID();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+        public WorkArea m_WorkArea = new WorkArea();
+    }
+
     public class SQL_Database_Tables_Definition
     {
 
@@ -2808,10 +2840,10 @@ namespace TangentaTableClass
 
         /* 28 */
         public Taxation m_Taxation = new Taxation();
-        
+
         /* 29 */
         public Stock m_Stock = new Stock();
-        
+
         /* 30 */
         public SimpleItem m_SimpleItem = new SimpleItem();
 
@@ -2820,19 +2852,19 @@ namespace TangentaTableClass
 
         /* 32 */
         public JOURNAL_DocProformaInvoice_Type m_JOURNAL_DocProformaInvoice_Type = new JOURNAL_DocProformaInvoice_Type();
-        
+
         /* 33 */
         public Atom_Item m_Atom_Item = new Atom_Item();
-        
+
         /* 34 */
         public Atom_SimpleItem m_Atom_SimpleItem = new Atom_SimpleItem();
-        
+
         /* 35 */
         public cCardType_Person m_cCardType_Person = new cCardType_Person();
-        
+
         /* 36 */
         public DBSettings m_DBSettings = new DBSettings();
-        
+
         /* 37 */
         public Atom_Item_Image m_Atom_Item_Image = new Atom_Item_Image();
 
@@ -2948,10 +2980,10 @@ namespace TangentaTableClass
         public Atom_cHouseNumber_Org m_Atom_cHouseNumber_Org = new Atom_cHouseNumber_Org();
 
         /* 75 */
-        public Atom_cCity_Org m_Atom_cCity_Org  = new Atom_cCity_Org();
+        public Atom_cCity_Org m_Atom_cCity_Org = new Atom_cCity_Org();
 
         /* 76 */
-        public Atom_cZIP_Org m_Atom_cZIP_Org  = new Atom_cZIP_Org();
+        public Atom_cZIP_Org m_Atom_cZIP_Org = new Atom_cZIP_Org();
 
         /* 77 */
         public Atom_cCountry_Org m_Atom_cCountry_Org = new Atom_cCountry_Org();
@@ -3405,6 +3437,18 @@ namespace TangentaTableClass
 
         /* 227 */
         public LoginTag m_LoginTag = new LoginTag();
+
+        /* 228 */
+        public WorkAreaImage m_WorkAreaImage = new WorkAreaImage();
+
+        /* 229 */
+        public WorkArea m_WorkArea = new WorkArea();
+
+        /* 230 */
+        public WorkAreaDocInvoice m_WorkAreaDocInvoice = new WorkAreaDocInvoice();
+
+        /* 231 */
+        public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
 
     }
 }

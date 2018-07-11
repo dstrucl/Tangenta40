@@ -14,16 +14,22 @@ namespace TangentaDB
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string MAC_address = LogFile.LogFile.GetMACAddress();
+            return f_Atom_MAC_address.Get(MAC_address, ref Atom_MAC_address_ID);
+        }
+
+        public static bool Get(string xMAC_address,ref long Atom_MAC_address_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
             string Err = null;
             DataTable dt = new DataTable();
 
             string scond_MAC_address = null;
             string sval_MAC_address = "null";
-            if (MAC_address != null)
+            if (xMAC_address != null)
             {
                 string spar_MAC_address = "@par_MAC_address";
-                SQL_Parameter par_MAC_address = new SQL_Parameter(spar_MAC_address, SQL_Parameter.eSQL_Parameter.Nvarchar, false, MAC_address);
+                SQL_Parameter par_MAC_address = new SQL_Parameter(spar_MAC_address, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xMAC_address);
                 lpar.Add(par_MAC_address);
                 scond_MAC_address = "MAC_address = " + spar_MAC_address;
                 sval_MAC_address = spar_MAC_address;

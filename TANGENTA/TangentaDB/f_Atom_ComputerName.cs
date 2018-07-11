@@ -14,16 +14,22 @@ namespace TangentaDB
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string ComputerName = Environment.MachineName;
+            return f_Atom_ComputerName.Get(ComputerName, ref Atom_ComputerName_ID);
+        }
 
+        public static bool Get(string xComputerName, ref long Atom_ComputerName_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+        
             string Err = null;
             DataTable dt = new DataTable();
 
             string scond_ComputerName = null;
             string sval_ComputerName = "null";
-            if (ComputerName != null)
+            if (xComputerName != null)
             {
                 string spar_ComputerName = "@par_ComputerName";
-                SQL_Parameter par_ComputerName = new SQL_Parameter(spar_ComputerName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ComputerName);
+                SQL_Parameter par_ComputerName = new SQL_Parameter(spar_ComputerName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xComputerName);
                 lpar.Add(par_ComputerName);
                 scond_ComputerName = "Name = " + spar_ComputerName;
                 sval_ComputerName = spar_ComputerName;
@@ -46,7 +52,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = @"insert into Atom_ComputerName (Name) values (" + sval_ComputerName+ ")";
+                    sql = @"insert into Atom_ComputerName (Name) values (" + sval_ComputerName + ")";
                     object objretx = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ComputerName_ID, ref objretx, ref Err, "Atom_ComputerName"))
                     {

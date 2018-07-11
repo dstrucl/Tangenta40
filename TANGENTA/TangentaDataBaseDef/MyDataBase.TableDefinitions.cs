@@ -679,6 +679,17 @@ namespace TangentaDataBaseDef
         /* 227 */
         public SQLTable t_LoginTag = null;
 
+        /* 228 */
+        public SQLTable t_WorkAreaImage = null;
+
+        /* 229 */
+        public SQLTable t_WorkArea = null;
+
+        /* 230 */
+        public SQLTable t_WorkAreaDocInvoice = null;
+
+        /* 231 */
+        public SQLTable t_Atom_IP_address = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -1915,7 +1926,7 @@ namespace TangentaDataBaseDef
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_ComputerName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer Name ID", "Ime računalnika ID") );
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_MAC_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("MAC address", "MAC naslov ID"));
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_ComputerUserName, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer UserName ID", "Računalniško prijavno ime ID") );
-            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.IP_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "IP address", "IP naslov") );
+            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_IP_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "IP address ID", "IP naslov ID") );
             m_DBTables.items.Add(t_Atom_Computer);
 
         /* 151 */
@@ -2606,6 +2617,36 @@ namespace TangentaDataBaseDef
             t_LoginTag.AddColumn((Object) mt.m_LoginTag.LoginKeyValue, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login key", "Prijavni ključ"));
             m_DBTables.items.Add(t_LoginTag);
 
+            /* 227 */
+            t_WorkAreaImage = new SQLTable((Object)new WorkAreaImage(), "wai", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_WorkAreaImage);
+            t_WorkAreaImage.AddColumn((Object)mt.m_WorkAreaImage.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WorkAreaImage.AddColumn((Object)mt.m_WorkAreaImage.Image_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image", "Slika delovnega področja"));
+            t_WorkAreaImage.AddColumn((Object)mt.m_WorkAreaImage.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image identification", "Ident. slike"));
+            t_WorkAreaImage.AddColumn((Object)mt.m_WorkAreaImage.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image description", "Opis slike delovnega področja"));
+            m_DBTables.items.Add(t_WorkAreaImage);
+
+            /* 229 */
+            t_WorkArea = new SQLTable((Object)new WorkArea(), "wa", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_WorkArea);
+            t_WorkArea.AddColumn((Object) mt.m_WorkArea.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WorkArea.AddColumn((Object) mt.m_WorkArea.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area name", "Ime delovnega področja"));
+            t_WorkArea.AddColumn((Object) mt.m_WorkArea.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area desription", "Opis delovnega področja"));
+            t_WorkArea.AddColumn((Object)mt.m_WorkArea.Active, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area active", "Delovno področje je aktivno"));
+            t_WorkArea.AddColumn((Object) mt.m_WorkArea.m_WorkAreaImage, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image ID", "Slika delovnega področja ID"));
+            m_DBTables.items.Add(t_WorkArea);
+
+            /* 230 */
+            t_WorkAreaDocInvoice = new SQLTable((Object)new WorkAreaDocInvoice(), "wadi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_WorkAreaDocInvoice);
+            t_WorkAreaDocInvoice.AddColumn((Object) mt.m_WorkAreaDocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WorkAreaDocInvoice.AddColumn((Object) mt.m_WorkAreaDocInvoice.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("DocInvoice ID", "Račun ID"));
+            t_WorkAreaDocInvoice.AddColumn((Object) mt.m_WorkAreaDocInvoice.m_WorkArea, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area ID", "Delovno področje ID"));
+            m_DBTables.items.Add(t_WorkAreaDocInvoice);
+
+            /* 231 */
+            t_Atom_IP_address = new SQLTable((Object)new Atom_IP_address(), "aipa", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_IP_address);
+            t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.IP_address, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP address", "IP naslov"));
+            t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP description", "IP opis"));
+            m_DBTables.items.Add(t_Atom_IP_address);
         }
     }
  }
