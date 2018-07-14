@@ -12,6 +12,7 @@ using System.Text;
 using System.Data;
 using LogFile;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
@@ -19,9 +20,9 @@ namespace TangentaDB
     public static class f_Atom_Price_ShopBItem
     {
         public static bool Get(string DocInvoice,
-                                 long Price_SimpleItem_ID,
-                                 long DocInvoice_ID,
-                                 ref long DocInvoice_ShopB_Item_ID,
+                                 ID Price_SimpleItem_ID,
+                                 ID DocInvoice_ID,
+                                 ref ID DocInvoice_ShopB_Item_ID,
                                  ref int Quantity,
                                  ref decimal RetailSimpleItemPrice,
                                  ref decimal Discount,
@@ -35,25 +36,25 @@ namespace TangentaDB
         {
             if (Find_DocInvoice_ShopB_Item_ID(DocInvoice,DocInvoice_ID, Price_SimpleItem_ID, ref DocInvoice_ShopB_Item_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
             {
-                if (DocInvoice_ShopB_Item_ID >= 0)
+                if (ID.Validate(DocInvoice_ShopB_Item_ID))
                 {
                     return true;
                 }
                 else
                 {
-                    long PriceList_ID = -1;
-                    long SimpleItem_ID = -1;
-                    long Taxation_ID = -1;
+                    ID PriceList_ID = null;
+                    ID SimpleItem_ID = null;
+                    ID Taxation_ID = null;
                     if (Find_PriceList_SimpleItem_Taxation(Price_SimpleItem_ID,ref RetailSimpleItemPrice,ref Discount,ref taxRate,ref taxName, ref PriceList_ID, ref SimpleItem_ID, ref Taxation_ID))
                     {
-                        long Atom_PriceList_ID = -1;
+                        ID Atom_PriceList_ID = null;
 
                         if (f_Atom_PriceList.Get(PriceList_ID, ref Atom_PriceList_ID))
                         {
-                            long Atom_SimpleItem_ID = -1;
+                            ID Atom_SimpleItem_ID =null;
                             if (f_Atom_ShopBItem.Get(SimpleItem_ID, ref Atom_SimpleItem_ID))
                             {
-                                long Atom_Taxation_ID = -1;
+                                ID Atom_Taxation_ID = null;
                                 if (f_Atom_Taxation.Get(Taxation_ID, ref Atom_Taxation_ID))
                                 {
                                     List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
@@ -123,9 +124,8 @@ namespace TangentaDB
                                                              " + DocInvoice_ID.ToString() + @"
                                                             )";
                                     }
-                                    object objretx = null;
                                     string Err = null;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopB_Item_ID, ref objretx, ref Err, DocInvoice+"_ShopB_Item"))
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopB_Item_ID,  ref Err, DocInvoice+"_ShopB_Item"))
                                     {
                                         return true;
                                     }
@@ -162,7 +162,7 @@ namespace TangentaDB
             }
         }
 
-        private static bool Find_PriceList_SimpleItem_Taxation(long Price_SimpleItem_ID,ref decimal RetailSimpleItemPrice,ref decimal Discount,ref decimal taxRate, ref string taxName, ref long PriceList_ID, ref long SimpleItem_ID, ref long Taxation_ID)
+        private static bool Find_PriceList_SimpleItem_Taxation(ID Price_SimpleItem_ID,ref decimal RetailSimpleItemPrice,ref decimal Discount,ref decimal taxRate, ref string taxName, ref ID PriceList_ID, ref ID SimpleItem_ID, ref ID Taxation_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -190,17 +190,30 @@ namespace TangentaDB
                     {
                         Discount = (decimal)oDiscount;
                     }
-                    Taxation_ID = (long)dt.Rows[0]["Taxation_ID"];
-                    PriceList_ID = (long)dt.Rows[0]["PriceList_ID"];
-                    SimpleItem_ID = (long)dt.Rows[0]["SimpleItem_ID"];
-                    Taxation_ID = (long)dt.Rows[0]["Taxation_ID"];
+                    if (Taxation_ID==null)
+                    {
+                        Taxation_ID = new ID();
+                    }
+                    Taxation_ID.Set(dt.Rows[0]["Taxation_ID"]);
+
+                    if (PriceList_ID==null)
+                    {
+                        PriceList_ID = new ID();
+                    }
+                    PriceList_ID.Set(dt.Rows[0]["PriceList_ID"]);
+
+                    if (SimpleItem_ID==null)
+                    {
+                        SimpleItem_ID = new ID();
+                    }
+                    SimpleItem_ID.Set(dt.Rows[0]["SimpleItem_ID"]);
                     return true;
                 }
                 else
                 {
-                    PriceList_ID = -1;
-                    SimpleItem_ID = -1;
-                    Taxation_ID = -1;
+                    PriceList_ID = null;
+                    SimpleItem_ID = null;
+                    Taxation_ID = null;
                     LogFile.Error.Show(@"ERROR:PriceList_ID not found in Price_SimpleItem for Price_SimpleItem_ID = " + Price_SimpleItem_ID.ToString());
                     return false;
                 }
@@ -212,14 +225,12 @@ namespace TangentaDB
                                 from DocInvoice_ShopB_Item:\r\nErr=" + Err);
                 return false;
             }
-
-
         }
 
         private static bool Find_DocInvoice_ShopB_Item_ID(string DocInvoice,
-                                                          long DocInvoice_ID,
-                                                          long Price_SimpleItem_ID, 
-                                                          ref long DocInvoice_ShopB_Item_ID,
+                                                          ID DocInvoice_ID,
+                                                          ID Price_SimpleItem_ID, 
+                                                          ref ID DocInvoice_ShopB_Item_ID,
                                                           ref int Quantity,
                                                           ref decimal RetailSimpleItemPrice,
                                                           ref decimal Discount,
@@ -262,7 +273,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    DocInvoice_ShopB_Item_ID = (long)dt.Rows[0][DocInvoice+"_ShopB_Item_ID"];
+                    if (DocInvoice_ShopB_Item_ID==null)
+                    {
+                        DocInvoice_ShopB_Item_ID = new ID();
+                    }
+                    DocInvoice_ShopB_Item_ID.Set(dt.Rows[0][DocInvoice+"_ShopB_Item_ID"]);
                     Quantity = (int)dt.Rows[0]["iQuantity"];
                     RetailSimpleItemPrice = (decimal)dt.Rows[0]["RetailSimpleItemPrice"];
                     Discount = (decimal)dt.Rows[0]["Discount"];
@@ -274,7 +289,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    DocInvoice_ShopB_Item_ID = -1;
+                    DocInvoice_ShopB_Item_ID = null;
                 }
                 return true;
             }

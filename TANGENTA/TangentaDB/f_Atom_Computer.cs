@@ -22,13 +22,13 @@ namespace TangentaDB
     {
 
 
-        public static bool Get(ref long Atom_Computer_ID)
+        public static bool Get(ref ID Atom_Computer_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long Atom_ComputerName_ID = -1;
-            long Atom_ComputerUsername_ID = -1;
-            long Atom_MAC_address_ID = -1;
-            long Atom_IP_address_ID = -1;
+            ID Atom_ComputerName_ID = null;
+            ID Atom_ComputerUsername_ID = null;
+            ID Atom_MAC_address_ID = null;
+            ID Atom_IP_address_ID = null;
 
             string Err = null;
             DataTable dt = new DataTable();
@@ -37,10 +37,10 @@ namespace TangentaDB
             {
                 string scond_Atom_ComputerName_ID = null;
                 string sval_Atom_ComputerName_ID = "null";
-                if (Atom_ComputerName_ID >= 0)
+                if (ID.Validate(Atom_ComputerName_ID))
                 {
                     string spar_Atom_ComputerName_ID = "@par_ComputerName";
-                    SQL_Parameter par_Atom_ComputerName_ID = new SQL_Parameter(spar_Atom_ComputerName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ComputerName_ID);
+                    SQL_Parameter par_Atom_ComputerName_ID = new SQL_Parameter(spar_Atom_ComputerName_ID, false, Atom_ComputerName_ID);
                     lpar.Add(par_Atom_ComputerName_ID);
                     scond_Atom_ComputerName_ID = "Atom_ComputerName_ID = " + spar_Atom_ComputerName_ID;
                     sval_Atom_ComputerName_ID = spar_Atom_ComputerName_ID;
@@ -55,10 +55,10 @@ namespace TangentaDB
                 {
                     string scond_Atom_ComputerUsername_ID = null;
                     string sval_Atom_ComputerUsername_ID = "null";
-                    if (Atom_ComputerUsername_ID >= 0)
+                    if (ID.Validate(Atom_ComputerUsername_ID))
                     {
                         string spar_Atom_ComputerUsername_ID = "@par_Atom_ComputerUsername_ID";
-                        SQL_Parameter par_Atom_ComputerUsername_ID = new SQL_Parameter(spar_Atom_ComputerUsername_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ComputerUsername_ID);
+                        SQL_Parameter par_Atom_ComputerUsername_ID = new SQL_Parameter(spar_Atom_ComputerUsername_ID,  false, Atom_ComputerUsername_ID);
                         lpar.Add(par_Atom_ComputerUsername_ID);
                         scond_Atom_ComputerUsername_ID = "Atom_ComputerUsername_ID = " + spar_Atom_ComputerUsername_ID;
                         sval_Atom_ComputerUsername_ID = spar_Atom_ComputerUsername_ID;
@@ -73,10 +73,10 @@ namespace TangentaDB
                     {
                         string scond_Atom_MAC_address_ID = null;
                         string sval_Atom_MAC_address_ID = "null";
-                        if (Atom_MAC_address_ID >= 0)
+                        if (ID.Validate(Atom_MAC_address_ID))
                         {
                             string spar_Atom_MAC_address_ID = "@par_Atom_MAC_address_ID";
-                            SQL_Parameter par_Atom_MAC_address_ID = new SQL_Parameter(spar_Atom_MAC_address_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_MAC_address_ID);
+                            SQL_Parameter par_Atom_MAC_address_ID = new SQL_Parameter(spar_Atom_MAC_address_ID, false, Atom_MAC_address_ID);
                             lpar.Add(par_Atom_MAC_address_ID);
                             scond_Atom_MAC_address_ID = "Atom_MAC_address_ID = " + spar_Atom_MAC_address_ID;
                             sval_Atom_MAC_address_ID = spar_Atom_MAC_address_ID;
@@ -93,10 +93,10 @@ namespace TangentaDB
                         {
                             string scond_Atom_IP_address_ID = null;
                             string sval_Atom_IP_address_ID = "null";
-                            if (Atom_IP_address_ID >= 0)
+                            if (ID.Validate(Atom_IP_address_ID))
                             {
                                 string spar_Atom_IP_address_ID = "@par_Atom_IP_address_ID";
-                                SQL_Parameter par_Atom_IP_address_ID = new SQL_Parameter(spar_Atom_IP_address_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_IP_address_ID);
+                                SQL_Parameter par_Atom_IP_address_ID = new SQL_Parameter(spar_Atom_IP_address_ID, false, Atom_IP_address_ID);
                                 lpar.Add(par_Atom_IP_address_ID);
                                 scond_Atom_IP_address_ID = "Atom_IP_address_ID = " + spar_Atom_IP_address_ID;
                                 sval_Atom_IP_address_ID = spar_Atom_IP_address_ID;
@@ -114,14 +114,17 @@ namespace TangentaDB
                             {
                                 if (dt.Rows.Count > 0)
                                 {
-                                    Atom_Computer_ID = (long)dt.Rows[0]["ID"];
+                                    if (Atom_Computer_ID==null)
+                                    {
+                                        Atom_Computer_ID = new ID();
+                                    }
+                                    Atom_Computer_ID.Set(dt.Rows[0]["ID"]);
                                     return true;
                                 }
                                 else
                                 {
                                     sql = @"insert into Atom_Computer (Atom_ComputerName_ID,Atom_ComputerUsername_ID,Atom_MAC_address_ID,Atom_IP_address_ID) values (" + sval_Atom_ComputerName_ID + "," + sval_Atom_ComputerUsername_ID + "," + sval_Atom_MAC_address_ID + "," + sval_Atom_IP_address_ID + ")";
-                                    object objretx = null;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref objretx, ref Err, "Atom_Computer"))
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref Err, "Atom_Computer"))
                                     {
                                         return true;
                                     }

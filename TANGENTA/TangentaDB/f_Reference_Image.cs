@@ -12,17 +12,17 @@ namespace TangentaDB
 {
     public static class f_Reference_Image
     {
-        public static bool Get(byte_array_v Image_Data_v, string_v Image_Hash_v,  ref long_v Reference_Image_ID_v)
+        public static bool Get(byte_array_v Image_Data_v, string_v Image_Hash_v,  ref ID Reference_Image_ID)
         {
             string Err = null;
             if (Image_Hash_v == null)
             {
-                Reference_Image_ID_v = null;
+                Reference_Image_ID = null;
                 return true;
             }
-            if (Reference_Image_ID_v == null)
+            if (Reference_Image_ID == null)
             {
-                Reference_Image_ID_v = new long_v();
+                Reference_Image_ID = new ID();
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Image_Hash_Value = "null";
@@ -62,25 +62,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Reference_Image_ID_v==null)
+                    if (Reference_Image_ID==null)
                     {
-                        Reference_Image_ID_v = new long_v();
+                        Reference_Image_ID = new ID();
                     }
-                    Reference_Image_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Reference_Image_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = " insert into Reference_Image (Image_Hash,Image_Data) values (" + Image_Hash_Value + "," + Image_Data_Value+ ")";
-                    object oRet = null;
-                    long Reference_Image_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Reference_Image_ID, ref oRet, ref Err, "Reference_Image"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Reference_Image_ID, ref Err, "Reference_Image"))
                     {
-                        if (Reference_Image_ID_v == null)
-                        {
-                            Reference_Image_ID_v = new long_v();
-                        }
-                        Reference_Image_ID_v.v = Reference_Image_ID;
                         return true;
                     }
                     else
@@ -97,7 +90,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(Image Reference_Image,ref string Image_Hash, ref long_v Reference_Image_ID_v)
+        public static bool Get(Image Reference_Image,ref string Image_Hash, ref ID Reference_Image_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             Image_Hash = null;
@@ -110,7 +103,7 @@ namespace TangentaDB
                 Image_Hash_v = new string_v();
                 Image_Hash_v.v = StaticLib.Func.GetHash_SHA1(Image_Data_v.v);
                 Image_Hash = Image_Hash_v.v;
-                if (f_Reference_Image.Get(Image_Data_v, Image_Hash_v, ref Reference_Image_ID_v))
+                if (f_Reference_Image.Get(Image_Data_v, Image_Hash_v, ref Reference_Image_ID))
                 {
                     return true;
                 }

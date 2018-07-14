@@ -19,7 +19,7 @@ namespace TangentaDB
             public string ExpiryDescription = null;
         }
 
-        public static bool Get(Expiry_v expiry_v,ref long_v Expiry_ID_v)
+        public static bool Get(Expiry_v expiry_v,ref ID Expiry_ID)
         {
             if (expiry_v != null)
             {
@@ -47,11 +47,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (Expiry_ID_v == null)
+                        if (Expiry_ID == null)
                         {
-                            Expiry_ID_v = new long_v();
+                            Expiry_ID = new ID();
                         }
-                        Expiry_ID_v.v = (long)dt.Rows[0]["ID"];
+                        Expiry_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
@@ -65,15 +65,8 @@ namespace TangentaDB
                                                          + expiry_v.SaleBeforeExpiryDateInDays.ToString() + ","
                                                          + expiry_v.DiscardBeforeExpiryDateInDays.ToString() + ","
                                                          + sval_ExpiryDescription + ")";
-                        long Expiry_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Expiry_ID, ref oret, ref Err, "Expiry"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Expiry_ID, ref Err, "Expiry"))
                         {
-                            if (Expiry_ID_v == null)
-                            {
-                                Expiry_ID_v = new long_v();
-                            }
-                            Expiry_ID_v.v = Expiry_ID;
                             return true;
                         }
                         else
@@ -91,12 +84,12 @@ namespace TangentaDB
             }
             else
             {
-                Expiry_ID_v = null;
+                Expiry_ID = null;
                 return true;
             }
         }
 
-        internal static bool Get(long Expiry_ID, ref Expiry_v expiry_v)
+        internal static bool Get(ID Expiry_ID, ref Expiry_v expiry_v)
         {
             expiry_v = null;
 
@@ -104,7 +97,7 @@ namespace TangentaDB
 
 
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Expiry_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, Expiry_ID);
             lpar.Add(par_ID);
 
             string sql = "select ExpectedShelfLifeInDays,SaleBeforeExpiryDateInDays,DiscardBeforeExpiryDateInDays,ExpiryDescription from Expiry where ID = " + spar_ID;

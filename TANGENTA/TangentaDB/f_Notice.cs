@@ -10,11 +10,11 @@ namespace TangentaDB
 {
     public static class f_Notice
     {
-        public static bool Get(string NoticeText, ref long_v Notice_ID_v)
+        public static bool Get(string NoticeText, ref ID Notice_ID)
         {
             string Err = null;
             string sql = null;
-            Notice_ID_v = null;
+            Notice_ID = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             if (NoticeText == null)
             {
@@ -34,17 +34,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Notice_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    if (Notice_ID==null)
+                    {
+                        Notice_ID = new ID();
+                    }
+                    Notice_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Notice (NoticeText) values (" + sval_NoticeText + ")";
-                    object objretx = null;
-                    long Notice_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Notice_ID, ref objretx, ref Err, "Notice"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Notice_ID,  ref Err, "Notice"))
                     {
-                        Notice_ID_v = new long_v(Notice_ID);
                         return true;
                     }
                     else

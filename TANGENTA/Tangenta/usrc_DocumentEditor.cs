@@ -934,6 +934,12 @@ namespace Tangenta
             return true;
         }
 
+        internal bool Startup_05_Show_Form_SetElectronicDeviceName(NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_SetElectronicDeviceName(myOrg.myOrg_Office., xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
+            return true;
+        }
+
         private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
         {
             this.Cursor = Cursors.WaitCursor;
@@ -1005,7 +1011,7 @@ namespace Tangenta
             }
             if (m_InvoiceData == null)
             {
-                m_InvoiceData = new InvoiceData(m_ShopABC, Document_ID, Properties.Settings.Default.ElectronicDevice_ID);
+                m_InvoiceData = new InvoiceData(m_ShopABC, Document_ID, GlobalData.ElectronicDevice_Name);
             }
             else
             {
@@ -1600,6 +1606,7 @@ namespace Tangenta
                                                 NO_COUNTRY,
                                                 NO_OFFICE,
                                                 NO_REAL_ESTATE,
+                                                NO_ELECTRONIC_DEVICE_NAME,
                                                 NO_MY_ORG_PERSON,
                                                 OK,
                                                 ERROR
@@ -1720,6 +1727,14 @@ namespace Tangenta
                                     MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
                                 }
                                 return eGetOrganisationDataResult.NO_REAL_ESTATE;
+                            }
+                        }
+
+                        if (f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name, ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
+                        {
+                            if (!ID.IsValid(GlobalData.Atom_ElectronicDevice_ID))
+                            {
+                                return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME;
                             }
                         }
                     }
@@ -2036,7 +2051,7 @@ namespace Tangenta
         {
             long DocInvoice_ID = -1;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, Properties.Settings.Default.ElectronicDevice_ID, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
             {
                 if (m_ShopABC.m_CurrentInvoice.Doc_ID >= 0)
                 {
@@ -2123,7 +2138,7 @@ namespace Tangenta
             string sGrossSum = "";
             if (IsDocInvoice)
             {
-                if (m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v == null)
+                if (m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID == null)
                 {
                     sGrossSum = dsum_GrossSum.ToString();
                     this.lbl_Sum.ForeColor = Color.Black;
@@ -2225,7 +2240,7 @@ namespace Tangenta
                   
                     long DocInvoice_ID = -1;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID))
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name))
                     {
 
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
@@ -2268,7 +2283,7 @@ namespace Tangenta
                 {
                     long DocInvoice_ID = -1;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID))
+                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name))
                     {
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
@@ -2318,7 +2333,7 @@ namespace Tangenta
                                        Properties.Resources.FVI_SLO_Invoice,
                                        Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
                                        Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
-                                       Properties.Settings.Default.ElectronicDevice_ID,
+                                       GlobalData.ElectronicDevice_Name,
                                        Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,
                                        "", "",
                                        m_InvoiceData.IssueDate_v,
@@ -2552,7 +2567,7 @@ namespace Tangenta
     
                                     long Storno_DocInvoice_ID = -1;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_DocInvoice_ID,true,Properties.Settings.Default.ElectronicDevice_ID, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
+                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_DocInvoice_ID,true,GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
                                         if (Storno != null)
                                         {
@@ -2563,7 +2578,7 @@ namespace Tangenta
                                     if (Program.b_FVI_SLO)
                                     {
                                         this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID);
+                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID,GlobalData.ElectronicDevice_Name);
                                         if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                         {
 
@@ -2571,7 +2586,7 @@ namespace Tangenta
                                                                                                           Properties.Resources.FVI_SLO_Invoice,
                                                                                                           Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
                                                                                                           Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
-                                                                                                          Properties.Settings.Default.ElectronicDevice_ID,
+                                                                                                          GlobalData.ElectronicDevice_Name,
                                                                                                           Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,
                                                                                                           stornoReferenceInvoiceNumber,
                                                                                                           stornoReferenceInvoiceIssueDateTime,
@@ -2630,7 +2645,7 @@ namespace Tangenta
             long_v Atom_Customer_Org_ID_v = null;
             if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocInvoice,Customer_Org_ID, ref Atom_Customer_Org_ID_v))
             {
-                m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID_v = Atom_Customer_Org_ID_v;
+                m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID = Atom_Customer_Org_ID_v;
                 if (Atom_Customer_Org_ID_v != null)
                 {
                     usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentInvoice);

@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 using UniqueControlNames;
 
@@ -21,18 +22,17 @@ namespace CodeTables
     public partial class EditTable_Assistant_Form : Form
     {
         UniqueControlName uctrln = new UniqueControlName();
-        long Identity = -1;
         usrc_myGroupBox m_MyGroupBox;
         SQLTable m_tbl;
         DataTable m_dt;
         DBTableControl m_DBTables;
         int m_xpos = 0;
         int m_ypos = 0;
-        ID_v my_start_up_id_v = null;
+        ID my_start_up_id = null;
 
-        public EditTable_Assistant_Form(usrc_myGroupBox mygrpbox, SQLTable tbl,ID_v id_v, DBTableControl xDBTables,int xpos, int ypos)
+        public EditTable_Assistant_Form(usrc_myGroupBox mygrpbox, SQLTable tbl,ID id, DBTableControl xDBTables,int xpos, int ypos)
         {
-            my_start_up_id_v = id_v;
+            my_start_up_id = id;
             m_xpos = xpos;
             m_ypos = ypos;
             m_DBTables = xDBTables;
@@ -63,9 +63,9 @@ namespace CodeTables
                 dataGridView.ClearSelection();
                 dataGridView.CurrentCell = null;
                 Globals.ShowID_In_DataGrid(dataGridView);
-                if (my_start_up_id_v != null)
+                if (my_start_up_id != null)
                 {
-                    DataRow[] drs = m_dt.Select("ID = " + my_start_up_id_v.v.ToString());
+                    DataRow[] drs = m_dt.Select("ID = " + my_start_up_id.V.ToString());
                     if (drs.Count() > 0)
                     {
                         int idx = m_dt.Rows.IndexOf(drs[0]);
@@ -145,7 +145,7 @@ namespace CodeTables
                 //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
                 if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                 {
-                    Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                    ID Identity = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
                     m_MyGroupBox.pSQL_Table.iFillTableData = 0;
                     m_MyGroupBox.FillInputControls(Identity, false, uctrln);
                 }

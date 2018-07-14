@@ -22,19 +22,19 @@ namespace TangentaDB
 {
     public static class f_Atom_myOrganisation_Person
     {
-        public static bool Get(long myOrganisation_Person_ID, ref long Atom_myOrganisation_Person_ID, ref string_v office_name)
+        public static bool Get(ID myOrganisation_Person_ID, ref ID Atom_myOrganisation_Person_ID, ref string_v office_name)
         {
             string Err = null;
             DataTable dt = new DataTable();
-            long myOrganisation_ID = -1;
-            long Office_ID = -1;
-            long Person_ID = -1;
+            ID myOrganisation_ID = null;
+            ID Office_ID = null;
+            ID Person_ID = null;
             if (Find_myOrganisation_Office(myOrganisation_Person_ID, ref Person_ID, ref myOrganisation_ID, ref Office_ID, ref Err))
             {
-                long Atom_myOrganisation_ID = -1;
+                ID Atom_myOrganisation_ID = null;
                 if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID))
                 {
-                    long Atom_Office_ID = -1;
+                    ID Atom_Office_ID = null;
                     if (f_Atom_Office.Get(Office_ID,ref Atom_Office_ID))
                     {
                         DataTable dtOfficeData_of_Office_ID = new DataTable();
@@ -48,8 +48,8 @@ namespace TangentaDB
                                 {
                                     for (i=0;i< iCount;i++)
                                     {
-                                        long OfficeData_ID = (long)dtOfficeData_of_Office_ID.Rows[i]["ID"];
-                                        long Atom_Office_Data_ID = -1;
+                                        ID OfficeData_ID = new ID(dtOfficeData_of_Office_ID.Rows[i]["ID"]);
+                                        ID Atom_Office_Data_ID = null;
                                         if (!f_Atom_Office_Data.Get(OfficeData_ID, ref Atom_Office_Data_ID))
                                         {
                                             return false;
@@ -96,8 +96,7 @@ namespace TangentaDB
                                     {
                                         if (dt.Rows.Count > 0)
                                         {
-                                            long_v Person_ID_v = null;
-                                            Person_ID_v = tf.set_long(dt.Rows[0]["myOrganisation_Person_$_per_$$ID"]);
+                                            Person_ID = new ID(dt.Rows[0]["myOrganisation_Person_$_per_$$ID"]);
                                             Job_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$Job"]);
                                             Description_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$Description"]);
                                             Gender_v = tf.set_bool(dt.Rows[0]["myOrganisation_Person_$_per_$$Gender"]);
@@ -155,7 +154,7 @@ namespace TangentaDB
                                                 return false;
                                             }
 
-                                            long_v Atom_Person_ID = null;
+                                            ID Atom_Person_ID = null;
                                             if (f_Atom_Person.Get(Gender_v,
                                                                     FirstName_v,
                                                                     LastName_v,
@@ -186,10 +185,10 @@ namespace TangentaDB
 
                                                 string scond_Atom_Office_ID = null;
                                                 string sval_Atom_Office_ID = "null";
-                                                if (Atom_Office_ID >= 0)
+                                                if (ID.Validate(Atom_Office_ID))
                                                 {
                                                     string spar_Atom_Office_ID = "@par_Atom_Office_ID";
-                                                    SQL_Parameter par_Atom_Office_ID = new SQL_Parameter(spar_Atom_Office_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Atom_Office_ID);
+                                                    SQL_Parameter par_Atom_Office_ID = new SQL_Parameter(spar_Atom_Office_ID, false, Atom_Office_ID);
                                                     lpar.Add(par_Atom_Office_ID);
                                                     scond_Atom_Office_ID = "Atom_Office_ID = " + spar_Atom_Office_ID;
                                                     sval_Atom_Office_ID = spar_Atom_Office_ID;
@@ -202,10 +201,10 @@ namespace TangentaDB
 
                                                 string scond_Atom_Person_ID = null;
                                                 string sval_Atom_Person_ID = "null";
-                                                if (Atom_Person_ID != null)
+                                                if (ID.Validate(Atom_Person_ID))
                                                 {
                                                     string spar_Atom_Person_ID = "@par_Atom_Person_ID";
-                                                    SQL_Parameter par_Atom_Person_ID = new SQL_Parameter(spar_Atom_Person_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Atom_Person_ID.v);
+                                                    SQL_Parameter par_Atom_Person_ID = new SQL_Parameter(spar_Atom_Person_ID, false, Atom_Person_ID);
                                                     lpar.Add(par_Atom_Person_ID);
                                                     scond_Atom_Person_ID = "Atom_Person_ID = " + spar_Atom_Person_ID;
                                                     sval_Atom_Person_ID = spar_Atom_Person_ID;
@@ -255,7 +254,11 @@ namespace TangentaDB
                                                 {
                                                     if (dt.Rows.Count > 0)
                                                     {
-                                                        Atom_myOrganisation_Person_ID = (long)dt.Rows[0]["ID"];
+                                                        if (Atom_myOrganisation_Person_ID==null)
+                                                        {
+                                                            Atom_myOrganisation_Person_ID = new ID();
+                                                        }
+                                                        Atom_myOrganisation_Person_ID.Set(dt.Rows[0]["ID"]);
                                                         return true;
                                                     }
                                                     else
@@ -263,8 +266,7 @@ namespace TangentaDB
                                                         sql = @"insert into  atom_myorganisation_person (Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_Atom_Office_ID + "," + sval_Atom_Person_ID + "," + sval_Job + "," + sval_Description + ")";
                                                         dt.Clear();
                                                         dt.Columns.Clear();
-                                                        object oret = null;
-                                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_myOrganisation_Person_ID, ref oret, ref Err, "atom_myorganisation_person"))
+                                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_myOrganisation_Person_ID, ref Err, "atom_myorganisation_person"))
                                                         {
                                                             return true;
                                                         }
@@ -338,7 +340,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(long myOrganisation_Person_ID, ref List<long> atom_myOrganisation_Person_ID_List)
+        public static bool Get(ID myOrganisation_Person_ID, ref List<long> atom_myOrganisation_Person_ID_List)
         {
             string sql = @"select amop.ID as Atom_myOrganisation_Person_ID
 	                      from myOrganisation_Person mop 
@@ -382,7 +384,7 @@ namespace TangentaDB
             }
         }
 
-        private static bool Find_myOrganisation_Office(long myOrganisation_Person_ID, ref long Person_ID, ref long myOrganisation_ID, ref long Office_ID, ref string Err)
+        private static bool Find_myOrganisation_Office(ID myOrganisation_Person_ID, ref ID Person_ID, ref ID myOrganisation_ID, ref ID Office_ID, ref string Err)
         {
             DataTable dt = new DataTable();
             string smyOrganisation_Person_ID = myOrganisation_Person_ID.ToString();
@@ -396,15 +398,28 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    myOrganisation_ID = (long)dt.Rows[0]["myOrganisation_ID"];
-                    Person_ID = (long)dt.Rows[0]["Person_ID"];
-                    Office_ID = (long)dt.Rows[0]["Office_ID"];
+                    if (myOrganisation_ID==null)
+                    {
+                        myOrganisation_ID = new ID();
+                    }
+                    myOrganisation_ID.Set(dt.Rows[0]["myOrganisation_ID"]);
+
+                    if (Person_ID==null)
+                    {
+                        Person_ID = new ID();
+                    }
+                    Person_ID.Set(dt.Rows[0]["Person_ID"]);
+                    if (Office_ID==null)
+                    {
+                        Office_ID = new ID();
+                    }
+                    Office_ID.Set(dt.Rows[0]["Office_ID"]);
                     return true;
                 }
                 else
                 {
-                    myOrganisation_ID = -1;
-                    Person_ID = -1;
+                    myOrganisation_ID = null;
+                    Person_ID = null;
                     Err = null;
                     return false;
                 }

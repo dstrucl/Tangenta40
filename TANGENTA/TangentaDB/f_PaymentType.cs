@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_PaymentType
     {
-        public static bool Get(string identification,string name,ref string_v PaymentType_Name_v,ref long_v PaymentType_ID_v)
+        public static bool Get(string identification,string name,ref string_v PaymentType_Name_v,ref ID PaymentType_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -24,22 +24,23 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    PaymentType_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    if (PaymentType_ID==null)
+                    {
+                        PaymentType_ID = new ID();
+                    }
+                    PaymentType_ID.Set(dt.Rows[0]["ID"]);
                     PaymentType_Name_v = tf.set_string(dt.Rows[0]["Name"]);
                     return true;
                 }
                 else
                 {
-                    long id_Identification = -1;
                     string spar_Name = "@par_Name";
                     SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, name);
                     lpar.Add(par_Name);
 
                     sql = "insert into PaymentType (Identification,Name) values (" + spar_Identification + ","+ spar_Name + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id_Identification, ref oret, ref Err, "PaymentType"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PaymentType_ID, ref Err, "PaymentType"))
                     {
-                        PaymentType_ID_v = tf.set_long(id_Identification);
                         return true;
                     }
                     else
@@ -56,7 +57,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(string identification,ref string_v PaymentType_Name_v,  ref long_v PaymentType_ID_v)
+        public static bool Get(string identification,ref string_v PaymentType_Name_v,  ref ID PaymentType_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -70,7 +71,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    PaymentType_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    if (PaymentType_ID==null)
+                    {
+                        PaymentType_ID = new ID();
+                    }
+                    PaymentType_ID.Set(dt.Rows[0]["ID"]);
                     PaymentType_Name_v = tf.set_string(dt.Rows[0]["Name"]);
                 }
                 return true;
@@ -81,6 +86,5 @@ namespace TangentaDB
                 return false;
             }
         }
-
     }
 }

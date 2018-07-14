@@ -16,28 +16,29 @@ using System.Windows.Forms;
 using LanguageControl;
 using DBTypes;
 using NavigationButtons;
+using DBConnectionControl40;
 
 namespace CodeTables.TableDocking_Form
 {
     public partial class usrc_EditTable : UserControl
     {
-        public long Identity = -1;
+        public ID Identity = null;
 
         public delegate void delegate_dgvx_DataError(object sender, DataGridViewDataErrorEventArgs e);
 
 
-        public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction);
+        public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction);
 
         public delegate void delegate_before_New(SQLTable m_tbl, ref bool bCancel);
         public delegate void delegate_after_New(SQLTable m_tbl, bool bRes);
 
-        public delegate void delegate_SelectedIndexChanged(SQLTable m_tbl,long ID, int index);
+        public delegate void delegate_SelectedIndexChanged(SQLTable m_tbl,ID ID, int index);
 
         public delegate void delegate_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel);
-        public delegate void delegate_after_InsertInDataBase(SQLTable m_tbl,long ID, bool bRes);
+        public delegate void delegate_after_InsertInDataBase(SQLTable m_tbl,ID ID, bool bRes);
 
         public delegate void delegate_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel);
-        public delegate void delegate_after_UpdateDataBase(SQLTable m_tbl,long ID, bool bRes);
+        public delegate void delegate_after_UpdateDataBase(SQLTable m_tbl,ID ID, bool bRes);
 
         public delegate void delegate_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e);
 
@@ -170,7 +171,7 @@ namespace CodeTables.TableDocking_Form
                         string xOrderByColumnName,
                         bool xbEditUndefined,
                         string xWhereConditon,
-                        long_v ID_v,bool bReadOnly,
+                        ID IDa,bool bReadOnly,
                         NavigationButtons.Navigation xnav)
         {
             nav = xnav;
@@ -192,31 +193,35 @@ namespace CodeTables.TableDocking_Form
                 tbl = xtbl;
             }
 
-            long id = -1;
-            if (ID_v!=null)
+            ID id = null;
+            if (IDa!=null)
             {
-                id = ID_v.v;
+                id = IDa;
             }
             if (InitDataTable(id))
             {
                 usrc_EditRow.Init(dbTables, tbl, null, bReadOnly,nav);
                 if (dt_Data.Rows.Count > 0)
                 {
-                    Identity = (long)dt_Data.Rows[0]["ID"];
-                    if (ID_v != null)
+                    if (Identity == null)
                     {
-                        string expression = "ID = " + ID_v.v.ToString();
+                        Identity = new ID();
+                    }
+                    Identity.Set(dt_Data.Rows[0]["ID"]);
+                    if (IDa != null)
+                    {
+                        string expression = "ID = " + IDa.V.ToString();
                         DataRow[] drs = dt_Data.Select(expression);
                         if (drs.Count()>0)
                         { 
-                            Identity = ID_v.v;
+                            Identity = IDa;
                         }
                     }
                     usrc_EditRow.ShowTableRow(Identity);
                 }
                 else
                 {
-                    Identity = -1;
+                    Identity = null;
                 }
                 this.dgvx_Table.SelectionChanged += new System.EventHandler(this.dgvx_Table_SelectionChanged);
 
@@ -226,7 +231,7 @@ namespace CodeTables.TableDocking_Form
                     //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
                     if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                     {
-                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                        ID Identity = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
                         if (!m_WorkingSemaphore)
                         {
                             if (SelectedIndexChanged != null)
@@ -278,7 +283,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        private bool InitDataTable(long ID)
+        private bool InitDataTable(ID ID)
         {
             bInitData = true;
             dt_Data.Clear();
@@ -340,7 +345,7 @@ namespace CodeTables.TableDocking_Form
                     {
                         ((DataGridViewImageColumn)dgvx_Table.Columns[i]).ImageLayout = DataGridViewImageCellLayout.Zoom;
                     }
-                if (ID >= 0)
+                if (ID.IsValid)
                 {
                     DataRow[] drows = dt_Data.Select("ID = " + ID.ToString());
                     if (drows.Count() > 0)
@@ -354,7 +359,8 @@ namespace CodeTables.TableDocking_Form
 
                             foreach (DataGridViewRow row in dgvx_Table.Rows)
                             {
-                                if ((long)row.Cells[iColIndexOfID].Value== ID)
+                                ID idcell = new ID(row.Cells[iColIndexOfID].Value);
+                                if (idcell.Equals(ID))
                                 {
                                     rowIndex = row.Index;
                                     dgvx_Table.Rows[rowIndex].Selected = true;
@@ -390,9 +396,10 @@ namespace CodeTables.TableDocking_Form
             if (dgvCellCollection.Count >= 1)
             {
                 //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
+                ID id1 = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
+                if (id1.IsValid)
                 {
-                    Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                    Identity = id1;
                     usrc_EditRow.ShowTableRow(Identity);
                     if (!m_WorkingSemaphore)
                     {
@@ -419,7 +426,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        private void usrc_EditRow_Update(bool res,long ID, string Err)
+        private void usrc_EditRow_Update(bool res,ID ID, string Err)
         {
             if (res)
             {
@@ -430,7 +437,7 @@ namespace CodeTables.TableDocking_Form
                     //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
                     if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                     {
-                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                        ID Identity = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
                         if (!m_WorkingSemaphore)
                         {
                             if (SelectedIndexChanged != null)
@@ -469,7 +476,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        private void usrc_EditRow_after_InsertInDataBase(SQLTable x_tbl,long id, bool bRes)
+        private void usrc_EditRow_after_InsertInDataBase(SQLTable x_tbl,ID id, bool bRes)
         {
             Identity = id;
             if (after_InsertInDataBase != null)
@@ -479,7 +486,7 @@ namespace CodeTables.TableDocking_Form
             m_WorkingSemaphore = false;
         }
 
-        private void usrc_EditRow_after_UpdateDataBase(SQLTable x_tbl,long id, bool bRes)
+        private void usrc_EditRow_after_UpdateDataBase(SQLTable x_tbl,ID id, bool bRes)
         {
             Identity = id;
             if (after_UpdateDataBase != null)
@@ -523,11 +530,11 @@ namespace CodeTables.TableDocking_Form
             this.usrc_EditRow.Clear();
         }
 
-        private bool usrc_EditRow_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditRow_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, DBConnectionControl40.ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             if (this.RowReferenceFromTable_Check_NoChangeToOther!=null)
             {
-                return RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id_v, ref bCancelDialog, ref Instruction);
+                return RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id, ref bCancelDialog, ref Instruction);
             }
             else
             {
@@ -595,7 +602,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        private void usrc_EditRow_after_FillDataInputControl(SQLTable m_tbl, long ID)
+        private void usrc_EditRow_after_FillDataInputControl(SQLTable m_tbl, ID ID)
         {
             if (after_FillDataInputControl!=null)
             {

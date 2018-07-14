@@ -248,7 +248,7 @@ namespace Tangenta
 
             string sql = null;
 
-            string ElectronicDevice_Name = Properties.Settings.Default.ElectronicDevice_ID;
+            string ElectronicDevice_Name = GlobalData.ElectronicDevice_Name;
             if (lpar_ExtraCondition == null)
             {
                 lpar_ExtraCondition = new List<SQL_Parameter>();
@@ -341,7 +341,8 @@ namespace Tangenta
                     LEFT JOIN cOrgTYPE JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
                     LEFT JOIN Atom_Logo JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
                     INNER JOIN Atom_WorkingPlace JOURNAL_DocInvoice_$_awperiod_$_awplace ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocInvoice_$_awperiod_$_awplace.ID
-                    INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_acomp ON JOURNAL_DocInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_acomp.ID
+                    INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
+                    INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
                     " + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " 
                     + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime 
@@ -421,7 +422,8 @@ namespace Tangenta
                     LEFT JOIN cOrgTYPE JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
                     LEFT JOIN Atom_Logo JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
                     INNER JOIN Atom_WorkingPlace JOURNAL_DocInvoice_$_awperiod_$_awplace ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocInvoice_$_awperiod_$_awplace.ID
-                    INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_acomp ON JOURNAL_DocInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_acomp.ID
+                    INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
+                    INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
                     " + cond +
                     " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime
@@ -500,7 +502,8 @@ namespace Tangenta
                 LEFT JOIN cOrgTYPE JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
                 LEFT JOIN Atom_Logo JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
                 INNER JOIN Atom_WorkingPlace JOURNAL_DocProformaInvoice_$_awperiod_$_awplace ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awplace.ID
-                INNER JOIN Atom_Computer JOURNAL_DocProformaInvoice_$_awperiod_$_acomp ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_acomp.ID
+                INNER JOIN Atom_ElectronicDevice JOURNAL_DocProformaInvoice_$_awperiod_$_aed ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed.ID
+                INNER JOIN Atom_Computer JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_acomp.ID
                 LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt.ID
                 " + cond 
                 + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime 

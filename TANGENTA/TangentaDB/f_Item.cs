@@ -29,8 +29,8 @@ namespace TangentaDB
                                string Item_ParentGroup1,
                                string Item_ParentGroup2,
                                string Item_ParentGroup3,
-                               ref long Unit_ID,
-                               ref long Item_ID)
+                               ref ID Unit_ID,
+                               ref ID Item_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -78,8 +78,8 @@ namespace TangentaDB
             }
 
 
-            long_v Expiry_ID_v = null;
-            if (!f_Expiry.Get(Expiry_v, ref Expiry_ID_v))
+            ID Expiry_ID = null;
+            if (!f_Expiry.Get(Expiry_v, ref Expiry_ID))
             {
                 return false;
             }
@@ -88,24 +88,24 @@ namespace TangentaDB
 
 
 
-            if (Expiry_ID_v != null)
+            if (ID.Validate(Expiry_ID))
             {
-                scond_Expiry_ID = " Expiry_ID = " + Expiry_ID_v.v.ToString() + " ";
-                sval_Expiry_ID = " " + Expiry_ID_v.v.ToString() + " ";
+                scond_Expiry_ID = " Expiry_ID = " + Expiry_ID.ToString() + " ";
+                sval_Expiry_ID = " " + Expiry_ID.ToString() + " ";
             }
 
-            long_v Warranty_ID_v = null;
-            if (!f_Warranty.Get(Warranty_v, ref Warranty_ID_v))
+            ID Warranty_ID = null;
+            if (!f_Warranty.Get(Warranty_v, ref Warranty_ID))
             {
                 return false;
             }
 
             string scond_Warranty_ID = " Warranty_ID is null ";
             string sval_Warranty_ID = "null";
-            if (Warranty_ID_v != null)
+            if (ID.Validate(Warranty_ID))
             {
-                scond_Warranty_ID = " Warranty_ID = " + Warranty_ID_v.v.ToString() + " ";
-                sval_Warranty_ID = " " + Warranty_ID_v.v.ToString() + " ";
+                scond_Warranty_ID = " Warranty_ID = " + Warranty_ID.ToString() + " ";
+                sval_Warranty_ID = " " + Warranty_ID.ToString() + " ";
             }
 
             string scond_Item_ParentGroup1_ID = " Item_ParentGroup1_ID is null ";
@@ -121,8 +121,8 @@ namespace TangentaDB
 
             if (Item_ParentGroup1 != null)
             {
-                long Item_ParentGroup1_ID = -1;
-                long Item_Image_ID = -1;
+                ID Item_ParentGroup1_ID = null;
+                ID Item_Image_ID = null;
                 if (f_Item_ParentGroup1.Get(Item_ParentGroup1, Item_ParentGroup2, Item_ParentGroup3, ref Item_ParentGroup1_ID))
                 {
                     scond_Item_ParentGroup1_ID = " Item_ParentGroup1_ID = " + Item_ParentGroup1_ID.ToString() + " ";
@@ -149,7 +149,12 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Item_ID = (long)dt.Rows[0]["ID"];
+                    if (Item_ID==null)
+                    {
+                        Item_ID = new ID();
+                    }
+                    Item_ID.Set(dt.Rows[0]["ID"]);
+
                     sql = "select ID from Item where Name = " + spar_Name +
                                             " and UniqueName = " + spar_UniqueName +
                                             " and ToOffer = " + spar_ToOffer +
@@ -225,7 +230,7 @@ namespace TangentaDB
                                             + sval_Expiry_ID + ","
                                             + sval_Warranty_ID +
                                             ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ID, ref oret, ref Err, "Item"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ID, ref Err, "Item"))
                     {
                         return true;
                     }
@@ -248,7 +253,7 @@ namespace TangentaDB
                                    ref string_v Name_v,
                                    ref bool_v bToOffer_v,
                                    ref Image Item_Image,
-                                   ref long_v Item_Image_ID_v,
+                                   ref ID Item_Image_ID,
                                    ref string_v Item_Image_Hash_v,
                                    ref long_v Code_v,
                                    ref string_v Unit_Name_v,
@@ -258,24 +263,24 @@ namespace TangentaDB
                                    ref string_v Unit_Description_v,
                                    ref string_v barcode_v,
                                    ref string_v Description_v,
-                                   ref long_v Expiry_ID_v,
-                                   ref long_v Warranty_ID_v,
+                                   ref ID Expiry_ID,
+                                   ref ID Warranty_ID,
                                    ref f_Expiry.Expiry_v Expiry_v,
                                    ref f_Warranty.Warranty_v Warranty_v,
-                                   ref long_v Item_ParentGroup1_ID_v,
+                                   ref ID Item_ParentGroup1_ID,
                                    ref string_v Item_ParentGroup1_v,
-                                   ref long_v Item_ParentGroup2_ID_v,
+                                   ref ID Item_ParentGroup2_ID,
                                    ref string_v Item_ParentGroup2_v,
-                                   ref long_v Item_ParentGroup3_ID_v,
+                                   ref ID Item_ParentGroup3_ID,
                                    ref string_v Item_ParentGroup3_v,
-                                   ref long_v Unit_ID_v,
-                                   ref long_v Item_ID_v)
+                                   ref ID Unit_ID,
+                                   ref ID Item_ID)
         {
             UniqueName_v = null;
             Name_v = null;
             bToOffer_v = null;
             Item_Image = null;
-            Item_Image_ID_v = null;
+            Item_Image_ID = null;
             Item_Image_Hash_v = null;
             Code_v = null;
             Unit_Name_v = null;
@@ -285,16 +290,16 @@ namespace TangentaDB
             Unit_Description_v = null;
             barcode_v = null;
             Description_v = null;
-            Expiry_ID_v = null;
-            Warranty_ID_v = null;
+            Expiry_ID = null;
+            Warranty_ID = null;
             Expiry_v = null;
             Warranty_v = null;
-            Item_ParentGroup1_ID_v = null;
+            Item_ParentGroup1_ID = null;
             Item_ParentGroup1_v = null;
             Item_ParentGroup2_v = null;
             Item_ParentGroup3_v = null;
-            Unit_ID_v = null;
-            Item_ID_v = null;
+            Unit_ID = null;
+            Item_ID = null;
 
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -310,22 +315,29 @@ namespace TangentaDB
                     UniqueName_v = tf.set_string(dt.Rows[0]["UniqueName"]);
                     Name_v = tf.set_string(dt.Rows[0]["Name"]);
                     bToOffer_v = tf.set_bool(dt.Rows[0]["ToOffer"]);
-                    Item_Image_ID_v = tf.set_long(dt.Rows[0]["Item_Image_ID"]);
-
-                    if (Item_Image_ID_v != null)
+                    if (Item_Image_ID==null)
                     {
-                        if (!f_Item_Image.Get(Item_Image_ID_v.v, ref Item_Image, ref Item_Image_Hash_v))
+                        Item_Image_ID = new ID();
+                    }
+                    Item_Image_ID.Set(dt.Rows[0]["Item_Image_ID"]);
+
+                    if (ID.Validate(Item_Image_ID))
+                    {
+                        if (!f_Item_Image.Get(Item_Image_ID, ref Item_Image, ref Item_Image_Hash_v))
                         {
                             return false;
                         }
                     }
 
-
-                    Unit_ID_v = tf.set_long(dt.Rows[0]["Unit_ID"]);
-
-                    if (Unit_ID_v != null)
+                    if (Unit_ID==null)
                     {
-                        if (!f_Unit.Get(Unit_ID_v.v, ref Unit_Name_v, ref Unit_Symbol_v, ref Unit_DecimalPlaces_v, ref Unit_StorageOption_v, ref Unit_Description_v))
+                        Unit_ID = new ID();
+                    }
+                    Unit_ID.Set(dt.Rows[0]["Unit_ID"]);
+
+                    if (ID.Validate(Unit_ID))
+                    {
+                        if (!f_Unit.Get(Unit_ID, ref Unit_Name_v, ref Unit_Symbol_v, ref Unit_DecimalPlaces_v, ref Unit_StorageOption_v, ref Unit_Description_v))
                         {
                             return false;
                         }
@@ -343,37 +355,53 @@ namespace TangentaDB
                     barcode_v = tf.set_string(dt.Rows[0]["barcode"]);
                     Description_v = tf.set_string(dt.Rows[0]["Description"]);
 
-                    Expiry_ID_v = tf.set_long(dt.Rows[0]["Expiry_ID"]);
-
-                    if (Expiry_ID_v != null)
+                    if (Expiry_ID==null)
                     {
-                        if (!f_Expiry.Get(Expiry_ID_v.v, ref Expiry_v))
+                        Expiry_ID = new ID();
+                    }
+                    Expiry_ID.Set(dt.Rows[0]["Expiry_ID"]);
+
+                    if (ID.Validate(Expiry_ID))
+                    {
+                        if (!f_Expiry.Get(Expiry_ID, ref Expiry_v))
                         {
                             return false;
                         }
                     }
 
-                    Warranty_ID_v = tf.set_long(dt.Rows[0]["Warranty_ID"]);
-
-                    if (Warranty_ID_v != null)
+                    if (Warranty_ID==null)
                     {
-                        if (!f_Warranty.Get(Warranty_ID_v.v, ref Warranty_v))
+                        Warranty_ID = new ID();
+                    }
+                    Warranty_ID.Set(dt.Rows[0]["Warranty_ID"]);
+
+                    if (ID.Validate(Warranty_ID))
+                    {
+                        if (!f_Warranty.Get(Warranty_ID, ref Warranty_v))
                         {
                             return false;
                         }
                     }
 
-                    Item_ParentGroup1_ID_v = tf.set_long(dt.Rows[0]["Item_ParentGroup1_ID"]);
-
-                    if (Item_ParentGroup1_ID_v != null)
+                    if (Item_ParentGroup1_ID==null)
                     {
-                        if (!f_Item_ParentGroup1.Get(Item_ParentGroup1_ID_v.v, ref Item_ParentGroup1_v, ref Item_ParentGroup2_ID_v, ref Item_ParentGroup2_v, ref Item_ParentGroup3_ID_v, ref Item_ParentGroup2_v))
+                        Item_ParentGroup1_ID = new ID();
+                    }
+                    Item_ParentGroup1_ID.Set(dt.Rows[0]["Item_ParentGroup1_ID"]);
+
+                    if (ID.Validate(Item_ParentGroup1_ID))
+                    {
+                        if (!f_Item_ParentGroup1.Get(Item_ParentGroup1_ID, ref Item_ParentGroup1_v, ref Item_ParentGroup2_ID, ref Item_ParentGroup2_v, ref Item_ParentGroup3_ID, ref Item_ParentGroup2_v))
                         {
                             return false;
                         }
                     }
 
-                    Item_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    if (Item_ID==null)
+                    {
+                        Item_ID = new ID();
+                    }
+                    Item_ID.Set(dt.Rows[0]["ID"]);
                 }
                 return true;
             }

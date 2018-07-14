@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cHouseNumber_Org
     {
-        public static bool Get(string HouseNumber, ref long cHouseNumber_Org_ID)
+        public static bool Get(string HouseNumber, ref ID cHouseNumber_Org_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -43,14 +43,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cHouseNumber_Org_ID = (long)dt.Rows[0]["ID"];
+                    if (cHouseNumber_Org_ID==null)
+                    {
+                        cHouseNumber_Org_ID = new ID();
+                    }
+                    cHouseNumber_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cHouseNumber_Org (HouseNumber) values (" + sval_HouseNumber + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID, ref objretx, ref Err, "cHouseNumber_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID,  ref Err, "cHouseNumber_Org"))
                     {
                         return true;
                     }
@@ -68,7 +71,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v houseNumber_v, ref long_v cHouseNumber_Org_ID_v)
+        internal static bool Get(string_v houseNumber_v, ref ID cHouseNumber_Org_ID)
         {
             if (houseNumber_v != null)
             {
@@ -83,43 +86,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cHouseNumber_Org_ID_v == null)
+                        if (cHouseNumber_Org_ID == null)
                         {
-                            cHouseNumber_Org_ID_v = new long_v();
+                            cHouseNumber_Org_ID = new ID();
                         }
-                        cHouseNumber_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cHouseNumber_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cHouseNumber_Org (HouseNumber) values (@par)";
-                        long cHouseNumber_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID, ref oret, ref Err, "cHouseNumber_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID,  ref Err, "cHouseNumber_Org"))
                         {
-                            if (cHouseNumber_Org_ID_v == null)
-                            {
-                                cHouseNumber_Org_ID_v = new long_v();
-                            }
-                            cHouseNumber_Org_ID_v.v = cHouseNumber_Org_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref ID cHouseNumber_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref ID cHouseNumber_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) houseNumber_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref ID cHouseNumber_Org_ID) houseNumber_v may not be null!");
                 return false;
             }
         }

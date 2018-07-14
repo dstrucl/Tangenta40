@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 
 
@@ -20,7 +21,7 @@ namespace CodeTables
 {
     public partial class SelectID_Table_Assistant_Form : Form
     {
-        public long ID = -1;
+        public ID ID = null;
         string m_sql = null;
         SQLTable m_tbl;
         DataTable m_dt;
@@ -141,7 +142,7 @@ namespace CodeTables
                 //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
                 if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                 {
-                    ID = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                    ID = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
                 }
             }
          }
@@ -157,7 +158,7 @@ namespace CodeTables
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            ID = -1;
+            ID = null;
             this.Close();
             DialogResult = DialogResult.Cancel;
         }

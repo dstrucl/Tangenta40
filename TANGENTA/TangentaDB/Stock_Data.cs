@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public class Stock_Data
     {
-        public long_v Stock_ID = null;
+        public ID Stock_ID = null;
         public DateTime_v Stock_ImportTime = null;
         public decimal_v dQuantity = null;
         public decimal_v dQuantity_New_in_Stock = null;
@@ -28,7 +28,7 @@ namespace TangentaDB
         {
             get
             {
-                if (Stock_ID != null)
+                if (ID.Validate(Stock_ID))
                 {
                     return dQuantity;
                 }
@@ -43,7 +43,7 @@ namespace TangentaDB
         {
             get
             {
-                if (Stock_ID == null)
+                if (!ID.Validate(Stock_ID))
                 {
                     return dQuantity;
                 }
@@ -57,7 +57,7 @@ namespace TangentaDB
 
         public void Set(System.Data.DataRow dria)
         {
-            Stock_ID = tf.set_long(dria["Stock_ID"]);
+            Stock_ID = new ID(dria["Stock_ID"]);
             Stock_ImportTime = tf.set_DateTime(dria["Stock_ImportTime"]);
             Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
             dQuantity = tf.set_decimal(dria["dQuantity"]);
@@ -65,7 +65,7 @@ namespace TangentaDB
 
         public bool Remove_from_StockShelf()
         {
-            if (Stock_ID != null)
+            if (ID.Validate(Stock_ID))
             {
                 if (dQuantity_New_in_Stock != null)
                 {
@@ -73,15 +73,15 @@ namespace TangentaDB
                     string spar_dQuantity_New_in_Stock = "@par_dQuantity_New_in_Stock";
                     SQL_Parameter par_dQuantity_New_in_Stock = new SQL_Parameter(spar_dQuantity_New_in_Stock, SQL_Parameter.eSQL_Parameter.Decimal, false, dQuantity_New_in_Stock.v);
                     lpar.Add(par_dQuantity_New_in_Stock);
-                    string sql = "update stock set dQuantity = " + spar_dQuantity_New_in_Stock + " where ID = " + Stock_ID.v.ToString();
+                    string sql = "update stock set dQuantity = " + spar_dQuantity_New_in_Stock + " where ID = " + Stock_ID.ToString();
                     object ores = null;
                     string Err = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
                     {
-                        long_v JOURNAL_Stock_ID = null;
+                        ID JOURNAL_Stock_ID = null;
                         DateTime EventTime = DateTime.Now;
                         decimal dQuantityRemovedFromStock = dQuantity.v;
-                        return f_JOURNAL_Stock.Get(Stock_ID.v, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_stock_to_basket, EventTime, dQuantityRemovedFromStock, ref JOURNAL_Stock_ID);
+                        return f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_stock_to_basket, EventTime, dQuantityRemovedFromStock, ref JOURNAL_Stock_ID);
                     }
                     else
                     {

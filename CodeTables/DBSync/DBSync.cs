@@ -412,9 +412,9 @@ namespace DBSync
         }
         
 
-        public static bool ExecuteNonQuerySQLReturnID(string sql, List<SQL_Parameter> lpar, ref long id, ref object oret, ref string Err, string sTableName)
+        public static bool ExecuteNonQuerySQLReturnID(string sql, List<SQL_Parameter> lpar, ref ID id,  ref string Err, string sTableName)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, sTableName);
+            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref Err, sTableName);
         }
 
         public static bool CreateTables(string[] new_tables,ref string Err)

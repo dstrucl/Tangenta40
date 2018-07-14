@@ -68,7 +68,7 @@ namespace TangentaDB
         public DataTable dt_ShopB_Items = new DataTable();
         public DataTable dt_ShopA_Items = new DataTable();
 
-        public long DocInvoice_ID = -1;
+        public ID DocInvoice_ID = null;
         public long_v DocInvoice_ID_v = null;
 
 
@@ -212,7 +212,7 @@ namespace TangentaDB
             }
         }
 
-        public InvoiceData(TangentaDB.ShopABC xShopABC, long xDocInvoice_ID,  string xElectronic_Device_Name)
+        public InvoiceData(TangentaDB.ShopABC xShopABC, ID xDocInvoice_ID,  string xElectronic_Device_Name)
         {
             m_ShopABC = xShopABC;
             DocInvoice_ID = xDocInvoice_ID;

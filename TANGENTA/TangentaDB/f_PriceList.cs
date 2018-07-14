@@ -21,7 +21,7 @@ namespace TangentaDB
 {
     public static class f_PriceList
     {
-        public static bool Get(string sPriceListName, bool valid, long Currency_ID, DateTime_v ValidFrom_v, DateTime_v ValidTo_v, DateTime_v CreationDate_v, string Description, ref long PriceList_ID)
+        public static bool Get(string sPriceListName, bool valid, ID Currency_ID, DateTime_v ValidFrom_v, DateTime_v ValidTo_v, DateTime_v CreationDate_v, string Description, ref ID PriceList_ID)
         {
             string Err = null;
             object oret = null;
@@ -99,7 +99,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        PriceList_ID = (long)dt.Rows[0]["ID"];
+                        if (PriceList_ID==null)
+                        {
+                            PriceList_ID = new ID();
+                        }
+                        PriceList_ID.Set(dt.Rows[0]["ID"]);
 
 
                         sql = "select ID from PriceList where PriceList_Name_ID = " + spar_PriceListName_ID +
@@ -161,7 +165,7 @@ namespace TangentaDB
                                                         "," + sval_CreationDate +
                                                         "," + sval_Description +
                                                             ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PriceList_ID, ref oret, ref Err, "PriceList"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PriceList_ID,  ref Err, "PriceList"))
                         {
                             return true;
                         }
@@ -200,8 +204,8 @@ namespace TangentaDB
                 {
                     foreach (DataRow dr in dt_SimpleItem.Rows)
                     {
-                        long PriceList_ID = (long)dr["PriceList_ID"];
-                        long SimpleItem_ID = (long)dr["SimpleItem_ID"];
+                        ID PriceList_ID = new ID(dr["PriceList_ID"]);
+                        ID SimpleItem_ID = new ID(dr["SimpleItem_ID"]);
                         object objresult = new object();
                         string sql = "insert into Price_SimpleItem (RetailSimpleItemPrice,Discount,Taxation_ID,SimpleItem_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + SimpleItem_ID.ToString() + "," + PriceList_ID.ToString() + ")";
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
@@ -238,13 +242,13 @@ namespace TangentaDB
                     }
                 }
                 SelectID_Table_dlg.ShowDialog(parent_ctrl);
-                long id_Taxation = SelectID_Table_dlg.ID;
-                if (id_Taxation >= 0)
+                ID id_Taxation = SelectID_Table_dlg.ID;
+                if (ID.Validate(id_Taxation))
                 {
                     foreach (DataRow dr in dt_Item_NotIn_PriceList.Rows)
                     {
-                        long PriceList_ID = (long)dr["PriceList_ID"];
-                        long Item_ID = (long)dr["Item_ID"];
+                        ID PriceList_ID = new ID(dr["PriceList_ID"]);
+                        ID Item_ID = new ID(dr["Item_ID"]);
                         string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString() + "," + PriceList_ID.ToString() + ")";
                         object objresult = new object();
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
@@ -289,7 +293,7 @@ namespace TangentaDB
             {
                 foreach (DataRow dr in dt_PriceList.Rows)
                 {
-                    long PriceList_ID = (long)dr["ID"];
+                    ID PriceList_ID = new ID(dr["ID"]);
                     string PriceList_Name = (string)dr["Name"];
 
                     DataTable dt_Item = new DataTable();
@@ -323,8 +327,6 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:f_PriceList:check_price_item:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
-
-
         }
 
         private static bool check_price_ShopB_Item(ref DataTable dt)
@@ -347,7 +349,7 @@ namespace TangentaDB
             {
                 foreach (DataRow dr in dt_PriceList.Rows)
                 {
-                    long PriceList_ID = (long)dr["ID"];
+                    ID PriceList_ID = new ID(dr["ID"]);
                     string PriceList_Name = (string)dr["Name"];
                     DataTable dt_SimpleItem = new DataTable();
                     sql = "select ID,Name from SimpleItem where (ToOffer = 1) and (ID not in (Select SimpleItem_ID from Price_SimpleItem where PriceList_ID = " + PriceList_ID.ToString() + " ))"; ;
@@ -505,13 +507,13 @@ namespace TangentaDB
 
 
         internal static bool Get(string PriceList_Name,
-                                 ref long_v priceList_ID_v,
+                                 ref ID priceList_ID,
                                  ref bool_v valid_v,
                                  ref DateTime_v validFrom_v,
                                  ref DateTime_v validTo_v,
                                  ref DateTime_v creationDate_v,
                                  ref string_v description_v,
-                                 ref long_v Currency_ID_v,
+                                 ref ID Currency_ID,
                                  ref string_v CurrencyAbbreviation_v,
                                  ref string_v CurrencyName_v,
                                  ref string_v CurrencySymbol_v,
@@ -519,13 +521,13 @@ namespace TangentaDB
                                  ref int_v CurrencyDecimalPlaces_v)
         {
             string Err = null;
-            priceList_ID_v = null;
+            priceList_ID = null;
             valid_v = null;
             validFrom_v = null;
             validTo_v = null;
             creationDate_v = null;
             description_v = null;
-            Currency_ID_v = null;
+            Currency_ID = null;
             CurrencyAbbreviation_v = null;
             CurrencyName_v = null;
             CurrencySymbol_v = null;
@@ -545,16 +547,24 @@ namespace TangentaDB
             {
                 if (dt_PriceList.Rows.Count > 0)
                 {
-                    priceList_ID_v = tf.set_long(dt_PriceList.Rows[0]["ID"]);
+                    if (priceList_ID==null)
+                    {
+                        priceList_ID = new ID();
+                    }
+                    priceList_ID.Set(dt_PriceList.Rows[0]["ID"]);
                     valid_v = tf.set_bool(dt_PriceList.Rows[0]["Valid"]);
                     validFrom_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidFrom"]);
                     validTo_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidTo"]);
                     creationDate_v = tf.set_DateTime(dt_PriceList.Rows[0]["CreationDate"]);
                     description_v = tf.set_string(dt_PriceList.Rows[0]["Description"]);
-                    Currency_ID_v = tf.set_long(dt_PriceList.Rows[0]["Currency_ID"]);
-                    if (Currency_ID_v != null)
+                    if (Currency_ID==null)
                     {
-                        return f_Currency.Get(Currency_ID_v.v,
+                        Currency_ID = new ID();
+                    }
+                    Currency_ID.Set(dt_PriceList.Rows[0]["Currency_ID"]);
+                    if (ID.Validate(Currency_ID))
+                    {
+                        return f_Currency.Get(Currency_ID,
                                               ref CurrencyAbbreviation_v,
                                               ref CurrencyName_v,
                                               ref CurrencySymbol_v,
@@ -572,14 +582,14 @@ namespace TangentaDB
             }
         }
         internal static bool Get(
-                             long priceList_ID,
+                             ID priceList_ID,
                              ref string_v PriceList_Name_v,
                              ref bool_v valid_v,
                              ref DateTime_v validFrom_v,
                              ref DateTime_v validTo_v,
                              ref DateTime_v creationDate_v,
                              ref string_v description_v,
-                             ref long_v Currency_ID_v,
+                             ref ID Currency_ID,
                              ref string_v CurrencyAbbreviation_v,
                              ref string_v CurrencyName_v,
                              ref string_v CurrencySymbol_v,
@@ -593,7 +603,7 @@ namespace TangentaDB
             validTo_v = null;
             creationDate_v = null;
             description_v = null;
-            Currency_ID_v = null;
+            Currency_ID = null;
             CurrencyAbbreviation_v = null;
             CurrencyName_v = null;
             CurrencySymbol_v = null;
@@ -602,7 +612,7 @@ namespace TangentaDB
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, priceList_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, priceList_ID);
             lpar.Add(par_ID);
             DataTable dt_PriceList = new DataTable();
             string sql = @"select pln.Name,pl.Valid,pl.Currency_ID,pl.ValidFrom,pl.ValidTo,pl.CreationDate,pl.Description 
@@ -619,10 +629,14 @@ namespace TangentaDB
                     validTo_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidTo"]);
                     creationDate_v = tf.set_DateTime(dt_PriceList.Rows[0]["CreationDate"]);
                     description_v = tf.set_string(dt_PriceList.Rows[0]["Description"]);
-                    Currency_ID_v = tf.set_long(dt_PriceList.Rows[0]["Currency_ID"]);
-                    if (Currency_ID_v != null)
+                    if (Currency_ID==null)
                     {
-                        return f_Currency.Get(Currency_ID_v.v,
+                        Currency_ID = new ID();
+                    }
+                    Currency_ID.Set(dt_PriceList.Rows[0]["Currency_ID"]);
+                    if (Currency_ID != null)
+                    {
+                        return f_Currency.Get(Currency_ID,
                                               ref CurrencyAbbreviation_v,
                                               ref CurrencyName_v,
                                               ref CurrencySymbol_v,

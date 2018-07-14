@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_SimpleItem_ParentGroup3
     {
-        public static bool Get(string Name, ref long SimpleItem_ParentGroup3_ID)
+        public static bool Get(string Name, ref ID SimpleItem_ParentGroup3_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
@@ -24,14 +24,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    SimpleItem_ParentGroup3_ID = (long)dt.Rows[0]["ID"];
+                    if (SimpleItem_ParentGroup3_ID==null)
+                    {
+                        SimpleItem_ParentGroup3_ID = new ID();
+                    }
+                    SimpleItem_ParentGroup3_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into SimpleItem_ParentGroup3 (Name) values (" + spar_Name + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ParentGroup3_ID, ref oret, ref Err, "SimpleItem_ParentGroup3"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ParentGroup3_ID,  ref Err, "SimpleItem_ParentGroup3"))
                     {
                         return true;
                     }
@@ -49,14 +52,14 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(long SimpleItem_ParentGroup3_ID, ref string_v name_ParentGroup3_v)
+        internal static bool Get(ID SimpleItem_ParentGroup3_ID, ref string_v name_ParentGroup3_v)
         {
             name_ParentGroup3_v = null;
             DataTable dt = new DataTable();
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, SimpleItem_ParentGroup3_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, SimpleItem_ParentGroup3_ID);
             lpar.Add(par_ID);
             string sql = "select Name,from SimpleItem_ParentGroup3 where ID = " + spar_ID;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))

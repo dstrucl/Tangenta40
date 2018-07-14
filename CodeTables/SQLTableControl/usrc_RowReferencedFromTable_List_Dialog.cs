@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 
 namespace CodeTables
@@ -23,8 +24,8 @@ namespace CodeTables
         List<usrc_RowReferencedFromTable> m_usrc_RowReferencedFromTable_List = null;
         private ltext Instruction = null;
         SQLTable m_tbl = null;
-        long id = -1;
-        public usrc_RowReferencedFromTable_List_Dialog(List<usrc_RowReferencedFromTable> x_usrc_RowReferencedFromTable_List,SQLTable x_tbl,long x_id, ltext xInstruction)
+        ID id = null;
+        public usrc_RowReferencedFromTable_List_Dialog(List<usrc_RowReferencedFromTable> x_usrc_RowReferencedFromTable_List,SQLTable x_tbl,ID x_id, ltext xInstruction)
         {
             InitializeComponent();
             Instruction = xInstruction;

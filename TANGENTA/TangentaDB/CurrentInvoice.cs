@@ -20,21 +20,21 @@ namespace TangentaDB
     {
         public class TaxInvoice
         {
-            public long_v StornoDocInvoice_ID_v = null;
+            public ID StornoDocInvoice_ID = null;
             public string_v Invoice_Reference_Type_v = null;
             public bool_v bStorno_v = null;
         }
 
         public class ProformaInvoice
         {
-            public long_v TermsOfPayment_ID_v = null;
+            public ID TermsOfPayment_ID = null;
             public string_v TermsOfPayment_Description_v = null;
             public long_v DocDuration_v = null;
             public int_v DocDuration_Type_v = null;
         }
 
         public xCurrency Currency = null;
-        public long Atom_Currency_ID = -1;
+        public ID Atom_Currency_ID = null;
 
         public InvoiceData.eType m_eType = InvoiceData.eType.UNKNOWN;
 
@@ -60,7 +60,7 @@ namespace TangentaDB
         public int DraftNumber;
 
 
-        public long Doc_ID;
+        public ID Doc_ID = null;
 
         public DateTime EventTime = DateTime.MinValue;
 
@@ -70,8 +70,8 @@ namespace TangentaDB
 
         // DocProformaInvoice
 
-        public long_v Atom_Customer_Person_ID_v = null;
-        public long_v Atom_Customer_Org_ID_v = null;
+        public ID Atom_Customer_Person_ID = null;
+        public ID Atom_Customer_Org_ID = null;
         public bool bDraft = false;
         public bool m_Exist = false;
         public bool Exist
@@ -99,7 +99,7 @@ namespace TangentaDB
             DBtcn = xDBtcn;
             FinancialYear = DateTime.Now.Year;
             NumberInFinancialYear = 1;
-            Doc_ID = -1;
+            Doc_ID = null;
         }
 
 
@@ -217,12 +217,12 @@ namespace TangentaDB
 
         private bool Get_DocInvoice_ShopC_Item(string DocInvoice,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
         {
-            long Atom_Price_Item_ID = -1;
+            ID Atom_Price_Item_ID = null;
             if (Get_Atom_Price_Item(ref appisd))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 int decimal_places = GlobalData.Get_BaseCurrency_DecimalPlaces();
-                Atom_Price_Item_ID = appisd.Atom_Price_Item_ID.v;
+                Atom_Price_Item_ID = appisd.Atom_Price_Item_ID;
 
 
 
@@ -262,7 +262,7 @@ namespace TangentaDB
 
                     lpar.Clear();
                     lpar.Add(par_ExtraDiscount);
-                    long_v Stock_ID = stock_data.Stock_ID;
+                    ID Stock_ID = stock_data.Stock_ID;
 
 
 
@@ -275,8 +275,8 @@ namespace TangentaDB
                         SQL_Parameter par_dQuantity = null;
                         par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dquantity);
                         lpar.Add(par_dQuantity);
-                        scond_Stock_ID = "(Stock_ID = " + Stock_ID.v.ToString() + ")";
-                        sValue_Stock_ID = Stock_ID.v.ToString();
+                        scond_Stock_ID = "(Stock_ID = " + Stock_ID.ToString() + ")";
+                        sValue_Stock_ID = Stock_ID.ToString();
                         SQL_Parameter par_RetailPriceWithDiscount = new SQL_Parameter(spar_RetailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, RetailPriceWithDiscount);
                         lpar.Add(par_RetailPriceWithDiscount);
                         SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
@@ -336,7 +336,11 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            appisd.DocInvoice_ShopC_Item_ID = tf.set_long(dt.Rows[0][DocInvoice+"_ShopC_Item_ID"]);
+                            if (appisd.DocInvoice_ShopC_Item_ID==null)
+                            {
+                                appisd.DocInvoice_ShopC_Item_ID = new ID();
+                            }
+                            appisd.DocInvoice_ShopC_Item_ID.Set(dt.Rows[0][DocInvoice+"_ShopC_Item_ID"]);
                             // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
                             appisd.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
                             appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
@@ -371,11 +375,10 @@ namespace TangentaDB
                                                                             " + sValue_ExpiryDate + @", 
                                                                             " + sValue_Stock_ID
                                                                                     + ")";
-                            object objret = null;
-                            long DocInvoice_ShopC_Item_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID, ref objret, ref Err, DocInvoice))
+                            ID DocInvoice_ShopC_Item_ID = null;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID,  ref Err, DocInvoice))
                             {
-                                appisd.DocInvoice_ShopC_Item_ID = tf.set_long(DocInvoice_ShopC_Item_ID);
+                                appisd.DocInvoice_ShopC_Item_ID = new ID(DocInvoice_ShopC_Item_ID);
 
                                 if (Stock_ID != null)
                                 {
@@ -405,7 +408,7 @@ namespace TangentaDB
             }
         }
 
-        internal bool SaveDocProformaInvoice(string DocInvoice,ref long xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear)
+        internal bool SaveDocProformaInvoice(string DocInvoice,ref ID xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear)
         {
             string sql = null;
             object ores = null;
@@ -430,22 +433,22 @@ namespace TangentaDB
 
         private bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
-            long Atom_Taxation_ID = -1;
+            ID Atom_Taxation_ID = null;
             if (Get_Atom_Taxation_ID(appisd.Atom_Taxation_Name, appisd.Atom_Taxation_Rate, ref Atom_Taxation_ID))
             {
-                if (Atom_Taxation_ID >= 0)
+                if (ID.Validate(Atom_Taxation_ID))
                 {
                     string scond_Atom_Taxation_ID = " Atom_Taxation_ID = " + Atom_Taxation_ID.ToString();
                     if (Get_Atom_Item(ref appisd))
                     {
-                        string scond_Atom_Item_ID = " Atom_Item_ID = " + appisd.Atom_Item_ID.v.ToString();
-                        long Atom_PriceList_ID = -1;
+                        string scond_Atom_Item_ID = " Atom_Item_ID = " + appisd.Atom_Item_ID.ToString();
+                        ID Atom_PriceList_ID = null;
                         if (f_Atom_PriceList.Get(ref appisd, ref Atom_PriceList_ID))
                         {
-                            if (Atom_PriceList_ID >= 0)
+                            if (ID.Validate(Atom_PriceList_ID))
                             {
-                                long Atom_Item_Image_ID = -1;
-                                Get_Atom_Item_Image(appisd.Atom_Item_ID.v, appisd.Atom_Item_Image_Hash, appisd.Atom_Item_Image_Data, ref Atom_Item_Image_ID);
+                                ID Atom_Item_Image_ID = null;
+                                Get_Atom_Item_Image(appisd.Atom_Item_ID, appisd.Atom_Item_Image_Hash, appisd.Atom_Item_Image_Data, ref Atom_Item_Image_ID);
 
 
                                 string scond_Atom_PriceList_ID = " Atom_PriceList_ID = " + Atom_PriceList_ID.ToString();
@@ -479,11 +482,11 @@ namespace TangentaDB
                                 {
                                     if (dt.Rows.Count > 0)
                                     {
-                                        appisd.Atom_Price_Item_ID = tf.set_long(dt.Rows[0]["Atom_Price_Item_ID"]);
-                                        //if (appisd.Discount == null)
-                                        //{
-                                        //    appisd.Discount = new decimal_v();
-                                        //}
+                                        if (appisd.Atom_Price_Item_ID==null)
+                                        {
+                                            appisd.Atom_Price_Item_ID = new ID();
+                                        }
+                                        appisd.Atom_Price_Item_ID.Set(dt.Rows[0]["Atom_Price_Item_ID"]);
                                         return true;
                                     }
                                     else
@@ -499,22 +502,20 @@ namespace TangentaDB
                                                                               + spar_RetailPricePerUnit + ",\r\n"
                                                                               + spar_Discount + ",\r\n"
                                                                               + Atom_Taxation_ID.ToString() + ",\r\n"
-                                                                              + appisd.Atom_Item_ID.v.ToString() + ",\r\n"
+                                                                              + appisd.Atom_Item_ID.ToString() + ",\r\n"
                                                                               + Atom_PriceList_ID.ToString()
                                                                               + ")";
 
 
 
-                                        object objret = null;
-                                        long Atom_Price_Item_ID = -1;
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Price_Item_ID, ref objret, ref Err, "Atom_Price_Item"))
+                                        ID Atom_Price_Item_ID = null;
+                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Price_Item_ID, ref Err, "Atom_Price_Item"))
                                         {
-                                            appisd.Atom_Price_Item_ID = tf.set_long(Atom_Price_Item_ID);
-                                            //if (appisd.Discount == null)
-                                            //{
-                                            //    appisd.Discount = new decimal_v();
-                                            //}
-                                            //appisd.Discount.v = pis.PriceList_Item_Discount.v;
+                                            if (appisd.Atom_Price_Item_ID!=null)
+                                            {
+                                                appisd.Atom_Price_Item_ID = new ID();
+                                            }
+                                            appisd.Atom_Price_Item_ID.Set(Atom_Price_Item_ID);
                                             return true;
                                         }
                                         else
@@ -563,7 +564,7 @@ namespace TangentaDB
         private bool Get_Atom_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string Err = null;
-            long Atom_Item_Name_ID = -1;
+            ID Atom_Item_Name_ID = null;
 
             string scond_Atom_Item_Name_ID = "(Atom_Item_Name_ID is null)";
             string sv_Atom_Item_Name_ID = " null" ;
@@ -574,10 +575,10 @@ namespace TangentaDB
             {
                 if (f_Atom_Item_Name.Get(appisd.Atom_Item_Name_Name, ref Atom_Item_Name_ID))
                 {
-                    if (Atom_Item_Name_ID >= 0)
+                    if (ID.Validate(Atom_Item_Name_ID))
                     {
                         string spar_Atom_Item_Name_ID = "@par_Atom_Item_Name_ID";
-                        DBConnectionControl40.SQL_Parameter par_Atom_Item_Name_ID = new DBConnectionControl40.SQL_Parameter(spar_Atom_Item_Name_ID, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Item_Name_ID);
+                        DBConnectionControl40.SQL_Parameter par_Atom_Item_Name_ID = new DBConnectionControl40.SQL_Parameter(spar_Atom_Item_Name_ID, false, Atom_Item_Name_ID);
                         lpar.Add(par_Atom_Item_Name_ID);
                         scond_Atom_Item_Name_ID = "(Atom_Item_Name_ID = @par_Atom_Item_Name_ID)";
                         sv_Atom_Item_Name_ID = " @par_Atom_Item_Name_ID ";
@@ -587,12 +588,12 @@ namespace TangentaDB
 
 
             string sAtom_Unit_ID = null;
-            long Atom_Unit_ID = -1;
+            ID Atom_Unit_ID = null;
 
             if (Get_Atom_Unit_ID(appisd, ref Atom_Unit_ID))
             {
 
-                if (Atom_Unit_ID >= 0)
+                if (ID.Validate(Atom_Unit_ID))
                 {
                     string scond_UniqueName = null;
                     string sv_UniqueName = null;
@@ -604,12 +605,12 @@ namespace TangentaDB
                     sv_UniqueName = spar_UniqueName;
 
                     sAtom_Unit_ID = Atom_Unit_ID.ToString();
-                    long Atom_Item_barcode_ID = -1;
+                    ID Atom_Item_barcode_ID = null;
                     string scond_Atom_Item_barcode_ID = null;
                     string sv_Atom_Item_barcode_ID = null;
                     if (Get_Atom_Item_barcode(appisd.Atom_Item_barcode_barcode, ref Atom_Item_barcode_ID, ref Err))
                     {
-                        if (Atom_Item_barcode_ID >= 0)
+                        if (ID.Validate(Atom_Item_barcode_ID))
                         {
                             scond_Atom_Item_barcode_ID = "(Atom_Item_barcode_ID = " + Atom_Item_barcode_ID.ToString() + ")";
                             sv_Atom_Item_barcode_ID = Atom_Item_barcode_ID.ToString();
@@ -620,12 +621,12 @@ namespace TangentaDB
                             sv_Atom_Item_barcode_ID = "null";
                         }
                     }
-                    long Atom_Item_Description_ID = -1;
+                    ID Atom_Item_Description_ID = null;
                     string scond_Atom_Item_Description_ID = null;
                     string sv_Atom_Item_Description_ID = null;
                     if (Get_Atom_Item_Description(appisd.Atom_Item_Description_Description, ref Atom_Item_Description_ID, ref Err))
                     {
-                        if (Atom_Item_Description_ID >= 0)
+                        if (ID.Validate(Atom_Item_Description_ID))
                         {
                             scond_Atom_Item_Description_ID = "(Atom_Item_Description_ID = " + Atom_Item_Description_ID.ToString() + ")";
                             sv_Atom_Item_Description_ID = Atom_Item_Description_ID.ToString();
@@ -637,7 +638,7 @@ namespace TangentaDB
                         }
                     }
 
-                    long Atom_Expiry_ID = -1;
+                    ID Atom_Expiry_ID = null;
                     string scond_Atom_Expiry_ID = null;
                     string sv_Atom_Expiry_ID = null;
                     if (appisd.Atom_Expiry_ExpectedShelfLifeInDays != null)
@@ -662,10 +663,10 @@ namespace TangentaDB
                         sv_Atom_Expiry_ID = "null";
                     }
 
-                    long Atom_Item_Atom_Warranty_ID = -1;
+                    ID Atom_Item_Atom_Warranty_ID = null;
                     string scond_Atom_Warranty_ID = null;
                     string sv_Atom_Warranty_ID = null;
-                    if (appisd.Atom_Warranty_ID != null)
+                    if (ID.Validate(appisd.Atom_Warranty_ID))
                     {
                         if (Get_Atom_Warranty(appisd.Atom_Warranty_WarrantyDurationType, appisd.Atom_Warranty_WarrantyDuration, appisd.Atom_Warranty_WarrantyConditions, ref Atom_Item_Atom_Warranty_ID, ref Err))
                         {
@@ -705,9 +706,9 @@ namespace TangentaDB
                         {
                             if (appisd.Atom_Item_ID == null)
                             {
-                                appisd.Atom_Item_ID = new long_v();
+                                appisd.Atom_Item_ID = new ID();
                             }
-                            appisd.Atom_Item_ID.v = (long)dt.Rows[0]["Atom_Item_ID"];
+                            appisd.Atom_Item_ID.Set(dt.Rows[0]["Atom_Item_ID"]);
                             return true;
                         }
                         else
@@ -733,15 +734,14 @@ namespace TangentaDB
 
 
 
-                            object objret = null;
-                            long Atom_Item_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_TableName))
+                            ID Atom_Item_ID = null;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_ID, ref Err, DBtcn.stbl_Atom_Item_TableName))
                             {
                                 if (appisd.Atom_Item_ID == null)
                                 {
-                                    appisd.Atom_Item_ID = new long_v();
+                                    appisd.Atom_Item_ID = new ID();
                                 }
-                                appisd.Atom_Item_ID.v = Atom_Item_ID;
+                                appisd.Atom_Item_ID.Set(Atom_Item_ID);
                                 return true;
                             }
                             else
@@ -792,7 +792,7 @@ namespace TangentaDB
             }
         }
 
-        private bool Get_Atom_Warranty(short_v Warranty_WarrantyDurationType, int_v Warranty_WarrantyDuration, string_v Warranty_WarrantyConditions, ref long Atom_Item_Atom_Warranty_ID, ref string Err)
+        private bool Get_Atom_Warranty(short_v Warranty_WarrantyDurationType, int_v Warranty_WarrantyDuration, string_v Warranty_WarrantyConditions, ref ID Atom_Item_Atom_Warranty_ID, ref string Err)
         {
             string scond_WarrantyDurationType = null;
             string sv_WarrantyDurationType = null;
@@ -851,14 +851,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Item_Atom_Warranty_ID = (long)dt.Rows[0]["Atom_Warranty_ID"];
+                    if (Atom_Item_Atom_Warranty_ID==null)
+                    {
+                        Atom_Item_Atom_Warranty_ID = new ID();
+                    }
+                    Atom_Item_Atom_Warranty_ID.Set(dt.Rows[0]["Atom_Warranty_ID"]);
                     return true;
                 }
                 else
                 {
                     string sql_Insert_Atom_Warranty = @"insert into Atom_Warranty (WarrantyDurationType, WarrantyDuration, WarrantyConditions)values(" + sv_WarrantyDurationType + "," + sv_WarrantyDuration + "," + sv_WarrantyConditions + ")";
-                    object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Warranty, lpar, ref Atom_Item_Atom_Warranty_ID, ref objret, ref Err, DBtcn.stbl_Atom_Warranty_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Warranty, lpar, ref Atom_Item_Atom_Warranty_ID, ref Err, DBtcn.stbl_Atom_Warranty_TableName))
                     {
                         return true;
                     }
@@ -876,7 +879,7 @@ namespace TangentaDB
             }
         }
 
-        private bool Get_Atom_Unit_ID(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref long Atom_Unit_ID)
+        private bool Get_Atom_Unit_ID(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref ID Atom_Unit_ID)
         {
             string Err = null;
             string scond_Unit_Name = null;
@@ -972,7 +975,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Unit_ID = (long)dt.Rows[0]["Atom_Unit_ID"];
+                    if (Atom_Unit_ID==null)
+                    {
+                        Atom_Unit_ID = new ID();
+                    }
+                    Atom_Unit_ID.Set(dt.Rows[0]["Atom_Unit_ID"]);
                     return true;
                 }
                 else
@@ -991,8 +998,7 @@ namespace TangentaDB
                                                                                              + sv_Unit_StorageOption + ","
                                                                                              + sv_Unit_Description
                                                                                             + ")";
-                    object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Unit, lpar, ref Atom_Unit_ID, ref objret, ref Err, "Atom_Unit"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Unit, lpar, ref Atom_Unit_ID,  ref Err, "Atom_Unit"))
                     {
                         return true;
                     }
@@ -1017,8 +1023,8 @@ namespace TangentaDB
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
             {
-                this.Atom_Customer_Org_ID_v = null;
-                this.Atom_Customer_Person_ID_v = null;
+                this.Atom_Customer_Org_ID = null;
+                this.Atom_Customer_Person_ID = null;
                 return true;
             }
             else
@@ -1028,7 +1034,7 @@ namespace TangentaDB
             }
         }
 
-        private bool Get_Atom_Item_Image(long Atom_Item_ID, string_v Atom_Item_Image_Hash, byte_array_v Atom_Item_Image_Data, ref long Atom_Item_Image_ID)
+        private bool Get_Atom_Item_Image(ID Atom_Item_ID, string_v Atom_Item_Image_Hash, byte_array_v Atom_Item_Image_Data, ref ID Atom_Item_Image_ID)
         {
             string Err = null;
             if (Atom_Item_Image_Hash != null)
@@ -1043,20 +1049,27 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        Atom_Item_Image_ID = (long)dt.Rows[0]["Atom_Item_Image_ID"];
+                        if (Atom_Item_Image_ID==null)
+                        {
+                            Atom_Item_Image_ID = new ID();
+                        }
+                        Atom_Item_Image_ID.Set(dt.Rows[0]["Atom_Item_Image_ID"]);
                         return true;
                     }
                     else
                     {
-                        long Atom_Item_ImageLib_ID = -1;
+                        ID Atom_Item_ImageLib_ID = null;
                         string sql_select_Atom_Item_ImageLib_ID = @"select ID as Atom_Item_ImageLib_ID from Atom_Item_ImageLib where Atom_Item_ImageLib.Image_Hash = " + spar_Item_Image_Hash;
                         DataTable dt2 = new DataTable();
-                        object objret = null;
                         if (DBSync.DBSync.ReadDataTable(ref dt2, sql_select_Atom_Item_ImageLib_ID, lpar, ref Err))
                         {
                             if (dt2.Rows.Count > 0)
                             {
-                                Atom_Item_ImageLib_ID = (long)dt2.Rows[0]["Atom_Item_ImageLib_ID"];
+                                if (Atom_Item_ImageLib_ID==null)
+                                {
+                                    Atom_Item_ImageLib_ID = new ID();
+                                }
+                                Atom_Item_ImageLib_ID.Set(dt2.Rows[0]["Atom_Item_ImageLib_ID"]);
                             }
                             else
                             {
@@ -1064,7 +1077,7 @@ namespace TangentaDB
                                 DBConnectionControl40.SQL_Parameter par_Item_Image_Data = new DBConnectionControl40.SQL_Parameter(spar_Item_Image_Data, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Varbinary, false, Atom_Item_Image_Data.v);
                                 lpar.Add(par_Item_Image_Data);
                                 string sql_Insert_Atom_Item_Item_Image_Hash = @"insert into Atom_Item_ImageLib (Image_Hash,Image_Data)values(" + spar_Item_Image_Hash + "," + spar_Item_Image_Data + ")";
-                                if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Item_Image_Hash, lpar, ref Atom_Item_ImageLib_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_ImageLib_TableName))
+                                if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Item_Image_Hash, lpar, ref Atom_Item_ImageLib_ID,  ref Err, DBtcn.stbl_Atom_Item_ImageLib_TableName))
                                 {
                                     LogFile.Error.Show("ERROR:Get_Atom_Item_Image:insert into Atom_Item_ImageLib failed!\r\nErr=" + Err);
                                     return false;
@@ -1077,7 +1090,7 @@ namespace TangentaDB
                             return false;
                         }
                         string sql_Insert_Atom_Item_Image = @"insert into Atom_Item_Image (Atom_Item_ID,Atom_Item_ImageLib_ID)values(" + Atom_Item_ID.ToString() + "," + Atom_Item_ImageLib_ID.ToString() + ")";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Image, null, ref Atom_Item_Image_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_Image_TableName))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Image, null, ref Atom_Item_Image_ID, ref Err, DBtcn.stbl_Atom_Item_Image_TableName))
                         {
                             LogFile.Error.Show("ERROR:Get_Atom_Item_Image:insert into Atom_Item_ImageLib failed!\r\nErr=" + Err);
                             return false;
@@ -1102,7 +1115,7 @@ namespace TangentaDB
                                     int_v Expiry_SaleBeforeExpiryDateInDays,
                                     int_v Expiry_DiscardBeforeExpiryDateInDays,
                                     string_v Expiry_ExpiryDescription,
-                                    ref long Atom_Expiry_ID, ref string Err)
+                                    ref ID Atom_Expiry_ID, ref string Err)
         {
             string scond_ExpectedShelfLifeInDays = null;
             string sv_ExpectedShelfLifeInDays = null;
@@ -1180,7 +1193,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Expiry_ID = (long)dt.Rows[0]["Atom_Expiry_ID"];
+                    if (Atom_Expiry_ID==null)
+                    {
+                        Atom_Expiry_ID = new ID();
+                    }
+                    Atom_Expiry_ID.Set(dt.Rows[0]["Atom_Expiry_ID"]);
                     return true;
                 }
                 else
@@ -1194,8 +1211,7 @@ namespace TangentaDB
                                                                                              + sv_Expiry_DiscardBeforeExpiryDateInDays + ","
                                                                                              + sv_Expiry_ExpiryDescription
                                                                                             + ")";
-                    object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_ExpiryDescription, lpar, ref Atom_Expiry_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_ExpiryDescription_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_ExpiryDescription, lpar, ref Atom_Expiry_ID, ref Err, DBtcn.stbl_Atom_Item_ExpiryDescription_TableName))
                     {
                         return true;
                     }
@@ -1218,7 +1234,7 @@ namespace TangentaDB
                               int_v Warranty_WarrantyDuration,
                               string_v Warranty_WarrantyConditions,
                               ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data pias,
-                              ref long Atom_Warranty_ID, ref string Err)
+                              ref ID Atom_Warranty_ID, ref string Err)
         {
             string scond_WarrantyDurationType = null;
             string sv_WarrantyDurationType = null;
@@ -1277,14 +1293,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Warranty_ID = (long)dt.Rows[0]["Atom_Warranty_ID"];
+                    if (Atom_Warranty_ID==null)
+                    {
+                        Atom_Warranty_ID = new ID();
+                    }
+                    Atom_Warranty_ID.Set(dt.Rows[0]["Atom_Warranty_ID"]);
                     return true;
                 }
                 else
                 {
                     string sql_Insert_Atom_Warranty = @"insert into Atom_Warranty (WarrantyDurationType, WarrantyDuration, WarrantyConditions)values(" + sv_WarrantyDurationType + "," + sv_WarrantyDuration + "," + sv_WarrantyConditions + ")";
-                    object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Warranty, lpar, ref Atom_Warranty_ID, ref objret, ref Err, DBtcn.stbl_Atom_Warranty_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Warranty, lpar, ref Atom_Warranty_ID, ref Err, DBtcn.stbl_Atom_Warranty_TableName))
                     {
                         return true;
                     }
@@ -1303,7 +1322,7 @@ namespace TangentaDB
 
         }
 
-        private bool Get_Atom_Item_Description(string_v Item_Description, ref long Atom_Item_Description_ID, ref string Err)
+        private bool Get_Atom_Item_Description(string_v Item_Description, ref ID Atom_Item_Description_ID, ref string Err)
         {
             if (Item_Description != null)
             {
@@ -1317,14 +1336,17 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        Atom_Item_Description_ID = (long)dt.Rows[0]["Atom_Item_Description_ID"];
+                        if (Atom_Item_Description_ID==null)
+                        {
+                            Atom_Item_Description_ID = new ID();
+                        }
+                        Atom_Item_Description_ID.Set(dt.Rows[0]["Atom_Item_Description_ID"]);
                         return true;
                     }
                     else
                     {
                         string sql_Insert_Atom_Item_Description = @"insert into Atom_Item_Description (Description)values(" + spar_Description + ")";
-                        object objret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Description, lpar, ref Atom_Item_Description_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_Description_TableName))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Description, lpar, ref Atom_Item_Description_ID, ref Err, DBtcn.stbl_Atom_Item_Description_TableName))
                         {
                             return true;
                         }
@@ -1344,13 +1366,13 @@ namespace TangentaDB
             }
             else
             {
-                Atom_Item_Description_ID = -1;
+                Atom_Item_Description_ID = null;
                 return true;
             }
 
         }
 
-        private bool Get_Atom_Taxation_ID(string_v Taxation_Name, decimal_v Taxation_Rate, ref long Atom_Taxation_ID)
+        private bool Get_Atom_Taxation_ID(string_v Taxation_Name, decimal_v Taxation_Rate, ref ID Atom_Taxation_ID)
         {
             string Err = null;
             if ((Taxation_Name != null) && (Taxation_Rate != null))
@@ -1368,14 +1390,17 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        Atom_Taxation_ID = (long)dt.Rows[0]["Atom_Taxation_ID"];
+                        if (Atom_Taxation_ID==null)
+                        {
+                            Atom_Taxation_ID = new ID();
+                        }
+                        Atom_Taxation_ID.Set(dt.Rows[0]["Atom_Taxation_ID"]);
                         return true;
                     }
                     else
                     {
                         string sql_Insert_Atom_Item_Taxation = @"insert into Atom_Taxation (Name,Rate)values(" + spar_Taxation_Name + "," + spar_Taxation_Rate + ")";
-                        object objret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Taxation, lpar, ref Atom_Taxation_ID, ref objret, ref Err, DBtcn.stbl_Atom_Taxation_TableName))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Taxation, lpar, ref Atom_Taxation_ID, ref Err, DBtcn.stbl_Atom_Taxation_TableName))
                         {
                             return true;
                         }
@@ -1391,7 +1416,6 @@ namespace TangentaDB
                     LogFile.Error.Show("ERROR:Get_Atom_Item_Taxation:select ID as Atom_Taxation_ID from Atom_Taxation failed!\r\nErr=" + Err);
                     return false;
                 }
-
             }
             else
             {
@@ -1401,7 +1425,7 @@ namespace TangentaDB
             }
         }
 
-        private bool Get_Atom_Item_barcode(string_v Item_barcode, ref long Atom_Item_barcode_ID, ref string Err)
+        private bool Get_Atom_Item_barcode(string_v Item_barcode, ref ID Atom_Item_barcode_ID, ref string Err)
         {
             if (Item_barcode != null)
             {
@@ -1415,14 +1439,17 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        Atom_Item_barcode_ID = (long)dt.Rows[0]["Atom_Item_barcode_ID"];
+                        if (Atom_Item_barcode_ID==null)
+                        {
+                            Atom_Item_barcode_ID = new ID();
+                        }
+                        Atom_Item_barcode_ID.Set(dt.Rows[0]["Atom_Item_barcode_ID"]);
                         return true;
                     }
                     else
                     {
                         string sql_Insert_Atom_Item_barcode = @"insert into Atom_Item_barcode (barcode)values(" + spar_barcode + ")";
-                        object objret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_barcode, lpar, ref Atom_Item_barcode_ID, ref objret, ref Err, DBtcn.stbl_Atom_Item_barcode_TableName))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_barcode, lpar, ref Atom_Item_barcode_ID, ref Err, DBtcn.stbl_Atom_Item_barcode_TableName))
                         {
                             return true;
                         }
@@ -1441,7 +1468,7 @@ namespace TangentaDB
             }
             else
             {
-                Atom_Item_barcode_ID = -1;
+                Atom_Item_barcode_ID = null;
                 return true;
             }
 
@@ -1506,7 +1533,7 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocInvoice(string DocInvoice,ref long xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(string DocInvoice,ref ID xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
         {
             string sql = null;
             object ores = null;
@@ -1600,23 +1627,23 @@ namespace TangentaDB
             return GetNewNumberInFinancialYear(DocInvoice, ElectronicDevice_Name,ref NumberInFinancialYear);
         }
 
-        public bool Update_Customer_Person(string DocInvoice, long Customer_Person_ID, ref long_v xAtom_Customer_Person_ID_v)
+        public bool Update_Customer_Person(string DocInvoice, ID Customer_Person_ID, ref ID xAtom_Customer_Person_ID)
         {
-            if (f_Atom_Customer_Person.Get(Customer_Person_ID, ref xAtom_Customer_Person_ID_v))
+            if (f_Atom_Customer_Person.Get(Customer_Person_ID, ref xAtom_Customer_Person_ID))
             {
-                if (xAtom_Customer_Person_ID_v != null)
+                if (ID.Validate(xAtom_Customer_Person_ID))
                 {
-                    string sql = "update "+DocInvoice+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.Doc_ID.ToString();
+                    string sql = "update "+DocInvoice+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                     {
-                        if (Atom_Customer_Person_ID_v == null)
+                        if (Atom_Customer_Person_ID == null)
                         {
-                            Atom_Customer_Person_ID_v = new long_v();
+                            Atom_Customer_Person_ID = new ID();
                         }
-                        Atom_Customer_Person_ID_v.v = xAtom_Customer_Person_ID_v.v;
-                        Atom_Customer_Org_ID_v = null;
+                        Atom_Customer_Person_ID = xAtom_Customer_Person_ID;
+                        Atom_Customer_Org_ID = null;
                         return true;
                     }
                     else
@@ -1628,23 +1655,22 @@ namespace TangentaDB
             return false;
         }
 
-        public bool Update_Customer_Org(string DocInvoice,long Customer_Org_ID, ref long_v xAtom_Customer_Org_ID_v)
+        public bool Update_Customer_Org(string DocInvoice,ID Customer_Org_ID, ref ID xAtom_Customer_Org_ID)
         {
-            if (f_Atom_Customer_Org.Get(Customer_Org_ID, ref xAtom_Customer_Org_ID_v))
+            if (f_Atom_Customer_Org.Get(Customer_Org_ID, ref xAtom_Customer_Org_ID))
             {
-                if (xAtom_Customer_Org_ID_v != null)
+                if (ID.Validate(xAtom_Customer_Org_ID))
                 {
-                    string sql = "update "+DocInvoice+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
+                    string sql = "update "+DocInvoice+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                     {
-                        if (Atom_Customer_Org_ID_v == null)
+                        if (Atom_Customer_Org_ID == null)
                         {
-                            Atom_Customer_Org_ID_v = new long_v();
+                            Atom_Customer_Org_ID = new ID();
                         }
-                        Atom_Customer_Org_ID_v.v = xAtom_Customer_Org_ID_v.v;
-                        Atom_Customer_Org_ID_v = null;
+                        Atom_Customer_Org_ID.Set(xAtom_Customer_Org_ID);
                         return true;
                     }
                     else
@@ -1663,7 +1689,7 @@ namespace TangentaDB
         {
             if (issue_time != null)
             {
-                long Journal_DocInvoice_ID = -1;
+                ID Journal_DocInvoice_ID = null;
               
                 return f_Journal_DocInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
               
@@ -1680,7 +1706,7 @@ namespace TangentaDB
         {
             if (issue_time != null)
             {
-                long Journal_DocInvoice_ID = -1;
+                ID Journal_DocInvoice_ID = null;
 
                 return f_Journal_DocProformaInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
 
@@ -1746,7 +1772,7 @@ namespace TangentaDB
                 GetNewNumberInFinancialYear("DocInvoice", ElectronicDevice_Name,ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
 
-                long_v Storno_Invoice_ID_v = new long_v(Doc_ID);
+                ID Storno_Invoice_ID = new ID(Doc_ID);
 
                 NetSum_v.v = -NetSum_v.v;
                 TaxSum_v.v = -TaxSum_v.v;
@@ -1784,7 +1810,7 @@ namespace TangentaDB
                                                             + GetParam("Atom_Currency_ID", ref lpar, Atom_Currency_ID_v) + ","
                                                             + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
                                                             + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
-                                                            + GetParam("Invoice_Reference_ID", ref lpar, Storno_Invoice_ID_v) + @",
+                                                            + GetParam("Invoice_Reference_ID", ref lpar, Storno_Invoice_ID) + @",
                                                             1,
                                                             'STORNO'
                                                             )";

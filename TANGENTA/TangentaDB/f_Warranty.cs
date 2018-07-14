@@ -18,7 +18,7 @@ namespace TangentaDB
             public string WarrantyConditions = null;
         }
 
-        public static bool Get(Warranty_v warranty_v, ref long_v Warranty_ID_v)
+        public static bool Get(Warranty_v warranty_v, ref ID Warranty_ID)
         {
             if (warranty_v != null)
             {
@@ -45,11 +45,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (Warranty_ID_v == null)
+                        if (Warranty_ID == null)
                         {
-                            Warranty_ID_v = new long_v();
+                            Warranty_ID = new ID();
                         }
-                        Warranty_ID_v.v = (long)dt.Rows[0]["ID"];
+                        Warranty_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
@@ -61,15 +61,8 @@ namespace TangentaDB
                                                       (" + warranty_v.WarrantyDuration.ToString() + ","
                                                          + warranty_v.WarrantyDurationType.ToString() + ","
                                                          + sval_WarrantyConditions + ")";
-                        long Warranty_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Warranty_ID, ref oret, ref Err, "Warranty"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Warranty_ID, ref Err, "Warranty"))
                         {
-                            if (Warranty_ID_v == null)
-                            {
-                                Warranty_ID_v = new long_v();
-                            }
-                            Warranty_ID_v.v = Warranty_ID;
                             return true;
                         }
                         else
@@ -87,12 +80,12 @@ namespace TangentaDB
             }
             else
             {
-                Warranty_ID_v = null;
+                Warranty_ID = null;
                 return true;
             }
         }
 
-        internal static bool Get(long Warranty_ID, ref Warranty_v warranty_v)
+        internal static bool Get(ID Warranty_ID, ref Warranty_v warranty_v)
         {
             warranty_v = null;
 
@@ -100,7 +93,7 @@ namespace TangentaDB
 
 
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Warranty_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, Warranty_ID);
             lpar.Add(par_ID);
 
             string sql = "select WarrantyDuration,WarrantyDurationType,WarrantyConditions from Warranty where ID = " + spar_ID;

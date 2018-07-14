@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_Stock
     {
-        public static bool Add(DateTime tImportTime,decimal dQuantity,DateTime_v tExpiry_v,long PurchasePrice_Item_ID,long Stock_AddressLevel1_ID,string Description, ref long Stock_ID)
+        public static bool Add(DateTime tImportTime,decimal dQuantity,DateTime_v tExpiry_v,ID PurchasePrice_Item_ID,ID Stock_AddressLevel1_ID,string Description, ref ID Stock_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -32,14 +32,14 @@ namespace TangentaDB
             }
 
             string spar_PurchasePrice_Item_ID = "@par_PurchasePrice_Item_ID";
-            SQL_Parameter par_PurchasePrice_Item_ID = new SQL_Parameter(spar_PurchasePrice_Item_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PurchasePrice_Item_ID);
+            SQL_Parameter par_PurchasePrice_Item_ID = new SQL_Parameter(spar_PurchasePrice_Item_ID, false, PurchasePrice_Item_ID);
             lpar.Add(par_PurchasePrice_Item_ID);
 
             string spar_Stock_AddressLevel1_ID = "null";
-            if (Stock_AddressLevel1_ID >= 0)
+            if (ID.Validate(Stock_AddressLevel1_ID))
             {
                 spar_Stock_AddressLevel1_ID = "@par_Stock_AddressLevel1_ID";
-                SQL_Parameter par_Stock_AddressLevel1_ID = new SQL_Parameter(spar_Stock_AddressLevel1_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Stock_AddressLevel1_ID);
+                SQL_Parameter par_Stock_AddressLevel1_ID = new SQL_Parameter(spar_Stock_AddressLevel1_ID, false, Stock_AddressLevel1_ID);
                 lpar.Add(par_Stock_AddressLevel1_ID);
             }
 
@@ -61,10 +61,9 @@ namespace TangentaDB
                          + "," + spar_Stock_AddressLevel1_ID
                          + "," + spar_Description
                          + ")";
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Stock_ID, ref oret, ref Err, "Stock"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Stock_ID,  ref Err, "Stock"))
             {
-                long_v JOURNAL_Stock_ID_v = null;
+                ID JOURNAL_Stock_ID_v = null;
                 if (f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data,DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
                 {
                     return true;
@@ -370,7 +369,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool GetItemInStock(long Item_ID,ref DataTable dt_ShopC_Item_In_Stock)
+        public static bool GetItemInStock(ID Item_ID,ref DataTable dt_ShopC_Item_In_Stock)
         {
             string Err = null;
             if (dt_ShopC_Item_In_Stock == null)
@@ -384,7 +383,7 @@ namespace TangentaDB
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Item_ID = "@par_Item_ID";
-            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Item_ID);
+            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, false, Item_ID);
             lpar.Add(par_Item_ID);
 
             string sql = @"select s.ID as Stock_ID,

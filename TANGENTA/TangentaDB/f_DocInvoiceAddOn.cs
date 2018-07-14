@@ -12,11 +12,11 @@ namespace TangentaDB
     {
 
         public static bool Get(
-                             long_v DocInvoice_ID_v,
-                             ref long_v DocInvoiceAddOn_ID_v)
+                             ID DocInvoice_ID,
+                             ref ID DocInvoiceAddOn_ID)
         {
 
-            if (DocInvoice_ID_v == null)
+            if (DocInvoice_ID == null)
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoiceAddOn:DocInvoice_ID_v==null");
                 return false;
@@ -26,7 +26,7 @@ namespace TangentaDB
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
             string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-            SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
+            SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, false, DocInvoice_ID);
             lpar.Add(par_DocInvoice_ID);
             string sql = "select ID from DocInvoiceAddOn where DocInvoice_ID = " + spar_DocInvoice_ID;
             DataTable dt = new DataTable();
@@ -34,19 +34,15 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count>0)
                 {
-                    long ID = (long)dt.Rows[0]["ID"];
-                    if (DocInvoiceAddOn_ID_v==null)
+                    if (DocInvoiceAddOn_ID==null)
                     {
-                        DocInvoiceAddOn_ID_v = new long_v(ID);
+                        DocInvoiceAddOn_ID = new ID();
                     }
-                    else
-                    {
-                        DocInvoiceAddOn_ID_v.v = ID;
-                    }
+                    DocInvoiceAddOn_ID.Set(dt.Rows[0]["ID"]);
                 }
                 else
                 {
-                    DocInvoiceAddOn_ID_v = null;
+                    DocInvoiceAddOn_ID = null;
                 }
                 return true;
             }

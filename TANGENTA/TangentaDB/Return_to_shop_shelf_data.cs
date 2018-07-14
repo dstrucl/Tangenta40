@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace TangentaDB
     public class Return_to_shop_shelf_data
     {
         public string sql_update_stock;
-        public long stock_id;
+        public ID stock_id = null;
         public decimal dQuantity_from_basket_to_stock;
 
-        public Return_to_shop_shelf_data(string sql_update_stock, long stock_id, decimal dQuantity_from_basket_to_stock)
+        public Return_to_shop_shelf_data(string sql_update_stock, ID stock_id, decimal dQuantity_from_basket_to_stock)
         {
             // TODO: Complete member initialization
             this.sql_update_stock = sql_update_stock;

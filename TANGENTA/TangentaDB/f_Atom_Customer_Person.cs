@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using LanguageControl;
 using System;
@@ -18,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Customer_Person
     {
-        public static bool Get(long Customer_Person_ID, ref long_v Atom_Customer_Person_ID_v)
+        public static bool Get(ID Customer_Person_ID, ref ID Atom_Customer_Person_ID)
         {
             DataTable dt = new DataTable();
             string sql = "select Person_ID from Customer_Person where ID = " + Customer_Person_ID.ToString();
@@ -99,7 +100,7 @@ namespace TangentaDB
                                     Image_Data_v = tf.set_byte_array(dt.Rows[0]["PersonData_$_perimg_$$Image_Data"]);
                                     Description_v = tf.set_string(dt.Rows[0]["PersonData_$$Description"]);
                                 }
-                                long_v Atom_Person_ID_v = null;
+                                ID Atom_Person_ID = null;
                                 if (!f_Atom_Person.Get(
                                                         Gender_v,
                                                         FirstName_v,
@@ -123,38 +124,31 @@ namespace TangentaDB
                                                         CardType_v,
                                                         Image_Hash_v,
                                                         Image_Data_v,
-                                                        ref Atom_Person_ID_v))
+                                                        ref Atom_Person_ID))
                                 {
                                     return false;
                                 }
-                                if (Atom_Person_ID_v != null)
+                                if (Atom_Person_ID != null)
                                 {
 
-                                    sql = "select ID from Atom_Customer_Person where Atom_Person_ID = " + Atom_Person_ID_v.v.ToString();
+                                    sql = "select ID from Atom_Customer_Person where Atom_Person_ID = " + Atom_Person_ID.ToString();
                                     dt.Clear();
                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                     {
                                         if (dt.Rows.Count == 1)
                                         {
-                                            if (Atom_Customer_Person_ID_v == null)
+                                            if (Atom_Customer_Person_ID == null)
                                             {
-                                                Atom_Customer_Person_ID_v = new long_v();
+                                                Atom_Customer_Person_ID = new ID();
                                             }
-                                            Atom_Customer_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                                            Atom_Customer_Person_ID.Set(dt.Rows[0]["ID"]);
                                             return true;
                                         }
                                         else
                                         {
-                                            sql = "insert into Atom_Customer_Person (Atom_Person_ID) values (" + Atom_Person_ID_v.v.ToString() + ")";
-                                            object ores = null;
-                                            long id = -1;
-                                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref id, ref ores, ref Err, "Atom_Customer_Person"))
+                                            sql = "insert into Atom_Customer_Person (Atom_Person_ID) values (" + Atom_Person_ID.ToString() + ")";
+                                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Customer_Person_ID, ref Err, "Atom_Customer_Person"))
                                             {
-                                                if (Atom_Customer_Person_ID_v == null)
-                                                {
-                                                    Atom_Customer_Person_ID_v = new long_v();
-                                                }
-                                                Atom_Customer_Person_ID_v.v = id;
                                                 return true;
                                             }
                                             else

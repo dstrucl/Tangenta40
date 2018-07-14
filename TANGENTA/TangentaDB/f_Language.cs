@@ -19,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Language
     {
-        public static bool Get(string Name,string_v Description_v,int Index,ref long Language_ID)
+        public static bool Get(string Name,string_v Description_v,int Index,ref ID Language_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -48,14 +48,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Language_ID = (long)dt.Rows[0]["ID"];
+                    if (Language_ID==null)
+                    {
+                        Language_ID = new ID();
+                    }
+                    Language_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into Language (LanguageIndex,Name,Description,bDefault)values(" + spar_LanguageIndex + "," + spar_Name + "," + sval_Description + ",0)";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Language_ID, ref oret, ref Err, "Language"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Language_ID, ref Err, "Language"))
                     {
                         return true;
                     }
@@ -73,13 +76,13 @@ namespace TangentaDB
             }
         }
  
-        public static bool Get(long Language_ID, ref string_v Name_v,ref string_v Description_v,ref int_v LanguageIndex_v)
+        public static bool Get(ID Language_ID, ref string_v Name_v,ref string_v Description_v,ref int_v LanguageIndex_v)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
             //Table Language
             string spar_Language_ID = "@par_Language_ID";
-            SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID);
+            SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, false, Language_ID);
             lpar.Add(par_Language_ID);
 
 
@@ -103,7 +106,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool SetDefault(long Language_ID)
+        public static bool SetDefault(ID Language_ID)
         {
             object oret = null;
             string Err = null;

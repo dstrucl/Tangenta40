@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +14,11 @@ using System.Windows.Forms;
 
 namespace CodeTables
 {
-    public class ID_v
-    {
-        public long v = -1;
-
-        public ID_v()
-        {
-        }
-
-        public ID_v(long xv)
-        {
-            v = xv;
-        }
-    }
+   
 
     public class ForeignKey
     {
-        public ID_v reference_ID = null;
+        public ID reference_ID = null;
         public string ID_ForeignKey = "";
         public string ReferenceTable = "";
         public SQLTable refInListOfTables = null; // this are linked list references acrosss List<SQLTable> 

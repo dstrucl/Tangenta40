@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_myOrganisation
     {
-        public static bool Get(long OrganisationData_ID, ref long myOrganisation_ID)
+        public static bool Get(ID OrganisationData_ID, ref ID myOrganisation_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -18,8 +19,12 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    myOrganisation_ID = (long)dt.Rows[0]["ID"];
-                    if (OrganisationData_ID == (long)dt.Rows[0]["OrganisationData_ID"])
+                    if (myOrganisation_ID==null)
+                    {
+                        myOrganisation_ID = new ID();
+                    }
+                    myOrganisation_ID.Set(dt.Rows[0]["ID"]);
+                    if (OrganisationData_ID.Equals(new ID(dt.Rows[0]["OrganisationData_ID"])))
                     {
                         return true;
                     }
@@ -41,9 +46,7 @@ namespace TangentaDB
                 {
 
                     sql = "insert into myOrganisation (OrganisationData_ID)values(" + OrganisationData_ID.ToString() + ")";
-                    object oret = null;
-
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref myOrganisation_ID, ref oret, ref Err, "myOrganisation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref myOrganisation_ID,  ref Err, "myOrganisation"))
                     {
                         return true;
                     }

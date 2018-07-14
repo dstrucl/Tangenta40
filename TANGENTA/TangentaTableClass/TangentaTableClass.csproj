@@ -104,6 +104,10 @@
       <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
       <Name>Password</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>

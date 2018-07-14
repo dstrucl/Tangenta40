@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cCity_Org
     {
-        public static bool Get(long cCity_Org_ID, ref long Atom_cCity_Org_ID)
+        public static bool Get(ID cCity_Org_ID, ref ID Atom_cCity_Org_ID)
         {
             string Err = null;
             string sql = @"select City from cCity_Org where ID = " + cCity_Org_ID.ToString();
@@ -55,14 +55,17 @@ namespace TangentaDB
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                Atom_cCity_Org_ID = (long)dt.Rows[0]["ID"];
+                                if (Atom_cCity_Org_ID==null)
+                                {
+                                    Atom_cCity_Org_ID = new ID();
+                                }
+                                Atom_cCity_Org_ID.Set(dt.Rows[0]["ID"]);
                                 return true;
                             }
                             else
                             {
                                 sql = @"insert into Atom_cCity_Org (City) values (" + sval_City + ")";
-                                object objretx = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cCity_Org_ID, ref objretx, ref Err, "Atom_cCity_Org"))
+                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cCity_Org_ID, ref Err, "Atom_cCity_Org"))
                                 {
                                     return true;
                                 }
@@ -98,7 +101,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v city_v, ref long_v atom_cCity_Org_ID_v)
+        internal static bool Get(string_v city_v, ref ID atom_cCity_Org_ID)
         {
             if (city_v != null)
             {
@@ -113,43 +116,42 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (atom_cCity_Org_ID_v == null)
+                        if (atom_cCity_Org_ID == null)
                         {
-                            atom_cCity_Org_ID_v = new long_v();
+                            atom_cCity_Org_ID = new ID();
                         }
-                        atom_cCity_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        atom_cCity_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into Atom_cCity_Org (City) values (@par)";
-                        long Atom_cCity_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cCity_Org_ID, ref oret, ref Err, "Atom_cCity_Org"))
+                        ID xAtom_cCity_Org_ID = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_cCity_Org_ID, ref Err, "Atom_cCity_Org"))
                         {
-                            if (atom_cCity_Org_ID_v == null)
+                            if (atom_cCity_Org_ID == null)
                             {
-                                atom_cCity_Org_ID_v = new long_v();
+                                atom_cCity_Org_ID = new ID();
                             }
-                            atom_cCity_Org_ID_v.v = Atom_cCity_Org_ID;
+                            atom_cCity_Org_ID.Set(xAtom_cCity_Org_ID);
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCity_Org:Get(string_v city_v, ref long_v atom_cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCity_Org:Get(string_v city_v, ref ID atom_cCity_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCity_Org:Get(string_v city_v, ref long_v atom_cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCity_Org:Get(string_v city_v, ref ID atom_cCity_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCity_Org:Get(string_v city_v, ref long_v atom_cCity_Org_ID_v) city_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCity_Org:Get(string_v city_v, ref ID atom_cCity_Org_ID) city_v may not be null!");
                 return false;
             }
         }

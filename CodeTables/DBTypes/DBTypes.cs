@@ -27,7 +27,7 @@ namespace DBTypes
     {
         public string cond;
         public string value;
-        public void setsqlp(object type_v, ref List<SQL_Parameter> lpar, string column_name, ref string xcond,ref string xvalue)
+        public void setsqlp(object type_v, ref List<SQL_Parameter> lpar, string column_name, ref string xcond, ref string xvalue)
         {
             string spar_name = null;
             SQL_Parameter par = null;
@@ -86,7 +86,7 @@ namespace DBTypes
             }
         }
     }
-    public class ValSet:SqlPar
+    public class ValSet : SqlPar
     {
         public bool defined = false;
     }
@@ -201,7 +201,7 @@ namespace DBTypes
         public string_v type_v = null;
         public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
         {
-            setsqlp(type_v, ref lpar, column_name, ref cond,ref value);
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
         }
 
         public void set(object o)
@@ -803,7 +803,7 @@ namespace DBTypes
             if (o == null) return;
             if (o is decimal)
             {
-                this.type_v = new decimal_v((decimal) o);
+                this.type_v = new decimal_v((decimal)o);
             }
             else if (o is System.DBNull)
             {
@@ -894,28 +894,6 @@ namespace DBTypes
             }
         }
 
-    }
-
-    public class ID : DB_Int64
-    {
-        public static bool IsValid(object ologinUsers_ID)
-        {
-            if (ologinUsers_ID is long)
-            {
-                if (((long)ologinUsers_ID)>=0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 
     public class DB_Document : ValSet
@@ -2818,11 +2796,18 @@ namespace DBTypes
 
         public static void ID_Is_Defined(object obj)
         {
-            Type baseType = obj.GetType().BaseType;
-            if (IsMyBaseType(baseType))
+            if (obj is ID)
             {
-                ValSet vs = (ValSet)obj;
-                vs.defined = true;
+                ((ID)obj).Defined=true;
+            }
+            else
+            {
+                Type baseType = obj.GetType().BaseType;
+                if (IsMyBaseType(baseType))
+                {
+                    ValSet vs = (ValSet)obj;
+                    vs.defined = true;
+                }
             }
         }
 

@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cZIP_Person
     {
-        public static bool Get(long cZIP_Person_ID, ref long Atom_cZIP_Person_ID)
+        public static bool Get(ID cZIP_Person_ID, ref ID Atom_cZIP_Person_ID)
         {
             string Err = null;
             string sql = @"select ZIP from cZIP_Person where ID = " + cZIP_Person_ID.ToString();
@@ -55,14 +55,17 @@ namespace TangentaDB
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                Atom_cZIP_Person_ID = (long)dt.Rows[0]["ID"];
+                                if (Atom_cZIP_Person_ID==null)
+                                {
+                                    Atom_cZIP_Person_ID = new ID();
+                                }
+                                Atom_cZIP_Person_ID.Set(dt.Rows[0]["ID"]);
                                 return true;
                             }
                             else
                             {
                                 sql = @"insert into Atom_cZIP_Person (ZIP) values (" + sval_ZIP + ")";
-                                object objretx = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cZIP_Person_ID, ref objretx, ref Err, "Atom_cZIP_Person"))
+                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cZIP_Person_ID,  ref Err, "Atom_cZIP_Person"))
                                 {
                                     return true;
                                 }
@@ -98,7 +101,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v)
+        internal static bool Get(string_v zIP_v, ref ID atom_cZIP_Person_ID)
         {
             if (zIP_v != null)
             {
@@ -113,43 +116,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (atom_cZIP_Person_ID_v == null)
+                        if (atom_cZIP_Person_ID == null)
                         {
-                            atom_cZIP_Person_ID_v = new long_v();
+                            atom_cZIP_Person_ID = new ID();
                         }
-                        atom_cZIP_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                        atom_cZIP_Person_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into Atom_cZIP_Person (ZIP) values (@par)";
-                        long Atom_cZIP_Person_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cZIP_Person_ID, ref oret, ref Err, "Atom_cZIP_Person"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cZIP_Person_ID, ref Err, "Atom_cZIP_Person"))
                         {
-                            if (atom_cZIP_Person_ID_v == null)
-                            {
-                                atom_cZIP_Person_ID_v = new long_v();
-                            }
-                            atom_cZIP_Person_ID_v.v = Atom_cZIP_Person_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cZIP_Person:Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cZIP_Person:Get(string_v zIP_v, ref ID atom_cZIP_Person_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cZIP_Person:Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cZIP_Person:Get(string_v zIP_v, ref ID atom_cZIP_Person_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cZIP_Person:Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v) zIP_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cZIP_Person:Get(string_v zIP_v, ref ID atom_cZIP_Person_ID) zIP_v may not be null!");
                 return false;
             }
         }

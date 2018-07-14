@@ -14,8 +14,8 @@ namespace TangentaDB
                 string_v TRR_v,
                 bool_v Active_v,
                 string_v BankAccount_Description_v,
-                long_v Bank_ID_v,
-                ref long_v BankAccount_ID_v)
+                ID Bank_ID,
+                ref ID BankAccount_ID)
         {
             string Err = null;
 
@@ -61,10 +61,10 @@ namespace TangentaDB
             string Bank_ID_v_cond = "Bank_ID is null";
             string Bank_ID_v_Value = "null";
 
-            if (Bank_ID_v != null)
+            if (Bank_ID != null)
             {
-                Bank_ID_v_Value = Bank_ID_v.v.ToString();
-                Bank_ID_v_cond = "Bank_ID = " + Bank_ID_v.v.ToString();
+                Bank_ID_v_Value = Bank_ID.ToString();
+                Bank_ID_v_cond = "Bank_ID = " + Bank_ID.ToString();
             }
 
 
@@ -77,11 +77,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (BankAccount_ID_v == null)
+                    if (BankAccount_ID == null)
                     {
-                        BankAccount_ID_v = new long_v();
+                        BankAccount_ID = new ID();
                     }
-                    BankAccount_ID_v.v = (long)dt.Rows[0]["ID"];
+                    BankAccount_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -91,15 +91,8 @@ namespace TangentaDB
                                                                             " + Active_v_Value + @",
                                                                             " + BankAccount_Description_v_Value + @",
                                                                             "  + Bank_ID_v_Value + ")";
-                    object oret = null;
-                    long BankAccount_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref BankAccount_ID, ref oret, ref Err, "BankAccount"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref BankAccount_ID,  ref Err, "BankAccount"))
                     {
-                        if (BankAccount_ID_v == null)
-                        {
-                            BankAccount_ID_v = new long_v();
-                        }
-                        BankAccount_ID_v.v = BankAccount_ID;
                         return true;
                     }
                     else

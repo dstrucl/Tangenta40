@@ -14,10 +14,10 @@ namespace TangentaDB
     {
         public static bool Get(decimal RetailPricePerUnit,
                        decimal_v Discount_v,
-                       long Taxation_ID,
-                       long Item_ID,
-                       long PriceList_ID,
-                       ref long Price_Item_ID)
+                       ID Taxation_ID,
+                       ID Item_ID,
+                       ID PriceList_ID,
+                       ref ID Price_Item_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_RetailPricePerUnit = "@par_RetailPricePerUnit";
@@ -48,7 +48,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Price_Item_ID = (long)dt.Rows[0]["ID"];
+                    if (Price_Item_ID==null)
+                    {
+                        Price_Item_ID = new ID();
+                    }
+                    Price_Item_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -65,8 +69,7 @@ namespace TangentaDB
                                                           "," + Item_ID.ToString() +
                                                           "," + PriceList_ID.ToString() +
                                                           ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Price_Item_ID, ref oret, ref Err, "Price_Item"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Price_Item_ID, ref Err, "Price_Item"))
                     {
                         return true;
                     }
@@ -116,12 +119,12 @@ namespace TangentaDB
                            DateTime_v ValidTo_v,
                            DateTime_v CreationDate_v,
                            string PriceList_Description,
-                           ref long Unit_ID,
-                           ref long Currency_ID,
-                           ref long Item_ID,
-                           ref long Taxation_ID,
-                           ref long PriceList_ID,
-                           ref long Price_Item_ID)
+                           ref ID Unit_ID,
+                           ref ID Currency_ID,
+                           ref ID Item_ID,
+                           ref ID Taxation_ID,
+                           ref ID PriceList_ID,
+                           ref ID Price_Item_ID)
         {
             if (f_Taxation.Get(TaxationName, TaxationRate, ref Taxation_ID))
             {

@@ -22,7 +22,7 @@ namespace TangentaDB
             string Country_ISO_3166_a2,
             string Country_ISO_3166_a3,
             short Country_ISO_3166_num,
-            ref long cCountry_Org_ID)
+            ref ID cCountry_Org_ID)
         {
            
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -53,14 +53,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cCountry_Org_ID = (long)dt.Rows[0]["ID"];
+                    if (cCountry_Org_ID==null)
+                    {
+                        cCountry_Org_ID = new ID();
+                    }
+                    cCountry_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cCountry_Org (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_Country + "," + spar_Country_ISO_3166_a2 + "," + spar_Country_ISO_3166_a3 + "," + spar_Country_ISO_3166_num + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Org_ID, ref objretx, ref Err, "cCountry_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Org_ID, ref Err, "cCountry_Org"))
                     {
                         return true;
                     }
@@ -78,7 +81,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v cCountry_Org_ID_v)
+        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID cCountry_Org_ID)
         {
             if ((state_v != null) && (state_ISO_3166_a2_v != null) && (state_ISO_3166_a3_v != null) && (state_ISO_3166_num_v != null))
             {
@@ -108,46 +111,39 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cCountry_Org_ID_v == null)
+                        if (cCountry_Org_ID == null)
                         {
-                            cCountry_Org_ID_v = new long_v();
+                            cCountry_Org_ID = new ID();
                         }
-                        cCountry_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cCountry_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cCountry_Org (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_state_v + ","
-                                                                                                                                    + spar_state_ISO_3166_a2_v + ","
-                                                                                                                                    + spar_state_ISO_3166_a3_v + ","
-                                                                                                                                    + spar_state_ISO_3166_num_v + ")";
-                        long cCountry_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Org_ID, ref oret, ref Err, "cCountry_Org"))
+                                                                                                                                                       + spar_state_ISO_3166_a2_v + ","
+                                                                                                                                                       + spar_state_ISO_3166_a3_v + ","
+                                                                                                                                                       + spar_state_ISO_3166_num_v + ")";
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Org_ID, ref Err, "cCountry_Org"))
                         {
-                            if (cCountry_Org_ID_v == null)
-                            {
-                                cCountry_Org_ID_v = new long_v();
-                            }
-                            cCountry_Org_ID_v.v = cCountry_Org_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\nsql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID cCountry_Org_ID)\r\nsql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\nsql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID cCountry_Org_ID)\r\nsql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\n state_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID atom_cCountry_Org_ID)\r\n state_v may not be null!");
                 return false;
             }
         }

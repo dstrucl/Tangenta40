@@ -44,12 +44,12 @@ namespace CodeTables
                         {
                             if (DBtypesFunc.IsValueDefined(col.obj))
                             {
-                                long lID = -1;
+                                ID lID = null;
                                 if (col.ownerTable.GetID(dbTables.m_con, col.ownerTable.TableName + "_ID", ref lID, ref csError))
                                 {
 
                                     Column id_column = col.ownerTable.IdentityColumn();
-                                    ((ID)id_column.obj).val = lID;
+                                    id_column.obj = lID;
                                     string sUniqueN = col.UniqueName(dbTables.items);
                                     //string sVar = "@Var_" + sUniqueN + col.Name;
                                     string sPar = DBtypesFunc.DbValueForSql(ref col.obj, col.obj.GetType().BaseType, sUniqueN, ref sqlParamList, col.Name);
@@ -70,9 +70,8 @@ namespace CodeTables
                                                     StringBuilder sbsqlUpdate = new StringBuilder("\nUPDATE " + col.ownerTable.TableName +
                                                         "\nSET " + col.Name + " = " + sPar +
                                                         "\nWHERE " + id_column.Name + " = " + sParID + ";");
-                                                    int newID = -1;
-                                                    object objRet = new object();
-                                                    if (dbTables.m_con.ExecuteQuerySQL(sbsqlUpdate, sqlParamList, ref newID, ref objRet, ref csError, this.TableName))
+                                                    ID newID = null;
+                                                    if (dbTables.m_con.ExecuteQuerySQL(sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
                                                     {
                                                         return true;
                                                     }
@@ -86,7 +85,7 @@ namespace CodeTables
                                                     //  Update parent table;
                                                     if (col.ownerTable.pParentTable != null)
                                                     {
-                                                        long newID = Convert.ToInt64(dt.Rows[0][0]);
+                                                        ID newID = new ID(dt.Rows[0][0]);
                                                         string sUpdate = "\nUPDATE " + col.ownerTable.pParentTable.TableName +
                                                                             "\nSET " + col.ownerTable + "_ID = " + newID.ToString() +
                                                                             "\nWHERE ID = " + col.ownerTable.pParentTable.tag_ID.ToString() + ";";
@@ -130,9 +129,8 @@ namespace CodeTables
                                                             "\n(" +
                                                             "\n  " + sPar +
                                                             "\n);");
-                                                    int newID = -1;
-                                                    object objRet = new object();
-                                                    if (dbTables.m_con.ExecuteQuerySQL(sbsqlUpdate, sqlParamList, ref newID, ref objRet, ref csError, TableName))
+                                                    ID newID = null;
+                                                    if (dbTables.m_con.ExecuteQuerySQL(sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
                                                     {
                                                         string sVar = newID.ToString();
                                                         string sParID_Parent = newID.ToString();
@@ -347,7 +345,7 @@ namespace CodeTables
             return true;
         }
 
-        internal bool GetID(DBConnection xcon,string ColumnName_ID, ref long id, ref string csError)
+        internal bool GetID(DBConnection xcon,string ColumnName_ID, ref ID id, ref string csError)
         {
             while (this.pParentTable != null)
             {
@@ -359,18 +357,14 @@ namespace CodeTables
                     {
                         if (dt.Rows.Count == 1)
                         {
-                           object obj= dt.Rows[0][0];
-                           if ((obj.GetType() == typeof(int)) || (obj.GetType() == typeof(long)))
-                           {
-                               id = Convert.ToInt64(obj);
-                               this.tag_ID = id;
-                               return true;
-                           }
-                           else
-                           {
-                               csError = "Error:Result is not of type int (32bit) or long (64bit) for:" + sql + " !";
-                               return false;
-                           }
+                            if (id == null)
+                            {
+                                id = new ID();
+                            }
+                            if (!id.Set(dt.Rows[0][0]))
+                            {
+                                return false;
+                            }
                         }
                         else
                         {
@@ -393,7 +387,7 @@ namespace CodeTables
             if (id_column != null)
             {
                 ID top_ID = (ID)id_column.obj;
-                id = top_ID.val;
+                id = top_ID;
                 this.tag_ID = id;
                 return true;
             }
@@ -404,7 +398,7 @@ namespace CodeTables
             }
         }
 
-        internal bool UpdateInputControls(DBTableControl dbTables,ref long ID, ref string csError)
+        internal bool UpdateInputControls(DBTableControl dbTables,ref ID ID, ref string csError)
         {
             //string sqlUpdate ="";
             //bool bRes = true;
@@ -549,19 +543,19 @@ namespace CodeTables
   //          return bRes;
         }
 
-        private bool RowReferenceFromTable_Check_NoChangeToOther_Ex(List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID_v id_v)
+        private bool RowReferenceFromTable_Check_NoChangeToOther_Ex(List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id)
         {
             ltext Instruction = null;
             if (this.myGroupBox!=null)
             {
                 bool bCancelDialog = false;
-                bool bRes = this.myGroupBox.SetEvent_RowReferenceFromTable_Check_NoChangeToOther(this, usrc_RowReferencedFromTable_List, id_v, ref bCancelDialog, ref Instruction);
+                bool bRes = this.myGroupBox.SetEvent_RowReferenceFromTable_Check_NoChangeToOther(this, usrc_RowReferencedFromTable_List, id, ref bCancelDialog, ref Instruction);
                 if (bCancelDialog)
                 {
                     return bRes;
                 }
             }
-            usrc_RowReferencedFromTable_List_Dialog RowReferencedFromTable_List_Dialog = new usrc_RowReferencedFromTable_List_Dialog(usrc_RowReferencedFromTable_List, this, id_v.v, Instruction);
+            usrc_RowReferencedFromTable_List_Dialog RowReferencedFromTable_List_Dialog = new usrc_RowReferencedFromTable_List_Dialog(usrc_RowReferencedFromTable_List, this, id, Instruction);
             DialogResult dlgRes = RowReferencedFromTable_List_Dialog.ShowDialog();
             if (dlgRes == DialogResult.No)
             {
@@ -571,25 +565,25 @@ namespace CodeTables
         }
 
 
-        private bool UpdateInputControls_SQL(DBTableControl dbTables, SQLTable pParentTable, ref long ID, ref string Err)
+        private bool UpdateInputControls_SQL(DBTableControl dbTables, SQLTable pParentTable, ref ID ID, ref string Err)
         {
             List<SQL_Parameter> sqlParamList = new List<SQL_Parameter>();
             if (pParentTable == null)
             {
                 if (this.myGroupBox != null)
                 {
-                    ID_v id_v = this.myGroupBox.ID_v;
-                    if (id_v != null)
+                    ID id1 = this.myGroupBox.ID;
+                    if (id1 != null)
                     {
                         List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List = null;
                         int total_count = 0;
-                        if (Get_RowReferencedFromTable_List(dbTables,id_v.v,ref usrc_RowReferencedFromTable_List,ref total_count, ref Err))
+                        if (Get_RowReferencedFromTable_List(dbTables,id1,ref usrc_RowReferencedFromTable_List,ref total_count, ref Err))
                         {
                             if (total_count > 1)
                             {
-                                if (RowReferenceFromTable_Check_NoChangeToOther_Ex(usrc_RowReferencedFromTable_List, id_v))
+                                if (RowReferenceFromTable_Check_NoChangeToOther_Ex(usrc_RowReferencedFromTable_List, id1))
                                 {
-                                    ID = id_v.v;
+                                    ID = id1;
                                     return true;
                                 }
                             }
@@ -610,7 +604,7 @@ namespace CodeTables
                                             }
                                             else
                                             {
-                                                long id = -1;
+                                                ID id = null;
                                                 if (col.fKey.fTable.UpdateInputControls_SQL(dbTables, this, ref id, ref Err))
                                                 {
                                                     sqlite_set = col.Name + " = " + id.ToString();
@@ -687,11 +681,11 @@ namespace CodeTables
                             }
                             if (sqlite_update.Length > 0)
                             {
-                                sqlite_update += " where ID = " + id_v.v.ToString();
+                                sqlite_update += " where ID = " + id1.ToString();
                                 object oRes = new object();
                                 if (dbTables.m_con.ExecuteNonQuerySQL(sqlite_update,sqlParamList,ref oRes,ref Err))
                                 {
-                                    ID = id_v.v;
+                                    ID = id1;
                                     return true;
                                 }
                                 else
@@ -733,23 +727,23 @@ namespace CodeTables
             {
                 if (this.myGroupBox != null)
                 {
-                    ID_v id_v = this.myGroupBox.ID_v;
-                    if (id_v != null)
+                    ID id1 = this.myGroupBox.ID;
+                    if (id1 != null)
                     {
                         List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List = null;
                         int total_count = 0;
-                        if (Get_RowReferencedFromTable_List(dbTables, id_v.v, ref usrc_RowReferencedFromTable_List, ref total_count, ref Err))
+                        if (Get_RowReferencedFromTable_List(dbTables, id1, ref usrc_RowReferencedFromTable_List, ref total_count, ref Err))
                         {
                             if (total_count > 1)
                             {
-                                if (RowReferenceFromTable_Check_NoChangeToOther_Ex(usrc_RowReferencedFromTable_List, id_v))
+                                if (RowReferenceFromTable_Check_NoChangeToOther_Ex(usrc_RowReferencedFromTable_List, id1))
                                 {
-                                    long_v id_v2 = null;
-                                    if (Insert_SQL_Get_Select_ID(ref id_v2, dbTables, -1))
+                                    ID id2 = null;
+                                    if (Insert_SQL_Get_Select_ID(ref id2, dbTables, -1))
                                     {
-                                        if (id_v2 != null)
+                                        if (id2 != null)
                                         {
-                                            ID = id_v2.v;
+                                            ID = id2;
                                             return true;
                                         }
                                         else
@@ -789,7 +783,7 @@ namespace CodeTables
                                             }
                                             else
                                             {
-                                                long id = -1;
+                                                ID id = null;
                                                 if (col.fKey.fTable.UpdateInputControls_SQL(dbTables, this, ref id, ref Err))
                                                 {
                                                     sqlite_set = col.Name + " = " + id.ToString();
@@ -866,11 +860,11 @@ namespace CodeTables
                             }
                             if (sqlite_update.Length > 0)
                             {
-                                sqlite_update += " where ID = " + id_v.v.ToString();
+                                sqlite_update += " where ID = " + id1.ToString();
                                 object oRes = new object();
                                 if (dbTables.m_con.ExecuteNonQuerySQL(sqlite_update, sqlParamList, ref oRes, ref Err))
                                 {
-                                    ID = id_v.v;
+                                    ID = id1;
                                     return true;
                                 }
                                 else
@@ -881,7 +875,7 @@ namespace CodeTables
                             else
                             {
                                 // nothing to update
-                                ID = id_v.v;
+                                ID = id1;
                                 return true; 
                             }
                         }
@@ -892,10 +886,10 @@ namespace CodeTables
                     }
                     else
                     {
-                        long_v id_v2 = null;
-                        if (Insert_SQL_Get_ID(ref id_v2, dbTables, -1))
+                        ID id2 = null;
+                        if (Insert_SQL_Get_ID(ref id2, dbTables, -1))
                         {
-                            ID = id_v2.v;
+                            ID = id2;
                             return true;
                         }
                         else
@@ -1021,7 +1015,7 @@ namespace CodeTables
         //    return true;
         //}
 
-        private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,long id, ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ref int total_count, ref string Err)
+        private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,ID id, ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ref int total_count, ref string Err)
         {
             ReferencesToTable reftt = dbTables.GetReferencesToTable(this);
             if (reftt != null)

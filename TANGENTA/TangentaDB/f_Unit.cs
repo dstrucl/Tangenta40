@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Unit
     {
-        public static bool Get(string Name, string Symbol, int DecimalPlaces, bool StorageOption, string Description, ref long Unit_ID)
+        public static bool Get(string Name, string Symbol, int DecimalPlaces, bool StorageOption, string Description, ref ID Unit_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -53,14 +53,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Unit_ID = (long)dt.Rows[0]["ID"];
+                    if (Unit_ID==null)
+                    {
+                        Unit_ID = new ID();
+                    }
+                    Unit_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into Unit (Name,Symbol,DecimalPlaces,StorageOption,Description)values(" + spar_Name + "," + spar_Symbol + "," + spar_DecimalPlaces + "," + spar_StorageOption + "," + sval_Description + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Unit_ID, ref oret, ref Err, "Unit"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Unit_ID, ref Err, "Unit"))
                     {
                         return true;
                     }
@@ -78,7 +81,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(long Unit_ID,
+        internal static bool Get(ID Unit_ID,
                                  ref string_v unit_Name_v,
                                  ref string_v unit_Symbol_v,
                                  ref int_v unit_DecimalPlaces_v,
@@ -95,7 +98,7 @@ namespace TangentaDB
 
 
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Unit_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, Unit_ID);
             lpar.Add(par_ID);
 
             string sql = "select Name,Symbol,DecimalPlaces,StorageOption,Description from Unit where ID = " + spar_ID;

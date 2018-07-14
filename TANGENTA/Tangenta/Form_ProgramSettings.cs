@@ -55,7 +55,11 @@ namespace Tangenta
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
             chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
             chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
-            this.txt_ElectronicDevice_ID.Text = Properties.Settings.Default.ElectronicDevice_ID;
+            if (GlobalData.ElectronicDevice_Name==null)
+            {
+                GlobalData.ElectronicDevice_Name = "1";
+            }
+            this.txt_ElectronicDevice_ID.Text = GlobalData.ElectronicDevice_Name;
             this.txt_ElectronicDevice_ID.TextChanged += Txt_ElectronicDevice_ID_TextChanged;
             m_usrc_Main = usrc_Main;
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
@@ -143,7 +147,14 @@ namespace Tangenta
                 }
                 if (bChanged)
                 {
-                    Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
+                    if (txt_ElectronicDevice_ID.Text.Length==0)
+                    {
+                        XMessage.Box.Show(this,lng.s_ElectronicDevice_Name_is_not_defined,MessageBoxIcon.Warning);
+                        this.txt_ElectronicDevice_ID.Focus();
+                        return false;
+                    }
+                    f_Atom_ElectronicDevice.Get(this.txt_ElectronicDevice_ID.Text, null, ref GlobalData.Atom_ElectronicDevice_ID);
+                    f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name,ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID);
                     Properties.Settings.Default.Save();
                 }
 

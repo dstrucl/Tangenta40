@@ -14,9 +14,9 @@ namespace TangentaDB
     {
         private static DataTable dtCurrency = null;
 
-        public static bool Get(int Country_num, ref long Currency_ID)
+        public static bool Get(int Country_num, ref ID Currency_ID)
         {
-            Currency_ID = -1;
+            Currency_ID = null;
             ISO_3166_Table iso_3166_Table = new ISO_3166_Table();
 
             foreach (ISO_3166 iso in iso_3166_Table.item)
@@ -53,7 +53,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get(string Abbreviation,string Name,string Symbol,int CurrencyCode, int DecimalPlaces, ref long Currency_ID)
+        public static bool Get(string Abbreviation,string Name,string Symbol,int CurrencyCode, int DecimalPlaces, ref ID Currency_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -86,7 +86,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Currency_ID = (long)dt.Rows[0]["ID"];
+                    if (Currency_ID==null)
+                    {
+                        Currency_ID = new ID();
+                    }
+                    Currency_ID.Set(dt.Rows[0]["ID"]);
                     object oName = dt.Rows[0]["Name"];
                     string xCurrencyName = null;
                     if (oName is string)
@@ -144,8 +148,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into Currency (Abbreviation,Name,Symbol,CurrencyCode,DecimalPlaces)values(" + spar_Abbreviation + "," + spar_Name + "," + spar_Symbol+ "," + spar_CurrencyCode + "," + spar_DecimalPlaces + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Currency_ID, ref oret, ref Err, "Currency"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Currency_ID, ref Err, "Currency"))
                     {
                         return true;
                     }
@@ -163,7 +166,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces)
+        public static bool Get(ID Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces)
         {
             string sql = "select Abbreviation,Name,Symbol,CurrencyCode,DecimalPlaces from Currency where ID = " + Currency_ID.ToString();
             DataTable dt = new DataTable();
@@ -206,18 +209,18 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:f_Currency.Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces),sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:f_Currency.Get(ID Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces),sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_Currency.Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces):sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:f_Currency.Get(ID Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces):sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
 
-        public static bool Get(long Currency_ID, 
+        public static bool Get(ID Currency_ID, 
                                ref string_v Abbreviation_v, 
                                ref string_v Name_v, 
                                ref string_v Symbol_v, 

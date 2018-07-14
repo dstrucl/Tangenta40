@@ -180,11 +180,11 @@ namespace CodeTables
             }
         }
 
-        bool myGroupBox_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        bool myGroupBox_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             if (pParentTable != null)
             {
-                return pParentTable.myGroupBox.SetEvent_RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id_v, ref bCancelDialog, ref Instruction);
+                return pParentTable.myGroupBox.SetEvent_RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id, ref bCancelDialog, ref Instruction);
             }
             else
             {

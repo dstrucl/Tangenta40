@@ -316,12 +316,12 @@ namespace CodeTables
                                 {
                                     string PrevVar = sqlTbl.TableName;
                                     sVarID = "";
-                                    Int64 ID = -1;
+                                    ID ID = null;
                                     string csError = null;
                                     bool bSomethingDefined = false;
                                     if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.m_con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError))
                                     {
-                                        if (ID != -1)
+                                        if (ID.IsValid)
                                         {
                                             return true;
                                         }

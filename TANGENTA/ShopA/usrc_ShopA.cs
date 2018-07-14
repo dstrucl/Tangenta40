@@ -162,9 +162,9 @@ namespace ShopA
             long xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.Doc_ID;
             if (IsDocInvoice)
             {
-                if (m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v != null)
+                if (m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID != null)
                 {
-                    xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
+                    xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID.v;
                 }
             }
             if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,xDocInvoice_ID, ref dt_Item_Price))

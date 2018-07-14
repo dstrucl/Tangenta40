@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using LanguageControl;
 using System;
@@ -18,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Customer_Org
     {
-        public static bool Get(long Customer_Org_ID, ref long_v Atom_Customer_Org_ID_v)
+        public static bool Get(ID Customer_Org_ID, ref ID Atom_Customer_Org_ID)
         {
             DataTable dt = new DataTable();
             string sql = @"select orgd.Organisation_ID 
@@ -30,7 +31,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    long Org_ID = (long)dt.Rows[0]["Organisation_ID"];
+                    ID Org_ID = new ID(dt.Rows[0]["Organisation_ID"]);
                     dt.Clear();
                     sql = @"select  OrganisationData_$_org_$$Name,
                                     OrganisationData_$_org_$$Tax_ID, 
@@ -104,8 +105,8 @@ namespace TangentaDB
                                     TRR_v = tf.set_string(dt.Rows[0]["TRR"]);
                                 }
                             }
-                            long_v Atom_Organisation_ID_v = null;
-                            long_v Atom_OrganisationData_ID_v = null;
+                            ID Atom_Organisation_ID = null;
+                            ID Atom_OrganisationData_ID = null;
                             if (f_Atom_Organisation.Get(Name_v,
                                                             Tax_ID_v,
                                                             Registration_ID_v,
@@ -122,34 +123,27 @@ namespace TangentaDB
                                                             Image_Hash_v,
                                                             Image_Data_v,
                                                             Description_v,
-                                                            ref Atom_Organisation_ID_v,
-                                                            ref Atom_OrganisationData_ID_v))
+                                                            ref Atom_Organisation_ID,
+                                                            ref Atom_OrganisationData_ID))
                             {
-                                sql = "select ID from Atom_Customer_Org where Atom_Organisation_ID = " + Atom_Organisation_ID_v.v.ToString();
+                                sql = "select ID from Atom_Customer_Org where Atom_Organisation_ID = " + Atom_Organisation_ID.ToString();
                                 dt.Clear();
                                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                 {
                                     if (dt.Rows.Count == 1)
                                     {
-                                        if (Atom_Customer_Org_ID_v == null)
+                                        if (Atom_Customer_Org_ID == null)
                                         {
-                                            Atom_Customer_Org_ID_v = new long_v();
+                                            Atom_Customer_Org_ID = new ID();
                                         }
-                                        Atom_Customer_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                                        Atom_Customer_Org_ID.Set(dt.Rows[0]["ID"]);
                                         return true;
                                     }
                                     else
                                     {
-                                        sql = "insert into Atom_Customer_Org (Atom_Organisation_ID) values (" + Atom_Organisation_ID_v.v.ToString() + ")";
-                                        object ores = null;
-                                        long id = -1;
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref id, ref ores, ref Err, "Atom_Customer_Org"))
+                                        sql = "insert into Atom_Customer_Org (Atom_Organisation_ID) values (" + Atom_Organisation_ID.ToString() + ")";
+                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Customer_Org_ID, ref Err, "Atom_Customer_Org"))
                                         {
-                                            if (Atom_Customer_Org_ID_v == null)
-                                            {
-                                                Atom_Customer_Org_ID_v = new long_v();
-                                            }
-                                            Atom_Customer_Org_ID_v.v = id;
                                             return true;
                                         }
                                         else
@@ -195,7 +189,7 @@ namespace TangentaDB
             }
         }
 
-        public static UniversalInvoice.Organisation GetData(ltext token_prefix, long Atom_Customer_Org_ID)
+        public static UniversalInvoice.Organisation GetData(ltext token_prefix, ID Atom_Customer_Org_ID)
         {
             string sql = "select Atom_Organisation_ID from Atom_Customer_Org where ID = " + Atom_Customer_Org_ID.ToString();
             string Err = null;
@@ -204,7 +198,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count>0)
                 {
-                    long Atom_Organisation_ID = (long)dt.Rows[0]["Atom_Organisation_ID"];
+                    ID Atom_Organisation_ID = new ID(dt.Rows[0]["Atom_Organisation_ID"]);
                     return f_Atom_OrganisationData.GetData(token_prefix, Atom_Organisation_ID);
                 }
                 else
@@ -221,7 +215,7 @@ namespace TangentaDB
         }
 
 
-        private static bool Find_Customer(long Customer_Org_ID, ref long Org_ID, ref long Customer_ID)
+        private static bool Find_Customer(ID Customer_Org_ID, ref ID Org_ID, ref ID Customer_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -231,14 +225,22 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Customer_ID = (long)dt.Rows[0]["Customer_ID"];
-                    Org_ID = (long)dt.Rows[0]["Org_ID"];
+                    if (Customer_ID==null)
+                    {
+                        Customer_ID = new ID();
+                    }
+                    Customer_ID.Set(dt.Rows[0]["Customer_ID"]);
+                    if (Org_ID==null)
+                    {
+                        Org_ID = new ID();
+                    }
+                    Org_ID.Set(dt.Rows[0]["Org_ID"]);
                     return true;
                 }
                 else
                 {
-                    Customer_ID = -1;
-                    Org_ID = -1;
+                    Customer_ID = null;
+                    Org_ID = null;
                     LogFile.Error.Show("ERROR:f_Atom_Customer_Org:Find_Customer:No Data row in table Customer_Org for Customer_Org.ID = " + sCustomer_Org_ID);
                     return false;
                 }

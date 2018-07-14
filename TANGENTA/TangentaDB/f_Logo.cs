@@ -18,17 +18,17 @@ namespace TangentaDB
 {
     public static class f_Logo
     {
-        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref long_v Logo_ID_v)
+        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref ID Logo_ID)
         {
             string Err = null;
             if (Logo_Hash_v == null)
             {
-                Logo_ID_v = null;
+                Logo_ID = null;
                 return true;
             }
-            if (Logo_ID_v == null)
+            if (Logo_ID == null)
             {
-                Logo_ID_v = new long_v();
+                Logo_ID = new ID();
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Image_Hash_Value = "null";
@@ -83,14 +83,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Logo_ID_v.v = (long)dt.Rows[0]["ID"];
+                    if (Logo_ID == null)
+                    {
+                        Logo_ID = new ID();
+                    }
+                    Logo_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = " insert into Logo (Image_Hash,Image_Data,Description) values (" + Image_Hash_Value + "," + Image_Data_Value + "," + Description_Value + ")";
-                    object oRet = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Logo_ID_v.v_, ref oRet, ref Err, "Logo"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Logo_ID, ref Err, "Logo"))
                     {
                         return true;
                     }

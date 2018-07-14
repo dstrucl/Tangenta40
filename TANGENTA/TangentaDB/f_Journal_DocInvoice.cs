@@ -21,9 +21,9 @@ namespace TangentaDB
         public const string ORIGINALPRINT = "OriginalPrint";
         public const string COPYPRINT = "CopyPrint";
 
-        public static bool Write(long DocInvoice_ID, long Atom_WorkPeriod_ID, string Event_Type, string Event_Description, DateTime_v EventTime_v, ref long journal_docinvoice_id)
+        public static bool Write(ID DocInvoice_ID, ID Atom_WorkPeriod_ID, string Event_Type, string Event_Description, DateTime_v EventTime_v, ref ID journal_docinvoice_id)
         {
-            long journal_invoice_type_id = -1;
+            ID journal_invoice_type_id = null;
             if (Get_journal_docinvoice_type_id(Event_Type, Event_Description, ref journal_invoice_type_id))
             {
                 return Write(DocInvoice_ID, Atom_WorkPeriod_ID, journal_invoice_type_id, EventTime_v, ref journal_docinvoice_id);
@@ -31,7 +31,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Get_journal_docinvoice_type_id(string Event_Type, string Event_Description, ref long journal_invoice_type_id)
+        public static bool Get_journal_docinvoice_type_id(string Event_Type, string Event_Description, ref ID journal_invoice_type_id)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
@@ -62,14 +62,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    journal_invoice_type_id = (long)dt.Rows[0]["ID"];
+                    if (journal_invoice_type_id==null)
+                    {
+                        journal_invoice_type_id = new ID();
+                    }
+                    journal_invoice_type_id.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into journal_docinvoice_type (Name,Description) values (" + spar_Name + "," + par_Description_value + ")";
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref journal_invoice_type_id, ref ores, ref Err, "journal_docinvoice_type"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref journal_invoice_type_id,  ref Err, "journal_docinvoice_type"))
                     {
                         return true;
                     }
@@ -87,9 +90,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_journal_docinvoice_type_id(string Event_Type, ref long journal_invoice_type_id)
+        public static bool Get_journal_docinvoice_type_id(string Event_Type, ref ID journal_invoice_type_id)
         {
-            journal_invoice_type_id = -1;
+            journal_invoice_type_id = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
             SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Event_Type);
@@ -105,7 +108,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    journal_invoice_type_id = (long)dt.Rows[0]["ID"];
+                    if (journal_invoice_type_id==null)
+                    {
+                        journal_invoice_type_id = new ID();
+                    }
+                    journal_invoice_type_id.Set(dt.Rows[0]["ID"]);
                 }
                 return true;
             }
@@ -117,19 +124,19 @@ namespace TangentaDB
         }
 
 
-        public static bool Write(long DocInvoice_ID, long Atom_WorkPeriod_ID, long journal_invoice_type_id, DateTime_v issue_time, ref long Journal_DocInvoice_ID)
+        public static bool Write(ID DocInvoice_ID, ID Atom_WorkPeriod_ID, ID journal_invoice_type_id, DateTime_v issue_time, ref ID Journal_DocInvoice_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_journal_docinvoice_type_id = "@par_journal_docinvoice_type_id";
-            SQL_Parameter par_journal_invoice_type_id = new SQL_Parameter(spar_journal_docinvoice_type_id, SQL_Parameter.eSQL_Parameter.Bigint, false, journal_invoice_type_id);
+            SQL_Parameter par_journal_invoice_type_id = new SQL_Parameter(spar_journal_docinvoice_type_id, false, journal_invoice_type_id);
             lpar.Add(par_journal_invoice_type_id);
 
             string spar_ProfromaInvoice_ID = "@par_DocInvoice_ID";
-            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_ProfromaInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
+            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_ProfromaInvoice_ID, false, DocInvoice_ID);
             lpar.Add(par_Invoice_ID);
 
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
-            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_WorkPeriod_ID);
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, Atom_WorkPeriod_ID);
             lpar.Add(par_Atom_WorkPeriod_ID);
 
             DateTime dtime = DateTime.Now;
@@ -142,9 +149,8 @@ namespace TangentaDB
             SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dtime);
             lpar.Add(par_EventTime);
             string sql = "insert into journal_docinvoice (journal_docinvoice_type_id,DocInvoice_ID,EventTime,Atom_WorkPeriod_ID)values(" + spar_journal_docinvoice_type_id + "," + spar_ProfromaInvoice_ID + "," + spar_EventTime + "," + spar_Atom_WorkPeriod_ID + ")";
-            object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Journal_DocInvoice_ID, ref ores, ref Err, "journal_docinvoice"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Journal_DocInvoice_ID, ref Err, "journal_docinvoice"))
             {
                 return true;
             }
@@ -156,7 +162,7 @@ namespace TangentaDB
 
         }
 
-        internal static bool OriginalPrinted(long docInvoice_ID)
+        internal static bool OriginalPrinted(ID docInvoice_ID)
         {
             string sql = @"select jdi.ID from journal_docinvoice jdi
                          inner join journal_docinvoice_type jdit on jdi.journal_docinvoice_type_ID = jdit.ID 
@@ -178,7 +184,7 @@ namespace TangentaDB
             }
         }
 
-        internal static void GetCopyPrintedCount(long docInvoice_ID, ref int copy_printed_count)
+        internal static void GetCopyPrintedCount(ID docInvoice_ID, ref int copy_printed_count)
         {
             string sql = @"select jdi.ID from journal_docinvoice jdi
                          inner join journal_docinvoice_type jdit on jdi.journal_docinvoice_type_ID = jdit.ID 
@@ -188,7 +194,6 @@ namespace TangentaDB
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
             {
                 copy_printed_count= dt.Rows.Count;
-                
             }
             else
             {

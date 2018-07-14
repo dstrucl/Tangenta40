@@ -32,8 +32,8 @@ namespace TangentaDB
                                 string_v Logo_Hash_v,
                                 byte_array_v Image_Data_v,
                                 string_v Logo_Description_v,
-                                ref ID_v cAdressAtom_Org_iD_v,
-                                ref long_v OrganisationData_ID_v)
+                                ref ID cAdressAtom_Org_iD,
+                                ref ID OrganisationData_ID)
         {
             string Err = null;
          
@@ -42,17 +42,17 @@ namespace TangentaDB
             long_v OrganisationTYPE_ID_v = null;
             if (f_cOrgTYPE.Get(OrganisationTYPE_v, ref OrganisationTYPE_ID_v))
             {
-                if (f_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD_v))
+                if (f_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD))
                 {
-                    ID_v cHomePage_Org_ID_v = null;
+                    ID xcHomePage_Org_ID = null;
                     string cHomePage_Org_ID_v_cond = "cHomePage_Org_ID is null";
                     string cHomePage_Org_ID_v_Value = "null";
 
-                    if (fs.Get_ID("cHomePage_Org", "HomePage", HomePage_v, ref cHomePage_Org_ID_v, ref Err))
+                    if (fs.Get_ID("cHomePage_Org", "HomePage", HomePage_v, ref xcHomePage_Org_ID, ref Err))
                     {
-                        if (cHomePage_Org_ID_v != null)
+                        if (xcHomePage_Org_ID_v != null)
                         {
-                            cHomePage_Org_ID_v_Value = cHomePage_Org_ID_v.v.ToString();
+                            cHomePage_Org_ID_v_Value = xcHomePage_Org_ID_v.v.ToString();
                             cHomePage_Org_ID_v_cond = "cHomePage_Org_ID = " + cHomePage_Org_ID_v_Value;
                         }
                     }
@@ -157,9 +157,9 @@ namespace TangentaDB
                         cOrgTYPE_ID_value = "null";
                     }
                     string cAddress_Org_ID_condition = null;
-                    if (cAdressAtom_Org_iD_v != null)
+                    if (cAdressAtom_Org_iD != null)
                     {
-                        cAddress_Org_ID_condition = " cAddress_Org_ID = " + cAdressAtom_Org_iD_v.v.ToString();
+                        cAddress_Org_ID_condition = " cAddress_Org_ID = " + cAdressAtom_Org_iD.v.ToString();
                     }
                     else
                     {
@@ -180,11 +180,11 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            if (OrganisationData_ID_v == null)
+                            if (OrganisationData_ID == null)
                             {
-                                OrganisationData_ID_v = new long_v();
+                                OrganisationData_ID = new long_v();
                             }
-                            OrganisationData_ID_v.v = (long)dt.Rows[0]["ID"];
+                            OrganisationData_ID.v = (long)dt.Rows[0]["ID"];
                             return true;
                         }
                         else
@@ -192,7 +192,7 @@ namespace TangentaDB
                             string sql_insert = @"insert into OrganisationData (Organisation_ID,cOrgTYPE_ID,cAddress_Org_ID,cHomePage_Org_ID,cEmail_Org_ID,cPhoneNumber_Org_ID,cFaxNumber_Org_ID,Logo_ID) values (
                                                                                     " + Organisation_ID.ToString() + @",
                                                                                     " + cOrgTYPE_ID_value + @",
-                                                                                    " + cAdressAtom_Org_iD_v.v.ToString() + @",
+                                                                                    " + cAdressAtom_Org_iD.v.ToString() + @",
                                                                                     " + cHomePage_Org_ID_v_Value + @",
                                                                                     " + cEmail_Org_ID_v_Value + @",
                                                                                     " + cPhoneNumber_Org_ID_v_Value + @",
@@ -202,11 +202,11 @@ namespace TangentaDB
                             long OrganisationData_ID = -1;
                             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref OrganisationData_ID, ref oret, ref Err, "OrganisationData"))
                             {
-                                if (OrganisationData_ID_v == null)
+                                if (OrganisationData_ID == null)
                                 {
-                                    OrganisationData_ID_v = new long_v();
+                                    OrganisationData_ID = new long_v();
                                 }
-                                OrganisationData_ID_v.v = OrganisationData_ID;
+                                OrganisationData_ID.v = OrganisationData_ID;
                                 return true;
                             }
                             else

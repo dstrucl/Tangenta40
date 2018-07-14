@@ -48,12 +48,12 @@ namespace CodeTables
 
 
 
-        internal void ShowTableRow(long Identity)
+        internal void ShowTableRow(ID Identity)
         {
             usrc_EditRow.ShowTableRow(Identity);
         }
 
-        private void usrc_EditTable_Update(bool res, long ID,string Err)
+        private void usrc_EditTable_Update(bool res, ID ID,string Err)
         {
             if (res)
             {

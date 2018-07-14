@@ -9,11 +9,11 @@ namespace TangentaDB
 {
     public static class f_StockTake_AdditionalCost
     {
-        public static bool Add(long StockTake_ID, string Name, decimal Cost, string Description, ref long StockTake_AdditionalCost_ID)
+        public static bool Add(ID StockTake_ID, string Name, decimal Cost, string Description, ref ID StockTake_AdditionalCost_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long StocTakeCostName_ID = -1;
+            ID StocTakeCostName_ID = null;
             if (f_StockTakeCostName.Get(Name, ref StocTakeCostName_ID))
             {
                 string spar_StocTakeCostDescription_ID = "null";
@@ -32,7 +32,7 @@ namespace TangentaDB
                 }
 
                 string spar_StocTakeCostName_ID = "@par_StocTakeCostName_ID";
-                SQL_Parameter par_StocTakeCostName_ID = new SQL_Parameter(spar_StocTakeCostName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StocTakeCostName_ID);
+                SQL_Parameter par_StocTakeCostName_ID = new SQL_Parameter(spar_StocTakeCostName_ID, false, StocTakeCostName_ID);
                 lpar.Add(par_StocTakeCostName_ID);
 
                 string spar_Cost = "@par_Cost";
@@ -40,7 +40,7 @@ namespace TangentaDB
                 lpar.Add(par_Cost);
 
                 string spar_StocTake_ID = "@par_StocTake_ID";
-                SQL_Parameter par_StocTake_ID = new SQL_Parameter(spar_StocTake_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_ID);
+                SQL_Parameter par_StocTake_ID = new SQL_Parameter(spar_StocTake_ID, false, StockTake_ID);
                 lpar.Add(par_StocTake_ID);
 
 
@@ -50,8 +50,7 @@ namespace TangentaDB
                               + spar_StocTakeCostDescription_ID + ","
                               + spar_StocTake_ID 
                               + ")";
-                object oret = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref StockTake_AdditionalCost_ID, ref oret, ref Err, "StockTake_AdditionalCost"))
+                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref StockTake_AdditionalCost_ID, ref Err, "StockTake_AdditionalCost"))
                 {
                     return true;
                 }
@@ -63,11 +62,11 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Update(long StockTake_AdditionalCost_ID,long StockTake_ID, string Name, decimal Cost, string Description)
+        public static bool Update(ID StockTake_AdditionalCost_ID,ID StockTake_ID, string Name, decimal Cost, string Description)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long StocTakeCostName_ID = -1;
+            ID StocTakeCostName_ID = null;
             if (f_StockTakeCostName.Get(Name, ref StocTakeCostName_ID))
             {
                 string spar_StocTakeCostDescription_ID = "null";
@@ -75,18 +74,18 @@ namespace TangentaDB
                 {
                     if (Description.Length > 0)
                     {
-                        long StocTakeCostDescription_ID = -1;
+                        ID StocTakeCostDescription_ID = null;
                         if (f_StockTakeCostDescription.Get(Description, ref StocTakeCostDescription_ID))
                         {
                             spar_StocTakeCostDescription_ID = "@par_StocTakeCostDescription_ID";
-                            SQL_Parameter par_StocTakeCostDescription_ID = new SQL_Parameter(spar_StocTakeCostDescription_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StocTakeCostName_ID);
+                            SQL_Parameter par_StocTakeCostDescription_ID = new SQL_Parameter(spar_StocTakeCostDescription_ID, false, StocTakeCostName_ID);
                             lpar.Add(par_StocTakeCostDescription_ID);
                         }
                     }
                 }
 
                 string spar_StocTakeCostName_ID = "@par_StocTakeCostName_ID";
-                SQL_Parameter par_StocTakeCostName_ID = new SQL_Parameter(spar_StocTakeCostName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StocTakeCostName_ID);
+                SQL_Parameter par_StocTakeCostName_ID = new SQL_Parameter(spar_StocTakeCostName_ID, false, StocTakeCostName_ID);
                 lpar.Add(par_StocTakeCostName_ID);
 
                 string spar_Cost = "@par_Cost";
@@ -94,11 +93,11 @@ namespace TangentaDB
                 lpar.Add(par_Cost);
 
                 string spar_StocTake_ID = "@par_StocTake_ID";
-                SQL_Parameter par_StocTake_ID = new SQL_Parameter(spar_StocTake_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_ID);
+                SQL_Parameter par_StocTake_ID = new SQL_Parameter(spar_StocTake_ID, false, StockTake_ID);
                 lpar.Add(par_StocTake_ID);
 
                 string spar_StocTake_AdditionalCost_ID = "@par_StocTake_AdditionalCost_ID";
-                SQL_Parameter par_StocTake_AdditionalCost_ID = new SQL_Parameter(spar_StocTake_AdditionalCost_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_AdditionalCost_ID);
+                SQL_Parameter par_StocTake_AdditionalCost_ID = new SQL_Parameter(spar_StocTake_AdditionalCost_ID, false, StockTake_AdditionalCost_ID);
                 lpar.Add(par_StocTake_AdditionalCost_ID);
 
 
@@ -119,7 +118,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Remove(long StockTake_AdditionalCost_ID, long StockTake_ID)
+        public static bool Remove(ID StockTake_AdditionalCost_ID, ID StockTake_ID)
         {
             string Err = null;
             string sql = "delete from StockTake_AdditionalCost where StockTake_ID = " + StockTake_ID.ToString() + " and ID =" + StockTake_AdditionalCost_ID.ToString();
@@ -135,7 +134,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool ReadDataTable(ref DataTable dt, long StockTake_ID)
+        public static bool ReadDataTable(ref DataTable dt, ID StockTake_ID)
         {
             string Err = null;
             if (dt != null)

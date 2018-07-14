@@ -11,11 +11,11 @@ namespace TangentaDB
 {
     public static class f_Atom_Comment1
     {
-        public static bool Get(string Comment, ref long_v Atom_Comment1_ID_v)
+        public static bool Get(string Comment, ref ID Atom_Comment1_ID)
         {
             string Err = null;
             string sql = null;
-            Atom_Comment1_ID_v = null;
+            Atom_Comment1_ID = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             if (Comment == null)
             {
@@ -35,17 +35,24 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Comment1_ID_v =tf.set_long(dt.Rows[0]["ID"]);
+                    if (Atom_Comment1_ID==null)
+                    {
+                        Atom_Comment1_ID = new ID();
+                    }
+                    Atom_Comment1_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_Comment1 (Comment) values (" + sval_Comment + ")";
-                    object objretx = null;
-                    long Atom_Comment1_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Comment1_ID, ref objretx, ref Err, "Atom_Comment1"))
+                    ID xAtom_Comment1_ID = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_Comment1_ID, ref Err, "Atom_Comment1"))
                     {
-                        Atom_Comment1_ID_v = new long_v(Atom_Comment1_ID);
+                        if (Atom_Comment1_ID==null)
+                        {
+                            Atom_Comment1_ID = new ID();
+                        }
+                        Atom_Comment1_ID.Set(xAtom_Comment1_ID);
                         return true;
                     }
                     else

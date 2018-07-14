@@ -10,11 +10,11 @@ namespace TangentaDB
 {
     public static class f_Atom_Notice
     {
-        public static bool Get(string NoticeText, ref long_v Atom_Notice_ID_v)
+        public static bool Get(string NoticeText, ref ID Atom_Notice_ID)
         {
             string Err = null;
             string sql = null;
-            Atom_Notice_ID_v = null;
+            Atom_Notice_ID = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             if (NoticeText == null)
             {
@@ -34,17 +34,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Notice_ID_v =tf.set_long(dt.Rows[0]["ID"]);
+                    if (Atom_Notice_ID==null)
+                    {
+                        Atom_Notice_ID = new ID();
+                    }
+                    Atom_Notice_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_Notice (NoticeText) values (" + sval_NoticeText + ")";
-                    object objretx = null;
-                    long Atom_Notice_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Notice_ID, ref objretx, ref Err, "Atom_Notice"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Notice_ID,  ref Err, "Atom_Notice"))
                     {
-                        Atom_Notice_ID_v = new long_v(Atom_Notice_ID);
                         return true;
                     }
                     else

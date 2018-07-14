@@ -19,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_cStreetName_Org
     {
-        public static bool Get(string StreetName, ref long cStreetName_Org_ID)
+        public static bool Get(string StreetName, ref ID cStreetName_Org_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -44,14 +44,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cStreetName_Org_ID = (long)dt.Rows[0]["ID"];
+                    if (cStreetName_Org_ID==null)
+                    {
+                        cStreetName_Org_ID = new ID();
+                    }
+                    cStreetName_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cStreetName_Org (StreetName) values (" + sval_StreetName + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cStreetName_Org_ID, ref objretx, ref Err, "cStreetName_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cStreetName_Org_ID, ref Err, "cStreetName_Org"))
                     {
                         return true;
                     }
@@ -69,7 +72,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v)
+        internal static bool Get(string_v streetName_v, ref ID cStreetName_Org_ID)
         {
             if (streetName_v != null)
             {
@@ -84,43 +87,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (atom_cStreetName_Org_ID_v == null)
+                        if (cStreetName_Org_ID == null)
                         {
-                            atom_cStreetName_Org_ID_v = new long_v();
+                            cStreetName_Org_ID = new ID();
                         }
-                        atom_cStreetName_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cStreetName_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cStreetName_Org (StreetName) values (@par)";
-                        long cStreetName_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cStreetName_Org_ID, ref oret, ref Err, "cStreetName_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cStreetName_Org_ID,  ref Err, "cStreetName_Org"))
                         {
-                            if (atom_cStreetName_Org_ID_v == null)
-                            {
-                                atom_cStreetName_Org_ID_v = new long_v();
-                            }
-                            atom_cStreetName_Org_ID_v.v = cStreetName_Org_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Org:Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Org:Get(string_v streetName_v, ref ID cStreetName_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Org:Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Org:Get(string_v streetName_v, ref ID cStreetName_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Org:Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v) streetName_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Org:Get(string_v streetName_v, ref ID atom_cStreetName_Org_ID) streetName_v may not be null!");
                 return false;
             }
         }

@@ -111,21 +111,20 @@ namespace TangentaDB
 	                    where ptm.ToOffer = 1 and Price_Item.RetailPricePerUnit>=0 and Price_Item.PriceList_ID = ";
         }
 
-        private bool FillStockDataListForEachItemInItems(long item_id, Item_Data xItem_Data)
+        private bool FillStockDataListForEachItemInItems(ID item_id, Item_Data xItem_Data)
         {
             foreach (object o in ListOfItems)
             {
                 Item_Data idata = (Item_Data)o;
-                if (idata.Item_ID != null)
+                if (ID.Validate(idata.Item_ID))
                 {
-                    if (idata.Item_ID.v == item_id)
+                    if (idata.Item_ID.Equals(item_id))
                     {
  
                         Stock_Data stock_data = new Stock_Data();
                         if (xItem_Data.Stock_ID != null)
                         {
-                            stock_data.Stock_ID = new DBTypes.long_v();
-                            stock_data.Stock_ID.v = xItem_Data.Stock_ID.v;
+                            stock_data.Stock_ID = new ID(xItem_Data.Stock_ID);
                         }
                         else
                         {
@@ -198,18 +197,17 @@ namespace TangentaDB
                 xItem_Data.Set_Price_Item_Stock(dr);
                 if (dr[m_cpis.icol_Item_ID] is long)
                 {
-                    long item_id = (long)dr[m_cpis.icol_Item_ID];
+                    ID item_id = new ID(dr[m_cpis.icol_Item_ID]);
                     if (FillStockDataListForEachItemInItems(item_id, xItem_Data))
                     {
                         continue;
                     }
                     else
                     {
-                            Stock_Data stock_data = new Stock_Data();
-                        if (xItem_Data.Stock_ID != null)
+                        Stock_Data stock_data = new Stock_Data();
+                        if (ID.Validate(xItem_Data.Stock_ID))
                         {
-                            stock_data.Stock_ID = new DBTypes.long_v();
-                            stock_data.Stock_ID.v = xItem_Data.Stock_ID.v;
+                            stock_data.Stock_ID = new ID(xItem_Data.Stock_ID);
                         }
                         else
                         {
@@ -269,7 +267,7 @@ namespace TangentaDB
 
         }
 
-        public bool Load(long m_PriceList_ID, string[] s_name_Group)
+        public bool Load(ID m_PriceList_ID, string[] s_name_Group)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string s_group_condition = fs.GetGroupCondition(ref lpar, s_name_Group);
@@ -363,7 +361,7 @@ namespace TangentaDB
             return -1;
         }
 
-        public void Set_dQuantity_New_InStock(long stock_id, decimal dQuantity_New_InStock)
+        public void Set_dQuantity_New_InStock(ID stock_id, decimal dQuantity_New_InStock)
         {
             foreach (object oitem in ListOfItems)
             {
@@ -372,9 +370,9 @@ namespace TangentaDB
                     Item_Data item_data = (Item_Data)oitem;
                     foreach (Stock_Data stock_data in item_data.Stock_Data_List)
                     {
-                        if (stock_data.Stock_ID != null)
+                        if (ID.Validate(stock_data.Stock_ID))
                         {
-                            if (stock_data.Stock_ID.v == stock_id)
+                            if (stock_data.Stock_ID.Equals(stock_id))
                             {
                                 if (stock_data.dQuantity != null)
                                 {
@@ -387,6 +385,5 @@ namespace TangentaDB
                 }
             }
         }
-
     }
 }

@@ -92,7 +92,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Get_Address_Tabel_ID(SQLTable Address_Tabel, ref ID_v iD_v)
+        public bool Get_Address_Tabel_ID(SQLTable Address_Tabel, ref ID iD)
         {
             string Err = null;
             string sql_select = "select ID from " + Address_Tabel.TableName + " where ";
@@ -229,11 +229,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (iD_v == null)
+                    if (iD == null)
                     {
-                        iD_v = new ID_v();
+                        iD = new ID_v();
                     }
-                    iD_v.v = (long)dt.Rows[0]["ID"];
+                    iD.v = (long)dt.Rows[0]["ID"];
                     return true;
                 }
                 else
@@ -244,11 +244,11 @@ namespace TangentaDB
                     object oret = new object();
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref id, ref oret, ref Err, Address_Tabel.TableName))
                     {
-                        if (iD_v == null)
+                        if (iD == null)
                         {
-                            iD_v = new ID_v();
+                            iD = new ID_v();
                         }
-                        iD_v.v = id;
+                        iD.v = id;
                         return true;
                     }
                     else
@@ -265,7 +265,7 @@ namespace TangentaDB
             }
         }
 
-        private bool GetAddressElementID(string AddressElement_TableName, string[] AddressElement_ColumnNames, object[] oValues, ref ID_v iD_v)
+        private bool GetAddressElementID(string AddressElement_TableName, string[] AddressElement_ColumnNames, object[] oValues, ref ID iD)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -328,7 +328,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    iD_v = null;
+                    iD = null;
                     return true;
                 }
             }
@@ -342,26 +342,19 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            if (iD_v == null)
+                            if (iD == null)
                             {
-                                iD_v = new ID_v();
+                                iD = new ID();
                             }
-                            iD_v.v = (long)dt.Rows[0]["ID"];
+                            iD.Set(dt.Rows[0]["ID"]);
                             return true;
                         }
                         else
                         {
                             // insert
                             sql = "insert into " + AddressElement_TableName + "(" + sql_insert_Columns + ") values (" + sql_insert_Values + ")";
-                            long id = -1;
-                            object oret = new object();
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, AddressElement_TableName))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref iD,  ref Err, AddressElement_TableName))
                             {
-                                if (iD_v == null)
-                                {
-                                    iD_v = new ID_v();
-                                }
-                                iD_v.v = id;
                                 return true;
                             }
                             else
@@ -382,7 +375,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool GetAddressElementID(string AddressElement_TableName, string AddressElement_ColumnName, object oValue, ref ID_v iD_v)
+        private bool GetAddressElementID(string AddressElement_TableName, string AddressElement_ColumnName, object oValue, ref ID iD)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -410,7 +403,7 @@ namespace TangentaDB
             }
             else
             {
-                iD_v = null;
+                iD = null;
                 return true;
             }
 
@@ -418,26 +411,19 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (iD_v == null)
+                    if (iD == null)
                     {
-                        iD_v = new ID_v();
+                        iD = new ID();
                     }
-                    iD_v.v = (long)dt.Rows[0]["ID"];
+                    iD.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     // insert
                     sql = "insert into " + AddressElement_TableName + "(" + AddressElement_ColumnName + ") values (" + sparname + ")";
-                    long id = -1;
-                    object oret = new object();
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, AddressElement_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref iD,  ref Err, AddressElement_TableName))
                     {
-                        if (iD_v == null)
-                        {
-                            iD_v = new ID_v();
-                        }
-                        iD_v.v = id;
                         return true;
                     }
                     else

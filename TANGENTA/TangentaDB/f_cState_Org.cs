@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cState_Org
     {
-        public static bool Get(string State, ref long cState_Org_ID)
+        public static bool Get(string State, ref ID cState_Org_ID)
         {
             string Err = null;
             
@@ -45,14 +45,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cState_Org_ID = (long)dt.Rows[0]["ID"];
+                    if (cState_Org_ID==null)
+                    {
+                        cState_Org_ID = new ID();
+                    }
+                    cState_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cState_Org (State) values (" + sval_State + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Org_ID, ref objretx, ref Err, "cState_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Org_ID, ref Err, "cState_Org"))
                     {
                         return true;
                     }
@@ -71,7 +74,7 @@ namespace TangentaDB
         }
        
 
-        internal static bool Get(string_v country_v, ref long_v cState_Org_ID_v)
+        internal static bool Get(string_v country_v, ref ID cState_Org_ID)
         {
             if (country_v != null)
             {
@@ -86,43 +89,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cState_Org_ID_v == null)
+                        if (cState_Org_ID == null)
                         {
-                            cState_Org_ID_v = new long_v();
+                            cState_Org_ID = new ID();
                         }
-                        cState_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cState_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cState_Org (State) values (@par)";
-                        long cState_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Org_ID, ref oret, ref Err, "cState_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Org_ID,  ref Err, "cState_Org"))
                         {
-                            if (cState_Org_ID_v == null)
-                            {
-                                cState_Org_ID_v = new long_v();
-                            }
-                            cState_Org_ID_v.v = cState_Org_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cState_Org:Get(string_v country_v, ref long_v atom_cState_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cState_Org:Get(string_v country_v, ref ID cState_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cState_Org:Get(string_v country_v, ref long_v atom_cState_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cState_Org:Get(string_v country_v, ref ID cState_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                cState_Org_ID_v = null;
+                cState_Org_ID = null;
                 return true;
             }
         }

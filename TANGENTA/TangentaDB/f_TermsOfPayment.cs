@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_TermsOfPayment
     {
-        public static bool Get(string Description, ref long_v TermsOfPayment_ID_v)
+        public static bool Get(string Description, ref ID TermsOfPayment_ID)
         {
             if (Description != null)
             {
@@ -35,11 +35,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (TermsOfPayment_ID_v == null)
+                        if (TermsOfPayment_ID == null)
                         {
-                            TermsOfPayment_ID_v = new long_v();
+                            TermsOfPayment_ID = new ID();
                         }
-                        TermsOfPayment_ID_v.v = (long)dt.Rows[0]["ID"];
+                        TermsOfPayment_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
@@ -47,15 +47,8 @@ namespace TangentaDB
 
                         sql = @" insert into  TermsOfPayment (Description) values
                                                       (" + sval_Description + ")";
-                        long TermsOfPayment_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref TermsOfPayment_ID, ref oret, ref Err, "TermsOfPayment"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref TermsOfPayment_ID, ref Err, "TermsOfPayment"))
                         {
-                            if (TermsOfPayment_ID_v == null)
-                            {
-                                TermsOfPayment_ID_v = new long_v();
-                            }
-                            TermsOfPayment_ID_v.v = TermsOfPayment_ID;
                             return true;
                         }
                         else
@@ -73,12 +66,12 @@ namespace TangentaDB
             }
             else
             {
-                TermsOfPayment_ID_v = null;
+                TermsOfPayment_ID = null;
                 return true;
             }
         }
 
-        public static bool Get(long TermsOfPayment_ID, ref string_v xDescription_v)
+        public static bool Get(ID TermsOfPayment_ID, ref string_v xDescription_v)
         {
             DataTable dt = new DataTable();
             string Err = null;

@@ -11,12 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using LogFile;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
     public static class f_Atom_ShopBItem_Image
     {
-        public static bool Get(long SimpleItem_Image_ID, ref long Atom_SimpleItem_Image_ID)
+        public static bool Get(ID SimpleItem_Image_ID, ref ID Atom_SimpleItem_Image_ID)
         {
             string Err=null;
             DataTable dt = new DataTable();
@@ -29,14 +30,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_SimpleItem_Image_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_SimpleItem_Image_ID==null)
+                    {
+                        Atom_SimpleItem_Image_ID = new ID();
+                    }
+                    Atom_SimpleItem_Image_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_SimpleItem_Image (Image_Hash,Image_Data) select Image_Hash,Image_Data from SimpleItem_Image where ID = "+SimpleItem_Image_ID.ToString();
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_SimpleItem_Image_ID, ref objretx, ref Err, "Atom_SimpleItem_Image"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_SimpleItem_Image_ID, ref Err, "Atom_SimpleItem_Image"))
                     {
                         return true;
                     }

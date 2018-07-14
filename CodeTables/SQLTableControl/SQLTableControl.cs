@@ -486,7 +486,7 @@ namespace CodeTables
             }
         }
 
-        public bool DbTableExists(SQLTable tbl, ref string  csError)
+        public bool DbTableExists(SQLTable tbl, ref string csError)
         {
             //string strTableNameAndSchema = " SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+tbl.TableName+"'";
             //string strCheckTable =   m_strSQLUseDatabase + String.Format(
@@ -496,59 +496,27 @@ namespace CodeTables
             switch (m_con.DBType)
             {
                 case DBConnection.eDBType.MYSQL:
-                    strCheckTable = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '" + this.m_con.DataBase+"' AND table_name = '" + tbl.TableName + "';";
+                    strCheckTable = "SELECT COUNT(*) as res FROM information_schema.tables WHERE table_schema = '" + this.m_con.DataBase + "' AND table_name = '" + tbl.TableName + "';";
                     break;
                 case DBConnection.eDBType.MSSQL:
                     strCheckTable = "\nUSE " + this.m_con.DataBase + "\n IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='" + tbl.TableName + "') SELECT 1 AS res ELSE SELECT 0 AS res";
                     break;
                 case DBConnection.eDBType.SQLITE:
-                    strCheckTable = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '" + tbl.TableName + "'";
+                    strCheckTable = "SELECT COUNT(*) as res FROM sqlite_master WHERE type = 'table' AND name = '" + tbl.TableName + "'";
                     break;
             }
-            StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
-            int i = 0;
-            Object ObjRet = new Object();
-            if (this.m_con.ExecuteQuerySQL(strB_CheckTable, null, ref i, ref ObjRet, ref csError, tbl.TableName))
+            DataTable dt = new DataTable();
+            if (this.m_con.ReadDataTable(ref dt, strCheckTable, ref csError))
             {
-                if (ObjRet.GetType() == typeof(int))
+                if (dt.Rows.Count > 0)
                 {
-                    i =(int)ObjRet;
-                    if (i == 1)
+                    object ores = dt.Rows[0]["res"];
+                    if (ores is int)
                     {
-                        return true;
-                    }
-                    else
-                    {
-                        csError = lng.s_Error.s + ": " + lng.sTableIsMissing.s + ":" + tbl.TableName;
-                        return false;
-                    }
-                }
-                else if (ObjRet.GetType() == typeof(long))
-                {
-                    long l;
-                    l = (long)ObjRet;
-                    if (l == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        if (tbl.TableName.Equals("RemoteUpdate"))
+                        int i = (int)ores;
+                        if (i == 1)
                         {
-                            List<string> UniqueConstraintNameList = new List<string>();
-                            string sql_DBm = "";
-                            string sql_create = tbl.SQLcmd_CreateTable(this, UniqueConstraintNameList, ref sql_DBm,null);
-                            string sql_create_All = sql_DBm + sql_create;
-                            object oResult=null;
-                            if (m_con.ExecuteNonQuerySQL(sql_create_All, null, ref oResult, ref csError))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-
+                            return true;
                         }
                         else
                         {
@@ -556,9 +524,47 @@ namespace CodeTables
                             return false;
                         }
                     }
+                    else if (ores is long)
+                    {
+                        long l;
+                        l = (long)ores;
+                        if (l == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            if (tbl.TableName.Equals("RemoteUpdate"))
+                            {
+                                List<string> UniqueConstraintNameList = new List<string>();
+                                string sql_DBm = "";
+                                string sql_create = tbl.SQLcmd_CreateTable(this, UniqueConstraintNameList, ref sql_DBm, null);
+                                string sql_create_All = sql_DBm + sql_create;
+                                object oResult = null;
+                                if (m_con.ExecuteNonQuerySQL(sql_create_All, null, ref oResult, ref csError))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+
+                            }
+                            else
+                            {
+                                csError = lng.s_Error.s + ": " + lng.sTableIsMissing.s + ":" + tbl.TableName;
+                                return false;
+                            }
+                        }
+                    }
                 }
+                return false;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         public enumDataBaseCheckResult DataBaseCheck(ref string csError)
@@ -773,7 +779,7 @@ namespace CodeTables
                                     string sVarID = Globals.sVar + "_" + sqlTbl.TableName;
                                     sPrevVar = Globals.sVar;
                                     string ErrorMsg = "";
-                                    Int64 newID = -1;
+                                    ID newID = null;
                                     if (sqlTbl.SQLcmd_InsertInto(m_con,lTable, ref ErrorMsg, m_strSQLUseDatabase, ref newID))
                                     {
                                         sqlTbl = null;

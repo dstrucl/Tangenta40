@@ -10,14 +10,19 @@ namespace TangentaDB
 {
     public static class f_Atom_MAC_address
     {
-        public static bool Get(ref long Atom_MAC_address_ID)
+        public static string Get()
+        {
+            return LogFile.LogFile.GetMACAddress();
+        }
+
+        public static bool Get(ref ID Atom_MAC_address_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string MAC_address = LogFile.LogFile.GetMACAddress();
+            string MAC_address = f_Atom_MAC_address.Get();
             return f_Atom_MAC_address.Get(MAC_address, ref Atom_MAC_address_ID);
         }
 
-        public static bool Get(string xMAC_address,ref long Atom_MAC_address_ID)
+        public static bool Get(string xMAC_address,ref ID Atom_MAC_address_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -47,14 +52,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_MAC_address_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_MAC_address_ID == null)
+                    {
+                        Atom_MAC_address_ID = new ID();
+                    }
+                    Atom_MAC_address_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_MAC_address (MAC_address) values (" + sval_MAC_address + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_MAC_address_ID, ref objretx, ref Err, "Atom_MAC_address"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_MAC_address_ID, ref Err, "Atom_MAC_address"))
                     {
                         return true;
                     }

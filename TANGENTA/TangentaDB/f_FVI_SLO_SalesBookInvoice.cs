@@ -17,13 +17,13 @@ namespace TangentaDB
 {
     public static class f_FVI_SLO_SalesBookInvoice
     {
-        public static bool Get(long Invoice_ID, string xSerialNumber,string xSetNumber,string xInvoiceNumber, ref long FVI_SLO_SalesBookInvoice_ID)
+        public static bool Get(ID Invoice_ID, string xSerialNumber,string xSetNumber,string xInvoiceNumber, ref ID FVI_SLO_SalesBookInvoice_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Invoice_ID = "@par_Invoice_ID";
-            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Invoice_ID);
+            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, false, Invoice_ID);
                 lpar.Add(par_Invoice_ID);
             string spar_SerialNumber = "@par_SerialNumber";
             SQL_Parameter par_SerialNumber = new SQL_Parameter(spar_SerialNumber, SQL_Parameter.eSQL_Parameter.Varchar, false, xSerialNumber);
@@ -42,14 +42,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    FVI_SLO_SalesBookInvoice_ID = (long)dt.Rows[0]["ID"];
+                    if (FVI_SLO_SalesBookInvoice_ID==null)
+                    {
+                        FVI_SLO_SalesBookInvoice_ID = new ID();
+                    }
+                    FVI_SLO_SalesBookInvoice_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
-                sql = @"insert into FVI_SLO_SalesBookInvoice (Invoice_ID,SerialNumber,SetNumber,InvoiceNumber) values(" + spar_Invoice_ID + "," + spar_SerialNumber + "," + spar_SetNumber + "," + spar_InvoiceNumber + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref FVI_SLO_SalesBookInvoice_ID, ref objretx, ref Err, "FVI_SLO_SalesBookInvoice"))
+                    sql = @"insert into FVI_SLO_SalesBookInvoice (Invoice_ID,SerialNumber,SetNumber,InvoiceNumber) values(" + spar_Invoice_ID + "," + spar_SerialNumber + "," + spar_SetNumber + "," + spar_InvoiceNumber + ")";
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref FVI_SLO_SalesBookInvoice_ID, ref Err, "FVI_SLO_SalesBookInvoice"))
                     {
                         return true;
                     }
@@ -86,7 +89,7 @@ namespace TangentaDB
                     list.Clear();
                     foreach (DataRow dr in dt.Rows)
                     {
-                        long invoice_id = (long)dr["ID"];
+                        ID invoice_id = new ID(dr["ID"]);
                         InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB,  invoice_id,  xCasshierName);
                         if (xInvoiceData.Read_DocInvoice())
                         {

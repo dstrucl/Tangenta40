@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cOrgTYPE
     {
-        public static bool Get(string OrgTYPE, ref long cOrgTYPE_ID)
+        public static bool Get(string OrgTYPE, ref ID cOrgTYPE_ID)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -46,14 +46,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cOrgTYPE_ID = (long)dt.Rows[0]["ID"];
+                    if (cOrgTYPE_ID==null)
+                    {
+                        cOrgTYPE_ID = new ID();
+                    }
+                    cOrgTYPE_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cOrgTYPE (OrgTYPE) values (" + sval_OrgTYPE + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref objretx, ref Err, "Atom_cOrgTYPE"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref Err, "Atom_cOrgTYPE"))
                     {
                         return true;
                     }
@@ -72,7 +75,7 @@ namespace TangentaDB
 
         }
 
-        internal static bool Get(string_v OrgTYPE_v, ref long_v cOrgTYPE_ID_v)
+        internal static bool Get(string_v OrgTYPE_v, ref ID cOrgTYPE_ID)
         {
             if (OrgTYPE_v != null)
             {
@@ -87,43 +90,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cOrgTYPE_ID_v == null)
+                        if (cOrgTYPE_ID == null)
                         {
-                            cOrgTYPE_ID_v = new long_v();
+                            cOrgTYPE_ID = new ID();
                         }
-                        cOrgTYPE_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cOrgTYPE_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cOrgTYPE (OrganisationTYPE) values (@par)";
-                        long cOrgTYPE_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref oret, ref Err, "cOrgTYPE"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID,  ref Err, "cOrgTYPE"))
                         {
-                            if (cOrgTYPE_ID_v == null)
-                            {
-                                cOrgTYPE_ID_v = new long_v();
-                            }
-                            cOrgTYPE_ID_v.v = cOrgTYPE_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cOrgTYPE:Get(string_v OrgTYPE_v, ref long_v cOrgTYPE_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cOrgTYPE:Get(string_v OrgTYPE_v, ref ID cOrgTYPE_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cOrgTYPE:Get(string_v OrgTYPE_v, ref long_v cOrgTYPE_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cOrgTYPE:Get(string_v OrgTYPE_v, ref ID cOrgTYPE_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_cOrgTYPE:Get(string_v OrgTYPE_v, ref long_v cOrgTYPE_ID_v) OrgTYPE_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cOrgTYPE:Get(string_v OrgTYPE_v, ref ID cOrgTYPE_ID) OrgTYPE_v may not be null!");
                 return false;
             }
         }

@@ -22,7 +22,7 @@ namespace TangentaDB
             string Country_ISO_3166_a2,
             string Country_ISO_3166_a3,
             short Country_ISO_3166_num,
-            ref long cCountry_Person_ID)
+            ref ID cCountry_Person_ID)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -53,14 +53,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cCountry_Person_ID = (long)dt.Rows[0]["ID"];
+                    if (cCountry_Person_ID==null)
+                    {
+                        cCountry_Person_ID = new ID();
+                    }
+                    cCountry_Person_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cCountry_Person (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_Country + "," + spar_Country_ISO_3166_a2 + "," + spar_Country_ISO_3166_a3 + "," + spar_Country_ISO_3166_num + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Person_ID, ref objretx, ref Err, "cCountry_Person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Person_ID, ref Err, "cCountry_Person"))
                     {
                         return true;
                     }
@@ -78,7 +81,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Person_ID_v)
+        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID atom_cCountry_Person_ID)
         {
             if ((state_v != null) && (state_ISO_3166_a2_v != null) && (state_ISO_3166_a3_v != null) && (state_ISO_3166_num_v != null))
             {
@@ -108,11 +111,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (atom_cCountry_Person_ID_v == null)
+                        if (atom_cCountry_Person_ID == null)
                         {
-                            atom_cCountry_Person_ID_v = new long_v();
+                            atom_cCountry_Person_ID = new ID();
                         }
-                        atom_cCountry_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                        atom_cCountry_Person_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
@@ -121,15 +124,8 @@ namespace TangentaDB
                                                                                                                                     + spar_state_ISO_3166_a2_v + ","
                                                                                                                                     + spar_state_ISO_3166_a3_v + ","
                                                                                                                                     + spar_state_ISO_3166_num_v + ")";
-                        long cCountry_Person_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Person_ID, ref oret, ref Err, "cCountry_Person"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cCountry_Person_ID,  ref Err, "cCountry_Person"))
                         {
-                            if (atom_cCountry_Person_ID_v == null)
-                            {
-                                atom_cCountry_Person_ID_v = new long_v();
-                            }
-                            atom_cCountry_Person_ID_v.v = cCountry_Person_ID;
                             return true;
                         }
                         else

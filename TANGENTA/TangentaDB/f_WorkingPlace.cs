@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public static class f_WorkingPlace
     {
-        public static bool Get(string WorkingPlace_Name,string Description,ref long WorkingPlace_ID)
+        public static bool Get(string WorkingPlace_Name,string Description,ref ID WorkingPlace_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -64,14 +64,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    WorkingPlace_ID = (long)dt.Rows[0]["ID"];
+                    if (WorkingPlace_ID==null)
+                    {
+                        WorkingPlace_ID = new ID();
+                    }
+                    WorkingPlace_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into WorkingPlace (Name,Description) values (" + sval_WorkingPlace_Name + "," + sval_WorkingPlace_Description + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref WorkingPlace_ID, ref objretx, ref Err, "WorkingPlace"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref WorkingPlace_ID, ref Err, "WorkingPlace"))
                     {
                         return true;
                     }
@@ -88,6 +91,5 @@ namespace TangentaDB
                 return false;
             }
         }
-
     }
 }

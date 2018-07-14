@@ -126,15 +126,15 @@ namespace CodeTables
             }
         }
 
-        public bool FillDataInputControl(DBConnection x_SQL_connection, UniqueControlName xuctrln, long ID, bool bSetInitialValues,ref string csError)
+        public bool FillDataInputControl(DBConnection x_SQL_connection, UniqueControlName xuctrln, ID ID, bool bSetInitialValues,ref string csError)
         {
-            if (ID < 0)
+            if (!ID.IsValid)
             {
                 return false;
             }
             // 1 Read row data
             iFillTableData++;
-            this.current_row_ID = new ID_v(ID);
+            this.current_row_ID = new ID(ID);
             String sSQL_ReadRow="";
             switch (x_SQL_connection.DBType)
             {
@@ -179,7 +179,7 @@ namespace CodeTables
                     if (col.IsIdentity)
                     {
                        ID my_ID = (ID) col.obj;
-                       my_ID.val = ID;
+                       my_ID = ID;
                     }
                     else
                     {
@@ -190,8 +190,8 @@ namespace CodeTables
 
                                 if (dt.Rows[0][col.Name].GetType() == typeof(long))
                                 {
-                                    long Identity = (long)dt.Rows[0][col.Name];
-                                    col.fKey.reference_ID = new ID_v(Identity);
+                                    ID Identity = new ID(dt.Rows[0][col.Name]);
+                                    col.fKey.reference_ID = new ID(Identity);
                                     if (col.fKey.fTable.FillDataInputControl(x_SQL_connection, xuctrln, Identity,bSetInitialValues, ref csError))
                                     {
                                         if (col.fKey.fTable.myGroupBox != null)

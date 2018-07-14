@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_cLastName
     {
-        public static bool Get(string_v LastName_v, ref long cLastName_ID)
+        public static bool Get(string_v LastName_v, ref ID cLastName_ID)
         {
             string Err = null;
             string sql = null;
@@ -39,14 +39,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cLastName_ID = (long)dt.Rows[0]["ID"];
+                    if (cLastName_ID==null)
+                    {
+                        cLastName_ID = new ID();
+                    }
+                    cLastName_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cLastName (LastName) values (" + sval_LastName + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cLastName_ID, ref objretx, ref Err, "cLastName"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cLastName_ID,  ref Err, "cLastName"))
                     {
                         return true;
                     }

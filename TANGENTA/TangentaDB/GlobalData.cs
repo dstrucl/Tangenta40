@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using LanguageControl;
 using System;
@@ -24,14 +25,18 @@ namespace TangentaDB
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
 
-        public static long Office_ID = -1;
-        public static long WorkingPlace_ID = -1;
-        public static long Atom_Office_ID = -1;
-        public static long Atom_Computer_ID = -1;
-        public static long Atom_ElectronicDevice_ID = -1;
-        public static long Atom_WorkingPlace_ID = -1;
-        public static long Atom_myOrganisation_Person_ID = -1;
-        public static long Atom_WorkPeriod_ID = -1;
+        public static ID Office_ID = null;
+        public static ID WorkingPlace_ID = null;
+        public static ID Atom_Office_ID = null;
+        public static ID Atom_Computer_ID = null;
+        public static ID Atom_ElectronicDevice_ID = null;
+
+        public static string ElectronicDevice_Name = null;
+        public static string ElectronicDevice_Description = null;
+
+        public static ID Atom_WorkingPlace_ID = null;
+        public static ID Atom_myOrganisation_Person_ID = null;
+        public static ID Atom_WorkPeriod_ID = null;
 
         public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = null;
         public static JOURNAL_DocProformaInvoice_Type_definitions JOURNAL_DocProformaInvoice_Type_definitions = null;
@@ -327,8 +332,6 @@ namespace TangentaDB
         public static bool GetWorkPeriod(long myOrganisation_Person_ID,
                                          string Atom_WorkPeriod_Type_Name, 
                                          string x_Atom_WorkPeriod_Type_Description,
-                                         string ElectronicDevice_Name,
-                                         string ElectronicDevice_Description,
                                          DateTime dtStart,
                                          DateTime_v dtEnd_v,
                                          ref string Err)
@@ -344,23 +347,16 @@ namespace TangentaDB
                         {
                             if (f_Atom_WorkingPlace.Get(GlobalData.WorkingPlace_ID, ref Atom_WorkingPlace_ID))
                             {
-                                if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID))
+                                if (f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name, ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
                                 {
-                                    if (f_Atom_ElectronicDevice.Get(ElectronicDevice_Name, ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
+                                    string Atom_WorkPeriod_Type_Description = x_Atom_WorkPeriod_Type_Description;
+                                    if (Atom_WorkPeriod_Type_Name.Equals(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04))
                                     {
-                                        string Atom_WorkPeriod_Type_Description = x_Atom_WorkPeriod_Type_Description;
-                                        if (Atom_WorkPeriod_Type_Name.Equals(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04))
-                                        {
-                                            Atom_WorkPeriod_Type_Description = "Stari šiht od 29.4.2015 do " + dtEnd_v.v.Day.ToString() + "." + dtEnd_v.v.Month.ToString() + "." + dtEnd_v.v.Year.ToString();
-                                        }
-                                        if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, Atom_myOrganisation_Person_ID, Atom_WorkingPlace_ID, Atom_Computer_ID,Atom_ElectronicDevice_ID, dtStart, dtEnd_v, ref Atom_WorkPeriod_ID))
-                                        {
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            return false;
-                                        }
+                                        Atom_WorkPeriod_Type_Description = "Stari šiht od 29.4.2015 do " + dtEnd_v.v.Day.ToString() + "." + dtEnd_v.v.Month.ToString() + "." + dtEnd_v.v.Year.ToString();
+                                    }
+                                    if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, Atom_myOrganisation_Person_ID, Atom_WorkingPlace_ID, Atom_ElectronicDevice_ID, dtStart, dtEnd_v, ref Atom_WorkPeriod_ID))
+                                    {
+                                        return true;
                                     }
                                     else
                                     {

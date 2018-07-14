@@ -125,7 +125,7 @@ namespace TangentaDB
 
     public class journaltype
     {
-        public long ID = -1;
+        public ID ID = null;
         public string Name = null;
         public string Description = null;
         public journaltype(string xName, string xDescription)

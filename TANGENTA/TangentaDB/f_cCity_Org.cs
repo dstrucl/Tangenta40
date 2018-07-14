@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cCity_Org
     {
-        public static bool Get(string City, ref long cCity_Org_ID)
+        public static bool Get(string City, ref ID cCity_Org_ID)
         {
        
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -46,14 +46,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cCity_Org_ID = (long)dt.Rows[0]["ID"];
+                    if (cCity_Org_ID == null)
+                    {
+                        cCity_Org_ID = new ID();
+                    }
+                    cCity_Org_ID.Set(dt.Rows[0]["ID"]);
+                    
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cCity_Org (City) values (" + sval_City + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID, ref objretx, ref Err, "Atom_cCity_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID,  ref Err, "Atom_cCity_Org"))
                     {
                         return true;
                     }
@@ -72,7 +76,7 @@ namespace TangentaDB
             
         }
 
-        internal static bool Get(string_v city_v, ref long_v cCity_Org_ID_v)
+        internal static bool Get(string_v city_v, ref ID cCity_Org_ID)
         {
             if (city_v != null)
             {
@@ -87,43 +91,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cCity_Org_ID_v == null)
+                        if (cCity_Org_ID == null)
                         {
-                            cCity_Org_ID_v = new long_v();
+                            cCity_Org_ID = new ID();
                         }
-                        cCity_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cCity_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cCity_Org (City) values (@par)";
-                        long cCity_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID, ref oret, ref Err, "cCity_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID,  ref Err, "cCity_Org"))
                         {
-                            if (cCity_Org_ID_v == null)
-                            {
-                                cCity_Org_ID_v = new long_v();
-                            }
-                            cCity_Org_ID_v.v = cCity_Org_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref ID cCity_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref ID cCity_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) city_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref ID cCity_Org_ID) city_v may not be null!");
                 return false;
             }
         }

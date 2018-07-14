@@ -12,7 +12,7 @@ namespace TangentaDB
 {
     public static class f_Item_Image
     {
-        public static bool Get(string Image_Hash, byte[] Image_Data, ref long Item_Image_ID)
+        public static bool Get(string Image_Hash, byte[] Image_Data, ref ID Item_Image_ID)
         {
             DataTable dt = new DataTable();
             string Err = null;
@@ -25,7 +25,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Item_Image_ID = (long)dt.Rows[0]["ID"];
+                    if (Item_Image_ID==null)
+                    {
+                        Item_Image_ID = new ID();
+                    }
+                    Item_Image_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -35,8 +39,7 @@ namespace TangentaDB
                     lpar.Add(par_Image_Data);
 
                     sql = "insert into Item_Image (Image_Hash,Image_Data)values(" + spar_Image_Hash + "," + spar_Image_Data + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_Image_ID, ref oret, ref Err, "Item_Image"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_Image_ID,  ref Err, "Item_Image"))
                     {
                         return true;
                     }
@@ -53,7 +56,7 @@ namespace TangentaDB
                 return false;
             }
         }
-        public static bool Get(Image Item_Image, ref long Item_Image_ID)
+        public static bool Get(Image Item_Image, ref ID Item_Image_ID)
         {
             byte[] byteArrayImage = DBtypesFunc.imageToByteArray(Item_Image, System.Drawing.Imaging.ImageFormat.Jpeg);
             string Image_Hash = DBtypesFunc.GetHash_SHA1(byteArrayImage);
@@ -67,13 +70,13 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(long Item_Image_ID, ref Image item_Image, ref string_v item_Image_Hash_v)
+        internal static bool Get(ID Item_Image_ID, ref Image item_Image, ref string_v item_Image_Hash_v)
         {
             DataTable dt = new DataTable();
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Item_Image_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, Item_Image_ID);
             lpar.Add(par_ID);
             string sql = "select Image_Data,Image_Hash from Item_Image where ID = " + spar_ID;
             item_Image = null;

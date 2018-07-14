@@ -12,12 +12,13 @@ using System.Text;
 using System.Data;
 using LogFile;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
     public static class f_Atom_ShopBItem
     {
-        public static bool Get(long SimpleItem_ID, ref long Atom_SimpleItem_ID)
+        public static bool Get(ID SimpleItem_ID, ref ID Atom_SimpleItem_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -35,7 +36,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_SimpleItem_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_SimpleItem_ID==null)
+                    {
+                        Atom_SimpleItem_ID = new ID();
+                    }
+                    Atom_SimpleItem_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -132,7 +137,7 @@ namespace TangentaDB
         }
 
 
-        private static bool Find_Name_Abbreviation_Code_ShopBItem_Image(long SimpleItem_ID, ref string Name,ref string Abbreviation,ref long_v code_v, ref long_v SimpleItem_Image_id)
+        private static bool Find_Name_Abbreviation_Code_ShopBItem_Image(ID SimpleItem_ID, ref string Name,ref string Abbreviation,ref long_v code_v, ref ID SimpleItem_Image_id)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -142,12 +147,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    object oAtom_SimpleItem_ID = dt.Rows[0]["SimpleItem_Image_ID"];
-                    if (oAtom_SimpleItem_ID.GetType() == typeof(long))
-                    {
-                        SimpleItem_Image_id = new long_v();
-                        SimpleItem_Image_id.v = (long)oAtom_SimpleItem_ID;
-                    }
+                    SimpleItem_Image_id.Set(dt.Rows[0]["SimpleItem_Image_ID"]);
                     Name = (string)dt.Rows[0]["Name"];
                     Abbreviation = (string)dt.Rows[0]["Abbreviation"];
                     if (dt.Rows[0]["Code"] is long)

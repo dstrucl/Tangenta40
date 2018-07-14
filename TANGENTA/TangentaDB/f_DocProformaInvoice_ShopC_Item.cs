@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace TangentaDB
             public DateTime StockTakeDate = DateTime.MinValue;
         }
 
-        public static bool Get(long docProformaInvoice_ShopC_Item_ID,
+        public static bool Get(ID docProformaInvoice_ShopC_Item_ID,
                                ref fData ret_data)
         {
             string Err = null;

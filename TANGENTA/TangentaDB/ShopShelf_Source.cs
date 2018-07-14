@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -206,8 +207,7 @@ namespace TangentaDB
                                     stock_data.dQuantity_New_in_Stock = new decimal_v();
                                 }
                                 stock_data.dQuantity_New_in_Stock.v = 0;
-                                stock_data.Stock_ID = new long_v();
-                                stock_data.Stock_ID.v = sd.Stock_ID.v;
+                                stock_data.Stock_ID = new ID(sd.Stock_ID);
                                 Stock_Data_List.Add(stock_data);
                             }
                             else
@@ -223,8 +223,7 @@ namespace TangentaDB
                                     stock_data.dQuantity_New_in_Stock = new decimal_v();
                                 }
                                 stock_data.dQuantity_New_in_Stock.v = sd.dQuantity.v;
-                                stock_data.Stock_ID = new long_v();
-                                stock_data.Stock_ID.v = sd.Stock_ID.v;
+                                stock_data.Stock_ID = new ID(sd.Stock_ID);
                                 dquantity = 0;
                                 Stock_Data_List.Add(stock_data);
                             }

@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cCity_Person
     {
-        public static bool Get(string City, ref long cCity_Person_ID)
+        public static bool Get(string City, ref ID cCity_Person_ID)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -46,14 +46,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cCity_Person_ID = (long)dt.Rows[0]["ID"];
+                    if (cCity_Person_ID==null)
+                    {
+                        cCity_Person_ID = new ID();
+                    }
+                    cCity_Person_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cCity_Person (City) values (" + sval_City + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Person_ID, ref objretx, ref Err, "Atom_cCity_Person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Person_ID,  ref Err, "Atom_cCity_Person"))
                     {
                         return true;
                     }
@@ -72,7 +75,7 @@ namespace TangentaDB
 
         }
 
-        internal static bool Get(string_v city_v, ref long_v cCity_Person_ID_v)
+        internal static bool Get(string_v city_v, ref ID cCity_Person_ID)
         {
             if (city_v != null)
             {
@@ -87,25 +90,18 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cCity_Person_ID_v == null)
+                        if (cCity_Person_ID == null)
                         {
-                            cCity_Person_ID_v = new long_v();
+                            cCity_Person_ID = new ID();
                         }
-                        cCity_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cCity_Person_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cCity_Person (City) values (@par)";
-                        long cCity_Person_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Person_ID, ref oret, ref Err, "Atom_cCity_Person"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Person_ID,  ref Err, "Atom_cCity_Person"))
                         {
-                            if (cCity_Person_ID_v == null)
-                            {
-                                cCity_Person_ID_v = new long_v();
-                            }
-                            cCity_Person_ID_v.v = cCity_Person_ID;
                             return true;
                         }
                         else

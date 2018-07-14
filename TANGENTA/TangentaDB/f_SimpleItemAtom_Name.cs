@@ -11,12 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using LogFile;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
     public static class f_Atom_ShopBItem_Name
     {
-        public static bool Get(string Name,string Abbreviation, ref long Atom_SimpleItem_Name_ID)
+        public static bool Get(string Name,string Abbreviation, ref ID Atom_SimpleItem_Name_ID)
         {
             string Err = null;
             List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
@@ -34,14 +35,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_SimpleItem_Name_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_SimpleItem_Name_ID==null)
+                    {
+                        Atom_SimpleItem_Name_ID = new ID();
+                    }
+                    Atom_SimpleItem_Name_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_SimpleItem_Name (Name,Abbreviation) values (" + sparam_Name + "," + sparam_Abbreviation + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_SimpleItem_Name_ID, ref objretx, ref Err, "Atom_SimpleItem_Name"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_SimpleItem_Name_ID, ref Err, "Atom_SimpleItem_Name"))
                     {
                         return true;
                     }

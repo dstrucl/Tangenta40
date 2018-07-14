@@ -40,6 +40,11 @@ namespace TangentaDB
         public static string_v Logo_Hash_v = null;
         public static byte_array_v Logo_Image_Data_v = null;
         public static string_v Logo_Description_v = null;
+
+        public static long_v Office_ID_v = null;
+
+        public static long_v Atom_ElectronicDevice_ID_v = null;
+
         public static List<myOrg_Office> myOrg_Office_list = new List<myOrg_Office>();
         public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
         public static long Default_Currency_ID = -1;
@@ -58,7 +63,22 @@ namespace TangentaDB
                 }
                 return false;
             }
-          }
+        }
+
+        public static long Office_ID
+        {
+            get
+            {
+                if (Office_ID_v!=null)
+                {
+                    return Office_ID_v.v;
+                }
+                else
+                {
+                    return ID.InvalidID;
+                }
+            }
+        }
 
         public static bool Get(long myOrg_id)
         {

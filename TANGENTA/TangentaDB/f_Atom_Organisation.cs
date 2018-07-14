@@ -23,7 +23,7 @@ namespace TangentaDB
                          string_v Registration_ID_v,
                          bool_v TaxPayer_v,
                          string_v Comment1_v,
-                         ref long_v Atom_Organisation_ID_v)
+                         ref ID Atom_Organisation_ID)
         {
             string Err = null;
             string Name_condition = null;
@@ -89,14 +89,14 @@ namespace TangentaDB
                 TaxPayer_value = "null";
             }
 
-            long_v Atom_Comment1_ID_v = null;
+            ID xAtom_Comment1_ID = null;
             string Atom_Comment1_ID_condition = " Atom_Comment1_ID  is null ";
             string Atom_Comment1_ID_value = "null";
             if (Comment1_v != null)
             {
-                if (f_Atom_Comment1.Get(Comment1_v.v, ref Atom_Comment1_ID_v))
+                if (f_Atom_Comment1.Get(Comment1_v.v, ref xAtom_Comment1_ID))
                 {
-                    SQL_Parameter par_Atom_Comment1_ID = new SQL_Parameter("@par_Atom_Comment1_ID", SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Comment1_ID_v.v);
+                    SQL_Parameter par_Atom_Comment1_ID = new SQL_Parameter("@par_Atom_Comment1_ID", false, xAtom_Comment1_ID);
                     lpar.Add(par_Atom_Comment1_ID);
                     Atom_Comment1_ID_condition = " Atom_Comment1_ID = " + par_Atom_Comment1_ID.Name + " ";
                     Atom_Comment1_ID_value = "@par_Atom_Comment1_ID";
@@ -116,25 +116,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_Organisation_ID_v == null)
+                    if (Atom_Organisation_ID == null)
                     {
-                        Atom_Organisation_ID_v = new long_v();
+                        Atom_Organisation_ID = new ID();
                     }
-                    Atom_Organisation_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Atom_Organisation_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Atom_Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Atom_Comment1_ID_value + ")";
-                    object oret = null;
-                    long Atom_Organisation_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref oret, ref Err, "Atom_Organisation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref Err, "Atom_Organisation"))
                     {
-                        if (Atom_Organisation_ID_v == null)
-                        {
-                            Atom_Organisation_ID_v = new long_v();
-                        }
-                        Atom_Organisation_ID_v.v = Atom_Organisation_ID;
                         return true;
                     }
                     else
@@ -170,8 +163,8 @@ namespace TangentaDB
                                  string_v Image_Hash_v,
                                  byte_array_v Image_Data_v,
                                  string_v Image_Description_v,
-                                 ref long_v Atom_Organisation_ID_v,
-                                 ref long_v Atom_OrganisationData_ID_v)
+                                 ref ID Atom_Organisation_ID,
+                                 ref ID Atom_OrganisationData_ID)
         {
             string Err = null;
             string Name_condition = null;
@@ -237,15 +230,15 @@ namespace TangentaDB
                 TaxPayer_value = "null";
             }
 
-            long_v Atom_Comment1_ID_v = null;
+            ID xAtom_Comment1_ID = null;
             string Atom_Comment1_ID_condition = " Atom_Comment1_ID  is null ";
             string Atom_Comment1_ID_value = "null";
 
             if (Comment1_v != null)
             {
-                if (f_Atom_Comment1.Get(Comment1_v.v, ref Atom_Comment1_ID_v))
+                if (f_Atom_Comment1.Get(Comment1_v.v, ref xAtom_Comment1_ID))
                 {
-                    SQL_Parameter par_Atom_Comment1_ID = new SQL_Parameter("@par_Atom_Comment1_ID", SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Comment1_ID_v.v);
+                    SQL_Parameter par_Atom_Comment1_ID = new SQL_Parameter("@par_Atom_Comment1_ID",  false, xAtom_Comment1_ID);
                     lpar.Add(par_Atom_Comment1_ID);
                     Atom_Comment1_ID_condition = " Atom_Comment1_ID = " + par_Atom_Comment1_ID.Name + " ";
                     Atom_Comment1_ID_value = "@par_Atom_Comment1_ID";
@@ -267,12 +260,12 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_Organisation_ID_v == null)
+                    if (Atom_Organisation_ID == null)
                     {
-                        Atom_Organisation_ID_v = new long_v();
+                        Atom_Organisation_ID = new ID();
                     }
-                    Atom_Organisation_ID_v.v = (long)dt.Rows[0]["ID"];
-                    return f_Atom_OrganisationData.Get(Atom_Organisation_ID_v.v,
+                    Atom_Organisation_ID.Set(dt.Rows[0]["ID"]);
+                    return f_Atom_OrganisationData.Get(Atom_Organisation_ID,
                                                        OrganisationTYPE_v,
                                                        Address_v,
                                                        PhoneNumber_v,
@@ -284,21 +277,14 @@ namespace TangentaDB
                                                        Image_Description_v,
                                                        BankName_v,
                                                        TRR_v,
-                                                       ref Atom_OrganisationData_ID_v);
+                                                       ref Atom_OrganisationData_ID);
                 }
                 else
                 {
                     string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID, TaxPayer,Atom_Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Atom_Comment1_ID_value + ")";
-                    object oret = null;
-                    long Atom_Organisation_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref oret, ref Err, "Atom_Organisation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID,  ref Err, "Atom_Organisation"))
                     {
-                        if (Atom_Organisation_ID_v == null)
-                        {
-                            Atom_Organisation_ID_v = new long_v();
-                        }
-                        Atom_Organisation_ID_v.v = Atom_Organisation_ID;
-                        return f_Atom_OrganisationData.Get(Atom_Organisation_ID_v.v,
+                        return f_Atom_OrganisationData.Get(Atom_Organisation_ID,
                                                                                OrganisationTYPE_v,
                                                                                Address_v,
                                                                                PhoneNumber_v,
@@ -310,7 +296,7 @@ namespace TangentaDB
                                                                                Image_Description_v,
                                                                                BankName_v,
                                                                                TRR_v,
-                                                                               ref Atom_OrganisationData_ID_v);
+                                                                               ref Atom_OrganisationData_ID);
                     }
                     else
                     {

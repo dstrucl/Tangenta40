@@ -11,29 +11,29 @@ namespace TangentaDB
     public class f_OrganisationAccount
     {
         public static bool Get(
-                        long_v BankAccount_ID_v,
-                        long_v Organisation_ID_v,
+                        ID BankAccount_ID,
+                        ID Organisation_ID,
                         string_v Organisation_BankAccount_Description_v,
-                        ref long_v OrganisationAccount_ID_v)
+                        ref ID OrganisationAccount_ID)
         {
             string Err = null;
 
             string BankAccount_ID_v_cond = "BankAccount_ID is null";
             string BankAccount_ID_v_Value = "null";
 
-            if (BankAccount_ID_v != null)
+            if (ID.Validate(BankAccount_ID))
             {
-                    BankAccount_ID_v_Value = BankAccount_ID_v.v.ToString();
-                    BankAccount_ID_v_cond = "BankAccount_ID = " + BankAccount_ID_v.v.ToString();
+                    BankAccount_ID_v_Value = BankAccount_ID.ToString();
+                    BankAccount_ID_v_cond = "BankAccount_ID = " + BankAccount_ID.ToString();
             }
 
             string Organisation_ID_v_cond = "Organisation_ID is null";
             string Organisation_ID_v_Value = "null";
 
-            if (Organisation_ID_v != null)
+            if (Organisation_ID != null)
             {
-                    Organisation_ID_v_Value = Organisation_ID_v.v.ToString();
-                    Organisation_ID_v_cond = "Organisation_ID = " + Organisation_ID_v.v.ToString();
+                    Organisation_ID_v_Value = Organisation_ID.ToString();
+                    Organisation_ID_v_cond = "Organisation_ID = " + Organisation_ID.ToString();
             }
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -57,11 +57,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (OrganisationAccount_ID_v == null)
+                    if (OrganisationAccount_ID == null)
                     {
-                        OrganisationAccount_ID_v = new long_v();
+                        OrganisationAccount_ID = new ID();
                     }
-                    OrganisationAccount_ID_v.v = (long)dt.Rows[0]["ID"];
+                    OrganisationAccount_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -70,15 +70,8 @@ namespace TangentaDB
                                                                             " + BankAccount_ID_v_Value.ToString() + @",
                                                                             " + Organisation_ID_v_Value + @",
                                                                             " + Organisation_BankAccount_Description_v_ID_v_Value + ")";
-                    object oret = null;
-                    long OrganisationAccount_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref OrganisationAccount_ID, ref oret, ref Err, "OrganisationAccount"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref OrganisationAccount_ID,  ref Err, "OrganisationAccount"))
                     {
-                        if (OrganisationAccount_ID_v == null)
-                        {
-                            OrganisationAccount_ID_v = new long_v();
-                        }
-                        OrganisationAccount_ID_v.v = OrganisationAccount_ID;
                         return true;
                     }
                     else

@@ -22,7 +22,7 @@ namespace TangentaDB
 {
     public static class f_Atom_OrganisationData
     {
-        public static bool Get(long Atom_Organisation_ID,
+        public static bool Get(ID Atom_Organisation_ID,
                                 string_v OrganisationTYPE_v,
                                 PostAddress_v Address_v,
                                 string_v PhoneNumber_v,
@@ -34,7 +34,7 @@ namespace TangentaDB
                                 string_v Logo_Description_v,
                                 string_v BankName_v,
                                 string_v TRR_v,
-                                ref long_v Atom_OrganisationData_ID_v)
+                                ref ID Atom_OrganisationData_ID)
         {
             string Err = null;
             string BankName_condition = null;
@@ -44,64 +44,64 @@ namespace TangentaDB
 
           //  long_v Atom_Organisation_ID_v = null;
 
-            ID_v cAdressAtom_Org_iD_v = null;
-            if (f_Atom_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD_v))
+            ID xcAdressAtom_Org_iD = null;
+            if (f_Atom_cAddress_Org.Get(Address_v, ref xcAdressAtom_Org_iD))
             {
-                ID_v cHomePage_Org_ID_v = null;
+                ID cHomePage_Org_ID = null;
                 string cHomePage_Org_ID_v_cond = "cHomePage_Org_ID is null";
                 string cHomePage_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cHomePage_Org", "HomePage", HomePage_v, ref cHomePage_Org_ID_v, ref Err))
+                if (fs.Get_ID("cHomePage_Org", "HomePage", HomePage_v, ref cHomePage_Org_ID, ref Err))
                 {
-                    if (cHomePage_Org_ID_v != null)
+                    if (cHomePage_Org_ID != null)
                     {
-                        cHomePage_Org_ID_v_Value = cHomePage_Org_ID_v.v.ToString();
+                        cHomePage_Org_ID_v_Value = cHomePage_Org_ID.ToString();
                         cHomePage_Org_ID_v_cond = "cHomePage_Org_ID = " + cHomePage_Org_ID_v_Value;
                     }
                 }
 
-                ID_v cEmail_Org_ID_v = null;
+                ID cEmail_Org_ID = null;
                 string cEmail_Org_ID_v_cond = "cEmail_Org_ID is null";
                 string cEmail_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cEmail_Org", "Email", Email_v, ref cEmail_Org_ID_v, ref Err))
+                if (fs.Get_ID("cEmail_Org", "Email", Email_v, ref cEmail_Org_ID, ref Err))
                 {
-                    if (cEmail_Org_ID_v != null)
+                    if (cEmail_Org_ID != null)
                     {
-                        cEmail_Org_ID_v_Value = cEmail_Org_ID_v.v.ToString();
+                        cEmail_Org_ID_v_Value = cEmail_Org_ID.ToString();
                         cEmail_Org_ID_v_cond = "cEmail_Org_ID = " + cEmail_Org_ID_v_Value;
                     }
                 }
 
-                ID_v cPhoneNumber_Org_ID_v = null;
+                ID cPhoneNumber_Org_ID = null;
                 string cPhoneNumber_Org_ID_v_cond = "cPhoneNumber_Org_ID is null";
                 string cPhoneNumber_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cPhoneNumber_Org", "PhoneNumber", PhoneNumber_v, ref cPhoneNumber_Org_ID_v, ref Err))
+                if (fs.Get_ID("cPhoneNumber_Org", "PhoneNumber", PhoneNumber_v, ref cPhoneNumber_Org_ID, ref Err))
                 {
-                    if (cPhoneNumber_Org_ID_v != null)
+                    if (cPhoneNumber_Org_ID != null)
                     {
-                        cPhoneNumber_Org_ID_v_Value = cPhoneNumber_Org_ID_v.v.ToString();
+                        cPhoneNumber_Org_ID_v_Value = cPhoneNumber_Org_ID.ToString();
                         cPhoneNumber_Org_ID_v_cond = "cPhoneNumber_Org_ID = " + cPhoneNumber_Org_ID_v_Value;
                     }
                 }
 
-                ID_v cFaxNumber_Org_ID_v = null;
+                ID cFaxNumber_Org_ID = null;
                 string cFaxNumber_Org_ID_v_cond = "cFaxNumber_Org_ID is null";
                 string cFaxNumber_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cFaxNumber_Org", "FaxNumber", FaxNumber_v, ref cFaxNumber_Org_ID_v, ref Err))
+                if (fs.Get_ID("cFaxNumber_Org", "FaxNumber", FaxNumber_v, ref cFaxNumber_Org_ID, ref Err))
                 {
-                    if (cFaxNumber_Org_ID_v != null)
+                    if (cFaxNumber_Org_ID != null)
                     {
-                        cFaxNumber_Org_ID_v_Value = cFaxNumber_Org_ID_v.v.ToString();
+                        cFaxNumber_Org_ID_v_Value = cFaxNumber_Org_ID.ToString();
                         cFaxNumber_Org_ID_v_cond = "cFaxNumber_Org_ID = " + cFaxNumber_Org_ID_v_Value;
                     }
                 }
 
 
 
-                long_v Logo_ID_v = null;
+                ID xLogo_ID = null;
                 string Atom_Logo_ID_cond = "Atom_Logo_ID is null";
                 string Atom_Logo_ID_Value = "null";
                 // = null;
@@ -110,11 +110,11 @@ namespace TangentaDB
                 //    Image_Data_v = new byte_array_v();
                 //    Image_Data_v.v = DBtypesFunc.imageToByteArray(Logo, Logo.RawFormat);
                 //}
-                if (f_Atom_Logo.Get(Logo_Hash_v, Image_Data_v, Logo_Description_v, ref Logo_ID_v))
+                if (f_Atom_Logo.Get(Logo_Hash_v, Image_Data_v, Logo_Description_v, ref xLogo_ID))
                 {
-                    if (Logo_ID_v != null)
+                    if (xLogo_ID != null)
                     {
-                        Atom_Logo_ID_Value = Logo_ID_v.v.ToString();
+                        Atom_Logo_ID_Value = xLogo_ID.ToString();
                         Atom_Logo_ID_cond = "Atom_Logo_ID = " + Atom_Logo_ID_Value;
                     }
                 }
@@ -148,9 +148,9 @@ namespace TangentaDB
                 }
 
                 string Atom_cAddress_Org_ID_condition = null;
-                if (cAdressAtom_Org_iD_v != null)
+                if (xcAdressAtom_Org_iD != null)
                 {
-                    Atom_cAddress_Org_ID_condition = " Atom_cAddress_Org_ID = " + cAdressAtom_Org_iD_v.v.ToString();
+                    Atom_cAddress_Org_ID_condition = " Atom_cAddress_Org_ID = " + xcAdressAtom_Org_iD.ToString();
                 }
                 else
                 {
@@ -172,18 +172,18 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (Atom_OrganisationData_ID_v == null)
+                        if (Atom_OrganisationData_ID == null)
                         {
-                            Atom_OrganisationData_ID_v = new long_v();
+                            Atom_OrganisationData_ID = new ID();
                         }
-                        Atom_OrganisationData_ID_v.v = (long)dt.Rows[0]["ID"];
+                        Atom_OrganisationData_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         string sql_insert = @"insert into Atom_OrganisationData (Atom_Organisation_ID,Atom_cAddress_Org_ID,cHomePage_Org_ID,cEmail_Org_ID,cPhoneNumber_Org_ID,cFaxNumber_Org_ID,BankName,TRR,Atom_Logo_ID) values (
                                                                                     " + Atom_Organisation_ID.ToString() + @",
-                                                                                    " + cAdressAtom_Org_iD_v.v.ToString() + @",
+                                                                                    " + xcAdressAtom_Org_iD.ToString() + @",
                                                                                     " + cHomePage_Org_ID_v_Value + @",
                                                                                     " + cEmail_Org_ID_v_Value + @",
                                                                                     " + cPhoneNumber_Org_ID_v_Value + @",
@@ -191,15 +191,8 @@ namespace TangentaDB
                                                                                     " + BankName_Value + @",
                                                                                     " + TRR_Value + @",
                                                                                     " + Atom_Logo_ID_Value + ")";
-                        object oret = null;
-                        long Atom_OrganisationData_ID = -1;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_OrganisationData_ID, ref oret, ref Err, "Atom_OrganisationData"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_OrganisationData_ID,  ref Err, "Atom_OrganisationData"))
                         {
-                            if (Atom_OrganisationData_ID_v == null)
-                            {
-                                Atom_OrganisationData_ID_v = new long_v();
-                            }
-                            Atom_OrganisationData_ID_v.v = Atom_OrganisationData_ID;
                             return true;
                         }
                         else
@@ -218,7 +211,7 @@ namespace TangentaDB
 
 
 
-        public static bool GetData(long Atom_Organisation_ID,
+        public static bool GetData(ID Atom_Organisation_ID,
                                 ref string Name,
                                 ref string Tax_ID,
                                 ref string Registration_ID,
@@ -294,7 +287,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static UniversalInvoice.Organisation GetData(ltext token_prefix, long Atom_Organisation_ID)
+        public static UniversalInvoice.Organisation GetData(ltext token_prefix, ID Atom_Organisation_ID)
         {
             string Err = null;
             UniversalInvoice.Organisation univ_org = null;

@@ -29,77 +29,77 @@ namespace TangentaDB
                                string_v Country_ISO_3166_a3_v,
                                short_v Country_ISO_3166_num_v,
                                string_v State_v, 
-                               ref long_v cAddress_Org_ID_v)
+                               ref ID cAddress_Org_ID)
         {
             if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
-                cAddress_Org_ID_v = null;
+                cAddress_Org_ID = null;
                 return true;
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long_v cStreetName_Org_ID_v = null;
-            if (!f_cStreetName_Org.Get(StreetName_v,ref cStreetName_Org_ID_v))
+            ID cStreetName_Org_ID = null;
+            if (!f_cStreetName_Org.Get(StreetName_v,ref cStreetName_Org_ID))
             {
                 return false;
             }
             string cStreetName_Org_ID_cond = null;
             string cStreetName_Org_ID_value = null;
-            if (!fs.AddPar("cStreetName_Org_ID", ref lpar, cStreetName_Org_ID_v, ref cStreetName_Org_ID_cond, ref cStreetName_Org_ID_value))
+            if (!fs.AddPar("cStreetName_Org_ID", ref lpar, cStreetName_Org_ID, ref cStreetName_Org_ID_cond, ref cStreetName_Org_ID_value))
             {
                 return false;
             }
-            long_v cHouseNumber_Org_ID_v = null;
-            if (!f_cHouseNumber_Org.Get(HouseNumber_v, ref cHouseNumber_Org_ID_v))
+            ID cHouseNumber_Org_ID = null;
+            if (!f_cHouseNumber_Org.Get(HouseNumber_v, ref cHouseNumber_Org_ID))
             {
                 return false;
             }
             string cHouseNumber_Org_ID_cond = null;
             string cHouseNumber_Org_ID_value = null;
-            if (!fs.AddPar("cHouseNumber_Org_ID", ref lpar, cHouseNumber_Org_ID_v, ref cHouseNumber_Org_ID_cond, ref cHouseNumber_Org_ID_value))
+            if (!fs.AddPar("cHouseNumber_Org_ID", ref lpar, cHouseNumber_Org_ID, ref cHouseNumber_Org_ID_cond, ref cHouseNumber_Org_ID_value))
             {
                 return false;
             }
-            long_v cZIP_Org_ID_v = null;
-            if (!f_cZIP_Org.Get(ZIP_v, ref cZIP_Org_ID_v))
+            ID cZIP_Org_ID = null;
+            if (!f_cZIP_Org.Get(ZIP_v, ref cZIP_Org_ID))
             {
                 return false;
             }
             string cZIP_Org_ID_cond = null;
             string cZIP_Org_ID_value = null;
-            if (!fs.AddPar("cZIP_Org_ID", ref lpar, cZIP_Org_ID_v, ref cZIP_Org_ID_cond, ref cZIP_Org_ID_value))
+            if (!fs.AddPar("cZIP_Org_ID", ref lpar, cZIP_Org_ID, ref cZIP_Org_ID_cond, ref cZIP_Org_ID_value))
             {
                 return false;
             }
-            long_v cCity_Org_ID_v = null;
-            if (!f_cCity_Org.Get(City_v, ref cCity_Org_ID_v))
+            ID cCity_Org_ID = null;
+            if (!f_cCity_Org.Get(City_v, ref cCity_Org_ID))
             {
                 return false;
             }
             string cCity_Org_ID_cond = null;
             string cCity_Org_ID_value = null;
-            if (!fs.AddPar("cCity_Org_ID", ref lpar, cCity_Org_ID_v, ref cCity_Org_ID_cond, ref cCity_Org_ID_value))
+            if (!fs.AddPar("cCity_Org_ID", ref lpar, cCity_Org_ID, ref cCity_Org_ID_cond, ref cCity_Org_ID_value))
             {
                 return false;
             }
-            long_v cCountry_Org_ID_v = null;
-            if (!f_cCountry_Org.Get(Country_v,Country_ISO_3166_a2_v, Country_ISO_3166_a3_v, Country_ISO_3166_num_v, ref cCountry_Org_ID_v))
+            ID cCountry_Org_ID = null;
+            if (!f_cCountry_Org.Get(Country_v,Country_ISO_3166_a2_v, Country_ISO_3166_a3_v, Country_ISO_3166_num_v, ref cCountry_Org_ID))
             {
                 return false;
             }
             string cCountry_Org_ID_cond = null;
             string cCountry_Org_ID_value = null;
-            if (!fs.AddPar("cCountry_Org_ID", ref lpar, cCountry_Org_ID_v, ref cCountry_Org_ID_cond, ref cCountry_Org_ID_value))
+            if (!fs.AddPar("cCountry_Org_ID", ref lpar, cCountry_Org_ID, ref cCountry_Org_ID_cond, ref cCountry_Org_ID_value))
             {
                 return false;
             }
-            long_v cState_Org_ID_v = null;
-            if (!f_cState_Org.Get(State_v, ref cState_Org_ID_v))
+            ID cState_Org_ID = null;
+            if (!f_cState_Org.Get(State_v, ref cState_Org_ID))
             {
                 return false;
             }
             string cState_Org_ID_cond = null;
             string cState_Org_ID_value = null;
-            if (!fs.AddPar("cState_Org_ID", ref lpar, cState_Org_ID_v, ref cState_Org_ID_cond, ref cState_Org_ID_value))
+            if (!fs.AddPar("cState_Org_ID", ref lpar, cState_Org_ID, ref cState_Org_ID_cond, ref cState_Org_ID_value))
             {
                 return false;
             }
@@ -116,25 +116,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (cAddress_Org_ID_v == null)
+                    if (cAddress_Org_ID == null)
                     {
-                        cAddress_Org_ID_v = new long_v();
+                        cAddress_Org_ID = new ID();
                     }
-                    cAddress_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                    cAddress_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = " insert into cAddress_Org (cStreetName_Org_ID,cHouseNumber_Org_ID,cZIP_Org_ID,cCity_Org_ID,cCountry_Org_ID,cState_Org_ID)values(" + cStreetName_Org_ID_value + "," + cHouseNumber_Org_ID_value + "," + cZIP_Org_ID_value + "," + cCity_Org_ID_value + "," + cCountry_Org_ID_value + "," + cState_Org_ID_value + ")";
-                    long id = -1;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref ores, ref Err, "cAddress_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAddress_Org_ID, ref Err, "cAddress_Org"))
                     {
-                        if (cAddress_Org_ID_v == null)
-                        {
-                            cAddress_Org_ID_v = new long_v();
-                        }
-                        cAddress_Org_ID_v.v = id;
                         return true;
                     }
                     else
@@ -151,39 +144,39 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(PostAddress_v address_v, ref ID_v cAdressOrg_iD_v)
+        internal static bool Get(PostAddress_v address_v, ref ID cAdrressOrg_iD)
         {
             string Err = null;
-            long_v cStreetName_Org_ID_v = null;
-            long_v cHouseNumber_Org_ID_v = null;
-            long_v cCity_Org_ID_v = null;
-            long_v cZIP_Org_ID_v = null;
-            long_v cCountry_Org_ID_v = null;
-            long_v cState_Org_ID_v = null;
+            ID cStreetName_Org_ID = null;
+            ID cHouseNumber_Org_ID = null;
+            ID cCity_Org_ID = null;
+            ID cZIP_Org_ID = null;
+            ID cCountry_Org_ID = null;
+            ID cState_Org_ID = null;
 
-            if (f_cStreetName_Org.Get(address_v.StreetName_v, ref cStreetName_Org_ID_v))
+            if (f_cStreetName_Org.Get(address_v.StreetName_v, ref cStreetName_Org_ID))
             {
-                if (f_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref cHouseNumber_Org_ID_v))
+                if (f_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref cHouseNumber_Org_ID))
                 {
-                    if (f_cCity_Org.Get(address_v.City_v, ref cCity_Org_ID_v))
+                    if (f_cCity_Org.Get(address_v.City_v, ref cCity_Org_ID))
                     {
-                        if (f_cZIP_Org.Get(address_v.ZIP_v, ref cZIP_Org_ID_v))
+                        if (f_cZIP_Org.Get(address_v.ZIP_v, ref cZIP_Org_ID))
                         {
                             if (f_cCountry_Org.Get(address_v.Country_v,
                                                       address_v.Country_ISO_3166_a2_v,
                                                       address_v.Country_ISO_3166_a3_v,
                                                       address_v.Country_ISO_3166_num_v,
-                                                      ref cCountry_Org_ID_v))
+                                                      ref cCountry_Org_ID))
                             {
                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
                                 string scond_cStreetName_Org_ID_v = " cStreetName_Org_ID is null ";
                                 string sval_cStreetName_Org_ID_v = "null";
 
-                                if (cStreetName_Org_ID_v != null)
+                                if (ID.Validate(cStreetName_Org_ID))
                                 {
                                     string spar_cStreetName_Org_ID_v = "@par_cStreetName_Org_ID_v";
-                                    SQL_Parameter par_cStreetName_Org_ID_v = new SQL_Parameter(spar_cStreetName_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, cStreetName_Org_ID_v.v);
+                                    SQL_Parameter par_cStreetName_Org_ID_v = new SQL_Parameter(spar_cStreetName_Org_ID_v, false, cStreetName_Org_ID);
                                     lpar.Add(par_cStreetName_Org_ID_v);
                                     scond_cStreetName_Org_ID_v = " cStreetName_Org_ID = " + spar_cStreetName_Org_ID_v;
                                     sval_cStreetName_Org_ID_v = spar_cStreetName_Org_ID_v;
@@ -193,10 +186,10 @@ namespace TangentaDB
 
                                 string scond_cHouseNumber_Org_ID_v = " cHouseNumber_Org_ID is null ";
                                 string sval_cHouseNumber_Org_ID_v = "null";
-                                if (cHouseNumber_Org_ID_v != null)
+                                if (ID.Validate(cHouseNumber_Org_ID))
                                 {
                                     string spar_cHouseNumber_Org_ID_v = "@par_cHouseNumber_Org_ID_v";
-                                    SQL_Parameter par_cHouseNumber_Org_ID_v = new SQL_Parameter(spar_cHouseNumber_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, cHouseNumber_Org_ID_v.v);
+                                    SQL_Parameter par_cHouseNumber_Org_ID_v = new SQL_Parameter(spar_cHouseNumber_Org_ID_v, false, cHouseNumber_Org_ID);
                                     lpar.Add(par_cHouseNumber_Org_ID_v);
                                     scond_cHouseNumber_Org_ID_v = " cHouseNumber_Org_ID = " + spar_cHouseNumber_Org_ID_v;
                                     sval_cHouseNumber_Org_ID_v = spar_cHouseNumber_Org_ID_v;
@@ -204,10 +197,10 @@ namespace TangentaDB
 
                                 string scond_cCity_Org_ID_v = " cCity_Org_ID is null ";
                                 string sval_cCity_Org_ID_v = "null";
-                                if (cCity_Org_ID_v != null)
+                                if (ID.Validate(cCity_Org_ID))
                                 {
                                     string spar_cCity_Org_ID_v = "@par_cCity_Org_ID_v";
-                                    SQL_Parameter par_cCity_Org_ID_v = new SQL_Parameter(spar_cCity_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, cCity_Org_ID_v.v);
+                                    SQL_Parameter par_cCity_Org_ID_v = new SQL_Parameter(spar_cCity_Org_ID_v, false, cCity_Org_ID);
                                     lpar.Add(par_cCity_Org_ID_v);
                                     scond_cCity_Org_ID_v = " cCity_Org_ID = " + spar_cCity_Org_ID_v;
                                     sval_cCity_Org_ID_v = spar_cCity_Org_ID_v;
@@ -215,10 +208,10 @@ namespace TangentaDB
 
                                 string scond_cZIP_Org_ID_v = " cZIP_Org_ID is null ";
                                 string sval_cZIP_Org_ID_v = "null";
-                                if (cZIP_Org_ID_v != null)
+                                if (ID.Validate(cZIP_Org_ID))
                                 {
                                     string spar_cZIP_Org_ID_v = "@par_cZIP_Org_ID_v";
-                                    SQL_Parameter par_cZIP_Org_ID_v = new SQL_Parameter(spar_cZIP_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, cZIP_Org_ID_v.v);
+                                    SQL_Parameter par_cZIP_Org_ID_v = new SQL_Parameter(spar_cZIP_Org_ID_v, false, cZIP_Org_ID);
                                     lpar.Add(par_cZIP_Org_ID_v);
                                     scond_cZIP_Org_ID_v = " cZIP_Org_ID = " + spar_cZIP_Org_ID_v;
                                     sval_cZIP_Org_ID_v = spar_cZIP_Org_ID_v;
@@ -226,10 +219,10 @@ namespace TangentaDB
 
                                 string scond_cCountry_Org_ID_v = " cCountry_Org_ID is null ";
                                 string sval_cCountry_Org_ID_v = "null";
-                                if (cCountry_Org_ID_v != null)
+                                if (ID.Validate(cCountry_Org_ID))
                                 {
                                     string spar_cCountry_Org_ID_v = "@par_cCountry_Org_ID_v";
-                                    SQL_Parameter par_cCountry_Org_ID_v = new SQL_Parameter(spar_cCountry_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, cCountry_Org_ID_v.v);
+                                    SQL_Parameter par_cCountry_Org_ID_v = new SQL_Parameter(spar_cCountry_Org_ID_v, false, cCountry_Org_ID);
                                     lpar.Add(par_cCountry_Org_ID_v);
                                     scond_cCountry_Org_ID_v = " cCountry_Org_ID = " + spar_cCountry_Org_ID_v;
                                     sval_cCountry_Org_ID_v = spar_cCountry_Org_ID_v;
@@ -237,10 +230,10 @@ namespace TangentaDB
 
                                 string scond_cState_Org_ID_v = " cState_Org_ID is null ";
                                 string sval_cState_Org_ID_v = "null";
-                                if (cState_Org_ID_v != null)
+                                if (ID.Validate(cState_Org_ID))
                                 {
                                     string spar_cState_Org_ID_v = "@par_cState_Org_ID_v";
-                                    SQL_Parameter par_cState_Org_ID_v = new SQL_Parameter(spar_cState_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, cState_Org_ID_v.v);
+                                    SQL_Parameter par_cState_Org_ID_v = new SQL_Parameter(spar_cState_Org_ID_v, false, cState_Org_ID);
                                     lpar.Add(par_cState_Org_ID_v);
                                     scond_cState_Org_ID_v = " cState_Org_ID = " + spar_cState_Org_ID_v;
                                     sval_cState_Org_ID_v = spar_cState_Org_ID_v;
@@ -257,11 +250,11 @@ namespace TangentaDB
                                 {
                                     if (dt.Rows.Count > 0)
                                     {
-                                        if (cAdressOrg_iD_v == null)
+                                        if (cAdrressOrg_iD == null)
                                         {
-                                            cAdressOrg_iD_v = new ID_v();
+                                            cAdrressOrg_iD = new ID();
                                         }
-                                        cAdressOrg_iD_v.v = (long)dt.Rows[0]["ID"];
+                                        cAdrressOrg_iD.Set(dt.Rows[0]["ID"]);
                                         return true;
                                     }
                                     else
@@ -273,27 +266,20 @@ namespace TangentaDB
                                                 + sval_cZIP_Org_ID_v + ","
                                                 + sval_cCountry_Org_ID_v + ","
                                                 + sval_cState_Org_ID_v + ")";
-                                        long cAddress_Org_ID = -1;
-                                        object oret = null;
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAddress_Org_ID, ref oret, ref Err, "cAddress_Org"))
+                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAdrressOrg_iD,  ref Err, "cAddress_Org"))
                                         {
-                                            if (cAdressOrg_iD_v == null)
-                                            {
-                                                cAdressOrg_iD_v = new ID_v();
-                                            }
-                                            cAdressOrg_iD_v.v = cAddress_Org_ID;
                                             return true;
                                         }
                                         else
                                         {
-                                            LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(ItemShopA m_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                                            LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(ItemShopA m_ItemShopA, ref ID atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
                                             return false;
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(ItemShopA m_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(ItemShopA m_ItemShopA, ref ID atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
                                     return false;
                                 }
                             }

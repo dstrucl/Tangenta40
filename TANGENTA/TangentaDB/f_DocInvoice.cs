@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using DBConnectionControl40;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,7 +21,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get(long docInvoice_ID,long docInvoice_ShopC_Item_ID, ref fData ret_data)
+        public static bool Get(ID docInvoice_ID,ID docInvoice_ShopC_Item_ID, ref fData ret_data)
         {
             string Err = null;
             DataTable dt = new DataTable();

@@ -13,12 +13,13 @@ using System.Data;
 using LogFile;
 using DBTypes;
 using CodeTables;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
     public static class f_Atom_myOrganisation
     {
-        public static bool Get(long myOrganisation_ID, ref long Atom_myOrganisation_ID)
+        public static bool Get(ID myOrganisation_ID, ref ID Atom_myOrganisation_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -67,12 +68,16 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_myOrganisation_ID = (long)dt.Rows[0]["Atom_myOrganisation_ID"];
+                    if (Atom_myOrganisation_ID==null)
+                    {
+                        Atom_myOrganisation_ID = new ID();
+                    }
+                    Atom_myOrganisation_ID.Set(dt.Rows[0]["Atom_myOrganisation_ID"]);
                     return true;
                 }
                 else
                 {
-                    ID_v Atom_myOrganisation_iD_v = null;
+                    ID xAtom_myOrganisation_iD = null;
                     if (myOrg.Name_v == null)
                     {   
                         myOrg.Get(1);
@@ -93,13 +98,13 @@ namespace TangentaDB
                                               myOrg.Logo_Hash_v,
                                               myOrg.Logo_Image_Data_v,
                                               myOrg.Logo_Description_v,
-                                              ref Atom_myOrganisation_iD_v))
+                                              ref xAtom_myOrganisation_iD))
                     {
                         return false;
                     }
-                    if (Atom_myOrganisation_iD_v != null)
+                    if (xAtom_myOrganisation_iD != null)
                     {
-                        Atom_myOrganisation_ID = Atom_myOrganisation_iD_v.v;
+                        Atom_myOrganisation_ID = xAtom_myOrganisation_iD;
                         return true;
                     }
                     else
@@ -148,11 +153,11 @@ namespace TangentaDB
                                 string_v Logo_Hash_v,
                                 byte_array_v Logo_Image_Data_v,
                                 string_v Logo_Description_v,
-                                ref ID_v iD_v)
+                                ref ID iD)
         {
             string Err = null;
-            long_v Atom_Organisation_ID_v = null;
-            long_v Atom_OrganisationData_ID_v = null;
+            ID Atom_Organisation_ID = null;
+            ID Atom_OrganisationData_ID = null;
 
             if (f_Atom_Organisation.Get( Organisation_Name_v,
                                 Tax_ID_v,
@@ -170,35 +175,28 @@ namespace TangentaDB
                                 Logo_Hash_v,
                                 Logo_Image_Data_v,
                                 Logo_Description_v,
-                                ref Atom_Organisation_ID_v,
-                                ref Atom_OrganisationData_ID_v
+                                ref Atom_Organisation_ID,
+                                ref Atom_OrganisationData_ID
                                 ))
             {
                 DataTable dt = new DataTable();
-                string sql_select = "select ID from Atom_myOrganisation where Atom_OrganisationData_ID = " + Atom_OrganisationData_ID_v.v.ToString();
+                string sql_select = "select ID from Atom_myOrganisation where Atom_OrganisationData_ID = " + Atom_OrganisationData_ID.ToString();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql_select, null, ref Err))
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (iD_v == null)
+                        if (iD == null)
                         {
-                            iD_v = new ID_v();
+                            iD = new ID();
                         }
-                        iD_v.v = (long)dt.Rows[0]["ID"];
+                        iD.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
-                        long Atom_myOrganisation_id = -1;
-                        string sql_insert = " insert into Atom_myOrganisation  (Atom_OrganisationData_ID) values (" + Atom_OrganisationData_ID_v.v.ToString() + ")";
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Atom_myOrganisation_id, ref oret, ref Err, "Atom_myOrganisation"))
+                        string sql_insert = " insert into Atom_myOrganisation  (Atom_OrganisationData_ID) values (" + Atom_OrganisationData_ID.ToString() + ")";
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref iD,  ref Err, "Atom_myOrganisation"))
                         {
-                            if (iD_v == null)
-                            {
-                                iD_v = new ID_v();
-                            }
-                            iD_v.v = Atom_myOrganisation_id;
                             return true;
                         }
                         else

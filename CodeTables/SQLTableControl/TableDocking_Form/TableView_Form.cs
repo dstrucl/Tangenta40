@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 using StaticLib;
 
@@ -156,7 +157,7 @@ namespace CodeTables.TableDocking_Form
                 //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
                 if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
                 {
-                    long Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                    ID Identity = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
                     if (this.m_TableDockingForm.m_EditTable_Form != null)
                     {
                         m_TableDockingForm.m_EditTable_Form.ShowTableRow(Identity);

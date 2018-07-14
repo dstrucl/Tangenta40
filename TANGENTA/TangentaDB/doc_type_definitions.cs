@@ -13,7 +13,7 @@ namespace TangentaDB
     {
         public class doc_type
         {
-            public long ID = -1;
+            public ID ID = null;
             public string Name = null;
             public string Description = null;
             public doc_type(string Doc_Type_Name, string Doc_Type_Description)
@@ -30,13 +30,13 @@ namespace TangentaDB
 
         public List<doc_type> doc_type_list = new List<doc_type>();
 
-        public long_v HTMLPrintTemplate_Invoice_doc_type_ID
+        public ID HTMLPrintTemplate_Invoice_doc_type_ID
         {
             get
             {
                 if (doc_type_list.Count > 0)
                 {
-                    return new long_v(doc_type_list[0].ID);
+                    return new ID(doc_type_list[0].ID);
                 }
                 else
                 {
@@ -45,13 +45,13 @@ namespace TangentaDB
             }
         }
 
-        public long_v HTMLPrintTemplate_Proforma_Invoice_doc_type_ID
+        public ID HTMLPrintTemplate_Proforma_Invoice_doc_type_ID
         {
             get
             {
                 if (doc_type_list.Count > 0)
                 {
-                    return new long_v(doc_type_list[1].ID);
+                    return new ID(doc_type_list[1].ID);
                 }
                 else
                 {
@@ -109,7 +109,11 @@ namespace TangentaDB
                     string sName = (string)dr["Name"];
                     if (doct.Name.Equals(sName))
                     {
-                        doct.ID = (long)dr["ID"];
+                        if (doct.ID==null)
+                        {
+                            doct.ID = new ID();
+                        }
+                        doct.ID.Set(dr["ID"]);
                         return true;
                     }
                 }
@@ -140,10 +144,9 @@ namespace TangentaDB
 
 
             string sql = "insert into doc_type (Name,Description) values (" + sval_Name + "," + sval_Description +")";
-            long dpt_id = -1;
-            object oret = null;
+            ID dpt_id = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt_id, ref oret, ref Err, "doc_type"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt_id,  ref Err, "doc_type"))
             {
                 doct.ID = dpt_id;
                 return true;

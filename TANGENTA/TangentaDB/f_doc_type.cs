@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_doc_type
     {
-        public static bool Get(string Name, string_v Description_v, long_v Language_ID_v, long_v doc_page_type_ID_v, ref long doc_page_type_ID)
+        public static bool Get(string Name, string_v Description_v, ID Language_ID, ID doc_page_type_ID, ref ID doc_type_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -44,22 +44,22 @@ namespace TangentaDB
 
             string sval_Language_ID = "null";
 
-            if (Language_ID_v != null)
+            if (ID.Validate(Language_ID))
             {
                 string spar_Language_ID = "@par_Language_ID";
 
-                SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID_v.v);
+                SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, false, Language_ID);
                 lpar.Add(par_Language_ID);
                 sval_Language_ID = spar_Language_ID;
             }
 
             string sval_doc_page_type_ID = "null";
 
-            if (doc_page_type_ID_v != null)
+            if (ID.Validate(doc_page_type_ID))
             {
                 string spar_doc_page_type_ID = "@par_doc_page_type_ID";
 
-                SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
+                SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID,  false, doc_page_type_ID);
                 lpar.Add(par_doc_page_type_ID);
                 sval_doc_page_type_ID = spar_doc_page_type_ID;
             }
@@ -71,14 +71,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    doc_page_type_ID = (long)dt.Rows[0]["ID"];
+                    if (doc_type_ID==null)
+                    {
+                        doc_type_ID = new ID();
+                    }
+                    doc_type_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into doc_type (Name,Description,Language_ID,doc_page_type_ID)values(" + spar_Name + "," + sval_Description +","+ sval_Language_ID + "," + sval_doc_page_type_ID + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_page_type_ID, ref oret, ref Err, "doc_page_type"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_type_ID,  ref Err, "doc_page_type"))
                     {
                         return true;
                     }
@@ -95,7 +98,7 @@ namespace TangentaDB
                 return false;
             }
         }
-        public static bool Get(long doc_type_ID,ref string_v Name_v, ref string_v Description_v)
+        public static bool Get(ID doc_type_ID,ref string_v Name_v, ref string_v Description_v)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -103,7 +106,7 @@ namespace TangentaDB
 
 
             string spar_doc_type_ID = "@par_doc_type_ID";
-            SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_type_ID);
+            SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, false, doc_type_ID);
             lpar.Add(par_doc_type_ID);
 
 

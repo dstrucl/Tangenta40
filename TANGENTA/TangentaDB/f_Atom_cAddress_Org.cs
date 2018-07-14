@@ -20,77 +20,78 @@ namespace TangentaDB
 {
     public static class f_Atom_cAddress_Org
     {
-        public static bool Get(string_v StreetName_v, string_v HouseNumber_v, string_v ZIP_v, string_v City_v, string_v Country_v, string_v State_v, ref long_v Atom_cAddress_Org_ID_v)
+        public static bool Get(string_v StreetName_v, string_v HouseNumber_v, string_v ZIP_v, string_v City_v, string_v Country_v, string_v State_v, ref ID Atom_cAddress_Org_ID)
         {
             if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
-                Atom_cAddress_Org_ID_v = null;
+                Atom_cAddress_Org_ID = null;
                 return true;
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long_v Atom_cStreetName_Org_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cStreetName_Org", "StreetName", StreetName_v, ref Atom_cStreetName_Org_ID_v))
+            ID Atom_cStreetName_Org_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cStreetName_Org", "StreetName", StreetName_v, ref Atom_cStreetName_Org_ID))
             {
                 return false;
             }
             string Atom_cStreetName_Org_ID_cond = null;
             string Atom_cStreetName_Org_ID_value = null;
-            if (!fs.AddPar("Atom_cStreetName_Org_ID", ref lpar, Atom_cStreetName_Org_ID_v, ref Atom_cStreetName_Org_ID_cond, ref Atom_cStreetName_Org_ID_value))
+            if (!fs.AddPar("Atom_cStreetName_Org_ID", ref lpar, Atom_cStreetName_Org_ID, ref Atom_cStreetName_Org_ID_cond, ref Atom_cStreetName_Org_ID_value))
             {
                 return false;
             }
-            long_v Atom_cHouseNumber_Org_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cHouseNumber_Org", "HouseNumber", HouseNumber_v, ref Atom_cHouseNumber_Org_ID_v))
+            ID xAtom_cHouseNumber_Org_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cHouseNumber_Org", "HouseNumber", HouseNumber_v, ref xAtom_cHouseNumber_Org_ID))
             {
                 return false;
             }
             string Atom_cHouseNumber_Org_ID_cond = null;
             string Atom_cHouseNumber_Org_ID_value = null;
-            if (!fs.AddPar("Atom_cHouseNumber_Org_ID", ref lpar, Atom_cHouseNumber_Org_ID_v, ref Atom_cHouseNumber_Org_ID_cond, ref Atom_cHouseNumber_Org_ID_value))
+            if (!fs.AddPar("Atom_cHouseNumber_Org_ID", ref lpar, xAtom_cHouseNumber_Org_ID, ref Atom_cHouseNumber_Org_ID_cond, ref Atom_cHouseNumber_Org_ID_value))
             {
                 return false;
             }
-            long_v Atom_cZIP_Org_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cZIP_Org", "ZIP", ZIP_v, ref Atom_cZIP_Org_ID_v))
+            ID xAtom_cZIP_Org_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cZIP_Org", "ZIP", ZIP_v, ref xAtom_cZIP_Org_ID))
             {
                 return false;
             }
             string Atom_cZIP_Org_ID_cond = null;
             string Atom_cZIP_Org_ID_value = null;
-            if (!fs.AddPar("Atom_cZIP_Org_ID", ref lpar, Atom_cZIP_Org_ID_v, ref Atom_cZIP_Org_ID_cond, ref Atom_cZIP_Org_ID_value))
+            if (!fs.AddPar("Atom_cZIP_Org_ID", ref lpar, xAtom_cZIP_Org_ID, ref Atom_cZIP_Org_ID_cond, ref Atom_cZIP_Org_ID_value))
             {
                 return false;
             }
-            long_v Atom_cCity_Org_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cCity_Org", "City", City_v, ref Atom_cCity_Org_ID_v))
+            ID xAtom_cCity_Org_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cCity_Org", "City", City_v, ref xAtom_cCity_Org_ID))
             {
                 return false;
             }
             string Atom_cCity_Org_ID_cond = null;
             string Atom_cCity_Org_ID_value = null;
-            if (!fs.AddPar("Atom_cCity_Org_ID", ref lpar, Atom_cCity_Org_ID_v, ref Atom_cCity_Org_ID_cond, ref Atom_cCity_Org_ID_value))
+            if (!fs.AddPar("Atom_cCity_Org_ID", ref lpar, xAtom_cCity_Org_ID, ref Atom_cCity_Org_ID_cond, ref Atom_cCity_Org_ID_value))
             {
                 return false;
             }
-            long_v Atom_cCountry_Org_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cCountry_Org", "Country", Country_v, ref Atom_cCountry_Org_ID_v))
+            ID xAtom_cCountry_Org_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cCountry_Org", "Country", Country_v, ref xAtom_cCountry_Org_ID))
             {
                 return false;
             }
             string Atom_cCountry_Org_ID_cond = null;
             string Atom_cCountry_Org_ID_value = null;
-            if (!fs.AddPar("Atom_cCountry_Org_ID", ref lpar, Atom_cCountry_Org_ID_v, ref Atom_cCountry_Org_ID_cond, ref Atom_cCountry_Org_ID_value))
+            if (!fs.AddPar("Atom_cCountry_Org_ID", ref lpar, xAtom_cCountry_Org_ID, ref Atom_cCountry_Org_ID_cond, ref Atom_cCountry_Org_ID_value))
             {
                 return false;
             }
-            long_v Atom_cState_Org_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cState_Org", "State", State_v, ref Atom_cState_Org_ID_v))
+
+            ID xAtom_cState_Org_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cState_Org", "State", State_v, ref xAtom_cState_Org_ID))
             {
                 return false;
             }
             string Atom_cState_Org_ID_cond = null;
             string Atom_cState_Org_ID_value = null;
-            if (!fs.AddPar("Atom_cState_Org_ID", ref lpar, Atom_cState_Org_ID_v, ref Atom_cState_Org_ID_cond, ref Atom_cState_Org_ID_value))
+            if (!fs.AddPar("Atom_cState_Org_ID", ref lpar, xAtom_cState_Org_ID, ref Atom_cState_Org_ID_cond, ref Atom_cState_Org_ID_value))
             {
                 return false;
             }
@@ -107,25 +108,24 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_cAddress_Org_ID_v == null)
+                    if (Atom_cAddress_Org_ID == null)
                     {
-                        Atom_cAddress_Org_ID_v = new long_v();
+                        Atom_cAddress_Org_ID = new ID();
                     }
-                    Atom_cAddress_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Atom_cAddress_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = " insert into Atom_cAddress_Org (Atom_cStreetName_Org_ID,Atom_cHouseNumber_Org_ID,Atom_cZIP_Org_ID,Atom_cCity_Org_ID,Atom_cCountry_Org_ID,Atom_cState_Org_ID)values(" + Atom_cStreetName_Org_ID_value + "," + Atom_cHouseNumber_Org_ID_value + "," + Atom_cZIP_Org_ID_value + "," + Atom_cCity_Org_ID_value + "," + Atom_cCountry_Org_ID_value + "," + Atom_cState_Org_ID_value + ")";
-                    long id = -1;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref ores, ref Err, "Atom_cAddress_Org"))
+                    ID id = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref Err, "Atom_cAddress_Org"))
                     {
-                        if (Atom_cAddress_Org_ID_v == null)
+                        if (Atom_cAddress_Org_ID == null)
                         {
-                            Atom_cAddress_Org_ID_v = new long_v();
+                            Atom_cAddress_Org_ID = new ID();
                         }
-                        Atom_cAddress_Org_ID_v.v = id;
+                        Atom_cAddress_Org_ID.Set(id);
                         return true;
                     }
                     else
@@ -142,39 +142,39 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(PostAddress_v address_v, ref ID_v cAdressAtom_Org_iD_v)
+        internal static bool Get(PostAddress_v address_v, ref ID cAdressAtom_Org_iD)
         {
             string Err = null;
-            long_v Atom_cStreetName_Org_ID_v = null;
-            long_v Atom_cHouseNumber_Org_ID_v = null;
-            long_v Atom_cCity_Org_ID_v = null;
-            long_v Atom_cZIP_Org_ID_v = null;
-            long_v Atom_cCountry_Org_ID_v = null;
-            long_v Atom_cState_Org_ID_v = null;
+            ID xAtom_cStreetName_Org_ID = null;
+            ID xAtom_cHouseNumber_Org_ID = null;
+            ID xAtom_cCity_Org_ID = null;
+            ID xAtom_cZIP_Org_ID = null;
+            ID xAtom_cCountry_Org_ID = null;
+            ID xAtom_cState_Org_ID = null;
 
-            if (f_Atom_cStreetName_Org.Get(address_v.StreetName_v, ref Atom_cStreetName_Org_ID_v))
+            if (f_Atom_cStreetName_Org.Get(address_v.StreetName_v, ref xAtom_cStreetName_Org_ID))
             {
-                if (f_Atom_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref Atom_cHouseNumber_Org_ID_v))
+                if (f_Atom_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref xAtom_cHouseNumber_Org_ID))
                 {
-                    if (f_Atom_cCity_Org.Get(address_v.City_v, ref Atom_cCity_Org_ID_v))
+                    if (f_Atom_cCity_Org.Get(address_v.City_v, ref xAtom_cCity_Org_ID))
                     {
-                        if (f_Atom_cZIP_Org.Get(address_v.ZIP_v, ref Atom_cZIP_Org_ID_v))
+                        if (f_Atom_cZIP_Org.Get(address_v.ZIP_v, ref xAtom_cZIP_Org_ID))
                         {
                             if (f_Atom_cCountry_Org.Get(address_v.Country_v,
                                                       address_v.Country_ISO_3166_a2_v,
                                                       address_v.Country_ISO_3166_a3_v,
                                                       address_v.Country_ISO_3166_num_v,
-                                                      ref Atom_cCountry_Org_ID_v))
+                                                      ref xAtom_cCountry_Org_ID))
                             {
                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
                                 string scond_Atom_cStreetName_Org_ID_v = " Atom_cStreetName_Org_ID is null ";
                                 string sval_Atom_cStreetName_Org_ID_v = "null";
 
-                                if (Atom_cStreetName_Org_ID_v != null)
+                                if (xAtom_cStreetName_Org_ID != null)
                                 {
                                     string spar_Atom_cStreetName_Org_ID_v = "@par_Atom_cStreetName_Org_ID_v";
-                                    SQL_Parameter par_Atom_cStreetName_Org_ID_v = new SQL_Parameter(spar_Atom_cStreetName_Org_ID_v,SQL_Parameter.eSQL_Parameter.Bigint,false, Atom_cStreetName_Org_ID_v.v);
+                                    SQL_Parameter par_Atom_cStreetName_Org_ID_v = new SQL_Parameter(spar_Atom_cStreetName_Org_ID_v,SQL_Parameter.eSQL_Parameter.Bigint,false, xAtom_cStreetName_Org_ID.V);
                                     lpar.Add(par_Atom_cStreetName_Org_ID_v);
                                     scond_Atom_cStreetName_Org_ID_v = " Atom_cStreetName_Org_ID = " + spar_Atom_cStreetName_Org_ID_v;
                                     sval_Atom_cStreetName_Org_ID_v = spar_Atom_cStreetName_Org_ID_v;
@@ -184,10 +184,10 @@ namespace TangentaDB
 
                                 string scond_Atom_cHouseNumber_Org_ID_v = " Atom_cHouseNumber_Org_ID is null ";
                                 string sval_Atom_cHouseNumber_Org_ID_v = "null";
-                                if (Atom_cHouseNumber_Org_ID_v != null)
+                                if (xAtom_cHouseNumber_Org_ID != null)
                                 {
                                     string spar_Atom_cHouseNumber_Org_ID_v = "@par_Atom_cHouseNumber_Org_ID_v";
-                                    SQL_Parameter par_Atom_cHouseNumber_Org_ID_v = new SQL_Parameter(spar_Atom_cHouseNumber_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cHouseNumber_Org_ID_v.v);
+                                    SQL_Parameter par_Atom_cHouseNumber_Org_ID_v = new SQL_Parameter(spar_Atom_cHouseNumber_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, xAtom_cHouseNumber_Org_ID.V);
                                     lpar.Add(par_Atom_cHouseNumber_Org_ID_v);
                                     scond_Atom_cHouseNumber_Org_ID_v = " Atom_cHouseNumber_Org_ID = " + spar_Atom_cHouseNumber_Org_ID_v;
                                     sval_Atom_cHouseNumber_Org_ID_v = spar_Atom_cHouseNumber_Org_ID_v;
@@ -195,10 +195,10 @@ namespace TangentaDB
 
                                 string scond_Atom_cCity_Org_ID_v = " Atom_cCity_Org_ID is null ";
                                 string sval_Atom_cCity_Org_ID_v = "null";
-                                if (Atom_cCity_Org_ID_v != null)
+                                if (xAtom_cCity_Org_ID != null)
                                 {
                                     string spar_Atom_cCity_Org_ID_v = "@par_Atom_cCity_Org_ID_v";
-                                    SQL_Parameter par_Atom_cCity_Org_ID_v = new SQL_Parameter(spar_Atom_cCity_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cCity_Org_ID_v.v);
+                                    SQL_Parameter par_Atom_cCity_Org_ID_v = new SQL_Parameter(spar_Atom_cCity_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, xAtom_cCity_Org_ID.V);
                                     lpar.Add(par_Atom_cCity_Org_ID_v);
                                     scond_Atom_cCity_Org_ID_v = " Atom_cCity_Org_ID = " + spar_Atom_cCity_Org_ID_v;
                                     sval_Atom_cCity_Org_ID_v = spar_Atom_cCity_Org_ID_v;
@@ -206,10 +206,10 @@ namespace TangentaDB
 
                                 string scond_Atom_cZIP_Org_ID_v = " Atom_cZIP_Org_ID is null ";
                                 string sval_Atom_cZIP_Org_ID_v = "null";
-                                if (Atom_cZIP_Org_ID_v != null)
+                                if (xAtom_cZIP_Org_ID != null)
                                 {
                                     string spar_Atom_cZIP_Org_ID_v = "@par_Atom_cZIP_Org_ID_v";
-                                    SQL_Parameter par_Atom_cZIP_Org_ID_v = new SQL_Parameter(spar_Atom_cZIP_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cZIP_Org_ID_v.v);
+                                    SQL_Parameter par_Atom_cZIP_Org_ID_v = new SQL_Parameter(spar_Atom_cZIP_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, xAtom_cZIP_Org_ID.V);
                                     lpar.Add(par_Atom_cZIP_Org_ID_v);
                                     scond_Atom_cZIP_Org_ID_v = " Atom_cZIP_Org_ID = " + spar_Atom_cZIP_Org_ID_v;
                                     sval_Atom_cZIP_Org_ID_v = spar_Atom_cZIP_Org_ID_v;
@@ -217,10 +217,10 @@ namespace TangentaDB
 
                                 string scond_Atom_cCountry_Org_ID_v = " Atom_cCountry_Org_ID is null ";
                                 string sval_Atom_cCountry_Org_ID_v = "null";
-                                if (Atom_cCountry_Org_ID_v != null)
+                                if (xAtom_cCountry_Org_ID != null)
                                 {
                                     string spar_Atom_cCountry_Org_ID_v = "@par_Atom_cCountry_Org_ID_v";
-                                    SQL_Parameter par_Atom_cCountry_Org_ID_v = new SQL_Parameter(spar_Atom_cCountry_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cCountry_Org_ID_v.v);
+                                    SQL_Parameter par_Atom_cCountry_Org_ID_v = new SQL_Parameter(spar_Atom_cCountry_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, xAtom_cCountry_Org_ID.V);
                                     lpar.Add(par_Atom_cCountry_Org_ID_v);
                                     scond_Atom_cCountry_Org_ID_v = " Atom_cCountry_Org_ID = " + spar_Atom_cCountry_Org_ID_v;
                                     sval_Atom_cCountry_Org_ID_v = spar_Atom_cCountry_Org_ID_v;
@@ -228,10 +228,10 @@ namespace TangentaDB
 
                                 string scond_Atom_cState_Org_ID_v = " Atom_cState_Org_ID is null ";
                                 string sval_Atom_cState_Org_ID_v = "null";
-                                if (Atom_cState_Org_ID_v != null)
+                                if (xAtom_cState_Org_ID != null)
                                 {
                                     string spar_Atom_cState_Org_ID_v = "@par_Atom_cState_Org_ID_v";
-                                    SQL_Parameter par_Atom_cState_Org_ID_v = new SQL_Parameter(spar_Atom_cState_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cState_Org_ID_v.v);
+                                    SQL_Parameter par_Atom_cState_Org_ID_v = new SQL_Parameter(spar_Atom_cState_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, xAtom_cState_Org_ID.V);
                                     lpar.Add(par_Atom_cState_Org_ID_v);
                                     scond_Atom_cState_Org_ID_v = " Atom_cState_Org_ID = " + spar_Atom_cState_Org_ID_v;
                                     sval_Atom_cState_Org_ID_v = spar_Atom_cState_Org_ID_v;
@@ -248,11 +248,11 @@ namespace TangentaDB
                                 {
                                     if (dt.Rows.Count > 0)
                                     {
-                                        if (cAdressAtom_Org_iD_v==null)
+                                        if (cAdressAtom_Org_iD==null)
                                         {
-                                            cAdressAtom_Org_iD_v = new ID_v();
+                                            cAdressAtom_Org_iD = new ID();
                                         }
-                                        cAdressAtom_Org_iD_v.v = (long)dt.Rows[0]["ID"];
+                                        cAdressAtom_Org_iD.Set(dt.Rows[0]["ID"]);
                                         return true;
                                     }
                                     else
@@ -264,27 +264,26 @@ namespace TangentaDB
                                                 + sval_Atom_cZIP_Org_ID_v + ","
                                                 + sval_Atom_cCountry_Org_ID_v + ","
                                                 + sval_Atom_cState_Org_ID_v + ")";
-                                        long Atom_cAddress_Org_ID = -1;
-                                        object oret = null;
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cAddress_Org_ID, ref oret, ref Err, "Atom_cAddress_Org"))
+                                        ID xAtom_cAddress_Org_ID = null;
+                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_cAddress_Org_ID,  ref Err, "Atom_cAddress_Org"))
                                         {
-                                            if (cAdressAtom_Org_iD_v == null)
+                                            if (cAdressAtom_Org_iD == null)
                                             {
-                                                cAdressAtom_Org_iD_v = new ID_v();
+                                                cAdressAtom_Org_iD = new ID();
                                             }
-                                            cAdressAtom_Org_iD_v.v = Atom_cAddress_Org_ID;
+                                            cAdressAtom_Org_iD.Set(xAtom_cAddress_Org_ID);
                                             return true;
                                         }
                                         else
                                         {
-                                            LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                                            LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref ID atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
                                             return false;
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref ID atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
                                     return false;
                                 }
                             }
@@ -295,14 +294,14 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Get(long cAddress_Org_ID, ref long Atom_cAddress_Org_ID)
+        public static bool Get(ID cAddress_Org_ID, ref ID Atom_cAddress_Org_ID)
         {
-            long cStreetName_Org_ID = -1;
-            long cHouseNumber_Org_ID = -1;
-            long cCity_Org_ID = -1;
-            long cZIP_Org_ID = -1;
-            long cCountry_Org_ID = -1;
-            long cState_Org_ID = -1;
+            ID cStreetName_Org_ID = new ID();
+            ID cHouseNumber_Org_ID = new ID();
+            ID cCity_Org_ID = new ID();
+            ID cZIP_Org_ID = new ID();
+            ID cCountry_Org_ID = new ID();
+            ID cState_Org_ID = new ID();
             string sql = @"select 
                             cAorg.cStreetName_Org_ID,
                             cAorg.cHouseNumber_Org_ID,
@@ -319,18 +318,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cStreetName_Org_ID = (long)dt.Rows[0]["cStreetName_Org_ID"];
-                    cHouseNumber_Org_ID = (long)dt.Rows[0]["cHouseNumber_Org_ID"];
-                    cZIP_Org_ID = (long)dt.Rows[0]["cZIP_Org_ID"];
-                    cCity_Org_ID = (long)dt.Rows[0]["cCity_Org_ID"];
-                    cCountry_Org_ID = (long)dt.Rows[0]["cCountry_Org_ID"];
+                    cStreetName_Org_ID.Set(dt.Rows[0]["cStreetName_Org_ID"]);
+                    cHouseNumber_Org_ID.Set(dt.Rows[0]["cHouseNumber_Org_ID"]);
+                    cZIP_Org_ID.Set(dt.Rows[0]["cZIP_Org_ID"]);
+                    cCity_Org_ID.Set(dt.Rows[0]["cCity_Org_ID"]);
+                    cCountry_Org_ID.Set(dt.Rows[0]["cCountry_Org_ID"]);
                     object o_cState_Org_ID = dt.Rows[0]["cState_Org_ID"];
 
                     string sStateCond = null;
                     string sStateVal = null;
                     if (o_cState_Org_ID is long)
                     {
-                        cState_Org_ID = (long)o_cState_Org_ID;
+                        cState_Org_ID.Set(o_cState_Org_ID);
                         sStateCond = "Atom_cState_Org_ID = " + cState_Org_ID.ToString();
                         sStateVal = cState_Org_ID.ToString();
                     }
@@ -340,28 +339,28 @@ namespace TangentaDB
                         sStateCond = "Atom_cState_Org_ID is null";
                         sStateVal = "null";
                     }
-                    long Atom_cStreetName_Org_ID = -1;
-                    long Atom_cHouseNumber_Org_ID = -1;
-                    long Atom_cCity_Org_ID = -1;
-                    long Atom_cZIP_Org_ID = -1;
-                    long Atom_cCountry_Org_ID = -1;
-                    if (f_Atom_cStreetName_Org.Get(cStreetName_Org_ID, ref Atom_cStreetName_Org_ID))
+                    ID xAtom_cStreetName_Org_ID = null;
+                    ID xAtom_cHouseNumber_Org_ID = null;
+                    ID xAtom_cCity_Org_ID = null;
+                    ID xAtom_cZIP_Org_ID = null;
+                    ID xAtom_cCountry_Org_ID = null;
+                    if (f_Atom_cStreetName_Org.Get(cStreetName_Org_ID, ref xAtom_cStreetName_Org_ID))
                     {
-                        if (f_Atom_cHouseNumber_Org.Get(cHouseNumber_Org_ID, ref Atom_cHouseNumber_Org_ID))
+                        if (f_Atom_cHouseNumber_Org.Get(cHouseNumber_Org_ID, ref xAtom_cHouseNumber_Org_ID))
                         {
-                            if (f_Atom_cCity_Org.Get(cCity_Org_ID, ref Atom_cCity_Org_ID))
+                            if (f_Atom_cCity_Org.Get(cCity_Org_ID, ref xAtom_cCity_Org_ID))
                             {
-                                if (f_Atom_cZIP_Org.Get(cZIP_Org_ID, ref Atom_cZIP_Org_ID))
+                                if (f_Atom_cZIP_Org.Get(cZIP_Org_ID, ref xAtom_cZIP_Org_ID))
                                 {
-                                    if (f_Atom_cCountry_Org.Get(cCountry_Org_ID, ref Atom_cCountry_Org_ID))
+                                    if (f_Atom_cCountry_Org.Get(cCountry_Org_ID, ref xAtom_cCountry_Org_ID))
                                     {
                                         sql = @"select
                                                     ID
-                                                from Atom_cAddress_Org where Atom_cStreetName_Org_ID = " + Atom_cStreetName_Org_ID.ToString() + @"
-                                                and Atom_cHouseNumber_Org_ID = " + Atom_cHouseNumber_Org_ID.ToString() + @"
-                                                and Atom_cCity_Org_ID = " + Atom_cCity_Org_ID.ToString() + @"
-                                                and Atom_cZIP_Org_ID = " + Atom_cZIP_Org_ID.ToString() + @"
-                                                and Atom_cCountry_Org_ID = " + Atom_cCountry_Org_ID.ToString() + @"
+                                                from Atom_cAddress_Org where Atom_cStreetName_Org_ID = " + xAtom_cStreetName_Org_ID.ToString() + @"
+                                                and Atom_cHouseNumber_Org_ID = " + xAtom_cHouseNumber_Org_ID.ToString() + @"
+                                                and Atom_cCity_Org_ID = " + xAtom_cCity_Org_ID.ToString() + @"
+                                                and Atom_cZIP_Org_ID = " + xAtom_cZIP_Org_ID.ToString() + @"
+                                                and Atom_cCountry_Org_ID = " + xAtom_cCountry_Org_ID.ToString() + @"
                                                 and " + sStateCond;
                                         dt.Clear();
                                         dt.Columns.Clear();
@@ -369,16 +368,19 @@ namespace TangentaDB
                                         {
                                             if (dt.Rows.Count > 0)
                                             {
-                                                Atom_cAddress_Org_ID = (long)dt.Rows[0]["ID"];
+                                                if (Atom_cAddress_Org_ID==null)
+                                                {
+                                                    Atom_cAddress_Org_ID = new ID();
+                                                }
+                                                Atom_cAddress_Org_ID.Set(dt.Rows[0]["ID"]);
                                                 return true;
                                             }
                                             else
                                             {
                                                 sql = @"insert into Atom_cAddress_Org
                                                         (Atom_cStreetName_Org_ID,Atom_cHouseNumber_Org_ID,Atom_cZIP_Org_ID,Atom_cCity_Org_ID,Atom_cCountry_Org_ID,Atom_cState_Org_ID) values
-                                                        (" + Atom_cStreetName_Org_ID.ToString() + "," + Atom_cHouseNumber_Org_ID.ToString() + "," + Atom_cZIP_Org_ID.ToString() + "," + Atom_cCity_Org_ID.ToString() + "," + Atom_cCountry_Org_ID.ToString() + "," + sStateVal + ")";
-                                                object objretx = null;
-                                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_cAddress_Org_ID, ref objretx, ref Err, "Atom_cAddress_Org"))
+                                                        (" + xAtom_cStreetName_Org_ID.ToString() + "," + xAtom_cHouseNumber_Org_ID.ToString() + "," + xAtom_cZIP_Org_ID.ToString() + "," + xAtom_cCity_Org_ID.ToString() + "," + xAtom_cCountry_Org_ID.ToString() + "," + sStateVal + ")";
+                                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_cAddress_Org_ID,  ref Err, "Atom_cAddress_Org"))
                                                 {
                                                     return true;
                                                 }

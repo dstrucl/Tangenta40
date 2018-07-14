@@ -10,11 +10,11 @@ namespace TangentaDB
 {
     public static class f_PersonData
     {
-        public static bool Find(long Person_ID,ref long PersonData_ID)
+        public static bool Find(ID Person_ID,ref ID PersonData_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Person_ID = "@spar_Person_ID";
-            SQL_Parameter par_Person_ID = new SQL_Parameter(spar_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Person_ID);
+            SQL_Parameter par_Person_ID = new SQL_Parameter(spar_Person_ID, false, Person_ID);
             lpar.Add(par_Person_ID);
             string sql = "select ID from PersonData where Person_ID = " + spar_Person_ID;
             DataTable dt = new DataTable();
@@ -23,7 +23,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count==1)
                 {
-                    PersonData_ID = (long)dt.Rows[0]["ID"];
+                    if (PersonData_ID==null)
+                    {
+                        PersonData_ID = new ID();
+                    }
+                    PersonData_ID.Set(dt.Rows[0]["ID"]);
                 }
                 else if (dt.Rows.Count == 0)
                 {
@@ -43,18 +47,17 @@ namespace TangentaDB
         }
 
 
-        public static bool InsertEmptyRow(long_v person_ID_v, ref long personData_ID)
+        public static bool InsertEmptyRow(ID person_ID, ref ID personData_ID)
         {
-            if (person_ID_v != null)
+            if (ID.Validate(person_ID))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_Person_ID = "@spar_Person_ID";
-                SQL_Parameter par_Person_ID = new SQL_Parameter(spar_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, person_ID_v.v);
+                SQL_Parameter par_Person_ID = new SQL_Parameter(spar_Person_ID, false, person_ID.v);
                 lpar.Add(par_Person_ID);
                 string sql = "insert into PersonData (Person_ID)values(" + spar_Person_ID + ")";
                 string Err = null;
-                object oret = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref personData_ID,ref oret, ref Err, "PersonData"))
+                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref personData_ID, ref Err, "PersonData"))
                 {
                     return true;
                 }

@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public static class f_Atom_WorkingPlace
     {
-        public static bool Get(long WorkingPlace_ID,ref long Atom_WorkingPlace_ID)
+        public static bool Get(ID WorkingPlace_ID,ref ID Atom_WorkingPlace_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -82,14 +82,17 @@ namespace TangentaDB
                     {
                         if (dt_Atom_WorkingPlace.Rows.Count > 0)
                         {
-                            Atom_WorkingPlace_ID = (long)dt_Atom_WorkingPlace.Rows[0]["ID"];
+                            if (Atom_WorkingPlace_ID!=null)
+                            {
+                                Atom_WorkingPlace_ID = new ID();
+                            }
+                            Atom_WorkingPlace_ID.Set(dt_Atom_WorkingPlace.Rows[0]["ID"]);
                             return true;
                         }
                         else
                         {
                             sql = @"insert into Atom_WorkingPlace (Name,Description) values (" + sval_Atom_WorkingPlace_Name + "," + sval_Atom_WorkingPlace_Description + ")";
-                            object objretx = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkingPlace_ID, ref objretx, ref Err, "Atom_WorkingPlace"))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkingPlace_ID,  ref Err, "Atom_WorkingPlace"))
                             {
                                 return true;
                             }

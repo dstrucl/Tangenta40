@@ -125,6 +125,10 @@ namespace Tangenta
                         return Startup_check_proc_Result.CHECK_OK;
                     }
 
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME:
+                    startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+
                 default:
                     return Startup_check_proc_Result.CHECK_ERROR;
 
@@ -584,6 +588,49 @@ namespace Tangenta
             {
                 case Navigation.eEvent.NEXT:
                     if (form is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
+                    {
+                        startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
+                        return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                    }
+                    else
+                    {
+                        return Startup_onformresult_proc_Result.ERROR;
+                    }
+
+                case Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case Navigation.eEvent.EXIT:
+                    return Startup_onformresult_proc_Result.EXIT;
+
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
+
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_CheckInsertSampleData:xnav.eExitResult not implemented for eExitResult = " + eExitResult.ToString());
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+        }
+
+        private bool Startup_05_Show_Form_SetElectronicDeviceName(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
+        {
+            startup_OnFormResult_proc = Startup_05_onformresult_Form_SetElectronicDeviceName;
+            return frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_Show_Form_SetElectronicDeviceName(xnav);
+        }
+
+        private Startup_onformresult_proc_Result Startup_05_onformresult_Form_SetElectronicDeviceName(startup_step myStartup_step,
+                                                                               Form form,
+                                                                               NavigationButtons.Navigation.eEvent eExitResult,
+                                                                               ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                               ref string Err)
+        {
+            switch (eExitResult)
+            {
+                case Navigation.eEvent.NEXT:
+                    if (form is Form_SetElectronicDeviceName)
                     {
                         startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
                         return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;

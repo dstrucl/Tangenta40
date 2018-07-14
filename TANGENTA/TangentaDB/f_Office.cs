@@ -20,8 +20,8 @@ namespace TangentaDB
             public static bool Get(
                                     string Name,
                                     string ShortName,
-                                    long myOrganisation_ID,
-                                    ref long Office_ID)
+                                    ID myOrganisation_ID,
+                                    ref ID Office_ID)
             {
 
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -58,61 +58,64 @@ namespace TangentaDB
                 sval_Office_ShortName = "null";
             }
             string scond_myOrganisation_ID = null;
-                string sval_myOrganisation_ID = "null";
-                if (myOrganisation_ID >= 0)
+            string sval_myOrganisation_ID = "null";
+            if (ID.Validate(myOrganisation_ID))
+            {
+                string spar_myOrganisation_ID = "@par_myOrganisation_ID";
+                SQL_Parameter par_myOrganisation_ID = new SQL_Parameter(spar_myOrganisation_ID, false, myOrganisation_ID);
+                lpar.Add(par_myOrganisation_ID);
+                scond_myOrganisation_ID = "myOrganisation_ID = " + spar_myOrganisation_ID;
+                sval_myOrganisation_ID = spar_myOrganisation_ID;
+            }
+            else
+            {
+                scond_myOrganisation_ID = "myOrganisation_ID is null";
+                sval_myOrganisation_ID = "null";
+            }
+
+            string sql = @"select ID from Office
+                                    where (" + scond_Office_Name + ") and (" + scond_myOrganisation_ID + ")";
+            string Err = null;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
                 {
-                    string spar_myOrganisation_ID = "@par_myOrganisation_ID";
-                    SQL_Parameter par_myOrganisation_ID = new SQL_Parameter(spar_myOrganisation_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_ID);
-                    lpar.Add(par_myOrganisation_ID);
-                    scond_myOrganisation_ID = "myOrganisation_ID = " + spar_myOrganisation_ID;
-                    sval_myOrganisation_ID = spar_myOrganisation_ID;
+                    if (Office_ID==null)
+                    {
+                        Office_ID = new ID();
+                    }
+                    Office_ID.Set(dt.Rows[0]["ID"]);
+                    return true;
                 }
                 else
                 {
-                    scond_myOrganisation_ID = "myOrganisation_ID is null";
-                    sval_myOrganisation_ID = "null";
-                }
-
-                string sql = @"select ID from Office
-                                        where (" + scond_Office_Name + ") and (" + scond_myOrganisation_ID + ")";
-                string Err = null;
-                DataTable dt = new DataTable();
-                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-                {
-                    if (dt.Rows.Count > 0)
+                    sql = @"insert into Office (myOrganisation_ID,
+                                                        Name,
+                                                        ShortName) values ("
+                                                            + sval_myOrganisation_ID + ","
+                                                            + sval_Office_Name + ","
+                                                            + sval_Office_ShortName+
+                                                            ")";
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_ID, ref Err, "Office"))
                     {
-                        Office_ID = (long)dt.Rows[0]["ID"];
                         return true;
                     }
                     else
                     {
-                        sql = @"insert into Office (myOrganisation_ID,
-                                                            Name,
-                                                            ShortName) values ("
-                                                                + sval_myOrganisation_ID + ","
-                                                                + sval_Office_Name + ","
-                                                                + sval_Office_ShortName+
-                                                                ")";
-                        object objretx = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_ID, ref objretx, ref Err, "Office"))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:f_Office:Get:" + sql + "\r\nErr=" + Err);
-                            return false;
-                        }
+                        LogFile.Error.Show("ERROR:f_Office:Get:" + sql + "\r\nErr=" + Err);
+                        return false;
                     }
                 }
-                else
-                {
-                    LogFile.Error.Show("ERROR:f_Office:Get:" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
             }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Office:Get:" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
 
-        public static bool Get(long office_ID, ref string sOfficeName, ref string sOfficeShortName)
+        public static bool Get(ID office_ID, ref string sOfficeName, ref string sOfficeShortName)
         {
             string sql = @"select Name,ShortName from Office
                                         where ID=" + office_ID.ToString();
@@ -142,8 +145,7 @@ namespace TangentaDB
             }
         }
 
-
-            public static bool DeleteAll()
+        public static bool DeleteAll()
         {
             return fs.DeleteAll("Office");
         }

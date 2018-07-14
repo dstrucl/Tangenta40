@@ -1,4 +1,5 @@
-﻿using DBTypes;
+﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,8 @@ namespace TangentaDB
 {
     public class MyOrgBankAccountPayment
     {
-        private long m_BankAccount_ID = -1;
-        public long BankAccount_ID
+        private ID m_BankAccount_ID =null;
+        public ID BankAccount_ID
         {
             get { return m_BankAccount_ID; }
             set { m_BankAccount_ID = value; }

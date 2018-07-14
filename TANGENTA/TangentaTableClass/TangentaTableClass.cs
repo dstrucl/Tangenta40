@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DBConnectionControl40;
 using DBTypes;
 
 namespace TangentaTableClass
@@ -1168,11 +1169,9 @@ namespace TangentaTableClass
     public class Atom_ElectronicDevice
     {
         public ID ID = new ID();
-        public FVI_SLO_RealEstateBP m_FVI_SLO_RealEstateBP = new FVI_SLO_RealEstateBP();
-        public Atom_ComputerName m_Atom_ComputerName = new Atom_ComputerName();
-        public Atom_ComputerUserName m_Atom_ComputerUserName = new Atom_ComputerUserName();
-        public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
         public Name Name = new Name();
+        public Atom_Computer m_Atom_Computer = new Atom_Computer();
+        public Office m_Office = new Office();
         public Description Description = new Description();
     }
 
@@ -1283,7 +1282,6 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public Atom_myOrganisation_Person m_Atom_myOrganisation_Person = new Atom_myOrganisation_Person();
         public Atom_WorkingPlace m_Atom_WorkingPlace  = new Atom_WorkingPlace();
-        public Atom_Computer m_Atom_Computer = new Atom_Computer();
         public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
         public LoginTime LoginTime = new LoginTime();
         public LogoutTime LogoutTime = new LogoutTime();

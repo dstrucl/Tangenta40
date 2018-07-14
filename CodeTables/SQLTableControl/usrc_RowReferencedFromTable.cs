@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using DBConnectionControl40;
 
 namespace CodeTables
 {
@@ -22,7 +23,7 @@ namespace CodeTables
         internal SQLTable m_tbl = null;
         DataTable m_dt = null;
         SQLTable m_tbl_referenced = null;
-        long m_tbl_referenced_ID = -1;
+        ID m_tbl_referenced_ID = null;
 
         public usrc_RowReferencedFromTable()
         {
@@ -31,7 +32,7 @@ namespace CodeTables
             this.lbl_ReferencedTableRow.Text = lng.s_ReferencedTableRow.s;
         }
 
-        public void Init(SQLTable x_tbl, SQLTable x_tbl_referenced, long x_tbl_referenced_ID, DataTable x_dt)
+        public void Init(SQLTable x_tbl, SQLTable x_tbl_referenced, ID x_tbl_referenced_ID, DataTable x_dt)
         {
             m_tbl = x_tbl;
             this.txt_TableName.Text = m_tbl.lngTableName.s;

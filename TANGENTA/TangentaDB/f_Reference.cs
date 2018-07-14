@@ -14,7 +14,7 @@ namespace TangentaDB
     {
         public static bool Get(string ReferenceNote,
                                Image Reference_Image,
-                               ref long Reference_ID
+                               ref ID Reference_ID
                               )
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -31,7 +31,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        Reference_ID = (long)dt.Rows[0]["ID"];
+                        if (Reference_ID==null)
+                        {
+                            Reference_ID = new ID();
+                        }
+                        Reference_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
@@ -40,7 +44,7 @@ namespace TangentaDB
                         if (Reference_Image != null)
                         {
                             string Image_Hash = null;
-                            long_v Reference_Image_ID_v = null;
+                            ID Reference_Image_ID_v = null;
                             if (!f_Reference_Image.Get(Reference_Image, ref Image_Hash, ref Reference_Image_ID_v))
                             {
                                 return false;

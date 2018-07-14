@@ -11,13 +11,13 @@ namespace TangentaDB
 {
     public static class f_Item_ParentGroup1
     {
-        public static bool Get(string Name_ParentGroup1, string Name_ParentGroup2, string Name_ParentGroup3, ref long Item_ParentGroup1_ID)
+        public static bool Get(string Name_ParentGroup1, string Name_ParentGroup2, string Name_ParentGroup3, ref ID Item_ParentGroup1_ID)
         {
             DataTable dt = new DataTable();
             string Err = null;
             if (Name_ParentGroup2 != null)
             {
-                long Item_ParentGroup2_ID = -1;
+                ID Item_ParentGroup2_ID = null;
 
                 if (f_Item_ParentGroup2.Get(Name_ParentGroup2, Name_ParentGroup3, ref Item_ParentGroup2_ID))
                 {
@@ -30,14 +30,17 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            Item_ParentGroup1_ID = (long)dt.Rows[0]["ID"];
+                            if (Item_ParentGroup1_ID==null)
+                            {
+                                Item_ParentGroup1_ID = new ID();
+                            }
+                            Item_ParentGroup1_ID.Set(dt.Rows[0]["ID"]);
                             return true;
                         }
                         else
                         {
                             sql = "insert into Item_ParentGroup1 (Name,Item_ParentGroup2_ID) values (" + spar_Name + "," + Item_ParentGroup2_ID.ToString() + ")";
-                            object oret = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup1_ID, ref oret, ref Err, "Item_ParentGroup1"))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup1_ID, ref Err, "Item_ParentGroup1"))
                             {
                                 return true;
                             }
@@ -69,14 +72,17 @@ namespace TangentaDB
                 string sql = "select ID from Item_ParentGroup1 where Name = " + spar_Name + " and Item_ParentGroup2_ID is null";
                 if (dt.Rows.Count > 0)
                 {
-                    Item_ParentGroup1_ID = (long)dt.Rows[0]["ID"];
+                    if (Item_ParentGroup1_ID==null)
+                    {
+                        Item_ParentGroup1_ID = new ID();
+                    }
+                    Item_ParentGroup1_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into Item_ParentGroup1 (Name,Item_ParentGroup2_ID) values (" + spar_Name + ",null)";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup1_ID, ref oret, ref Err, "Item_ParentGroup1"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup1_ID, ref Err, "Item_ParentGroup1"))
                     {
                         return true;
                     }
@@ -90,23 +96,23 @@ namespace TangentaDB
         }
 
 
-        internal static bool Get(long item_ParentGroup1_ID, ref string_v item_ParentGroup1_v, ref long_v item_ParentGroup2_ID_v, ref string_v item_ParentGroup2_v, ref long_v item_ParentGroup3_ID_v, ref string_v item_ParentGroup3_v)
+        internal static bool Get(ID item_ParentGroup1_ID, ref string_v item_ParentGroup1_v, ref ID item_ParentGroup2_ID, ref string_v item_ParentGroup2_v, ref ID item_ParentGroup3_ID, ref string_v item_ParentGroup3_v)
         {
             DataTable dt = new DataTable();
-            item_ParentGroup2_ID_v = null;
-            item_ParentGroup3_ID_v = null;
+            item_ParentGroup2_ID = null;
+            item_ParentGroup3_ID = null;
             item_ParentGroup1_v = null;
             item_ParentGroup2_v = null;
             item_ParentGroup3_v = null;
-            if (Get(item_ParentGroup1_ID, ref item_ParentGroup1_v, ref item_ParentGroup2_ID_v))
+            if (Get(item_ParentGroup1_ID, ref item_ParentGroup1_v, ref item_ParentGroup2_ID))
             {
-                if (item_ParentGroup2_ID_v != null)
+                if (item_ParentGroup2_ID != null)
                 {
-                    if (f_Item_ParentGroup2.Get(item_ParentGroup2_ID_v.v, ref item_ParentGroup2_v, ref item_ParentGroup3_ID_v))
+                    if (f_Item_ParentGroup2.Get(item_ParentGroup2_ID.v, ref item_ParentGroup2_v, ref item_ParentGroup3_ID))
                     {
-                        if (item_ParentGroup3_ID_v != null)
+                        if (item_ParentGroup3_ID != null)
                         {
-                            if (!f_Item_ParentGroup3.Get(item_ParentGroup3_ID_v.v, ref item_ParentGroup3_v))
+                            if (!f_Item_ParentGroup3.Get(item_ParentGroup3_ID.v, ref item_ParentGroup3_v))
                             {
                                 return false;
                             }
@@ -126,15 +132,15 @@ namespace TangentaDB
 
         }
 
-        private static bool Get(long item_ParentGroup1_ID, ref string_v item_ParentGroup1_v, ref long_v item_ParentGroup2_ID_v)
+        private static bool Get(ID item_ParentGroup1_ID, ref string_v item_ParentGroup1_v, ref ID item_ParentGroup2_ID)
         {
             DataTable dt = new DataTable();
             string Err = null;
             item_ParentGroup1_v = null;
-            item_ParentGroup2_ID_v = null;
+            item_ParentGroup2_ID = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, item_ParentGroup1_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, item_ParentGroup1_ID);
             lpar.Add(par_ID);
             string sql = "select Name,Item_ParentGroup2_ID from Item_ParentGroup1 where ID = " + spar_ID;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -142,7 +148,11 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     item_ParentGroup1_v = tf.set_string(dt.Rows[0]["Name"]);
-                    item_ParentGroup2_ID_v = tf.set_long(dt.Rows[0]["Item_ParentGroup2_ID"]);
+                    if (item_ParentGroup2_ID==null)
+                    {
+                        item_ParentGroup2_ID = new ID();
+                    }
+                    item_ParentGroup2_ID.Set(dt.Rows[0]["Item_ParentGroup2_ID"]);
                 }
                 return true;
             }

@@ -20,11 +20,11 @@ namespace TangentaDB
     public static class f_Atom_FVI_SLO_RealEstateBP
     {
         public static bool Get(
-                         long FVI_SLO_RealEstateBP_ID,
-                         ref long Atom_FVI_SLO_RealEstateBP_ID)
+                         ID FVI_SLO_RealEstateBP_ID,
+                         ref ID Atom_FVI_SLO_RealEstateBP_ID)
         {
 
-            long Office_Data_ID = -1;
+            ID Office_Data_ID = null;
 
             string sql = @"select 
                             fres.Office_Data_ID,
@@ -44,16 +44,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-
-
-                    Office_Data_ID = (long)dt.Rows[0]["Office_Data_ID"];
-                    long Atom_Office_Data_ID = -1;
-                    if (f_Atom_Office_Data.Get(Office_Data_ID, ref Atom_Office_Data_ID))
+                    if (Office_Data_ID==null)
+                    {
+                        Office_Data_ID = new ID();
+                    }
+                    Office_Data_ID.Set(dt.Rows[0]["Office_Data_ID"]);
+                    ID xAtom_Office_Data_ID = null;
+                    if (f_Atom_Office_Data.Get(Office_Data_ID, ref xAtom_Office_Data_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
                         string spar_Atom_Office_Data_ID = "@par_Atom_Office_Data_ID";
-                        SQL_Parameter par_Atom_Office_Data_ID = new SQL_Parameter(spar_Atom_Office_Data_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Office_Data_ID);
+                        SQL_Parameter par_Atom_Office_Data_ID = new SQL_Parameter(spar_Atom_Office_Data_ID, false, xAtom_Office_Data_ID);
                         lpar.Add(par_Atom_Office_Data_ID);
 
                         int BuildingNumber = (int)dt.Rows[0]["BuildingNumber"];
@@ -115,7 +117,11 @@ namespace TangentaDB
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                Atom_FVI_SLO_RealEstateBP_ID = (long)dt.Rows[0]["ID"];
+                                if (Atom_FVI_SLO_RealEstateBP_ID==null)
+                                {
+                                    Atom_FVI_SLO_RealEstateBP_ID = new ID();
+                                }
+                                Atom_FVI_SLO_RealEstateBP_ID.Set(dt.Rows[0]["ID"]);
                                 return true;
                             }
                             else
@@ -139,8 +145,7 @@ namespace TangentaDB
                                                                  + spar_ClosingTag + ","
                                                                  + spar_SoftwareSupplier_TaxNumber + ","
                                                                  + spar_PremiseType + ")";
-                                object objretx = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_FVI_SLO_RealEstateBP_ID, ref objretx, ref Err, "Atom_FVI_SLO_RealEstateBP"))
+                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_FVI_SLO_RealEstateBP_ID, ref Err, "Atom_FVI_SLO_RealEstateBP"))
                                 {
                                     return true;
                                 }
@@ -169,7 +174,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get_Atom_FVI_SLO_RealEstateBP_ID(Form main_Form, ref long Atom_FVI_SLO_RealEstateBP_ID, int limit)
+        public static bool Get_Atom_FVI_SLO_RealEstateBP_ID(Form main_Form, ref ID Atom_FVI_SLO_RealEstateBP_ID, int limit)
         {
             string Err = null;
             string sTop = "";
@@ -194,7 +199,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count>0)
                 {
-                    long FVI_SLO_RealEstateBP_ID = (long) dt.Rows[0]["ID"];
+                    ID FVI_SLO_RealEstateBP_ID = new ID(dt.Rows[0]["ID"]);
                     return f_Atom_FVI_SLO_RealEstateBP.Get(FVI_SLO_RealEstateBP_ID, ref Atom_FVI_SLO_RealEstateBP_ID);
                 }
                 else

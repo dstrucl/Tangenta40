@@ -13,7 +13,7 @@ namespace TangentaDB
 {
     public static class f_Atom_IP_address
     {
-        public static string GetLocalIpAddress()
+        public static string Get()
         {
             UnicastIPAddressInformation mostSuitableIp = null;
 
@@ -62,7 +62,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get(string xIP_address,ref long Atom_IP_address_ID)
+        public static bool Get(string xIP_address,ref ID Atom_IP_address_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -92,14 +92,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_IP_address_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_IP_address_ID==null)
+                    {
+                        Atom_IP_address_ID = new ID();
+                    }
+                    Atom_IP_address_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_IP_address (IP_address) values (" + sval_IP_address + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_IP_address_ID, ref objretx, ref Err, "Atom_IP_address"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_IP_address_ID,  ref Err, "Atom_IP_address"))
                     {
                         return true;
                     }
@@ -117,10 +120,10 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ref long Atom_IP_address_ID)
+        public static bool Get(ref ID Atom_IP_address_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string IP_address = GetLocalIpAddress();
+            string IP_address = Get();
             return f_Atom_IP_address.Get(IP_address, ref Atom_IP_address_ID);
         }
     }

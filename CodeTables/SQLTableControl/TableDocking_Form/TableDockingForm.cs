@@ -585,7 +585,7 @@ namespace CodeTables
             return -1;
         }
 
-        internal void UpdateForms(long ID)
+        internal void UpdateForms(ID ID)
         {
             int i;
             for (i = 0; i < guid.MaxTableViews; i++)

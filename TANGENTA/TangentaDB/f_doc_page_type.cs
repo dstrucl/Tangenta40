@@ -20,7 +20,7 @@ namespace TangentaDB
 {
     public static class f_doc_page_type
     {
-        public static bool Get(string Name, string_v Description_v, decimal_v Width_v,decimal_v Height_v, ref long doc_page_type_ID)
+        public static bool Get(string Name, string_v Description_v, decimal_v Width_v,decimal_v Height_v, ref ID doc_page_type_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -66,14 +66,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    doc_page_type_ID = (long)dt.Rows[0]["ID"];
+                    if (doc_page_type_ID==null)
+                    {
+                        doc_page_type_ID = new ID();
+                    }
+                    doc_page_type_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into doc_page_type (Name,Description,Width,Height)values(" + spar_Name + "," + sval_Description + "," + sval_Width + "," + sval_Height + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_page_type_ID, ref oret, ref Err, "doc_page_type"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_page_type_ID, ref Err, "doc_page_type"))
                     {
                         return true;
                     }
@@ -91,7 +94,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(long doc_page_type_ID,ref string_v Name_v,ref string_v Description_v,ref decimal_v Width_v, ref decimal_v Height_v)
+        public static bool Get(ID doc_page_type_ID,ref string_v Name_v,ref string_v Description_v,ref decimal_v Width_v, ref decimal_v Height_v)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -99,7 +102,7 @@ namespace TangentaDB
 
             //Table Language
             string spar_ID = "@par_ID";
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, doc_page_type_ID);
             lpar.Add(par_ID);
 
 

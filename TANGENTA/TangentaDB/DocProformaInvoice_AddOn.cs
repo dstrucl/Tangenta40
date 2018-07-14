@@ -11,8 +11,8 @@ namespace TangentaDB
 {
     public class DocProformaInvoice_AddOn
     {
-        public long_v DocProformaInvoice_ID_v = null;
-        public long_v DocProformaInvoiceAddOn_ID_v = null;
+        public ID DocProformaInvoice_ID = null;
+        public ID DocProformaInvoiceAddOn_ID = null;
 
         public class IssueDate
         {
@@ -93,8 +93,8 @@ namespace TangentaDB
 
         public class TermsOfPayment
         {
-            private long m_ID = -1;
-            public long ID
+            private ID m_ID = null;
+            public ID ID
             {
                 get { return m_ID; }
                 set { m_ID = value; }
@@ -107,12 +107,12 @@ namespace TangentaDB
                 set { m_Description = value; }
             }
 
-            internal static TermsOfPayment Set(object oID, object oDescription)
+            internal static TermsOfPayment Set(ID ID, object oDescription)
             {
-                if ((oID is long) && (oDescription is string))
+                if ((ID.Validate(ID)) && (oDescription is string))
                 {
                     TermsOfPayment xTermsOfPayment = new TermsOfPayment();
-                    xTermsOfPayment.ID = (long)oID;
+                    xTermsOfPayment.ID = new ID(ID);
                     xTermsOfPayment.Description = (string)oDescription;
                     return xTermsOfPayment;
                 }
@@ -120,18 +120,17 @@ namespace TangentaDB
                 {
                     return null;
                 }
-
             }
            
 
-            internal bool Get(ref long_v TermsOfPayment_ID_v)
+            internal bool Get(ref ID xTermsOfPayment_ID)
             {
 
-                if (f_TermsOfPayment.Get(Description, ref TermsOfPayment_ID_v))
+                if (f_TermsOfPayment.Get(Description, ref xTermsOfPayment_ID))
                 {
-                    if (TermsOfPayment_ID_v != null)
+                    if (ID.Validate(this.ID))
                     {
-                        ID = TermsOfPayment_ID_v.v;
+                        xTermsOfPayment_ID = this.ID;
                         return true;
                     }
                 }
@@ -141,11 +140,11 @@ namespace TangentaDB
             public bool SetDefault()
             {
                 string_v description_v = null;
-                if (f_TermsOfPayment.Get(1, ref description_v))
+                if (f_TermsOfPayment.Get(new ID(1), ref description_v))
                 {
                     if (description_v != null)
                     {
-                        ID = 1;
+                        ID = new ID(1);
                         Description = description_v.v;
                         return true;
                     }
@@ -157,8 +156,8 @@ namespace TangentaDB
 
         public class MethodOfPayment_DPI
         {
-            private long m_ID = -1;
-            public long ID
+            private ID m_ID = null;
+            public ID ID
             {
                 get { return m_ID; }
                 set { m_ID = value; }
@@ -199,18 +198,18 @@ namespace TangentaDB
                 }
             }
 
-            internal static MethodOfPayment_DPI Set(object oID, object oPaymentType, object oBankName,
+            internal static MethodOfPayment_DPI Set(ID ID, object oPaymentType, object oBankName,
                                                                                  object oBank_Tax_ID,
                                                                                  object oBank_Registration_ID,
                                                                                  object oBank_TaxPayer,
                                                                                  object oBank_Comment1,
                                                                                  object oBankAccount,
-                                                                                 object oBankAccount_ID)
+                                                                                 ID BankAccount_ID)
             {
-                if ((oID is long) && (oPaymentType is string))
+                if ((ID.Validate(ID)) && (oPaymentType is string))
                 {
                     MethodOfPayment_DPI xMethodOfPayment = new MethodOfPayment_DPI();
-                    xMethodOfPayment.ID = (long)oID;
+                    xMethodOfPayment.ID = ID;
                     string xPaymentType = (string)oPaymentType;
                     string Err = null;
                     xMethodOfPayment.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
@@ -225,12 +224,12 @@ namespace TangentaDB
                             if ((oBankName is string)
                                 && (oBank_Tax_ID is string)
                                 && (oBankAccount is string) 
-                                && (oBankAccount_ID is long))
+                                && (ID.Validate(BankAccount_ID)))
                             {
                                 xMethodOfPayment.m_MyOrgBankAccountPayment.BankName = (string)oBankName;
                                 xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Tax_ID = (string)oBank_Tax_ID;
                                 xMethodOfPayment.m_MyOrgBankAccountPayment.BankAccount = (string)oBankAccount;
-                                xMethodOfPayment.m_MyOrgBankAccountPayment.BankAccount_ID = (long)oBankAccount_ID;
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.BankAccount_ID = BankAccount_ID;
                                 xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Registration_ID = null;
                                 if (oBank_Registration_ID!=null)
                                 {
@@ -258,7 +257,7 @@ namespace TangentaDB
                                 {
                                     LogFile.Error.Show("ERROR:TangentaDB:DocProformaInvoice_AddOn.MethodOfPayment:Set: oBankAccount is not string");
                                 }
-                                else if (!(oBankAccount_ID is long))
+                                else if (!(ID.Validate(BankAccount_ID)))
                                 {
                                     LogFile.Error.Show("ERROR:TangentaDB:DocProformaInvoice_AddOn.MethodOfPayment:Set: oBankAccount_ID is not long");
                                 }
@@ -271,10 +270,10 @@ namespace TangentaDB
                 return null;
             }
 
-            internal bool Get(ref long_v MethodOfPayment_DPI_ID_v)
+            internal bool Get(ref ID MethodOfPayment_DPI_ID)
             {
-                long_v Atom_BankAccount_ID_v = null;
-                long_v PaymentType_ID_v = null;
+                ID Atom_BankAccount_ID = null;
+                ID PaymentType_ID = null;
                 string_v PaymentType_v = null;
                 
                 switch (eType)
@@ -288,15 +287,15 @@ namespace TangentaDB
                                                    true,
                                                    this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
-                                                   ref Atom_BankAccount_ID_v))
+                                                   ref Atom_BankAccount_ID))
                         {
-                            if (Atom_BankAccount_ID_v != null)
+                            if (Atom_BankAccount_ID != null)
                             {
                                 if (f_MethodOfPayment_DPI.Get(eType,
-                                                             Atom_BankAccount_ID_v,
-                                                             ref PaymentType_ID_v,
+                                                             Atom_BankAccount_ID,
+                                                             ref PaymentType_ID,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DPI_ID_v))
+                                                             ref MethodOfPayment_DPI_ID))
                                 {
                                     return true;
                                 }
@@ -310,9 +309,9 @@ namespace TangentaDB
                     default:
                         if (f_MethodOfPayment_DPI.Get(eType,
                                                              null,
-                                                             ref PaymentType_ID_v,
+                                                             ref PaymentType_ID,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DPI_ID_v))
+                                                             ref MethodOfPayment_DPI_ID))
                         {
                             return true;
                         }
@@ -445,10 +444,10 @@ namespace TangentaDB
                     m_Duration = DocProformaInvoice_AddOn.Duration.Set(dt.Rows[0]["DocDuration"],
                                                                        dt.Rows[0]["DocDurationType"]);
 
-                    m_TermsOfPayment = DocProformaInvoice_AddOn.TermsOfPayment.Set(dt.Rows[0]["TermsOfPayment_ID"],
+                    m_TermsOfPayment = DocProformaInvoice_AddOn.TermsOfPayment.Set(new ID(dt.Rows[0]["TermsOfPayment_ID"]),
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(dt.Rows[0]["MethodOfPayment_DPI_ID"],
+                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(new ID(dt.Rows[0]["MethodOfPayment_DPI_ID"]),
                                                                                      dt.Rows[0]["PaymentType_Identification"],
                                                                                      dt.Rows[0]["AtomOrganisationName"],
                                                                                      dt.Rows[0]["Tax_ID"],
@@ -456,7 +455,7 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["TaxPayer"],
                                                                                      dt.Rows[0]["Comment1"],
                                                                                      dt.Rows[0]["TRR"],
-                                                                                     dt.Rows[0]["Atom_BankAccount_ID"]);
+                                                                                     new ID(dt.Rows[0]["Atom_BankAccount_ID"]));
                     object oNoticeText = dt.Rows[0]["NoticeText"];
                     m_NoticeText = null;
                     if (oNoticeText is string)
@@ -473,22 +472,14 @@ namespace TangentaDB
             }
         }
 
-        public bool Set(long DocProformaInvoice_ID, ref ltext ltMsg)
+        public bool Set(ID xDocProformaInvoice_ID, ref ltext ltMsg)
         {
 
-            if (DocProformaInvoice_ID_v == null)
-            {
-                DocProformaInvoice_ID_v = new long_v(DocProformaInvoice_ID);
-            }
-            else
-            {
-                DocProformaInvoice_ID_v.v = DocProformaInvoice_ID;
+            DocProformaInvoice_ID = xDocProformaInvoice_ID;
 
-            }
-
-            if (f_DocProformaInvoiceAddOn.Get(DocProformaInvoice_ID_v, ref DocProformaInvoiceAddOn_ID_v))
+            if (f_DocProformaInvoiceAddOn.Get(DocProformaInvoice_ID, ref DocProformaInvoiceAddOn_ID))
             {
-                if (DocProformaInvoiceAddOn_ID_v != null)
+                if (ID.Validate(DocProformaInvoiceAddOn_ID))
                 {
                     return Update();
                 }
@@ -506,40 +497,40 @@ namespace TangentaDB
 
         private bool Insert()
         {
-            if (DocProformaInvoice_ID_v == null)
+            if (!ID.Validate(DocProformaInvoice_ID))
             {
-                LogFile.Error.Show("ERROR:TangentaDB:Insert:DocProformaInvoice_ID_v== null");
+                LogFile.Error.Show("ERROR:TangentaDB:Insert:DocProformaInvoice_ID is not valid!");
                 return false;
             }
             ltext ltMsg = null;
-            long_v MethodOfPayment_DPI_ID_v = null;
-            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID_v))
+            ID MethodOfPayment_DPI_ID = null;
+            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID))
             {
                 if (m_TermsOfPayment != null)
                 {
-                    long_v TermsOfPayment_ID_v = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID_v))
+                    ID TermsOfPayment_ID = null;
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID))
                     {
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
-                        long_v Atom_Notice_ID_v = null;
-                        long_v Notice_ID_v = null;
+                        ID Atom_Notice_ID = null;
+                        ID Notice_ID = null;
 
                         string sval_Atom_Notice_ID = "null";
                         if (m_NoticeText != null)
                         {
-                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID_v))
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID))
                             {
                                 return false;
                             }
-                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID_v))
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID))
                             {
                                 return false;
                             }
                             string notice_text = m_NoticeText;
                             string spar_Atom_Notice_ID = "@par_Atom_Notice_ID";
-                            SQL_Parameter par_Atom_Notice_ID = new SQL_Parameter(spar_Atom_Notice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Notice_ID_v.v);
+                            SQL_Parameter par_Atom_Notice_ID = new SQL_Parameter(spar_Atom_Notice_ID, false, Atom_Notice_ID);
                             lpar.Add(par_Atom_Notice_ID);
                             sval_Atom_Notice_ID = spar_Atom_Notice_ID;
                         }
@@ -547,15 +538,15 @@ namespace TangentaDB
 
 
                         string spar_DocProformaInvoice_ID = "@par_DocProformaInvoice_ID";
-                        SQL_Parameter par_DocProformaInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocProformaInvoice_ID_v.v);
+                        SQL_Parameter par_DocProformaInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, false, DocProformaInvoice_ID);
                         lpar.Add(par_DocProformaInvoice_ID);
 
                         string spar_MethodOfPayment_DPI_ID = "@par_MethodOfPayment_DPI_ID";
-                        SQL_Parameter par_MethodOfPayment_DPI_ID = new SQL_Parameter(spar_MethodOfPayment_DPI_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DPI_ID_v.v);
+                        SQL_Parameter par_MethodOfPayment_DPI_ID = new SQL_Parameter(spar_MethodOfPayment_DPI_ID, false, MethodOfPayment_DPI_ID);
                         lpar.Add(par_MethodOfPayment_DPI_ID);
 
                         string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
-                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
+                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, false, m_TermsOfPayment.ID);
                         lpar.Add(par_TermsOfPayment_ID);
 
                         string sval_DocDuration = " DocDuration = null ";
@@ -599,12 +590,9 @@ namespace TangentaDB
                                                                    spar_DocDurationType + ","+
                                                                    sval_Atom_Notice_ID+")";
 
-                        object ores = null;
                         string Err = null;
-                        long ID = -1;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID, ref ores, ref Err, "DocProformaInvoiceAddOn"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocProformaInvoiceAddOn_ID, ref Err, "DocProformaInvoiceAddOn"))
                         {
-                            DocProformaInvoiceAddOn_ID_v = new long_v(ID);
                             return true;
                         }
                         else
@@ -633,45 +621,45 @@ namespace TangentaDB
         private bool Update()
         {
             ltext ltMsg = null;
-            long_v MethodOfPayment_DPI_ID_v = null;
-            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID_v))
+            ID MethodOfPayment_DPI_ID = null;
+            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID))
             {
                 if (m_TermsOfPayment != null)
                 {
-                    long_v TermsOfPayment_ID_v = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID_v))
+                    ID TermsOfPayment_ID = null;
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID))
                     {
 
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
                         string sval_Atom_Notice_ID = " Atom_Notice_ID = null ";
-                        long_v Atom_Notice_ID_v = null;
-                        long_v Notice_ID_v = null;
+                        ID Atom_Notice_ID = null;
+                        ID Notice_ID = null;
 
                         if (m_NoticeText != null)
                         {
-                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID_v))
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID))
                             {
                                 return false;
                             }
-                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID_v))
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID))
                             {
                                 return false;
                             }
                             string notice_text = m_NoticeText;
                             string spar_Atom_Notice_ID = "@par_Atom_Notice_ID";
-                            SQL_Parameter par_Atom_Notice_ID = new SQL_Parameter(spar_Atom_Notice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Notice_ID_v.v);
+                            SQL_Parameter par_Atom_Notice_ID = new SQL_Parameter(spar_Atom_Notice_ID, false, Atom_Notice_ID);
                             lpar.Add(par_Atom_Notice_ID);
                             sval_Atom_Notice_ID = " Atom_Notice_ID = " + spar_Atom_Notice_ID;
                         }
 
                         string spar_MethodOfPayment_DPI_ID = "@par_MethodOfPayment_DPI_ID";
-                        SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_DPI_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DPI_ID_v.v);
+                        SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_DPI_ID,  false, MethodOfPayment_DPI_ID);
                         lpar.Add(par_MethodOfPayment_ID);
 
                         string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
-                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
+                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, false, m_TermsOfPayment.ID);
                         lpar.Add(par_TermsOfPayment_ID);
 
                         string sval_DocDuration = " DocDuration = null ";
@@ -704,7 +692,7 @@ namespace TangentaDB
                                                                 + "," + sval_DocDuration
                                                                  + "," + sval_DocDurationType
                                                                  + "," + sval_Atom_Notice_ID
-                                                                + " where ID = " + DocProformaInvoiceAddOn_ID_v.v.ToString();
+                                                                + " where ID = " + DocProformaInvoiceAddOn_ID.ToString();
                         object ores = null;
                         string Err = null;
 

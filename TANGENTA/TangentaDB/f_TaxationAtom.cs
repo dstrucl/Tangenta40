@@ -11,12 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using LogFile;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
     public static class f_Atom_Taxation
     {
-        public static bool Get(long Taxation_ID, ref long Atom_Taxation_ID)
+        public static bool Get(ID Taxation_ID, ref ID Atom_Taxation_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -30,14 +31,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Taxation_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_Taxation_ID==null)
+                    {
+                        Atom_Taxation_ID = new ID();
+                    }
+                    Atom_Taxation_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_Taxation (Name,Rate) select Name,Rate from Taxation where ID = " + Taxation_ID.ToString();
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Taxation_ID, ref objretx, ref Err, "Atom_Taxation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Taxation_ID,  ref Err, "Atom_Taxation"))
                     {
                         return true;
                     }
@@ -54,6 +58,5 @@ namespace TangentaDB
                 return false;
             }
         }
-
     }
 }

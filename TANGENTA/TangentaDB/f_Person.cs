@@ -24,7 +24,7 @@ namespace TangentaDB
                                  DateTime_v DateOfBirth_v,
                                  string_v Tax_ID_v,
                                  string_v Registration_ID_v,
-                                 ref long_v Person_ID_v)
+                                 ref ID Person_ID)
         {
             string Err = null;
             string Gender_condition = null;
@@ -45,10 +45,10 @@ namespace TangentaDB
             string sDateOfBirth_value = null;
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long cFirstName_ID = -1;
+            ID cFirstName_ID = null;
             if (f_cFirstName.Get(FirstName_v, ref cFirstName_ID))
             {
-                long cLastName_ID = -1;
+                ID cLastName_ID = null;
                 if (f_cLastName.Get(LastName_v, ref cLastName_ID))
                 {
 
@@ -66,10 +66,10 @@ namespace TangentaDB
                         sGender_value = "null";
                     }
 
-                    if (cFirstName_ID >= 0)
+                    if (ID.Validate(cFirstName_ID))
                     {
                         string spar_cFirstName_ID = "@par_cFirstName_ID";
-                        SQL_Parameter par_FirstName = new SQL_Parameter(spar_cFirstName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, cFirstName_ID);
+                        SQL_Parameter par_FirstName = new SQL_Parameter(spar_cFirstName_ID, false, cFirstName_ID);
                         lpar.Add(par_FirstName);
                         cFirstName_ID_condition = " cFirstName_ID = " + spar_cFirstName_ID + " ";
                         scFirstName_ID_value = spar_cFirstName_ID;
@@ -80,10 +80,10 @@ namespace TangentaDB
                         scFirstName_ID_value = "null";
                     }
 
-                    if (cLastName_ID >= 0)
+                    if (ID.Validate(cLastName_ID))
                     {
                         string spar_cLastName_ID = "@par_cLastName_ID";
-                        SQL_Parameter par_LastName = new SQL_Parameter(spar_cLastName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, cLastName_ID);
+                        SQL_Parameter par_LastName = new SQL_Parameter(spar_cLastName_ID, false, cLastName_ID);
                         lpar.Add(par_LastName);
                         cLastName_ID_condition = " cLastName_ID = " + spar_cLastName_ID + " ";
                         scLastName_ID_value = spar_cLastName_ID;
@@ -144,11 +144,11 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            if (Person_ID_v == null)
+                            if (Person_ID == null)
                             {
-                                Person_ID_v = new long_v();
+                                Person_ID = new ID();
                             }
-                            Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                            Person_ID.Set(dt.Rows[0]["ID"]);
                             return true;
                         }
                         else
@@ -164,15 +164,8 @@ namespace TangentaDB
                                                                                                   + sDateOfBirth_value + ","
                                                                                                   + sTaxID_value + ","
                                                                                                   + sRegistration_ID_value + ")";
-                            object oret = null;
-                            long Person_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Person_ID, ref oret, ref Err, "Person"))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Person_ID, ref Err, "Person"))
                             {
-                                if (Person_ID_v == null)
-                                {
-                                    Person_ID_v = new long_v();
-                                }
-                                Person_ID_v.v = Person_ID;
                                 return true;
                             }
                             else
@@ -190,7 +183,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool GetData(long Person_ID,
+        public static bool GetData(ID Person_ID,
                                    ref string_v FirstName_v,
                                    ref string_v LastName_v,
                                    ref DateTime_v DateOfBirth_v,

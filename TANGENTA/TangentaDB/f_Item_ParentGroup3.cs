@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Item_ParentGroup3
     {
-        public static bool Get(string Name, ref long Item_ParentGroup3_ID)
+        public static bool Get(string Name, ref ID Item_ParentGroup3_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
@@ -24,14 +24,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Item_ParentGroup3_ID = (long)dt.Rows[0]["ID"];
+                    if (Item_ParentGroup3_ID==null)
+                    {
+                        Item_ParentGroup3_ID = new ID();
+                    }
+                    Item_ParentGroup3_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into Item_ParentGroup3 (Name) values (" + spar_Name + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup3_ID, ref oret, ref Err, "Item_ParentGroup3"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup3_ID, ref Err, "Item_ParentGroup3"))
                     {
                         return true;
                     }

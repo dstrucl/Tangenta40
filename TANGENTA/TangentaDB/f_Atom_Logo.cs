@@ -18,17 +18,17 @@ namespace TangentaDB
 {
     public static class f_Atom_Logo
     {
-        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref long_v Atom_Logo_ID_v)
+        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref ID Atom_Logo_ID)
         {
             string Err = null;
             if (Logo_Hash_v == null)
             {
-                Atom_Logo_ID_v = null;
+                Atom_Logo_ID = null;
                 return true;
             }
-            if (Atom_Logo_ID_v == null)
+            if (Atom_Logo_ID == null)
             {
-                Atom_Logo_ID_v = new long_v();
+                Atom_Logo_ID = new ID();
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Image_Hash_Value = "null";
@@ -72,14 +72,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Logo_ID_v.v = (long)dt.Rows[0]["ID"];
+                    if (Atom_Logo_ID==null)
+                    {
+                        Atom_Logo_ID = new ID();
+                    }
+                    Atom_Logo_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = " insert into Atom_Logo (Image_Hash,Image_Data,Description) values (" + Image_Hash_Value + "," + Image_Data_Value + "," + Description_Value + ")";
-                    object oRet = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Logo_ID_v.v_, ref oRet, ref Err, "Atom_Logo"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Logo_ID,  ref Err, "Atom_Logo"))
                     {
                         return true;
                     }

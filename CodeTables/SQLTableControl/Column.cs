@@ -577,11 +577,10 @@ namespace CodeTables
 
             SQL_Parameter sqlpar = new SQL_Parameter();
             List<SQL_Parameter> lsqlPar = new List<SQL_Parameter>();
-            StringBuilder sbl = new StringBuilder("\nSELECT " + this.Name + " FROM " + this.ownerTable.TableName + " WHERE " + this.Name + " = " + DBTypes.DBtypesFunc.DbValueForSql(ref this.obj,this.BasicType(), this.ownerTable.sThisVar, ref lsqlPar, this.Name));
+            string sbl = "\nSELECT " + this.Name + " FROM " + this.ownerTable.TableName + " WHERE " + this.Name + " = " + DBTypes.DBtypesFunc.DbValueForSql(ref this.obj,this.BasicType(), this.ownerTable.sThisVar, ref lsqlPar, this.Name);
             string cs_Error = "";
-            int Index=0;
             Object ObjRet = null;
-            if (my_SQLConnection.ExecuteQuerySQL(sbl, lsqlPar, ref Index, ref ObjRet, ref cs_Error, this.ownerTable.TableName))
+            if (my_SQLConnection.ExecuteNonQuerySQL(sbl, lsqlPar,  ref ObjRet, ref cs_Error))
             {
                 if (ObjRet != null)
                 {
@@ -634,14 +633,14 @@ namespace CodeTables
             {
                 if (fKey != null)
                 {
-                    long_v id_v = null;
-                    if (fKey.fTable.Insert_SQL_Get_ID(ref id_v, dbTables, iSQLFormatedTabsWithLineBreaks))
+                    ID id = null;
+                    if (fKey.fTable.Insert_SQL_Get_ID(ref id, dbTables, iSQLFormatedTabsWithLineBreaks))
                     {
-                        par = new SQL_Parameter(parname,SQL_Parameter.eSQL_Parameter.Bigint, false, id_v.v);
+                        par = new SQL_Parameter(parname,SQL_Parameter.eSQL_Parameter.Bigint, false, id.V);
                         Insert_Into_Paramater = parname;
                         if (this.obj is ID)
                         {
-                            ((ID)this.obj).val = id_v.v;
+                            ((ID)this.obj).V = id.V;
                         }
                     }
                     else

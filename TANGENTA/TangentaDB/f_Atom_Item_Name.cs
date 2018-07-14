@@ -1,4 +1,5 @@
-﻿using DBTypes;
+﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Item_Name
     {
-        public static bool Get(string_v Item_Name, ref long Atom_Item_Name_ID)
+        public static bool Get(string_v Item_Name, ref ID Atom_Item_Name_ID)
         {
             string Err = null;
             if (Item_Name != null)
@@ -24,14 +25,17 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        Atom_Item_Name_ID = (long)dt.Rows[0]["Atom_Item_Name_ID"];
+                        if (Atom_Item_Name_ID==null)
+                        {
+                            Atom_Item_Name_ID = new ID();
+                        }
+                        Atom_Item_Name_ID.Set(dt.Rows[0]["Atom_Item_Name_ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into Atom_Item_Name (Name)values(" + spar_Name + ")";
-                        object objret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_Name_ID, ref objret, ref Err, "Atom_Item_Name"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_Name_ID,  ref Err, "Atom_Item_Name"))
                         {
                             return true;
                         }

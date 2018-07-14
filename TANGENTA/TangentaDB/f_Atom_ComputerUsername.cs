@@ -10,14 +10,18 @@ namespace TangentaDB
 {
     public static class f_Atom_ComputerUsername
     {
-        public static bool Get(ref long Atom_ComputerUsername_ID)
+        public static string Get()
+        {
+            return System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+        }
+        public static bool Get(ref ID Atom_ComputerUsername_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            string UserName = f_Atom_ComputerUsername.Get();
             return f_Atom_ComputerUsername.Get(UserName, ref Atom_ComputerUsername_ID);
         }
 
-        public static bool Get(string xUserName,ref long Atom_ComputerUsername_ID)
+        public static bool Get(string xUserName,ref ID Atom_ComputerUsername_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -47,14 +51,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_ComputerUsername_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_ComputerUsername_ID==null)
+                    {
+                        Atom_ComputerUsername_ID = new ID();
+                    }
+                    Atom_ComputerUsername_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into Atom_ComputerUsername (UserName) values (" + sval_ComputerUsername + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ComputerUsername_ID, ref objretx, ref Err, "Atom_ComputerUsername"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ComputerUsername_ID,  ref Err, "Atom_ComputerUsername"))
                     {
                         return true;
                     }

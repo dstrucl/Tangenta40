@@ -141,6 +141,34 @@ namespace DBConnectionControl40
     
         }
 
+        public SQL_Parameter(string xName, bool IsOutput, ID xid)
+        {
+            MS_SqlSqlParameter = null;
+            mySQLiteParameter = null;
+            IsOutputParameter = IsOutput;
+            Name = xName;
+            Value = xid.V;
+            size = -1;
+            switch (xid.IDtype)
+            {
+                case ID.IDType.INT64:
+                    dbType = SqlDbType.BigInt;
+                    break;
+
+                case ID.IDType.INT32:
+                    dbType = SqlDbType.Int;
+                    break;
+
+                case ID.IDType.GUID:
+                    dbType = SqlDbType.VarChar;
+                    break;
+                default:
+                    MessageBox.Show(" Type not implemented=" + xid.IDtype.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+
         public static eSQL_Parameter Get_eSQL_Parameter(string m_Type)
         {
             if (m_Type.ToLower().Equals("int"))

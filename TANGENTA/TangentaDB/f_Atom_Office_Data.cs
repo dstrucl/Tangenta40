@@ -18,12 +18,12 @@ namespace TangentaDB
     public static class f_Atom_Office_Data
     {
         public static bool Get(
-                                 long Office_Data_ID,
-                                 ref long Atom_Office_Data_ID)
+                                 ID Office_Data_ID,
+                                 ref ID Atom_Office_Data_ID)
         {
 
-            long cAddress_Org_ID = -1;
-            long Office_ID = -1;
+            ID cAddress_Org_ID = null;
+            ID Office_ID = null;
             string Description = null;
             string sql = @"select 
                             od.Office_ID,
@@ -41,7 +41,12 @@ namespace TangentaDB
                     object o_Office_ID = dt.Rows[0]["Office_ID"];
                     if (o_Office_ID is long)
                     {
-                        Office_ID = (long)o_Office_ID;
+                        if (Office_ID == null)
+                        {
+                            Office_ID = new ID();
+                        }
+                        Office_ID.Set(o_Office_ID);
+                        
                     }
                     else
                     {
@@ -52,7 +57,11 @@ namespace TangentaDB
                     object o_cAddress_Org_ID = dt.Rows[0]["cAddress_Org_ID"];
                     if (o_cAddress_Org_ID is long)
                     {
-                        cAddress_Org_ID = (long)o_cAddress_Org_ID;
+                        if (cAddress_Org_ID==null)
+                        {
+                            cAddress_Org_ID = new ID();
+                        }
+                        cAddress_Org_ID.Set(o_cAddress_Org_ID);
                     }
                     else
                     {
@@ -67,8 +76,8 @@ namespace TangentaDB
                         Description = (string)o_Description;
                     }
 
-                    long Atom_cAddress_Org_ID = -1;
-                    long Atom_Office_ID = -1;
+                    ID Atom_cAddress_Org_ID = null;
+                    ID Atom_Office_ID = null;
 
                     if (f_Atom_Office.Get(Office_ID, ref Atom_Office_ID))
                     {
@@ -105,14 +114,17 @@ namespace TangentaDB
                             {
                                 if (dt.Rows.Count > 0)
                                 {
-                                    Atom_Office_Data_ID = (long)dt.Rows[0]["ID"];
+                                    if (Atom_Office_Data_ID==null)
+                                    {
+                                        Atom_Office_Data_ID = new ID();
+                                    }
+                                    Atom_Office_Data_ID.Set(dt.Rows[0]["ID"]);
                                     return true;
                                 }
                                 else
                                 {
                                     sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," + sval_Description + ")";
-                                    object objretx = null;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref objretx, ref Err, "Atom_Office_Data"))
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref Err, "Atom_Office_Data"))
                                     {
                                         return true;
                                     }

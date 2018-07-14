@@ -2071,7 +2071,7 @@ namespace DBConnectionControl40
             return true;
         }
 
-        public bool ExecuteQuerySQL(StringBuilder sql,List<SQL_Parameter> lSQL_Parameter, ref Int32 id_new, ref Object objRet, ref string csError,string SQlite_table_name)
+        public bool ExecuteQuerySQL(StringBuilder sql,List<SQL_Parameter> lSQL_Parameter, ref ID id_new, ref string csError,string SQlite_table_name)
         {
             //SqlConnection Conn = new SqlConnection("Data Source=razvoj1;Initial Catalog=NOS_BIH;Persist Security Info=True;User ID=sa;Password=sa;");
 
@@ -2089,7 +2089,7 @@ namespace DBConnectionControl40
 
             StringBuilder sqlTran = new StringBuilder();
 
-            id_new = -1;
+            id_new = null;
             try
             {
                 switch (m_DBType)
@@ -2129,18 +2129,17 @@ namespace DBConnectionControl40
                                         s = (string)ReturnObject;
                                         if (IsNumber(s))
                                         {
-                                            id_new = Convert.ToInt32(s);
+                                            id_new = new ID(s);
                                         }
                                     }
                                     else if (ReturnObject.GetType() == typeof(Int32))
                                     {
-                                        id_new = (int) ReturnObject;
+                                        id_new = new ID(ReturnObject);
                                     }
                                     else if (ReturnObject.GetType() == typeof(Int64))
                                     {
-                                        id_new = Convert.ToInt32(ReturnObject);
+                                        id_new = new ID(ReturnObject);
                                     }
-                                    objRet = ReturnObject;
                                 }
                                 Disconnect_Batch();
                                 ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
@@ -2191,10 +2190,9 @@ namespace DBConnectionControl40
                                         s = (string)ReturnObject;
                                         if (IsNumber(s))
                                         {
-                                            id_new = Convert.ToInt32(s);
+                                            id_new = new ID(s);
                                         }
                                     }
-                                    objRet = ReturnObject;
                                 }
                                 Disconnect_Batch();
                                 ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
@@ -2250,7 +2248,7 @@ namespace DBConnectionControl40
                                     if (Connect_Batch(ref sError))
                                     {
                                         object nieuweID = cmd.ExecuteScalar();
-                                        id_new = Convert.ToInt32(nieuweID);
+                                        id_new = new ID(nieuweID);
                                         Disconnect_Batch();
                                     }
                                     else
@@ -2268,22 +2266,21 @@ namespace DBConnectionControl40
                                         s = (string)ReturnObject;
                                         if (IsNumber(s))
                                         {
-                                            id_new = Convert.ToInt32(s);
+                                            id_new = new ID(ReturnObject);
                                         }
                                     }
                                     else if (ReturnObject.GetType() == typeof(long))
                                     {
-                                        id_new = Convert.ToInt32(ReturnObject);
+                                        id_new = new ID(ReturnObject); 
                                     }
                                     else if (ReturnObject.GetType() == typeof(Int32))
                                     {
-                                        id_new = Convert.ToInt32(ReturnObject);
+                                        id_new = new ID(ReturnObject); 
                                     }
                                     else if (ReturnObject.GetType() == typeof(Int64))
                                     {
-                                        id_new = Convert.ToInt32(ReturnObject);
+                                        id_new = new ID(ReturnObject); 
                                     }
-                                    objRet = ReturnObject;
                                 }
                                 ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
                                 return true;
@@ -3612,7 +3609,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool ExecuteNonQuerySQLReturnID(string sql, List<SQL_Parameter> lSQL_Parameter, ref Int64 newID, ref object ObjRet, ref string ErrorMsg, string SQlite_table_name)
+        public bool ExecuteNonQuerySQLReturnID(string sql, List<SQL_Parameter> lSQL_Parameter, ref ID newID, ref string ErrorMsg, string SQlite_table_name)
         {
             //SqlConnection Conn = new SqlConnection(xString);
             ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID START", sql);
@@ -3692,7 +3689,7 @@ namespace DBConnectionControl40
                                 command.CommandTimeout = 200000;
 
                                  //Convert.ToInt64(nieuweID);
-                                newID = Convert.ToInt64(command.ExecuteScalar());
+                                newID = new ID(Convert.ToInt64(command.ExecuteScalar()));
                                 //command.ExecuteNonQuery();
                                 Disconnect_Batch();
                             }
@@ -3728,8 +3725,7 @@ namespace DBConnectionControl40
                                 command.CommandTimeout = 200000;
                                 command.ExecuteNonQuery();
                                 SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
-                                object nieuweID = cmd.ExecuteScalar();
-                                newID = Convert.ToInt64(nieuweID);
+                                newID = new ID(cmd.ExecuteScalar());
                                 Disconnect_Batch();
                             }
                             ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID END", null);
@@ -4268,24 +4264,23 @@ namespace DBConnectionControl40
             switch (DBType)
             {
                 case DBConnection.eDBType.MYSQL:
-                    strCheckTable = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '" + this.DataBase + "' AND table_name = '" + TableName + "';";
+                    strCheckTable = "SELECT COUNT(*) as res FROM information_schema.tables WHERE table_schema = '" + this.DataBase + "' AND table_name = '" + TableName + "';";
                     break;
                 case DBConnection.eDBType.MSSQL:
                     strCheckTable = "\nUSE " + this.DataBase + "\n IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='" + TableName + "') SELECT 1 AS res ELSE SELECT 0 AS res";
                     break;
                 case DBConnection.eDBType.SQLITE:
-                    strCheckTable = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '" + TableName + "'";
+                    strCheckTable = "SELECT COUNT(*) as res FROM sqlite_master WHERE type = 'table' AND name = '" + TableName + "'";
                     break;
             }
             StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
-            int i = 0;
-            Object ObjRet = new Object();
-            if (this.ExecuteQuerySQL(strB_CheckTable, null, ref i, ref ObjRet, ref csError, TableName))
+            DataTable dt = new DataTable();
+            if (this.ReadDataTable(ref dt,strCheckTable,ref csError))
             {
-                if (ObjRet.GetType() == typeof(int))
+                if (dt.Rows.Count>0)
                 {
-                    i = (int)ObjRet;
-                    if (i == 1)
+                    int res = (int)dt.Rows[0]["res"];
+                    if (res > 0)
                     {
                         return true;
                     }
@@ -4295,18 +4290,9 @@ namespace DBConnectionControl40
                         return false;
                     }
                 }
-                else if (ObjRet.GetType() == typeof(long))
+                else
                 {
-                    long l;
-                    l = (long)ObjRet;
-                    if (l == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return false;

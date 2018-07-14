@@ -21,7 +21,7 @@ namespace TangentaDB
 {
     public static class f_PurchasePrice_Item
     {
-        public static bool GetOneFrom_Item_ID(long Item_ID, ref long_v PurchasePrice_Item_ID)
+        public static bool GetOneFrom_Item_ID(ID Item_ID, ref ID PurchasePrice_Item_ID)
         {
             string Err = null;
             int iLimit = 1;
@@ -37,9 +37,9 @@ namespace TangentaDB
                 {
                     if (PurchasePrice_Item_ID == null)
                     {
-                        PurchasePrice_Item_ID = new long_v();
+                        PurchasePrice_Item_ID = new ID();
                     }
-                    PurchasePrice_Item_ID.v = (long)dt.Rows[0]["ID"];
+                    PurchasePrice_Item_ID.Set(dt.Rows[0]["ID"]);
                 }
                 else
                 {
@@ -54,60 +54,28 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(long Item_ID, long PurchasePrice_ID, long StockTake_ID, ref long PurchasePrice_Item_ID)
+        public static bool Get(ID Item_ID, ID PurchasePrice_ID, ID StockTake_ID, ref ID PurchasePrice_Item_ID)
         {
             string Err = null;
             string sql = null;
-            PurchasePrice_Item_ID = -1;
+            PurchasePrice_Item_ID = null;
             sql = "select ID from PurchasePrice_Item where Item_ID = " + Item_ID.ToString() + " and PurchasePrice_ID = " + PurchasePrice_ID.ToString() + " and StockTake_ID = " + StockTake_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    PurchasePrice_Item_ID = (long)dt.Rows[0]["ID"];
+                    if (PurchasePrice_Item_ID==null)
+                    {
+                        PurchasePrice_Item_ID = new ID();
+                    }
+                    PurchasePrice_Item_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,StockTake_ID) values (" + Item_ID.ToString() + "," + PurchasePrice_ID.ToString() + "," + StockTake_ID.ToString() + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref oret, ref Err, "PurchasePrice_Item"))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:sql = " + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:sql = " + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-        public static bool Get(string PurchasePrice_Item_TableName,long Item_ID, long PurchasePrice_ID, long StockTake_ID, ref long PurchasePrice_Item_ID)
-        {
-            string Err = null;
-            string sql = null;
-            PurchasePrice_Item_ID = -1;
-            sql = "select ID from "+PurchasePrice_Item_TableName+" where Item_ID = " + Item_ID.ToString() + " and PurchasePrice_ID = " + PurchasePrice_ID.ToString() + " and StockTake_ID = " + StockTake_ID.ToString();
-            DataTable dt = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    PurchasePrice_Item_ID = (long)dt.Rows[0]["ID"];
-                    return true;
-                }
-                else
-                {
-                    sql = @"insert into "+ PurchasePrice_Item_TableName + " (Item_ID,PurchasePrice_ID,StockTake_ID) values (" + Item_ID.ToString() + "," + PurchasePrice_ID.ToString() + "," + StockTake_ID.ToString() + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref oret, ref Err, PurchasePrice_Item_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref Err, "PurchasePrice_Item"))
                     {
                         return true;
                     }
@@ -125,7 +93,46 @@ namespace TangentaDB
             }
         }
 
-        public static bool GetLastItemPrices(long Item_ID,long Currency_ID,ref DataTable dtPurchasePrices,int Limit)
+        public static bool Get(string PurchasePrice_Item_TableName,ID Item_ID, ID PurchasePrice_ID, ID StockTake_ID, ref ID PurchasePrice_Item_ID)
+        {
+            string Err = null;
+            string sql = null;
+            PurchasePrice_Item_ID = null;
+            sql = "select ID from "+PurchasePrice_Item_TableName+" where Item_ID = " + Item_ID.ToString() + " and PurchasePrice_ID = " + PurchasePrice_ID.ToString() + " and StockTake_ID = " + StockTake_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    if (PurchasePrice_Item_ID==null)
+                    {
+                        PurchasePrice_Item_ID = new ID();
+                    }
+                    PurchasePrice_Item_ID.Set(dt.Rows[0]["ID"]);
+                    return true;
+                }
+                else
+                {
+                    sql = @"insert into "+ PurchasePrice_Item_TableName + " (Item_ID,PurchasePrice_ID,StockTake_ID) values (" + Item_ID.ToString() + "," + PurchasePrice_ID.ToString() + "," + StockTake_ID.ToString() + ")";
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref Err, PurchasePrice_Item_TableName))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:sql = " + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:sql = " + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        public static bool GetLastItemPrices(ID Item_ID,ID Currency_ID,ref DataTable dtPurchasePrices,int Limit)
         {
             string Err = null;
             string sql = null;
@@ -142,11 +149,11 @@ namespace TangentaDB
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Item_ID = "@par_Item_ID";
-            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Item_ID);
+            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, false, Item_ID);
             lpar.Add(par_Item_ID);
 
             string spar_Currency_ID = "@par_Currency_ID";
-            SQL_Parameter par_Currency_ID = new SQL_Parameter(spar_Currency_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Currency_ID);
+            SQL_Parameter par_Currency_ID = new SQL_Parameter(spar_Currency_ID, false, Currency_ID);
             lpar.Add(par_Currency_ID);
 
             switch (DBSync.DBSync.m_DBType)
@@ -199,6 +206,5 @@ namespace TangentaDB
                 return false;
             }
         }
-
     }
 }

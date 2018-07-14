@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_PriceList_Name
     {
-        public static bool Get(string Name, ref long Atom_PriceList_Name_ID)
+        public static bool Get(string Name, ref ID Atom_PriceList_Name_ID)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -37,14 +37,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_PriceList_Name_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_PriceList_Name_ID==null)
+                    {
+                        Atom_PriceList_Name_ID = new ID();
+                    }
+                    Atom_PriceList_Name_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into PriceList_Name (Name) values (" + sval_Name + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_PriceList_Name_ID, ref objretx, ref Err, "PriceList_Name"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_PriceList_Name_ID,  ref Err, "PriceList_Name"))
                     {
                         return true;
                     }

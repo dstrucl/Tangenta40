@@ -1,4 +1,5 @@
 ﻿using CodeTables;
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace TangentaDB
                            string_v FaxNumber_v,
                            string_v Email_v,
                            string_v HomePage_v,
-                           long_v BankAccount_ID_v,
+                           ID BankAccount_ID,
                            string_v Organisation_BankAccount_Description_v,
                            string_v Image_Hash_v,
                            byte_array_v Image_Data_v,
@@ -32,12 +33,12 @@ namespace TangentaDB
                            DateTime_v DateOfBirth_v,
                            string_v Person_Tax_ID_v,
                            string_v Person_Registration_ID_v,
-                           ref ID_v cAdressAtom_Org_iD_v,
-                           ref long_v Organisation_ID_v,
-                           ref long_v OrganisationData_ID_v,
-                           ref long_v OrganisationAccount_ID_v,
-                           ref long_v Person_ID_v,
-                           ref long_v Contact_ID_v)
+                           ref ID cAdressAtom_Org_iD,
+                           ref ID Organisation_ID,
+                           ref ID OrganisationData_ID,
+                           ref ID OrganisationAccount_ID,
+                           ref ID Person_ID,
+                           ref ID Contact_ID)
         {
             if (f_Organisation.Get(Organisation_Name_v,
                                    Tax_ID_v,
@@ -50,15 +51,15 @@ namespace TangentaDB
                                    FaxNumber_v,
                                    Email_v,
                                    HomePage_v,
-                                   BankAccount_ID_v,
+                                   BankAccount_ID,
                                    Organisation_BankAccount_Description_v,
                                    Image_Hash_v,
                                    Image_Data_v,
                                    Image_Description_v,
-                                   ref cAdressAtom_Org_iD_v,
-                                   ref Organisation_ID_v,
-                                   ref OrganisationData_ID_v,
-                                   ref OrganisationAccount_ID_v
+                                   ref cAdressAtom_Org_iD,
+                                   ref Organisation_ID,
+                                   ref OrganisationData_ID,
+                                   ref OrganisationAccount_ID
             ))
             {
                 string sql_select = null;
@@ -71,10 +72,10 @@ namespace TangentaDB
                                     DateOfBirth_v,
                                     Person_Tax_ID_v,
                                     Person_Registration_ID_v,
-                                    ref Person_ID_v))
+                                    ref Person_ID))
                     {
-                        sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID_v.v.ToString() + " and Person_ID =" + Person_ID_v.v.ToString() + ";";
-                        sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID_v.v.ToString() + "," + Person_ID_v.v.ToString() + ");";
+                        sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID.ToString() + " and Person_ID =" + Person_ID.ToString() + ";";
+                        sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID.ToString() + "," + Person_ID.ToString() + ");";
                     }
                     else
                     {
@@ -83,8 +84,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID_v.v.ToString() + " and Person_ID is null";
-                    sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID_v.v.ToString() + ",null);";
+                    sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID.ToString() + " and Person_ID is null";
+                    sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID.ToString() + ",null);";
                 }
 
                 DataTable dt = new DataTable();
@@ -93,24 +94,17 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (Contact_ID_v == null)
+                        if (Contact_ID == null)
                         {
-                            Contact_ID_v = new long_v();
+                            Contact_ID = new ID();
                         }
-                        Contact_ID_v.v = (long)dt.Rows[0]["ID"];
+                        Contact_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
-                        long Contact_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Contact_ID, ref oret, ref Err, "Contact"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Contact_ID, ref Err, "Contact"))
                         {
-                            if (Contact_ID_v == null)
-                            {
-                                Contact_ID_v = new long_v();
-                            }
-                            Contact_ID_v.v = Contact_ID;
                             return true;
                         }
                         else

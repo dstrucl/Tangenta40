@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cState_Person
     {
-        public static bool Get(string State, ref long cState_Person_ID)
+        public static bool Get(string State, ref ID cState_Person_ID)
         {
             string Err = null;
 
@@ -45,14 +45,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cState_Person_ID = (long)dt.Rows[0]["ID"];
+                    if (cState_Person_ID==null)
+                    {
+                        cState_Person_ID = new ID();
+                    }
+                    cState_Person_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cState_Person (State) values (" + sval_State + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Person_ID, ref objretx, ref Err, "cState_Person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Person_ID,  ref Err, "cState_Person"))
                     {
                         return true;
                     }
@@ -71,7 +74,7 @@ namespace TangentaDB
         }
 
 
-        internal static bool Get(string_v country_v, ref long_v cState_Person_ID_v)
+        internal static bool Get(string_v country_v, ref ID cState_Person_ID)
         {
             if (country_v != null)
             {
@@ -86,43 +89,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cState_Person_ID_v == null)
+                        if (cState_Person_ID == null)
                         {
-                            cState_Person_ID_v = new long_v();
+                            cState_Person_ID = new ID();
                         }
-                        cState_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cState_Person_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cState_Person (State) values (@par)";
-                        long cState_Person_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Person_ID, ref oret, ref Err, "cState_Person"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Person_ID,  ref Err, "cState_Person"))
                         {
-                            if (cState_Person_ID_v == null)
-                            {
-                                cState_Person_ID_v = new long_v();
-                            }
-                            cState_Person_ID_v.v = cState_Person_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cState_Person:Get(string_v country_v, ref long_v atom_cState_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cState_Person:Get(string_v country_v, ref ID cState_Person_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cState_Person:Get(string_v country_v, ref long_v atom_cState_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cState_Person:Get(string_v country_v, ref ID cState_Person_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                cState_Person_ID_v = null;
+                cState_Person_ID = null;
                 return true;
             }
         }

@@ -25,6 +25,14 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_ComputerName = new ltext(new string[] { "This Computer Name:", "Ime tega računalnika:" });
+        public static ltext s_ComputerUserName = new ltext(new string[] { "This Computer User Name:", "Uporabniško ime tega računalnika:" });
+        public static ltext s_ComputerMAC_address = new ltext(new string[] { "This Computer MAC address:", "MAC naslov tega računalnika:" });
+        public static ltext s_ComputerIP_address = new ltext(new string[] { "This Computer IP address:", "IP naslov tega računalnika:" });
+
+        public static ltext s_ElectronicDevice_Name_is_not_defined = new ltext(new string[] { "Electronic device name is not defined!\r\nYou must set the electronic device name!", "Ime elektronske naprave ni določeno!\r\nVpišite ime elektronske naprave." });
+
+        public static ltext s_WorkPeriod = new ltext(new string[] { "Work Period", "Šiht" });
 
         public static ltext s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeOfficeData 
             = new ltext(new string[] { "There are no organisation data.\r\nYou can not enter office data unles your organisation data are writen to database.\r\nPlease write and save your organisation data to database before you enter organisation office data.", "Urejanje podatkov poslovne enote vaše organizacije ni možno dokler niste shranili (vpisali v podatkovno bazo) osnovne podatke vaše organizacije.\r\nProsim vnesite in shranite najprej podatke vaše organizacije.\r\nŠele, ko ste to naredili, lahko dodajate podatke poslovnih enot." });
@@ -554,6 +562,8 @@ namespace Tangenta
         public static ltext s_grp_ColorSettings = new ltext(new string[] { "Color Settings", "Barvne nastavitve" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_ElectronicDevice_ID = new ltext(new string[] { "Electronic Device ID", "Oznaka blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
+        public static ltext s_ElectronicDevice_Description = new ltext(new string[] { "Electronic Device description", "Opis blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_chk_AllowToEditText = new ltext(new string[] { "Allow to edit controls text", "Urejanje besedil v oknih" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 

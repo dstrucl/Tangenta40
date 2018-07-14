@@ -23,21 +23,21 @@ namespace TangentaDB
         public const string From_Stock_To_Basket = "From stock to basket";
         public const string From_Basket_To_Stock = "From basket to stock";
 
-        private static long m_JOURNAL_Stock_Type_ID_new_stock_data = -1;
-        private static long m_JOURNAL_Stock_Type_ID_stock_data_changed = -1;
-        private static long m_JOURNAL_Stock_Type_ID_from_stock_to_basket = -1;
-        private static long m_JOURNAL_Stock_Type_ID_from_basket_to_stock = -1;
+        private static ID m_JOURNAL_Stock_Type_ID_new_stock_data = -1;
+        private static ID m_JOURNAL_Stock_Type_ID_stock_data_changed = -1;
+        private static ID m_JOURNAL_Stock_Type_ID_from_stock_to_basket = -1;
+        private static ID m_JOURNAL_Stock_Type_ID_from_basket_to_stock = -1;
 
-        public static long JOURNAL_Stock_Type_ID_new_stock_data
+        public static ID JOURNAL_Stock_Type_ID_new_stock_data
         { get { return m_JOURNAL_Stock_Type_ID_new_stock_data; } }
 
-        public static long JOURNAL_Stock_Type_ID_stock_data_changed
+        public static ID JOURNAL_Stock_Type_ID_stock_data_changed
         { get { return m_JOURNAL_Stock_Type_ID_stock_data_changed; } }
 
-        public static long JOURNAL_Stock_Type_ID_from_stock_to_basket
+        public static ID JOURNAL_Stock_Type_ID_from_stock_to_basket
         { get { return m_JOURNAL_Stock_Type_ID_from_stock_to_basket; } }
 
-        public static long JOURNAL_Stock_Type_ID_from_basket_to_stock
+        public static ID JOURNAL_Stock_Type_ID_from_basket_to_stock
         { get { return m_JOURNAL_Stock_Type_ID_from_basket_to_stock; } }
 
 
@@ -58,24 +58,24 @@ namespace TangentaDB
             }
             return false;
         }
-        public static bool Get(long Stock_id, long stock_type_id, DateTime dEventTime, decimal dQuantity, ref long_v JOURNAL_Stock_ID)
+        public static bool Get(ID Stock_id, ID stock_type_id, DateTime dEventTime, decimal dQuantity, ref ID JOURNAL_Stock_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_JOURNAL_Stock_Type_ID = "@par_JOURNAL_Stock_Type_ID";
-            SQL_Parameter par_JOURNAL_Stock_Type_ID = new SQL_Parameter(spar_JOURNAL_Stock_Type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, stock_type_id);
+            SQL_Parameter par_JOURNAL_Stock_Type_ID = new SQL_Parameter(spar_JOURNAL_Stock_Type_ID, false, stock_type_id);
             lpar.Add(par_JOURNAL_Stock_Type_ID);
 
             string spar_Stock_ID = "@par_Stock_ID";
-            SQL_Parameter par_Stock_ID = new SQL_Parameter(spar_Stock_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Stock_id);
+            SQL_Parameter par_Stock_ID = new SQL_Parameter(spar_Stock_ID, false, Stock_id);
             lpar.Add(par_Stock_ID);
 
             string spar_EventTime = "@par_EventTime";
             SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dEventTime);
             lpar.Add(par_EventTime);
 
-            long Atom_WorkPeriod_id = GlobalData.Atom_WorkPeriod_ID;
+            ID Atom_WorkPeriod_id = GlobalData.Atom_WorkPeriod_ID;
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
-            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_WorkPeriod_id);
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, Atom_WorkPeriod_id);
             lpar.Add(par_Atom_WorkPeriod_ID);
 
             string spar_dQuantity = "@par_dQuantity";
@@ -84,16 +84,9 @@ namespace TangentaDB
 
             string table_name = "JOURNAL_Stock";
             string sql = "insert into " + table_name + " (JOURNAL_Stock_Type_ID,Stock_ID,EventTime,Atom_WorkPeriod_ID,dQuantity)values(" + spar_JOURNAL_Stock_Type_ID + "," + spar_Stock_ID + "," + spar_EventTime + "," + spar_Atom_WorkPeriod_ID + "," + spar_dQuantity + ")";
-            long id = -1;
-            object oret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, table_name))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref JOURNAL_Stock_ID, ref Err, table_name))
             {
-                if (JOURNAL_Stock_ID == null)
-                {
-                    JOURNAL_Stock_ID = new long_v();
-                }
-                JOURNAL_Stock_ID.v = id;
                 return true;
             }
             else

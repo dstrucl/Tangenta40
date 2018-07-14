@@ -337,18 +337,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ED1")]
-        public string ElectronicDevice_ID {
-            get {
-                return ((string)(this["ElectronicDevice_ID"]));
-            }
-            set {
-                this["ElectronicDevice_ID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public long Current_DocInvoice_ID {
             get {

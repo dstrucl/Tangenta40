@@ -18,13 +18,14 @@ namespace TangentaDB
     public static class f_Atom_Office
     {
         public static bool Get(
-                                 long Office_ID,
-                                 ref long Atom_Office_ID)
+                                 ID Office_ID,
+                                 ref ID Atom_Office_ID)
         {
 
             string Office_Name = null;
             string Office_ShortName = null;
-            long myOrganisation_ID = -1;
+
+            ID myOrganisation_ID = null;
 
             string sql = @"select 
                             o.Name as Office_Name,
@@ -63,7 +64,11 @@ namespace TangentaDB
                     object o_myOrganisation_ID = dt.Rows[0]["myOrganisation_ID"];
                     if (o_myOrganisation_ID is long)
                     {
-                        myOrganisation_ID = (long)o_myOrganisation_ID;
+                        if (myOrganisation_ID==null)
+                        {
+                            myOrganisation_ID = new ID();
+                        }
+                        myOrganisation_ID.Set(o_myOrganisation_ID);
                     }
                     else
                     {
@@ -71,7 +76,7 @@ namespace TangentaDB
                         return false;
                     }
 
-                    long Atom_myOrganisation_ID = -1;
+                    ID Atom_myOrganisation_ID = null;
                     if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -110,10 +115,10 @@ namespace TangentaDB
 
                         string scond_Atom_myOrganisation_ID = null;
                         string sval_Atom_myOrganisation_ID = "null";
-                        if (Atom_myOrganisation_ID >= 0)
+                        if (ID.Validate(Atom_myOrganisation_ID))
                         {
                             string spar_Atom_myOrganisation_ID = "@par_Atom_myOrganisation_ID";
-                            SQL_Parameter par_Atom_myOrganisation_ID = new SQL_Parameter(spar_Atom_myOrganisation_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_myOrganisation_ID);
+                            SQL_Parameter par_Atom_myOrganisation_ID = new SQL_Parameter(spar_Atom_myOrganisation_ID, false, Atom_myOrganisation_ID);
                             lpar.Add(par_Atom_myOrganisation_ID);
                             scond_Atom_myOrganisation_ID = "Atom_myOrganisation_ID = " + spar_Atom_myOrganisation_ID;
                             sval_Atom_myOrganisation_ID = spar_Atom_myOrganisation_ID;
@@ -131,7 +136,11 @@ namespace TangentaDB
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                Atom_Office_ID = (long)dt.Rows[0]["ID"];
+                                if (Atom_Office_ID==null)
+                                {
+                                    Atom_Office_ID = new ID();
+                                }
+                                Atom_Office_ID.Set(dt.Rows[0]["ID"]);
                                 return true;
                             }
                             else
@@ -144,8 +153,7 @@ namespace TangentaDB
                                                                         + sval_Atom_Office_Name + ","
                                                                         + sval_Atom_Office_ShortName +
                                                                         ")";
-                                object objretx = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_ID, ref objretx, ref Err, "Atom_Office"))
+                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_ID,  ref Err, "Atom_Office"))
                                 {
 
                                     return true;
@@ -182,6 +190,5 @@ namespace TangentaDB
                 return false;
             }
         }
-
     }
 }

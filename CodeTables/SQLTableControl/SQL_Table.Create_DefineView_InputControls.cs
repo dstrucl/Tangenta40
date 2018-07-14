@@ -705,8 +705,8 @@ namespace CodeTables
                             {
                                 if (col.fKey.fTable.myGroupBox != null)
                                 {
-                                    DBTypes.long_v id_v = null;
-                                    if (!col.fKey.fTable.myGroupBox.Get_ID(ref id_v))
+                                    ID id1 = null;
+                                    if (!col.fKey.fTable.myGroupBox.Get_ID(ref id1))
                                     {
                                         col.fKey.fTable.myGroupBox.MarkAsUndefined_Index();
                                         //string s = col.Name_in_language[LanguageControl.DynSettings.LanguageID] + lng.s_CanNotBeNull.s;

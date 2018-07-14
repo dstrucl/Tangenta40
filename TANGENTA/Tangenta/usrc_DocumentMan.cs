@@ -1163,7 +1163,7 @@ namespace Tangenta
             if (Program.b_FVI_SLO)
             {
 
-                Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
+                Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
             }
 
             if (Program.b_FVI_SLO)
@@ -1366,7 +1366,7 @@ namespace Tangenta
         private bool getWorkPeriod(long myOrganisation_Person_ID, ref long xAtom_WorkPeriod_ID)
         {
             string Err = null;
-            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null, ref Err))
             {
                 xAtom_WorkPeriod_ID = GlobalData.Atom_WorkPeriod_ID;
                 return true;
@@ -1422,7 +1422,7 @@ namespace Tangenta
                 {
                     if (Program.bFirstTimeInstallation)
                     {
-                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null, ref Err))
                         {
                             //myStartup.eNextStep++;
                             return true;
@@ -1440,7 +1440,7 @@ namespace Tangenta
                         {
                             if (Door.DoLoginAsAdministrator((Form)this.Parent))
                             {
-                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null, ref Err))
                                 {
                                     //myStartup.eNextStep++;
                                     return true;
@@ -1460,7 +1460,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null, ref Err))
                             {
                                 //myStartup.eNextStep++;
                                 return true;

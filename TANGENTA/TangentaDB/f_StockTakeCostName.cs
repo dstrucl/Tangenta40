@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_StockTakeCostName
     {
-        public static bool Get(string Name, ref long ID)
+        public static bool Get(string Name, ref ID ID)
         {
 
             string Err = null;
@@ -24,14 +24,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    ID = (long)dt.Rows[0]["ID"];
+                    if (ID==null)
+                    {
+                        ID = new ID();
+                    }
+                    ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into StockTakeCostName (Name)values(" + spar_Name + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID, ref oret, ref Err, "StockTakeCostName"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID,  ref Err, "StockTakeCostName"))
                     {
                         return true;
                     }

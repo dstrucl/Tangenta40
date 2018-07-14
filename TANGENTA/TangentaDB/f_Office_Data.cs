@@ -11,10 +11,10 @@ namespace TangentaDB
     public static class f_Office_Data
     {
         public static bool Get(
-                                   long cAddress_Org_ID,
-                                   long Office_ID,
+                                   ID cAddress_Org_ID,
+                                   ID Office_ID,
                                    string Description,
-                                   ref long Office_Data_ID)
+                                   ref ID Office_Data_ID)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -43,7 +43,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Office_Data_ID = (long)dt.Rows[0]["ID"];
+                    if (Office_Data_ID==null)
+                    {
+                        Office_Data_ID = new ID();
+                    }
+                    Office_Data_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -55,8 +59,7 @@ namespace TangentaDB
                                                             + Office_ID.ToString() + ","
                                                             + sval_Description +
                                                             ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_Data_ID, ref objretx, ref Err, "Office_Data"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_Data_ID, ref Err, "Office_Data"))
                     {
                         return true;
                     }
@@ -74,7 +77,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(long Office_ID, ref DataTable dtOfficeData_of_Office_ID)
+        public static bool Get(ID Office_ID, ref DataTable dtOfficeData_of_Office_ID)
         {
             string sql = @"select 
                             ID

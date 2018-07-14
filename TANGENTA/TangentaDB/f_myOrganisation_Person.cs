@@ -14,9 +14,9 @@ namespace TangentaDB
         public static bool Get(string_v Job_v,
                                bool_v Active_v,
                                string_v Description_v,
-                               long_v Person_ID_v,
-                               long_v Office_ID_v,
-                               ref long_v myOrganisation_Person_v)
+                               ID Person_ID,
+                               ID Office_ID,
+                               ref ID myOrganisation_Person_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -40,12 +40,12 @@ namespace TangentaDB
             string Person_ID_cond = null;
             string Person_ID_value = null;
             string spar_Person_ID = "Person_ID";
-            fs.AddPar(spar_Person_ID, ref lpar, Person_ID_v, ref Person_ID_cond, ref Person_ID_value);
+            fs.AddPar(spar_Person_ID, ref lpar, Person_ID, ref Person_ID_cond, ref Person_ID_value);
 
             string Office_ID_cond = null;
             string Office_ID_value = null;
             string spar_Office_ID = "Office_ID";
-            fs.AddPar(spar_Office_ID, ref lpar, Office_ID_v, ref Office_ID_cond, ref Office_ID_value);
+            fs.AddPar(spar_Office_ID, ref lpar, Office_ID, ref Office_ID_cond, ref Office_ID_value);
 
             string sql = "select ID from myOrganisation_Person where " + Job_cond + " and "
                                                                        + Active_cond + " and "
@@ -58,11 +58,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (myOrganisation_Person_v == null)
+                    if (myOrganisation_Person_ID == null)
                     {
-                        myOrganisation_Person_v = new long_v();
+                        myOrganisation_Person_ID = new ID();
                     }
-                    myOrganisation_Person_v.v = (long)dt.Rows[0]["ID"];
+                    myOrganisation_Person_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -79,15 +79,8 @@ namespace TangentaDB
                                                         " + Description_value + @",
                                                         " + Person_ID_value + @",
                                                         " + Office_ID_value + @")";
-                    long myOrganisation_Person_ID = -1;
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_ID, ref oret, ref Err, "myOrganisation_Person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_ID, ref Err, "myOrganisation_Person"))
                     {
-                        if (myOrganisation_Person_v == null)
-                        {
-                            myOrganisation_Person_v = new long_v();
-                        }
-                        myOrganisation_Person_v.v = myOrganisation_Person_ID;
                         return true;
                     }
                     else
@@ -109,7 +102,7 @@ namespace TangentaDB
             return fs.DeleteAll("myOrganisation_Person");
         }
 
-        public static long First_ID()
+        public static ID First_ID()
         {
             string sql = null;
             switch (DBSync.DBSync.m_DBType)
@@ -123,7 +116,7 @@ namespace TangentaDB
 
                 default:
                     LogFile.Error.Show("ERROR:TangentaDB:f_myOrganisation_Person:First_ID:DBSync.DBSync.m_DBType = " + DBSync.DBSync.m_DBType.ToString() + " not implemented!");
-                    return -1;
+                    return null;
             }
             DataTable dt = new DataTable();
             string err = null;
@@ -131,17 +124,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count>0)
                 {
-                    return (long)dt.Rows[0]["ID"];
+                    return new ID(dt.Rows[0]["ID"]);
                 }
                 else
                 {
-                    return -1;
+                    return null;
                 }
             }
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_myOrganisation_Person:First_ID:sql=" + sql + "\r\nErr="+err);
-                return -1;
+                return null;
             }
         }
     }

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using DBConnectionControl40;
 
 namespace CodeTables
 {
@@ -18,9 +19,9 @@ namespace CodeTables
     {
         public bool m_bValid = false;
 
-        public ID_v Initial_ID_v = null;
+        public ID Initial_ID = null;
 
-        private ID_v m_ID_v = null;
+        private ID m_ID = null;
 
         public IndexBox():base()
         {
@@ -40,7 +41,7 @@ namespace CodeTables
                 }
         }
 
-        public ID_v ID_v
+        public ID ID
         {
             get
             {
@@ -50,15 +51,18 @@ namespace CodeTables
                     if (s.Length>0)
                     {
                         long id = Convert.ToInt64(s);
-                        if (m_ID_v == null)
+                        if (m_ID == null)
                         {
-                            m_ID_v = new ID_v(id);
+                            m_ID = new ID(id);
+                        }
+                        if (m_ID.Set(s))
+                        {
+                            return m_ID;
                         }
                         else
                         {
-                            m_ID_v.v = id;
+                            return null;
                         }
-                        return m_ID_v;
                     }
                     else
                     {
@@ -72,23 +76,23 @@ namespace CodeTables
             }
             set
             {
-                ID_v xid_v = value;
-                if (m_ID_v != null)
+                ID xid = value;
+                if (m_ID != null)
                 {
-                    if (xid_v != null)
+                    if (xid != null)
                     {
-                        m_ID_v.v = xid_v.v;
+                        m_ID = xid;
                     }
                     else
                     {
-                        m_ID_v = xid_v;
+                        m_ID = xid;
                     }
                 }
                 else
                 {
-                    if (xid_v != null)
+                    if (xid != null)
                     {
-                        m_ID_v = new ID_v(xid_v.v);
+                        m_ID = new ID(xid);
                     }
                 }
             }
@@ -106,16 +110,16 @@ namespace CodeTables
                         base.Text = s;
                         m_bValid = true;
                         base.BackColor = Color.LightGray;
-                        if (Initial_ID_v == null)
+                        if (Initial_ID == null)
                         {
                             try
                             {
-                                Initial_ID_v = new ID_v(Convert.ToInt64(s));
+                                Initial_ID = new ID(Convert.ToInt64(s));
                             }
                             catch (Exception Ex)
                             {
                                 LogFile.Error.Show("ERROR:IndexBox:public override string Text:Cannot convert \"" + s + "\" to Int64! " + Ex.Message);
-                                Initial_ID_v = null;
+                                Initial_ID = null;
                             }
                         }
                     }

@@ -18,20 +18,20 @@ namespace TangentaDB
                             bool Active,
                             string BankAccount,
                             string Description,
-                            ref long_v Atom_BankAccount_ID_v
+                            ref ID Atom_BankAccount_ID
                             )
         {
-            long_v Atom_Bank_ID_v = null;
-            if (f_Atom_Bank.Get(BankName, Tax_ID, Registrattion_ID, TaxPayer_v, Comment1_v,  ref Atom_Bank_ID_v))
+            ID XAtom_Bank_ID = null;
+            if (f_Atom_Bank.Get(BankName, Tax_ID, Registrattion_ID, TaxPayer_v, Comment1_v,  ref XAtom_Bank_ID))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
                 string scond_Atom_Bank_ID = " Atom_Bank_ID is null ";
                 string sval_Atom_Bank_ID = "  null ";
-                if (Atom_Bank_ID_v != null)
+                if (XAtom_Bank_ID != null)
                 {
                     string spar_Atom_Bank_ID = "@par_Atom_Bank_ID";
-                    SQL_Parameter par_Atom_Bank_ID = new SQL_Parameter(spar_Atom_Bank_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Bank_ID_v.v);
+                    SQL_Parameter par_Atom_Bank_ID = new SQL_Parameter(spar_Atom_Bank_ID, false, XAtom_Bank_ID);
                     lpar.Add(par_Atom_Bank_ID);
                     scond_Atom_Bank_ID = " Atom_Bank_ID = " + spar_Atom_Bank_ID + " ";
                     sval_Atom_Bank_ID = " " + spar_Atom_Bank_ID + " ";
@@ -72,11 +72,11 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (Atom_BankAccount_ID_v == null)
+                        if (Atom_BankAccount_ID == null)
                         {
-                            Atom_BankAccount_ID_v = new long_v();
+                            Atom_BankAccount_ID = new ID();
                         }
-                        Atom_BankAccount_ID_v.v = (long)dt.Rows[0]["ID"];
+                        Atom_BankAccount_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
@@ -90,15 +90,8 @@ namespace TangentaDB
                                                              "," + sval_BankAccount +
                                                              "," + sval_Description +
                                                              ")";
-                        long Atom_BankAccount_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_BankAccount_ID, ref oret, ref Err, "Atom_BankAccount"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_BankAccount_ID,  ref Err, "Atom_BankAccount"))
                         {
-                            if (Atom_BankAccount_ID_v == null)
-                            {
-                                Atom_BankAccount_ID_v = new long_v();
-                            }
-                            Atom_BankAccount_ID_v.v = Atom_BankAccount_ID;
                             return true;
                         }
                         else

@@ -294,14 +294,14 @@ namespace Tangenta
         {
             txt_Buyer.Text = "";
 
-            if (x_CurrentInvoice.Atom_Customer_Person_ID_v != null)
+            if (x_CurrentInvoice.Atom_Customer_Person_ID != null)
             {
                 Show_Customer_Person(x_CurrentInvoice);
                 btn_Buyer.Enabled = true;
                 btn_BuyerSelect.Visible = true;
                 txt_Buyer.Visible = true;
             }
-            else if (x_CurrentInvoice.Atom_Customer_Org_ID_v != null)
+            else if (x_CurrentInvoice.Atom_Customer_Org_ID != null)
             {
                 Show_Customer_Org(x_CurrentInvoice);
                 btn_Buyer.Enabled = true;
@@ -319,9 +319,9 @@ namespace Tangenta
 
         public void Show_Customer_Person(TangentaDB.CurrentInvoice x_CurrentInvoice)
         {
-            if (x_CurrentInvoice.Atom_Customer_Person_ID_v != null)
+            if (x_CurrentInvoice.Atom_Customer_Person_ID != null)
             {
-                long Atom_Customer_Person_ID = x_CurrentInvoice.Atom_Customer_Person_ID_v.v;
+                long Atom_Customer_Person_ID = x_CurrentInvoice.Atom_Customer_Person_ID.v;
                 string sql = @"select
                                         Atom_Customer_Person_$_aper_$_acfn_$$FirstName,
                                         Atom_Customer_Person_$_aper_$_acln_$$LastName,
@@ -428,9 +428,9 @@ namespace Tangenta
 
         public void Show_Customer_Org(TangentaDB.CurrentInvoice x_CurrentInvoice)
         {
-            if (x_CurrentInvoice.Atom_Customer_Org_ID_v != null)
+            if (x_CurrentInvoice.Atom_Customer_Org_ID != null)
             {
-                long Atom_Customer_Org_ID = x_CurrentInvoice.Atom_Customer_Org_ID_v.v;
+                long Atom_Customer_Org_ID = x_CurrentInvoice.Atom_Customer_Org_ID.v;
                 string sql = @"SELECT 
                                 Atom_Customer_Org.ID,
                                 Atom_Customer_Org_$_aorg.Name,

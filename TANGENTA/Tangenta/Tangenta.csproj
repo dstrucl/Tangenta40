@@ -177,6 +177,12 @@
     <Compile Include="Form_Select_Notice.Designer.cs">
       <DependentUpon>Form_Select_Notice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SetElectronicDeviceName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SetElectronicDeviceName.Designer.cs">
+      <DependentUpon>Form_SetElectronicDeviceName.cs</DependentUpon>
+    </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
@@ -668,6 +674,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_Notice.resx">
       <DependentUpon>Form_Select_Notice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SetElectronicDeviceName.resx">
+      <DependentUpon>Form_SetElectronicDeviceName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ShowShops.resx">
       <DependentUpon>Form_ShowShops.cs</DependentUpon>

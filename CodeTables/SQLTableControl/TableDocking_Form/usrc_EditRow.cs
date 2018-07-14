@@ -18,6 +18,7 @@ using StaticLib;
 using System.Runtime.InteropServices;
 using NavigationButtons;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace CodeTables.TableDocking_Form
 {
@@ -30,10 +31,10 @@ namespace CodeTables.TableDocking_Form
         public delegate void delegate_after_New(SQLTable m_tbl, bool bRes);
 
         public delegate void delegate_before_InsertInDataBase(SQLTable m_tbl,ref bool bCancel);
-        public delegate void delegate_after_InsertInDataBase(SQLTable m_tbl,long id,bool bRes);
+        public delegate void delegate_after_InsertInDataBase(SQLTable m_tbl,ID id,bool bRes);
 
         public delegate void delegate_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel);
-        public delegate void delegate_after_UpdateDataBase(SQLTable m_tbl,long id,bool bRes);
+        public delegate void delegate_after_UpdateDataBase(SQLTable m_tbl,ID id,bool bRes);
 
 
         public event SQLTable.delegate_FillTable FillTable = null;
@@ -48,10 +49,10 @@ namespace CodeTables.TableDocking_Form
         public event delegate_before_UpdateDataBase before_UpdateDataBase = null;
         public event delegate_after_UpdateDataBase after_UpdateDataBase = null;
 
-        public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction);
+        public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction);
         public event delegate_RowReferenceFromTable_Check_NoChangeToOther RowReferenceFromTable_Check_NoChangeToOther = null;
 
-        public delegate void delegate_after_FillDataInputControl(SQLTable m_tbl, long ID);
+        public delegate void delegate_after_FillDataInputControl(SQLTable m_tbl, ID ID);
         public event delegate_after_FillDataInputControl after_FillDataInputControl = null; 
           
         public enum eMode { NEW, VIEW, EDIT };
@@ -62,7 +63,7 @@ namespace CodeTables.TableDocking_Form
 
         public MyTabControl m_TabControl;
         Random rand = null;
-        public delegate void delegate_Update(bool res, long ID,string Err);
+        public delegate void delegate_Update(bool res, ID ID,string Err);
         public new event delegate_Update Update = null;
 
 
@@ -307,11 +308,11 @@ namespace CodeTables.TableDocking_Form
             
         }
 
-        bool myGroupBox_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        bool myGroupBox_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             if (RowReferenceFromTable_Check_NoChangeToOther != null)
             {
-                return RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id_v, ref bCancelDialog, ref Instruction);
+                return RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id, ref bCancelDialog, ref Instruction);
             }
             else
             {
@@ -470,7 +471,7 @@ namespace CodeTables.TableDocking_Form
 
 
 
-        public void ShowTableRow(long Identity)
+        public void ShowTableRow(ID Identity)
         {
             string csError = "";
             bNewDataEntry = false;
@@ -525,7 +526,7 @@ namespace CodeTables.TableDocking_Form
                     //{
                     //    MessageBox.Show(this, lng.s_DataInsertedIntoDataBaseOK.s, lng.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //}
-                    long ID = -1;
+                    ID ID = null;
                     bRes = m_tbl.Insert(ref ID, m_DBTables);
                     if (bRes)
                     {
@@ -583,12 +584,12 @@ namespace CodeTables.TableDocking_Form
                 else
                 {
                     string Err = null;
-                    long ID = -1;
+                    ID ID = null;
                     bool bRes = m_tbl.UpdateInputControls(m_DBTables, ref ID, ref Err);
                     if (Update != null)
                     {
                         Update(bRes, ID, Err);
-                        if (ID >= 0)
+                        if (ID.IsValid)
                         {
                             ShowTableRow(ID);
                         }

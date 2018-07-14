@@ -12,12 +12,11 @@ namespace TangentaDB
 {
     public static class f_SimpleItem
     {
-        public static bool Get(string Name, string Abbreviation, bool bToOffer, Image SimpleItem_Image, int_v Code_v, string SimpleItem_ParentGroup1, string SimpleItem_ParentGroup2, string SimpleItem_ParentGroup3, ref long SimpleItem_ID)
+        public static bool Get(string Name, string Abbreviation, bool bToOffer, Image SimpleItem_Image, int_v Code_v, string SimpleItem_ParentGroup1, string SimpleItem_ParentGroup2, string SimpleItem_ParentGroup3, ref ID SimpleItem_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
             string sql = null;
-            object oret = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
             SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
@@ -45,8 +44,8 @@ namespace TangentaDB
 
             if (SimpleItem_ParentGroup1 != null)
             {
-                long SimpleItem_ParentGroup1_ID = -1;
-                long SimpleItem_Image_ID = -1;
+                ID SimpleItem_ParentGroup1_ID = null;
+                ID SimpleItem_Image_ID = null;
                 if (f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1, SimpleItem_ParentGroup2, SimpleItem_ParentGroup3, ref SimpleItem_ParentGroup1_ID))
                 {
                     scond_SimpleItem_ParentGroup1_ID = " SimpleItem_ParentGroup1_ID = " + SimpleItem_ParentGroup1_ID.ToString() + " ";
@@ -71,13 +70,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    SimpleItem_ID = (long)dt.Rows[0]["ID"];
+                    if (SimpleItem_ID==null)
+                    {
+                        SimpleItem_ID = new ID();
+                    }
+                    SimpleItem_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into SimpleItem (Name,Abbreviation,ToOffer,Code,SimpleItem_ParentGroup1_ID,SimpleItem_Image_ID)values(" + spar_Name + "," + spar_Abbreviation + ",1," + sval_Code + "," + sval_SimpleItem_ParentGroup1_ID + "," + sval_SimpleItem_Image_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ID, ref oret, ref Err, "SimpleItem"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ID, ref Err, "SimpleItem"))
                     {
                         return true;
                     }
@@ -98,27 +101,27 @@ namespace TangentaDB
         public static bool Get(string Name,
                             string Abbreviation,
                             ref bool_v bToOffer_v,
-                            ref long_v SimpleItem_Image_ID_v,
+                            ref ID SimpleItem_Image_ID,
                             ref Image SimpleItem_Image,
                             ref string_v SimpleItem_Image_Hash_v,
                             ref int_v Code_v,
                             ref string_v SimpleItem_ParentGroup1_v,
                             ref string_v SimpleItem_ParentGroup2_v,
                             ref string_v SimpleItem_ParentGroup3_v,
-                            ref long_v SimpleItem_ID_v)
+                            ref ID SimpleItem_ID)
         {
 
 
             string Err = null;
             bToOffer_v = null;
-            SimpleItem_Image_ID_v = null;
+            SimpleItem_Image_ID = null;
             SimpleItem_Image = null;
             SimpleItem_Image_Hash_v = null;
             Code_v = null;
             SimpleItem_ParentGroup1_v = null;
             SimpleItem_ParentGroup2_v = null;
             SimpleItem_ParentGroup3_v = null;
-            SimpleItem_ID_v = null;
+            SimpleItem_ID = null;
             DataTable dt = new DataTable();
             string sql = null;
 
@@ -135,24 +138,32 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    SimpleItem_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    if (SimpleItem_ID==null)
+                    {
+                        SimpleItem_ID = new ID();
+                    }
+                    SimpleItem_ID.Set(dt.Rows[0]["ID"]);
                     bToOffer_v = tf.set_bool(dt.Rows[0]["ToOffer"]);
-                    SimpleItem_Image_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_Image_ID"]);
+                    if (SimpleItem_Image_ID==null)
+                    {
+                        SimpleItem_Image_ID = new ID();
+                    }
+                    SimpleItem_Image_ID.Set(dt.Rows[0]["SimpleItem_Image_ID"]);
                     SimpleItem_Image = null;
                     SimpleItem_Image_Hash_v = null;
-                    if (SimpleItem_Image_ID_v != null)
+                    if (SimpleItem_Image_ID != null)
                     {
                         string simpleItem_Image_Hash = null;
-                        f_SimpleItem_Image.Get(SimpleItem_Image_ID_v.v, ref SimpleItem_Image, ref simpleItem_Image_Hash);
+                        f_SimpleItem_Image.Get(SimpleItem_Image_ID.v, ref SimpleItem_Image, ref simpleItem_Image_Hash);
                         if (simpleItem_Image_Hash != null)
                         {
                             SimpleItem_Image_Hash_v = new string_v(simpleItem_Image_Hash);
                         }
                     }
-                    long_v SimpleItem_ParentGroup1_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_ParentGroup1_ID"]);
-                    if (SimpleItem_ParentGroup1_ID_v != null)
+                    ID SimpleItem_ParentGroup1_ID = new ID(dt.Rows[0]["SimpleItem_ParentGroup1_ID"]);
+                    if (ID.Validate(SimpleItem_ParentGroup1_ID))
                     {
-                        if (!f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1_ID_v.v, ref SimpleItem_ParentGroup1_v, ref SimpleItem_ParentGroup2_v, ref SimpleItem_ParentGroup3_v))
+                        if (!f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1_ID, ref SimpleItem_ParentGroup1_v, ref SimpleItem_ParentGroup2_v, ref SimpleItem_ParentGroup3_v))
                         {
                             return false;
                         }

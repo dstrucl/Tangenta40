@@ -13,12 +13,12 @@ namespace TangentaDB
         public static bool Get(string StockTake_Name,
                                DateTime_v StockTake_Date_v,
                                decimal_v StockTake_PriceTotal_v,
-                               long_v StockTake_Reference_ID_v,
+                               ID StockTake_Reference_ID,
                                string StockTake_Description,
-                               long_v StockTake_Supplier_ID_v,
-                               long_v StockTake_Trucking_ID_v,
+                               ID StockTake_Supplier_ID,
+                               ID StockTake_Trucking_ID,
                                bool_v StockTake_Draft_v,
-                               ref long StockTake_ID
+                               ref ID StockTake_ID
                                )
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -73,10 +73,10 @@ namespace TangentaDB
 
             string scond_Reference_ID = null;
             string sval_Reference_ID = "null";
-            if (StockTake_Reference_ID_v != null)
+            if (ID.Validate(StockTake_Reference_ID))
             {
                 string spar_Reference_ID = "@par_Reference_ID";
-                SQL_Parameter par_Reference_ID = new SQL_Parameter(spar_Reference_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_Reference_ID_v.v);
+                SQL_Parameter par_Reference_ID = new SQL_Parameter(spar_Reference_ID, false, StockTake_Reference_ID);
                 lpar.Add(par_Reference_ID);
                 scond_Reference_ID = "Reference_ID = " + spar_Reference_ID;
                 sval_Reference_ID = spar_Reference_ID;
@@ -89,10 +89,10 @@ namespace TangentaDB
 
             string scond_Supplier_ID = null;
             string sval_Supplier_ID = "null";
-            if (StockTake_Supplier_ID_v != null)
+            if (ID.Validate(StockTake_Supplier_ID))
             {
                 string spar_Supplier_ID = "@par_Supplier_ID";
-                SQL_Parameter par_Supplier_ID = new SQL_Parameter(spar_Supplier_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_Supplier_ID_v.v);
+                SQL_Parameter par_Supplier_ID = new SQL_Parameter(spar_Supplier_ID, false, StockTake_Supplier_ID);
                 lpar.Add(par_Supplier_ID);
                 scond_Supplier_ID = "Supplier_ID = " + spar_Supplier_ID;
                 sval_Supplier_ID = spar_Supplier_ID;
@@ -106,10 +106,10 @@ namespace TangentaDB
 
             string scond_Trucking_ID = null;
             string sval_Trucking_ID = "null";
-            if (StockTake_Trucking_ID_v != null)
+            if (ID.Validate(StockTake_Trucking_ID))
             {
                 string spar_Trucking_ID = "@par_Trucking_ID";
-                SQL_Parameter par_Trucking_ID = new SQL_Parameter(spar_Trucking_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_Trucking_ID_v.v);
+                SQL_Parameter par_Trucking_ID = new SQL_Parameter(spar_Trucking_ID,  false, StockTake_Trucking_ID);
                 lpar.Add(par_Trucking_ID);
                 scond_Trucking_ID = "Trucking_ID = " + spar_Trucking_ID;
                 sval_Trucking_ID = spar_Trucking_ID;
@@ -125,8 +125,8 @@ namespace TangentaDB
             if (StockTake_Draft_v != null)
             {
                 string spar_Draft = "@par_Draft";
-                SQL_Parameter par_Draft_ID = new SQL_Parameter(spar_Draft, SQL_Parameter.eSQL_Parameter.Bit, false, StockTake_Draft_v.v);
-                lpar.Add(par_Draft_ID);
+                SQL_Parameter par_Draft = new SQL_Parameter(spar_Draft, SQL_Parameter.eSQL_Parameter.Bit, false, StockTake_Draft_v.v);
+                lpar.Add(par_Draft);
                 scond_Draft = "Draft = " + spar_Draft;
                 sval_Draft = spar_Draft;
             }
@@ -152,7 +152,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    StockTake_ID = (long)dt.Rows[0]["ID"];
+                    if (StockTake_ID==null)
+                    {
+                        StockTake_ID = new ID();
+                    }
+                    StockTake_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -174,8 +178,7 @@ namespace TangentaDB
                                                      + sval_Trucking_ID + ","
                                                      + sval_Draft
                                                      + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref StockTake_ID, ref objretx, ref Err, "StockTake"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref StockTake_ID, ref Err, "StockTake"))
                     {
                         return true;
                     }
@@ -194,7 +197,7 @@ namespace TangentaDB
         }
 
         public static bool Exist(string StockTake_Name,
-                        ref long StockTake_ID)
+                        ref ID StockTake_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -223,12 +226,16 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    StockTake_ID = (long)dt.Rows[0]["ID"];
+                    if (StockTake_ID==null)
+                    {
+                        StockTake_ID = new ID();
+                    }
+                    StockTake_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
-                    StockTake_ID = -1;
+                    StockTake_ID = null;
                     return false;
                 }
             }
@@ -240,14 +247,14 @@ namespace TangentaDB
         }
 
         public static bool Update(
-                       long StockTake_ID,
+                       ID StockTake_ID,
                        string StockTake_Name,
                        DateTime_v StockTake_Date_v,
                        decimal_v StockTake_PriceTotal_v,
-                       long_v StockTake_Reference_ID_v,
+                       ID StockTake_Reference_ID,
                        string StockTake_Description,
-                       long_v StockTake_Supplier_ID_v,
-                       long_v StockTake_Trucking_ID_v,
+                       ID StockTake_Supplier_ID,
+                       ID StockTake_Trucking_ID,
                        bool_v StockTake_Draft_v
                        )
         {
@@ -293,10 +300,10 @@ namespace TangentaDB
             }
 
             string sval_Reference_ID = "null";
-            if (StockTake_Reference_ID_v != null)
+            if (ID.Validate(StockTake_Reference_ID))
             {
                 string spar_Reference_ID = "@par_Reference_ID";
-                SQL_Parameter par_Reference_ID = new SQL_Parameter(spar_Reference_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_Reference_ID_v.v);
+                SQL_Parameter par_Reference_ID = new SQL_Parameter(spar_Reference_ID, false, StockTake_Reference_ID);
                 lpar.Add(par_Reference_ID);
                 sval_Reference_ID = spar_Reference_ID;
             }
@@ -306,10 +313,10 @@ namespace TangentaDB
             }
 
             string sval_Supplier_ID = "null";
-            if (StockTake_Supplier_ID_v != null)
+            if (ID.Validate(StockTake_Supplier_ID))
             {
                 string spar_Supplier_ID = "@par_Supplier_ID";
-                SQL_Parameter par_Supplier_ID = new SQL_Parameter(spar_Supplier_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_Supplier_ID_v.v);
+                SQL_Parameter par_Supplier_ID = new SQL_Parameter(spar_Supplier_ID,  false, StockTake_Supplier_ID);
                 lpar.Add(par_Supplier_ID);
                 sval_Supplier_ID = spar_Supplier_ID;
             }
@@ -320,10 +327,10 @@ namespace TangentaDB
 
 
             string sval_Trucking_ID = null;
-            if (StockTake_Trucking_ID_v != null)
+            if (ID.Validate(StockTake_Trucking_ID))
             {
                 string spar_Trucking_ID = "@par_Trucking_ID";
-                SQL_Parameter par_Trucking_ID = new SQL_Parameter(spar_Trucking_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StockTake_Trucking_ID_v.v);
+                SQL_Parameter par_Trucking_ID = new SQL_Parameter(spar_Trucking_ID, false, StockTake_Trucking_ID);
                 lpar.Add(par_Trucking_ID);
                 sval_Trucking_ID = spar_Trucking_ID;
             }
@@ -369,17 +376,17 @@ namespace TangentaDB
         }
 
 
-        public static bool Lock(long StockTake_ID)
+        public static bool Lock(ID StockTake_ID)
         {
-            if (fs.IDisValid(StockTake_ID))
+            if (ID.Validate(StockTake_ID))
             {
                 string sql = "update StockTake set Draft = 0 where ID = " + StockTake_ID.ToString();
                 object ores = null;
                 string Err = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
-                    long_v JOURNAL_StockTake_ID_v = null;
-                    TangentaDB.f_JOURNAL_StockTake.Get(StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID_v);
+                    ID JOURNAL_StockTake_ID = null;
+                    TangentaDB.f_JOURNAL_StockTake.Get(StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID);
                     return true;
                 }
                 else
@@ -394,17 +401,17 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool UnLock(long StockTake_ID)
+        public static bool UnLock(ID StockTake_ID)
         {
-            if (fs.IDisValid(StockTake_ID))
+            if (ID.Validate(StockTake_ID))
             {
                 string sql = "update StockTake set Draft = 1 where ID = " + StockTake_ID.ToString();
                 object ores = null;
                 string Err = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
-                    long_v JOURNAL_StockTake_ID_v = null;
-                    TangentaDB.f_JOURNAL_StockTake.Get(StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID_v);
+                    ID JOURNAL_StockTake_ID = null;
+                    TangentaDB.f_JOURNAL_StockTake.Get(StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID);
                     return true;
                 }
                 else

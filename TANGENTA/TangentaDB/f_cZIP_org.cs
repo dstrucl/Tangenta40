@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cZIP_Org
     {
-        public static bool Get(string ZIP, ref long cZIP_Org_ID)
+        public static bool Get(string ZIP, ref ID cZIP_Org_ID)
         {
             string Err = null;
            
@@ -44,14 +44,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cZIP_Org_ID = (long)dt.Rows[0]["ID"];
+                    if (cZIP_Org_ID==null)
+                    {
+                        cZIP_Org_ID = new ID();
+                    }
+                    cZIP_Org_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into cZIP_Org (ZIP) values (" + sval_ZIP + ")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID, ref objretx, ref Err, "cZIP_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID,  ref Err, "cZIP_Org"))
                     {
                         return true;
                     }
@@ -69,7 +72,7 @@ namespace TangentaDB
             }
        }
 
-        internal static bool Get(string_v zIP_v, ref long_v cZIP_Org_ID_v)
+        internal static bool Get(string_v zIP_v, ref ID cZIP_Org_ID)
         {
             if (zIP_v != null)
             {
@@ -84,43 +87,36 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cZIP_Org_ID_v == null)
+                        if (cZIP_Org_ID == null)
                         {
-                            cZIP_Org_ID_v = new long_v();
+                            cZIP_Org_ID = new ID();
                         }
-                        cZIP_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cZIP_Org_ID.Set(dt.Rows[0]["ID"]);
                         return true;
                     }
                     else
                     {
                         sql = @"insert into cZIP_Org (ZIP) values (@par)";
-                        long cZIP_Org_ID = -1;
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID, ref oret, ref Err, "cZIP_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID, ref Err, "cZIP_Org"))
                         {
-                            if (cZIP_Org_ID_v == null)
-                            {
-                                cZIP_Org_ID_v = new long_v();
-                            }
-                            cZIP_Org_ID_v.v = cZIP_Org_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_cZIP_Org:Get(string_v zIP_v, ref long_v atom_cZIP_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cZIP_Org:Get(string_v zIP_v, ref ID cZIP_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_cZIP_Org:Get(string_v zIP_v, ref long_v atom_cZIP_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cZIP_Org:Get(string_v zIP_v, ref ID cZIP_Org_ID) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_cZIP_Org:Get(string_v zIP_v, ref long_v atom_cZIP_Org_ID_v) zIP_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cZIP_Org:Get(string_v zIP_v, ref ID cZIP_Org_ID) zIP_v may not be null!");
                 return false;
             }
         }

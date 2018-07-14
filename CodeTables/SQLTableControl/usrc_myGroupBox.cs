@@ -18,6 +18,7 @@ using LanguageControl;
 using StaticLib;
 using DBTypes;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace CodeTables
 {
@@ -32,7 +33,7 @@ namespace CodeTables
         public delegate void delegate_IndexChanged(SQLTable tbl,usrc_myGroupBox myGroupBox);
         public event delegate_IndexChanged usrc_myGroupBox_IndexChanged = null;
 
-        public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction);
+        public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, DBConnectionControl40.ID id, ref bool bCancelDialog, ref ltext Instruction);
         public event delegate_RowReferenceFromTable_Check_NoChangeToOther RowReferenceFromTable_Check_NoChangeToOther = null;
 
         public delegate void delegate_Unique_parameter_exist(SQLTable tbl, Column col, DataTable dt,object value, ref bool handled);
@@ -161,13 +162,13 @@ namespace CodeTables
             }
         }
 
-        public ID_v ID_v
+        public ID ID
         {
             get
             {
                 if (this.ixt_ID!=null)
                 {
-                    return this.ixt_ID.ID_v;
+                    return this.ixt_ID.ID;
                 }
                 else
                 {
@@ -358,9 +359,9 @@ namespace CodeTables
 
         private bool DifferentToIndexInitialValue_not_null()
         {
-            if ((ixt_ID.Initial_ID_v != null) && (ixt_ID.ID_v != null))
+            if ((ixt_ID.Initial_ID != null) && (ixt_ID.ID != null))
             {
-                if (ixt_ID.Initial_ID_v.v != ixt_ID.ID_v.v)
+                if (!ixt_ID.Initial_ID.Equals(ixt_ID.ID))
                 {
                     return true;
                 }
@@ -370,11 +371,11 @@ namespace CodeTables
                 }
 
             }
-            else if ((ixt_ID.Initial_ID_v == null) && (ixt_ID.ID_v != null))
+            else if ((ixt_ID.Initial_ID == null) && (ixt_ID.ID != null))
             {
                 return true;
             }
-            else if ((ixt_ID.Initial_ID_v == null)&& (ixt_ID.ID_v==null))
+            else if ((ixt_ID.Initial_ID == null)&& (ixt_ID.ID==null))
             {
                 return false;
             }
@@ -454,7 +455,7 @@ namespace CodeTables
             }
             else
             {
-                m_EditTable_Assistant_Form = new EditTable_Assistant_Form(this, pSQL_Table, ID_v, m_DBTables, Cursor.Position.X + btnSelect.Width, Cursor.Position.Y - btnSelect.Height);
+                m_EditTable_Assistant_Form = new EditTable_Assistant_Form(this, pSQL_Table, ID, m_DBTables, Cursor.Position.X + btnSelect.Width, Cursor.Position.Y - btnSelect.Height);
                 if (m_EditTable_Assistant_Form.ShowDialog() == DialogResult.OK)
                 {
                     if (DifferentToIndexInitialValue())
@@ -466,7 +467,7 @@ namespace CodeTables
         }
 
  
-        internal void FillInputControls(long Identity, bool bSetInitialValues,UniqueControlName xuctrln)
+        internal void FillInputControls(ID Identity, bool bSetInitialValues,UniqueControlName xuctrln)
         {
             string csError = "";
             if (!this.pSQL_Table.FillDataInputControl(m_DBTables.m_con, xuctrln, Identity,bSetInitialValues, ref csError))
@@ -503,10 +504,10 @@ namespace CodeTables
             {
                 if (this.pSQL_Table.current_row_ID != null)
                 {
-                    ixt_ID.Text = this.pSQL_Table.current_row_ID.v.ToString();
+                    ixt_ID.Text = this.pSQL_Table.current_row_ID.ToString();
                     if (pSQL_Table.iFillTableData > 0)
                     {
-                        ixt_ID.ID_v = new ID_v(this.pSQL_Table.current_row_ID.v);
+                        ixt_ID.ID = new ID(this.pSQL_Table.current_row_ID);
                     }
                     ixt_ID.Enabled = true;
                     if (usrc_lbl != null)
@@ -523,7 +524,7 @@ namespace CodeTables
                     }
                     if (pSQL_Table.iFillTableData > 0)
                     {
-                        ixt_ID.ID_v = null;
+                        ixt_ID.ID = null;
                     }
                 }   
             }
@@ -586,18 +587,20 @@ namespace CodeTables
 
 
 
-        internal bool Get_ID(ref DBTypes.long_v id_v)
+        internal bool Get_ID(ref ID id)
         {
             if (ixt_ID != null)
             {
                 if (ixt_ID.Valid)
                 {
-                    long id = Convert.ToInt64(ixt_ID.Text);
-                    if (id_v == null)
+                    if (id != null)
                     {
-                        id_v = new DBTypes.long_v();
+                        id.Set(ixt_ID.Text);
                     }
-                    id_v.v = id;
+                    else
+                    {
+                        id = new ID(ixt_ID.Text);
+                    }
                     return true;
                 }
             }
@@ -630,11 +633,11 @@ namespace CodeTables
         }
 
 
-        internal bool SetEvent_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table,List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        internal bool SetEvent_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table,List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, DBConnectionControl40.ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             if (RowReferenceFromTable_Check_NoChangeToOther != null)
             {
-                return RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id_v, ref bCancelDialog, ref Instruction);
+                return RowReferenceFromTable_Check_NoChangeToOther(pSQL_Table, usrc_RowReferencedFromTable_List, id, ref bCancelDialog, ref Instruction);
             }
             else
 	        {

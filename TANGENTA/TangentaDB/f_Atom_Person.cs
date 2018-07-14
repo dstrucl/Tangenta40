@@ -41,7 +41,7 @@ namespace TangentaDB
                                       string_v CardType_v,
                                       string_v Image_Hash_v,
                                       byte_array_v Image_Data_v,
-                                      ref long_v Atom_Person_ID_v)
+                                      ref ID Atom_Person_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Gender_cond = null;
@@ -51,26 +51,26 @@ namespace TangentaDB
                 return false;
             }
 
-            long_v Atom_cFirstName_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cFirstName", "FirstName", FirstName_v, ref Atom_cFirstName_ID_v))
+            ID xAtom_cFirstName_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cFirstName", "FirstName", FirstName_v, ref xAtom_cFirstName_ID))
             {
                 return false;
             }
             string Atom_cFirstName_ID_cond = null;
             string Atom_cFirstName_ID_value = null;
-            if (!fs.AddPar("Atom_cFirstName_ID", ref lpar, Atom_cFirstName_ID_v, ref Atom_cFirstName_ID_cond, ref Atom_cFirstName_ID_value))
+            if (!fs.AddPar("Atom_cFirstName_ID", ref lpar, xAtom_cFirstName_ID, ref Atom_cFirstName_ID_cond, ref Atom_cFirstName_ID_value))
             {
                 return false;
             }
 
-            long_v Atom_cLastName_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cLastName", "LastName", LastName_v, ref Atom_cLastName_ID_v))
+            ID xAtom_cLastName_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cLastName", "LastName", LastName_v, ref xAtom_cLastName_ID))
             {
                 return false;
             }
             string Atom_cLastName_ID_cond = null;
             string Atom_cLastName_ID_value = null;
-            if (!fs.AddPar("Atom_cLastName_ID", ref lpar, Atom_cLastName_ID_v, ref Atom_cLastName_ID_cond, ref Atom_cLastName_ID_value))
+            if (!fs.AddPar("Atom_cLastName_ID", ref lpar, xAtom_cLastName_ID, ref Atom_cLastName_ID_cond, ref Atom_cLastName_ID_value))
             {
                 return false;
             }
@@ -97,46 +97,46 @@ namespace TangentaDB
             }
 
 
-            long_v Atom_cGsmNumber_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cGsmNumber_Person", "GsmNumber", GsmNumber_v, ref Atom_cGsmNumber_Person_ID_v))
+            ID xAtom_cGsmNumber_Person_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cGsmNumber_Person", "GsmNumber", GsmNumber_v, ref xAtom_cGsmNumber_Person_ID))
             {
                 return false;
 
             }
             string Atom_cGsmNumber_Person_ID_cond = null;
             string Atom_cGsmNumber_Person_ID_value = null;
-            if (!fs.AddPar("Atom_cGsmNumber_Person_ID", ref lpar, Atom_cGsmNumber_Person_ID_v, ref Atom_cGsmNumber_Person_ID_cond, ref Atom_cGsmNumber_Person_ID_value))
+            if (!fs.AddPar("Atom_cGsmNumber_Person_ID", ref lpar, xAtom_cGsmNumber_Person_ID, ref Atom_cGsmNumber_Person_ID_cond, ref Atom_cGsmNumber_Person_ID_value))
             {
                 return false;
             }
 
-            long_v Atom_cPhoneNumber_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cPhoneNumber_Person", "PhoneNumber", PhoneNumber_v, ref Atom_cPhoneNumber_Person_ID_v))
+            ID xAtom_cPhoneNumber_Person_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cPhoneNumber_Person", "PhoneNumber", PhoneNumber_v, ref xAtom_cPhoneNumber_Person_ID))
             {
                 return false;
 
             }
             string Atom_cPhoneNumber_Person_ID_cond = null;
             string Atom_cPhoneNumber_Person_ID_value = null;
-            if (!fs.AddPar("Atom_cPhoneNumber_Person_ID", ref lpar, Atom_cPhoneNumber_Person_ID_v, ref Atom_cPhoneNumber_Person_ID_cond, ref Atom_cPhoneNumber_Person_ID_value))
+            if (!fs.AddPar("Atom_cPhoneNumber_Person_ID", ref lpar, xAtom_cPhoneNumber_Person_ID, ref Atom_cPhoneNumber_Person_ID_cond, ref Atom_cPhoneNumber_Person_ID_value))
             {
                 return false;
             }
 
-            long_v Atom_cEmail_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cEmail_Person", "Email", Email_v, ref Atom_cEmail_Person_ID_v))
+            ID xAtom_cEmail_Person_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cEmail_Person", "Email", Email_v, ref xAtom_cEmail_Person_ID))
             {
                 return false;
 
             }
             string Atom_cEmail_Person_cond = null;
             string Atom_cEmail_Person_value = null;
-            if (!fs.AddPar("Atom_cEmail_Person_ID", ref lpar, Atom_cEmail_Person_ID_v, ref Atom_cEmail_Person_cond, ref Atom_cEmail_Person_value))
+            if (!fs.AddPar("Atom_cEmail_Person_ID", ref lpar, xAtom_cEmail_Person_ID, ref Atom_cEmail_Person_cond, ref Atom_cEmail_Person_value))
             {
                 return false;
             }
 
-            long_v Atom_cAddress_Person_ID_v = null;
+            ID xAtom_cAddress_Person_ID = null;
             if (!fs.Get_Atom_cAddress_Person_ID(StreetName_v,
                                             HouseNumber_v,
                                             ZIP_v,
@@ -146,14 +146,14 @@ namespace TangentaDB
                                             Country_ISO_3166_a3,
                                             Country_ISO_3166_num,
                                             State_v,
-                                            ref Atom_cAddress_Person_ID_v
+                                            ref xAtom_cAddress_Person_ID
                                             ))
             {
                 return false;
             }
             string Atom_cAddress_Person_ID_cond = null;
             string Atom_cAddress_Person_ID_value = null;
-            if (!fs.AddPar("Atom_cAddress_Person_ID", ref lpar, Atom_cAddress_Person_ID_v, ref Atom_cAddress_Person_ID_cond, ref Atom_cAddress_Person_ID_value))
+            if (!fs.AddPar("Atom_cAddress_Person_ID", ref lpar, xAtom_cAddress_Person_ID, ref Atom_cAddress_Person_ID_cond, ref Atom_cAddress_Person_ID_value))
             {
                 return false;
             }
@@ -166,8 +166,8 @@ namespace TangentaDB
             }
 
 
-            long_v Atom_cCardType_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cCardType_Person", "CardType", CardType_v, ref Atom_cCardType_Person_ID_v))
+            ID xAtom_cCardType_Person_ID = null;
+            if (!fs.Get_string_table_ID("Atom_cCardType_Person", "CardType", CardType_v, ref xAtom_cCardType_Person_ID))
             {
                 return false;
 
@@ -175,20 +175,20 @@ namespace TangentaDB
 
             string Atom_cCardType_Person_ID_cond = null;
             string Atom_cCardType_Person_ID_value = null;
-            if (!fs.AddPar("Atom_cCardType_Person_ID", ref lpar, Atom_cCardType_Person_ID_v, ref Atom_cCardType_Person_ID_cond, ref Atom_cCardType_Person_ID_value))
+            if (!fs.AddPar("Atom_cCardType_Person_ID", ref lpar, xAtom_cCardType_Person_ID, ref Atom_cCardType_Person_ID_cond, ref Atom_cCardType_Person_ID_value))
             {
                 return false;
             }
 
-            long_v Atom_PersonImage_ID_v = null;
-            if (!fs.Get_Atom_PersonImage_ID(Image_Hash_v, Image_Data_v, ref Atom_PersonImage_ID_v))
+            ID xAtom_PersonImage_ID = null;
+            if (!fs.Get_Atom_PersonImage_ID(Image_Hash_v, Image_Data_v, ref xAtom_PersonImage_ID))
             {
                 return false;
             }
 
             string Atom_PersonImage_ID_cond = null;
             string Atom_PersonImage_ID_value = null;
-            if (!fs.AddPar("Atom_PersonImage_ID", ref lpar, Atom_PersonImage_ID_v, ref Atom_PersonImage_ID_cond, ref Atom_PersonImage_ID_value))
+            if (!fs.AddPar("Atom_PersonImage_ID", ref lpar, xAtom_PersonImage_ID, ref Atom_PersonImage_ID_cond, ref Atom_PersonImage_ID_value))
             {
                 return false;
             }
@@ -217,11 +217,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_Person_ID_v == null)
+                    if (Atom_Person_ID == null)
                     {
-                        Atom_Person_ID_v = new long_v();
+                        Atom_Person_ID = new ID();
                     }
-                    Atom_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Atom_Person_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -253,15 +253,8 @@ namespace TangentaDB
                                                             + "," + Atom_cCardType_Person_ID_value
                                                             + "," + Atom_PersonImage_ID_value
                                                             + ")";
-                    long id = -1;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref ores, ref Err, "Atom_Person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Person_ID,  ref Err, "Atom_Person"))
                     {
-                        if (Atom_Person_ID_v == null)
-                        {
-                            Atom_Person_ID_v = new long_v();
-                        }
-                        Atom_Person_ID_v.v = id;
                         return true;
                     }
                     else
@@ -278,7 +271,7 @@ namespace TangentaDB
             }
         }
 
-        public static UniversalInvoice.Person GetData(ltext token_prefix, long Atom_Person_ID)
+        public static UniversalInvoice.Person GetData(ltext token_prefix, ID Atom_Person_ID)
         {
             string Err = null;
             UniversalInvoice.Person univ_per = null;

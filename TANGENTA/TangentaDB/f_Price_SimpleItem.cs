@@ -14,10 +14,10 @@ namespace TangentaDB
     {
         public static bool Get(decimal RetailSimpleItemPrice, 
                                decimal_v Discount_v,
-                               long Taxation_ID,
-                               long SimpleItem_ID,
-                               long PriceList_ID,
-                               ref long Price_SimpleItem_ID)
+                               ID Taxation_ID,
+                               ID SimpleItem_ID,
+                               ID PriceList_ID,
+                               ref ID Price_SimpleItem_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_RetailSimpleItemPrice = "@par_RetailSimpleItemPrice";
@@ -48,7 +48,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count>0)
                 {
-                    Price_SimpleItem_ID = (long)dt.Rows[0]["ID"];
+                    if (Price_SimpleItem_ID==null)
+                    {
+                        Price_SimpleItem_ID = new ID();
+                    }
+                    Price_SimpleItem_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -65,8 +69,7 @@ namespace TangentaDB
                                                           "," + SimpleItem_ID.ToString() +
                                                           "," + PriceList_ID.ToString() +
                                                           ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Price_SimpleItem_ID,ref oret, ref Err, "Price_SimpleItem"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Price_SimpleItem_ID, ref Err, "Price_SimpleItem"))
                     {
                         return true;
                     }
@@ -107,11 +110,11 @@ namespace TangentaDB
                            DateTime_v ValidTo_v, 
                            DateTime_v CreationDate_v, 
                            string Description,
-                           ref long Currency_ID,
-                           ref long SimpleItem_ID,
-                           ref long Taxation_ID,
-                           ref long PriceList_ID,
-                           ref long Price_SimpleItem_ID)
+                           ref ID Currency_ID,
+                           ref ID SimpleItem_ID,
+                           ref ID Taxation_ID,
+                           ref ID PriceList_ID,
+                           ref ID Price_SimpleItem_ID)
         {
             if (f_Taxation.Get(TaxationName, TaxationRate,ref Taxation_ID))
             {
@@ -132,22 +135,22 @@ namespace TangentaDB
             return false;
         }
 
-        internal static bool Get(long PriceList_ID, long SimpleItem_ID, ref long_v price_SimpleItem_ID_v,ref decimal_v RetailSimpleItemPrice_v, ref decimal_v discount_v, ref long_v taxation_ID_v, ref string_v taxation_Name_v, ref decimal_v taxation_Rate_v)
+        internal static bool Get(ID PriceList_ID, ID SimpleItem_ID, ref ID price_SimpleItem_ID,ref decimal_v RetailSimpleItemPrice_v, ref decimal_v discount_v, ref ID taxation_ID, ref string_v taxation_Name_v, ref decimal_v taxation_Rate_v)
         {
             string Err = null;
-            price_SimpleItem_ID_v = null;
+            price_SimpleItem_ID = null;
             RetailSimpleItemPrice_v = null;
             discount_v = null;
-            taxation_ID_v = null;
+            taxation_ID = null;
             taxation_Name_v = null;
             taxation_Rate_v = null;
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_PriceList_ID = "@par_PriceList_ID";
-            SQL_Parameter par_PriceList_ID = new SQL_Parameter(spar_PriceList_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PriceList_ID);
+            SQL_Parameter par_PriceList_ID = new SQL_Parameter(spar_PriceList_ID,  false, PriceList_ID);
             lpar.Add(par_PriceList_ID);
             string spar_SimpleItem_ID = "@par_SimpleItem_ID";
-            SQL_Parameter par_SimpleItem_ID = new SQL_Parameter(spar_SimpleItem_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, SimpleItem_ID);
+            SQL_Parameter par_SimpleItem_ID = new SQL_Parameter(spar_SimpleItem_ID, false, SimpleItem_ID);
             lpar.Add(par_SimpleItem_ID);
             DataTable dt = new DataTable();
             string sql = "select ID,RetailSimpleItemPrice,Discount,Taxation_ID from Price_SimpleItem where SimpleItem_ID=" + spar_SimpleItem_ID + " and PriceList_ID = " + spar_PriceList_ID;
@@ -155,13 +158,21 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count>0)
                 {
-                    price_SimpleItem_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    if (price_SimpleItem_ID==null)
+                    {
+                        price_SimpleItem_ID = new ID();
+                    }
+                    price_SimpleItem_ID.Set(dt.Rows[0]["ID"]);
                     RetailSimpleItemPrice_v = tf.set_decimal(dt.Rows[0]["RetailSimpleItemPrice"]);
                     discount_v = tf.set_decimal(dt.Rows[0]["Discount"]);
-                    taxation_ID_v = tf.set_long(dt.Rows[0]["Taxation_ID"]);
-                    if (taxation_ID_v!=null)
+                    if (taxation_ID==null)
                     {
-                        return f_Taxation.Get(taxation_ID_v.v, ref taxation_Name_v, ref taxation_Rate_v);
+                        taxation_ID = new ID();
+                    }
+                    taxation_ID.Set(dt.Rows[0]["Taxation_ID"]);
+                    if (ID.Validate(taxation_ID))
+                    {
+                        return f_Taxation.Get(taxation_ID.v, ref taxation_Name_v, ref taxation_Rate_v);
                     }
                 }
                 return true;

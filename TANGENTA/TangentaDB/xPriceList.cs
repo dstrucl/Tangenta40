@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -104,99 +105,11 @@ namespace TangentaDB
                     {
                         Description = null;
                     }
-                    //object omyOrganisation_Person_UserName = dt_xPriceList.Rows[index]["UserName"];
-                    //if (omyOrganisation_Person_UserName.GetType() == typeof(string))
-                    //{
-                    //    if (myOrganisation_Person_UserName == null)
-                    //    {
-                    //        myOrganisation_Person_UserName = new DBTypes.string_v();
-                    //    }
-                    //    myOrganisation_Person_UserName.v = (string)omyOrganisation_Person_UserName;
-                    //}
-                    //else
-                    //{
-                    //    myOrganisation_Person_UserName = null;
-                    //}
-
-                    //object omyOrganisation_Person_FirstName = dt_xPriceList.Rows[index]["FirstName"];
-                    //if (omyOrganisation_Person_FirstName.GetType() == typeof(string))
-                    //{
-                    //    if (myOrganisation_Person_FirstName == null)
-                    //    {
-                    //        myOrganisation_Person_FirstName = new DBTypes.string_v();
-                    //    }
-                    //    myOrganisation_Person_FirstName.v = (string)omyOrganisation_Person_FirstName;
-                    //}
-                    //else
-                    //{
-                    //    myOrganisation_Person_FirstName = null;
-                    //}
-                    //object omyOrganisation_Person_LastName = dt_xPriceList.Rows[index]["LastName"];
-                    //if (omyOrganisation_Person_LastName.GetType() == typeof(string))
-                    //{
-                    //    if (myOrganisation_Person_LastName == null)
-                    //    {
-                    //        myOrganisation_Person_LastName = new DBTypes.string_v();
-                    //    }
-                    //    myOrganisation_Person_LastName.v = (string)omyOrganisation_Person_LastName;
-                    //}
-                    //else
-                    //{
-                    //    myOrganisation_Person_LastName = null;
-                    //}
-
-                    //object omyOrganisation_Person_Job = dt_xPriceList.Rows[index]["Job"];
-                    //if (omyOrganisation_Person_Job.GetType() == typeof(string))
-                    //{
-                    //    if (myOrganisation_Person_Job == null)
-                    //    {
-                    //        myOrganisation_Person_Job = new DBTypes.string_v();
-                    //    }
-                    //    myOrganisation_Person_Job.v = (string)omyOrganisation_Person_Job;
-                    //}
-                    //else
-                    //{
-                    //    myOrganisation_Person_Job = null;
-                    //}
-
-                    //object omyOrganisation_Person_Description = dt_xPriceList.Rows[index]["myOrganisation_Person_Description"];
-                    //if (omyOrganisation_Person_Description.GetType() == typeof(string))
-                    //{
-                    //    if (myOrganisation_Person_Description == null)
-                    //    {
-                    //        myOrganisation_Person_Description = new DBTypes.string_v();
-                    //    }
-                    //    myOrganisation_Person_Description.v = (string)omyOrganisation_Person_Description;
-                    //}
-                    //else
-                    //{
-                    //    myOrganisation_Person_Description = null;
-                    //}
-
-                    //object omyOrganisation_Person_Active = dt_xPriceList.Rows[index]["Active"];
-                    //if (omyOrganisation_Person_Active.GetType() == typeof(bool))
-                    //{
-                    //    if (myOrganisation_Person_Active == null)
-                    //    {
-                    //        myOrganisation_Person_Active = new DBTypes.bool_v();
-                    //    }
-                    //    myOrganisation_Person_Active.v = (bool)omyOrganisation_Person_Active;
-                    //}
-                    //else
-                    //{
-                    //    myOrganisation_Person_Active = null;
-                    //}
-
-
-                    object oCurrency_ID = dt_xPriceList.Rows[index]["Currency_ID"];
-                    if (oCurrency_ID.GetType() == typeof(long))
+                    if (m_xCurrency.ID == null)
                     {
-                        m_xCurrency.ID = (long)oCurrency_ID;
+                        m_xCurrency.ID = new ID();
                     }
-                    else
-                    {
-                        m_xCurrency.ID = -1;
-                    }
+                    m_xCurrency.ID.Set(dt_xPriceList.Rows[index]["Currency_ID"]);
 
                     object oCurrency_Name = dt_xPriceList.Rows[index]["Currency_Name"];
                     if (oCurrency_Name.GetType() == typeof(string))
@@ -249,35 +162,8 @@ namespace TangentaDB
         public int Count;
         public List<RowData> List_xPriceList = new List<RowData>();
 
-        public bool Get_PriceLists_of_Currency(long Currency_ID, ref int iCount, ref string Err)
+        public bool Get_PriceLists_of_Currency(ID Currency_ID, ref int iCount, ref string Err)
         {
-            //            string sql_select_PriceList = @"SELECT 
-            //              PriceList.ID,
-            //              PriceList.Name,
-            //              PriceList.Valid,
-            //              PriceList.ValidFrom,
-            //              PriceList.ValidTo,
-            //              PriceList.CreationDate,
-            //              PriceList.Description,
-            //              myOrganisation_Person.UserName,
-            //              cFirstName.FirstName,
-            //              cLastName.LastName,
-            //              myOrganisation_Person.Active,
-            //              myOrganisation_Person.Job,
-            //              PersonData.Description as myOrganisation_Person_Description,
-            //              Currency.ID as Currency_ID,
-            //              Currency.Name as Currency_Name,
-            //              Currency.Abbreviation as Currency_Abbreviation,
-            //              Currency.Symbol as Currency_Symbol,
-            //              Currency.CurrencyCode as Currency_CurrencyCode
-            //            FROM PriceList 
-            //            INNER JOIN Currency ON Currency.ID = PriceList.Currency_ID 
-            //            LEFT JOIN myOrganisation_Person ON myOrganisation_Person.ID = PriceList.myOrganisation_Person_ID 
-            //            LEFT JOIN Person ON myOrganisation_Person.Person_ID = Person.ID 
-            //            LEFT JOIN cFirstName ON Person.cFirstName_ID = cFirstName.ID 
-            //            LEFT JOIN cLastName ON Person.cLastName_ID = cLastName.ID 
-            //            LEFT JOIN PersonData ON PersonData.Person_ID = Person.ID 
-            //            where PriceList.Valid = 1  and PriceList.Currency_ID = " + Currency_ID.ToString();
             string sql_select_PriceList = @"SELECT 
               pl.ID,
               pln.Name,
@@ -322,7 +208,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Get_PriceList(long PriceList_ID, ref int iCount, ref string Err)
+        public bool Get_PriceList(ID PriceList_ID, ref int iCount, ref string Err)
         {
             string sql_select_PriceList = @"SELECT 
               pl.ID,

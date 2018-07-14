@@ -46,7 +46,7 @@ namespace TangentaDB
             return s;
         }
 
-        public static UniversalInvoice.Person GetInvoiceAuthor(long Atom_MyOrganisation_Person_ID)
+        public static UniversalInvoice.Person GetInvoiceAuthor(ID Atom_MyOrganisation_Person_ID)
         {
             return f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
         }
@@ -105,10 +105,6 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool IDisValid(long identity)
-        {
-            return identity>=0;
-        }
 
         public static enum_GetDBSettings GetDBSettings(string Name, ref string TextValue, ref bool bReadOnly, ref string Err)
         {
@@ -221,7 +217,7 @@ namespace TangentaDB
         public static bool Init_Default_DB(ref string Err)
         {
 
-            long ID = -1;
+            ID ID = null;
             if (WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, Convert.ToInt32(DBSync.DBSync.DB_for_Tangenta.Settings.Version.ReadOnly).ToString(), ref ID))
             {
                 if (WriteDBSettings("StockCheckAtStartup", "1", "0", ref ID))
@@ -238,7 +234,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool WriteDBSettings(string name, string textValue, string sbReadOnly, ref long ID)
+        public static bool WriteDBSettings(string name, string textValue, string sbReadOnly, ref ID ID)
         {
             string Err = null;
             string s_DBSettings_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).TableName;
@@ -252,7 +248,11 @@ namespace TangentaDB
                 object oret = null;
                 if (dt.Rows.Count > 0)
                 {
-                    ID = (long)dt.Rows[0]["ID"];
+                    if (ID ==null)
+                    {
+                        ID = new ID();
+                    }
+                    ID.Set(dt.Rows[0]["ID"]);
                     sql = "update " + s_DBSettings_table_name + " set TextValue = '" + textValue + "',ReadOnly = " + sbReadOnly + " where ID = " + ID.ToString(); ;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
                     {
@@ -267,7 +267,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('" + name + "','" + textValue + "'," + sbReadOnly + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref ID, ref oret, ref Err, s_DBSettings_table_name))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref ID, ref Err, s_DBSettings_table_name))
                     {
                         return true;
                     }
@@ -972,7 +972,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_JOURNAL_TYPE(string JOURNAL_TYPE_table_name, string stype_name, ref long ID)
+        public static bool Get_JOURNAL_TYPE(string JOURNAL_TYPE_table_name, string stype_name, ref ID ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_name = "@par_type_name";
@@ -985,14 +985,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    ID = (long)dt.Rows[0][0];
+                    if (ID == null)
+                    {
+                        ID = new ID();
+                    }
+                    ID.Set(dt.Rows[0][0]);
                     return true;
                 }
                 else
                 {
                     sql = "  insert into " + JOURNAL_TYPE_table_name + " (Name) values (" + spar_name + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID, ref oret, ref Err, JOURNAL_TYPE_table_name))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID,  ref Err, JOURNAL_TYPE_table_name))
                     {
                         return true;
                     }
@@ -1116,7 +1119,7 @@ namespace TangentaDB
             return s_group_condition;
         }
 
-        public static bool Get_ID(string TableName, string col_name, string_v svalue, ref ID_v iD_v, ref string Err)
+        public static bool Get_ID(string TableName, string col_name, string_v svalue, ref ID iD, ref string Err)
         {
             DataTable dt = new DataTable();
             string spar = "@par_svalue";
@@ -1136,25 +1139,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (iD_v == null)
+                    if (iD == null)
                     {
-                        iD_v = new ID_v();
+                        iD = new ID();
                     }
-                    iD_v.v = (long)dt.Rows[0]["ID"];
+                    iD.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     string sql_insert = " insert into " + TableName + " (" + col_name + ") values (" + spar + ")";
-                    object oret = null;
-                    long id = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref id, ref oret, ref Err, TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref iD,  ref Err, TableName))
                     {
-                        if (iD_v == null)
-                        {
-                            iD_v = new ID_v();
-                        }
-                        iD_v.v = id;
                         return true;
                     }
                 }
@@ -1162,7 +1158,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool GetID(string TableName, string[] columns, string[] values, List<DBConnectionControl40.SQL_Parameter> lpar, ref long ID, ref string Err)
+        public static bool GetID(string TableName, string[] columns, string[] values, List<DBConnectionControl40.SQL_Parameter> lpar, ref ID ID, ref string Err)
         {
 
             string sql = null;
@@ -1236,18 +1232,21 @@ namespace TangentaDB
             }
             sql = "select ID from " + TableName + " where " + sWhere;
             DataTable dt = new DataTable();
-            object objret = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    ID = (long)dt.Rows[0]["ID"];
+                    if (ID==null)
+                    {
+                        ID = new ID();
+                    }
+                    ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into " + TableName + " (" + sColumns + ") values (" + sValues + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID, ref objret, ref Err, TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID,  ref Err, TableName))
                     {
                         return true;
                     }
@@ -1271,42 +1270,44 @@ namespace TangentaDB
                                       string ZIP,
                                       string City,
                                       string Country,
-                                      ref long cAddres_Org_ID, ref string Err)
+                                      ref ID cAddres_Org_ID, ref string Err)
         {
 
-            long cStreetName_Org_ID = -1;
-            if (!GetID("cStreetName_Org", new string[] { "StreetName" }, new string[] { "'" + StreetName + "'" }, null, ref cStreetName_Org_ID, ref Err))
-            {
-                return false;
-            }
-            long cHouseNumber_Org_ID = -1;
-            if (!GetID("cHouseNumber_Org", new string[] { "HouseNumber" }, new string[] { "'" + HouseNumber + "'" }, null, ref cHouseNumber_Org_ID, ref Err))
-            {
-                return false;
-            }
-            long cZIP_Org_ID = -1;
-            if (!GetID("cZIP_Org", new string[] { "ZIP" }, new string[] { "'" + ZIP + "'" }, null, ref cZIP_Org_ID, ref Err))
+            ID xcStreetName_Org_ID = null;
+            if (!GetID("cStreetName_Org", new string[] { "StreetName" }, new string[] { "'" + StreetName + "'" }, null, ref xcStreetName_Org_ID, ref Err))
             {
                 return false;
             }
 
-            long cCity_Org_ID = -1;
-            if (!GetID("cCity_Org", new string[] { "City" }, new string[] { "'" + City + "'" }, null, ref cCity_Org_ID, ref Err))
+            ID xcHouseNumber_Org_ID = null;
+            if (!GetID("cHouseNumber_Org", new string[] { "HouseNumber" }, new string[] { "'" + HouseNumber + "'" }, null, ref xcHouseNumber_Org_ID, ref Err))
             {
                 return false;
             }
 
-            long cCountry_Org_ID = -1;
-            if (!GetID("cCountry_Org", new string[] { "Country" }, new string[] { "'" + Country+ "'" }, null, ref cCountry_Org_ID, ref Err))
+            ID xcZIP_Org_ID = null;
+            if (!GetID("cZIP_Org", new string[] { "ZIP" }, new string[] { "'" + ZIP + "'" }, null, ref xcZIP_Org_ID, ref Err))
             {
                 return false;
             }
 
-            if (GetID("cAddress_Org", new string[] { "cStreetName_Org_ID", "cHouseNumber_Org_ID", "cCity_Org_ID", "cZIP_Org_ID", "cCountry_Org_ID" }, new string[] { cStreetName_Org_ID.ToString(),
-                                                                                                                                                                    cHouseNumber_Org_ID.ToString(),
-                                                                                                                                                                    cCity_Org_ID.ToString(),
-                                                                                                                                                                    cZIP_Org_ID.ToString(),
-                                                                                                                                                                    cCountry_Org_ID.ToString()},
+            ID xcCity_Org_ID = null;
+            if (!GetID("cCity_Org", new string[] { "City" }, new string[] { "'" + City + "'" }, null, ref xcCity_Org_ID, ref Err))
+            {
+                return false;
+            }
+
+            ID xcCountry_Org_ID = null;
+            if (!GetID("cCountry_Org", new string[] { "Country" }, new string[] { "'" + Country+ "'" }, null, ref xcCountry_Org_ID, ref Err))
+            {
+                return false;
+            }
+
+            if (GetID("cAddress_Org", new string[] { "cStreetName_Org_ID", "cHouseNumber_Org_ID", "cCity_Org_ID", "cZIP_Org_ID", "cCountry_Org_ID" }, new string[] { xcStreetName_Org_ID.ToString(),
+                                                                                                                                                                    xcHouseNumber_Org_ID.ToString(),
+                                                                                                                                                                    xcCity_Org_ID.ToString(),
+                                                                                                                                                                    xcZIP_Org_ID.ToString(),
+                                                                                                                                                                    xcCountry_Org_ID.ToString()},
                                                                                                                                                                     null, ref cAddres_Org_ID, ref Err))
             {
                 return true;
@@ -1336,43 +1337,43 @@ namespace TangentaDB
                                                    string Email,
                                                    string PhoneNumber,
                                                    string FaxNumber,
-                                                   ref long Organisation_id,
-                                                   ref long OrganisationAccount_id,
-                                                   ref long OrganisationData_id,
+                                                   ref ID Organisation_id,
+                                                   ref ID OrganisationAccount_id,
+                                                   ref ID OrganisationData_id,
                                                    ref string Err)
         {
-            long cAddres_Org_ID = -1;
-            if (Get_cAddres_Org_ID(StreetName, HouseNumber, ZIP, City, Country, ref cAddres_Org_ID, ref Err))
+            ID xcAddres_Org_ID = null;
+            if (Get_cAddres_Org_ID(StreetName, HouseNumber, ZIP, City, Country, ref xcAddres_Org_ID, ref Err))
             {
                 if (Get_Organisation_ID_and_OrganisationAccount_ID(Name, Tax_ID, Registration_ID, Bank_Name, Bank_Tax_ID, Bank_Registration_ID, TRR, AccountDescription, ref Organisation_id, ref OrganisationAccount_id, ref Err))
                 {
-                    long cOrgTYPE_id = -1;
+                    ID cOrgTYPE_id = null;
                     if (!GetID("cOrgTYPE", new string[] { "OrganisationTYPE" }, new string[] { "'" + OrgTYPE + "'" }, null, ref cOrgTYPE_id, ref Err))
                     {
                         return false;
                     }
 
 
-                    long cHomePage_Org_id = -1;
+                    ID cHomePage_Org_id = null;
                     if (!GetID("cHomePage_Org", new string[] { "HomePage" }, new string[] { "'" + HomePage + "'" }, null, ref cHomePage_Org_id, ref Err))
                     {
                         return false;
                     }
 
 
-                    long cEmail_Org_id = -1;
+                    ID cEmail_Org_id = null;
                     if (!GetID("cEmail_Org", new string[] { "Email" }, new string[] { "'" + Email + "'" }, null, ref cEmail_Org_id, ref Err))
                     {
                         return false;
                     }
 
-                    long cPhoneNumber_Org_id = -1;
+                    ID cPhoneNumber_Org_id = null;
                     if (!GetID("cPhoneNumber_Org", new string[] { "PhoneNumber" }, new string[] { "'" + PhoneNumber + "'" }, null, ref cPhoneNumber_Org_id, ref Err))
                     {
                         return false;
                     }
 
-                    long cFaxNumber_Org_id = -1;
+                    ID cFaxNumber_Org_id = null;
                     if (!GetID("cFaxNumber_Org", new string[] { "FaxNumber" }, new string[] { "'" + FaxNumber + "'" }, null, ref cFaxNumber_Org_id, ref Err))
                     {
                         return false;
@@ -1386,7 +1387,7 @@ namespace TangentaDB
                                                                   "cHomePage_Org_ID"
                                                                   }, new string[] { Organisation_id.ToString(),
                                                                                     cOrgTYPE_id.ToString(),
-                                                                                    cAddres_Org_ID.ToString(),
+                                                                                    xcAddres_Org_ID.ToString(),
                                                                                     cPhoneNumber_Org_id.ToString(),
                                                                                     cFaxNumber_Org_id.ToString(),
                                                                                     cEmail_Org_id.ToString(),
@@ -1408,8 +1409,8 @@ namespace TangentaDB
                                        string_v Bank_Registration_ID,
                                        string_v TRR,
                                        string_v AccountDescription,
-                                       ref long Organisation_id,
-                                       ref long OrganisationAccount_id,
+                                       ref ID Organisation_id,
+                                       ref ID OrganisationAccount_id,
                                        ref string Err)
         {
             string sOrganisation_Tax_ID = null;
@@ -1474,35 +1475,35 @@ namespace TangentaDB
 
             if (GetID("Organisation", new string[] { "Name", "Tax_ID", "Registration_ID" }, new string[] { "'" + Organisation_Name + "'", sOrganisation_Tax_ID, sOrganisation_Registration_ID }, null, ref Organisation_id, ref Err))
             {
-                long Bank_Organisation_id = -1;
+                ID xBank_Organisation_id = null;
                 if (Bank_Name == null)
                 {
                     return true;
                 }
                 else
                 {
-                    if (GetID("Organisation", new string[] { "Name", "Tax_ID", "Registration_ID" }, new string[] { "'" + Bank_Name + "'", sBank_Tax_ID, sBank_Registration_ID }, null, ref Bank_Organisation_id, ref Err))
+                    if (GetID("Organisation", new string[] { "Name", "Tax_ID", "Registration_ID" }, new string[] { "'" + Bank_Name + "'", sBank_Tax_ID, sBank_Registration_ID }, null, ref xBank_Organisation_id, ref Err))
                     {
-                        long Bank_ID = -1;
+                        ID xBank_ID = null;
                         if (GetID("Bank", new string[] { "Organisation_ID" }, new string[]
                                                                     {
-                                                                      Bank_Organisation_id.ToString()}, null, ref Bank_ID, ref Err))
+                                                                      xBank_Organisation_id.ToString()}, null, ref xBank_ID, ref Err))
                         {
-                            long BankAccount_ID = -1;
+                            ID xBankAccount_ID = null;
                             if (GetID("BankAccount", new string[] { "Bank_ID", "TRR", "Active", "Description" }, new string[]
                                                                         {
-                                                                          Bank_ID.ToString(),
+                                                                          xBank_ID.ToString(),
                                                                           sTRR,
                                                                           "1",
                                                                           sAccountDescription
-                                                                         }, null, ref BankAccount_ID, ref Err))
+                                                                         }, null, ref xBankAccount_ID, ref Err))
                             {
 
                                 if (GetID("OrganisationAccount", new string[] { "BankAccount_ID",
                                                                              "Organisation_ID"
                                                                             }, new string[]
                                                                             {
-                                                                              BankAccount_ID.ToString(),
+                                                                              xBankAccount_ID.ToString(),
                                                                               Organisation_id.ToString()}
                                                                               , null, ref OrganisationAccount_id, ref Err))
                                 {
@@ -1535,13 +1536,13 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_Person_ID(bool Gender, string FirstName, string LastName, DateTime DateOfBirth, long_v TaxID, string_v Registration_ID, ref long Person_ID, ref string Err)
+        public static bool Get_Person_ID(bool Gender, string FirstName, string LastName, DateTime DateOfBirth, long_v TaxID, string_v Registration_ID, ref ID Person_ID, ref string Err)
         {
-            long cFirstName_ID = -1;
-            if (fs.GetID("cFirstName", new string[] { "FirstName" }, new string[] { "'" + FirstName + "'" }, null, ref cFirstName_ID, ref Err))
+            ID xcFirstName_ID = null;
+            if (fs.GetID("cFirstName", new string[] { "FirstName" }, new string[] { "'" + FirstName + "'" }, null, ref xcFirstName_ID, ref Err))
             {
-                long cLastName_ID = -1;
-                if (fs.GetID("cLastName", new string[] { "LastName" }, new string[] { "'" + LastName + "'" }, null, ref cLastName_ID, ref Err))
+                ID xcLastName_ID = null;
+                if (fs.GetID("cLastName", new string[] { "LastName" }, new string[] { "'" + LastName + "'" }, null, ref xcLastName_ID, ref Err))
                 {
                     List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
                     string spar_DateOfBirth = "@par_DateOfBirth";
@@ -1566,7 +1567,7 @@ namespace TangentaDB
                         sRegistration_ID = "null";
                     }
 
-                    if (GetID("Person", new string[] { "Gender", "cFirstName_ID", "cLastName_ID", "DateOfBirth", "Tax_ID", "Registration_ID" }, new string[] { "0", cFirstName_ID.ToString(), cLastName_ID.ToString(), spar_DateOfBirth, sTax_ID, sRegistration_ID }, lpar, ref Person_ID, ref Err))
+                    if (GetID("Person", new string[] { "Gender", "cFirstName_ID", "cLastName_ID", "DateOfBirth", "Tax_ID", "Registration_ID" }, new string[] { "0", xcFirstName_ID.ToString(), xcLastName_ID.ToString(), spar_DateOfBirth, sTax_ID, sRegistration_ID }, lpar, ref Person_ID, ref Err))
                     {
                         return true;
                     }
@@ -1599,13 +1600,13 @@ namespace TangentaDB
                                                               string_v TRR,
                                                               string_v BankAccount_Description,
                                                               bool BankAccount_Active,
-                                                              ref long Person_id,
-                                                              ref long PersonAccount_id,
+                                                              ref ID Person_id,
+                                                              ref ID PersonAccount_id,
                                                               ref string Err)
         {
             if (Get_Person_ID(false, FirstName, LastName, DateOfBirth, TaxID, Registration_ID, ref Person_id, ref Err))
             {
-                long Bank_Organisation_id = -1;
+                ID xBank_Organisation_id = null;
                 string sBank_TaxID = null;
                 if (Bank_TaxID != null)
                 {
@@ -1652,27 +1653,27 @@ namespace TangentaDB
                 }
 
 
-                if (GetID("Organisation", new string[] { "Name", "Tax_ID", "Registration_ID" }, new string[] { "'" + Bank_Name + "'", sBank_TaxID, sBank_Registration_ID }, null, ref Bank_Organisation_id, ref Err))
+                if (GetID("Organisation", new string[] { "Name", "Tax_ID", "Registration_ID" }, new string[] { "'" + Bank_Name + "'", sBank_TaxID, sBank_Registration_ID }, null, ref xBank_Organisation_id, ref Err))
                 {
-                    long Bank_ID = -1;
+                    ID xBank_ID = null;
                     if (GetID("Bank", new string[] { "Organisation_ID" }, new string[]
                                                                 {
-                                                                  Bank_Organisation_id.ToString()}, null, ref Bank_ID, ref Err))
+                                                                  xBank_Organisation_id.ToString()}, null, ref xBank_ID, ref Err))
                     {
-                        long BankAccount_ID = -1;
+                        ID xBankAccount_ID = null;
                         if (GetID("BankAccount", new string[] { "Bank_ID", "TRR", "Active", "Description" }, new string[]
                                                                     {
-                                                                      Bank_ID.ToString(),
+                                                                      xBank_ID.ToString(),
                                                                       sTRR,
                                                                       sBankAccount_Active,
                                                                       sBankAccount_Description
-                                                                     }, null, ref BankAccount_ID, ref Err))
+                                                                     }, null, ref xBankAccount_ID, ref Err))
                         {
                             if (GetID("PersonAccount", new string[] { "BankAccount_ID",
                                                                              "Person_ID"
                                                                             }, new string[]
                                                                             {
-                                                                              BankAccount_ID.ToString(),
+                                                                              xBankAccount_ID.ToString(),
                                                                               Person_id.ToString()}
                                                                           , null, ref PersonAccount_id, ref Err))
                             {
@@ -1731,7 +1732,7 @@ namespace TangentaDB
         }
 
 
-        public static bool WriteRow(string TableName, DataRow dr, string Column_PrefixTable, bool Those_from_Column_PrefixTable, ref long id)
+        public static bool WriteRow(string TableName, DataRow dr, string Column_PrefixTable, bool Those_from_Column_PrefixTable, ref ID id)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             int iColumnsCount = dr.Table.Columns.Count;
@@ -1744,9 +1745,8 @@ namespace TangentaDB
                 Add_lpar(dr.Table.Columns[iCol], dr[iCol], Column_PrefixTable, Those_from_Column_PrefixTable, ref lpar, ref sParams, ref sValues);
             }
             sql += sParams + ")values(" + sValues + ")";
-            object objret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref objret, ref Err, TableName))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id,  ref Err, TableName))
             {
                 return true;
             }
@@ -2080,81 +2080,84 @@ namespace TangentaDB
                                       string_v Country_ISO_3166_a2,
                                       string_v Country_ISO_3166_a3,
                                       short_v Country_ISO_3166_num,
-                                      string_v State_v, ref long_v Atom_cAddress_Person_ID_v)
+                                      string_v State_v, ref ID Atom_cAddress_Person_ID)
         {
             if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
-                Atom_cAddress_Person_ID_v = null;
+                Atom_cAddress_Person_ID = null;
                 return true;
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            long_v Atom_cStreetName_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cStreetName_Person", "StreetName", StreetName_v, ref Atom_cStreetName_Person_ID_v))
+            ID xAtom_cStreetName_Person_ID = null;
+            if (!Get_string_table_ID("Atom_cStreetName_Person", "StreetName", StreetName_v, ref xAtom_cStreetName_Person_ID))
             {
                 return false;
             }
             string Atom_cStreetName_Person_ID_cond = null;
             string Atom_cStreetName_Person_ID_value = null;
-            if (!AddPar("Atom_cStreetName_Person_ID", ref lpar, Atom_cStreetName_Person_ID_v, ref Atom_cStreetName_Person_ID_cond, ref Atom_cStreetName_Person_ID_value))
+            if (!AddPar("Atom_cStreetName_Person_ID", ref lpar, xAtom_cStreetName_Person_ID, ref Atom_cStreetName_Person_ID_cond, ref Atom_cStreetName_Person_ID_value))
             {
                 return false;
             }
-            long_v Atom_cHouseNumber_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cHouseNumber_Person", "HouseNumber", HouseNumber_v, ref Atom_cHouseNumber_Person_ID_v))
+            ID xAtom_cHouseNumber_Person_ID = null;
+            if (!Get_string_table_ID("Atom_cHouseNumber_Person", "HouseNumber", HouseNumber_v, ref xAtom_cHouseNumber_Person_ID))
             {
                 return false;
             }
             string Atom_cHouseNumber_Person_ID_cond = null;
             string Atom_cHouseNumber_Person_ID_value = null;
-            if (!AddPar("Atom_cHouseNumber_Person_ID", ref lpar, Atom_cHouseNumber_Person_ID_v, ref Atom_cHouseNumber_Person_ID_cond, ref Atom_cHouseNumber_Person_ID_value))
+            if (!AddPar("Atom_cHouseNumber_Person_ID", ref lpar, xAtom_cHouseNumber_Person_ID, ref Atom_cHouseNumber_Person_ID_cond, ref Atom_cHouseNumber_Person_ID_value))
             {
                 return false;
             }
-            long_v Atom_cZIP_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cZIP_Person", "ZIP", ZIP_v, ref Atom_cZIP_Person_ID_v))
+
+            ID xAtom_cZIP_Person_ID = null;
+            if (!Get_string_table_ID("Atom_cZIP_Person", "ZIP", ZIP_v, ref xAtom_cZIP_Person_ID))
             {
                 return false;
             }
             string Atom_cZIP_Person_ID_cond = null;
             string Atom_cZIP_Person_ID_value = null;
-            if (!AddPar("Atom_cZIP_Person_ID", ref lpar, Atom_cZIP_Person_ID_v, ref Atom_cZIP_Person_ID_cond, ref Atom_cZIP_Person_ID_value))
+            if (!AddPar("Atom_cZIP_Person_ID", ref lpar, xAtom_cZIP_Person_ID, ref Atom_cZIP_Person_ID_cond, ref Atom_cZIP_Person_ID_value))
             {
                 return false;
             }
-            long_v Atom_cCity_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cCity_Person", "City", City_v, ref Atom_cCity_Person_ID_v))
+
+            ID xAtom_cCity_Person_ID = null;
+            if (!Get_string_table_ID("Atom_cCity_Person", "City", City_v, ref xAtom_cCity_Person_ID))
             {
                 return false;
             }
             string Atom_cCity_Person_ID_cond = null;
             string Atom_cCity_Person_ID_value = null;
-            if (!AddPar("Atom_cCity_Person_ID", ref lpar, Atom_cCity_Person_ID_v, ref Atom_cCity_Person_ID_cond, ref Atom_cCity_Person_ID_value))
+            if (!AddPar("Atom_cCity_Person_ID", ref lpar, xAtom_cCity_Person_ID, ref Atom_cCity_Person_ID_cond, ref Atom_cCity_Person_ID_value))
             {
                 return false;
             }
 
-            long_v Atom_cCountry_Person_ID_v = null;
+            ID xAtom_cCountry_Person_ID = null;
             if (!f_Atom_cCountry_Person.Get(Country_v,
                                             Country_ISO_3166_a2,
                                             Country_ISO_3166_a3,
-                                            Country_ISO_3166_num,ref Atom_cCountry_Person_ID_v))
+                                            Country_ISO_3166_num,ref xAtom_cCountry_Person_ID))
             { 
                 return false;
             }
             string Atom_cCountry_Person_ID_cond = null;
             string Atom_cCountry_Person_ID_value = null;
-            if (!AddPar("Atom_cCountry_Person_ID", ref lpar, Atom_cCountry_Person_ID_v, ref Atom_cCountry_Person_ID_cond, ref Atom_cCountry_Person_ID_value))
+            if (!AddPar("Atom_cCountry_Person_ID", ref lpar, xAtom_cCountry_Person_ID, ref Atom_cCountry_Person_ID_cond, ref Atom_cCountry_Person_ID_value))
             {
                 return false;
             }
-            long_v Atom_cState_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cState_Person", "State", State_v, ref Atom_cState_Person_ID_v))
+
+            ID xAtom_cState_Person_ID = null;
+            if (!Get_string_table_ID("Atom_cState_Person", "State", State_v, ref xAtom_cState_Person_ID))
             {
                 return false;
             }
             string Atom_cState_Person_ID_cond = null;
             string Atom_cState_Person_ID_value = null;
-            if (!AddPar("Atom_cState_Person_ID", ref lpar, Atom_cState_Person_ID_v, ref Atom_cState_Person_ID_cond, ref Atom_cState_Person_ID_value))
+            if (!AddPar("Atom_cState_Person_ID", ref lpar, xAtom_cState_Person_ID, ref Atom_cState_Person_ID_cond, ref Atom_cState_Person_ID_value))
             {
                 return false;
             }
@@ -2171,25 +2174,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_cAddress_Person_ID_v == null)
+                    if (Atom_cAddress_Person_ID == null)
                     {
-                        Atom_cAddress_Person_ID_v = new long_v();
+                        Atom_cAddress_Person_ID = new ID();
                     }
-                    Atom_cAddress_Person_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Atom_cAddress_Person_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = " insert into Atom_cAddress_Person (Atom_cStreetName_Person_ID,Atom_cHouseNumber_Person_ID,Atom_cZIP_Person_ID,Atom_cCity_Person_ID,Atom_cCountry_Person_ID,Atom_cState_Person_ID)values(" + Atom_cStreetName_Person_ID_value + "," + Atom_cHouseNumber_Person_ID_value + "," + Atom_cZIP_Person_ID_value + "," + Atom_cCity_Person_ID_value + "," + Atom_cCountry_Person_ID_value + "," + Atom_cState_Person_ID_value + ")";
-                    long id = -1;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref ores, ref Err, "Atom_cAddress_Person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cAddress_Person_ID, ref Err, "Atom_cAddress_Person"))
                     {
-                        if (Atom_cAddress_Person_ID_v == null)
-                        {
-                            Atom_cAddress_Person_ID_v = new long_v();
-                        }
-                        Atom_cAddress_Person_ID_v.v = id;
                         return true;
                     }
                     else
@@ -2206,7 +2202,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool IssueDoc(string docInvoice, long doc_ID)
+        public static bool IssueDoc(string docInvoice, ID doc_ID)
         {
             string sql_SetPrice = "update "+ docInvoice + " set Draft = 0 where ID = " + doc_ID.ToString();
             object ores = null;
@@ -2223,12 +2219,12 @@ namespace TangentaDB
         }
 
 
-        public static bool Get_string_table_ID(string TableName, string ColumnName, string_v s_v, ref long_v ID_v)
+        public static bool Get_string_table_ID(string TableName, string ColumnName, string_v s_v, ref ID ID)
         {
             List<SQL_Parameter> lpar = null;
             if (s_v == null)
             {
-                ID_v = null;
+                ID = null;
                 return true;
             }
             string cond = null;
@@ -2245,19 +2241,24 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    ID_v = new long_v();
-                    ID_v.v = (long)dt.Rows[0]["ID"];
+                    if (ID == null)
+                    {
+                        ID = new ID();
+                    }
+                    ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into " + TableName + " (" + ColumnName + ")values(" + value + ")";
-                    long id = -1;
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, TableName))
+                    ID id = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id,  ref Err, TableName))
                     {
-                        ID_v = new long_v();
-                        ID_v.v = id;
+                        if (ID==null)
+                        {
+                            ID = new ID();
+                        }
+                        ID.Set(id);
                         return true;
                     }
                     else
@@ -2296,7 +2297,11 @@ namespace TangentaDB
             }
             else
             {
-                if (obj_v is bool_v)
+                if (obj_v is ID)
+                {
+                    par = new SQL_Parameter(spar_name, false,(ID)obj_v);
+                }
+                else if (obj_v is bool_v)
                 {
                     par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bit, false, ((bool_v)obj_v).v);
                 }
@@ -2335,11 +2340,11 @@ namespace TangentaDB
             }
             return true;
         }
-        public static bool Get_Atom_PersonImage_ID(string_v Image_Hash_v, byte_array_v Image_Data_v, ref long_v Atom_PersonImage_ID_v)
+        public static bool Get_Atom_PersonImage_ID(string_v Image_Hash_v, byte_array_v Image_Data_v, ref ID Atom_PersonImage_ID)
         {
             if (Image_Hash_v == null)
             {
-                Atom_PersonImage_ID_v = null;
+                Atom_PersonImage_ID = null;
                 return true;
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -2356,11 +2361,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_PersonImage_ID_v == null)
+                    if (Atom_PersonImage_ID == null)
                     {
-                        Atom_PersonImage_ID_v = new long_v();
+                        Atom_PersonImage_ID = new ID();
                     }
-                    Atom_PersonImage_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Atom_PersonImage_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -2372,15 +2377,8 @@ namespace TangentaDB
                         return false;
                     }
                     sql = "insert into Atom_PersonImage (Image_Hash, Image_Data)values(" + Image_Hash_value + "," + Image_Data_value + ")";
-                    long id = -1;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref ores, ref Err, "Atom_PersonImage"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_PersonImage_ID,  ref Err, "Atom_PersonImage"))
                     {
-                        if (Atom_PersonImage_ID_v == null)
-                        {
-                            Atom_PersonImage_ID_v = new long_v();
-                        }
-                        Atom_PersonImage_ID_v.v = id;
                         return true;
                     }
                     else

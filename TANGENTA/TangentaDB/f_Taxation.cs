@@ -44,7 +44,7 @@ namespace TangentaDB
             }
             return true;
         }
-        public static bool Get(string Name,decimal Rate, ref long Taxation_ID)
+        public static bool Get(string Name,decimal Rate, ref ID Taxation_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -66,14 +66,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Taxation_ID = (long)dt.Rows[0]["ID"];
+                    if (Taxation_ID==null)
+                    {
+                        Taxation_ID = new ID();
+                    }
+                    Taxation_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into Taxation (Name,Rate)values(" + spar_Name + "," + sval_Rate + ")";
-                    object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Taxation_ID, ref oret, ref Err, "Taxation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Taxation_ID, ref Err, "Taxation"))
                     {
                         return true;
                     }
@@ -122,7 +125,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(long Taxation_ID, ref  string_v Taxation_Name_v, ref decimal_v Taxation_Rate_v)
+        public static bool Get(ID Taxation_ID, ref  string_v Taxation_Name_v, ref decimal_v Taxation_Rate_v)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -130,7 +133,7 @@ namespace TangentaDB
             string spar_ID = "@par_ID";
             Taxation_Name_v = null;
             Taxation_Rate_v = null;
-            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Taxation_ID);
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, false, Taxation_ID);
             lpar.Add(par_ID);
 
 

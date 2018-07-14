@@ -1956,7 +1956,6 @@ namespace TangentaDataBaseDef
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation Person archive ID", "Zaposleni arhiv ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_WorkingPlace, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place archive ID", "Ime delovnega mesta arhiv ID") );
-            t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer_ID", "Computer_ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic device ID", "Elektronska naprava ID"));
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LoginTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work start time", "Začetek dela") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LogoutTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work end time", "Konec dela") );
@@ -2337,11 +2336,9 @@ namespace TangentaDataBaseDef
             /* 193 */
             t_Atom_ElectronicDevice = new SQLTable((Object)new Atom_ElectronicDevice(), "aed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ElectronicDevice);
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_MAC_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("MAC Address ID", "MAC naslov ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_ComputerName, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer Name ID", "Ime računalnika ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_ComputerUserName, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer username ID", "Ime 'Windows' uporabnika ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_FVI_SLO_RealEstateBP, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("MAC Address ID", "MAC naslov ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_Computer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer ID", "Računalnik ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Office, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office ID", "Poslovna enota ID"));
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
             m_DBTables.items.Add(t_Atom_ElectronicDevice);
 

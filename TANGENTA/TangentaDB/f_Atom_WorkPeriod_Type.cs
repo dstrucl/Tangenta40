@@ -19,7 +19,7 @@ namespace TangentaDB
     {
         public static bool Get(string Atom_WorkPeriod_Type_Name,
                                  string Atom_WorkPeriod_Type_Description,
-                                 ref long Atom_WorkPeriod_Type_ID)
+                                 ref ID Atom_WorkPeriod_Type_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -51,7 +51,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_WorkPeriod_Type_ID = (long)dt.Rows[0]["ID"];
+                    if (Atom_WorkPeriod_Type_ID==null)
+                    {
+                        Atom_WorkPeriod_Type_ID = new ID();
+                    }
+                    Atom_WorkPeriod_Type_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -72,8 +76,7 @@ namespace TangentaDB
                         sval_Atom_WorkPeriod_Type_Description = "null";
                     }
                     sql = @"insert into Atom_WorkPeriod_Type (Name,Description) values (" + sval_Atom_WorkPeriod_Type_Name + ","+sval_Atom_WorkPeriod_Type_Description+")";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_Type_ID, ref objretx, ref Err, "Atom_WorkPeriod_Type"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_Type_ID, ref Err, "Atom_WorkPeriod_Type"))
                     {
                         return true;
                     }

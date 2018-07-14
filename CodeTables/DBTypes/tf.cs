@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -140,6 +141,26 @@ namespace DBTypes
             else if (!(p is System.DBNull))
             {
                 tf.ShowTypeError(p.GetType().ToString(),x.GetType().ToString());
+            }
+
+            return x;
+        }
+
+        public static ID set_ID(object p)
+        {
+            ID x = null;
+            if (p == null) return null;
+            if (p is long)
+            {
+                x = new ID(p);
+            }
+            else if (p is ulong)
+            {
+                x = new ID((long)p);
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
             }
 
             return x;

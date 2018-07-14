@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +17,7 @@ namespace TangentaDB
 {
     public class xCurrency
     {
-        public long ID = -1;
+        public ID ID = null;
         public string Country= null;
         public string Name = null;
         public string Abbreviation = null;
@@ -44,7 +45,7 @@ namespace TangentaDB
             DecimalPlaces = xDecimalPlaces;
         }
 
-        public bool SetCurrency(long currency_id, ref string Err)
+        public bool SetCurrency(ID currency_id, ref string Err)
         {
             string sql_BaseCurrency = "select Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Currency where ID = " + currency_id.ToString();
             DataTable dt = new DataTable();
