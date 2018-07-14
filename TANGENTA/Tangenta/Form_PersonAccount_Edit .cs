@@ -18,16 +18,17 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
     public partial class PersonAccount_EditForm : Form
     {
-        private List<long> List_of_Inserted_Items_ID = null;
+        private List<ID> List_of_Inserted_Items_ID = null;
         private DataTable dt_Item = new DataTable();
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
-        private long_v ID_v = null;
+        private ID mID = null;
         private string ColumnOrderBy = "";
         private NavigationButtons.Navigation nav = null;
 
@@ -42,14 +43,14 @@ namespace Tangenta
 
         }
 
-        public PersonAccount_EditForm(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public PersonAccount_EditForm(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, ID xID)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = ID;
+            
+            mID = xID;
             this.Text = lng.s_Items.s;
 
         }
@@ -69,14 +70,14 @@ namespace Tangenta
             ";
 
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v,false,nav);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, mID,false,nav);
 
         }
         private void Customer_Person_EditForm_Load(object sender, EventArgs e)
         {
             if (Init())
             {
-                List_of_Inserted_Items_ID = new List<long>();
+                List_of_Inserted_Items_ID = new List<ID>();
             }
             else
             {
@@ -112,9 +113,9 @@ namespace Tangenta
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
-            List_of_Inserted_Items_ID.Add(ID);
+            List_of_Inserted_Items_ID.Add(xID);
         }
 
         private void Item_EditForm_FormClosing(object sender, FormClosingEventArgs e)

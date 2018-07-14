@@ -19,6 +19,8 @@ using CodeTables;
 using TangentaTableClass;
 using TangentaDB;
 using NavigationButtons;
+using DBConnectionControl40;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -42,7 +44,7 @@ namespace Tangenta
             lng.s_Edit_Offices.Text(btn_Office);
         }
 
-        private bool InitDataTable(long ID)
+        private bool InitDataTable(ID xID)
         {
             dt_my_company.Clear();
             string sql = null;
@@ -72,13 +74,13 @@ namespace Tangenta
         private bool Init()
         {
             Cursor = Cursors.WaitCursor;
-            if (InitDataTable(-1))
+            if (InitDataTable(null))
             {
                 usrc_EditRow.Init(dbTables, tbl, null,false,nav);
                 usrc_EditRow.FillInitialData();
                 if (dt_my_company.Rows.Count > 0)
                 {
-                    long Identity = (long)dt_my_company.Rows[0]["ID"];
+                    ID Identity = tf.set_ID(dt_my_company.Rows[0]["ID"]);
                     usrc_EditRow.ShowTableRow(Identity);
                     usrc_EditRow.AllowUserToAddNew = false;
                 }
@@ -108,12 +110,12 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable_Update(bool res,long ID, string Err)
+        private void usrc_EditTable_Update(bool res,ID xID, string Err)
         {
             if (res)
             {
-                InitDataTable(ID);
-                usrc_EditRow.ShowTableRow(ID);
+                InitDataTable(xID);
+                usrc_EditRow.ShowTableRow(xID);
             }
         }
 
@@ -222,7 +224,7 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, long id, bool bRes)
+        private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, ID id, bool bRes)
         {
             if (bRes)
             {

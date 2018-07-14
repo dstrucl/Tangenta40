@@ -383,7 +383,9 @@ namespace Tangenta
             {
                 Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
             }
-            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID;
+
+            // TRICKY DOCHANGE
+            Properties.Settings.Default.Current_DocInvoice_ID = (long) m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID.V;
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
             if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA != null)
@@ -394,8 +396,8 @@ namespace Tangenta
                     m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
-            long atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
-            if (fs.IDisValid(atom_work_period_id))
+            ID atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
+            if (ID.Validate(atom_work_period_id))
             {
                 TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
             }

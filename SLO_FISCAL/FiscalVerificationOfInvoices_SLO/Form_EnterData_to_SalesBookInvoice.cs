@@ -6,6 +6,7 @@
 */
 #endregion
 
+using DBConnectionControl40;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace FiscalVerificationOfInvoices_SLO
             get { return m_InvoiceNumber; }
         }
 
-        public Form_EnterData_to_SalesBookInvoice(usrc_FVI_SLO xusrc_FVI_SLO, long Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
+        public Form_EnterData_to_SalesBookInvoice(usrc_FVI_SLO xusrc_FVI_SLO, ID Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
         {
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;

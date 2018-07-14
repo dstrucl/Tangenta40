@@ -19,21 +19,22 @@ using CodeTables;
 using DBTypes;
 using CodeTables.TableDocking_Form;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
     public partial class Form_OrganisationAccount_Edit : Form
     {
-        private List<long> List_of_Inserted_Items_ID = null;
+        private List<ID> List_of_Inserted_Items_ID = null;
         private DataTable dt_Item = new DataTable();
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
-        private long_v ID_v = null;
+        private ID mID = null;
         private string ColumnOrderBy = "";
         private NavigationButtons.Navigation nav = null;
 
-        private long m_BankAccount_ID = -1;
-        public long BankAccount_ID
+        private ID m_BankAccount_ID = null;
+        public ID BankAccount_ID
         {
             get { return m_BankAccount_ID; }
         }
@@ -74,15 +75,14 @@ namespace Tangenta
 
         }
 
-        public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, NavigationButtons.Navigation xnav)
+        public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, ID xID, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = ID;
+            mID = xID;
             this.Text = lng.s_Items.s;
 
         }
@@ -102,14 +102,14 @@ namespace Tangenta
             ";
 
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v,false,nav);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, mID,false,nav);
 
         }
         private void Customer_Person_EditForm_Load(object sender, EventArgs e)
         {
             if (Init())
             {
-                List_of_Inserted_Items_ID = new List<long>();
+                List_of_Inserted_Items_ID = new List<ID>();
             }
             else
             {
@@ -145,25 +145,25 @@ namespace Tangenta
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
-            List_of_Inserted_Items_ID.Add(ID);
+            List_of_Inserted_Items_ID.Add(xID);
             if (bRes)
             {
-                FillProperties(m_tbl, ID);
+                FillProperties(m_tbl, xID);
             }
         }
 
-        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, ID xID, int index)
         {
-            FillProperties(m_tbl, ID);
+            FillProperties(m_tbl, xID);
         }
 
         private void OrganisationAccount_EditForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
 
-        private void FillProperties(SQLTable m_tbl,long ID)
+        private void FillProperties(SQLTable m_tbl,ID xID)
         {
             this.m_BankName = null;
             object oBankName = m_tbl.Value("OrganisationAccount_$_bankacc_$_bank_$_org_$$Name");
@@ -202,13 +202,10 @@ namespace Tangenta
                 }
             }
 
-            object oBankAccount_ID = m_tbl.Value("OrganisationAccount_$_bankacc_$$ID");
+            object oBankAccount_ID = tf.set_ID(m_tbl.Value("OrganisationAccount_$_bankacc_$$ID"));
             if (oBankAccount_ID is ID)
             {
-                if (((ID)oBankAccount_ID).defined)
-                {
-                    this.m_BankAccount_ID = ((ID)oBankAccount_ID).val;
-                }
+                    this.m_BankAccount_ID = ((ID)oBankAccount_ID);
             }
 
 

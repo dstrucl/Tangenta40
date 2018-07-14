@@ -2481,7 +2481,7 @@ namespace TangentaDB
         }
 
         public static bool UpdatePriceInDraft(string DocInvoice,
-                                      long Doc_ID,
+                                      ID Doc_ID,
                                       decimal GrossSum,
                                       decimal TaxSum_Value,
                                       decimal NetSum

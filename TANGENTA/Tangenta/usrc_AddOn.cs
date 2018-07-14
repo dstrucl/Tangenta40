@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
 using LanguageControl;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -108,7 +109,7 @@ namespace Tangenta
             return false;
         }
 
-        internal void Show(long ID)
+        internal void Show(ID ID)
         {
             if (IsDocInvoice)
             {

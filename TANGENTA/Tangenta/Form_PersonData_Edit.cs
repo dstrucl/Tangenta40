@@ -19,21 +19,22 @@ using CodeTables;
 using DBTypes;
 using TangentaDB;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
     public partial class Form_PersonData_Edit : Form
     {
         private UniqueControlName uctrln = new UniqueControlName();
-        private List<long> List_of_Inserted_Items_ID = null;
+        private List<ID> List_of_Inserted_Items_ID = null;
         private DataTable dt_Item = new DataTable();
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
-        private long_v ID_v = null;
+        private ID ID = null;
         private string ColumnOrderBy = "";
         private string sWhereCondition = "";
         private NavigationButtons.Navigation nav = null;
-        private long m_Person_ID = -1;
+        private ID m_Person_ID = null;
 
         public Form_PersonData_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy,NavigationButtons.Navigation xnav)
         {
@@ -46,28 +47,26 @@ namespace Tangenta
 
         }
 
-        public Form_PersonData_Edit(long Person_ID,CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long PersonData_ID,  NavigationButtons.Navigation xnav)
+        public Form_PersonData_Edit(ID Person_ID,CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,ID PersonData_ID,  NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = PersonData_ID;
+            ID = PersonData_ID;
             lng.s_OtherPersonDana.Text(this);
             m_Person_ID = Person_ID;
         }
 
-        public Form_PersonData_Edit(long Person_ID,string xWhereCondition, CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long PersonData_ID, NavigationButtons.Navigation xnav)
+        public Form_PersonData_Edit(ID Person_ID,string xWhereCondition, CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, ID PersonData_ID, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = PersonData_ID;
+            ID = PersonData_ID;
             lng.s_OtherPersonDana.Text(this);
             m_Person_ID = Person_ID;
             sWhereCondition = xWhereCondition;
@@ -98,7 +97,7 @@ namespace Tangenta
 
             usrc_EditTable.AllowUserToAddNew = false;
             tbl.SetColumnStyle("Person_ID", Column.eStyle.ReadOnlyTable);
-            if (usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav))
+            if (usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID, false,nav))
             {
                 usrc_EditTable.FillInitialData();
                 string s_Person = "";
@@ -125,7 +124,7 @@ namespace Tangenta
         {
             if (Init())
             {
-                List_of_Inserted_Items_ID = new List<long>();
+                List_of_Inserted_Items_ID = new List<ID>();
             }
             else
             {
@@ -161,7 +160,7 @@ namespace Tangenta
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             List_of_Inserted_Items_ID.Add(ID);
         }
@@ -172,7 +171,7 @@ namespace Tangenta
 
         private void usrc_EditTable_FillTable(SQLTable m_tbl)
         {
-            if (m_Person_ID >= 0)
+            if (ID.Validate(m_Person_ID))
             {
                 if (m_tbl.TableName.ToLower().Equals("Person"))
                 {

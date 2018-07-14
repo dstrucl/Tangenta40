@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 using TangentaDB;
 
@@ -26,14 +27,14 @@ namespace Tangenta
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
         private DataTable dt_journal_invoice_type = new DataTable();
-        private long m_Invoice_ID = -1;
+        private ID m_Invoice_ID = null;
         public string m_sInvoiceToStorno = null;
         public string m_Reason = null;
 
         public string m_InvoiceTime = ""; 
 
 
-        public Form_Storno(long Invoice_ID)
+        public Form_Storno(ID Invoice_ID)
         {
             InitializeComponent();
             m_Invoice_ID = Invoice_ID;

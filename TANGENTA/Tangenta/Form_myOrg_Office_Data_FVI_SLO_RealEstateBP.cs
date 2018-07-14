@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NavigationButtons;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -23,12 +24,12 @@ namespace Tangenta
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
         private string ColumnToOrderBy = "FVI_SLO_RealEstateBP_$$Community asc";
-        private long m_Office_Data_ID = -1;
+        private ID m_Office_Data_ID = null;
         private SQLTable tbl_FVI_SLO_RealEstateBP = null;
         private NavigationButtons.Navigation nav = null;
 
 
-        public Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(long xOffice_Data_ID,NavigationButtons.Navigation xnav)
+        public Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(ID xOffice_Data_ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
@@ -111,7 +112,7 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
             if (bRes)
             { 

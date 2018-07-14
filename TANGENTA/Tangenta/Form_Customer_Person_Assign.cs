@@ -6,6 +6,8 @@
 */
 #endregion
 
+using DBConnectionControl40;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,7 @@ namespace Tangenta
 {
     public partial class Form_Customer_Person_Assign : Form
     {
-        internal long PersonData_ID;
+        internal ID PersonData_ID = null;
         internal string FirstName = null;
         internal string LastName = null;
         internal string GsmNumber = null;
@@ -33,8 +35,8 @@ namespace Tangenta
         internal string State = null;
         internal string Country= null;
         internal DateTime DateOfBirth = DateTime.MinValue;
-        public long Person_ID = -1;
-        public long CustomerPerson_ID = -1;
+        public ID Person_ID = null;
+        public ID CustomerPerson_ID = null;
 
         public Form_Customer_Person_Assign()
         {
@@ -42,7 +44,7 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public Form_Customer_Person_Assign(long xPersonData_ID)
+        public Form_Customer_Person_Assign(ID xPersonData_ID)
         {
             // TODO: Complete member initialization
             InitializeComponent();
@@ -122,7 +124,7 @@ namespace Tangenta
                         DateOfBirth = (DateTime)dt.Rows[0]["PersonData_$_per_$$DateOfBirth"];
                     }
 
-                    Person_ID = (long)dt.Rows[0]["PersonData_$_per_$$ID"];
+                    Person_ID = tf.set_ID(dt.Rows[0]["PersonData_$_per_$$ID"]);
 
                     lbl_Person.Text = "";
                     if (FirstName!=null)
@@ -198,15 +200,14 @@ namespace Tangenta
             {
                 if (dt.Rows.Count>0)
                 {
-                    CustomerPerson_ID = (long) dt.Rows[0]["ID"];
+                    CustomerPerson_ID = tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into customer_person (Person_ID)values("+Person_ID.ToString()+")";
 
-                    object oRet = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref CustomerPerson_ID,ref oRet, ref Err,"customer_person"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref CustomerPerson_ID, ref Err,"customer_person"))
                     {
                         return true;
                     }

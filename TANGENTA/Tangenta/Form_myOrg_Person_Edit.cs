@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -28,12 +29,12 @@ namespace Tangenta
     {
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
-        private long m_Office_ID;
+        private ID m_Office_ID;
         private SQLTable tbl_myOrganisation_Person;
         private string ColumnToOrderBy = "myOrganisation_Person_$_per_$_cln_$$LastName asc";
         private NavigationButtons.Navigation nav = null;
 
-        public Form_myOrg_Person_Edit(long xOffice_ID,NavigationButtons.Navigation xnav)
+        public Form_myOrg_Person_Edit(ID xOffice_ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
@@ -59,11 +60,6 @@ namespace Tangenta
                                     myOrganisation_Person_$_per_$$ID,
                                     ID
             ";
-            long_v Office_ID_v = null;
-            if (m_Office_ID >= 0)
-            {
-                Office_ID_v = new long_v(m_Office_ID);
-            }
             if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myOrganisation_Person, selection, ColumnToOrderBy, false, " where  myOrganisation_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false, nav))
             {
                 usrc_EditTable1.FillInitialData();
@@ -221,18 +217,18 @@ namespace Tangenta
 
         private void btn_PersonData_Edit_Click(object sender, EventArgs e)
         {
-            long_v Person_ID_v = tf.set_long(usrc_EditTable1.GetColumnObject("myOrganisation_Person_$_per_$$ID"));
+            ID Person_ID = tf.set_ID(usrc_EditTable1.GetColumnObject("myOrganisation_Person_$_per_$$ID"));
             SQLTable tbl_PersonData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PersonData)));
             Form_PersonData_Edit edt_PersonData_dlg = null;
-            if (Person_ID_v != null)
+            if (ID.Validate(Person_ID))
             {
-                long PersonData_ID = -1;
-                if (f_PersonData.Find(Person_ID_v.v, ref PersonData_ID))
+                ID PersonData_ID = null;
+                if (f_PersonData.Find(Person_ID, ref PersonData_ID))
                 {
-                    if (PersonData_ID>=0)
+                    if (ID.Validate(PersonData_ID))
                     {
-                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID_v.v,
-                                                                      " where PersonData_$_per_$$ID = " + Person_ID_v.v.ToString(),
+                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID,
+                                                                      " where PersonData_$_per_$$ID = " + Person_ID.ToString(),
                                                                       DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                                     tbl_PersonData,
                                                                                     "PersonData_$_per_$_cln_$$LastName desc",
@@ -242,10 +238,10 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (f_PersonData.InsertEmptyRow(Person_ID_v, ref  PersonData_ID))
+                    if (f_PersonData.InsertEmptyRow(Person_ID, ref  PersonData_ID))
                     {
-                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID_v.v,
-                                                                      " where PersonData_$_per_$$ID = " + Person_ID_v.v.ToString(),
+                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID,
+                                                                      " where PersonData_$_per_$$ID = " + Person_ID.ToString(),
                                                                       DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                       tbl_PersonData,
                                                                       "PersonData_$_per_$_cln_$$LastName desc",
@@ -263,7 +259,7 @@ namespace Tangenta
 
         }
 
-        private void usrc_EditTable1_after_FillDataInputControl_1(SQLTable m_tbl, long ID)
+        private void usrc_EditTable1_after_FillDataInputControl_1(SQLTable m_tbl, ID xID)
         {
             string sbtn_PersonData_Edit = "";
             object oFirstName = usrc_EditTable1.GetColumnObject("myOrganisation_Person_$_per_$_cfn_$$FirstName");

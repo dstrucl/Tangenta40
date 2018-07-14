@@ -596,7 +596,6 @@
       <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="Employees.cs" />
-    <Compile Include="SampleDB_Data.cs" />
     <Compile Include="Form_ProgramSettings.cs">
       <SubType>Form</SubType>
     </Compile>

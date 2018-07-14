@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using DBConnectionControl40;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -140,7 +141,7 @@ namespace Tangenta
         {
             if (usrc_Password1.Match())
             {
-                long DBSettings_ID = -1;
+                ID DBSettings_ID = null;
                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, usrc_Password1.Text, "0", ref DBSettings_ID))
                 {
                     string sbMultiUserOperation = "0";

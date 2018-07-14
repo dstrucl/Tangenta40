@@ -22,6 +22,7 @@ using UpgradeDB;
 using NavigationButtons;
 using Startup;
 using static Tangenta.Program;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -468,33 +469,33 @@ namespace Tangenta
 
 
 
-        private void m_usrc_Invoice_DocInvoiceSaved(long DocInvoice_id)
+        private void m_usrc_Invoice_DocInvoiceSaved(ID DocInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Shops_and_InvoiceTable);
-            long_v Doc_ID_to_show_v = null;
-            if (DocInvoice_id>=0)
+            ID Doc_ID_to_show_v = null;
+            if (ID.Validate(DocInvoice_id))
             {
-                Doc_ID_to_show_v = new long_v(DocInvoice_id);
+                Doc_ID_to_show_v = new ID(DocInvoice_id);
             }
             this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
         }
 
-        private void m_usrc_Invoice_DocProformaInvoiceSaved(long DocProformaInvoice_id)
+        private void m_usrc_Invoice_DocProformaInvoiceSaved(ID DocProformaInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Shops_and_InvoiceTable);
-            long_v Doc_ID_to_show_v = null;
-            if (DocProformaInvoice_id >= 0)
+            ID Doc_ID_to_show = null;
+            if (ID.Validate(DocProformaInvoice_id))
             {
-                Doc_ID_to_show_v = new long_v(DocProformaInvoice_id);
+                Doc_ID_to_show = new ID(DocProformaInvoice_id);
             }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show);
         }
 
-        private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long DocInvoice_ID,bool bInitialise)
+        private void m_usrc_InvoiceTable_SelectedInvoiceChanged(ID DocInvoice_ID,bool bInitialise)
         {
-            if (DocInvoice_ID >= 0)
+            if (ID.Validate(DocInvoice_ID))
             {
                 if (m_usrc_DocumentEditor.DoCurrent(DocInvoice_ID))
                 {
@@ -524,7 +525,7 @@ namespace Tangenta
             }
         }
 
-        private void New_Empty_Doc(xCurrency currency,long xAtom_Currency_ID)
+        private void New_Empty_Doc(xCurrency currency,ID xAtom_Currency_ID)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_DocumentEditor.InvoiceType)
@@ -688,7 +689,7 @@ namespace Tangenta
             }
         }
 
-        private void New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
+        private void New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, ID xAtom_Currency_ID)
         {
             if (this.Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(xFinancialYear))
             {
@@ -726,7 +727,7 @@ namespace Tangenta
         }
 
 
-        private void New_Copy_To_Another_DocType(int xFinancialYear, xCurrency currency, long xAtom_Currency_ID)
+        private void New_Copy_To_Another_DocType(int xFinancialYear, xCurrency currency, ID xAtom_Currency_ID)
         {
             if (this.Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(xFinancialYear))
             {
@@ -785,7 +786,7 @@ namespace Tangenta
         }
 
  
-        private void m_usrc_Invoice_Customer_Person_Changed(long Customer_Person_ID)
+        private void m_usrc_Invoice_Customer_Person_Changed(ID Customer_Person_ID)
         {
             Customer_Changed = true;
             if (this.m_usrc_TableOfDocuments.Visible)
@@ -795,7 +796,7 @@ namespace Tangenta
             }
         }
 
-        private void m_usrc_Invoice_aa_Customer_Org_Changed(long Customer_Org_ID)
+        private void m_usrc_Invoice_aa_Customer_Org_Changed(ID Customer_Org_ID)
         {
             Customer_Changed = true;
             if (this.m_usrc_TableOfDocuments.Visible)
@@ -933,7 +934,7 @@ namespace Tangenta
 
                                     Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
-                                    xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
+                                    xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID, xnav);
                                     xnav.ShowDialog();
                                     if (xnav.eExitResult == Navigation.eEvent.PREV)
                                     {
@@ -1363,7 +1364,7 @@ namespace Tangenta
 
 
 
-        private bool getWorkPeriod(long myOrganisation_Person_ID, ref long xAtom_WorkPeriod_ID)
+        private bool getWorkPeriod(ID myOrganisation_Person_ID, ref ID xAtom_WorkPeriod_ID)
         {
             string Err = null;
             if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null, ref Err))
@@ -1373,17 +1374,18 @@ namespace Tangenta
             }
             else
             {
-                xAtom_WorkPeriod_ID = -1;
-                GlobalData.Atom_WorkPeriod_ID = -1;
+                xAtom_WorkPeriod_ID = null;
+                GlobalData.Atom_WorkPeriod_ID = null;
                 return false;
             }
         }
 
-        public bool call_Edit_myOrganisationPerson(Form parentform, long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new)
+        public bool call_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
         {
             Navigation xnav = new Navigation(null);
             xnav.m_eButtons = Navigation.eButtons.OkCancel;
-            Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(1, xnav);
+            // TRICKY DOCHANGE
+            Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(new ID(1), xnav);
             frm_myOrgPerEdit.TopMost = parentform.TopMost;
             frm_myOrgPerEdit.Show(parentform);
             return true;
@@ -1417,8 +1419,8 @@ namespace Tangenta
             else // Single user
             {
                 this.loginControl1.Visible = false;
-                long myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
-                if (myOrganisation_Person_first_ID >= 0)
+                ID myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
+                if (ID.Validate(myOrganisation_Person_first_ID))
                 {
                     if (Program.bFirstTimeInstallation)
                     {

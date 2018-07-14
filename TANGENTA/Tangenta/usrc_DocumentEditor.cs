@@ -22,12 +22,13 @@ using ShopC;
 using System.Drawing;
 using System.Linq;
 using Startup;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
     public partial class usrc_DocumentEditor : UserControl
     {
-        public long Atom_Currency_ID = -1;
+        public ID Atom_Currency_ID = null;
 
         public usrc_ShopA m_usrc_ShopA = null;
         public usrc_ShopB m_usrc_ShopB = null;
@@ -125,22 +126,22 @@ namespace Tangenta
         public delegate void delegate_Storno(bool bStorno);
         public event delegate_Storno Storno = null;
 
-        public delegate void delegate_DocInvoiceSaved(long DocInvoice_id);
+        public delegate void delegate_DocInvoiceSaved(ID DocInvoice_id);
         public event delegate_DocInvoiceSaved aa_DocInvoiceSaved;
 
-        public delegate void delegate_DocProformaInvoiceSaved(long DocProformaInvoice_id);
+        public delegate void delegate_DocProformaInvoiceSaved(ID DocProformaInvoice_id);
         public event delegate_DocProformaInvoiceSaved aa_DocProformaInvoiceSaved;
 
-        public delegate void delegate_Customer_Person_Changed(long Customer_Person_ID);
+        public delegate void delegate_Customer_Person_Changed(ID Customer_Person_ID);
         public event delegate_Customer_Person_Changed aa_Customer_Person_Changed = null;
 
-        public delegate void delegate_Customer_Org_Changed(long Customer_Org_ID);
+        public delegate void delegate_Customer_Org_Changed(ID Customer_Org_ID);
         public event delegate_Customer_Org_Changed aa_Customer_Org_Changed = null;
 
 
 
-        public long Last_myOrganisation_id = 1;
-        public long Last_myOrganisation_Person_id = 1;
+        public ID Last_myOrganisation_id = null;
+        public ID Last_myOrganisation_Person_id = null;
 
         public emode m_mode = emode.view_eDocumentType;
 
@@ -260,12 +261,12 @@ namespace Tangenta
             return false;
         }
 
-        private void M_usrc_ShopA_aa_ItemRemoved(long ID, DataTable dt)
+        private void M_usrc_ShopA_aa_ItemRemoved(ID ID, DataTable dt)
         {
             GetPriceSum();
         }
 
-        private void M_usrc_ShopA_aa_ItemAdded(long ID, DataTable dt)
+        private void M_usrc_ShopA_aa_ItemAdded(ID ID, DataTable dt)
         {
             GetPriceSum();
         }
@@ -628,7 +629,7 @@ namespace Tangenta
 
         private bool EventsActive;
 
-        public long PriceList_ShopB_ID
+        public ID PriceList_ShopB_ID
         {
             get
             {
@@ -640,19 +641,19 @@ namespace Tangenta
                 {
                     if (this.DesignMode)
                     {
-                        return -1;
+                        return null;
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
-                        return -1;
+                        return null;
                     }
                 }
             }
         }
 
 
-        public long PriceList_ShopC_ID
+        public ID PriceList_ShopC_ID
         {
             get
             {
@@ -664,12 +665,12 @@ namespace Tangenta
                 {
                     if (this.DesignMode)
                     {
-                        return -1;
+                        return null;
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
-                        return -1;
+                        return null;
                     }
                 }
             }
@@ -885,7 +886,7 @@ namespace Tangenta
                     nav_edt_my_company_person_dlg.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 }
 
-                nav_edt_my_company_person_dlg.ChildDialog = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID_v.v, nav_edt_my_company_person_dlg);
+                nav_edt_my_company_person_dlg.ChildDialog = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID, nav_edt_my_company_person_dlg);
                 this.Cursor = Cursors.Arrow;
                 nav_edt_my_company_person_dlg.ShowDialog();
                 return true;
@@ -901,11 +902,11 @@ namespace Tangenta
         {
             if (myOrg.myOrg_Office_list.Count > 0)
             {
-                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav),typeof(Form_myOrg_Office_Data).ToString());
+                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID, xnav),typeof(Form_myOrg_Office_Data).ToString());
             }
             else
             {
-                xnav.ShowForm(new Form_myOrg_Office_Data(-1, xnav), typeof(Form_myOrg_Office_Data).ToString());
+                xnav.ShowForm(new Form_myOrg_Office_Data(null, xnav), typeof(Form_myOrg_Office_Data).ToString());
             }
             return true;
         }
@@ -914,7 +915,7 @@ namespace Tangenta
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_office_data_FVI_SLO_RealEstateBP = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
+            Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_office_data_FVI_SLO_RealEstateBP = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID, xnav);
             dres = frm_office_data_FVI_SLO_RealEstateBP.ShowDialog(this);
             if (dres == DialogResult.OK)
             {
@@ -930,13 +931,13 @@ namespace Tangenta
 
         internal bool Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
+            xnav.ShowForm(new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID, xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
             return true;
         }
 
         internal bool Startup_05_Show_Form_SetElectronicDeviceName(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_SetElectronicDeviceName(myOrg.myOrg_Office., xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
+            xnav.ShowForm(new Form_SetElectronicDeviceName(myOrg.Atom_ElectronicDevice_ID, xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
             return true;
         }
 
@@ -957,7 +958,7 @@ namespace Tangenta
             }
         }
 
-        internal bool Startup_05_ShowForm_Form_myOrg_Person_Edit(long x_Office_ID,bool bAllowNew, NavigationButtons.Navigation xnav)
+        internal bool Startup_05_ShowForm_Form_myOrg_Person_Edit(ID x_Office_ID,bool bAllowNew, NavigationButtons.Navigation xnav)
         {
             xnav.ShowForm(new Form_myOrg_Person_Edit(x_Office_ID,xnav), typeof(Form_myOrg_Person_Edit).ToString());
             return true;
@@ -999,7 +1000,7 @@ namespace Tangenta
             }
         }
 
-        public bool Init(NavigationButtons.Navigation xnav,long Document_ID)
+        public bool Init(NavigationButtons.Navigation xnav,ID Document_ID)
         {
             if (DBtcn == null)
             {
@@ -1016,7 +1017,6 @@ namespace Tangenta
             else
             {
                 m_InvoiceData.DocInvoice_ID = Document_ID;
-                m_InvoiceData.DocInvoice_ID_v = tf.set_long(Document_ID);
             }
 
             if (Properties.Settings.Default.eShopsMode.Length==0)
@@ -1167,9 +1167,9 @@ namespace Tangenta
             }
         }
 
-        public bool DoCurrent(long ID)
+        public bool DoCurrent(ID xID)
         {
-            if (DoGetCurrent(ID))
+            if (DoGetCurrent(xID))
             {
                 if (m_ShopABC.m_CurrentInvoice.ShowDraftButtons())
                 {
@@ -1180,13 +1180,13 @@ namespace Tangenta
                     this.m_usrc_ShopB.SetViewButtons();
                 }
                 this.usrc_Customer.Show_Customer(m_ShopABC.m_CurrentInvoice);
-                this.usrc_AddOn1.Show(ID);
+                this.usrc_AddOn1.Show(xID);
                 return true;
             }
             else
             {
                 usrc_Customer.Text = "";
-                this.usrc_AddOn1.Show(-1);
+                this.usrc_AddOn1.Show(null);
                 return false;
             }
         }
@@ -1206,9 +1206,9 @@ namespace Tangenta
             Properties.Settings.Default.Save();
         }
 
-        private bool DoGetCurrent(long ID)
+        private bool DoGetCurrent(ID xID)
         {
-            if (GetCurrent(ID))
+            if (GetCurrent(xID))
             {
                 GetPriceSum();
                 if (m_ShopABC.m_CurrentInvoice.bDraft)
@@ -1534,7 +1534,7 @@ namespace Tangenta
             }
         }
 
-        internal bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data, long PriceList_id)
+        internal bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data, ID PriceList_id)
         {
             if (this.m_usrc_ShopB.Get_Price_ShopBItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
             {
@@ -1689,7 +1689,7 @@ namespace Tangenta
 
                 if (myOrg.myOrg_Office_list.Count > 0)
                 {
-                    if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
+                    if (!ID.Validate(myOrg.myOrg_Office_list[0].Office_Data_ID))
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
@@ -1732,7 +1732,7 @@ namespace Tangenta
 
                         if (f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name, ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
                         {
-                            if (!ID.IsValid(GlobalData.Atom_ElectronicDevice_ID))
+                            if (!ID.Validate(GlobalData.Atom_ElectronicDevice_ID))
                             {
                                 return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME;
                             }
@@ -1797,20 +1797,20 @@ namespace Tangenta
             }
         }
 
-        private bool GetCurrent(long ID)
+        private bool GetCurrent(ID xID)
         {
             switch (eInvoiceType)
             {
                 case enum_Invoice.TaxInvoice:
                 case enum_Invoice.ProformaInvoice:
-                    return GetCurrentInvoice(ID);
+                    return GetCurrentInvoice(xID);
             }
             return false;
 
         }
 
 
-        private bool GetCurrentInvoice(long DocInvoice_ID)
+        private bool GetCurrentInvoice(ID DocInvoice_ID)
         {
         string Err = null;
             //
@@ -1927,7 +1927,7 @@ namespace Tangenta
             {
                 GlobalData.BaseCurrency = new xCurrency();
             }
-            long DefaultCurrency_ID = myOrg.Default_Currency_ID;
+            ID DefaultCurrency_ID = myOrg.Default_Currency_ID;
             xnav.ShowForm(new Form_Select_DefaultCurrency(DefaultCurrency_ID, ref GlobalData.BaseCurrency, xnav), typeof(Form_Select_DefaultCurrency).ToString());
         }
 
@@ -1951,7 +1951,7 @@ namespace Tangenta
             {
                 GlobalData.BaseCurrency = new xCurrency();
             }
-            long DefaultCurrency_ID = myOrg.Default_Currency_ID;
+            ID DefaultCurrency_ID = myOrg.Default_Currency_ID;
             Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(DefaultCurrency_ID,ref GlobalData.BaseCurrency,xnav);
             xnav.ChildDialog = sel_basecurrency_dlg;
             xnav.ShowDialog();
@@ -2025,7 +2025,7 @@ namespace Tangenta
             }
         }
 
-        public void SetNewDraft(enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, long Atom_Currency_ID)
+        public void SetNewDraft(enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID)
         {
             switch (eInvoiceType)
             {
@@ -2047,13 +2047,13 @@ namespace Tangenta
 
         }
 
-        private bool SetNewInvoiceDraft(int FinancialYear, xCurrency xcurrency, long xAtom_Currency_ID)
+        private bool SetNewInvoiceDraft(int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID)
         {
-            long DocInvoice_ID = -1;
+            ID DocInvoice_ID = null;
             string Err = null;
             if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
             {
-                if (m_ShopABC.m_CurrentInvoice.Doc_ID >= 0)
+                if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))
                 {
                     this.txt_Number.Text = m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentInvoice.DraftNumber.ToString();
                     SetMode(emode.edit_eDocumentType);
@@ -2072,9 +2072,9 @@ namespace Tangenta
         {
             EditMyOrganisation_Person_Data(0,nav);
             myOrg.Get(1);
-            if (Last_myOrganisation_Person_id >= 0)
+            if (ID.Validate(Last_myOrganisation_Person_id))
             {
-                long Atom_myOrganisation_Person_ID = -1;
+                ID Atom_myOrganisation_Person_ID = null;
                 string_v office_name = null;
                // string Err = null;
                 f_Atom_myOrganisation_Person.Get(Last_myOrganisation_Person_id, ref Atom_myOrganisation_Person_ID, ref office_name);
@@ -2175,22 +2175,22 @@ namespace Tangenta
             GetPriceSum();
         }
 
-        private void usrc_ShopB_ItemUpdated(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ItemUpdated(ID ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        private void usrc_ShopB_ExtraDiscount(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ExtraDiscount(ID ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        private void usrc_ShopB_ItemRemoved(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ItemRemoved(ID ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        private void usrc_ShopB_ItemAdded(long ID, DataTable dt_SelectedSimpleItem)
+        private void usrc_ShopB_ItemAdded(ID ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
@@ -2238,7 +2238,7 @@ namespace Tangenta
                 {
                     this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                   
-                    long DocInvoice_ID = -1;
+                    ID DocInvoice_ID = null;
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name))
                     {
@@ -2281,7 +2281,7 @@ namespace Tangenta
                 }
                 else if (IsDocProformaInvoice)
                 {
-                    long DocInvoice_ID = -1;
+                    ID DocInvoice_ID = null;
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name))
                     {
@@ -2365,9 +2365,9 @@ namespace Tangenta
                     string xSerialNumber = null;
                     string xSetNumber = null;
                     string xInvoiceNumber = null;
-                    Program.usrc_FVI_SLO1.Write_SalesBookInvoice(m_InvoiceData.DocInvoice_ID_v.v, m_InvoiceData.FinancialYear, m_InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
-                    long FVI_SLO_SalesBookInvoice_ID = -1;
-                    if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(m_InvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                    Program.usrc_FVI_SLO1.Write_SalesBookInvoice(m_InvoiceData.DocInvoice_ID, m_InvoiceData.FinancialYear, m_InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                    ID FVI_SLO_SalesBookInvoice_ID = null;
+                    if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(m_InvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
                     {
                         MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
 
@@ -2512,13 +2512,13 @@ namespace Tangenta
             return false;
         }
 
-        private void usrc_Customer_Customer_Person_Changed(long Customer_Person_ID)
+        private void usrc_Customer_Customer_Person_Changed(ID Customer_Person_ID)
         {
-            long_v Atom_Customer_Person_ID_v = null;
+            ID Atom_Customer_Person_ID = null;
             this.Cursor = Cursors.WaitCursor;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(DocInvoice,Customer_Person_ID, ref Atom_Customer_Person_ID_v))
+            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(DocInvoice,Customer_Person_ID, ref Atom_Customer_Person_ID))
             {
-                if (Atom_Customer_Person_ID_v != null)
+                if (ID.Validate(Atom_Customer_Person_ID))
                 {
                     usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentInvoice);
                     if (aa_Customer_Person_Changed != null)
@@ -2565,7 +2565,7 @@ namespace Tangenta
                                 if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                                 {
     
-                                    long Storno_DocInvoice_ID = -1;
+                                    ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
                                     if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_DocInvoice_ID,true,GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
@@ -2612,9 +2612,9 @@ namespace Tangenta
                                                 string xSerialNumber = null;
                                                 string xSetNumber = null;
                                                 string xInvoiceNumber = null;
-                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID_v.v, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
-                                                long FVI_SLO_SalesBookInvoice_ID = -1;
-                                                if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                                ID FVI_SLO_SalesBookInvoice_ID = null;
+                                                if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
                                                 {
                                                     MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
                                                 }
@@ -2639,14 +2639,14 @@ namespace Tangenta
 
 
 
-        private void usrc_Customer_Customer_Org_Changed(long Customer_Org_ID)
+        private void usrc_Customer_Customer_Org_Changed(ID Customer_Org_ID)
         {
             this.Cursor = Cursors.WaitCursor;
-            long_v Atom_Customer_Org_ID_v = null;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocInvoice,Customer_Org_ID, ref Atom_Customer_Org_ID_v))
+            ID Atom_Customer_Org_ID = null;
+            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocInvoice,Customer_Org_ID, ref Atom_Customer_Org_ID))
             {
-                m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID = Atom_Customer_Org_ID_v;
-                if (Atom_Customer_Org_ID_v != null)
+                m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
+                if (ID.Validate(Atom_Customer_Org_ID))
                 {
                     usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentInvoice);
                     if (aa_Customer_Org_Changed != null)
@@ -2696,7 +2696,7 @@ namespace Tangenta
             EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
         }
 
-        private void usrc_Currency1_CurrencyChanged(xCurrency currency, long xAtom_Currency_ID)
+        private void usrc_Currency1_CurrencyChanged(xCurrency currency, ID xAtom_Currency_ID)
         {
             GlobalData.BaseCurrency = currency;
             Atom_Currency_ID = xAtom_Currency_ID;

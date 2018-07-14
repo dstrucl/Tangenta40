@@ -70,7 +70,7 @@ namespace Tangenta
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     //DataBaseVersion Not written !
-                    long ID_Version = -1;
+                    ID ID_Version = null;
                     if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
                     {
                         eres = Startup_check_proc_Result.CHECK_OK;

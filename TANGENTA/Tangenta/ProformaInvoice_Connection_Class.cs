@@ -13,6 +13,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -27,7 +28,7 @@ namespace Tangenta
             foreach (DataRow dr in dt_atom_price_simpleitem.Rows)
             {
                 dr["DocInvoice_ID"] = new_DocInvoice_id;
-                long atom_price_simpleitem_ID = -1;
+                ID atom_price_simpleitem_ID = null;
                 if (!fs.WriteRow("atom_price_simpleitem", dr, null, false, ref atom_price_simpleitem_ID))
                 {
                     return false;
@@ -36,7 +37,7 @@ namespace Tangenta
             foreach (DataRow dr in dt_journal_docinvoice.Rows)
             {
                 dr["DocInvoice_ID"] = new_DocInvoice_id;
-                long journal_docinvoice_ID = -1;
+                ID journal_docinvoice_ID = null;
                 if (!fs.WriteRow("journal_docinvoice", dr, null, false, ref journal_docinvoice_ID))
                 {
                     return false;

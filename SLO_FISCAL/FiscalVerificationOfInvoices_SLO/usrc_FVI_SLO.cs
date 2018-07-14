@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Data;
+using DBConnectionControl40;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
@@ -503,7 +504,7 @@ namespace FiscalVerificationOfInvoices_SLO
             return false;
         }
 
-        public void Write_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
+        public void Write_SalesBookInvoice(ID Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
         {
             Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(this,Invoice_ID, FiscalYear, InvoiceNumber, null, null, null, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
             fsb.ShowDialog();
@@ -514,7 +515,7 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
 
-        public void Update_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber, ref string xSerialNumber, ref string xSetNumber, ref string xInvoiceNumber)
+        public void Update_SalesBookInvoice(ID Invoice_ID, int FiscalYear, int InvoiceNumber, ref string xSerialNumber, ref string xSetNumber, ref string xInvoiceNumber)
         {
           Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(this,Invoice_ID, FiscalYear, InvoiceNumber, xSerialNumber, xSetNumber, xInvoiceNumber, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
           fsb.ShowDialog();

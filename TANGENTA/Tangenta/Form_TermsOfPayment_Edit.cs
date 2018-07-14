@@ -16,6 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using CodeTables;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -27,8 +28,8 @@ namespace Tangenta
         private string ColumnOrderBy = null;
         private NavigationButtons.Navigation nav = null;
 
-        private long m_TermsOfPayment_ID = -1;
-        public long TermsOfPayment_ID
+        private ID m_TermsOfPayment_ID = null;
+        public ID TermsOfPayment_ID
         {
             get { return m_TermsOfPayment_ID; }
         }
@@ -117,7 +118,7 @@ namespace Tangenta
 
         public bool Changed { get; set; }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = false;
 
@@ -130,14 +131,14 @@ namespace Tangenta
             return default(bool);
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
             if (bRes)
             {
-                FillProperties(m_tbl, ID);
+                FillProperties(m_tbl, xID);
             }
         }
-        private void FillProperties(SQLTable m_tbl, long ID)
+        private void FillProperties(SQLTable m_tbl, ID ID)
         {
             this.m_TermsOfPayment_ID = ID;
             this.m_Description = null;
@@ -151,9 +152,9 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, ID xID, int index)
         {
-            FillProperties(m_tbl, ID);
+            FillProperties(m_tbl, xID);
         }
     }
 }

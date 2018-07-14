@@ -18,22 +18,23 @@ using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
     public partial class usrc_Customer : UserControl
     {
-        public delegate void delegate_Customer_Person_Changed(long Customer_Person_ID);
+        public delegate void delegate_Customer_Person_Changed(ID Customer_Person_ID);
         public event delegate_Customer_Person_Changed aa_Customer_Person_Changed = null;
 
-        public delegate void delegate_Customer_Org_Changed(long Customer_Org_ID);
+        public delegate void delegate_Customer_Org_Changed(ID Customer_Org_ID);
         public event delegate_Customer_Org_Changed aa_Customer_Org_Changed = null;
 
         public delegate bool delegate_Customer_Removed();
         public event delegate_Customer_Removed aa_Customer_Removed = null;
 
-        public long_v Customer_OrganisationData_ID_v = null;
-        public long_v Customer_Person_ID_v = null;
+        public ID Customer_OrganisationData_ID = null;
+        public ID Customer_Person_ID = null;
         public NavigationButtons.Navigation nav = null;
         private List<CustomerItem> CustomerItemType_List = null;
         public usrc_Customer()
@@ -79,15 +80,15 @@ namespace Tangenta
 
             if (Customer_Person_dlg.ShowDialog()==DialogResult.Yes)
             {
-                if (Customer_Person_ID_v == null)
+                if (Customer_Person_ID == null)
                 {
-                    Customer_Person_ID_v = new long_v();
+                    Customer_Person_ID = new ID();
                 }
-                Customer_Person_ID_v.v = Customer_Person_dlg.CustomerPerson_ID;
+                Customer_Person_ID.Set(Customer_Person_dlg.CustomerPerson_ID);
                 if (aa_Customer_Person_Changed != null)
                 {
                     Program.Cursor_Wait();
-                    aa_Customer_Person_Changed(Customer_Person_ID_v.v);
+                    aa_Customer_Person_Changed(Customer_Person_ID);
                     Program.Cursor_Arrow();
                 }
             }
@@ -102,15 +103,15 @@ namespace Tangenta
                                                             "Customer_Org_$_orgd_$_org_$$Name desc",nav);
             if (Customer_Org_dlg.ShowDialog()==DialogResult.Yes)
             {
-                if (Customer_OrganisationData_ID_v == null)
+                if (Customer_OrganisationData_ID == null)
                 {
-                    Customer_OrganisationData_ID_v = new long_v();
+                    Customer_OrganisationData_ID = new ID();
                 }
-                Customer_OrganisationData_ID_v.v = Customer_Org_dlg.Customer_OrganisationData_ID;
+                Customer_OrganisationData_ID.Set(Customer_Org_dlg.Customer_OrganisationData_ID);
                 if (aa_Customer_Org_Changed != null)
                 {
                     Program.Cursor_Wait();
-                    aa_Customer_Org_Changed(Customer_OrganisationData_ID_v.v);
+                    aa_Customer_Org_Changed(Customer_OrganisationData_ID);
                     Program.Cursor_Arrow();
                 }
             }
@@ -198,14 +199,14 @@ namespace Tangenta
             CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(sql, tbl_Customer_Person, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog()==DialogResult.OK)
             {
-                if (Customer_Person_ID_v == null)
+                if (Customer_Person_ID == null)
                 {
-                    Customer_Person_ID_v = new long_v();
+                    Customer_Person_ID= new ID();
                 }
-                Customer_Person_ID_v.v = selectID_Table_Assistant_Form.ID;
+                Customer_Person_ID.Set(selectID_Table_Assistant_Form.ID);
                 if (aa_Customer_Person_Changed!=null)
                 {
-                    aa_Customer_Person_Changed(Customer_Person_ID_v.v);
+                    aa_Customer_Person_Changed(Customer_Person_ID);
                 }
             }
         }
@@ -232,14 +233,14 @@ namespace Tangenta
             CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(tbl_Customer_Org, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog() == DialogResult.OK)
             {
-                if (Customer_OrganisationData_ID_v == null)
+                if (Customer_OrganisationData_ID == null)
                 {
-                    Customer_OrganisationData_ID_v = new long_v();
+                    Customer_OrganisationData_ID = new ID();
                 }
-                Customer_OrganisationData_ID_v.v = selectID_Table_Assistant_Form.ID;
+                Customer_OrganisationData_ID.Set(selectID_Table_Assistant_Form.ID);
                 if (aa_Customer_Org_Changed != null)
                 {
-                    aa_Customer_Org_Changed(Customer_OrganisationData_ID_v.v);
+                    aa_Customer_Org_Changed(Customer_OrganisationData_ID);
                 }
             }
         }
@@ -321,7 +322,7 @@ namespace Tangenta
         {
             if (x_CurrentInvoice.Atom_Customer_Person_ID != null)
             {
-                long Atom_Customer_Person_ID = x_CurrentInvoice.Atom_Customer_Person_ID.v;
+                ID Atom_Customer_Person_ID = x_CurrentInvoice.Atom_Customer_Person_ID;
                 string sql = @"select
                                         Atom_Customer_Person_$_aper_$_acfn_$$FirstName,
                                         Atom_Customer_Person_$_aper_$_acln_$$LastName,
@@ -428,9 +429,9 @@ namespace Tangenta
 
         public void Show_Customer_Org(TangentaDB.CurrentInvoice x_CurrentInvoice)
         {
-            if (x_CurrentInvoice.Atom_Customer_Org_ID != null)
+            if (ID.Validate(x_CurrentInvoice.Atom_Customer_Org_ID))
             {
-                long Atom_Customer_Org_ID = x_CurrentInvoice.Atom_Customer_Org_ID.v;
+                ID Atom_Customer_Org_ID = x_CurrentInvoice.Atom_Customer_Org_ID;
                 string sql = @"SELECT 
                                 Atom_Customer_Org.ID,
                                 Atom_Customer_Org_$_aorg.Name,

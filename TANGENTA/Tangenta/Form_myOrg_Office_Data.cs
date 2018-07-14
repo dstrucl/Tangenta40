@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -22,11 +23,11 @@ namespace Tangenta
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
         private string ColumnToOrderBy = "Office_Data_$_office_$$Name asc";
-        private long m_Office_ID = -1;
+        private ID m_Office_ID = null;
         private SQLTable tbl_Office_Data = null;
         private NavigationButtons.Navigation nav = null;
 
-        public Form_myOrg_Office_Data(long xOffice_ID,NavigationButtons.Navigation xnav)
+        public Form_myOrg_Office_Data(ID xOffice_ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
@@ -56,7 +57,7 @@ namespace Tangenta
                                     Office_Data_$_cadrorg_$_cstorg_$$State,
                                     ID";
             string swhere = "";
-            if (m_Office_ID>=0)
+            if (ID.Validate(m_Office_ID))
             {
                 swhere = " where  Office_Data_$_office_$$ID = " + m_Office_ID.ToString() + " ";
             }
@@ -87,7 +88,7 @@ namespace Tangenta
         #region Fill ReadOnlyDaTa
         private void usrc_EditTable1_FillTable(SQLTable m_tbl)
         {
-            if (m_Office_ID >= 0)
+            if (ID.Validate(m_Office_ID))
             {
                 if (m_tbl.TableName.ToLower().Equals("office"))
                 {
@@ -95,15 +96,12 @@ namespace Tangenta
                     m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, m_Office_ID, true, ref Err);
                 }
             }
-            else if (myOrg.ID != null)
+            else if (ID.Validate(myOrg.ID))
             {
-                if (myOrg.ID.v >= 0)
+                if (m_tbl.TableName.ToLower().Equals("myorganisation"))
                 {
-                    if (m_tbl.TableName.ToLower().Equals("myorganisation"))
-                    {
-                        string Err = null;
-                        m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, myOrg.ID.v, true, ref Err);
-                    }
+                    string Err = null;
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, myOrg.ID, true, ref Err);
                 }
             }
         }
@@ -123,7 +121,7 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
             if (bRes)
             {

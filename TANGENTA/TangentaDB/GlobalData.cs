@@ -496,7 +496,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool InsertIntoBaseCurrency(long currency_ID, ref string Err)
+        public static bool InsertIntoBaseCurrency(ID currency_ID, ref string Err)
         {
             string sql_SetBaseCurrency = "Insert into BaseCurrency (Currency_ID) Values (" + currency_ID.ToString() + ")";
             object oRes = null;

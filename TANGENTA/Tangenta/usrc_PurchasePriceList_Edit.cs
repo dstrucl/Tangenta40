@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -70,7 +71,7 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable_PurchasePrice_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_PurchasePrice_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
             // Now create price lists
             if (bRes)
@@ -79,18 +80,18 @@ namespace Tangenta
                 tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 SelectID_Table_Assistant_Form  SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation,DBSync.DBSync.DB_for_Tangenta.m_DBTables,null);
                 SelectID_Table_dlg.ShowDialog();
-                long id_Taxation = SelectID_Table_dlg.ID;
-                if (id_Taxation>=0)
+                ID id_Taxation = SelectID_Table_dlg.ID;
+                if (ID.Validate(id_Taxation))
                 {
                     string Err = null;
                     string sql = @" insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,Taxation_ID,PurchasePricePerUnit,Discount) 
-                                select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
+                                select id," + xID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                     {
                         SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
                         tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                        string where_condition = " where PurchasePrice_$_ID = " + ID.ToString() + " ";
+                        string where_condition = " where PurchasePrice_$_ID = " + xID.ToString() + " ";
                         string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
                                  PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
@@ -115,7 +116,7 @@ namespace Tangenta
             b_InsertInDataBase = false;
         }
 
-        private void Edit_PurchasePrice_Item(long id_Taxation)
+        private void Edit_PurchasePrice_Item(ID id_Taxation)
         {
             string Err = null;
             string sql = @"select ID from PurchasePrice_Item ";
@@ -204,9 +205,9 @@ namespace Tangenta
         }
 
 
-        private void usrc_EditTable_PriceList_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        private void usrc_EditTable_PriceList_SelectedIndexChanged(SQLTable m_tbl, ID xID, int index)
         {
-            string where_condition = " where PurchasePrice_Item_$_pp_$$ID = " + ID.ToString() + " ";
+            string where_condition = " where PurchasePrice_Item_$_pp_$$ID = " + xID.ToString() + " ";
             SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
             tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             string selection = @"ID,

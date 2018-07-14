@@ -18,17 +18,19 @@ using LogFile;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
+using DBConnectionControl40;
+using DBTypes;
 
 namespace Tangenta
 {
     public partial class Form_Select_DefaultCurrency : Form
     {
-        private long DefaultCurrency_ID = -1;
-        public long Currency_ID = -1;
+        private ID DefaultCurrency_ID = null;
+        public ID Currency_ID = null;
         public TangentaDB.xCurrency m_xCurrency = null;
         private NavigationButtons.Navigation nav = null;
         private DataTable dtCurrency = new DataTable();
-        public Form_Select_DefaultCurrency(long xDefaultCurrency_ID, ref TangentaDB.xCurrency xxCurrency, NavigationButtons.Navigation xnav)
+        public Form_Select_DefaultCurrency(ID xDefaultCurrency_ID, ref TangentaDB.xCurrency xxCurrency, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
@@ -62,7 +64,7 @@ namespace Tangenta
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Currency)));
                     tbl.Set_DataGridViewImageColumns_Headers(dgvx_Currency);
 
-                    if (DefaultCurrency_ID >= 0)
+                    if (ID.Validate(DefaultCurrency_ID))
                     {
                         DataRow[] drs = dtCurrency.Select("ID = " + DefaultCurrency_ID.ToString());
                         if (drs.Count() > 0)
@@ -95,7 +97,7 @@ namespace Tangenta
             if (dgr.Count > 0)
             {
                 int index = dgvx_Currency.SelectedRows[0].Index;
-                Currency_ID = (long)dtCurrency.Rows[index]["ID"];
+                Currency_ID = tf.set_ID(dtCurrency.Rows[index]["ID"]);
                 m_xCurrency.ID = Currency_ID;
                 m_xCurrency.Name = (string)dtCurrency.Rows[index]["Name"];
                 m_xCurrency.Abbreviation = (string)dtCurrency.Rows[index]["Abbreviation"];

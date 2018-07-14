@@ -10,16 +10,17 @@ using TangentaDB;
 using NavigationButtons;
 using CodeTables;
 using TangentaTableClass;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
     public partial class usrc_Currency : UserControl
     {
-        public delegate void delegate_CurrencyChanged(xCurrency Currency, long Atom_Currency_ID);
+        public delegate void delegate_CurrencyChanged(xCurrency Currency, ID Atom_Currency_ID);
         public event delegate_CurrencyChanged CurrencyChanged = null;
 
         public xCurrency Currency = new xCurrency();
-        public long Atom_Currency_ID = -1;
+        public ID Atom_Currency_ID = null;
         public usrc_Currency()
         {
             InitializeComponent();

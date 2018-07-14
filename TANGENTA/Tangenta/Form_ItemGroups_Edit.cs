@@ -16,6 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using CodeTables;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -90,7 +91,7 @@ namespace Tangenta
 
         public bool Changed { get; set; }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = false;
 

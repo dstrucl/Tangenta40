@@ -20,6 +20,7 @@ using DBTypes;
 using TangentaTableClass;
 using CodeTables.TableDocking_Form;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -38,14 +39,14 @@ namespace Tangenta
         internal string City = null;
         internal string State = null;
         internal string Country = null;
-        private List<long> List_of_Inserted_Items_ID = null;
+        private List<ID> List_of_Inserted_Items_ID = null;
         private DataTable dt_Item = new DataTable();
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
-        private long_v ID_v = null;
+        private ID ID = null;
         private string ColumnOrderBy = "";
         private NavigationButtons.Navigation nav = null;
-        public long Customer_OrganisationData_ID = -1;
+        public ID Customer_OrganisationData_ID = null;
 
 
         public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
@@ -59,15 +60,14 @@ namespace Tangenta
 
         }
 
-        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long ID,NavigationButtons.Navigation xnav)
+        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,ID xID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = ID;
+            ID = xID;
             this.Text = lng.s_Customers_org.s;
 
         }
@@ -93,7 +93,7 @@ namespace Tangenta
 
             //Customer_Org_EditMode = eCustomer_Org_EditMode.SELECT_ALL;
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID, false,nav);
 
         }
         private void Form_Customer_Person_Edit_Load(object sender, EventArgs e)
@@ -102,7 +102,7 @@ namespace Tangenta
             this.btn_OrganisationData.Text = lng.s_OrganisationData.s;
             if (Init())
             {
-                List_of_Inserted_Items_ID = new List<long>();
+                List_of_Inserted_Items_ID = new List<ID>();
             }
             else
             {
@@ -122,7 +122,7 @@ namespace Tangenta
                 }
             }
 
-            if (usrc_EditTable.Identity >= 0)
+            if (ID.Validate(usrc_EditTable.Identity))
             {
                 Form_Customer_Org_Assign Customer_Assign_Org_dlg = new Form_Customer_Org_Assign(usrc_EditTable.Identity);
                 if (Customer_Assign_Org_dlg.ShowDialog() == DialogResult.Yes)
@@ -166,9 +166,9 @@ namespace Tangenta
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
-            List_of_Inserted_Items_ID.Add(ID);
+            List_of_Inserted_Items_ID.Add(xID);
         }
 
         private void Item_EditForm_FormClosing(object sender, FormClosingEventArgs e)

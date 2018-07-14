@@ -27,7 +27,7 @@ namespace Tangenta
     public partial class usrc_TableOfDocuments : UserControl
     {
         public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear, TimeSpan };
-        public delegate void delegate_SelectedInvoiceChanged(long Invoice_ID, bool bInitialise);
+        public delegate void delegate_SelectedInvoiceChanged(ID Invoice_ID, bool bInitialise);
         public event delegate_SelectedInvoiceChanged SelectedInvoiceChanged;
         public Color ColorDraft;
         public Color ColorStorno;
@@ -99,7 +99,7 @@ namespace Tangenta
             { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
         }
 
-        public long Current_Doc_ID
+        public ID Current_Doc_ID
         {
             get { if (iCurrentSelectedRow >= 0)
                   {
@@ -107,20 +107,20 @@ namespace Tangenta
                     {
                         if (iCurrentSelectedRow < dt_XInvoice.Rows.Count)
                         {
-                            long id = -1;
+                            ID id = null;
                             if (IsDocInvoice)
                             {
-                                id = (long)dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocInvoice_$_dinv_$$ID"];
+                                id = tf.set_ID(dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocInvoice_$_dinv_$$ID"]);
                             }
                             else if (IsDocProformaInvoice)
                             {
-                                id = (long)dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
+                                id = tf.set_ID(dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"]);
                             }
                             return id;
                         }
                     }
                     }
-                  return -1;
+                  return null;
                 }
         }
 
@@ -160,7 +160,7 @@ namespace Tangenta
                           bool bNew,
                           bool bInitialise_usrc_Invoice,
                           int iFinancialYear,
-                          long_v Doc_ID_To_show_v)
+                          ID Doc_ID_To_show)
         {
             ColorDraft = Properties.Settings.Default.ColorDraft;
             ColorStorno = Properties.Settings.Default.ColorStorno;
@@ -177,9 +177,9 @@ namespace Tangenta
             }
             else
             {
-                if (Doc_ID_To_show_v!=null)
+                if (ID.Validate(Doc_ID_To_show))
                 {
-                    ShowOrEditSelectedRow(Doc_ID_To_show_v);
+                    ShowOrEditSelectedRow(Doc_ID_To_show);
                 }
             }
             return iRowsCount;
@@ -798,7 +798,7 @@ namespace Tangenta
                         {
                             if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value is long)
                             {
-                                long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value;
+                                ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value);
                                 this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
                                 SelectedInvoiceChanged(Identity, bInitialise);
                                 return;
@@ -808,7 +808,7 @@ namespace Tangenta
                         {
                             if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value is long)
                             {
-                                long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value;
+                                ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value);
                                 this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
                                 SelectedInvoiceChanged(Identity, bInitialise);
                                 return;
@@ -816,19 +816,19 @@ namespace Tangenta
                         }
 
                     }
-                    SelectedInvoiceChanged(-1, bInitialise);
+                    SelectedInvoiceChanged(null, bInitialise);
                 }
             }
         }
 
 
-        private void ShowOrEditSelectedRow(long_v Doc_ID_to_show_v)
+        private void ShowOrEditSelectedRow(ID Doc_ID_to_show)
         {
-            if (Doc_ID_to_show_v != null)
+            if (ID.Validate(Doc_ID_to_show))
             {
                 if (IsDocInvoice)
                 {
-                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Doc_ID_to_show_v.v.ToString());
+                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Doc_ID_to_show.ToString());
                     if (drs.Count() > 0)
                     {
                         int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
@@ -837,14 +837,14 @@ namespace Tangenta
                 }
                 else
                 {
-                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show_v.v.ToString());
+                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show.ToString());
                     if (drs.Count() > 0)
                     {
                         int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
                         dgvx_XInvoice.Rows[iRow].Selected = true;
                     }
                 }
-                         }
+            }
         }
         private void dgvx_XInvoice_SelectionChanged(object sender, EventArgs e)
         {

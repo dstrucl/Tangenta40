@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
@@ -22,7 +23,7 @@ namespace Tangenta
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
         private string ColumnToOrderBy = "Office_$_mo_$_orgd_$_org_$$Name asc";
-        private long myOrganisation_ID = -1;
+        private ID myOrganisation_ID = null;
         private SQLTable tbl_Office = null;
         private NavigationButtons.Navigation nav = null;
 
@@ -34,11 +35,10 @@ namespace Tangenta
             lng.s_Edit_Office_Data.Text(btn_Office_Data_And_FVI_SLO_RealEstateBP);
             if (myOrg.ID != null)
             {
-                myOrganisation_ID = myOrg.ID.v;
+                myOrganisation_ID = myOrg.ID;
                 tbl_Office = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office)));
                 this.Text = lng.s_Edit_Offices.s;
                 this.usrc_EditTable1.Title = lng.s_Edit_Offices.s;
-                long_v myOrganisation_ID_v = new long_v(myOrganisation_ID);
                 string selection = "Office_$$Name,Office_$$ShortName,Office_$_mo_$_orgd_$_org_$$Name,Office_$_mo_$_orgd_$_orgt_$$OrganisationTYPE,Office_$_mo_$_orgd_$_org_$$Tax_ID,ID";
                 string where_condition = " where Office_$_mo_$$ID = " + myOrganisation_ID.ToString() + " ";
                 if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false, nav))
@@ -90,7 +90,7 @@ namespace Tangenta
             }
         }
 
-        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
         {
             if (bRes)
             {
@@ -106,7 +106,7 @@ namespace Tangenta
                     nav_frm_offdata.bDoModal = true;
                     nav_frm_offdata.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 }
-                nav_frm_offdata.ChildDialog = new Form_myOrg_Office_Data(ID, nav_frm_offdata);
+                nav_frm_offdata.ChildDialog = new Form_myOrg_Office_Data(xID, nav_frm_offdata);
                 this.Cursor = Cursors.Arrow;
                 this.Visible = false;
                 nav_frm_offdata.ShowDialog();

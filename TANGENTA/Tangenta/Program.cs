@@ -155,7 +155,8 @@ namespace Tangenta
                 }
         }
 
-        internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
+        internal static ID Atom_FVI_SLO_RealEstateBP_ID = null;
+
         internal static class Reset2FactorySettings
         {
             internal static bool Tangenta_EXE = false;

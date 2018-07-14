@@ -1,4 +1,5 @@
 ﻿using CodeTables;
+using DBConnectionControl40;
 using NavigationButtons;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,12 @@ namespace Tangenta
     {
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
-        private long m_RealEstateBP_ID = -1;
+        private ID m_RealEstateBP_ID = null;
         private DataTable tElectronicDevice = null;
         private NavigationButtons.Navigation nav = null;
 
 
-        public Form_SetElectronicDeviceName(long xRealEstateBP_ID, NavigationButtons.Navigation xnav)
+        public Form_SetElectronicDeviceName(ID xRealEstateBP_ID, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;

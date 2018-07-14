@@ -6,6 +6,8 @@
 */
 #endregion
 
+using DBConnectionControl40;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -32,8 +34,8 @@ namespace Tangenta
         internal string City = null;
         internal string State = null;
         internal string Country= null;
-        public long OrganisationData_ID = -1;
-        public long CustomerOrganisationData_ID = -1;
+        public ID OrganisationData_ID = null;
+        public ID CustomerOrganisationData_ID = null;
 
         public Form_Customer_Org_Assign()
         {
@@ -41,7 +43,7 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public Form_Customer_Org_Assign(long xCustomer_OrganisationData_ID)
+        public Form_Customer_Org_Assign(ID xCustomer_OrganisationData_ID)
         {
             // TODO: Complete member initialization
             InitializeComponent();
@@ -89,7 +91,7 @@ namespace Tangenta
                     this.State = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$State"]);
                     this.Country= DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$Country"]);
 
-                    OrganisationData_ID = (long)dt.Rows[0]["Customer_Org_$_orgd_$$ID"];
+                    OrganisationData_ID = tf.set_ID(dt.Rows[0]["Customer_Org_$_orgd_$$ID"]);
 
                     lbl_Org.Text = "";
                     if (this.Customer_Name != null)
@@ -149,15 +151,14 @@ namespace Tangenta
             {
                 if (dt.Rows.Count>0)
                 {
-                    OrganisationData_ID = (long) dt.Rows[0]["ID"];
+                    OrganisationData_ID = tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = @"insert into customer_org (OrganisationData_ID)values(" + OrganisationData_ID.ToString()+")";
 
-                    object oRet = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref CustomerOrganisationData_ID, ref oRet, ref Err,"customer_org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref CustomerOrganisationData_ID,  ref Err,"customer_org"))
                     {
                         return true;
                     }

@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using DBConnectionControl40;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,7 +76,7 @@ namespace Tangenta
         private bool do_OK()
         {
             Program.b_FVI_SLO = false;
-            long DBSettings_ID = -1;
+            ID DBSettings_ID = null;
             if (chk_FVI.Checked)
             {
                 string sFiscalVerificationOfInvoices = "1";

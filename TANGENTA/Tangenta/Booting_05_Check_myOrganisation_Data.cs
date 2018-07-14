@@ -19,7 +19,7 @@ namespace Tangenta
         private startup m_startup = null;
         public PostAddress_v myorg_PostAddress_v = null;
 
-        private long myOffice_ID = -1;
+        private ID myOffice_ID = null;
 
         public Booting_05_Check_myOrganisation_Data(Form_Document xfmain, startup x_sturtup)
         {
@@ -90,9 +90,9 @@ namespace Tangenta
                     {
                         if (myOrg.myOrg_Office_list.Count>0)
                         {
-                            if (myOrg.myOrg_Office_list[0].ID_v != null)
+                            if (ID.Validate(myOrg.myOrg_Office_list[0].ID))
                             {
-                                myOffice_ID = myOrg.myOrg_Office_list[0].ID_v.v;
+                                myOffice_ID = myOrg.myOrg_Office_list[0].ID;
                             }
                         }
                     }
@@ -196,9 +196,9 @@ namespace Tangenta
                             {
                                 if (myOrg.myOrg_Office_list.Count > 0)
                                 {
-                                    if (myOrg.myOrg_Office_list[0].ID_v != null)
+                                    if (ID.Validate(myOrg.myOrg_Office_list[0].ID))
                                     {
-                                        myOffice_ID = myOrg.myOrg_Office_list[0].ID_v.v;
+                                        myOffice_ID = myOrg.myOrg_Office_list[0].ID;
                                     }
                                 }
                             }
