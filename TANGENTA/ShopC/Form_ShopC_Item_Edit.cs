@@ -17,6 +17,7 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -27,11 +28,11 @@ namespace ShopC
         Control ParentControl = null;
         usrc_StockEditForSelectedStockTake m_usrc_StockEditForSelectedStockTake = null;
 
-        public List<long> List_of_Inserted_Items_ID = null; 
+        public List<ID> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
-        long_v ID_v = null;
+        ID ID = null;
         string ColumnOrderBy = "";
         NavigationButtons.Navigation nav = null;
 
@@ -59,14 +60,13 @@ namespace ShopC
             lng.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
         }
 
-        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, Control xParentControl)
+        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, ID xID, Control xParentControl)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = ID;
+            ID = xID;
             ParentControl = xParentControl;
             if (ParentControl != null)
             {
@@ -123,7 +123,7 @@ namespace ShopC
                     sWhereCondition = " where  Item_$$ToOffer = 0 ";
                     break;
             }
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID, false,nav);
 
         }
         private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
@@ -135,7 +135,7 @@ namespace ShopC
                 rdb_All.CheckedChanged +=rdb_All_CheckedChanged;
                 rdb_OnlyNotInOffer.CheckedChanged +=rdb_OnlyNotInOffer_CheckedChanged;
                 rdb_OnlyInOffer.CheckedChanged +=rdb_OnlyInOffer_CheckedChanged;
-                List_of_Inserted_Items_ID = new List<long>();
+                List_of_Inserted_Items_ID = new List<ID>();
             }
             else
             {
@@ -198,7 +198,7 @@ namespace ShopC
             }
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
@@ -252,12 +252,12 @@ namespace ShopC
         }
 
 
-        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             m_bChanged = true;
         }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Item"))
@@ -310,7 +310,7 @@ namespace ShopC
 
         }
 
-        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, ID ID, int index)
         {
             if (m_usrc_StockEditForSelectedStockTake!=null)
             {

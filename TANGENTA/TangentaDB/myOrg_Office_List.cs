@@ -1,4 +1,5 @@
 ﻿// Copyright (c) 2011 rubicon IT GmbH
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace TangentaDB
 {
     public static class myOrg_Office_List
     {
-        public static bool Get(long myOrganisation_id, ref List<myOrg_Office> myOrg_Office_list)
+        public static bool Get(ID myOrganisation_id, ref List<myOrg_Office> myOrg_Office_list)
         {
 
             DataTable dt = new DataTable();
@@ -31,11 +32,10 @@ namespace TangentaDB
                     for (i = 0; i < iCount; i++)
                     {
                         DataRow dr = dt.Rows[i];
-                        long Office_ID = (long)dr["ID"];
+                        ID Office_ID = tf.set_ID(dr["ID"]);
                         myOrg_Office moffice = new myOrg_Office();
-                        long_v Office_ID_v = new long_v(Office_ID);
 
-                        if (moffice.Get(Office_ID_v))
+                        if (moffice.Get(Office_ID))
                         {
                             myOrg_Office_list.Add(moffice);
                         }

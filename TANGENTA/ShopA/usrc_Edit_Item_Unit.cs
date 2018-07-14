@@ -18,6 +18,7 @@ using TangentaDB;
 using TangentaTableClass;
 using LanguageControl;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace ShopA
 {
@@ -43,10 +44,10 @@ namespace ShopA
             {
                 if (chk_Unit.Checked)
                 {
-                    if ((this.cmb_Unit.SelectedValue is long)|| (this.cmb_Unit.SelectedValue is int))
+                    if (this.cmb_Unit.SelectedValue is ID)
                     {
                         long i = Convert.ToInt64(this.cmb_Unit.SelectedValue);
-                        m_Unit.ID.set(m_xUnitList.items[i].ID);
+                        m_Unit.ID.Set(m_xUnitList.items[i].ID);
                         m_Unit.Name.set(m_xUnitList.items[i].Name);
                         m_Unit.DecimalPlaces.set(Convert.ToInt16(m_xUnitList.items[i].DecimalPlaces));
                         m_Unit.StorageOption.set(m_xUnitList.items[i].StorageOption);
@@ -55,7 +56,7 @@ namespace ShopA
                         return m_Unit;
                     }
                 }
-                m_Unit.ID.set(null);
+                m_Unit.ID.Set(null);
                 m_Unit.Name.set(null);
                 m_Unit.Symbol.set(null);
                 m_Unit.StorageOption.set(null);
@@ -221,13 +222,13 @@ namespace ShopA
                 if ((this.cmb_Unit.SelectedValue is long)|| (this.cmb_Unit.SelectedValue is int))
                 {
                     long i =  Convert.ToInt64(this.cmb_Unit.SelectedValue);
-                    xUnit.ID.set(m_xUnitList.items[i].ID);
+                    xUnit.ID.Set(m_xUnitList.items[i].ID);
                     xUnit.Name.set(m_xUnitList.items[i].Name);
                     xUnit.DecimalPlaces.set(Convert.ToInt16(m_xUnitList.items[i].DecimalPlaces));
                     xUnit.StorageOption.set(m_xUnitList.items[i].StorageOption);
                     xUnit.Symbol.set(m_xUnitList.items[i].Symbol);
                     xUnit.Description.set(m_xUnitList.items[i].Description);
-                    m_Unit.ID.set(m_xUnitList.items[i].ID);
+                    m_Unit.ID.Set(m_xUnitList.items[i].ID);
                     m_Unit.Name.set(m_xUnitList.items[i].Name);
                     m_Unit.DecimalPlaces.set(Convert.ToInt16(m_xUnitList.items[i].DecimalPlaces));
                     m_Unit.StorageOption.set(m_xUnitList.items[i].StorageOption);
@@ -237,13 +238,13 @@ namespace ShopA
             }
             else
             {
-                xUnit.ID.set(null);
+                xUnit.ID.Set(null);
                 xUnit.Name.set(null);
                 xUnit.Symbol.set(null);
                 xUnit.StorageOption.set(null);
                 xUnit.DecimalPlaces.set(null);
                 xUnit.Description.set(null);
-                m_Unit.ID.set(null);
+                m_Unit.ID.Set(null);
                 m_Unit.Name.set(null);
                 m_Unit.Symbol.set(null);
                 m_Unit.StorageOption.set(null);
@@ -255,10 +256,10 @@ namespace ShopA
         internal void SetControls(Unit m_Unit)
         {
             this.cmb_Unit.SelectedValueChanged -= new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
-            if (m_Unit.ID.type_v!=null)
+            if (ID.Validate(m_Unit.ID))
              {
                 this.chk_Unit.Checked = true;
-                int i = FindIndex(m_Unit.ID.type_v.v);
+                int i = FindIndex(m_Unit.ID);
                 if (i>=0)
                 {
                     cmb_Unit.SelectedIndex =  i;
@@ -275,13 +276,13 @@ namespace ShopA
             this.cmb_Unit.SelectedValueChanged += new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
         }
 
-        private int FindIndex(long ID)
+        private int FindIndex(ID ID)
         {
             int i = 0;
             int iCount = m_xUnitList.items.Count();
             for(i =0;i< iCount;i++ )
             {
-                if (ID == m_xUnitList.items[i].ID)
+                if (ID.Equals(m_xUnitList.items[i].ID))
                 {
                     return i;
                 }

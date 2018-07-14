@@ -11,7 +11,7 @@ namespace Country_ISO_3166
     {
         public string Name = null;
         public decimal Rate = 0;
-        public long Taxation_ID = 0;
+        public object Taxation_ID = null;
 
         public tnr()
         {

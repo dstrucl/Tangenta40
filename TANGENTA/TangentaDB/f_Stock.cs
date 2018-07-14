@@ -80,7 +80,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake,ref Doc_ShopC_Item[] array_Doc_ShopC_Item, long StockTake_ID)
+        public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake,ref Doc_ShopC_Item[] array_Doc_ShopC_Item, ID StockTake_ID)
         {
             DataTable dt_dQuantity = new DataTable();
 
@@ -227,7 +227,7 @@ namespace TangentaDB
 
                             for (int i=0;i<iCount;i++)
                             {
-                                long xstock_id = (long)dt_Stock_Of_Current_StockTake.Rows[i]["Stock_ID"];
+                                ID xstock_id = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[i]["Stock_ID"]);
                                 DataRow[] drs_DocInvoice = dt_DocInvoice_ShopC_Item_of_StockTake.Select("Stock_ID=" + xstock_id.ToString());
                                 DataRow[] drs_DocProformaInvoice = dt_DocProformaInvoice_ShopC_Item_of_StockTake.Select("Stock_ID=" + xstock_id.ToString());
 
@@ -272,7 +272,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Remove(long Stock_ID, long StockTake_ID)
+        public static bool Remove(ID Stock_ID, ID StockTake_ID)
         {
                 string Err = null;
             string sql = @"
@@ -293,12 +293,12 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Update(long currentStock_ID, 
+        public static bool Update(ID currentStock_ID, 
                                   DateTime tImportTime, 
                                   decimal dQuantity, 
                                   DateTime_v tExpiry_v, 
-                                  long PurchasePrice_Item_ID,
-                                  long Stock_AddressLevel1_ID, 
+                                  ID PurchasePrice_Item_ID,
+                                  ID Stock_AddressLevel1_ID, 
                                   string Description)
         {
             string Err = null;
@@ -321,14 +321,14 @@ namespace TangentaDB
             }
 
             string spar_PurchasePrice_Item_ID = "@par_PurchasePrice_Item_ID";
-            SQL_Parameter par_PurchasePrice_Item_ID = new SQL_Parameter(spar_PurchasePrice_Item_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PurchasePrice_Item_ID);
+            SQL_Parameter par_PurchasePrice_Item_ID = new SQL_Parameter(spar_PurchasePrice_Item_ID, false, PurchasePrice_Item_ID);
             lpar.Add(par_PurchasePrice_Item_ID);
 
             string spar_Stock_AddressLevel1_ID = "null";
-            if (Stock_AddressLevel1_ID >= 0)
+            if (ID.Validate(Stock_AddressLevel1_ID))
             {
                 spar_Stock_AddressLevel1_ID = "@par_Stock_AddressLevel1_ID";
-                SQL_Parameter par_Stock_AddressLevel1_ID = new SQL_Parameter(spar_Stock_AddressLevel1_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Stock_AddressLevel1_ID);
+                SQL_Parameter par_Stock_AddressLevel1_ID = new SQL_Parameter(spar_Stock_AddressLevel1_ID, false, Stock_AddressLevel1_ID);
                 lpar.Add(par_Stock_AddressLevel1_ID);
             }
 
@@ -352,8 +352,8 @@ namespace TangentaDB
             object oret = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
             {
-                long_v JOURNAL_Stock_ID_v = null;
-                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
+                ID JOURNAL_Stock_ID = null;
+                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))
                 {
                     return true;
                 }

@@ -23,10 +23,10 @@ namespace TangentaDB
         public const string From_Stock_To_Basket = "From stock to basket";
         public const string From_Basket_To_Stock = "From basket to stock";
 
-        private static ID m_JOURNAL_Stock_Type_ID_new_stock_data = -1;
-        private static ID m_JOURNAL_Stock_Type_ID_stock_data_changed = -1;
-        private static ID m_JOURNAL_Stock_Type_ID_from_stock_to_basket = -1;
-        private static ID m_JOURNAL_Stock_Type_ID_from_basket_to_stock = -1;
+        private static ID m_JOURNAL_Stock_Type_ID_new_stock_data = null;
+        private static ID m_JOURNAL_Stock_Type_ID_stock_data_changed = null;
+        private static ID m_JOURNAL_Stock_Type_ID_from_stock_to_basket = null;
+        private static ID m_JOURNAL_Stock_Type_ID_from_basket_to_stock = null;
 
         public static ID JOURNAL_Stock_Type_ID_new_stock_data
         { get { return m_JOURNAL_Stock_Type_ID_new_stock_data; } }

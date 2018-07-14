@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Supplier
     {
-        public static bool Get(ID Contact_ID_v,ref ID Supplier_ID)
+        public static bool Get(ID Contact_ID,ref ID Supplier_ID)
         {
             return Get("Supplier", Contact_ID, ref Supplier_ID);
         }
@@ -142,7 +142,7 @@ namespace TangentaDB
                     OrganisationData_ID.Set(dt.Rows[0]["OrganisationData_ID"]);
                     if (ID.Validate(OrganisationData_ID))
                     {
-                        sql = "select Name from Organisation o inner join OrganisationData od on od.Organisation_ID = o.ID where od.ID = " + ((long)oOrganisationData_ID).ToString();
+                        sql = "select Name from Organisation o inner join OrganisationData od on od.Organisation_ID = o.ID where od.ID = " + OrganisationData_ID.ToString();
                         dt.Clear();
                         dt.Columns.Clear();
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -162,7 +162,7 @@ namespace TangentaDB
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Organisation data for OrganisationData_ID = " + ((long)oOrganisationData_ID).ToString());
+                                LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Organisation data for OrganisationData_ID = " + OrganisationData_ID.ToString());
                                 return false;
                             }
                         }
@@ -212,7 +212,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Person data for Person ID = " + ((long)oPerson_ID).ToString());
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Person data for Person ID = " + Person_ID.ToString());
                             return false;
                         }
                         return true;

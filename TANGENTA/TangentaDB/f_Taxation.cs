@@ -44,7 +44,23 @@ namespace TangentaDB
             }
             return true;
         }
-        public static bool Get(string Name,decimal Rate, ref ID Taxation_ID)
+        public static bool Get(string Name,decimal Rate, ref object xTaxation_ID)
+        {
+            ID Taxation_ID = null;
+            if (Get(Name, Rate, ref Taxation_ID))
+            {
+                xTaxation_ID = Taxation_ID;
+                return true;
+            }
+            else
+            {
+                Taxation_ID = null;
+                return false;
+            }
+        }
+
+
+        public static bool Get(string Name, decimal Rate, ref ID Taxation_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -66,7 +82,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Taxation_ID==null)
+                    if (Taxation_ID == null)
                     {
                         Taxation_ID = new ID();
                     }
@@ -104,7 +120,7 @@ namespace TangentaDB
                     dtTaxation = null;
                 }
             }
-            if (dtTaxation!=null)
+            if (dtTaxation != null)
             {
                 return dtTaxation;
             }
@@ -113,7 +129,7 @@ namespace TangentaDB
                 string Err = null;
                 dtTaxation = new DataTable();
                 string sql = @"select ID,Name,Rate from Taxation";
-                if (DBSync.DBSync.ReadDataTable(ref dtTaxation,sql,ref Err))
+                if (DBSync.DBSync.ReadDataTable(ref dtTaxation, sql, ref Err))
                 {
                     return dtTaxation;
                 }

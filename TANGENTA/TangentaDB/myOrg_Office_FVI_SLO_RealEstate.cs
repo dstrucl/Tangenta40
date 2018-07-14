@@ -1,4 +1,5 @@
 ﻿// Copyright (c) 2011 rubicon IT GmbH
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace TangentaDB
 {
     public class myOrg_Office_FVI_SLO_RealEstate
     {
-        public long_v ID_v = null;
-        public long_v Office_Data_ID_v = null;
+        public ID ID = null;
+        public ID Office_Data_ID = null;
         public int_v BuildingNumber_v = null;
         public int_v BuildingSectionNumber_v = null;
         public string_v Community_v = null;
@@ -22,11 +23,11 @@ namespace TangentaDB
         public string_v SoftwareSupplier_TaxNumber_v = null;
         public string_v PremiseType_v = null;
 
-        public bool Get(long_v xOffice_Data_ID_v)
+        public bool Get(ID xOffice_Data_ID)
         {
             string Err = null;
-            ID_v = null;
-            Office_Data_ID_v = null;
+            ID = null;
+            Office_Data_ID = null;
             BuildingNumber_v = null;
             BuildingSectionNumber_v = null;
             Community_v = null;
@@ -36,7 +37,7 @@ namespace TangentaDB
             SoftwareSupplier_TaxNumber_v = null;
             PremiseType_v = null;
 
-            if (xOffice_Data_ID_v != null)
+            if (ID.Validate(xOffice_Data_ID))
             {
                 string sql = @"SELECT 
                                     ID,
@@ -50,14 +51,14 @@ namespace TangentaDB
                                     SoftwareSupplier_TaxNumber,
                                     PremiseType
                               FROM FVI_SLO_RealEstateBP
-                              where Office_Data_ID = " + xOffice_Data_ID_v.v.ToString();
+                              where Office_Data_ID = " + xOffice_Data_ID.ToString();
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        ID_v = tf.set_long(dt.Rows[0]["ID"]);
-                        Office_Data_ID_v = tf.set_long(dt.Rows[0]["Office_Data_ID"]);
+                        ID = tf.set_ID(dt.Rows[0]["ID"]);
+                        Office_Data_ID = tf.set_ID(dt.Rows[0]["Office_Data_ID"]);
                         BuildingNumber_v = tf.set_int(dt.Rows[0]["BuildingNumber"]);
                         BuildingSectionNumber_v = tf.set_int(dt.Rows[0]["BuildingSectionNumber"]);
                         Community_v = tf.set_string(dt.Rows[0]["Community"]);
@@ -81,6 +82,5 @@ namespace TangentaDB
                 return false;
             }
         }
-
     }
 }

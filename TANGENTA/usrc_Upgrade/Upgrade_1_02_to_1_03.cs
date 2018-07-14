@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -103,7 +104,7 @@ namespace UpgradeDB
                         foreach (DataRow dr in dt_DocInvoice.Rows)
                         {
                             lpar.Clear();
-                            long docinvoice_ID = (long)dr["ID"];
+                            ID docinvoice_ID = tf.set_ID(dr["ID"]);
                             string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where DocInvoice_ID = " + docinvoice_ID.ToString();
                             DocInvoice_Connection_Class picc = new DocInvoice_Connection_Class();
                             picc.ID = docinvoice_ID;

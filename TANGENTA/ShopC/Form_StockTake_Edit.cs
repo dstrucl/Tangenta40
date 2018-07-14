@@ -13,6 +13,7 @@ using LanguageControl;
 using TangentaDB;
 using DBTypes;
 using HUDCMS;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -90,21 +91,18 @@ namespace ShopC
                }
         }
 
-        public long StockTake_ID
+        public ID StockTake_ID
         {
             get {
                     if (m_StockTakeTable!=null)
                     {
                         object oValue = m_StockTakeTable.Value("ID");
-                        if (oValue is DBTypes.ID)
+                        if (oValue != null)
                         {
-                            if (((DBTypes.ID)oValue).defined)
-                            {
-                                return ((DBTypes.ID)oValue).val;
-                            }
+                                return tf.set_ID(oValue);
                         }
                     }
-                    return -1;
+                    return null;
                 }
         }
 
@@ -151,7 +149,7 @@ namespace ShopC
             if (usrc_EditTable1.Init(dbTables, tbl_StockTake, selection, ColumnToOrderBy, false, null, null, false, nav))
             {
                 usrc_EditTable1.after_InsertInDataBase += Usrc_EditTable1_after_InsertInDataBase;
-                if (fs.IDisValid(usrc_EditTable1.Identity))
+                if (ID.Validate(usrc_EditTable1.Identity))
                 {
                     splitContainer1.Panel2Collapsed = false;
                 }
@@ -172,13 +170,13 @@ namespace ShopC
             return true;
         }
 
-        private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
-                long_v JOURNAL_StockTake_ID_v = null;
+                ID JOURNAL_StockTake_ID = null;
                 splitContainer1.Panel2Collapsed = false;
-                if (TangentaDB.f_JOURNAL_StockTake.Get(ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID_v))
+                if (TangentaDB.f_JOURNAL_StockTake.Get(ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID))
                 {
                     StockTakeTable = m_tbl;
                     Show_StockTakeItems(m_tbl);
@@ -188,7 +186,7 @@ namespace ShopC
 
         private void Show_StockTakeItems(SQLTable m_tbl)
         {
-            if (fs.IDisValid(StockTake_ID))
+            if (ID.Validate(StockTake_ID))
             {
                 splitContainer1.Panel2Collapsed = false;
                 usrc_StockEditForSelectedStockTake1.Reload(m_tbl);
@@ -202,7 +200,7 @@ namespace ShopC
 
         private void Show_StockTakeItems()
         {
-            if (fs.IDisValid(StockTake_ID))
+            if (ID.Validate(StockTake_ID))
             {
                 splitContainer1.Panel2Collapsed = false;
                 usrc_StockEditForSelectedStockTake1.Reload(StockTakeTable);
@@ -231,7 +229,7 @@ namespace ShopC
             usrc_StockEditForSelectedStockTake1.DoClose();
         }
 
-        private void usrc_EditTable1_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        private void usrc_EditTable1_SelectedIndexChanged(SQLTable m_tbl, ID ID, int index)
         {
             StockTakeTable = m_tbl;
             Show_StockTakeItems();

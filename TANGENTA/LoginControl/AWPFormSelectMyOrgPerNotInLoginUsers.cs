@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using DBTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -64,12 +66,12 @@ namespace LoginControl
             int iCount = i;
             for (i=0;i<iCount;i++)
             {
-                long myOrganisation_Person_ID = (long)drs[i]["ID"];
+                ID myOrganisation_Person_ID = tf.set_ID(drs[i]["ID"]);
                 string FirstName = (string)drs[i]["FirstName"];
                 string UniqueUserName = AWP_func.GetUniqueUserName(FirstName);
                 if (UniqueUserName != null)
                 {
-                    long LoginUsers_ID = -1;
+                    ID LoginUsers_ID = null;
                     if (AWP_func.InsertNewDefaultLoginUsersRow(myOrganisation_Person_ID, UniqueUserName, ref LoginUsers_ID))
                     {
                         continue;

@@ -45,7 +45,7 @@ namespace TangentaDB
                 }
                 else
                 { 
-                    long_v SimpleItem_Image_id = null;
+                    ID SimpleItem_Image_id = null;
                     string s_Atom_SimpleItem_Image_id = "null";
                     string SimpleItem_Name = null;
                     string SimpleItem_Abbreviation = null;
@@ -54,10 +54,10 @@ namespace TangentaDB
                     {
                         
 
-                        if (SimpleItem_Image_id!=null)
+                        if (ID.Validate(SimpleItem_Image_id))
                         {
-                            long Atom_SimpleItem_Image_id = -1;
-                            if (f_Atom_ShopBItem_Image.Get(SimpleItem_Image_id.v,ref Atom_SimpleItem_Image_id))
+                            ID Atom_SimpleItem_Image_id = null;
+                            if (f_Atom_ShopBItem_Image.Get(SimpleItem_Image_id,ref Atom_SimpleItem_Image_id))
                             {
                                 s_Atom_SimpleItem_Image_id = Atom_SimpleItem_Image_id.ToString();
                             }
@@ -67,7 +67,7 @@ namespace TangentaDB
                             }
                         }
 
-                        long Atom_SimpleItem_Name_ID = -1;
+                        ID Atom_SimpleItem_Name_ID = null;
                         if (f_Atom_ShopBItem_Name.Get(SimpleItem_Name, SimpleItem_Abbreviation, ref Atom_SimpleItem_Name_ID))
                         {
 
@@ -105,10 +105,7 @@ namespace TangentaDB
                             }
 
 
-
-
-                            object objretx = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_SimpleItem_ID, ref objretx, ref Err, "Atom_SimpleItem"))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_SimpleItem_ID, ref Err, "Atom_SimpleItem"))
                             {
                                 return true;
                             }

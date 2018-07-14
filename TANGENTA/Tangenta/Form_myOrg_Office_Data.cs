@@ -95,14 +95,14 @@ namespace Tangenta
                     m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, m_Office_ID, true, ref Err);
                 }
             }
-            else if (myOrg.ID_v != null)
+            else if (myOrg.ID != null)
             {
-                if (myOrg.ID_v.v >= 0)
+                if (myOrg.ID.v >= 0)
                 {
                     if (m_tbl.TableName.ToLower().Equals("myorganisation"))
                     {
                         string Err = null;
-                        m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, myOrg.ID_v.v, true, ref Err);
+                        m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, myOrg.ID.v, true, ref Err);
                     }
                 }
             }

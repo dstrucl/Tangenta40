@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using DBTypes;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,9 +12,9 @@ namespace TangentaDB
     {
         public Doc_ShopC_Item_Data[] adata = null;
 
-        public long Stock_ID = -1;
+        public ID Stock_ID = null;
 
-        public Doc_ShopC_Item(long xStock_ID, DataRow[] drs_DocInvoice, DataRow[] drs_DocProformaInvoice)
+        public Doc_ShopC_Item(ID xStock_ID, DataRow[] drs_DocInvoice, DataRow[] drs_DocProformaInvoice)
         {
             Stock_ID = xStock_ID;
             int iCount1 = drs_DocInvoice.Length;
@@ -24,19 +26,19 @@ namespace TangentaDB
                 int i = 0;
                 while (i< iCount1)
                 {
-                    adata[i] = new Doc_ShopC_Item_Data((long)drs_DocInvoice[i]["DocInvoice_ID"],
-                                                       (long)drs_DocInvoice[i]["ID"],
-                                                       -1,
-                                                       -1);
+                    adata[i] = new Doc_ShopC_Item_Data(tf.set_ID(drs_DocInvoice[i]["DocInvoice_ID"]),
+                                                       tf.set_ID(drs_DocInvoice[i]["ID"]),
+                                                       null,
+                                                       null);
                     i++;
                 }
                 int j = 0;
                 while (j < iCount2)
                 {
-                    adata[i] = new Doc_ShopC_Item_Data(-1,
-                                                       -1,
-                                                       (long)drs_DocProformaInvoice[j]["DocProformaInvoice_ID"],
-                                                       (long)drs_DocProformaInvoice[j]["ID"]);
+                    adata[i] = new Doc_ShopC_Item_Data(null,
+                                                       null,
+                                                       tf.set_ID(drs_DocProformaInvoice[j]["DocProformaInvoice_ID"]),
+                                                       tf.set_ID(drs_DocProformaInvoice[j]["ID"]));
                     i++;
                     j++;
                 }

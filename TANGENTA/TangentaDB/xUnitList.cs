@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
@@ -22,18 +23,18 @@ namespace TangentaDB
 
         public xUnitList()
         {
-            m_DefaltUnitList.Add(new xUnit(1,1,"komad", "kom.", 0,true, "Artikli kot komadi."));
-            m_DefaltUnitList.Add(new xUnit(2,2, "ura", "h", 2,false, "Za vse, kar se meri v urah"));
-            m_DefaltUnitList.Add(new xUnit(3,3, "dan", "dan", 2, false, "Za vse, kar se meri v dnevih"));
-            m_DefaltUnitList.Add(new xUnit(4,4,"mesec", "mes", 2, false, "Za vse, kar se meri v mesecih"));
-            m_DefaltUnitList.Add(new xUnit(5,5,"leto", "mes", 2,false, "Za vse, kar se meri v mesecih"));
-            m_DefaltUnitList.Add(new xUnit(6,6,"meter", "m", 2, true, "Za kar se, prodaja na dolžinsko enoto"));
-            m_DefaltUnitList.Add(new xUnit(7,7,"kvadratni meter", "m2", 2, true, "Za vse kar se prodaja glede na površino"));
-            m_DefaltUnitList.Add(new xUnit(8,8,"kubični meter", "m3", 2, true, "Za vse kar se prodaja glede na prostornino"));
-            m_DefaltUnitList.Add(new xUnit(9,9,"kilowatna ura", "kWh", 2, false, "Prodaja energije"));
-            m_DefaltUnitList.Add(new xUnit(10,10,"kilometrina", "km", 0, false, "Obračun kilometrine"));
-            m_DefaltUnitList.Add(new xUnit(11,11,"kilogram", "kg", 2, true, "Masa artikla"));
-            m_DefaltUnitList.Add(new xUnit(12,12,"liter", "l", 2, true, "Za snovi, ki se prodajajo glede na prostornino"));
+            m_DefaltUnitList.Add(new xUnit(1,new ID(1),"komad", "kom.", 0,true, "Artikli kot komadi."));
+            m_DefaltUnitList.Add(new xUnit(2, new ID(2), "ura", "h", 2,false, "Za vse, kar se meri v urah"));
+            m_DefaltUnitList.Add(new xUnit(3, new ID(3), "dan", "dan", 2, false, "Za vse, kar se meri v dnevih"));
+            m_DefaltUnitList.Add(new xUnit(4, new ID(4),"mesec", "mes", 2, false, "Za vse, kar se meri v mesecih"));
+            m_DefaltUnitList.Add(new xUnit(5, new ID(5),"leto", "mes", 2,false, "Za vse, kar se meri v mesecih"));
+            m_DefaltUnitList.Add(new xUnit(6, new ID(6),"meter", "m", 2, true, "Za kar se, prodaja na dolžinsko enoto"));
+            m_DefaltUnitList.Add(new xUnit(7, new ID(7),"kvadratni meter", "m2", 2, true, "Za vse kar se prodaja glede na površino"));
+            m_DefaltUnitList.Add(new xUnit(8, new ID(8),"kubični meter", "m3", 2, true, "Za vse kar se prodaja glede na prostornino"));
+            m_DefaltUnitList.Add(new xUnit(9, new ID(9),"kilowatna ura", "kWh", 2, false, "Prodaja energije"));
+            m_DefaltUnitList.Add(new xUnit(10, new ID(10),"kilometrina", "km", 0, false, "Obračun kilometrine"));
+            m_DefaltUnitList.Add(new xUnit(11, new ID(11),"kilogram", "kg", 2, true, "Masa artikla"));
+            m_DefaltUnitList.Add(new xUnit(12, new ID(12),"liter", "l", 2, true, "Za snovi, ki se prodajajo glede na prostornino"));
         }
 
         public bool Get(ref DataTable dt, ref string Err)
@@ -55,7 +56,7 @@ namespace TangentaDB
                         {
                             desc = (string)dr["Description"];
                         }
-                        items[i] = new xUnit(i,(long)dr["ID"], (string)dr["Name"],(string)dr["Symbol"], (int)dr["DecimalPlaces"], (bool)dr["StorageOption"], desc);
+                        items[i] = new xUnit(i,new ID(dr["ID"]), (string)dr["Name"],(string)dr["Symbol"], (int)dr["DecimalPlaces"], (bool)dr["StorageOption"], desc);
                     }
                 }
                 return true;
@@ -71,7 +72,7 @@ namespace TangentaDB
     public class xUnit
     {
         private int m_Index = -1;
-        private long m_ID = -1;
+        private ID m_ID = null;
         private string m_Name = null;
         private string m_Symbol = null;
         private int m_DecimalPlaces = -1;
@@ -83,7 +84,7 @@ namespace TangentaDB
             get { return m_Index; }
         }
 
-        public long ID
+        public ID ID
         {
             get { return m_ID; }
         }
@@ -119,7 +120,7 @@ namespace TangentaDB
         {
         }
 
-        public xUnit(int xIndex,long xID,string xName, string xSymbol, int xDecimalPlaces,bool xStorageOption, string xDescription)
+        public xUnit(int xIndex,ID xID,string xName, string xSymbol, int xDecimalPlaces,bool xStorageOption, string xDescription)
         {
             m_Index = xIndex;
             m_ID = xID;
@@ -130,7 +131,7 @@ namespace TangentaDB
             m_Description = xDescription;
         }
 
-        internal bool SetUnit(long unit_id, ref string Err)
+        internal bool SetUnit(ID unit_id, ref string Err)
         {
             string sql_BaseUnit = "select Name,Symbol,DecimalPlaces,StorageOption,Description from Unit where ID = " + unit_id.ToString();
             DataTable dt = new DataTable();

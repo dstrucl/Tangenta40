@@ -18,6 +18,7 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace TangentaPrint
 {
@@ -26,12 +27,12 @@ namespace TangentaPrint
         public enum eTemplates { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
         private eTemplates eTemplatesSelectionMode = eTemplates.SELECT_VALID;
 
-        List<long> List_of_Inserted_Items_ID = null;
+        List<ID> List_of_Inserted_Items_ID = null;
 
         DataTable dt_Item = new DataTable();
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
-        public long_v ID_v = null;
+        public ID ID = null;
         string ColumnOrderBy = "";
         private bool m_bChanged = false;
         public bool bPriceListChanged = false;
@@ -51,14 +52,13 @@ namespace TangentaPrint
 
         }
 
-        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, ID xID)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            ID_v = new long_v();
-            ID_v.v = ID;
+            this.ID = new ID(xID);
             this.Text = lng.s_Items.s;
             rdb_OnlyInOffer.Checked = true;
             this.rdb_OnlyInOffer.Text = lng.s_OnlyInOffer.s;
@@ -91,7 +91,7 @@ namespace TangentaPrint
                     sWhereCondition = " where  doc_$$Active = 0 ";
                     break;
             }
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID, false,nav);
 
         }
         private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace TangentaPrint
                 rdb_All.CheckedChanged +=rdb_All_CheckedChanged;
                 rdb_OnlyNotInOffer.CheckedChanged +=rdb_OnlyNotInOffer_CheckedChanged;
                 rdb_OnlyInOffer.CheckedChanged +=rdb_OnlyInOffer_CheckedChanged;
-                List_of_Inserted_Items_ID = new List<long>();
+                List_of_Inserted_Items_ID = new List<ID>();
             }
             else
             {
@@ -123,14 +123,14 @@ namespace TangentaPrint
                 }
             }
 
-            long id = usrc_EditTable.Identity;
+            ID id = usrc_EditTable.Identity;
 
-            if (ID_v == null)
+            if (ID == null)
             {
-                ID_v = new long_v();
+                ID = new ID();
             }
 
-            ID_v.v = id;
+            ID.Set(id);
 
             this.Close();
             DialogResult = DialogResult.OK;
@@ -150,7 +150,7 @@ namespace TangentaPrint
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             List_of_Inserted_Items_ID.Add(ID);
             m_bChanged = true;
@@ -193,12 +193,12 @@ namespace TangentaPrint
             get {return m_bChanged;}
         }
 
-        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             m_bChanged = true;
         }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Item"))

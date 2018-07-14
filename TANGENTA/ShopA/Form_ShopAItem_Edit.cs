@@ -15,6 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using CodeTables;
+using DBConnectionControl40;
 
 namespace ShopA
 {
@@ -46,7 +47,7 @@ namespace ShopA
             }
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {

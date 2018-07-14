@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 using NavigationButtons;
 
@@ -353,7 +354,7 @@ namespace LoginControl
             {
                 if (CheckIfUserDefined())
                 {
-                    long LoginUsers_ID = -1;
+                    ID LoginUsers_ID = null;
                     if (awpld.UserName.Equals(txtUserName.Text))
                     {
                         return UpdateAWPLoginData();
@@ -362,7 +363,7 @@ namespace LoginControl
                     {
                         if (AWP_func.UserNameExist(txtUserName.Text, ref LoginUsers_ID))
                         {
-                            if (DBTypes.ID.IsValid(LoginUsers_ID))
+                            if (ID.Validate(LoginUsers_ID))
                             {
                                 MessageBox.Show(lng.s_UserName_AllreadyExist.s);//you can not overwrite existig yuser
                                 return false;
@@ -548,7 +549,7 @@ namespace LoginControl
         private void btn_Edit_myOrganisation_Person_Click(object sender, EventArgs e)
         {
             bool bChanged = false;
-            long new_myOrganisation_Person_ID = -1;
+            ID new_myOrganisation_Person_ID = null;
             awp.call_Edit_myOrganisationPerson(this, awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
         }
 

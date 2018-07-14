@@ -22,7 +22,7 @@ namespace TangentaDB
     public static class myOrg
     {
 
-        public static long_v ID_v = null;
+        public static ID ID = null;
         public static string_v Name_v = null;
         public static PostAddress_v Address_v = new PostAddress_v();
         public static string_v Tax_ID_v = null;
@@ -41,13 +41,14 @@ namespace TangentaDB
         public static byte_array_v Logo_Image_Data_v = null;
         public static string_v Logo_Description_v = null;
 
-        public static long_v Office_ID_v = null;
+        public static ID m_Office_ID = null;
 
-        public static long_v Atom_ElectronicDevice_ID_v = null;
+        public static ID Atom_ElectronicDevice_ID = null;
 
         public static List<myOrg_Office> myOrg_Office_list = new List<myOrg_Office>();
         public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
-        public static long Default_Currency_ID = -1;
+
+        public static ID Default_Currency_ID = null;
         public static tnr[] Default_TaxRates = null;
 
         public static bool CountryDefined
@@ -65,17 +66,17 @@ namespace TangentaDB
             }
         }
 
-        public static long Office_ID
+        public static ID Office_ID
         {
             get
             {
-                if (Office_ID_v!=null)
+                if (ID.Validate(Office_ID))
                 {
-                    return Office_ID_v.v;
+                    return Office_ID;
                 }
                 else
                 {
-                    return ID.InvalidID;
+                    return null;
                 }
             }
         }
@@ -85,7 +86,7 @@ namespace TangentaDB
             string Err = null;
 
             DataTable dt_myOrganisation = new DataTable();
-            myOrg.ID_v = null;
+            myOrg.ID = null;
             myOrg.Name_v = null;
             myOrg.Tax_ID_v = null;
             myOrg.Registration_ID_v = null;
@@ -174,7 +175,7 @@ namespace TangentaDB
             {
                 if (dt_myOrganisation.Rows.Count > 0)
                 {
-                    myOrg.ID_v = tf.set_long(dt_myOrganisation.Rows[0]["ID"]);
+                    myOrg.ID = tf.set_ID(dt_myOrganisation.Rows[0]["ID"]);
                     myOrg.Name_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Name"]);
                     myOrg.Tax_ID_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Tax_ID"]);
                     myOrg.Registration_ID_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Registration_ID"]);
@@ -201,10 +202,10 @@ namespace TangentaDB
                     myOrg.Address_v.Country_ISO_3166_a3_v = tf.set_dstring(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
                     myOrg.Address_v.Country_ISO_3166_num_v = tf.set_dshort(fs.MyConvertToShort(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
                     myOrg.Address_v.State_v = tf.set_dstring(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$State"]);
-                    if (myOrg.ID_v != null)
+                    if (myOrg.ID != null)
                     {
-                        myOrg_Office_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Office_list);
-                        myOrg_Person_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Person_list);
+                        myOrg_Office_List.Get(myOrg.ID, ref myOrg.myOrg_Office_list);
+                        myOrg_Person_List.Get(myOrg.ID, ref myOrg.myOrg_Person_list);
                     }
                 }
                 return true;

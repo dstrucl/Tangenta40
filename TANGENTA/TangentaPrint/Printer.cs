@@ -21,6 +21,7 @@ using TangentaDB;
 using DBTypes;
 using UniversalInvoice;
 using System.Data;
+using DBConnectionControl40;
 
 namespace TangentaPrint
 {
@@ -947,7 +948,7 @@ namespace TangentaPrint
 
 
             //ReceiptPrinter.Print(ep.InitializePrinter());
-            long journal_docinvoice_id = -1;
+            ID journal_docinvoice_id = null;
 
             try
             {

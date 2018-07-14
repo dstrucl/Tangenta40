@@ -93,7 +93,7 @@ namespace ShopC
         ShopABC m_ShopBC;
         DBTablesAndColumnNames DBtcn;
         int ipnl_Items_Width_default = -1;
-        private long m_PriceList_ID = -1;
+        private ID m_PriceList_ID = null;
 
 
         public int NumberOfGroupLevels
@@ -168,7 +168,7 @@ namespace ShopC
         {
             if (obj is Item_Data)
             {
-                Get_Price_Item_Stock_Data(((Item_Data)obj).PriceList_ID.v);
+                Get_Price_Item_Stock_Data(((Item_Data)obj).PriceList_ID);
             }
         }
 
@@ -176,7 +176,7 @@ namespace ShopC
         {
             if (obj is TangentaDB.Item_Data)
             {
-                Get_Price_Item_Stock_Data(((TangentaDB.Item_Data)obj).PriceList_ID.v);
+                Get_Price_Item_Stock_Data(((TangentaDB.Item_Data)obj).PriceList_ID);
             }
         }
 
@@ -207,7 +207,7 @@ namespace ShopC
 
 
 
-        public bool Get_Price_Item_Stock_Data(long PriceList_ID)
+        public bool Get_Price_Item_Stock_Data(ID PriceList_ID)
         {
             m_PriceList_ID = PriceList_ID;
             if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.GetGroupsTable(PriceList_ID))

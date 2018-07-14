@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using DataGridView_2xls;
 using LanguageControl;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -23,7 +24,7 @@ namespace ShopC
     public partial class usrc_Atom_Item_View : UserControl
     {
         private TangentaDB.ShopABC m_InvoiceDB = null;
-        private long m_Atom_Item_ID = 0;
+        private ID m_Atom_Item_ID = null;
         private List<object> appisd_List = new List<object>();
         private DataTable dt_DocInvoice_Atom_Item_Stock_view = new DataTable();
         private Color Color_null;
@@ -38,7 +39,7 @@ namespace ShopC
 
         }
 
-        public bool Init(TangentaDB.ShopABC x_InvoiceDB, long x_Atom_Item_ID)
+        public bool Init(TangentaDB.ShopABC x_InvoiceDB, ID x_Atom_Item_ID)
         {
 
             m_InvoiceDB = x_InvoiceDB;
@@ -372,7 +373,7 @@ namespace ShopC
                         lbl_V_NetPrice.BackColor = Color_null;
                     }
 
-                    string sql_get_image = "select Atom_Item_ImageLib.Image_Data from Atom_Item_ImageLib inner join Atom_Item_Image on Atom_Item_Image.Atom_Item_ImageLib_ID = Atom_Item_ImageLib.ID where Atom_Item_Image.Atom_Item_ID = " + xappisd.Atom_Item_ID.v.ToString();
+                    string sql_get_image = "select Atom_Item_ImageLib.Image_Data from Atom_Item_ImageLib inner join Atom_Item_Image on Atom_Item_Image.Atom_Item_ImageLib_ID = Atom_Item_ImageLib.ID where Atom_Item_Image.Atom_Item_ID = " + xappisd.Atom_Item_ID.ToString();
                     DataTable dt = new DataTable();
                     if (DBSync.DBSync.ReadDataTable(ref dt, sql_get_image, null, ref Err))
                     {

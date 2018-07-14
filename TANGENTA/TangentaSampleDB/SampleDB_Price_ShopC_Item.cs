@@ -1,4 +1,5 @@
-﻿using DBTypes;
+﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -62,15 +63,15 @@ namespace TangentaSampleDB
         public DateTime_v ShopC_Price_Item_PriceList_CreationDate_v = null;
         public string ShopC_Price_Item_PriceList_Description = null;
 
-        public long ShopC_Price_Item_Item_ID = -1;
-        public long ShopC_Item_Unit_ID = -1;
-        public long ShopC_Item_Expiry_ID = -1;
-        public long ShopC_Item_Warranty_ID = -1;
-        public long ShopC_Price_Item_Taxation_ID = -1;
-        public long ShopC_Price_Item_PriceList_ID = -1;
-        public long ShopC_Price_Item_Currency_ID = -1;
-        public long ShopC_Price_Item_ID = -1;
-        public long ShopC_Item_Image_ID = -1;
+        public ID ShopC_Price_Item_Item_ID = null;
+        public ID ShopC_Item_Unit_ID = null;
+        public ID ShopC_Item_Expiry_ID = null;
+        public ID ShopC_Item_Warranty_ID = null;
+        public ID ShopC_Price_Item_Taxation_ID = null;
+        public ID ShopC_Price_Item_PriceList_ID = null;
+        public ID ShopC_Price_Item_Currency_ID = null;
+        public ID ShopC_Price_Item_ID = null;
+        public ID ShopC_Item_Image_ID = null;
 
         public SampleDB_Price_ShopC_Item(   string xShopC_Item_UniqueName,
                                             string xShopC_Item_Name,

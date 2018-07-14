@@ -154,15 +154,18 @@ namespace DBTypes
             {
                 x = new ID(p);
             }
-            else if (p is ulong)
+            else if (p is int)
             {
-                x = new ID((long)p);
+                x = new ID((int)p);
+            }
+            else if (p is  Guid )
+            {
+                x = new ID((Guid)p);
             }
             else if (!(p is System.DBNull))
             {
                 tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
             }
-
             return x;
         }
 

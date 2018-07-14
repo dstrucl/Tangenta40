@@ -345,13 +345,13 @@ namespace ShopC
 
         private void btn_pic_Image_Click(object sender, EventArgs e)
         {
-            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB,this.m_appisd.Atom_Item_ID.v);
+            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB,this.m_appisd.Atom_Item_ID);
             itma_frm.ShowDialog();
         }
 
         private void lbl_Item_Click(object sender, EventArgs e)
         {
-            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB, this.m_appisd.Atom_Item_ID.v);
+            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB, this.m_appisd.Atom_Item_ID);
             itma_frm.ShowDialog();
         }
     }

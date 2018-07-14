@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,64 +32,64 @@ namespace LoginControl
 
 
 
-        internal int LoginSession_id = -1;
+        internal ID LoginSession_id = null;
 
 
-        internal long ID = -1;
+        internal ID ID = null;
         internal bool Enabled;
         internal DateTime Time_When_AdministratorSetsPassword;
         internal DateTime Time_When_UserSetsItsOwnPassword_FirstTime;
         internal DateTime Time_When_UserSetsItsOwnPassword_LastTime;
-        internal long Administrator_LoginUsers_ID;
+        internal ID Administrator_LoginUsers_ID = null;
         internal bool ChangePasswordOnFirstLogin;
         internal int Maximum_password_age_in_days;
         internal bool NotActiveAfterPasswordExpires;
         internal bool PasswordNeverExpires;
-        internal long myOrganisation_Person_ID;
+        internal ID myOrganisation_Person_ID=null;
         internal string UserName;
         internal byte[] Password;
         internal string myOrganisation_Person_Job;
         internal bool myOrganisation_Person_Active;
         internal string myOrganisation_Person_Description;
-        internal long myOrganisation_Person__per_ID;
+        internal ID myOrganisation_Person__per_ID = null;
         internal bool myOrganisation_Person__per_Gender;
-        internal long myOrganisation_Person__per__cfn_ID;
+        internal ID myOrganisation_Person__per__cfn_ID = null;
         internal string myOrganisation_Person__per__cfn_FirstName;
-        internal long myOrganisation_Person__per__cln_ID;
+        internal ID myOrganisation_Person__per__cln_ID = null;
         internal string myOrganisation_Person__per__cln_LastName;
         internal DateTime myOrganisation_Person__per_DateOfBirth;
         internal string myOrganisation_Person__per_Tax_ID;
         internal string myOrganisation_Person__per_Registration_ID;
-        internal long myOrganisation_Person__office_ID;
+        internal ID myOrganisation_Person__office_ID = null;
         internal string myOrganisation_Person__office_Name;
         internal string myOrganisation_Person__office_ShortName;
-        internal long PersonData_ID;
+        internal ID PersonData_ID = null;
         internal string PersonData_CardNumber;
         internal string PersonData_Description;
         internal string PersonData__cgsmnper_GsmNumber;
-        internal long PersonData__cphnnper_ID;
+        internal ID PersonData__cphnnper_ID = null;
         internal string PersonData__cphnnper_PhoneNumber;
-        internal long PersonData__cemailper_ID;
+        internal ID PersonData__cemailper_ID = null;
         internal string PersonData__cemailper_Email;
-        internal long PersonData__cadrper_ID;
-        internal long PersonData__cadrper__cstrnper_ID;
+        internal ID PersonData__cadrper_ID = null;
+        internal ID PersonData__cadrper__cstrnper_ID = null;
         internal string PersonData__cadrper__cstrnper_StreetName;
-        internal long PersonData__cadrper__chounper_ID;
+        internal ID PersonData__cadrper__chounper_ID = null;
         internal string PersonData__cadrper__chounper_HouseNumber;
-        internal long PersonData__cadrper__ccitper_ID;
+        internal ID PersonData__cadrper__ccitper_ID = null;
         internal string PersonData__cadrper__ccitper_City;
-        internal long PersonData__cadrper__zipper_ID;
+        internal ID PersonData__cadrper__zipper_ID = null;
         internal string PersonData__cadrper__zipper_ZIP;
-        internal long PersonData__cadrper__cstper_ID;
+        internal ID PersonData__cadrper__cstper_ID = null;
         internal string PersonData__cadrper__cstper_Country;
         internal string PersonData__cadrper__cstper_Country_ISO_3166_a2;
         internal string PersonData__cadrper__cstper_Country_ISO_3166_a3;
         internal string PersonData__cadrper__cstper_Country_ISO_3166_num;
-        internal long PersonData__cadrper__ccouper_ID;
+        internal ID PersonData__cadrper__ccouper_ID = null;
         internal string PersonData__cadrper__ccouper_State;
-        internal long PersonData__cardtper_ID;
+        internal ID PersonData__cardtper_ID = null;
         internal string PersonData__cardtper_CardType;
-        internal long PersonData__perimg_ID;
+        internal ID PersonData__perimg_ID = null;
         internal string PersonData__perimg_Image_Hash;
         internal byte[] PersonData__perimg_Image_Data;
 
@@ -116,7 +117,7 @@ namespace LoginControl
             }
         }
 
-        public long LoginUsers_ID {
+        public ID LoginUsers_ID {
             get
             {
                 return ID;
@@ -189,61 +190,61 @@ namespace LoginControl
                 if (dt.Rows.Count > 0)
                 {
                     DataRow dr = dt.Rows[0];
-                    ID = f.glong(dr[awpb.mcn_ID.ColumnName]);
+                    ID = tf.set_ID(dr[awpb.mcn_ID.ColumnName]);
                     Enabled = f.gbool(dr[awpb.mcn_Enabled.ColumnName]);
                     PasswordNeverExpires = f.gbool(dr[awpb.mcn_PasswordNeverExpires.ColumnName]);
                     Time_When_AdministratorSetsPassword = f.gDateTime(dr[awpb.mcn_Time_When_AdministratorSetsPassword.ColumnName]);
                     Time_When_UserSetsItsOwnPassword_FirstTime = f.gDateTime(dr[awpb.mcn_Time_When_UserSetsItsOwnPassword_FirstTime.ColumnName]);
                     Time_When_UserSetsItsOwnPassword_LastTime = f.gDateTime(dr[awpb.mcn_Time_When_UserSetsItsOwnPassword_LastTime.ColumnName]);
-                    Administrator_LoginUsers_ID = f.glong(dr[awpb.mcn_Administrator_LoginUsers_ID.ColumnName]);
+                    Administrator_LoginUsers_ID = tf.set_ID(dr[awpb.mcn_Administrator_LoginUsers_ID.ColumnName]);
                     ChangePasswordOnFirstLogin = f.gbool(dr[awpb.mcn_ChangePasswordOnFirstLogin.ColumnName]);
                     Maximum_password_age_in_days = f.gint(dr[awpb.mcn_Maximum_password_age_in_days.ColumnName]);
                     NotActiveAfterPasswordExpires = f.gbool(dr[awpb.mcn_NotActiveAfterPasswordExpires.ColumnName]);
-                    myOrganisation_Person_ID = f.glong(dr[awpb.mcn_myOrganisation_Person_ID.ColumnName]);
+                    myOrganisation_Person_ID = tf.set_ID(dr[awpb.mcn_myOrganisation_Person_ID.ColumnName]);
                     UserName = f.gstring(dr[awpb.mcn_UserName.ColumnName]);
                     Password = f.gbytearray(dr[awpb.mcn_Password.ColumnName]);
                     myOrganisation_Person_Job = f.gstring(dr[awpb.mcn_myOrganisation_Person_Job.ColumnName]);
                     myOrganisation_Person_Active = f.gbool(dr[awpb.mcn_myOrganisation_Person_Active.ColumnName]);
                     myOrganisation_Person_Description = f.gstring(dr[awpb.mcn_myOrganisation_Person_Description.ColumnName]);
-                    myOrganisation_Person__per_ID = f.glong(dr[awpb.mcn_myOrganisation_Person__per_ID.ColumnName]);
+                    myOrganisation_Person__per_ID = tf.set_ID(dr[awpb.mcn_myOrganisation_Person__per_ID.ColumnName]);
                     myOrganisation_Person__per_Gender = f.gbool(dr[awpb.mcn_myOrganisation_Person__per_Gender.ColumnName]);
-                    myOrganisation_Person__per__cfn_ID = f.glong(dr[awpb.mcn_myOrganisation_Person__per__cfn_ID.ColumnName]);
+                    myOrganisation_Person__per__cfn_ID = tf.set_ID(dr[awpb.mcn_myOrganisation_Person__per__cfn_ID.ColumnName]);
                     myOrganisation_Person__per__cfn_FirstName = f.gstring(dr[awpb.mcn_myOrganisation_Person__per__cfn_FirstName.ColumnName]);
-                    myOrganisation_Person__per__cln_ID = f.glong(dr[awpb.mcn_myOrganisation_Person__per__cln_ID.ColumnName]);
+                    myOrganisation_Person__per__cln_ID = tf.set_ID(dr[awpb.mcn_myOrganisation_Person__per__cln_ID.ColumnName]);
                     myOrganisation_Person__per__cln_LastName = f.gstring(dr[awpb.mcn_myOrganisation_Person__per__cln_LastName.ColumnName]);
                     myOrganisation_Person__per_DateOfBirth = f.gDateTime(dr[awpb.mcn_myOrganisation_Person__per_DateOfBirth.ColumnName]);
                     myOrganisation_Person__per_Tax_ID = f.gstring(dr[awpb.mcn_myOrganisation_Person__per_Tax_ID.ColumnName]);
                     myOrganisation_Person__per_Registration_ID = f.gstring(dr[awpb.mcn_myOrganisation_Person__per_Registration_ID.ColumnName]);
-                    myOrganisation_Person__office_ID = f.glong(dr[awpb.mcn_myOrganisation_Person__office_ID.ColumnName]);
+                    myOrganisation_Person__office_ID = tf.set_ID(dr[awpb.mcn_myOrganisation_Person__office_ID.ColumnName]);
                     myOrganisation_Person__office_Name = f.gstring(dr[awpb.mcn_myOrganisation_Person__office_Name.ColumnName]);
                     myOrganisation_Person__office_ShortName = f.gstring(dr[awpb.mcn_myOrganisation_Person__office_ShortName.ColumnName]);
-                    PersonData_ID = f.glong(dr[awpb.mcn_PersonData_ID.ColumnName]);
+                    PersonData_ID = tf.set_ID(dr[awpb.mcn_PersonData_ID.ColumnName]);
                     PersonData_CardNumber = f.gstring(dr[awpb.mcn_PersonData_CardNumber.ColumnName]);
                     PersonData_Description = f.gstring(dr[awpb.mcn_PersonData_Description.ColumnName]);
                     PersonData__cgsmnper_GsmNumber = f.gstring(dr[awpb.mcn_PersonData__cgsmnper_GsmNumber.ColumnName]);
-                    PersonData__cphnnper_ID = f.glong(dr[awpb.mcn_PersonData__cphnnper_ID.ColumnName]);
+                    PersonData__cphnnper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cphnnper_ID.ColumnName]);
                     PersonData__cphnnper_PhoneNumber = f.gstring(dr[awpb.mcn_PersonData__cphnnper_PhoneNumber.ColumnName]);
-                    PersonData__cemailper_ID = f.glong(dr[awpb.mcn_PersonData__cemailper_ID.ColumnName]);
+                    PersonData__cemailper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cemailper_ID.ColumnName]);
                     PersonData__cemailper_Email = f.gstring(dr[awpb.mcn_PersonData__cemailper_Email.ColumnName]);
-                    PersonData__cadrper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper_ID.ColumnName]);
-                    PersonData__cadrper__cstrnper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper__cstrnper_ID.ColumnName]);
+                    PersonData__cadrper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper_ID.ColumnName]);
+                    PersonData__cadrper__cstrnper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper__cstrnper_ID.ColumnName]);
                     PersonData__cadrper__cstrnper_StreetName = f.gstring(dr[awpb.mcn_PersonData__cadrper__cstrnper_StreetName.ColumnName]);
-                    PersonData__cadrper__chounper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper__chounper_ID.ColumnName]);
+                    PersonData__cadrper__chounper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper__chounper_ID.ColumnName]);
                     PersonData__cadrper__chounper_HouseNumber = f.gstring(dr[awpb.mcn_PersonData__cadrper__chounper_HouseNumber.ColumnName]);
-                    PersonData__cadrper__ccitper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper__ccitper_ID.ColumnName]);
+                    PersonData__cadrper__ccitper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper__ccitper_ID.ColumnName]);
                     PersonData__cadrper__ccitper_City = f.gstring(dr[awpb.mcn_PersonData__cadrper__ccitper_City.ColumnName]);
-                    PersonData__cadrper__zipper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper__zipper_ID.ColumnName]);
+                    PersonData__cadrper__zipper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper__zipper_ID.ColumnName]);
                     PersonData__cadrper__zipper_ZIP = f.gstring(dr[awpb.mcn_PersonData__cadrper__zipper_ZIP.ColumnName]);
-                    PersonData__cadrper__cstper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper__cstper_ID.ColumnName]);
+                    PersonData__cadrper__cstper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper__cstper_ID.ColumnName]);
                     PersonData__cadrper__cstper_Country = f.gstring(dr[awpb.mcn_PersonData__cadrper__cstper_Country.ColumnName]);
                     PersonData__cadrper__cstper_Country_ISO_3166_a2 = f.gstring(dr[awpb.mcn_PersonData__cadrper__cstper_Country_ISO_3166_a2.ColumnName]);
                     PersonData__cadrper__cstper_Country_ISO_3166_a3 = f.gstring(dr[awpb.mcn_PersonData__cadrper__cstper_Country_ISO_3166_a3.ColumnName]);
                     PersonData__cadrper__cstper_Country_ISO_3166_num = f.gstring(dr[awpb.mcn_PersonData__cadrper__ccouper_ID.ColumnName]);
-                    PersonData__cadrper__ccouper_ID = f.glong(dr[awpb.mcn_PersonData__cadrper__ccouper_ID.ColumnName]);
+                    PersonData__cadrper__ccouper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cadrper__ccouper_ID.ColumnName]);
                     PersonData__cadrper__ccouper_State = f.gstring(dr[awpb.mcn_PersonData__cadrper__ccouper_State.ColumnName]);
-                    PersonData__cardtper_ID = f.glong(dr[awpb.mcn_PersonData__cardtper_ID.ColumnName]);
+                    PersonData__cardtper_ID = tf.set_ID(dr[awpb.mcn_PersonData__cardtper_ID.ColumnName]);
                     PersonData__cardtper_CardType = f.gstring(dr[awpb.mcn_PersonData__cardtper_CardType.ColumnName]);
-                    PersonData__perimg_ID = f.glong(dr[awpb.mcn_PersonData__perimg_ID.ColumnName]);
+                    PersonData__perimg_ID = tf.set_ID(dr[awpb.mcn_PersonData__perimg_ID.ColumnName]);
                     PersonData__perimg_Image_Hash = f.gstring(dr[awpb.mcn_PersonData__perimg_Image_Hash.ColumnName]);
                     PersonData__perimg_Image_Data = f.gbytearray(dr[awpb.mcn_PersonData__perimg_Image_Data.ColumnName]);
                     
@@ -379,7 +380,7 @@ namespace LoginControl
 
         internal void AddRole(int Index)
         {
-            long LoginUsersAndLoginRoles_ID = -1;
+            ID LoginUsersAndLoginRoles_ID = null;
 
             AWP_func.AddRole(ID, m_AWP_MissingUserRoles[Index].ID,ref LoginUsersAndLoginRoles_ID);
         }

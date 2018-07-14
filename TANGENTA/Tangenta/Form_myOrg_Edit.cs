@@ -209,7 +209,7 @@ namespace Tangenta
 
         private void btn_BankAccounts_Click(object sender, EventArgs e)
         {
-            if (myOrg.ID_v != null)
+            if (myOrg.ID != null)
             {
                 Navigation xnav = new Navigation();
                 xnav.bDoModal = true;
@@ -233,7 +233,7 @@ namespace Tangenta
 
         private void btn_Office_Edit(object sender, EventArgs e)
         {
-            if (myOrg.ID_v != null)
+            if (myOrg.ID != null)
             {
 
                 this.Cursor = Cursors.WaitCursor;

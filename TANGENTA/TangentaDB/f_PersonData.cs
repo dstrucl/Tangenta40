@@ -53,7 +53,7 @@ namespace TangentaDB
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_Person_ID = "@spar_Person_ID";
-                SQL_Parameter par_Person_ID = new SQL_Parameter(spar_Person_ID, false, person_ID.v);
+                SQL_Parameter par_Person_ID = new SQL_Parameter(spar_Person_ID, false, person_ID);
                 lpar.Add(par_Person_ID);
                 string sql = "insert into PersonData (Person_ID)values(" + spar_Person_ID + ")";
                 string Err = null;

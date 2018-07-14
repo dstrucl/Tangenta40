@@ -235,7 +235,7 @@ namespace TangentaDB
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Organisation data for OrganisationData_ID = " + ((long)oOrganisationData_ID).ToString());
+                                LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Organisation data for OrganisationData_ID = " + OrganisationData_ID.ToString());
                                 return false;
                             }
                         }
@@ -286,7 +286,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Person data for Person ID = " + ((long)oPerson_ID).ToString());
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Person data for Person ID = " + Person_ID.ToString());
                             return false;
                         }
                         return true;

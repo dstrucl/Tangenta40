@@ -31,7 +31,7 @@ namespace TangentaPrint
         DateTime_v DocInvoiceTime_v = null;
         DataTable dt = new DataTable();
 
-        long DocInvoice_ID = -1;
+        ID DocInvoice_ID = null;
         public usrc_PrintExistingInvoice()
         {
             InitializeComponent();

@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace TangentaDB
 {
     public static class myOrg_Person_List
     {
-        public static bool Get(long myOrganisation_id, ref List<myOrg_Person> myOrg_Person_list)
+        public static bool Get(ID myOrganisation_id, ref List<myOrg_Person> myOrg_Person_list)
         {
 
             DataTable dt = new DataTable();
@@ -60,9 +61,9 @@ namespace TangentaDB
                         xmp.DateOfBirth_v = tf.set_DateTime(dr["myOrganisation_Person_$_per_$$DateOfBirth"]);
                         xmp.Tax_ID_v = tf.set_string(dr["myOrganisation_Person_$_per_$$Tax_ID"]);
                         xmp.Registration_ID_v = tf.set_string(dr["myOrganisation_Person_$_per_$$Registration_ID"]);
-                        xmp.myOrg_Office.ID_v = tf.set_long(dr["myOrganisation_Person_$_office_$$ID"]);
+                        xmp.myOrg_Office.ID = tf.set_ID(dr["myOrganisation_Person_$_office_$$ID"]);
                         xmp.myOrg_Office.Name_v = tf.set_string(dr["myOrganisation_Person_$_office_$$Name"]);
-                        xmp.myOrg_Office.Get(xmp.myOrg_Office.ID_v);
+                        xmp.myOrg_Office.Get(xmp.myOrg_Office.ID);
                         myOrg_Person_list.Add(xmp);
                     }
                 }

@@ -172,7 +172,7 @@ namespace TangentaDB
                             string sql_condition = null;
                             if (col.fKey.reference_ID != null)
                             {
-                                sql_condition = col.Name + " = " + col.fKey.reference_ID.v.ToString();
+                                sql_condition = col.Name + " = " + col.fKey.reference_ID.ToString();
                             }
                             else
                             {
@@ -201,11 +201,11 @@ namespace TangentaDB
                             {
                                 if (sql_values == null)
                                 {
-                                    sql_values = col.fKey.reference_ID.v.ToString();
+                                    sql_values = col.fKey.reference_ID.ToString();
                                 }
                                 else
                                 {
-                                    sql_values += "," + col.fKey.reference_ID.v.ToString();
+                                    sql_values += "," + col.fKey.reference_ID.ToString();
                                 }
                             }
                             else
@@ -231,24 +231,17 @@ namespace TangentaDB
                 {
                     if (iD == null)
                     {
-                        iD = new ID_v();
+                        iD = new ID();
                     }
-                    iD.v = (long)dt.Rows[0]["ID"];
+                    iD.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     // insert
                     sql_insert += sql_insert_columns + ") Values (" + sql_values + ")";
-                    long id = -1;
-                    object oret = new object();
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref id, ref oret, ref Err, Address_Tabel.TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref iD, ref Err, Address_Tabel.TableName))
                     {
-                        if (iD == null)
-                        {
-                            iD = new ID_v();
-                        }
-                        iD.v = id;
                         return true;
                     }
                     else

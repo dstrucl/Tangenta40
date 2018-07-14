@@ -28,11 +28,11 @@ namespace TangentaDB
             string sql = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
-            long PriceList_Name_ID = -1;
+            ID PriceList_Name_ID = null;
             if (f_PriceList_Name.Get(sPriceListName, ref PriceList_Name_ID))
             {
                 string spar_PriceListName_ID = "@par_PriceListName_ID";
-                SQL_Parameter par_PriceListName_ID = new SQL_Parameter(spar_PriceListName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PriceList_Name_ID);
+                SQL_Parameter par_PriceListName_ID = new SQL_Parameter(spar_PriceListName_ID, false, PriceList_Name_ID);
                 lpar.Add(par_PriceListName_ID);
 
                 string scond_ValidFrom = " ValidFrom is null ";
@@ -199,8 +199,8 @@ namespace TangentaDB
                 tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Tangenta.m_DBTables, null);
                 SelectID_Table_dlg.ShowDialog();
-                long id_Taxation = SelectID_Table_dlg.ID;
-                if (id_Taxation >= 0)
+                ID id_Taxation = SelectID_Table_dlg.ID;
+                if (ID.Validate(id_Taxation))
                 {
                     foreach (DataRow dr in dt_SimpleItem.Rows)
                     {

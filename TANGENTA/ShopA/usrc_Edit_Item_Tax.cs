@@ -37,7 +37,7 @@ namespace ShopA
                 if (this.cmb_TaxRate.SelectedValue is long)
                 {
                     long i = (long)this.cmb_TaxRate.SelectedValue;
-                    m_Taxation.ID.set(m_xTaxationList.items[i].ID);
+                    m_Taxation.ID.Set(m_xTaxationList.items[i].ID);
                     m_Taxation.Name.set(m_xTaxationList.items[i].Name);
                     m_Taxation.Rate.set(m_xTaxationList.items[i].Rate);
                     return m_Taxation;
@@ -71,7 +71,7 @@ namespace ShopA
             if (this.cmb_TaxRate.SelectedValue is long)
             {
                 long i = (long) this.cmb_TaxRate.SelectedValue;
-                xTaxation.ID.set(m_xTaxationList.items[i].ID);
+                xTaxation.ID.Set(m_xTaxationList.items[i].ID);
                 xTaxation.Name.set(m_xTaxationList.items[i].Name);
                 xTaxation.Rate.set(m_xTaxationList.items[i].Rate);
                 this.BackColor = default_backcolor;
@@ -80,7 +80,7 @@ namespace ShopA
             else
             {
                 this.BackColor = Color.Red;
-                xTaxation.ID.set(null);
+                xTaxation.ID.Set(null);
                 xTaxation.Name.set(null);
                 xTaxation.Rate.set(null);
                 //MessageBox.Show(this, lng.s_TaxRate_must_be_defined.s);

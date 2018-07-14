@@ -21,6 +21,7 @@ using DBConnectionControl40;
 using TangentaDB;
 using Form_Discount;
 using PriseLists;
+using DBTypes;
 
 namespace ShopB
 {
@@ -59,7 +60,7 @@ namespace ShopB
         private DataGridViewTextBoxColumn dgv_total_discount_column = null;
 
         private int idgv_ShopB_Items_Width_default = -1;
-        long m_PriceList_id = -1;
+        ID m_PriceList_id = null;
         DataTable dt_Group = new DataTable();
         DataTable dt_ShopBItem = new DataTable();
         DataTable dt_Price_ShopBItem_Group = new DataTable();
@@ -118,16 +119,16 @@ namespace ShopB
             lng.s_lbl_SimpleItems.Text(lbl_ShopB_Items);
         }
 
-        public delegate void delegate_ItemUpdated(long ID,DataTable dt_SelectedShopBItem);
+        public delegate void delegate_ItemUpdated(ID ID,DataTable dt_SelectedShopBItem);
         public event delegate_ItemUpdated aa_ItemUpdated = null;
 
-        public delegate void delegate_ItemAdded(long ID,DataTable dt_SelectedShopBItem);
+        public delegate void delegate_ItemAdded(ID ID,DataTable dt_SelectedShopBItem);
         public event delegate_ItemAdded aa_ItemAdded = null;
 
-        public delegate void delegate_ItemRemoved(long ID, DataTable dt_SelectedShopBItem);
+        public delegate void delegate_ItemRemoved(ID ID, DataTable dt_SelectedShopBItem);
         public event delegate_ItemRemoved aa_ItemRemoved = null;
 
-        public delegate void delegate_ExtraDiscount(long ID, DataTable dt_SelectedShopBItem);
+        public delegate void delegate_ExtraDiscount(ID ID, DataTable dt_SelectedShopBItem);
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
 
@@ -202,7 +203,7 @@ namespace ShopB
 
         }
 
-        private int FindRow_in_dt_Price_ShopBItem(long id)
+        private int FindRow_in_dt_Price_ShopBItem(ID id)
         {
             int iRes = -1;
             int iRow = 0;
@@ -211,8 +212,8 @@ namespace ShopB
             {
                 for (iRow = 0; iRow < iRowCount; iRow++)
                 {
-                    long lid = (long)dt_Price_ShopBItem.Rows[iRow]["ID"];
-                    if (lid == id)
+                    ID lid = tf.set_ID(dt_Price_ShopBItem.Rows[iRow]["ID"]);
+                    if (lid.Equals(id))
                     {
                         return iRow;
                     }
@@ -272,7 +273,7 @@ namespace ShopB
             string Err = null;
             if (iShopBItemRow >= 0)
             {
-                long Price_ShopBItem_ID = (long)dt_Price_ShopBItem.Rows[iShopBItemRow]["ID"];
+                ID Price_ShopBItem_ID = tf.set_ID(dt_Price_ShopBItem.Rows[iShopBItemRow]["ID"]);
 
                 string PriceList_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow]["PriceList_Name"]; 
                 string ShopBItem_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemName]; 
@@ -325,7 +326,7 @@ namespace ShopB
                     decimal PriceWithoutTax = 0;
                     string Taxation_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Name];
                     decimal Taxation_Rate = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Rate];
-                    long PriceShopBItem_Atom_ShopBItem_ID = (long)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID];
+                    ID PriceShopBItem_Atom_ShopBItem_ID = tf.set_ID(dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID]);
                     if (m_InvoiceDB.Update_SelectedSimpleItem(PriceShopBItem_Atom_ShopBItem_ID,
                                                            iCount,
                                                            Discount,
@@ -365,7 +366,7 @@ namespace ShopB
                     string Taxation_Name = null;
                     decimal Tax = 0;
                     int iCount = 1;
-                    long Atom_Price_ShopBItem_ID = -1;
+                    ID Atom_Price_ShopBItem_ID = null;
                     decimal PriceWithoutTax = 0;
 
 
@@ -422,7 +423,7 @@ namespace ShopB
         private void SelectExtraDiscount(int iSelectedShopBItemRow)
         {
             string Err = null;
-            long Atom_ShopBItem_ID = (long)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID];
+            ID Atom_ShopBItem_ID = tf.set_ID(dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID]);
             string ShopBItem_Name = (string)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemName];
             object obj_Discount = dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceDiscount];
             decimal Discount = 0;
@@ -484,7 +485,7 @@ namespace ShopB
         }
 
 
-        private int FindRow_in_dt_SelectedShopBItem(long id)
+        private int FindRow_in_dt_SelectedShopBItem(ID id)
         {
             int iRes = -1;
             int iRow = 0;
@@ -493,8 +494,8 @@ namespace ShopB
             {
                 for (iRow = 0; iRow < iRowCount; iRow++)
                 {
-                    long lid = (long)dt_SelectedShopBItem.Rows[iRow][DBtcn.column_SelectedShopBItem_ShopBItem_ID];
-                    if (lid == id)
+                    ID lid = tf.set_ID(dt_SelectedShopBItem.Rows[iRow][DBtcn.column_SelectedShopBItem_ShopBItem_ID]);
+                    if (lid.Equals(id))
                     {
                         return iRow;
                     }
@@ -521,9 +522,9 @@ namespace ShopB
             }
         }
 
-        private bool GetSelectedShopBItemRowData(long lid,
+        private bool GetSelectedShopBItemRowData(ID lid,
                                                 int iSelectedShopBItemRow,
-                                                long Atom_Price_ShopBItem_ID,
+                                                ID Atom_Price_ShopBItem_ID,
                                                 int iCount,
                                                 ref decimal RetailPrice_per_unit,
                                                 ref decimal Discount,
@@ -610,9 +611,9 @@ namespace ShopB
             string Err = null;
             if (iSelectedShopBItemRow >= 0)
             {
-                long Atom_Price_ShopBItem_ID = (long)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID];
+                ID Atom_Price_ShopBItem_ID = tf.set_ID(dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID]);
                 int iCount = (int)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count];
-                long lid = (long)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ShopBItem_ID];
+                ID lid = tf.set_ID(dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ShopBItem_ID]);
                 if (iCount > 1)
                 {
                     iCount--;
@@ -842,7 +843,7 @@ namespace ShopB
             }
         }
 
-        private bool SetGroups(long PriceList_id)
+        private bool SetGroups(ID PriceList_id)
         {
             string sql_Group = @"SELECT 
               s1.Name as s1_name,
@@ -914,7 +915,7 @@ namespace ShopB
         }
 
 
-        public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data,long PriceList_id)
+        public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data,ID PriceList_id)
         {
             m_PriceList_id = PriceList_id;
             SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));

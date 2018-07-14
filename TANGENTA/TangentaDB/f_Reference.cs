@@ -49,11 +49,10 @@ namespace TangentaDB
                             {
                                 return false;
                             }
-                            sval_Reference_Image_ID = Reference_Image_ID_v.v.ToString();
+                            sval_Reference_Image_ID = Reference_Image_ID_v.ToString();
                         }
                         sql = @"insert into Reference (ReferenceNote,Reference_Image_ID)values(" + spar_ReferenceNote+","+ sval_Reference_Image_ID+");";
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Reference_ID,ref oret,ref Err, "Reference"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Reference_ID,ref Err, "Reference"))
                         {
                             return true;
                         }
@@ -78,7 +77,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool GetData(long Reference_ID,
+        public static bool GetData(ID Reference_ID,
                                    ref string ReferenceNote,
                                    ref string ImageHash,
                                    ref Image img

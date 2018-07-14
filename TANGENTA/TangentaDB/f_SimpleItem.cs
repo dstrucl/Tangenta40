@@ -154,7 +154,7 @@ namespace TangentaDB
                     if (SimpleItem_Image_ID != null)
                     {
                         string simpleItem_Image_Hash = null;
-                        f_SimpleItem_Image.Get(SimpleItem_Image_ID.v, ref SimpleItem_Image, ref simpleItem_Image_Hash);
+                        f_SimpleItem_Image.Get(SimpleItem_Image_ID, ref SimpleItem_Image, ref simpleItem_Image_Hash);
                         if (simpleItem_Image_Hash != null)
                         {
                             SimpleItem_Image_Hash_v = new string_v(simpleItem_Image_Hash);

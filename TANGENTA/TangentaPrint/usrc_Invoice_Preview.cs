@@ -353,7 +353,7 @@ namespace TangentaPrint
                             s_journal_invoice_description = m_Printer.PrinterName;
                         }
                     }
-                    long journal_docinvoice_id = -1;
+                    ID journal_docinvoice_id = null;
                     f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
                 }
                 else
@@ -367,7 +367,7 @@ namespace TangentaPrint
                             s_journal_invoice_description = m_Printer.PrinterName;
                         }
                     }
-                    long journal_docinvoice_id = -1;
+                    ID journal_docinvoice_id = null;
                     f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
                 }
                 bDocInvoicePrinted = true;
@@ -377,7 +377,7 @@ namespace TangentaPrint
             {
                 string s_journal_invoice_type = f_Journal_DocProformaInvoice.PRINT;
                 string s_journal_invoice_description = "";
-                long journal_docproformainvoice_id = -1;
+                ID journal_docproformainvoice_id = null;
                 if (m_Printer != null)
                 {
                     if (m_Printer.PrinterName != null)
@@ -385,11 +385,11 @@ namespace TangentaPrint
                         s_journal_invoice_description = m_Printer.PrinterName;
                     }
                 }
-                long journal_docproformainvoice_type_id = -1;
+                ID journal_docproformainvoice_type_id = null;
                 DateTime_v print_time_v = new DateTime_v(DateTime.Now);
                 if (f_Journal_DocProformaInvoice.Get_journal_DocProformaInvoice_type_id(s_journal_invoice_type, s_journal_invoice_description, ref journal_docproformainvoice_type_id))
                 {
-                    if (journal_docproformainvoice_type_id >= 0)
+                    if (ID.Validate(journal_docproformainvoice_type_id))
                     {
                         f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id);
                     }

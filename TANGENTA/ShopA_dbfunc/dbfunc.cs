@@ -19,7 +19,7 @@ namespace ShopA_dbfunc
 {
     public static class dbfunc
     {
-        public static bool Read_ShopA_Price_Item_Table(string DocInvoice,long DocInvoice_ID,ref DataTable dt)
+        public static bool Read_ShopA_Price_Item_Table(string DocInvoice,ID DocInvoice_ID,ref DataTable dt)
         {
             string Err = null;
             string sql = null;
@@ -262,7 +262,7 @@ namespace ShopA_dbfunc
             }
         }
 
-        public static bool delete(string DocInvoice,long atom_ItemShopA_Price_ID)
+        public static bool delete(string DocInvoice,ID atom_ItemShopA_Price_ID)
         {
             string Err = null;
             string sql = null;

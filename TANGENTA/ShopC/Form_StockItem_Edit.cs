@@ -18,6 +18,7 @@ using CodeTables;
 using DBTypes;
 using TangentaDB;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -29,7 +30,7 @@ namespace ShopC
         SQLTable tbl = null;
        
         TangentaDB.Item_Data m_Item_Data = null;
-        long_v PurchasePrice_Item_ID = null;
+        ID PurchasePrice_Item_ID = null;
         private bool m_bChanged = false;
         NavigationButtons.Navigation nav = null;
         string where_condition = null;
@@ -65,7 +66,7 @@ namespace ShopC
             {
                 if (m_usrc_EditTable.RowsCount == 0)
                 {
-                    if (f_PurchasePrice_Item.GetOneFrom_Item_ID(m_Item_Data.Item_ID.v, ref PurchasePrice_Item_ID))
+                    if (f_PurchasePrice_Item.GetOneFrom_Item_ID(m_Item_Data.Item_ID, ref PurchasePrice_Item_ID))
                     {
                         m_usrc_EditTable.FillInitialData();
                     }
@@ -84,25 +85,25 @@ namespace ShopC
         }
         private void m_usrc_EditTable_FillTable(SQLTable m_tbl)
         {
-            if (PurchasePrice_Item_ID!=null)
+            if (ID.Validate(PurchasePrice_Item_ID))
             {
                 if (m_tbl.TableName.ToLower().Equals("purchaseprice_item"))
                 {
                     string Err = null;
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, PurchasePrice_Item_ID.v, true,ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, PurchasePrice_Item_ID, true,ref Err);
                 }
             }
             else if (m_tbl.TableName.ToLower().Equals("item"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Item_Data.Item_ID.v,true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Item_Data.Item_ID,true, ref Err);
             }
         }
 
         private void m_usrc_EditTable_after_New(SQLTable m_tbl, bool bRes)
         {
             PurchasePrice_Item_ID = null;
-            if (f_PurchasePrice_Item.GetOneFrom_Item_ID(m_Item_Data.Item_ID.v, ref PurchasePrice_Item_ID))
+            if (f_PurchasePrice_Item.GetOneFrom_Item_ID(m_Item_Data.Item_ID, ref PurchasePrice_Item_ID))
             {
                 m_usrc_EditTable.FillInitialDataAndSetInputControls(m_Item_Data.Unit_DecimalPlaces.v);
             }
@@ -134,7 +135,7 @@ namespace ShopC
             }
         }
 
-        private void m_usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void m_usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
@@ -155,14 +156,14 @@ namespace ShopC
                             }
                         }
                     }
-                    long_v JOURNAL_Stock_id = null;
+                    ID JOURNAL_Stock_id = null;
                     f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
             m_bChanged = true;
         }
 
-        private void m_usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void m_usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
@@ -183,7 +184,7 @@ namespace ShopC
                             }
                         }
                     }
-                    long_v JOURNAL_Stock_id = null;
+                    ID JOURNAL_Stock_id = null;
                     f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
@@ -195,7 +196,7 @@ namespace ShopC
             get { return m_bChanged; } 
         }
 
-        private bool m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Stock"))

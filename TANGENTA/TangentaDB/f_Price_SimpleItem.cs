@@ -172,7 +172,7 @@ namespace TangentaDB
                     taxation_ID.Set(dt.Rows[0]["Taxation_ID"]);
                     if (ID.Validate(taxation_ID))
                     {
-                        return f_Taxation.Get(taxation_ID.v, ref taxation_Name_v, ref taxation_Rate_v);
+                        return f_Taxation.Get(taxation_ID, ref taxation_Name_v, ref taxation_Rate_v);
                     }
                 }
                 return true;

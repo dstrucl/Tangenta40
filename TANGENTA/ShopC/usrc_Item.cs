@@ -20,6 +20,7 @@ using CodeTables;
 using LanguageControl;
 using TangentaDB;
 using Form_Discount;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -523,7 +524,7 @@ namespace ShopC
         private void btn_Factory_Click(object sender, EventArgs e)
         {
             //bool bNew = false;
-            if (m_Item_Data.Expiry_ID != null)
+            if (ID.Validate(m_Item_Data.Item_Expiry_ID))
             {
                 if (EditStock_AvoidStock())
                 {
@@ -604,7 +605,7 @@ namespace ShopC
                     SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
                     Form_StockItem_Edit edt_ItemStock_dlg = new Form_StockItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                       tbl_Stock,
-                                                                      " where Stock_$_ppi_$_i_$$ID = " + m_Item_Data.Item_ID.v.ToString()+" ",
+                                                                      " where Stock_$_ppi_$_i_$$ID = " + m_Item_Data.Item_ID.ToString()+" ",
                                                                       "Stock_$_ppi_$_i_$$Code desc",m_Item_Data, xnav);
                     edt_ItemStock_dlg.ShowDialog();
                     if (edt_ItemStock_dlg.Changed)
@@ -624,7 +625,7 @@ namespace ShopC
 
         private bool EditItem()
         {
-            long ID = m_Item_Data.Item_ID.v;
+            ID ID = m_Item_Data.Item_ID;
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
             Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,

@@ -75,25 +75,25 @@ namespace TangentaDB
 
         public void Set_Price_Item_Stock(DataRow xdr)
         {
-            Price_Item_ID = new ID(xdr["Price_Item_ID"]);
+            Price_Item_ID = tf.set_ID(xdr["Price_Item_ID"]);
             Price_Item_Discount = tf.set_decimal(xdr["Price_Item_Discount"]);
-            PriceList_ID = new ID(xdr["PriceList_ID"]);
+            PriceList_ID = tf.set_ID(xdr["PriceList_ID"]);
             PriceList_Name = tf.set_string(xdr["PriceList_Name"]);
             Currency_Name = tf.set_string(xdr["Currency_Name"]); ;
             Currency_Abbreviation = tf.set_string(xdr["Currency_Abbreviation"]);
             Currency_Symbol = tf.set_string(xdr["Currency_Symbol"]);
             Currency_DecimalPlaces = tf.set_int(xdr["Currency_DecimalPlaces"]);
-            Stock_ID = new ID(xdr["Stock_ID"]);
+            Stock_ID = tf.set_ID(xdr["Stock_ID"]);
             Stock_ExpiryDate = tf.set_DateTime(xdr["Stock_ExpiryDate"]);
             Stock_dQuantity = tf.set_decimal(xdr["Stock_dQuantity"]);
             RetailPricePerUnit = tf.set_decimal(xdr["RetailPricePerUnit"]);
             Stock_ImportTime = tf.set_DateTime(xdr["Stock_ImportTime"]);
             StockTake_Draft = tf.set_bool(xdr["StockTake_Draft"]);
-            Item_ID = new ID(xdr["Item_ID"]);
+            Item_ID = tf.set_ID(xdr["Item_ID"]);
             Item_UniqueName = tf.set_string(xdr["Item_UniqueName"]);
             Item_Name = tf.set_string(xdr["Item_Name"]);
             Item_barcode = tf.set_string(xdr["Item_barcode"]);
-            Item_Image_ID = new ID(xdr["Item_Image_ID"]);
+            Item_Image_ID = tf.set_ID(xdr["Item_Image_ID"]);
             Item_Image_Image_Data = tf.set_byte_array(xdr["Item_Image_Image_Data"]);
             Item_Image_Image_Hash = tf.set_string(xdr["Item_Image_Image_Hash"]);
             Item_Description = tf.set_string(xdr["Item_Description"]);
@@ -102,20 +102,18 @@ namespace TangentaDB
             Unit_DecimalPlaces = tf.set_int(xdr["Unit_DecimalPlaces"]);
             Unit_StorageOption = tf.set_bool(xdr["Unit_StorageOption"]);
             Unit_Description = tf.set_string(xdr["Unit_Description"]);
-            Expiry_ID = new ID(xdr["Expiry_ID"]);
             Unit_Name = tf.set_string(xdr["Unit_Name"]);
             Expiry_ExpectedShelfLifeInDays = tf.set_int(xdr["Expiry_ExpectedShelfLifeInDays"]);
             Expiry_SaleBeforeExpiryDateInDays = tf.set_int(xdr["Expiry_SaleBeforeExpiryDateInDays"]);
             Expiry_DiscardBeforeExpiryDateInDays = tf.set_int(xdr["Expiry_DiscardBeforeExpiryDateInDays"]);
             Expiry_Description = tf.set_string(xdr["Expiry_ExpiryDescription"]);
-            Item_Expiry_ID = new ID(xdr["Expiry_ID"]);
+            Item_Expiry_ID = tf.set_ID(xdr["Expiry_ID"]);
             Item_ToOffer = tf.set_bool(xdr["Item_ToOffer"]);
-            Item_Warranty_ID = new ID(xdr["Warranty_ID"]);
-            Warranty_ID = tf.set_long(xdr["Warranty_ID"]);
+            Item_Warranty_ID = tf.set_ID(xdr["Warranty_ID"]);
             Warranty_WarrantyConditions = tf.set_string(xdr["Warranty_WarrantyConditions"]);
             Warranty_WarrantyDuration = tf.set_int(xdr["Warranty_WarrantyDuration"]);
             Warranty_WarrantyDurationType = tf.set_short(fs.MyConvertToShort(xdr["Warranty_WarrantyDurationType"]));
-            Taxation_ID = tf.set_long(xdr["Taxation_ID"]);
+            Taxation_ID = tf.set_ID(xdr["Taxation_ID"]);
             Taxation_Name = tf.set_string(xdr["Taxation_Name"]);
             Taxation_Rate = tf.set_decimal(xdr["Taxation_Rate"]);
             PurchasePricePerUnit = tf.set_decimal(xdr["PurchasePricePerUnit"]);
@@ -138,15 +136,6 @@ namespace TangentaDB
                 s3_name = (string)xdr["s3_name"];
             }
         }
-
-        //public void Get_price_item_factory()
-        //{
-        //    price_item_factory = new CurrentInvoice.Price_Item_Stock();
-        //    price_item_factory = price_item_stock.Clone();
-        //    price_item_factory.Stock_ID = null;
-        //    price_item_factory.Stock_ExpiryDate = null;
-        //    price_item_factory.Stock_dQuantity = null;
-        //}
 
 
         public decimal dQuantity_OfStockItems

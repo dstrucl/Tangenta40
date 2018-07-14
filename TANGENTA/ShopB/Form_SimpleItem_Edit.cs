@@ -15,12 +15,13 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using CodeTables;
+using DBConnectionControl40;
 
 namespace ShopB
 {
     public partial class Form_ShopB_Item_Edit : Form
     {
-        public List<long> List_of_Inserted_Items_ID = null;
+        public List<ID> List_of_Inserted_Items_ID = null;
 
         DataTable dt_ShopBItem = new DataTable();
         CodeTables.DBTableControl dbTables = null;
@@ -42,7 +43,7 @@ namespace ShopB
             nav = xnav;
             tbl = xtbl;
             lng.s_Items.Text(this, " "+lng.s_Shop_B.s);
-            List_of_Inserted_Items_ID = new List<long>();
+            List_of_Inserted_Items_ID = new List<ID>();
             rdb_OnlyInOffer.Checked = true;
             lng.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
             lng.s_AllItems.Text(this.rdb_All);
@@ -65,7 +66,7 @@ namespace ShopB
             }
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
@@ -74,7 +75,7 @@ namespace ShopB
             }
         }
 
-        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             m_bChanged = true;
         }

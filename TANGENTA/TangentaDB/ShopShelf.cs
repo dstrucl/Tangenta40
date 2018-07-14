@@ -299,7 +299,7 @@ namespace TangentaDB
         /// <param name="PriceList_ID">ID of PriceList table (table PriceList)</param>
         /// <returns>Return true if no DB error
         ///</returns>
-        public bool GetGroupsTable(long PriceList_ID)
+        public bool GetGroupsTable(ID PriceList_ID)
         {
             string sql = @"select 
               s1.Name as s1_name,

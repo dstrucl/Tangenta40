@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -103,7 +104,7 @@ namespace UpgradeDB
                         foreach (DataRow dr in dt_DocInvoice.Rows)
                         {
                             lpar.Clear();
-                            long docinvoice_ID = (long)dr["ID"];
+                            ID docinvoice_ID = tf.set_ID(dr["ID"]);
                             string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where DocInvoice_ID = " + docinvoice_ID.ToString();
                             DocInvoice_Connection_Class picc = new DocInvoice_Connection_Class();
                             picc.ID = docinvoice_ID;
@@ -175,14 +176,14 @@ namespace UpgradeDB
 
                                         foreach (DataRow dr in dt_DocInvoice.Rows)
                                         {
-                                            long new_Invoice_id = -1;
+                                            ID new_Invoice_id = null;
                                             if (fs.WriteRow("Invoice", dr, Column_PrefixTable, true, ref new_Invoice_id))
                                             {
-                                                dr["Invoice_ID"] = new_Invoice_id;
-                                                long new_DocInvoice_id = -1;
+                                                dr["Invoice_ID"] = new_Invoice_id.V;
+                                                ID new_DocInvoice_id = null;
                                                 if (fs.WriteRow("DocInvoice", dr, Column_PrefixTable, false, ref new_DocInvoice_id))
                                                 {
-                                                    DocInvoice_Connection_Class xpicc = Get_DocInvoice_Connection_Class(DocInvoice_con_List, (long)dr["ID"]);
+                                                    DocInvoice_Connection_Class xpicc = Get_DocInvoice_Connection_Class(DocInvoice_con_List,new ID(dr["ID"]));
                                                     if (xpicc != null)
                                                     {
                                                         if (!xpicc.WriteNew(new_DocInvoice_id))
@@ -221,11 +222,11 @@ namespace UpgradeDB
             }
         }
 
-        private static DocInvoice_Connection_Class Get_DocInvoice_Connection_Class(List<DocInvoice_Connection_Class> DocInvoice_con_List, long DocInvoice_ID)
+        private static DocInvoice_Connection_Class Get_DocInvoice_Connection_Class(List<DocInvoice_Connection_Class> DocInvoice_con_List, ID DocInvoice_ID)
         {
             foreach (DocInvoice_Connection_Class picc in DocInvoice_con_List)
             {
-                if (picc.ID == DocInvoice_ID)
+                if (picc.ID.Equals(DocInvoice_ID))
                 {
                     return picc;
                 }

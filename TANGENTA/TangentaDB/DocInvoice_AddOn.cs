@@ -433,7 +433,7 @@ namespace TangentaDB
             m_PaymentDeadline = null;
         }
 
-        public bool Get(long DocInvoice_ID)
+        public bool Get(ID DocInvoice_ID)
         {
             string Err = null;
             Clear();
@@ -759,13 +759,13 @@ namespace TangentaDB
             public UniversalInvoice.Invoice_FURS_Token Invoice_FURS_Token = null;
 
 
-            public bool Write_FURS_Response_Data(long DocInvoice_ID,bool FursTESTEnvironment)
+            public bool Write_FURS_Response_Data(ID DocInvoice_ID,bool FursTESTEnvironment)
             {
                 string Err = null;
                 string sql = null;
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_Invoice_ID = "@par_Invoice_ID";
-                SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
+                SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, false, DocInvoice_ID);
                 lpar.Add(par_Invoice_ID);
                 sql = "select ID from fvi_slo_response where DocInvoice_ID = " + spar_Invoice_ID;
                 DataTable dt = new DataTable();
@@ -773,7 +773,7 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID" + DocInvoice_ID.ToString() + " fvi_slo_response.ID=" + ((long)dt.Rows[0]["ID"]).ToString());
+                        LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID" + DocInvoice_ID.ToString() + " fvi_slo_response.ID=" + new ID(dt.Rows[0]["ID"]).ToString());
                         return true;
 
                     }
@@ -825,14 +825,14 @@ namespace TangentaDB
             }
 
 
-            public bool Update_FURS_Response_Data(long DocInvoice_ID, bool FursTESTEnvironment)
+            public bool Update_FURS_Response_Data(ID DocInvoice_ID, bool FursTESTEnvironment)
             {
                 object oret = null;
                 string Err = null;
                 string sql = null;
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_Invoice_ID = "@par_Invoice_ID";
-                SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
+                SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, false, DocInvoice_ID);
                 lpar.Add(par_Invoice_ID);
                 sql = "select ID from fvi_slo_response where DocInvoice_ID = " + spar_Invoice_ID;
                 DataTable dt = new DataTable();

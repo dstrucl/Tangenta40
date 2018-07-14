@@ -53,8 +53,10 @@ namespace TangentaDB
         public DateTime_v PrintingTime_v = null;
         public string PrintCopyInfo = "";
 
+        public ID DocInvoice_ID = null;
 
-        public long_v DocInvoice_Reference_ID_v = null;
+        public ID DocInvoice_Reference_ID = null;
+
         public bool bInvoiceStorno = false;
         public DateTime_v StornoIssueDate_v = null;
         public bool_v Invoice_Storno_v = null;
@@ -68,8 +70,6 @@ namespace TangentaDB
         public DataTable dt_ShopB_Items = new DataTable();
         public DataTable dt_ShopA_Items = new DataTable();
 
-        public ID DocInvoice_ID = null;
-        public long_v DocInvoice_ID_v = null;
 
 
 
@@ -563,7 +563,7 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocProformaInvoice(ref long docInvoice_ID,string ElectronicDevice_Name)
+        public bool SaveDocProformaInvoice(ref ID docInvoice_ID,string ElectronicDevice_Name)
         {
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
@@ -663,7 +663,7 @@ namespace TangentaDB
         }
 
 
-        public bool SaveDocInvoice(ref long docinvoice_ID, string ElectronicDevice_Name)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref ID docinvoice_ID, string ElectronicDevice_Name)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
             bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ElectronicDevice_Name, ref xNumberInFinancialYear);
@@ -833,7 +833,7 @@ namespace TangentaDB
 
             if (IsDocInvoice)
             {
-                DocInvoice_Reference_ID_v = null;
+                DocInvoice_Reference_ID = null;
                 if (AddOnDI.b_FVI_SLO)
                 {
 
@@ -1137,7 +1137,7 @@ namespace TangentaDB
                         IssueDate_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
                         Electronic_Device_Name_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Atom_Electronic_Device_Name"]);
 
-                        Currency.ID = (long)dt_DocInvoice.Rows[0]["Atom_Currency_ID"];
+                        Currency.ID = tf.set_ID(dt_DocInvoice.Rows[0]["Atom_Currency_ID"]);
                         Currency.Name = (string)dt_DocInvoice.Rows[0]["CurrencyName"];
                         Currency.Symbol = (string)dt_DocInvoice.Rows[0]["CurrencySymbol"];
                         Currency.Abbreviation = (string)dt_DocInvoice.Rows[0]["CurrencyAbbreviation"];
@@ -1153,7 +1153,7 @@ namespace TangentaDB
                             }
                             Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
                             Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
-                            DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                            DocInvoice_Reference_ID = DBTypes.tf.set_ID(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
                         }
                         else
                         {
@@ -1162,7 +1162,7 @@ namespace TangentaDB
                                 return false;
                             }
                         }
-                        DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
+                        DocInvoice_ID = DBTypes.tf.set_ID(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
                         string_v EventName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_"+DocInvoice+"_Type_Name"]);
 
@@ -1172,7 +1172,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            if (DocInvoice_ID_v != null)
+                            if (ID.Validate(DocInvoice_ID))
                             {
                                     if (IsDocInvoice)
                                     {
@@ -1186,11 +1186,11 @@ namespace TangentaDB
                                             {
                                                 this.m_eType = eType.STORNO;
                                                 StornoIssueDate_v = EventTime_v.Clone();
-                                                if (DocInvoice_Reference_ID_v != null)
+                                                if (ID.Validate(DocInvoice_Reference_ID))
                                                 {
                                                     if (IssueDate_v == null)
                                                     {
-                                                        sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + DocInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                                        sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + DocInvoice_Reference_ID.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
                                                         DataTable dt = new DataTable();
                                                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                         {
@@ -1307,7 +1307,7 @@ namespace TangentaDB
                             {
                                 if (Invoice_Reference_Type_v.v.Equals("STORNO"))
                                 {
-                                    if (DocInvoice_Reference_ID_v != null)
+                                    if (ID.Validate(DocInvoice_Reference_ID))
                                     {
                                         bInvoiceStorno = true;
                                     }
@@ -1376,11 +1376,10 @@ namespace TangentaDB
 
                         sFiscalVerificationOfInvoicesNotDone = lng.s_FVI_not_done.s;
 
-                        object oAtom_Person_ID = dt_DocInvoice.Rows[0]["Atom_Person_ID"];
-                        if (oAtom_Person_ID is long)
+                        ID xAtom_Person_ID = tf.set_ID(dt_DocInvoice.Rows[0]["Atom_Person_ID"]);
+                        if (ID.Validate(xAtom_Person_ID))
                         {
-                            long Atom_Person_ID = (long)oAtom_Person_ID;
-                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_Person_ID);
+                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, xAtom_Person_ID);
                         }
 
                         if (IsDocInvoice)
@@ -1458,10 +1457,9 @@ namespace TangentaDB
                         }
 
 
-                        object oAtom_Customer_Org_ID = dt_DocInvoice.Rows[0]["Atom_Customer_Org_ID"];
-                        if (oAtom_Customer_Org_ID is long)
+                        ID Atom_Customer_Org_ID = tf.set_ID(dt_DocInvoice.Rows[0]["Atom_Customer_Org_ID"]);
+                        if (ID.Validate(Atom_Customer_Org_ID))
                         {
-                            long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
                             CustomerOrganisation = f_Atom_Customer_Org.GetData(lng.st_Customer, Atom_Customer_Org_ID);
                         }
                         else
@@ -1480,12 +1478,12 @@ namespace TangentaDB
                             CustomerPerson = new UniversalInvoice.Person(lng.st_Customer);
                         }
 
-                        long xDoc_ID = DocInvoice_ID;
+                        ID xDoc_ID = DocInvoice_ID;
                         if (IsDocInvoice)
                         {
-                            if (DocInvoice_Reference_ID_v != null)
+                            if (ID.Validate(DocInvoice_Reference_ID))
                             {
-                                xDoc_ID = DocInvoice_Reference_ID_v.v;
+                                xDoc_ID = DocInvoice_Reference_ID;
                             }
                         }
 
@@ -1610,7 +1608,7 @@ namespace TangentaDB
             }
         }
 
-        private string GetPrintCopyInfo(long docInvoice_ID)
+        private string GetPrintCopyInfo(ID docInvoice_ID)
         {
             DateTime xtime = DateTime.Now;
             this.PrintingTime_v = new DateTime_v(xtime);

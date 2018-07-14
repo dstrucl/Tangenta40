@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -17,19 +18,18 @@ namespace TangentaDB
 {
     public class myOrg_Office
     {
-        public long_v ID_v = null;
-        public long_v Office_Data_ID_v = null;
+        public ID ID = null;
+        public ID Office_Data_ID = null;
         public string_v Name_v = null;
         public string_v ShortName_v = null;
         public PostAddress_v Address_v = new PostAddress_v();
         public string_v Description_v = null;
         public myOrg_Office_FVI_SLO_RealEstate myOrg_Office_FVI_SLO_RealEstate = new myOrg_Office_FVI_SLO_RealEstate();
 
-        public bool Get(long_v Office_ID_v)
+        public bool Get(ID Office_ID)
         {
             string Err = null;
-            ID_v = null;
-            ID_v = null;
+            ID = null;
             Name_v = null;
             Address_v.StreetName_v = null;
             Address_v.HouseNumber_v = null;
@@ -40,8 +40,8 @@ namespace TangentaDB
             Address_v.Country_ISO_3166_a3_v = null;
             Address_v.Country_ISO_3166_num_v = null;
 
-            myOrg_Office_FVI_SLO_RealEstate.ID_v = null;
-            myOrg_Office_FVI_SLO_RealEstate.Office_Data_ID_v = null;
+            myOrg_Office_FVI_SLO_RealEstate.ID = null;
+            myOrg_Office_FVI_SLO_RealEstate.Office_Data_ID = null;
             myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v = null;
             myOrg_Office_FVI_SLO_RealEstate.BuildingSectionNumber_v = null;
             myOrg_Office_FVI_SLO_RealEstate.Community_v = null;
@@ -52,20 +52,20 @@ namespace TangentaDB
             myOrg_Office_FVI_SLO_RealEstate.PremiseType_v = null;
 
 
-            if (Office_ID_v != null)
+            if (ID.Validate(Office_ID))
             {
                 string sql = @"SELECT 
                                   ID,
                                   Name,
                                   ShortName
-                                  FROM Office where ID = " + Office_ID_v.v.ToString();
+                                  FROM Office where ID = " + Office_ID.ToString();
 
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                        ID = tf.set_ID(dt.Rows[0]["ID"]);
                         Name_v = tf.set_string(dt.Rows[0]["Name"]);
                         ShortName_v = tf.set_string(dt.Rows[0]["ShortName"]);
                         dt.Columns.Clear();
@@ -96,12 +96,12 @@ namespace TangentaDB
                               LEFT JOIN cZIP_Org Office_Data_$_cadrorg_$_cziporg ON Office_Data_$_cadrorg.cZIP_Org_ID = Office_Data_$_cadrorg_$_cziporg.ID
                               LEFT JOIN cCountry_Org Office_Data_$_cadrorg_$_cstorg ON Office_Data_$_cadrorg.cCountry_Org_ID = Office_Data_$_cadrorg_$_cstorg.ID
                               LEFT JOIN cState_Org Office_Data_$_cadrorg_$_ccouorg ON Office_Data_$_cadrorg.cState_Org_ID = Office_Data_$_cadrorg_$_ccouorg.ID
-                              where Office_Data_$_office.ID = " + Office_ID_v.v.ToString();
+                              where Office_Data_$_office.ID = " + Office_ID.ToString();
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                Office_Data_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                                Office_Data_ID = tf.set_ID(dt.Rows[0]["ID"]);
                                 Description_v = tf.set_string(dt.Rows[0]["Office_Data_$$Description"]);
                                 Address_v.StreetName_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_office_$$Name"]);
                                 Address_v.HouseNumber_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_chounorg_$$HouseNumber"]);
@@ -111,7 +111,7 @@ namespace TangentaDB
                                 Address_v.Country_ISO_3166_a2_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2"]);
                                 Address_v.Country_ISO_3166_a3_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
                                 Address_v.Country_ISO_3166_num_v = tf.set_dshort(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
-                                myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID_v);
+                                myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID);
                             }
                             return true;
                         }

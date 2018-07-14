@@ -246,7 +246,7 @@ namespace TangentaPrint
 
         private void SaveTemaplate()
         {
-            long Doc_ID = -1;
+            ID Doc_ID = null;
             string_v desc_v = m_usrc_SelectPrintTemplate.doc_TemplateDescription;
             string template_description = "";
             if (desc_v!=null)
@@ -255,8 +255,8 @@ namespace TangentaPrint
             }
             string s_Msg = "\r\n\r\n" + lng.s_doc_TemplateName.s + ":" + m_usrc_SelectPrintTemplate.doc_TemplateName + "\r\n" +
                                   lng.s_doc_TemplateDescription.s + ":" + template_description + "\r\n" +
-                                  lng.s_doc_Type + ":" + Get_doc_Type_Name(this.m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v) + "\r\n" +
-                                  lng.s_doc_Page_Type + ":" + Get_doc_Page_Type(this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v) + "\r\n" +
+                                  lng.s_doc_Type + ":" + Get_doc_Type_Name(this.m_usrc_SelectPrintTemplate.DocType_ID) + "\r\n" +
+                                  lng.s_doc_Page_Type + ":" + Get_doc_Page_Type(this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID) + "\r\n" +
                                   lng.s_doc_TemplateLanguage.s + ":" + Get_doc_TemplateLanguage(this.m_usrc_SelectPrintTemplate.Language_ID_v);
 
             switch (f_doc.Exists(m_usrc_SelectPrintTemplate.doc_TemplateName, GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID, ref Doc_ID))
@@ -273,8 +273,8 @@ namespace TangentaPrint
                                      m_usrc_SelectPrintTemplate.doc_TemplateName,
                                      m_usrc_SelectPrintTemplate.doc_TemplateDescription,
                                      m_usrc_SelectPrintTemplate.Doc_v.v,
-                                     m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
-                                     this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v,
+                                     m_usrc_SelectPrintTemplate.DocType_ID,
+                                     this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID,
                                      this.m_usrc_SelectPrintTemplate.Language_ID_v,
                                      m_usrc_SelectPrintTemplate.f_doc_bCompressed,
                                      m_usrc_SelectPrintTemplate.f_doc_bActive,
@@ -290,8 +290,8 @@ namespace TangentaPrint
                         if (f_doc.Get(m_usrc_SelectPrintTemplate.doc_TemplateName,
                                         m_usrc_SelectPrintTemplate.doc_TemplateDescription,
                                         m_usrc_SelectPrintTemplate.Doc_v.v,
-                                        m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
-                                        this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v,
+                                        m_usrc_SelectPrintTemplate.DocType_ID,
+                                        this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID,
                                         this.m_usrc_SelectPrintTemplate.Language_ID_v,
                                         m_usrc_SelectPrintTemplate.f_doc_bCompressed,
                                         m_usrc_SelectPrintTemplate.f_doc_bActive,
@@ -314,15 +314,15 @@ namespace TangentaPrint
             }
         }
 
-        private string Get_doc_TemplateLanguage(long_v language_ID_v)
+        private string Get_doc_TemplateLanguage(ID language_ID)
         {
             string template_language_name = "?";
             string_v Name_v = null;
             string_v Description_v = null;
             int_v Index_v = null;
-            if (language_ID_v != null)
+            if (ID.Validate(language_ID))
             {
-                if (f_Language.Get(language_ID_v.v,ref Name_v, ref Description_v,ref Index_v))
+                if (f_Language.Get(language_ID,ref Name_v, ref Description_v,ref Index_v))
                 {
                     template_language_name = Name_v.v;
                 }
@@ -330,16 +330,16 @@ namespace TangentaPrint
             return template_language_name;
         }
 
-        private string Get_doc_Page_Type(long_v doc_Page_Type_ID_v)
+        private string Get_doc_Page_Type(ID doc_Page_Type_ID)
         {
             string_v Name_v = null;
             string doc_page_type_name = "?";
             string_v Description_v = null;
             decimal_v Width_v = null;
             decimal_v Height_v = null;
-            if (doc_Page_Type_ID_v != null)
+            if (ID.Validate(doc_Page_Type_ID))
             {
-                if (f_doc_page_type.Get(doc_Page_Type_ID_v.v,ref Name_v,ref Description_v,ref Width_v,ref Height_v))
+                if (f_doc_page_type.Get(doc_Page_Type_ID,ref Name_v,ref Description_v,ref Width_v,ref Height_v))
                 {
                     if (Name_v!=null)
                     {
@@ -350,14 +350,14 @@ namespace TangentaPrint
             return doc_page_type_name;
         }
 
-        private string Get_doc_Type_Name(long_v f_doc_DocType_ID_v)
+        private string Get_doc_Type_Name(ID doc_DocType_ID)
         {
             string_v Name_v = null;
             string doc_type_name = "?";
             string_v Description_v = null;
-            if (f_doc_DocType_ID_v != null)
+            if (ID.Validate(doc_DocType_ID))
             {
-                if (f_doc_type.Get(f_doc_DocType_ID_v.v,ref Name_v,ref Description_v))
+                if (f_doc_type.Get(doc_DocType_ID,ref Name_v,ref Description_v))
                 {
                     doc_type_name = Name_v.v;
                 }

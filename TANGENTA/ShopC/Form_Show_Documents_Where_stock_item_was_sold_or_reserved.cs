@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using DBConnectionControl40;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace ShopC
 {
     public partial class Form_Show_Documents_Where_stock_item_was_sold_or_reserved : Form
     {
-        long Stock_ID = -1;
+        ID Stock_ID = null;
         Doc_ShopC_Item_Data[] adata = null;
         DataTable dt_Where_stock_item_was_sold_or_reserved = new DataTable();
         DataColumn dcol_DocumentType = null;
@@ -33,7 +34,7 @@ namespace ShopC
         f_DocProformaInvoice.fData DocProformaInvoice_data = new f_DocProformaInvoice.fData();
 
 
-        public Form_Show_Documents_Where_stock_item_was_sold_or_reserved(long xStock_ID, Doc_ShopC_Item_Data[] xadata)
+        public Form_Show_Documents_Where_stock_item_was_sold_or_reserved(ID xStock_ID, Doc_ShopC_Item_Data[] xadata)
         {
             InitializeComponent();
             Stock_ID = xStock_ID;
@@ -86,7 +87,7 @@ namespace ShopC
                 DataRow dr = dt_Where_stock_item_was_sold_or_reserved.NewRow();
 
 
-                if (fs.IDisValid(data.DocInvoice_ID))
+                if (ID.Validate(data.DocInvoice_ID))
                 {
 
                     dr[dcol_DocumentType.ColumnName] = true;

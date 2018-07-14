@@ -404,7 +404,7 @@ namespace TangentaDB
             m_MethodOfPayment_DPI = null;
         }
 
-        public bool Get(long DocProformaInvoice_ID)
+        public bool Get(ID DocProformaInvoice_ID)
         {
             string Err = null;
             Clear();

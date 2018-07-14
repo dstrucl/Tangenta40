@@ -1,4 +1,6 @@
 ﻿using CodeTables;
+using DBConnectionControl40;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -14,11 +16,11 @@ namespace ShopC
     public partial class Form_StockTake_AdditionalCost_Edit : Form
     {
         int current_index = -1;
-        private long StockTake_ID = -1;
+        private ID StockTake_ID = null;
         private string StockTake_Name = null;
         DataTable dtStockTakeCostName = new DataTable();
         DataTable dtStockTake_AdditionalCost = new DataTable();
-        long StockTake_AdditionalCost_ID = -1;
+        ID StockTake_AdditionalCost_ID = null;
 
         private bool m_Changed = false;
 
@@ -27,7 +29,7 @@ namespace ShopC
             get { return m_Changed; }
         }
 
-        public Form_StockTake_AdditionalCost_Edit(long xStockTake_ID,string xStockTake_Name)
+        public Form_StockTake_AdditionalCost_Edit(ID xStockTake_ID,string xStockTake_Name)
         {
             InitializeComponent();
             StockTake_ID = xStockTake_ID;
@@ -48,7 +50,7 @@ namespace ShopC
             Reload(StockTake_ID);
         }
 
-        private bool Reload(long xStockTake_ID)
+        private bool Reload(ID xStockTake_ID)
         {
             this.dgvx_StockTakeAdditionalCost.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeAdditionalCost_SelectionChanged);
             dgvx_StockTakeAdditionalCost.DataSource = null;
@@ -83,14 +85,14 @@ namespace ShopC
                     }
                     if (current_index >= 0)
                     {
-                        StockTake_AdditionalCost_ID = (long)dtStockTake_AdditionalCost.Rows[current_index]["ID"];
+                        StockTake_AdditionalCost_ID = tf.set_ID(dtStockTake_AdditionalCost.Rows[current_index]["ID"]);
                         dgvx_StockTakeAdditionalCost.Rows[current_index].Selected = true;
                         btn_Remove.Visible = true;
                         btn_Update.Visible = true;
                     }
                     else
                     {
-                        StockTake_AdditionalCost_ID = -1;
+                        StockTake_AdditionalCost_ID = null;
                         btn_Remove.Visible = false;
                         btn_Update.Visible = false;
                     }
@@ -129,7 +131,7 @@ namespace ShopC
 
         private void btn_Update_Click(object sender, EventArgs e)
         {
-            if (StockTake_AdditionalCost_ID>=0)
+            if (ID.Validate(StockTake_AdditionalCost_ID))
             {
                 string name = cmb_StocTakeCostName.Text;
                 decimal cost = nmUpDn_Cost.Value;
@@ -152,12 +154,12 @@ namespace ShopC
                     current_index = dgvxrc[0].Index;
                     if (current_index >= 0)
                     {
-                        StockTake_AdditionalCost_ID = (long)dtStockTake_AdditionalCost.Rows[current_index]["ID"];
+                        StockTake_AdditionalCost_ID = tf.set_ID(dtStockTake_AdditionalCost.Rows[current_index]["ID"]);
                         FillControls();
                     }
                     else
                     {
-                        StockTake_AdditionalCost_ID = -1;
+                        StockTake_AdditionalCost_ID = null;
                         ClearControls();
                     }
                 }
@@ -204,7 +206,7 @@ namespace ShopC
 
         private void btn_Remove_Click(object sender, EventArgs e)
         {
-            if (StockTake_AdditionalCost_ID >= 0)
+            if (ID.Validate(StockTake_AdditionalCost_ID))
             {
                 if (TangentaDB.f_StockTake_AdditionalCost.Remove(StockTake_AdditionalCost_ID, StockTake_ID))
                 {
@@ -220,12 +222,12 @@ namespace ShopC
                     }
                     if (current_index >= 0)
                     {
-                        StockTake_AdditionalCost_ID = (long)dtStockTake_AdditionalCost.Rows[current_index]["ID"];
+                        StockTake_AdditionalCost_ID = tf.set_ID(dtStockTake_AdditionalCost.Rows[current_index]["ID"]);
                         FillControls();
                     }
                     else
                     {
-                        StockTake_AdditionalCost_ID = -1;
+                        StockTake_AdditionalCost_ID = null;
                         ClearControls();
                     }
                 }

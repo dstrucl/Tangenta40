@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using TangentaDB;
 using TangentaTableClass;
 using CodeTables;
+using DBConnectionControl40;
 
 namespace ShopA
 {
@@ -122,7 +123,7 @@ namespace ShopA
                 m_DocInvoice_ShopA_Item.TAX.set(TaxValue);
                 m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.set(EndPriceWithDiscountAndTax);
                 m_DocInvoice_ShopA_Item.Discount.set(Discount);
-                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.set(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.Set(m_ShopABC.m_CurrentInvoice.Doc_ID);
                 if (this.usrc_Edit_Item_Unit1.UnitsEnabled)
                 {
                     m_DocInvoice_ShopA_Item.PricePerUnit.set(usrc_Edit_Item_Unit1.PricePerUnit);
@@ -134,12 +135,12 @@ namespace ShopA
                     m_DocInvoice_ShopA_Item.PricePerUnit.set(null);
                     m_DocInvoice_ShopA_Item.dQuantity.set(null);
                 }
-                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(null);
-                long DocInvoice_ShopA_Item_ID = -1;
+                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.Set(null);
+                ID DocInvoice_ShopA_Item_ID = null;
                 if (ShopA_dbfunc.dbfunc.insert(DocInvoice,m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
                 {
                     // Add Row
-                    m_DocInvoice_ShopA_Item.ID.set(DocInvoice_ShopA_Item_ID);
+                    m_DocInvoice_ShopA_Item.ID.Set(DocInvoice_ShopA_Item_ID);
                     if (AddRow!=null)
                     {
                         AddRow(m_DocInvoice_ShopA_Item);

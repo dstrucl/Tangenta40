@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using System.Runtime.InteropServices;
+using DBConnectionControl40;
 
 namespace LoginControl
 {
@@ -153,10 +154,10 @@ namespace LoginControl
                 {
                 }
             }
-            long Atom_WorkPeriod_ID = -1;
+            ID Atom_WorkPeriod_ID = null;
             if (call_Get_Atom_WorkPeriod(awpld.myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
             {
-                    long LoginSession_id = -1;
+                    ID LoginSession_id = null;
                     if (AWP_func.GetLoginSession(awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
                     {
                             return true;

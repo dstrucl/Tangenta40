@@ -1,4 +1,5 @@
-﻿using DBTypes;
+﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -33,11 +34,11 @@ namespace TangentaSampleDB
         public DateTime_v PriceList_ValidTo_v = null;
         public DateTime_v PriceList_CreationDate_v = null;
         public string PriceList_Description = null;
-        public long Currency_ID = -1;
-        public long ShopB_Item_ID = -1;
-        public long Taxation_ID = -1;
-        public long PriceList_ID = -1;
-        public long Price_ShopB_Item_ID = -1;
+        public ID Currency_ID = null;
+        public ID ShopB_Item_ID = null;
+        public ID Taxation_ID = null;
+        public ID PriceList_ID = null;
+        public ID Price_ShopB_Item_ID = null;
 
         public SampleDB_Price_ShopB_Item(
                                 string xShopB_Item_Name,

@@ -16,13 +16,14 @@ using System.Windows.Forms;
 using LanguageControl;
 using TangentaDB;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace PriseLists
 {
     public partial class usrc_PriceList : UserControl
     {
         int xPriceList_Count = 0;
-        public long m_Currency_ID = -1;
+        public ID m_Currency_ID = null;
         private usrc_PriceList_Edit.eShopType m_eShopType;
 
         public TangentaDB.xPriceList m_xPriceList = null;
@@ -40,34 +41,19 @@ namespace PriseLists
             lbl_PriceList.Text = lng.s_PriceList.s + ":";
         }
 
-        public long ID
+        public ID ID
         {
             get
             {
                 object o_ID = cmb_PriceListType.SelectedValue;
-                if (o_ID != null)
-                {
-                    if (o_ID.GetType() == typeof(long))
-                    {
-                        return (long)o_ID;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:PriceList_ID is not selected!");
-                        return -1;
-                    }
-                }
-                else
-                {
-                    return -1;
-                }
+                return tf.set_ID(o_ID);
             }
         }
 
        
 
 
-        public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Init(ID Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, NavigationButtons.Navigation xnav, ref string Err)
         {
             this.cmb_PriceListType.SelectedIndexChanged -= new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
             m_eShopType = xeShopType;
@@ -136,7 +122,7 @@ namespace PriseLists
         }
 
 
-        private bool DoEditPriceList(long Currency_ID,NavigationButtons.Navigation xnav,ref bool   Changed,  ref string Err)
+        private bool DoEditPriceList(ID Currency_ID,NavigationButtons.Navigation xnav,ref bool   Changed,  ref string Err)
         {
             Changed = false;
             Form_PriceList_Edit PriceListType_Edit_dlg = null;

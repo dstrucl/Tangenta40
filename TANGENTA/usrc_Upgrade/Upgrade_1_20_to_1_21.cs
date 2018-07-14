@@ -29,7 +29,7 @@ namespace UpgradeDB
                                                 "Atom_ElectronicDevice"};
                 if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
-                    long Atom_ElectronicDevice_ID = -1;
+                    ID Atom_ElectronicDevice_ID =null;
                     if (f_Atom_ElectronicDevice.Get("ED1", null, ref Atom_ElectronicDevice_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -317,7 +317,7 @@ namespace UpgradeDB
             DataTable dtPurchasePrice_OLD = new DataTable();
             DataTable dtReference = new DataTable();
             DataTable dtOrganisation = new DataTable();
-            long_v Unknown_Trucking_ID_v = null;
+            ID Unknown_Trucking_ID = null;
             string Err = null;
             string sql = "select * from PurchasePrice_Item";
             if (DBSync.DBSync.ReadDataTable(ref dtPurchasePrice_Item_OLD, sql, ref Err))
@@ -336,27 +336,26 @@ namespace UpgradeDB
 
                             if (sdb.Contains("StudioMarjetka"))
                             {
-                                long Contact_ID_drEckstein = -1;
+                                ID Contact_ID_drEckstein = null;
                                 if (InsertDrEcksteinGmbh_Contact(ref Contact_ID_drEckstein))
                                 {
-                                    long Contact_ID_Bizjan_doo = -1;
+                                    ID Contact_ID_Bizjan_doo = null;
                                     if (InsertBizjan_doo_Contact(ref Contact_ID_Bizjan_doo))
                                     {
 
                                         sql = "insert into Supplier_NEW (Contact_ID)values(" + Contact_ID_drEckstein.ToString() + ")";
 
-                                        long Suplier_ID_drEckstein = -1;
-                                        object oret = null;
+                                        ID Suplier_ID_drEckstein = null;
 
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_drEckstein, ref oret, ref Err, "Supplier_NEW"))
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_drEckstein, ref Err, "Supplier_NEW"))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
                                         }
 
-                                        long Suplier_ID_Bizjan_doo = -1;
+                                        ID Suplier_ID_Bizjan_doo = null;
                                         sql = "insert into Supplier_NEW (Contact_ID)values(" + Contact_ID_Bizjan_doo.ToString() + ")";
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_Bizjan_doo, ref oret, ref Err, "Supplier_NEW"))
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_Bizjan_doo,  ref Err, "Supplier_NEW"))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -368,8 +367,8 @@ namespace UpgradeDB
                                             // for each old PurchasePrice_Item 
                                             DataRow drPurchasePrice_Item = dtPurchasePrice_Item_OLD.Rows[i];
 
-                                            long PurchasePrice_ID = (long)drPurchasePrice_Item["PurchasePrice_ID"];
-                                            long Item_ID = (long)drPurchasePrice_Item["Item_ID"];
+                                            ID PurchasePrice_ID = tf.set_ID(drPurchasePrice_Item["PurchasePrice_ID"]);
+                                            ID Item_ID = tf.set_ID(drPurchasePrice_Item["Item_ID"]);
 
                                             DataRow[] drs_PurchasePrice_OLD = dtPurchasePrice_OLD.Select("ID=" + PurchasePrice_ID.ToString());
                                             if (drs_PurchasePrice_OLD.Count() == 1)
@@ -377,11 +376,11 @@ namespace UpgradeDB
                                                 DataRow drPurchasePrice = drs_PurchasePrice_OLD[0];
                                                 decimal PurchasePricePerUnit = (decimal)drPurchasePrice["PurchasePricePerUnit"];
                                                 DateTime PurchasePriceDate = (DateTime)drPurchasePrice["PurchasePriceDate"];
-                                                long Currency_ID = (long)drPurchasePrice["Currency_ID"];
-                                                long Taxation_ID = (long)drPurchasePrice["Taxation_ID"];
-                                                long Supplier_ID = (long)drPurchasePrice["Supplier_ID"];
-                                                long Reference_ID = -1;
-                                                long PurchasePrice_NEW_ID = -1;
+                                                ID Currency_ID = tf.set_ID(drPurchasePrice["Currency_ID"]);
+                                                ID Taxation_ID = tf.set_ID(drPurchasePrice["Taxation_ID"]);
+                                                ID Supplier_ID = tf.set_ID(drPurchasePrice["Supplier_ID"]);
+                                                ID Reference_ID = null;
+                                                ID PurchasePrice_NEW_ID =null;
                                                 if (!f_PurchasePrice.Get("PurchasePrice_NEW", PurchasePricePerUnit, Taxation_ID, Currency_ID, ref PurchasePrice_NEW_ID))
                                                 {
                                                     return false;
@@ -390,7 +389,7 @@ namespace UpgradeDB
 
                                                 if (drPurchasePrice["Reference_ID"] is long)
                                                 {
-                                                    Reference_ID = (long)drPurchasePrice["Reference_ID"];
+                                                    Reference_ID = tf.set_ID(drPurchasePrice["Reference_ID"]);
                                                 }
 
 
@@ -408,24 +407,23 @@ namespace UpgradeDB
                                                     SupplierName = (string)dtSupplier.Rows[0]["Name"];
                                                 }
 
-                                                long_v Supplier_ID_v = new long_v();
                                                 if (SupplierName != null)
                                                 {
                                                     if (SupplierName.Contains("Eckstein"))
                                                     {
-                                                        Supplier_ID_v.v = Suplier_ID_drEckstein;
+                                                        Supplier_ID = Suplier_ID_drEckstein;
                                                     }
                                                     else if (SupplierName.Contains("Bizjan"))
                                                     {
-                                                        Supplier_ID_v.v = Suplier_ID_Bizjan_doo;
+                                                        Supplier_ID = Suplier_ID_Bizjan_doo;
                                                     }
-                                                    else if (!UnknownSupplier(ref Supplier_ID_v))
+                                                    else if (!UnknownSupplier(ref Supplier_ID))
                                                     {
                                                         return false;
                                                     }
 
                                                 }
-                                                else if (!UnknownSupplier(ref Supplier_ID_v))
+                                                else if (!UnknownSupplier(ref Supplier_ID))
                                                 {
                                                     return false;
                                                 }
@@ -435,7 +433,7 @@ namespace UpgradeDB
                                                 string ReferenceHash = null;
                                                 Image ReferenceImage = null;
 
-                                                if (Reference_ID >= 0)
+                                                if (ID.Validate(Reference_ID))
                                                 {
                                                     if (f_Reference.GetData(Reference_ID, ref ReferenceNote, ref ReferenceHash, ref ReferenceImage))
                                                     {
@@ -469,28 +467,28 @@ namespace UpgradeDB
                                                     StockTake_Name = ReferenceNote + ":Prenos iz stare baze";
                                                 }
                                                 decimal_v StockTakePriceTotal_v = new decimal_v(0);
-                                                long_v Reference_ID_v = new long_v(Reference_ID);
+                                                ID Reference_ID_v = new ID(Reference_ID);
                                                 bool_v StockTakeDraft_v = new bool_v(false);
-                                                if (Unknown_Trucking_ID_v == null)
+                                                if (!ID.Validate(Unknown_Trucking_ID))
                                                 {
-                                                    if (!UnknownTrucking(ref Unknown_Trucking_ID_v))
+                                                    if (!UnknownTrucking(ref Unknown_Trucking_ID))
                                                     {
                                                         return false;
                                                     }
                                                 }
-                                                long StockTake_ID = -1;
+                                                ID StockTake_ID = null;
                                                 if (f_StockTake.Get(StockTake_Name,
                                                             StockTake_Date_v,
                                                             StockTakePriceTotal_v,
                                                             Reference_ID_v,
                                                             "Prenos prevzemnice iz stare baze",
-                                                            Supplier_ID_v,
-                                                            Unknown_Trucking_ID_v,
+                                                            Supplier_ID,
+                                                            Unknown_Trucking_ID,
                                                             StockTakeDraft_v,
                                                             ref StockTake_ID
                                                             ))
                                                 {
-                                                    long PurchasePrice_Item_NEW_ID = -1;
+                                                    ID PurchasePrice_Item_NEW_ID = null;
                                                     if (!f_PurchasePrice_Item.Get("PurchasePrice_Item_NEW", Item_ID, PurchasePrice_NEW_ID, StockTake_ID, ref PurchasePrice_Item_NEW_ID))
                                                     {
                                                         return false;
@@ -552,7 +550,7 @@ namespace UpgradeDB
                                         {
                                             foreach (DataRow dr in dtStockTake.Rows)
                                             {
-                                                long StockTake_ID = (long)dr["ID"];
+                                                ID StockTake_ID = tf.set_ID(dr["ID"]);
                                                 DataTable dt_Stock_Of_Current_StockTake = new DataTable();
                                                 Doc_ShopC_Item[] array_Doc_ShopC_Item = null;
                                                 if (f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake, ref array_Doc_ShopC_Item, StockTake_ID))
@@ -642,12 +640,12 @@ namespace UpgradeDB
             }
         }
 
-        private static bool UnknownSupplier(ref long_v Unknown_Supplier_ID_v)
+        private static bool UnknownSupplier(ref ID Unknown_Supplier_ID)
         {
-            long_v UnknownContact_ID_v = null;
-            if (UnknownContact(ref UnknownContact_ID_v))
+            ID UnknownContact_ID = null;
+            if (UnknownContact(ref UnknownContact_ID))
             {
-                return (f_Supplier.Get("Supplier_NEW", UnknownContact_ID_v, ref Unknown_Supplier_ID_v));
+                return (f_Supplier.Get("Supplier_NEW", UnknownContact_ID, ref Unknown_Supplier_ID));
             }
             else
             {
@@ -655,7 +653,7 @@ namespace UpgradeDB
             }
         }
 
-        private static bool UnknownContact(ref long_v Unknown_Contact_ID_v)
+        private static bool UnknownContact(ref ID Unknown_Contact_ID)
         {
             string_v Organisation_Name_v = new string_v("Neznani dobavitelj");
             string_v Tax_ID_v = new string_v("neznana dav.št.");
@@ -678,7 +676,7 @@ namespace UpgradeDB
             string_v FaxNumber_v = null;
             string_v Email_v = null;
             string_v HomePage_v = null;
-            long_v BankAccount_ID_v = null;
+            ID BankAccount_ID = null;
             string_v Organisation_BankAccount_Description_v = null;
             string_v Image_Hash_v = null;
             byte_array_v Image_Data_v = null;
@@ -689,11 +687,11 @@ namespace UpgradeDB
             DateTime_v DateOfBirth_v = null;
             string_v Person_Tax_ID_v = new string_v("neznana dav.št.");
             string_v Person_Registration_ID_v = new string_v("neznana mat.št.");
-            ID_v cAdressAtom_Org_iD_v = null;
-            long_v Organisation_ID_v = null;
-            long_v OrganisationData_ID_v = null;
-            long_v OrganisationAccount_ID_v = null;
-            long_v Person_ID_v = null;
+            ID cAdressAtom_Org_iD = null;
+            ID Organisation_ID = null;
+            ID OrganisationData_ID = null;
+            ID OrganisationAccount_ID = null;
+            ID Person_ID = null;
 
             return (f_Contact.Get(Organisation_Name_v,
                 Tax_ID_v,
@@ -706,7 +704,7 @@ namespace UpgradeDB
                 FaxNumber_v,
                 Email_v,
                 HomePage_v,
-                BankAccount_ID_v,
+                BankAccount_ID,
                 Organisation_BankAccount_Description_v,
                 Image_Hash_v,
                 Image_Data_v,
@@ -717,31 +715,31 @@ namespace UpgradeDB
                 DateOfBirth_v,
                 Person_Tax_ID_v,
                 Person_Registration_ID_v,
-                ref cAdressAtom_Org_iD_v,
-                ref Organisation_ID_v,
-                ref OrganisationData_ID_v,
-                ref OrganisationAccount_ID_v,
-                ref Person_ID_v,
-                ref Unknown_Contact_ID_v));
+                ref cAdressAtom_Org_iD,
+                ref Organisation_ID,
+                ref OrganisationData_ID,
+                ref OrganisationAccount_ID,
+                ref Person_ID,
+                ref Unknown_Contact_ID));
         }
 
 
-        private static bool UnknownTrucking(ref long_v Unknown_Trucking_ID_v)
+        private static bool UnknownTrucking(ref ID Unknown_Trucking_ID)
         {
-            long_v UnknownContact_ID_v = null;
-            if (UnknownContact(ref UnknownContact_ID_v))
+            ID UnknownContact_ID = null;
+            if (UnknownContact(ref UnknownContact_ID))
             {
                 decimal_v TruckingCost_v = null;
                 string_v TruckingNumber_v = null;
                 decimal_v Customs_v = null;
                 string_v Description_v = new string_v("Transportni stroški niso znani");
 
-                return (f_Trucking.Get(UnknownContact_ID_v,
+                return (f_Trucking.Get(UnknownContact_ID,
                                 TruckingCost_v,
                                 TruckingNumber_v,
                                 Customs_v,
                                 Description_v,
-                                        ref Unknown_Trucking_ID_v));
+                                        ref Unknown_Trucking_ID));
             }
             else
             {
@@ -749,7 +747,7 @@ namespace UpgradeDB
             }
         }
 
-        private static bool InsertDrEcksteinGmbh_Contact(ref long Contact_ID)
+        private static bool InsertDrEcksteinGmbh_Contact(ref ID Contact_ID)
         {
             string_v Organisation_Name_v = new string_v("Linde Eckstein GmbH");
             string_v Tax_ID_v = new string_v("132747963");
@@ -773,15 +771,15 @@ namespace UpgradeDB
             string_v FaxNumber_v = new string_v("+49 911 96 92-200");
             string_v Email_v = new string_v("M.Peter@eckstein-kosmetik.de");
             string_v HomePage_v = new string_v("http://www.eckstein-kosmetik.de/");
-            long_v BankAccount_ID_v = null;
+            ID BankAccount_ID = null;
             string_v Organisation_BankAccount_Description_v = null;
             string_v Image_Hash_v = null;
             byte_array_v Image_Data_v = null;
             string_v Image_Description_v = null;
-            ID_v cAdressAtom_Org_iD_v = null;
-            long_v Organisation_ID_v = null;
-            long_v OrganisationData_ID_v = null;
-            long_v OrganisationAccount_ID_v = null;
+            ID cAdressAtom_Org_iD = null;
+            ID Organisation_ID = null;
+            ID OrganisationData_ID = null;
+            ID OrganisationAccount_ID = null;
 
             bool_v Person_Gender_v = null;
             string_v FirstName_v = null;
@@ -791,8 +789,7 @@ namespace UpgradeDB
             string_v Person_Registration_ID_v = null;
 
 
-            long_v Person_ID_v = null;
-            long_v Contact_ID_v = null;
+            ID Person_ID = null;
 
             if (f_Contact.Get(Organisation_Name_v,
             Tax_ID_v,
@@ -805,7 +802,7 @@ namespace UpgradeDB
             FaxNumber_v,
             Email_v,
             HomePage_v,
-            BankAccount_ID_v,
+            BankAccount_ID,
             Organisation_BankAccount_Description_v,
             Image_Hash_v,
             Image_Data_v,
@@ -816,26 +813,25 @@ namespace UpgradeDB
             DateOfBirth_v,
             Person_Tax_ID_v,
             Person_Registration_ID_v,
-            ref cAdressAtom_Org_iD_v,
-            ref Organisation_ID_v,
-            ref OrganisationData_ID_v,
-            ref OrganisationAccount_ID_v,
-            ref Person_ID_v,
-            ref Contact_ID_v))
+            ref cAdressAtom_Org_iD,
+            ref Organisation_ID,
+            ref OrganisationData_ID,
+            ref OrganisationAccount_ID,
+            ref Person_ID,
+            ref Contact_ID))
             {
-                Contact_ID = Contact_ID_v.v;
                 return true;
             }
             else
             {
-                Contact_ID = -1;
+                Contact_ID = null;
                 return false;
             }
         }
 
 
 
-        private static bool InsertBizjan_doo_Contact(ref long Contact_ID)
+        private static bool InsertBizjan_doo_Contact(ref ID Contact_ID)
         {
             string_v Organisation_Name_v = new string_v("Bizjan d.o.o.&Co");
             string_v Tax_ID_v = new string_v("18351182");
@@ -859,15 +855,15 @@ namespace UpgradeDB
             string_v FaxNumber_v = new string_v("+386 1 4347712");
             string_v Email_v = new string_v("bizjan.co@siol.net");
             string_v HomePage_v = new string_v("http://www.bizjan-co.si");
-            long_v BankAccount_ID_v = null;
+            ID BankAccount_ID = null;
             string_v Organisation_BankAccount_Description_v = null;
             string_v Image_Hash_v = null;
             byte_array_v Image_Data_v = null;
             string_v Image_Description_v = null;
-            ID_v cAdressAtom_Org_iD_v = null;
-            long_v Organisation_ID_v = null;
-            long_v OrganisationData_ID_v = null;
-            long_v OrganisationAccount_ID_v = null;
+            ID cAdressAtom_Org_iD = null;
+            ID Organisation_ID = null;
+            ID OrganisationData_ID = null;
+            ID OrganisationAccount_ID = null;
             bool_v Person_Gender_v = null;
             string_v FirstName_v = null;
             string_v LastName_v = null;
@@ -876,8 +872,7 @@ namespace UpgradeDB
             string_v Person_Registration_ID_v = null;
 
 
-            long_v Person_ID_v = null;
-            long_v Contact_ID_v = null;
+            ID Person_ID = null;
 
             if (f_Contact.Get(Organisation_Name_v,
             Tax_ID_v,
@@ -890,7 +885,7 @@ namespace UpgradeDB
             FaxNumber_v,
             Email_v,
             HomePage_v,
-            BankAccount_ID_v,
+            BankAccount_ID,
             Organisation_BankAccount_Description_v,
             Image_Hash_v,
             Image_Data_v,
@@ -901,19 +896,18 @@ namespace UpgradeDB
             DateOfBirth_v,
             Person_Tax_ID_v,
             Person_Registration_ID_v,
-            ref cAdressAtom_Org_iD_v,
-            ref Organisation_ID_v,
-            ref OrganisationData_ID_v,
-            ref OrganisationAccount_ID_v,
-            ref Person_ID_v,
-            ref Contact_ID_v))
+            ref cAdressAtom_Org_iD,
+            ref Organisation_ID,
+            ref OrganisationData_ID,
+            ref OrganisationAccount_ID,
+            ref Person_ID,
+            ref Contact_ID))
             {
-                Contact_ID = Contact_ID_v.v;
                 return true;
             }
             else
             {
-                Contact_ID = -1;
+                Contact_ID = null;
                 return false;
             }
         }

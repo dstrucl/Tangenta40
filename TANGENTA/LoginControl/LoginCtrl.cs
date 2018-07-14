@@ -16,8 +16,8 @@ namespace LoginControl
 {
     public partial class LoginCtrl : UserControl
     {
-        public delegate bool delegate_Get_Atom_WorkPeriod(long myOrganisation_Person_ID, ref long Atom_WordPeriod_ID);
-        public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, long myOrganisation_Person_ID, ref bool Changed, ref long myOrganisation_Person_ID_new);
+        public delegate bool delegate_Get_Atom_WorkPeriod(ID myOrganisation_Person_ID, ref ID Atom_WordPeriod_ID);
+        public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new);
 
 
 
@@ -84,7 +84,7 @@ namespace LoginControl
             }
         }
 
-        public long LoginSession_id
+        public ID LoginSession_id
         {
             get
             {
@@ -94,12 +94,13 @@ namespace LoginControl
                 }
                 else
                 {
-                    return std.LoginSession_id;
+
+                  return new ID(std.LoginSession_id);
                 }
             }
         }
 
-        public long LoginUsers_id
+        public ID LoginUsers_id
         {
             get
             {
@@ -109,7 +110,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    return std.LoginUsers_id;
+                    return new ID(std.LoginUsers_id);
                 }
             }
         }

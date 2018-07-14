@@ -83,12 +83,12 @@ namespace LoginControl
             }
         }
 
-        public long LoginSession_id
+        public ID LoginSession_id
         {
             get { return m_AWPLoginData.LoginSession_id; }
         }
 
-        public long LoginUsers_id
+        public ID LoginUsers_id
         {
             get
             {
@@ -332,10 +332,10 @@ namespace LoginControl
                                         {
                                             lctrl.btn_UserManager.Visible = true;
                                         }
-                                        long Atom_WorkPeriod_ID = -1;
+                                        ID Atom_WorkPeriod_ID = null;
                                         if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
                                         {
-                                            long LoginSession_ID = -1;
+                                            ID LoginSession_ID = null;
                                             if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
                                             {
                                                 lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
@@ -370,10 +370,10 @@ namespace LoginControl
                                 {
                                     lctrl.btn_UserManager.Visible = true;
                                 }
-                                long Atom_WorkPeriod_ID = -1;
+                                ID Atom_WorkPeriod_ID = null;
                                 if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
                                 {
-                                    long LoginSession_ID = -1;
+                                    ID LoginSession_ID = null;
                                     if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
                                     {
                                         lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
@@ -431,7 +431,7 @@ namespace LoginControl
             }
         }
 
-        internal bool AWPLoginRoles_Get(long LoginUser_id, ref List<AWPRole> roles, ref string Err)
+        internal bool AWPLoginRoles_Get(ID LoginUser_id, ref List<AWPRole> roles, ref string Err)
         {
             DataTable dtRoles = new DataTable();
             if (AWP_func.AWPRoles_GetUserRoles(LoginUser_id, ref roles))

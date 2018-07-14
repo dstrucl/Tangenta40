@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,8 +21,8 @@ namespace ShopC
     public partial class Form_Atom_Item_View : Form
     {
         private TangentaDB.ShopABC m_InvoiceDB =null;
-        private long m_Atom_Item_ID = 0;
-        public Form_Atom_Item_View(TangentaDB.ShopABC xInvoiceDB,long xAtom_Item_ID)
+        private ID m_Atom_Item_ID = null;
+        public Form_Atom_Item_View(TangentaDB.ShopABC xInvoiceDB,ID xAtom_Item_ID)
         {
             InitializeComponent();
             m_InvoiceDB = xInvoiceDB;

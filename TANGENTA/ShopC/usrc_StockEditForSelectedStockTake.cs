@@ -10,6 +10,7 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -38,8 +39,8 @@ namespace ShopC
 
         private int current_index = -1;
 
-        private long m_CurrentItem_ID = -1;
-        private long m_CurrentStock_ID = -1;
+        private ID m_CurrentItem_ID = null;
+        private ID m_CurrentStock_ID = null;
 
 
         private SQLTable m_StockTakeTable = null;
@@ -50,7 +51,7 @@ namespace ShopC
         internal Doc_ShopC_Item[] aDoc_ShopC_Item = null;
 
 
-        internal long CurrentItem_ID
+        internal ID CurrentItem_ID
         {
             get { return m_CurrentItem_ID; }
             set
@@ -61,7 +62,7 @@ namespace ShopC
         }
 
 
-        internal long CurrentStock_ID
+        internal ID CurrentStock_ID
         {
             get { return m_CurrentStock_ID; }
             set
@@ -72,21 +73,15 @@ namespace ShopC
         }
 
 
-        internal long StockTake_ID
+        internal ID StockTake_ID
         {
             get {
                     if (m_StockTakeTable != null)
                     {
                         object o_StockTake_ID = m_StockTakeTable.Value("ID");
-                        if (o_StockTake_ID is DBTypes.ID)
-                        {
-                            if (((DBTypes.ID)o_StockTake_ID).defined)
-                            {
-                                return ((DBTypes.ID)o_StockTake_ID).val;
-                            }
-                        }
+                        return tf.set_ID(o_StockTake_ID);
                     }
-                    return -1;
+                    return null;
                 }
             }
 
@@ -180,7 +175,7 @@ namespace ShopC
             m_Form_StockTake_Edit = xForm_StockTake_Edit;
         }
 
-        internal void SetItem(long ID,string xUniqueName, string symbol,short uDecimalPlaces)
+        internal void SetItem(ID ID,string xUniqueName, string symbol,short uDecimalPlaces)
         {
             CurrentItem_ID = ID;
             lng.s_Item.TextWithToolTip(this.grp_Item, lng.s_Item.s + ":" + xUniqueName, lng.s_Item.s+ ":" + xUniqueName+" "+lng.s_Unit.s + ":"+symbol + " ; "+lng.s_DecimalPlaces.s+"="+ uDecimalPlaces.ToString());
@@ -211,33 +206,29 @@ namespace ShopC
             }
         }
 
-        internal void Selected_Item_Index_Changed(SQLTable m_tbl, long iD, int index)
+        internal void Selected_Item_Index_Changed(SQLTable m_tbl, ID iD, int index)
         {
-            if (iD >= 0)
+            if (ID.Validate(iD))
             {
-                if (fs.IDisValid(CurrentItem_ID))
+                if (ID.Validate(CurrentItem_ID))
                 {
                     object oID = cmb_Currency.SelectedValue;
-                    long Selected_Currency_ID = -1;
-                    if (oID is long)
-                    {
-                        Selected_Currency_ID = (long)oID;
-                    }
+                    ID Selected_Currency_ID = tf.set_ID(oID);
                     Set_cmb_PurchasePrice(iD, Selected_Currency_ID);
                 }
             }
         }
 
-        private void Set_cmb_PurchasePrice(long Item_ID, long Currency_ID)
+        private void Set_cmb_PurchasePrice(ID Item_ID, ID Currency_ID)
         {
             toolTip_cmb_PurchasePrice.SetToolTip(cmb_PurchasePrice,lng.s_PurchasePricesNotDefinedYeet.s);
 
             cmb_PurchasePrice.DataSource = null;
             cmb_PurchasePrice.Items.Clear();
             cmb_PurchasePrice.Text = "0";
-            if (Item_ID >= 0)
+            if (ID.Validate(Item_ID))
             {
-                if (Currency_ID >= 0)
+                if (ID.Validate(Currency_ID))
                 {
                     if (f_PurchasePrice_Item.GetLastItemPrices(Item_ID, Currency_ID,ref dtPurchasePrices,5))
                     {
@@ -339,9 +330,10 @@ namespace ShopC
                 cmb_Currency.DataSource = dtCurrency;
                 cmb_Currency.DisplayMember = "Symbol";
                 cmb_Currency.ValueMember = "ID";
-                if (TangentaDB.myOrg.Default_Currency_ID >= 0)
+                if (ID.Validate(TangentaDB.myOrg.Default_Currency_ID))
                 {
-                    cmb_Currency.SelectedIndex = (int)(TangentaDB.myOrg.Default_Currency_ID - 1);
+                    //tricky DOCHANGE!!
+                    cmb_Currency.SelectedIndex = (int)((long)TangentaDB.myOrg.Default_Currency_ID.V - 1);
                 }
                 if (toolTip_cmb_PurchasePrice == null)
                 {
@@ -385,7 +377,7 @@ namespace ShopC
 
         private bool Check_Item()
         {
-           if (fs.IDisValid(CurrentItem_ID))
+           if (ID.Validate(CurrentItem_ID))
            {
                 return true;
            }
@@ -476,14 +468,14 @@ namespace ShopC
                 }
             }
 
-            long PurchasePrice_ID = -1;
-            long Taxation_ID = (long)cmb_Taxation.SelectedValue;
-            long Currency_ID = (long)cmb_Currency.SelectedValue;
+            ID PurchasePrice_ID = null;
+            ID Taxation_ID = tf.set_ID((long)cmb_Taxation.SelectedValue);
+            ID Currency_ID = tf.set_ID((long)cmb_Currency.SelectedValue);
             if (TangentaDB.f_PurchasePrice.Get(pprice, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
-                if ((bPPriceDefined)&& (CurrentItem_ID >= 0)&&(StockTake_ID>=0))
+                if ((bPPriceDefined)&& (ID.Validate(CurrentItem_ID))&&(ID.Validate(StockTake_ID)))
                 {
-                    long PurchasePrice_Item_ID = -1;
+                    ID PurchasePrice_Item_ID = null;
                     if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
                     {
                         DateTime_v dtExpiry_v = null;
@@ -493,8 +485,8 @@ namespace ShopC
                         }
                         DateTime tImportTime = tPick_ImportTime.Value;
                         decimal dquantity = nmUpDn_Quantity.Value;
-                        long Stock_AddressLevel1_ID = -1;
-                        long Stock_ID = -1;
+                        ID Stock_AddressLevel1_ID = null;
+                        ID Stock_ID = null;
                         if (TangentaDB.f_Stock.Add(tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID,this.txt_StockDescription.Text,ref Stock_ID))
                         {
                             m_Changed = true;
@@ -526,7 +518,7 @@ namespace ShopC
             return Reload(this.StockTake_ID);
         }
 
-        private bool Reload(long xStockTake_ID)
+        private bool Reload(ID xStockTake_ID)
         {
             dgvx_StockTakeItemsAndPrices.DataSource = null;
             dt_Stock_Of_Current_StockTake.Rows.Clear();
@@ -583,18 +575,11 @@ namespace ShopC
                 }
                 if (current_index >= 0)
                 {
-                    CurrentStock_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"];
-                    CurrentItem_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"];
+                    CurrentStock_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"]);
+                    CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
                     object ocurrency_id = cmb_Currency.SelectedValue;
-                    long xCurrency_ID = -1;
-                    if (ocurrency_id != null)
-                    {
-                        if (ocurrency_id is long)
-                        {
-                            xCurrency_ID = (long)ocurrency_id;
-                        }
-                    }
-                    if (xCurrency_ID >= 0)
+                    ID xCurrency_ID = tf.set_ID(ocurrency_id);
+                    if (ID.Validate(xCurrency_ID))
                     {
                         Set_cmb_PurchasePrice(CurrentItem_ID, xCurrency_ID);
                     }
@@ -604,8 +589,8 @@ namespace ShopC
                 }
                 else
                 {
-                    CurrentStock_ID = -1;
-                    CurrentItem_ID = -1;
+                    CurrentStock_ID = null;
+                    CurrentItem_ID = null;
                     btn_Remove.Visible = false;
                     btn_Update.Visible = false;
                 }
@@ -648,7 +633,7 @@ namespace ShopC
         private void FillControls()
         {
             lng.s_lbl_StockTakeName.Text(lbl_StockTakeName, " : " + StockTakeName);
-            if (fs.IDisValid(CurrentStock_ID))
+            if (ID.Validate(CurrentStock_ID))
             {
                 bool_v StockTake_Draft_v = tf.set_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["Draft"]);
                 bool bClosed = false;
@@ -733,7 +718,7 @@ namespace ShopC
 
         private void btn_CloseStockTake_Click(object sender, EventArgs e)
         {
-            if (fs.IDisValid(StockTake_ID))
+            if (ID.Validate(StockTake_ID))
             {
                 if (CalculateDifference() == 0)
                 {
@@ -759,30 +744,30 @@ namespace ShopC
                 current_index = dgvxrc[0].Index;
                 if (current_index >= 0)
                 {
-                    CurrentStock_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"];
-                    CurrentItem_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"];
-                    if (fs.IDisValid(CurrentItem_ID))
+                    CurrentStock_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"]);
+                    CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
+                    if (ID.Validate(CurrentItem_ID))
                     {
                         object oID = cmb_Currency.ValueMember;
-                        long Selected_Currency_ID = -1;
-                        if (oID is long)
+                        ID Selected_Currency_ID = null;
+                        Selected_Currency_ID = tf.set_ID((long)oID);
+                        if (ID.Validate(Selected_Currency_ID))
                         {
-                            Selected_Currency_ID = (long)oID;
+                            Set_cmb_PurchasePrice(CurrentItem_ID, Selected_Currency_ID);
                         }
-                        Set_cmb_PurchasePrice(CurrentItem_ID, Selected_Currency_ID);
                     }
 
                 }
                 else
                 {
-                    CurrentStock_ID = -1;
-                    CurrentItem_ID = -1;
+                    CurrentStock_ID = null;
+                    CurrentItem_ID = null;
                 }
             }
             else
             {
-                CurrentStock_ID = -1;
-                CurrentItem_ID = -1;
+                CurrentStock_ID = null;
+                CurrentItem_ID = null;
             }
             FillControls();
         }
@@ -825,13 +810,13 @@ namespace ShopC
                 }
                 if (current_index >= 0)
                 {
-                    CurrentStock_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"];
-                    CurrentItem_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"];
+                    CurrentStock_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"]);
+                    CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
                 }
                 else
                 {
-                    CurrentStock_ID = -1;
-                    CurrentItem_ID = -1;
+                    CurrentStock_ID = null;
+                    CurrentItem_ID = null;
                 }
                 FillControls();
             }
@@ -872,14 +857,14 @@ namespace ShopC
                 }
             }
 
-            long PurchasePrice_ID = -1;
-            long Taxation_ID = (long)cmb_Taxation.SelectedValue;
-            long Currency_ID = (long)cmb_Currency.SelectedValue;
+            ID PurchasePrice_ID = null;
+            ID Taxation_ID = tf.set_ID(cmb_Taxation.SelectedValue);
+            ID Currency_ID = tf.set_ID(cmb_Currency.SelectedValue);
             if (TangentaDB.f_PurchasePrice.Get(pprice, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
-                if ((bPPriceDefined) && (CurrentItem_ID >= 0) && (StockTake_ID >= 0))
+                if ((bPPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
-                    long PurchasePrice_Item_ID = -1;
+                    ID PurchasePrice_Item_ID = null;
                     if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
                     {
                         DateTime_v dtExpiry_v = null;
@@ -889,7 +874,7 @@ namespace ShopC
                         }
                         DateTime tImportTime = tPick_ImportTime.Value;
                         decimal dquantity = nmUpDn_Quantity.Value;
-                        long Stock_AddressLevel1_ID = -1;
+                        ID Stock_AddressLevel1_ID = null;
                         if (TangentaDB.f_Stock.Update(CurrentStock_ID,tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
                         {
                             m_Changed = true;
@@ -914,7 +899,7 @@ namespace ShopC
             }
         }
 
-        private void Show_Documents_Where_stock_item_was_sold_or_reserved(long Stock_ID,Doc_ShopC_Item_Data[] adata)
+        private void Show_Documents_Where_stock_item_was_sold_or_reserved(ID Stock_ID,Doc_ShopC_Item_Data[] adata)
         {
             Form_Show_Documents_Where_stock_item_was_sold_or_reserved frs = new Form_Show_Documents_Where_stock_item_was_sold_or_reserved(Stock_ID, adata);
             frs.ShowDialog(this);
@@ -942,7 +927,7 @@ namespace ShopC
 
         internal decimal CalculateDifference()
         {
-            if (fs.IDisValid(StockTake_ID))
+            if (ID.Validate(StockTake_ID))
             {
                 object oTotalPrice = m_StockTakeTable.Value("StockTakePriceTotal");
                 decimal dTotalPrice = 0;

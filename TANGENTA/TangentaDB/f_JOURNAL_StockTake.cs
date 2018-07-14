@@ -16,9 +16,9 @@ namespace TangentaDB
         public const string Opened_StockTake_closed = "Opened StockTake closed";
         public const string Closed_StockTake_changed = "Closed StockTake changed";
 
-        private static ID m_JOURNAL_StockTake_Type_ID_New_StockTake_opened = -1;
-        private static ID m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed = -1;
-        private static ID m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened = -1;
+        private static ID m_JOURNAL_StockTake_Type_ID_New_StockTake_opened = null;
+        private static ID m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed = null;
+        private static ID m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened = null;
 
 
 

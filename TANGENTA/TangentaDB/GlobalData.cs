@@ -329,16 +329,16 @@ namespace TangentaDB
 
 
 
-        public static bool GetWorkPeriod(long myOrganisation_Person_ID,
+        public static bool GetWorkPeriod(ID myOrganisation_Person_ID,
                                          string Atom_WorkPeriod_Type_Name, 
                                          string x_Atom_WorkPeriod_Type_Description,
                                          DateTime dtStart,
                                          DateTime_v dtEnd_v,
                                          ref string Err)
         {
-            if (Atom_WorkPeriod_ID < 0)
+            if (!ID.Validate(Atom_WorkPeriod_ID))
             {
-                if (Atom_myOrganisation_Person_ID < 0)
+                if (!ID.Validate(Atom_myOrganisation_Person_ID))
                 {
                     string_v office_name = null;
                     if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name))
@@ -393,12 +393,12 @@ namespace TangentaDB
                                          DateTime_v dtEnd_v,
                                          ref string Err)
         {
-            if (Atom_WorkPeriod_ID < 0)
+            if (!ID.Validate(Atom_WorkPeriod_ID))
             {
-                if (Atom_myOrganisation_Person_ID < 0)
+                if (!ID.Validate(Atom_myOrganisation_Person_ID))
                 {
                     string_v office_name = null;
-                    if (f_Atom_myOrganisation_Person.Get(1, ref Atom_myOrganisation_Person_ID, ref office_name))
+                    if (f_Atom_myOrganisation_Person.Get(new ID(1), ref Atom_myOrganisation_Person_ID, ref office_name))
                     {
                         if (f_WorkingPlace.Get(office_name.v, "Tangenta 1", ref WorkingPlace_ID))
                         {
@@ -453,7 +453,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    long currency_id = (long)dt.Rows[0]["Currency_ID"];
+                    ID currency_id = tf.set_ID(dt.Rows[0]["Currency_ID"]);
 
                     if (GlobalData.BaseCurrency == null)
                     {
@@ -549,7 +549,7 @@ namespace TangentaDB
         {
             if (termsOfPayment_definitions.Read())
             {
-                if (termsOfPayment_definitions.Advanced_100PercentPayment_ID_v!=null)
+                if (ID.Validate(termsOfPayment_definitions.Advanced_100PercentPayment_ID))
                 {
                     return true;
                 }

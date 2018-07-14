@@ -89,21 +89,21 @@ namespace UpgradeDB
                 TermsOfPayment_definitions tmpdef = new TermsOfPayment_definitions();
                 tmpdef.InsertDefault();
 
-                long_v PaymentType_ID_v = null;
+                ID PaymentType_ID = null;
                 string_v sPaymentType_v = null;
-                long_v CASH_MethodOfPayment_DI_v = null;
-                long_v CARD_MethodOfPayment_DI_v = null;
-                long_v ALLREADY_PAID_MethodOfPayment_DI_v = null;
+                ID CASH_MethodOfPayment_DI = null;
+                ID CARD_MethodOfPayment_DI = null;
+                ID ALLREADY_PAID_MethodOfPayment_DI = null;
 
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH, null, ref PaymentType_ID_v, ref sPaymentType_v, ref CASH_MethodOfPayment_DI_v))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH, null, ref PaymentType_ID, ref sPaymentType_v, ref CASH_MethodOfPayment_DI))
                 {
                     return false;
                 }
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID_v, ref sPaymentType_v, ref CARD_MethodOfPayment_DI_v))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID, ref sPaymentType_v, ref CARD_MethodOfPayment_DI))
                 {
                     return false;
                 }
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID_v, ref sPaymentType_v, ref ALLREADY_PAID_MethodOfPayment_DI_v))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID, ref sPaymentType_v, ref ALLREADY_PAID_MethodOfPayment_DI))
                 {
                     return false;
                 }
@@ -124,7 +124,7 @@ namespace UpgradeDB
                                select 
                                 pi.ID,
                                 jpi.EventTime,
-                                " + tmpdef.Advanced_100PercentPayment_ID_v.v.ToString() + @",
+                                " + tmpdef.Advanced_100PercentPayment_ID.ToString() + @",
                                 inv.MethodOfPayment_ID,
                                 null,
                                 null

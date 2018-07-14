@@ -14,8 +14,8 @@ namespace TangentaDB
         {
             private string m_Name = null;
 
-            private long m_ID = -1;
-            public long ID
+            private ID m_ID = null;
+            public ID ID
             {
                 get { return m_ID; }
                 set { m_ID = value; }
@@ -49,11 +49,11 @@ namespace TangentaDB
 
         public List<Language> Language_list = new List<Language>();
 
-        public long_v Language_ID_v
+        public ID Language_ID
         {
             get
             {
-                return new long_v(Language_list[LanguageControl.DynSettings.LanguageID].ID);
+                return new ID(Language_list[LanguageControl.DynSettings.LanguageID].ID);
             }
         }
                     
@@ -72,10 +72,10 @@ namespace TangentaDB
                 {
                     string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
                     Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
-                    long Language_ID = -1;
-                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref Language_ID))
+                    ID xLanguage_ID = null;
+                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref xLanguage_ID))
                     {
-                        lang.ID = Language_ID;
+                        lang.ID = xLanguage_ID;
                         Language_list.Add(lang);
                         index++;
                     }
@@ -126,7 +126,7 @@ namespace TangentaDB
                     string sName = (string)dr["Name"];
                     if (lang.Name.Equals(sName))
                     {
-                        lang.ID = (long)dr["ID"];
+                        lang.ID = tf.set_ID(dr["ID"]);
                         lang.LanguageIndex = (int)dr["LanguageIndex"];
                         return true;
                     }
@@ -164,10 +164,9 @@ namespace TangentaDB
 
 
             string sql = "insert into Language (Name,Description,LanguageIndex) values (" + sval_Name + "," + sval_Description + ","+ sval_LanguageIndex + ")";
-            long dpt_id = -1;
-            object oret = null;
+            ID dpt_id = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt_id, ref oret, ref Err, "Language"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt_id, ref Err, "Language"))
             {
                 lang.ID = dpt_id;
                 return true;

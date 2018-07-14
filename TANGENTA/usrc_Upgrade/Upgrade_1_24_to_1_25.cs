@@ -115,19 +115,17 @@ namespace UpgradeDB
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        long_v id_v = tf.set_long(dr["ID"]);
-                        if (id_v != null)
+                        ID id = tf.set_ID(dr["ID"]);
+                        if (ID.Validate(id))
                         {
-                            if (ID.IsValid(id_v.v))
-                            {
                                 string_v Name_v = tf.set_string(dr["Name"]);
                                 string_v UserName_v = tf.set_string(dr["UserName"]);
                                 string_v IP_address_v = tf.set_string(dr["IP_address"]);
                                 string_v MAC_address_v = tf.set_string(dr["MAC_address"]);
-                                long Atom_ComputerName_ID = -1;
-                                long Atom_ComputerUserName_ID = -1;
-                                long Atom_MAC_address_ID = -1;
-                                long Atom_IP_address_ID = -1;
+                                ID Atom_ComputerName_ID = null;
+                                ID Atom_ComputerUserName_ID = null;
+                                ID Atom_MAC_address_ID = null;
+                                ID Atom_IP_address_ID = null;
 
                                 string sval_Atom_ComputerName_ID = "null";
                                 if (Name_v != null)
@@ -135,7 +133,7 @@ namespace UpgradeDB
                                     List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
                                     string spar_ID = "@par_ID";
-                                    SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, id_v.v);
+                                    SQL_Parameter par_ID = new SQL_Parameter(spar_ID,  false, id);
                                     lpar.Add(par_ID);
                                     string sval_ID = spar_ID;
 
@@ -144,10 +142,10 @@ namespace UpgradeDB
                                         return false;
                                     }
 
-                                    if (ID.IsValid(Atom_ComputerName_ID))
+                                    if (ID.Validate(Atom_ComputerName_ID))
                                     {
                                         string spar_Atom_ComputerName_ID = "@parAtom_ComputerName_ID";
-                                        SQL_Parameter par_Atom_ComputerName_ID = new SQL_Parameter(spar_Atom_ComputerName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ComputerName_ID);
+                                        SQL_Parameter par_Atom_ComputerName_ID = new SQL_Parameter(spar_Atom_ComputerName_ID, false, Atom_ComputerName_ID);
                                         lpar.Add(par_Atom_ComputerName_ID);
                                         sval_Atom_ComputerName_ID = spar_Atom_ComputerName_ID;
                                     }
@@ -164,10 +162,10 @@ namespace UpgradeDB
 
                                     string sval_Atom_ComputerUserName_ID = "null";
 
-                                    if (ID.IsValid(Atom_ComputerUserName_ID))
+                                    if (ID.Validate(Atom_ComputerUserName_ID))
                                     {
                                         string spar_Atom_ComputerUserName_ID = "@parAtom_ComputerUserName_ID";
-                                        SQL_Parameter par_Atom_ComputerUserName_ID = new SQL_Parameter(spar_Atom_ComputerUserName_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ComputerUserName_ID);
+                                        SQL_Parameter par_Atom_ComputerUserName_ID = new SQL_Parameter(spar_Atom_ComputerUserName_ID,  false, Atom_ComputerUserName_ID);
                                         lpar.Add(par_Atom_ComputerUserName_ID);
                                         sval_Atom_ComputerUserName_ID = spar_Atom_ComputerUserName_ID;
                                     }
@@ -179,10 +177,10 @@ namespace UpgradeDB
 
                                     string sval_Atom_MAC_address_ID = "null";
 
-                                    if (ID.IsValid(Atom_MAC_address_ID))
+                                    if (ID.Validate(Atom_MAC_address_ID))
                                     {
                                         string spar_Atom_MAC_address_ID = "@parAtom_MAC_address_ID";
-                                        SQL_Parameter par_Atom_MAC_address_ID = new SQL_Parameter(spar_Atom_MAC_address_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_MAC_address_ID);
+                                        SQL_Parameter par_Atom_MAC_address_ID = new SQL_Parameter(spar_Atom_MAC_address_ID, false, Atom_MAC_address_ID);
                                         lpar.Add(par_Atom_MAC_address_ID);
                                         sval_Atom_MAC_address_ID = spar_Atom_MAC_address_ID;
                                     }
@@ -194,10 +192,10 @@ namespace UpgradeDB
 
                                     string sval_Atom_IP_address_ID = "null";
 
-                                    if (ID.IsValid(Atom_IP_address_ID))
+                                    if (ID.Validate(Atom_IP_address_ID))
                                     {
                                         string spar_Atom_IP_address_ID = "@parAtom_IP_address_ID";
-                                        SQL_Parameter par_Atom_IP_address_ID = new SQL_Parameter(spar_Atom_IP_address_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_IP_address_ID);
+                                        SQL_Parameter par_Atom_IP_address_ID = new SQL_Parameter(spar_Atom_IP_address_ID, false, Atom_IP_address_ID);
                                         lpar.Add(par_Atom_IP_address_ID);
                                         sval_Atom_IP_address_ID = spar_Atom_IP_address_ID;
                                     }
@@ -214,15 +212,14 @@ namespace UpgradeDB
                                                                        "," + sval_Atom_MAC_address_ID +
                                                                        "," + sval_Atom_IP_address_ID +
                                                                        ")";
-                                    object oret = null;
-                                    long Atom_Computer_ID = -1;
-                                    if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref oret, ref Err, "Atom_Computer_Temp"))
+                                    ID Atom_Computer_ID = null;
+                                    if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref Err, "Atom_Computer_Temp"))
                                     {
                                         return false;
                                     }
         
                                 }
-                            }
+                            
                         }
                     }
                 }

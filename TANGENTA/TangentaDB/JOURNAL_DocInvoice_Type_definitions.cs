@@ -6,6 +6,7 @@
 */
 #endregion
 using DBConnectionControl40;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ namespace TangentaDB
                     string sName = (string)dr["Name"];
                     if (jrt.Name.Equals(sName))
                     {
-                        jrt.ID = (long)dr["ID"];
+                        jrt.ID = tf.set_ID(dr["ID"]);
                         return true;
                     }
                 }
@@ -107,10 +108,9 @@ namespace TangentaDB
             }
 
             string sql = "insert into JOURNAL_DocInvoice_Type (Name,Description) values ("+sval_Name+","+sval_Description+")";
-            long jrt_id =-1;
-            object oret = null;
+            ID jrt_id =null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref jrt_id,ref oret,ref Err,"JOURNAL_DocInvoice_Type"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref jrt_id,ref Err,"JOURNAL_DocInvoice_Type"))
             {
                 jrt.ID = jrt_id;
                 return true;

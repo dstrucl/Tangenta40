@@ -31,7 +31,7 @@ namespace TangentaDB
                 if (ID.Validate(Atom_BankAccount_ID))
                 {
                     string spar_Atom_BankAccount_ID = "@par_Atom_BankAccount_ID";
-                    SQL_Parameter par_Atom_BankAccount_ID = new SQL_Parameter(spar_Atom_BankAccount_ID, false, Atom_BankAccount_ID.v);
+                    SQL_Parameter par_Atom_BankAccount_ID = new SQL_Parameter(spar_Atom_BankAccount_ID, false, Atom_BankAccount_ID);
                     lpar.Add(par_Atom_BankAccount_ID);
                     sval_Atom_BankAccount_ID = spar_Atom_BankAccount_ID;
                     scond_Atom_BankAccount_ID = " Atom_BankAccount_ID = " + spar_Atom_BankAccount_ID + " ";

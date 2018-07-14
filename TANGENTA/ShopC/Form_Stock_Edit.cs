@@ -18,6 +18,7 @@ using CodeTables;
 using DBTypes;
 using TangentaTableClass;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -59,7 +60,7 @@ namespace ShopC
             this.Cursor = Cursors.Arrow;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
@@ -80,14 +81,14 @@ namespace ShopC
                             }
                         }
                     }
-                    long_v JOURNAL_Stock_id = null;
+                    ID JOURNAL_Stock_id = null;
                     f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
             m_bChanged = true;
         }
 
-        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             if (bRes)
             {
@@ -108,7 +109,7 @@ namespace ShopC
                             }
                         }
                     }
-                    long_v JOURNAL_Stock_id = null;
+                    ID JOURNAL_Stock_id = null;
                     f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
@@ -129,7 +130,7 @@ namespace ShopC
             }
         }
 
-        private void usrc_EditTable_after_FillDataInputControl(SQLTable m_tbl, long ID)
+        private void usrc_EditTable_after_FillDataInputControl(SQLTable m_tbl, ID ID)
         {
             int decimal_places = -1;
             if (GetDecimalPlaces_ForStockItem(m_tbl, ref decimal_places))
@@ -203,7 +204,7 @@ namespace ShopC
             }
         }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Stock"))

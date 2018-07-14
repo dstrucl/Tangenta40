@@ -177,10 +177,10 @@ namespace ShopA
             if (dgvrcol.Count==1)
             {
                 DataGridViewRow dgvr = dgvrcol[0];
-                m_Atom_ItemShopA.ID.set(dgvr.Cells["ID"].Value);
+                m_Atom_ItemShopA.ID.Set(dgvr.Cells["ID"].Value);
                 m_Atom_ItemShopA.Name.set(dgvr.Cells["Atom_ItemShopA_$$Name"].Value);
                 m_Atom_ItemShopA.Description.set(dgvr.Cells["Atom_ItemShopA_$$Description"].Value);
-                m_Atom_ItemShopA.m_Unit.ID.set(dgvr.Cells["Atom_ItemShopA_$_u_$$ID"].Value);
+                m_Atom_ItemShopA.m_Unit.ID.Set(dgvr.Cells["Atom_ItemShopA_$_u_$$ID"].Value);
                 m_Atom_ItemShopA.m_Unit.Name.set(dgvr.Cells["Atom_ItemShopA_$_u_$$Name"].Value);
                 m_Atom_ItemShopA.m_Unit.Symbol.set(dgvr.Cells["Atom_ItemShopA_$_u_$$Symbol"].Value);
                 short decimal_places = 0;
@@ -210,10 +210,10 @@ namespace ShopA
                 DataGridViewSelectedRowCollection dgvrc = dgvx_Item.SelectedRows;
                 iSelectedIndex = dgvrc[0].Index;
 
-                m_Atom_ItemShopA.ID.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["ID"]);
+                m_Atom_ItemShopA.ID.Set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["ID"]);
                 m_Atom_ItemShopA.Name.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$$Name"]);
                 m_Atom_ItemShopA.Description.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$$Description"]);
-                m_Atom_ItemShopA.m_Unit.ID.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$ID"]);
+                m_Atom_ItemShopA.m_Unit.ID.Set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$ID"]);
                 m_Atom_ItemShopA.m_Unit.Name.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$Name"]);
                 m_Atom_ItemShopA.m_Unit.Symbol.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$Symbol"]);
                 short decimal_places = 0;

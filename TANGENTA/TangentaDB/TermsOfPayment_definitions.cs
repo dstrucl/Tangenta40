@@ -1,3 +1,4 @@
+using DBConnectionControl40;
 using DBTypes;
 using LanguageControl;
 using System;
@@ -10,8 +11,8 @@ namespace TangentaDB
 {
     public class TermsOfPayment_definitions
     {
-        public long_v Advanced_100PercentPayment_ID_v = null;
-        public long_v Advanced_100PercentPayment_ToBankAccount_ID_v = null;
+        public ID Advanced_100PercentPayment_ID = null;
+        public ID Advanced_100PercentPayment_ToBankAccount_ID = null;
         public DataTable dt_TermsOfPayment = null;
 
         public bool Read()
@@ -33,7 +34,7 @@ namespace TangentaDB
                     {
                         if (lng.s_TermsOfPayment_Default_100PercentInAdvance.s.Equals((string)oDescription))
                         {
-                            Advanced_100PercentPayment_ID_v = tf.set_long(dr["ID"]);
+                            Advanced_100PercentPayment_ID = tf.set_ID(dr["ID"]);
                         }
                     }
                 }
@@ -49,7 +50,7 @@ namespace TangentaDB
         public bool InsertDefault()
         {
             
-            if (f_TermsOfPayment.Get(lng.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID_v))
+            if (f_TermsOfPayment.Get(lng.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID))
             {
                 return true;
             }

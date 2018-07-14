@@ -108,11 +108,11 @@ namespace TangentaDB
             {
                 if (item_ParentGroup2_ID != null)
                 {
-                    if (f_Item_ParentGroup2.Get(item_ParentGroup2_ID.v, ref item_ParentGroup2_v, ref item_ParentGroup3_ID))
+                    if (f_Item_ParentGroup2.Get(item_ParentGroup2_ID, ref item_ParentGroup2_v, ref item_ParentGroup3_ID))
                     {
                         if (item_ParentGroup3_ID != null)
                         {
-                            if (!f_Item_ParentGroup3.Get(item_ParentGroup3_ID.v, ref item_ParentGroup3_v))
+                            if (!f_Item_ParentGroup3.Get(item_ParentGroup3_ID, ref item_ParentGroup3_v))
                             {
                                 return false;
                             }

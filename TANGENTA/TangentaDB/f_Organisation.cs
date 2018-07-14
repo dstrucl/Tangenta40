@@ -159,7 +159,7 @@ namespace TangentaDB
                             string sql = "update Organisation set Registration_ID = null"
                                  +", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
-                                + " where ID = " + Organisation_ID.v.ToString();
+                                + " where ID = " + Organisation_ID.ToString();
                             object ores = null;
                             if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
                             {
@@ -186,7 +186,7 @@ namespace TangentaDB
                                 string sql = "update Organisation set Registration_ID = " + spar_Registration_ID 
                                              + ", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
-                                             + " where ID = " + Organisation_ID.v.ToString();
+                                             + " where ID = " + Organisation_ID.ToString();
                                 object ores = null;
                                 if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
                                 {
@@ -217,7 +217,7 @@ namespace TangentaDB
                             string sql = "update Organisation set Registration_ID = " + spar_Registration_ID
                                          + ", TaxPayer = " + TaxPayer_value
                                          + ", Comment1_ID = " + Comment1_ID_value
-                                         + " where ID = " + Organisation_ID.v.ToString();
+                                         + " where ID = " + Organisation_ID.ToString();
                             object ores = null;
                             if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
                             {
@@ -227,7 +227,7 @@ namespace TangentaDB
                         }
                     }
 
-                    if (f_OrganisationData.Get(Organisation_ID.v,
+                    if (f_OrganisationData.Get(Organisation_ID,
                                                        OrganisationTYPE_v,
                                                        Address_v,
                                                        PhoneNumber_v,
@@ -260,16 +260,9 @@ namespace TangentaDB
                 else
                 {
                     string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Comment1_ID_value +")";
-                    object oret = null;
-                    long Organisation_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref oret, ref Err, "Organisation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref Err, "Organisation"))
                     {
-                        if (Organisation_ID == null)
-                        {
-                            Organisation_ID = new long_v();
-                        }
-                        Organisation_ID.v = Organisation_ID;
-                        if (f_OrganisationData.Get(Organisation_ID.v,
+                        if (f_OrganisationData.Get(Organisation_ID,
                                                                                OrganisationTYPE_v,
                                                                                Address_v,
                                                                                PhoneNumber_v,
@@ -287,7 +280,7 @@ namespace TangentaDB
                                 return f_OrganisationAccount.Get(BankAccount_ID,
                                                           Organisation_ID,
                                                           Organisation_BankAccount_Description_v,
-                                                          ref OrganisationAccount_ID_v);
+                                                          ref OrganisationAccount_ID);
                             }
                             else
                             {
@@ -316,7 +309,7 @@ namespace TangentaDB
         public static bool Get(string_v Organisation_Name_v,
                                  string_v Tax_ID_v,
                                  string_v Registration_ID_v,
-                                 ref long_v Organisation_ID_v
+                                 ref ID Organisation_ID
                                  )
         {
             string Err = null;
@@ -377,25 +370,18 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Organisation_ID_v == null)
+                    if (Organisation_ID == null)
                     {
-                        Organisation_ID_v = new long_v();
+                        Organisation_ID = new ID();
                     }
-                    Organisation_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Organisation_ID.Set(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + ")";
-                    object oret = null;
-                    long Organisation_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref oret, ref Err, "Organisation"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref Err, "Organisation"))
                     {
-                        if (Organisation_ID_v == null)
-                        {
-                            Organisation_ID_v = new long_v();
-                        }
-                        Organisation_ID_v.v = Organisation_ID;
                         return true;
                     }
                     else

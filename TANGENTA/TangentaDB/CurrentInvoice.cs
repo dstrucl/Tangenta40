@@ -1720,7 +1720,7 @@ namespace TangentaDB
         }
    
 
-        public bool Storno(ref long Storno_DocInvoice_ID,  bool bStorno,string ElectronicDevice_Name, string sReason,ref  DateTime retissue_time)
+        public bool Storno(ref ID Storno_DocInvoice_ID,  bool bStorno,string ElectronicDevice_Name, string sReason,ref  DateTime retissue_time)
         {
             object ores = null;
             string Err = null;
@@ -1760,14 +1760,14 @@ namespace TangentaDB
                 decimal_v EndSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["EndSum"]);
                 decimal_v TaxSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["TaxSum"]);
                 decimal_v GrossSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["GrossSum"]);
-                long_v Atom_Customer_Person_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Person_ID"]);
-                long_v Atom_Customer_Org_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Org_ID"]);
-                long_v Atom_Currency_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Currency_ID"]);
+                ID Atom_Customer_Person_ID = tf.set_ID(dt_ProfInv.Rows[0]["Atom_Customer_Person_ID"]);
+                ID Atom_Customer_Org_ID = tf.set_ID(dt_ProfInv.Rows[0]["Atom_Customer_Org_ID"]);
+                ID Atom_Currency_ID = tf.set_ID(dt_ProfInv.Rows[0]["Atom_Currency_ID"]);
 
                 string_v WarrantyConditions_v = tf.set_string(dt_ProfInv.Rows[0]["WarrantyConditions"]);
                 int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
-                long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
+                ID TermsOfPayment_ID = tf.set_ID(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 int iNewNumberInFinancialYear = -1;
                 GetNewNumberInFinancialYear("DocInvoice", ElectronicDevice_Name,ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
@@ -1807,15 +1807,15 @@ namespace TangentaDB
                                                             + GetParam("EndSum", ref lpar, EndSum_v) + ","
                                                             + GetParam("TaxSum", ref lpar, TaxSum_v) + ","
                                                             + GetParam("GrossSum", ref lpar, GrossSum_v) + ","
-                                                            + GetParam("Atom_Currency_ID", ref lpar, Atom_Currency_ID_v) + ","
-                                                            + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
-                                                            + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
+                                                            + GetParam("Atom_Currency_ID", ref lpar, Atom_Currency_ID) + ","
+                                                            + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID) + ","
+                                                            + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID) + ","
                                                             + GetParam("Invoice_Reference_ID", ref lpar, Storno_Invoice_ID) + @",
                                                             1,
                                                             'STORNO'
                                                             )";
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref ores, ref Err, "DocInvoice"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref Err, "DocInvoice"))
                         {
                             string sBit = "0";
                             if (bStorno)
@@ -1828,7 +1828,7 @@ namespace TangentaDB
 
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                         {
-                            long Journal_DocInvoice_ID = -1;
+                            ID Journal_DocInvoice_ID = null;
                             DateTime_v issue_time = new DateTime_v(DateTime.Now);
 
                             retissue_time = issue_time.v;

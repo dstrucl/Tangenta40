@@ -12,6 +12,7 @@ using System.Drawing.Printing;
 using CodeTables;
 using TangentaTableClass;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace TangentaPrint
 {
@@ -63,15 +64,15 @@ namespace TangentaPrint
             }
         }
 
-        public long_v Doc_Page_Type_ID_v
+        public ID Doc_Page_Type_ID
         {
             get
             {
-                return m_Doc_Page_Type_ID_v;
+                return m_Doc_Page_Type_ID;
             }
         }
 
-        public long_v Doc_Type_ID_v
+        public ID Doc_Type_ID
         {
             get
             {
@@ -130,20 +131,20 @@ namespace TangentaPrint
             }
         }
 
-        public long_v Default_Language_ID_v
+        public ID Default_Language_ID
         {
             get
             {
-                return GlobalData.language_definitions.Language_ID_v;
+                return GlobalData.language_definitions.Language_ID;
             }
 
         }
 
-        public long_v Language_ID_v
+        public ID Language_ID_v
         {
             get
             {
-                return new long_v((long)cmb_Language.SelectedValue);
+                return new ID(cmb_Language.SelectedValue);
             }
 
         }
@@ -232,18 +233,18 @@ namespace TangentaPrint
 
 
 
-        private long_v m_Doc_Page_Type_ID_v = null;
+        private ID m_Doc_Page_Type_ID = null;
         private bool m_bActive = false;
         private bool m_bCompressed = false;
 
-        private long_v m_DocType_ID_v = null;
+        private ID m_DocType_ID = null;
 
-        public long_v f_doc_DocType_ID_v
+        public ID DocType_ID
         {
-            get { return m_DocType_ID_v; }
+            get { return m_DocType_ID; }
             set
             {
-                m_DocType_ID_v = value;
+                m_DocType_ID = value;
             }
         }
 
@@ -286,11 +287,11 @@ namespace TangentaPrint
                 AddHandlers();
                 return f_doc.eGetPrintDocumentTemplateResult.PRINTER_NOT_SELECTED;
             }
-            Ge_doc_page_type_ID_v_FromSelectedPrinter(ref m_Doc_Page_Type_ID_v);
+            Ge_doc_page_type_ID_v_FromSelectedPrinter(ref m_Doc_Page_Type_ID);
 
             f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
-                           Doc_Type_ID_v,
-                           m_Doc_Page_Type_ID_v,
+                           Doc_Type_ID,
+                           m_Doc_Page_Type_ID,
                            Language_ID_v
                           );
             switch (eres)
@@ -359,14 +360,14 @@ namespace TangentaPrint
 
         }
 
-        private void Ge_doc_page_type_ID_v_FromSelectedPrinter(ref long_v doc_page_type_ID_v)
+        private void Ge_doc_page_type_ID_v_FromSelectedPrinter(ref ID doc_page_type_ID)
         {
             PrinterSettings prn_sttings = new PrinterSettings();
             string printer_name = cmb_SelectPrinter.Text;
             if (printer_name.Length > 0)
             {
                 prn_sttings.PrinterName = printer_name;
-                GlobalData.doc_page_type_definitions.FindMatching_page_type("inch", Convert.ToDecimal(prn_sttings.DefaultPageSettings.PaperSize.Width) / 100.0m, 0.393m, ref doc_page_type_ID_v);
+                GlobalData.doc_page_type_definitions.FindMatching_page_type("inch", Convert.ToDecimal(prn_sttings.DefaultPageSettings.PaperSize.Width) / 100.0m, 0.393m, ref doc_page_type_ID);
             }
         }
 
@@ -389,15 +390,15 @@ namespace TangentaPrint
             this.btn_SelectPrinter.Click -= new System.EventHandler(this.btn_SelectPrinter_Click);
         }
 
-        private bool ReadPrintDocumentTemplate(long doc_ID)
+        private bool ReadPrintDocumentTemplate(ID doc_ID)
         {
             string_v Name_v = null;
             string_v Description_v = null;
             byte_array_v xDoc_v = null;
             string_v xDoc_Hash_v = null;
-            long_v Language_ID_v = null;
+            ID Language_ID = null;
             bool_v Compressed_v = null;
-            switch (f_doc.GetTemplate(doc_ID, ref Name_v, ref Description_v, ref xDoc_v, ref xDoc_Hash_v, ref m_DocType_ID_v, ref m_Doc_Page_Type_ID_v, ref Language_ID_v, ref Compressed_v))
+            switch (f_doc.GetTemplate(doc_ID, ref Name_v, ref Description_v, ref xDoc_v, ref xDoc_Hash_v, ref m_DocType_ID, ref m_Doc_Page_Type_ID, ref Language_ID, ref Compressed_v))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     //f_doc_DocType_ID_v = DocType_ID_v;
@@ -413,9 +414,9 @@ namespace TangentaPrint
                         f_doc_bCompressed = false;
                     }
                     Doc_v = xDoc_v;
-                    if (m_Doc_Page_Type_ID_v != null)
+                    if (m_Doc_Page_Type_ID != null)
                     {
-                        if (f_doc_page_type.Get(m_Doc_Page_Type_ID_v.v, ref Page_Name_v, ref Page_Description_v, ref Page_Width_v, ref Page_Height_v))
+                        if (f_doc_page_type.Get(m_Doc_Page_Type_ID, ref Page_Name_v, ref Page_Description_v, ref Page_Width_v, ref Page_Height_v))
                         {
                             if (Page_Description_v != null)
                             {
@@ -446,7 +447,7 @@ namespace TangentaPrint
             f_doc_bDefault = (bool)dr["bDefault"];
             doc_TemplateName = (string)dr["Name"];
             doc_TemplateDescription = tf.set_string(dr["Description"]);
-            long doc_ID = (long)dr["ID"];
+            ID doc_ID = tf.set_ID(dr["ID"]);
             ReadPrintDocumentTemplate(doc_ID);
 
         }
@@ -675,10 +676,10 @@ namespace TangentaPrint
             object oSelectedValue = this.cmb_SelectPrintTemplate.SelectedValue;
             if (oSelectedValue!=null)
             {
-                if (oSelectedValue is long)
+                if (oSelectedValue is ID)
                 {
-                    long doc_ID = (long)this.cmb_SelectPrintTemplate.SelectedValue;
-                    if (doc_ID >= 0)
+                    ID doc_ID = (ID)this.cmb_SelectPrintTemplate.SelectedValue;
+                    if (ID.Validate(doc_ID))
                     {
                         if (ReadPrintDocumentTemplate(doc_ID))
                         {
@@ -701,7 +702,7 @@ namespace TangentaPrint
                                                             "doc_$$Name");
             if (edt_doc_dlg.ShowDialog() == DialogResult.OK)
             {
-                long id = edt_doc_dlg.ID_v.v;
+                ID id = edt_doc_dlg.ID;
                 string doc_name = null;
                 f_doc.SetDefault(id);
                 if (f_doc.GetTemplate(id, ref doc_name, ref Doc_v.v, ref m_bCompressed))

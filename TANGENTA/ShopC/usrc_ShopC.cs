@@ -19,6 +19,7 @@ using LanguageControl;
 using TangentaDB;
 using PriseLists;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -156,7 +157,7 @@ namespace ShopC
             usrc_ItemList.Init(this.usrc_Atom_ItemsList);
         }
 
-        public long PriceList_ID
+        public ID PriceList_ID
         {
             get { return this.usrc_PriceList1.ID; }
         }
@@ -510,7 +511,7 @@ namespace ShopC
                         //    }
                         //}
                         Stock_Data stock_data = new Stock_Data();
-                        stock_data.Stock_ID = tf.set_long(dr["Stock_ID"]);
+                        stock_data.Stock_ID = tf.set_ID(dr["Stock_ID"]);
                         stock_data.Stock_ImportTime = tf.set_DateTime(dr["Stock_ImportTime"]);
                         stock_data.Stock_ExpiryDate = tf.set_DateTime(dr["Stock_Expiry_Date"]);
                         decimal_v dQuantity_v = tf.set_decimal(dr["Stock_dQuantity"]);

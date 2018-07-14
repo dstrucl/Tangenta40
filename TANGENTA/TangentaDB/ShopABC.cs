@@ -1427,7 +1427,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Delete_SelectedSimpleItem(long DocInvoice_ShopB_Item_ID, ref string Err)
+        public bool Delete_SelectedSimpleItem(ID DocInvoice_ShopB_Item_ID, ref string Err)
         {
 
             string sql_delete_Atom_SimpleItem = null;

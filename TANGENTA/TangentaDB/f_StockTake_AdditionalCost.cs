@@ -21,7 +21,7 @@ namespace TangentaDB
                 {
                     if (Description.Length > 0)
                     {
-                        long StocTakeCostDescription_ID = -1;
+                        ID StocTakeCostDescription_ID = null;
                         if (f_StockTakeCostDescription.Get(Description, ref StocTakeCostDescription_ID))
                         {
                             spar_StocTakeCostDescription_ID = "@par_StocTakeCostDescription_ID";

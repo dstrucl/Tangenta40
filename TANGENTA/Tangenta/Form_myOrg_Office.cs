@@ -32,9 +32,9 @@ namespace Tangenta
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
             lng.s_Edit_Office_Data.Text(btn_Office_Data_And_FVI_SLO_RealEstateBP);
-            if (myOrg.ID_v != null)
+            if (myOrg.ID != null)
             {
-                myOrganisation_ID = myOrg.ID_v.v;
+                myOrganisation_ID = myOrg.ID.v;
                 tbl_Office = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office)));
                 this.Text = lng.s_Edit_Offices.s;
                 this.usrc_EditTable1.Title = lng.s_Edit_Offices.s;

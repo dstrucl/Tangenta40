@@ -66,15 +66,14 @@ namespace UpgradeDB
             {
                 if (this.tbl.TableName.ToLower().Equals("pricelist"))
                 {
-                    if (GlobalData.Office_ID < 0)
+                    if (!ID.Validate(GlobalData.Office_ID))
                     {
                         string sql = "insert into Office (myOrganisation_ID,Name)values(1,'P1')";
-                        object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Office_ID, ref oret, ref Err, "Office"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Office_ID,  ref Err, "Office"))
                         {
                             sql = "insert into myOrganisation_Person (UserName,Password,Job,Active,Description,Person_ID,Office_ID)values('marjetkah',null,'Direktor',1,'Direktorica in lastnica podjetja',1,1)";
-                            long x_myOrganisation_Person_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref x_myOrganisation_Person_ID, ref oret, ref Err, "Office"))
+                            ID x_myOrganisation_Person_ID = null;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref x_myOrganisation_Person_ID, ref Err, "Office"))
                             {
 
                             }
@@ -94,11 +93,10 @@ namespace UpgradeDB
                 else if (this.tbl.TableName.ToLower().Equals("atom_pricelist"))
                 {
                     string sql = null;
-                    object oret = null;
-                    if (GlobalData.Atom_Office_ID < 0)
+                    if (!ID.Validate(GlobalData.Atom_Office_ID))
                     {
                         sql = "insert into Atom_Office (Atom_myOrganisation_ID,Name)values(1,'P1')";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Atom_Office_ID, ref oret, ref Err, "Atom_Office"))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Atom_Office_ID, ref Err, "Atom_Office"))
                         {
                             LogFile.Error.Show("ERROR:usrc_Upgrade:Write2DB:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -139,7 +137,7 @@ namespace UpgradeDB
                     sql_insert_columns = null;
                     sql_insert_values = null;
                     lpar.Clear();
-                    long old_id = (long)dr["id"];
+                    ID old_id = tf.set_ID(dr["id"]);
                     DateTime_v InvoiceTime_v = null;
                     DateTime_v PaidTime_v = null;
                     DateTime_v StornoTime_v = null;
@@ -265,15 +263,14 @@ namespace UpgradeDB
                     }
 
                     string sql_insert = " insert into " + tname + " (" + sql_insert_columns + ") values (" + sql_insert_values + ")";
-                    long new_id = -1;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref new_id, ref ores, ref Err, tname))
+                    ID new_id = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref new_id,  ref Err, tname))
                     {
-                        dr["OLD_ID"] = old_id;
-                        dr["id"] = new_id;
+                        dr["OLD_ID"] = old_id.V;
+                        dr["id"] = new_id.V;
                         if (tname.ToLower().Equals("docinvoice"))
                         {
-                            long Journal_DocInvoice_ID = -1;
+                            ID Journal_DocInvoice_ID = null;
                             f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.Name, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.Description, InvoiceTime_v, ref Journal_DocInvoice_ID);
                             if (dr["Draft"] is bool)
                             {
@@ -286,7 +283,7 @@ namespace UpgradeDB
                         }
                         else if (tname.ToLower().Equals("invoice"))
                         {
-                            long Journal_Invoice_ID = -1;
+                            ID Journal_Invoice_ID = null;
                             f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Paid", "Plačano", PaidTime_v, ref Journal_Invoice_ID);
                             if (bStorno)
                             {
@@ -304,7 +301,7 @@ namespace UpgradeDB
             return true;
         }
 
-        private DateTime GetInvoiceStornoTime(long Invoice_id, Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
+        private DateTime GetInvoiceStornoTime(ID Invoice_id, Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
         {
             DataRow[] drs = m_Old_tables_1_04_to_1_05.dt_Journal_Invoice.Select("invoice_id=" + Invoice_id.ToString());
             if (drs.Count() > 0)
@@ -318,7 +315,7 @@ namespace UpgradeDB
             }
         }
 
-        private DateTime GetDocInvoiceTime(long id, Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
+        private DateTime GetDocInvoiceTime(ID id, Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
         {
 
             DataRow[] drs = m_Old_tables_1_04_to_1_05.dt_DocInvoice.Select("id=" + id.ToString());
@@ -357,7 +354,7 @@ namespace UpgradeDB
 
         private bool new_SQL_Parameter(TableDataItem tdi, DataRow dr, DataColumn dcol, ref string sparname, object o, ref SQL_Parameter par)
         {
-            long new_ID = -1;
+            ID new_ID = null;
             sparname = "@par_" + dcol.ColumnName;
             //if (tdi.tbl.TableName.Equals("Atom_cAddress_Org"))
             //{
@@ -430,7 +427,7 @@ namespace UpgradeDB
             return true;
         }
 
-        private bool IsForeignKey(TableDataItem tdi, DataRow dr, DataColumn dcol, ref long new_ID)
+        private bool IsForeignKey(TableDataItem tdi, DataRow dr, DataColumn dcol, ref ID new_ID)
         {
             foreach (Column col in tdi.tbl.Column)
             {
@@ -448,7 +445,7 @@ namespace UpgradeDB
                                     DataRow[] drs = xtdi.dt.Select("old_ID = " + ((long)o_Old_ID).ToString());
                                     if (drs.Count() > 0)
                                     {
-                                        new_ID = (long)drs[0]["ID"];
+                                        new_ID = tf.set_ID(drs[0]["ID"]);
                                         return true;
                                     }
                                 }

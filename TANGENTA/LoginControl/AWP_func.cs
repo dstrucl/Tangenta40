@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -122,7 +123,7 @@ SELECT
 
         internal static bool GetWorkingPeriod(ref DataTable dtWorkingPeriod,DateTime dateFrom,DateTime dateTo, string userName)
         {
-            long myOrganisation_Person_ID = -1;
+            ID myOrganisation_Person_ID = null;
             if (Get_myOrganisation_Person_ID(userName, ref myOrganisation_Person_ID))
             {
                 List<long> Atom_myOrganisation_Person_ID_List = new List<long>();
@@ -230,7 +231,7 @@ SELECT
             return false;
         }
 
-        internal static bool Get_myOrganisation_Person_ID(string userName, ref long myOrganisation_Person_ID)
+        internal static bool Get_myOrganisation_Person_ID(string userName, ref ID myOrganisation_Person_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_UserName = "@par_UserName";
@@ -251,7 +252,7 @@ SELECT
             {
                 if (dt.Rows.Count>0)
                 {
-                    myOrganisation_Person_ID = (long)dt.Rows[0]["myOrganisation_Person_ID"];
+                    myOrganisation_Person_ID = tf.set_ID(dt.Rows[0]["myOrganisation_Person_ID"]);
                     return true;
                 }
                 return false;
@@ -318,11 +319,11 @@ SELECT
             }
         }
 
-        internal static bool InsertNewDefaultLoginUsersRow(long myOrganisation_Person_ID, string uniqueUserName, ref long LoginUsers_ID)
+        internal static bool InsertNewDefaultLoginUsersRow(ID myOrganisation_Person_ID, string uniqueUserName, ref ID LoginUsers_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
-            SQL_Parameter par_myOrganisation_Person_ID = new SQL_Parameter(spar_myOrganisation_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_Person_ID);
+            SQL_Parameter par_myOrganisation_Person_ID = new SQL_Parameter(spar_myOrganisation_Person_ID, false, myOrganisation_Person_ID);
             lpar.Add(par_myOrganisation_Person_ID);
 
             string spar_UniqueUserName = "@par_UniqueUserName";
@@ -343,9 +344,8 @@ SELECT
                                                          ,30
                                                          ,0
                                                          )";
-            object oret = null;
             string Err = null;
-            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref LoginUsers_ID,ref oret,ref Err, "LoginUsers"))
+            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref LoginUsers_ID,ref Err, "LoginUsers"))
             {
                 return true;
             }
@@ -384,20 +384,19 @@ SELECT
             }
         }
 
-        internal static bool WriteLoginSession(long loginUsers_ID, long atom_WorkPeriod_ID, ref long loginSession_ID)
+        internal static bool WriteLoginSession(ID loginUsers_ID, ID atom_WorkPeriod_ID, ref ID loginSession_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, loginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, loginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
-            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, atom_WorkPeriod_ID);
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, atom_WorkPeriod_ID);
             lpar.Add(par_Atom_WorkPeriod_ID);
             string sql = "insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID)values(" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
-            object oret = null;
             string Err = null;
 
-            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref loginSession_ID,ref oret, ref Err, "LoginSession"))
+            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref loginSession_ID, ref Err, "LoginSession"))
             {
                 return true;
             }
@@ -481,7 +480,7 @@ SELECT
             }
         }
 
-        internal static bool DeactivateUserName(long iD)
+        internal static bool DeactivateUserName(ID iD)
         {
             string sql_change_enabled = "UPDATE LoginUsers SET enabled = 0 where id = " + iD.ToString();
             object res = null;
@@ -497,22 +496,21 @@ SELECT
             }
         }
 
-        internal static bool GetLoginSession(long LoginUsers_ID, long Atom_WorkPeriod_ID, ref long loginSession_id)
+        internal static bool GetLoginSession(ID LoginUsers_ID, ID Atom_WorkPeriod_ID, ref ID loginSession_id)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID,  false, LoginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
 
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
-            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_WorkPeriod_ID);
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID,  false, Atom_WorkPeriod_ID);
             lpar.Add(par_Atom_WorkPeriod_ID);
 
 
             string sql = @"insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID) values (" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
-            object oret = null;
             string err = null;
-            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref loginSession_id, ref oret, ref err, "LoginSession"))
+            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref loginSession_id,  ref err, "LoginSession"))
             {
                 return true;
             }
@@ -612,15 +610,15 @@ SELECT
 
         }
 
-        internal static bool RemoveRole(long LoginUsers_ID, long LoginRoles_ID)
+        internal static bool RemoveRole(ID LoginUsers_ID, ID LoginRoles_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, LoginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
 
             string spar_LoginRoles_ID = "@par_LoginRoles_ID";
-            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
+            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID,  false, LoginRoles_ID);
             lpar.Add(par_LoginRoles_ID);
 
             string sql = "DELETE FROM LoginUsersAndLoginRoles where LoginUsers_ID = " + spar_LoginUsers_ID + " and LoginRoles_ID = " + spar_LoginRoles_ID;
@@ -637,22 +635,21 @@ SELECT
             }
         }
 
-        internal static bool AddRole(long LoginUsers_ID, long LoginRoles_ID, ref long LoginUsersAndLoginRoles_ID)
+        internal static bool AddRole(ID LoginUsers_ID, ID LoginRoles_ID, ref ID LoginUsersAndLoginRoles_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, LoginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
 
             string spar_LoginRoles_ID = "@par_LoginRoles_ID";
-            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
+            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, false, LoginRoles_ID);
             lpar.Add(par_LoginRoles_ID);
 
             string sql = "Insert into LoginUsersAndLoginRoles (LoginUsers_ID,LoginRoles_ID) values (" + spar_LoginUsers_ID + "," + spar_LoginRoles_ID+")";
-            object oret = null;
             string err = null;
 
-            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsersAndLoginRoles_ID, ref oret, ref err, "LoginUsersAndLoginRoles"))
+            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsersAndLoginRoles_ID, ref err, "LoginUsersAndLoginRoles"))
             {
                 return true;
             }
@@ -684,15 +681,14 @@ SELECT
             {
                 if (dt.Rows.Count > 0)
                 {
-                    r.ID = (long)dt.Rows[0]["ID"];
+                    r.ID = tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
                 {
                     sql = "insert into LoginRoles (role) values ('" + r.Role + "')";
-                    long LoginRoles_ID = -1;
-                    object oret = null;
-                    if (con.ExecuteNonQuerySQLReturnID(sql, null, ref LoginRoles_ID, ref oret, ref err, "LoginRoles"))
+                    ID LoginRoles_ID = null;
+                    if (con.ExecuteNonQuerySQLReturnID(sql, null, ref LoginRoles_ID,  ref err, "LoginRoles"))
                     {
                         r.ID = LoginRoles_ID;
                         return true;
@@ -827,7 +823,7 @@ SELECT
             }
         }
 
-        internal static bool UserNameExist(string UserName, ref long LoginUsers_ID)
+        internal static bool UserNameExist(string UserName, ref ID LoginUsers_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_UserName = "@par_UserName";
@@ -840,7 +836,7 @@ SELECT
             {
                 if (dt.Rows.Count > 0)
                 {
-                    LoginUsers_ID = (long)dt.Rows[0]["ID"];
+                    LoginUsers_ID = tf.set_ID(dt.Rows[0]["ID"]);
                 }
                 return true;
             }
@@ -1015,11 +1011,11 @@ SELECT
 
         }
 
-        private static bool IsFirstTime(long LoginUsers_ID)
+        private static bool IsFirstTime(ID LoginUsers_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, LoginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
 
             string sql = @"select Time_When_UserSetsItsOwnPassword_FirstTime  from LoginUsers
@@ -1044,11 +1040,11 @@ SELECT
             }
         }
 
-        private static bool IsAdministrator(long iD)
+        private static bool IsAdministrator(ID iD)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, iD);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, iD);
             lpar.Add(par_LoginUsers_ID);
 
             string spar_Role = "@par_Role";
@@ -1182,10 +1178,9 @@ SELECT
                                                    "," + spar_Maximum_password_age_in_days +
                                                    "," + spar_NotActiveAfterPasswordExpires +
                                                    ")";
-                    long LoginUsers_ID = -1;
-                    object oret = null;
+                    ID LoginUsers_ID =null;
 
-                    if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsers_ID, ref oret, ref Err, "LoginUsers"))
+                    if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsers_ID,  ref Err, "LoginUsers"))
                     {
                         long LoginRoles_ID = -1;
                         if (AWP_func.Get_LoginRoles_ID(AWP.ROLE_Administrator, ref LoginRoles_ID))
@@ -1207,8 +1202,8 @@ SELECT
                                                             + spar_LoginUsers_ID +
                                                            "," + spar_LoginRoles_ID +
                                                        ")";
-                            long LoginUsersAndLoginRoles_ID = -1;
-                            if (con.ExecuteNonQuerySQLReturnID(sql, lpar1, ref LoginUsersAndLoginRoles_ID, ref oret, ref Err, "LoginUsersAndLoginRoles"))
+                            ID LoginUsersAndLoginRoles_ID = null;
+                            if (con.ExecuteNonQuerySQLReturnID(sql, lpar1, ref LoginUsersAndLoginRoles_ID,  ref Err, "LoginUsersAndLoginRoles"))
                             {
                                 continue;
                             }
@@ -1276,7 +1271,7 @@ SELECT
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    AllAWPRoles.Add(new AWPRole((long)dr["ID"], (string)dr["Role"]));
+                    AllAWPRoles.Add(new AWPRole(new ID(dr["ID"]), (string)dr["Role"]));
                 }
                 return true;
             }
@@ -1287,11 +1282,11 @@ SELECT
             }
         }
 
-        internal static bool AWPRoles_GetUserRoles(long LoginUsers_ID, ref List<AWPRole> AWPRoles)
+        internal static bool AWPRoles_GetUserRoles(ID LoginUsers_ID, ref List<AWPRole> AWPRoles)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint,false, LoginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, LoginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
             string sql = @"select 
                            lr.ID as ID,
@@ -1314,7 +1309,7 @@ SELECT
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    AWPRoles.Add(new AWPRole((long)dr["ID"], (string)dr["Role"]));
+                    AWPRoles.Add(new AWPRole(new ID(dr["ID"]), (string)dr["Role"]));
                 }
                 return true;
             }
@@ -1325,11 +1320,11 @@ SELECT
             }
         }
 
-        internal static bool AWPRoles_GetRoles_User_Does_Not_Have(long LoginUsers_ID, ref List<AWPRole> AWPRoles)
+        internal static bool AWPRoles_GetRoles_User_Does_Not_Have(ID LoginUsers_ID, ref List<AWPRole> AWPRoles)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, LoginUsers_ID);
             lpar.Add(par_LoginUsers_ID);
             string sql = @"select ID,Role from LoginRoles where ID not in (select 
                            lr.ID
@@ -1367,7 +1362,7 @@ SELECT
                     }
                     if (xrl != null)
                     {
-                        AWPRoles.Add(new AWPRole((long)dr["ID"], xrl));
+                        AWPRoles.Add(new AWPRole(new ID(dr["ID"]), xrl));
                     }
                 }
                 return true;

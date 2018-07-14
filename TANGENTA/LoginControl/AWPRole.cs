@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,8 @@ namespace LoginControl
 {
     public class AWPRole
     {
-        private long id = -1;
-        internal long ID
+        private ID id = null;
+        internal ID ID
         {
             get { return id; }
             set { id = value; }
@@ -79,7 +80,7 @@ namespace LoginControl
             return true;
         }
 
-        internal AWPRole(long xid, string xrole)
+        internal AWPRole(ID xid, string xrole)
         {
             id = xid;
             role = xrole;

@@ -20,6 +20,7 @@ using NavigationButtons;
 using DBTypes;
 using TangentaDB;
 using UniqueControlNames;
+using DBConnectionControl40;
 
 namespace PriseLists
 {
@@ -196,7 +197,7 @@ namespace PriseLists
             }
         }
 
-        private void usrc_EditTable_PriceList_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_PriceList_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             // Now create price lists
             if (bRes)
@@ -208,8 +209,8 @@ namespace PriseLists
                     tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                     SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Tangenta.m_DBTables, null);
                     SelectID_Table_dlg.ShowDialog();
-                    long id_Taxation = SelectID_Table_dlg.ID;
-                    if (id_Taxation >= 0)
+                    ID id_Taxation = SelectID_Table_dlg.ID;
+                    if (ID.Validate(id_Taxation))
                     {
                         string sql = null;
                         object ores = null;
@@ -325,7 +326,7 @@ namespace PriseLists
 
 
 
-        private bool SetPriceListName(long ID,ref string Err)
+        private bool SetPriceListName(ID ID,ref string Err)
         {
             string sql_PriceListName = @" select pln.Name,
                                                  cur.Name as CurrencyName,
@@ -377,7 +378,7 @@ namespace PriseLists
             }
         }
 
-        private void usrc_EditTable_PriceList_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        private void usrc_EditTable_PriceList_SelectedIndexChanged(SQLTable m_tbl, ID ID, int index)
         {
             string Err = null;
             if (SetPriceListName(ID,ref Err))
@@ -549,7 +550,7 @@ namespace PriseLists
         }
 
 
-        private bool usrc_EditTable_SimpleItem_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool Usrc_EditTable_SimpleItem_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)
         {
             if (pSQL_Table.TableName.ToLower().Equals("taxation"))
             {
@@ -557,7 +558,7 @@ namespace PriseLists
                 {
                     if (pSQL_Table.pParentTable.TableName.ToLower().Equals("price_simpleitem"))
                     {
-                        string sql = "select Name from Taxation where id = " + id_v.v.ToString();
+                        string sql = "select Name from Taxation where id = " + id.ToString();
                         DataTable dt = new DataTable();
                         string Err = null;
                         if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
@@ -686,17 +687,17 @@ namespace PriseLists
             }
         }
 
-        private void usrc_EditTable_Shop_Prices_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_Shop_Prices_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             bChanged = true;
         }
 
-        private void usrc_EditTable_Shop_Prices_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_Shop_Prices_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             bChanged = true;
         }
 
-        private void usrc_EditTable_PriceList_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        private void usrc_EditTable_PriceList_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
         {
             bChanged = true;
         }
