@@ -23,18 +23,18 @@ namespace TangentaDB
 
         public xUnitList()
         {
-            m_DefaltUnitList.Add(new xUnit(1,new ID(1),"komad", "kom.", 0,true, "Artikli kot komadi."));
-            m_DefaltUnitList.Add(new xUnit(2, new ID(2), "ura", "h", 2,false, "Za vse, kar se meri v urah"));
-            m_DefaltUnitList.Add(new xUnit(3, new ID(3), "dan", "dan", 2, false, "Za vse, kar se meri v dnevih"));
-            m_DefaltUnitList.Add(new xUnit(4, new ID(4),"mesec", "mes", 2, false, "Za vse, kar se meri v mesecih"));
-            m_DefaltUnitList.Add(new xUnit(5, new ID(5),"leto", "mes", 2,false, "Za vse, kar se meri v mesecih"));
-            m_DefaltUnitList.Add(new xUnit(6, new ID(6),"meter", "m", 2, true, "Za kar se, prodaja na dolžinsko enoto"));
-            m_DefaltUnitList.Add(new xUnit(7, new ID(7),"kvadratni meter", "m2", 2, true, "Za vse kar se prodaja glede na površino"));
-            m_DefaltUnitList.Add(new xUnit(8, new ID(8),"kubični meter", "m3", 2, true, "Za vse kar se prodaja glede na prostornino"));
-            m_DefaltUnitList.Add(new xUnit(9, new ID(9),"kilowatna ura", "kWh", 2, false, "Prodaja energije"));
-            m_DefaltUnitList.Add(new xUnit(10, new ID(10),"kilometrina", "km", 0, false, "Obračun kilometrine"));
-            m_DefaltUnitList.Add(new xUnit(11, new ID(11),"kilogram", "kg", 2, true, "Masa artikla"));
-            m_DefaltUnitList.Add(new xUnit(12, new ID(12),"liter", "l", 2, true, "Za snovi, ki se prodajajo glede na prostornino"));
+            m_DefaltUnitList.Add(new xUnit(1,new ID((long)1),"komad", "kom.", 0,true, "Artikli kot komadi."));
+            m_DefaltUnitList.Add(new xUnit(2, new ID((long)2), "ura", "h", 2,false, "Za vse, kar se meri v urah"));
+            m_DefaltUnitList.Add(new xUnit(3, new ID((long)3), "dan", "dan", 2, false, "Za vse, kar se meri v dnevih"));
+            m_DefaltUnitList.Add(new xUnit(4, new ID((long)4),"mesec", "mes", 2, false, "Za vse, kar se meri v mesecih"));
+            m_DefaltUnitList.Add(new xUnit(5, new ID((long)5),"leto", "mes", 2,false, "Za vse, kar se meri v mesecih"));
+            m_DefaltUnitList.Add(new xUnit(6, new ID((long)6),"meter", "m", 2, true, "Za kar se, prodaja na dolžinsko enoto"));
+            m_DefaltUnitList.Add(new xUnit(7, new ID((long)7),"kvadratni meter", "m2", 2, true, "Za vse kar se prodaja glede na površino"));
+            m_DefaltUnitList.Add(new xUnit(8, new ID((long)8),"kubični meter", "m3", 2, true, "Za vse kar se prodaja glede na prostornino"));
+            m_DefaltUnitList.Add(new xUnit(9, new ID((long)9),"kilowatna ura", "kWh", 2, false, "Prodaja energije"));
+            m_DefaltUnitList.Add(new xUnit(10, new ID((long)10),"kilometrina", "km", 0, false, "Obračun kilometrine"));
+            m_DefaltUnitList.Add(new xUnit(11, new ID((long)11),"kilogram", "kg", 2, true, "Masa artikla"));
+            m_DefaltUnitList.Add(new xUnit(12, new ID((long)12),"liter", "l", 2, true, "Za snovi, ki se prodajajo glede na prostornino"));
         }
 
         public bool Get(ref DataTable dt, ref string Err)

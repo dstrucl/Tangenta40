@@ -345,7 +345,7 @@ namespace CodeTables.TableDocking_Form
                     {
                         ((DataGridViewImageColumn)dgvx_Table.Columns[i]).ImageLayout = DataGridViewImageCellLayout.Zoom;
                     }
-                if (ID.IsValid)
+                if (ID.Validate(ID))
                 {
                     DataRow[] drows = dt_Data.Select("ID = " + ID.ToString());
                     if (drows.Count() > 0)

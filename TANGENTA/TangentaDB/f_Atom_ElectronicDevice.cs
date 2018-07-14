@@ -26,7 +26,6 @@ namespace TangentaDB
         {
             string Err = null;
 
-            ID.SetInvalid(ref Atom_ElectronicDevice_ID);
             xElectronicDevice_Name = null;
             xElectronicDevice_Description = null;
 
