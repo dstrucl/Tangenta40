@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TangentaDB;
 using UniqueControlNames;
 
 namespace Tangenta
@@ -18,17 +19,19 @@ namespace Tangenta
     {
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
-        private ID m_RealEstateBP_ID = null;
+        private ID m_Office_ID = null;
+
         private DataTable tElectronicDevice = null;
+        private DataTable tOffice = null;
+
         private NavigationButtons.Navigation nav = null;
 
 
-        public Form_SetElectronicDeviceName(ID xRealEstateBP_ID, NavigationButtons.Navigation xnav)
+        public Form_SetElectronicDeviceName( NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            m_RealEstateBP_ID = xRealEstateBP_ID;
             lng.s_ElectronicDevice_ID.Text(lbl_ElectronicDevice_Name);
             lng.s_ElectronicDevice_Description.Text(lbl_ElectronicDevice_Description);
             lng.s_ComputerName.Text(lbl_ComputerName);
@@ -39,17 +42,15 @@ namespace Tangenta
             txt_ComputerUserName.Text = TangentaDB.f_Atom_ComputerUsername.Get();
             txt_MAC_address.Text = TangentaDB.f_Atom_MAC_address.Get();
             txt_IP_address.Text = TangentaDB.f_Atom_IP_address.Get();
-
-
-
         }
 
-    private bool do_OK()
+        private bool do_OK()
         {
             this.Close();
             DialogResult = DialogResult.OK;
             return true;
         }
+
         private void do_Cancel()
         {
             this.Close();
@@ -70,8 +71,45 @@ namespace Tangenta
                 tElectronicDevice = null;
             }
             tElectronicDevice = new DataTable();
+            if (!Init())
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
         }
 
+
+        private bool Init()
+        {
+            if (ID.Validate(myOrg.ID))
+            {
+                dgvx_Office.DataSource = null;
+                if (tOffice==null)
+                {
+                    tOffice = new DataTable();
+                }
+                else
+                {
+                    tOffice.Columns.Clear();
+                }
+
+                if (f_Office_Data.Get(null, ref tOffice))
+                {
+                    dgvx_Office.DataSource = tOffice;
+                    DBSync.DBSync.DB_for_Tangenta.t_Office_Data.Set_DataGridViewImageColumns_Headers(dgvx_Office);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:Form_SetElectronicDeviceName:Init:myOrg.ID is not valid!");
+                return false;
+            }
+        }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {

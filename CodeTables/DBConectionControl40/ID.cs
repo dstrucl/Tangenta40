@@ -61,6 +61,17 @@ namespace DBConnectionControl40
                         {
                             m_V = (long)xv;
                         }
+                        else if (xv is string)
+                        {
+                            try
+                            {
+                                m_V = Convert.ToInt64(xv);
+                            }
+                            catch
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:Constructor ID(object xv):m_Type is INT64, assigned object value is string " + (xv.GetType().ToString()));
+                            }
+                        }
                         else
                         {
                             LogFile.Error.Show("ERROR:DBTypes:ID:Property object V:ID Type is INT64, assigned object value is type of " + xv.GetType().ToString());
@@ -73,6 +84,17 @@ namespace DBConnectionControl40
                         if (xv is int)
                         {
                             m_V = (int)xv;
+                        }
+                        else if (xv is string)
+                        {
+                            try
+                            {
+                                m_V = Convert.ToInt32(xv);
+                            }
+                            catch
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:Constructor ID(object xv):m_Type is INT32, assigned object value is string " + (xv.GetType().ToString()));
+                            }
                         }
                         else
                         {
@@ -87,12 +109,24 @@ namespace DBConnectionControl40
                         {
                             m_V = (Guid)xv;
                         }
+                        else if (xv is string)
+                        {
+                            try
+                            {
+                                m_V = new Guid((string)xv);
+                            }
+                            catch
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:Constructor ID(object xv):m_Type is GUID, assigned object value is string " + (xv.GetType().ToString()));
+                            }
+                        }
                         else
                         {
                             LogFile.Error.Show("ERROR:DBTypes:ID:Property object V:ID Type is Guid, assigned object value is type of " + xv.GetType().ToString());
                         }
                     }
                     break;
+
             }
         }
 
@@ -349,11 +383,22 @@ namespace DBConnectionControl40
                     case IDType.INT64:
                         if (v is long)
                         {
-                            m_V = Convert.ToInt64(v);
+                            m_V = v;
+                        }
+                        else if (v is string)
+                        {
+                            try
+                            {
+                                m_V = Convert.ToInt64(v);
+                            }
+                            catch
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:Constructor Set(object v):m_Type is INT64, assigned object value is string " + (string)v);
+                            }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:DBConnectionControl40:ID:Set:Can not set ID for long value =\"" + v.ToString() + "\" when IDtype=" + IDtype.ToString());
+                            LogFile.Error.Show("ERROR:DBConnectionControl40:ID:Set(object v):Can not set ID for long value =\"" + v.ToString() + "\" when IDtype=" + IDtype.ToString());
                             return false;
                         }
                         break;
@@ -361,6 +406,17 @@ namespace DBConnectionControl40
                         if (v is int)
                         {
                             m_V = Convert.ToInt32(v);
+                        }
+                        else if(v is string)
+                        {
+                            try
+                            {
+                                m_V = Convert.ToInt32(v);
+                            }
+                            catch
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:Constructor Set(object v):m_Type is INT32, assigned object value is string " + (string)v);
+                            }
                         }
                         else
                         {

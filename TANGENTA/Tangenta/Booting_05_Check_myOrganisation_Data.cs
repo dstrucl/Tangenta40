@@ -38,7 +38,14 @@ namespace Tangenta
         }
 
 
-
+        /// <summary>
+        /// Startup_05_Check_myOrganisation_Data
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="oData"></param>
+        /// <param name="startup_ShowForm_proc"></param>
+        /// <param name="Err"></param>
+        /// <returns></returns>
         public Startup_check_proc_Result Startup_05_Check_myOrganisation_Data(startup_step xstartup_step,
                                                    object oData,
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
@@ -126,7 +133,7 @@ namespace Tangenta
                     }
 
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME:
-                    startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
+                    startup_ShowForm_proc = Startup_05_Show_Form_SetElectronicDeviceName;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
                 default:
@@ -135,6 +142,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_FVI_check
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_FVI_check(startup_step xstartup_step,
                                            NavigationButtons.Navigation xnav,
                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -273,6 +287,13 @@ namespace Tangenta
             return false;
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_Select_Country_ISO_3166
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_Select_Country_ISO_3166(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -342,7 +363,13 @@ namespace Tangenta
             }
         }
 
-
+        /// <summary>
+        /// Startup_05_Show_Form_CheckInsertSampleData
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_CheckInsertSampleData(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -396,6 +423,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_EditMyOrgSampleData
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_EditMyOrgSampleData(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -442,6 +476,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_EditMyOrganisation_Data
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_EditMyOrganisation_Data(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -485,6 +526,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_myOrg_Office_Data
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_myOrg_Office_Data(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -527,6 +575,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_myOrg_Person_Edit
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         public bool Startup_05_Show_Form_myOrg_Person_Edit(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -570,6 +625,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -613,6 +675,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_Form_SetElectronicDeviceName
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_Form_SetElectronicDeviceName(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
@@ -656,6 +725,13 @@ namespace Tangenta
             }
         }
 
+        /// <summary>
+        /// Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
         private bool Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings(startup_step xstartup_step,
                                                     NavigationButtons.Navigation xnav,
                                                     ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)

@@ -79,19 +79,60 @@ namespace TangentaDB
 
         public static bool Get(ID Office_ID, ref DataTable dtOfficeData_of_Office_ID)
         {
-            string sql = @"select 
+            if (ID.Validate(Office_ID))
+            {
+                string sql = @"select 
                             ID
                             from Office_Data od
                             where od.Office_ID = " + Office_ID.ToString();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dtOfficeData_of_Office_ID, sql, null, ref Err))
-            {
-                return true;
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref dtOfficeData_of_Office_ID, sql, null, ref Err))
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
-                return false;
+                string sql = @"SELECT Office_Data.ID,
+                                 Office_Data_$_office.Name AS Office_Data_$_office_$$Name,
+                                 Office_Data_$_office.ShortName AS Office_Data_$_office_$$ShortName,
+                                 Office_Data.Description AS Office_Data_$$Description,
+                                 Office_Data_$_cadrorg_$_cstrnorg.StreetName AS Office_Data_$_cadrorg_$_cstrnorg_$$StreetName,
+                                 Office_Data_$_cadrorg_$_chounorg.HouseNumber AS Office_Data_$_cadrorg_$_chounorg_$$HouseNumber,
+                                 Office_Data_$_cadrorg_$_ccitorg.City AS Office_Data_$_cadrorg_$_ccitorg_$$City,
+                                 Office_Data_$_cadrorg_$_cziporg.ZIP AS Office_Data_$_cadrorg_$_cziporg_$$ZIP,
+                                 Office_Data_$_cadrorg_$_ccouorg.Country AS Office_Data_$_cadrorg_$_ccouorg_$$Country,
+                                 Office_Data_$_cadrorg_$_ccouorg.Country_ISO_3166_a2 AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2,
+                                 Office_Data_$_cadrorg_$_ccouorg.Country_ISO_3166_a3 AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3,
+                                 Office_Data_$_cadrorg_$_ccouorg.Country_ISO_3166_num AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
+                                 Office_Data_$_cadrorg_$_cstorg.State AS Office_Data_$_cadrorg_$_cstorg_$$State,
+                                 Office_Data_$_office.ID AS Office_Data_$_office_$$ID,
+								 Office_Data_$_office.myOrganisation_ID AS Office_Data_$_office_$$myOrganisation_ID
+                                 FROM Office_Data 
+                                 INNER JOIN Office Office_Data_$_office ON Office_Data.Office_ID = Office_Data_$_office.ID 
+                                 INNER JOIN cAddress_Org Office_Data_$_cadrorg ON Office_Data.cAddress_Org_ID = Office_Data_$_cadrorg.ID 
+                                 INNER JOIN cStreetName_Org Office_Data_$_cadrorg_$_cstrnorg ON Office_Data_$_cadrorg.cStreetName_Org_ID = Office_Data_$_cadrorg_$_cstrnorg.ID 
+                                 INNER JOIN cHouseNumber_Org Office_Data_$_cadrorg_$_chounorg ON Office_Data_$_cadrorg.cHouseNumber_Org_ID = Office_Data_$_cadrorg_$_chounorg.ID 
+                                 INNER JOIN cCity_Org Office_Data_$_cadrorg_$_ccitorg ON Office_Data_$_cadrorg.cCity_Org_ID = Office_Data_$_cadrorg_$_ccitorg.ID 
+                                 INNER JOIN cZIP_Org Office_Data_$_cadrorg_$_cziporg ON Office_Data_$_cadrorg.cZIP_Org_ID = Office_Data_$_cadrorg_$_cziporg.ID 
+                                 INNER JOIN cCountry_Org Office_Data_$_cadrorg_$_ccouorg ON Office_Data_$_cadrorg.cCountry_Org_ID = Office_Data_$_cadrorg_$_ccouorg.ID 
+                                 LEFT JOIN cState_Org Office_Data_$_cadrorg_$_cstorg ON Office_Data_$_cadrorg.cState_Org_ID = Office_Data_$_cadrorg_$_cstorg.ID where Office_Data_$_office.myOrganisation_ID = " + myOrg.ID.ToString();
+
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref dtOfficeData_of_Office_ID, sql, null, ref Err))
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
             }
         }
 

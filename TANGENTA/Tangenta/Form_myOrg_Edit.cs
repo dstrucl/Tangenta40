@@ -229,7 +229,7 @@ namespace Tangenta
             if (bRes)
             {
                 usrc_EditRow.AllowUserToAddNew = false;
-                myOrg.Get(1);
+                myOrg.Get();
             }
         }
 

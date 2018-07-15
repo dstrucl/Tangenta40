@@ -41,9 +41,38 @@ namespace TangentaDB
         public static byte_array_v Logo_Image_Data_v = null;
         public static string_v Logo_Description_v = null;
 
-        public static ID m_Office_ID = null;
+        public static myOrg_Office m_myOrg_Office = null;
 
-        public static ID Atom_ElectronicDevice_ID = null;
+        public static ID Office_ID
+        {
+            get
+            {
+                if (m_myOrg_Office!=null)
+                {
+                    return m_myOrg_Office.ID;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+
+        public static ID Atom_ElectronicDevice_ID
+        {
+            get
+            {
+                if (m_myOrg_Office != null)
+                {
+                    return m_myOrg_Office.Atom_ElectronicDevice_ID;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public static List<myOrg_Office> myOrg_Office_list = new List<myOrg_Office>();
         public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
@@ -66,22 +95,9 @@ namespace TangentaDB
             }
         }
 
-        public static ID Office_ID
-        {
-            get
-            {
-                if (ID.Validate(Office_ID))
-                {
-                    return Office_ID;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+       
 
-        public static bool Get(long myOrg_id)
+        public static bool Get()
         {
             string Err = null;
 
@@ -108,38 +124,6 @@ namespace TangentaDB
             myOrg.Address_v.State_v = null;
 
             string sql = null;
-            if (myOrg_id >= 0)
-            {
-                sql = @"Select 
-                            ID,
-                            myOrganisation_$_orgd_$$ID,
-                            myOrganisation_$_orgd_$_org_$$ID,
-                            myOrganisation_$_orgd_$_org_$$Name,
-                            myOrganisation_$_orgd_$_org_$$Tax_ID,
-                            myOrganisation_$_orgd_$_org_$$Registration_ID,
-                            myOrganisation_$_orgd_$_org_$$TaxPayer,
-                            myOrganisation_$_orgd_$_org_$_cmt1_$$Comment,
-                            myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
-                            myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City,
-                            myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$State,
-                            myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber,
-                            myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber,
-                            myOrganisation_$_orgd_$_cemailorg_$$Email,
-                            myOrganisation_$_orgd_$_chomepgorg_$$HomePage,
-                            myOrganisation_$_orgd_$_logo_$$Image_Hash,
-                            myOrganisation_$_orgd_$_logo_$$Image_Data,
-                            myOrganisation_$_orgd_$_logo_$$Description
-                            from myOrganisation_VIEW where ID = " + myOrg_id.ToString();
-            }
-            else
-            {
                 sql = @"Select 
                             ID,
                             myOrganisation_$_orgd_$$ID,
@@ -167,8 +151,6 @@ namespace TangentaDB
                             myOrganisation_$_orgd_$_logo_$$Image_Data,
                             myOrganisation_$_orgd_$_logo_$$Description
                             from myOrganisation_VIEW";
-
-            }
 
             dt_myOrganisation.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_myOrganisation, sql, ref Err))
@@ -215,6 +197,63 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:MyOrg:Get:sql=" + sql+"\r\nErr="+Err);
                 return false;
             }
+        }
+
+        public static bool SetOffice(ID identity)
+        {
+            foreach (myOrg_Office moff in myOrg.myOrg_Office_list)
+            {
+                if (ID.Validate(moff.Office_Data_ID))
+                {
+                    if (ID.Validate(identity))
+                    {
+                        if (moff.Office_Data_ID.Equals(identity))
+                        {
+                            myOrg.m_myOrg_Office = moff;
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool Find_Atom_ElectronicDevice()
+        {
+            string xComputerName = f_Atom_ComputerName.Get();
+            string xComputerUserName = f_Atom_ComputerUsername.Get();
+            foreach (myOrg_Office moff in myOrg_Office_list)
+            {
+                moff.m_myOrg_Office_ElectronicDevice = null;
+                foreach (myOrg_Office_ElectronicDevice moffed in moff.myOrg_Office_ElectronicDevice_List)
+                {
+                    if (moffed.ComputerName != null)
+                    {
+                        if (moffed.ComputerName.Equals(xComputerName))
+                        {
+                            if (moffed.ComputerUserName != null)
+                            {
+                                if (xComputerUserName != null)
+                                {
+                                    if (moffed.ComputerUserName.Equals(xComputerUserName))
+                                    {
+                                        myOrg.m_myOrg_Office = moff;
+                                        moff.m_myOrg_Office_ElectronicDevice = moffed;
+                                        return true;
+                                    }
+                                }
+                            }
+                            else if (xComputerUserName == null)
+                            {
+                                myOrg.m_myOrg_Office = moff;
+                                moff.m_myOrg_Office_ElectronicDevice = moffed;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }

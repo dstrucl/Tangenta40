@@ -80,7 +80,7 @@ namespace TangentaDB
                     ID xAtom_myOrganisation_iD = null;
                     if (myOrg.Name_v == null)
                     {   
-                        myOrg.Get(1);
+                        myOrg.Get();
                     }
                     if (!f_Atom_myOrganisation.Get(myOrg.Name_v,
                                               myOrg.Tax_ID_v,

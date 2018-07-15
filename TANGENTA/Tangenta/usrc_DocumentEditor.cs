@@ -902,7 +902,8 @@ namespace Tangenta
         {
             if (myOrg.myOrg_Office_list.Count > 0)
             {
-                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID, xnav),typeof(Form_myOrg_Office_Data).ToString());
+                //TRICKY DOCHANGE
+                xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.Office_ID, xnav),typeof(Form_myOrg_Office_Data).ToString());
             }
             else
             {
@@ -937,7 +938,7 @@ namespace Tangenta
 
         internal bool Startup_05_Show_Form_SetElectronicDeviceName(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_SetElectronicDeviceName(myOrg.Atom_ElectronicDevice_ID, xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
+            xnav.ShowForm(new Form_SetElectronicDeviceName( xnav), typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP).ToString());
             return true;
         }
 
@@ -1614,7 +1615,7 @@ namespace Tangenta
 
         internal eGetOrganisationDataResult GetOrganisationData()
         {
-            if (myOrg.Get(1))
+            if (myOrg.Get())
             {
 
                 if (myOrg.Name_v == null)
@@ -1689,7 +1690,9 @@ namespace Tangenta
 
                 if (myOrg.myOrg_Office_list.Count > 0)
                 {
-                    if (!ID.Validate(myOrg.myOrg_Office_list[0].Office_Data_ID))
+                    myOrg.Find_Atom_ElectronicDevice();
+
+                    if (myOrg.m_myOrg_Office==null)
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
@@ -1720,22 +1723,23 @@ namespace Tangenta
                         }
                         if (Program.b_FVI_SLO)
                         {
-                            if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
+
+                            if (myOrg.m_myOrg_Office != null)
                             {
-                                if (!Program.bFirstTimeInstallation)
+                                if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
-                                    MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                    if (!Program.bFirstTimeInstallation)
+                                    {
+                                        MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                    }
+                                    return eGetOrganisationDataResult.NO_REAL_ESTATE;
                                 }
-                                return eGetOrganisationDataResult.NO_REAL_ESTATE;
                             }
                         }
 
-                        if (f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name, ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
-                        {
-                            if (!ID.Validate(GlobalData.Atom_ElectronicDevice_ID))
-                            {
+                        if (myOrg.Atom_ElectronicDevice_ID==null)
+                        { 
                                 return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME;
-                            }
                         }
                     }
                 }
@@ -2071,7 +2075,7 @@ namespace Tangenta
         private void btn_edit_MyOrganisation_Person_Click(object sender, EventArgs e)
         {
             EditMyOrganisation_Person_Data(0,nav);
-            myOrg.Get(1);
+            myOrg.Get();
             if (ID.Validate(Last_myOrganisation_Person_id))
             {
                 ID Atom_myOrganisation_Person_ID = null;

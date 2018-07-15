@@ -172,6 +172,10 @@ namespace Tangenta
 
         public static ltext s_Edit_Office_Data_FVI_SLO_RealEstateBP = new ltext(new string[] { "Office Data for FURS!", "Podatki poslovne enote potrebni za davčno potrjevanje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs
 
+        public static ltext s_YourOfficeIsNotDefined_SelectedOffice_AsYourOffice = new ltext(new string[] { "Your electronic device office  is not defined.\r\nPlease select office of your electronic device?", "Poslovna enote vaše elektronske naprave še ni določena.\r\nProsim določite oziroma izberite poslovno enoto vaše elektronske naprave?!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Office_Data.cs
+
+        public static ltext s_YourOfficeIsNotDefined_DefineSelectedOffice_AsYourOffice_YesOrNo = new ltext(new string[] { "Your electronic device office  is not defined.\r\nDo you want the selected office to be defined as office of your electronic device?", "Poslovna enote vaše elektronske naprave še ni določena.\r\nNastvaim prikazano poslovno enoto kot poslovno enoto vaše elektronske naprave?!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Office_Data.cs
+
         public static ltext s_YouMustEnterYourOfficeAddressData = new ltext(new string[] { "You must enter your office address data. Without office address data program can not run!", "Morate vpisati podatke o naslovu poslovne enote vaše organizacije. Brez tega program ne more delovati!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Office_Data.cs
 
         public static ltext s_Edit_Office_Data = new ltext(new string[] { "Other Office Data!", "Ostali podatki poslovne enote" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Office.cs

@@ -117,7 +117,7 @@ namespace Tangenta
                 }
                 else if (nav_frm_offdata.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
                 {
-                    myOrg.Get(1);
+                    myOrg.Get();
                 }
                 else if (nav_frm_offdata.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                 {

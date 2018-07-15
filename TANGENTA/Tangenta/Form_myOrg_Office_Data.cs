@@ -152,31 +152,43 @@ namespace Tangenta
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable1.Save();
-                    Close();
-                    DialogResult = DialogResult.OK;
-                    return true;
-                }
-                else
-                {
-                    Close();
-                    DialogResult = DialogResult.OK;
-                    return true;
                 }
             }
             else
             {
-                if (usrc_EditTable1.RowsCount > 0)
-                {
-                    Close();
-                    DialogResult = DialogResult.OK;
-                    return true;
-                }
-                else
+                if (usrc_EditTable1.RowsCount == 0)
                 {
                     XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficeAddressData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }
+
+            if (myOrg.m_myOrg_Office == null)
+            {
+                if (ID.Validate(usrc_EditTable1.Identity))
+                {
+                    if (XMessage.Box.Show(this, lng.s_YourOfficeIsNotDefined_DefineSelectedOffice_AsYourOffice_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    {
+                        if (myOrg.Get())
+                        {
+                            myOrg.SetOffice(usrc_EditTable1.Identity);
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                if (myOrg.m_myOrg_Office == null)
+                {
+                    XMessage.Box.Show(this, lng.s_YourOfficeIsNotDefined_SelectedOffice_AsYourOffice, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    return false;
+                }
+            }
+            Close();
+            DialogResult = DialogResult.OK;
+            return true;
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

@@ -578,7 +578,7 @@ namespace Tangenta
                                 if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
                                     Properties.Settings.Default.Current_DataBase = sdb;
-                                    Properties.Settings.Default.Current_DocInvoice_ID = -1;
+                                    Properties.Settings.Default.Current_DocInvoice_ID = "";
                                     Properties.Settings.Default.Save();
                                 }
                             }
@@ -586,9 +586,9 @@ namespace Tangenta
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (Properties.Settings.Default.Current_DocInvoice_ID >= 0)
+                            else if (Properties.Settings.Default.Current_DocInvoice_ID.Length > 0)
                             {
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Properties.Settings.Default.Current_DocInvoice_ID.ToString());
+                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Properties.Settings.Default.Current_DocInvoice_ID);
                                 if (dr_Current.Count() > 0)
                                 {
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
@@ -631,18 +631,18 @@ namespace Tangenta
                                 if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
                                     Properties.Settings.Default.Current_DataBase = sdb;
-                                    Properties.Settings.Default.Current_DocProformaInvoice_ID = -1;
+                                    Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
                                     Properties.Settings.Default.Save();
                                 }
                             }
-                            long my_Current_DocProformaInvoice_ID = Properties.Settings.Default.Current_DocProformaInvoice_ID;
                             if (iCurrentSelectedRow >= 0)
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (my_Current_DocProformaInvoice_ID >= 0)
+                            else if (Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0)
                             {
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Properties.Settings.Default.Current_DocProformaInvoice_ID.ToString());
+                                ID my_Current_DocProformaInvoice_ID = new ID(Properties.Settings.Default.Current_DocProformaInvoice_ID);
+                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + my_Current_DocProformaInvoice_ID.ToString());
                                 if (dr_Current.Count() > 0)
                                 {
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);

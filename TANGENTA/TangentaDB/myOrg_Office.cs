@@ -26,6 +26,85 @@ namespace TangentaDB
         public string_v Description_v = null;
         public myOrg_Office_FVI_SLO_RealEstate myOrg_Office_FVI_SLO_RealEstate = new myOrg_Office_FVI_SLO_RealEstate();
 
+        public myOrg_Office_ElectronicDevice m_myOrg_Office_ElectronicDevice = null;
+
+        public ID Atom_ElectronicDevice_ID
+        {
+            get {
+                    if (m_myOrg_Office_ElectronicDevice!=null)
+                    {
+                        return m_myOrg_Office_ElectronicDevice.ID;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+        }
+
+        public string Atom_ElectronicDevice_ComputerName
+        {
+            get
+            {
+                if (m_myOrg_Office_ElectronicDevice != null)
+                {
+                    return m_myOrg_Office_ElectronicDevice.ComputerName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string Atom_ElectronicDevice_ComputerUserName
+        {
+            get
+            {
+                if (m_myOrg_Office_ElectronicDevice != null)
+                {
+                    return m_myOrg_Office_ElectronicDevice.ComputerUserName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string Atom_ElectronicDevice_MAC_address
+        {
+            get
+            {
+                if (m_myOrg_Office_ElectronicDevice != null)
+                {
+                    return m_myOrg_Office_ElectronicDevice.MAC_address;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string Atom_ElectronicDevice_IP_address
+        {
+            get
+            {
+                if (m_myOrg_Office_ElectronicDevice != null)
+                {
+                    return m_myOrg_Office_ElectronicDevice.IP_address;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_List = new List<myOrg_Office_ElectronicDevice>();
+
+
         public bool Get(ID Office_ID)
         {
             string Err = null;
@@ -113,7 +192,8 @@ namespace TangentaDB
                                 Address_v.Country_ISO_3166_num_v = tf.set_dshort(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
                                 myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID);
                             }
-                            return true;
+
+                            return Get_Atom_ElectronicDevice_List(this, ref myOrg_Office_ElectronicDevice_List);
                         }
                         else
                         {
@@ -139,5 +219,44 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool Get_Atom_ElectronicDevice_List(myOrg_Office Office, ref List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_list)
+        {
+
+            DataTable dt = new DataTable();
+            myOrg_Office_ElectronicDevice_list.Clear();
+            string sql = null;
+            sql = @"select
+                        ID
+                        FROM Atom_ElectronicDevice where Office_id = " + Office.ID.ToString();
+
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    int i = 0;
+                    int iCount = dt.Rows.Count;
+                    for (i = 0; i < iCount; i++)
+                    {
+                        DataRow dr = dt.Rows[i];
+                        ID Atom_ElectronicDevice_ID = tf.set_ID(dr["ID"]);
+                        myOrg_Office_ElectronicDevice mAtom_ElectronicDevice = new myOrg_Office_ElectronicDevice(Office);
+
+                        if (mAtom_ElectronicDevice.Get(Atom_ElectronicDevice_ID))
+                        {
+                            myOrg_Office_ElectronicDevice_list.Add(mAtom_ElectronicDevice);
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office_List:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
     }
 }

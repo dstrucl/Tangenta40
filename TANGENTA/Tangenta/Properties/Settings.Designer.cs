@@ -337,10 +337,10 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public long Current_DocInvoice_ID {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Current_DocInvoice_ID {
             get {
-                return ((long)(this["Current_DocInvoice_ID"]));
+                return ((string)(this["Current_DocInvoice_ID"]));
             }
             set {
                 this["Current_DocInvoice_ID"] = value;
@@ -349,10 +349,10 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public long Current_DocProformaInvoice_ID {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Current_DocProformaInvoice_ID {
             get {
-                return ((long)(this["Current_DocProformaInvoice_ID"]));
+                return ((string)(this["Current_DocProformaInvoice_ID"]));
             }
             set {
                 this["Current_DocProformaInvoice_ID"] = value;
@@ -704,6 +704,30 @@ namespace Tangenta.Properties {
             }
             set {
                 this["Form_Document_Height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Office_ID {
+            get {
+                return ((string)(this["Office_ID"]));
+            }
+            set {
+                this["Office_ID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ElectronicDevice_ID {
+            get {
+                return ((string)(this["ElectronicDevice_ID"]));
+            }
+            set {
+                this["ElectronicDevice_ID"] = value;
             }
         }
     }

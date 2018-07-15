@@ -50,10 +50,9 @@ namespace CodeTables
                     string s = base.Text;
                     if (s.Length>0)
                     {
-                        long id = Convert.ToInt64(s);
                         if (m_ID == null)
                         {
-                            m_ID = new ID(id);
+                            m_ID = new ID();
                         }
                         if (m_ID.Set(s))
                         {

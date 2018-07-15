@@ -94,7 +94,79 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
+        internal static bool Get(ID atom_ElectronicDevice_ID,
+                                ref string electronicDevice_Name, 
+                                ref string electronicDevice_Description,
+                                ref string computerName,
+                                ref string computerName_Description,
+                                ref string computerUserName,
+                                ref string computerUserName_Description,
+                                ref string mAC_address,
+                                ref string mAC_address_Description,
+                                ref string iP_address, 
+                                ref string iP_address_Description)
+        {
+
+            electronicDevice_Name = null;
+            electronicDevice_Description = null;
+            computerName = null;
+            computerName_Description = null;
+            computerUserName = null;
+            computerUserName_Description = null;
+            mAC_address = null;
+            mAC_address_Description = null;
+            iP_address = null;
+            iP_address_Description = null;
+
+            string sql = @"SELECT Atom_ElectronicDevice.ID,
+                             Atom_ElectronicDevice.Name AS Atom_ElectronicDevice_$$Name,
+                             Atom_ElectronicDevice.Description AS Atom_ElectronicDevice_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_acn.Name AS Atom_ElectronicDevice_$_acomp_$_acn_$$Name,
+                             Atom_ElectronicDevice_$_acomp_$_acn.Description AS Atom_ElectronicDevice_$_acomp_$_acn_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_amac.MAC_address AS Atom_ElectronicDevice_$_acomp_$_amac_$$MAC_address,
+                             Atom_ElectronicDevice_$_acomp_$_amac.Description AS Atom_ElectronicDevice_$_acomp_$_amac_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_acun.UserName AS Atom_ElectronicDevice_$_acomp_$_acun_$$UserName,
+                             Atom_ElectronicDevice_$_acomp_$_acun.Description AS Atom_ElectronicDevice_$_acomp_$_acun_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_aipa.IP_address AS Atom_ElectronicDevice_$_acomp_$_aipa_$$IP_address,
+                             Atom_ElectronicDevice_$_acomp_$_aipa.Description AS Atom_ElectronicDevice_$_acomp_$_aipa_$$Description,
+                             Atom_ElectronicDevice_$_office.ID AS Atom_ElectronicDevice_$_office_$$ID,
+                             Atom_ElectronicDevice_$_office.Name AS Atom_ElectronicDevice_$_office_$$Name,
+                             Atom_ElectronicDevice_$_office.ShortName AS Atom_ElectronicDevice_$_office_$$ShortName
+                            FROM Atom_ElectronicDevice 
+                            LEFT JOIN Atom_Computer Atom_ElectronicDevice_$_acomp ON Atom_ElectronicDevice.Atom_Computer_ID = Atom_ElectronicDevice_$_acomp.ID 
+                            LEFT JOIN Atom_ComputerName Atom_ElectronicDevice_$_acomp_$_acn ON Atom_ElectronicDevice_$_acomp.Atom_ComputerName_ID = Atom_ElectronicDevice_$_acomp_$_acn.ID 
+                            LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
+                            LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
+                            LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
+                            LEFT JOIN Office Atom_ElectronicDevice_$_office ON Atom_ElectronicDevice.Office_ID = Atom_ElectronicDevice_$_office.ID  where Atom_ElectronicDevice.ID = " + atom_ElectronicDevice_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr = dt.Rows[0];
+                    electronicDevice_Name = tf._set_string(dr["Atom_ElectronicDevice_$$Name"]);
+                    electronicDevice_Description = tf._set_string(dr["Atom_ElectronicDevice_$$Description"]);
+                    computerName = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_acn_$$Name"]);
+                    computerName_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_acn_$$Description"]);
+                    computerUserName = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_acun_$$UserName"]);
+                    computerUserName_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_acun_$$Description"]);
+                    mAC_address = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_amac_$$MAC_address"]);
+                    mAC_address_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_amac_$$Description"]);
+                    iP_address = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_aipa_$$IP_address"]);
+                    iP_address_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_aipa_$$Description"]);
+                    return true;
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_ElectronicDevice:Get(..):sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+       public static bool Get(string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

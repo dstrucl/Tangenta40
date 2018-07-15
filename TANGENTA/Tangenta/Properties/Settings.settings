@@ -80,11 +80,11 @@
     <Setting Name="LanguageID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
-    <Setting Name="Current_DocInvoice_ID" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">-1</Value>
+    <Setting Name="Current_DocInvoice_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Current_DocProformaInvoice_ID" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">-1</Value>
+    <Setting Name="Current_DocProformaInvoice_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LastDocInvoiceType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -172,6 +172,12 @@
     </Setting>
     <Setting Name="Form_Document_Height" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="Office_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ElectronicDevice_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -385,7 +385,7 @@ namespace Tangenta
             }
 
             // TRICKY DOCHANGE
-            Properties.Settings.Default.Current_DocInvoice_ID = (long) m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID.V;
+            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
             if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA != null)
