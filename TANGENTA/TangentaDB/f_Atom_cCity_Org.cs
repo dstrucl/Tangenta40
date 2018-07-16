@@ -126,14 +126,8 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into Atom_cCity_Org (City) values (@par)";
-                        ID xAtom_cCity_Org_ID = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_cCity_Org_ID, ref Err, "Atom_cCity_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref atom_cCity_Org_ID, ref Err, "Atom_cCity_Org"))
                         {
-                            if (atom_cCity_Org_ID == null)
-                            {
-                                atom_cCity_Org_ID = new ID();
-                            }
-                            atom_cCity_Org_ID.Set(xAtom_cCity_Org_ID);
                             return true;
                         }
                         else

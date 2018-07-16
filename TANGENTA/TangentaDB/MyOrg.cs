@@ -199,22 +199,33 @@ namespace TangentaDB
             }
         }
 
-        public static bool SetOffice(ID identity)
+        public static myOrg_Office Find_Office(ID m_Office_ID)
         {
             foreach (myOrg_Office moff in myOrg.myOrg_Office_list)
             {
                 if (ID.Validate(moff.Office_Data_ID))
                 {
-                    if (ID.Validate(identity))
+                    if (ID.Validate(m_Office_ID))
                     {
-                        if (moff.Office_Data_ID.Equals(identity))
+                        if (moff.Office_Data_ID.Equals(m_Office_ID))
                         {
-                            myOrg.m_myOrg_Office = moff;
-                            return true;
+                            return moff;
                         }
                     }
                 }
             }
+            return null;
+        }
+
+        public static bool SetOffice(ID identity)
+        {
+            myOrg_Office xmyOrg_Office = Find_Office(identity);
+            if (xmyOrg_Office!=null)
+            {
+                myOrg.m_myOrg_Office = xmyOrg_Office;
+                return true;
+            }
+            myOrg.m_myOrg_Office = null;
             return false;
         }
 

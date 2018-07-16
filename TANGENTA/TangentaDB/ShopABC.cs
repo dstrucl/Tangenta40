@@ -1039,8 +1039,10 @@ namespace TangentaDB
                         LogFile.Error.Show(Err);
                         return false;
                     }
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.Doc_ID,  ref Err, DocInvoice))
+                    ID xDoc_ID = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref xDoc_ID,  ref Err, DocInvoice))
                     {
+                        this.m_CurrentInvoice.Doc_ID = xDoc_ID;
                         ID Journal_DocInvoice_ID = null;
                         if (IsDocInvoice)
                         {
@@ -1060,12 +1062,13 @@ namespace TangentaDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:SetDraft:insert into " + DocInvoice + ":\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:SetDraft:f_Atom_myOrganisation_Person.Get() failed!");
                         return false;
                     }
                 }
                 else
                 {
+                    LogFile.Error.Show("ERROR:SetDraft:" + DocInvoice + ":\r\nErr=" + Err);
                     return false;
                 }
 

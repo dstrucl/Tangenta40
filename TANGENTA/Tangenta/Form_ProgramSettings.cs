@@ -42,7 +42,6 @@ namespace Tangenta
             lng.s_Language.Text(lbl_Language);
             lng.s_FullScreen.Text(chk_FullScreen);
             lng.s_chk_AllowToEditText.Text(chk_AllowToEditText);
-            lng.s_ElectronicDevice_ID.Text(lbL_ElectronicDevice_ID);
             lng.s_grp_ColorSettings.Text(grp_ColorSettings);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
@@ -59,8 +58,6 @@ namespace Tangenta
             {
                 GlobalData.ElectronicDevice_Name = "1";
             }
-            this.txt_ElectronicDevice_ID.Text = GlobalData.ElectronicDevice_Name;
-            this.txt_ElectronicDevice_ID.TextChanged += Txt_ElectronicDevice_ID_TextChanged;
             m_usrc_Main = usrc_Main;
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
             {
@@ -147,14 +144,6 @@ namespace Tangenta
                 }
                 if (bChanged)
                 {
-                    if (txt_ElectronicDevice_ID.Text.Length==0)
-                    {
-                        XMessage.Box.Show(this,lng.s_ElectronicDevice_Name_is_not_defined,MessageBoxIcon.Warning);
-                        this.txt_ElectronicDevice_ID.Focus();
-                        return false;
-                    }
-                    f_Atom_ElectronicDevice.Get(this.txt_ElectronicDevice_ID.Text, null, ref GlobalData.Atom_ElectronicDevice_ID);
-                    f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name,ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID);
                     Properties.Settings.Default.Save();
                 }
 

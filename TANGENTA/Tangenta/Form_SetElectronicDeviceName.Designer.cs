@@ -44,10 +44,15 @@
             this.lbl_IP_address = new System.Windows.Forms.Label();
             this.dgvx_ElectronicDevice = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btn_Remove = new System.Windows.Forms.Button();
+            this.btn_Update = new System.Windows.Forms.Button();
+            this.btn_Add = new System.Windows.Forms.Button();
+            this.txt_Office_ShortName = new System.Windows.Forms.TextBox();
+            this.lbl_Office_ShortName = new System.Windows.Forms.Label();
             this.txt_Office = new System.Windows.Forms.TextBox();
             this.lbl_Office = new System.Windows.Forms.Label();
-            this.dgvx_Office = new DataGridView_2xls.DataGridView2xls();
             this.lbl_SelectOffice = new System.Windows.Forms.Label();
+            this.dgvx_Office = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ElectronicDevice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -87,7 +92,7 @@
             // 
             // lbl_ElectronicDevice_Name
             // 
-            this.lbl_ElectronicDevice_Name.Location = new System.Drawing.Point(7, 38);
+            this.lbl_ElectronicDevice_Name.Location = new System.Drawing.Point(7, 81);
             this.lbl_ElectronicDevice_Name.Name = "lbl_ElectronicDevice_Name";
             this.lbl_ElectronicDevice_Name.Size = new System.Drawing.Size(148, 19);
             this.lbl_ElectronicDevice_Name.TabIndex = 1;
@@ -95,7 +100,7 @@
             // 
             // txt_ElectronicDevice_Name
             // 
-            this.txt_ElectronicDevice_Name.Location = new System.Drawing.Point(161, 36);
+            this.txt_ElectronicDevice_Name.Location = new System.Drawing.Point(161, 79);
             this.txt_ElectronicDevice_Name.Name = "txt_ElectronicDevice_Name";
             this.txt_ElectronicDevice_Name.Size = new System.Drawing.Size(244, 20);
             this.txt_ElectronicDevice_Name.TabIndex = 2;
@@ -104,15 +109,15 @@
             // 
             this.txt_ElectronicDevice_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_ElectronicDevice_Description.Location = new System.Drawing.Point(3, 85);
+            this.txt_ElectronicDevice_Description.Location = new System.Drawing.Point(3, 121);
             this.txt_ElectronicDevice_Description.Multiline = true;
             this.txt_ElectronicDevice_Description.Name = "txt_ElectronicDevice_Description";
-            this.txt_ElectronicDevice_Description.Size = new System.Drawing.Size(402, 73);
+            this.txt_ElectronicDevice_Description.Size = new System.Drawing.Size(402, 52);
             this.txt_ElectronicDevice_Description.TabIndex = 4;
             // 
             // lbl_ElectronicDevice_Description
             // 
-            this.lbl_ElectronicDevice_Description.Location = new System.Drawing.Point(7, 66);
+            this.lbl_ElectronicDevice_Description.Location = new System.Drawing.Point(7, 102);
             this.lbl_ElectronicDevice_Description.Name = "lbl_ElectronicDevice_Description";
             this.lbl_ElectronicDevice_Description.Size = new System.Drawing.Size(200, 15);
             this.lbl_ElectronicDevice_Description.TabIndex = 3;
@@ -196,24 +201,37 @@
             // 
             // dgvx_ElectronicDevice
             // 
+            this.dgvx_ElectronicDevice.AllowUserToAddRows = false;
+            this.dgvx_ElectronicDevice.AllowUserToDeleteRows = false;
+            this.dgvx_ElectronicDevice.AllowUserToOrderColumns = true;
             this.dgvx_ElectronicDevice.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_ElectronicDevice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_ElectronicDevice.DataGridViewWithRowNumber = false;
-            this.dgvx_ElectronicDevice.Location = new System.Drawing.Point(3, 283);
+            this.dgvx_ElectronicDevice.Location = new System.Drawing.Point(3, 292);
+            this.dgvx_ElectronicDevice.MultiSelect = false;
             this.dgvx_ElectronicDevice.Name = "dgvx_ElectronicDevice";
-            this.dgvx_ElectronicDevice.Size = new System.Drawing.Size(402, 247);
+            this.dgvx_ElectronicDevice.ReadOnly = true;
+            this.dgvx_ElectronicDevice.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_ElectronicDevice.Size = new System.Drawing.Size(402, 208);
             this.dgvx_ElectronicDevice.TabIndex = 13;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 29);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Remove);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Update);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Add);
+            this.splitContainer1.Panel1.Controls.Add(this.txt_Office_ShortName);
+            this.splitContainer1.Panel1.Controls.Add(this.lbl_Office_ShortName);
             this.splitContainer1.Panel1.Controls.Add(this.txt_Office);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_Office);
             this.splitContainer1.Panel1.Controls.Add(this.txt_ElectronicDevice_Name);
@@ -234,9 +252,60 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lbl_SelectOffice);
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_Office);
-            this.splitContainer1.Size = new System.Drawing.Size(799, 533);
+            this.splitContainer1.Size = new System.Drawing.Size(799, 503);
             this.splitContainer1.SplitterDistance = 408;
             this.splitContainer1.TabIndex = 14;
+            // 
+            // btn_Remove
+            // 
+            this.btn_Remove.Location = new System.Drawing.Point(239, 264);
+            this.btn_Remove.Name = "btn_Remove";
+            this.btn_Remove.Size = new System.Drawing.Size(94, 22);
+            this.btn_Remove.TabIndex = 20;
+            this.btn_Remove.Text = "Remove";
+            this.btn_Remove.UseVisualStyleBackColor = true;
+            // 
+            // btn_Update
+            // 
+            this.btn_Update.Location = new System.Drawing.Point(127, 264);
+            this.btn_Update.Name = "btn_Update";
+            this.btn_Update.Size = new System.Drawing.Size(94, 22);
+            this.btn_Update.TabIndex = 19;
+            this.btn_Update.Text = "Update";
+            this.btn_Update.UseVisualStyleBackColor = true;
+            // 
+            // btn_Add
+            // 
+            this.btn_Add.Location = new System.Drawing.Point(10, 265);
+            this.btn_Add.Name = "btn_Add";
+            this.btn_Add.Size = new System.Drawing.Size(94, 22);
+            this.btn_Add.TabIndex = 18;
+            this.btn_Add.Text = "Add";
+            this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
+            // 
+            // txt_Office_ShortName
+            // 
+            this.txt_Office_ShortName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Office_ShortName.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.txt_Office_ShortName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Office_ShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Office_ShortName.Location = new System.Drawing.Point(143, 36);
+            this.txt_Office_ShortName.Name = "txt_Office_ShortName";
+            this.txt_Office_ShortName.ReadOnly = true;
+            this.txt_Office_ShortName.Size = new System.Drawing.Size(64, 19);
+            this.txt_Office_ShortName.TabIndex = 17;
+            // 
+            // lbl_Office_ShortName
+            // 
+            this.lbl_Office_ShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Office_ShortName.Location = new System.Drawing.Point(7, 35);
+            this.lbl_Office_ShortName.Name = "lbl_Office_ShortName";
+            this.lbl_Office_ShortName.Size = new System.Drawing.Size(130, 19);
+            this.lbl_Office_ShortName.TabIndex = 16;
+            this.lbl_Office_ShortName.Text = "Office abr.";
+            this.lbl_Office_ShortName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txt_Office
             // 
@@ -261,6 +330,16 @@
             this.lbl_Office.Text = "Office";
             this.lbl_Office.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // lbl_SelectOffice
+            // 
+            this.lbl_SelectOffice.AutoSize = true;
+            this.lbl_SelectOffice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_SelectOffice.Location = new System.Drawing.Point(14, 8);
+            this.lbl_SelectOffice.Name = "lbl_SelectOffice";
+            this.lbl_SelectOffice.Size = new System.Drawing.Size(97, 20);
+            this.lbl_SelectOffice.TabIndex = 17;
+            this.lbl_SelectOffice.Text = "Select office";
+            // 
             // dgvx_Office
             // 
             this.dgvx_Office.AllowUserToAddRows = false;
@@ -271,22 +350,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_Office.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvx_Office.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_Office.DataGridViewWithRowNumber = false;
+            this.dgvx_Office.DataGridViewWithRowNumber = true;
             this.dgvx_Office.Location = new System.Drawing.Point(3, 33);
+            this.dgvx_Office.MultiSelect = false;
             this.dgvx_Office.Name = "dgvx_Office";
             this.dgvx_Office.ReadOnly = true;
-            this.dgvx_Office.Size = new System.Drawing.Size(381, 488);
+            this.dgvx_Office.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_Office.ShowCellErrors = false;
+            this.dgvx_Office.Size = new System.Drawing.Size(381, 458);
             this.dgvx_Office.TabIndex = 16;
-            // 
-            // lbl_SelectOffice
-            // 
-            this.lbl_SelectOffice.AutoSize = true;
-            this.lbl_SelectOffice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_SelectOffice.Location = new System.Drawing.Point(14, 8);
-            this.lbl_SelectOffice.Name = "lbl_SelectOffice";
-            this.lbl_SelectOffice.Size = new System.Drawing.Size(97, 20);
-            this.lbl_SelectOffice.TabIndex = 17;
-            this.lbl_SelectOffice.Text = "Select office";
             // 
             // Form_SetElectronicDeviceName
             // 
@@ -332,5 +404,10 @@
         private System.Windows.Forms.Label lbl_Office;
         private System.Windows.Forms.Label lbl_SelectOffice;
         private DataGridView_2xls.DataGridView2xls dgvx_Office;
+        private System.Windows.Forms.TextBox txt_Office_ShortName;
+        private System.Windows.Forms.Label lbl_Office_ShortName;
+        private System.Windows.Forms.Button btn_Remove;
+        private System.Windows.Forms.Button btn_Update;
+        private System.Windows.Forms.Button btn_Add;
     }
 }

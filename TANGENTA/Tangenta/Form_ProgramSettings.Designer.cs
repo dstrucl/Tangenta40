@@ -34,8 +34,6 @@
             this.lbl_Language = new System.Windows.Forms.Label();
             this.chk_FullScreen = new System.Windows.Forms.CheckBox();
             this.btn_LogFile = new System.Windows.Forms.Button();
-            this.lbL_ElectronicDevice_ID = new System.Windows.Forms.Label();
-            this.txt_ElectronicDevice_ID = new System.Windows.Forms.TextBox();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
             this.btn_DBSettings = new System.Windows.Forms.Button();
@@ -95,24 +93,6 @@
             this.btn_LogFile.Text = "LOG DATOTEKA";
             this.btn_LogFile.UseVisualStyleBackColor = false;
             this.btn_LogFile.Click += new System.EventHandler(this.btn_LogFile_Click);
-            // 
-            // lbL_ElectronicDevice_ID
-            // 
-            this.lbL_ElectronicDevice_ID.Location = new System.Drawing.Point(0, 38);
-            this.lbL_ElectronicDevice_ID.Name = "lbL_ElectronicDevice_ID";
-            this.lbL_ElectronicDevice_ID.Size = new System.Drawing.Size(138, 20);
-            this.lbL_ElectronicDevice_ID.TabIndex = 36;
-            this.lbL_ElectronicDevice_ID.Text = "lbL_ElectronicDevice_ID";
-            this.lbL_ElectronicDevice_ID.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txt_ElectronicDevice_ID
-            // 
-            this.txt_ElectronicDevice_ID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_ElectronicDevice_ID.Location = new System.Drawing.Point(139, 35);
-            this.txt_ElectronicDevice_ID.Name = "txt_ElectronicDevice_ID";
-            this.txt_ElectronicDevice_ID.Size = new System.Drawing.Size(111, 22);
-            this.txt_ElectronicDevice_ID.TabIndex = 37;
-            this.txt_ElectronicDevice_ID.WordWrap = false;
             // 
             // usrc_NavigationButtons1
             // 
@@ -239,8 +219,6 @@
             this.Controls.Add(this.btn_DBSettings);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_ShopsInuse1);
-            this.Controls.Add(this.txt_ElectronicDevice_ID);
-            this.Controls.Add(this.lbL_ElectronicDevice_ID);
             this.Controls.Add(this.btn_LogFile);
             this.Controls.Add(this.chk_FullScreen);
             this.Controls.Add(this.lbl_Language);
@@ -262,8 +240,6 @@
         private System.Windows.Forms.Label lbl_Language;
         private System.Windows.Forms.CheckBox chk_FullScreen;
         private System.Windows.Forms.Button btn_LogFile;
-        private System.Windows.Forms.Label lbL_ElectronicDevice_ID;
-        private System.Windows.Forms.TextBox txt_ElectronicDevice_ID;
         private usrc_ShopsInuse usrc_ShopsInuse1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private System.Windows.Forms.Button btn_DBSettings;

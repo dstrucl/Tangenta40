@@ -109,7 +109,8 @@ namespace TangentaDB
 
         internal bool Get(ID atom_ElectronicDevice_ID)
         {
-            return f_Atom_ElectronicDevice.Get(atom_ElectronicDevice_ID,
+            m_ComputerName = null;
+            if (f_Atom_ElectronicDevice.Get(atom_ElectronicDevice_ID,
                                             ref m_ElectronicDevice_Name,
                                             ref m_ElectronicDevice_Description,
                                             ref m_ComputerName,
@@ -120,7 +121,22 @@ namespace TangentaDB
                                             ref m_MAC_address_Description,
                                             ref m_IP_address,
                                             ref m_IP_address_Description
-                                            );
+                                            ))
+            {
+                if ((m_ElectronicDevice_Name!=null)&&(m_ComputerName!=null))
+                {
+                    this.ID = atom_ElectronicDevice_ID;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

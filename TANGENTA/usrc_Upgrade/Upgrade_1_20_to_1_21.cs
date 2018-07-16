@@ -30,7 +30,7 @@ namespace UpgradeDB
                 if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
                     ID Atom_ElectronicDevice_ID =null;
-                    if (f_Atom_ElectronicDevice.Get("ED1", null, ref Atom_ElectronicDevice_ID))
+                    if (f_Atom_ElectronicDevice.Get(new ID(1),"ED1", null, ref Atom_ElectronicDevice_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                         string spar_Atom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_ID";

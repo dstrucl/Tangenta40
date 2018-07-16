@@ -360,7 +360,7 @@ namespace TangentaDB
                             foreach (DataRow dr_of_dt_SimpleItem in dt_SimpleItem.Rows)
                             {
                                 DataRow dr_of_dt = dt.NewRow();
-                                dr_of_dt["PriceList_ID"] = PriceList_ID;
+                                dr_of_dt["PriceList_ID"] = PriceList_ID.V;
                                 dr_of_dt["PriceList"] = PriceList_Name;
                                 dr_of_dt["SimpleItem_ID"] = dr_of_dt_SimpleItem["ID"];
                                 dr_of_dt["Name"] = dr_of_dt_SimpleItem["Name"];

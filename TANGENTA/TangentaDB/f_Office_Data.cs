@@ -98,7 +98,7 @@ namespace TangentaDB
             }
             else
             {
-                string sql = @"SELECT Office_Data.ID,
+                string sql = @"SELECT 
                                  Office_Data_$_office.Name AS Office_Data_$_office_$$Name,
                                  Office_Data_$_office.ShortName AS Office_Data_$_office_$$ShortName,
                                  Office_Data.Description AS Office_Data_$$Description,
@@ -112,7 +112,8 @@ namespace TangentaDB
                                  Office_Data_$_cadrorg_$_ccouorg.Country_ISO_3166_num AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
                                  Office_Data_$_cadrorg_$_cstorg.State AS Office_Data_$_cadrorg_$_cstorg_$$State,
                                  Office_Data_$_office.ID AS Office_Data_$_office_$$ID,
-								 Office_Data_$_office.myOrganisation_ID AS Office_Data_$_office_$$myOrganisation_ID
+								 Office_Data_$_office.myOrganisation_ID AS Office_Data_$_office_$$myOrganisation_ID,
+                                 Office_Data.ID
                                  FROM Office_Data 
                                  INNER JOIN Office Office_Data_$_office ON Office_Data.Office_ID = Office_Data_$_office.ID 
                                  INNER JOIN cAddress_Org Office_Data_$_cadrorg ON Office_Data.cAddress_Org_ID = Office_Data_$_cadrorg.ID 

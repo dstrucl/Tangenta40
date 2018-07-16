@@ -384,8 +384,11 @@ namespace Tangenta
                 Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
             }
 
-            // TRICKY DOCHANGE
-            Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+           
+            if (ID.Validate(m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID))
+            {
+                Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+            }
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
             if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA != null)

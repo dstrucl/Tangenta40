@@ -140,7 +140,6 @@ namespace Tangenta
 
 
 
-        public ID Last_myOrganisation_id = null;
         public ID Last_myOrganisation_Person_id = null;
 
         public emode m_mode = emode.view_eDocumentType;
@@ -152,17 +151,17 @@ namespace Tangenta
 
         public InvoiceData m_InvoiceData = null;
 
-        public long myOrganisation_Person_id
+        public ID myOrganisation_Person_id
         {
             get {
                 object oSelvalue = this.cmb_select_my_Organisation_Person.SelectedValue;
-                if (oSelvalue is long)
+                if (oSelvalue is ID)
                 {
-                    return (long)oSelvalue;
+                    return (ID)oSelvalue;
                 }
                 else
                 {
-                    return -1;
+                    return null;
                 }
             }
         }
@@ -814,6 +813,7 @@ namespace Tangenta
         public usrc_DocumentEditor()
         {
             InitializeComponent();
+            Last_myOrganisation_Person_id = new ID(null);
             usrc_AddOn1.Init(this);
             m_mode = emode.view_eDocumentType;
             lng.s_Show_Shops.Text(btn_Show_Shops);
@@ -1989,8 +1989,10 @@ namespace Tangenta
 
         internal void Fill_MyOrganisation_Person()
         {
-            DataTable dtEmployees = new DataTable();
-            string sql_my_company_person = @"Select ID,
+            if (ID.Validate(myOrg.ID))
+            {
+                DataTable dtEmployees = new DataTable();
+                string sql_my_company_person = @"Select ID,
                                             myOrganisation_Person_$_office_$_mo_$$ID,
                                             myOrganisation_Person_$_per_$_cfn_$$FirstName,
                                             myOrganisation_Person_$_per_$_cln_$$LastName,
@@ -1998,34 +2000,39 @@ namespace Tangenta
                                             myOrganisation_Person_$$Description,
                                             myOrganisation_Person_$$Active
                                             from myOrganisation_Person_VIEW
-                                            where myOrganisation_Person_$_office_$_mo_$$ID = " + Last_myOrganisation_id.ToString()
-                                              + " and myOrganisation_Person_$$Active = 1";
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dtEmployees, sql_my_company_person, ref Err))
-            {
-                if (dtEmployees.Rows.Count > 0)
+                                            where myOrganisation_Person_$_office_$_mo_$$ID = " + myOrg.ID.ToString()
+                                                  + " and myOrganisation_Person_$$Active = 1";
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref dtEmployees, sql_my_company_person, ref Err))
                 {
-                    foreach (DataRow dr in dtEmployees.Rows)
+                    if (dtEmployees.Rows.Count > 0)
                     {
-                        Employee employee = new Employee((string)dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"],
-                                                            dr["myOrganisation_Person_$_per_$_cln_$$LastName"],
-                                                            dr["myOrganisation_Person_$$Job"],
-                                                            dr["myOrganisation_Person_$$Description"],
-                                                          (bool)dr["myOrganisation_Person_$$Active"],
-                                                          (long)dr["ID"],
-                                                          (long)dr["myOrganisation_Person_$_office_$_mo_$$ID"]
-                                                          );
-                        Employees.Add(employee);
+                        foreach (DataRow dr in dtEmployees.Rows)
+                        {
+                            Employee employee = new Employee((string)dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"],
+                                                                dr["myOrganisation_Person_$_per_$_cln_$$LastName"],
+                                                                dr["myOrganisation_Person_$$Job"],
+                                                                dr["myOrganisation_Person_$$Description"],
+                                                              (bool)dr["myOrganisation_Person_$$Active"],
+                                                              (long)dr["ID"],
+                                                              (long)dr["myOrganisation_Person_$_office_$_mo_$$ID"]
+                                                              );
+                            Employees.Add(employee);
+                        }
+                        this.cmb_select_my_Organisation_Person.DataSource = Employees;
+                        this.cmb_select_my_Organisation_Person.DisplayMember = "Person";
+                        this.cmb_select_my_Organisation_Person.ValueMember = "myOrganisation_Person_ID";
+                        this.cmb_select_my_Organisation_Person.SelectedItem = Last_myOrganisation_Person_id;
                     }
-                    this.cmb_select_my_Organisation_Person.DataSource = Employees;
-                    this.cmb_select_my_Organisation_Person.DisplayMember = "Person";
-                    this.cmb_select_my_Organisation_Person.ValueMember = "myOrganisation_Person_ID";
-                    this.cmb_select_my_Organisation_Person.SelectedItem = Last_myOrganisation_Person_id;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Invoice:Fill_MyOrganisation_Person:Err=" + Err);
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Invoice:Fill_MyOrganisation_Person:Err=" + Err);
+                LogFile.Error.Show("ERROR:usrc_Invoice:Fill_MyOrganisation_Person:myOrg.ID is not defined!");
             }
         }
 

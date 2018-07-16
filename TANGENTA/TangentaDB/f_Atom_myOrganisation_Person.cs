@@ -340,7 +340,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID myOrganisation_Person_ID, ref List<long> atom_myOrganisation_Person_ID_List)
+        public static bool Get(ID myOrganisation_Person_ID, ref List<ID> atom_myOrganisation_Person_ID_List)
         {
             string sql = @"select amop.ID as Atom_myOrganisation_Person_ID
 	                      from myOrganisation_Person mop 
@@ -361,7 +361,7 @@ namespace TangentaDB
                 {
                     if (atom_myOrganisation_Person_ID_List==null)
                     {
-                        atom_myOrganisation_Person_ID_List = new List<long>();
+                        atom_myOrganisation_Person_ID_List = new List<ID>();
                     }
                     else
                     {
@@ -369,9 +369,10 @@ namespace TangentaDB
                     }
                     for (int i = 0; i < iCount; i++)
                     {
-                        if (dt.Rows[i]["Atom_myOrganisation_Person_ID"] is long)
+                        ID xid = tf.set_ID(dt.Rows[i]["Atom_myOrganisation_Person_ID"]);
+                        if (ID.Validate(xid))
                         {
-                            atom_myOrganisation_Person_ID_List.Add((long)dt.Rows[i]["Atom_myOrganisation_Person_ID"]);
+                            atom_myOrganisation_Person_ID_List.Add(xid);
                         }
                     }
                 }

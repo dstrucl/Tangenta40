@@ -82,7 +82,7 @@ namespace TangentaDB
                     {
                         if (dt_Atom_WorkingPlace.Rows.Count > 0)
                         {
-                            if (Atom_WorkingPlace_ID!=null)
+                            if (Atom_WorkingPlace_ID==null)
                             {
                                 Atom_WorkingPlace_ID = new ID();
                             }

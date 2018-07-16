@@ -151,14 +151,8 @@ namespace TangentaDB
                                                                                                                                     + spar_state_ISO_3166_a2_v + ","
                                                                                                                                     + spar_state_ISO_3166_a3_v + ","
                                                                                                                                     + spar_state_ISO_3166_num_v +")";
-                        ID xAtom_cCountry_Org_ID = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_cCountry_Org_ID,  ref Err, "Atom_cCountry_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cCountry_Org_ID,  ref Err, "Atom_cCountry_Org"))
                         {
-                            if (atom_cCountry_Org_ID == null)
-                            {
-                                atom_cCountry_Org_ID = new ID();
-                            }
-                            atom_cCountry_Org_ID.Set(xAtom_cCountry_Org_ID);
                             return true;
                         }
                         else

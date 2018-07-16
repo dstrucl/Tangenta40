@@ -126,7 +126,7 @@ SELECT
             ID myOrganisation_Person_ID = null;
             if (Get_myOrganisation_Person_ID(userName, ref myOrganisation_Person_ID))
             {
-                List<long> Atom_myOrganisation_Person_ID_List = new List<long>();
+                List<ID> Atom_myOrganisation_Person_ID_List = new List<ID>();
                 if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID_List))
                 {
                     if (Atom_myOrganisation_Person_ID_List.Count == 0)
@@ -153,15 +153,15 @@ SELECT
                     }
 
                     string sInCondition = null;
-                    foreach (long l in Atom_myOrganisation_Person_ID_List)
+                    foreach (ID idl in Atom_myOrganisation_Person_ID_List)
                     {
                         if (sInCondition==null)
                         {
-                            sInCondition = "("+l.ToString();
+                            sInCondition = "("+idl.ToString();
                         }
                         else
                         {
-                            sInCondition += "," + l.ToString();
+                            sInCondition += "," + idl.ToString();
                         }
                     }
                     if (sInCondition!=null)

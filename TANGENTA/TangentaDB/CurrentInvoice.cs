@@ -59,8 +59,18 @@ namespace TangentaDB
 
         public int DraftNumber;
 
-
-        public ID Doc_ID = null;
+        public ID m_Doc_ID = null;
+        public ID Doc_ID
+        {
+            get
+            {
+                return m_Doc_ID;
+            }
+            set
+            {
+                m_Doc_ID = value;
+            }
+        }
 
         public DateTime EventTime = DateTime.MinValue;
 
@@ -99,7 +109,8 @@ namespace TangentaDB
             DBtcn = xDBtcn;
             FinancialYear = DateTime.Now.Year;
             NumberInFinancialYear = 1;
-            Doc_ID = null;
+            Doc_ID = new ID();
+            Doc_ID.V = Doc_ID.InvalidID;
         }
 
 

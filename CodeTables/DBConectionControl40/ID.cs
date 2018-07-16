@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace DBConnectionControl40
 {
+
     public class ID
     {
+        public static ID Invalid = new ID(null);
+
         public enum IDType { INT32, INT64, GUID };
 
         private IDType m_Type = IDType.INT64;
@@ -39,20 +42,11 @@ namespace DBConnectionControl40
         public ID(object xv)
         {
             m_Type = IDType.INT64;
-            if (xv is ID)
+            if (xv is null)
             {
-                if (((ID)xv).IDtype == m_Type)
-                {
-                    m_V = ((ID)xv).V;
-                    return;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:DBTypes:ID:constructor ID(object xv):ID Types are not matching, xv.IDtype is of type " + ((ID)xv).IDtype.ToString() + " this type is " + this.IDtype.ToString());
-                    return;
-                }
+                MakeInvalid();
+                return;
             }
-
             switch (IDtype)
             {
                 case IDType.INT64:
@@ -70,6 +64,19 @@ namespace DBConnectionControl40
                             catch
                             {
                                 LogFile.Error.Show("ERROR:DBTypes:ID:Constructor ID(object xv):m_Type is INT64, assigned object value is string " + (xv.GetType().ToString()));
+                            }
+                        }
+                        else if (xv is ID)
+                        {
+                            if (((ID)xv).IDtype == m_Type)
+                            {
+                                m_V = ((ID)xv).V;
+                                return;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:constructor ID(object xv):ID Types are not matching, xv.IDtype is of type " + ((ID)xv).IDtype.ToString() + " this type is " + this.IDtype.ToString());
+                                return;
                             }
                         }
                         else
@@ -96,6 +103,19 @@ namespace DBConnectionControl40
                                 LogFile.Error.Show("ERROR:DBTypes:ID:Constructor ID(object xv):m_Type is INT32, assigned object value is string " + (xv.GetType().ToString()));
                             }
                         }
+                        else if (xv is ID)
+                        {
+                            if (((ID)xv).IDtype == m_Type)
+                            {
+                                m_V = ((ID)xv).V;
+                                return;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:constructor ID(object xv):ID Types are not matching, xv.IDtype is of type " + ((ID)xv).IDtype.ToString() + " this type is " + this.IDtype.ToString());
+                                return;
+                            }
+                        }
                         else
                         {
                             LogFile.Error.Show("ERROR:DBTypes:ID:Property object V:ID Type is INT32, assigned object value is type of " + xv.GetType().ToString());
@@ -120,13 +140,25 @@ namespace DBConnectionControl40
                                 LogFile.Error.Show("ERROR:DBTypes:ID:Constructor ID(object xv):m_Type is GUID, assigned object value is string " + (xv.GetType().ToString()));
                             }
                         }
+                        else if (xv is ID)
+                        {
+                            if (((ID)xv).IDtype == m_Type)
+                            {
+                                m_V = ((ID)xv).V;
+                                return;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:DBTypes:ID:constructor ID(object xv):ID Types are not matching, xv.IDtype is of type " + ((ID)xv).IDtype.ToString() + " this type is " + this.IDtype.ToString());
+                                return;
+                            }
+                        }
                         else
                         {
                             LogFile.Error.Show("ERROR:DBTypes:ID:Property object V:ID Type is Guid, assigned object value is type of " + xv.GetType().ToString());
                         }
                     }
                     break;
-
             }
         }
 
@@ -376,6 +408,22 @@ namespace DBConnectionControl40
 
         public bool Set(object v)
         {
+            if (v is ID)
+            {
+                if (this.m_Type == ((ID)v).m_Type)
+                {
+                    this.m_V = ((ID)v).V;
+                    this.cond = ((ID)v).cond;
+                    this.value = ((ID)v).value;
+                    this.defined = ((ID)v).Defined;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:DBTypes:ID:Constructor Set(object v):m_Type is "+this.m_Type.ToString()+", assigned object value is ID and its m_Type is " + ((ID)v).m_Type.ToString());
+                    return false;
+                }
+            }
             try
             {
                 switch (IDtype)
@@ -398,7 +446,7 @@ namespace DBConnectionControl40
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:DBConnectionControl40:ID:Set(object v):Can not set ID for long value =\"" + v.ToString() + "\" when IDtype=" + IDtype.ToString());
+                            LogFile.Error.Show("ERROR:DBConnectionControl40:ID:Set(object v):Can not set ID for value type="+v.GetType().ToString()+" value =\"" + v.ToString() + "\" when IDtype=" + IDtype.ToString());
                             return false;
                         }
                         break;

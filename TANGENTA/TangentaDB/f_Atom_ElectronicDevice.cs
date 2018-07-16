@@ -166,7 +166,60 @@ namespace TangentaDB
                 return false;
             }
         }
-       public static bool Get(string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
+
+        public static bool Get(ID Office_ID, ref DataTable tAtom_ElectronicDevice)
+        {
+            if (ID.Validate(Office_ID))
+            {
+                string sql = @"SELECT 
+                             Atom_ElectronicDevice.Name AS Atom_ElectronicDevice_$$Name,
+                             Atom_ElectronicDevice_$_acomp_$_acn.Name AS Atom_ElectronicDevice_$_acomp_$_acn_$$Name,
+                             Atom_ElectronicDevice_$_acomp_$_acun.UserName AS Atom_ElectronicDevice_$_acomp_$_acun_$$UserName,
+                             Atom_ElectronicDevice_$_acomp_$_amac.MAC_address AS Atom_ElectronicDevice_$_acomp_$_amac_$$MAC_address,
+                             Atom_ElectronicDevice_$_acomp_$_aipa.IP_address AS Atom_ElectronicDevice_$_acomp_$_aipa_$$IP_address,
+                             Atom_ElectronicDevice_$_office.Name AS Atom_ElectronicDevice_$_office_$$Name,
+                             Atom_ElectronicDevice_$_office.ShortName AS Atom_ElectronicDevice_$_office_$$ShortName,
+                             Atom_ElectronicDevice.Description AS Atom_ElectronicDevice_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_acn.Description AS Atom_ElectronicDevice_$_acomp_$_acn_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_amac.Description AS Atom_ElectronicDevice_$_acomp_$_amac_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_acun.Description AS Atom_ElectronicDevice_$_acomp_$_acun_$$Description,
+                             Atom_ElectronicDevice_$_acomp_$_aipa.Description AS Atom_ElectronicDevice_$_acomp_$_aipa_$$Description,
+                             Atom_ElectronicDevice_$_office.ID AS Atom_ElectronicDevice_$_office_$$ID,
+                             Atom_ElectronicDevice.ID
+                            FROM Atom_ElectronicDevice 
+                            LEFT JOIN Atom_Computer Atom_ElectronicDevice_$_acomp ON Atom_ElectronicDevice.Atom_Computer_ID = Atom_ElectronicDevice_$_acomp.ID 
+                            LEFT JOIN Atom_ComputerName Atom_ElectronicDevice_$_acomp_$_acn ON Atom_ElectronicDevice_$_acomp.Atom_ComputerName_ID = Atom_ElectronicDevice_$_acomp_$_acn.ID 
+                            LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
+                            LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
+                            LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
+                            LEFT JOIN Office Atom_ElectronicDevice_$_office ON Atom_ElectronicDevice.Office_ID = Atom_ElectronicDevice_$_office.ID where Atom_ElectronicDevice_$_office.ID = " + Office_ID.ToString();
+                if (tAtom_ElectronicDevice==null)
+                {
+                    tAtom_ElectronicDevice = new DataTable();
+                }
+                else
+                {
+                    tAtom_ElectronicDevice.Columns.Clear();
+                }
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref tAtom_ElectronicDevice, sql, ref Err))
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_ElectronicDevice:Get(..):sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_ElectronicDevice:Get(..): Office_ID is not valid");
+                return false;
+            }
+        }
+
+        public static bool Get(ID xOffice_ID,string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -187,6 +240,23 @@ namespace TangentaDB
                     scond_Atom_Computer_ID = "Atom_Computer_ID is null";
                     sval_Atom_Computer_ID = "null";
                 }
+
+                string scond_Office_ID = null;
+                string sval_Office_ID = "null";
+                if (ID.Validate(xOffice_ID))
+                {
+                    string spar_Office_ID = "@par_Office_ID";
+                    SQL_Parameter par_Office_ID = new SQL_Parameter(spar_Office_ID, false, xOffice_ID);
+                    lpar.Add(par_Office_ID);
+                    scond_Office_ID = "Office_ID = " + spar_Office_ID;
+                    sval_Office_ID = spar_Office_ID;
+                }
+                else
+                {
+                    scond_Office_ID = "Office_ID is null";
+                    sval_Office_ID = "null";
+                }
+
 
                 string scond_ElectronicDevice_Name = null;
                 string sval_ElectronicDevice_Name = "null";
@@ -222,7 +292,7 @@ namespace TangentaDB
 
 
                 string sql = @"select ID,Description from Atom_ElectronicDevice
-                                                        where (" + scond_ElectronicDevice_Name + " and " + scond_Atom_Computer_ID + ")";
+                                                        where (" + scond_Office_ID + " and " + scond_ElectronicDevice_Name + " and " + scond_Atom_Computer_ID + ")";
 
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -264,7 +334,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        sql = @"insert into Atom_ElectronicDevice (Name,Description,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Atom_Computer_ID + ")";
+                        sql = @"insert into Atom_ElectronicDevice (Name,Description,Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Office_ID+","+ sval_Atom_Computer_ID + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice"))
                         {
                             return true;

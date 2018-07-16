@@ -1,5 +1,6 @@
 ﻿using CodeTables;
 using DBConnectionControl40;
+using DBTypes;
 using NavigationButtons;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Tangenta
         private UniqueControlName uctrln = new UniqueControlName();
         private bool bclose = false;
         private ID m_Office_ID = null;
+        private myOrg_Office m_myOrg_Office = null;
 
         private DataTable tElectronicDevice = null;
         private DataTable tOffice = null;
@@ -93,11 +95,45 @@ namespace Tangenta
                     tOffice.Columns.Clear();
                 }
 
+                this.dgvx_Office.SelectionChanged -= new System.EventHandler(this.dgvx_Office_SelectionChanged);
+
                 if (f_Office_Data.Get(null, ref tOffice))
                 {
                     dgvx_Office.DataSource = tOffice;
-                    DBSync.DBSync.DB_for_Tangenta.t_Office_Data.Set_DataGridViewImageColumns_Headers(dgvx_Office);
-                    return true;
+                    DBSync.DBSync.DB_for_Tangenta.t_Office_Data.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Office,DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                    dgvx_Office.ClearSelection();
+                    this.dgvx_Office.SelectionChanged += new System.EventHandler(this.dgvx_Office_SelectionChanged);
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (dgvx_Office.Rows.Count > 0)
+                        {
+                            foreach (DataGridViewRow dgvr in dgvx_Office.Rows)
+                            {
+                                ID id = new ID(dgvr.Cells["Office_Data_$_office_$$ID"].Value);
+                                if (ID.Validate(id))
+                                {
+                                    if (ID.Validate(myOrg.m_myOrg_Office.ID))
+                                    {
+                                        if (id.Equals(myOrg.m_myOrg_Office.ID))
+                                        {
+                                            dgvr.Selected = true;
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        dgvx_Office.Rows[0].Selected = true;
+                        return true;
+                    }
+                    else
+                    {
+                        if (dgvx_Office.Rows.Count > 0)
+                        {
+                            dgvx_Office.Rows[0].Selected = true;
+                        }
+                        return true;
+                    }
                 }
                 else
                 {
@@ -154,6 +190,75 @@ namespace Tangenta
                     break;
             }
 
+        }
+
+        private void dgvx_Office_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Office.SelectedCells;
+            if (dgvCellCollection.Count >= 1)
+            {
+                if (m_Office_ID==null)
+                {
+                    m_Office_ID = new ID();
+                }
+                m_Office_ID.Set(dgvCellCollection[0].OwningRow.Cells["Office_Data_$_office_$$ID"].Value);
+                Show_Office_Electronic_Devices();
+            }
+        }
+
+        private void Show_Office_Electronic_Devices()
+        {
+            if (ID.Validate(m_Office_ID))
+            {
+                m_myOrg_Office = myOrg.Find_Office(m_Office_ID);
+                if (m_myOrg_Office != null)
+                {
+                    if (m_myOrg_Office.Name_v != null)
+                    {
+                        this.txt_Office.Text = m_myOrg_Office.Name_v.v;
+                    }
+                    if (m_myOrg_Office.ShortName_v != null)
+                    {
+                        this.txt_Office_ShortName.Text = m_myOrg_Office.ShortName_v.v;
+                    }
+                    if (tElectronicDevice == null)
+                    {
+                        tElectronicDevice = new DataTable();
+                    }
+                    else
+                    {
+                        tElectronicDevice.Columns.Clear();
+                    }
+                    dgvx_ElectronicDevice.DataSource = null;
+                    if (f_Atom_ElectronicDevice.Get(m_myOrg_Office.ID,ref tElectronicDevice))
+                    {
+                        dgvx_ElectronicDevice.DataSource = tElectronicDevice;
+                        DBSync.DBSync.DB_for_Tangenta.t_Atom_ElectronicDevice.SetVIEW_DataGridViewImageColumns_Headers(dgvx_ElectronicDevice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                    }
+                }
+            }
+        }
+
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+            string xElectronicDevice_Name = txt_ElectronicDevice_Name.Text;
+            string xElectronicDevice_Description = txt_ElectronicDevice_Description.Text;
+            if (xElectronicDevice_Description.Length==0)
+            {
+                xElectronicDevice_Description = null;
+            }
+            if (xElectronicDevice_Name.Length>0)
+            {
+                ID xAtom_ElectronicDevice_ID = null;
+                if (f_Atom_ElectronicDevice.Get(m_myOrg_Office.ID, xElectronicDevice_Name, xElectronicDevice_Description,ref xAtom_ElectronicDevice_ID))
+                {
+                    if (ID.Validate(xAtom_ElectronicDevice_ID))
+                    {
+                        myOrg.Get();
+                        Show_Office_Electronic_Devices();
+                    }
+                }
+            }
         }
     }
 }
