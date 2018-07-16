@@ -691,6 +691,9 @@ namespace TangentaDataBaseDef
         /* 231 */
         public SQLTable t_Atom_IP_address = null;
 
+        /* 232 */
+        public SQLTable t_myOrganisation_Person_SingleUser = null;
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -2644,6 +2647,15 @@ namespace TangentaDataBaseDef
             t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.IP_address, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP address", "IP naslov"));
             t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP description", "IP opis"));
             m_DBTables.items.Add(t_Atom_IP_address);
+
+            /* 232 */
+            t_myOrganisation_Person_SingleUser = new SQLTable((Object)new myOrganisation_Person_SingleUser(), "mopsu", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_myOrganisation_Person_SingleUser);
+            t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("My organisation person ID", "Oseba podatja ID"));
+            t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_Atom_ElectronicDevice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
+            m_DBTables.items.Add(t_myOrganisation_Person_SingleUser);
+
+
         }
     }
  }

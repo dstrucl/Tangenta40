@@ -89,6 +89,7 @@
             this.usrc_NavigationButtons1.Visible_EXIT = true;
             this.usrc_NavigationButtons1.Visible_NEXT = true;
             this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // lbl_ElectronicDevice_Name
             // 

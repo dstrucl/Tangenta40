@@ -1062,13 +1062,13 @@ namespace TangentaDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:SetDraft:f_Atom_myOrganisation_Person.Get() failed!");
+                        LogFile.Error.Show("ERROR:SetDraft:" + DocInvoice + ":\r\nErr=" + Err);
                         return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:SetDraft:" + DocInvoice + ":\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:SetDraft:f_Atom_myOrganisation_Person.Get() failed!");
                     return false;
                 }
 

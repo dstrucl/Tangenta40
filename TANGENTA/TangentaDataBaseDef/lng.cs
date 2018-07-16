@@ -516,5 +516,7 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_Atom_IP_address = new ltext(new string[] { "IP Address", "IP naslovi" });
 
+        public static ltext lngt_t_myOrganisation_Person_SingleUser = new ltext(new string[] { "My organisation person single user", "Edini uporabnik v moji oragniazciji" });
+
     }
 }

@@ -1111,6 +1111,13 @@ namespace TangentaTableClass
         public Office m_Office = new Office();
     }
 
+    public class myOrganisation_Person_SingleUser
+    {
+        public ID ID = new ID();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
+        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+    }
+
     public class JOURNAL_myOrganisation_Person_TYPE
     {
         public ID ID = new ID();
@@ -3447,6 +3454,9 @@ namespace TangentaTableClass
 
         /* 231 */
         public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
+
+        /* 232 */
+        public myOrganisation_Person_SingleUser m_myOrganisation_Person_SingleUser = new myOrganisation_Person_SingleUser();
 
     }
 }
