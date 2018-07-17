@@ -19,8 +19,7 @@ namespace Tangenta
         private startup m_startup = null;
         public PostAddress_v myorg_PostAddress_v = null;
 
-        private ID myOffice_ID = null;
-
+      
         public Booting_05_Check_myOrganisation_Data(Form_Document xfmain, startup x_sturtup)
         {
             frm = xfmain;
@@ -92,19 +91,17 @@ namespace Tangenta
                     startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
                     return Startup_check_proc_Result.WAIT_USER_INTERACTION;
 
-                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
-                    if (myOrg.myOrg_Office_list!=null)
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON:
+                    if (myOrg.m_myOrg_Office!=null)
                     {
-                        if (myOrg.myOrg_Office_list.Count>0)
-                        {
-                            if (ID.Validate(myOrg.myOrg_Office_list[0].ID))
-                            {
-                                myOffice_ID = myOrg.myOrg_Office_list[0].ID;
-                            }
-                        }
+                        startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                     }
-                    startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
-                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                   else
+                    {
+                        startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                    }
 
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_REAL_ESTATE:
                     if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
@@ -205,19 +202,18 @@ namespace Tangenta
                             startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
                             return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
 
-                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_PERSON:
-                            if (myOrg.myOrg_Office_list != null)
+                        case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON:
+                            if (myOrg.m_myOrg_Office!= null)
                             {
-                                if (myOrg.myOrg_Office_list.Count > 0)
-                                {
-                                    if (ID.Validate(myOrg.myOrg_Office_list[0].ID))
-                                    {
-                                        myOffice_ID = myOrg.myOrg_Office_list[0].ID;
-                                    }
-                                }
+                                startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
+                                return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
                             }
-                            startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Person_Edit;
-                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            else
+                            {
+                                startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data;
+                                return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                            }
+                         
 
                         case usrc_DocumentEditor.eGetOrganisationDataResult.NO_REAL_ESTATE:
                             if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
@@ -587,7 +583,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_05_onformresult_Form_myOrg_Person_Edit;
-            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOffice_ID,true, xnav);
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_Form_myOrg_Person_Edit(myOrg.m_myOrg_Office.ID,true, xnav);
             return true;
         }
 
@@ -701,8 +697,15 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is Form_SetElectronicDeviceName)
                     {
-                        startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
-                        return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                        if (Program.b_FVI_SLO)
+                        {
+                            startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
+                            return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                        }
+                        else
+                        {
+                            return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                        }
                     }
                     else
                     {

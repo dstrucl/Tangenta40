@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class myOrg_Person_List
     {
-        public static bool Get(ID myOrganisation_id, ref List<myOrg_Person> myOrg_Person_list)
+        public static bool Get(ID Office_ID, ref List<myOrg_Person> myOrg_Person_list)
         {
 
             DataTable dt = new DataTable();
@@ -39,7 +39,7 @@ namespace TangentaDB
                         myOrganisation_Person_$_office_$$Name,
                         myOrganisation_Person_$_office_$_mo_$$ID,
                         myOrganisation_Person_$_office_$_mo_$_orgd_$_org_$$ID
-                        FROM myOrganisation_Person_VIEW where myOrganisation_Person_$_office_$_mo_$$ID = " + myOrganisation_id.ToString();
+                        FROM myOrganisation_Person_VIEW where  myOrganisation_Person_$_office_$$ID = " + Office_ID.ToString();
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))

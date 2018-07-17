@@ -74,8 +74,10 @@ namespace TangentaDB
             }
         }
 
+
         public static List<myOrg_Office> myOrg_Office_list = new List<myOrg_Office>();
-        public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
+
+      
 
         public static ID Default_Currency_ID = null;
         public static tnr[] Default_TaxRates = null;
@@ -187,7 +189,6 @@ namespace TangentaDB
                     if (myOrg.ID != null)
                     {
                         myOrg_Office_List.Get(myOrg.ID, ref myOrg.myOrg_Office_list);
-                        myOrg_Person_List.Get(myOrg.ID, ref myOrg.myOrg_Person_list);
                     }
                 }
                 return true;

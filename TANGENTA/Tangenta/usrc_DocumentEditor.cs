@@ -1608,7 +1608,7 @@ namespace Tangenta
                                                 NO_OFFICE,
                                                 NO_REAL_ESTATE,
                                                 NO_ELECTRONIC_DEVICE_NAME,
-                                                NO_MY_ORG_PERSON,
+                                                NO_MY_ORG_OFFICE_PERSON,
                                                 OK,
                                                 ERROR
         }
@@ -1752,14 +1752,27 @@ namespace Tangenta
                     return eGetOrganisationDataResult.NO_OFFICE;
                 }
 
-
-                if (myOrg.myOrg_Person_list.Count== 0)
+                if (myOrg.m_myOrg_Office != null)
                 {
-                    if (!Program.bFirstTimeInstallation)
+                    if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
                     {
-                        MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
+                        }
+                        return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
                     }
-                    return eGetOrganisationDataResult.NO_MY_ORG_PERSON;
+                }
+
+                if (myOrg.m_myOrg_Office !=null)
+                {
+                    if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
+                    {
+                       
+                        MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
+                        
+                        return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
+                    }
                 }
 
                 string sPhoneNumber = "";

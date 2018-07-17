@@ -28,6 +28,13 @@ namespace TangentaDB
 
         public myOrg_Office_ElectronicDevice m_myOrg_Office_ElectronicDevice = null;
 
+        public List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_List = new List<myOrg_Office_ElectronicDevice>();
+
+
+        public myOrg_Person m_myOrg_Person = null;
+
+        public List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
+
         public ID Atom_ElectronicDevice_ID
         {
             get {
@@ -102,9 +109,7 @@ namespace TangentaDB
             }
         }
 
-        public List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_List = new List<myOrg_Office_ElectronicDevice>();
-
-
+     
         public bool Get(ID Office_ID)
         {
             string Err = null;
