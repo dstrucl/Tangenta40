@@ -183,6 +183,7 @@
     <Compile Include="f_MethodOfPayment_DPI.cs" />
     <Compile Include="f_myOrganisation.cs" />
     <Compile Include="f_myOrganisation_Person.cs" />
+    <Compile Include="f_myOrganisation_Person_SingleUser.cs" />
     <Compile Include="f_Notice.cs" />
     <Compile Include="f_Office.cs" />
     <Compile Include="f_Office_Data.cs" />

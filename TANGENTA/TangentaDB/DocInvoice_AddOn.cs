@@ -145,13 +145,13 @@ namespace TangentaDB
 
             public bool SetDefault()
             {
-                // Very TRICKY MIGHT not work with GUID
                 string_v description_v = null;
-                if (f_TermsOfPayment.Get(new ID(1), ref description_v))
+                ID xIDdefault = null;
+                if (f_TermsOfPayment.GetDefault(ref xIDdefault, ref description_v))
                 {
                     if (description_v != null)
                     {
-                        ID = new ID(1);
+                        ID = xIDdefault;
                         Description = description_v.v;
                         return true;
                     }

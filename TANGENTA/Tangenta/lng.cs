@@ -25,6 +25,16 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_my_organisation_person_for_single_user_operation_is_not_selected = new ltext(new string[] { "My organisation person for single user operation mode is not defined!\r\nPlease select my organisation person for single user operation mode.", "Oseba organizacije v eno-uporabniškem delovanju ni določena.\r\nProsimo izberite (določite) osebo za enouporabniško delovanje." });
+
+        public static ltext s_Form_Select_Person_SINGLE_USER_Title = new ltext(new string[] { "My organisation person in single user operation mode", "Oseba organizacije v eno-uporabniškem delovanju" });
+        public static ltext s_Form_Select_Person_SINGLE_USER_Instruction = new ltext(new string[] { "In single user operation mode you must define your organisation person!", "V enouporabniškem načinu delovanja programa morate izbrati eno osebo v vaši organizaciji, ki bo ta edini uporabnik." });
+        public static ltext s_Form_Select_Person_SINGLE_USER_FirstName = new ltext(new string[] { "First name:", "Ime:" });
+        public static ltext s_Form_Select_Person_SINGLE_USER_LastName = new ltext(new string[] { "Last name:", "Priimek:" });
+        public static ltext s_Form_Select_Person_SINGLE_USER_btn_Select = new ltext(new string[] { "Select", "Izberi" });
+
+
+
         public static ltext s_ComputerName = new ltext(new string[] { "This Computer Name:", "Ime tega računalnika:" });
         public static ltext s_ComputerUserName = new ltext(new string[] { "This Computer User Name:", "Uporabniško ime tega računalnika:" });
         public static ltext s_ComputerMAC_address = new ltext(new string[] { "This Computer MAC address:", "MAC naslov tega računalnika:" });

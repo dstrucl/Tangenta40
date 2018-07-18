@@ -219,6 +219,53 @@ namespace TangentaDB
             }
         }
 
+        public static bool Get(ID Office_ID, ref ID Atom_ElectronicDevice_ID)
+        {
+            Atom_ElectronicDevice_ID = null;
+            if (ID.Validate(Office_ID))
+            {
+                ID Atom_Computer_ID = null;
+                if (f_Atom_Computer.Get(ref Atom_Computer_ID))
+                {
+                    string sql = @"SELECT 
+                                 Atom_ElectronicDevice.ID as Atom_ElectronicDevice_ID
+                                FROM Atom_ElectronicDevice 
+                                LEFT JOIN Atom_Computer Atom_ElectronicDevice_$_acomp ON Atom_ElectronicDevice.Atom_Computer_ID = Atom_ElectronicDevice_$_acomp.ID 
+                                LEFT JOIN Atom_ComputerName Atom_ElectronicDevice_$_acomp_$_acn ON Atom_ElectronicDevice_$_acomp.Atom_ComputerName_ID = Atom_ElectronicDevice_$_acomp_$_acn.ID 
+                                LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
+                                LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
+                                LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
+                                LEFT JOIN Office Atom_ElectronicDevice_$_office ON Atom_ElectronicDevice.Office_ID = Atom_ElectronicDevice_$_office.ID where Atom_ElectronicDevice_$_office.ID = " + Office_ID.ToString() 
+                                + " and Atom_Computer_ID = "+ Atom_Computer_ID.ToString();
+
+                    DataTable dt = new DataTable();
+                    string Err = null;
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                    {
+                        if (dt.Rows.Count>0)
+                        {
+                            Atom_ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["Atom_ElectronicDevice_ID"]);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_Atom_ElectronicDevice:Get(..):sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_ElectronicDevice:Get(..): Office_ID is not valid");
+                return false;
+            }
+        }
+
         public static bool Get(ID xOffice_ID,string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
         {
             string Err = null;

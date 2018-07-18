@@ -144,7 +144,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    SimpleItem_Image_id.Set(dt.Rows[0]["SimpleItem_Image_ID"]);
+                    SimpleItem_Image_id = tf.set_ID(dt.Rows[0]["SimpleItem_Image_ID"]);
                     Name = (string)dt.Rows[0]["Name"];
                     Abbreviation = (string)dt.Rows[0]["Abbreviation"];
                     if (dt.Rows[0]["Code"] is long)

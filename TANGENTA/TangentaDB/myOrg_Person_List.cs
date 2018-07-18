@@ -18,13 +18,14 @@ namespace TangentaDB
 {
     public static class myOrg_Person_List
     {
-        public static bool Get(ID Office_ID, ref List<myOrg_Person> myOrg_Person_list)
+        public static bool Get(myOrg_Office xmyOrg_Office, ref List<myOrg_Person> myOrg_Person_list)
         {
 
             DataTable dt = new DataTable();
             myOrg_Person_list.Clear();
             string sql = null;
             sql = @"select
+                        ID,
                         myOrganisation_Person_$$Job,
                         myOrganisation_Person_$$Active,
                         myOrganisation_Person_$$Description,
@@ -39,7 +40,7 @@ namespace TangentaDB
                         myOrganisation_Person_$_office_$$Name,
                         myOrganisation_Person_$_office_$_mo_$$ID,
                         myOrganisation_Person_$_office_$_mo_$_orgd_$_org_$$ID
-                        FROM myOrganisation_Person_VIEW where  myOrganisation_Person_$_office_$$ID = " + Office_ID.ToString();
+                        FROM myOrganisation_Person_VIEW where  myOrganisation_Person_$_office_$$ID = " + xmyOrg_Office.ID.ToString();
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -52,6 +53,7 @@ namespace TangentaDB
                     {
                         DataRow dr = dt.Rows[i];
                         myOrg_Person xmp = new myOrg_Person();
+                        xmp.ID = tf.set_ID(dr["ID"]);
                         xmp.Job_v = tf.set_string(dr["myOrganisation_Person_$$Job"]);
                         xmp.Active_v = tf.set_bool(dr["myOrganisation_Person_$$Active"]);
                         xmp.Description_v = tf.set_string(dr["myOrganisation_Person_$$Description"]);
@@ -63,7 +65,7 @@ namespace TangentaDB
                         xmp.Registration_ID_v = tf.set_string(dr["myOrganisation_Person_$_per_$$Registration_ID"]);
                         xmp.myOrg_Office.ID = tf.set_ID(dr["myOrganisation_Person_$_office_$$ID"]);
                         xmp.myOrg_Office.Name_v = tf.set_string(dr["myOrganisation_Person_$_office_$$Name"]);
-                        xmp.myOrg_Office.Get(xmp.myOrg_Office.ID);
+                        xmp.myOrg_Office = xmyOrg_Office;
                         myOrg_Person_list.Add(xmp);
                     }
                 }

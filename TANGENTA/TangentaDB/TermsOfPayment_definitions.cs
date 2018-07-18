@@ -52,7 +52,14 @@ namespace TangentaDB
             
             if (f_TermsOfPayment.Get(lng.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID))
             {
-                return true;
+                if (f_TermsOfPayment.SetDefault(Advanced_100PercentPayment_ID))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

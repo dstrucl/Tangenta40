@@ -38,7 +38,7 @@ namespace TangentaDB
                         if (moffice.Get(Office_ID))
                         {
                             myOrg_Office_list.Add(moffice);
-                            myOrg_Person_List.Get(Office_ID, ref moffice.myOrg_Person_list);
+                           
                         }
                     }
                 }

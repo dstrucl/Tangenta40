@@ -177,6 +177,12 @@
     <Compile Include="Form_Select_Notice.Designer.cs">
       <DependentUpon>Form_Select_Notice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Select_Person_SINGLE_USER.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_Person_SINGLE_USER.Designer.cs">
+      <DependentUpon>Form_Select_Person_SINGLE_USER.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_SetElectronicDeviceName.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -673,6 +679,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_Notice.resx">
       <DependentUpon>Form_Select_Notice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_Person_SINGLE_USER.resx">
+      <DependentUpon>Form_Select_Person_SINGLE_USER.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SetElectronicDeviceName.resx">
       <DependentUpon>Form_SetElectronicDeviceName.cs</DependentUpon>

@@ -33,10 +33,8 @@
             this.lbl_Issuer = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.cmb_select_my_Organisation_Person = new System.Windows.Forms.ComboBox();
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
-            this.btn_edit_MyOrganisation_Person = new System.Windows.Forms.Button();
             this.lbl_Sum = new System.Windows.Forms.Label();
             this.btn_Issue = new System.Windows.Forms.Button();
             this.chk_Head = new System.Windows.Forms.CheckBox();
@@ -48,6 +46,7 @@
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
             this.usrc_Currency1 = new Tangenta.usrc_Currency();
+            this.txt_Issuer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -74,7 +73,7 @@
             // 
             this.lbl_Issuer.AutoSize = true;
             this.lbl_Issuer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Issuer.Location = new System.Drawing.Point(8, 48);
+            this.lbl_Issuer.Location = new System.Drawing.Point(9, 48);
             this.lbl_Issuer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Issuer.Name = "lbl_Issuer";
             this.lbl_Issuer.Size = new System.Drawing.Size(78, 17);
@@ -125,15 +124,6 @@
             this.splitContainer3.SplitterDistance = 125;
             this.splitContainer3.TabIndex = 0;
             // 
-            // cmb_select_my_Organisation_Person
-            // 
-            this.cmb_select_my_Organisation_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmb_select_my_Organisation_Person.FormattingEnabled = true;
-            this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(151, 45);
-            this.cmb_select_my_Organisation_Person.Name = "cmb_select_my_Organisation_Person";
-            this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(166, 24);
-            this.cmb_select_my_Organisation_Person.TabIndex = 21;
-            // 
             // txt_Number
             // 
             this.txt_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -152,17 +142,6 @@
             this.lbl_Number.Size = new System.Drawing.Size(77, 20);
             this.lbl_Number.TabIndex = 23;
             this.lbl_Number.Text = "Številka:";
-            // 
-            // btn_edit_MyOrganisation_Person
-            // 
-            this.btn_edit_MyOrganisation_Person.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_edit_MyOrganisation_Person.Image = ((System.Drawing.Image)(resources.GetObject("btn_edit_MyOrganisation_Person.Image")));
-            this.btn_edit_MyOrganisation_Person.Location = new System.Drawing.Point(104, 44);
-            this.btn_edit_MyOrganisation_Person.Name = "btn_edit_MyOrganisation_Person";
-            this.btn_edit_MyOrganisation_Person.Size = new System.Drawing.Size(35, 28);
-            this.btn_edit_MyOrganisation_Person.TabIndex = 17;
-            this.btn_edit_MyOrganisation_Person.UseVisualStyleBackColor = false;
-            this.btn_edit_MyOrganisation_Person.Click += new System.EventHandler(this.btn_edit_MyOrganisation_Person_Click);
             // 
             // lbl_Sum
             // 
@@ -212,12 +191,11 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer2.Panel1.Controls.Add(this.txt_Issuer);
             this.splitContainer2.Panel1.Controls.Add(this.lbl_Issuer);
             this.splitContainer2.Panel1.Controls.Add(this.btn_MyOrganisation);
             this.splitContainer2.Panel1.Controls.Add(this.txt_MyOrganisation);
             this.splitContainer2.Panel1.Controls.Add(this.lbl_MyOrganisation);
-            this.splitContainer2.Panel1.Controls.Add(this.btn_edit_MyOrganisation_Person);
-            this.splitContainer2.Panel1.Controls.Add(this.cmb_select_my_Organisation_Person);
             this.splitContainer2.Panel1.Controls.Add(this.usrc_Customer);
             // 
             // splitContainer2.Panel2
@@ -309,6 +287,16 @@
             this.usrc_Currency1.TabIndex = 42;
             this.usrc_Currency1.CurrencyChanged += new Tangenta.usrc_Currency.delegate_CurrencyChanged(this.usrc_Currency1_CurrencyChanged);
             // 
+            // txt_Issuer
+            // 
+            this.txt_Issuer.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_Issuer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Issuer.Location = new System.Drawing.Point(92, 52);
+            this.txt_Issuer.Name = "txt_Issuer";
+            this.txt_Issuer.ReadOnly = true;
+            this.txt_Issuer.Size = new System.Drawing.Size(225, 13);
+            this.txt_Issuer.TabIndex = 36;
+            // 
             // usrc_DocumentEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -346,8 +334,6 @@
         private System.Windows.Forms.TextBox txt_MyOrganisation;
         private System.Windows.Forms.Label lbl_Issuer;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btn_edit_MyOrganisation_Person;
-        private System.Windows.Forms.ComboBox cmb_select_my_Organisation_Person;
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
         private System.Windows.Forms.Button btn_Issue;
@@ -362,5 +348,6 @@
         private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
         internal usrc_Currency usrc_Currency1;
+        private System.Windows.Forms.TextBox txt_Issuer;
     }
 }

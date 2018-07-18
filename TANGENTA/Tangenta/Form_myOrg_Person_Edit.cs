@@ -79,6 +79,7 @@ namespace Tangenta
             }
         }
 
+     
         private bool do_OK()
         {
             if (usrc_EditTable1.Changed)

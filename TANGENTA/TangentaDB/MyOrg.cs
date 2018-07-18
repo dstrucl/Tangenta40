@@ -267,5 +267,24 @@ namespace TangentaDB
             }
             return false;
         }
+
+        public static bool Get_m_myOrg_Office_m_myOrg_Person_SingleUser()
+        {
+            if (m_myOrg_Office!=null)
+            {
+                if (m_myOrg_Office.m_myOrg_Person!=null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return m_myOrg_Office.Get_m_myOrg_Person_SingleUser();
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

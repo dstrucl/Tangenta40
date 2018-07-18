@@ -71,6 +71,60 @@ namespace TangentaDB
             }
         }
 
+        internal static bool SetDefault(ID xTermsOfPayment_ID)
+        {
+            if (ID.Validate(myOrg.Atom_ElectronicDevice_ID))
+            {
+                string sql = "select ID,TermsOfPayment_ID from TermsOfPayment_Default where Atom_ElectronicDevice_ID = " + myOrg.Atom_ElectronicDevice_ID.ToString();
+                DataTable dt = new DataTable();
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        sql = "update TermsOfPayment_Default set TermsOfPayment_ID = " + xTermsOfPayment_ID.ToString();
+                        object ores = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        sql = "insert into TermsOfPayment_Default (TermsOfPayment_ID,Atom_ElectronicDevice_ID)values("+ xTermsOfPayment_ID.ToString() + ","+ myOrg.Atom_ElectronicDevice_ID.ToString()+")";
+                        ID xTermsOfPayment_Default_ID = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref xTermsOfPayment_Default_ID, ref Err, "TermsOfPayment_Default"))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:myOrg.Atom_ElectronicDevice_ID is not valid");
+                return false;
+            }
+
+                
+        }
+
         public static bool Get(ID TermsOfPayment_ID, ref string_v xDescription_v)
         {
             DataTable dt = new DataTable();
@@ -94,6 +148,11 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
+        }
+
+        internal static bool GetDefault(ref ID xIDdefault, ref string_v description_v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

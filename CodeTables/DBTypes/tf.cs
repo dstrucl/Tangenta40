@@ -162,6 +162,10 @@ namespace DBTypes
             {
                 x = new ID((Guid)p);
             }
+            else if (p is ID)
+            {
+                x = new ID((ID)p);
+            }
             else if (!(p is System.DBNull))
             {
                 tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());

@@ -103,6 +103,10 @@ namespace Tangenta
                         return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                     }
 
+                case usrc_DocumentEditor.eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER:
+                        startup_ShowForm_proc = Startup_05_Show_Form_Select_Person_SINGLE_USER;
+                        return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+
                 case usrc_DocumentEditor.eGetOrganisationDataResult.NO_REAL_ESTATE:
                     if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
                     {
@@ -597,6 +601,58 @@ namespace Tangenta
             {
                 case Navigation.eEvent.NEXT:
                     if (form is Form_myOrg_Person_Edit)
+                    {
+                        return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
+                    }
+                    else
+                    {
+                        return Startup_onformresult_proc_Result.ERROR;
+                    }
+
+                case Navigation.eEvent.PREV:
+                    return Startup_onformresult_proc_Result.PREV;
+
+                case Navigation.eEvent.EXIT:
+                    return Startup_onformresult_proc_Result.EXIT;
+
+                case NavigationButtons.Navigation.eEvent.NOTHING:
+                    // happens when check procedure is OK
+                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
+
+                default:
+                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_05_onformresult_Form_myOrg_Person_Edit:eExitResult not implemented for eExitResult = " + eExitResult.ToString());
+                    return Startup_onformresult_proc_Result.ERROR;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Startup_05_Show_Form_Select_Person_SINGLE_USER
+        /// </summary>
+        /// <param name="xstartup_step"></param>
+        /// <param name="xnav"></param>
+        /// <param name="startup_OnFormResult_proc"></param>
+        /// <returns></returns>
+        public bool Startup_05_Show_Form_Select_Person_SINGLE_USER(startup_step xstartup_step,
+                                                            NavigationButtons.Navigation xnav,
+                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
+        {
+            startup_OnFormResult_proc = Startup_05_onformresult_Form_Select_Person_SINGLE_USER;
+            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_05_ShowForm_Form_Select_Person_SINGLE_USER(myOrg.m_myOrg_Office.ID, true, xnav);
+            return true;
+        }
+
+        private Startup_onformresult_proc_Result Startup_05_onformresult_Form_Select_Person_SINGLE_USER(startup_step myStartup_step,
+                                                                               Form form,
+                                                                               NavigationButtons.Navigation.eEvent eExitResult,
+                                                                               ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
+                                                                               ref string Err)
+        {
+            switch (eExitResult)
+            {
+                case Navigation.eEvent.NEXT:
+                    if (form is Form_Select_Person_SINGLE_USER)
                     {
                         return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                     }

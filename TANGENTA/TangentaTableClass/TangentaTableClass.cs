@@ -1957,6 +1957,13 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class TermsOfPayment_Default
+    {
+        public ID ID = new ID();
+        public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
+        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+    }
+
     public class Customer_Org
     {
         public ID ID = new ID();
@@ -3457,6 +3464,9 @@ namespace TangentaTableClass
 
         /* 232 */
         public myOrganisation_Person_SingleUser m_myOrganisation_Person_SingleUser = new myOrganisation_Person_SingleUser();
+
+        /* 233 */
+        public TermsOfPayment_Default m_TermsOfPayment_Default = new TermsOfPayment_Default();
 
     }
 }

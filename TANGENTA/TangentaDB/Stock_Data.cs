@@ -57,7 +57,7 @@ namespace TangentaDB
 
         public void Set(System.Data.DataRow dria)
         {
-            Stock_ID = new ID(dria["Stock_ID"]);
+            Stock_ID = tf.set_ID(dria["Stock_ID"]);
             Stock_ImportTime = tf.set_DateTime(dria["Stock_ImportTime"]);
             Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
             dQuantity = tf.set_decimal(dria["dQuantity"]);

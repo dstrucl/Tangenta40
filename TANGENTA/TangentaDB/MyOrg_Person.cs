@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace TangentaDB
 {
     public class myOrg_Person
     {
-        public long ID = 0;
+        public ID ID = null;
         public string_v FirstName_v = null;
         public string_v LastName_v = null;
         public string_v Job_v = null;

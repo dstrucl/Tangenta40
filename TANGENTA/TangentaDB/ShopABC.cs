@@ -258,37 +258,16 @@ namespace TangentaDB
                         m_CurrentInvoice.Currency.CurrencyCode = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
                         m_CurrentInvoice.Currency.DecimalPlaces = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
 
-                        if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID == null)
-                        {
-                            m_CurrentInvoice.TInvoice.StornoDocInvoice_ID = new ID();
-                        }
-                        m_CurrentInvoice.TInvoice.StornoDocInvoice_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
+                        m_CurrentInvoice.TInvoice.StornoDocInvoice_ID=tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
 
                         m_CurrentInvoice.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
                         m_CurrentInvoice.TInvoice.bStorno_v = tf.set_bool(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"]);
 
                         m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
 
-                        if (m_CurrentInvoice.Atom_Customer_Person_ID==null)
-                        {
-                            m_CurrentInvoice.Atom_Customer_Person_ID = new DBConnectionControl40.ID();
-                        }
-                        m_CurrentInvoice.Atom_Customer_Person_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"]);
+                        m_CurrentInvoice.Atom_Customer_Person_ID=tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"]);
 
-                        if (!ID.Validate(m_CurrentInvoice.Atom_Customer_Person_ID))
-                        {
-                            m_CurrentInvoice.Atom_Customer_Person_ID = null;
-                        }
-
-                        if (m_CurrentInvoice.Atom_Customer_Org_ID==null)
-                        {
-                            m_CurrentInvoice.Atom_Customer_Org_ID = new ID();
-                        }
-                        m_CurrentInvoice.Atom_Customer_Org_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID"]);
-                        if (!ID.Validate(m_CurrentInvoice.Atom_Customer_Org_ID))
-                        {
-                            m_CurrentInvoice.Atom_Customer_Org_ID = null;
-                        }
+                        m_CurrentInvoice.Atom_Customer_Org_ID=tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID"]);
 
                         object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear"];
                         if (oNumberInFinancialYear is int)
@@ -337,11 +316,7 @@ namespace TangentaDB
                         m_CurrentInvoice.Exist = true;
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
 
-                        if (m_CurrentInvoice.Doc_ID == null)
-                        {
-                            m_CurrentInvoice.Doc_ID = new ID();
-                        }
-                        m_CurrentInvoice.Doc_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"])
+                        m_CurrentInvoice.Doc_ID= tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"])
                         ;
                         m_CurrentInvoice.EventTime = (DateTime)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["EventTime"];
 
@@ -362,37 +337,16 @@ namespace TangentaDB
                         m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDuration"]);
                         m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDurationType"]);
 
-                        if (m_CurrentInvoice.PInvoice.TermsOfPayment_ID==null)
-                        {
-                            m_CurrentInvoice.PInvoice.TermsOfPayment_ID = new ID();
-                        }
-                        m_CurrentInvoice.PInvoice.TermsOfPayment_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_ID"]);
+                        m_CurrentInvoice.PInvoice.TermsOfPayment_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_ID"]);
 
                         m_CurrentInvoice.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_Description"]);
 
                         m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear"];
 
-                        if (m_CurrentInvoice.Atom_Customer_Person_ID == null)
-                        {
-                            m_CurrentInvoice.Atom_Customer_Person_ID = new ID();
-                        }
-                        m_CurrentInvoice.Atom_Customer_Person_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID"]);
+                        m_CurrentInvoice.Atom_Customer_Person_ID= tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID"]);
 
-                        if (!DBConnectionControl40.ID.Validate(m_CurrentInvoice.Atom_Customer_Person_ID))
-                        {
-                            m_CurrentInvoice.Atom_Customer_Person_ID = null;
-                        }
+                        m_CurrentInvoice.Atom_Customer_Org_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID"]);
 
-                        if (m_CurrentInvoice.Atom_Customer_Org_ID == null)
-                        {
-                            m_CurrentInvoice.Atom_Customer_Org_ID = new ID();
-                        }
-                        m_CurrentInvoice.Atom_Customer_Org_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID"]);
-
-                        if (!DBConnectionControl40.ID.Validate(m_CurrentInvoice.Atom_Customer_Org_ID))
-                        {
-                            m_CurrentInvoice.Atom_Customer_Org_ID = null;
-                        }
 
                         object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear"];
                         if (oNumberInFinancialYear is int)

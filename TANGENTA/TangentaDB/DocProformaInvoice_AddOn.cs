@@ -444,10 +444,10 @@ namespace TangentaDB
                     m_Duration = DocProformaInvoice_AddOn.Duration.Set(dt.Rows[0]["DocDuration"],
                                                                        dt.Rows[0]["DocDurationType"]);
 
-                    m_TermsOfPayment = DocProformaInvoice_AddOn.TermsOfPayment.Set(new ID(dt.Rows[0]["TermsOfPayment_ID"]),
+                    m_TermsOfPayment = DocProformaInvoice_AddOn.TermsOfPayment.Set(tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]),
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(new ID(dt.Rows[0]["MethodOfPayment_DPI_ID"]),
+                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(tf.set_ID(dt.Rows[0]["MethodOfPayment_DPI_ID"]),
                                                                                      dt.Rows[0]["PaymentType_Identification"],
                                                                                      dt.Rows[0]["AtomOrganisationName"],
                                                                                      dt.Rows[0]["Tax_ID"],
@@ -455,7 +455,7 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["TaxPayer"],
                                                                                      dt.Rows[0]["Comment1"],
                                                                                      dt.Rows[0]["TRR"],
-                                                                                     new ID(dt.Rows[0]["Atom_BankAccount_ID"]));
+                                                                                     tf.set_ID(dt.Rows[0]["Atom_BankAccount_ID"]));
                     object oNoticeText = dt.Rows[0]["NoticeText"];
                     m_NoticeText = null;
                     if (oNoticeText is string)

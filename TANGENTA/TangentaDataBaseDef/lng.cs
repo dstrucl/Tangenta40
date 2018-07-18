@@ -518,5 +518,7 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_myOrganisation_Person_SingleUser = new ltext(new string[] { "My organisation person single user", "Edini uporabnik v moji oragniazciji" });
 
+        public static ltext lngt_t_TermsOfPayment_Default = new ltext(new string[] { "Deafult terms of payment", "Privzeti plačilni pogoji" });
+
     }
 }

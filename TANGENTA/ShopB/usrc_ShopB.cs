@@ -390,8 +390,8 @@ namespace ShopB
                             DataRow dr = dt_SelectedShopBItem.NewRow();
                             dr[DBtcn.column_SelectedShopBItemPriceDiscount] = Discount;
                             dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = ExtraDiscount;
-                            dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_Price_ShopBItem_ID;
-                            dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Price_ShopBItem_ID;
+                            dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_Price_ShopBItem_ID.V;
+                            dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Price_ShopBItem_ID.V;
                             dr[DBtcn.column_SelectedShopBItem_Count] = 1;
                             dr[DBtcn.column_SelectedShopBItemName] = ShopBItem_Name;
                             dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;

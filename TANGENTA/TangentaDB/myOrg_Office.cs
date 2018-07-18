@@ -185,6 +185,7 @@ namespace TangentaDB
                         {
                             if (dt.Rows.Count > 0)
                             {
+                                ID = Office_ID;
                                 Office_Data_ID = tf.set_ID(dt.Rows[0]["ID"]);
                                 Description_v = tf.set_string(dt.Rows[0]["Office_Data_$$Description"]);
                                 Address_v.StreetName_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_office_$$Name"]);
@@ -196,9 +197,22 @@ namespace TangentaDB
                                 Address_v.Country_ISO_3166_a3_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
                                 Address_v.Country_ISO_3166_num_v = tf.set_dshort(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
                                 myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID);
+
+                                if (Get_Atom_ElectronicDevice_List(this, ref myOrg_Office_ElectronicDevice_List))
+                                {
+                                    return myOrg_Person_List.Get(this, ref myOrg_Person_list);
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return true;
                             }
 
-                            return Get_Atom_ElectronicDevice_List(this, ref myOrg_Office_ElectronicDevice_List);
+                            
                         }
                         else
                         {
@@ -218,6 +232,29 @@ namespace TangentaDB
                     LogFile.Error.Show("ERROR:myOrg_Office:Get:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Find_myOrg_Person_SingleUser(ID m_my_Org_Person_ID)
+        {
+            if (ID.Validate(m_my_Org_Person_ID))
+            {
+                foreach (myOrg_Person mop in myOrg_Person_list)
+                {
+                    if (ID.Validate(mop.ID))
+                    {
+                        if (m_my_Org_Person_ID.Equals(mop.ID))
+                        {
+                            this.m_myOrg_Person = mop;
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
             else
             {
@@ -263,5 +300,71 @@ namespace TangentaDB
             }
         }
 
+        internal bool Get_m_myOrg_Person_SingleUser()
+        {
+            string Err = null;
+            ID xAtom_ElectronicDevice_ID = null;
+            if (f_Atom_ElectronicDevice.Get(this.ID, ref xAtom_ElectronicDevice_ID))
+            {
+                if (ID.Validate(xAtom_ElectronicDevice_ID))
+                {
+                    string sql = @"select myOrganisation_Person_ID from myOrganisation_Person_SingleUser where Atom_ElectronicDevice_ID = " + xAtom_ElectronicDevice_ID.ToString();
+                    DataTable dt = new DataTable();
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                    {
+                        if (dt.Rows.Count == 0)
+                        {
+                            return false;
+                        }
+                        else if (dt.Rows.Count == 1)
+                        {
+                            ID myOrganisation_Person_ID = tf.set_ID(dt.Rows[0]["myOrganisation_Person_ID"]);
+                            if (ID.Validate(myOrganisation_Person_ID))
+                            {
+                                foreach (myOrg_Person mop in myOrg_Person_list)
+                                {
+                                    if (ID.Validate(mop.ID))
+                                    {
+                                        if (myOrganisation_Person_ID.Equals(mop.ID))
+                                        {
+                                            this.m_myOrg_Person = mop;
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                            return false;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:More than one row in myOrganisation_Person_SingleUser table: Rows.Count =" + dt.Rows.Count.ToString());
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:sql =" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:xAtom_ElectronicDevice_ID is not valid!");
+                    return false;
+                }
+            }
+            else
+            {
+                if (this.Name_v != null)
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser: Can not get electronic device for this office! Office name = " + this.Name_v.v);
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser: Can not get electronic device for this office! Office name = null");
+                }
+                return false;
+            }
+        }
     }
 }

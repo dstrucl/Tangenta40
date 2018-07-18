@@ -140,8 +140,6 @@ namespace Tangenta
 
 
 
-        public ID Last_myOrganisation_Person_id = null;
-
         public emode m_mode = emode.view_eDocumentType;
 
         public DBTablesAndColumnNames DBtcn = null;
@@ -153,16 +151,16 @@ namespace Tangenta
 
         public ID myOrganisation_Person_id
         {
-            get {
-                object oSelvalue = this.cmb_select_my_Organisation_Person.SelectedValue;
-                if (oSelvalue is ID)
+            get
+            {
+                if (myOrg.m_myOrg_Office!=null)
                 {
-                    return (ID)oSelvalue;
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                    {
+                        return myOrg.m_myOrg_Office.m_myOrg_Person.ID;
+                    }
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
         }
 
@@ -813,7 +811,6 @@ namespace Tangenta
         public usrc_DocumentEditor()
         {
             InitializeComponent();
-            Last_myOrganisation_Person_id = new ID(null);
             usrc_AddOn1.Init(this);
             m_mode = emode.view_eDocumentType;
             lng.s_Show_Shops.Text(btn_Show_Shops);
@@ -965,6 +962,12 @@ namespace Tangenta
             return true;
         }
 
+        
+        internal bool Startup_05_ShowForm_Form_Select_Person_SINGLE_USER(ID x_Office_ID, bool bAllowNew, NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_Select_Person_SINGLE_USER(x_Office_ID, xnav), typeof(Form_Select_Person_SINGLE_USER).ToString());
+            return true;
+        }
 
         internal bool Startup_05_ShowForm_EditMyOrganisation_Data(bool bAllowNew, NavigationButtons.Navigation xnav, PostAddress_v myorg_PostAddress_v)
         {
@@ -987,10 +990,15 @@ namespace Tangenta
         {
             if (Program.OperationMode.MultiUser)
             {
-                cmb_select_my_Organisation_Person.Visible = false;
-                btn_edit_MyOrganisation_Person.Visible = false;
+                txt_Issuer.Visible = false;
                 lbl_Issuer.Visible = false;
             }
+            else 
+            {
+                txt_Issuer.Visible = true;
+                lbl_Issuer.Visible = true;
+            }
+
             if (Program.OperationMode.MultiCurrency)
             {
                 usrc_Currency1.Enabled = true;
@@ -1609,6 +1617,7 @@ namespace Tangenta
                                                 NO_REAL_ESTATE,
                                                 NO_ELECTRONIC_DEVICE_NAME,
                                                 NO_MY_ORG_OFFICE_PERSON,
+                                                NO_MY_ORG_OFFICE_PERSON_SINGLE_USER,
                                                 OK,
                                                 ERROR
         }
@@ -1690,8 +1699,15 @@ namespace Tangenta
 
                 if (myOrg.myOrg_Office_list.Count > 0)
                 {
-                    myOrg.Find_Atom_ElectronicDevice();
-
+                    if (myOrg.Find_Atom_ElectronicDevice())
+                    {
+                        if (!Program.OperationMode.MultiUser)
+                        {
+                            if (!myOrg.Get_m_myOrg_Office_m_myOrg_Person_SingleUser())
+                            {
+                            }
+                        }
+                    }
                     if (myOrg.m_myOrg_Office==null)
                     {
                         if (!Program.bFirstTimeInstallation)
@@ -1756,12 +1772,8 @@ namespace Tangenta
                 {
                     if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
                     {
-                        if (!Program.bFirstTimeInstallation)
-                        {
-                            MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
-                        }
                         return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
-                    }
+                    }                 
                 }
 
                 if (myOrg.m_myOrg_Office !=null)
@@ -1772,6 +1784,17 @@ namespace Tangenta
                         MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
                         
                         return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
+                    }
+                }
+
+                if (myOrg.m_myOrg_Office != null)
+                {
+                    if (!Program.OperationMode.MultiUser)
+                    {
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                        {
+                            return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER;
+                        }
                     }
                 }
 
@@ -2032,10 +2055,24 @@ namespace Tangenta
                                                               );
                             Employees.Add(employee);
                         }
-                        this.cmb_select_my_Organisation_Person.DataSource = Employees;
-                        this.cmb_select_my_Organisation_Person.DisplayMember = "Person";
-                        this.cmb_select_my_Organisation_Person.ValueMember = "myOrganisation_Person_ID";
-                        this.cmb_select_my_Organisation_Person.SelectedItem = Last_myOrganisation_Person_id;
+
+                        string suser = "??";
+                        if (myOrg.m_myOrg_Office!=null)
+                        {
+                            if (myOrg.m_myOrg_Office.m_myOrg_Person!=null)
+                            {
+                                if (myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v!=null)
+                                {
+                                    suser = myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v.v;
+                                }
+                                if (myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v != null)
+                                {
+                                    suser += " " +myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v.v;
+                                }
+
+                            }
+                        }
+                        this.txt_Issuer.Text = suser;
                     }
                 }
                 else
@@ -2075,7 +2112,7 @@ namespace Tangenta
         {
             ID DocInvoice_ID = null;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
             {
                 if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))
                 {
@@ -2092,18 +2129,7 @@ namespace Tangenta
             }
         }
 
-        private void btn_edit_MyOrganisation_Person_Click(object sender, EventArgs e)
-        {
-            EditMyOrganisation_Person_Data(0,nav);
-            myOrg.Get();
-            if (ID.Validate(Last_myOrganisation_Person_id))
-            {
-                ID Atom_myOrganisation_Person_ID = null;
-                string_v office_name = null;
-               // string Err = null;
-                f_Atom_myOrganisation_Person.Get(Last_myOrganisation_Person_id, ref Atom_myOrganisation_Person_ID, ref office_name);
-            }
-        }
+     
 
         public void GetPriceSum()
         {
@@ -2418,14 +2444,6 @@ namespace Tangenta
             {
                 if (m_ShopABC.m_CurrentInvoice != null)
                 {
-                    long myOrganisation_Person_id = -1;
-                    object o_myOrganisation_Person_id = cmb_select_my_Organisation_Person.SelectedItem;
-                    if (o_myOrganisation_Person_id is Tangenta.Employee)
-                    {
-                        Tangenta.Employee employe = (Tangenta.Employee)o_myOrganisation_Person_id;
-                        myOrganisation_Person_id = employe.myOrganisation_Person_ID;
-                    }
-
                     if (m_ShopABC.m_CurrentInvoice.Exist)
                     {
                         if (m_ShopABC.m_CurrentInvoice.bDraft)

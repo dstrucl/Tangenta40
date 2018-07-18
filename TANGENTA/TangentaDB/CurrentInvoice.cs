@@ -522,7 +522,7 @@ namespace TangentaDB
                                         ID Atom_Price_Item_ID = null;
                                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Price_Item_ID, ref Err, "Atom_Price_Item"))
                                         {
-                                            if (appisd.Atom_Price_Item_ID!=null)
+                                            if (appisd.Atom_Price_Item_ID==null)
                                             {
                                                 appisd.Atom_Price_Item_ID = new ID();
                                             }
