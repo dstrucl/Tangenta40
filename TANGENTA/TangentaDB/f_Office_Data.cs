@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -131,9 +132,46 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:f_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+            }
+        }
+
+        public static bool Get_Office_ID(ID xOfficeData_ID, ref ID xOffice_ID)
+        {
+            if (ID.Validate(xOfficeData_ID))
+            {
+                string sql = @"select 
+                            Office_ID
+                            from Office_Data od
+                            where od.ID = " + xOfficeData_ID.ToString();
+                string Err = null;
+                DataTable dt = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        xOffice_ID = tf.set_ID(dt.Rows[0]["Office_ID"]);
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:f_Office_Data:Get_Office_ID:sql=" + sql + "\r\nNo Office_ID found !");
+                        return false;
+
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Office_Data:Get_Office_ID:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Office_Data:Get_Office_ID:xOffice_Data_ID is not valid!");
+                return false;
             }
         }
 

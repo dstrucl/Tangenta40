@@ -204,11 +204,11 @@ namespace TangentaDB
         {
             foreach (myOrg_Office moff in myOrg.myOrg_Office_list)
             {
-                if (ID.Validate(moff.Office_Data_ID))
+                if (ID.Validate(moff.ID))
                 {
                     if (ID.Validate(m_Office_ID))
                     {
-                        if (moff.Office_Data_ID.Equals(m_Office_ID))
+                        if (moff.ID.Equals(m_Office_ID))
                         {
                             return moff;
                         }

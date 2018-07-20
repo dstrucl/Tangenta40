@@ -171,7 +171,12 @@ namespace Tangenta
                     {
                         if (myOrg.Get())
                         {
-                            myOrg.SetOffice(usrc_EditTable1.Identity);
+
+                            ID xOffice_ID = null;
+                            if (f_Office_Data.Get_Office_ID(usrc_EditTable1.Identity, ref xOffice_ID))
+                            {
+                                myOrg.SetOffice(xOffice_ID);
+                            }
                         }
                     }
                     else

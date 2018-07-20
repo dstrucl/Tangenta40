@@ -1726,11 +1726,12 @@ namespace Tangenta
                             Program.m_CountryHasFVI = false;
                         }
                         string Err = null;
+
                         if (TangentaSampleDB.TangentaSampleDB.Is_Sample_DB(ref Err))
                         {
                             if (Program.m_CountryHasFVI)
                             {
-                                if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
+                                if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
 
                                 }
@@ -1743,11 +1744,15 @@ namespace Tangenta
                             {
                                 if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
-                                    if (!Program.bFirstTimeInstallation)
+                                    myOrg.SetOffice(myOrg.m_myOrg_Office.ID);
+                                    if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                     {
-                                        MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                        if (!Program.bFirstTimeInstallation)
+                                        {
+                                            MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                        }
+                                        return eGetOrganisationDataResult.NO_REAL_ESTATE;
                                     }
-                                    return eGetOrganisationDataResult.NO_REAL_ESTATE;
                                 }
                             }
                         }
