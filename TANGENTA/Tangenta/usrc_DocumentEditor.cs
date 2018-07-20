@@ -899,7 +899,6 @@ namespace Tangenta
         {
             if (myOrg.myOrg_Office_list.Count > 0)
             {
-                //TRICKY DOCHANGE
                 xnav.ShowForm(new Form_myOrg_Office_Data(myOrg.Office_ID, xnav),typeof(Form_myOrg_Office_Data).ToString());
             }
             else

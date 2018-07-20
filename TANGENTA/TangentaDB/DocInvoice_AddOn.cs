@@ -109,16 +109,12 @@ namespace TangentaDB
                 set { m_Description = value; }
             }
 
-            internal static TermsOfPayment Set(object oID, object oDescription)
+            internal static TermsOfPayment Set(ID xID, object oDescription)
             {
-                if ((oID is long) && (oDescription is string))
+                if ((ID.Validate(xID)) && (oDescription is string))
                 {
                     TermsOfPayment xTermsOfPayment = new TermsOfPayment();
-                    if (xTermsOfPayment.ID==null)
-                    {
-                        xTermsOfPayment.ID = new ID();
-                    }
-                    xTermsOfPayment.ID.Set(oID);
+                    xTermsOfPayment.ID= xID;
                     xTermsOfPayment.Description = (string)oDescription;
                     return xTermsOfPayment;
                 }
@@ -143,7 +139,7 @@ namespace TangentaDB
                 return false;
             }
 
-            public bool SetDefault()
+            public bool GetDefault()
             {
                 string_v description_v = null;
                 ID xIDdefault = null;
@@ -471,10 +467,10 @@ namespace TangentaDB
                 {
                     m_IssueDate = DocInvoice_AddOn.IssueDate.Set(dt.Rows[0]["IssueDate"]);
 
-                    m_TermsOfPayment = DocInvoice_AddOn.TermsOfPayment.Set(dt.Rows[0]["TermsOfPayment_ID"],
+                    m_TermsOfPayment = DocInvoice_AddOn.TermsOfPayment.Set(tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]),
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment_DI = DocInvoice_AddOn.MethodOfPayment_DI.Set(new ID(dt.Rows[0]["MethodOfPayment_DI_ID"]),
+                    m_MethodOfPayment_DI = DocInvoice_AddOn.MethodOfPayment_DI.Set(tf.set_ID(dt.Rows[0]["MethodOfPayment_DI_ID"]),
                                                                                      dt.Rows[0]["PaymentType_Identification"],
                                                                                      dt.Rows[0]["Name"],
                                                                                      dt.Rows[0]["Tax_ID"],
@@ -482,7 +478,7 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["TaxPayer"],
                                                                                      dt.Rows[0]["Comment1"],
                                                                                      dt.Rows[0]["TRR"],
-                                                                                     new ID(dt.Rows[0]["Atom_BankAccount_ID"]));
+                                                                                     tf.set_ID(dt.Rows[0]["Atom_BankAccount_ID"]));
                     m_PaymentDeadline = DocInvoice_AddOn.PaymentDeadline.Set(dt.Rows[0]["PaymentDeadline"]);
                     object oNoticeText = dt.Rows[0]["NoticeText"];
                     m_NoticeText = null;

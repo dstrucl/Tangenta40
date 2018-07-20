@@ -398,7 +398,24 @@ namespace TangentaDB
                 if (!ID.Validate(Atom_myOrganisation_Person_ID))
                 {
                     string_v office_name = null;
-                    if (f_Atom_myOrganisation_Person.Get(new ID(1), ref Atom_myOrganisation_Person_ID, ref office_name))
+                    if (myOrg.m_myOrg_Office==null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:GlobalData:GetWorkPeriodOld:(myOrg.m_myOrg_Office==null !");
+                        return false;
+                    }
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:GlobalData:GetWorkPeriodOld:(myOrg.m_myOrg_Office.m_myOrg_Person==null !");
+                        return false;
+                    }
+
+                    if (!ID.Validate(myOrg.m_myOrg_Office.m_myOrg_Person.ID))
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:GlobalData:GetWorkPeriodOld:myOrg.m_myOrg_Office.m_myOrg_Person.ID is not valid !");
+                        return false;
+                    }
+
+                    if (f_Atom_myOrganisation_Person.Get(myOrg.m_myOrg_Office.m_myOrg_Person.ID, ref Atom_myOrganisation_Person_ID, ref office_name))
                     {
                         if (f_WorkingPlace.Get(office_name.v, "Tangenta 1", ref WorkingPlace_ID))
                         {
@@ -549,19 +566,25 @@ namespace TangentaDB
         {
             if (termsOfPayment_definitions.Read())
             {
-                if (ID.Validate(termsOfPayment_definitions.Advanced_100PercentPayment_ID))
-                {
-                    return true;
-                }
-                else
-                {
-                    return termsOfPayment_definitions.InsertDefault();
-                }
+                return true;
             }
             return false;
         }
 
-        private static bool Doc_type_definitions_Read()
+        public static bool Get_ElectronicDevice_depended_definitions()
+        {
+            if (ID.Validate(termsOfPayment_definitions.Advanced_100PercentPayment_ID))
+            {
+                return true;
+            }
+            else
+            {
+                return termsOfPayment_definitions.InsertDefault();
+            }
+        }
+
+
+    private static bool Doc_type_definitions_Read()
         {
             if (GlobalData.doc_type_definitions.Read())
             {

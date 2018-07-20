@@ -332,8 +332,7 @@ namespace ShopC
                 cmb_Currency.ValueMember = "ID";
                 if (ID.Validate(TangentaDB.myOrg.Default_Currency_ID))
                 {
-                    //tricky DOCHANGE!!
-                    cmb_Currency.SelectedIndex = (int)((long)TangentaDB.myOrg.Default_Currency_ID.V - 1);
+                    cmb_Currency.SelectedIndex = 0;
                 }
                 if (toolTip_cmb_PurchasePrice == null)
                 {

@@ -55,22 +55,31 @@ namespace Tangenta
             switch (eres)
             {
                 case usrc_DocumentEditor.eGetOrganisationDataResult.OK:
-                    if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
-                    {
 
-                        if (FVICheckDefined())
+                    if (GlobalData.Get_ElectronicDevice_depended_definitions())
+                    {
+                        if (TangentaDB.myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.SLOVENIA_COUNTRY_NUM)
                         {
-                            return Startup_check_proc_Result.CHECK_OK;
+
+                            if (FVICheckDefined())
+                            {
+                                return Startup_check_proc_Result.CHECK_OK;
+                            }
+                            else
+                            {
+                                startup_ShowForm_proc = Startup_05_Show_Form_FVI_check;
+                                return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                            }
                         }
                         else
                         {
-                            startup_ShowForm_proc = Startup_05_Show_Form_FVI_check;
-                            return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+                            return Startup_check_proc_Result.CHECK_OK;
                         }
                     }
                     else
                     {
-                        return Startup_check_proc_Result.CHECK_OK;
+                        LogFile.Error.Show("ERROR:Tangenta:Booting_05_Check_myorganisation_Data:Startup_05_Check_myOrganisation_Data:GlobalData.Get_ElectronicDevice_depended_definitions():failed!");
+                        return Startup_check_proc_Result.CHECK_ERROR;
                     }
                     
 
@@ -703,8 +712,8 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is Form_myOrg_Office_Data_FVI_SLO_RealEstateBP)
                     {
-                        startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
-                        return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
+                        //startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
+                        return Startup_onformresult_proc_Result.DO_CHECK_PROC_AGAIN;
                     }
                     else
                     {

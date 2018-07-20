@@ -2662,7 +2662,7 @@ namespace TangentaDataBaseDef
             t_TermsOfPayment_Default = new SQLTable((Object)new TermsOfPayment_Default(), "topd", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_TermsOfPayment_Default);
             t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.m_TermsOfPayment, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Terms of payment ID", "Plačilni pogoji ID"));
-            t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.m_Atom_ElectronicDevice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
+            t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_TermsOfPayment_Default);
 
         }

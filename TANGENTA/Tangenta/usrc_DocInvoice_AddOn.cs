@@ -125,7 +125,7 @@ namespace Tangenta
                 {
                     // set default value !
                     m_AddOnDI.m_TermsOfPayment = new DocInvoice_AddOn.TermsOfPayment();
-                    m_AddOnDI.m_TermsOfPayment.SetDefault();
+                    m_AddOnDI.m_TermsOfPayment.GetDefault();
                     if (m_AddOnDI.m_TermsOfPayment.Description.Length > 0)
                     {
                         txt_PaymantConditionsDescription.Text = m_AddOnDI.m_TermsOfPayment.Description;

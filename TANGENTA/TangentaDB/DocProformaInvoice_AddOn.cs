@@ -140,13 +140,27 @@ namespace TangentaDB
             public bool SetDefault()
             {
                 string_v description_v = null;
-                if (f_TermsOfPayment.Get(new ID(1), ref description_v))
+                ID default_TermsOfPayment_ID = null;
+                if (f_TermsOfPayment.GetDefault(ref default_TermsOfPayment_ID, ref description_v))
                 {
-                    if (description_v != null)
+                    if (ID.Validate(default_TermsOfPayment_ID))
                     {
-                        ID = new ID(1);
-                        Description = description_v.v;
-                        return true;
+                        ID = default_TermsOfPayment_ID;
+                        if (description_v != null)
+                        {
+                            Description = description_v.v;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:DocProformaInvoice_AddOn:SetDefault:TermsOfPayment description is null!");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:DocProformaInvoice_AddOn:SetDefault:default_TermsOfPayment_ID is not valid!");
+                        return false;
                     }
                 }
                 return false;

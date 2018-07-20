@@ -1384,11 +1384,26 @@ namespace Tangenta
         {
             Navigation xnav = new Navigation(null);
             xnav.m_eButtons = Navigation.eButtons.OkCancel;
-            // TRICKY DOCHANGE
-            Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(new ID(1), xnav);
-            frm_myOrgPerEdit.TopMost = parentform.TopMost;
-            frm_myOrgPerEdit.Show(parentform);
-            return true;
+            if (myOrg.m_myOrg_Office != null)
+            {
+                if (ID.Validate(myOrg.m_myOrg_Office.m_myOrg_Person.ID))
+                {
+                    Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(myOrg.m_myOrg_Office.m_myOrg_Person.ID, xnav);
+                    frm_myOrgPerEdit.TopMost = parentform.TopMost;
+                    frm_myOrgPerEdit.Show(parentform);
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:myOrg.m_myOrg_Office.m_myOrg_Person.ID is not valid!");
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:(myOrg.m_myOrg_Office == null!");
+                return false;
+            }
         }
 
         public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
