@@ -424,12 +424,12 @@ namespace LoginControl
         }
 
 
-        public bool Login(Navigation xnav,delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        public bool Login(Navigation xnav,delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,UserControl xusrc_DocumentMan)
         {
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
-                    return awp.Login(xnav,call_Get_Atom_WorkPeriod);
+                    return awp.Login(xnav,call_Get_Atom_WorkPeriod, xusrc_DocumentMan);
                 case eDataTableCreationMode.STD:
                     return std.STD_Login();
             }

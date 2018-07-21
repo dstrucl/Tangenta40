@@ -331,12 +331,6 @@
     <Compile Include="Form_Logo_Edit.Designer.cs">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_StartupWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StartupWindow.designer.cs">
-      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_TermsOfPayment_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -710,9 +704,6 @@
     <EmbeddedResource Include="Form_Logo_Edit.resx">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_StartupWindow.resx">
-      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_TermsOfPayment_Edit.resx">
       <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
     </EmbeddedResource>
@@ -867,7 +858,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="StartupWindowThread.cs" />
     <Compile Include="usrc_DocumentEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

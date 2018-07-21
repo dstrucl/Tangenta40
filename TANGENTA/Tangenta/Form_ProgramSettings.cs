@@ -43,6 +43,19 @@ namespace Tangenta
             lng.s_FullScreen.Text(chk_FullScreen);
             lng.s_chk_AllowToEditText.Text(chk_AllowToEditText);
             lng.s_grp_ColorSettings.Text(grp_ColorSettings);
+            lng.s_chk_MultipleUserLogin.Text(chk_MultipleUserLogin);
+            if (Program.OperationMode.MultiUser)
+            {
+                chk_MultipleUserLogin.Enabled = true;
+                chk_MultipleUserLogin.Checked = Properties.Settings.Default.Login_MultipleUsers;
+            }
+            else
+            {
+                chk_MultipleUserLogin.Enabled = false;
+                chk_MultipleUserLogin.Checked = false;
+            }
+
+
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sTextArr;
@@ -132,6 +145,13 @@ namespace Tangenta
         {
             if (usrc_ShopsInuse1.do_OK())
             {
+
+                if (Program.OperationMode.MultiUser)
+                {
+                    Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
+                }
+
+
                 if (newLanguage != default_language_ID)
                 {
                     bChanged = true;

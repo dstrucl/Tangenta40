@@ -205,6 +205,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
+
                     LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BuildingNumber is not defined!");
                     return null;
                 }
@@ -233,7 +234,8 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BuildingSectionNumber is not defined!");
+
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BuildingSectionNumber is not defined!");
                     return null;
                 }
             }
@@ -260,7 +262,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_Community is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_Community is not defined!");
                     return null;
                 }
             }
@@ -287,7 +289,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_CadastralNumber is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_CadastralNumber is not defined!");
                     return null;
                 }
             }
@@ -315,7 +317,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_ValidityDate is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_ValidityDate is not defined!");
                     return DateTime.MinValue;
                 }
             }
@@ -341,7 +343,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_ClosingTag is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_ClosingTag is not defined!");
                     return null;
                 }
             }
@@ -368,7 +370,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_SoftwareSupplierTaxID is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_SoftwareSupplierTaxID is not defined!");
                     return null;
                 }
             }
@@ -395,7 +397,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_PremiseType is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_PremiseType is not defined!");
                     return null;
                 }
             }
@@ -417,7 +419,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
                          return myOrg.Tax_ID_v.v;
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property string FursD_MyOrgTaxID is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property string FursD_MyOrgTaxID is not defined!");
                     return null;
                 }
             }
@@ -441,7 +443,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             return myOrg.m_myOrg_Office.ShortName_v.v;
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BussinesPremiseID is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BussinesPremiseID is not defined!");
                     return null;
                 }
             }
@@ -481,7 +483,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                         }
                     }
-                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_InvoiceAuthorTaxID is not defined!");
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_InvoiceAuthorTaxID is not defined!");
                     return null;
 
                 }

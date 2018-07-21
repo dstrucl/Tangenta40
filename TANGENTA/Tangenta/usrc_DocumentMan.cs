@@ -1406,6 +1406,58 @@ namespace Tangenta
             }
         }
 
+
+        public bool ShowMultipleUserLoginControl(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        {
+            if (Program.Login_MultipleUsers)
+            {
+                bool bCancel = false;
+                this.loginControl1.Init(LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                                this.getWorkPeriod,
+                                                call_Edit_myOrganisationPerson,
+                                                null,
+                                                LanguageControl.DynSettings.LanguageID,
+                                                ref bCancel
+                                                );
+
+                usrc_DocumentMan xusrc_DocumentMan = null;
+                if (Program.Login_MultipleUsers)
+                {
+                    xusrc_DocumentMan = this;
+                }
+
+                if (this.loginControl1.Login(xnav, getWorkPeriod, xusrc_DocumentMan))
+                {
+                    //myStartup.eNextStep++;
+                    myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
+                    if (Program.Login_MultipleUsers)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             if (Program.OperationMode.MultiUser)
@@ -1420,14 +1472,22 @@ namespace Tangenta
                                                 ref bCancel
                                                 );
 
-                if (this.loginControl1.Login(xnav, getWorkPeriod))
+        
+                if (this.loginControl1.Login(xnav, getWorkPeriod, null))
                 {
                     //myStartup.eNextStep++;
                     myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
-                    if (myOrg.m_myOrg_Office.m_myOrg_Person==null)
+                    if (Program.Login_MultipleUsers)
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
-                        return false;
+                        return true;
+                    }
+                    else
+                    {
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                            return false;
+                        }
                     }
                     return true;
                 }

@@ -2640,6 +2640,7 @@ namespace TangentaTableClass
         public PasswordNeverExpires PasswordNeverExpires = new PasswordNeverExpires();
         public Maximum_password_age_in_days Maximum_password_age_in_days = new Maximum_password_age_in_days();
         public NotActiveAfterPasswordExpires NotActiveAfterPasswordExpires = new NotActiveAfterPasswordExpires();
+        public LoginUsers_ParentGroup1 m_LoginUsers_ParentGroup1 = new LoginUsers_ParentGroup1();
     }
 
     public class LoginTag_TYPE
@@ -2793,6 +2794,25 @@ namespace TangentaTableClass
         public WorkArea m_WorkArea = new WorkArea();
     }
 
+    public class LoginUsers_ParentGroup3
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class LoginUsers_ParentGroup2
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public LoginUsers_ParentGroup3 m_LoginUsers_ParentGroup3 = new LoginUsers_ParentGroup3();
+    }
+
+    public class LoginUsers_ParentGroup1
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public LoginUsers_ParentGroup2 m_LoginUsers_ParentGroup2 = new LoginUsers_ParentGroup2();
+    }
 
     public class SQL_Database_Tables_Definition
     {
@@ -3479,6 +3499,15 @@ namespace TangentaTableClass
 
         /* 234 */
         public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+
+        /* 235 */
+        public LoginUsers_ParentGroup3 m_LoginUsers_ParentGroup3 = new LoginUsers_ParentGroup3();
+
+        /* 236 */
+        public LoginUsers_ParentGroup2 m_LoginUsers_ParentGroup2 = new LoginUsers_ParentGroup2();
+
+        /* 237 */
+        public LoginUsers_ParentGroup1 m_LoginUsers_ParentGroup1 = new LoginUsers_ParentGroup1();
 
     }
 }

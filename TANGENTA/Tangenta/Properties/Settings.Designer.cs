@@ -730,5 +730,17 @@ namespace Tangenta.Properties {
                 this["ElectronicDevice_ID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Login_MultipleUsers {
+            get {
+                return ((bool)(this["Login_MultipleUsers"]));
+            }
+            set {
+                this["Login_MultipleUsers"] = value;
+            }
+        }
     }
 }

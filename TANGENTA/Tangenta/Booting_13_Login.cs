@@ -38,14 +38,27 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            
-            if (frm.m_usrc_Main.GetWorkPeriod(m_startup,null,m_startup.nav,ref Err))
+            if (Program.Login_MultipleUsers)
             {
-                return Startup_check_proc_Result.CHECK_OK;
+                if (frm.m_usrc_Main.ShowMultipleUserLoginControl(m_startup, null, m_startup.nav, ref Err))
+                {
+                    return Startup_check_proc_Result.CHECK_OK;
+                }
+                else
+                {
+                    return Startup_check_proc_Result.CHECK_ERROR;
+                }
             }
             else
             {
-                return Startup_check_proc_Result.CHECK_ERROR;
+                if (frm.m_usrc_Main.GetWorkPeriod(m_startup, null, m_startup.nav, ref Err))
+                {
+                    return Startup_check_proc_Result.CHECK_OK;
+                }
+                else
+                {
+                    return Startup_check_proc_Result.CHECK_ERROR;
+                }
             }
         }
 

@@ -43,6 +43,7 @@
             this.usrc_SelectColorSheme1 = new ColorSettings.usrc_SelectColorSheme();
             this.lbl_GitSourceVersion = new System.Windows.Forms.Label();
             this.txt_GitSourceVersion = new System.Windows.Forms.TextBox();
+            this.chk_MultipleUserLogin = new System.Windows.Forms.CheckBox();
             this.grp_ColorSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -206,11 +207,22 @@
             this.txt_GitSourceVersion.Size = new System.Drawing.Size(371, 20);
             this.txt_GitSourceVersion.TabIndex = 44;
             // 
+            // chk_MultipleUserLogin
+            // 
+            this.chk_MultipleUserLogin.AutoSize = true;
+            this.chk_MultipleUserLogin.Location = new System.Drawing.Point(13, 37);
+            this.chk_MultipleUserLogin.Name = "chk_MultipleUserLogin";
+            this.chk_MultipleUserLogin.Size = new System.Drawing.Size(110, 17);
+            this.chk_MultipleUserLogin.TabIndex = 46;
+            this.chk_MultipleUserLogin.Text = "Multiple user login";
+            this.chk_MultipleUserLogin.UseVisualStyleBackColor = true;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(797, 662);
+            this.Controls.Add(this.chk_MultipleUserLogin);
             this.Controls.Add(this.lbl_GitSourceVersion);
             this.Controls.Add(this.txt_GitSourceVersion);
             this.Controls.Add(this.grp_ColorSettings);
@@ -249,5 +261,6 @@
         private ColorSettings.usrc_SelectColorSheme usrc_SelectColorSheme1;
         private System.Windows.Forms.Label lbl_GitSourceVersion;
         private System.Windows.Forms.TextBox txt_GitSourceVersion;
+        private System.Windows.Forms.CheckBox chk_MultipleUserLogin;
     }
 }

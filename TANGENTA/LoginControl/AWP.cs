@@ -283,7 +283,7 @@ namespace LoginControl
 
 
         public bool Login(NavigationButtons.Navigation xnav,
-                      LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+                      LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod, UserControl xusrc_DocumentMan)
         {
             string Err = null;
             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null,null))
@@ -292,15 +292,33 @@ namespace LoginControl
                 switch (AWP_dtLogin_Vaild())
                 {
                     case eAWP_dtLogin_Vaild_result.OK:
-                        bool bres = CallLoginForm(call_Get_Atom_WorkPeriod);
-                        if (bres)
+                        bool bres = false;
+
+                        if (xusrc_DocumentMan!=null) //MultipleUsers can login at the same time
                         {
-                            if (IsUserManager)
-                            {
-                                lctrl.btn_UserManager.Visible = true;
-                            }
-                            lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                            bres = SetMultipleLoginUserControl(AWP_dtLoginView,call_Get_Atom_WorkPeriod, parent_form, xusrc_DocumentMan);
+                            //if (bres)
+                            //{
+                            //    if (IsUserManager)
+                            //    {
+                            //        lctrl.btn_UserManager.Visible = true;
+                            //    }
+                            //    lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                            //}
                         }
+                        else
+                        {
+                            bres = CallLoginForm(call_Get_Atom_WorkPeriod);
+                            if (bres)
+                            {
+                                if (IsUserManager)
+                                {
+                                    lctrl.btn_UserManager.Visible = true;
+                                }
+                                lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                            }
+                        }
+
                         return bres;
 
                     case eAWP_dtLogin_Vaild_result.NO_USERS:
@@ -411,6 +429,33 @@ namespace LoginControl
             {
                 return false;
             }
+        }
+
+        private usrc_MultipleUsers FindMutipleUsersControl(Form xparent_form)
+        {
+            foreach (Control c in xparent_form.Controls)
+            {
+                if (c is usrc_MultipleUsers)
+                {
+                    return (usrc_MultipleUsers)c;
+                }
+            }
+            return null;
+        }
+
+        private bool SetMultipleLoginUserControl(DataTable dtAWP_dtLoginView, LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod, Form parent_form, UserControl xusrc_DocumentMan)
+        {
+            xusrc_DocumentMan.Visible = false;
+            usrc_MultipleUsers xusrc_MultipleUsers = FindMutipleUsersControl(parent_form);
+            if (xusrc_MultipleUsers == null)
+            {
+                xusrc_MultipleUsers = new usrc_MultipleUsers();
+                xusrc_MultipleUsers.Dock = DockStyle.Fill;
+                parent_form.Controls.Add(xusrc_MultipleUsers);
+            }
+            xusrc_MultipleUsers.Visible = true;
+            xusrc_MultipleUsers.Init();
+            return true;
         }
 
 

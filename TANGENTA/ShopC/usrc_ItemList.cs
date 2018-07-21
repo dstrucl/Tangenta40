@@ -342,13 +342,5 @@ namespace ShopC
             }
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            pnl_Items.AutoScroll = true;
-            pnl_Items.AutoSize = false;
-            pnl_Items.VerticalScroll.Visible = true;
-
-        }
     }
 }

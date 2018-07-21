@@ -700,6 +700,16 @@ namespace TangentaDataBaseDef
         /* 234 */
         public SQLTable t_Atom_ElectronicDevice = null;
 
+        /* 235 */
+        public SQLTable t_LoginUsers_ParentGroup3 = null;
+
+        /* 236 */
+        public SQLTable t_LoginUsers_ParentGroup2 = null;
+
+        /* 237 */
+        public SQLTable t_LoginUsers_ParentGroup1 = null;
+
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -2676,6 +2686,26 @@ namespace TangentaDataBaseDef
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office archive ID", "Poslovna enota arhiv ID"));
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
             m_DBTables.items.Add(t_Atom_ElectronicDevice);
+
+             /* 235 */
+             t_LoginUsers_ParentGroup3 = new SQLTable((Object)new LoginUsers_ParentGroup3(), "lupg3", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers_ParentGroup3); ;
+             t_LoginUsers_ParentGroup3.AddColumn((Object)mt.m_LoginUsers_ParentGroup3.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+             t_LoginUsers_ParentGroup3.AddColumn((Object)mt.m_LoginUsers_ParentGroup3.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 3 Name", "Ime skupine 3"));
+             m_DBTables.items.Add(t_LoginUsers_ParentGroup3);
+
+            /* 236 */
+            t_LoginUsers_ParentGroup2 = new SQLTable((Object)new LoginUsers_ParentGroup2(), "lupg2", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers_ParentGroup2); ;
+            t_LoginUsers_ParentGroup2.AddColumn((Object)mt.m_LoginUsers_ParentGroup2.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_LoginUsers_ParentGroup2.AddColumn((Object)mt.m_LoginUsers_ParentGroup2.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 2 Name", "Ime skupine 2"));
+            t_LoginUsers_ParentGroup2.AddColumn((Object)mt.m_LoginUsers_ParentGroup2.m_LoginUsers_ParentGroup3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 2 Name", "Ime skupine 2"));
+            m_DBTables.items.Add(t_LoginUsers_ParentGroup2);
+
+            /* 237 */
+            t_LoginUsers_ParentGroup1 = new SQLTable((Object)new LoginUsers_ParentGroup1(), "lupg1", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers_ParentGroup1); ;
+            t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 1 Name", "Ime skupine 1"));
+            t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.m_LoginUsers_ParentGroup2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 1 Name", "Ime skupine 1"));
+            m_DBTables.items.Add(t_LoginUsers_ParentGroup1);
 
         }
     }

@@ -155,6 +155,24 @@ namespace Tangenta
                 }
         }
 
+
+        
+
+        internal static bool Login_MultipleUsers
+        {
+            get
+            {
+                if (OperationMode.MultiUser)
+                {
+                    return Properties.Settings.Default.Login_MultipleUsers;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         internal static ID Atom_FVI_SLO_RealEstateBP_ID = null;
 
         internal static class Reset2FactorySettings

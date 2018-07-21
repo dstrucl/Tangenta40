@@ -582,6 +582,8 @@ namespace Tangenta
 
         public static ltext s_rdb_CustomDiscount = new ltext(new string[] { "Discount:", "Popust:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Discount.cs
 
+        public static ltext s_chk_MultipleUserLogin = new ltext(new string[] { "Multiple users login", "Prijava več uporabnikov hkrati" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
         public static ltext s_grp_ColorSettings = new ltext(new string[] { "Color Settings", "Barvne nastavitve" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_ElectronicDevice_ID = new ltext(new string[] { "Electronic Device ID", "Oznaka blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs

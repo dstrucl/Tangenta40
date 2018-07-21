@@ -565,18 +565,25 @@ namespace Tangenta
 
             m_startup.RemoveControl();
 
-            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+            if (Program.Login_MultipleUsers)
+            {
+                //stay in Login_MulitpleUsersMode !
+            }
+            else
+            {
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
 
-            LayoutSet();
+                LayoutSet();
 
-            m_usrc_Main.Visible = true;
+                m_usrc_Main.Visible = true;
 
-            m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+                m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
 
-            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
-            SetNewFormTag();
-            m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
+                SetNewFormTag();
+                m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
+            }
         }
 
 

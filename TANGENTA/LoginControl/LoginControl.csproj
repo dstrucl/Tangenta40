@@ -215,6 +215,18 @@
       <DependentUpon>STD_UserManager.cs</DependentUpon>
     </Compile>
     <Compile Include="TemplatesLoader.cs" />
+    <Compile Include="usrc_LoginOfMyOrgUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_LoginOfMyOrgUser.Designer.cs">
+      <DependentUpon>usrc_LoginOfMyOrgUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_MultipleUsers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_MultipleUsers.Designer.cs">
+      <DependentUpon>usrc_MultipleUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_PasswordBytes.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -290,6 +302,12 @@
       <DependentUpon>STD_UserManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_LoginOfMyOrgUser.resx">
+      <DependentUpon>usrc_LoginOfMyOrgUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_MultipleUsers.resx">
+      <DependentUpon>usrc_MultipleUsers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_PasswordBytes.resx">
       <DependentUpon>usrc_PasswordBytes.cs</DependentUpon>
     </EmbeddedResource>
@@ -326,6 +344,14 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\SelectGender\SelectGender.csproj">
       <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>
       <Name>SelectGender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
+      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
+      <Name>usrc_Item_Group_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+      <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
+      <Name>usrc_Item_PageHandler</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
