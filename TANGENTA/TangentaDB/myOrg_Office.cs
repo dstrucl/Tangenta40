@@ -35,7 +35,7 @@ namespace TangentaDB
 
         public List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
 
-        public ID Atom_ElectronicDevice_ID
+        public ID ElectronicDevice_ID
         {
             get {
                     if (m_myOrg_Office_ElectronicDevice!=null)
@@ -49,7 +49,7 @@ namespace TangentaDB
                 }
         }
 
-        public string Atom_ElectronicDevice_ComputerName
+        public string ElectronicDevice_ComputerName
         {
             get
             {
@@ -64,37 +64,31 @@ namespace TangentaDB
             }
         }
 
-        public string Atom_ElectronicDevice_ComputerUserName
+        public string Get_ElectronicDevice_ComputerUserName()
         {
-            get
+            if (m_myOrg_Office_ElectronicDevice != null)
             {
-                if (m_myOrg_Office_ElectronicDevice != null)
-                {
-                    return m_myOrg_Office_ElectronicDevice.ComputerUserName;
-                }
-                else
-                {
-                    return null;
-                }
+                return m_myOrg_Office_ElectronicDevice.ComputerUserName;
+            }
+            else
+            {
+                return null;
             }
         }
 
-        public string Atom_ElectronicDevice_MAC_address
+        public string GetAtom_ElectronicDevice_MAC_address()
         {
-            get
+            if (m_myOrg_Office_ElectronicDevice != null)
             {
-                if (m_myOrg_Office_ElectronicDevice != null)
-                {
-                    return m_myOrg_Office_ElectronicDevice.MAC_address;
-                }
-                else
-                {
-                    return null;
-                }
+                return m_myOrg_Office_ElectronicDevice.MAC_address;
+            }
+            else
+            {
+                return null;
             }
         }
 
-        public string Atom_ElectronicDevice_IP_address
+        public string ElectronicDevice_IP_address
         {
             get
             {
@@ -262,6 +256,28 @@ namespace TangentaDB
             }
         }
 
+        public myOrg_Person Find_myOrg_Person(ID m_my_Org_Person_ID)
+        {
+            if (ID.Validate(m_my_Org_Person_ID))
+            {
+                foreach (myOrg_Person mop in myOrg_Person_list)
+                {
+                    if (ID.Validate(mop.ID))
+                    {
+                        if (m_my_Org_Person_ID.Equals(mop.ID))
+                        {
+                            return mop;
+                        }
+                    }
+                }
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static bool Get_Atom_ElectronicDevice_List(myOrg_Office Office, ref List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_list)
         {
 
@@ -270,7 +286,7 @@ namespace TangentaDB
             string sql = null;
             sql = @"select
                         ID
-                        FROM Atom_ElectronicDevice where Office_id = " + Office.ID.ToString();
+                        FROM ElectronicDevice where Office_id = " + Office.ID.ToString();
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -282,12 +298,12 @@ namespace TangentaDB
                     for (i = 0; i < iCount; i++)
                     {
                         DataRow dr = dt.Rows[i];
-                        ID Atom_ElectronicDevice_ID = tf.set_ID(dr["ID"]);
-                        myOrg_Office_ElectronicDevice mAtom_ElectronicDevice = new myOrg_Office_ElectronicDevice(Office);
+                        ID xElectronicDevice_ID = tf.set_ID(dr["ID"]);
+                        myOrg_Office_ElectronicDevice xm_ElectronicDevice = new myOrg_Office_ElectronicDevice(Office);
 
-                        if (mAtom_ElectronicDevice.Get(Atom_ElectronicDevice_ID))
+                        if (xm_ElectronicDevice.Get(xElectronicDevice_ID))
                         {
-                            myOrg_Office_ElectronicDevice_list.Add(mAtom_ElectronicDevice);
+                            myOrg_Office_ElectronicDevice_list.Add(xm_ElectronicDevice);
                         }
                     }
                 }
@@ -303,12 +319,12 @@ namespace TangentaDB
         internal bool Get_m_myOrg_Person_SingleUser()
         {
             string Err = null;
-            ID xAtom_ElectronicDevice_ID = null;
-            if (f_Atom_ElectronicDevice.Get(this.ID, ref xAtom_ElectronicDevice_ID))
+            ID xElectronicDevice_ID = null;
+            if (f_ElectronicDevice.Get(this.ID, ref xElectronicDevice_ID))
             {
-                if (ID.Validate(xAtom_ElectronicDevice_ID))
+                if (ID.Validate(xElectronicDevice_ID))
                 {
-                    string sql = @"select myOrganisation_Person_ID from myOrganisation_Person_SingleUser where Atom_ElectronicDevice_ID = " + xAtom_ElectronicDevice_ID.ToString();
+                    string sql = @"select myOrganisation_Person_ID from myOrganisation_Person_SingleUser where ElectronicDevice_ID = " + xElectronicDevice_ID.ToString();
                     DataTable dt = new DataTable();
                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                     {

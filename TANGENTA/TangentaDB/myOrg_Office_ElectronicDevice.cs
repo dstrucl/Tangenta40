@@ -110,7 +110,7 @@ namespace TangentaDB
         internal bool Get(ID atom_ElectronicDevice_ID)
         {
             m_ComputerName = null;
-            if (f_Atom_ElectronicDevice.Get(atom_ElectronicDevice_ID,
+            if (f_ElectronicDevice.Get(atom_ElectronicDevice_ID,
                                             ref m_ElectronicDevice_Name,
                                             ref m_ElectronicDevice_Description,
                                             ref m_ComputerName,

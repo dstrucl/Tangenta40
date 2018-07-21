@@ -115,6 +115,21 @@ namespace LoginControl
             }
         }
 
+        public ID myOrganisation_Person_ID
+        {
+            get
+            {
+                if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
+                {
+                    return awp.myOrganisation_Person_ID;
+                }
+                else
+                {
+                    return new ID(std.LoginUsers_id);
+                }
+            }
+        }
+
         public bool HasLoginControlRole(string[] roles)
         {
             if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)

@@ -895,7 +895,7 @@ namespace TangentaDB
                           "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
                           "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
-                          "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                          "\r\n inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode = 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             }
             else
@@ -905,7 +905,7 @@ namespace TangentaDB
                           "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
                           "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
-                          "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                          "\r\n inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode <> 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             }
 

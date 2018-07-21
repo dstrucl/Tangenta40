@@ -1115,7 +1115,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
-        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+        public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
     }
 
     public class JOURNAL_myOrganisation_Person_TYPE
@@ -1172,13 +1172,21 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class ElectronicDevice
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Atom_Computer m_Atom_Computer = new Atom_Computer();
+        public Office m_Office = new Office();
+        public Description Description = new Description();
+    }
 
     public class Atom_ElectronicDevice
     {
         public ID ID = new ID();
         public Name Name = new Name();
         public Atom_Computer m_Atom_Computer = new Atom_Computer();
-        public Office m_Office = new Office();
+        public Atom_Office m_Atom_Office = new Atom_Office();
         public Description Description = new Description();
     }
 
@@ -1210,7 +1218,7 @@ namespace TangentaTableClass
     public class PropertiesSettings
     {
         public ID ID = new ID();
-        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+        public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
         public ProgramModule m_ProgramModule = new ProgramModule();
         public Name Name = new Name();
         public SettingsType m_SettingsType = new SettingsType();
@@ -3346,7 +3354,7 @@ namespace TangentaTableClass
         public JOURNAL m_JOURNAL = new JOURNAL();
 
         /* 193 */
-        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+        public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
 
         /* 194 */
         public Trucking m_Trucking = new Trucking();
@@ -3467,6 +3475,9 @@ namespace TangentaTableClass
 
         /* 233 */
         public TermsOfPayment_Default m_TermsOfPayment_Default = new TermsOfPayment_Default();
+
+        /* 234 */
+        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
 
     }
 }

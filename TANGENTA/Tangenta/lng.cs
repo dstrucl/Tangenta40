@@ -25,6 +25,15 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+        public static ltext s_You_Must_Write_This_ElectronicDevice_into_DataBase 
+            = new ltext(new string[] { "You did not write electronic device into the database !\r\nWrite electronic device name and press button:\"Write Electronic device data\".",
+                                       "Niste vpisali elektronske naprave v podatkovno bazo!\r\nVpišite ime elektronske naprave in pritisnite na gumb \"Shrani podatke o elektronski napravi\", da se elektronska naprava vpiše v podatkovno bazo." });
+
+        public static ltext s_btn_UpdateElectronicDevice = new ltext(new string[] { "Update Electronic device data:", "Popravi podatke o elektronski napravi" });
+
+        public static ltext s_btn_WriteInDBElectronicDevice = new ltext(new string[] { "Write Electronic device data:", "Shrani podatke o elektronski napravi" });
+
         public static ltext s_my_organisation_person_for_single_user_operation_is_not_selected = new ltext(new string[] { "My organisation person for single user operation mode is not defined!\r\nPlease select my organisation person for single user operation mode.", "Oseba organizacije v eno-uporabniškem delovanju ni določena.\r\nProsimo izberite (določite) osebo za enouporabniško delovanje." });
 
         public static ltext s_Form_Select_Person_SINGLE_USER_Title = new ltext(new string[] { "My organisation person in single user operation mode", "Oseba organizacije v eno-uporabniškem delovanju" });

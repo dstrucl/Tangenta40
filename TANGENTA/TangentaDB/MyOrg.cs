@@ -59,13 +59,13 @@ namespace TangentaDB
         }
 
 
-        public static ID Atom_ElectronicDevice_ID
+        public static ID ElectronicDevice_ID
         {
             get
             {
                 if (m_myOrg_Office != null)
                 {
-                    return m_myOrg_Office.Atom_ElectronicDevice_ID;
+                    return m_myOrg_Office.ElectronicDevice_ID;
                 }
                 else
                 {

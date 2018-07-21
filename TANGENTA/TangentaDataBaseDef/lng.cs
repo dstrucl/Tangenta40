@@ -80,7 +80,9 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_Trucking = new ltext(new string[] { "Trucking", "Transport" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
-        public static ltext lngt_t_Atom_ElectronicDevice = new ltext(new string[] { "Electronic Device", "Elektronska naprava" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+        public static ltext lngt_t_ElectronicDevice = new ltext(new string[] { "Electronic Device", "Elektronska naprava" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+
+        public static ltext lngt_t_Atom_ElectronicDevice = new ltext(new string[] { "Electronic Device archive", "Elektronska naprava arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
         public static ltext lngt_t_Atom_Bank = new ltext(new string[] { "Archive Bank", "Arhiv bank" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 

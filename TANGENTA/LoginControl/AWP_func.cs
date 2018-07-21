@@ -212,7 +212,7 @@ SELECT
                     LEFT JOIN Atom_ComputerName Atom_WorkPeriod_$_acomp_$_acn ON Atom_WorkPeriod_$_acomp.Atom_ComputerName_ID = Atom_WorkPeriod_$_acomp_$_acn.ID 
                     LEFT JOIN Atom_ComputerUsername Atom_WorkPeriod_$_acomp_$_acun ON Atom_WorkPeriod_$_acomp.Atom_ComputerUsername_ID = Atom_WorkPeriod_$_acomp_$_acun.ID 
                     LEFT JOIN Atom_MAC_address Atom_WorkPeriod_$_acomp_$_amac ON Atom_WorkPeriod_$_acomp.Atom_MAC_address_ID = Atom_WorkPeriod_$_acomp_$_amac.ID 
-                    INNER JOIN Atom_ElectronicDevice Atom_WorkPeriod_$_aed ON Atom_WorkPeriod.Atom_ElectronicDevice_ID = Atom_WorkPeriod_$_aed.ID 
+                    INNER JOIN ElectronicDevice Atom_WorkPeriod_$_aed ON Atom_WorkPeriod.Atom_ElectronicDevice_ID = Atom_WorkPeriod_$_aed.ID 
                     LEFT JOIN Atom_WorkPeriod_TYPE Atom_WorkPeriod_$_awperiodt ON Atom_WorkPeriod.Atom_WorkPeriod_TYPE_ID = Atom_WorkPeriod_$_awperiodt.ID
                     where Atom_WorkPeriod_$_amcper.ID in " + sInCondition + " and Atom_WorkPeriod.LoginTime > "+ spar_dateFrom + " and Atom_WorkPeriod.LoginTime < "+ spar_dateTo + " order by Atom_WorkPeriod.LoginTime desc ";
 

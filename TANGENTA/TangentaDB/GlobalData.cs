@@ -31,8 +31,36 @@ namespace TangentaDB
         public static ID Atom_Computer_ID = null;
         public static ID Atom_ElectronicDevice_ID = null;
 
-        public static string ElectronicDevice_Name = null;
-        public static string ElectronicDevice_Description = null;
+        public static string ElectronicDevice_Name
+        {
+            get
+            {
+                if (myOrg.m_myOrg_Office!=null)
+                {
+                    if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice != null)
+                    {
+                        return myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name;
+                    }
+                }
+                return null;
+            }
+        }
+        public static string ElectronicDevice_Description
+        {
+            get
+            {
+                if (myOrg.m_myOrg_Office != null)
+                {
+                    if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice != null)
+                    {
+                        return myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name;
+                    }
+                }
+                return null;
+            }
+        }
+
+
 
         public static ID Atom_WorkingPlace_ID = null;
         public static ID Atom_myOrganisation_Person_ID = null;
@@ -347,7 +375,7 @@ namespace TangentaDB
                         {
                             if (f_Atom_WorkingPlace.Get(GlobalData.WorkingPlace_ID, ref Atom_WorkingPlace_ID))
                             {
-                                if (f_Atom_ElectronicDevice.Get(ref GlobalData.ElectronicDevice_Name, ref GlobalData.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
+                                if (f_Atom_ElectronicDevice.Get(myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
                                 {
                                     string Atom_WorkPeriod_Type_Description = x_Atom_WorkPeriod_Type_Description;
                                     if (Atom_WorkPeriod_Type_Name.Equals(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04))

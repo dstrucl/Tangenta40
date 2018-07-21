@@ -575,7 +575,7 @@ namespace TangentaDataBaseDef
         public SQLTable t_JOURNAL = null;
 
         /* 193 */
-        public SQLTable t_Atom_ElectronicDevice = null;
+        public SQLTable t_ElectronicDevice = null;
 
         /* 194 */
         public SQLTable t_Trucking = null;
@@ -696,6 +696,9 @@ namespace TangentaDataBaseDef
 
         /* 233 */
         public SQLTable t_TermsOfPayment_Default = null;
+
+        /* 234 */
+        public SQLTable t_Atom_ElectronicDevice = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -2340,13 +2343,13 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_JOURNAL);
 
             /* 193 */
-            t_Atom_ElectronicDevice = new SQLTable((Object)new Atom_ElectronicDevice(), "aed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ElectronicDevice);
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer ID", "Računalnik ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office ID", "Poslovna enota ID"));
-            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
-            m_DBTables.items.Add(t_Atom_ElectronicDevice);
+            t_ElectronicDevice = new SQLTable((Object)new ElectronicDevice(), "ed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_ElectronicDevice);
+            t_ElectronicDevice.AddColumn((Object)mt.m_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_ElectronicDevice.AddColumn((Object)mt.m_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
+            t_ElectronicDevice.AddColumn((Object)mt.m_ElectronicDevice.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer ID", "Računalnik ID"));
+            t_ElectronicDevice.AddColumn((Object)mt.m_ElectronicDevice.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office ID", "Poslovna enota ID"));
+            t_ElectronicDevice.AddColumn((Object)mt.m_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
+            m_DBTables.items.Add(t_ElectronicDevice);
 
             /* 194 */
             t_Trucking = new SQLTable((Object)new Trucking(), "trc", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Trucking);
@@ -2596,7 +2599,7 @@ namespace TangentaDataBaseDef
             /* 225 */
             t_PropertiesSettings = new SQLTable((Object)new PropertiesSettings(), "ps", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_PropertiesSettings);
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
+            t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_ProgramModule, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Program Module ID", "Programski modul ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings Name", "Ime nastavitve"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_SettingsType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings data type ID", "Podatkovni tip nastavitve ID"));
@@ -2655,7 +2658,7 @@ namespace TangentaDataBaseDef
             t_myOrganisation_Person_SingleUser = new SQLTable((Object)new myOrganisation_Person_SingleUser(), "mopsu", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_myOrganisation_Person_SingleUser);
             t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("My organisation person ID", "Oseba podatja ID"));
-            t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_Atom_ElectronicDevice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
+            t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_ElectronicDevice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_myOrganisation_Person_SingleUser);
 
             /* 233 */
@@ -2665,7 +2668,16 @@ namespace TangentaDataBaseDef
             t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_TermsOfPayment_Default);
 
+            /* 234 */
+            t_Atom_ElectronicDevice = new SQLTable((Object)new Atom_ElectronicDevice(), "aed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ElectronicDevice);
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer ID", "Računalnik ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.m_Atom_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office archive ID", "Poslovna enota arhiv ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
+            m_DBTables.items.Add(t_Atom_ElectronicDevice);
+
         }
-}
+    }
  }
 

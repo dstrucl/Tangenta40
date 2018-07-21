@@ -166,6 +166,7 @@
     <Compile Include="f_DocProformaInvoice_ShopC_Item.cs" />
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />
+    <Compile Include="f_ElectronicDevice.cs" />
     <Compile Include="f_Expiry.cs" />
     <Compile Include="f_FVI_SLO_Invoice.cs" />
     <Compile Include="f_FVI_SLO_SalesBookInvoice.cs" />

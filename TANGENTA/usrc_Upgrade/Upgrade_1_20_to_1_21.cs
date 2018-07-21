@@ -26,7 +26,7 @@ namespace UpgradeDB
                                                 "StockTake_AdditionalCost",
                                                 "JOURNAL_StockTake_Type",
                                                 "JOURNAL_StockTake",
-                                                "Atom_ElectronicDevice"};
+                                                "ElectronicDevice"};
                 if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
                     ID Atom_ElectronicDevice_ID =null;
@@ -44,7 +44,7 @@ namespace UpgradeDB
                                                             Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
                                                             Atom_WorkingPlace_ID INTEGER NOT NULL REFERENCES Atom_WorkingPlace(ID),
                                                             Atom_Computer_ID INTEGER NOT NULL REFERENCES Atom_Computer(ID),
-                                                            Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
+                                                            Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES ElectronicDevice(ID),
                                                             'LoginTime' DATETIME NULL,
                                                             'LogoutTime' DATETIME NULL,
                                                             Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID));

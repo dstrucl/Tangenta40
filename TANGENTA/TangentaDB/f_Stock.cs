@@ -191,7 +191,7 @@ namespace TangentaDB
                             inner join  JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = di.ID
                             inner join  JOURNAL_DocInvoice_Type jdit on jdi.JOURNAL_DocInvoice_Type_ID = jdit.ID and jdit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @"
                             inner join  Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID
-                            left join  Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                            left join  ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                             inner join  Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
                             left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
                             left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
@@ -214,7 +214,7 @@ namespace TangentaDB
                             inner join  JOURNAL_DocProformaInvoice jdpi on jdpi.DocProformaInvoice_ID = dpi.ID
                             inner join  JOURNAL_DocProformaInvoice_Type jdpit on jdpi.JOURNAL_DocProformaInvoice_Type_ID = jdpit.ID and jdpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @"
                             inner join  Atom_WorkPeriod awp on jdpi.Atom_WorkPeriod_ID = awp.ID
-                            left join  Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                            left join  ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                             inner join  Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
                             left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
                             left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID

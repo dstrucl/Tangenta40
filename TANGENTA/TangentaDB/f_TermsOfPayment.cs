@@ -73,56 +73,113 @@ namespace TangentaDB
 
         internal static bool SetDefault(ID xTermsOfPayment_ID)
         {
-            if (ID.Validate(myOrg.Atom_ElectronicDevice_ID))
+            if (ID.Validate(myOrg.ElectronicDevice_ID))
             {
-                string sql = "select ID,TermsOfPayment_ID from TermsOfPayment_Default where Atom_ElectronicDevice_ID = " + myOrg.Atom_ElectronicDevice_ID.ToString();
-                DataTable dt = new DataTable();
-                string Err = null;
-                if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                if (myOrg.m_myOrg_Office != null)
                 {
-                    if (dt.Rows.Count > 0)
+                    if (ID.Validate(myOrg.m_myOrg_Office.ID))
                     {
-                        sql = "update TermsOfPayment_Default set TermsOfPayment_ID = " + xTermsOfPayment_ID.ToString();
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                        ID xAtom_Office_ID = null;
+                        if (f_Atom_Office.Get(myOrg.m_myOrg_Office.ID,ref xAtom_Office_ID))
                         {
-                            return true;
+                            ID xAtom_ElectronicDevice_ID = null;
+                            if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice!=null)
+                            { 
+
+                                if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name!=null)
+                                { 
+                                    if (f_Atom_ElectronicDevice.Get(xAtom_Office_ID, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Description, ref xAtom_ElectronicDevice_ID))
+                                    {
+                                        if (ID.Validate(xAtom_ElectronicDevice_ID))
+                                        {
+                                            string sql = "select ID,TermsOfPayment_ID from TermsOfPayment_Default where Atom_ElectronicDevice_ID = " + xAtom_ElectronicDevice_ID.ToString();
+                                            DataTable dt = new DataTable();
+                                            string Err = null;
+                                            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                            {
+                                                if (dt.Rows.Count > 0)
+                                                {
+                                                    sql = "update TermsOfPayment_Default set TermsOfPayment_ID = " + xTermsOfPayment_ID.ToString();
+                                                    object ores = null;
+                                                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                                                    {
+                                                        return true;
+                                                    }
+                                                    else
+                                                    {
+                                                        LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                                                        return false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    sql = "insert into TermsOfPayment_Default (TermsOfPayment_ID,Atom_ElectronicDevice_ID)values(" + xTermsOfPayment_ID.ToString() + "," + xAtom_ElectronicDevice_ID.ToString() + ")";
+                                                    ID xTermsOfPayment_Default_ID = null;
+                                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref xTermsOfPayment_Default_ID, ref Err, "TermsOfPayment_Default"))
+                                                    {
+                                                        return true;
+                                                    }
+                                                    else
+                                                    {
+                                                        LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                                                return false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:xAtom_ElectronicDevice_ID is not valid!");
+                                            return false;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:f_Atom_ElectronicDevice.Get(..) failed!");
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name==null");
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice==null");
+                                return false;
+                            }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:f_Atom_Office.Get(..) failed!");
                             return false;
                         }
                     }
                     else
                     {
-                        sql = "insert into TermsOfPayment_Default (TermsOfPayment_ID,Atom_ElectronicDevice_ID)values("+ xTermsOfPayment_ID.ToString() + ","+ myOrg.Atom_ElectronicDevice_ID.ToString()+")";
-                        ID xTermsOfPayment_Default_ID = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref xTermsOfPayment_Default_ID, ref Err, "TermsOfPayment_Default"))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
-                            return false;
-                        }
+                        LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:myOrg.m_myOrg_Office.ID is not valid");
+                        return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:myOrg.m_myOrg_Office == null");
                     return false;
                 }
-
             }
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:myOrg.Atom_ElectronicDevice_ID is not valid");
                 return false;
             }
-
-                
         }
 
         public static bool Get(ID TermsOfPayment_ID, ref string_v xDescription_v)
@@ -152,9 +209,9 @@ namespace TangentaDB
 
         internal static bool GetDefault(ref ID xIDdefault, ref string_v description_v)
         {
-            if (ID.Validate(myOrg.Atom_ElectronicDevice_ID))
+            if (ID.Validate(myOrg.ElectronicDevice_ID))
             {
-                string sql = "select ID,TermsOfPayment_ID from TermsOfPayment_Default where Atom_ElectronicDevice_ID = " + myOrg.Atom_ElectronicDevice_ID.ToString();
+                string sql = "select ID,TermsOfPayment_ID from TermsOfPayment_Default where Atom_ElectronicDevice_ID = " + myOrg.ElectronicDevice_ID.ToString();
                 DataTable dt = new DataTable();
                 string Err = null;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -198,7 +255,7 @@ namespace TangentaDB
                         string sElectronicDeviceName = null;
                         if (myOrg.m_myOrg_Office!=null)
                         {
-                            sElectronicDeviceName = myOrg.m_myOrg_Office.Atom_ElectronicDevice_ComputerName + "/" + myOrg.m_myOrg_Office.Atom_ElectronicDevice_ComputerUserName;
+                            sElectronicDeviceName = myOrg.m_myOrg_Office.ElectronicDevice_ComputerName + "/" + myOrg.m_myOrg_Office.Get_ElectronicDevice_ComputerUserName();
                         }
                         if (sElectronicDeviceName != null)
                         {

@@ -54,10 +54,6 @@ namespace Tangenta
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
             chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
             chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
-            if (GlobalData.ElectronicDevice_Name==null)
-            {
-                GlobalData.ElectronicDevice_Name = "1";
-            }
             m_usrc_Main = usrc_Main;
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
             {

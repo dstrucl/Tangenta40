@@ -1757,7 +1757,7 @@ namespace Tangenta
                             }
                         }
 
-                        if (myOrg.Atom_ElectronicDevice_ID==null)
+                        if (myOrg.ElectronicDevice_ID==null)
                         { 
                                 return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME;
                         }
@@ -2116,6 +2116,17 @@ namespace Tangenta
         {
             ID DocInvoice_ID = null;
             string Err = null;
+            if (Program.OperationMode.MultiUser)
+            {
+                myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(Program.ActiveUser_myOrganisation_Person_ID);
+            }
+
+            if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+            {
+                LogFile.Error.Show("ERROR:SetInvoiceDraft:Can not find my oragnisation person!");
+                return false;
+            }
+
             if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
             {
                 if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))

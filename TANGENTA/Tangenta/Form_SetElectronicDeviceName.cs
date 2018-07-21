@@ -48,9 +48,20 @@ namespace Tangenta
 
         private bool do_OK()
         {
-            this.Close();
-            DialogResult = DialogResult.OK;
-            return true;
+            if (tElectronicDevice!=null)
+            {
+                if (tElectronicDevice.Rows.Count > 0)
+                {
+                    this.Close();
+                    DialogResult = DialogResult.OK;
+                    return true;
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lng.s_You_Must_Write_This_ElectronicDevice_into_DataBase, MessageBoxIcon.Warning);
+                }
+            }
+            return false;
         }
 
         private void do_Cancel()
@@ -230,8 +241,16 @@ namespace Tangenta
                         tElectronicDevice.Columns.Clear();
                     }
                     dgvx_ElectronicDevice.DataSource = null;
-                    if (f_Atom_ElectronicDevice.Get(m_myOrg_Office.ID,ref tElectronicDevice))
+                    if (f_ElectronicDevice.Get(m_myOrg_Office.ID,ref tElectronicDevice))
                     {
+                        if (tElectronicDevice.Rows.Count>0)
+                        {
+                            lng.s_btn_UpdateElectronicDevice.Text(btn_Write);
+                        }
+                        else
+                        {
+                            lng.s_btn_WriteInDBElectronicDevice.Text(btn_Write);
+                        }
                         dgvx_ElectronicDevice.DataSource = tElectronicDevice;
                         DBSync.DBSync.DB_for_Tangenta.t_Atom_ElectronicDevice.SetVIEW_DataGridViewImageColumns_Headers(dgvx_ElectronicDevice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                     }
@@ -239,7 +258,7 @@ namespace Tangenta
             }
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        private void btn_Write_Click(object sender, EventArgs e)
         {
             string xElectronicDevice_Name = txt_ElectronicDevice_Name.Text;
             string xElectronicDevice_Description = txt_ElectronicDevice_Description.Text;
@@ -250,7 +269,7 @@ namespace Tangenta
             if (xElectronicDevice_Name.Length>0)
             {
                 ID xAtom_ElectronicDevice_ID = null;
-                if (f_Atom_ElectronicDevice.Get(m_myOrg_Office.ID, xElectronicDevice_Name, xElectronicDevice_Description,ref xAtom_ElectronicDevice_ID))
+                if (f_ElectronicDevice.Get(m_myOrg_Office.ID, xElectronicDevice_Name, xElectronicDevice_Description,ref xAtom_ElectronicDevice_ID))
                 {
                     if (ID.Validate(xAtom_ElectronicDevice_ID))
                     {

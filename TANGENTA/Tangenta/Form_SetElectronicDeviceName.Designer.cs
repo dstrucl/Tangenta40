@@ -44,9 +44,7 @@
             this.lbl_IP_address = new System.Windows.Forms.Label();
             this.dgvx_ElectronicDevice = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btn_Remove = new System.Windows.Forms.Button();
-            this.btn_Update = new System.Windows.Forms.Button();
-            this.btn_Add = new System.Windows.Forms.Button();
+            this.btn_Write = new System.Windows.Forms.Button();
             this.txt_Office_ShortName = new System.Windows.Forms.TextBox();
             this.lbl_Office_ShortName = new System.Windows.Forms.Label();
             this.txt_Office = new System.Windows.Forms.TextBox();
@@ -126,7 +124,7 @@
             // 
             // lbl_ComputerName
             // 
-            this.lbl_ComputerName.Location = new System.Drawing.Point(10, 176);
+            this.lbl_ComputerName.Location = new System.Drawing.Point(10, 180);
             this.lbl_ComputerName.Name = "lbl_ComputerName";
             this.lbl_ComputerName.Size = new System.Drawing.Size(145, 19);
             this.lbl_ComputerName.TabIndex = 5;
@@ -137,7 +135,7 @@
             // 
             this.txt_ComputerName.BackColor = System.Drawing.SystemColors.ControlLight;
             this.txt_ComputerName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_ComputerName.Location = new System.Drawing.Point(153, 180);
+            this.txt_ComputerName.Location = new System.Drawing.Point(153, 184);
             this.txt_ComputerName.Name = "txt_ComputerName";
             this.txt_ComputerName.ReadOnly = true;
             this.txt_ComputerName.Size = new System.Drawing.Size(226, 13);
@@ -147,7 +145,7 @@
             // 
             this.txt_ComputerUserName.BackColor = System.Drawing.SystemColors.ControlLight;
             this.txt_ComputerUserName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_ComputerUserName.Location = new System.Drawing.Point(153, 218);
+            this.txt_ComputerUserName.Location = new System.Drawing.Point(153, 222);
             this.txt_ComputerUserName.Name = "txt_ComputerUserName";
             this.txt_ComputerUserName.ReadOnly = true;
             this.txt_ComputerUserName.Size = new System.Drawing.Size(226, 13);
@@ -166,7 +164,7 @@
             // 
             this.txt_MAC_address.BackColor = System.Drawing.SystemColors.ControlLight;
             this.txt_MAC_address.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_MAC_address.Location = new System.Drawing.Point(153, 199);
+            this.txt_MAC_address.Location = new System.Drawing.Point(153, 203);
             this.txt_MAC_address.Name = "txt_MAC_address";
             this.txt_MAC_address.ReadOnly = true;
             this.txt_MAC_address.Size = new System.Drawing.Size(226, 13);
@@ -174,7 +172,7 @@
             // 
             // lbl_MAC_address
             // 
-            this.lbl_MAC_address.Location = new System.Drawing.Point(10, 195);
+            this.lbl_MAC_address.Location = new System.Drawing.Point(10, 199);
             this.lbl_MAC_address.Name = "lbl_MAC_address";
             this.lbl_MAC_address.Size = new System.Drawing.Size(145, 19);
             this.lbl_MAC_address.TabIndex = 9;
@@ -185,7 +183,7 @@
             // 
             this.txt_IP_address.BackColor = System.Drawing.SystemColors.ControlLight;
             this.txt_IP_address.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_IP_address.Location = new System.Drawing.Point(153, 239);
+            this.txt_IP_address.Location = new System.Drawing.Point(153, 243);
             this.txt_IP_address.Name = "txt_IP_address";
             this.txt_IP_address.ReadOnly = true;
             this.txt_IP_address.Size = new System.Drawing.Size(226, 13);
@@ -193,7 +191,7 @@
             // 
             // lbl_IP_address
             // 
-            this.lbl_IP_address.Location = new System.Drawing.Point(10, 235);
+            this.lbl_IP_address.Location = new System.Drawing.Point(10, 239);
             this.lbl_IP_address.Name = "lbl_IP_address";
             this.lbl_IP_address.Size = new System.Drawing.Size(145, 19);
             this.lbl_IP_address.TabIndex = 11;
@@ -228,9 +226,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btn_Remove);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_Update);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_Add);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Write);
             this.splitContainer1.Panel1.Controls.Add(this.txt_Office_ShortName);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_Office_ShortName);
             this.splitContainer1.Panel1.Controls.Add(this.txt_Office);
@@ -257,33 +253,17 @@
             this.splitContainer1.SplitterDistance = 408;
             this.splitContainer1.TabIndex = 14;
             // 
-            // btn_Remove
+            // btn_Write
             // 
-            this.btn_Remove.Location = new System.Drawing.Point(239, 264);
-            this.btn_Remove.Name = "btn_Remove";
-            this.btn_Remove.Size = new System.Drawing.Size(94, 22);
-            this.btn_Remove.TabIndex = 20;
-            this.btn_Remove.Text = "Remove";
-            this.btn_Remove.UseVisualStyleBackColor = true;
-            // 
-            // btn_Update
-            // 
-            this.btn_Update.Location = new System.Drawing.Point(127, 264);
-            this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(94, 22);
-            this.btn_Update.TabIndex = 19;
-            this.btn_Update.Text = "Update";
-            this.btn_Update.UseVisualStyleBackColor = true;
-            // 
-            // btn_Add
-            // 
-            this.btn_Add.Location = new System.Drawing.Point(10, 265);
-            this.btn_Add.Name = "btn_Add";
-            this.btn_Add.Size = new System.Drawing.Size(94, 22);
-            this.btn_Add.TabIndex = 18;
-            this.btn_Add.Text = "Add";
-            this.btn_Add.UseVisualStyleBackColor = true;
-            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
+            this.btn_Write.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Write.Location = new System.Drawing.Point(3, 265);
+            this.btn_Write.Name = "btn_Write";
+            this.btn_Write.Size = new System.Drawing.Size(402, 22);
+            this.btn_Write.TabIndex = 18;
+            this.btn_Write.Text = "Add";
+            this.btn_Write.UseVisualStyleBackColor = true;
+            this.btn_Write.Click += new System.EventHandler(this.btn_Write_Click);
             // 
             // txt_Office_ShortName
             // 
@@ -407,8 +387,6 @@
         private DataGridView_2xls.DataGridView2xls dgvx_Office;
         private System.Windows.Forms.TextBox txt_Office_ShortName;
         private System.Windows.Forms.Label lbl_Office_ShortName;
-        private System.Windows.Forms.Button btn_Remove;
-        private System.Windows.Forms.Button btn_Update;
-        private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_Write;
     }
 }

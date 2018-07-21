@@ -88,6 +88,12 @@ namespace LoginControl
             get { return m_AWPLoginData.LoginSession_id; }
         }
 
+
+        public ID myOrganisation_Person_ID
+        {
+            get { return m_AWPLoginData.myOrganisation_Person_ID; }
+        }
+        
         public ID LoginUsers_id
         {
             get

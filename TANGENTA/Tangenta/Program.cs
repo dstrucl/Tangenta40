@@ -224,7 +224,27 @@ namespace Tangenta
                 return false;
             }
 
-        } 
+        }
+
+        public static ID ActiveUser_myOrganisation_Person_ID
+        {
+            get
+            {
+                if (Program.MainForm != null)
+                {
+                    if (Program.MainForm.m_usrc_Main != null)
+                    {
+                        if (Program.MainForm.m_usrc_Main.loginControl1 != null)
+                        {
+                            return Program.MainForm.m_usrc_Main.loginControl1.myOrganisation_Person_ID;
+                        }
+                    }
+                }
+                return null;
+            }
+
+        }
+
         #endregion
 
         #region Methods
