@@ -2793,6 +2793,7 @@ namespace TangentaTableClass
         public WorkArea m_WorkArea = new WorkArea();
     }
 
+
     public class SQL_Database_Tables_Definition
     {
 

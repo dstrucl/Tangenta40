@@ -69,75 +69,93 @@ namespace FiscalVerificationOfInvoices_SLO
             Test = bTest;
             if (Test)
             {
-                this.txt_BuildingNumber.Text = Properties.Settings.Default.fursD_BuildingNumber_TEST;
-                this.txt_BuildingSectionNumber.Text = Properties.Settings.Default.fursD_BuildingSectionNumber_TEST;
-                this.txt_Community.Text = Properties.Settings.Default.fursD_Community_TEST;
-                this.txt_CadastralNumber.Text = Properties.Settings.Default.fursD_CadastralNumber_TEST;
-                this.dt_ValidityDate.Value = Properties.Settings.Default.fursD_ValidityDate_TEST;
+                this.txt_BuildingNumber.Text = Properties.Settings.Default.fursD_BuildingNumber_TEST; //exist in FVI_SLO_RealEstateBP
+                this.txt_BuildingSectionNumber.Text = Properties.Settings.Default.fursD_BuildingSectionNumber_TEST; //exist in FVI_SLO_RealEstateBP
+                this.txt_Community.Text = Properties.Settings.Default.fursD_Community_TEST; //exist in FVI_SLO_RealEstateBP
+                this.txt_CadastralNumber.Text = Properties.Settings.Default.fursD_CadastralNumber_TEST; //exist in FVI_SLO_RealEstateBP
+                this.dt_ValidityDate.Value = Properties.Settings.Default.fursD_ValidityDate_TEST;//exist in FVI_SLO_RealEstateBP
 
-                this.txt_SoftwareSupplier_TaxNumber.Text = Properties.Settings.Default.fursD_SoftwareSupplierTaxID_TEST;
-                this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType_TEST;
-                this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID_TEST;
-                this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID_TEST;
-                this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;
+                this.txt_SoftwareSupplier_TaxNumber.Text = Properties.Settings.Default.fursD_SoftwareSupplierTaxID_TEST;//exist in FVI_SLO_RealEstateBP
+                this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType_TEST;//exist in FVI_SLO_RealEstateBP
+                this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID_TEST;//exist in myOrg
+                this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID_TEST; // add to FVI_SLO_RealEstate
+                this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;//exist in myOrg
 
-                this.txt_City.Text = Properties.Settings.Default.fursD_City_TEST;
-                this.txt_PostNumber.Text = Properties.Settings.Default.fursD_PostNumber_TEST;
-                this.txt_StreetNumber.Text = Properties.Settings.Default.fursD_StreetNumber_TEST;
-                this.txt_StreetNumberAdt.Text = Properties.Settings.Default.fursD_StreetNumberAdt_TEST;
-                this.txt_StreetName.Text = Properties.Settings.Default.fursD_StreetName_TEST;
+                this.txt_City.Text = Properties.Settings.Default.fursD_City_TEST; //write special for test exist in my myOrg
+                this.txt_PostNumber.Text = Properties.Settings.Default.fursD_PostNumber_TEST;//write special for test exist in my myOrg
+                this.txt_StreetNumber.Text = Properties.Settings.Default.fursD_StreetNumber_TEST;//write special for test exist in my myOrg
+                this.txt_StreetNumberAdt.Text = Properties.Settings.Default.fursD_StreetNumberAdt_TEST;//write special for test exist in my myOrg
+                this.txt_StreetName.Text = Properties.Settings.Default.fursD_StreetName_TEST;//write special for test exist in my myOrg
 
                 if (Properties.Settings.Default.fursD_ClosingTag_TEST == "Z")
                     this.Chk_StoreClosed.Checked = true;
                 else
                     this.Chk_StoreClosed.Checked = false;
 
+                this.txt_BuildingNumber.ReadOnly = m_ReadOnly;
+                this.txt_BuildingSectionNumber.ReadOnly = m_ReadOnly;
+                this.txt_Community.ReadOnly = m_ReadOnly;
+                this.txt_CadastralNumber.ReadOnly = m_ReadOnly;
+                this.dt_ValidityDate.Enabled = !m_ReadOnly;
+                this.Chk_StoreClosed.Enabled = !m_ReadOnly;
+                this.txt_SoftwareSupplier_TaxNumber.ReadOnly = m_ReadOnly;
+                this.txt_PremiseType.ReadOnly = m_ReadOnly;
+                this.txt_MyOrganisation_TaxID.ReadOnly = m_ReadOnly;
+                this.txt_BussinesPremiseID.ReadOnly = m_ReadOnly;
+                this.txt_InvoiceAuthor_TaxID.ReadOnly = m_ReadOnly;
+                // this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
+
+                this.txt_City.ReadOnly = m_ReadOnly;
+                this.txt_PostNumber.ReadOnly = m_ReadOnly;
+                this.txt_StreetNumber.ReadOnly = m_ReadOnly;
+                this.txt_StreetNumberAdt.ReadOnly = m_ReadOnly;
+                this.txt_StreetName.ReadOnly = m_ReadOnly;
+
             }
             else
             {
-                this.txt_BuildingNumber.Text = Properties.Settings.Default.fursD_BuildingNumber;
-                this.txt_BuildingSectionNumber.Text = Properties.Settings.Default.fursD_BuildingSectionNumber;
-                this.txt_Community.Text = Properties.Settings.Default.fursD_Community;
-                this.txt_CadastralNumber.Text = Properties.Settings.Default.fursD_CadastralNumber;
-                this.dt_ValidityDate.Value = Properties.Settings.Default.fursD_ValidityDate;
-                this.txt_SoftwareSupplier_TaxNumber.Text = Properties.Settings.Default.fursD_SoftwareSupplierTaxID;
-                this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType;
-                this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID;
-                this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID;
-                this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+                this.txt_BuildingNumber.Text = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v.v.ToString();  // Properties.Settings.Default.fursD_BuildingNumber;
+                this.txt_BuildingSectionNumber.Text = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingSectionNumber_v.v.ToString(); //Properties.Settings.Default.fursD_BuildingSectionNumber;
+                this.txt_Community.Text = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Community_v.v;// Properties.Settings.Default.fursD_Community;
+                this.txt_CadastralNumber.Text = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.CadastralNumber_v.v.ToString();//Properties.Settings.Default.fursD_CadastralNumber;
+                this.dt_ValidityDate.Value = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.ValidityDate_v.v; //Properties.Settings.Default.fursD_ValidityDate;
+                this.txt_SoftwareSupplier_TaxNumber.Text = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.SoftwareSupplier_TaxNumber_v.v; //Properties.Settings.Default.fursD_SoftwareSupplierTaxID;
+                this.txt_PremiseType.Text = TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.PremiseType_v.v; //Properties.Settings.Default.fursD_PremiseType =
+                this.txt_MyOrganisation_TaxID.Text = TangentaDB.myOrg.Tax_ID_v.v; //Properties.Settings.Default.fursD_MyOrgTaxID;
+                this.txt_BussinesPremiseID.Text = TangentaDB.myOrg.m_myOrg_Office.ShortName_v.v;// Properties.Settings.Default.fursD_BussinesPremiseID;
+                this.txt_InvoiceAuthor_TaxID.Text = TangentaDB.myOrg.m_myOrg_Office.m_myOrg_Person.Tax_ID_v.v;// Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
 
-                this.txt_City.Text = Properties.Settings.Default.fursD_City;
-                this.txt_PostNumber.Text = Properties.Settings.Default.fursD_PostNumber;
-                this.txt_StreetNumber.Text = Properties.Settings.Default.fursD_StreetNumber;
-                this.txt_StreetNumberAdt.Text = Properties.Settings.Default.fursD_StreetNumberAdt;
-                this.txt_StreetName.Text = Properties.Settings.Default.fursD_StreetName;
+                this.txt_City.Text = TangentaDB.myOrg.m_myOrg_Office.Address_v.City; // Properties.Settings.Default.fursD_City;
+                this.txt_PostNumber.Text = TangentaDB.myOrg.m_myOrg_Office.Address_v.ZIP; // Properties.Settings.Default.fursD_PostNumber;
+                this.txt_StreetNumber.Text = TangentaDB.myOrg.m_myOrg_Office.Address_v.HouseNumber_v.v;// Properties.Settings.Default.fursD_StreetNumber;
+                this.txt_StreetNumberAdt.Text = "";//Properties.Settings.Default.fursD_StreetNumberAdt;
+                this.txt_StreetName.Text = TangentaDB.myOrg.m_myOrg_Office.Address_v.StreetName;// Properties.Settings.Default.fursD_StreetName;
 
-                if (Properties.Settings.Default.fursD_ClosingTag == "Z")
+                //if (Properties.Settings.Default.fursD_ClosingTag == "Z")
+                if (TangentaDB.myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.ClosingTag_v.v == "Z")
                     this.Chk_StoreClosed.Checked = true;
                 else
                     this.Chk_StoreClosed.Checked = false;
 
+                this.txt_BuildingNumber.ReadOnly = true;
+                this.txt_BuildingSectionNumber.ReadOnly = true;
+                this.txt_Community.ReadOnly = true;
+                this.txt_CadastralNumber.ReadOnly = true;
+                this.dt_ValidityDate.Enabled = !true;
+                this.Chk_StoreClosed.Enabled = !true;
+                this.txt_SoftwareSupplier_TaxNumber.ReadOnly = true;
+                this.txt_PremiseType.ReadOnly = true;
+                this.txt_MyOrganisation_TaxID.ReadOnly = true;
+                this.txt_BussinesPremiseID.ReadOnly = true;
+                this.txt_InvoiceAuthor_TaxID.ReadOnly = true;
+                // this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
+
+                this.txt_City.ReadOnly = true;
+                this.txt_PostNumber.ReadOnly = true;
+                this.txt_StreetNumber.ReadOnly = true;
+                this.txt_StreetNumberAdt.ReadOnly = true;
+                this.txt_StreetName.ReadOnly = true;
             }
-
-            this.txt_BuildingNumber.ReadOnly = m_ReadOnly;
-            this.txt_BuildingSectionNumber.ReadOnly = m_ReadOnly;
-            this.txt_Community.ReadOnly = m_ReadOnly;
-            this.txt_CadastralNumber.ReadOnly = m_ReadOnly;
-            this.dt_ValidityDate.Enabled = !m_ReadOnly;
-            this.Chk_StoreClosed.Enabled = !m_ReadOnly;
-            this.txt_SoftwareSupplier_TaxNumber.ReadOnly = m_ReadOnly;
-            this.txt_PremiseType.ReadOnly = m_ReadOnly;
-            this.txt_MyOrganisation_TaxID.ReadOnly = m_ReadOnly;
-            this.txt_BussinesPremiseID.ReadOnly = m_ReadOnly;
-            this.txt_InvoiceAuthor_TaxID.ReadOnly = m_ReadOnly;
-            // this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
-
-            this.txt_City.ReadOnly = m_ReadOnly;
-            this.txt_PostNumber.ReadOnly = m_ReadOnly;
-            this.txt_StreetNumber.ReadOnly = m_ReadOnly;
-            this.txt_StreetNumberAdt.ReadOnly = m_ReadOnly;
-            this.txt_StreetName.ReadOnly = m_ReadOnly;
-
         }
 
         internal void Save()
@@ -166,25 +184,25 @@ namespace FiscalVerificationOfInvoices_SLO
             }
             else
             {
-                Properties.Settings.Default.fursD_BuildingNumber = this.txt_BuildingNumber.Text;
-                Properties.Settings.Default.fursD_BuildingSectionNumber = this.txt_BuildingSectionNumber.Text;
-                Properties.Settings.Default.fursD_Community = this.txt_Community.Text;
-                Properties.Settings.Default.fursD_CadastralNumber = this.txt_CadastralNumber.Text;
-                Properties.Settings.Default.fursD_ValidityDate = this.dt_ValidityDate.Value;
-                Properties.Settings.Default.fursD_SoftwareSupplierTaxID = this.txt_SoftwareSupplier_TaxNumber.Text;
-                Properties.Settings.Default.fursD_PremiseType = this.txt_PremiseType.Text;
-                Properties.Settings.Default.fursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
-                Properties.Settings.Default.fursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
-                Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
-                Properties.Settings.Default.fursD_City = this.txt_City.Text;
-                Properties.Settings.Default.fursD_PostNumber = this.txt_PostNumber.Text;
-                Properties.Settings.Default.fursD_StreetNumber = this.txt_StreetNumber.Text;
-                Properties.Settings.Default.fursD_StreetNumberAdt = this.txt_StreetNumberAdt.Text;
-                Properties.Settings.Default.fursD_StreetName = this.txt_StreetName.Text;
-                if (this.Chk_StoreClosed.Checked == true)
-                    Properties.Settings.Default.fursD_ClosingTag = "Z";
-                else
-                    Properties.Settings.Default.fursD_ClosingTag = "";
+                //Properties.Settings.Default.fursD_BuildingNumber = this.txt_BuildingNumber.Text;
+                //Properties.Settings.Default.fursD_BuildingSectionNumber = this.txt_BuildingSectionNumber.Text;
+                //Properties.Settings.Default.fursD_Community = this.txt_Community.Text;
+                //Properties.Settings.Default.fursD_CadastralNumber = this.txt_CadastralNumber.Text;
+                //Properties.Settings.Default.fursD_ValidityDate = this.dt_ValidityDate.Value;
+                //Properties.Settings.Default.fursD_SoftwareSupplierTaxID = this.txt_SoftwareSupplier_TaxNumber.Text;
+                //Properties.Settings.Default.fursD_PremiseType = this.txt_PremiseType.Text;
+                //Properties.Settings.Default.fursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
+                //Properties.Settings.Default.fursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
+                //Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
+                //Properties.Settings.Default.fursD_City = this.txt_City.Text;
+                //Properties.Settings.Default.fursD_PostNumber = this.txt_PostNumber.Text;
+                //Properties.Settings.Default.fursD_StreetNumber = this.txt_StreetNumber.Text;
+                //Properties.Settings.Default.fursD_StreetNumberAdt = this.txt_StreetNumberAdt.Text;
+                //Properties.Settings.Default.fursD_StreetName = this.txt_StreetName.Text;
+                //if (this.Chk_StoreClosed.Checked == true)
+                //    Properties.Settings.Default.fursD_ClosingTag = "Z";
+                //else
+                //    Properties.Settings.Default.fursD_ClosingTag = "";
 
             }
         }

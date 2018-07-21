@@ -183,6 +183,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
             }
         }
+
         public string FursD_BuildingNumber
         {
             get
@@ -193,7 +194,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_BuildingNumber;
+                    //return Properties.Settings.Default.fursD_BuildingNumber;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v.v.ToString();
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BuildingNumber is not defined!");
+                    return null;
                 }
             }
         }
@@ -209,7 +222,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_BuildingSectionNumber;
+                    //return Properties.Settings.Default.fursD_BuildingSectionNumber;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingSectionNumber_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingSectionNumber_v.v.ToString();
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BuildingSectionNumber is not defined!");
+                    return null;
                 }
             }
         }
@@ -224,7 +249,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_Community;
+                    //return Properties.Settings.Default.fursD_Community;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Community_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Community_v.v.ToString();
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_Community is not defined!");
+                    return null;
                 }
             }
         }
@@ -239,10 +276,24 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_CadastralNumber;
+                    //return Properties.Settings.Default.fursD_CadastralNumber;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.CadastralNumber_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.CadastralNumber_v.v.ToString();
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_CadastralNumber is not defined!");
+                    return null;
                 }
             }
         }
+
+
         public DateTime FursD_ValidityDate
         {
             get
@@ -253,7 +304,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_ValidityDate;
+                    //return Properties.Settings.Default.fursD_ValidityDate;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.ValidityDate_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.ValidityDate_v.v;
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_ValidityDate is not defined!");
+                    return DateTime.MinValue;
                 }
             }
         }
@@ -267,7 +330,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_ClosingTag;
+                    //return Properties.Settings.Default.fursD_ClosingTag;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.ClosingTag_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.ClosingTag_v.v;
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_ClosingTag is not defined!");
+                    return null;
                 }
             }
         }
@@ -282,7 +357,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_SoftwareSupplierTaxID;
+                    //return Properties.Settings.Default.fursD_SoftwareSupplierTaxID;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.SoftwareSupplier_TaxNumber_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.SoftwareSupplier_TaxNumber_v.v;
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_SoftwareSupplierTaxID is not defined!");
+                    return null;
                 }
             }
         }
@@ -297,7 +384,19 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_PremiseType;
+                    // return Properties.Settings.Default.fursD_PremiseType;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate != null)
+                        {
+                            if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.PremiseType_v != null)
+                            {
+                                return myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.PremiseType_v.v;
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_PremiseType is not defined!");
+                    return null;
                 }
             }
         }
@@ -313,7 +412,13 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_MyOrgTaxID;
+                    //return Properties.Settings.Default.fursD_MyOrgTaxID;
+                    if (myOrg.Tax_ID_v!= null)
+                    {
+                         return myOrg.Tax_ID_v.v;
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property string FursD_MyOrgTaxID is not defined!");
+                    return null;
                 }
             }
         }
@@ -328,7 +433,16 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_BussinesPremiseID;
+                    //Properties.Settings.Default.fursD_BussinesPremiseID;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.ShortName_v != null)
+                        {
+                            return myOrg.m_myOrg_Office.ShortName_v.v;
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_BussinesPremiseID is not defined!");
+                    return null;
                 }
             }
         }
@@ -353,7 +467,23 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+                    //return Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                        {
+                            if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                            {
+                                if (myOrg.m_myOrg_Office.m_myOrg_Person.Tax_ID_v != null)
+                                {
+                                    return myOrg.m_myOrg_Office.m_myOrg_Person.Tax_ID_v.v;
+                                }
+                            }
+                        }
+                    }
+                    LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_InvoiceAuthorTaxID is not defined!");
+                    return null;
+
                 }
             }
         }

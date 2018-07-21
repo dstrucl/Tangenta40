@@ -1049,18 +1049,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_MyOrgTaxID {
-            get {
-                return ((string)(this["fursD_MyOrgTaxID"]));
-            }
-            set {
-                this["fursD_MyOrgTaxID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10286853")]
         public string fursD_MyOrgTaxID_TEST {
             get {
@@ -1068,18 +1056,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["fursD_MyOrgTaxID_TEST"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_BussinesPremiseID {
-            get {
-                return ((string)(this["fursD_BussinesPremiseID"]));
-            }
-            set {
-                this["fursD_BussinesPremiseID"] = value;
             }
         }
         
@@ -1097,18 +1073,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_InvoiceAuthorTaxID {
-            get {
-                return ((string)(this["fursD_InvoiceAuthorTaxID"]));
-            }
-            set {
-                this["fursD_InvoiceAuthorTaxID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("12345678")]
         public string fursD_InvoiceAuthorTaxID_TEST {
             get {
@@ -1116,18 +1080,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["fursD_InvoiceAuthorTaxID_TEST"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_BuildingNumber {
-            get {
-                return ((string)(this["fursD_BuildingNumber"]));
-            }
-            set {
-                this["fursD_BuildingNumber"] = value;
             }
         }
         
@@ -1145,18 +1097,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_BuildingSectionNumber {
-            get {
-                return ((string)(this["fursD_BuildingSectionNumber"]));
-            }
-            set {
-                this["fursD_BuildingSectionNumber"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string fursD_BuildingSectionNumber_TEST {
             get {
@@ -1169,18 +1109,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_Community {
-            get {
-                return ((string)(this["fursD_Community"]));
-            }
-            set {
-                this["fursD_Community"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("KS1")]
         public string fursD_Community_TEST {
             get {
@@ -1188,18 +1116,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["fursD_Community_TEST"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_CadastralNumber {
-            get {
-                return ((string)(this["fursD_CadastralNumber"]));
-            }
-            set {
-                this["fursD_CadastralNumber"] = value;
             }
         }
         
@@ -1218,18 +1134,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2100-01-01")]
-        public global::System.DateTime fursD_ValidityDate {
-            get {
-                return ((global::System.DateTime)(this["fursD_ValidityDate"]));
-            }
-            set {
-                this["fursD_ValidityDate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2100-01-01")]
         public global::System.DateTime fursD_ValidityDate_TEST {
             get {
                 return ((global::System.DateTime)(this["fursD_ValidityDate_TEST"]));
@@ -1242,36 +1146,12 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_ClosingTag {
-            get {
-                return ((string)(this["fursD_ClosingTag"]));
-            }
-            set {
-                this["fursD_ClosingTag"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursD_ClosingTag_TEST {
             get {
                 return ((string)(this["fursD_ClosingTag_TEST"]));
             }
             set {
                 this["fursD_ClosingTag_TEST"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_PremiseType {
-            get {
-                return ((string)(this["fursD_PremiseType"]));
-            }
-            set {
-                this["fursD_PremiseType"] = value;
             }
         }
         
@@ -1368,66 +1248,6 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["fursD_StreetName_TEST"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_City {
-            get {
-                return ((string)(this["fursD_City"]));
-            }
-            set {
-                this["fursD_City"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_PostNumber {
-            get {
-                return ((string)(this["fursD_PostNumber"]));
-            }
-            set {
-                this["fursD_PostNumber"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_StreetNumber {
-            get {
-                return ((string)(this["fursD_StreetNumber"]));
-            }
-            set {
-                this["fursD_StreetNumber"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_StreetName {
-            get {
-                return ((string)(this["fursD_StreetName"]));
-            }
-            set {
-                this["fursD_StreetName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string fursD_StreetNumberAdt {
-            get {
-                return ((string)(this["fursD_StreetNumberAdt"]));
-            }
-            set {
-                this["fursD_StreetNumberAdt"] = value;
             }
         }
         

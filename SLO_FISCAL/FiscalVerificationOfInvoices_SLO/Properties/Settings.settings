@@ -877,61 +877,31 @@
     <Setting Name="fursTEST_Environment" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="fursD_MyOrgTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="fursD_MyOrgTaxID_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">10286853</Value>
-    </Setting>
-    <Setting Name="fursD_BussinesPremiseID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_BussinesPremiseID_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">P1</Value>
     </Setting>
-    <Setting Name="fursD_InvoiceAuthorTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="fursD_InvoiceAuthorTaxID_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">12345678</Value>
-    </Setting>
-    <Setting Name="fursD_BuildingNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_BuildingNumber_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="fursD_BuildingSectionNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="fursD_BuildingSectionNumber_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="fursD_Community" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_Community_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">KS1</Value>
     </Setting>
-    <Setting Name="fursD_CadastralNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="fursD_CadastralNumber_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">1738</Value>
-    </Setting>
-    <Setting Name="fursD_ValidityDate" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">2100-01-01</Value>
     </Setting>
     <Setting Name="fursD_ValidityDate_TEST" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2100-01-01</Value>
     </Setting>
-    <Setting Name="fursD_ClosingTag" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="fursD_ClosingTag_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="fursD_PremiseType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_PremiseType_TEST" Type="System.String" Scope="User">
@@ -958,21 +928,6 @@
     </Setting>
     <Setting Name="fursD_StreetName_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">CestaX</Value>
-    </Setting>
-    <Setting Name="fursD_City" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="fursD_PostNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="fursD_StreetNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="fursD_StreetName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="fursD_StreetNumberAdt" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Last_SalesBookInvoice_SerialNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

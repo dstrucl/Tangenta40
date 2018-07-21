@@ -32,7 +32,7 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            if (!Program.b_FVI_SLO)
+            if (Program.b_FVI_SLO)
             {
                 lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
             }

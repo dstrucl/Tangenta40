@@ -1423,6 +1423,12 @@ namespace Tangenta
                 if (this.loginControl1.Login(xnav, getWorkPeriod))
                 {
                     //myStartup.eNextStep++;
+                    myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person==null)
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                        return false;
+                    }
                     return true;
                 }
                 else

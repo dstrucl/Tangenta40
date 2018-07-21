@@ -1924,7 +1924,7 @@ namespace TangentaDataBaseDef
             t_Office =  new SQLTable((Object)new Office(),"office", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Office);
             t_Office.AddColumn((Object)mt.m_Office.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Office.AddColumn((Object)mt.m_Office.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Office Name", "Ime poslovne enote") );
-            t_Office.AddColumn((Object)mt.m_Office.ShortName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("Office Short Name", "Kratko ime"));
+            t_Office.AddColumn((Object)mt.m_Office.ShortName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("Bussines Premise ID", "Oznaka poslovnega prostora"));
             t_Office.AddColumn((Object)mt.m_Office.m_myOrganisation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext("My Organisation ID", "Moja oragnizacija ID"));
             m_DBTables.items.Add(t_Office);
 
