@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBTypes;
 
 namespace LoginControl
 {
@@ -30,6 +31,12 @@ namespace LoginControl
         internal void DoPaint(DataRow dr, string[] s_name_Group, object xobj)
         {
             RePaint();
+        }
+
+        internal void SetData(DataRow dr)
+        {
+            string susername = tf._set_string(dr["UserName"]);
+            this.lbl_User.Text = susername;
         }
     }
 }

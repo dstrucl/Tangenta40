@@ -149,10 +149,14 @@ namespace LoginControl
                 usrc_LoginOfMyOrgUser usrc_item = (usrc_LoginOfMyOrgUser)o_usrc;
                 if (bVisible)
                 {
-                    //Item_Data iData = (Item_Data)o_data;
-                    usrc_item.Visible = true;
-                    usrc_item.Enabled = true;
-                    usrc_item.DoPaint(null, s_name_Group, null);
+                    if (o_data is DataRow)
+                    {
+                        usrc_item.SetData((DataRow)o_data);
+                        //Item_Data iData = (Item_Data)o_data;
+                        usrc_item.Visible = true;
+                        usrc_item.Enabled = true;
+                        usrc_item.DoPaint(null, s_name_Group, null);
+                    }
                 }
                 else
                 {
