@@ -1386,9 +1386,9 @@ namespace Tangenta
             xnav.m_eButtons = Navigation.eButtons.OkCancel;
             if (myOrg.m_myOrg_Office != null)
             {
-                if (ID.Validate(myOrg.m_myOrg_Office.m_myOrg_Person.ID))
+                if (ID.Validate(myOrg.m_myOrg_Office.ID))
                 {
-                    Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(myOrg.m_myOrg_Office.m_myOrg_Person.ID, xnav);
+                    Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(myOrg.m_myOrg_Office.ID, myOrganisation_Person_ID, xnav);
                     frm_myOrgPerEdit.TopMost = parentform.TopMost;
                     frm_myOrgPerEdit.Show(parentform);
                     return true;

@@ -29,30 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_myOrg_Person_Edit));
-            this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.btn_PersonData_Edit = new System.Windows.Forms.Button();
+            this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.SuspendLayout();
-            // 
-            // usrc_EditTable1
-            // 
-            this.usrc_EditTable1.AllowUserToAddNew = true;
-            this.usrc_EditTable1.AllowUserToChange = true;
-            this.usrc_EditTable1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_EditTable1.GetRandomData = false;
-            this.usrc_EditTable1.Location = new System.Drawing.Point(2, 70);
-            this.usrc_EditTable1.Name = "usrc_EditTable1";
-            this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(861, 550);
-            this.usrc_EditTable1.TabIndex = 3;
-            this.usrc_EditTable1.Title = "";
-            this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
-            this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable1.after_FillDataInputControl += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_after_FillDataInputControl(this.usrc_EditTable1_after_FillDataInputControl_1);
-            this.usrc_EditTable1.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
-            this.usrc_EditTable1.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
             // 
             // usrc_NavigationButtons1
             // 
@@ -94,6 +74,28 @@
             this.btn_PersonData_Edit.Text = "More Person Data ";
             this.btn_PersonData_Edit.UseVisualStyleBackColor = false;
             this.btn_PersonData_Edit.Click += new System.EventHandler(this.btn_PersonData_Edit_Click);
+            // 
+            // usrc_EditTable1
+            // 
+            this.usrc_EditTable1.AllowUserToAddNew = true;
+            this.usrc_EditTable1.AllowUserToChange = true;
+            this.usrc_EditTable1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_EditTable1.GetRandomData = false;
+            this.usrc_EditTable1.Location = new System.Drawing.Point(2, 70);
+            this.usrc_EditTable1.Name = "usrc_EditTable1";
+            this.usrc_EditTable1.SelectionButtonVisible = true;
+            this.usrc_EditTable1.Size = new System.Drawing.Size(861, 550);
+            this.usrc_EditTable1.TabIndex = 3;
+            this.usrc_EditTable1.Title = "";
+            this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
+            this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_EditTable1.after_FillDataInputControl += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_after_FillDataInputControl(this.usrc_EditTable1_after_FillDataInputControl_1);
+            this.usrc_EditTable1.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
+            this.usrc_EditTable1.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
+            this.usrc_EditTable1.before_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_before_InsertInDataBase(this.usrc_EditTable1_before_InsertInDataBase);
+            this.usrc_EditTable1.before_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_before_UpdateDataBase(this.usrc_EditTable1_before_UpdateDataBase);
             // 
             // Form_myOrg_Person_Edit
             // 

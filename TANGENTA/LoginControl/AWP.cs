@@ -453,6 +453,7 @@ namespace LoginControl
                 xusrc_MultipleUsers.Dock = DockStyle.Fill;
                 parent_form.Controls.Add(xusrc_MultipleUsers);
             }
+            xusrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
             xusrc_MultipleUsers.Visible = true;
             xusrc_MultipleUsers.Init();
             return true;

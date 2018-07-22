@@ -32,6 +32,7 @@
             this.pnl_Items = new System.Windows.Forms.Panel();
             this.usrc_Item_Group_Handler1 = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
             this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrc_Item_PageHandler();
+            this.lbl_GroupPath = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -40,6 +41,9 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 57);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -71,6 +75,8 @@
             this.usrc_Item_Group_Handler1.ShopName = "";
             this.usrc_Item_Group_Handler1.Size = new System.Drawing.Size(213, 715);
             this.usrc_Item_Group_Handler1.TabIndex = 0;
+            this.usrc_Item_Group_Handler1.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.usrc_Item_Group_Handler1_GroupsRedefined);
+            this.usrc_Item_Group_Handler1.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.Paint_Group);
             // 
             // usrc_Item_PageHandler1
             // 
@@ -81,10 +87,20 @@
             this.usrc_Item_PageHandler1.TabIndex = 1;
             this.usrc_Item_PageHandler1.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
+            // lbl_GroupPath
+            // 
+            this.lbl_GroupPath.AutoSize = true;
+            this.lbl_GroupPath.Location = new System.Drawing.Point(450, 15);
+            this.lbl_GroupPath.Name = "lbl_GroupPath";
+            this.lbl_GroupPath.Size = new System.Drawing.Size(60, 13);
+            this.lbl_GroupPath.TabIndex = 2;
+            this.lbl_GroupPath.Text = "Group path";
+            // 
             // usrc_MultipleUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.usrc_Item_PageHandler1);
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_MultipleUsers";
@@ -94,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -103,5 +120,6 @@
         private usrc_Item_Group_Handler.usrc_Item_Group_Handler usrc_Item_Group_Handler1;
         private usrc_Item_PageHandler.usrc_Item_PageHandler usrc_Item_PageHandler1;
         private System.Windows.Forms.Panel pnl_Items;
+        private System.Windows.Forms.Label lbl_GroupPath;
     }
 }

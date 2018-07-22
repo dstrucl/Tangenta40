@@ -589,7 +589,7 @@ namespace CodeTables.TableDocking_Form
                     if (Update != null)
                     {
                         Update(bRes, ID, Err);
-                        if (ID.IsValid)
+                        if (ID.Validate(ID))
                         {
                             ShowTableRow(ID);
                         }

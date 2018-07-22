@@ -321,7 +321,7 @@ namespace CodeTables
                                     bool bSomethingDefined = false;
                                     if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.m_con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError))
                                     {
-                                        if (ID.IsValid)
+                                        if (ID.Validate(ID))
                                         {
                                             return true;
                                         }

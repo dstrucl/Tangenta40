@@ -883,7 +883,7 @@ namespace Tangenta
                     nav_edt_my_company_person_dlg.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 }
 
-                nav_edt_my_company_person_dlg.ChildDialog = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID, nav_edt_my_company_person_dlg);
+                nav_edt_my_company_person_dlg.ChildDialog = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID, null,nav_edt_my_company_person_dlg);
                 this.Cursor = Cursors.Arrow;
                 nav_edt_my_company_person_dlg.ShowDialog();
                 return true;
@@ -957,7 +957,7 @@ namespace Tangenta
 
         internal bool Startup_05_ShowForm_Form_myOrg_Person_Edit(ID x_Office_ID,bool bAllowNew, NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_myOrg_Person_Edit(x_Office_ID,xnav), typeof(Form_myOrg_Person_Edit).ToString());
+            xnav.ShowForm(new Form_myOrg_Person_Edit(x_Office_ID,null,xnav), typeof(Form_myOrg_Person_Edit).ToString());
             return true;
         }
 
@@ -1717,6 +1717,22 @@ namespace Tangenta
                     }
                     else
                     {
+                        myOrg.SetOffice(myOrg.m_myOrg_Office.ID);
+                        if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
+                        {
+                            MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
+
+                            return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
+                        }
+
+                        if (!Program.OperationMode.MultiUser)
+                        {
+                            if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                            {
+                                return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER;
+                            }
+                        }
+
                         if (myOrg.Address_v.Country_ISO_3166_a3.Equals(Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_A3))
                         {
                             Program.m_CountryHasFVI = true;
@@ -1772,35 +1788,7 @@ namespace Tangenta
                     return eGetOrganisationDataResult.NO_OFFICE;
                 }
 
-                if (myOrg.m_myOrg_Office != null)
-                {
-                    if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
-                    {
-                        return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
-                    }                 
-                }
 
-                if (myOrg.m_myOrg_Office !=null)
-                {
-                    if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
-                    {
-                       
-                        MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
-                        
-                        return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
-                    }
-                }
-
-                if (myOrg.m_myOrg_Office != null)
-                {
-                    if (!Program.OperationMode.MultiUser)
-                    {
-                        if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
-                        {
-                            return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER;
-                        }
-                    }
-                }
 
                 string sPhoneNumber = "";
                 string sEmail = "";

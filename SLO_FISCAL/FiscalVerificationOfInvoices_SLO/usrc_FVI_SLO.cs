@@ -403,6 +403,52 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        public enum Check_SLO_TaxID_Result { OK, LENGTH_ISNOT_8, ALL_CHARACTERS_ARE_NOT_NUMBERS, CHECK_FAILED }
+
+        private Check_SLO_TaxID_Result Check_SLO_TaxID(string sTaxID)
+        {
+            if (sTaxID.Length == 8)
+            {
+                int[] digit = new int[8];
+                int j = 7;
+                int icontrol = -1;
+                int iFact = 2;
+                int isum = 0;
+                for (j = 7; j >= 0; j--)
+                {
+                    char s = sTaxID[j];
+                    if (!char.IsDigit(s))
+                    {
+                        return Check_SLO_TaxID_Result.ALL_CHARACTERS_ARE_NOT_NUMBERS;
+                    }
+                    string sdigit = s.ToString();
+                    digit[j] = Convert.ToInt32(sdigit);
+                    if (j == 7)
+                    {
+                        icontrol = digit[j];
+                    }
+                    else
+                    {
+                        isum += digit[j] * iFact;
+                        iFact++;
+                    }
+                }
+                int irem = isum % 11;
+                int ic = 11 - irem;
+                if (ic == icontrol)
+                {
+                    return Check_SLO_TaxID_Result.OK;
+                }
+                else
+                {
+                    return Check_SLO_TaxID_Result.CHECK_FAILED;
+                }
+            }
+            else
+            {
+                return Check_SLO_TaxID_Result.LENGTH_ISNOT_8;
+            }
+        }
 
         public string FursD_MyOrgTaxID
         {

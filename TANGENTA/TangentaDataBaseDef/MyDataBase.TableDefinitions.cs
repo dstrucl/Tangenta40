@@ -2471,6 +2471,7 @@ namespace TangentaDataBaseDef
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.ChangePasswordOnFirstLogin, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Change password on first login", "Zamenjaj geslo ob prvi prijavi"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.Maximum_password_age_in_days, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Maximum password age in days", "Maksimalna starost gesla v dnevih"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.NotActiveAfterPasswordExpires, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("User not active any more after password expires", "Uporabnik postane neaktiven po preteku gesla"));
+            t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.m_LoginUsers_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group1 ID", "Skupina1 ID"));
             m_DBTables.items.Add(t_LoginUsers);
 
             /* 207 */

@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_myOrg_Edit));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btn_Office = new System.Windows.Forms.Button();
             this.btn_BankAccounts = new System.Windows.Forms.Button();
+            this.btn_Office = new System.Windows.Forms.Button();
             this.usrc_EditRow = new CodeTables.TableDocking_Form.usrc_EditRow();
             this.dgvx_MyOrganisation = new DataGridView_2xls.DataGridView2xls();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
@@ -64,17 +64,6 @@
             this.splitContainer1.SplitterDistance = 477;
             this.splitContainer1.TabIndex = 0;
             // 
-            // btn_Office
-            // 
-            this.btn_Office.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Office.Location = new System.Drawing.Point(6, 0);
-            this.btn_Office.Name = "btn_Office";
-            this.btn_Office.Size = new System.Drawing.Size(266, 26);
-            this.btn_Office.TabIndex = 11;
-            this.btn_Office.Text = "Office Data";
-            this.btn_Office.UseVisualStyleBackColor = false;
-            this.btn_Office.Click += new System.EventHandler(this.btn_Office_Edit);
-            // 
             // btn_BankAccounts
             // 
             this.btn_BankAccounts.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -85,6 +74,17 @@
             this.btn_BankAccounts.Text = "Organisation Bank Account";
             this.btn_BankAccounts.UseVisualStyleBackColor = false;
             this.btn_BankAccounts.Click += new System.EventHandler(this.btn_BankAccounts_Click);
+            // 
+            // btn_Office
+            // 
+            this.btn_Office.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Office.Location = new System.Drawing.Point(6, 0);
+            this.btn_Office.Name = "btn_Office";
+            this.btn_Office.Size = new System.Drawing.Size(266, 26);
+            this.btn_Office.TabIndex = 11;
+            this.btn_Office.Text = "Office Data";
+            this.btn_Office.UseVisualStyleBackColor = false;
+            this.btn_Office.Click += new System.EventHandler(this.btn_Office_Edit);
             // 
             // usrc_EditRow
             // 
@@ -105,7 +105,9 @@
             this.usrc_EditRow.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.usrc_EditRow.FillTable += new CodeTables.SQLTable.delegate_FillTable(this.usrc_EditRow_FillTable);
             this.usrc_EditRow.SetInputControlProperties += new CodeTables.SQLTable.delegate_mySetInputControlProperties(this.usrc_EditRow_SetInputControlProperties);
+            this.usrc_EditRow.before_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_before_InsertInDataBase(this.usrc_EditRow_before_InsertInDataBase);
             this.usrc_EditRow.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_after_InsertInDataBase(this.usrc_EditRow_after_InsertInDataBase);
+            this.usrc_EditRow.before_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_before_UpdateDataBase(this.usrc_EditRow_before_UpdateDataBase);
             this.usrc_EditRow.Update += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_Update(this.usrc_EditTable_Update);
             // 
             // dgvx_MyOrganisation

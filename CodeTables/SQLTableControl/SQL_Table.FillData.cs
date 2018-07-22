@@ -128,7 +128,7 @@ namespace CodeTables
 
         public bool FillDataInputControl(DBConnection x_SQL_connection, UniqueControlName xuctrln, ID ID, bool bSetInitialValues,ref string csError)
         {
-            if (!ID.IsValid)
+            if (!ID.Validate(ID))
             {
                 return false;
             }

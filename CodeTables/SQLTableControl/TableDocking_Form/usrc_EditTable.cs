@@ -74,6 +74,11 @@ namespace CodeTables.TableDocking_Form
         public string SelectedColumns = null;
         private bool bEditUndefined = false;
 
+        public bool IdentitySelect(ID m_myOrganisation_Person_ID)
+        {
+            return InitDataTable(m_myOrganisation_Person_ID);
+        }
+
         string OrderByColumnName = null;
         public DataTable dt_Data = new DataTable();
         CodeTables.DBTableControl dbTables = null;
@@ -397,7 +402,7 @@ namespace CodeTables.TableDocking_Form
             {
                 //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
                 ID id1 = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
-                if (id1.IsValid)
+                if (ID.Validate(id1))
                 {
                     Identity = id1;
                     usrc_EditRow.ShowTableRow(Identity);

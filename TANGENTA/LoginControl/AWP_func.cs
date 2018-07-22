@@ -79,7 +79,10 @@ SELECT
 			PersonData_$_cardtper.CardType AS PersonData_$_cardtper_$$CardType,
 			PersonData_$_perimg.ID AS PersonData_$_perimg_$$ID,
 			PersonData_$_perimg.Image_Hash AS PersonData_$_perimg_$$Image_Hash,
-			PersonData_$_perimg.Image_Data AS PersonData_$_perimg_$$Image_Data
+			PersonData_$_perimg.Image_Data AS PersonData_$_perimg_$$Image_Data,
+            lupg1.Name AS s1_name,
+            lupg2.Name AS s2_name,
+            lupg3.Name AS s3_name
             FROM LoginUsers 
             INNER JOIN myOrganisation_Person LoginUsers_$_mcomper ON LoginUsers.myOrganisation_Person_ID = LoginUsers_$_mcomper.ID 
             INNER JOIN Person LoginUsers_$_mcomper_$_per ON LoginUsers_$_mcomper.Person_ID = LoginUsers_$_mcomper_$_per.ID 
@@ -99,6 +102,9 @@ SELECT
 			LEFT JOIN cState_Person PersonData_$_cadrper_$_ccouper ON PersonData_$_cadrper.cState_Person_ID = PersonData_$_cadrper_$_ccouper.ID 
 			LEFT JOIN cCardType_Person PersonData_$_cardtper ON PersonData.cCardType_Person_ID = PersonData_$_cardtper.ID 
 			LEFT JOIN PersonImage PersonData_$_perimg ON PersonData.PersonImage_ID = PersonData_$_perimg.ID
+            LEFT JOIN LoginUsers_ParentGroup1 lupg1 ON LoginUsers.LoginUsers_ParentGroup1_ID = lupg1.ID
+            LEFT JOIN LoginUsers_ParentGroup2 lupg2 ON lupg1.LoginUsers_ParentGroup2_ID = lupg2.ID
+            LEFT JOIN LoginUsers_ParentGroup3 lupg3 ON lupg2.LoginUsers_ParentGroup3_ID = lupg3.ID
             " + where_condition;
             if (dt == null)
             {
@@ -119,6 +125,40 @@ SELECT
                 return false;
             }
 
+        }
+
+
+        public static bool GetGroupsTable(ref DataTable dtLoginUsersGroup)
+        {
+            string sql = @"select 
+              s1.Name as s1_name,
+              s2.Name as s2_name,
+              s3.Name as s3_name
+              FROM LoginUsers 
+              LEFT JOIN LoginUsers_ParentGroup1 s1 ON LoginUsers.LoginUsers_ParentGroup1_ID = s1.ID
+              LEFT JOIN LoginUsers_ParentGroup2 s2 ON s1.LoginUsers_ParentGroup2_ID = s2.ID
+              LEFT JOIN LoginUsers_ParentGroup3 s3 ON s2.LoginUsers_ParentGroup3_ID = s3.ID
+		      group by s1.Name,s2.Name,s3.Name";
+            if (dtLoginUsersGroup == null)
+            {
+                dtLoginUsersGroup = new DataTable();
+            }
+            else
+            {
+                dtLoginUsersGroup.Clear();
+                dtLoginUsersGroup.Rows.Clear();
+                dtLoginUsersGroup.Columns.Clear();
+            }
+            string Err = null;
+            if (con.ReadDataTable(ref dtLoginUsersGroup, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:GetGroupsTable:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
 
         internal static bool GetWorkingPeriod(ref DataTable dtWorkingPeriod,DateTime dateFrom,DateTime dateTo, string userName)

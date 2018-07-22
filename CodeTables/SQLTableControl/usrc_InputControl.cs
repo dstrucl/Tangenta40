@@ -207,6 +207,20 @@ namespace CodeTables
 
         }
 
+        public bool Null_Selected
+        {
+            get {
+                    if (this.usrc_lbl !=null)
+                    {
+                        return this.usrc_lbl.Null_Selected;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+        }
+
         internal void SetChanged(object sender)
         {
 

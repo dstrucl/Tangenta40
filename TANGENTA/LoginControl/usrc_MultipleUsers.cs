@@ -7,11 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBTypes;
 
 namespace LoginControl
 {
     public partial class usrc_MultipleUsers : UserControl
     {
+        DataTable dtLoginUsersGroup = null;
+        DataTable m_AWP_dtLoginView = null;
+        int ipnl_Items_Width_default = -1;
+
+        public DataTable AWP_dtLoginView
+        {
+            get
+            {
+                return m_AWP_dtLoginView;
+            }
+            set
+            {
+                m_AWP_dtLoginView = value;
+            }
+        }
 
         public string[] s_name_Group = null;
 
@@ -31,6 +47,7 @@ namespace LoginControl
         public usrc_MultipleUsers()
         {
             InitializeComponent();
+            ipnl_Items_Width_default = pnl_Items.Width;
         }
 
         internal void Init()
@@ -71,7 +88,58 @@ namespace LoginControl
             {
                 LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
             }
+            Get_LoginUsers_Data();
         }
+
+        public bool Get_LoginUsers_Data()
+        {
+            if (AWP_func.GetGroupsTable(ref dtLoginUsersGroup))
+            {
+                if (usrc_Item_Group_Handler1.Set_Groups(dtLoginUsersGroup))
+                {
+                    splitContainer1.Panel2Collapsed = false;
+                    if (usrc_Item_Group_Handler1.NumberOfGroupLevels > 1)
+                    {
+                        splitContainer1.SplitterDistance = splitContainer1.Width - 32;
+                    }
+                    else
+                    {
+                        splitContainer1.SplitterDistance = splitContainer1.Width - 82;
+                    }
+                    if (dtLoginUsersGroup.Rows.Count > 0)
+                    {
+                        string s1_name = null;
+                        string s2_name = null;
+                        string s3_name = null;
+                        if (dtLoginUsersGroup.Rows[0]["s1_name"] is string)
+                        {
+                            s1_name = (string)dtLoginUsersGroup.Rows[0]["s1_name"];
+                        }
+                        if (dtLoginUsersGroup.Rows[0]["s2_name"] is string)
+                        {
+                            s2_name = (string)dtLoginUsersGroup.Rows[0]["s2_name"];
+                        }
+                        if (dtLoginUsersGroup.Rows[0]["s3_name"] is string)
+                        {
+                            s3_name = (string)dtLoginUsersGroup.Rows[0]["s3_name"];
+                        }
+
+                        string[] sGroup = new string[] { s1_name, s2_name, s3_name };
+                        usrc_Item_Group_Handler1.Select(sGroup);
+                        return true;
+                    }
+                }
+                else
+                {
+                    splitContainer1.Panel2Collapsed = true;
+                    string[] sGroup = new string[] { null, null, null };
+                    usrc_Item_Group_Handler1.Select(sGroup);
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)
         {
@@ -98,5 +166,63 @@ namespace LoginControl
             }
         }
 
+
+
+        private void Paint_Group(string[] s_name)
+        {
+            if (LoginUsers_Load(s_name))
+            {
+                lbl_GroupPath.Text = this.usrc_Item_Group_Handler1.GroupPath;
+                this.usrc_Item_PageHandler1.Init(m_AWP_dtLoginView, 5, usrc_Item_aray);
+            }
+        }
+
+        private bool LoginUsers_Load(string[] s_name)
+        {
+            return true;
+        }
+
+        private void usrc_Item_Group_Handler1_GroupChanged(string[] s_name)
+        {
+            s_name_Group = s_name;
+            Paint_Group(s_name_Group);
+        }
+
+        public void Paint_Current_Group()
+        {
+            Paint_Group(s_name_Group);
+        }
+
+
+        internal bool Show(DataRow dr)
+        {
+            string[] sGroupArr = new string[3];
+            sGroupArr[0] = tf._set_string(dr["s1_name"]);
+            sGroupArr[1] = tf._set_string(dr["s2_name"]);
+            sGroupArr[2] = tf._set_string(dr["s3_name"]); 
+            usrc_Item_Group_Handler1.Select(sGroupArr);
+            int index = this.m_AWP_dtLoginView.Rows.IndexOf(dr);
+            if (index >= 0)
+            {
+                usrc_Item_PageHandler1.Show(index);
+                return true;
+            }
+            return false;
+        }
+
+        private void usrc_Item_Group_Handler1_GroupsRedefined(int Level)
+        {
+            if (Level == 0)
+            {
+                pnl_Items.Width = ipnl_Items_Width_default + usrc_Item_Group_Handler1.Width + 2;
+                usrc_Item_Group_Handler1.SetVisible(false);
+            }
+            else
+            {
+                usrc_Item_Group_Handler1.SetVisible(true);
+                pnl_Items.Width = ipnl_Items_Width_default;
+            }
+
+        }
     }
 }

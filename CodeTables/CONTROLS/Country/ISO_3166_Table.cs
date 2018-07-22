@@ -20,7 +20,65 @@ namespace Country_ISO_3166
 {
     public class ISO_3166_Table
     {
+        public delegate bool delegate_Tax_ID_Check(string stax_id,ref string Err);
+
         public const int SLOVENIA_COUNTRY_NUM = 705;
+
+        public enum Check_TaxID_Result { OK, LENGTH_ISNOT_8, ALL_CHARACTERS_ARE_NOT_NUMBERS, CHECK_FAILED }
+
+        public const string Check_TaxID_err_ALL_CHARACTERS_ARE_NOT_NUMBERS = "Not all characters in TaxID string are digits";
+        public const string Check_TaxID_err_LENGTH_IS_NOT = "Length of TaxID string is not:";
+        public const string Check_TaxID_err_CHECKSUM_FAILED = "Check sum failed";
+
+        private static bool Check_SLO_TaxID(string sTaxID, ref string Err)
+        {
+            Err = null;
+            if (sTaxID.Length == 8)
+            {
+                int[] digit = new int[8];
+                int j = 7;
+                int icontrol = -1;
+                int iFact = 2;
+                int isum = 0;
+                for (j = 7; j >= 0; j--)
+                {
+                    char s = sTaxID[j];
+                    if (!char.IsDigit(s))
+                    {
+                        Err = Check_TaxID_err_ALL_CHARACTERS_ARE_NOT_NUMBERS;
+                        return false;
+                    }
+                    string sdigit = s.ToString();
+                    digit[j] = Convert.ToInt32(sdigit);
+                    if (j == 7)
+                    {
+                        icontrol = digit[j];
+                    }
+                    else
+                    {
+                        isum += digit[j] * iFact;
+                        iFact++;
+                    }
+                }
+                int irem = isum % 11;
+                int ic = 11 - irem;
+                if (ic == icontrol)
+                {
+                    return true;
+                }
+                else
+                {
+                    Err = Check_TaxID_err_CHECKSUM_FAILED;
+                    return false;
+                }
+            }
+            else
+            {
+                Err = Check_TaxID_err_LENGTH_IS_NOT+"8";
+                return false;
+            }
+        }
+
 
         public static ISO_3166 m_Afghanistan = new ISO_3166("Afghanistan", "AF", "AFG", 004, "ISO 3166 - 2:AF", "Afghani", "AFN", "AFN", 971, 2, "Afganistan");
 
@@ -224,7 +282,7 @@ namespace Country_ISO_3166
         public static ISO_3166 m_Singapore = new ISO_3166("Singapore", "SG", "SGP", 702, "ISO 3166 - 2:SG", "Singapore Dollar", "SGD", "$", 702, 2, "Singapur");
         public static ISO_3166 m_Sint_Maarten_Dutch_part = new ISO_3166("Sint Maarten(Dutch part)", "SX", "SXM", 534, "ISO 3166 - 2:SX", "Netherlands Antillean Guilder", "ANG", "ANG", 532, 2, "Sint Maarten");
         public static ISO_3166 m_Slovakia = new ISO_3166("Slovakia", "SK", "SVK", 703, "ISO 3166 - 2:SK", "Euro", "EUR", "€", 978, 2, "Slovaška ");
-        public static ISO_3166 m_Slovenia = new ISO_3166("Slovenia", "SI", "SVN", SLOVENIA_COUNTRY_NUM, "ISO 3166 - 2:SI", "Euro", "EUR", "€", 978, 2, "Slovenija ");
+        public static ISO_3166 m_Slovenia = new ISO_3166("Slovenia", "SI", "SVN", SLOVENIA_COUNTRY_NUM, "ISO 3166 - 2:SI", "Euro", "EUR", "€", 978, 2, "Slovenija ",Check_SLO_TaxID);
         public static ISO_3166 m_Solomon_Islands = new ISO_3166("Solomon Islands", "SB", "SLB", 090, "ISO 3166 - 2:SB", "Solomon Islands Dollar", "SBD", "SBD", 090, 2, "Salomonovi otoki");
         public static ISO_3166 m_Somalia = new ISO_3166("Somalia", "SO", "SOM", 706, "ISO 3166 - 2:SO", "Somali Shilling", "SOS", "SOS", 706, 2, "Somalija");
         public static ISO_3166 m_South_Africa = new ISO_3166("South Africa", "ZA", "ZAF", 710, "ISO 3166 - 2:ZA", "Rand", "ZAR", "S", 710, 2, "Srednjeafriška republika");

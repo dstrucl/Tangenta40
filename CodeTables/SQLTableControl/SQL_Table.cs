@@ -924,7 +924,7 @@ namespace CodeTables
             ID newID = null;
             if (xcon.ExecuteNonQuerySQLReturnID(sqlinsert, lsqlPar, ref newID, ref csError, TableName))
             {
-                if (newID.IsValid)
+                if (ID.Validate(newID))
                 {
                     ID_returned = newID;
                     return true;
@@ -1041,7 +1041,7 @@ namespace CodeTables
                 ID newID = null;
                 if (xcon.ExecuteNonQuerySQLReturnID(sqlinsert.ToString(), lsqlPar, ref newID,  ref csError,TableName))
                 {
-                    if (newID.IsValid)
+                    if (ID.Validate(newID))
                     {
                         ID_returned = newID;
                         return true;
@@ -1618,7 +1618,7 @@ namespace CodeTables
                 bool bSomethingDefined = false;
                 if (SQLcmd_InsertInto_SQLITE(xcon, PrevVar, ref sVarID,/* ref  lsqlPar,*/ lTable,ref bSomethingDefined, ref ID, ref csError))
                 {
-                    if (ID.IsValid)
+                    if (ID.Validate(ID))
                     {
                         return true;
                     }

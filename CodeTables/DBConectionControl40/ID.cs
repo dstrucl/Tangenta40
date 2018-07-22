@@ -327,7 +327,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool IsValid
+        private bool IsValid
         {
             get
             {

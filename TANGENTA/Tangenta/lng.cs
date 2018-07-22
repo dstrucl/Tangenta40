@@ -30,6 +30,22 @@ namespace Tangenta
             = new ltext(new string[] { "You did not write electronic device into the database !\r\nWrite electronic device name and press button:\"Write Electronic device data\".",
                                        "Niste vpisali elektronske naprave v podatkovno bazo!\r\nVpišite ime elektronske naprave in pritisnite na gumb \"Shrani podatke o elektronski napravi\", da se elektronska naprava vpiše v podatkovno bazo." });
 
+        public static ltext s_SLO_Person_Tax_ID_must_be_defined
+                 = new ltext(new string[] { "Your slovenian organisation person's TAX ID is not defined.\r\nYou must define TAX ID for each person in your organisation, otherwise Fiscal verification of invoices will not work!\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nPlease write person's TAX ID."
+                                      ,"Oseba vaše organizacije ne sme biti brez navedene davčne številke!\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nVpišite davčno stevilko osebe v vaši organizaciji." });
+
+        public static ltext s_SLO_Organisation_Tax_ID_must_be_defined
+                 = new ltext(new string[] { "Your slovenian organisation TAX ID is not defined.\r\nYou must define TAX ID for your organisation, otherwise Fiscal verification of invoices will not work!\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nPlease write your organisation TAX ID."
+                                      ,"Vaša organizacije ne sme biti brez navedene davčne številke!\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nVpišite davčno stevilko vaše organizaciji." });
+
+        public static ltext s_SLO_Person_Tax_ID_checksum_is_not_valid 
+            = new ltext(new string[] { "Slovenian TAX ID is not valid.\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nPlease correct person's TAX ID."
+                                      ,"Vpisana davčna številka v Sloveniji ni veljavna.\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nPonovno vpišite davčno stevilko fizične osebe." });
+
+        public static ltext s_SLO_Organisation_Tax_ID_checksum_is_not_valid
+            = new ltext(new string[] { "Slovenian TAX ID is not valid.\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nPlease correct person's TAX ID."
+                                      ,"Vpisana davčna številka v Sloveniji ni veljavna.\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nPonovno vpišite davčno stevilko vaše organizacije." });
+
         public static ltext s_btn_UpdateElectronicDevice = new ltext(new string[] { "Update Electronic device data:", "Popravi podatke o elektronski napravi" });
 
         public static ltext s_btn_WriteInDBElectronicDevice = new ltext(new string[] { "Write Electronic device data:", "Shrani podatke o elektronski napravi" });

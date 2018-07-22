@@ -422,5 +422,94 @@ namespace Tangenta
         {
             this.usrc_EditRow.KeyPressed(e.KeyCode);
         }
+
+
+        private bool Check_TaxID(SQLTable xtbl)
+        {
+            Column col = xtbl.FindColumn(typeof(TangentaTableClass.OrganisationData));
+            if (col != null)
+            {
+                if (col.fKey != null)
+                {
+                    if (col.fKey.fTable != null)
+                    {
+                        Column colorg = col.fKey.fTable.FindColumn(typeof(TangentaTableClass.Organisation));
+                        if (colorg != null)
+                        {
+                            if (colorg.fKey != null)
+                            {
+                                if (colorg.fKey.fTable != null)
+                                {
+
+                                    Column col_Tax_ID = colorg.fKey.fTable.FindColumn(typeof(TangentaTableClass.Tax_ID));
+                                    if (col_Tax_ID != null)
+                                    {
+                                        if (col_Tax_ID.InputControl != null)
+                                        {
+                                            if (col_Tax_ID.InputControl.Null_Selected)
+                                            {
+                                                XMessage.Box.Show(this, lng.s_SLO_Organisation_Tax_ID_must_be_defined, MessageBoxIcon.Stop);
+                                                return false;
+                                            }
+                                            else
+                                            {
+                                                object xobj = null;
+                                                SQL_Parameter.eSQL_Parameter epar = SQL_Parameter.eSQL_Parameter.Int;
+                                                if (col_Tax_ID.InputControl.SetColumnObject(ref xobj, ref epar))
+                                                {
+                                                    if (xobj is string)
+                                                    {
+                                                        if (Country_ISO_3166.ISO_3166_Table.m_Slovenia.Tax_ID_checkproc != null)
+                                                        {
+                                                            string Err = null;
+                                                            if (!Country_ISO_3166.ISO_3166_Table.m_Slovenia.Tax_ID_checkproc(((string)xobj), ref Err))
+                                                            {
+                                                                XMessage.Box.Show(this, lng.s_SLO_Organisation_Tax_ID_checksum_is_not_valid, MessageBoxIcon.Stop);
+                                                                return false;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        private void usrc_EditRow_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel)
+        {
+            if (myorg_PostAddress_v != null)
+            {
+                if (myorg_PostAddress_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_Number)
+                {
+                    if (!Check_TaxID(m_tbl))
+                    {
+                        bCancel = true;
+                    }
+                }
+            }
+
+        }
+
+        private void usrc_EditRow_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel)
+        {
+            if (myorg_PostAddress_v != null)
+            {
+                if (myorg_PostAddress_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_Number)
+                {
+                    if (!Check_TaxID(m_tbl))
+                    {
+                        bCancel = true;
+                    }
+                }
+            }
+        }
     }
 }
