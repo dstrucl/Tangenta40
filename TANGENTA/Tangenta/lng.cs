@@ -39,12 +39,12 @@ namespace Tangenta
                                       ,"Vaša organizacije ne sme biti brez navedene davčne številke!\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nVpišite davčno stevilko vaše organizaciji." });
 
         public static ltext s_SLO_Person_Tax_ID_checksum_is_not_valid 
-            = new ltext(new string[] { "Slovenian TAX ID is not valid.\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nPlease correct person's TAX ID."
-                                      ,"Vpisana davčna številka v Sloveniji ni veljavna.\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nPonovno vpišite davčno stevilko fizične osebe." });
+            = new ltext(new string[] { "Slovenian TAX ID is not valid.\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nDo you want to write person's TAX ID anyway ?"
+                                      ,"Vpisana davčna številka v Sloveniji ni veljavna.\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nŽelite vpisati davčno stevilko osebe vaše organizacije kljub napaki ?" });
 
         public static ltext s_SLO_Organisation_Tax_ID_checksum_is_not_valid
-            = new ltext(new string[] { "Slovenian TAX ID is not valid.\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nPlease correct person's TAX ID."
-                                      ,"Vpisana davčna številka v Sloveniji ni veljavna.\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nPonovno vpišite davčno stevilko vaše organizacije." });
+            = new ltext(new string[] { "Slovenian TAX ID is not valid.\r\nSlovenian TAX ID is number of 8 digits with coresponding checksum of last digit!\r\nDo you want to write your organisation TAX ID anyway ?"
+                                      ,"Vpisana davčna številka v Sloveniji ni veljavna.\r\nVeljavna davčna številka v Sloveniji ima osem decimalnih mest, zadnje decimalno mesto predstavlja kontrolno vsoto.\r\nŽelite vpisati davčno stevilko vaše organizacije kljub napaki ?" });
 
         public static ltext s_btn_UpdateElectronicDevice = new ltext(new string[] { "Update Electronic device data:", "Popravi podatke o elektronski napravi" });
 

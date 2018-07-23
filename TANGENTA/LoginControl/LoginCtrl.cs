@@ -424,22 +424,33 @@ namespace LoginControl
         }
 
 
-        public bool Login(Navigation xnav,delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,UserControl xusrc_DocumentMan)
+        public bool Login(Navigation xnav,delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
-                    return awp.Login(xnav,call_Get_Atom_WorkPeriod, xusrc_DocumentMan);
+                    return awp.Login(xnav,call_Get_Atom_WorkPeriod);
                 case eDataTableCreationMode.STD:
                     return std.STD_Login();
             }
             LogFile.Error.Show("ERROR:LoginControl:Login:m_eDataTableCreationMode=" + m_eDataTableCreationMode.ToString() + " not implemented!");
             return false;
         }
-   
 
- 
+        public bool ShowLoginControl(Navigation xnav, delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod, UserControl xusrc_DocumentMan)
+        {
+            switch (m_eDataTableCreationMode)
+            {
+                case eDataTableCreationMode.AWP:
+                    return awp.ShowLoginForm(xnav, call_Get_Atom_WorkPeriod, xusrc_DocumentMan);
+                case eDataTableCreationMode.STD:
+                    return std.STD_Login();
+            }
+            LogFile.Error.Show("ERROR:LoginControl:Login:m_eDataTableCreationMode=" + m_eDataTableCreationMode.ToString() + " not implemented!");
+            return false;
+        }
 
+      
         private void btn_UserManager_Click(object sender, EventArgs e)
         {
             switch (m_eDataTableCreationMode)

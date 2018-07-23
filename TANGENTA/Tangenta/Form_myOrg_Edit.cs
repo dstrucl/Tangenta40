@@ -464,8 +464,10 @@ namespace Tangenta
                                                             string Err = null;
                                                             if (!Country_ISO_3166.ISO_3166_Table.m_Slovenia.Tax_ID_checkproc(((string)xobj), ref Err))
                                                             {
-                                                                XMessage.Box.Show(this, lng.s_SLO_Organisation_Tax_ID_checksum_is_not_valid, MessageBoxIcon.Stop);
-                                                                return false;
+                                                                if (XMessage.Box.Show(this, lng.s_SLO_Organisation_Tax_ID_checksum_is_not_valid, "", MessageBoxButtons.YesNo, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                                                                {
+                                                                    return false;
+                                                                }
                                                             }
                                                         }
                                                     }

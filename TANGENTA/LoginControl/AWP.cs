@@ -282,49 +282,65 @@ namespace LoginControl
         }
 
 
-        public bool Login(NavigationButtons.Navigation xnav,
-                      LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod, UserControl xusrc_DocumentMan)
+        internal bool Login(NavigationButtons.Navigation xnav,
+                      LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
             string Err = null;
-            if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView,null,null))
+            eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav, call_Get_Atom_WorkPeriod);
+            if (xres == eAWP_dtLogin_Vaild_result.OK)
+            {
+                bool bres = CallLoginForm(call_Get_Atom_WorkPeriod);
+                if (bres)
+                {
+                    if (IsUserManager)
+                    {
+                        lctrl.btn_UserManager.Visible = true;
+                    }
+                    lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                }
+
+                return bres;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public bool ShowLoginForm(NavigationButtons.Navigation xnav,
+                                  LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,
+                                  UserControl xusrc_DocumentMan)
+        {
+            if (xusrc_DocumentMan != null) //MultipleUsers can login at the same time
             {
                 Form parent_form = Global.f.GetParentForm(lctrl);
-                switch (AWP_dtLogin_Vaild())
+                return SetMultipleLoginUserControl(AWP_dtLoginView, call_Get_Atom_WorkPeriod, parent_form, xusrc_DocumentMan);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP:ShowLoginForm:xusrc_DocumentMan == null");
+                return false;
+            }
+        }
+
+        internal eAWP_dtLogin_Vaild_result Check_LoginTable(NavigationButtons.Navigation xnav,
+                                  LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        {
+            string Err = null;
+            if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
+            {
+                Form parent_form = Global.f.GetParentForm(lctrl);
+                eAWP_dtLogin_Vaild_result eres = AWP_dtLogin_Vaild();
+                switch (eres)
                 {
                     case eAWP_dtLogin_Vaild_result.OK:
-                        bool bres = false;
-
-                        if (xusrc_DocumentMan!=null) //MultipleUsers can login at the same time
-                        {
-                            bres = SetMultipleLoginUserControl(AWP_dtLoginView,call_Get_Atom_WorkPeriod, parent_form, xusrc_DocumentMan);
-                            //if (bres)
-                            //{
-                            //    if (IsUserManager)
-                            //    {
-                            //        lctrl.btn_UserManager.Visible = true;
-                            //    }
-                            //    lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
-                            //}
-                        }
-                        else
-                        {
-                            bres = CallLoginForm(call_Get_Atom_WorkPeriod);
-                            if (bres)
-                            {
-                                if (IsUserManager)
-                                {
-                                    lctrl.btn_UserManager.Visible = true;
-                                }
-                                lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
-                            }
-                        }
-
-                        return bres;
+                        return eres;
 
                     case eAWP_dtLogin_Vaild_result.NO_USERS:
-                     // First time instalation because  AWP_dtLoginView.Rows.Count==0
-                       
-                        AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(xnav,  awpd, lng.s_ImportUsersWithAtLeastOneAadministratorRights);
+                        // First time instalation because  AWP_dtLoginView.Rows.Count==0
+
+                        AWP_Select_users_from_myOrganisation_Person_Table frm_awp_mopt = new AWP_Select_users_from_myOrganisation_Person_Table(xnav, awpd, lng.s_ImportUsersWithAtLeastOneAadministratorRights);
                         DialogResult dlgRes = DialogResult.None;
                         if (parent_form != null)
                         {
@@ -363,18 +379,18 @@ namespace LoginControl
                                             if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
                                             {
                                                 lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
-                                                return true;
+                                                return eAWP_dtLogin_Vaild_result.OK;
                                             }
                                         }
-                                        return false;
+                                        return eres;
                                 }
                             }
                             else
                             {
-                                return false;
+                                return eres;
                             }
                         }
-                        return false;
+                        return eres;
 
                     case eAWP_dtLogin_Vaild_result.NO_PASSWORD_FOR_FIRST_USER:
                         AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(xnav, parent_form, this);
@@ -401,22 +417,23 @@ namespace LoginControl
                                     if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
                                     {
                                         lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
-                                        return true;
+                                        return eAWP_dtLogin_Vaild_result.OK; 
                                     }
                                 }
-                                return false;
+                                return eres;
                         }
-                        return false;
+                        return eres;
 
                 }
-                return false;
+                return eres;
             }
             else
             {
                 LogFile.Error.Show("ERROR LOGIN !: Read Login Tables :" + Err);
-                return false;
+                return eAWP_dtLogin_Vaild_result.NO_USERS;
             }
         }
+
 
         private bool CallLoginForm(LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
