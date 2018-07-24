@@ -305,7 +305,7 @@ namespace TangentaDB
                             foreach (DataRow dr_of_dt_Item in dt_Item.Rows)
                             {
                                 DataRow dr_of_dt = dt_ShopC_Items_NotIn_PriceList.NewRow();
-                                dr_of_dt["PriceList_ID"] = PriceList_ID;
+                                dr_of_dt["PriceList_ID"] = PriceList_ID.V;
                                 dr_of_dt["PriceList"] = PriceList_Name;
                                 dr_of_dt["Item_ID"] = dr_of_dt_Item["ID"];
                                 dr_of_dt["UniqueName"] = dr_of_dt_Item["UniqueName"];

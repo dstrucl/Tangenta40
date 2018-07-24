@@ -54,6 +54,7 @@ namespace LoginControl
         public usrc_LoginOfMyOrgUser()
         {
             InitializeComponent();
+            lng.s_btn_GetAccess.Text(btn_GetAccess);
         }
 
         private void RePaint()
