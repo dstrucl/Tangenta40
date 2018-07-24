@@ -23,6 +23,9 @@ namespace LoginControl
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
+
+        public static ltext s_YouCanNotExitProgramUntilAllUsersAreLoggedOut = new ltext(new string[] { "You can not end program until all users are logged out", "Program lahko končate šele, ko so vsi uporabniki odjavljeni!" });
+
         public static ltext s_New_Password = new ltext(new string[] { "New password:", "Novo geslo:" });
 
         public static ltext s_ComputerName = new ltext(new string[] { "Computer:", "Računalnik:" });

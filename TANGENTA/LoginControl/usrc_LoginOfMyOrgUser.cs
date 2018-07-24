@@ -15,6 +15,7 @@ namespace LoginControl
     public partial class usrc_LoginOfMyOrgUser : UserControl
     {
         internal AWP m_awp = null;
+        internal AWPLoginData awpld = null;
         internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
         internal LoginCtrl.delegate_Get_Atom_WorkPeriod m_call_Get_Atom_WorkPeriod = null;
         internal LoginCtrl.delegate_Activate_usrc_DocumentMan m_call_Activate_usrc_DocumentMan = null;
@@ -25,7 +26,7 @@ namespace LoginControl
 
         private bool m_LoggedIn = false;
 
-        private bool LoggedIn
+        internal bool LoggedIn
         {
             get
             {
@@ -83,6 +84,7 @@ namespace LoginControl
                 {
                     this.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
                     this.Atom_WorkPeriod_ID = null;
+                    this.awpld = null;
                     LoggedIn = false;
 
                 }
@@ -91,9 +93,11 @@ namespace LoginControl
             {
                 this.LoginSession_ID = null;
                 this.Atom_WorkPeriod_ID = null;
+                this.awpld = null;
                 AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_awp, m_UserName, m_call_Get_Atom_WorkPeriod, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN,null);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
+                    this.awpld = awpLoginForm_OneFromMultipleUsers.awpld;
                     this.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
                     this.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
                     LoggedIn = true;
@@ -104,7 +108,14 @@ namespace LoginControl
         private void btn_GetAccess_Click(object sender, EventArgs e)
         {
             TangentaDB.GlobalData.Atom_WorkPeriod_ID = this.Atom_WorkPeriod_ID;
+            m_awp.m_AWPLoginData = awpld;
+            if (m_awp.IsUserManager)
+            {
+                m_awp.lctrl.btn_UserManager.Visible = true;
+            }
+            m_awp.lctrl.lbl_username.Text = m_awp.UserName + ": " + m_awp.FirstName + " " + m_awp.LastName;
             m_call_Activate_usrc_DocumentMan(m_usrc_MultipleUsers);
+            
         }
     }
 }

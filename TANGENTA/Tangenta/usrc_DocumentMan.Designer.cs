@@ -37,14 +37,11 @@
             this.btn_New = new System.Windows.Forms.Button();
             this.btn_SelectPanels = new System.Windows.Forms.Button();
             this.m_usrc_Help = new HUDCMS.usrc_Help();
-            this.btn_Backup = new System.Windows.Forms.Button();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.loginControl1 = new LoginControl.LoginCtrl();
-            this.btn_CodeTables = new System.Windows.Forms.Button();
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
-            this.usrc_TangentaPrint1 = new TangentaPrint.usrc_TangentaPrint();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,7 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 39);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 61);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -68,7 +65,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_TableOfDocuments);
-            this.splitContainer1.Size = new System.Drawing.Size(993, 680);
+            this.splitContainer1.Size = new System.Drawing.Size(993, 658);
             this.splitContainer1.SplitterDistance = 591;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -79,10 +76,10 @@
             this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
-            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(587, 676);
-            this.m_usrc_DocumentEditor.SplitContainer1_spd = 193;
-            this.m_usrc_DocumentEditor.SplitContainer2_spd = 75;
-            this.m_usrc_DocumentEditor.SplitContainer3_spd = 124;
+            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(587, 654);
+            this.m_usrc_DocumentEditor.SplitContainer1_spd = 186;
+            this.m_usrc_DocumentEditor.SplitContainer2_spd = 72;
+            this.m_usrc_DocumentEditor.SplitContainer3_spd = 119;
             this.m_usrc_DocumentEditor.TabIndex = 0;
             this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
             this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
@@ -97,7 +94,7 @@
             this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
-            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(394, 676);
+            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(394, 654);
             this.m_usrc_TableOfDocuments.TabIndex = 0;
             this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
@@ -137,7 +134,7 @@
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(5, 3);
             this.btn_New.Name = "btn_New";
-            this.btn_New.Size = new System.Drawing.Size(73, 31);
+            this.btn_New.Size = new System.Drawing.Size(73, 49);
             this.btn_New.TabIndex = 26;
             this.btn_New.Text = "Nov";
             this.btn_New.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -150,7 +147,7 @@
             this.btn_SelectPanels.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
             this.btn_SelectPanels.Location = new System.Drawing.Point(423, 2);
             this.btn_SelectPanels.Name = "btn_SelectPanels";
-            this.btn_SelectPanels.Size = new System.Drawing.Size(68, 32);
+            this.btn_SelectPanels.Size = new System.Drawing.Size(68, 49);
             this.btn_SelectPanels.TabIndex = 29;
             this.btn_SelectPanels.UseVisualStyleBackColor = false;
             this.btn_SelectPanels.Click += new System.EventHandler(this.btn_SelectPanels_Click);
@@ -159,32 +156,20 @@
             // 
             this.m_usrc_Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Help.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.m_usrc_Help.Location = new System.Drawing.Point(864, 3);
+            this.m_usrc_Help.Location = new System.Drawing.Point(816, 4);
             this.m_usrc_Help.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_Help.Name = "m_usrc_Help";
-            this.m_usrc_Help.Size = new System.Drawing.Size(38, 31);
+            this.m_usrc_Help.Size = new System.Drawing.Size(56, 49);
             this.m_usrc_Help.TabIndex = 31;
-            // 
-            // btn_Backup
-            // 
-            this.btn_Backup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Backup.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Backup.Image = global::Tangenta.Properties.Resources.UpgradeDataBase;
-            this.btn_Backup.Location = new System.Drawing.Point(906, 3);
-            this.btn_Backup.Name = "btn_Backup";
-            this.btn_Backup.Size = new System.Drawing.Size(38, 31);
-            this.btn_Backup.TabIndex = 35;
-            this.btn_Backup.UseVisualStyleBackColor = false;
-            this.btn_Backup.Click += new System.EventHandler(this.btn_Backup_Click);
             // 
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(948, 3);
+            this.btn_Exit.Location = new System.Drawing.Point(879, 3);
             this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(44, 31);
+            this.btn_Exit.Size = new System.Drawing.Size(110, 49);
             this.btn_Exit.TabIndex = 30;
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
@@ -199,20 +184,8 @@
             this.loginControl1.MinPasswordLength = 5;
             this.loginControl1.Name = "loginControl1";
             this.loginControl1.RecentItemsFolder = "";
-            this.loginControl1.Size = new System.Drawing.Size(182, 32);
+            this.loginControl1.Size = new System.Drawing.Size(234, 49);
             this.loginControl1.TabIndex = 37;
-            // 
-            // btn_CodeTables
-            // 
-            this.btn_CodeTables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_CodeTables.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_CodeTables.Image = global::Tangenta.Properties.Resources.CodeTablesImage;
-            this.btn_CodeTables.Location = new System.Drawing.Point(725, 4);
-            this.btn_CodeTables.Name = "btn_CodeTables";
-            this.btn_CodeTables.Size = new System.Drawing.Size(40, 31);
-            this.btn_CodeTables.TabIndex = 36;
-            this.btn_CodeTables.UseVisualStyleBackColor = false;
-            this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
             // 
             // usrc_FVI_SLO1
             // 
@@ -221,11 +194,11 @@
             this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = "";
             this.usrc_FVI_SLO1.FursTESTEnvironment = false;
             this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
-            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(684, 4);
+            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(731, 4);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.MessageBox_Length = 100;
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
-            this.usrc_FVI_SLO1.Size = new System.Drawing.Size(37, 31);
+            this.usrc_FVI_SLO1.Size = new System.Drawing.Size(38, 49);
             this.usrc_FVI_SLO1.TabIndex = 32;
             this.usrc_FVI_SLO1.PasswordCheck += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.deleagteRequestPasswordCheck(this.usrc_FVI_SLO1_PasswordCheck);
             // 
@@ -234,9 +207,9 @@
             this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
-            this.btn_Settings.Location = new System.Drawing.Point(822, 3);
+            this.btn_Settings.Location = new System.Drawing.Point(776, 3);
             this.btn_Settings.Name = "btn_Settings";
-            this.btn_Settings.Size = new System.Drawing.Size(37, 31);
+            this.btn_Settings.Size = new System.Drawing.Size(33, 49);
             this.btn_Settings.TabIndex = 34;
             this.btn_Settings.UseVisualStyleBackColor = false;
             this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
@@ -250,29 +223,16 @@
             this.pnl_MainMenu.Controls.Add(this.lbl_FinancialYear);
             this.pnl_MainMenu.Controls.Add(this.m_usrc_Help);
             this.pnl_MainMenu.Controls.Add(this.cmb_InvoiceType);
-            this.pnl_MainMenu.Controls.Add(this.btn_Backup);
             this.pnl_MainMenu.Controls.Add(this.btn_New);
             this.pnl_MainMenu.Controls.Add(this.btn_Exit);
             this.pnl_MainMenu.Controls.Add(this.cmb_FinancialYear);
             this.pnl_MainMenu.Controls.Add(this.btn_SelectPanels);
-            this.pnl_MainMenu.Controls.Add(this.btn_CodeTables);
             this.pnl_MainMenu.Controls.Add(this.btn_Settings);
-            this.pnl_MainMenu.Controls.Add(this.usrc_TangentaPrint1);
             this.pnl_MainMenu.Controls.Add(this.usrc_FVI_SLO1);
             this.pnl_MainMenu.Location = new System.Drawing.Point(0, 0);
             this.pnl_MainMenu.Name = "pnl_MainMenu";
-            this.pnl_MainMenu.Size = new System.Drawing.Size(993, 37);
+            this.pnl_MainMenu.Size = new System.Drawing.Size(990, 55);
             this.pnl_MainMenu.TabIndex = 38;
-            // 
-            // usrc_TangentaPrint1
-            // 
-            this.usrc_TangentaPrint1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_TangentaPrint1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_TangentaPrint1.Location = new System.Drawing.Point(771, 4);
-            this.usrc_TangentaPrint1.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_TangentaPrint1.Name = "usrc_TangentaPrint1";
-            this.usrc_TangentaPrint1.Size = new System.Drawing.Size(46, 31);
-            this.usrc_TangentaPrint1.TabIndex = 33;
             // 
             // usrc_DocumentMan
             // 
@@ -303,11 +263,8 @@
 
         public System.Windows.Forms.Button btn_SelectPanels;
         private HUDCMS.usrc_Help m_usrc_Help;
-        private System.Windows.Forms.Button btn_Backup;
         private System.Windows.Forms.Button btn_Exit;
         internal LoginControl.LoginCtrl loginControl1;
-        private System.Windows.Forms.Button btn_CodeTables;
-        private TangentaPrint.usrc_TangentaPrint usrc_TangentaPrint1;
         internal FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
         private System.Windows.Forms.Button btn_Settings;
         internal System.Windows.Forms.SplitContainer splitContainer1;

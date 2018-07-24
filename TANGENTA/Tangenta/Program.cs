@@ -117,8 +117,6 @@ namespace Tangenta
 
         internal static Thread_FVI thread_fvi = null;
 
-        internal static usrc_TangentaPrint usrc_TangentaPrint1 = null;
-
         internal static Form_Document MainForm = null;
 
         internal static bool bShowCommandLineHelp = false;
@@ -225,6 +223,14 @@ namespace Tangenta
             }
         }
 
+        public static bool ControlLayout_TouchScreen
+        {
+            get
+            {
+                return Properties.Settings.Default.ControlLayout_TouchScreen;
+            }
+        }
+
         public static bool IsAdministratorUser
         {
             get
@@ -262,6 +268,7 @@ namespace Tangenta
             }
 
         }
+
 
         #endregion
 

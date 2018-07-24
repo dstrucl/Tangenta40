@@ -2809,6 +2809,26 @@ namespace TangentaTableClass
         public WorkArea m_WorkArea = new WorkArea();
     }
 
+    public class WorkArea_ParentGroup3
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class WorkArea_ParentGroup2
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public WorkArea_ParentGroup3 m_WorkArea_ParentGroup3 = new WorkArea_ParentGroup3();
+    }
+
+    public class WorkArea_ParentGroup1
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public WorkArea_ParentGroup2 m_WorkArea_ParentGroup2 = new WorkArea_ParentGroup2();
+    }
+
     public class LoginUsers_ParentGroup3
     {
         public ID ID = new ID();
@@ -2827,6 +2847,38 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public Name Name = new Name();
         public LoginUsers_ParentGroup2 m_LoginUsers_ParentGroup2 = new LoginUsers_ParentGroup2();
+    }
+
+    public class Current_DocInvoice_ID
+    {
+        public ID ID = new ID();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
+        public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
+    }
+
+    public class Current_DocProformaInvoice_ID
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
+        public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
+    }
+
+    public class DocInvoice_ShopC_Item_AdditionalData_TYPE
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class DocInvoice_ShopC_Item_AdditionalData
+    {
+        public ID ID = new ID();
+        public DocInvoice_ShopC_Item_AdditionalData_TYPE m_DocInvoice_ShopC_Item_AdditionalData_TYPE = new DocInvoice_ShopC_Item_AdditionalData_TYPE();
+        public DocInvoice_ShopC_Item m_DocInvoice_Shopc_Item = new DocInvoice_ShopC_Item();
+        public Name Name = new Name();
+        public Description Description = new Description();
     }
 
     public class SQL_Database_Tables_Definition
@@ -3529,6 +3581,27 @@ namespace TangentaTableClass
 
         /* 239 */
         public JOURNAL_Atom_WorkPeriod m_JOURNAL_Atom_WorkPeriod = new JOURNAL_Atom_WorkPeriod();
+
+        /* 240 */
+        public DocInvoice_ShopC_Item_AdditionalData m_DocInvoice_ShopC_Item_AdditionalData = new DocInvoice_ShopC_Item_AdditionalData();
+
+        /* 241 */
+        public WorkArea_ParentGroup3 m_WorkArea_ParentGroup3 = new WorkArea_ParentGroup3();
+
+        /* 242 */
+        public WorkArea_ParentGroup2 m_WorkArea_ParentGroup2 = new WorkArea_ParentGroup2();
+
+        /* 243 */
+        public WorkArea_ParentGroup1 m_WorkArea_ParentGroup1 = new WorkArea_ParentGroup1();
+
+        /* 244 */
+        public Current_DocInvoice_ID m_Current_DocInvoice_ID = new Current_DocInvoice_ID();
+
+        /* 245 */
+        public Current_DocProformaInvoice_ID m_Current_DocProformaInvoice_ID = new Current_DocProformaInvoice_ID();
+
+        /* 246 */
+        public DocInvoice_ShopC_Item_AdditionalData_TYPE m_DocInvoice_ShopC_Item_AdditionalData_TYPE = new DocInvoice_ShopC_Item_AdditionalData_TYPE();
 
     }
 }

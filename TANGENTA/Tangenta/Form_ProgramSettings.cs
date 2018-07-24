@@ -44,6 +44,8 @@ namespace Tangenta
             lng.s_chk_AllowToEditText.Text(chk_AllowToEditText);
             lng.s_grp_ColorSettings.Text(grp_ColorSettings);
             lng.s_chk_MultipleUserLogin.Text(chk_MultipleUserLogin);
+            lng.s_chk_ControlLayout_TouchScreen.Text(chk_ControlLayout_TouchScreen);
+
             if (Program.OperationMode.MultiUser)
             {
                 chk_MultipleUserLogin.Enabled = true;
@@ -55,6 +57,7 @@ namespace Tangenta
                 chk_MultipleUserLogin.Checked = false;
             }
 
+            chk_ControlLayout_TouchScreen.Checked = Program.ControlLayout_TouchScreen;
 
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
@@ -151,13 +154,19 @@ namespace Tangenta
                     Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
                 }
 
+                if (Properties.Settings.Default.ControlLayout_TouchScreen != chk_ControlLayout_TouchScreen.Checked)
+                {
+                    bChanged = true;
+                    Properties.Settings.Default.ControlLayout_TouchScreen = chk_ControlLayout_TouchScreen.Checked;
+                }
+
 
                 if (newLanguage != default_language_ID)
                 {
                     bChanged = true;
                     Properties.Settings.Default.LanguageID = newLanguage;
-                
                 }
+
                 if (bChanged)
                 {
                     Properties.Settings.Default.Save();

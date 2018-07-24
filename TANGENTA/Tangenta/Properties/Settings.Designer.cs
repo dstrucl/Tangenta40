@@ -742,5 +742,17 @@ namespace Tangenta.Properties {
                 this["Login_MultipleUsers"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ControlLayout_TouchScreen {
+            get {
+                return ((bool)(this["ControlLayout_TouchScreen"]));
+            }
+            set {
+                this["ControlLayout_TouchScreen"] = value;
+            }
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Settings = new ltext(new string[] { "Settings", "Nastavitve" });
+
 
         public static ltext s_You_Must_Write_This_ElectronicDevice_into_DataBase 
             = new ltext(new string[] { "You did not write electronic device into the database !\r\nWrite electronic device name and press button:\"Write Electronic device data\".",
@@ -597,6 +599,8 @@ namespace Tangenta
         public static ltext s_rdb_EndPrice = new ltext(new string[] { "End price:", "Končna cena:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Discount.cs
 
         public static ltext s_rdb_CustomDiscount = new ltext(new string[] { "Discount:", "Popust:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Discount.cs
+
+        public static ltext s_chk_ControlLayout_TouchScreen = new ltext(new string[] { "Control layout touch screen", "Prikaz za zaslon na dotik" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_chk_MultipleUserLogin = new ltext(new string[] { "Multiple users login", "Prijava več uporabnikov hkrati" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 

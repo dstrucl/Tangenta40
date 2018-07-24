@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CtrlLayout.cs" />
     <Compile Include="f.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

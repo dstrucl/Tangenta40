@@ -16,8 +16,12 @@ namespace LoginControl
 {
     public partial class LoginCtrl : UserControl
     {
+        public enum eExitReason { NORMAL, LOGIN_CONTROL };
 
         public delegate void delegate_Activate_usrc_DocumentMan(usrc_MultipleUsers xm_usrc_MultipleUsers);
+
+        public delegate void delegate_EndProgram(eExitReason eReason);
+
 
         public delegate bool delegate_Get_Atom_WorkPeriod(ID myOrganisation_Person_ID, ref ID Atom_WordPeriod_ID);
         public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new);
@@ -30,7 +34,7 @@ namespace LoginControl
         AWP awp = null;
         STD std = null;
 
-
+        internal delegate_EndProgram EndProgram = null;
 
 
         internal int m_MinPasswordLength = 5;
@@ -361,9 +365,11 @@ namespace LoginControl
                          DBConnection xcon,
                          delegate_Get_Atom_WorkPeriod xdelegate_Get_Atom_WorkPeriod,
                          delegate_Edit_myOrganisationPerson xdelegate_Edit_myOrganisationPerson,
+                         delegate_EndProgram xEndProgram,
                          object DBParam, int Language_id, ref bool bCancel)
         {
             m_eDataTableCreationMode = xeDataTableCreationMode;
+            EndProgram = xEndProgram;
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
@@ -456,7 +462,12 @@ namespace LoginControl
             return false;
         }
 
-      
+        public void Login_MultipleUsers_ShowControl()
+        {
+            awp.Login_MultipleUsers_ShowControl();
+        }
+
+
         private void btn_UserManager_Click(object sender, EventArgs e)
         {
             switch (m_eDataTableCreationMode)

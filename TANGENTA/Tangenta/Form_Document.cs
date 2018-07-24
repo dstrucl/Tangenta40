@@ -65,6 +65,8 @@ namespace Tangenta
 
         internal HUDCMS.HelpWizzardTagDC[] TagDCs = null;
 
+        private LoginControl.LoginCtrl.eExitReason eExitReason = LoginControl.LoginCtrl.eExitReason.NORMAL;
+
         private Form_FirstTimeInstallationGreeting frm_Form_FirstTimeInstallationGreeting = null;
         public const string XML_ROOT_NAME = "Tangenta_Xml";
 
@@ -486,8 +488,9 @@ namespace Tangenta
 
         }
 
-        private void m_usrc_Main_Exit_Click()
+        private void m_usrc_Main_Exit_Click(LoginControl.LoginCtrl.eExitReason eReason)
         {
+             eExitReason = eReason;
              this.Close();
         }
 
@@ -522,14 +525,38 @@ namespace Tangenta
             }
             else
             {
-                if (AskToExit())
+                if (Program.Login_MultipleUsers)
                 {
-                    Exit();
-                    e.Cancel = false;
+                    if (this.eExitReason != LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL)
+                    {
+                        this.m_usrc_Main.Visible = false;
+                        this.m_usrc_Main.loginControl1.Login_MultipleUsers_ShowControl();
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        if (AskToExit())
+                        {
+                            Exit();
+                            e.Cancel = false;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                    }
                 }
                 else
                 {
-                    e.Cancel = true;
+                    if (AskToExit())
+                    {
+                        Exit();
+                        e.Cancel = false;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
                 }
             }
         }

@@ -17,6 +17,7 @@ namespace LoginControl
     {
         internal LoginCtrl.delegate_Get_Atom_WorkPeriod m_call_Get_Atom_WorkPeriod = null;
         internal LoginCtrl.delegate_Activate_usrc_DocumentMan m_call_Activate_usrc_DocumentMan = null;
+        internal LoginCtrl.delegate_EndProgram m_call_ExitProgram = null;
         private AWP m_awp = null;
         DataTable dtLoginUsersGroup = null;
         DataTable m_AWP_dtLoginView = null;
@@ -257,6 +258,23 @@ namespace LoginControl
                 pnl_Items.Width = ipnl_Items_Width_default;
             }
 
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            foreach (Control ctrl in this.pnl_Items.Controls)
+            {
+                if (ctrl is usrc_LoginOfMyOrgUser)
+                {
+                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl; 
+                    if (xusrc_LoginOfMyOrgUser.LoggedIn)
+                    {
+                        MessageBox.Show(lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut.s);
+                        return;
+                    }
+                }
+            }
+            m_awp.lctrl.EndProgram(LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL);
         }
     }
 }

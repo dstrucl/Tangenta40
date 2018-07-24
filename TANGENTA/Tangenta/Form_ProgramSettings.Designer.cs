@@ -44,13 +44,14 @@
             this.lbl_GitSourceVersion = new System.Windows.Forms.Label();
             this.txt_GitSourceVersion = new System.Windows.Forms.TextBox();
             this.chk_MultipleUserLogin = new System.Windows.Forms.CheckBox();
+            this.chk_ControlLayout_TouchScreen = new System.Windows.Forms.CheckBox();
             this.grp_ColorSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // chk_AllowToEditText
             // 
             this.chk_AllowToEditText.AutoSize = true;
-            this.chk_AllowToEditText.Location = new System.Drawing.Point(126, 79);
+            this.chk_AllowToEditText.Location = new System.Drawing.Point(127, 84);
             this.chk_AllowToEditText.Name = "chk_AllowToEditText";
             this.chk_AllowToEditText.Size = new System.Drawing.Size(155, 17);
             this.chk_AllowToEditText.TabIndex = 10;
@@ -77,7 +78,7 @@
             // chk_FullScreen
             // 
             this.chk_FullScreen.AutoSize = true;
-            this.chk_FullScreen.Location = new System.Drawing.Point(12, 79);
+            this.chk_FullScreen.Location = new System.Drawing.Point(13, 84);
             this.chk_FullScreen.Name = "chk_FullScreen";
             this.chk_FullScreen.Size = new System.Drawing.Size(77, 17);
             this.chk_FullScreen.TabIndex = 14;
@@ -217,11 +218,22 @@
             this.chk_MultipleUserLogin.Text = "Multiple user login";
             this.chk_MultipleUserLogin.UseVisualStyleBackColor = true;
             // 
+            // chk_ControlLayout_TouchScreen
+            // 
+            this.chk_ControlLayout_TouchScreen.AutoSize = true;
+            this.chk_ControlLayout_TouchScreen.Location = new System.Drawing.Point(13, 60);
+            this.chk_ControlLayout_TouchScreen.Name = "chk_ControlLayout_TouchScreen";
+            this.chk_ControlLayout_TouchScreen.Size = new System.Drawing.Size(171, 17);
+            this.chk_ControlLayout_TouchScreen.TabIndex = 47;
+            this.chk_ControlLayout_TouchScreen.Text = "Control Layout for touchscreen";
+            this.chk_ControlLayout_TouchScreen.UseVisualStyleBackColor = true;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(797, 662);
+            this.Controls.Add(this.chk_ControlLayout_TouchScreen);
             this.Controls.Add(this.chk_MultipleUserLogin);
             this.Controls.Add(this.lbl_GitSourceVersion);
             this.Controls.Add(this.txt_GitSourceVersion);
@@ -262,5 +274,6 @@
         private System.Windows.Forms.Label lbl_GitSourceVersion;
         private System.Windows.Forms.TextBox txt_GitSourceVersion;
         private System.Windows.Forms.CheckBox chk_MultipleUserLogin;
+        private System.Windows.Forms.CheckBox chk_ControlLayout_TouchScreen;
     }
 }

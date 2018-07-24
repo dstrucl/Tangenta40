@@ -715,6 +715,28 @@ namespace TangentaDataBaseDef
         /* 239 */
         public SQLTable t_JOURNAL_Atom_WorkPeriod = null;
 
+        /* 240 */
+        public SQLTable t_DocInvoice_ShopC_Item_AdditionalData =  null;
+
+        /* 241 */
+        public SQLTable t_WorkArea_ParentGroup3 = null;
+
+        /* 242 */
+        public SQLTable t_WorkArea_ParentGroup2 = null;
+
+        /* 243 */
+        public SQLTable t_WorkArea_ParentGroup1 = null;
+
+        /* 244 */
+        public SQLTable t_Current_DocInvoice_ID = null;
+
+        /* 245 */
+        public SQLTable t_Current_DocProformaInvoice_ID = null;
+
+        /* 246 */
+        public SQLTable t_DocInvoice_ShopC_Item_AdditionalData_TYPE = null;
+
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -2728,8 +2750,58 @@ namespace TangentaDataBaseDef
             t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
             m_DBTables.items.Add(t_JOURNAL_Atom_WorkPeriod);
 
+             /* 240 */
+            t_DocInvoice_ShopC_Item_AdditionalData = new SQLTable((Object)new DocInvoice_ShopC_Item_AdditionalData(), "disciad", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_DocInvoice_ShopC_Item_AdditionalData);
+            t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.m_DocInvoice_Shopc_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Shopc Item ID", "Artikel prodajalne C račun ID"));
+            t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.m_DocInvoice_ShopC_Item_AdditionalData_TYPE, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Shopc Item datatype ID", "Artikel prodajalne C račun vrsta podatka ID"));
+            t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.Name, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Shopc Item additional data name", "Artikel prodajalne C račun dodatni podatek ime"));
+            t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Shopc Item additional data description", "Artikel prodajalne C račun dodatni podatek opis"));
+            m_DBTables.items.Add(t_DocInvoice_ShopC_Item_AdditionalData);
 
+            /* 241 */
+            t_WorkArea_ParentGroup3 = new SQLTable((Object)new WorkArea_ParentGroup3(), "wapg3", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup3);
+            t_WorkArea_ParentGroup3.AddColumn((Object)mt.m_WorkArea_ParentGroup3.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WorkArea_ParentGroup3.AddColumn((Object)mt.m_WorkArea_ParentGroup3.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
+            m_DBTables.items.Add(t_WorkArea_ParentGroup3);
+
+            /* 242 */
+            t_WorkArea_ParentGroup2 = new SQLTable((Object)new WorkArea_ParentGroup2(), "wapg2", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup2);
+            t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            m_DBTables.items.Add(t_WorkArea_ParentGroup2);
+
+            /* 243 */
+            t_WorkArea_ParentGroup1 = new SQLTable((Object)new WorkArea_ParentGroup1(), "wapg1", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup1);
+            t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            m_DBTables.items.Add(t_WorkArea_ParentGroup1);
+
+            /* 244 */
+            t_Current_DocInvoice_ID = new SQLTable((Object)new Current_DocInvoice_ID(), "cdiid", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_Current_DocInvoice_ID);
+            t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba moje organizacije ID"));
+            t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
+            m_DBTables.items.Add(t_Current_DocInvoice_ID);
+
+            /* 245 */
+            t_Current_DocProformaInvoice_ID = new SQLTable((Object)new Current_DocProformaInvoice_ID(), "cdpiid", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_Current_DocProformaInvoice_ID);
+            t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Proforma-Invoice ID", "Predračun ID"));
+            t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba moje organizacije ID"));
+            t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
+            m_DBTables.items.Add(t_Current_DocProformaInvoice_ID);
+
+            /* 246 */
+            t_DocInvoice_ShopC_Item_AdditionalData_TYPE = new SQLTable((Object)new DocInvoice_ShopC_Item_AdditionalData_TYPE(), "disciadt", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_DocInvoice_ShopC_Item_AdditionalData_TYPE);
+            t_DocInvoice_ShopC_Item_AdditionalData_TYPE.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocInvoice_ShopC_Item_AdditionalData_TYPE.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Invoice Shopc Item datatype name", "Artikel prodajalne C račun vrsta podatka ime"));
+            t_DocInvoice_ShopC_Item_AdditionalData_TYPE.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData_TYPE.Description, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Invoice Shopc Item datatype description", "Artikel prodajalne C račun vrsta podatka opis"));
+            m_DBTables.items.Add(t_DocInvoice_ShopC_Item_AdditionalData_TYPE);
+
+
+        }
     }
-}
  }
 

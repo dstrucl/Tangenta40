@@ -22,15 +22,16 @@ namespace LoginControl
         internal ID Atom_WorkPeriod_ID = null;
 
         internal DataTable dtLoginUsers = null;
-        AWPLoginData awpld = null;
-        AWP awp = null;
+        internal AWPLoginData awpld = null;
+        internal AWP awp = null;
+
         LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
 
         public AWPLoginForm_OneFromMultipleUsers(AWP xawp,string username, LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod, LoginType xloginType,ID xAtom_WorkPeriod_ID)
         {
             InitializeComponent();
             awp = xawp;
-            awpld = awp.m_AWPLoginData;
+            awpld = new AWPLoginData();
             Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_loginType = xloginType;
             call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
@@ -187,18 +188,23 @@ namespace LoginControl
             }
             if (call_Get_Atom_WorkPeriod(awpld.myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
             {
-                    if (AWP_func.GetLoginSession(awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
+                if (AWP_func.GetLoginSession(awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
+                {
+                    if (awp.IsUserManager)
                     {
-                            return true;
+                        awp.lctrl.btn_UserManager.Visible = true;
                     }
-                    else
-                    {
-                            return false;
-                    }
+                    awp.lctrl.lbl_username.Text = awp.UserName + ": " + awp.FirstName + " " + awp.LastName;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                        return false;
+                 return false;
             }
         }
 
@@ -214,9 +220,17 @@ namespace LoginControl
                 {
                 }
             }
-            if (TangentaDB.f_Atom_WorkPeriod.End(Atom_WorkPeriod_ID))
+
+            if (ID.Validate(Atom_WorkPeriod_ID))
             {
-                return true;
+                if (TangentaDB.f_Atom_WorkPeriod.End(Atom_WorkPeriod_ID))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

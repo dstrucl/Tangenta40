@@ -23,6 +23,7 @@ namespace LoginControl
         //public const string ROLE_WorkInShopB = "WorkInShopB";
         //public const string ROLE_WorkInShopC = "WorkInShopC";
 
+        internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
 
         internal LoginCtrl.delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
 
@@ -334,6 +335,14 @@ namespace LoginControl
             }
         }
 
+        internal void Login_MultipleUsers_ShowControl()
+        {
+            if (m_usrc_MultipleUsers!=null)
+            {
+                m_usrc_MultipleUsers.Visible = true;
+            }
+        }
+
         internal eAWP_dtLogin_Vaild_result Check_LoginTable(NavigationButtons.Navigation xnav,
                                   LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
         {
@@ -476,16 +485,16 @@ namespace LoginControl
                                                     Form parent_form, UserControl xusrc_DocumentMan)
         {
             xusrc_DocumentMan.Visible = false;
-            usrc_MultipleUsers xusrc_MultipleUsers = FindMutipleUsersControl(parent_form);
-            if (xusrc_MultipleUsers == null)
+            m_usrc_MultipleUsers = FindMutipleUsersControl(parent_form);
+            if (m_usrc_MultipleUsers == null)
             {
-                xusrc_MultipleUsers = new usrc_MultipleUsers();
-                xusrc_MultipleUsers.Dock = DockStyle.Fill;
-                parent_form.Controls.Add(xusrc_MultipleUsers);
+                m_usrc_MultipleUsers = new usrc_MultipleUsers();
+                m_usrc_MultipleUsers.Dock = DockStyle.Fill;
+                parent_form.Controls.Add(m_usrc_MultipleUsers);
             }
-            xusrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
-            xusrc_MultipleUsers.Visible = true;
-            xusrc_MultipleUsers.Init(this, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan);
+            m_usrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
+            m_usrc_MultipleUsers.Visible = true;
+            m_usrc_MultipleUsers.Init(this, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan);
             return true;
         }
 

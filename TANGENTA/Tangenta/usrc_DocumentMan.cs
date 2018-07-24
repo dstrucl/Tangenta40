@@ -23,17 +23,19 @@ using NavigationButtons;
 using Startup;
 using static Tangenta.Program;
 using DBConnectionControl40;
+using Global;
 
 namespace Tangenta
 {
     public partial class usrc_DocumentMan : UserControl
     {
+
         private Form Main_Form = null;
 
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
 
-        public delegate void delegate_Exit_Click();
+        public delegate void delegate_Exit_Click(LoginControl.LoginCtrl.eExitReason eReason);
 
         internal usrc_DocumentEditor.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
         {
@@ -44,6 +46,9 @@ namespace Tangenta
 
         public event delegate_Exit_Click Exit_Click;
 
+        internal CtrlLayout cl_btn_New = null;
+        internal CtrlLayout cl_cmb_InvoiceType = null;
+        internal CtrlLayout cl_lbl_FinancialYear = null;
 
         internal bool Customer_Changed = false;
 
@@ -172,7 +177,6 @@ namespace Tangenta
         public usrc_DocumentMan()
         {
             InitializeComponent();
-            Program.usrc_TangentaPrint1 = this.usrc_TangentaPrint1;
             lng.s_btn_New.Text(btn_New);
             lng.s_Year.Text(lbl_FinancialYear);
             m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
@@ -1414,6 +1418,7 @@ namespace Tangenta
                                             DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
                                             this.getWorkPeriod,
                                             call_Edit_myOrganisationPerson,
+                                            EndProgram,
                                             null,
                                             LanguageControl.DynSettings.LanguageID,
                                             ref bCancel
@@ -1454,6 +1459,7 @@ namespace Tangenta
                                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
                                                 this.getWorkPeriod,
                                                 call_Edit_myOrganisationPerson,
+                                                EndProgram,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
                                                 ref bCancel
@@ -1568,60 +1574,24 @@ namespace Tangenta
         {
             if (Exit_Click != null)
             {
-                Exit_Click();
+                Exit_Click(LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 
-
-
+        internal void EndProgram(LoginControl.LoginCtrl.eExitReason eres)
+        {
+            if (Exit_Click != null)
+            {
+                Exit_Click(eres);
+            }
+        }
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
             if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
-                NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation(null);
-                nav_Form_ProgramSettings.bDoModal = true;
-                nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                Form_ProgramSettings edt_Form = new Form_ProgramSettings(this, nav_Form_ProgramSettings);
-                edt_Form.ShowDialog();
-                edt_Form.Dispose();
-            }
-        }
-
-        private void btn_Backup_Click(object sender, EventArgs e)
-        {
-
-            string sDBType = Properties.Settings.Default.DBType;
-            DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            NavigationButtons.Navigation nav = new NavigationButtons.Navigation(null);
-            nav.btn3_Visible = true;
-            nav.btn3_Text = "";
-            nav.btn3_Image = Properties.Resources.Exit;
-            string xCodeTables_IniFileFolder = null;
-            string Err = null;
-            if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
-            {
-                string xSQLitebackupFolder = Properties.Settings.Default.SQLiteBackupFolder;
-                if (xSQLitebackupFolder.Length == 0)
-                {
-                    if (StaticLib.Func.SetApplicationDataSubFolder(ref xSQLitebackupFolder, Program.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
-                    {
-                    }
-                }
-                DBSync.DBSync.DBMan(Main_Form, Program.Reset2FactorySettings.DBConnectionControlXX_EXE, ((Form_Document)Main_Form).m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
-                Properties.Settings.Default.SQLiteBackupFolder = xSQLitebackupFolder;
-                Properties.Settings.Default.DBType = sDBType;
-                Properties.Settings.Default.Save();
-            }
-        }
-
-
-        private void btn_CodeTables_Click(object sender, EventArgs e)
-        {
-            if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
-            {
-                Form_CodeTables fct_dlg = new Form_CodeTables();
-                fct_dlg.ShowDialog();
+                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(Main_Form, this);
+                frm_settingsselect.Show(this);
             }
         }
 
@@ -1632,11 +1602,6 @@ namespace Tangenta
             {
                 PasswordOK = true;
             }
-        }
-
-        private bool usrc_TangentaPrint1_CheckEditPrinterAccess()
-        {
-            return Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this));
         }
 
     }

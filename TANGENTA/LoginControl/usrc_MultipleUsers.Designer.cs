@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_MultipleUsers));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnl_Items = new System.Windows.Forms.Panel();
             this.usrc_Item_Group_Handler1 = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
             this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrc_Item_PageHandler();
             this.lbl_GroupPath = new System.Windows.Forms.Label();
+            this.btn_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -96,10 +98,22 @@
             this.lbl_GroupPath.TabIndex = 2;
             this.lbl_GroupPath.Text = "Group path";
             // 
+            // btn_Exit
+            // 
+            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Exit.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exit.Image")));
+            this.btn_Exit.Location = new System.Drawing.Point(885, 0);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(137, 55);
+            this.btn_Exit.TabIndex = 3;
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            // 
             // usrc_MultipleUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.usrc_Item_PageHandler1);
             this.Controls.Add(this.splitContainer1);
@@ -121,5 +135,6 @@
         private usrc_Item_PageHandler.usrc_Item_PageHandler usrc_Item_PageHandler1;
         private System.Windows.Forms.Panel pnl_Items;
         private System.Windows.Forms.Label lbl_GroupPath;
+        private System.Windows.Forms.Button btn_Exit;
     }
 }

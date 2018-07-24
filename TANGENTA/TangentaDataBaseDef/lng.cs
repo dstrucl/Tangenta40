@@ -24,6 +24,21 @@ namespace TangentaDataBaseDef
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+        public static ltext lng_t_DocInvoice_ShopC_Item_AdditionalData = new ltext(new string[] { "DocInvoice ShopC Item Additional Data", "Artikel prodajalne C dodatni podatki na računu" });
+
+        public static ltext lng_t_WorkArea_ParentGroup3 = new ltext(new string[] { "Work area group 3", "Delovno področje skupina 3" });
+
+        public static ltext lng_t_WorkArea_ParentGroup2 = new ltext(new string[] { "Work area group 2", "Delovno področje skupina 2" });
+
+        public static ltext lng_t_WorkArea_ParentGroup1 = new ltext(new string[] { "Work area group 1", "Delovno področje skupina 1" });
+
+        public static ltext lng_t_Current_DocInvoice_ID = new ltext(new string[] { "Last User Invoice ID", "Uporabnikov zadnji račun ID" });
+
+        public static ltext lng_t_Current_DocProformaInvoice_ID = new ltext(new string[] { "Last User Proforma-Invoice ID", "Uporabnikov zadnji predračun ID" });
+
+        public static ltext lng_t_DocInvoice_ShopC_Item_AdditionalData_TYPE = new ltext(new string[] { "DocInvoice ShopC Item Additional Data", "Artikel prodajalne C vrsta dodatnega podatka na računu" });
+
         public static ltext lngt_DBm_Image_Name = new ltext(new string[] { "Image Name", "Ime posnetka" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.cs
 
         public static ltext lngt_DBm_Image_Author = new ltext(new string[] { "Image Author", "Avtor posnetka" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.cs
