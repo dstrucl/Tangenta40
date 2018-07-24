@@ -28,6 +28,7 @@ namespace LoginControl
 
         internal AWPBindingData awpd = new AWPBindingData();
         DataTable AWP_dtLoginView = null;
+
         internal AWPLoginData m_AWPLoginData = new AWPLoginData();
 
         private Form pParentForm = null;
@@ -308,14 +309,23 @@ namespace LoginControl
         }
 
 
-        public bool ShowLoginForm(NavigationButtons.Navigation xnav,
+        public bool Login_MultipleUsers_ShowControlAtStartup(NavigationButtons.Navigation xnav,
                                   LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,
+                                  LoginCtrl.delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan,
                                   UserControl xusrc_DocumentMan)
         {
             if (xusrc_DocumentMan != null) //MultipleUsers can login at the same time
             {
-                Form parent_form = Global.f.GetParentForm(lctrl);
-                return SetMultipleLoginUserControl(AWP_dtLoginView, call_Get_Atom_WorkPeriod, parent_form, xusrc_DocumentMan);
+                eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav, call_Get_Atom_WorkPeriod);
+                if (xres == eAWP_dtLogin_Vaild_result.OK)
+                {
+                    Form parent_form = Global.f.GetParentForm(lctrl);
+                    return Login_MultipleUsers_SetControl(AWP_dtLoginView, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan, parent_form, xusrc_DocumentMan);
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -460,7 +470,10 @@ namespace LoginControl
             return null;
         }
 
-        private bool SetMultipleLoginUserControl(DataTable dtAWP_dtLoginView, LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod, Form parent_form, UserControl xusrc_DocumentMan)
+        private bool Login_MultipleUsers_SetControl(DataTable dtAWP_dtLoginView, 
+                                                    LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,
+                                                    LoginCtrl.delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan,
+                                                    Form parent_form, UserControl xusrc_DocumentMan)
         {
             xusrc_DocumentMan.Visible = false;
             usrc_MultipleUsers xusrc_MultipleUsers = FindMutipleUsersControl(parent_form);
@@ -472,7 +485,7 @@ namespace LoginControl
             }
             xusrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
             xusrc_MultipleUsers.Visible = true;
-            xusrc_MultipleUsers.Init();
+            xusrc_MultipleUsers.Init(this, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan);
             return true;
         }
 

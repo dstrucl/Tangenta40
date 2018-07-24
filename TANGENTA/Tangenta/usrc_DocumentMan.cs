@@ -1407,52 +1407,39 @@ namespace Tangenta
         }
 
 
-        public bool ShowMultipleUserLoginControl(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Login_MultipleUsers_ShowControlAtStartup(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
-            if (Program.Login_MultipleUsers)
+            bool bCancel = false;
+            this.loginControl1.Init(LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                            this.getWorkPeriod,
+                                            call_Edit_myOrganisationPerson,
+                                            null,
+                                            LanguageControl.DynSettings.LanguageID,
+                                            ref bCancel
+                                            );
+            Form_Document fmain = (Form_Document)Main_Form;
+            if (this.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, getWorkPeriod, fmain.Activate_usrc_DocumentMan, this))
             {
-                bool bCancel = false;
-                this.loginControl1.Init(LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                                this.getWorkPeriod,
-                                                call_Edit_myOrganisationPerson,
-                                                null,
-                                                LanguageControl.DynSettings.LanguageID,
-                                                ref bCancel
-                                                );
-
-                usrc_DocumentMan xusrc_DocumentMan = null;
+                //myStartup.eNextStep++;
+                myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
                 if (Program.Login_MultipleUsers)
                 {
-                    xusrc_DocumentMan = this;
-                }
-
-                if (this.loginControl1.ShowLoginControl(xnav, getWorkPeriod, this))
-                {
-                    //myStartup.eNextStep++;
-                    myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
-                    if (Program.Login_MultipleUsers)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
-                        {
-                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
-                            return false;
-                        }
-                    }
                     return true;
                 }
                 else
                 {
-                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                    return false;
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                        return false;
+                    }
                 }
+                return true;
             }
             else
             {
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -1476,7 +1463,8 @@ namespace Tangenta
                 //myStartup.eNextStep++;
                 if (Program.Login_MultipleUsers)
                 {
-                    if (this.loginControl1.ShowLoginControl(xnav, getWorkPeriod,this))
+                    Form_Document fmain = (Form_Document)Main_Form;
+                    if (this.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, getWorkPeriod, fmain.Activate_usrc_DocumentMan,this))
                     {
                          return true;
                     }

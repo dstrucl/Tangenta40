@@ -385,5 +385,25 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool End(ID xAtom_WorkPeriod_ID, ID JOURNAL_Atom_WorkPeriod_TYPE_ID)
+        {
+            if (End(xAtom_WorkPeriod_ID))
+            {
+                ID xJOURNAL_Atom_WorkPeriod = null;
+                DateTime dtnow = DateTime.Now;
+                f_JOURNAL_Atom_WorkPeriod.Get(
+                    f_JOURNAL_Atom_WorkPeriod_TYPE.JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession,
+                    xAtom_WorkPeriod_ID,
+                    dtnow,
+                    ref xJOURNAL_Atom_WorkPeriod);
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:End failed !");
+                return false;
+            }
+        }
     }
 }

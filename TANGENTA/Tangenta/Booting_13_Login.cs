@@ -40,7 +40,7 @@ namespace Tangenta
         {
             if (Program.Login_MultipleUsers)
             {
-                if (frm.m_usrc_Main.ShowMultipleUserLoginControl(m_startup, null, m_startup.nav, ref Err))
+                if (frm.m_usrc_Main.Login_MultipleUsers_ShowControlAtStartup(m_startup, null, m_startup.nav, ref Err))
                 {
                     return Startup_check_proc_Result.CHECK_OK;
                 }

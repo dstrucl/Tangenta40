@@ -175,6 +175,8 @@
     <Compile Include="f_Item_ParentGroup1.cs" />
     <Compile Include="f_Item_ParentGroup2.cs" />
     <Compile Include="f_Item_ParentGroup3.cs" />
+    <Compile Include="f_JOURNAL_Atom_WorkPeriod.cs" />
+    <Compile Include="f_JOURNAL_Atom_WorkPeriod_TYPE.cs" />
     <Compile Include="f_Journal_DocProformaInvoice.cs" />
     <Compile Include="f_Journal_DocInvoice.cs" />
     <Compile Include="f_JOURNAL_Stock.cs" />

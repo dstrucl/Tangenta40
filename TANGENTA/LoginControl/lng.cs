@@ -74,6 +74,9 @@ namespace LoginControl
         
         public static ltext s_LoginTime = new ltext(new string[]{"Login Time", "Čas prijave"});
         public static ltext s_LogoutTime = new ltext(new string[]{"Logout Time", "Čas odjave"});
+
+        public static ltext s_Logout = new ltext(new string[] { "Logout", "Odjava" });
+
         public static ltext s_LoginHistoryAndActiveUsers = new ltext(new string[]{"Show Active Users and Login History", "Prikaži aktivne uporabnike in zgodovino prijav"});
 
         public static ltext s_ElectronicDevice_ID = new ltext(new string[] { "Casshier Name", "Ime elektronske blagajne" });

@@ -8,11 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBTypes;
+using TangentaDB;
+using DBConnectionControl40;
 
 namespace LoginControl
 {
     public partial class usrc_MultipleUsers : UserControl
     {
+        internal LoginCtrl.delegate_Get_Atom_WorkPeriod m_call_Get_Atom_WorkPeriod = null;
+        internal LoginCtrl.delegate_Activate_usrc_DocumentMan m_call_Activate_usrc_DocumentMan = null;
+        private AWP m_awp = null;
         DataTable dtLoginUsersGroup = null;
         DataTable m_AWP_dtLoginView = null;
         int ipnl_Items_Width_default = -1;
@@ -38,7 +43,7 @@ namespace LoginControl
             set
             {
                 m_NumberOfItemsPerPage = value;
-                Init();
+                Init(m_awp, m_call_Get_Atom_WorkPeriod, m_call_Activate_usrc_DocumentMan);
             }
         }
 
@@ -50,8 +55,13 @@ namespace LoginControl
             ipnl_Items_Width_default = pnl_Items.Width;
         }
 
-        internal void Init()
+        internal void Init(AWP xawp,
+                           LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod,
+                           LoginCtrl.delegate_Activate_usrc_DocumentMan xcall_Activate_usrc_DocumentMan)
         {
+            m_awp = xawp;
+            m_call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
+            m_call_Activate_usrc_DocumentMan = xcall_Activate_usrc_DocumentMan;
             usrc_Item_aray = new usrc_LoginOfMyOrgUser[NumberOfItemsPerPage];
 
             int i = 0;
@@ -67,6 +77,10 @@ namespace LoginControl
             for (i = 0; i < m_NumberOfItemsPerPage; i++)
             {
                 usrc_LoginOfMyOrgUser usrc_item = new usrc_LoginOfMyOrgUser();
+                usrc_item.m_usrc_MultipleUsers = this;
+                usrc_item.m_call_Get_Atom_WorkPeriod = this.m_call_Get_Atom_WorkPeriod;
+                usrc_item.m_call_Activate_usrc_DocumentMan = this.m_call_Activate_usrc_DocumentMan;
+                usrc_item.m_awp = this.m_awp;
                 usrc_item.Top = yPos;
                 usrc_item.Left = 5;
                 usrc_item.Width = this.pnl_Items.Width - 10;
@@ -89,6 +103,22 @@ namespace LoginControl
                 LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
             }
             Get_LoginUsers_Data();
+
+            Close_Opened_Atom_WorkingPeriods();
+        }
+
+        private void Close_Opened_Atom_WorkingPeriods()
+        {
+            string where_condition = " where LoginSession_$_awperiod_$$LogoutTime is null";
+            DataTable dtOpened_Atom_WorkingPeriods = new DataTable();
+            if (AWP_func.Read_LoginSession_VIEW(ref dtOpened_Atom_WorkingPeriods, where_condition, null))
+            {
+                if (dtOpened_Atom_WorkingPeriods.Rows.Count > 0)
+                {
+                    AWPForm_Close_Opened_Atom_WorkingPeriods frmawpclose = new AWPForm_Close_Opened_Atom_WorkingPeriods(dtOpened_Atom_WorkingPeriods);
+                    frmawpclose.ShowDialog(this);
+                }
+            }
         }
 
         public bool Get_LoginUsers_Data()

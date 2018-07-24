@@ -46,6 +46,7 @@
             this.btn_LoginLogout.TabIndex = 0;
             this.btn_LoginLogout.Text = "Login";
             this.btn_LoginLogout.UseVisualStyleBackColor = true;
+            this.btn_LoginLogout.Click += new System.EventHandler(this.btn_LoginLogout_Click);
             // 
             // btn_GetAccess
             // 
@@ -58,6 +59,7 @@
             this.btn_GetAccess.TabIndex = 1;
             this.btn_GetAccess.Text = "Get Access";
             this.btn_GetAccess.UseVisualStyleBackColor = true;
+            this.btn_GetAccess.Click += new System.EventHandler(this.btn_GetAccess_Click);
             // 
             // pictureBox1
             // 

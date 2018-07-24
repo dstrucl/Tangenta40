@@ -709,6 +709,11 @@ namespace TangentaDataBaseDef
         /* 237 */
         public SQLTable t_LoginUsers_ParentGroup1 = null;
 
+        /* 238 */
+        public SQLTable t_JOURNAL_Atom_WorkPeriod_TYPE = null;
+
+        /* 239 */
+        public SQLTable t_JOURNAL_Atom_WorkPeriod = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -2708,7 +2713,23 @@ namespace TangentaDataBaseDef
             t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.m_LoginUsers_ParentGroup2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 1 Name", "Ime skupine 1"));
             m_DBTables.items.Add(t_LoginUsers_ParentGroup1);
 
-        }
+            /* 238 */
+            t_JOURNAL_Atom_WorkPeriod_TYPE = new SQLTable((Object)new JOURNAL_Atom_WorkPeriod_TYPE(), "jawpt", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_JOURNAL_Atom_WorkPeriod_TYPE);
+            t_JOURNAL_Atom_WorkPeriod_TYPE.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_Atom_WorkPeriod_TYPE.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Type Name", "Ime"));
+            t_JOURNAL_Atom_WorkPeriod_TYPE.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod_TYPE.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_JOURNAL_Atom_WorkPeriod_TYPE);
+
+            /* 239 */
+            t_JOURNAL_Atom_WorkPeriod = new SQLTable((Object)new JOURNAL_Atom_WorkPeriod(), "jawp", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_JOURNAL_Atom_WorkPeriod);
+            t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
+            t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.m_JOURNAL_Atom_WorkPeriod_TYPE, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Journal event price list ID", "Dogodek cenik ID"));
+            t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
+            m_DBTables.items.Add(t_JOURNAL_Atom_WorkPeriod);
+
+
     }
+}
  }
 

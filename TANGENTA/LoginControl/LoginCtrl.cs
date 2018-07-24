@@ -16,6 +16,9 @@ namespace LoginControl
 {
     public partial class LoginCtrl : UserControl
     {
+
+        public delegate void delegate_Activate_usrc_DocumentMan(usrc_MultipleUsers xm_usrc_MultipleUsers);
+
         public delegate bool delegate_Get_Atom_WorkPeriod(ID myOrganisation_Person_ID, ref ID Atom_WordPeriod_ID);
         public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new);
 
@@ -437,12 +440,15 @@ namespace LoginControl
             return false;
         }
 
-        public bool ShowLoginControl(Navigation xnav, delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod, UserControl xusrc_DocumentMan)
+        public bool Login_MultipleUsers_ShowControlAtStartup(Navigation xnav, 
+                                                            delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,
+                                                            delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan,
+                                                            UserControl xusrc_DocumentMan)
         {
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
-                    return awp.ShowLoginForm(xnav, call_Get_Atom_WorkPeriod, xusrc_DocumentMan);
+                    return awp.Login_MultipleUsers_ShowControlAtStartup(xnav, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan, xusrc_DocumentMan);
                 case eDataTableCreationMode.STD:
                     return std.STD_Login();
             }

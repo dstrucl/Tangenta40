@@ -14,6 +14,166 @@ namespace LoginControl
         internal static DBConnection con = null;
 
 
+        internal static bool Read_LoginSession_VIEW(ref DataTable dt, string where_condition, List<SQL_Parameter> lpar)
+        {
+            string err = null;
+            if (where_condition == null)
+            {
+                where_condition = "";
+            }
+            string sql = @"
+SELECT LoginSession.ID,
+ LoginSession_$_lusr.UserName AS LoginSession_$_lusr_$$UserName,
+ LoginSession_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS LoginSession_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+ LoginSession_$_awperiod_$_amcper_$_aper_$_acln.LastName AS LoginSession_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
+ LoginSession_$_awperiod.LoginTime AS LoginSession_$_awperiod_$$LoginTime,
+ LoginSession_$_awperiod.LogoutTime AS LoginSession_$_awperiod_$$LogoutTime,
+ LoginSession_$_awperiod_$_awperiodt.Name AS LoginSession_$_awperiod_$_awperiodt_$$Name,
+ LoginSession_$_awperiod_$_awperiodt.Description AS LoginSession_$_awperiod_$_awperiodt_$$Description,
+ LoginSession_$_lusr.Time_When_UserSetsItsOwnPassword_FirstTime AS LoginSession_$_lusr_$$Time_When_UserSetsItsOwnPassword_FirstTime,
+ LoginSession_$_lusr.Time_When_UserSetsItsOwnPassword_LastTime AS LoginSession_$_lusr_$$Time_When_UserSetsItsOwnPassword_LastTime,
+ LoginSession_$_lusr.Enabled AS LoginSession_$_lusr_$$Enabled,
+ LoginSession_$_lusr.Maximum_password_age_in_days AS LoginSession_$_lusr_$$Maximum_password_age_in_days,
+ LoginSession_$_lusr.NotActiveAfterPasswordExpires AS LoginSession_$_lusr_$$NotActiveAfterPasswordExpires,
+ LoginSession_$_lusr.PasswordNeverExpires AS LoginSession_$_lusr_$$PasswordNeverExpires,
+ LoginSession_$_lusr.Time_When_AdministratorSetsPassword AS LoginSession_$_lusr_$$Time_When_AdministratorSetsPassword,
+ LoginSession_$_lusr.ChangePasswordOnFirstLogin AS LoginSession_$_lusr_$$ChangePasswordOnFirstLogin,
+ LoginSession_$_lusr_$_lupg1.Name AS LoginSession_$_lusr_$_lupg1_$$Name,
+ LoginSession_$_lusr_$_lupg1_$_lupg2.Name AS LoginSession_$_lusr_$_lupg1_$_lupg2_$$Name,
+ LoginSession_$_lusr_$_lupg1_$_lupg2_$_lupg3.Name AS LoginSession_$_lusr_$_lupg1_$_lupg2_$_lupg3_$$Name,
+ LoginSession_$_awperiod_$_amcper_$_aper.Gender AS LoginSession_$_awperiod_$_amcper_$_aper_$$Gender,
+ LoginSession_$_awperiod_$_amcper_$_aper.DateOfBirth AS LoginSession_$_awperiod_$_amcper_$_aper_$$DateOfBirth,
+ LoginSession_$_awperiod_$_amcper_$_aper.Tax_ID AS LoginSession_$_awperiod_$_amcper_$_aper_$$Tax_ID,
+ LoginSession_$_awperiod_$_amcper_$_aper.Registration_ID AS LoginSession_$_awperiod_$_amcper_$_aper_$$Registration_ID,
+ LoginSession_$_awperiod_$_amcper_$_aper_$_agsmnper.GsmNumber AS LoginSession_$_awperiod_$_amcper_$_aper_$_agsmnper_$$GsmNumber,
+ LoginSession_$_awperiod_$_amcper_$_aper_$_aphnnper.PhoneNumber AS LoginSession_$_awperiod_$_amcper_$_aper_$_aphnnper_$$PhoneNumber,
+ LoginSession_$_awperiod_$_amcper_$_aper_$_aemailper.Email AS LoginSession_$_awperiod_$_amcper_$_aper_$_aemailper_$$Email,
+ LoginSession_$_awperiod_$_amcper_$_aper_$_aperimg.Image_Data AS LoginSession_$_awperiod_$_amcper_$_aper_$_aperimg_$$Image_Data,
+ LoginSession_$_awperiod_$_amcper_$_aoffice.Name AS LoginSession_$_awperiod_$_amcper_$_aoffice_$$Name,
+ LoginSession_$_awperiod_$_amcper_$_aoffice.ShortName AS LoginSession_$_awperiod_$_amcper_$_aoffice_$$ShortName,
+ LoginSession_$_awperiod_$_amcper.Job AS LoginSession_$_awperiod_$_amcper_$$Job,
+ LoginSession_$_awperiod_$_amcper.Description AS LoginSession_$_awperiod_$_amcper_$$Description,
+ LoginSession_$_awperiod_$_awplace.Name AS LoginSession_$_awperiod_$_awplace_$$Name,
+ LoginSession_$_awperiod_$_awplace.Description AS LoginSession_$_awperiod_$_awplace_$$Description,
+ LoginSession_$_awperiod_$_aed.Name AS LoginSession_$_awperiod_$_aed_$$Name,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_acn.Name AS LoginSession_$_awperiod_$_aed_$_acomp_$_acn_$$Name,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_acn.Description AS LoginSession_$_awperiod_$_aed_$_acomp_$_acn_$$Description,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_amac.MAC_address AS LoginSession_$_awperiod_$_aed_$_acomp_$_amac_$$MAC_address,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_amac.Description AS LoginSession_$_awperiod_$_aed_$_acomp_$_amac_$$Description,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_acun.UserName AS LoginSession_$_awperiod_$_aed_$_acomp_$_acun_$$UserName,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_acun.Description AS LoginSession_$_awperiod_$_aed_$_acomp_$_acun_$$Description,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_aipa.IP_address AS LoginSession_$_awperiod_$_aed_$_acomp_$_aipa_$$IP_address,
+ LoginSession_$_awperiod_$_aed_$_acomp_$_aipa.Description AS LoginSession_$_awperiod_$_aed_$_acomp_$_aipa_$$Description,
+ LoginSession_$_awperiod_$_aed_$_aoffice.Name AS LoginSession_$_awperiod_$_aed_$_aoffice_$$Name,
+ LoginSession_$_awperiod_$_aed_$_aoffice.ShortName AS LoginSession_$_awperiod_$_aed_$_aoffice_$$ShortName,
+ LoginSession_$_awperiod_$_aed.Description AS LoginSession_$_awperiod_$_aed_$$Description,
+ LoginSession_$_lusr.ID AS LoginSession_$_lusr_$$ID,
+ LoginSession_$_awperiod.ID AS LoginSession_$_awperiod_$$ID,
+ LoginSession_$_awperiod_$_amcper.ID AS LoginSession_$_awperiod_$_amcper_$$ID,
+ LoginSession_$_awperiod_$_amcper_$_aper.ID AS LoginSession_$_awperiod_$_amcper_$_aper_$$ID,
+ LoginSession_$_awperiod_$_awperiodt.ID AS LoginSession_$_awperiod_$_awperiodt_$$ID
+ FROM LoginSession 
+ INNER JOIN LoginUsers LoginSession_$_lusr ON LoginSession.LoginUsers_ID = LoginSession_$_lusr.ID 
+ LEFT JOIN LoginUsers_ParentGroup1 LoginSession_$_lusr_$_lupg1 ON LoginSession_$_lusr.LoginUsers_ParentGroup1_ID = LoginSession_$_lusr_$_lupg1.ID 
+ LEFT JOIN LoginUsers_ParentGroup2 LoginSession_$_lusr_$_lupg1_$_lupg2 ON LoginSession_$_lusr_$_lupg1.LoginUsers_ParentGroup2_ID = LoginSession_$_lusr_$_lupg1_$_lupg2.ID 
+ LEFT JOIN LoginUsers_ParentGroup3 LoginSession_$_lusr_$_lupg1_$_lupg2_$_lupg3 ON LoginSession_$_lusr_$_lupg1_$_lupg2.LoginUsers_ParentGroup3_ID = LoginSession_$_lusr_$_lupg1_$_lupg2_$_lupg3.ID 
+ INNER JOIN Atom_WorkPeriod LoginSession_$_awperiod ON LoginSession.Atom_WorkPeriod_ID = LoginSession_$_awperiod.ID 
+ INNER JOIN Atom_myOrganisation_Person LoginSession_$_awperiod_$_amcper ON LoginSession_$_awperiod.Atom_myOrganisation_Person_ID = LoginSession_$_awperiod_$_amcper.ID 
+ INNER JOIN Atom_Person LoginSession_$_awperiod_$_amcper_$_aper ON LoginSession_$_awperiod_$_amcper.Atom_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper.ID 
+ INNER JOIN Atom_cFirstName LoginSession_$_awperiod_$_amcper_$_aper_$_acfn ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acfn.ID 
+ LEFT JOIN Atom_cLastName LoginSession_$_awperiod_$_amcper_$_aper_$_acln ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acln.ID 
+ LEFT JOIN Atom_cGsmNumber_Person LoginSession_$_awperiod_$_amcper_$_aper_$_agsmnper ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_cGsmNumber_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_agsmnper.ID 
+ LEFT JOIN Atom_cPhoneNumber_Person LoginSession_$_awperiod_$_amcper_$_aper_$_aphnnper ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_cPhoneNumber_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_aphnnper.ID 
+ LEFT JOIN Atom_cEmail_Person LoginSession_$_awperiod_$_amcper_$_aper_$_aemailper ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_cEmail_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_aemailper.ID 
+ LEFT JOIN Atom_cAddress_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_cAddress_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.ID 
+ LEFT JOIN Atom_cStreetName_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_astrnper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cStreetName_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_astrnper.ID 
+ LEFT JOIN Atom_cHouseNumber_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_ahounper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cHouseNumber_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_ahounper.ID 
+ LEFT JOIN Atom_cCity_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_acitper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cCity_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_acitper.ID 
+ LEFT JOIN Atom_cZIP_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_azipper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cZIP_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_azipper.ID 
+ LEFT JOIN Atom_cCountry_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_astper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cCountry_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_astper.ID 
+ LEFT JOIN Atom_cState_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_acouper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cState_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_acouper.ID 
+ LEFT JOIN Atom_PersonImage LoginSession_$_awperiod_$_amcper_$_aper_$_aperimg ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_aperimg.ID 
+ INNER JOIN Atom_Office LoginSession_$_awperiod_$_amcper_$_aoffice ON LoginSession_$_awperiod_$_amcper.Atom_Office_ID = LoginSession_$_awperiod_$_amcper_$_aoffice.ID 
+ INNER JOIN Atom_WorkingPlace LoginSession_$_awperiod_$_awplace ON LoginSession_$_awperiod.Atom_WorkingPlace_ID = LoginSession_$_awperiod_$_awplace.ID 
+ INNER JOIN Atom_ElectronicDevice LoginSession_$_awperiod_$_aed ON LoginSession_$_awperiod.Atom_ElectronicDevice_ID = LoginSession_$_awperiod_$_aed.ID 
+ INNER JOIN Atom_Computer LoginSession_$_awperiod_$_aed_$_acomp ON LoginSession_$_awperiod_$_aed.Atom_Computer_ID = LoginSession_$_awperiod_$_aed_$_acomp.ID 
+ INNER JOIN Atom_ComputerName LoginSession_$_awperiod_$_aed_$_acomp_$_acn ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_ComputerName_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_acn.ID 
+ LEFT JOIN Atom_MAC_address LoginSession_$_awperiod_$_aed_$_acomp_$_amac ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_MAC_address_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_amac.ID 
+ LEFT JOIN Atom_ComputerUserName LoginSession_$_awperiod_$_aed_$_acomp_$_acun ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_ComputerUserName_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_acun.ID 
+ LEFT JOIN Atom_IP_address LoginSession_$_awperiod_$_aed_$_acomp_$_aipa ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_IP_address_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_aipa.ID 
+ INNER JOIN Atom_Office LoginSession_$_awperiod_$_aed_$_aoffice ON LoginSession_$_awperiod_$_aed.Atom_Office_ID = LoginSession_$_awperiod_$_aed_$_aoffice.ID 
+ INNER JOIN Atom_myOrganisation LoginSession_$_awperiod_$_aed_$_aoffice_$_amc ON LoginSession_$_awperiod_$_aed_$_aoffice.Atom_myOrganisation_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc.ID 
+ INNER JOIN Atom_OrganisationData LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc.Atom_OrganisationData_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.ID 
+ INNER JOIN Atom_Organisation LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_aorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_aorg.ID 
+ LEFT JOIN Atom_Comment1 LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_aorg_$_acmt1 ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_aorg.Atom_Comment1_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_aorg_$_acmt1.ID 
+ LEFT JOIN Atom_cAddress_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.Atom_cAddress_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.ID 
+ LEFT JOIN Atom_cStreetName_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.Atom_cStreetName_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg.ID 
+ LEFT JOIN Atom_cHouseNumber_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.Atom_cHouseNumber_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg.ID 
+ LEFT JOIN Atom_cCity_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.Atom_cCity_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg.ID 
+ LEFT JOIN Atom_cZIP_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.Atom_cZIP_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg.ID 
+ LEFT JOIN Atom_cCountry_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.Atom_cCountry_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astorg.ID 
+ LEFT JOIN Atom_cState_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acouorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg.Atom_cState_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acouorg.ID 
+ LEFT JOIN cPhoneNumber_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_cphnnorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.cPhoneNumber_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_cphnnorg.ID 
+ LEFT JOIN cFaxNumber_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_cfaxnorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.cFaxNumber_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_cfaxnorg.ID 
+ LEFT JOIN cEmail_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_cemailorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.cEmail_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_cemailorg.ID 
+ LEFT JOIN cHomePage_Org LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_chomepgorg ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.cHomePage_Org_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_chomepgorg.ID 
+ LEFT JOIN cOrgTYPE LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_orgt ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_orgt.ID 
+ LEFT JOIN Atom_Logo LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_alogo ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd_$_alogo.ID 
+ LEFT JOIN Atom_WorkPeriod_TYPE LoginSession_$_awperiod_$_awperiodt ON LoginSession_$_awperiod.Atom_WorkPeriod_TYPE_ID = LoginSession_$_awperiod_$_awperiodt.ID          
+ " + where_condition;
+            if (dt == null)
+            {
+                dt = new DataTable();
+            }
+            else
+            {
+                dt.Clear();
+                dt.Columns.Clear();
+            }
+            if (con.ReadDataTable(ref dt, sql, lpar, ref err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:Read_Login_VIEW:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
+        internal static bool IsUserLoggedIn(ID loginUsers_ID, ref ID LoginSession_ID)
+        {
+            string err = null;
+            string sql = @"SELECT LoginSession.ID as ID
+            FROM LoginSession 
+            INNER JOIN Atom_WorkPeriod LoginSession_$_awperiod ON LoginSession.Atom_WorkPeriod_ID = LoginSession_$_awperiod.ID 
+            where LoginSession_$_awperiod.LogoutTime is null and LoginUsers_ID = " + loginUsers_ID.ToString();
+            DataTable dt = new DataTable();
+            LoginSession_ID = null;
+            if (con.ReadDataTable(ref dt, sql, null, ref err))
+            {
+                if (dt.Rows.Count == 1)
+                {
+                    LoginSession_ID = tf.set_ID(dt.Rows[0]["ID"]);
+                    return true;
+                }
+                else if (dt.Rows.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:LoginControl:AWP_func:IsUserLoggedIn:User with LoginUsers_ID =" + loginUsers_ID.ToString() + " is loggedin several times:" + dt.Rows.Count.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:IsUserLoggedIn:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
         internal static bool Read_Login_VIEW(ref DataTable dt, string where_condition, List<SQL_Parameter> lpar)
         {
             string err = null;

@@ -2584,6 +2584,21 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
+    public class JOURNAL_Atom_WorkPeriod_TYPE
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class JOURNAL_Atom_WorkPeriod
+    {
+        public ID ID = new ID();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+        public EventTime EventTime = new EventTime();
+        public JOURNAL_Atom_WorkPeriod_TYPE m_JOURNAL_Atom_WorkPeriod_TYPE = new JOURNAL_Atom_WorkPeriod_TYPE();
+    }
+
     public class Cost:DB_Money
     {
 
@@ -3508,6 +3523,12 @@ namespace TangentaTableClass
 
         /* 237 */
         public LoginUsers_ParentGroup1 m_LoginUsers_ParentGroup1 = new LoginUsers_ParentGroup1();
+
+        /* 238 */
+        public JOURNAL_Atom_WorkPeriod_TYPE m_JOURNAL_Atom_WorkPeriod_TYPE = new JOURNAL_Atom_WorkPeriod_TYPE();
+
+        /* 239 */
+        public JOURNAL_Atom_WorkPeriod m_JOURNAL_Atom_WorkPeriod = new JOURNAL_Atom_WorkPeriod();
 
     }
 }

@@ -101,7 +101,19 @@
     <Compile Include="AWPFormSelectMyOrgPerNotInLoginUsers.Designer.cs">
       <DependentUpon>AWPFormSelectMyOrgPerNotInLoginUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="AWPForm_Close_Opened_Atom_WorkingPeriods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWPForm_Close_Opened_Atom_WorkingPeriods.Designer.cs">
+      <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
+    </Compile>
     <Compile Include="AWPLoginData.cs" />
+    <Compile Include="AWPLoginForm_OneFromMultipleUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWPLoginForm_OneFromMultipleUsers.Designer.cs">
+      <DependentUpon>AWPLoginForm_OneFromMultipleUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="AWPRole.cs" />
     <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.cs">
       <SubType>Form</SubType>
@@ -239,6 +251,13 @@
     <EmbeddedResource Include="AWPFormSelectMyOrgPerNotInLoginUsers.resx">
       <DependentUpon>AWPFormSelectMyOrgPerNotInLoginUsers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AWPForm_Close_Opened_Atom_WorkingPeriods.resx">
+      <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AWPLoginForm_OneFromMultipleUsers.resx">
+      <DependentUpon>AWPLoginForm_OneFromMultipleUsers.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="AWP_Select_users_from_myOrganisation_Person_Table.resx">
       <DependentUpon>AWP_Select_users_from_myOrganisation_Person_Table.cs</DependentUpon>
     </EmbeddedResource>
@@ -317,6 +336,10 @@
       <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
       <Name>Check</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
       <Project>{0F0AFE83-5E47-49CF-888A-79A03FA71321}</Project>
       <Name>ComboBox_Recent</Name>
@@ -361,6 +384,10 @@
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
+      <Project>{3B62990E-C7E0-4748-B1EA-B977FD596021}</Project>
+      <Name>DBSync</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3C726999-1AD1-4321-8D63-D1136A3F071C}</Project>
       <Name>DBTypes</Name>
@@ -372,6 +399,10 @@
     <ProjectReference Include="..\..\CodeTables\Excell_Export_base\Excell_Export_base.csproj">
       <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
       <Name>Excell_Export_base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
+      <Project>{9E74DCDB-34E6-41CB-B677-C9A0D6C4C10D}</Project>
+      <Name>CodeTables</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
@@ -388,6 +419,10 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>TangentaDataBaseDef</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355D-D6DC-46C9-9787-96A74EF27BE3}</Project>

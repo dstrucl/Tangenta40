@@ -528,5 +528,9 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_TermsOfPayment_Default = new ltext(new string[] { "Deafult terms of payment", "Privzeti plačilni pogoji" });
 
+        public static ltext lng_t_JOURNAL_Atom_WorkPeriod = new ltext(new string[] { "Journal Atom Work Period", "Dnevnik šihtov" });
+
+        public static ltext lng_t_JOURNAL_Atom_WorkPeriod_TYPE = new ltext(new string[] { "Journal Atom Work Period Type", "Vrsta dogodka v dnevniku šihtov" });
+
     }
 }

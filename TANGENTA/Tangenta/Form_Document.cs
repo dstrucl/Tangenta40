@@ -399,10 +399,18 @@ namespace Tangenta
                     m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
-            ID atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
-            if (ID.Validate(atom_work_period_id))
+
+            if (Program.Login_MultipleUsers)
             {
-                TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
+
+            }
+            else
+            {
+                ID atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
+                if (ID.Validate(atom_work_period_id))
+                {
+                    TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
+                }
             }
             if (Program.b_FVI_SLO)
             {
@@ -571,19 +579,30 @@ namespace Tangenta
             }
             else
             {
-                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
-
-                LayoutSet();
-
-                m_usrc_Main.Visible = true;
-
-                m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
-
-                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
-
-                SetNewFormTag();
-                m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
+                Activate_usrc_DocumentMan(null);
             }
+        }
+
+        internal void Activate_usrc_DocumentMan(LoginControl.usrc_MultipleUsers xm_usrc_MultipleUsers)
+        {
+            if (xm_usrc_MultipleUsers!=null)
+            {
+                xm_usrc_MultipleUsers.Visible = false;
+            }
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+
+            LayoutSet();
+
+            m_usrc_Main.Visible = true;
+
+            m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
+
+            SetNewFormTag();
+            m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
+
         }
 
 
