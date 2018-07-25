@@ -34,11 +34,14 @@
             this.usrc_Item_Group_Handler1 = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
             this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrc_Item_PageHandler();
             this.lbl_GroupPath = new System.Windows.Forms.Label();
+            this.lbl_Tangenta = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -46,7 +49,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 57);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 81);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -56,7 +59,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Item_Group_Handler1);
-            this.splitContainer1.Size = new System.Drawing.Size(1025, 721);
+            this.splitContainer1.Size = new System.Drawing.Size(1025, 697);
             this.splitContainer1.SplitterDistance = 802;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -65,7 +68,7 @@
             this.pnl_Items.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_Items.Location = new System.Drawing.Point(0, 0);
             this.pnl_Items.Name = "pnl_Items";
-            this.pnl_Items.Size = new System.Drawing.Size(802, 721);
+            this.pnl_Items.Size = new System.Drawing.Size(802, 697);
             this.pnl_Items.TabIndex = 0;
             // 
             // usrc_Item_Group_Handler1
@@ -83,7 +86,7 @@
             // usrc_Item_PageHandler1
             // 
             this.usrc_Item_PageHandler1.CurrentPage = 0;
-            this.usrc_Item_PageHandler1.Location = new System.Drawing.Point(15, 14);
+            this.usrc_Item_PageHandler1.Location = new System.Drawing.Point(547, 18);
             this.usrc_Item_PageHandler1.Name = "usrc_Item_PageHandler1";
             this.usrc_Item_PageHandler1.Size = new System.Drawing.Size(151, 37);
             this.usrc_Item_PageHandler1.TabIndex = 1;
@@ -92,11 +95,32 @@
             // lbl_GroupPath
             // 
             this.lbl_GroupPath.AutoSize = true;
-            this.lbl_GroupPath.Location = new System.Drawing.Point(450, 15);
+            this.lbl_GroupPath.Location = new System.Drawing.Point(726, 65);
             this.lbl_GroupPath.Name = "lbl_GroupPath";
             this.lbl_GroupPath.Size = new System.Drawing.Size(60, 13);
             this.lbl_GroupPath.TabIndex = 2;
             this.lbl_GroupPath.Text = "Group path";
+            // 
+            // lbl_Tangenta
+            // 
+            this.lbl_Tangenta.AutoSize = true;
+            this.lbl_Tangenta.Font = new System.Drawing.Font("Perpetua Titling MT", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Tangenta.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_Tangenta.Location = new System.Drawing.Point(26, 19);
+            this.lbl_Tangenta.Name = "lbl_Tangenta";
+            this.lbl_Tangenta.Size = new System.Drawing.Size(294, 57);
+            this.lbl_Tangenta.TabIndex = 5;
+            this.lbl_Tangenta.Text = "TANGENTA";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::LoginControl.Properties.Resources.Tangenta_Logo_SMALL;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(46, 74);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // btn_Exit
             // 
@@ -113,6 +137,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_Tangenta);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.usrc_Item_PageHandler1);
@@ -123,6 +149,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,5 +163,7 @@
         private System.Windows.Forms.Panel pnl_Items;
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.Button btn_Exit;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lbl_Tangenta;
     }
 }

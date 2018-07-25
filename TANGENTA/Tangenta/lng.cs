@@ -25,6 +25,8 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_lbl_ExitTimeout = new ltext(new string[] { "Exit timeout in sec", "Časovnik za izhod v sek-" });
+        
         public static ltext s_Settings = new ltext(new string[] { "Settings", "Nastavitve" });
 
 
@@ -599,6 +601,16 @@ namespace Tangenta
         public static ltext s_rdb_EndPrice = new ltext(new string[] { "End price:", "Končna cena:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Discount.cs
 
         public static ltext s_rdb_CustomDiscount = new ltext(new string[] { "Discount:", "Popust:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Discount.cs
+
+        public static ltext s_grp_AccessAuthentication = new ltext(new string[] { "Acsess authentification", "Preverjanje osebe prevzema blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
+        public static ltext s_rdb_Autentification_None = new ltext(new string[] { "None", "brez preverjanja oseba" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
+        public static ltext s_rdb_Autentification_Password = new ltext(new string[] { "Password", "Geslo" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
+        public static ltext s_rdb_Autentification_PIN = new ltext(new string[] { "PIN", "PIN" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
+        public static ltext s_rdb_Autentification_RFID = new ltext(new string[] { "RFID", "RFID" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_chk_ControlLayout_TouchScreen = new ltext(new string[] { "Control layout touch screen", "Prikaz za zaslon na dotik" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 

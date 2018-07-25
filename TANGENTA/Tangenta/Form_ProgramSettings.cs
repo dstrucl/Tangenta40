@@ -46,13 +46,33 @@ namespace Tangenta
             lng.s_chk_MultipleUserLogin.Text(chk_MultipleUserLogin);
             lng.s_chk_ControlLayout_TouchScreen.Text(chk_ControlLayout_TouchScreen);
 
+            lng.s_grp_AccessAuthentication.Text(grp_AccessAuthentication);
+            lng.s_rdb_Autentification_None.Text(rdb_Authentification_None);
+            lng.s_rdb_Autentification_Password.Text(rdb_Authentification_Password);
+            lng.s_rdb_Autentification_PIN.Text(rdb_Authentification_PIN);
+            lng.s_rdb_Autentification_RFID.Text(rdb_Authentification_RFID);
+            lng.s_lbl_ExitTimeout.Text(lbl_ExitTimeout);
+
+            nmUpDn_ExitTimeout.Value = Convert.ToDecimal(Properties.Settings.Default.timer_Login_MultiUser_Countdown);
+
+            rdb_Authentification_None.Checked = (Properties.Settings.Default.AccessAuthentication == 0);
+            rdb_Authentification_Password.Checked = (Properties.Settings.Default.AccessAuthentication == 1);
+            rdb_Authentification_PIN.Checked = (Properties.Settings.Default.AccessAuthentication == 2);
+            rdb_Authentification_RFID.Checked = (Properties.Settings.Default.AccessAuthentication == 3);
+            if ((Properties.Settings.Default.AccessAuthentication <0)||(Properties.Settings.Default.AccessAuthentication > 3))
+            {
+                LogFile.Error.Show("ERROR:Tangenta:ProgramSettings:Properties.Settings.Default.AccessAuthentication is not 0,1,2,3 it may not be " + Properties.Settings.Default.AccessAuthentication.ToString());
+            }
+
             if (Program.OperationMode.MultiUser)
             {
                 chk_MultipleUserLogin.Enabled = true;
                 chk_MultipleUserLogin.Checked = Properties.Settings.Default.Login_MultipleUsers;
+                grp_AccessAuthentication.Enabled = true;
             }
             else
             {
+                grp_AccessAuthentication.Enabled = false;
                 chk_MultipleUserLogin.Enabled = false;
                 chk_MultipleUserLogin.Checked = false;
             }
@@ -153,6 +173,39 @@ namespace Tangenta
                 {
                     Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
                 }
+
+
+                if (Properties.Settings.Default.Login_MultipleUsers)
+                {
+                    if (nmUpDn_ExitTimeout.Value != Convert.ToDecimal(Properties.Settings.Default.timer_Login_MultiUser_Countdown))
+                    {
+                        Properties.Settings.Default.timer_Login_MultiUser_Countdown = Convert.ToInt32(nmUpDn_ExitTimeout.Value);
+                        bChanged = true;
+                    }
+
+                    if (rdb_Authentification_None.Checked && (Properties.Settings.Default.AccessAuthentication != 0))
+                    {
+                        Properties.Settings.Default.AccessAuthentication = 0;
+                        bChanged = true;
+                    }
+                    if (rdb_Authentification_Password.Checked && (Properties.Settings.Default.AccessAuthentication != 1))
+                    {
+                        Properties.Settings.Default.AccessAuthentication = 1;
+                        bChanged = true;
+                    }
+                    if (rdb_Authentification_PIN.Checked && (Properties.Settings.Default.AccessAuthentication != 2))
+                    {
+                        Properties.Settings.Default.AccessAuthentication = 2;
+                        bChanged = true;
+                    }
+
+                    if (rdb_Authentification_RFID.Checked && (Properties.Settings.Default.AccessAuthentication != 3))
+                    {
+                        Properties.Settings.Default.AccessAuthentication = 3;
+                        bChanged = true;
+                    }
+                }
+
 
                 if (Properties.Settings.Default.ControlLayout_TouchScreen != chk_ControlLayout_TouchScreen.Checked)
                 {
@@ -268,6 +321,18 @@ namespace Tangenta
                 Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
                 Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).ShopC_ExclusivelySellFromStock;
                 Program.OperationMode.MultiCurrency = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiCurrencyOperation;
+            }
+        }
+
+        private void chk_MultipleUserLogin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_MultipleUserLogin.Checked)
+            {
+                grp_AccessAuthentication.Enabled = true;
+            }
+            else
+            {
+                grp_AccessAuthentication.Enabled = false;
             }
         }
     }

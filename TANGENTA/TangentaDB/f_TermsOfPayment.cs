@@ -230,6 +230,11 @@ namespace TangentaDB
                                 {
 
                                     description_v = tf.set_string(dt.Rows[0]["Description"]);
+                                    if (description_v == null)
+                                    {
+                                        LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:description_v is null in table  TermsOfPayment!");
+                                        return false;
+                                    }
                                     return true;
                                 }
                                 else
@@ -252,28 +257,114 @@ namespace TangentaDB
                     }
                     else
                     {
-                        string sElectronicDeviceName = null;
-                        if (myOrg.m_myOrg_Office!=null)
+                        if (myOrg.m_myOrg_Office != null)
                         {
-                            sElectronicDeviceName = myOrg.m_myOrg_Office.ElectronicDevice_ComputerName + "/" + myOrg.m_myOrg_Office.Get_ElectronicDevice_ComputerUserName();
-                        }
-                        if (sElectronicDeviceName != null)
-                        {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:Deafult TermsOfPayment_ID for Electronic device = "+ sElectronicDeviceName +" was not not found!");
+                            if (myOrg.m_myOrg_Office.Name_v != null)
+                            {
+                                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                                string spar_aof_name = "@par_aof_name";
+                                SQL_Parameter par_aof_name = new SQL_Parameter(spar_aof_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, myOrg.m_myOrg_Office.Name_v.v);
+                                lpar.Add(par_aof_name);
+                                dt.Clear();
+                                dt.Columns.Clear();
+                                sql = @"select tofpd.TermsOfPayment_ID as TermsOfPayment_ID,
+                                               topf.Description as Description
+                                     from TermsOfPayment_Default as tofpd 
+                                     inner join TermsOfPayment as topf on tofpd.TermsOfPayment_ID = topf.ID
+                                     inner join Atom_ElectronicDevice as aed on aed.ID=tofpd.Atom_ElectronicDevice_ID
+                                     inner join Atom_Office as aof on aed.Atom_Office_ID = aof.ID 
+									 where aof.Name = " + spar_aof_name;
+                                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                                {
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        xIDdefault = tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]);
+                                        if (ID.Validate(xIDdefault))
+                                        {
+                                            SetDefault(xIDdefault);
+                                            description_v = tf.set_string(dt.Rows[0]["Description"]);
+                                            if (description_v == null)
+                                            {
+                                                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:description_v is null in table  TermsOfPayment!");
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:Deafult TermsOfPayment_ID for office " + myOrg.m_myOrg_Office.Name_v.v + " is not found!");
+                                            return false;
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        sql = @"select tofpd.TermsOfPayment_ID as TermsOfPayment_ID,
+                                                 topf.Description as Description
+                                                 from TermsOfPayment_Default as tofpd
+                                                 inner join TermsOfPayment as topf on tofpd.TermsOfPayment_ID = topf.ID
+                                                ";
+                                        dt.Clear();
+                                        dt.Columns.Clear();
+                                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                        {
+                                            if (dt.Rows.Count > 0)
+                                            {
+                                                xIDdefault = tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]);
+                                                if (ID.Validate(xIDdefault))
+                                                {
+                                                    SetDefault(xIDdefault);
+                                                    description_v = tf.set_string(dt.Rows[0]["Description"]);
+                                                    if (description_v==null)
+                                                    {
+                                                        LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:description_v is null in table  TermsOfPayment!");
+                                                        return false;
+                                                    }
+                                                    return true;
+                                                }
+                                                else
+                                                {
+                                                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:Deafult TermsOfPayment_ID not found in table TermsOfPayment_Default ");
+                                                    return false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault: Table TermsOfPayment_Default is empty!");
+                                                return false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:sql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:myOrg.m_myOrg_Office.Name_v  is null");
+                                return false;
+                            }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:Deafult TermsOfPayment_ID for Electronic device = null was not not found!");
+                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:myOrg.m_myOrg_Office  is null");
+                            return false;
                         }
-                        return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
-
             }
             else
             {

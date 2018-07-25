@@ -60,6 +60,15 @@ namespace LoginControl
                            LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod,
                            LoginCtrl.delegate_Activate_usrc_DocumentMan xcall_Activate_usrc_DocumentMan)
         {
+            lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
+            if (myOrg.m_myOrg_Office!=null)
+            {
+                if (myOrg.m_myOrg_Office.Name_v!=null)
+                {
+                    lbl_Tangenta.Text = myOrg.m_myOrg_Office.Name_v.v;
+                }
+            }
+            
             m_awp = xawp;
             m_call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
             m_call_Activate_usrc_DocumentMan = xcall_Activate_usrc_DocumentMan;
@@ -171,6 +180,37 @@ namespace LoginControl
             return false;
         }
 
+        internal void LogoutAll()
+        {
+            foreach (Control ctrl in this.pnl_Items.Controls)
+            {
+                if (ctrl is usrc_LoginOfMyOrgUser)
+                {
+                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
+                    if (xusrc_LoginOfMyOrgUser.LoggedIn)
+                    {
+                        xusrc_LoginOfMyOrgUser.DoLogout();
+                    }
+                }
+            }
+        }
+
+        internal int LoggedIn_Count()
+        {
+            int iCount = 0;
+            foreach (Control ctrl in this.pnl_Items.Controls)
+            {
+                if (ctrl is usrc_LoginOfMyOrgUser)
+                {
+                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
+                    if (xusrc_LoginOfMyOrgUser.LoggedIn)
+                    {
+                        iCount++;
+                    }
+                }
+            }
+            return iCount;
+        }
 
         private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)
         {

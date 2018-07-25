@@ -1641,6 +1641,7 @@ namespace TangentaDataBaseDef
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_cCardType_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Card Type ID", "Vrsta Kartice ID") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_PersonImage, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Image", "Slika") );
             t_PersonData.AddColumn((Object)mt.m_PersonData.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Description", "Opis") );
+            t_PersonData.AddColumn((Object)mt.m_PersonData.PIN, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("PIN", "PIN"));
             t_PersonData.AddColumn((Object)mt.m_PersonData.m_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Person ID", "Oseba ID"));
             m_DBTables.items.Add(t_PersonData);
 

@@ -27,7 +27,20 @@ namespace LoginControl
 
         LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
 
-        public AWPLoginForm_OneFromMultipleUsers(AWP xawp,string username, LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod, LoginType xloginType,ID xAtom_WorkPeriod_ID)
+        internal bool LogoutALL
+        {
+            get
+            {
+                return chk_LogoutAll.Checked;
+            }
+        }
+
+        public AWPLoginForm_OneFromMultipleUsers(AWP xawp,
+                                                string username,
+                                                LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod,
+                                                bool blogoutall,
+                                                LoginType xloginType,
+                                                ID xAtom_WorkPeriod_ID)
         {
             InitializeComponent();
             awp = xawp;
@@ -40,15 +53,26 @@ namespace LoginControl
             {
                 this.Text = lng.s_Login.s;
                 this.btn_OK.Text = lng.s_Login.s;
+                chk_LogoutAll.Visible = false;
             }
             else
             {
+                if (blogoutall)
+                {
+                    chk_LogoutAll.Visible = true;
+                    lng.s_chk_LogoutAll.Text(chk_LogoutAll);
+                }
+                else
+                {
+                    chk_LogoutAll.Visible = false;
+                }
+
                 this.Text = lng.s_Logout.s;
                 this.btn_OK.Text = lng.s_Logout.s;
             }
 
-            this.btn_Cancel.Text = lng.s_Cancel.s;
-            lbl_UserName.Text = lng.s_UserName.s;
+            this.btn_Cancel.Text = "";//lng.s_Cancel.s;
+            lbl_UserName.Text = lng.s_UserName.s+":";
             lbl_Password.Text = lng.s_Password.s;
             dtLoginUsers = new DataTable();
         }
@@ -118,7 +142,7 @@ namespace LoginControl
                                 }
                                 else
                                 {
-                                    if (Logout())
+                                    if (LoginControl.LoginCtrl.Logout(this.Atom_WorkPeriod_ID))
                                     {
                                         DialogResult = DialogResult.OK;
                                         Close();
@@ -182,7 +206,7 @@ namespace LoginControl
                 // Get time from server
                 //TimeOnServer = m_LoginDB_DataSet_ScalarFunctions.Login_Server_GetDate(ref Err);
                 string Err = null;
-                if (SetThisComputerSystemTime(TimeOnServer, ref Err))
+                if (LoginControl.LoginCtrl.SetThisComputerSystemTime(TimeOnServer, ref Err))
                 {
                 }
             }
@@ -208,73 +232,8 @@ namespace LoginControl
             }
         }
 
-        private bool Logout()
-        {
-            DateTime TimeOnServer = new DateTime();
-            if (AWP_func.con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
-            {
-                // Get time from server
-                //TimeOnServer = m_LoginDB_DataSet_ScalarFunctions.Login_Server_GetDate(ref Err);
-                string Err = null;
-                if (SetThisComputerSystemTime(TimeOnServer, ref Err))
-                {
-                }
-            }
 
-            if (ID.Validate(Atom_WorkPeriod_ID))
-            {
-                if (TangentaDB.f_Atom_WorkPeriod.End(Atom_WorkPeriod_ID))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public struct SystemTime
-        {
-            public ushort Year;
-            public ushort Month;
-            public ushort DayOfWeek;
-            public ushort Day;
-            public ushort Hour;
-            public ushort Minute;
-            public ushort Second;
-            public ushort Millisecond;
-        };
-
-        [DllImport("kernel32.dll", EntryPoint = "SetSystemTime", SetLastError = true)]
-        public extern static bool Win32SetSystemTime(ref SystemTime sysTime);
-
-        private bool SetThisComputerSystemTime(DateTime TimeOnServer, ref string Err)
-        {
-            try
-            {
-                SystemTime updatedTime = new SystemTime();
-                updatedTime.Year = Convert.ToUInt16(TimeOnServer.Year);
-                updatedTime.Month = Convert.ToUInt16(TimeOnServer.Month);
-                updatedTime.Day = Convert.ToUInt16(TimeOnServer.Day);
-                updatedTime.Hour = Convert.ToUInt16(TimeOnServer.Hour);
-                updatedTime.Minute = Convert.ToUInt16(TimeOnServer.Minute);
-                updatedTime.Second = Convert.ToUInt16(TimeOnServer.Second);
-                updatedTime.Millisecond = Convert.ToUInt16(TimeOnServer.Millisecond);
-                // Call the unmanaged function that sets the new date and time instantly
-                Win32SetSystemTime(ref updatedTime);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Err = ex.Message;
-                return false;
-            }
-        }
+      
 
 
         private void btn_Cancel_Click(object sender, EventArgs e)

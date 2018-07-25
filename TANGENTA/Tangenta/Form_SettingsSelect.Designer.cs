@@ -86,6 +86,7 @@
             this.btn_Exit.Size = new System.Drawing.Size(75, 64);
             this.btn_Exit.TabIndex = 41;
             this.btn_Exit.UseVisualStyleBackColor = false;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // Form_SettingsSelect
             // 

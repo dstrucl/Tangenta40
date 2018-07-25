@@ -214,6 +214,7 @@ SELECT
 			PersonData.ID AS PersonData_$$ID,
 			PersonData.CardNumber AS PersonData_$$CardNumber,
 			PersonData.Description AS PersonData_$$Description,
+            PersonData.PIN AS PersonData_$$PIN,
 			PersonData_$_cgsmnper.GsmNumber AS PersonData_$_cgsmnper_$$GsmNumber,
 			PersonData_$_cphnnper.ID AS PersonData_$_cphnnper_$$ID,
 			PersonData_$_cphnnper.PhoneNumber AS PersonData_$_cphnnper_$$PhoneNumber,

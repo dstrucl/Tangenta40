@@ -11,12 +11,16 @@ using LanguageControl;
 using LogFile;
 using System.Security.Cryptography;
 using NavigationButtons;
+using System.Runtime.InteropServices;
 
 namespace LoginControl
 {
     public partial class LoginCtrl : UserControl
     {
         public enum eExitReason { NORMAL, LOGIN_CONTROL };
+
+        public enum eAuthentificationType { NONE,PASSWORD,PIN,RFID};
+
 
         public delegate void delegate_Activate_usrc_DocumentMan(usrc_MultipleUsers xm_usrc_MultipleUsers);
 
@@ -35,6 +39,19 @@ namespace LoginControl
         STD std = null;
 
         internal delegate_EndProgram EndProgram = null;
+
+        private eAuthentificationType m_AuthentificationType = eAuthentificationType.PASSWORD;
+
+        public eAuthentificationType AuthentificationType
+        {
+            get {
+                return m_AuthentificationType;
+                }
+            set
+            {
+                m_AuthentificationType = value;
+            }
+        }
 
 
         internal int m_MinPasswordLength = 5;
@@ -239,6 +256,27 @@ namespace LoginControl
             }
         }
 
+        public void SetAccessAuthentification(int accessAuthentication)
+        {
+            switch (accessAuthentication)
+            {
+                case 0:
+                    AuthentificationType = eAuthentificationType.NONE;
+                    break;
+                case 1:
+                    AuthentificationType = eAuthentificationType.PASSWORD;
+                    break;
+                case 2:
+                    AuthentificationType = eAuthentificationType.PIN;
+                    break;
+                case 3:
+                    AuthentificationType = eAuthentificationType.RFID;
+                    break;
+                default:
+                    LogFile.Error.Show("ERROR:LoginControl:LoginCtrl:SetAccessAuthentification:accessAuthentication not implemented for value=" + accessAuthentication.ToString());
+                    break;
+            }
+        }
 
         internal List<string> UserRoles
         {
@@ -501,5 +539,74 @@ namespace LoginControl
                     break;
             }
         }
+
+
+        public struct SystemTime
+        {
+            public ushort Year;
+            public ushort Month;
+            public ushort DayOfWeek;
+            public ushort Day;
+            public ushort Hour;
+            public ushort Minute;
+            public ushort Second;
+            public ushort Millisecond;
+        };
+
+        [DllImport("kernel32.dll", EntryPoint = "SetSystemTime", SetLastError = true)]
+        public extern static bool Win32SetSystemTime(ref SystemTime sysTime);
+
+        public static bool SetThisComputerSystemTime(DateTime TimeOnServer, ref string Err)
+        {
+            try
+            {
+                SystemTime updatedTime = new SystemTime();
+                updatedTime.Year = Convert.ToUInt16(TimeOnServer.Year);
+                updatedTime.Month = Convert.ToUInt16(TimeOnServer.Month);
+                updatedTime.Day = Convert.ToUInt16(TimeOnServer.Day);
+                updatedTime.Hour = Convert.ToUInt16(TimeOnServer.Hour);
+                updatedTime.Minute = Convert.ToUInt16(TimeOnServer.Minute);
+                updatedTime.Second = Convert.ToUInt16(TimeOnServer.Second);
+                updatedTime.Millisecond = Convert.ToUInt16(TimeOnServer.Millisecond);
+                // Call the unmanaged function that sets the new date and time instantly
+                Win32SetSystemTime(ref updatedTime);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Err = ex.Message;
+                return false;
+            }
+        }
+        internal static bool Logout(ID xAtom_WorkPeriod_ID)
+        {
+            DateTime TimeOnServer = new DateTime();
+            if (AWP_func.con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
+            {
+                // Get time from server
+                //TimeOnServer = m_LoginDB_DataSet_ScalarFunctions.Login_Server_GetDate(ref Err);
+                string Err = null;
+                if (SetThisComputerSystemTime(TimeOnServer, ref Err))
+                {
+                }
+            }
+
+            if (ID.Validate(xAtom_WorkPeriod_ID))
+            {
+                if (TangentaDB.f_Atom_WorkPeriod.End(xAtom_WorkPeriod_ID))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

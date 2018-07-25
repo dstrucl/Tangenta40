@@ -615,6 +615,11 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class PIN:DB_Int32
+    {
+
+    }
+
     public class PersonData
     {
         public ID ID = new ID();
@@ -627,6 +632,7 @@ namespace TangentaTableClass
         public cCardType_Person m_cCardType_Person = new cCardType_Person();
         public Description Description = new Description();
         public PersonImage m_PersonImage = new PersonImage();
+        public PIN PIN = new PIN();
     }
 
 

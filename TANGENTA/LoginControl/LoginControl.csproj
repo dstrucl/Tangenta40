@@ -108,6 +108,12 @@
       <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPLoginData.cs" />
+    <Compile Include="AWPLoginForm_AuthentificatePIN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWPLoginForm_AuthentificatePIN.Designer.cs">
+      <DependentUpon>AWPLoginForm_AuthentificatePIN.cs</DependentUpon>
+    </Compile>
     <Compile Include="AWPLoginForm_OneFromMultipleUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -253,6 +259,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AWPForm_Close_Opened_Atom_WorkingPeriods.resx">
       <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AWPLoginForm_AuthentificatePIN.resx">
+      <DependentUpon>AWPLoginForm_AuthentificatePIN.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AWPLoginForm_OneFromMultipleUsers.resx">
       <DependentUpon>AWPLoginForm_OneFromMultipleUsers.cs</DependentUpon>
@@ -451,6 +461,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\00_ENG_myOrganisation_Person.htm" />
     <EmbeddedResource Include="Resources\01_SLO_myOrganisation_Person.htm" />
+    <None Include="Resources\Exit.bmp" />
+    <None Include="Resources\Tangenta-Logo SMALL.gif" />
     <Content Include="Resources\UserInfo.png" />
     <Content Include="Resources\Users.png" />
   </ItemGroup>

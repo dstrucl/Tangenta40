@@ -529,7 +529,7 @@ namespace Tangenta
                 {
                     if (this.eExitReason != LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL)
                     {
-                        this.m_usrc_Main.Visible = false;
+                        this.m_usrc_Main.Active = false;
                         this.m_usrc_Main.loginControl1.Login_MultipleUsers_ShowControl();
                         e.Cancel = true;
                     }
@@ -621,7 +621,7 @@ namespace Tangenta
 
             LayoutSet();
 
-            m_usrc_Main.Visible = true;
+            m_usrc_Main.Active = true;
 
             m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
 

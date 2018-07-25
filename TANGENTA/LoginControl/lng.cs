@@ -24,6 +24,13 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_chk_LogoutAll = new ltext(new string[] { "Logout all users", "Odjavi vse uporabnike" });
+        
+        public static ltext s_ThisOrgansiationPersonHasNoPIN_please_define_PIN = new ltext(new string[] {
+            "There is no PIN for this user.\r\nYour administrator must define PIN number for this user!", "Uporabnik nima dodaljene PIN številke.\r\nSkrbnik tega programa mora vpisati PIN številko za to osebo vaše organizacije." });
+
+        public static ltext s_WrongPIN = new ltext(new string[] { "Wrong PIN", "Napačen PIN" });
+
         public static ltext s_btn_GetAccess = new ltext(new string[] { "Casshier", "Prevzemi balagajno" });
 
         public static ltext s_YouCanNotExitProgramUntilAllUsersAreLoggedOut = new ltext(new string[] { "You can not end program until all users are logged out", "Program lahko končate šele, ko so vsi uporabniki odjavljeni!" });
@@ -44,6 +51,10 @@ namespace LoginControl
         public static ltext s_UserThatChangesPassword = new ltext(new string[] { "UserName:", "Uporabnik:" });
 
         public static ltext s_Password = new ltext(new string[] { "Password	", " Geslo" });
+
+        public static ltext s_Clear = new ltext(new string[] { "Clear", "Zbriši" });
+
+        public static ltext s_PIN = new ltext(new string[] { "PIN", "PIN" });
 
         public static ltext s_Confirm_New_Password = new ltext(new string[] { "Confirm new password:", "Ponovite novo geslo:" });
 

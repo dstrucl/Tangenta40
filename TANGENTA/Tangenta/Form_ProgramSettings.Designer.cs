@@ -45,7 +45,16 @@
             this.txt_GitSourceVersion = new System.Windows.Forms.TextBox();
             this.chk_MultipleUserLogin = new System.Windows.Forms.CheckBox();
             this.chk_ControlLayout_TouchScreen = new System.Windows.Forms.CheckBox();
+            this.grp_AccessAuthentication = new System.Windows.Forms.GroupBox();
+            this.rdb_Authentification_RFID = new System.Windows.Forms.RadioButton();
+            this.rdb_Authentification_PIN = new System.Windows.Forms.RadioButton();
+            this.rdb_Authentification_Password = new System.Windows.Forms.RadioButton();
+            this.rdb_Authentification_None = new System.Windows.Forms.RadioButton();
+            this.nmUpDn_ExitTimeout = new System.Windows.Forms.NumericUpDown();
+            this.lbl_ExitTimeout = new System.Windows.Forms.Label();
             this.grp_ColorSettings.SuspendLayout();
+            this.grp_AccessAuthentication.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // chk_AllowToEditText
@@ -114,7 +123,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(797, 26);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(850, 26);
             this.usrc_NavigationButtons1.TabIndex = 39;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -162,7 +171,7 @@
             this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 639);
             this.txt_ApplicationDataFolder.Name = "txt_ApplicationDataFolder";
             this.txt_ApplicationDataFolder.ReadOnly = true;
-            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(382, 20);
+            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(435, 20);
             this.txt_ApplicationDataFolder.TabIndex = 41;
             // 
             // grp_ColorSettings
@@ -173,7 +182,7 @@
             this.grp_ColorSettings.Controls.Add(this.usrc_SelectColorSheme1);
             this.grp_ColorSettings.Location = new System.Drawing.Point(10, 240);
             this.grp_ColorSettings.Name = "grp_ColorSettings";
-            this.grp_ColorSettings.Size = new System.Drawing.Size(782, 378);
+            this.grp_ColorSettings.Size = new System.Drawing.Size(835, 378);
             this.grp_ColorSettings.TabIndex = 43;
             this.grp_ColorSettings.TabStop = false;
             this.grp_ColorSettings.Text = "Color Settings";
@@ -184,7 +193,7 @@
             this.usrc_SelectColorSheme1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_SelectColorSheme1.Location = new System.Drawing.Point(3, 16);
             this.usrc_SelectColorSheme1.Name = "usrc_SelectColorSheme1";
-            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(776, 359);
+            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(829, 359);
             this.usrc_SelectColorSheme1.TabIndex = 0;
             // 
             // lbl_GitSourceVersion
@@ -205,18 +214,19 @@
             this.txt_GitSourceVersion.Location = new System.Drawing.Point(418, 639);
             this.txt_GitSourceVersion.Name = "txt_GitSourceVersion";
             this.txt_GitSourceVersion.ReadOnly = true;
-            this.txt_GitSourceVersion.Size = new System.Drawing.Size(371, 20);
+            this.txt_GitSourceVersion.Size = new System.Drawing.Size(424, 20);
             this.txt_GitSourceVersion.TabIndex = 44;
             // 
             // chk_MultipleUserLogin
             // 
             this.chk_MultipleUserLogin.AutoSize = true;
-            this.chk_MultipleUserLogin.Location = new System.Drawing.Point(13, 37);
+            this.chk_MultipleUserLogin.Location = new System.Drawing.Point(593, 36);
             this.chk_MultipleUserLogin.Name = "chk_MultipleUserLogin";
             this.chk_MultipleUserLogin.Size = new System.Drawing.Size(110, 17);
             this.chk_MultipleUserLogin.TabIndex = 46;
             this.chk_MultipleUserLogin.Text = "Multiple user login";
             this.chk_MultipleUserLogin.UseVisualStyleBackColor = true;
+            this.chk_MultipleUserLogin.CheckedChanged += new System.EventHandler(this.chk_MultipleUserLogin_CheckedChanged);
             // 
             // chk_ControlLayout_TouchScreen
             // 
@@ -228,11 +238,102 @@
             this.chk_ControlLayout_TouchScreen.Text = "Control Layout for touchscreen";
             this.chk_ControlLayout_TouchScreen.UseVisualStyleBackColor = true;
             // 
+            // grp_AccessAuthentication
+            // 
+            this.grp_AccessAuthentication.Controls.Add(this.lbl_ExitTimeout);
+            this.grp_AccessAuthentication.Controls.Add(this.nmUpDn_ExitTimeout);
+            this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_RFID);
+            this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_PIN);
+            this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_Password);
+            this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_None);
+            this.grp_AccessAuthentication.Location = new System.Drawing.Point(593, 60);
+            this.grp_AccessAuthentication.Name = "grp_AccessAuthentication";
+            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 174);
+            this.grp_AccessAuthentication.TabIndex = 48;
+            this.grp_AccessAuthentication.TabStop = false;
+            this.grp_AccessAuthentication.Text = "Access Authentication";
+            // 
+            // rdb_Authentification_RFID
+            // 
+            this.rdb_Authentification_RFID.AutoSize = true;
+            this.rdb_Authentification_RFID.Location = new System.Drawing.Point(13, 97);
+            this.rdb_Authentification_RFID.Name = "rdb_Authentification_RFID";
+            this.rdb_Authentification_RFID.Size = new System.Drawing.Size(50, 17);
+            this.rdb_Authentification_RFID.TabIndex = 3;
+            this.rdb_Authentification_RFID.TabStop = true;
+            this.rdb_Authentification_RFID.Text = "RFID";
+            this.rdb_Authentification_RFID.UseVisualStyleBackColor = true;
+            // 
+            // rdb_Authentification_PIN
+            // 
+            this.rdb_Authentification_PIN.AutoSize = true;
+            this.rdb_Authentification_PIN.Location = new System.Drawing.Point(13, 74);
+            this.rdb_Authentification_PIN.Name = "rdb_Authentification_PIN";
+            this.rdb_Authentification_PIN.Size = new System.Drawing.Size(43, 17);
+            this.rdb_Authentification_PIN.TabIndex = 2;
+            this.rdb_Authentification_PIN.TabStop = true;
+            this.rdb_Authentification_PIN.Text = "PIN";
+            this.rdb_Authentification_PIN.UseVisualStyleBackColor = true;
+            // 
+            // rdb_Authentification_Password
+            // 
+            this.rdb_Authentification_Password.AutoSize = true;
+            this.rdb_Authentification_Password.Location = new System.Drawing.Point(13, 51);
+            this.rdb_Authentification_Password.Name = "rdb_Authentification_Password";
+            this.rdb_Authentification_Password.Size = new System.Drawing.Size(71, 17);
+            this.rdb_Authentification_Password.TabIndex = 1;
+            this.rdb_Authentification_Password.TabStop = true;
+            this.rdb_Authentification_Password.Text = "Password";
+            this.rdb_Authentification_Password.UseVisualStyleBackColor = true;
+            // 
+            // rdb_Authentification_None
+            // 
+            this.rdb_Authentification_None.AutoSize = true;
+            this.rdb_Authentification_None.Location = new System.Drawing.Point(13, 28);
+            this.rdb_Authentification_None.Name = "rdb_Authentification_None";
+            this.rdb_Authentification_None.Size = new System.Drawing.Size(138, 17);
+            this.rdb_Authentification_None.TabIndex = 0;
+            this.rdb_Authentification_None.TabStop = true;
+            this.rdb_Authentification_None.Text = "Without Authentification";
+            this.rdb_Authentification_None.UseVisualStyleBackColor = true;
+            // 
+            // nmUpDn_ExitTimeout
+            // 
+            this.nmUpDn_ExitTimeout.Location = new System.Drawing.Point(181, 132);
+            this.nmUpDn_ExitTimeout.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nmUpDn_ExitTimeout.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nmUpDn_ExitTimeout.Name = "nmUpDn_ExitTimeout";
+            this.nmUpDn_ExitTimeout.Size = new System.Drawing.Size(55, 20);
+            this.nmUpDn_ExitTimeout.TabIndex = 4;
+            this.nmUpDn_ExitTimeout.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // lbl_ExitTimeout
+            // 
+            this.lbl_ExitTimeout.Location = new System.Drawing.Point(9, 132);
+            this.lbl_ExitTimeout.Name = "lbl_ExitTimeout";
+            this.lbl_ExitTimeout.Size = new System.Drawing.Size(166, 39);
+            this.lbl_ExitTimeout.TabIndex = 5;
+            this.lbl_ExitTimeout.Text = "ExitTimeout";
+            this.lbl_ExitTimeout.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(797, 662);
+            this.ClientSize = new System.Drawing.Size(850, 662);
+            this.Controls.Add(this.grp_AccessAuthentication);
             this.Controls.Add(this.chk_ControlLayout_TouchScreen);
             this.Controls.Add(this.chk_MultipleUserLogin);
             this.Controls.Add(this.lbl_GitSourceVersion);
@@ -253,6 +354,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit_Form";
             this.grp_ColorSettings.ResumeLayout(false);
+            this.grp_AccessAuthentication.ResumeLayout(false);
+            this.grp_AccessAuthentication.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +379,12 @@
         private System.Windows.Forms.TextBox txt_GitSourceVersion;
         private System.Windows.Forms.CheckBox chk_MultipleUserLogin;
         private System.Windows.Forms.CheckBox chk_ControlLayout_TouchScreen;
+        private System.Windows.Forms.GroupBox grp_AccessAuthentication;
+        private System.Windows.Forms.RadioButton rdb_Authentification_RFID;
+        private System.Windows.Forms.RadioButton rdb_Authentification_PIN;
+        private System.Windows.Forms.RadioButton rdb_Authentification_Password;
+        private System.Windows.Forms.RadioButton rdb_Authentification_None;
+        private System.Windows.Forms.Label lbl_ExitTimeout;
+        private System.Windows.Forms.NumericUpDown nmUpDn_ExitTimeout;
     }
 }

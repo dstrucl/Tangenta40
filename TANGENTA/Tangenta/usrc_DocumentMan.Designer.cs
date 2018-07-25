@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.m_usrc_DocumentEditor = new Tangenta.usrc_DocumentEditor();
             this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
@@ -42,6 +43,7 @@
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
+            this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -102,9 +104,9 @@
             // 
             this.cmb_InvoiceType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_InvoiceType.FormattingEnabled = true;
-            this.cmb_InvoiceType.Location = new System.Drawing.Point(84, 4);
+            this.cmb_InvoiceType.Location = new System.Drawing.Point(102, 4);
             this.cmb_InvoiceType.Name = "cmb_InvoiceType";
-            this.cmb_InvoiceType.Size = new System.Drawing.Size(182, 28);
+            this.cmb_InvoiceType.Size = new System.Drawing.Size(164, 28);
             this.cmb_InvoiceType.TabIndex = 25;
             // 
             // cmb_FinancialYear
@@ -134,7 +136,7 @@
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(5, 3);
             this.btn_New.Name = "btn_New";
-            this.btn_New.Size = new System.Drawing.Size(73, 49);
+            this.btn_New.Size = new System.Drawing.Size(91, 49);
             this.btn_New.TabIndex = 26;
             this.btn_New.Text = "Nov";
             this.btn_New.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -167,10 +169,12 @@
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Exit.Location = new System.Drawing.Point(879, 3);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(110, 49);
             this.btn_Exit.TabIndex = 30;
+            this.btn_Exit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
@@ -178,6 +182,7 @@
             // 
             this.loginControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.loginControl1.AuthentificationType = LoginControl.LoginCtrl.eAuthentificationType.PASSWORD;
             this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.AWP;
             this.loginControl1.Location = new System.Drawing.Point(498, 3);
             this.loginControl1.Margin = new System.Windows.Forms.Padding(4);
@@ -234,6 +239,11 @@
             this.pnl_MainMenu.Size = new System.Drawing.Size(990, 55);
             this.pnl_MainMenu.TabIndex = 38;
             // 
+            // timer_Login_MultiUser
+            // 
+            this.timer_Login_MultiUser.Interval = 1000;
+            this.timer_Login_MultiUser.Tick += new System.EventHandler(this.timer_Login_MultiUser_Tick);
+            // 
             // usrc_DocumentMan
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -269,5 +279,6 @@
         private System.Windows.Forms.Button btn_Settings;
         internal System.Windows.Forms.SplitContainer splitContainer1;
         internal System.Windows.Forms.Panel pnl_MainMenu;
+        private System.Windows.Forms.Timer timer_Login_MultiUser;
     }
 }

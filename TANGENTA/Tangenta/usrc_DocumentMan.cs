@@ -37,6 +37,8 @@ namespace Tangenta
 
         public delegate void delegate_Exit_Click(LoginControl.LoginCtrl.eExitReason eReason);
 
+        private int timer_Login_MultiUsers_Countdown = 100;
+
         internal usrc_DocumentEditor.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
         {
             usrc_DocumentEditor.eGetOrganisationDataResult eres = this.m_usrc_DocumentEditor.GetOrganisationData();
@@ -174,6 +176,34 @@ namespace Tangenta
             }
         }
 
+        public bool Active
+        {
+            get
+            {
+                return this.Visible;
+            }
+
+            internal  set
+            {
+                this.Visible = value;
+                if (this.Visible)
+                {
+                    if (Program.OperationMode.MultiUser)
+                    {
+                        if (Program.Login_MultipleUsers)
+                        {
+                            timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
+                            this.timer_Login_MultiUser.Enabled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    this.timer_Login_MultiUser.Enabled = false;
+                }
+            }
+        }
+
         public usrc_DocumentMan()
         {
             InitializeComponent();
@@ -209,6 +239,12 @@ namespace Tangenta
             {
                 LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
                 Mode = eMode.Shops_and_InvoiceTable;
+            }
+
+            loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
+            if (Program.Login_MultipleUsers)
+            {
+                initControlsRecursive(this.Controls);
             }
         }
 
@@ -511,8 +547,11 @@ namespace Tangenta
 
         private void btn_New_Click(object sender, EventArgs e)
         {
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             Form_NewDocument frm_new = new Form_NewDocument(this);
             frm_new.ShowDialog(this);
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+
             switch (frm_new.eNewDocumentResult)
             {
                 case Form_NewDocument.e_NewDocument.New_Empty:
@@ -831,6 +870,7 @@ namespace Tangenta
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)
         {
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             Form_SelectPanels frm_select_panels = new Form_SelectPanels(this);
             if (frm_select_panels.ShowDialog(this)==DialogResult.OK)
             {
@@ -839,7 +879,7 @@ namespace Tangenta
                     LayoutChanged();
                 }
             }
-            
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
         }
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()
@@ -917,6 +957,7 @@ namespace Tangenta
 
         private bool Get_FVI(Navigation xnav)
         {
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             Program.b_FVI_SLO = false;
             if (myOrg.Address_v != null)
             {
@@ -937,9 +978,10 @@ namespace Tangenta
                                 {
 
                                     Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
-
+                                    if (Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                                     xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID, xnav);
                                     xnav.ShowDialog();
+                                    if (Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                                     if (xnav.eExitResult == Navigation.eEvent.PREV)
                                     {
                                         goto Do_Form_FVI_check;
@@ -972,6 +1014,7 @@ namespace Tangenta
                     }
                 }
             }
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
             return true;
         }
         internal bool Startup_08_CheckPogramSettings(bool bResetShopsInUse)
@@ -999,10 +1042,13 @@ namespace Tangenta
 
         public bool Get_ProgramSettings(NavigationButtons.Navigation xnav, bool bResetShopsInUse)
         {
+
             if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
             {
+                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                 xnav.ChildDialog = new Form_ProgramSettings(this, xnav);
                 xnav.ShowDialog();
+                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
                 if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
                 {
                     switch (xnav.eExitResult)
@@ -1215,9 +1261,11 @@ namespace Tangenta
 
         private bool CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
         {
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup, xnav);
             xnav.ChildDialog = frmdlg;
             xnav.ShowDialog();
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
             return myStartup.bInsertSampleData;
         }
 
@@ -1590,8 +1638,11 @@ namespace Tangenta
         {
             if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
+                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                 Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(Main_Form, this);
-                frm_settingsselect.Show(this);
+                frm_settingsselect.ShowDialog(this);
+                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+
             }
         }
 
@@ -1603,6 +1654,51 @@ namespace Tangenta
                 PasswordOK = true;
             }
         }
+
+        private bool HasWindowsOpened()
+        {
+            int disabledforms = 0;
+            int visibleforms = 0;
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.Visible) visibleforms++;
+                if (frm.Visible && !frm.CanFocus) disabledforms++;
+            }
+            if (disabledforms == visibleforms - 1 && disabledforms > 0) return true; //label1.Text = "Dialog shown";
+            else if (disabledforms == visibleforms) return true;// label1.Text = "Message box shown";
+            else return false;// label1.Text = "All systems go";
+        }
+
+
+        private void timer_Login_MultiUser_Tick(object sender, EventArgs e)
+        {
+            if (timer_Login_MultiUsers_Countdown>0)
+            {
+                if (HasWindowsOpened())
+                {
+                    timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
+                }
+                else
+                {
+                    btn_Exit.Text = timer_Login_MultiUsers_Countdown.ToString();
+                    timer_Login_MultiUsers_Countdown--;
+                }
+            }
+            else
+            {
+                Exit_Click(LoginControl.LoginCtrl.eExitReason.NORMAL);
+            }
+        }
+
+        void initControlsRecursive(ControlCollection coll)
+        {
+            foreach (Control c in coll)
+            {
+                c.MouseClick += (sender, e) => { timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown; };
+                initControlsRecursive(c.Controls);
+            }
+        }
+
 
     }
 }

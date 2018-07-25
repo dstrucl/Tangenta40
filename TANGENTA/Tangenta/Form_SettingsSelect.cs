@@ -65,5 +65,11 @@ namespace Tangenta
             fct_dlg.ShowDialog(this);
 
         }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
     }
 }

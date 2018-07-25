@@ -754,5 +754,29 @@ namespace Tangenta.Properties {
                 this["ControlLayout_TouchScreen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int AccessAuthentication {
+            get {
+                return ((int)(this["AccessAuthentication"]));
+            }
+            set {
+                this["AccessAuthentication"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int timer_Login_MultiUser_Countdown {
+            get {
+                return ((int)(this["timer_Login_MultiUser_Countdown"]));
+            }
+            set {
+                this["timer_Login_MultiUser_Countdown"] = value;
+            }
+        }
     }
 }
