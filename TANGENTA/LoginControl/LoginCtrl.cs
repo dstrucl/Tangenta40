@@ -489,6 +489,7 @@ namespace LoginControl
                                                             delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan,
                                                             UserControl xusrc_DocumentMan)
         {
+            Close_Opened_Atom_WorkingPeriods();
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
@@ -498,6 +499,21 @@ namespace LoginControl
             }
             LogFile.Error.Show("ERROR:LoginControl:Login:m_eDataTableCreationMode=" + m_eDataTableCreationMode.ToString() + " not implemented!");
             return false;
+        }
+
+
+        private void Close_Opened_Atom_WorkingPeriods()
+        {
+            string where_condition = " where LoginSession_$_awperiod_$$LogoutTime is null";
+            DataTable dtOpened_Atom_WorkingPeriods = new DataTable();
+            if (AWP_func.Read_LoginSession_VIEW(ref dtOpened_Atom_WorkingPeriods, where_condition, null))
+            {
+                if (dtOpened_Atom_WorkingPeriods.Rows.Count > 0)
+                {
+                    AWPForm_Close_Opened_Atom_WorkingPeriods frmawpclose = new AWPForm_Close_Opened_Atom_WorkingPeriods(dtOpened_Atom_WorkingPeriods);
+                    frmawpclose.ShowDialog(this);
+                }
+            }
         }
 
         public void Login_MultipleUsers_ShowControl()

@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBTypes;
 using DBConnectionControl40;
+using TangentaDB;
 
 namespace LoginControl
 {
     public partial class usrc_LoginOfMyOrgUser : UserControl
     {
+        internal ID Atom_myOrganisation_Person_ID = null;
         internal AWP m_awp = null;
         internal AWPLoginData awpld = null;
         internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
@@ -130,10 +132,21 @@ namespace LoginControl
                     pic_UserManager.Visible = false;
                 }
             }
-            
+
+            ID xmyOrganisation_Person_ID = tf.set_ID(dr["myOrganisation_Person_ID"]);
+            if (!ID.Validate(xmyOrganisation_Person_ID))
+            {
+               LogFile.Error.Show("ERROR:LoginControl:usrc_LoginOfMyOrguser:SetData:xmyOrganisation_Person_ID is not valid.");
+            }
+
+            string_v office_name_v = null;
+            if (!f_Atom_myOrganisation_Person.Get(xmyOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name_v))
+            {
+                LogFile.Error.Show("ERROR:LoginControl:usrc_LoginOfMyOrguser:SetData:_Atom_myOrganisation_Person.Get failed!");
+            }
             byte_array_v imagebytes_v = tf.set_byte_array(dr["PersonData_$_perimg_$$Image_Data"]);
             PIN_v = tf.set_int(dr["PersonData_$$PIN"]);
-            if (imagebytes_v!=null)
+            if (imagebytes_v != null)
             {
                 this.pictureBox1.Image = DBTypes.func.byteArrayToImage(imagebytes_v.v);
             }
@@ -144,7 +157,6 @@ namespace LoginControl
             this.lbl_User.Text = m_UserName;
             LoginSession_ID = null;
             LoggedIn = AWP_func.IsUserLoggedIn(LoginUsers_ID, ref LoginSession_ID);
-            
         }
 
 
@@ -245,6 +257,7 @@ namespace LoginControl
 
             }
             TangentaDB.GlobalData.Atom_WorkPeriod_ID = this.Atom_WorkPeriod_ID;
+            TangentaDB.GlobalData.Atom_myOrganisation_Person_ID = this.Atom_myOrganisation_Person_ID;
             m_awp.m_AWPLoginData = awpld;
             if (m_awp.IsUserManager)
             {

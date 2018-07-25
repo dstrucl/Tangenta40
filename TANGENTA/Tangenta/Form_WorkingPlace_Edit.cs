@@ -20,25 +20,25 @@ using DBConnectionControl40;
 
 namespace Tangenta
 {
-    public partial class Form_WorkingPlace_Edit : Form
+    public partial class Form_Atom_WorkArea_Edit : Form
     {
-        private DataTable dt_WorkingPlace = new DataTable();
+        private DataTable dt_Atom_WorkArea = new DataTable();
         private CodeTables.DBTableControl dbTables = null;
         private SQLTable tbl = null;
         private string ColumnOrderBy = null;
         private NavigationButtons.Navigation nav = null;
 
-        public Form_WorkingPlace_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, NavigationButtons.Navigation xnav)
+        public Form_Atom_WorkArea_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            lng.s_WorkingPlace.Text(this);
+            lng.s_Atom_WorkArea.Text(this);
         }
 
-        private void Form_WorkingPlace_Edit_Load(object sender, EventArgs e)
+        private void Form_Atom_WorkArea_Edit_Load(object sender, EventArgs e)
         {
             if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false,nav))
             {
@@ -47,11 +47,11 @@ namespace Tangenta
             }
         }
 
-        private bool CheckWorkingPlaceData(ref string Err)
+        private bool CheckAtom_WorkAreaData(ref string Err)
         {
-            string sql_WorkingPlace = "select * from WorkingPlace";
+            string sql_Atom_WorkArea = "select * from Atom_WorkArea";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_WorkingPlace, ref Err))
+            if (dbTables.m_con.ReadDataTable(ref dt, sql_Atom_WorkArea, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;
@@ -66,7 +66,7 @@ namespace Tangenta
             }
             else
             {
-                Err="ERROR:WorkingPlace_EditForm:btn_OK_Click:sql="+sql_WorkingPlace+"\r\nErr="+Err;
+                Err="ERROR:Atom_WorkArea_EditForm:btn_OK_Click:sql="+sql_Atom_WorkArea+"\r\nErr="+Err;
                 return false;
             }
 
@@ -84,14 +84,14 @@ namespace Tangenta
             DialogResult = DialogResult.Cancel;
         }
 
-        private void Form_WorkingPlace_Edit_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form_Atom_WorkArea_Edit_FormClosing(object sender, FormClosingEventArgs e)
         {
             string Err = null;
-            if (!CheckWorkingPlaceData(ref Err))
+            if (!CheckAtom_WorkAreaData(ref Err))
             {
                 if (Err == null)
                 {
-                    if (MessageBox.Show(this, lng.s_WorkingPlaceTableHasNoData_YouMustEnterData_close_anyway.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)== DialogResult.No)
+                    if (MessageBox.Show(this, lng.s_Atom_WorkAreaTableHasNoData_YouMustEnterData_close_anyway.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)== DialogResult.No)
                     {
                         e.Cancel = true;
                     }
@@ -119,7 +119,7 @@ namespace Tangenta
             return default(bool);
         }
 
-        private void Form_WorkingPlace_Edit_KeyUp(object sender, KeyEventArgs e)
+        private void Form_Atom_WorkArea_Edit_KeyUp(object sender, KeyEventArgs e)
         {
             this.usrc_EditTable.KeyPressed(e.KeyCode);
         }

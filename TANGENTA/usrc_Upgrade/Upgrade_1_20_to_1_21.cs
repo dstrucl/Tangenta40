@@ -42,7 +42,7 @@ namespace UpgradeDB
 
                         CREATE TABLE Atom_WorkPeriod_temp ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                             Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
-                                                            Atom_WorkingPlace_ID INTEGER NOT NULL REFERENCES Atom_WorkingPlace(ID),
+                                                            Atom_WorkArea_ID INTEGER NOT NULL REFERENCES Atom_WorkArea(ID),
                                                             Atom_Computer_ID INTEGER NOT NULL REFERENCES Atom_Computer(ID),
                                                             Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES ElectronicDevice(ID),
                                                             'LoginTime' DATETIME NULL,
@@ -53,7 +53,7 @@ namespace UpgradeDB
                         (
                           ID,
                           Atom_myOrganisation_Person_ID,
-                          Atom_WorkingPlace_ID,
+                          Atom_WorkArea_ID,
                           Atom_Computer_ID,
                           Atom_ElectronicDevice_ID,
                           Atom_WorkPeriod_TYPE_ID,
@@ -63,7 +63,7 @@ namespace UpgradeDB
                         select
                             ID,
                             Atom_myOrganisation_Person_ID,
-                            Atom_WorkingPlace_ID,
+                            Atom_WorkArea_ID,
                             Atom_Computer_ID,
                             " + spar_Atom_ElectronicDevice_ID + @",
                             Atom_WorkPeriod_TYPE_ID,

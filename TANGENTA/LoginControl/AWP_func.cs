@@ -53,8 +53,6 @@ SELECT LoginSession.ID,
  LoginSession_$_awperiod_$_amcper_$_aoffice.ShortName AS LoginSession_$_awperiod_$_amcper_$_aoffice_$$ShortName,
  LoginSession_$_awperiod_$_amcper.Job AS LoginSession_$_awperiod_$_amcper_$$Job,
  LoginSession_$_awperiod_$_amcper.Description AS LoginSession_$_awperiod_$_amcper_$$Description,
- LoginSession_$_awperiod_$_awplace.Name AS LoginSession_$_awperiod_$_awplace_$$Name,
- LoginSession_$_awperiod_$_awplace.Description AS LoginSession_$_awperiod_$_awplace_$$Description,
  LoginSession_$_awperiod_$_aed.Name AS LoginSession_$_awperiod_$_aed_$$Name,
  LoginSession_$_awperiod_$_aed_$_acomp_$_acn.Name AS LoginSession_$_awperiod_$_aed_$_acomp_$_acn_$$Name,
  LoginSession_$_awperiod_$_aed_$_acomp_$_acn.Description AS LoginSession_$_awperiod_$_aed_$_acomp_$_acn_$$Description,
@@ -94,7 +92,6 @@ SELECT LoginSession.ID,
  LEFT JOIN Atom_cState_Person LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_acouper ON LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper.Atom_cState_Person_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_acadrper_$_acouper.ID 
  LEFT JOIN Atom_PersonImage LoginSession_$_awperiod_$_amcper_$_aper_$_aperimg ON LoginSession_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = LoginSession_$_awperiod_$_amcper_$_aper_$_aperimg.ID 
  INNER JOIN Atom_Office LoginSession_$_awperiod_$_amcper_$_aoffice ON LoginSession_$_awperiod_$_amcper.Atom_Office_ID = LoginSession_$_awperiod_$_amcper_$_aoffice.ID 
- INNER JOIN Atom_WorkingPlace LoginSession_$_awperiod_$_awplace ON LoginSession_$_awperiod.Atom_WorkingPlace_ID = LoginSession_$_awperiod_$_awplace.ID 
  INNER JOIN Atom_ElectronicDevice LoginSession_$_awperiod_$_aed ON LoginSession_$_awperiod.Atom_ElectronicDevice_ID = LoginSession_$_awperiod_$_aed.ID 
  INNER JOIN Atom_Computer LoginSession_$_awperiod_$_aed_$_acomp ON LoginSession_$_awperiod_$_aed.Atom_Computer_ID = LoginSession_$_awperiod_$_aed_$_acomp.ID 
  INNER JOIN Atom_ComputerName LoginSession_$_awperiod_$_aed_$_acomp_$_acn ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_ComputerName_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_acn.ID 
@@ -408,7 +405,6 @@ SELECT
                     INNER JOIN Atom_myOrganisation Atom_WorkPeriod_$_amcper_$_aoffice_$_amc ON Atom_WorkPeriod_$_amcper_$_aoffice.Atom_myOrganisation_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc.ID 
                     INNER JOIN Atom_OrganisationData Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd ON Atom_WorkPeriod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd.ID 
                     INNER JOIN Atom_Organisation Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = Atom_WorkPeriod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
-                    INNER JOIN Atom_WorkingPlace Atom_WorkPeriod_$_awplace ON Atom_WorkPeriod.Atom_WorkingPlace_ID = Atom_WorkPeriod_$_awplace.ID
                     INNER JOIN Atom_Computer Atom_WorkPeriod_$_acomp ON Atom_WorkPeriod.Atom_Computer_ID = Atom_WorkPeriod_$_acomp.ID 
                     LEFT JOIN Atom_ComputerName Atom_WorkPeriod_$_acomp_$_acn ON Atom_WorkPeriod_$_acomp.Atom_ComputerName_ID = Atom_WorkPeriod_$_acomp_$_acn.ID 
                     LEFT JOIN Atom_ComputerUsername Atom_WorkPeriod_$_acomp_$_acun ON Atom_WorkPeriod_$_acomp.Atom_ComputerUsername_ID = Atom_WorkPeriod_$_acomp_$_acun.ID 

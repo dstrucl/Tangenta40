@@ -208,11 +208,7 @@ namespace Tangenta
             DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Office.SelectedCells;
             if (dgvCellCollection.Count >= 1)
             {
-                if (m_Office_ID==null)
-                {
-                    m_Office_ID = new ID();
-                }
-                m_Office_ID.Set(dgvCellCollection[0].OwningRow.Cells["Office_Data_$_office_$$ID"].Value);
+                m_Office_ID = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["Office_Data_$_office_$$ID"].Value);
                 Show_Office_Electronic_Devices();
             }
         }

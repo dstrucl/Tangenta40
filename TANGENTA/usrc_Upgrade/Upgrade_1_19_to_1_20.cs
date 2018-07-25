@@ -476,7 +476,7 @@ namespace UpgradeDB
                                   (
                                   'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                    Atom_myOrganisation_Person_ID  INTEGER  NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
-                                   Atom_WorkingPlace_ID  INTEGER  NOT NULL REFERENCES Atom_WorkingPlace(ID),
+                                   Atom_WorkArea_ID  INTEGER  NOT NULL REFERENCES Atom_WorkArea(ID),
                                    Atom_Computer_ID  INTEGER  NOT NULL REFERENCES Atom_Computer(ID),
                                   'LoginTime' DATETIME NULL,
                                   'LogoutTime' DATETIME NULL,
@@ -592,7 +592,7 @@ namespace UpgradeDB
                                 insert into Atom_WorkPeriod_new
                                   (
                                    Atom_myOrganisation_Person_ID,
-                                   Atom_WorkingPlace_ID,
+                                   Atom_WorkArea_ID,
                                    Atom_Computer_ID,
                                    LoginTime,
                                    LogoutTime,
@@ -600,7 +600,7 @@ namespace UpgradeDB
                                   )
                                 select
                                   Atom_myCompany_Person_ID,
-                                  Atom_WorkingPlace_ID,
+                                  Atom_WorkArea_ID,
                                   Atom_Computer_ID,
                                   LoginTime,
                                   LogoutTime,

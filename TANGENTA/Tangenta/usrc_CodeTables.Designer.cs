@@ -37,7 +37,7 @@
             this.btn_SimpleItem_Groups = new System.Windows.Forms.Button();
             this.btn_Stock_Address = new System.Windows.Forms.Button();
             this.btn_TermsOfPayment = new System.Windows.Forms.Button();
-            this.btn_WorkingPlace = new System.Windows.Forms.Button();
+            this.btn_Atom_WorkArea = new System.Windows.Forms.Button();
             this.btn_Taxation = new System.Windows.Forms.Button();
             this.btn_Logo = new System.Windows.Forms.Button();
             this.btn_DBSettings = new System.Windows.Forms.Button();
@@ -148,18 +148,18 @@
             this.btn_TermsOfPayment.UseVisualStyleBackColor = false;
             this.btn_TermsOfPayment.Click += new System.EventHandler(this.btn_TermsOfPayment_Click);
             // 
-            // btn_WorkingPlace
+            // btn_Atom_WorkArea
             // 
-            this.btn_WorkingPlace.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_WorkingPlace.Image = ((System.Drawing.Image)(resources.GetObject("btn_WorkingPlace.Image")));
-            this.btn_WorkingPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_WorkingPlace.Location = new System.Drawing.Point(461, 3);
-            this.btn_WorkingPlace.Name = "btn_WorkingPlace";
-            this.btn_WorkingPlace.Size = new System.Drawing.Size(145, 44);
-            this.btn_WorkingPlace.TabIndex = 8;
-            this.btn_WorkingPlace.Text = "Working place";
-            this.btn_WorkingPlace.UseVisualStyleBackColor = false;
-            this.btn_WorkingPlace.Click += new System.EventHandler(this.btn_WorkingPlace_Click);
+            this.btn_Atom_WorkArea.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Atom_WorkArea.Image = ((System.Drawing.Image)(resources.GetObject("btn_Atom_WorkArea.Image")));
+            this.btn_Atom_WorkArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Atom_WorkArea.Location = new System.Drawing.Point(461, 3);
+            this.btn_Atom_WorkArea.Name = "btn_Atom_WorkArea";
+            this.btn_Atom_WorkArea.Size = new System.Drawing.Size(145, 44);
+            this.btn_Atom_WorkArea.TabIndex = 8;
+            this.btn_Atom_WorkArea.Text = "Working place";
+            this.btn_Atom_WorkArea.UseVisualStyleBackColor = false;
+            this.btn_Atom_WorkArea.Click += new System.EventHandler(this.btn_Atom_WorkArea_Click);
             // 
             // btn_Taxation
             // 
@@ -218,7 +218,7 @@
             this.Controls.Add(this.btn_DBSettings);
             this.Controls.Add(this.btn_Logo);
             this.Controls.Add(this.btn_Taxation);
-            this.Controls.Add(this.btn_WorkingPlace);
+            this.Controls.Add(this.btn_Atom_WorkArea);
             this.Controls.Add(this.btn_TermsOfPayment);
             this.Controls.Add(this.btn_Stock_Address);
             this.Controls.Add(this.btn_SimpleItem_Groups);
@@ -243,7 +243,7 @@
         private System.Windows.Forms.Button btn_SimpleItem_Groups;
         private System.Windows.Forms.Button btn_Stock_Address;
         private System.Windows.Forms.Button btn_TermsOfPayment;
-        private System.Windows.Forms.Button btn_WorkingPlace;
+        private System.Windows.Forms.Button btn_Atom_WorkArea;
         private System.Windows.Forms.Button btn_Taxation;
         private System.Windows.Forms.Button btn_Logo;
         private System.Windows.Forms.Button btn_DBSettings;

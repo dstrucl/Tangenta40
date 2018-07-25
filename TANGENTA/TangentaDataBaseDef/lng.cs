@@ -165,11 +165,11 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_Atom_WorkPeriod = new ltext(new string[] { "Working shift", "Šiht" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
-        public static ltext lngt_Atom_WorkingPlace = new ltext(new string[] { "Working place archive", "Delovno mesto arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+        public static ltext lngt_Atom_WorkArea = new ltext(new string[] { "Work area archive", "Področje dela arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
         public static ltext lngt_Atom_Office = new ltext(new string[] { "Office archive", "Poslovna enota arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
-        public static ltext lngt_WorkingPlace = new ltext(new string[] { "Working place", "Delovno mesto" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+        public static ltext lngt_Atom_WorkAreaImage = new ltext(new string[] { "Work area image archive", "Slika področja dela arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
         public static ltext lngt_Atom_Computer = new ltext(new string[] { "Computer archive", "Računalnik arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 

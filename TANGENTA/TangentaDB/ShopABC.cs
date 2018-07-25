@@ -234,18 +234,14 @@ namespace TangentaDB
                     {
                         m_CurrentInvoice.Exist = true;
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
-                        if (m_CurrentInvoice.Doc_ID==null)
-                        {
-                            m_CurrentInvoice.Doc_ID = new ID();
-                        }
-                        m_CurrentInvoice.Doc_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"]);
+                        m_CurrentInvoice.Doc_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"]);
                         m_CurrentInvoice.EventTime = (DateTime)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["EventTime"];
 
                         if (m_CurrentInvoice.Atom_Currency_ID==null)
                         {
                             m_CurrentInvoice.Atom_Currency_ID = new ID();
                         }
-                        m_CurrentInvoice.Atom_Currency_ID.Set(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
+                        m_CurrentInvoice.Atom_Currency_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
                         if (m_CurrentInvoice.Currency==null)
                         {
                             m_CurrentInvoice.Currency = new xCurrency();
@@ -934,11 +930,7 @@ namespace TangentaDB
                     //Draft already set
                     try
                     {
-                        if (DocInvoice_ID==null)
-                        {
-                            DocInvoice_ID = new ID();
-                        }
-                        DocInvoice_ID.Set(dt.Rows[0]["ID"]);
+                        DocInvoice_ID = tf.set_ID(dt.Rows[0]["ID"]);
                     }
                     catch (Exception ex)
                     {
@@ -1221,11 +1213,7 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (new_Atom_Taxation_ID==null)
-                        {
-                            new_Atom_Taxation_ID = new ID();
-                        }
-                        new_Atom_Taxation_ID.Set(dt.Rows[0]["ID"]);
+                        new_Atom_Taxation_ID = tf.set_ID(dt.Rows[0]["ID"]);
                         if (!Atom_Taxation_ID.Equals(new_Atom_Taxation_ID))
                         {
                             bUpdate_Atom_SimpleItem_Taxation_ID = true;

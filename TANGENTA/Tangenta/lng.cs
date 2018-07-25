@@ -287,9 +287,9 @@ namespace Tangenta
 
         public static ltext s_ExpiryTableHasNoData_YouMustEnterData_close_anyway = new ltext(new string[] { "Expiry Table has no data. You must have at least one expiry data row!\r\nDo you realy want to cancel? ", "Tabela rokov uporabe je prazna.\r\nVnesti morate vsaj en rok uporabe!Želite kljub temu zapustiti dialog?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Edit.cs
 
-        public static ltext s_WorkingPlace = new ltext(new string[] { "Working place", "Delovna Mesta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_WorkingPlace_Edit.cs
+        public static ltext s_Atom_WorkArea = new ltext(new string[] { "Working place", "Delovna Mesta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Atom_WorkArea_Edit.cs
 
-        public static ltext s_WorkingPlaceTableHasNoData_YouMustEnterData_close_anyway = new ltext(new string[] { "Working Place Table has no data. You must have at least one Working Place data row!\r\nDo you realy want to cancel? ", "Tabela merskih enot je prazna.\r\nVnesti morate vsaj eno mersko enoto!Želite kljub temu zapustiti dialog?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_WorkingPlace_Edit.cs
+        public static ltext s_Atom_WorkAreaTableHasNoData_YouMustEnterData_close_anyway = new ltext(new string[] { "Working Place Table has no data. You must have at least one Working Place data row!\r\nDo you realy want to cancel? ", "Tabela merskih enot je prazna.\r\nVnesti morate vsaj eno mersko enoto!Želite kljub temu zapustiti dialog?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Atom_WorkArea_Edit.cs
 
         public static ltext s_Units = new ltext(new string[] { "Units", "Enote" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Unit_Edit.cs
 
@@ -445,7 +445,7 @@ namespace Tangenta
 
         public static ltext s_btn_Expiry = new ltext(new string[] { "Expiry", "Roki uporabe" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
 
-        public static ltext s_btn_WorkingPlace = new ltext(new string[] { "Jobs", "Delovna mesta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
+        public static ltext s_btn_Atom_WorkArea = new ltext(new string[] { "Jobs", "Delovna mesta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
 
         public static ltext s_btn_Units = new ltext(new string[] { "Units", "Merske enote" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
 

@@ -336,11 +336,7 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (ElectronicDevice_ID == null)
-                        {
-                            ElectronicDevice_ID = new ID();
-                        }
-                        ElectronicDevice_ID.Set(dt.Rows[0]["ID"]);
+                        ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["ID"]);
                         object Current_ElectronicDevice_Description = dt.Rows[0]["Description"];
                         if ((ElectronicDevice_Description == null) && (Current_ElectronicDevice_Description is System.DBNull))
                         {

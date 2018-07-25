@@ -2174,11 +2174,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_cAddress_Person_ID == null)
-                    {
-                        Atom_cAddress_Person_ID = new ID();
-                    }
-                    Atom_cAddress_Person_ID.Set(dt.Rows[0]["ID"]);
+                    Atom_cAddress_Person_ID = tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -2361,11 +2357,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_PersonImage_ID == null)
-                    {
-                        Atom_PersonImage_ID = new ID();
-                    }
-                    Atom_PersonImage_ID.Set(dt.Rows[0]["ID"]);
+                    Atom_PersonImage_ID = tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else

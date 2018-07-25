@@ -23,7 +23,6 @@ namespace TangentaDB
         public static bool Get(string Atom_WorkPeriod_Type_Name,
                                  string Atom_WorkPeriod_Type_Description,
                                  ID   Atom_myOrganisation_Person_ID,
-                                 ID   Atom_WorkingPlace_ID,
                                  ID   Atom_ElectronicDevice_ID,
                                  DateTime Login_time,
                                  DBTypes.DateTime_v Logout_time_v,
@@ -67,21 +66,6 @@ namespace TangentaDB
                     sval_Atom_myOrganisation_Person_ID = "null";
                 }
 
-                string scond_Atom_WorkingPlace_ID = null;
-                string sval_Atom_WorkingPlace_ID = "null";
-                if (ID.Validate(Atom_WorkingPlace_ID))
-                {
-                    string spar_Atom_WorkingPlace_ID = "@par_Atom_WorkingPlace_ID";
-                    SQL_Parameter par_Atom_WorkingPlace_ID = new SQL_Parameter(spar_Atom_WorkingPlace_ID, false, Atom_WorkingPlace_ID);
-                    lpar.Add(par_Atom_WorkingPlace_ID);
-                    scond_Atom_WorkingPlace_ID = "Atom_WorkingPlace_ID = " + spar_Atom_WorkingPlace_ID;
-                    sval_Atom_WorkingPlace_ID = spar_Atom_WorkingPlace_ID;
-                }
-                else
-                {
-                    scond_Atom_WorkingPlace_ID = "Atom_WorkingPlace_ID is null";
-                    sval_Atom_WorkingPlace_ID = "null";
-                }
 
 
                 string scond_Atom_ElectronicDevice_ID = null;
@@ -138,7 +122,6 @@ namespace TangentaDB
                 string sql = @"select ID from Atom_WorkPeriod
                                             where (" + scond_Atom_WorkPeriod_Type_ID 
                                             + ") and (" + scond_Atom_myOrganisation_Person_ID 
-                                            + ") and (" + scond_Atom_WorkingPlace_ID 
                                             + ") and (" + scond_Atom_ElectronicDevice_ID
                                             + ") and (" + scond_Login_time 
                                             + ") and (" + scond_Logout_time + ")";
@@ -158,13 +141,11 @@ namespace TangentaDB
                     {
                         sql = @"insert into Atom_WorkPeriod (Atom_WorkPeriod_TYPE_ID,
                                                                Atom_myOrganisation_Person_ID,
-                                                               Atom_WorkingPlace_ID,
                                                                Atom_ElectronicDevice_ID,
                                                                LoginTime,
                                                                LogoutTime) values ("
                                                                 + sval_Atom_WorkPeriod_Type_ID +","
                                                                 + sval_Atom_myOrganisation_Person_ID +","
-                                                                + sval_Atom_WorkingPlace_ID +","
                                                                 + sval_Atom_ElectronicDevice_ID + ","
                                                                 + sval_Login_time +","
                                                                 + sval_Logout_time +
@@ -195,7 +176,6 @@ namespace TangentaDB
         public static bool GetOld(string Atom_WorkPeriod_Type_Name,
                                  string Atom_WorkPeriod_Type_Description,
                                  ID Atom_myOrganisation_Person_ID,
-                                 ID Atom_WorkingPlace_ID,
                                  ID Atom_Computer_ID,
                                  DateTime Login_time,
                                  DBTypes.DateTime_v Logout_time_v,
@@ -237,22 +217,6 @@ namespace TangentaDB
                 {
                     scond_Atom_myOrganisation_Person_ID = "Atom_myOrganisation_Person_ID is null";
                     sval_Atom_myOrganisation_Person_ID = "null";
-                }
-
-                string scond_Atom_WorkingPlace_ID = null;
-                string sval_Atom_WorkingPlace_ID = "null";
-                if (ID.Validate(Atom_WorkingPlace_ID))
-                {
-                    string spar_Atom_WorkingPlace_ID = "@par_Atom_WorkingPlace_ID";
-                    SQL_Parameter par_Atom_WorkingPlace_ID = new SQL_Parameter(spar_Atom_WorkingPlace_ID,  false, Atom_WorkingPlace_ID);
-                    lpar.Add(par_Atom_WorkingPlace_ID);
-                    scond_Atom_WorkingPlace_ID = "Atom_WorkingPlace_ID = " + spar_Atom_WorkingPlace_ID;
-                    sval_Atom_WorkingPlace_ID = spar_Atom_WorkingPlace_ID;
-                }
-                else
-                {
-                    scond_Atom_WorkingPlace_ID = "Atom_WorkingPlace_ID is null";
-                    sval_Atom_WorkingPlace_ID = "null";
                 }
 
                 string scond_Atom_Computer_ID = null;
@@ -309,7 +273,6 @@ namespace TangentaDB
                 string sql = @"select ID from Atom_WorkPeriod
                                             where (" + scond_Atom_WorkPeriod_Type_ID
                                             + ") and (" + scond_Atom_myOrganisation_Person_ID
-                                            + ") and (" + scond_Atom_WorkingPlace_ID
                                             + ") and (" + scond_Atom_Computer_ID
                                             + ") and (" + scond_Login_time
                                             + ") and (" + scond_Logout_time + ")";
@@ -329,13 +292,11 @@ namespace TangentaDB
                     {
                         sql = @"insert into Atom_WorkPeriod (Atom_WorkPeriod_TYPE_ID,
                                                                Atom_myOrganisation_Person_ID,
-                                                               Atom_WorkingPlace_ID,
                                                                Atom_Computer_ID,
                                                                LoginTime,
                                                                LogoutTime) values ("
                                                                 + sval_Atom_WorkPeriod_Type_ID + ","
                                                                 + sval_Atom_myOrganisation_Person_ID + ","
-                                                                + sval_Atom_WorkingPlace_ID + ","
                                                                 + sval_Atom_Computer_ID + ","
                                                                 + sval_Login_time + ","
                                                                 + sval_Logout_time +

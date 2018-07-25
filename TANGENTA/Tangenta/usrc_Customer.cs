@@ -80,11 +80,7 @@ namespace Tangenta
 
             if (Customer_Person_dlg.ShowDialog()==DialogResult.Yes)
             {
-                if (Customer_Person_ID == null)
-                {
-                    Customer_Person_ID = new ID();
-                }
-                Customer_Person_ID.Set(Customer_Person_dlg.CustomerPerson_ID);
+                Customer_Person_ID = tf.set_ID(Customer_Person_dlg.CustomerPerson_ID);
                 if (aa_Customer_Person_Changed != null)
                 {
                     Program.Cursor_Wait();
@@ -103,11 +99,7 @@ namespace Tangenta
                                                             "Customer_Org_$_orgd_$_org_$$Name desc",nav);
             if (Customer_Org_dlg.ShowDialog()==DialogResult.Yes)
             {
-                if (Customer_OrganisationData_ID == null)
-                {
-                    Customer_OrganisationData_ID = new ID();
-                }
-                Customer_OrganisationData_ID.Set(Customer_Org_dlg.Customer_OrganisationData_ID);
+                Customer_OrganisationData_ID = tf.set_ID(Customer_Org_dlg.Customer_OrganisationData_ID);
                 if (aa_Customer_Org_Changed != null)
                 {
                     Program.Cursor_Wait();
@@ -199,11 +191,7 @@ namespace Tangenta
             CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(sql, tbl_Customer_Person, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog()==DialogResult.OK)
             {
-                if (Customer_Person_ID == null)
-                {
-                    Customer_Person_ID= new ID();
-                }
-                Customer_Person_ID.Set(selectID_Table_Assistant_Form.ID);
+                Customer_Person_ID = tf.set_ID(selectID_Table_Assistant_Form.ID);
                 if (aa_Customer_Person_Changed!=null)
                 {
                     aa_Customer_Person_Changed(Customer_Person_ID);
@@ -233,10 +221,6 @@ namespace Tangenta
             CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(tbl_Customer_Org, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog() == DialogResult.OK)
             {
-                if (Customer_OrganisationData_ID == null)
-                {
-                    Customer_OrganisationData_ID = new ID();
-                }
                 Customer_OrganisationData_ID.Set(selectID_Table_Assistant_Form.ID);
                 if (aa_Customer_Org_Changed != null)
                 {

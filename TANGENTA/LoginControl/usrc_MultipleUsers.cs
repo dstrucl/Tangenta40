@@ -114,21 +114,6 @@ namespace LoginControl
             }
             Get_LoginUsers_Data();
 
-            Close_Opened_Atom_WorkingPeriods();
-        }
-
-        private void Close_Opened_Atom_WorkingPeriods()
-        {
-            string where_condition = " where LoginSession_$_awperiod_$$LogoutTime is null";
-            DataTable dtOpened_Atom_WorkingPeriods = new DataTable();
-            if (AWP_func.Read_LoginSession_VIEW(ref dtOpened_Atom_WorkingPeriods, where_condition, null))
-            {
-                if (dtOpened_Atom_WorkingPeriods.Rows.Count > 0)
-                {
-                    AWPForm_Close_Opened_Atom_WorkingPeriods frmawpclose = new AWPForm_Close_Opened_Atom_WorkingPeriods(dtOpened_Atom_WorkingPeriods);
-                    frmawpclose.ShowDialog(this);
-                }
-            }
         }
 
         public bool Get_LoginUsers_Data()

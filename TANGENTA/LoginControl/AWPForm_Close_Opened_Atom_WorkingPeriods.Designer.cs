@@ -35,10 +35,13 @@
             // 
             // dgvx_Close_Opened_Atom_WorkingPeriods
             // 
+            this.dgvx_Close_Opened_Atom_WorkingPeriods.AllowUserToAddRows = false;
+            this.dgvx_Close_Opened_Atom_WorkingPeriods.AllowUserToDeleteRows = false;
             this.dgvx_Close_Opened_Atom_WorkingPeriods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_Close_Opened_Atom_WorkingPeriods.DataGridViewWithRowNumber = false;
             this.dgvx_Close_Opened_Atom_WorkingPeriods.Location = new System.Drawing.Point(2, 80);
             this.dgvx_Close_Opened_Atom_WorkingPeriods.Name = "dgvx_Close_Opened_Atom_WorkingPeriods";
+            this.dgvx_Close_Opened_Atom_WorkingPeriods.ReadOnly = true;
             this.dgvx_Close_Opened_Atom_WorkingPeriods.Size = new System.Drawing.Size(877, 431);
             this.dgvx_Close_Opened_Atom_WorkingPeriods.TabIndex = 0;
             // 
@@ -56,9 +59,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(883, 514);
+            this.ClientSize = new System.Drawing.Size(883, 321);
             this.Controls.Add(this.btn_Close_Opened_Atom_WorkingPeriods);
             this.Controls.Add(this.dgvx_Close_Opened_Atom_WorkingPeriods);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "AWPForm_Close_Opened_Atom_WorkingPeriods";
             this.Text = "AWPForm_Close_Opened_Atom_WorkingPeriods";
             this.Load += new System.EventHandler(this.AWPForm_Close_Opened_Atom_WorkingPeriods_Load);

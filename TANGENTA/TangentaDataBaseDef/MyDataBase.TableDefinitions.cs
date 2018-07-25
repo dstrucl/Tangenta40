@@ -449,13 +449,13 @@ namespace TangentaDataBaseDef
         public SQLTable t_Atom_Computer = null;
 
         /* 151 */
-        public SQLTable t_WorkingPlace = null;
+        public SQLTable t_Atom_WorkArea = null;
 
         /* 152 */
         public SQLTable t_Atom_Office = null;
 
         /* 153 */
-        public SQLTable t_Atom_WorkingPlace = null;
+        public SQLTable t_Atom_WorkAreaImage = null;
 
         /* 154 */
         public SQLTable t_Atom_WorkPeriod = null;
@@ -1977,11 +1977,11 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_Computer);
 
         /* 151 */
-            t_WorkingPlace  = new SQLTable((Object)new WorkingPlace(),"wp", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_WorkingPlace);
-            t_WorkingPlace.AddColumn((Object)mt.m_WorkingPlace.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_WorkingPlace.AddColumn((Object)mt.m_WorkingPlace.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place name", "Ime delovnega mesta") );
-            t_WorkingPlace.AddColumn((Object)mt.m_WorkingPlace.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place description", "Opis delovnega mesta") );
-            m_DBTables.items.Add(t_WorkingPlace);
+            t_Atom_WorkArea  = new SQLTable((Object)new Atom_WorkArea(),"awa", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_WorkArea);
+            t_Atom_WorkArea.AddColumn((Object)mt.m_Atom_WorkArea.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Atom_WorkArea.AddColumn((Object)mt.m_Atom_WorkArea.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place name", "Ime delovnega mesta") );
+            t_Atom_WorkArea.AddColumn((Object)mt.m_Atom_WorkArea.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place description", "Opis delovnega mesta") );
+            m_DBTables.items.Add(t_Atom_WorkArea);
 
         /* 152 */
             t_Atom_Office =  new SQLTable((Object)new Atom_Office(),"aoffice", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_Office);
@@ -1992,17 +1992,17 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_Office);
 
         /* 153 */
-            t_Atom_WorkingPlace  = new SQLTable((Object)new Atom_WorkingPlace(),"awplace", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_WorkingPlace);
-            t_Atom_WorkingPlace.AddColumn((Object)mt.m_Atom_WorkingPlace.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_WorkingPlace.AddColumn((Object)mt.m_Atom_WorkingPlace.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place name", "Ime delovnega mesta") );
-            t_Atom_WorkingPlace.AddColumn((Object)mt.m_Atom_WorkingPlace.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place description", "Opis delovnega mesta") );
-            m_DBTables.items.Add(t_Atom_WorkingPlace);
+            t_Atom_WorkAreaImage  = new SQLTable((Object)new Atom_WorkAreaImage(),"awai", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_WorkArea);
+            t_Atom_WorkAreaImage.AddColumn((Object)mt.m_Atom_WorkAreaImage.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Atom_WorkAreaImage.AddColumn((Object)mt.m_Atom_WorkAreaImage.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Image Hash", "Slika ident.") );
+            t_Atom_WorkAreaImage.AddColumn((Object)mt.m_Atom_WorkAreaImage.Image_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image", "Slika"));
+            t_Atom_WorkAreaImage.AddColumn((Object)mt.m_Atom_WorkAreaImage.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place description", "Opis delovnega mesta") );
+            m_DBTables.items.Add(t_Atom_WorkAreaImage);
 
         /* 154 */
             t_Atom_WorkPeriod  = new SQLTable((Object)new Atom_WorkPeriod(),"awperiod", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Atom_WorkPeriod);
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation Person archive ID", "Zaposleni arhiv ID") );
-            t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_WorkingPlace, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place archive ID", "Ime delovnega mesta arhiv ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic device ID", "Elektronska naprava ID"));
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LoginTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work start time", "Začetek dela") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LogoutTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work end time", "Konec dela") );

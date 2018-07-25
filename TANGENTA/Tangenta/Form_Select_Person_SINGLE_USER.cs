@@ -185,11 +185,7 @@ namespace Tangenta
             DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_my_Org_Person.SelectedCells;
             if (dgvCellCollection.Count >= 1)
             {
-                if (m_my_Org_Person_ID == null)
-                {
-                    m_my_Org_Person_ID = new ID();
-                }
-                m_my_Org_Person_ID.Set(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
+                m_my_Org_Person_ID = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
 
                 mFirstName_v = tf.set_string(dgvCellCollection[0].OwningRow.Cells["myOrganisation_Person_$_per_$_cfn_$$FirstName"].Value);
                 mLastName_v = tf.set_string(dgvCellCollection[0].OwningRow.Cells["myOrganisation_Person_$_per_$_cln_$$LastName"].Value);

@@ -1235,11 +1235,13 @@ namespace TangentaTableClass
     }
 
 
-    public class WorkingPlace
+    public class Atom_WorkArea
     {
         public ID ID = new ID();
         public Name Name = new Name();
         public Description Description = new Description();
+        public WorkAreaImage m_WorkAreaImage = new WorkAreaImage();
+        public Active Active = new Active();
     }
 
 
@@ -1275,11 +1277,11 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-
-    public class Atom_WorkingPlace
+    public class Atom_WorkAreaImage
     {
         public ID ID = new ID();
-        public Name Name = new Name();
+        public Image_Hash Image_Hash = new Image_Hash();
+        public Image_Data Image_Data = new Image_Data();
         public Description Description = new Description();
     }
 
@@ -1302,7 +1304,6 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Atom_myOrganisation_Person m_Atom_myOrganisation_Person = new Atom_myOrganisation_Person();
-        public Atom_WorkingPlace m_Atom_WorkingPlace  = new Atom_WorkingPlace();
         public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
         public LoginTime LoginTime = new LoginTime();
         public LogoutTime LogoutTime = new LogoutTime();
@@ -3322,13 +3323,13 @@ namespace TangentaTableClass
         public Atom_Computer m_Atom_Computer = new Atom_Computer();
 
         /* 151 */
-        public WorkingPlace m_WorkingPlace = new WorkingPlace();
+        public Atom_WorkArea m_Atom_WorkArea = new Atom_WorkArea();
 
         /* 152 */
         public Atom_Office m_Atom_Office = new Atom_Office();
 
         /* 153 */
-        public Atom_WorkingPlace m_Atom_WorkingPlace = new Atom_WorkingPlace();
+        public Atom_WorkAreaImage m_Atom_WorkAreaImage = new Atom_WorkAreaImage();
 
         /* 154 */
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();

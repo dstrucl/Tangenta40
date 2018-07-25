@@ -217,11 +217,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_Person_ID == null)
-                    {
-                        Atom_Person_ID = new ID();
-                    }
-                    Atom_Person_ID.Set(dt.Rows[0]["ID"]);
+                    Atom_Person_ID = tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else

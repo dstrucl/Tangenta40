@@ -900,7 +900,7 @@ namespace TangentaDB
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                 inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                                inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -994,7 +994,7 @@ namespace TangentaDB
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                 inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                                inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -1084,7 +1084,7 @@ namespace TangentaDB
                                 inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
                                 inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                                inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -1467,11 +1467,10 @@ namespace TangentaDB
                             CustomerOrganisation = new UniversalInvoice.Organisation(lng.st_Customer);
                         }
 
-
-                        if (dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
+                        ID xAtom_Customer_Person_ID = tf.set_ID(dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"]);
+                        if (ID.Validate(xAtom_Customer_Person_ID))
                         {
-                            long Atom_Customer_Person_ID = (long)dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"];
-                            CustomerPerson = f_Atom_Customer_Person.GetData(lng.st_Customer, Atom_Customer_Person_ID);
+                            CustomerPerson = f_Atom_Customer_Person.GetData(lng.st_Customer, xAtom_Customer_Person_ID);
                         }
                         else
                         {

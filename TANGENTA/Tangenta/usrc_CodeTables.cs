@@ -36,7 +36,7 @@ namespace Tangenta
             lng.s_btn_Taxation.Text(btn_Taxation);
             lng.s_btn_Currency.Text(btn_Currency);
             lng.s_btn_Units.Text(btn_Units);
-            lng.s_btn_WorkingPlace.Text(btn_WorkingPlace);
+            lng.s_btn_Atom_WorkArea.Text(btn_Atom_WorkArea);
             lng.s_btn_SimpleItem_Groups.Text(btn_SimpleItem_Groups);
             lng.s_btn_ItemGroups.Text(btn_ItemGroups);
             lng.s_btn_Logo.Text(btn_Logo);
@@ -69,10 +69,10 @@ namespace Tangenta
             End();
         }
 
-        private void btn_WorkingPlace_Click(object sender, EventArgs e)
+        private void btn_Atom_WorkArea_Click(object sender, EventArgs e)
         {
-            SQLTable tbl_WorkingPlace = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(WorkingPlace)));
-            Form_WorkingPlace_Edit currency_dlg = new Form_WorkingPlace_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_WorkingPlace, "ID asc",nav);
+            SQLTable tbl_Atom_WorkArea = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_WorkArea)));
+            Form_Atom_WorkArea_Edit currency_dlg = new Form_Atom_WorkArea_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Atom_WorkArea, "ID asc",nav);
             if (currency_dlg.ShowDialog() == DialogResult.OK)
             {
                 bChanged = currency_dlg.Changed;

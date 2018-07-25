@@ -137,11 +137,7 @@ namespace TangentaDB
                                     {
                                         if (dt.Rows.Count == 1)
                                         {
-                                            if (Atom_Customer_Person_ID == null)
-                                            {
-                                                Atom_Customer_Person_ID = new ID();
-                                            }
-                                            Atom_Customer_Person_ID.Set(dt.Rows[0]["ID"]);
+                                            Atom_Customer_Person_ID = tf.set_ID(dt.Rows[0]["ID"]);
                                             return true;
                                         }
                                         else
@@ -203,7 +199,7 @@ namespace TangentaDB
 
 
 
-        public static UniversalInvoice.Person GetData(ltext token_prefix, long Atom_Customer_Person_ID)
+        public static UniversalInvoice.Person GetData(ltext token_prefix, ID Atom_Customer_Person_ID)
         {
             string Err = null;
             UniversalInvoice.Person univ_per = null;

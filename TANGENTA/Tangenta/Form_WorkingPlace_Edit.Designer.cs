@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_WorkingPlace_Edit
+    partial class Form_Atom_WorkArea_Edit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_WorkingPlace_Edit));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Atom_WorkArea_Edit));
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
@@ -86,7 +86,7 @@
             this.usrc_Help1.Size = new System.Drawing.Size(64, 25);
             this.usrc_Help1.TabIndex = 3;
             // 
-            // Form_WorkingPlace_Edit
+            // Form_Atom_WorkArea_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -97,12 +97,12 @@
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Name = "Form_WorkingPlace_Edit";
+            this.Name = "Form_Atom_WorkArea_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WorkingPlace_EditForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_WorkingPlace_Edit_FormClosing);
-            this.Load += new System.EventHandler(this.Form_WorkingPlace_Edit_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_WorkingPlace_Edit_KeyUp);
+            this.Text = "Atom_WorkArea_EditForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Atom_WorkArea_Edit_FormClosing);
+            this.Load += new System.EventHandler(this.Form_Atom_WorkArea_Edit_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_Atom_WorkArea_Edit_KeyUp);
             this.ResumeLayout(false);
 
         }

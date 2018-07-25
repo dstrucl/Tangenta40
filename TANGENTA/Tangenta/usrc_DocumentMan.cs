@@ -1419,9 +1419,8 @@ namespace Tangenta
         private bool getWorkPeriod(ID myOrganisation_Person_ID, ref ID xAtom_WorkPeriod_ID)
         {
             string Err = null;
-            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null, ref Err))
+            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref xAtom_WorkPeriod_ID, ref Err))
             {
-                xAtom_WorkPeriod_ID = GlobalData.Atom_WorkPeriod_ID;
                 return true;
             }
             else
@@ -1558,7 +1557,7 @@ namespace Tangenta
                 {
                     if (Program.bFirstTimeInstallation)
                     {
-                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null, ref Err))
+                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null,ref GlobalData.Atom_WorkPeriod_ID, ref Err))
                         {
                             //myStartup.eNextStep++;
                             return true;
@@ -1576,7 +1575,7 @@ namespace Tangenta
                         {
                             if (Door.DoLoginAsAdministrator((Form)this.Parent))
                             {
-                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null, ref Err))
+                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref GlobalData.Atom_WorkPeriod_ID, ref Err))
                                 {
                                     //myStartup.eNextStep++;
                                     return true;
@@ -1596,7 +1595,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null, ref Err))
+                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null,ref GlobalData.Atom_WorkPeriod_ID, ref Err))
                             {
                                 //myStartup.eNextStep++;
                                 return true;
