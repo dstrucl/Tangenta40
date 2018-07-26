@@ -42,6 +42,7 @@
             this.btn_Logo = new System.Windows.Forms.Button();
             this.btn_DBSettings = new System.Windows.Forms.Button();
             this.btn_OK = new System.Windows.Forms.Button();
+            this.btn_WorkArea = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Currency
@@ -211,9 +212,23 @@
             this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
+            // btn_WorkArea
+            // 
+            this.btn_WorkArea.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_WorkArea.Image = global::Tangenta.Properties.Resources.WorkAreaAsTable;
+            this.btn_WorkArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_WorkArea.Location = new System.Drawing.Point(8, 153);
+            this.btn_WorkArea.Name = "btn_WorkArea";
+            this.btn_WorkArea.Size = new System.Drawing.Size(145, 44);
+            this.btn_WorkArea.TabIndex = 13;
+            this.btn_WorkArea.Text = "Work Area";
+            this.btn_WorkArea.UseVisualStyleBackColor = false;
+            this.btn_WorkArea.Click += new System.EventHandler(this.btn_WorkArea_Click);
+            // 
             // usrc_CodeTables
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.btn_WorkArea);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.btn_DBSettings);
             this.Controls.Add(this.btn_Logo);
@@ -248,5 +263,6 @@
         private System.Windows.Forms.Button btn_Logo;
         private System.Windows.Forms.Button btn_DBSettings;
         private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.Button btn_WorkArea;
     }
 }

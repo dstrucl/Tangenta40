@@ -25,6 +25,9 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_WorkAreas = new ltext(new string[] { "Work area", "Področja dela" });
+
+        
         public static ltext s_lbl_ExitTimeout = new ltext(new string[] { "Exit timeout in sec", "Časovnik za izhod v sek-" });
         
         public static ltext s_Settings = new ltext(new string[] { "Settings", "Nastavitve" });

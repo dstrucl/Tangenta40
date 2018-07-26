@@ -196,5 +196,16 @@ namespace Tangenta
             }
             End();
         }
+
+        private void btn_WorkArea_Click(object sender, EventArgs e)
+        {
+            SQLTable tbl_WorkArea = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(WorkArea)));
+            Form_WorkArea_Edit WorkArea_dlg = new Form_WorkArea_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_WorkArea, "ID asc", nav);
+            if (WorkArea_dlg.ShowDialog() == DialogResult.OK)
+            {
+                bChanged = WorkArea_dlg.Changed;
+            }
+            End();
+        }
     }
 }

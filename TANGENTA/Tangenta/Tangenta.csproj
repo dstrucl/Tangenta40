@@ -147,6 +147,12 @@
     <Compile Include="Booting_00_TangentaAbout.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="ControlTagForHelp.cs" />
+    <Compile Include="Form_WorkArea_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_WorkArea_Edit.Designer.cs">
+      <DependentUpon>Form_WorkArea_Edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_NewDocument_WizzardForHelp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -630,6 +636,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_DocProformaInvoice_AddOn.resx">
       <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_WorkArea_Edit.resx">
+      <DependentUpon>Form_WorkArea_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_NewDocument_WizzardForHelp.resx">
       <DependentUpon>Form_NewDocument_WizzardForHelp.cs</DependentUpon>
@@ -1279,6 +1288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\WorkAreaAsTable.bmp" />
     <None Include="Resources\TangentaUninstaller_Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

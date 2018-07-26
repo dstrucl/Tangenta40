@@ -75,7 +75,7 @@ namespace UpgradeDB
                                                         "LoginTag",
                                                         "WorkAreaImage",
                                                         "WorkArea",
-                                                        "WorkAreaDocInvoice"
+                                                        "DocInvoice_Atom_WorkArea"
                                                 };
 
                 if (!DBSync.DBSync.CreateTables(new_tables, ref Err))

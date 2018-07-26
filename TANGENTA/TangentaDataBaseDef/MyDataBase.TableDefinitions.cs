@@ -686,7 +686,7 @@ namespace TangentaDataBaseDef
         public SQLTable t_WorkArea = null;
 
         /* 230 */
-        public SQLTable t_WorkAreaDocInvoice = null;
+        public SQLTable t_DocInvoice_Atom_WorkArea = null;
 
         /* 231 */
         public SQLTable t_Atom_IP_address = null;
@@ -2677,14 +2677,15 @@ namespace TangentaDataBaseDef
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area desription", "Opis delovnega področja"));
             t_WorkArea.AddColumn((Object)mt.m_WorkArea.Active, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area active", "Delovno področje je aktivno"));
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.m_WorkAreaImage, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image ID", "Slika delovnega področja ID"));
+            t_WorkArea.AddColumn((Object)mt.m_WorkArea.m_WorkArea_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area group ID", "Delovno področje skupina ID"));
             m_DBTables.items.Add(t_WorkArea);
 
             /* 230 */
-            t_WorkAreaDocInvoice = new SQLTable((Object)new WorkAreaDocInvoice(), "wadi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_WorkAreaDocInvoice);
-            t_WorkAreaDocInvoice.AddColumn((Object) mt.m_WorkAreaDocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_WorkAreaDocInvoice.AddColumn((Object) mt.m_WorkAreaDocInvoice.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("DocInvoice ID", "Račun ID"));
-            t_WorkAreaDocInvoice.AddColumn((Object) mt.m_WorkAreaDocInvoice.m_WorkArea, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area ID", "Delovno področje ID"));
-            m_DBTables.items.Add(t_WorkAreaDocInvoice);
+            t_DocInvoice_Atom_WorkArea = new SQLTable((Object)new DocInvoice_Atom_WorkArea(), "wadi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_DocInvoice_Atom_WorkArea);
+            t_DocInvoice_Atom_WorkArea.AddColumn((Object) mt.m_DocInvoice_Atom_WorkArea.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocInvoice_Atom_WorkArea.AddColumn((Object) mt.m_DocInvoice_Atom_WorkArea.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("DocInvoice ID", "Račun ID"));
+            t_DocInvoice_Atom_WorkArea.AddColumn((Object) mt.m_DocInvoice_Atom_WorkArea.m_Atom_WorkArea, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area archive ID", "Delovno področje arhiv ID"));
+            m_DBTables.items.Add(t_DocInvoice_Atom_WorkArea);
 
             /* 231 */
             t_Atom_IP_address = new SQLTable((Object)new Atom_IP_address(), "aipa", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_IP_address);

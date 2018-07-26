@@ -2807,13 +2807,14 @@ namespace TangentaTableClass
         public Description Description = new Description();
         public WorkAreaImage m_WorkAreaImage = new WorkAreaImage();
         public Active Active = new Active();
+        public WorkArea_ParentGroup1 m_WorkArea_ParentGroup1 = new WorkArea_ParentGroup1();
     }
 
-    public class WorkAreaDocInvoice
+    public class DocInvoice_Atom_WorkArea
     {
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
-        public WorkArea m_WorkArea = new WorkArea();
+        public Atom_WorkArea m_Atom_WorkArea = new Atom_WorkArea();
     }
 
     public class WorkArea_ParentGroup3
@@ -3560,7 +3561,7 @@ namespace TangentaTableClass
         public WorkArea m_WorkArea = new WorkArea();
 
         /* 230 */
-        public WorkAreaDocInvoice m_WorkAreaDocInvoice = new WorkAreaDocInvoice();
+        public DocInvoice_Atom_WorkArea m_DocInvoice_Atom_WorkArea = new DocInvoice_Atom_WorkArea();
 
         /* 231 */
         public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
