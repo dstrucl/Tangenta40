@@ -351,6 +351,7 @@ namespace LoginControl
             {
                 Form parent_form = Global.f.GetParentForm(lctrl);
                 eAWP_dtLogin_Vaild_result eres = AWP_dtLogin_Vaild();
+eres_check:
                 switch (eres)
                 {
                     case eAWP_dtLogin_Vaild_result.OK:
@@ -391,14 +392,30 @@ namespace LoginControl
                                         {
                                             lctrl.btn_UserManager.Visible = true;
                                         }
-                                        ID Atom_WorkPeriod_ID = null;
-                                        if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
+
+                                        if (lctrl.Login_MultipleUsers)
                                         {
-                                            ID LoginSession_ID = null;
-                                            if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                            if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
                                             {
-                                                lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
-                                                return eAWP_dtLogin_Vaild_result.OK;
+                                                eres = AWP_dtLogin_Vaild();
+                                                if (eres != eAWP_dtLogin_Vaild_result.OK)
+                                                {
+                                                    goto eres_check;
+                                                }
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            ID Atom_WorkPeriod_ID = null;
+                                            if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
+                                            {
+                                                ID LoginSession_ID = null;
+                                                if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                                {
+                                                    lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                                                    return eAWP_dtLogin_Vaild_result.OK;
+                                                }
                                             }
                                         }
                                         return eres;

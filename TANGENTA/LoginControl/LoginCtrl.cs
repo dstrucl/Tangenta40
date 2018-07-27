@@ -56,6 +56,15 @@ namespace LoginControl
 
         internal int m_MinPasswordLength = 5;
 
+        private bool m_Login_MultipleUsers = false;
+
+        public bool Login_MultipleUsers
+        {
+            get
+            {
+                return m_Login_MultipleUsers;
+            }
+        }
 
         public eDataTableCreationMode DataTableCreationMode
         {
@@ -490,6 +499,7 @@ namespace LoginControl
                                                             UserControl xusrc_DocumentMan)
         {
             Close_Opened_Atom_WorkingPeriods();
+            m_Login_MultipleUsers = true;
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:

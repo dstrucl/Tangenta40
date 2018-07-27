@@ -95,11 +95,11 @@
   <ItemGroup>
     <Compile Include="AWP.cs" />
     <Compile Include="AWPData.cs" />
-    <Compile Include="AWPFormSelectMyOrgPerNotInLoginUsers.cs">
+    <Compile Include="AWPFormSelectMyOrg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AWPFormSelectMyOrgPerNotInLoginUsers.Designer.cs">
-      <DependentUpon>AWPFormSelectMyOrgPerNotInLoginUsers.cs</DependentUpon>
+    <Compile Include="AWPFormSelectMyOrg.Designer.cs">
+      <DependentUpon>AWPFormSelectMyOrg.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPForm_Close_Opened_Atom_WorkingPeriods.cs">
       <SubType>Form</SubType>
@@ -254,8 +254,8 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AWPFormSelectMyOrgPerNotInLoginUsers.resx">
-      <DependentUpon>AWPFormSelectMyOrgPerNotInLoginUsers.cs</DependentUpon>
+    <EmbeddedResource Include="AWPFormSelectMyOrg.resx">
+      <DependentUpon>AWPFormSelectMyOrg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AWPForm_Close_Opened_Atom_WorkingPeriods.resx">
       <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>

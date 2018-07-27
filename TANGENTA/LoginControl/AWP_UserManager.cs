@@ -58,7 +58,7 @@ namespace LoginControl
             lng.s_rdb_AfterNumberOfDays.Text(rdb_AfterNumberOfDays);
 
 
-             lng.s_btnAddUser_UserManager.Text(this.btnAddUser);
+             lng.s_btnAddUser_UserManager.Text(this.btn_AddNewUser);
 
             lng.s_btnChangeData_UserManager.Text(this.btnChangeData);
             
@@ -239,8 +239,8 @@ namespace LoginControl
                 usrc_PasswordBytes1.Enabled = true;
                 
 
-                this.btnAddUser.Enabled = true;
-                this.btnAddUser.Text = lng.s_AddUser.s;
+                this.btn_AddNewUser.Enabled = true;
+                this.btn_AddNewUser.Text = lng.s_AddUser.s;
             }
             else
             {
@@ -252,25 +252,47 @@ namespace LoginControl
     
 
  
-        private void AddUser()
+        private void AddUser(AWPFormSelectMyOrgPer.eSelectionType eselectiontype)
         {
-            AWPFormSelectMyOrgPerNotInLoginUsers awpFormSelectMyOrgPerNotInLoginUsers = new AWPFormSelectMyOrgPerNotInLoginUsers();
-            DialogResult dlgres = awpFormSelectMyOrgPerNotInLoginUsers.ShowDialog(this);
+            AWPFormSelectMyOrgPer awpFormSelectMyOrgPer = new AWPFormSelectMyOrgPer(eselectiontype);
+            DialogResult dlgres = awpFormSelectMyOrgPer.ShowDialog(this);
             switch (dlgres)
             {
                 case DialogResult.No:
-                    MessageBox.Show(lng.s_AllEmpleyeesHaveUserAccount.s + lng.s_btn_Edit_myOrganisation_Person.s);
+                    if (eselectiontype == AWPFormSelectMyOrgPer.eSelectionType.NotInLoginUsers)
+                    {
+                        MessageBox.Show(lng.s_AllEmpleyeesHaveUserAccount.s + lng.s_btn_Edit_myOrganisation_Person.s);
+                    }
                     break;
                 case DialogResult.OK:
-                    LoadData(null);
+                    if (ID.Validate(awpFormSelectMyOrgPer.LoginUsers_ID))
+                    {
+                        LoadData(awpFormSelectMyOrgPer.UniqueUserName);
+                    }
                     break;
             }
         }
 
-        private void btnAddUser_Click(object sender, EventArgs e)
+        private void btn_AddNewUser_Click(object sender, EventArgs e)
         {
-            AddUser();
+            AddUser(AWPFormSelectMyOrgPer.eSelectionType.NotInLoginUsers);
         }
+
+        private void btnAddUser_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AddUser(AWPFormSelectMyOrgPer.eSelectionType.NotInLoginUsers);
+                e.Handled = true;
+            }
+
+        }
+
+        private void btn_AddExistingUser_Click(object sender, EventArgs e)
+        {
+            AddUser(AWPFormSelectMyOrgPer.eSelectionType.ExistInLoginUsers);
+        }
+
 
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -448,17 +470,8 @@ namespace LoginControl
             }
         }
 
-        private void btnAddUser_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                AddUser();
-                e.Handled = true;
-            }
 
-        }
 
-  
         private void dgv_LoginUsers_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
@@ -630,5 +643,6 @@ namespace LoginControl
             AWPLoginHistoryForm awplhfrm = new AWPLoginHistoryForm(awp, awpld.UserName);
             awplhfrm.ShowDialog(this);
         }
+
     }
 }

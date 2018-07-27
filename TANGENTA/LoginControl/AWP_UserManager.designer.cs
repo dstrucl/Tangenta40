@@ -29,7 +29,7 @@ namespace LoginControl
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AWP_UserManager));
-            this.btnAddUser = new System.Windows.Forms.Button();
+            this.btn_AddNewUser = new System.Windows.Forms.Button();
             this.btnChangeData = new System.Windows.Forms.Button();
             this.dgv_LoginUsers = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -54,6 +54,7 @@ namespace LoginControl
             this.nmUpDn_MaxPasswordAge = new System.Windows.Forms.NumericUpDown();
             this.chk_Enabled = new System.Windows.Forms.CheckBox();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
+            this.btn_AddExistingUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LoginUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -73,20 +74,20 @@ namespace LoginControl
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_MaxPasswordAge)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnAddUser
+            // btn_AddNewUser
             // 
-            this.btnAddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddUser.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnAddUser.Location = new System.Drawing.Point(3, 620);
-            this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(138, 34);
-            this.btnAddUser.TabIndex = 10;
-            this.btnAddUser.Text = "Add User";
-            this.btnAddUser.UseVisualStyleBackColor = false;
-            this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
-            this.btnAddUser.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnAddUser_KeyUp);
+            this.btn_AddNewUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_AddNewUser.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_AddNewUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_AddNewUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
+            this.btn_AddNewUser.Location = new System.Drawing.Point(3, 620);
+            this.btn_AddNewUser.Name = "btn_AddNewUser";
+            this.btn_AddNewUser.Size = new System.Drawing.Size(222, 34);
+            this.btn_AddNewUser.TabIndex = 10;
+            this.btn_AddNewUser.Text = "Add New User";
+            this.btn_AddNewUser.UseVisualStyleBackColor = false;
+            this.btn_AddNewUser.Click += new System.EventHandler(this.btn_AddNewUser_Click);
+            this.btn_AddNewUser.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnAddUser_KeyUp);
             // 
             // btnChangeData
             // 
@@ -94,7 +95,7 @@ namespace LoginControl
             this.btnChangeData.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnChangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
-            this.btnChangeData.Location = new System.Drawing.Point(201, 620);
+            this.btnChangeData.Location = new System.Drawing.Point(845, 620);
             this.btnChangeData.Name = "btnChangeData";
             this.btnChangeData.Size = new System.Drawing.Size(138, 34);
             this.btnChangeData.TabIndex = 12;
@@ -438,14 +439,29 @@ namespace LoginControl
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
+            // btn_AddExistingUser
+            // 
+            this.btn_AddExistingUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_AddExistingUser.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_AddExistingUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_AddExistingUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(86)))), ((int)(((byte)(70)))));
+            this.btn_AddExistingUser.Location = new System.Drawing.Point(235, 620);
+            this.btn_AddExistingUser.Name = "btn_AddExistingUser";
+            this.btn_AddExistingUser.Size = new System.Drawing.Size(283, 34);
+            this.btn_AddExistingUser.TabIndex = 18;
+            this.btn_AddExistingUser.Text = "Add Another Account of Existing User";
+            this.btn_AddExistingUser.UseVisualStyleBackColor = false;
+            this.btn_AddExistingUser.Click += new System.EventHandler(this.btn_AddExistingUser_Click);
+            // 
             // AWP_UserManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(984, 656);
+            this.Controls.Add(this.btn_AddExistingUser);
             this.Controls.Add(this.btnChangeData);
-            this.Controls.Add(this.btnAddUser);
+            this.Controls.Add(this.btn_AddNewUser);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.DoubleBuffered = true;
@@ -484,7 +500,7 @@ namespace LoginControl
         }
 
         #endregion
-        private System.Windows.Forms.Button btnAddUser;
+        private System.Windows.Forms.Button btn_AddNewUser;
         private System.Windows.Forms.Button btnChangeData;
         internal DataGridView_2xls.DataGridView2xls dgv_LoginUsers;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -509,5 +525,6 @@ namespace LoginControl
         private System.Windows.Forms.SplitContainer splitContainer3;
         private usrc_PasswordBytes usrc_PasswordBytes1;
         private System.Windows.Forms.Button btn_LoginHistory;
+        private System.Windows.Forms.Button btn_AddExistingUser;
     }
 }

@@ -79,6 +79,9 @@ namespace LoginControl
 
         public static ltext s_ImportNewEmpleyees = new ltext(new string[]{"Selected empleyees to user account",
                                                     "Izberite zaposlene za uporabniški račun tega programa"});
+
+        public static ltext s_btn_Select = new ltext(new string[] { "Select Person:", "Izberite osebo:" });
+        
         public static ltext s_LoginConnection = new ltext(new string[]{"Login connection:", "Prijavna povezava:"});
 
         public static ltext s_Password_does_not_match = new ltext(new string[]{"Password does not match!",

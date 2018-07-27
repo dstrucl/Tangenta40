@@ -2857,10 +2857,16 @@ namespace TangentaTableClass
         public LoginUsers_ParentGroup2 m_LoginUsers_ParentGroup2 = new LoginUsers_ParentGroup2();
     }
 
+    public class DBSource:DB_varchar_264
+    {
+
+    }
+
     public class Current_DocInvoice_ID
     {
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
+        public DBSource DBSource = new DBSource();
         public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
         public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
     }
@@ -2869,6 +2875,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public DBSource DBSource = new DBSource();
         public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
         public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
     }

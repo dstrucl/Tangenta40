@@ -2487,7 +2487,7 @@ namespace TangentaDataBaseDef
             /* 206 */
             t_LoginUsers = new SQLTable((Object)new LoginUsers(), "lusr", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers);
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba v podjetju ID"));
+            t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba v podjetju ID"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.Enabled, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Enabled", "Omogočeno"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.UserName, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("User Name", "Uporabniško ime"));
             t_LoginUsers.AddColumn((Object)mt.m_LoginUsers.Password, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Password", "Geslo"));

@@ -621,7 +621,25 @@ SELECT
                 LogFile.Error.Show("Error:LoginControl:AWP_func:GetMyOrgPerNotInLoginUsers:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
+        }
 
+        internal static bool GetMyOrgPerThatExistsInLoginUsers(ref DataTable dt_myOrgPerNotInLoginUsers)
+        {
+            string sql = @"select cfn.FirstName,cln.LastName,p.Tax_ID,p.Registration_ID,p.DateOfBirth,mop.ID from myOrganisation_Person mop
+                           inner join Person p on p.ID = mop.Person_ID
+                           inner join cFirstName cfn on cfn.ID = p.cFirstName_ID
+                           left join cLastName cln on cln.ID = p.cLastName_ID
+                           where mop.ID in (select myOrganisation_Person_ID from LoginUsers)";
+            string Err = null;
+            if (con.ReadDataTable(ref dt_myOrgPerNotInLoginUsers, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("Error:LoginControl:AWP_func:GetMyOrgPerThatExistsInLoginUsers:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
 
         internal static bool Remove_ChangePasswordOnFirstLogin(AWPLoginData awpld)
