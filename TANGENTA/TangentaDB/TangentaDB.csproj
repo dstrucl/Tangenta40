@@ -228,6 +228,7 @@
     <Compile Include="f_MethodOfPayment_DI.cs" />
     <Compile Include="f_Warranty.cs" />
     <Compile Include="f_Atom_WorkArea.cs" />
+    <Compile Include="f_WorkArea.cs" />
     <Compile Include="GlobalData.cs" />
     <Compile Include="HTML_PrintingElement.cs" />
     <Compile Include="HTML_PrintingOutput.cs" />

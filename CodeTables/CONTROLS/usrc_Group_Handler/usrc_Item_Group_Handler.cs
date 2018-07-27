@@ -343,7 +343,7 @@ namespace usrc_Item_Group_Handler
                         {
                             continue;
                         }
-                        Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl,m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                        Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl,m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
                         DataRow[] drs_s2 = null;
                         drs_s2 = m_dt_Group.Select("s3_name ='" + sGroupName_pnl1 + "'");
                         if (drs_s2.Count() > 0)
@@ -366,7 +366,7 @@ namespace usrc_Item_Group_Handler
                                             continue;
                                         }
                                     }
-                                    Group grp2 = new Group(s2GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, 32, 10);
+                                    Group grp2 = new Group(s2GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, m_Button_Height, m_Font_Height);
                                     DataRow[] drs_s1 = null;
                                     drs_s1 = m_dt_Group.Select("s2_name ='" + s2GroupName + "' and s3_name = '" + sGroupName_pnl1 + "'");
                                     if (drs_s1.Count() > 0)
@@ -388,14 +388,14 @@ namespace usrc_Item_Group_Handler
                                                         continue;
                                                     }
                                                 }
-                                                Group grp1 = new Group(s1GroupName, this.form_group_handler.s1_pnl, grp2, DoPaintGroup, ref ypos_pnl3, 32, 10);
+                                                Group grp1 = new Group(s1GroupName, this.form_group_handler.s1_pnl, grp2, DoPaintGroup, ref ypos_pnl3, m_Button_Height, m_Font_Height);
                                             }
                                         }
                                         DataRow[] drs_s1_root = null;
                                         drs_s1_root = m_dt_Group.Select("s1_name ='" + s2GroupName + "' and s2_name = '" + sGroupName_pnl1 + "' and s3_name is null");
                                         if (drs_s1_root.Count() > 0)
                                         {
-                                            Group grp2_root = new Group(null, this.form_group_handler.s1_pnl, grp2, DoPaintGroup, ref ypos_pnl2, 32, 10);
+                                            Group grp2_root = new Group(null, this.form_group_handler.s1_pnl, grp2, DoPaintGroup, ref ypos_pnl2, m_Button_Height, m_Font_Height);
                                         }
                                     }
                                     else
@@ -408,7 +408,7 @@ namespace usrc_Item_Group_Handler
                             drs_s2_root = m_dt_Group.Select("s2_name ='" + sGroupName_pnl1 + "' and s3_name is null");
                             if (drs_s2_root.Count() > 0)
                             {
-                                Group grp2_root = new Group(null, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, 32, 10);
+                                Group grp2_root = new Group(null, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, m_Button_Height, m_Font_Height);
                             }
                         }
                         else
@@ -431,7 +431,7 @@ namespace usrc_Item_Group_Handler
                         {
                             continue;
                         }
-                        Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                        Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
                         DataRow[] drs_s1 = null;
                         drs_s1 = m_dt_Group.Select("s2_name ='" + sGroupName_pnl1 + "'");
                         if (drs_s1.Count() > 0)
@@ -453,7 +453,7 @@ namespace usrc_Item_Group_Handler
                                             continue;
                                         }
                                     }
-                                    Group grp1 = new Group(s1GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl3, 32, 10);
+                                    Group grp1 = new Group(s1GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl3, m_Button_Height, m_Font_Height);
                                 }
                             }
                         }
@@ -475,11 +475,11 @@ namespace usrc_Item_Group_Handler
                         }
                         if (m_NumberOfGroupLevels > 1)
                         {
-                            Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                            Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
                         }
                         else
                         {
-                            Group grp_pnl1 = new Group(sGroupName_pnl1, this.pnl_Group, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                            Group grp_pnl1 = new Group(sGroupName_pnl1, this.pnl_Group, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
                         }
                     }
                 }
@@ -489,11 +489,11 @@ namespace usrc_Item_Group_Handler
             {
                 if (m_NumberOfGroupLevels > 1)
                 {
-                    Group grp_pnl1 = new Group(null, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                    Group grp_pnl1 = new Group(null, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
                 }
                 else
                 {
-                    Group grp_pnl1 = new Group(null, this.pnl_Group, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                    Group grp_pnl1 = new Group(null, this.pnl_Group, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
                 }
             }
         }

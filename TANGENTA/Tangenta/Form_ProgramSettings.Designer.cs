@@ -46,12 +46,13 @@
             this.chk_MultipleUserLogin = new System.Windows.Forms.CheckBox();
             this.chk_ControlLayout_TouchScreen = new System.Windows.Forms.CheckBox();
             this.grp_AccessAuthentication = new System.Windows.Forms.GroupBox();
+            this.lbl_ExitTimeout = new System.Windows.Forms.Label();
+            this.nmUpDn_ExitTimeout = new System.Windows.Forms.NumericUpDown();
             this.rdb_Authentification_RFID = new System.Windows.Forms.RadioButton();
             this.rdb_Authentification_PIN = new System.Windows.Forms.RadioButton();
             this.rdb_Authentification_Password = new System.Windows.Forms.RadioButton();
             this.rdb_Authentification_None = new System.Windows.Forms.RadioButton();
-            this.nmUpDn_ExitTimeout = new System.Windows.Forms.NumericUpDown();
-            this.lbl_ExitTimeout = new System.Windows.Forms.Label();
+            this.chk_UseWorkAreas = new System.Windows.Forms.CheckBox();
             this.grp_ColorSettings.SuspendLayout();
             this.grp_AccessAuthentication.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).BeginInit();
@@ -248,10 +249,41 @@
             this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_None);
             this.grp_AccessAuthentication.Location = new System.Drawing.Point(593, 60);
             this.grp_AccessAuthentication.Name = "grp_AccessAuthentication";
-            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 174);
+            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 156);
             this.grp_AccessAuthentication.TabIndex = 48;
             this.grp_AccessAuthentication.TabStop = false;
             this.grp_AccessAuthentication.Text = "Access Authentication";
+            // 
+            // lbl_ExitTimeout
+            // 
+            this.lbl_ExitTimeout.Location = new System.Drawing.Point(9, 117);
+            this.lbl_ExitTimeout.Name = "lbl_ExitTimeout";
+            this.lbl_ExitTimeout.Size = new System.Drawing.Size(166, 35);
+            this.lbl_ExitTimeout.TabIndex = 5;
+            this.lbl_ExitTimeout.Text = "ExitTimeout";
+            this.lbl_ExitTimeout.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // nmUpDn_ExitTimeout
+            // 
+            this.nmUpDn_ExitTimeout.Location = new System.Drawing.Point(181, 117);
+            this.nmUpDn_ExitTimeout.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nmUpDn_ExitTimeout.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nmUpDn_ExitTimeout.Name = "nmUpDn_ExitTimeout";
+            this.nmUpDn_ExitTimeout.Size = new System.Drawing.Size(55, 20);
+            this.nmUpDn_ExitTimeout.TabIndex = 4;
+            this.nmUpDn_ExitTimeout.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // rdb_Authentification_RFID
             // 
@@ -297,42 +329,22 @@
             this.rdb_Authentification_None.Text = "Without Authentification";
             this.rdb_Authentification_None.UseVisualStyleBackColor = true;
             // 
-            // nmUpDn_ExitTimeout
+            // chk_UseWorkAreas
             // 
-            this.nmUpDn_ExitTimeout.Location = new System.Drawing.Point(181, 132);
-            this.nmUpDn_ExitTimeout.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.nmUpDn_ExitTimeout.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nmUpDn_ExitTimeout.Name = "nmUpDn_ExitTimeout";
-            this.nmUpDn_ExitTimeout.Size = new System.Drawing.Size(55, 20);
-            this.nmUpDn_ExitTimeout.TabIndex = 4;
-            this.nmUpDn_ExitTimeout.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // lbl_ExitTimeout
-            // 
-            this.lbl_ExitTimeout.Location = new System.Drawing.Point(9, 132);
-            this.lbl_ExitTimeout.Name = "lbl_ExitTimeout";
-            this.lbl_ExitTimeout.Size = new System.Drawing.Size(166, 39);
-            this.lbl_ExitTimeout.TabIndex = 5;
-            this.lbl_ExitTimeout.Text = "ExitTimeout";
-            this.lbl_ExitTimeout.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.chk_UseWorkAreas.AutoSize = true;
+            this.chk_UseWorkAreas.Location = new System.Drawing.Point(13, 35);
+            this.chk_UseWorkAreas.Name = "chk_UseWorkAreas";
+            this.chk_UseWorkAreas.Size = new System.Drawing.Size(104, 17);
+            this.chk_UseWorkAreas.TabIndex = 49;
+            this.chk_UseWorkAreas.Text = "Use Work Areas";
+            this.chk_UseWorkAreas.UseVisualStyleBackColor = true;
             // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 662);
+            this.Controls.Add(this.chk_UseWorkAreas);
             this.Controls.Add(this.grp_AccessAuthentication);
             this.Controls.Add(this.chk_ControlLayout_TouchScreen);
             this.Controls.Add(this.chk_MultipleUserLogin);
@@ -386,5 +398,6 @@
         private System.Windows.Forms.RadioButton rdb_Authentification_None;
         private System.Windows.Forms.Label lbl_ExitTimeout;
         private System.Windows.Forms.NumericUpDown nmUpDn_ExitTimeout;
+        private System.Windows.Forms.CheckBox chk_UseWorkAreas;
     }
 }

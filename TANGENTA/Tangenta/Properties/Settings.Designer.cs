@@ -778,5 +778,17 @@ namespace Tangenta.Properties {
                 this["timer_Login_MultiUser_Countdown"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseWorkAreas {
+            get {
+                return ((bool)(this["UseWorkAreas"]));
+            }
+            set {
+                this["UseWorkAreas"] = value;
+            }
+        }
     }
 }

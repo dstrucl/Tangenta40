@@ -22,7 +22,18 @@ namespace usrc_Item_Group_Handler
         public delegate void delegate_NewGroupSelected(Group grp);
 
         private delegate_NewGroupSelected m_delegate_NewGroupSelected_trigger = null;
-        int button_height = 30;
+        private int m_button_height = 30;
+        
+        private int button_height
+        {
+            get {
+                return m_button_height;
+            }
+            set
+            {
+                m_button_height = value;
+            }
+        }
         int font_height = 10;
         private bool m_bSingleSelected = false;
         public Group m_CurrentSubGroup_In_m_GroupList = null;

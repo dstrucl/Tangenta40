@@ -2771,12 +2771,14 @@ namespace TangentaDataBaseDef
             t_WorkArea_ParentGroup2 = new SQLTable((Object)new WorkArea_ParentGroup2(), "wapg2", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup2);
             t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.m_WorkArea_ParentGroup3, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Sub sub group ID", "Podpodskupina ID"));
             m_DBTables.items.Add(t_WorkArea_ParentGroup2);
 
             /* 243 */
             t_WorkArea_ParentGroup1 = new SQLTable((Object)new WorkArea_ParentGroup1(), "wapg1", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup1);
             t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.m_WorkArea_ParentGroup2, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Sub group ID", "Podskupina ID"));
             m_DBTables.items.Add(t_WorkArea_ParentGroup1);
 
             /* 244 */

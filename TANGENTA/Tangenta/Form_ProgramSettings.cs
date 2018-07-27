@@ -45,6 +45,7 @@ namespace Tangenta
             lng.s_grp_ColorSettings.Text(grp_ColorSettings);
             lng.s_chk_MultipleUserLogin.Text(chk_MultipleUserLogin);
             lng.s_chk_ControlLayout_TouchScreen.Text(chk_ControlLayout_TouchScreen);
+            lng.s_chk_UserWorkAreas.Text(chk_UseWorkAreas);
 
             lng.s_grp_AccessAuthentication.Text(grp_AccessAuthentication);
             lng.s_rdb_Autentification_None.Text(rdb_Authentification_None);
@@ -76,6 +77,8 @@ namespace Tangenta
                 chk_MultipleUserLogin.Enabled = false;
                 chk_MultipleUserLogin.Checked = false;
             }
+
+            chk_UseWorkAreas.Checked = Program.UseWorkAreas;
 
             chk_ControlLayout_TouchScreen.Checked = Program.ControlLayout_TouchScreen;
 
@@ -174,6 +177,11 @@ namespace Tangenta
                     Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
                 }
 
+                if (chk_UseWorkAreas.Checked != Properties.Settings.Default.UseWorkAreas)
+                {
+                    Properties.Settings.Default.UseWorkAreas = chk_UseWorkAreas.Checked;
+                    bChanged = true;
+                }
 
                 if (Properties.Settings.Default.Login_MultipleUsers)
                 {

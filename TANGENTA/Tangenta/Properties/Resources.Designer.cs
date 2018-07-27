@@ -708,6 +708,16 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tangenta_Logo_SMALL {
+            get {
+                object obj = ResourceManager.GetObject("Tangenta_Logo_SMALL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Tangenta_Question {
@@ -828,6 +838,16 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Icon Warranty {
             get {
                 object obj = ResourceManager.GetObject("Warranty", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon WorkArea {
+            get {
+                object obj = ResourceManager.GetObject("WorkArea", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

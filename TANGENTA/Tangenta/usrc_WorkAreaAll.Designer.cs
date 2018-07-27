@@ -1,6 +1,6 @@
-﻿namespace LoginControl
+﻿namespace Tangenta
 {
-    partial class usrc_MultipleUsers
+    partial class usrc_WorkAreaAll
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_MultipleUsers));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnl_Items = new System.Windows.Forms.Panel();
             this.usrc_Item_Group_Handler1 = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
@@ -59,8 +58,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Item_Group_Handler1);
-            this.splitContainer1.Size = new System.Drawing.Size(1025, 697);
-            this.splitContainer1.SplitterDistance = 800;
+            this.splitContainer1.Size = new System.Drawing.Size(1013, 697);
+            this.splitContainer1.SplitterDistance = 790;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -69,18 +68,18 @@
             this.pnl_Items.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_Items.Location = new System.Drawing.Point(0, 0);
             this.pnl_Items.Name = "pnl_Items";
-            this.pnl_Items.Size = new System.Drawing.Size(800, 697);
+            this.pnl_Items.Size = new System.Drawing.Size(790, 697);
             this.pnl_Items.TabIndex = 0;
             // 
             // usrc_Item_Group_Handler1
             // 
-            this.usrc_Item_Group_Handler1.Button_Height = 32;
+            this.usrc_Item_Group_Handler1.Button_Height = 64;
             this.usrc_Item_Group_Handler1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_Item_Group_Handler1.Font_Height = 10;
             this.usrc_Item_Group_Handler1.Location = new System.Drawing.Point(0, 0);
             this.usrc_Item_Group_Handler1.Name = "usrc_Item_Group_Handler1";
             this.usrc_Item_Group_Handler1.ShopName = "";
-            this.usrc_Item_Group_Handler1.Size = new System.Drawing.Size(217, 697);
+            this.usrc_Item_Group_Handler1.Size = new System.Drawing.Size(215, 697);
             this.usrc_Item_Group_Handler1.TabIndex = 0;
             this.usrc_Item_Group_Handler1.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.usrc_Item_Group_Handler1_GroupsRedefined);
             this.usrc_Item_Group_Handler1.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.Paint_Group);
@@ -88,7 +87,7 @@
             // usrc_Item_PageHandler1
             // 
             this.usrc_Item_PageHandler1.CurrentPage = 0;
-            this.usrc_Item_PageHandler1.Location = new System.Drawing.Point(547, 18);
+            this.usrc_Item_PageHandler1.Location = new System.Drawing.Point(348, 19);
             this.usrc_Item_PageHandler1.Name = "usrc_Item_PageHandler1";
             this.usrc_Item_PageHandler1.Size = new System.Drawing.Size(151, 37);
             this.usrc_Item_PageHandler1.TabIndex = 1;
@@ -116,7 +115,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::LoginControl.Properties.Resources.Tangenta_Logo_SMALL;
+            this.pictureBox1.Image = global::Tangenta.Properties.Resources.Tangenta_Logo_SMALL;
             this.pictureBox1.Location = new System.Drawing.Point(0, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(46, 74);
@@ -127,15 +126,15 @@
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Exit.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exit.Image")));
-            this.btn_Exit.Location = new System.Drawing.Point(885, 0);
+            this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Exit.Location = new System.Drawing.Point(873, 0);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(137, 55);
             this.btn_Exit.TabIndex = 3;
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
-            // usrc_MultipleUsers
+            // usrc_WorkAreaAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -145,8 +144,8 @@
             this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.usrc_Item_PageHandler1);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "usrc_MultipleUsers";
-            this.Size = new System.Drawing.Size(1028, 781);
+            this.Name = "usrc_WorkAreaAll";
+            this.Size = new System.Drawing.Size(1016, 781);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

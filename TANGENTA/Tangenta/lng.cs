@@ -617,6 +617,8 @@ namespace Tangenta
 
         public static ltext s_chk_ControlLayout_TouchScreen = new ltext(new string[] { "Control layout touch screen", "Prikaz za zaslon na dotik" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
+        public static ltext s_chk_UserWorkAreas = new ltext(new string[] { "Use work areas", "Vključi področja dela" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
         public static ltext s_chk_MultipleUserLogin = new ltext(new string[] { "Multiple users login", "Prijava več uporabnikov hkrati" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_grp_ColorSettings = new ltext(new string[] { "Color Settings", "Barvne nastavitve" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
