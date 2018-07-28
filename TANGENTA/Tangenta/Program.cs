@@ -111,9 +111,9 @@ namespace Tangenta
         internal static string IniFolder = "";
         internal static string IniFile = "";
 
-        internal static usrc_FVI_SLO usrc_FVI_SLO1 = null;
+        internal static FVI_SLO FVI_SLO1 = null;
 
-        internal static usrc_FVI_SLO_MessageBox message_box = null;
+        internal static FVI_SLO_MessageBox message_box = null;
 
         internal static Thread_FVI thread_fvi = null;
 
@@ -170,8 +170,6 @@ namespace Tangenta
                 }
             }
         }
-
-        internal static ID Atom_FVI_SLO_RealEstateBP_ID = null;
 
         internal static class Reset2FactorySettings
         {
@@ -231,61 +229,8 @@ namespace Tangenta
             }
         }
 
-        public static bool IsAdministratorUser
-        {
-            get
-            {
-                if (Program.MainForm!=null)
-                {
-                    if (Program.MainForm.m_usrc_Main!=null)
-                    {
-                        if (Program.MainForm.m_usrc_Main.loginControl1!=null)
-                        {
-                            return Program.MainForm.m_usrc_Main.loginControl1.IsAdministrator;
-                        }
-                    }
-                }
-                return false;
-            }
-        }
-
-        public static bool IsUserManager
-        {
-            get
-            {
-                if (Program.MainForm != null)
-                {
-                    if (Program.MainForm.m_usrc_Main != null)
-                    {
-                        if (Program.MainForm.m_usrc_Main.loginControl1 != null)
-                        {
-                            return Program.MainForm.m_usrc_Main.loginControl1.IsUserManager;
-                        }
-                    }
-                }
-                return false;
-            }
-        }
 
 
-        public static ID ActiveUser_myOrganisation_Person_ID
-        {
-            get
-            {
-                if (Program.MainForm != null)
-                {
-                    if (Program.MainForm.m_usrc_Main != null)
-                    {
-                        if (Program.MainForm.m_usrc_Main.loginControl1 != null)
-                        {
-                            return Program.MainForm.m_usrc_Main.loginControl1.myOrganisation_Person_ID;
-                        }
-                    }
-                }
-                return null;
-            }
-
-        }
 
         public static bool UseWorkAreas {
                                         get { return Properties.Settings.Default.UseWorkAreas; }
@@ -724,17 +669,17 @@ namespace Tangenta
                     LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
 
 
-                    if (System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Length > 1)
-                    {
-                        LogFile.LogFile.Write(1, "Another instance is allready running !");
-                        MessageBox.Show(lng.s_Another_instance_is_running.s);
-                        rpc.End();
-                        return;
-                    }
+                    //if (System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Length > 1)
+                    //{
+                    //    LogFile.LogFile.Write(1, "Another instance is allready running !");
+                    //    MessageBox.Show(lng.s_Another_instance_is_running.s);
+                    //    rpc.End();
+                    //    return;
+                    //}
 
 
                     bool createdNew = true;
-                    using (Mutex mutex = new Mutex(true, "Tangenta", out createdNew))
+                    using (Mutex mutex = new Mutex(true, "Tangenta2", out createdNew))
                     {
                         if (createdNew)
                         {

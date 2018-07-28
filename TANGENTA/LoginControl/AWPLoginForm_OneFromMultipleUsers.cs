@@ -20,12 +20,12 @@ namespace LoginControl
 
         internal ID LoginSession_id = null;
         internal ID Atom_WorkPeriod_ID = null;
+        internal ID xAtom_myOrganisation_Person_ID = null;
 
         internal DataTable dtLoginUsers = null;
-        internal AWPLoginData awpld = null;
-        internal AWP awp = null;
+        internal LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
 
-        LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
+        private bool m_blogoutall = false;
 
         internal bool LogoutALL
         {
@@ -35,21 +35,29 @@ namespace LoginControl
             }
         }
 
-        public AWPLoginForm_OneFromMultipleUsers(AWP xawp,
-                                                string username,
-                                                LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod,
+        public AWPLoginForm_OneFromMultipleUsers(LoginOfMyOrgUser xLoginOfMyOrgUser,
                                                 bool blogoutall,
                                                 LoginType xloginType,
                                                 ID xAtom_WorkPeriod_ID)
         {
             InitializeComponent();
-            awp = xawp;
-            awpld = new AWPLoginData();
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+            m_blogoutall = blogoutall;
             Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_loginType = xloginType;
-            call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
-            txt_UserName.Text = username;
-            if (xloginType == LoginType.LOGIN)
+        }
+
+        private void AWPLoginForm_OneFromMultipleUsers_Load(object sender, EventArgs e)
+        {
+            if (m_LoginOfMyOrgUser.awpld==null)
+            {
+                m_LoginOfMyOrgUser.awpld = new AWPLoginData();
+            }
+            m_LoginOfMyOrgUser.awpld.GetData(ref dtLoginUsers, txt_UserName.Text, AWP.awpd);
+
+            txt_UserName.Text = m_LoginOfMyOrgUser.UserName;
+
+            if (m_loginType == LoginType.LOGIN)
             {
                 this.Text = lng.s_Login.s;
                 this.btn_OK.Text = lng.s_Login.s;
@@ -57,7 +65,7 @@ namespace LoginControl
             }
             else
             {
-                if (blogoutall)
+                if (m_blogoutall)
                 {
                     chk_LogoutAll.Visible = true;
                     lng.s_chk_LogoutAll.Text(chk_LogoutAll);
@@ -72,21 +80,23 @@ namespace LoginControl
             }
 
             this.btn_Cancel.Text = "";//lng.s_Cancel.s;
-            lbl_UserName.Text = lng.s_UserName.s+":";
+            lbl_UserName.Text = lng.s_UserName.s + ":";
             lbl_Password.Text = lng.s_Password.s;
             dtLoginUsers = new DataTable();
+
         }
+
 
         private void DoLogin()
         {
-            switch (awpld.GetData(ref dtLoginUsers, txt_UserName.Text, awp.awpd))
+            switch (m_LoginOfMyOrgUser.awpld.GetData(ref dtLoginUsers, txt_UserName.Text, AWP.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
-                    if (awp.lctrl.PasswordMatch(awpld.Password, txt_Password.Text))
+                    if (LoginCtrl.PasswordMatch(m_LoginOfMyOrgUser.awpld.Password, txt_Password.Text))
                     {
-                        if (awpld.ChangePasswordOnFirstLogin)
+                        if (m_LoginOfMyOrgUser.awpld.ChangePasswordOnFirstLogin)
                         {
-                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(awp.lctrl, awpld, lng.s_AdministratorRequestForNewPassword.s);
+                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LoginOfMyOrgUser,  lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
                                 Login_Start();
@@ -103,19 +113,19 @@ namespace LoginControl
                         }
                         else
                         {
-                            if (Login_PasswordExpired(awpld))
+                            if (Login_PasswordExpired(m_LoginOfMyOrgUser.awpld))
                             {
-                                if (awpld.NotActiveAfterPasswordExpires)
+                                if (m_LoginOfMyOrgUser.NotActiveAfterPasswordExpires)
                                 {
-                                    AWP_func.DeactivateUserName(awpld.ID);
+                                    AWP_func.DeactivateUserName(m_LoginOfMyOrgUser.awpld.ID);
                                     MessageBox.Show(lng.s_YourUsernameHasExpired.s);
                                 }
                                 else
                                 {
-                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(awp.lctrl, awpld, lng.s_PasswordExpiredSetNewPassword.s);
+                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LoginOfMyOrgUser, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(awpld))
+                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LoginOfMyOrgUser.awpld))
                                         {
                                             // change password dialog
                                             if (Login_Start())
@@ -210,15 +220,33 @@ namespace LoginControl
                 {
                 }
             }
-            if (call_Get_Atom_WorkPeriod(awpld.myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
+            if (LoginCtrl.getWorkPeriod(m_LoginOfMyOrgUser.awpld.myOrganisation_Person_ID,ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID, ref Atom_WorkPeriod_ID))
             {
-                if (AWP_func.GetLoginSession(awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
+                if (AWP_func.GetLoginSession(m_LoginOfMyOrgUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
                 {
-                    if (awp.IsUserManager)
+                    if (m_LoginOfMyOrgUser.IsUserManager)
                     {
-                        awp.lctrl.btn_UserManager.Visible = true;
+                        if (m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser != null)
+                        {
+                            if (m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl != null)
+                            {
+                                if (m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl.m_usrc_LoginCtrl != null)
+                                {
+                                    m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
+                                }
+                            }
+                        }
                     }
-                    awp.lctrl.lbl_username.Text = awp.UserName + ": " + awp.FirstName + " " + awp.LastName;
+                    if (m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser != null)
+                    {
+                        if (m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl != null)
+                        {
+                            if (m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl.m_usrc_LoginCtrl != null)
+                            {
+                                m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl.m_usrc_LoginCtrl.lbl_username.Text = m_LoginOfMyOrgUser.UserName + ": " + m_LoginOfMyOrgUser.FirstName + " " + m_LoginOfMyOrgUser.LastName;
+                            }
+                        }
+                    }
                     return true;
                 }
                 else
@@ -232,10 +260,6 @@ namespace LoginControl
             }
         }
 
-
-      
-
-
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -247,7 +271,6 @@ namespace LoginControl
             txt_Password.Focus();
         }
 
-
         private void txt_Password_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
@@ -256,5 +279,6 @@ namespace LoginControl
                 e.Handled = true;
             }
         }
+
     }
 }

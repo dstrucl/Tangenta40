@@ -28,21 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_NewDocument));
-            this.m_usrc_Main = new Tangenta.usrc_DocumentMan();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Document));
+            this.loginControl1 = new LoginControl.LoginCtrl(this.components);
+            this.fvI_SLO1 = new FiscalVerificationOfInvoices_SLO.FVI_SLO(this.components);
             this.SuspendLayout();
             // 
-            // m_usrc_Main
+            // loginControl1
             // 
-            this.m_usrc_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_Main.AutoScroll = true;
-            this.m_usrc_Main.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_Main.Name = "m_usrc_Main";
-            this.m_usrc_Main.Size = new System.Drawing.Size(1000, 643);
-            this.m_usrc_Main.TabIndex = 0;
-            this.m_usrc_Main.Exit_Click += new Tangenta.usrc_DocumentMan.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
+            this.loginControl1.AuthentificationType = LoginControl.LoginCtrl.eAuthentificationType.PASSWORD;
+            this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.STD;
+            this.loginControl1.RecentItemsFolder = "";
+            this.loginControl1.UserLoggedIn += new LoginControl.LoginCtrl.delegate_UserLoggedIn(this.loginControl1_UserLoggedIn);
+            this.loginControl1.UserLoggedOut += new LoginControl.LoginCtrl.delegate_UserLoggedOut(this.loginControl1_UserLoggedOut);
+            this.loginControl1.ActivateDocumentMan += new LoginControl.LoginCtrl.delegate_ActivateDocumentMan(this.loginControl1_ActivateDocumentMan);
+            // 
+            // fvI_SLO1
+            // 
+            this.fvI_SLO1.FursD_ElectronicDeviceID = "";
+            this.fvI_SLO1.FursTESTEnvironment = false;
+            this.fvI_SLO1.MessageBox_Length = 100;
             // 
             // Form_Document
             // 
@@ -50,7 +55,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1000, 644);
-            this.Controls.Add(this.m_usrc_Main);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -67,7 +71,8 @@
 
         #endregion
 
-        internal usrc_DocumentMan m_usrc_Main;
+        internal LoginControl.LoginCtrl loginControl1;
+        internal FiscalVerificationOfInvoices_SLO.FVI_SLO fvI_SLO1;
     }
 }
 

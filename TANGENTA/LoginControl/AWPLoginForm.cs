@@ -16,16 +16,14 @@ namespace LoginControl
     {
 
         internal DataTable dtLoginUsers = null;
-        AWPLoginData awpld = null;
+        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
         AWP awp = null;
-        LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod = null;
 
-        public AWPLoginForm(AWP xawp, LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod)
+        public AWPLoginForm(AWP xawp)
         {
             InitializeComponent();
             awp = xawp;
-            awpld = awp.m_AWPLoginData;
-            call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
+            m_LoginOfMyOrgUser = awp.LoginOfMyOrgUser_Single;
             cmbR_UserName.RecentItemsFolder = awp.lctrl.RecentItemsFolder;
             this.Text = lng.s_Login.s;
             this.btn_OK.Text = lng.s_Login.s;
@@ -38,14 +36,14 @@ namespace LoginControl
         private void DoLogin()
         {
             this.cmbR_UserName.Set(this.cmbR_UserName.Text);
-            switch (awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, awp.awpd))
+            switch (m_LoginOfMyOrgUser.awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, AWP.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
-                    if (awp.lctrl.PasswordMatch(awpld.Password, txt_Password.Text))
+                    if (LoginCtrl.PasswordMatch(m_LoginOfMyOrgUser.awpld.Password, txt_Password.Text))
                     {
-                        if (awpld.ChangePasswordOnFirstLogin)
+                        if (m_LoginOfMyOrgUser.awpld.ChangePasswordOnFirstLogin)
                         {
-                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(awp.lctrl, awpld, lng.s_AdministratorRequestForNewPassword.s);
+                            AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LoginOfMyOrgUser, lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
                                 Login_Start();
@@ -62,19 +60,19 @@ namespace LoginControl
                         }
                         else
                         {
-                            if (Login_PasswordExpired(awpld))
+                            if (Login_PasswordExpired(m_LoginOfMyOrgUser.awpld))
                             {
-                                if (awpld.NotActiveAfterPasswordExpires)
+                                if (m_LoginOfMyOrgUser.awpld.NotActiveAfterPasswordExpires)
                                 {
-                                    AWP_func.DeactivateUserName(awpld.ID);
+                                    AWP_func.DeactivateUserName(m_LoginOfMyOrgUser.awpld.ID);
                                     MessageBox.Show(lng.s_YourUsernameHasExpired.s);
                                 }
                                 else
                                 {
-                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(awp.lctrl, awpld, lng.s_PasswordExpiredSetNewPassword.s);
+                                    AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LoginOfMyOrgUser, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(awpld))
+                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LoginOfMyOrgUser.awpld))
                                         {
                                             // change password dialog
                                             if (Login_Start())
@@ -155,10 +153,10 @@ namespace LoginControl
                 }
             }
             ID Atom_WorkPeriod_ID = null;
-            if (call_Get_Atom_WorkPeriod(awpld.myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
+            if (LoginCtrl.getWorkPeriod(m_LoginOfMyOrgUser.awpld.myOrganisation_Person_ID,ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
             {
                     ID LoginSession_id = null;
-                    if (AWP_func.GetLoginSession(awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
+                    if (AWP_func.GetLoginSession(m_LoginOfMyOrgUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
                     {
                             return true;
                     }

@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_Stock
     {
-        public static bool Add(DateTime tImportTime,decimal dQuantity,DateTime_v tExpiry_v,ID PurchasePrice_Item_ID,ID Stock_AddressLevel1_ID,string Description, ref ID Stock_ID)
+        public static bool Add(ID xAtom_WorkPeriod_ID,DateTime tImportTime,decimal dQuantity,DateTime_v tExpiry_v,ID PurchasePrice_Item_ID,ID Stock_AddressLevel1_ID,string Description, ref ID Stock_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -64,7 +64,7 @@ namespace TangentaDB
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Stock_ID,  ref Err, "Stock"))
             {
                 ID JOURNAL_Stock_ID_v = null;
-                if (f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data,DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
+                if (f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, xAtom_WorkPeriod_ID,DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
                 {
                     return true;
                 }
@@ -293,7 +293,8 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Update(ID currentStock_ID, 
+        public static bool Update(ID xAtom_WorkPeriod_ID,
+                                  ID currentStock_ID, 
                                   DateTime tImportTime, 
                                   decimal dQuantity, 
                                   DateTime_v tExpiry_v, 
@@ -353,7 +354,7 @@ namespace TangentaDB
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
             {
                 ID JOURNAL_Stock_ID = null;
-                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))
+                if (f_JOURNAL_Stock.Get(xAtom_WorkPeriod_ID,currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))
                 {
                     return true;
                 }

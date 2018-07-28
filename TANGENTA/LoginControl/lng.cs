@@ -24,6 +24,9 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_WorkPeriod = new ltext(new string[] { "Work Period", "Šiht" });
+
+
         public static ltext s_chk_LogoutAll = new ltext(new string[] { "Logout all users", "Odjavi vse uporabnike" });
         
         public static ltext s_ThisOrgansiationPersonHasNoPIN_please_define_PIN = new ltext(new string[] {

@@ -22,14 +22,14 @@ namespace FiscalVerificationOfInvoices_SLO
     public partial class usrc_FURS_environment_settings : UserControl
     {
         bool Test = false;
-        private usrc_FVI_SLO m_usrc_FVI_SLO;
+        private FVI_SLO m_usrc_FVI_SLO;
 
         public usrc_FURS_environment_settings()
         {
             InitializeComponent();
         }
 
-        public void Init(bool bTest, usrc_FVI_SLO x_usrc_FVI_SLO)
+        public void Init(bool bTest, FVI_SLO x_usrc_FVI_SLO)
         {
             m_usrc_FVI_SLO = x_usrc_FVI_SLO;
             Test = bTest;

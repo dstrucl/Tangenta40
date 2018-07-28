@@ -24,6 +24,7 @@ namespace ShopC
 {
     public partial class Form_Stock_Edit : Form
     {
+        ID m_Atom_WorkPeriod_ID = null;
         DataTable dt_Stock = new DataTable();
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
@@ -36,9 +37,10 @@ namespace ShopC
             get { return m_bChanged; }
         }
 
-        public Form_Stock_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnToOrderBy, NavigationButtons.Navigation xnav)
+        public Form_Stock_Edit(ID xAtom_WorkPeriod_ID,CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnToOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
@@ -82,7 +84,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
+                    f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
             m_bChanged = true;
@@ -110,7 +112,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
+                    f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
             m_bChanged = true;

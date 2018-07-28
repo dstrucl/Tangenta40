@@ -39,7 +39,7 @@ namespace Tangenta
                                                    ref string Err)
         {
             
-            if (frm.m_usrc_Main.Startup_12_Get_Printer(m_startup,ref Err))
+            if (Startup_12_Get_Printer(m_startup,ref Err))
             {
                 return Startup_check_proc_Result.CHECK_OK;
             }
@@ -49,6 +49,32 @@ namespace Tangenta
                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
             }
         }
+
+        internal bool Startup_12_Get_Printer(startup myStartup, ref string Err)
+        {
+            //Insert default templates for Proforma Invoice and for 
+            if (f_doc.InsertDefault())
+            {
+                TangentaPrint.PrintersList.Init();
+
+                if (TangentaPrint.PrintersList.Read(Program.Reset2FactorySettings.TangentaPrint_DLL))
+                {
+                    //myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
+            }
+            else
+            {
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
+            }
+        }
+
 
         private bool Startup_12_Show_Form_Printer_Edit(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,

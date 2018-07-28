@@ -36,9 +36,9 @@ namespace FiscalVerificationOfInvoices_SLO
             public string fursWebServiceURL = null;
             public string fursXmlNamespace = null;
             public int timeOutInSec = 0;
-            public usrc_FVI_SLO_MessageBox m_usrc_FVI_SLO_MessageBox = null;
+            public FVI_SLO_MessageBox m_usrc_FVI_SLO_MessageBox = null;
 
-            public ThreadData(bool xfursTESTEnvironment,string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, usrc_FVI_SLO_MessageBox x_usrc_FVI_SLO_MessageBox)
+            public ThreadData(bool xfursTESTEnvironment,string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, FVI_SLO_MessageBox x_usrc_FVI_SLO_MessageBox)
             {
                 fursTESTEnvironment = xfursTESTEnvironment;
                 certificateFileName = xcertificateFileName;
@@ -55,7 +55,7 @@ namespace FiscalVerificationOfInvoices_SLO
         {
 
             ThreadData thdata = (ThreadData)othdata;
-            usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = thdata.m_usrc_FVI_SLO_MessageBox;
+            FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = thdata.m_usrc_FVI_SLO_MessageBox;
             Thread_FVI_Message fvi_message = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.NONE,null);
             usrc_FVI_SLO_Message xusrc_FVI_SLO_Message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_START, null);
             xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
@@ -183,7 +183,7 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
 
-        public bool End(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox)
+        public bool End(FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox)
         {
             FiscalSettings = null;
             taxService = null;
@@ -218,7 +218,7 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
 
-        public bool Start(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length,bool fursTESTEnvironment, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
+        public bool Start(FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length,bool fursTESTEnvironment, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
         {
             try
             {

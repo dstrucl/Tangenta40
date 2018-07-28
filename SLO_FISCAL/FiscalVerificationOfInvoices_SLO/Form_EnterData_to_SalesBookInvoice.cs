@@ -23,7 +23,7 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_EnterData_to_SalesBookInvoice : Form
     {
-        private usrc_FVI_SLO m_usrc_FVI_SLO;
+        private FVI_SLO m_FVI_SLO;
         public enum eMode { WRITE, UPDATE };
         private eMode m_eMode = eMode.WRITE;
 
@@ -44,10 +44,10 @@ namespace FiscalVerificationOfInvoices_SLO
             get { return m_InvoiceNumber; }
         }
 
-        public Form_EnterData_to_SalesBookInvoice(usrc_FVI_SLO xusrc_FVI_SLO, ID Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
+        public Form_EnterData_to_SalesBookInvoice(FVI_SLO xFVI_SLO, ID Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
         {
             InitializeComponent();
-            m_usrc_FVI_SLO = xusrc_FVI_SLO;
+            m_FVI_SLO = xFVI_SLO;
             lng.s_SalesBookInvoice.Text(this);
             m_SerialNumber = xSerialNaumber;
             m_eMode = xEmode;
@@ -57,7 +57,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     this.lbl_Msg.Text = "Vpišete podatke iz vezane knjige računov za račun:" + FiscalYear.ToString() + "/" + InvoiceNumber.ToString();
                     txt_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
                     nm_UpDown_SetNumber.Value = Convert.ToDecimal(Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
-                    txt_InvoiceNumber.Text = m_usrc_FVI_SLO.FURS_InvoiceNumber(InvoiceNumber);
+                    txt_InvoiceNumber.Text = m_FVI_SLO.FURS_InvoiceNumber(InvoiceNumber);
                     this.btn_Write.Text = "Zapiši";
                     break;
                 case eMode.UPDATE:

@@ -58,7 +58,7 @@ namespace LoginControl
                 {
                     if (LoginUsers.o_enabled.enabled_)
                     {
-                        if (std.lctrl.PasswordMatch(LoginUsers.o_password.password_, txt_Password.Text))
+                        if (LoginCtrl.PasswordMatch(LoginUsers.o_password.password_, txt_Password.Text))
                         {
                             if (LoginUsers.o_ChangePasswordOnFirstLogin.ChangePasswordOnFirstLogin_)
                             {

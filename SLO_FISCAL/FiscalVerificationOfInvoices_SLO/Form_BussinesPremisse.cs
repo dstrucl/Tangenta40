@@ -12,13 +12,13 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_BussinesPremisse : Form
     {
-        private usrc_FVI_SLO m_usrc_FVI_SLO = null;
+        private FVI_SLO m_FVI_SLO = null;
         public bool FURS_BussinesPremiseData_SignedUp = false;
-        public Form_BussinesPremisse(usrc_FVI_SLO xusrc_FVI_SLO, bool bTest,string msg)
+        public Form_BussinesPremisse(FVI_SLO xFVI_SLO, bool bTest,string msg)
         {
             InitializeComponent();
-            m_usrc_FVI_SLO = xusrc_FVI_SLO;
-            this.usrc_FURS_BussinesPremiseData1.Init(bTest, m_usrc_FVI_SLO);
+            m_FVI_SLO = xFVI_SLO;
+            this.usrc_FURS_BussinesPremiseData1.Init(bTest, m_FVI_SLO);
             lng.s_SignUpBussinesPremisse.Text(this);
             if (bTest)
             {

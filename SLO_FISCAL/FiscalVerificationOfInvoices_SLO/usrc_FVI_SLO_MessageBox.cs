@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public class usrc_FVI_SLO_MessageBox
+    public class FVI_SLO_MessageBox
     {
         private Mutex myMutex = new Mutex();
 
-        private CircularBuffer_usrc_FVI_SLO_Message message_buff = null;
+        private CircularBuffer_FVI_SLO_Message message_buff = null;
 
-        public usrc_FVI_SLO_MessageBox(int Length)
+        public FVI_SLO_MessageBox(int Length)
         {
-            message_buff = new CircularBuffer_usrc_FVI_SLO_Message(Length);
+            message_buff = new CircularBuffer_FVI_SLO_Message(Length);
         }
 
         public Result_MessageBox_Get Get(ref usrc_FVI_SLO_Message Message)

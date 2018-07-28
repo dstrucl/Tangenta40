@@ -111,7 +111,10 @@ namespace Tangenta
 
         private void Usrc_SelectColorSheme1_ColorShemeChanged()
         {
-            this.m_usrc_Main.SetColor();
+            if (m_usrc_Main != null)
+            {
+                this.m_usrc_Main.SetColor();
+            }
         }
 
         private void Txt_ElectronicDevice_ID_TextChanged(object sender, EventArgs e)

@@ -220,13 +220,16 @@ namespace TangentaDB
 
 
 
-        public bool Insert_DocInvoice_Atom_Price_Items_Stock(string DocInvoice,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock
-                                                                    )
+        public bool Insert_DocInvoice_Atom_Price_Items_Stock(ID xAtom_WorkPeriod_ID,
+                                                             string DocInvoice,
+                                                             ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd,
+                                                             bool b_from_stock
+                                                             )
         {
-            return Get_DocInvoice_ShopC_Item(DocInvoice,ref appisd, b_from_stock);
+            return Get_DocInvoice_ShopC_Item(xAtom_WorkPeriod_ID,DocInvoice, ref appisd, b_from_stock);
         }
 
-        private bool Get_DocInvoice_ShopC_Item(string DocInvoice,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
+        private bool Get_DocInvoice_ShopC_Item(ID xAtom_WorkPeriod_ID,string DocInvoice,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
         {
             ID Atom_Price_Item_ID = null;
             if (Get_Atom_Price_Item(ref appisd))
@@ -393,7 +396,7 @@ namespace TangentaDB
 
                                 if (Stock_ID != null)
                                 {
-                                    stock_data.Remove_from_StockShelf();
+                                    stock_data.Remove_from_StockShelf(xAtom_WorkPeriod_ID);
                                 }
                             }
                             else
@@ -1696,13 +1699,13 @@ namespace TangentaDB
 
 
 
-        public bool SetDocInvoiceTime(DateTime_v issue_time)
+        public bool SetDocInvoiceTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID)
         {
             if (issue_time != null)
             {
                 ID Journal_DocInvoice_ID = null;
               
-                return f_Journal_DocInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+                return f_Journal_DocInvoice.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
               
             }
             else
@@ -1713,13 +1716,13 @@ namespace TangentaDB
             }
         }
 
-        public bool SetDocProformaInvoiceTime(DateTime_v issue_time)
+        public bool SetDocProformaInvoiceTime(DateTime_v issue_time, ID xAtom_WorkPeriod_ID)
         {
             if (issue_time != null)
             {
                 ID Journal_DocInvoice_ID = null;
 
-                return f_Journal_DocProformaInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+                return f_Journal_DocProformaInvoice.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
 
             }
             else
@@ -1731,7 +1734,7 @@ namespace TangentaDB
         }
    
 
-        public bool Storno(ref ID Storno_DocInvoice_ID,  bool bStorno,string ElectronicDevice_Name, string sReason,ref  DateTime retissue_time)
+        public bool Storno(ID xAtom_WorkPeriod_ID,ref ID Storno_DocInvoice_ID,  bool bStorno,string ElectronicDevice_Name, string sReason,ref  DateTime retissue_time)
         {
             object ores = null;
             string Err = null;
@@ -1844,7 +1847,7 @@ namespace TangentaDB
 
                             retissue_time = issue_time.v;
 
-                            if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
+                            if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
                             {
                                   return true;
                             }

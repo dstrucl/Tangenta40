@@ -15,9 +15,6 @@ namespace LoginControl
 {
     public partial class usrc_MultipleUsers : UserControl
     {
-        internal LoginCtrl.delegate_Get_Atom_WorkPeriod m_call_Get_Atom_WorkPeriod = null;
-        internal LoginCtrl.delegate_Activate_usrc_DocumentMan m_call_Activate_usrc_DocumentMan = null;
-        internal LoginCtrl.delegate_EndProgram m_call_ExitProgram = null;
         private AWP m_awp = null;
         DataTable dtLoginUsersGroup = null;
         DataTable m_AWP_dtLoginView = null;
@@ -44,7 +41,7 @@ namespace LoginControl
             set
             {
                 m_NumberOfItemsPerPage = value;
-                Init(m_awp, m_call_Get_Atom_WorkPeriod, m_call_Activate_usrc_DocumentMan);
+                Init(m_awp);
             }
         }
 
@@ -56,9 +53,8 @@ namespace LoginControl
             ipnl_Items_Width_default = pnl_Items.Width;
         }
 
-        internal void Init(AWP xawp,
-                           LoginCtrl.delegate_Get_Atom_WorkPeriod xcall_Get_Atom_WorkPeriod,
-                           LoginCtrl.delegate_Activate_usrc_DocumentMan xcall_Activate_usrc_DocumentMan)
+        internal void Init(AWP xawp
+                           )
         {
             lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
             if (myOrg.m_myOrg_Office!=null)
@@ -70,8 +66,6 @@ namespace LoginControl
             }
             
             m_awp = xawp;
-            m_call_Get_Atom_WorkPeriod = xcall_Get_Atom_WorkPeriod;
-            m_call_Activate_usrc_DocumentMan = xcall_Activate_usrc_DocumentMan;
             usrc_Item_aray = new usrc_LoginOfMyOrgUser[NumberOfItemsPerPage];
 
             int i = 0;
@@ -86,11 +80,8 @@ namespace LoginControl
             pnl_Items.AutoScrollPosition = new Point(0, 0);
             for (i = 0; i < m_NumberOfItemsPerPage; i++)
             {
-                usrc_LoginOfMyOrgUser usrc_item = new usrc_LoginOfMyOrgUser();
+                usrc_LoginOfMyOrgUser usrc_item = new usrc_LoginOfMyOrgUser(m_awp.lctrl);
                 usrc_item.m_usrc_MultipleUsers = this;
-                usrc_item.m_call_Get_Atom_WorkPeriod = this.m_call_Get_Atom_WorkPeriod;
-                usrc_item.m_call_Activate_usrc_DocumentMan = this.m_call_Activate_usrc_DocumentMan;
-                usrc_item.m_awp = this.m_awp;
                 usrc_item.Top = yPos;
                 usrc_item.Left = 5;
                 usrc_item.Width = this.pnl_Items.Width - 10;
@@ -172,7 +163,7 @@ namespace LoginControl
                 if (ctrl is usrc_LoginOfMyOrgUser)
                 {
                     usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.LoggedIn)
+                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
                     {
                         xusrc_LoginOfMyOrgUser.DoLogout();
                     }
@@ -188,7 +179,7 @@ namespace LoginControl
                 if (ctrl is usrc_LoginOfMyOrgUser)
                 {
                     usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.LoggedIn)
+                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
                     {
                         iCount++;
                     }
@@ -292,7 +283,7 @@ namespace LoginControl
                 if (ctrl is usrc_LoginOfMyOrgUser)
                 {
                     usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl; 
-                    if (xusrc_LoginOfMyOrgUser.LoggedIn)
+                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
                     {
                         MessageBox.Show(lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut.s);
                         return;

@@ -376,7 +376,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Lock(ID StockTake_ID)
+        public static bool Lock(ID xAtom_WorkPeriod_ID,ID StockTake_ID)
         {
             if (ID.Validate(StockTake_ID))
             {
@@ -386,7 +386,7 @@ namespace TangentaDB
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
                     ID JOURNAL_StockTake_ID = null;
-                    TangentaDB.f_JOURNAL_StockTake.Get(StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID);
+                    TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID);
                     return true;
                 }
                 else
@@ -401,7 +401,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool UnLock(ID StockTake_ID)
+        public static bool UnLock(ID xAtom_WorkPeriod_ID,ID StockTake_ID)
         {
             if (ID.Validate(StockTake_ID))
             {
@@ -411,7 +411,7 @@ namespace TangentaDB
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
                     ID JOURNAL_StockTake_ID = null;
-                    TangentaDB.f_JOURNAL_StockTake.Get(StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID);
+                    TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID);
                     return true;
                 }
                 else

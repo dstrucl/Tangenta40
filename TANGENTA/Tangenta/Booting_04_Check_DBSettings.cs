@@ -97,7 +97,7 @@ namespace Tangenta
                 {
                     if (fs.Init_Unit_Table(ref Err))
                     {
-                        if (frm.m_usrc_Main.GetDBSettings(ref Err))
+                        if (GetDBSettings(ref Err))
                         {
                             return eres;
                         }
@@ -148,6 +148,143 @@ namespace Tangenta
                 return Startup_check_proc_Result.CHECK_ERROR;
             }
         }
+
+        internal bool GetDBSettings(ref string Err)
+        {
+            bool bReadOnly = false;
+            Err = null;
+            long lRowsCount = fs.GetTableRowsCount("DBSettings");
+            if (lRowsCount > 1) //Database "Version" is wriiten after database creation in DBSettings
+            {
+                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref Program.AdministratorLockedPassword, ref bReadOnly, ref Err))
+                {
+                    case fs.enum_GetDBSettings.DBSettings_OK:
+                        string MultiuserOperationWithLogin = null;
+                        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
+                        {
+                            case fs.enum_GetDBSettings.DBSettings_OK:
+                                Program.OperationMode.MultiUser = MultiuserOperationWithLogin.Equals("1");
+
+                                string StockCheckAtStartup = null;
+                                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
+                                {
+                                    case fs.enum_GetDBSettings.DBSettings_OK:
+                                        Program.OperationMode.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
+
+                                        string sSingleUserLoginAsAdministrator = null;
+                                        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, ref sSingleUserLoginAsAdministrator, ref bReadOnly, ref Err))
+                                        {
+                                            case fs.enum_GetDBSettings.DBSettings_OK:
+                                                Program.OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
+
+                                                string sShopC_ExclusivelySellFromStock = null;
+                                                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
+                                                {
+                                                    case fs.enum_GetDBSettings.DBSettings_OK:
+                                                        Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
+
+                                                        string sMultiCurrencyOperation = null;
+                                                        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, ref sMultiCurrencyOperation, ref bReadOnly, ref Err))
+                                                        {
+                                                            case fs.enum_GetDBSettings.DBSettings_OK:
+                                                                Program.OperationMode.MultiCurrency = sMultiCurrencyOperation.Equals("1");
+                                                                string sNumberOfMonthAfterNewYearToAllowCreateNewInvoice = null;
+                                                                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name, ref sNumberOfMonthAfterNewYearToAllowCreateNewInvoice, ref bReadOnly, ref Err))
+                                                                {
+                                                                    case fs.enum_GetDBSettings.DBSettings_OK:
+                                                                        try
+                                                                        {
+                                                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = Convert.ToInt32(sNumberOfMonthAfterNewYearToAllowCreateNewInvoice);
+                                                                        }
+                                                                        catch
+                                                                        {
+                                                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
+                                                                        }
+                                                                        return true;
+
+                                                                    case fs.enum_GetDBSettings.No_TextValue:
+                                                                    case fs.enum_GetDBSettings.No_Data_Rows:
+                                                                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name;
+                                                                        return false;
+
+                                                                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
+
+                                                                        return false;
+                                                                }
+                                                                break;
+
+                                                            case fs.enum_GetDBSettings.No_TextValue:
+                                                            case fs.enum_GetDBSettings.No_Data_Rows:
+                                                                Err = DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name;
+                                                                return false;
+
+                                                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
+
+                                                                return false;
+                                                        }
+                                                        break;
+
+                                                    case fs.enum_GetDBSettings.No_TextValue:
+                                                    case fs.enum_GetDBSettings.No_Data_Rows:
+                                                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name;
+                                                        return false;
+
+                                                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                                        return false;
+                                                }
+                                                break;
+
+
+                                            case fs.enum_GetDBSettings.No_TextValue:
+                                            case fs.enum_GetDBSettings.No_Data_Rows:
+                                                Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
+                                                return false;
+
+                                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                                return false;
+                                        }
+                                        break;
+
+                                    case fs.enum_GetDBSettings.No_ReadOnly:
+                                    case fs.enum_GetDBSettings.No_TextValue:
+                                    case fs.enum_GetDBSettings.No_Data_Rows:
+                                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name;
+                                        return false;
+                                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                        return false;
+                                }
+                                break;
+
+
+                            case fs.enum_GetDBSettings.No_ReadOnly:
+                            case fs.enum_GetDBSettings.No_TextValue:
+                            case fs.enum_GetDBSettings.No_Data_Rows:
+                                Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
+                                return false;
+                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                return false;
+                        }
+                        break;
+                    case fs.enum_GetDBSettings.No_ReadOnly:
+                    case fs.enum_GetDBSettings.No_TextValue:
+                    case fs.enum_GetDBSettings.No_Data_Rows:
+                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name;
+                        return false;
+
+                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                        Err = fs.ERROR;
+                        return false;
+                }
+
+                return false; // GlobalData.Type_definitions_Read();
+            }
+            else
+            {
+                Err = fs.EMPTYTABLE;
+                return false; // No DataRows;
+            }
+        }
+
 
         internal Startup_eUndoProcedureResult Startup_04_Undo(startup_step xstartup_step,
                                         ref string Err)

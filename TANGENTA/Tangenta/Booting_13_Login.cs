@@ -40,7 +40,7 @@ namespace Tangenta
         {
             if (Program.Login_MultipleUsers)
             {
-                if (frm.m_usrc_Main.Login_MultipleUsers_ShowControlAtStartup(m_startup, null, m_startup.nav, ref Err))
+                if (Login_MultipleUsers_ShowControlAtStartup(m_startup, null, m_startup.nav, ref Err))
                 {
                     return Startup_check_proc_Result.CHECK_OK;
                 }
@@ -51,7 +51,7 @@ namespace Tangenta
             }
             else
             {
-                if (frm.m_usrc_Main.GetWorkPeriod(m_startup, null, m_startup.nav, ref Err))
+                if (frm.DocumentMan.GetWorkPeriod(m_startup, null, m_startup.nav, ref Err))
                 {
                     return Startup_check_proc_Result.CHECK_OK;
                 }
@@ -59,6 +59,41 @@ namespace Tangenta
                 {
                     return Startup_check_proc_Result.CHECK_ERROR;
                 }
+            }
+        }
+
+        public bool Login_MultipleUsers_ShowControlAtStartup(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        {
+            bool bCancel = false;
+            frm.loginControl1.Init(frm,LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                            frm.call_Edit_myOrganisationPerson,
+                                            frm.EndProgram,
+                                            null,
+                                            LanguageControl.DynSettings.LanguageID,
+                                            ref bCancel
+                                            );
+            if (frm.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav,  frm.Activate_usrc_DocumentMan))
+            {
+                //myStartup.eNextStep++;
+                if (Program.Login_MultipleUsers)
+                {
+                    return true;
+                }
+                else
+                {
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
             }
         }
 

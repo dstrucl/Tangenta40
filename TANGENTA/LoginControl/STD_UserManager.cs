@@ -267,7 +267,7 @@ namespace LoginControl
                                                                               txtLastName.Text,
                                                                               txtIdentityNumber.Text,
                                                                               txtContact.Text,
-                                                                              Convert.ToInt32(std.lctrl.LoginUsers_id),
+                                                                              Convert.ToInt32(std.lctrl.awp.LoginOfMyOrgUser_Single.LoginUsers_id),
                                                                               this.rdb_PaswordExpires_Never.Checked,
                                                                               chk_ChangePasswordOnFirstLogIn.Checked,
                                                                               Convert.ToInt32(nmUpDn_MaxPasswordAge.Value),
@@ -976,7 +976,7 @@ namespace LoginControl
 
                 if (LoginUsers.RowsCount > 0)
                 {
-                    if (userdata.password.Length >= std.lctrl.MinPasswordLength)
+                    if (userdata.password.Length >= LoginCtrl.MinPasswordLength)
                     {
                         if (LoginUsers.o_password.password_ == null)
                         {
@@ -986,7 +986,7 @@ namespace LoginControl
                         {
                             if (userdata.password_changed)
                             {
-                                if (!std.lctrl.PasswordMatch(LoginUsers.o_password.password_, userdata.password))
+                                if (!LoginCtrl.PasswordMatch(LoginUsers.o_password.password_, userdata.password))
                                 {
                                     bPasswordChanged = true;
                                 }
@@ -996,19 +996,19 @@ namespace LoginControl
                     else
                     {
 
-                        if ((LoginUsers.o_password.password_ == null) && ((userdata.password.Length < std.lctrl.MinPasswordLength)))
+                        if ((LoginUsers.o_password.password_ == null) && ((userdata.password.Length < LoginCtrl.MinPasswordLength)))
                         {
                             MessageBox.Show(lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s
-                                            + std.lctrl.MinPasswordLength.ToString() +
+                                            + LoginCtrl.MinPasswordLength.ToString() +
                                             lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                             return false;
                         }
                         else
                         {
-                            if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < std.lctrl.MinPasswordLength)) && ((userdata.password.Length > 0)))
+                            if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < LoginCtrl.MinPasswordLength)) && ((userdata.password.Length > 0)))
                             {
                                 MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s
-                                              + std.lctrl.MinPasswordLength.ToString() +
+                                              + LoginCtrl.MinPasswordLength.ToString() +
                                               lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                                 return false;
                             }

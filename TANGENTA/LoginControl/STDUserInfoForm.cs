@@ -26,17 +26,17 @@ namespace LoginControl
                 lbl_last_name.Text = lng.s_LastName.s;
                 lbl_Identity.Text = lng.s_IdentityNumber.s;
                 lbl_Contact.Text = lng.s_Contact.s;
-                txt_UserName.Text = std.lctrl.UserName;
-                txt_first_name.Text = std.lctrl.FirstName;
-                txt_last_name.Text = std.lctrl.LastName;
-                txt_Identiy.Text = std.lctrl.Identity;
-                txt_Contact.Text = std.lctrl.Email;
-                chk_NotActiveAfterPasswordExpires.Checked = std.lctrl.NotActiveAfterPasswordExpires;
-                chk_PasswordExpiresInNumberOfDays.Checked = std.lctrl.bPasswordExpiresInNumberOfDays;
-                chk_PasswordNeverExpires.Checked = std.lctrl.PasswordNeverExpires;
-                txt_NumberOfDays.Text = std.lctrl.Maximum_password_age_in_days.ToString();
-                txt_LastUserPasswordDefinitionTime.Text = std.lctrl.LastUserPasswordDefinitionTime.ToString();
-                if (!std.lctrl.PasswordNeverExpires)
+                txt_UserName.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.UserName;
+                txt_first_name.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.FirstName;
+                txt_last_name.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.LastName;
+                txt_Identiy.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.Identity;
+                txt_Contact.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.Email;
+                chk_NotActiveAfterPasswordExpires.Checked = std.lctrl.awp.LoginOfMyOrgUser_Single.NotActiveAfterPasswordExpires;
+                chk_PasswordExpiresInNumberOfDays.Checked = std.lctrl.awp.LoginOfMyOrgUser_Single.bPasswordExpiresInNumberOfDays;
+                chk_PasswordNeverExpires.Checked = std.lctrl.awp.LoginOfMyOrgUser_Single.PasswordNeverExpires;
+                txt_NumberOfDays.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.Maximum_password_age_in_days.ToString();
+                txt_LastUserPasswordDefinitionTime.Text = std.lctrl.awp.LoginOfMyOrgUser_Single.LastUserPasswordDefinitionTime.ToString();
+                if (!std.lctrl.awp.LoginOfMyOrgUser_Single.PasswordNeverExpires)
                 {
                     lbl_Password_expires_on.Visible = true;
                     lbl_Password_expires_on.Text = lng.s_PasswordExpiresAfter.s + std.lctrl.PasswordExpiresInNumberOfDays.ToString();
@@ -92,7 +92,7 @@ namespace LoginControl
 
         private void btn_LoginHistory_Click(object sender, EventArgs e)
         {
-            STDLoginHistoryForm login_history_form = new STDLoginHistoryForm(std,Convert.ToInt32(std.lctrl.LoginUsers_id), std.lctrl.UserName);
+            STDLoginHistoryForm login_history_form = new STDLoginHistoryForm(std,Convert.ToInt32(std.lctrl.awp.LoginOfMyOrgUser_Single.LoginUsers_id), std.lctrl.awp.LoginOfMyOrgUser_Single.UserName);
             login_history_form.ShowDialog();
         }
     }

@@ -35,10 +35,12 @@ namespace ShopC
         NavigationButtons.Navigation nav = null;
         string where_condition = null;
         string ColumnToOrderBy = null;
+        private ID m_Atom_WorkPeriod_ID = null;
 
-        public Form_StockItem_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xwhere_condition, string xColumnToOrderBy,TangentaDB.Item_Data x_Item_Data, NavigationButtons.Navigation xnav)
+        public Form_StockItem_Edit(ID xAtom_WorkPeriod_ID,CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xwhere_condition, string xColumnToOrderBy,TangentaDB.Item_Data x_Item_Data, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             nav = xnav;
             m_Item_Data = x_Item_Data;
             lng.s_lbl_Item_Stock.Text(lbl_Item_Stock);
@@ -157,7 +159,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
+                    f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
             m_bChanged = true;
@@ -185,7 +187,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    f_JOURNAL_Stock.Get(ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
+                    f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
                 }
             }
             m_bChanged = true;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoginControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,15 @@ using TangentaDB;
 
 namespace Tangenta
 {
-    public static class Door
+    public class Door
     {
-        internal static bool DoLoginAsAdministrator(Form frm)
+        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+
+        public Door(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        {
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+        }
+        internal bool DoLoginAsAdministrator(Form frm)
         {
             string AdministratorLockedPassword = null;
             if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
@@ -23,11 +30,11 @@ namespace Tangenta
             return false;
         }
 
-        internal static bool OpenIfUserIsAdministrator(Form parent_form)
+        internal bool OpenIfUserIsAdministrator(Form parent_form)
         {
             if (Program.OperationMode.MultiUser)
             {
-                if (Program.IsAdministratorUser)
+                if (m_LoginOfMyOrgUser.IsAdministrator)
                 {
                     return true;
                 }
@@ -43,7 +50,7 @@ namespace Tangenta
             }
         }
 
-        internal static bool OpenPriceList(Form parent_form)
+        internal bool OpenPriceList(Form parent_form)
         {
             if (Program.OperationMode.MultiUser)
             {
@@ -71,7 +78,7 @@ namespace Tangenta
         }
 
 
-        internal static bool OpenStockEdit(Form parent_form)
+        internal  bool OpenStockEdit(Form parent_form)
         {
             if (Program.OperationMode.MultiUser)
             {
@@ -98,17 +105,11 @@ namespace Tangenta
             return true;
         }
 
-        private static bool HasLoginControlRole(string[] Roles)
+        private bool HasLoginControlRole(string[] Roles)
         {
             if (Program.MainForm!=null)
             {
-                if (Program.MainForm.m_usrc_Main != null)
-                {
-                    if (Program.MainForm.m_usrc_Main.loginControl1 != null)
-                    {
-                        return Program.MainForm.m_usrc_Main.loginControl1.HasLoginControlRole(Roles);
-                    }
-                }
+                return m_LoginOfMyOrgUser.HasLoginControlRole(Roles);
             }
             return true;
         }

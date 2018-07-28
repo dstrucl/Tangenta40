@@ -133,6 +133,7 @@
             this.Name = "AWPLoginForm_OneFromMultipleUsers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
+            this.Load += new System.EventHandler(this.AWPLoginForm_OneFromMultipleUsers_Load);
             this.Shown += new System.EventHandler(this.AWPLoginForm_OneFromMultipleUsers_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

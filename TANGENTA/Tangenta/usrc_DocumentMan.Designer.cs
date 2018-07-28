@@ -39,7 +39,7 @@
             this.btn_SelectPanels = new System.Windows.Forms.Button();
             this.m_usrc_Help = new HUDCMS.usrc_Help();
             this.btn_Exit = new System.Windows.Forms.Button();
-            this.loginControl1 = new LoginControl.LoginCtrl();
+            this.loginControl1 = new LoginControl.usrc_LoginCtrl();
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
@@ -182,13 +182,9 @@
             // 
             this.loginControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loginControl1.AuthentificationType = LoginControl.LoginCtrl.eAuthentificationType.PASSWORD;
-            this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.AWP;
             this.loginControl1.Location = new System.Drawing.Point(498, 3);
             this.loginControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.loginControl1.MinPasswordLength = 5;
             this.loginControl1.Name = "loginControl1";
-            this.loginControl1.RecentItemsFolder = "";
             this.loginControl1.Size = new System.Drawing.Size(234, 49);
             this.loginControl1.TabIndex = 37;
             // 
@@ -196,12 +192,9 @@
             // 
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = "";
-            this.usrc_FVI_SLO1.FursTESTEnvironment = false;
             this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(731, 4);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_FVI_SLO1.MessageBox_Length = 100;
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(38, 49);
             this.usrc_FVI_SLO1.TabIndex = 32;
@@ -274,7 +267,7 @@
         public System.Windows.Forms.Button btn_SelectPanels;
         private HUDCMS.usrc_Help m_usrc_Help;
         private System.Windows.Forms.Button btn_Exit;
-        internal LoginControl.LoginCtrl loginControl1;
+        internal LoginControl.usrc_LoginCtrl loginControl1;
         internal FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
         private System.Windows.Forms.Button btn_Settings;
         internal System.Windows.Forms.SplitContainer splitContainer1;

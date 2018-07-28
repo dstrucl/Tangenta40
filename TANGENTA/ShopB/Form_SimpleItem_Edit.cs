@@ -40,7 +40,17 @@ namespace ShopB
             InitializeComponent();
             m_bChanged = false;
             dbTables = xdbTables;
-            nav = xnav;
+            if (xnav == null)
+            { 
+                nav = new NavigationButtons.Navigation(null);
+                nav.bDoModal = true;
+                nav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            }
+            else
+            {
+                nav = xnav;
+            }
+            
             tbl = xtbl;
             lng.s_Items.Text(this, " "+lng.s_Shop_B.s);
             List_of_Inserted_Items_ID = new List<ID>();

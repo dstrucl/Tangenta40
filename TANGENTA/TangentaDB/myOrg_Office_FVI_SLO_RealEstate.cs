@@ -13,6 +13,7 @@ namespace TangentaDB
     public class myOrg_Office_FVI_SLO_RealEstate
     {
         public ID ID = null;
+        public ID Atom_FVI_SLO_RealEstate_ID = null;
         public ID Office_Data_ID = null;
         public int_v BuildingNumber_v = null;
         public int_v BuildingSectionNumber_v = null;

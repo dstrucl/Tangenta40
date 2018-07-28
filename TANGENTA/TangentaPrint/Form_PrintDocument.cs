@@ -40,10 +40,12 @@ namespace TangentaPrint
         private long durationType;
         private long duration;
         private Image m_image_for_btn_exit = null;
+        private ID m_Atom_WorkPeriod_ID = null;
 
-        public Form_PrintDocument(InvoiceData xInvoiceData,Image image_for_btn_exit, delegate_Door_OpenIfUserIsAdministrator xdoor_openifuserisadministrator)
+        public Form_PrintDocument(ID xAtom_WorkPeriod_ID,InvoiceData xInvoiceData,Image image_for_btn_exit, delegate_Door_OpenIfUserIsAdministrator xdoor_openifuserisadministrator)
         {
             InitializeComponent();
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             Door_OpenIfUserIsAdministrator = xdoor_openifuserisadministrator;
             m_image_for_btn_exit = image_for_btn_exit;
             this.m_InvoiceData = xInvoiceData;
@@ -142,7 +144,7 @@ namespace TangentaPrint
             switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
-                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    m_usrc_Invoice_Preview.Init(m_Atom_WorkPeriod_ID,m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
@@ -209,7 +211,7 @@ namespace TangentaPrint
 
         private void M_usrc_SelectPrintTemplate_SettingsChanged()
         {
-            m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+            m_usrc_Invoice_Preview.Init(m_Atom_WorkPeriod_ID,m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
         }
 

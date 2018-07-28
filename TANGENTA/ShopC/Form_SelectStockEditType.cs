@@ -10,6 +10,7 @@ using NavigationButtons;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
+using DBConnectionControl40;
 
 namespace ShopC
 {
@@ -22,11 +23,12 @@ namespace ShopC
         public eAction eaction = Form_SelectStockEditType.eAction.none;
         private Navigation nav = null;
         public bool b_edt_Stock_dlg_Changed = false;
+        private ID m_Atom_WorkPeriod_ID = null;
 
-
-        public Form_SelectStockEditType(Navigation xnav)
+        public Form_SelectStockEditType(ID xAtom_WorkPeriod_ID,Navigation xnav)
         {
             InitializeComponent();
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             this.nav = xnav;
             lng.s_btn_EditItemsInStock.Text(btn_EditItemsInStock);
             lng.s_EditStockTakeItems.Text(btn_EditStockTakeItems);
@@ -37,7 +39,7 @@ namespace ShopC
         {
             SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
             //SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            Form_Stock_Edit edt_Stock_dlg = new Form_Stock_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+            Form_Stock_Edit edt_Stock_dlg = new Form_Stock_Edit(m_Atom_WorkPeriod_ID,DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                               tbl_Stock,
                                                               "Stock_$_ppi_$_i_$$Code asc", nav);
             edt_Stock_dlg.ShowDialog();
@@ -47,7 +49,7 @@ namespace ShopC
 
         internal bool Do_Form_StockTake_Edit()
         {
-            Form_StockTake_Edit edt_StockTake_dlg = new Form_StockTake_Edit(nav, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+            Form_StockTake_Edit edt_StockTake_dlg = new Form_StockTake_Edit(nav, DBSync.DBSync.DB_for_Tangenta.m_DBTables, m_Atom_WorkPeriod_ID);
             edt_StockTake_dlg.ShowDialog();
             return edt_StockTake_dlg.Changed;
         }

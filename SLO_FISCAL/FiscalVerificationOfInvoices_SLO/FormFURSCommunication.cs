@@ -34,7 +34,7 @@ using MNet.SLOTaxService.Messages;
 
          public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT; 
  
-         private usrc_FVI_SLO m_usrc_FVI_SLO; 
+         private FVI_SLO m_usrc_FVI_SLO; 
          private Thread_FVI_Message m_msg; 
  
          usrc_Success_Response m_usrc_Success_Response = null; 
@@ -49,7 +49,7 @@ using MNet.SLOTaxService.Messages;
          /****** End For DEBUG & TEST PURPOSES ***/ 
  
 
-         public FormFURSCommunication(usrc_FVI_SLO Parent, Thread_FVI_Message msg)
+         public FormFURSCommunication(FVI_SLO Parent, Thread_FVI_Message msg)
          { 
              InitializeComponent(); 
  

@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using DBConnectionControl40;
+using LanguageControl;
+using LogFile;
+using System.Security.Cryptography;
+using NavigationButtons;
+using System.Runtime.InteropServices;
+
+namespace LoginControl
+{
+    public partial class usrc_LoginCtrl : UserControl
+    {
+        public LoginCtrl m_LoginCtrl = null;
+
+        public usrc_LoginCtrl()
+        {
+            InitializeComponent();
+        }
+
+        public void Bind(LoginCtrl xlctrl)
+        {
+            m_LoginCtrl = xlctrl;
+        }
+
+        private void btn_UserManager_Click(object sender, EventArgs e)
+        {
+            switch (m_LoginCtrl.m_eDataTableCreationMode)
+            {
+                case LoginCtrl.eDataTableCreationMode.AWP:
+                    Navigation xnav = new Navigation(null);
+                    xnav.m_eButtons = Navigation.eButtons.OkCancel;
+                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(xnav,this.ParentForm, m_LoginCtrl.awp.LoginOfMyOrgUser_Single);
+                    AWP_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
+                    break;
+
+                case LoginCtrl.eDataTableCreationMode.STD:
+                    STD_UserManager STD_usr_mangaer = new STD_UserManager(this.ParentForm, m_LoginCtrl.std);
+                    STD_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
+                    break;
+            }
+        }
+
+        private void btn_UserInfo_Click(object sender, EventArgs e)
+        {
+            switch (m_LoginCtrl.m_eDataTableCreationMode)
+            {
+                case LoginCtrl.eDataTableCreationMode.AWP:
+                    Form pForm = Global.f.GetParentForm(this);
+                    AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, m_LoginCtrl.awp.LoginOfMyOrgUser_Single.UserName, m_LoginCtrl.awp.LoginOfMyOrgUser_Single);
+                    awp_usr_info.ShowDialog(pForm);
+                    break;
+                case LoginCtrl.eDataTableCreationMode.STD:
+                    STDUserInfoForm usrinfo = new STDUserInfoForm(m_LoginCtrl.std);
+                    usrinfo.ShowDialog();
+                    break;
+            }
+        }
+    }
+}

@@ -1,12 +1,15 @@
-﻿using DBConnectionControl40;
+﻿using CodeTables;
+using DBConnectionControl40;
 using NavigationButtons;
 using Startup;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaTableClass;
 using static Startup.startup_step;
 
 namespace Tangenta
@@ -14,6 +17,7 @@ namespace Tangenta
     public class Booting_07_GetTaxation
     {
         private startup_step.eStep eStep = eStep.Check_07_GetTaxation;
+        public DBTablesAndColumnNames DBtcn = null;
 
         private Form_Document frm = null;
         private startup m_startup = null;
@@ -37,7 +41,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_07_GetTaxation(ref Err))
+            if (Startup_07_GetTaxation(ref Err))
             {
                 return Startup_check_proc_Result.CHECK_OK;
             }
@@ -48,14 +52,59 @@ namespace Tangenta
             }
         }
 
+        private bool Startup_07_GetTaxation(ref string Err)
+        {
+            Err = null;
+            if (DBtcn == null)
+            {
+                DBtcn = new DBTablesAndColumnNames();
+            }
+            if (myOrg.m_ShopABC == null)
+            {
+                myOrg.m_ShopABC = new ShopABC(DBtcn,null);
+            }
+
+            if (myOrg.m_ShopABC.m_xTaxationList == null)
+            {
+                myOrg.m_ShopABC.m_xTaxationList = new xTaxationList();
+            }
+            DataTable dt = new DataTable();
+            if (myOrg.m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    //                        myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
+                LogFile.Error.Show(Err);
+                //                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
+            }
+        }
+
         private bool Startup_07_Show_Form_Taxation_Edit(startup_step xstartup_step,
                                                             NavigationButtons.Navigation xnav,
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_07_onformresult_Form_Taxation_Edit;
-            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_07_Show_Form_Taxation_Edit(xnav);
+            Startup_07_Show_Form_Taxation_Edit(xnav);
             return true;
         }
+
+        internal void Startup_07_Show_Form_Taxation_Edit(NavigationButtons.Navigation xnav)
+        {
+            SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
+            xnav.ShowForm(new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc", xnav), typeof(Form_Taxation_Edit).ToString());
+        }
+
 
         private Startup_onformresult_proc_Result Startup_07_onformresult_Form_Taxation_Edit(startup_step myStartup_step,
                                                                                     Form form,

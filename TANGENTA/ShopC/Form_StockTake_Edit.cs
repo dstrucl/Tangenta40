@@ -28,6 +28,7 @@ namespace ShopC
 
         private Form_StockTake_Edit_WizzardForHelp frm_StockTake_Edit_WizzardForHelp = null;
 
+        private ID m_Atom_WorkPeriod_ID = null;
 
         CodeTables.DBTableControl dbTables = null;
 
@@ -107,14 +108,15 @@ namespace ShopC
         }
 
 
-        public Form_StockTake_Edit(Navigation xnav, CodeTables.DBTableControl xdbTables)
+        public Form_StockTake_Edit(Navigation xnav, CodeTables.DBTableControl xdbTables,ID xAtom_WorkPeriod_ID)
         {
             InitializeComponent();
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             this.nav = xnav;
             dbTables = xdbTables;
             this.Text = lng.s_EditStockTakeItems.s;
             usrc_EditTable1.Text(lng.s_EditStockTake);
-            usrc_StockEditForSelectedStockTake1.Init(this);
+            usrc_StockEditForSelectedStockTake1.Init(this, m_Atom_WorkPeriod_ID);
         }
 
 
@@ -176,7 +178,7 @@ namespace ShopC
             {
                 ID JOURNAL_StockTake_ID = null;
                 splitContainer1.Panel2Collapsed = false;
-                if (TangentaDB.f_JOURNAL_StockTake.Get(ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID))
+                if (TangentaDB.f_JOURNAL_StockTake.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID))
                 {
                     StockTakeTable = m_tbl;
                     Show_StockTakeItems(m_tbl);

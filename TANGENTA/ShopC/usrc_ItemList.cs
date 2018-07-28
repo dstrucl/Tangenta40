@@ -22,8 +22,20 @@ namespace ShopC
 {
     public partial class usrc_ItemList : UserControl
     {
-
+        private ID m_Atom_WorkPeriod_ID = null;
         private string m_DocInvoice = "DocInvoice";
+
+        public new bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                base.Visible = value;
+            }
+        }
 
         public string DocInvoice
         {
@@ -68,7 +80,7 @@ namespace ShopC
         {
             get { return m_NumberOfItemsPerPage; }
             set { m_NumberOfItemsPerPage = value;
-                 Init();
+                 Init(m_Atom_WorkPeriod_ID);
                 }
         }
 
@@ -117,9 +129,9 @@ namespace ShopC
             ipnl_Items_Width_default = pnl_Items.Width;
         }
 
-        private void Init()
+        private void Init(ID xAtom_WorkPeriod_ID)
         {
-                      
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
 
             usrc_Item_aray = new usrc_Item[NumberOfItemsPerPage];
 
@@ -135,7 +147,7 @@ namespace ShopC
             pnl_Items.AutoScrollPosition = new Point(0, 0);
             for (i=0;i<m_NumberOfItemsPerPage;i++)
             {
-                usrc_Item usrc_item = new usrc_Item();
+                usrc_Item usrc_item = new usrc_Item(m_Atom_WorkPeriod_ID);
                 usrc_item.m_usrc_ItemList = this;
                 usrc_item.ExclusivelySellFromStock = this.ExclusivelySellFromStock;
                 usrc_item.Top = yPos;
@@ -180,14 +192,15 @@ namespace ShopC
             }
         }
 
-        internal void Init(TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
+        internal void Init(ID xAtom_WorkPeriod_ID,TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
         {
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
             m_bExclusivelySellFromStock = xbExclusivelySellFromStock;
-            Init();
+            Init(m_Atom_WorkPeriod_ID);
         }
 
         public void Init(usrc_Atom_ItemsList x_usrc_Atom_ItemsList)

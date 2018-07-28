@@ -26,12 +26,12 @@ namespace FiscalVerificationOfInvoices_SLO
         string Xml_ECHO = @"<?xml version=""1.0"" encoding=""UTF-8""?> <fu:EchoRequest xmlns:fu=""http://www.fu.gov.si/"">Echo</fu:EchoRequest>";
         ToolTip ToolTipEcho = new ToolTip();
 
-        public usrc_FVI_SLO m_usrc_FVI_SLO = null;
+        public FVI_SLO m_FVI_SLO = null;
 
-        public Form_MainFiscal(usrc_FVI_SLO xusrc_FVI_SLO)
+        public Form_MainFiscal(FVI_SLO xFVI_SLO)
         {
             InitializeComponent();
-            m_usrc_FVI_SLO = xusrc_FVI_SLO;
+            m_FVI_SLO = xFVI_SLO;
             lng.s_FURS_WWW_btn_Check_invoice.Text(btn_CheckInvoice);
             lng.s_FVI_for_cash_payment.Text(chk_FVI_CASH_PAYMENT);
             lng.s_FVI_for_card_payment.Text(chk_FVI_CARD_PAYMENT);
@@ -42,15 +42,18 @@ namespace FiscalVerificationOfInvoices_SLO
             chk_Edit_DocType_Settings.CheckedChanged += Chk_Edit_DocType_Settings_CheckedChanged;
             grp_DocTypeSettings.Enabled = false;
             chk_FVI_CASH_PAYMENT.Enabled = false;
-            if (m_usrc_FVI_SLO.Image_ButtonExit != null)
+            if (m_FVI_SLO.m_usrc_FVI_SLO != null)
             {
-                this.btn_Exit.Image = m_usrc_FVI_SLO.Image_ButtonExit;
-                this.btn_Exit.Text = "";
-            }
-            else
-            {
-                this.btn_Exit.Image = null;
-                this.btn_Exit.Text = lng.ss_Exit.s;
+                if (m_FVI_SLO.m_usrc_FVI_SLO.Image_ButtonExit != null)
+                {
+                    this.btn_Exit.Image = m_FVI_SLO.m_usrc_FVI_SLO.Image_ButtonExit;
+                    this.btn_Exit.Text = "";
+                }
+                else
+                {
+                    this.btn_Exit.Image = null;
+                    this.btn_Exit.Text = lng.ss_Exit.s;
+                }
             }
             Init();
         }
@@ -85,7 +88,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public void Init()
         {
-            if (m_usrc_FVI_SLO.FursTESTEnvironment)
+            if (m_FVI_SLO.FursTESTEnvironment)
             {
                 this.Text = lng.s_FVI_Check.s + " " + lng.s_Furs_Test_Environment.s;
             }
@@ -112,7 +115,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 nav_Form_Settings.bDoModal = true;
                 bool Reset2FactorySettings_FiscalVerification_DLL = false;
-                Form_Settings fvi_settings = new Form_Settings(m_usrc_FVI_SLO, nav_Form_Settings, ref Reset2FactorySettings_FiscalVerification_DLL);
+                Form_Settings fvi_settings = new Form_Settings(m_FVI_SLO, nav_Form_Settings, ref Reset2FactorySettings_FiscalVerification_DLL);
                 fvi_settings.ShowDialog(this);
                 Init();
             }
@@ -124,7 +127,7 @@ namespace FiscalVerificationOfInvoices_SLO
             ToolTipEcho.SetToolTip(this.btn_Send_ECHO, "");
             btn_Send_ECHO.ForeColor = Color.Black ;
             Refresh();
-            m_usrc_FVI_SLO.Send_Echo(Xml_ECHO);
+            m_FVI_SLO.Send_Echo(Xml_ECHO);
         }
 
         public bool FVI_Response_ECHO(bool success, string errorMessage)
@@ -165,20 +168,20 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void btn_CheckInvoice_Click(object sender, EventArgs e)
         {
-            string surl = m_usrc_FVI_SLO.FursD_WWW_check_invoice;
+            string surl = m_FVI_SLO.FursD_WWW_check_invoice;
 
-            if (m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice==null)
+            if (m_FVI_SLO.m_Form_FURS_WEB_check_invoice==null)
             {
-                m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice = new Form_FURS_WEB_check_invoice(surl);
+                m_FVI_SLO.m_Form_FURS_WEB_check_invoice = new Form_FURS_WEB_check_invoice(surl);
             }
             else
             {
-                if (m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice.IsDisposed)
+                if (m_FVI_SLO.m_Form_FURS_WEB_check_invoice.IsDisposed)
                 {
-                    m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice = new Form_FURS_WEB_check_invoice(surl);
+                    m_FVI_SLO.m_Form_FURS_WEB_check_invoice = new Form_FURS_WEB_check_invoice(surl);
                 }
             }
-            m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice.Show();
+            m_FVI_SLO.m_Form_FURS_WEB_check_invoice.Show();
         }
 
         private void chk_FVI_CASH_PAYMENT_CheckedChanged(object sender, EventArgs e)

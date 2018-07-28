@@ -27,7 +27,8 @@ namespace TangentaPrint
 {
     public partial class usrc_Invoice_Preview : UserControl
     {
-//        PdfGenerateConfig config = new PdfGenerateConfig();
+        //        PdfGenerateConfig config = new PdfGenerateConfig();
+        private ID m_Atom_WorkPeriod_ID = null;
         Size pageSize = new Size();
         bool bDocInvoicePrinted = false;
 
@@ -283,8 +284,9 @@ namespace TangentaPrint
             //string html_doc = Properties.Resources.html_doc;
 
         }
-        public bool Init(byte[] xdoc,Printer printer, InvoiceData xInvoiceData, GlobalData.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public bool Init(ID xAtom_WorkPeriod_ID,byte[] xdoc,Printer printer, InvoiceData xInvoiceData, GlobalData.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_InvoiceData = xInvoiceData;
             m_paymentType = xpaymentType;
             m_sPaymentMethod = sPaymentMethod;
@@ -354,7 +356,7 @@ namespace TangentaPrint
                         }
                     }
                     ID journal_docinvoice_id = null;
-                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
+                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
                 }
                 else
                 {
@@ -368,7 +370,7 @@ namespace TangentaPrint
                         }
                     }
                     ID journal_docinvoice_id = null;
-                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
+                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
                 }
                 bDocInvoicePrinted = true;
             }
@@ -391,7 +393,7 @@ namespace TangentaPrint
                 {
                     if (ID.Validate(journal_docproformainvoice_type_id))
                     {
-                        f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id);
+                        f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id);
                     }
                 }
             }

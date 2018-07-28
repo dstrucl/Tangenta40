@@ -16,6 +16,8 @@ namespace ShopC
 {
     public partial class usrc_StockEditForSelectedStockTake : UserControl
     {
+        private ID m_Atom_WorkPeriod_ID = null;
+
         public delegate void delegate_BtnExitPressed();
         public event delegate_BtnExitPressed BtnExitPressed = null;
 
@@ -170,9 +172,10 @@ namespace ShopC
         }
 
 
-        internal void Init(Form_StockTake_Edit xForm_StockTake_Edit)
+        internal void Init(Form_StockTake_Edit xForm_StockTake_Edit,ID xAtom_WorkPeriod_ID)
         {
             m_Form_StockTake_Edit = xForm_StockTake_Edit;
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
         }
 
         internal void SetItem(ID ID,string xUniqueName, string symbol,short uDecimalPlaces)
@@ -486,7 +489,7 @@ namespace ShopC
                         decimal dquantity = nmUpDn_Quantity.Value;
                         ID Stock_AddressLevel1_ID = null;
                         ID Stock_ID = null;
-                        if (TangentaDB.f_Stock.Add(tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID,this.txt_StockDescription.Text,ref Stock_ID))
+                        if (TangentaDB.f_Stock.Add(m_Atom_WorkPeriod_ID,tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID,this.txt_StockDescription.Text,ref Stock_ID))
                         {
                             m_Changed = true;
                             if (Reload(StockTakeTable))
@@ -723,7 +726,7 @@ namespace ShopC
                 {
                     if (XMessage.Box.Show(this, lng.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        f_StockTake.Lock(StockTake_ID);
+                        f_StockTake.Lock(m_Atom_WorkPeriod_ID,StockTake_ID);
                         m_Changed = true;
                         m_Form_StockTake_Edit.Init();
                     }
@@ -874,7 +877,7 @@ namespace ShopC
                         DateTime tImportTime = tPick_ImportTime.Value;
                         decimal dquantity = nmUpDn_Quantity.Value;
                         ID Stock_AddressLevel1_ID = null;
-                        if (TangentaDB.f_Stock.Update(CurrentStock_ID,tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
+                        if (TangentaDB.f_Stock.Update(m_Atom_WorkPeriod_ID,CurrentStock_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
                         {
                             m_Changed = true;
                             if (Reload(StockTakeTable))

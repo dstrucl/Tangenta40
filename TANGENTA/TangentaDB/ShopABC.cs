@@ -25,6 +25,7 @@ namespace TangentaDB
     {
         TangentaTableClass.SQL_Database_Tables_Definition td = null;
         DBTablesAndColumnNames DBtcn = null;
+        internal ID m_Atom_WorkPeriod_ID = null;
 
         public xTaxationList m_xTaxationList = null;
 
@@ -859,15 +860,16 @@ namespace TangentaDB
             }
         }
 
-        public ShopABC(DBTablesAndColumnNames xDBtcn)
+        public ShopABC(DBTablesAndColumnNames xDBtcn,ID xAtom_WorkPeriod_ID)
         {
             m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             td = DBSync.DBSync.DB_for_Tangenta.mt;
             DBtcn = xDBtcn;
 
         }
 
-        public bool SetNewDraft_DocInvoice(int iFinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, Control pParent, ref ID DocInvoice_ID,
+        public bool SetNewDraft_DocInvoice(ID xAtom_WorkPeriod_ID,int iFinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, Control pParent, ref ID DocInvoice_ID,
                                   ID myOrganisation_Person_ID,
                                   string DocInvoice,
                                   string ElectronicDevice_Name,
@@ -992,12 +994,12 @@ namespace TangentaDB
                         ID Journal_DocInvoice_ID = null;
                         if (IsDocInvoice)
                         {
-                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else if (IsDocProformaInvoice)
                         {
                             DateTime_v dt_v = new DateTime_v(DateTime.Now);
-                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else
                         {

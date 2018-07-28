@@ -141,6 +141,13 @@
     </Compile>
     <Compile Include="f.cs" />
     <Compile Include="HtmlTemplate.cs" />
+    <Compile Include="LoginCtrl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LoginCtrl.Designer.cs">
+      <DependentUpon>LoginCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginOfMyOrgUser.cs" />
     <Compile Include="STD.cs" />
     <Compile Include="STDChangePasswordForm.cs">
       <SubType>Form</SubType>
@@ -161,11 +168,11 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
-    <Compile Include="LoginCtrl.cs">
+    <Compile Include="usrc_LoginCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LoginCtrl.Designer.cs">
-      <DependentUpon>LoginCtrl.cs</DependentUpon>
+    <Compile Include="usrc_LoginCtrl.Designer.cs">
+      <DependentUpon>usrc_LoginCtrl.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPLoginForm.cs">
       <SubType>Form</SubType>
@@ -286,8 +293,8 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginCtrl.resx">
-      <DependentUpon>LoginCtrl.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_LoginCtrl.resx">
+      <DependentUpon>usrc_LoginCtrl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AWPLoginForm.resx">

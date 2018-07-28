@@ -28,7 +28,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private bool Test = false;
         private bool m_ReadOnly = false;
-        private usrc_FVI_SLO m_usrc_FVI_SLO;
+        private FVI_SLO m_usrc_FVI_SLO;
 
         public bool ReadOnly
         {
@@ -62,7 +62,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        public void Init(bool bTest, usrc_FVI_SLO x_usrc_FVI_SLO)
+        public void Init(bool bTest, FVI_SLO x_usrc_FVI_SLO)
         {
 
             m_usrc_FVI_SLO = x_usrc_FVI_SLO;

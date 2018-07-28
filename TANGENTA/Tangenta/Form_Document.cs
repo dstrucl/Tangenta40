@@ -99,10 +99,29 @@ namespace Tangenta
 
         private Form_Document_WizzardForHelp frm_Document_WizzardForHelp = null;
 
+        private usrc_DocumentMan m_DocumentMan = null;
+
+        public usrc_DocumentMan DocumentMan 
+        {
+            get
+            {
+                return m_DocumentMan;
+            }
+            set
+            {
+                m_DocumentMan = value;
+            }
+        }
+
         public Form_Document()
         {
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
+
+            Program.FVI_SLO1 = this.fvI_SLO1;
+            Program.thread_fvi = this.fvI_SLO1.thread_fvi;
+            Program.message_box = this.fvI_SLO1.message_box;
+
             default_FormName = this.Name;
             this.Icon = Properties.Resources.Tangenta_Icon;
             Program.nav = new NavigationButtons.Navigation();
@@ -163,7 +182,7 @@ namespace Tangenta
                 this.KeyUp += new KeyEventHandler(Main_Form_KeyUp);
             }
 
-            m_usrc_Main.Visible = false;
+            //m_usrc_Main.Visible = false;
 
 
             m_startup = new startup(this,
@@ -246,24 +265,25 @@ namespace Tangenta
             Program.nav.oStartup = m_startup;
         }
 
+
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
-            m_usrc_Main.WizzardShow_ShopsVisible(xshops_inuse);
+            DocumentMan.WizzardShow_ShopsVisible(xshops_inuse);
         }
 
         internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
         {
-            m_usrc_Main.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+            DocumentMan.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
         }
 
         internal void WizzardShow_InvoiceTable_Visible(bool bvisible)
         {
-            m_usrc_Main.WizzardShow_InvoiceTable_Visible(bvisible);
+            DocumentMan.WizzardShow_InvoiceTable_Visible(bvisible);
         }
 
         internal void WizzardShow_DocInvoice(string xDocInvoice)
         {
-            m_usrc_Main.WizzardShow_DocInvoice(xDocInvoice);
+            DocumentMan.WizzardShow_DocInvoice(xDocInvoice);
         }
 
         private void M_usrc_Startup_WebBrowserControl_DocumentCompleted(string url)
@@ -295,7 +315,7 @@ namespace Tangenta
         {
 
             m_XmlFileName = XML_ROOT_NAME;
-            m_usrc_Main.Initialise(this);
+            //m_usrc_Main.Initialise(this);
         }
 
 
@@ -387,18 +407,18 @@ namespace Tangenta
             }
 
            
-            if (ID.Validate(m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID))
+            if (ID.Validate(DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID))
             {
-                Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+                Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
             }
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
-            if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA != null)
+            if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA != null)
             {
-                if (m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
                 {
-                    m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                    m_usrc_Main.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                    DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                    DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
 
@@ -408,17 +428,17 @@ namespace Tangenta
             }
             else
             {
-                ID atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
+                ID atom_work_period_id = loginControl1.awp.LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID;
                 if (ID.Validate(atom_work_period_id))
                 {
-                    TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
+                    TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID);
                 }
             }
             if (Program.b_FVI_SLO)
             {
-                if (Program.usrc_FVI_SLO1 != null)
+                if (Program.FVI_SLO1 != null)
                 {
-                    Program.usrc_FVI_SLO1.End();
+                    Program.FVI_SLO1.End();
                 }
             }
 
@@ -428,7 +448,7 @@ namespace Tangenta
 
         private void LayoutSet()
         {
-            m_usrc_Main.usrc_FVI_SLO1.Visible = Program.b_FVI_SLO;
+            DocumentMan.usrc_FVI_SLO1.Visible = Program.b_FVI_SLO;
 
             if (Properties.Settings.Default.Form_Document_WindowState >= 0)
             {
@@ -459,7 +479,7 @@ namespace Tangenta
                         break;
                 }
             }
-            m_usrc_Main.SetSplitControlsSpliterDistance();
+            DocumentMan.SetSplitControlsSpliterDistance();
         }
 
         private void LayoutSave()
@@ -481,18 +501,56 @@ namespace Tangenta
                     break;
             }
 
-            if (this.m_usrc_Main != null)
+            if (this.DocumentMan != null)
             {
-                this.m_usrc_Main.SaveSplitControlsSpliterDistance();
+                this.DocumentMan.SaveSplitControlsSpliterDistance();
             }
 
         }
 
         private void m_usrc_Main_Exit_Click(LoginControl.LoginCtrl.eExitReason eReason)
         {
-             eExitReason = eReason;
-             this.Close();
+            do_exit(eReason);
         }
+
+        private void do_exit(LoginControl.LoginCtrl.eExitReason eReason)
+        {
+            eExitReason = eReason;
+            this.Close();
+        }
+
+
+        internal void EndProgram(LoginControl.LoginCtrl.eExitReason eres)
+        {
+            do_exit(eres);
+        }
+
+        public bool call_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
+        {
+            Navigation xnav = new Navigation(null);
+            xnav.m_eButtons = Navigation.eButtons.OkCancel;
+            if (myOrg.m_myOrg_Office != null)
+            {
+                if (ID.Validate(myOrg.m_myOrg_Office.ID))
+                {
+                    Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(myOrg.m_myOrg_Office.ID, myOrganisation_Person_ID, xnav);
+                    frm_myOrgPerEdit.TopMost = parentform.TopMost;
+                    frm_myOrgPerEdit.Show(parentform);
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:myOrg.m_myOrg_Office.m_myOrg_Person.ID is not valid!");
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:(myOrg.m_myOrg_Office == null!");
+                return false;
+            }
+        }
+
 
         private bool AskToExit()
         {
@@ -529,8 +587,8 @@ namespace Tangenta
                 {
                     if (this.eExitReason != LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL)
                     {
-                        this.m_usrc_Main.Active = false;
-                        this.m_usrc_Main.loginControl1.Login_MultipleUsers_ShowControl();
+                        this.DocumentMan.Active = false;
+                        this.loginControl1.Login_MultipleUsers_ShowControl();
                         e.Cancel = true;
                     }
                     else
@@ -592,7 +650,8 @@ namespace Tangenta
                 frm_Form_FirstTimeInstallationGreeting.Show();
             }
             Program.bFirstTimeInstallation = false;
-            m_usrc_Main.Init(null);
+
+            //m_usrc_Main.Init(null);
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Init(null)!");
 
@@ -612,32 +671,13 @@ namespace Tangenta
 
         internal void Activate_usrc_DocumentMan(LoginControl.usrc_MultipleUsers xm_usrc_MultipleUsers)
         {
-            if (xm_usrc_MultipleUsers!=null)
-            {
-                xm_usrc_MultipleUsers.Visible = false;
-            }
-
-            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
-
-            LayoutSet();
-
-            
-
-            m_usrc_Main.Activate(Program.nav);
-
-
-            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
-
-            SetNewFormTag();
-            m_usrc_Main.LayoutChanged += M_usrc_Main_LayoutChanged;
-
         }
 
 
         private void M_usrc_Main_LayoutChanged()
         {
             SetNewFormTag();
-            m_usrc_Main.HelpReload();
+            DocumentMan.HelpReload();
         }
 
 
@@ -646,13 +686,13 @@ namespace Tangenta
             string sNewTag = "_";
             sXMLFiletag = "_";
             List<string> tag_conditions = new List<string>();
-            if (this.m_usrc_Main.IsDocInvoice)
+            if (this.DocumentMan.IsDocInvoice)
             {
                 numberOfAll = fs.NumberOInvoicesInDatabase();
                 sNewTag += "i";
                 tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
             }
-            else if (this.m_usrc_Main.IsDocProformaInvoice)
+            else if (this.DocumentMan.IsDocProformaInvoice)
             {
                 numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
                 sNewTag += "p";
@@ -690,12 +730,12 @@ namespace Tangenta
                 tag_conditions.Add(tagDC_MultiUser_false.NamedCondition);
             }
 
-            if (m_usrc_Main.m_usrc_Invoice_Visible)
+            if (DocumentMan.m_usrc_Invoice_Visible)
             {
                 sNewTag += "I";
                 tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
 
-                if (m_usrc_Main.m_usrc_InvoiceHead_Visible)
+                if (DocumentMan.m_usrc_InvoiceHead_Visible)
                 {
                     sNewTag += "h1";
                     tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
@@ -706,7 +746,7 @@ namespace Tangenta
                     tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
                 }
 
-                if (m_usrc_Main.m_usrc_Invoice_ViewMode)
+                if (DocumentMan.m_usrc_Invoice_ViewMode)
                 {
                     if (sNewTag.Contains("N"))
                     {
@@ -723,7 +763,7 @@ namespace Tangenta
                         tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
                     }
                 }
-                if (m_usrc_Main.ShopA_Visible)
+                if (DocumentMan.ShopA_Visible)
                 {
                     sNewTag += "A";
                     tag_conditions.Add(tagDC_ShopA_Visible_true.NamedCondition);
@@ -733,7 +773,7 @@ namespace Tangenta
                     tag_conditions.Add(tagDC_ShopA_Visible_false.NamedCondition);
                 }
 
-                if (m_usrc_Main.ShopB_Visible)
+                if (DocumentMan.ShopB_Visible)
                 {
                     sNewTag += "B";
                     tag_conditions.Add(tagDC_ShopB_Visible_true.NamedCondition);
@@ -746,7 +786,7 @@ namespace Tangenta
                 {
                     tag_conditions.Add(tagDC_ShopB_Visible_false.NamedCondition);
                 }
-                if (m_usrc_Main.ShopC_Visible)
+                if (DocumentMan.ShopC_Visible)
                 {
                     sNewTag += "C";
                     tag_conditions.Add(tagDC_ShopC_Visible_true.NamedCondition);
@@ -761,7 +801,7 @@ namespace Tangenta
                 }
             }
 
-            if (m_usrc_Main.m_usrc_InvoiceTable_Visible)
+            if (DocumentMan.m_usrc_InvoiceTable_Visible)
             {
                 sNewTag += "t";
                 tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_true.NamedCondition);
@@ -781,7 +821,7 @@ namespace Tangenta
 
         private void GetNumberOfShopBGroupsLevel(List<string> tagconditions,ref string sNewTag, ref string sXMLFileTag)
         {
-            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
+            int numberofshopBgroupslevel = DocumentMan.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
             switch (numberofshopBgroupslevel)
             {
                 case 0:
@@ -811,7 +851,7 @@ namespace Tangenta
 
         private void GetNumberOfShopCGroupsLevel(List<string> tagconditions, ref string sNewTag, ref string sXMLFileTag)
         {
-            int numberofshopBgroupslevel = m_usrc_Main.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
+            int numberofshopBgroupslevel = DocumentMan.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
             switch (numberofshopBgroupslevel)
             {
                 case 0:
@@ -1260,6 +1300,49 @@ namespace Tangenta
         {
 
             return false;
+        }
+
+        private void loginControl1_UserLoggedIn(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        {
+            usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
+            xusrc_DocumentMan.Initialise(this, xLoginOfMyOrgUser);
+            xusrc_DocumentMan.Init();
+            xLoginOfMyOrgUser.m_usrc_DocumentMan = xusrc_DocumentMan;
+            xusrc_DocumentMan.Dock = DockStyle.Fill;
+            xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+            xusrc_DocumentMan.Visible = false;
+            this.Controls.Add(xusrc_DocumentMan);
+        }
+
+        private void loginControl1_UserLoggedOut(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        {
+            this.Controls.Remove((usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan); 
+            ((usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan).Dispose();
+            xLoginOfMyOrgUser.m_usrc_DocumentMan = null;
+        }
+
+        private void loginControl1_ActivateDocumentMan(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        {
+
+            DocumentMan = (usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan;
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+
+
+            LayoutSet();
+
+            DocumentMan.Active = true;
+
+            DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
+
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
+
+            SetNewFormTag();
+            DocumentMan.LayoutChanged += M_usrc_Main_LayoutChanged;
+
+            
+
+
         }
     }
 }

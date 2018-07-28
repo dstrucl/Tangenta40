@@ -37,6 +37,9 @@ namespace ShopC
 
         //usrc_ItemList
         private bool m_bExclusivelySellFromStock = false;
+
+        private ID m_Atom_WorkPeriod_ID = null;
+
         public bool ExclusivelySellFromStock
         {
             get { return m_bExclusivelySellFromStock; }
@@ -83,9 +86,10 @@ namespace ShopC
         private int cx_lbl_Item_small_width = 0;
         public NavigationButtons.Navigation nav = null;
 
-        public usrc_Item()
+        public usrc_Item(ID xAtom_WorkPeriod_ID)
         {
             InitializeComponent();
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             x0_pic_Item = pic_Item.Left;
             x1_btn_EditItem = btn_EditItem.Left;
             x2_btn_NoStock = btn_NoStock.Left;
@@ -603,7 +607,7 @@ namespace ShopC
                 {
                     SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
                     SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-                    Form_StockItem_Edit edt_ItemStock_dlg = new Form_StockItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                    Form_StockItem_Edit edt_ItemStock_dlg = new Form_StockItem_Edit(m_Atom_WorkPeriod_ID,DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                       tbl_Stock,
                                                                       " where Stock_$_ppi_$_i_$$ID = " + m_Item_Data.Item_ID.ToString()+" ",
                                                                       "Stock_$_ppi_$_i_$$Code desc",m_Item_Data, xnav);

@@ -42,7 +42,7 @@ namespace Tangenta
             {
                 if (BaseCurrency_Text != null)
                 {
-                    frm.m_usrc_Main.m_usrc_DocumentEditor.usrc_Currency1.Init(GlobalData.BaseCurrency);
+                    //frm.m_usrc_Main.m_usrc_DocumentEditor.usrc_Currency1.Init(GlobalData.BaseCurrency);
                     return Startup_check_proc_Result.CHECK_OK;
                 }
                 else
@@ -59,9 +59,34 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_06_onformresult_Form_Select_DefaultCurrency;
-            frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_06_Show_Form_Select_DefaultCurrency(xnav);
+            Startup_06_Show_Form_Select_DefaultCurrency(xnav);
             return true;
         }
+
+        private void Startup_06_Show_Form_Select_DefaultCurrency(NavigationButtons.Navigation xnav)
+        {
+            if (GlobalData.BaseCurrency == null)
+            {
+                GlobalData.BaseCurrency = new xCurrency();
+            }
+            ID DefaultCurrency_ID = myOrg.Default_Currency_ID;
+            xnav.ShowForm(new Form_Select_DefaultCurrency(DefaultCurrency_ID, ref GlobalData.BaseCurrency, xnav), typeof(Form_Select_DefaultCurrency).ToString());
+        }
+
+        internal bool Startup_06_set_DefaultCurrency(Form_Select_DefaultCurrency sel_basecurrency_dlg, ref string Err)
+        {
+            if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
+            {
+                //usrc_Currency1.Init(GlobalData.BaseCurrency);
+                return true;
+            }
+            else
+            {
+                Err = "ERROR:usrc_Invoice:Select_BaseCurrency:InsertIntoBaseCurrency:Err=" + Err;
+                return false;
+            }
+        }
+
 
         private Startup_onformresult_proc_Result Startup_06_onformresult_Form_Select_DefaultCurrency(startup_step myStartup_step,
                                                                                     Form form,
@@ -74,7 +99,7 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is Form_Select_DefaultCurrency)
                     {
-                        if (frm.m_usrc_Main.m_usrc_DocumentEditor.Startup_06_set_DefaultCurrency((Form_Select_DefaultCurrency)form, ref Err))
+                        if (Startup_06_set_DefaultCurrency((Form_Select_DefaultCurrency)form, ref Err))
                         {
                             return Startup_onformresult_proc_Result.NEXT;
                         }

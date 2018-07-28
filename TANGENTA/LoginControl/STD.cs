@@ -357,7 +357,10 @@ namespace LoginControl
             m_STDLoginData.m_NotActiveAfterPasswordExpires = LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_;
             m_STDLoginData.NumberOfDaysAfterPasswordExpires = LoginUsers.o_Maximum_password_age_in_days.Maximum_password_age_in_days_;
 
-            lctrl.lbl_username.Text = lng.s_UserName.s + ":" + m_STDLoginData.m_UserName;
+            if (lctrl.m_usrc_LoginCtrl != null)
+            {
+                lctrl.m_usrc_LoginCtrl.lbl_username.Text = lng.s_UserName.s + ":" + m_STDLoginData.m_UserName;
+            }
 
             try
             {
@@ -372,11 +375,17 @@ namespace LoginControl
             {
                 if (IsAdministrator)
                 {
-                    lctrl.btn_UserManager.Visible = true;
+                    if (lctrl.m_usrc_LoginCtrl != null)
+                    {
+                        lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
+                    }
                 }
                 else
                 {
-                    lctrl.btn_UserManager.Visible = false;
+                    if (lctrl.m_usrc_LoginCtrl != null)
+                    {
+                        lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = false;
+                    }
                 }
                 return true;
             }

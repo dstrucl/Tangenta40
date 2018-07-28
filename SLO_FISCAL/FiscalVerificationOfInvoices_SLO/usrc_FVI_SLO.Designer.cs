@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btn_FVI = new System.Windows.Forms.Button();
-            this.timer_MessagePump = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btn_FVI
@@ -45,10 +44,6 @@
             this.btn_FVI.UseVisualStyleBackColor = false;
             this.btn_FVI.Click += new System.EventHandler(this.btn_FVI_Click);
             // 
-            // timer_MessagePump
-            // 
-            this.timer_MessagePump.Tick += new System.EventHandler(this.timer_MessagePump_Tick);
-            // 
             // usrc_FVI_SLO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -62,8 +57,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_FVI;
-        private System.Windows.Forms.Timer timer_MessagePump;
+        internal System.Windows.Forms.Button btn_FVI;
     }
 }

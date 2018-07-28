@@ -17,11 +17,14 @@ using DBTypes;
 using LanguageControl;
 using XMessage;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace ShopC
 {
     public partial class usrc_Atom_ItemsList : UserControl
     {
+        public ID m_Atom_WorkPeriod_ID = null;
+
         public usrc_Atom_Item[] usrc_Atom_Item_array = null;
 
         public int yPosLast = 5;
@@ -68,11 +71,12 @@ namespace ShopC
             set
             {
                 m_NumberOfItemsPerPage = value;
-                Init();
+                Init(m_Atom_WorkPeriod_ID);
             }
         }
-        private void Init()
+        private void Init(ID xAtom_WorkPeriod_ID)
         {
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             if (usrc_Atom_Item_array==null)
             { 
                 usrc_Atom_Item_array = new usrc_Atom_Item[NumberOfItemsPerPage];
@@ -101,13 +105,13 @@ namespace ShopC
             InitializeComponent();
         }
 
-        internal void Init(usrc_ItemList x_usrc_ItemList, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        internal void Init(ID xAtom_WorkPeriod_ID,usrc_ItemList x_usrc_ItemList, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             m_usrc_ItemList = x_usrc_ItemList;
             m_ShopBC=xm_InvoiceDB;
             DBtcn = xDBtcn;
             // pias_Atom_Item_List.Clear();
-            Init();
+            Init(xAtom_WorkPeriod_ID);
         }
 
 
@@ -138,7 +142,7 @@ namespace ShopC
             }
             else
             {
-                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(DocInvoice,x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentInvoice.m_ShopShelf))
+                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocInvoice, x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentInvoice.m_ShopShelf))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -200,7 +204,7 @@ namespace ShopC
 
         internal usrc_Atom_Item AddFromStock(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
-            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(DocInvoice,ref appisd,true))
+            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocInvoice,ref appisd,true))
             {
                 int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
@@ -220,7 +224,7 @@ namespace ShopC
         internal usrc_Atom_Item AddFromFactory(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
 
-            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(DocInvoice,ref appisd,false))
+            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocInvoice,ref appisd,false))
             {
 
                 int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
@@ -243,7 +247,7 @@ namespace ShopC
             if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                m_ShopBC.m_CurrentInvoice.m_Basket.Empty(DocInvoice,m_ShopBC.m_CurrentInvoice.m_ShopShelf);
+                m_ShopBC.m_CurrentInvoice.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocInvoice, m_ShopBC.m_CurrentInvoice.m_ShopShelf);
                 m_usrc_Item_PageHandler.DoPaint();
                 m_usrc_ItemList.Reset();
                 this.Cursor = Cursors.Arrow;

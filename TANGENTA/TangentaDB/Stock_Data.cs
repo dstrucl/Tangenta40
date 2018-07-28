@@ -63,7 +63,7 @@ namespace TangentaDB
             dQuantity = tf.set_decimal(dria["dQuantity"]);
         }
 
-        public bool Remove_from_StockShelf()
+        public bool Remove_from_StockShelf(ID xAtom_WorkPeriod_ID)
         {
             if (ID.Validate(Stock_ID))
             {
@@ -81,7 +81,7 @@ namespace TangentaDB
                         ID JOURNAL_Stock_ID = null;
                         DateTime EventTime = DateTime.Now;
                         decimal dQuantityRemovedFromStock = dQuantity.v;
-                        return f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_stock_to_basket, EventTime, dQuantityRemovedFromStock, ref JOURNAL_Stock_ID);
+                        return f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_stock_to_basket, xAtom_WorkPeriod_ID, EventTime, dQuantityRemovedFromStock, ref JOURNAL_Stock_ID);
                     }
                     else
                     {

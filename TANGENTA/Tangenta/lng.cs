@@ -85,7 +85,6 @@ namespace Tangenta
 
         public static ltext s_ElectronicDevice_Name_is_not_defined = new ltext(new string[] { "Electronic device name is not defined!\r\nYou must set the electronic device name!", "Ime elektronske naprave ni določeno!\r\nVpišite ime elektronske naprave." });
 
-        public static ltext s_WorkPeriod = new ltext(new string[] { "Work Period", "Šiht" });
 
         public static ltext s_ThereAreNoBasicOragnisationDataPleaseEnterOrganisationDataBeforeOfficeData 
             = new ltext(new string[] { "There are no organisation data.\r\nYou can not enter office data unles your organisation data are writen to database.\r\nPlease write and save your organisation data to database before you enter organisation office data.", "Urejanje podatkov poslovne enote vaše organizacije ni možno dokler niste shranili (vpisali v podatkovno bazo) osnovne podatke vaše organizacije.\r\nProsim vnesite in shranite najprej podatke vaše organizacije.\r\nŠele, ko ste to naredili, lahko dodajate podatke poslovnih enot." });
@@ -739,40 +738,9 @@ namespace Tangenta
         public static ltext s_Issuer = new ltext(new string[]{"Issuer",
                                                     "Izstavitelj"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
-        public static ltext s_No_OrganisationData = new ltext(new string[]{"There is no data about your company. You must enter your company data first!",
-                                                         "Ni podatkov o vašem podjetju. Najprej morate vnesti podatke o svojem podjetju"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_MyOrganisation_StreetName = new ltext(new string[]{"There is no Street Name address of your company. You must enter Street Name address of your company!",
-                                                         "Ni podatka o naslovu ulice vašega podjetja. Vnesti morate naslov ulice vašega podjetja"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_MyOrganisation_HouseNumber = new ltext(new string[]{"There is no house number of your company. You must enter house number of your company!",
-                                                         "Ni podatka o hišni številki vašega podjetja. Vnesti morate hišno številko vašega podjetja"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_MyOrganisation_ZIP = new ltext(new string[]{"There is no ZIP of your company. You must enter ZIP of your company!",
-                                                         "Ni podatka o številki pošte vašega podjetja. Vnesti morate številko pošte vašega podjetja"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_MyOrganisation_City = new ltext(new string[]{"There is no city of your company. You must enter city of your company!",
-                                                         "Ni podatka o kraju vašega podjetja. Vnesti morate kraj vašega podjetja"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_Office_Data = new ltext(new string[]{"There is no office address of your organisation. You must have office address in your organisation!",
-                                                         "Vaše podjetje nima dodatnih  potakov poslovne enot (naslov, opis..),\nVpisati morate še podatke poslovne enote!"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_Office_Data_FVI_SLO_RealEstateBP = new ltext(new string[]{"Missing Real Estate Data for your office. You need them for Fiscal verification of invoices in Slovenia!",
-                                                                              "Vaša poslovna enota nima podatkov o poslovnem prosturu potrebnih za davčno potrjevanje računov,\nVpisati morate še podatke o poslovnem prostoru, ki so potrebni za davčno potrjevanje računov!"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_MyOrganisation_Person = new ltext(new string[]{"There is no person of your company which is active. You must enter person of your company! (Also Check if Active flag is set!)",
-                                                              "Vaše podjetje nima vsaj ene osebe, ki bi bila označena za aktivno.\nVnesti morate osebo ali osebe v vašem podjetju in pri tem mora imeti imeti najmanj ena oseba odkljukano, da je aktivna!"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
-        public static ltext s_No_MyOrganisation_Tax_ID = new ltext(new string[]{"There is no Tax ID of your company. You must enter Tax ID of your company!",
-                                                            "Vaše podjetje nima davčne številke. Vnesti morate davčno številko vašega podjetja"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
-
         public static ltext s_Issue = new ltext(new string[] { "Issue", "Izstavitev" });
 
-        public static ltext s_No_MyOrganisation_Country = new ltext(new string[] {"There is no country of your company. You must enter country of your company!",
-                                                     "Ni podatka v kateri državi je vaše podjetje. Vnesti morate državo v kateri je podjetje" });
 
-        public static ltext s_No_Office = new ltext(new string[] { "There is no office of your organisation. You must have at least one office in your organisation!",
-                                                 "Vaše podjetje nima poslovnih enot,\nVpisati morate vsaj eno poslovno enoto!" });
 
         public static ltext s_grp_OperationMode = new ltext(new string[] { "Operation Mode", "Način delovanja" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
 

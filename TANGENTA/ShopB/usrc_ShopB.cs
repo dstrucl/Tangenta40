@@ -138,7 +138,7 @@ namespace ShopB
             this.ForeColor = Colors.ShopB.ForeColor;
         }
 
-        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use, NavigationButtons.Navigation xnav)
+        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use)
         {
             lng.s_ShopB_Name.Text(lbl_ShopB_Name);
 
@@ -181,7 +181,7 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_Count, DBtcn.column_SelectedShopBItem_Count_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
-            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
+            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use, ref Err);
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_B.s;
             SetColor();
        }
@@ -946,20 +946,16 @@ namespace ShopB
 
         private void btn_edit_ShopB_Items_Click(object sender, EventArgs e)
         {
-            NavigationButtons.Navigation nav_EditShopBItem = new NavigationButtons.Navigation(null);
-            nav_EditShopBItem.bDoModal = true;
-            nav_EditShopBItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            EditShopBItem(nav_EditShopBItem);
+            EditShopBItem();
         }
 
-        public bool EditShopBItem(NavigationButtons.Navigation xnav)
+        public bool EditShopBItem()
         {
             SQLTable tbl_ShopBItem=new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem)));
             Form_ShopB_Item_Edit edt_ShopBItem_dlg = new Form_ShopB_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                     tbl_ShopBItem,
-                                                                    "SimpleItem_$$Code desc",xnav);
-            xnav.ChildDialog = edt_ShopBItem_dlg;
-            xnav.ShowDialog();
+                                                                    "SimpleItem_$$Code desc",null);
+            edt_ShopBItem_dlg.ShowDialog();
             if (edt_ShopBItem_dlg.List_of_Inserted_Items_ID.Count > 0)
             {
                 DataTable dt_ShopB_Items_NotIn_PriceList = new DataTable();
@@ -972,7 +968,7 @@ namespace ShopB
                             NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
                             nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                             bool bPriceListChanged = false;
-                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit, ref bPriceListChanged);
+                            this.usrc_PriceList1.PriceList_Edit(true,  ref bPriceListChanged);
                         }
                     }
                 }

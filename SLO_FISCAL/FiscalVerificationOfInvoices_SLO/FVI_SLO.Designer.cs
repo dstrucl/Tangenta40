@@ -1,6 +1,6 @@
-﻿namespace LoginControl
+﻿namespace FiscalVerificationOfInvoices_SLO
 {
-    partial class LoginCtrl
+    partial class FVI_SLO
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.timer_MessagePump = new System.Windows.Forms.Timer(this.components);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timer_MessagePump;
     }
 }

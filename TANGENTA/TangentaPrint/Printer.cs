@@ -310,7 +310,8 @@ namespace TangentaPrint
             get { return this; }
         }
 
-        internal void Print_Receipt(InvoiceData xInvoiceData, 
+        internal void Print_Receipt(ID xAtom_WorkPeriod_ID,
+                                    InvoiceData xInvoiceData, 
                                     string FursD_BussinesPremiseID,
                                     string ElectronicDevice_ID,
                                     int BaseCurrencyDecimalPlaces,
@@ -321,11 +322,11 @@ namespace TangentaPrint
 
             if (Printer_is_ESC_POS())
             {
-                Print_Receipt_ESC_POS(xInvoiceData, FursD_BussinesPremiseID,ElectronicDevice_ID, BaseCurrencyDecimalPlaces, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Print_Receipt_ESC_POS(xAtom_WorkPeriod_ID,xInvoiceData, FursD_BussinesPremiseID,ElectronicDevice_ID, BaseCurrencyDecimalPlaces, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
             else
             {
-                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData, nav.btn3_Image, xDoor_OpenIfUserIsAdministrator);
+                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xAtom_WorkPeriod_ID, xInvoiceData, nav.btn3_Image, xDoor_OpenIfUserIsAdministrator);
                 print_A4_dlg.ShowDialog();
             }
         }
@@ -939,7 +940,8 @@ namespace TangentaPrint
             return false;
         }
 
-        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData,
+        internal void Print_Receipt_ESC_POS(ID xAtom_WorkPeriod_ID,
+                                            InvoiceData xInvoiceData,
                                             string FursD_BussinesPremiseID,
                                             string ElectronicDevice_ID,
                                             int BaseCurrency_DecimalPlaces,
@@ -1277,13 +1279,13 @@ namespace TangentaPrint
 
                 string s_journal_invoice_type = lng.s_journal_invoice_type_Print.s;
                 string s_journal_invoice_description = PrinterName;
-                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
             }
             catch (Exception ex)
             {
                 string s_journal_invoice_type = lng.s_journal_invoice_type_PrintError.s + PrinterName + "\nErr=" + ex.Message;
                 string s_journal_invoice_description = PrinterName;
-                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
             }
         }
 

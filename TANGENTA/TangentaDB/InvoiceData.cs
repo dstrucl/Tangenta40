@@ -563,7 +563,7 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocProformaInvoice(ref ID docInvoice_ID,string ElectronicDevice_Name)
+        public bool SaveDocProformaInvoice(ref ID docInvoice_ID,string ElectronicDevice_Name,ID xAtom_WorkPeriod_ID)
         {
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
@@ -573,7 +573,7 @@ namespace TangentaDB
             {
                 docInvoice_ID = DocInvoice_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
-                this.SetInvoiceTime(InvoiceTime_v);
+                this.SetInvoiceTime(InvoiceTime_v, xAtom_WorkPeriod_ID);
             }
             return bRet;
         }
@@ -663,7 +663,7 @@ namespace TangentaDB
         }
 
 
-        public bool SaveDocInvoice(ref ID docinvoice_ID, string ElectronicDevice_Name)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref ID docinvoice_ID, string ElectronicDevice_Name, ID xAtom_WorkPeriod_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
             bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ElectronicDevice_Name, ref xNumberInFinancialYear);
@@ -672,21 +672,21 @@ namespace TangentaDB
                 docinvoice_ID = DocInvoice_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
                 DateTime_v InvoiceTime_v = new DateTime_v(AddOnDI.m_IssueDate.Date);
-                this.SetInvoiceTime(InvoiceTime_v);
+                this.SetInvoiceTime(InvoiceTime_v, xAtom_WorkPeriod_ID);
             }
             return bRet;
         }
 
-        public bool SetInvoiceTime(DateTime_v issue_time)
+        public bool SetInvoiceTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID)
         {
             bool bRet = false;
             if (IsDocInvoice)
             {
-                bRet = m_ShopABC.m_CurrentInvoice.SetDocInvoiceTime(issue_time);
+                bRet = m_ShopABC.m_CurrentInvoice.SetDocInvoiceTime(issue_time, xAtom_WorkPeriod_ID);
             }
             else
             {
-                bRet = m_ShopABC.m_CurrentInvoice.SetDocProformaInvoiceTime(issue_time);
+                bRet = m_ShopABC.m_CurrentInvoice.SetDocProformaInvoiceTime(issue_time, xAtom_WorkPeriod_ID);
 
             }
 

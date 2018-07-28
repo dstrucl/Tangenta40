@@ -29,7 +29,7 @@ namespace LoginControl
         private void btn_OK_Click(object sender, EventArgs e)
         {
             string Err = null;
-            if (txtPassword.Text.Length >= std.lctrl.MinPasswordLength)
+            if (txtPassword.Text.Length >= LoginCtrl.MinPasswordLength)
             {
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {

@@ -21,7 +21,7 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_Settings : Form
     {
-        private usrc_FVI_SLO m_usrc_FVI_SLO = null;
+        private FVI_SLO m_FVI_SLO = null;
 
         //public string certificateFileName = null;
         //public string CertPass = null;
@@ -30,15 +30,15 @@ namespace FiscalVerificationOfInvoices_SLO
         public int timeOutInSec = -1;
         NavigationButtons.Navigation nav = null;
 
-        public Form_Settings(usrc_FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav,ref bool Reset2FactorySettings_FiscalVerification_DLL)
+        public Form_Settings(FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav,ref bool Reset2FactorySettings_FiscalVerification_DLL)
         {
             InitializeComponent();
             nav = xnav;
-            m_usrc_FVI_SLO = x_usrc_FVI_SLO;
+            m_FVI_SLO = x_usrc_FVI_SLO;
 
             if (Reset2FactorySettings_FiscalVerification_DLL)
             {
-                m_usrc_FVI_SLO.Settings_Reset(this);
+                m_FVI_SLO.Settings_Reset(this);
                 Reset2FactorySettings_FiscalVerification_DLL = false;
             }
 
@@ -55,13 +55,13 @@ namespace FiscalVerificationOfInvoices_SLO
 
             this.rdb_FURS_TEST_Environment.Checked = false;
             this.rdb_FURS_Environment.Checked = false;
-            this.usrc_FURS_environment_settings.Init(false, m_usrc_FVI_SLO);
-            this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
+            this.usrc_FURS_environment_settings.Init(false, m_FVI_SLO);
+            this.usrc_FURS_environment_settings_TEST.Init(true, m_FVI_SLO);
             this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
 
 
-            if (m_usrc_FVI_SLO.FursTESTEnvironment)
+            if (m_FVI_SLO.FursTESTEnvironment)
             {
                 this.rdb_FURS_TEST_Environment.Checked = true;
                 this.usrc_FURS_environment_settings.Enabled = false;
@@ -105,10 +105,10 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (rdb_FURS_Environment.Checked)
             {
-                m_usrc_FVI_SLO.FursTESTEnvironment = false;
+                m_FVI_SLO.FursTESTEnvironment = false;
                 this.usrc_FURS_environment_settings.Enabled = true;
                 this.usrc_FURS_environment_settings_TEST.Enabled = false;
-                m_usrc_FVI_SLO.LoadSettingsValues(false);
+                m_FVI_SLO.LoadSettingsValues(false);
 
             }
         }
@@ -117,10 +117,10 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (rdb_FURS_TEST_Environment.Checked)
             {
-                m_usrc_FVI_SLO.FursTESTEnvironment = true;
+                m_FVI_SLO.FursTESTEnvironment = true;
                 this.usrc_FURS_environment_settings.Enabled = false;
                 this.usrc_FURS_environment_settings_TEST.Enabled = true;
-                m_usrc_FVI_SLO.LoadSettingsValues(true);
+                m_FVI_SLO.LoadSettingsValues(true);
             }
         }
 
@@ -131,7 +131,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.DEBUG = chk_DebugAndTest.Checked;
                 Properties.Settings.Default.Save();
             }
-            m_usrc_FVI_SLO.DEBUG = chk_DebugAndTest.Checked;
+            m_FVI_SLO.DEBUG = chk_DebugAndTest.Checked;
 
         }
 

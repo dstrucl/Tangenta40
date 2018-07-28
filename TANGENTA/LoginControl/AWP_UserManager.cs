@@ -25,20 +25,21 @@ namespace LoginControl
         private Form myParent;
 
 
-        AWP awp = null;
+        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+
+
         internal AWPBindingData awpbd = null;
-        internal AWPLoginData awpld = null;
 
         internal DataTable dtLoginUsers = null;
 
         private bool bFirstTimeStartup = false;
 
-        public AWP_UserManager(Navigation xnav,Form pParent, AWP xawp)
+        public AWP_UserManager(Navigation xnav,Form pParent, LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
-            awp = xawp;
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
             InitializeComponent();
 
-            awpbd = awp.awpd;
+            awpbd = AWP.awpd;
            
 
             if (xnav.m_eButtons == Navigation.eButtons.PrevNextExit)
@@ -88,20 +89,16 @@ namespace LoginControl
 
         private void AWP_UserManager_Load(object sender, EventArgs e)
         {
-            if (bFirstTimeStartup)
-            {
-                awpld = awp.m_AWPLoginData;
-            }
-            else
-            {
-                // use new created awpld 
-                awpld = new AWPLoginData();
-            }
             LoadData(null);
         }
 
         private void LoadData(string sUserName)
         {
+            if (m_LoginOfMyOrgUser.awpld == null)
+            {
+                m_LoginOfMyOrgUser.awpld = new AWPLoginData();
+            }
+
             RemoveHandlers();
             InitRoles();
             DataTable dtOfUserName = null;
@@ -118,12 +115,12 @@ namespace LoginControl
                     dtLoginUsers.Columns.Clear();
                 }
                 dgv_LoginUsers.DataSource = null;
-                eres = awpld.GetData(ref dtLoginUsers, sUserName, awpbd);
+                eres = m_LoginOfMyOrgUser.awpld.GetData(ref dtLoginUsers, sUserName, awpbd);
             }
             else
             {
                 dtOfUserName = new DataTable();
-                eres = awpld.GetData(ref dtOfUserName, sUserName, awpbd);
+                eres = m_LoginOfMyOrgUser.awpld.GetData(ref dtOfUserName, sUserName, awpbd);
             }
             
             switch (eres)
@@ -149,33 +146,33 @@ namespace LoginControl
                     }
 
                   
-                    this.webBrowser1.DocumentText = awpld.GetHtml();
+                    this.webBrowser1.DocumentText = m_LoginOfMyOrgUser.awpld.GetHtml();
                     if (bFirstTimeStartup)
                     {
-                        awpld.ChangePasswordOnFirstLogin = false;
-                        awpld.PasswordNeverExpires = true;
+                        m_LoginOfMyOrgUser.awpld.ChangePasswordOnFirstLogin = false;
+                        m_LoginOfMyOrgUser.awpld.PasswordNeverExpires = true;
                     }
-                    chk_ChangePasswordOnFirstLogIn.Checked = awpld.ChangePasswordOnFirstLogin;
-                    if (awpld.PasswordNeverExpires)
+                    chk_ChangePasswordOnFirstLogIn.Checked = m_LoginOfMyOrgUser.awpld.ChangePasswordOnFirstLogin;
+                    if (m_LoginOfMyOrgUser.awpld.PasswordNeverExpires)
                     {
                         rdb_PaswordExpires_Never.Checked = true;
                         nmUpDn_MaxPasswordAge.Enabled = false;
                     }
-                    if (awpld.NotActiveAfterPasswordExpires)
+                    if (m_LoginOfMyOrgUser.awpld.NotActiveAfterPasswordExpires)
                     {
                         rdb_DeactivateAfterNumberOfDays.Checked = true;
                         nmUpDn_MaxPasswordAge.Enabled = true;
                     }
-                    if (!awpld.PasswordNeverExpires && !awpld.NotActiveAfterPasswordExpires)
+                    if (!m_LoginOfMyOrgUser.awpld.PasswordNeverExpires && !m_LoginOfMyOrgUser.awpld.NotActiveAfterPasswordExpires)
                     {
                         rdb_AfterNumberOfDays.Checked = true;
                         nmUpDn_MaxPasswordAge.Enabled = true;
                     }
 
-                    chk_Enabled.Checked = awpld.Enabled;
+                    chk_Enabled.Checked = m_LoginOfMyOrgUser.awpld.Enabled;
 
-                    nmUpDn_MaxPasswordAge.Value = awpld.Maximum_password_age_in_days;
-                    usrc_PasswordBytes1.SetPassword(awpld.Password, 5);
+                    nmUpDn_MaxPasswordAge.Value = m_LoginOfMyOrgUser.awpld.Maximum_password_age_in_days;
+                    usrc_PasswordBytes1.SetPassword(m_LoginOfMyOrgUser.awpld.Password, 5);
                    
 
                     SetRoles();
@@ -190,7 +187,7 @@ namespace LoginControl
                     this.Close();
                     break;
             }
-            awpld.Changed = false;
+            m_LoginOfMyOrgUser.awpld.Changed = false;
             AddHandlers();
         }
 
@@ -206,8 +203,8 @@ namespace LoginControl
 
         private void SetRoles()
         {
-            dgvx_OtherRoles.DataSource = awpld.dt_AWP_MissingUserRoles;
-            dgvx_UserRoles.DataSource = awpld.dt_AWP_UserRoles;
+            dgvx_OtherRoles.DataSource = m_LoginOfMyOrgUser.awpld.dt_AWP_MissingUserRoles;
+            dgvx_UserRoles.DataSource = m_LoginOfMyOrgUser.awpld.dt_AWP_UserRoles;
             DataGridViewButtonColumn dgvcb_MoveLeft = new DataGridViewButtonColumn();
             dgvcb_MoveLeft.Name = "MoveLeft";
             dgvcb_MoveLeft.Width = 60;
@@ -233,7 +230,7 @@ namespace LoginControl
 
         private void txtUserName_TextChanged(object sender, EventArgs e)
         {
-            awpld.Changed = true;
+            m_LoginOfMyOrgUser.awpld.Changed = true;
             if (txtUserName.Text.Length > 0)
             {
                 usrc_PasswordBytes1.Enabled = true;
@@ -345,19 +342,19 @@ namespace LoginControl
         private bool UpdateAWPLoginData()
         {
             bool bRes = false;
-            awpld.UserName = txtUserName.Text;
-            if (usrc_PasswordBytes1.GetPassword(ref awpld.Password))
+            m_LoginOfMyOrgUser.awpld.UserName = txtUserName.Text;
+            if (usrc_PasswordBytes1.GetPassword(ref m_LoginOfMyOrgUser.awpld.Password))
             {
-                awpld.Enabled = chk_Enabled.Checked;
-                awpld.ChangePasswordOnFirstLogin = chk_ChangePasswordOnFirstLogIn.Checked;
-                awpld.PasswordNeverExpires = rdb_PaswordExpires_Never.Checked;
-                awpld.NotActiveAfterPasswordExpires = rdb_DeactivateAfterNumberOfDays.Checked;
-                awpld.Maximum_password_age_in_days = Convert.ToInt32(nmUpDn_MaxPasswordAge.Value);
-                bRes = AWP_func.Update_LoginUsers_ID(awpld, usrc_PasswordBytes1.Changed);
+                m_LoginOfMyOrgUser.awpld.Enabled = chk_Enabled.Checked;
+                m_LoginOfMyOrgUser.awpld.ChangePasswordOnFirstLogin = chk_ChangePasswordOnFirstLogIn.Checked;
+                m_LoginOfMyOrgUser.awpld.PasswordNeverExpires = rdb_PaswordExpires_Never.Checked;
+                m_LoginOfMyOrgUser.awpld.NotActiveAfterPasswordExpires = rdb_DeactivateAfterNumberOfDays.Checked;
+                m_LoginOfMyOrgUser.awpld.Maximum_password_age_in_days = Convert.ToInt32(nmUpDn_MaxPasswordAge.Value);
+                bRes = AWP_func.Update_LoginUsers_ID(m_LoginOfMyOrgUser.awpld, usrc_PasswordBytes1.Changed);
                 if (bRes)
                 {
                     LoadData(null);
-                    awpld.Changed = false;
+                    m_LoginOfMyOrgUser.awpld.Changed = false;
 
                 }   
             }
@@ -372,12 +369,12 @@ namespace LoginControl
 
         private bool SaveIfChanged()
         {
-            if (awpld.Changed)
+            if (m_LoginOfMyOrgUser.awpld.Changed)
             {
                 if (CheckIfUserDefined())
                 {
                     ID LoginUsers_ID = null;
-                    if (awpld.UserName.Equals(txtUserName.Text))
+                    if (m_LoginOfMyOrgUser.awpld.UserName.Equals(txtUserName.Text))
                     {
                         return UpdateAWPLoginData();
                     }
@@ -502,9 +499,9 @@ namespace LoginControl
                 {
                     //button MoveRight clicked
                     //Remove Role
-                    awpld.RemoveRole(e.RowIndex);
+                    m_LoginOfMyOrgUser.awpld.RemoveRole(e.RowIndex);
                     InitRoles();
-                    awpld.GetUserRoles();
+                    m_LoginOfMyOrgUser.awpld.GetUserRoles();
                     SetRoles();
 
                 }
@@ -518,9 +515,9 @@ namespace LoginControl
                 if (e.ColumnIndex == 0)
                 {
                     //button MoveRight clicked
-                    awpld.AddRole(e.RowIndex);
+                    m_LoginOfMyOrgUser.awpld.AddRole(e.RowIndex);
                     InitRoles();
-                    awpld.GetUserRoles();
+                    m_LoginOfMyOrgUser.awpld.GetUserRoles();
                     SetRoles();
                 }
             };
@@ -543,7 +540,7 @@ namespace LoginControl
 
         private void rdb_PaswordExpires_Never_CheckedChanged(object sender, EventArgs e)
         {
-            awpld.Changed = true;
+            m_LoginOfMyOrgUser.awpld.Changed = true;
             if (rdb_PaswordExpires_Never.Checked)
             {
                 this.nmUpDn_MaxPasswordAge.Enabled = false;
@@ -563,7 +560,7 @@ namespace LoginControl
         {
             bool bChanged = false;
             ID new_myOrganisation_Person_ID = null;
-            awp.call_Edit_myOrganisationPerson(this, awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
+            m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl.TriggerEvent_Edit_myOrganisationPerson(this, m_LoginOfMyOrgUser.awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
         }
 
     
@@ -613,34 +610,34 @@ namespace LoginControl
 
         private void chk_Enabled_CheckedChanged(object sender, EventArgs e)
         {
-            awpld.Changed = true;
+            this.m_LoginOfMyOrgUser.awpld.Changed = true;
         }
 
         private void chk_ChangePasswordOnFirstLogIn_CheckedChanged(object sender, EventArgs e)
         {
-            awpld.Changed = true;
+            this.m_LoginOfMyOrgUser.awpld.Changed = true;
         }
 
         private void rdb_AfterNumberOfDays_CheckedChanged(object sender, EventArgs e)
         {
-            awpld.Changed = true;
+            this.m_LoginOfMyOrgUser.awpld.Changed = true;
         }
 
         private void rdb_DeactivateAfterNumberOfDays_CheckedChanged(object sender, EventArgs e)
         {
-            awpld.Changed = true;
+            this.m_LoginOfMyOrgUser.awpld.Changed = true;
         }
 
  
 
         private void usrc_PasswordBytes1_PasswordChanged()
         {
-            awpld.Changed = true;
+            this.m_LoginOfMyOrgUser.awpld.Changed = true;
         }
 
         private void btn_LoginHistory_Click(object sender, EventArgs e)
         {
-            AWPLoginHistoryForm awplhfrm = new AWPLoginHistoryForm(awp, awpld.UserName);
+            AWPLoginHistoryForm awplhfrm = new AWPLoginHistoryForm(m_LoginOfMyOrgUser);
             awplhfrm.ShowDialog(this);
         }
 

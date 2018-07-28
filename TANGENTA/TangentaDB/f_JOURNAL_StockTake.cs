@@ -49,7 +49,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Get(ID StockTake_id, ID stocktake_type_id, DateTime dEventTime,  ref ID JOURNAL_StockTake_ID)
+        public static bool Get(ID StockTake_id, ID stocktake_type_id,ID xAtom_WorkPeriod_ID, DateTime dEventTime,  ref ID JOURNAL_StockTake_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_JOURNAL_StockTake_Type_ID = "@par_JOURNAL_StockTake_Type_ID";
@@ -64,9 +64,9 @@ namespace TangentaDB
             SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dEventTime);
             lpar.Add(par_EventTime);
 
-            ID Atom_WorkPeriod_id = GlobalData.Atom_WorkPeriod_ID;
+            ID Atom_WorkPeriod_id = xAtom_WorkPeriod_ID;
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
-            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, Atom_WorkPeriod_id);
+            SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, xAtom_WorkPeriod_ID);
             lpar.Add(par_Atom_WorkPeriod_ID);
 
             string table_name = "JOURNAL_StockTake";

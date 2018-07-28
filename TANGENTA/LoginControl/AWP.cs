@@ -27,10 +27,12 @@ namespace LoginControl
 
         internal LoginCtrl.delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
 
-        internal AWPBindingData awpd = new AWPBindingData();
+        internal static AWPBindingData awpd = new AWPBindingData();
+
+
         DataTable AWP_dtLoginView = null;
 
-        internal AWPLoginData m_AWPLoginData = new AWPLoginData();
+        public LoginOfMyOrgUser LoginOfMyOrgUser_Single = new LoginOfMyOrgUser(null);
 
         private Form pParentForm = null;
         internal LoginCtrl lctrl = null;
@@ -41,226 +43,6 @@ namespace LoginControl
             set { m_con = value; }
         }
 
-        public bool IsUserManager
-        {
-            get
-            {
-                if (m_AWPLoginData != null)
-                {
-                    foreach (AWPRole r in m_AWPLoginData.m_AWP_UserRoles)
-                    {
-                        if (r.Role.Equals(ROLE_Administrator) || r.Role.Equals(ROLE_UserManagement))
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public bool IsAdministrator
-        {
-            get
-            {
-                if (m_AWPLoginData != null)
-                {
-                    foreach (AWPRole r in m_AWPLoginData.m_AWP_UserRoles)
-                    {
-                        if (r.Role.Equals(ROLE_Administrator))
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public ID LoginSession_id
-        {
-            get { return m_AWPLoginData.LoginSession_id; }
-        }
-
-
-        public ID myOrganisation_Person_ID
-        {
-            get { return m_AWPLoginData.myOrganisation_Person_ID; }
-        }
-        
-        public ID LoginUsers_id
-        {
-            get
-            {
-                return m_AWPLoginData.ID;
-            }
-        }
-
-        public string UserName
-        {
-            get
-            {
-                return m_AWPLoginData.UserName;
-            }
-        }
-
-        public string FirstName
-        {
-            get
-            {
-                return m_AWPLoginData.myOrganisation_Person__per__cfn_FirstName;
-            }
-        }
-
-        internal bool HasLoginControlRole(string[] oenofpossiblerequestedrole)
-        {
-            foreach (string rolepossible in oenofpossiblerequestedrole)
-            {
-                foreach (string usrrole in UserRoles)
-                {
-                    if (usrrole.Equals(rolepossible))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public string LastName
-        {
-            get
-            {
-                return m_AWPLoginData.myOrganisation_Person__per__cln_LastName;
-            }
-        }
-
-        public string Identity
-        {
-            get
-            {
-                return m_AWPLoginData.myOrganisation_Person__per_Registration_ID;
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                return m_AWPLoginData.PersonData__cemailper_Email;
-            }
-        }
-
-        public List<AWPRole> LoginAWP_AllRoles
-        {
-            get
-            {
-                return m_AWPLoginData.m_AWPRoles;
-            }
-        }
-
-        public List<string> AllRoles
-        {
-            get
-            {
-                List<string> roles = new List<string>();
-                foreach (AWPRole r in m_AWPLoginData.m_AWPRoles)
-                {
-                    roles.Add(r.Role);
-                }
-                return roles;
-            }
-        }
-
-        public List<string> UserRoles {
-            get
-            {
-                List<string> roles = new List<string>();
-                foreach (AWPRole r in m_AWPLoginData.m_AWP_UserRoles)
-                {
-                    roles.Add(r.Role);
-                }
-                return roles;
-            }
-        }
-
-        public bool PasswordNeverExpires
-        {
-            get
-            {
-                return m_AWPLoginData.PasswordNeverExpires;
-            }
-        }
-
-        public bool NotActiveAfterPasswordExpires
-        {
-            get
-            {
-                return m_AWPLoginData.NotActiveAfterPasswordExpires;
-            }
-        }
-
-        public bool bPasswordExpiresInNumberOfDays
-        {
-            get
-            {
-                if ((!m_AWPLoginData.PasswordNeverExpires) && (!m_AWPLoginData.NotActiveAfterPasswordExpires))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        public int PasswordExpiresInNumberOfDays
-        {
-            get
-            {
-                if (!m_AWPLoginData.PasswordNeverExpires)
-                {
-                    TimeSpan tspan = new TimeSpan();
-                    if (m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime != DateTime.MinValue)
-                    {
-                        tspan = DateTime.Now - m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
-                        return tspan.Days;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-        }
-
-        public int Maximum_password_age_in_days
-        {
-            get
-            {
-               return m_AWPLoginData.Maximum_password_age_in_days;
-            }
-        }
-
-        public DateTime LastUserPasswordDefinitionTime
-        {
-            get
-            {
-               return m_AWPLoginData.Time_When_UserSetsItsOwnPassword_LastTime;
-            }
-        }
 
 
         public void Init(Form xpParentForm,
@@ -284,21 +66,26 @@ namespace LoginControl
         }
 
 
-        internal bool Login(NavigationButtons.Navigation xnav,
-                      LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        internal bool LoginSingleUser(NavigationButtons.Navigation xnav)
         {
-            string Err = null;
-            eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav, call_Get_Atom_WorkPeriod);
+            eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav);
             if (xres == eAWP_dtLogin_Vaild_result.OK)
             {
-                bool bres = CallLoginForm(call_Get_Atom_WorkPeriod);
+                bool bres = CallLoginForm();
                 if (bres)
                 {
-                    if (IsUserManager)
+                    if (LoginOfMyOrgUser_Single.IsUserManager)
                     {
-                        lctrl.btn_UserManager.Visible = true;
+                        if (lctrl.m_usrc_LoginCtrl != null)
+                        {
+                            lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
+                        }
                     }
-                    lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+
+                    if (lctrl.m_usrc_LoginCtrl != null)
+                    {
+                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LoginOfMyOrgUser_Single.UserName + ": " + LoginOfMyOrgUser_Single.FirstName + " " + LoginOfMyOrgUser_Single.LastName;
+                    }
                 }
 
                 return bres;
@@ -311,26 +98,16 @@ namespace LoginControl
 
 
         public bool Login_MultipleUsers_ShowControlAtStartup(NavigationButtons.Navigation xnav,
-                                  LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,
-                                  LoginCtrl.delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan,
-                                  UserControl xusrc_DocumentMan)
+                                  LoginCtrl.delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan)
         {
-            if (xusrc_DocumentMan != null) //MultipleUsers can login at the same time
+            eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav);
+            if (xres == eAWP_dtLogin_Vaild_result.OK)
             {
-                eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav, call_Get_Atom_WorkPeriod);
-                if (xres == eAWP_dtLogin_Vaild_result.OK)
-                {
-                    Form parent_form = Global.f.GetParentForm(lctrl);
-                    return Login_MultipleUsers_SetControl(AWP_dtLoginView, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan, parent_form, xusrc_DocumentMan);
-                }
-                else
-                {
-                    return false;
-                }
+                Form parent_form = lctrl.m_parent_form;
+                return Login_MultipleUsers_SetControl(AWP_dtLoginView,parent_form);
             }
             else
             {
-                LogFile.Error.Show("ERROR:LoginControl:AWP:ShowLoginForm:xusrc_DocumentMan == null");
                 return false;
             }
         }
@@ -343,13 +120,12 @@ namespace LoginControl
             }
         }
 
-        internal eAWP_dtLogin_Vaild_result Check_LoginTable(NavigationButtons.Navigation xnav,
-                                  LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        internal eAWP_dtLogin_Vaild_result Check_LoginTable(NavigationButtons.Navigation xnav)
         {
             string Err = null;
             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
             {
-                Form parent_form = Global.f.GetParentForm(lctrl);
+                Form parent_form = lctrl.m_parent_form;
                 eAWP_dtLogin_Vaild_result eres = AWP_dtLogin_Vaild();
 eres_check:
                 switch (eres)
@@ -375,7 +151,7 @@ eres_check:
                         {
                             if (AWP_func.Import_myOrganisationPerson(awpd, frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
                             {
-                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(xnav, parent_form, this);
+                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(xnav, parent_form,LoginOfMyOrgUser_Single);
                                 if (parent_form != null)
                                 {
                                     awp_usrmgt_frm.TopMost = parent_form.TopMost;
@@ -388,9 +164,12 @@ eres_check:
                                 switch (dlgRes)
                                 {
                                     case DialogResult.OK:
-                                        if (IsUserManager)
+                                        if (LoginOfMyOrgUser_Single.IsUserManager)
                                         {
-                                            lctrl.btn_UserManager.Visible = true;
+                                            if (lctrl.m_usrc_LoginCtrl != null)
+                                            {
+                                                lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
+                                            }
                                         }
 
                                         if (lctrl.Login_MultipleUsers)
@@ -408,12 +187,15 @@ eres_check:
                                         else
                                         {
                                             ID Atom_WorkPeriod_ID = null;
-                                            if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
+                                            if (LoginCtrl.getWorkPeriod(LoginOfMyOrgUser_Single.awpld.myOrganisation_Person__per_ID, ref LoginOfMyOrgUser_Single.Atom_myOrganisation_Person_ID, ref LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID))
                                             {
                                                 ID LoginSession_ID = null;
-                                                if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                                if (AWP_func.WriteLoginSession(LoginOfMyOrgUser_Single.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
                                                 {
-                                                    lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                                                    if (lctrl.m_usrc_LoginCtrl != null)
+                                                    {
+                                                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LoginOfMyOrgUser_Single.UserName + ": " + LoginOfMyOrgUser_Single.FirstName + " " + LoginOfMyOrgUser_Single.LastName;
+                                                    }
                                                     return eAWP_dtLogin_Vaild_result.OK;
                                                 }
                                             }
@@ -429,7 +211,7 @@ eres_check:
                         return eres;
 
                     case eAWP_dtLogin_Vaild_result.NO_PASSWORD_FOR_FIRST_USER:
-                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(xnav, parent_form, this);
+                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(xnav, parent_form, LoginOfMyOrgUser_Single);
                         if (parent_form != null)
                         {
                             awp_usrmgt2_frm.TopMost = parent_form.TopMost;
@@ -442,17 +224,23 @@ eres_check:
                         switch (dlgRes)
                         {
                             case DialogResult.OK:
-                                if (IsUserManager)
+                                if (LoginOfMyOrgUser_Single.IsUserManager)
                                 {
-                                    lctrl.btn_UserManager.Visible = true;
+                                    if (lctrl.m_usrc_LoginCtrl != null)
+                                    {
+                                        lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
+                                    }
                                 }
                                 ID Atom_WorkPeriod_ID = null;
-                                if (call_Get_Atom_WorkPeriod(m_AWPLoginData.myOrganisation_Person__per_ID, ref Atom_WorkPeriod_ID))
+                                if (LoginCtrl.getWorkPeriod(LoginOfMyOrgUser_Single.awpld.myOrganisation_Person__per_ID,ref LoginOfMyOrgUser_Single.Atom_myOrganisation_Person_ID, ref LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID))
                                 {
                                     ID LoginSession_ID = null;
-                                    if (AWP_func.WriteLoginSession(m_AWPLoginData.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                    if (AWP_func.WriteLoginSession(LoginOfMyOrgUser_Single.awpld.ID, LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID, ref LoginSession_ID))
                                     {
-                                        lctrl.lbl_username.Text = UserName + ": " + FirstName + " " + LastName;
+                                        if (lctrl.m_usrc_LoginCtrl != null)
+                                        {
+                                            lctrl.m_usrc_LoginCtrl.lbl_username.Text = LoginOfMyOrgUser_Single.UserName + ": " + LoginOfMyOrgUser_Single.FirstName + " " + LoginOfMyOrgUser_Single.LastName;
+                                        }
                                         return eAWP_dtLogin_Vaild_result.OK; 
                                     }
                                 }
@@ -471,9 +259,9 @@ eres_check:
         }
 
 
-        private bool CallLoginForm(LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod)
+        private bool CallLoginForm()
         {
-            AWPLoginForm loginf = new AWPLoginForm(this, call_Get_Atom_WorkPeriod);
+            AWPLoginForm loginf = new AWPLoginForm(this);
             if (loginf.ShowDialog() == DialogResult.OK)
             {
                 return true;
@@ -497,11 +285,8 @@ eres_check:
         }
 
         private bool Login_MultipleUsers_SetControl(DataTable dtAWP_dtLoginView, 
-                                                    LoginCtrl.delegate_Get_Atom_WorkPeriod call_Get_Atom_WorkPeriod,
-                                                    LoginCtrl.delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan,
-                                                    Form parent_form, UserControl xusrc_DocumentMan)
+                                                    Form parent_form)
         {
-            xusrc_DocumentMan.Visible = false;
             m_usrc_MultipleUsers = FindMutipleUsersControl(parent_form);
             if (m_usrc_MultipleUsers == null)
             {
@@ -511,7 +296,7 @@ eres_check:
             }
             m_usrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
             m_usrc_MultipleUsers.Visible = true;
-            m_usrc_MultipleUsers.Init(this, call_Get_Atom_WorkPeriod, call_Activate_usrc_DocumentMan);
+            m_usrc_MultipleUsers.Init(this);
             return true;
         }
 

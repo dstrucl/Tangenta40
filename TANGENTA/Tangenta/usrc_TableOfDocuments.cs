@@ -21,11 +21,14 @@ using DBConnectionControl40;
 using LanguageControl;
 using TangentaDB;
 using DBTypes;
+using LoginControl;
 
 namespace Tangenta
 {
     public partial class usrc_TableOfDocuments : UserControl
     {
+        private LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+
         public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear, TimeSpan };
         public delegate void delegate_SelectedInvoiceChanged(ID Invoice_ID, bool bInitialise);
         public event delegate_SelectedInvoiceChanged SelectedInvoiceChanged;
@@ -127,7 +130,7 @@ namespace Tangenta
         }
 
 
-    public usrc_TableOfDocuments()
+        public usrc_TableOfDocuments()
         {
             InitializeComponent();
             ExtensionMethods.DoubleBuffered(this.dgvx_XInvoice, true);
@@ -140,6 +143,10 @@ namespace Tangenta
             lng.s_from.Text(this.lbl_From_To);
         }
 
+        public void Bind(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        {
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+        }
         internal void Activate_dgvx_XInvoice_SelectionChanged()
         {
             dgvx_XInvoice.ClearSelection();
@@ -158,12 +165,21 @@ namespace Tangenta
             }
         }
 
-        internal int GetTable(bool bNew,
-                              bool bInitialise_usrc_Invoice,
-                              int iFinancialYear,
-                              ID Doc_ID_To_show
-                        )
+
+        internal int Init(usrc_DocumentEditor.enum_Invoice xenum_Invoice,
+                          bool bNew,
+                          bool bInitialise_usrc_Invoice,
+                          int iFinancialYear,
+                          ID Doc_ID_To_show)
         {
+            ColorDraft = Properties.Settings.Default.ColorDraft;
+            ColorStorno = Properties.Settings.Default.ColorStorno;
+            ColorFurs_InvoiceConfirmed = Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
+            ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
+            ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
+
+            enum_Invoice = xenum_Invoice;
+
             int iRowsCount = -1;
             iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
             if (bNew)
@@ -179,21 +195,6 @@ namespace Tangenta
             }
 
             return iRowsCount;
-        }
-
-        internal void Init(usrc_DocumentEditor.enum_Invoice xenum_Invoice,
-                          bool bNew,
-                          bool bInitialise_usrc_Invoice,
-                          int iFinancialYear,
-                          ID Doc_ID_To_show)
-        {
-            ColorDraft = Properties.Settings.Default.ColorDraft;
-            ColorStorno = Properties.Settings.Default.ColorStorno;
-            ColorFurs_InvoiceConfirmed = Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
-
-            enum_Invoice = xenum_Invoice;
         }
 
         private int Init_Invoice(bool bInvoice, bool bNew, int iFinancialYear)
@@ -273,7 +274,7 @@ namespace Tangenta
 
             string cond_Atom_myOrganisation_Person = "";
 
-            if ((Program.IsAdministratorUser)||(Program.IsUserManager))
+            if ((m_LoginOfMyOrgUser.IsAdministrator)||(m_LoginOfMyOrgUser.IsUserManager))
             {
                 if (IsDocInvoice)
                 {
@@ -289,10 +290,18 @@ namespace Tangenta
                 // in case that user is not administrator
                 // set condition to show only documents of Atom_myOrg_Person
                 string spar_Atom_myOrganisation_Person = "@par_AOP";
-                SQL_Parameter par_Atom_myOrganisation_Person = new SQL_Parameter(spar_Atom_myOrganisation_Person, false,GlobalData.Atom_myOrganisation_Person_ID);
+                SQL_Parameter par_Atom_myOrganisation_Person = new SQL_Parameter(spar_Atom_myOrganisation_Person, false,m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID);
                 lpar_ExtraCondition.Add(par_Atom_myOrganisation_Person);
-                cond_Atom_myOrganisation_Person = " and  JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
-                cond += cond_Atom_myOrganisation_Person;
+                if (IsDocInvoice)
+                {
+                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                }
+
+                    cond += cond_Atom_myOrganisation_Person;
                 string s_myorg_person = "??";
                 if (myOrg.m_myOrg_Office!=null)
                 {

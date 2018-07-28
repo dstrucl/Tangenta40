@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public class CircularBuffer_usrc_FVI_SLO_Message
+    public class CircularBuffer_FVI_SLO_Message
     {
         private int m_Length = 0;
         usrc_FVI_SLO_Message[] m_obuff = null;
@@ -26,7 +26,7 @@ namespace FiscalVerificationOfInvoices_SLO
             get { return m_Length; }
         }
 
-        public CircularBuffer_usrc_FVI_SLO_Message(int xLength)
+        public CircularBuffer_FVI_SLO_Message(int xLength)
         {
             if (xLength > 0)
             {

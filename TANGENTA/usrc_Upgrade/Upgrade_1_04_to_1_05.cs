@@ -367,10 +367,10 @@ namespace UpgradeDB
         {
             foreach (TableDataItem tdi in TableDataItem_List)
             {
-                if (!tdi.Write2DB(wfp_ui_thread, eUpgr, m_Old_tables_1_04_to_1_05))
-                {
-                    return false;
-                }
+                //if (!tdi.Write2DB(wfp_ui_thread, eUpgr, m_Old_tables_1_04_to_1_05))
+                //{
+                //    return false;
+                //}
             }
             return true;
         }

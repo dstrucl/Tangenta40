@@ -53,7 +53,7 @@ namespace PriseLists
        
 
 
-        public bool Init(ID Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, NavigationButtons.Navigation xnav, ref string Err)
+        public bool Init(ID Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse,  ref string Err)
         {
             this.cmb_PriceListType.SelectedIndexChanged -= new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
             m_eShopType = xeShopType;
@@ -63,18 +63,6 @@ namespace PriseLists
                 m_xPriceList = new xPriceList();
             }
 
-            if (xnav != null)
-            {
-                if (xnav.LastStartupDialog_TYPE.Equals("TangentaSampleDB.Form_Items_Samples"))
-                {
-                    bool bChanged = false;
-                    bool bres = DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
-                    if (bres)
-                    {
-                        this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
-                    }
-                }
-            }
 
             if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
             {
@@ -83,33 +71,6 @@ namespace PriseLists
                     this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
                     this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
                     this.cmb_PriceListType.ValueMember = "xPriceList_ID";
-                }
-
-                else
-                {
-                    bool bAsk = ((ShopsInUse.Contains("B") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopB) ) || ((ShopsInUse.Contains("C") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopC))));
-                    if (bAsk)
-                    {
-                        bool bDialogResult = true;
-                        if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
-                        {
-                            bDialogResult = true;
-                        }
-                        else
-                        {
-                            bDialogResult = XMessage.Box.ShowTopMost(this, lng.s_NoPriceList_AskToCreatePriceList, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes;
-                        }
-                        if (bDialogResult)
-                        {
-                            bool bChanged = false;
-                            bool bres =   DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
-                            if (bres)
-                            {
-                                this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
-                            }
-                            return bres;
-                        }
-                    }
                 }
                 this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
                 return true;
@@ -120,61 +81,6 @@ namespace PriseLists
                 return false;
             }
         }
-
-
-        private bool DoEditPriceList(ID Currency_ID,NavigationButtons.Navigation xnav,ref bool   Changed,  ref string Err)
-        {
-            Changed = false;
-            Form_PriceList_Edit PriceListType_Edit_dlg = null;
-            NavigationButtons.Navigation nav_Form_PriceList_Edit = null;
-            if (xnav == null)
-            {
-                nav_Form_PriceList_Edit = new NavigationButtons.Navigation(null);
-                nav_Form_PriceList_Edit.bDoModal = true;
-                nav_Form_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
-                nav_Form_PriceList_Edit.ChildDialog = PriceListType_Edit_dlg;
-            }
-            else
-            {
-                nav_Form_PriceList_Edit = xnav;
-                if (nav_Form_PriceList_Edit.m_eButtons == NavigationButtons.Navigation.eButtons.OkCancel)
-                {
-                    nav_Form_PriceList_Edit.bDoModal = true;
-                }
-                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
-                xnav.ChildDialog = PriceListType_Edit_dlg;
-            }
-            nav_Form_PriceList_Edit.ShowDialog();
-            Changed = ((Form_PriceList_Edit)nav_Form_PriceList_Edit.ChildDialog).Changed;
-            if ((nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
-            {
-                if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
-                {
-                    if (xPriceList_Count > 0)
-                    {
-                        this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
-                        this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
-                        this.cmb_PriceListType.ValueMember = "xPriceList_ID";
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show(Err);
-                    return false;
-                }
-            }
-            else if (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            return true;
-        }
-
 
         private void btn_PriceListType_Click(object sender, EventArgs e)
         {
@@ -195,7 +101,7 @@ namespace PriseLists
             }
             NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
             nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            PriceList_Edit(false, nav_PriceList_Edit, ref bPriceListChanged);
+            PriceList_Edit(false,  ref bPriceListChanged);
             this.Cursor = Cursors.Arrow;
             if (pctrl != null)
             {
@@ -210,13 +116,13 @@ namespace PriseLists
             }
         }
 
-        public void PriceList_Edit(bool bEditUndefined,NavigationButtons.Navigation xnav, ref bool bChanged)
+        public void PriceList_Edit(bool bEditUndefined, ref bool bChanged)
         {
 
             string Err = null;
             bChanged = false;
             int xPriceListType_Count = 0;
-            Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined, m_eShopType, xnav);
+            Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined, m_eShopType,null);
             if (PriceList_Edit_dlg.ShowDialog() == DialogResult.OK)
             {
                 bChanged = PriceList_Edit_dlg.Changed;

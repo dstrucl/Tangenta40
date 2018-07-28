@@ -121,11 +121,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btn_LoginLogout;
-        private System.Windows.Forms.Button btn_GetAccess;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lbl_User;
-        private System.Windows.Forms.PictureBox pic_administrator;
-        private System.Windows.Forms.PictureBox pic_UserManager;
+        internal System.Windows.Forms.Button btn_LoginLogout;
+        internal System.Windows.Forms.Button btn_GetAccess;
+        internal System.Windows.Forms.PictureBox pictureBox1;
+        internal System.Windows.Forms.Label lbl_User;
+        internal System.Windows.Forms.PictureBox pic_administrator;
+        internal System.Windows.Forms.PictureBox pic_UserManager;
     }
 }

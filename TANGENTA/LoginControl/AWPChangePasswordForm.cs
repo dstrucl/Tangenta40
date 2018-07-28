@@ -14,13 +14,13 @@ namespace LoginControl
     {
         LoginCtrl login_control = null;
         AWPLoginData awpld = null;
+        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
 
-        public AWPChangePasswordForm(LoginCtrl loginctrl,AWPLoginData xawpld, string sInstruction)
+        public AWPChangePasswordForm(LoginOfMyOrgUser xLoginOfMyOrgUser, string sInstruction)
         {
             InitializeComponent();
-            login_control = loginctrl;
-            awpld = xawpld;
-            this.Text = lng.s_UserThatChangesPassword.s + login_control.UserName;
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+            this.Text = lng.s_UserThatChangesPassword.s + xLoginOfMyOrgUser.UserName;
             lbl_New_Password.Text = lng.s_New_Password.s;
             lbl_Confirm_New_Pasword.Text = lng.s_Confirm_New_Password.s;
             lbl_Instruction.Text = sInstruction;
@@ -28,7 +28,7 @@ namespace LoginControl
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            if (txtPassword.Text.Length >= login_control.MinPasswordLength)
+            if (txtPassword.Text.Length >= LoginCtrl.MinPasswordLength)
             {
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {

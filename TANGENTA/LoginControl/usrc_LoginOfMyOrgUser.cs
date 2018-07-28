@@ -15,48 +15,16 @@ namespace LoginControl
 {
     public partial class usrc_LoginOfMyOrgUser : UserControl
     {
-        internal ID Atom_myOrganisation_Person_ID = null;
-        internal AWP m_awp = null;
-        internal AWPLoginData awpld = null;
         internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
-        internal LoginCtrl.delegate_Get_Atom_WorkPeriod m_call_Get_Atom_WorkPeriod = null;
-        internal LoginCtrl.delegate_Activate_usrc_DocumentMan m_call_Activate_usrc_DocumentMan = null;
-        internal int_v PIN_v = null;
-        private string m_UserName = null;
-        private ID LoginUsers_ID = null;
-        private ID LoginSession_ID = null;
-        private ID Atom_WorkPeriod_ID = null;
-        private List<AWPRole> m_AWP_UserRoles = new List<AWPRole>();
-        private bool m_LoggedIn = false;
 
-        internal bool LoggedIn
-        {
-            get
-            {
-                return m_LoggedIn;
-            }
-            set
-            {
-                m_LoggedIn = value;
-                if (m_LoggedIn)
-                {
-                    lng.s_Logout.Text(btn_LoginLogout);
-                    btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[4].BackColor;
-                    this.btn_GetAccess.Visible = true;
-                }
-                else
-                {
-                    lng.s_Login.Text(btn_LoginLogout);
-                    btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[0].BackColor;
-                    this.btn_GetAccess.Visible = false;
-                }
-            }
-        }
+        internal LoginCtrl lctrl = null;
 
+        internal LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
 
-        public usrc_LoginOfMyOrgUser()
+        public usrc_LoginOfMyOrgUser(LoginCtrl xlxtrl)
         {
             InitializeComponent();
+            lctrl = xlxtrl;
             lng.s_btn_GetAccess.Text(btn_GetAccess);
         }
 
@@ -74,15 +42,9 @@ namespace LoginControl
         {
             get
             {
-                if (m_AWP_UserRoles!=null)
+                if (m_LoginOfMyOrgUser.awpld != null)
                 {
-                    foreach (AWPRole r in m_AWP_UserRoles)
-                    {
-                        if (r.Role.Equals(AWP.ROLE_Administrator))
-                        {
-                            return true;
-                        }
-                    }
+                    return m_LoginOfMyOrgUser.IsAdministrator;
                 }
                 return false;
             }
@@ -92,15 +54,9 @@ namespace LoginControl
         {
             get
             {
-                if (m_AWP_UserRoles != null)
+                if (m_LoginOfMyOrgUser.awpld != null)
                 {
-                    foreach (AWPRole r in m_AWP_UserRoles)
-                    {
-                        if (r.Role.Equals(AWP.ROLE_UserManagement))
-                        {
-                            return true;
-                        }
-                    }
+                    return m_LoginOfMyOrgUser.IsUserManager;
                 }
                 return false;
             }
@@ -108,61 +64,18 @@ namespace LoginControl
 
         internal void SetData(DataRow dr)
         {
-            m_UserName = tf._set_string(dr["UserName"]);
-            LoginUsers_ID = tf.set_ID(dr["ID"]);
-            if (AWP_func.AWPRoles_GetUserRoles(LoginUsers_ID, ref m_AWP_UserRoles))
+            if (m_LoginOfMyOrgUser==null)
             {
-                if (IsAdministrator)
-                {
-                    pic_administrator.Image = Properties.Resources.Login.ToBitmap();
-                    pic_administrator.Visible = true;
-                }
-                else
-                {
-                    pic_administrator.Visible = false;
-                }
+                m_LoginOfMyOrgUser = new LoginOfMyOrgUser(this);
+            }
+            m_LoginOfMyOrgUser.SetData(dr);
 
-                if (IsUserManager)
-                {
-                    pic_UserManager.Image = Properties.Resources.RoleManager.ToBitmap();
-                    pic_UserManager.Visible = true;
-                }
-                else
-                {
-                    pic_UserManager.Visible = false;
-                }
-            }
-
-            ID xmyOrganisation_Person_ID = tf.set_ID(dr["myOrganisation_Person_ID"]);
-            if (!ID.Validate(xmyOrganisation_Person_ID))
-            {
-               LogFile.Error.Show("ERROR:LoginControl:usrc_LoginOfMyOrguser:SetData:xmyOrganisation_Person_ID is not valid.");
-            }
-
-            string_v office_name_v = null;
-            if (!f_Atom_myOrganisation_Person.Get(xmyOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name_v))
-            {
-                LogFile.Error.Show("ERROR:LoginControl:usrc_LoginOfMyOrguser:SetData:_Atom_myOrganisation_Person.Get failed!");
-            }
-            byte_array_v imagebytes_v = tf.set_byte_array(dr["PersonData_$_perimg_$$Image_Data"]);
-            PIN_v = tf.set_int(dr["PersonData_$$PIN"]);
-            if (imagebytes_v != null)
-            {
-                this.pictureBox1.Image = DBTypes.func.byteArrayToImage(imagebytes_v.v);
-            }
-            else
-            {
-
-            }
-            this.lbl_User.Text = m_UserName;
-            LoginSession_ID = null;
-            LoggedIn = AWP_func.IsUserLoggedIn(LoginUsers_ID, ref LoginSession_ID);
         }
 
 
         private bool Authentificate_PASSWORD()
         {
-            AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_awp, m_UserName, m_call_Get_Atom_WorkPeriod, false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN, this.Atom_WorkPeriod_ID);
+            AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LoginOfMyOrgUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN, m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
             if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
             {
                 return true;
@@ -176,7 +89,7 @@ namespace LoginControl
 
         private bool Authentificate_PIN()
         {
-            AWPLoginForm_AuthentificatePIN awpLoginForm__AuthentificatePIN = new AWPLoginForm_AuthentificatePIN(m_awp, m_UserName, PIN_v);
+            AWPLoginForm_AuthentificatePIN awpLoginForm__AuthentificatePIN = new AWPLoginForm_AuthentificatePIN(m_LoginOfMyOrgUser);
             if (awpLoginForm__AuthentificatePIN.ShowDialog(this) == DialogResult.OK)
             {
                 return true;
@@ -188,7 +101,7 @@ namespace LoginControl
         }
         private void btn_LoginLogout_Click(object sender, EventArgs e)
         {
-            if (LoggedIn)
+            if (this.m_LoginOfMyOrgUser.LoggedIn)
             {
                 bool bLogoutAll = (IsAdministrator || IsUserManager);
                 if (bLogoutAll)
@@ -199,46 +112,51 @@ namespace LoginControl
                     }
                 }
 
-                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_awp, m_UserName, m_call_Get_Atom_WorkPeriod, bLogoutAll, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGOUT, this.Atom_WorkPeriod_ID);
+                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LoginOfMyOrgUser,  bLogoutAll, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGOUT, m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
                     if (awpLoginForm_OneFromMultipleUsers.LogoutALL)
                     {
                         this.m_usrc_MultipleUsers.LogoutAll();
                     }
-                    this.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
-                    this.Atom_WorkPeriod_ID = null;
-                    this.awpld = null;
-                    LoggedIn = false;
+                    else
+                    {
+                        lctrl.Trigger_EventUserLoggedOut(this.m_LoginOfMyOrgUser);
+                    }
+                    m_LoginOfMyOrgUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
+                    m_LoginOfMyOrgUser.Atom_WorkPeriod_ID = null;
+                    m_LoginOfMyOrgUser.awpld = null;
+                    m_LoginOfMyOrgUser.LoggedIn = false;
                 }
             }
             else
             {
-                this.LoginSession_ID = null;
-                this.Atom_WorkPeriod_ID = null;
-                this.awpld = null;
-                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_awp, m_UserName, m_call_Get_Atom_WorkPeriod, false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN,null);
+                m_LoginOfMyOrgUser.LoginSession_ID = null;
+                m_LoginOfMyOrgUser.Atom_WorkPeriod_ID = null;
+                m_LoginOfMyOrgUser.awpld = null;
+                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LoginOfMyOrgUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN,null);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
-                    this.awpld = awpLoginForm_OneFromMultipleUsers.awpld;
-                    this.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
-                    this.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
-                    LoggedIn = true;
+                    m_LoginOfMyOrgUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
+                    m_LoginOfMyOrgUser.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
+                    m_LoginOfMyOrgUser.LoggedIn = true;
+                    lctrl.Trigger_EventUserLoggedIn(m_LoginOfMyOrgUser);
                 }
             }
         }
 
         internal void DoLogout()
         {
-            if (LoginControl.LoginCtrl.Logout(this.Atom_WorkPeriod_ID))
+            if (LoginControl.LoginCtrl.Logout(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID))
             {
-                LoggedIn = false;
+                m_LoginOfMyOrgUser.LoggedIn = false;
+                lctrl.Trigger_EventUserLoggedOut(m_LoginOfMyOrgUser);
             }
         }
 
         private void btn_GetAccess_Click(object sender, EventArgs e)
         {
-            switch (m_awp.lctrl.AuthentificationType)
+            switch (lctrl.AuthentificationType)
             {
                 case LoginCtrl.eAuthentificationType.PASSWORD:
                     if (!Authentificate_PASSWORD())
@@ -256,16 +174,20 @@ namespace LoginControl
                     break;
 
             }
-            TangentaDB.GlobalData.Atom_WorkPeriod_ID = this.Atom_WorkPeriod_ID;
-            TangentaDB.GlobalData.Atom_myOrganisation_Person_ID = this.Atom_myOrganisation_Person_ID;
-            m_awp.m_AWPLoginData = awpld;
-            if (m_awp.IsUserManager)
+            if (m_LoginOfMyOrgUser.IsUserManager)
             {
-                m_awp.lctrl.btn_UserManager.Visible = true;
+                if (lctrl.m_usrc_LoginCtrl != null)
+                {
+                    lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
+                }
             }
-            m_awp.lctrl.lbl_username.Text = m_awp.UserName + ": " + m_awp.FirstName + " " + m_awp.LastName;
-            m_call_Activate_usrc_DocumentMan(m_usrc_MultipleUsers);
-            
+            if (lctrl.m_usrc_LoginCtrl != null)
+            {
+                lctrl.m_usrc_LoginCtrl.lbl_username.Text = m_LoginOfMyOrgUser.UserName + ": " + m_LoginOfMyOrgUser.FirstName + " " + m_LoginOfMyOrgUser.LastName;
+            }
+
+            lctrl.Trigger_EventUserActivateDocumentMan(this.m_LoginOfMyOrgUser);
+
         }
     }
 }

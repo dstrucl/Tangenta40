@@ -37,7 +37,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (frm.m_usrc_Main.Startup_08_CheckPogramSettings(true))
+            if (Startup_08_CheckPogramSettings(true))
             {
                 return Startup_check_proc_Result.CHECK_OK;
             }
@@ -53,9 +53,33 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_08_onformresult_Form_ProgramSettings;
-            frm.m_usrc_Main.Startup_08_Show_Form_ProgramSettings(xnav);
+            Startup_08_Show_Form_ProgramSettings(xnav);
             return true;
         }
+
+        private bool Startup_08_CheckPogramSettings(bool bResetShopsInUse)
+        {
+            if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
+            {
+                return false;
+            }
+            else
+            {
+                if (Program.Shops_in_use.Length > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool Startup_08_Show_Form_ProgramSettings(NavigationButtons.Navigation xnav)
+        {
+            xnav.ShowForm(new Form_ProgramSettings(null, xnav), typeof(Form_ProgramSettings).ToString());
+            return true;
+        }
+
+
 
         private Startup_onformresult_proc_Result Startup_08_onformresult_Form_ProgramSettings(startup_step myStartup_step,
                                                                                     Form form,

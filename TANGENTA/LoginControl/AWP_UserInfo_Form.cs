@@ -12,18 +12,18 @@ namespace LoginControl
 {
     public partial class AWP_UserInfo_Form : Form
     {
-        private AWP awp= null;
+        private LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
         private AWPBindingData awpbd = null;
         private Form myParent = null;
         private string sUserName = null;
         internal AWPLoginData awpld = null;
 
-        public AWP_UserInfo_Form( Form pParent,string sxUserName, AWP xawp)
+        public AWP_UserInfo_Form( Form pParent,string sxUserName, LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
-            awp = xawp;
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
             InitializeComponent();
             sUserName = sxUserName;
-            awpbd = awp.awpd;
+            awpbd = AWP.awpd;
 
 
          
@@ -201,7 +201,7 @@ namespace LoginControl
 
         private void btn_LoginHistory_Click(object sender, EventArgs e)
         {
-            AWPLoginHistoryForm awphfrm = new AWPLoginHistoryForm(awp, awpld.UserName);
+            AWPLoginHistoryForm awphfrm = new AWPLoginHistoryForm(m_LoginOfMyOrgUser);
             awphfrm.ShowDialog(this);
         }
     }

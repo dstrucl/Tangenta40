@@ -30,7 +30,10 @@ namespace Tangenta
     public partial class usrc_DocumentMan : UserControl
     {
 
-        private Form Main_Form = null;
+        private LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        private Door door = null;
+
+        private Form_Document m_Form_Document = null;
 
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
@@ -39,12 +42,6 @@ namespace Tangenta
 
         private int timer_Login_MultiUsers_Countdown = 100;
 
-        internal usrc_DocumentEditor.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
-        {
-            usrc_DocumentEditor.eGetOrganisationDataResult eres = this.m_usrc_DocumentEditor.GetOrganisationData();
-            return eres;
-
-        }
 
         public event delegate_Exit_Click Exit_Click;
 
@@ -56,7 +53,7 @@ namespace Tangenta
 
         public enum eMode { Shops, InvoiceTable, Shops_and_InvoiceTable };
         public eMode Mode = eMode.Shops_and_InvoiceTable;
-        private Form m_pparent = null;
+
         public List<Tangenta.usrc_DocumentEditor.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_DocumentEditor.InvoiceType>();
         public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocInvoice = null;
         public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocProformaInvoice = null;
@@ -242,7 +239,7 @@ namespace Tangenta
             }
 
 
-            loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
+            m_Form_Document.loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
             if (Program.Login_MultipleUsers)
             {
                 initControlsRecursive(this.Controls);
@@ -273,13 +270,8 @@ namespace Tangenta
             Properties.Settings.Default.Save();
         }
 
-        internal bool InitialiseMan(Form pparent)
-        {
-            m_pparent = pparent;
-            return m_usrc_DocumentEditor.Initialise(this);
-        }
 
-        internal bool InitMan(NavigationButtons.Navigation xnav)
+        internal bool InitMan()
         {
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():start!");
             Program.Cursor_Wait();
@@ -364,9 +356,9 @@ namespace Tangenta
 
             splitContainer1.Panel2Collapsed = false;
 
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before SetDocument(xnav)");
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before SetDocument()");
 
-            bool bRes = SetDocument(xnav);
+            bool bRes = SetDocument();
 
             this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
             SetColor();
@@ -454,13 +446,29 @@ namespace Tangenta
             SetFinancialYears();
         }
 
-        internal bool SetDocument(NavigationButtons.Navigation xnav)
+        internal bool SetDocument()
         {
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
+            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
 
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
+            if (!m_usrc_DocumentEditor.Init(this.m_usrc_TableOfDocuments.Current_Doc_ID))
+            {
+                Program.Cursor_Arrow();
+                return false;
+            }
+
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
+
+            SetInitialMode();
+
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
+
+            SetMode(Mode);
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
             return true;
+
         }
 
         internal void SaveSplitControlsSpliterDistance()
@@ -534,7 +542,7 @@ namespace Tangenta
         private void btn_New_Click(object sender, EventArgs e)
         {
             if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            if (Program.UseWorkAreas)
+            if (false/*Program.UseWorkAreas*/)
             {
                 Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea();
                 frm_new_workarea.ShowDialog(this);
@@ -589,7 +597,7 @@ namespace Tangenta
                     if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
                     {
                         Program.Cursor_Wait();
-                        m_usrc_DocumentEditor.SetNewDraft(eInvType, FinancialYear, currency, xAtom_Currency_ID);
+                        m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, FinancialYear, currency, xAtom_Currency_ID);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -617,64 +625,6 @@ namespace Tangenta
             }
         }
 
-        internal void Activate(NavigationButtons.Navigation xnav)
-        {
-            int iRowsCount = m_usrc_TableOfDocuments.GetTable(false, false, Properties.Settings.Default.FinancialYear, null);
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
-            if (m_usrc_DocumentEditor.Init(xnav, this.m_usrc_TableOfDocuments.Current_Doc_ID))
-            {
-                if (Program.b_FVI_SLO)
-                {
-                    string Err = null;
-                    if (this.usrc_FVI_SLO1.Start(ref Err))
-                    {
-                        if (this.IsDocInvoice)
-                        {
-                            if (Program.b_FVI_SLO)
-                            {
-                                this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                if (Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
-                                {
-                                    this.SetDocument(xnav);
-                                }
-                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                    }
-                }
-            }
-            else
-            {
-                Program.Cursor_Arrow();
-                return;
-            }
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
-
-            SetInitialMode();
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
-
-            SetMode(Mode);
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
-
-            if (Program.IsAdministratorUser)
-            {
-                btn_Settings.Visible = true;
-                usrc_FVI_SLO1.Visible = true;
-            }
-            else
-            {
-                btn_Settings.Visible = false;
-                usrc_FVI_SLO1.Visible = false;
-            }
-            Active = true;
-            Activate_dgvx_XInvoice_SelectionChanged();
-        }
 
         private bool Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(int financialYear)
         {
@@ -813,7 +763,7 @@ namespace Tangenta
                         DataTable xdt_ShopA_Items = null;
                         if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                         {
-                            m_usrc_DocumentEditor.SetNewDraft(eInvType, xFinancialYear, currency, xAtom_Currency_ID);
+                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, xFinancialYear, currency, xAtom_Currency_ID);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -872,7 +822,7 @@ namespace Tangenta
                             Set_cmb_InvoiceType_selected_index();
                             this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
-                            m_usrc_DocumentEditor.SetNewDraft(New_eInvType, xFinancialYear, currency, xAtom_Currency_ID);
+                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,New_eInvType, xFinancialYear, currency, xAtom_Currency_ID);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -928,9 +878,7 @@ namespace Tangenta
 
         private void m_usrc_Invoice_PriceListChanged()
         {
-            NavigationButtons.Navigation nav_Invoice_PriceListChanged = new NavigationButtons.Navigation(null);
-            nav_Invoice_PriceListChanged.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            this.Init(nav_Invoice_PriceListChanged);
+            this.Init();
         }
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)
@@ -955,7 +903,7 @@ namespace Tangenta
         private void SetDocInvoiceOrDocPoformaInvoice()
         {
             Program.RunAs = DocInvoice;
-            bool bRes = SetDocument(null);
+            bool bRes = SetDocument();
             Program.Cursor_Arrow();
             if (this.IsDocInvoice)
             {
@@ -966,7 +914,7 @@ namespace Tangenta
                         this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
                     this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI);
+                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -1054,7 +1002,7 @@ namespace Tangenta
                                     else if (xnav.eExitResult == Navigation.eEvent.NEXT)
                                     {
                                         bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
-                                        xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
+                                        xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1.m_FVI_SLO, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
                                         Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
                                         xnav.ShowDialog();
                                         if (xnav.eExitResult == Navigation.eEvent.PREV)
@@ -1066,7 +1014,7 @@ namespace Tangenta
                                 else
                                 {
                                     bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
-                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
+                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1.m_FVI_SLO, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
                                     Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
                                     xnav.ShowDialog();
                                     if (xnav.eExitResult == Navigation.eEvent.PREV)
@@ -1082,28 +1030,6 @@ namespace Tangenta
             if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
             return true;
         }
-        internal bool Startup_08_CheckPogramSettings(bool bResetShopsInUse)
-        {
-            if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
-            {
-                return false;
-            }
-            else
-            {
-                if (Program.Shops_in_use.Length > 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        internal bool Startup_08_Show_Form_ProgramSettings(NavigationButtons.Navigation xnav)
-        {
-            xnav.ShowForm(new Form_ProgramSettings(this, xnav), typeof(Form_ProgramSettings).ToString());
-            return true;
-        }
-
 
         public bool Get_ProgramSettings(NavigationButtons.Navigation xnav, bool bResetShopsInUse)
         {
@@ -1136,7 +1062,7 @@ namespace Tangenta
                             {
                                 if (m_usrc_DocumentEditor.DBtcn != null)
                                 {
-                                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
+                                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
                                     return true;
                                 }
                             }
@@ -1163,31 +1089,6 @@ namespace Tangenta
                     LogFile.Error.Show("ERROR:usrc_Document:Get_shops_in_use:Error Program.Shops_in_use.Length <= 0!");
                     return false;
                 }
-            }
-        }
-
-        internal bool Startup_12_Get_Printer(startup myStartup, ref string Err)
-        {
-            //Insert default templates for Proforma Invoice and for 
-            if (f_doc.InsertDefault())
-            {
-                TangentaPrint.PrintersList.Init();
-
-                if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL))
-                {
-                    //myStartup.eNextStep++;
-                    return true;
-                }
-                else
-                {
-                    return false;
-
-                }
-            }
-            else
-            {
-                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
             }
         }
 
@@ -1233,35 +1134,24 @@ namespace Tangenta
             }
         }
 
-        internal bool Initialise(Form main_Form)
+        internal bool Initialise(Form_Document main_Form, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
-            Main_Form = main_Form;
-            return InitialiseMan(Main_Form);
+            m_Form_Document = main_Form;
+            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+            door = new Door(m_LoginOfMyOrgUser);
+            this.usrc_FVI_SLO1.Bind(m_Form_Document.fvI_SLO1);
+            this.m_usrc_TableOfDocuments.Bind(m_LoginOfMyOrgUser);
+            return m_usrc_DocumentEditor.Initialise(this, m_LoginOfMyOrgUser);
         }
 
 
-        internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
+        internal bool SetShopsPricelists(startup myStartup, object oData,  ref string Err)
         {
             if (m_usrc_DocumentEditor != null)
             {
                 if (m_usrc_DocumentEditor.DBtcn != null)
                 {
-                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
-                    if (xnav.eExitResult == Navigation.eEvent.NEXT)
-                    {
-                        //myStartup.eNextStep++;
-                        return true;
-                    }
-                    else if (xnav.eExitResult == Navigation.eEvent.PREV)
-                    {
-                        //myStartup.eNextStep--;
-                        return true;
-                    }
-                    else if (xnav.eExitResult == Navigation.eEvent.EXIT)
-                    {
-                        //myStartup.eNextStep = startup_step.eStep.Cancel;
-                        return true;
-                    }
+                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
                 }
             }
 
@@ -1269,30 +1159,50 @@ namespace Tangenta
             return true;
         }
 
-        internal bool Init(NavigationButtons.Navigation xnav)
+        internal bool Init()
         {
             string Err = null;
-            Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
-            Program.thread_fvi = this.usrc_FVI_SLO1.thread_fvi;
-            Program.message_box = this.usrc_FVI_SLO1.message_box;
 
             if (Program.b_FVI_SLO)
             {
 
-                Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
+                Program.FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
             }
 
             if (Program.b_FVI_SLO)
             {
-                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
+                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1))
                 {
                 }
             }
 
             LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_DocumentMan.Init(xnav)!");
 
-            if (this.InitMan(xnav))
+            if (this.InitMan())
             {
+                if (Program.b_FVI_SLO)
+                {
+                    if (this.usrc_FVI_SLO1.m_FVI_SLO.Start(ref Err))
+                    {
+                        if (this.IsDocInvoice)
+                        {
+                            if (Program.b_FVI_SLO)
+                            {
+                                this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
+                                {
+                                    this.SetDocument();
+                                }
+                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                        return false;
+                    }
+                }
                 return true;
             }
             else
@@ -1311,232 +1221,14 @@ namespace Tangenta
             return myStartup.bInsertSampleData;
         }
 
-        internal bool Startup_05_Show_Form_CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
-        {
-            xnav.ShowForm(new Form_CheckInsertSampleData(myStartup, xnav), typeof(Form_CheckInsertSampleData).ToString());
-            return true;
-        }
-
-
-
-        internal bool GetDBSettings(ref string Err)
-        {
-            bool bReadOnly = false;
-            Err = null;
-            long lRowsCount = fs.GetTableRowsCount("DBSettings");
-            if (lRowsCount > 1) //Database "Version" is wriiten after database creation in DBSettings
-            {
-                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref Program.AdministratorLockedPassword, ref bReadOnly, ref Err))
-                {
-                    case fs.enum_GetDBSettings.DBSettings_OK:
-                        string MultiuserOperationWithLogin = null;
-                        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
-                        {
-                            case fs.enum_GetDBSettings.DBSettings_OK:
-                                Program.OperationMode.MultiUser = MultiuserOperationWithLogin.Equals("1");
-
-                                string StockCheckAtStartup = null;
-                                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
-                                {
-                                    case fs.enum_GetDBSettings.DBSettings_OK:
-                                        Program.OperationMode.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
-
-                                        string sSingleUserLoginAsAdministrator = null;
-                                        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, ref sSingleUserLoginAsAdministrator, ref bReadOnly, ref Err))
-                                        {
-                                            case fs.enum_GetDBSettings.DBSettings_OK:
-                                                Program.OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
-
-                                                string sShopC_ExclusivelySellFromStock = null;
-                                                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
-                                                {
-                                                    case fs.enum_GetDBSettings.DBSettings_OK:
-                                                        Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
-
-                                                        string sMultiCurrencyOperation = null;
-                                                        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, ref sMultiCurrencyOperation, ref bReadOnly, ref Err))
-                                                        {
-                                                            case fs.enum_GetDBSettings.DBSettings_OK:
-                                                                Program.OperationMode.MultiCurrency = sMultiCurrencyOperation.Equals("1");
-                                                                string sNumberOfMonthAfterNewYearToAllowCreateNewInvoice = null;
-                                                                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name, ref sNumberOfMonthAfterNewYearToAllowCreateNewInvoice, ref bReadOnly, ref Err))
-                                                                {
-                                                                    case fs.enum_GetDBSettings.DBSettings_OK:
-                                                                        try
-                                                                        {
-                                                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = Convert.ToInt32(sNumberOfMonthAfterNewYearToAllowCreateNewInvoice);
-                                                                        }
-                                                                        catch
-                                                                        {
-                                                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
-                                                                        }
-                                                                        return true;
-
-                                                                    case fs.enum_GetDBSettings.No_TextValue:
-                                                                    case fs.enum_GetDBSettings.No_Data_Rows:
-                                                                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name;
-                                                                        return false;
-
-                                                                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-
-                                                                        return false;
-                                                                }
-                                                                break;
-
-                                                            case fs.enum_GetDBSettings.No_TextValue:
-                                                            case fs.enum_GetDBSettings.No_Data_Rows:
-                                                                Err = DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name;
-                                                                return false;
-
-                                                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
-
-                                                                return false;
-                                                        }
-                                                        break;
-
-                                                    case fs.enum_GetDBSettings.No_TextValue:
-                                                    case fs.enum_GetDBSettings.No_Data_Rows:
-                                                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name;
-                                                        return false;
-
-                                                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                        return false;
-                                                }
-                                                break;
-
-
-                                            case fs.enum_GetDBSettings.No_TextValue:
-                                            case fs.enum_GetDBSettings.No_Data_Rows:
-                                                Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
-                                                return false;
-
-                                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                                return false;
-                                        }
-                                        break;
-
-                                    case fs.enum_GetDBSettings.No_ReadOnly:
-                                    case fs.enum_GetDBSettings.No_TextValue:
-                                    case fs.enum_GetDBSettings.No_Data_Rows:
-                                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name;
-                                        return false;
-                                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                        return false;
-                                }
-                                break;
-
-
-                            case fs.enum_GetDBSettings.No_ReadOnly:
-                            case fs.enum_GetDBSettings.No_TextValue:
-                            case fs.enum_GetDBSettings.No_Data_Rows:
-                                Err = DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name;
-                                return false;
-                            case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                                return false;
-                        }
-                        break;
-                    case fs.enum_GetDBSettings.No_ReadOnly:
-                    case fs.enum_GetDBSettings.No_TextValue:
-                    case fs.enum_GetDBSettings.No_Data_Rows:
-                        Err = DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name;
-                        return false;
-
-                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                        Err = fs.ERROR;
-                        return false;
-                }
-
-                return false; // GlobalData.Type_definitions_Read();
-            }
-            else
-            {
-                Err = fs.EMPTYTABLE;
-                return false; // No DataRows;
-            }
-        }
 
 
 
 
-        private bool getWorkPeriod(ID myOrganisation_Person_ID, ref ID xAtom_WorkPeriod_ID)
-        {
-            string Err = null;
-            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref xAtom_WorkPeriod_ID, ref Err))
-            {
-                return true;
-            }
-            else
-            {
-                xAtom_WorkPeriod_ID = null;
-                GlobalData.Atom_WorkPeriod_ID = null;
-                return false;
-            }
-        }
-
-        public bool call_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
-        {
-            Navigation xnav = new Navigation(null);
-            xnav.m_eButtons = Navigation.eButtons.OkCancel;
-            if (myOrg.m_myOrg_Office != null)
-            {
-                if (ID.Validate(myOrg.m_myOrg_Office.ID))
-                {
-                    Form_myOrg_Person_Edit frm_myOrgPerEdit = new Form_myOrg_Person_Edit(myOrg.m_myOrg_Office.ID, myOrganisation_Person_ID, xnav);
-                    frm_myOrgPerEdit.TopMost = parentform.TopMost;
-                    frm_myOrgPerEdit.Show(parentform);
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:myOrg.m_myOrg_Office.m_myOrg_Person.ID is not valid!");
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:(myOrg.m_myOrg_Office == null!");
-                return false;
-            }
-        }
 
 
-        public bool Login_MultipleUsers_ShowControlAtStartup(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
-        {
-            bool bCancel = false;
-            this.loginControl1.Init(LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                            this.getWorkPeriod,
-                                            call_Edit_myOrganisationPerson,
-                                            EndProgram,
-                                            null,
-                                            LanguageControl.DynSettings.LanguageID,
-                                            ref bCancel
-                                            );
-            Form_Document fmain = (Form_Document)Main_Form;
-            if (this.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, getWorkPeriod, fmain.Activate_usrc_DocumentMan, this))
-            {
-                //myStartup.eNextStep++;
-                myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
-                if (Program.Login_MultipleUsers)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
-                    {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else
-            {
-                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
-            }
-        }
+
+
 
 
         public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
@@ -1544,10 +1236,10 @@ namespace Tangenta
             if (Program.OperationMode.MultiUser)
             {
                 bool bCancel = false;
-                this.loginControl1.Init(LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                m_Form_Document.loginControl1.Init(m_Form_Document,
+                                                LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                                this.getWorkPeriod,
-                                                call_Edit_myOrganisationPerson,
+                                                m_Form_Document.call_Edit_myOrganisationPerson,
                                                 EndProgram,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
@@ -1558,8 +1250,7 @@ namespace Tangenta
                 //myStartup.eNextStep++;
                 if (Program.Login_MultipleUsers)
                 {
-                    Form_Document fmain = (Form_Document)Main_Form;
-                    if (this.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, getWorkPeriod, fmain.Activate_usrc_DocumentMan,this))
+                    if (m_Form_Document.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, m_Form_Document.Activate_usrc_DocumentMan))
                     {
                          return true;
                     }
@@ -1571,9 +1262,9 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (this.loginControl1.Login(xnav, getWorkPeriod))
+                    if (m_Form_Document.loginControl1.Login_SingleUser(xnav))
                     {
-                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(this.loginControl1.myOrganisation_Person_ID);
+                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(m_Form_Document.loginControl1.awp.LoginOfMyOrgUser_Single.myOrganisation_Person_ID);
                         if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
                         {
                             return true;
@@ -1599,7 +1290,14 @@ namespace Tangenta
                 {
                     if (Program.bFirstTimeInstallation)
                     {
-                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null,ref GlobalData.Atom_WorkPeriod_ID, ref Err))
+                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                                     f_Atom_WorkPeriod.sWorkPeriod, 
+                                                     LoginControl.lng.s_WorkPeriod.s,
+                                                     DateTime.Now,
+                                                     null,
+                                                     ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,
+                                                     ref m_LoginOfMyOrgUser.Atom_WorkPeriod_ID,
+                                                     ref Err))
                         {
                             //myStartup.eNextStep++;
                             return true;
@@ -1615,9 +1313,16 @@ namespace Tangenta
                     {
                         if (Program.OperationMode.SingleUserLoginAsAdministrator)
                         {
-                            if (Door.DoLoginAsAdministrator((Form)this.Parent))
+                            if (door.DoLoginAsAdministrator((Form)this.Parent))
                             {
-                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref GlobalData.Atom_WorkPeriod_ID, ref Err))
+                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                    f_Atom_WorkPeriod.sWorkPeriod,
+                                    LoginControl.lng.s_WorkPeriod.s,
+                                    DateTime.Now,
+                                    null,
+                                    ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,
+                                    ref m_LoginOfMyOrgUser.Atom_WorkPeriod_ID,
+                                    ref Err))
                                 {
                                     //myStartup.eNextStep++;
                                     return true;
@@ -1637,7 +1342,13 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s,  DateTime.Now, null,ref GlobalData.Atom_WorkPeriod_ID, ref Err))
+                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                f_Atom_WorkPeriod.sWorkPeriod,
+                                LoginControl.lng.s_WorkPeriod.s,
+                                DateTime.Now,
+                                null,
+                                ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,
+                                ref m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, ref Err))
                             {
                                 //myStartup.eNextStep++;
                                 return true;
@@ -1677,10 +1388,10 @@ namespace Tangenta
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
+            if (door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(Main_Form, this);
+                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this);
                 frm_settingsselect.ShowDialog(this);
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
@@ -1690,7 +1401,7 @@ namespace Tangenta
         private void usrc_FVI_SLO1_PasswordCheck(ref bool PasswordOK)
         {
             PasswordOK = false;
-            if (Door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
+            if (door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
                 PasswordOK = true;
             }

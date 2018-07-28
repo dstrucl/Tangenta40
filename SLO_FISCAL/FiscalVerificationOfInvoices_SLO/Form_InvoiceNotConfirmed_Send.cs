@@ -16,11 +16,11 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_InvoiceNotConfirmed_Send : Form
     {
-        private usrc_FVI_SLO m_usrc_FVI_SLO = null;
+        private FVI_SLO m_usrc_FVI_SLO = null;
         List<InvoiceData> m_InvoiceData_List = null;
         private DataTable dt = new DataTable();
 
-        public Form_InvoiceNotConfirmed_Send(usrc_FVI_SLO xusrc_FVI_SLO, List<InvoiceData> xInvoiceData_List)
+        public Form_InvoiceNotConfirmed_Send(FVI_SLO xusrc_FVI_SLO, List<InvoiceData> xInvoiceData_List)
         {
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;

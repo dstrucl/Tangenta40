@@ -32,14 +32,14 @@ namespace TangentaDB
         public DataTable dtDraft_DocInvoice_Atom_Item_Stock = new DataTable();
 
 
-        public void Empty(string DocInvoice,ShopShelf xShopShelf)
+        public void Empty(ID xAtom_WorkPeriod_ID,string DocInvoice,ShopShelf xShopShelf)
         {
             while (m_DocInvoice_ShopC_Item_Data_LIST.Count > 0)
             {
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)m_DocInvoice_ShopC_Item_Data_LIST[0];
                 if (appisd.dQuantity_FromStock > 0)
                 {
-                    Remove_and_put_back_to_ShopShelf(DocInvoice,appisd, xShopShelf);
+                    Remove_and_put_back_to_ShopShelf(xAtom_WorkPeriod_ID,DocInvoice, appisd, xShopShelf);
                 }
                 if (appisd.dQuantity_FromFactory > 0)
                 {
@@ -644,7 +644,7 @@ namespace TangentaDB
         }
 
 
-        private bool UpdateStock(List<Return_to_shop_shelf_data> Return_to_basket_data_List, List<SQL_Parameter> lpar)
+        private bool UpdateStock(ID xAtom_WorkPeriod_ID,List<Return_to_shop_shelf_data> Return_to_basket_data_List, List<SQL_Parameter> lpar)
         {
             string Err = null;
             object objret = null;
@@ -654,7 +654,7 @@ namespace TangentaDB
                 if (DBSync.DBSync.ExecuteNonQuerySQL(rtb.sql_update_stock, lpar, ref objret, ref Err))
                 {
                     ID JOURNAL_Stock_ID = null;
-                    if (f_JOURNAL_Stock.Get(rtb.stock_id, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_basket_to_stock, EventTime, rtb.dQuantity_from_basket_to_stock, ref JOURNAL_Stock_ID))
+                    if (f_JOURNAL_Stock.Get(rtb.stock_id, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_basket_to_stock,xAtom_WorkPeriod_ID, EventTime, rtb.dQuantity_from_basket_to_stock, ref JOURNAL_Stock_ID))
                     {
                         continue;
                     }
@@ -673,7 +673,7 @@ namespace TangentaDB
         }
 
 
-        public bool Remove_and_put_back_to_ShopShelf(string DocInvoice,Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ShopShelf shopShelf)
+        public bool Remove_and_put_back_to_ShopShelf(ID xAtom_WorkPeriod_ID,string DocInvoice,Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ShopShelf shopShelf)
         {
             if (DocInvoice==null)
             {
@@ -726,7 +726,7 @@ namespace TangentaDB
                     }
                     s_in_ID_list += ")";
                     object objret = null;
-                    if (UpdateStock(Return_to_basket_data_List, lpar))
+                    if (UpdateStock(xAtom_WorkPeriod_ID, Return_to_basket_data_List, lpar))
                     {
 
                         string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from "+DocInvoice+@"_ShopC_Item where Stock_ID is not null and ("+DocInvoice+@"_ID = " + appisd.DocInvoice_ID.ToString()

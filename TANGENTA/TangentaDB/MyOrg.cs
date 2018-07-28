@@ -16,6 +16,7 @@ using System.Data;
 using System.Drawing;
 using DBTypes;
 using Country_ISO_3166;
+using System.Windows.Forms;
 
 namespace TangentaDB
 {
@@ -42,6 +43,8 @@ namespace TangentaDB
         public static string_v Logo_Description_v = null;
 
         public static myOrg_Office m_myOrg_Office = null;
+
+        public static ShopABC m_ShopABC = null;
 
         public static ID Office_ID
         {
@@ -286,5 +289,226 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        // DataBase is empty No Organisation Data First select Shops In use !
+        public enum eGetOrganisationDataResult
+        {
+            NO_ORGANISATION_NAME,
+            NO_TAX_ID,
+            NO_STREET_NAME,
+            NO_HOUSE_NUMBER,
+            NO_ZIP,
+            NO_CITY,
+            NO_COUNTRY,
+            NO_OFFICE,
+            NO_REAL_ESTATE,
+            NO_ELECTRONIC_DEVICE_NAME,
+            NO_MY_ORG_OFFICE_PERSON,
+            NO_MY_ORG_OFFICE_PERSON_SINGLE_USER,
+            OK,
+            ERROR
+        }
+
+        public static eGetOrganisationDataResult GetOrganisationData(bool Program_bFirstTimeInstallation,
+                                                                bool Program_OperationMode_MultiUser,
+                                                                bool Program_b_FVI_SLO,
+                                                                ref bool Program_m_CountryHasFVI)
+        {
+            if (myOrg.Get())
+            {
+
+                if (myOrg.Name_v == null)
+                {
+                    //x_usrc_Main.Get_shops_in_use(false);
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_OrganisationData.s);
+                    }
+                    return eGetOrganisationDataResult.NO_ORGANISATION_NAME;
+
+
+                }
+                if (myOrg.Tax_ID_v == null)
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_Tax_ID.s);
+                    }
+                    return eGetOrganisationDataResult.NO_TAX_ID;
+
+                }
+
+                if (myOrg.Address_v.StreetName_v == null)
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_StreetName.s);
+                    }
+                    return eGetOrganisationDataResult.NO_STREET_NAME;
+                }
+
+                if (myOrg.Address_v.HouseNumber_v == null)
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_HouseNumber.s);
+                    }
+                    return eGetOrganisationDataResult.NO_HOUSE_NUMBER;
+                }
+
+                if (myOrg.Address_v.ZIP_v == null)
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_ZIP.s);
+                    }
+                    return eGetOrganisationDataResult.NO_ZIP;
+                }
+                if (myOrg.Address_v.City_v == null)
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_City.s);
+                    }
+                    return eGetOrganisationDataResult.NO_CITY;
+                }
+
+                if (myOrg.Address_v.Country_v == null)
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_MyOrganisation_Country.s);
+                    }
+                    return eGetOrganisationDataResult.NO_COUNTRY;
+                }
+
+
+                f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID);
+                f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_TaxRates);
+
+
+                if (myOrg.myOrg_Office_list.Count > 0)
+                {
+                    if (myOrg.Find_Atom_ElectronicDevice())
+                    {
+                        if (!Program_OperationMode_MultiUser)
+                        {
+                            if (!myOrg.Get_m_myOrg_Office_m_myOrg_Person_SingleUser())
+                            {
+                            }
+                        }
+                    }
+                    if (myOrg.m_myOrg_Office == null)
+                    {
+                        if (!Program_bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lng.s_No_Office_Data.s);
+                        }
+                        return eGetOrganisationDataResult.NO_OFFICE;
+                    }
+                    else
+                    {
+                        myOrg.SetOffice(myOrg.m_myOrg_Office.ID);
+                        if (myOrg.m_myOrg_Office.myOrg_Person_list.Count == 0)
+                        {
+                            MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
+
+                            return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
+                        }
+
+                        if (!Program_OperationMode_MultiUser)
+                        {
+                            if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                            {
+                                return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER;
+                            }
+                        }
+
+                        if (myOrg.Address_v.Country_ISO_3166_a3.Equals(Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_A3))
+                        {
+                            Program_m_CountryHasFVI = true;
+                        }
+                        else
+                        {
+                            Program_m_CountryHasFVI = false;
+                        }
+
+                        if (Program_b_FVI_SLO)
+                        {
+
+                            if (myOrg.m_myOrg_Office != null)
+                            {
+                                if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
+                                {
+                                    myOrg.SetOffice(myOrg.m_myOrg_Office.ID);
+                                    if (myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
+                                    {
+                                        if (!Program_bFirstTimeInstallation)
+                                        {
+                                            MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                        }
+                                        return eGetOrganisationDataResult.NO_REAL_ESTATE;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (myOrg.ElectronicDevice_ID == null)
+                        {
+                            return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!Program_bFirstTimeInstallation)
+                    {
+                        MessageBox.Show(lng.s_No_Office.s);
+                    }
+                    return eGetOrganisationDataResult.NO_OFFICE;
+                }
+
+
+
+                string sPhoneNumber = "";
+                string sEmail = "";
+                string sHomePage = "";
+                string sRegistration_ID = "";
+                if (myOrg.PhoneNumber_v != null)
+                {
+                    sPhoneNumber = myOrg.PhoneNumber_v.vs;
+                }
+                if (myOrg.Email_v != null)
+                {
+                    sEmail = myOrg.Email_v.vs;
+                }
+                if (myOrg.HomePage_v != null)
+                {
+                    sHomePage = myOrg.HomePage_v.vs;
+                }
+                if (myOrg.Registration_ID_v != null)
+                {
+                    sRegistration_ID = myOrg.Registration_ID_v.vs;
+                }
+
+                string sAddress = myOrg.Address_v.StreetName_v.v + " " + myOrg.Address_v.HouseNumber_v.v + " , " + myOrg.Address_v.ZIP_v.v + " " + myOrg.Address_v.City_v.v + " , " + myOrg.Address_v.Country;
+
+                //this.txt_MyOrganisation.Text = myOrg.Name_v.vs + "," + sAddress
+                //    + "\r\n" + lng.s_Tax_ID.s + ":" + myOrg.Tax_ID_v.vs
+                //    + "\r\n" + lng.s_Registration_ID.s + ":" + sRegistration_ID
+                //    + "\r\n" + lng.s_PhoneNumber.s + ":" + sPhoneNumber
+                //    + "\r\n" + lng.s_Email.s + ":" + sEmail
+                //    + "\r\n" + lng.s_HomePage.s + ":" + sHomePage;
+                //Fill_MyOrganisation_Person();
+
+                return eGetOrganisationDataResult.OK;
+            }
+            else
+            {
+                return eGetOrganisationDataResult.ERROR;
+            }
+        }
+
+
     }
 }
