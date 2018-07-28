@@ -38,44 +38,45 @@
             this.lbl_Payment2 = new System.Windows.Forms.Label();
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_TimeSpan = new System.Windows.Forms.Button();
+            this.lbl_SelectionDescription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_XInvoice)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_From_To
             // 
             this.lbl_From_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_From_To.Location = new System.Drawing.Point(126, 1);
+            this.lbl_From_To.Location = new System.Drawing.Point(126, 22);
             this.lbl_From_To.Name = "lbl_From_To";
             this.lbl_From_To.Size = new System.Drawing.Size(427, 18);
             this.lbl_From_To.TabIndex = 1;
-            this.lbl_From_To.Text = "Prikaži vse";
+            this.lbl_From_To.Text = "Time from - to";
             // 
             // lbl_Sum_All
             // 
             this.lbl_Sum_All.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Sum_All.Location = new System.Drawing.Point(126, 21);
+            this.lbl_Sum_All.Location = new System.Drawing.Point(126, 40);
             this.lbl_Sum_All.Name = "lbl_Sum_All";
             this.lbl_Sum_All.Size = new System.Drawing.Size(132, 17);
             this.lbl_Sum_All.TabIndex = 3;
-            this.lbl_Sum_All.Text = "Prikaži vse";
+            this.lbl_Sum_All.Text = "Sum All";
             // 
             // lbl_Sum_WithoutTax
             // 
             this.lbl_Sum_WithoutTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Sum_WithoutTax.Location = new System.Drawing.Point(387, 24);
+            this.lbl_Sum_WithoutTax.Location = new System.Drawing.Point(387, 40);
             this.lbl_Sum_WithoutTax.Name = "lbl_Sum_WithoutTax";
-            this.lbl_Sum_WithoutTax.Size = new System.Drawing.Size(165, 15);
+            this.lbl_Sum_WithoutTax.Size = new System.Drawing.Size(165, 17);
             this.lbl_Sum_WithoutTax.TabIndex = 4;
-            this.lbl_Sum_WithoutTax.Text = "Prikaži vse";
+            this.lbl_Sum_WithoutTax.Text = "Sum Without Tax";
             // 
             // lbl_Sum_Tax
             // 
             this.lbl_Sum_Tax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Sum_Tax.Location = new System.Drawing.Point(256, 21);
+            this.lbl_Sum_Tax.Location = new System.Drawing.Point(256, 40);
             this.lbl_Sum_Tax.Name = "lbl_Sum_Tax";
             this.lbl_Sum_Tax.Size = new System.Drawing.Size(132, 17);
             this.lbl_Sum_Tax.TabIndex = 5;
-            this.lbl_Sum_Tax.Text = "Prikaži vse";
+            this.lbl_Sum_Tax.Text = "Sum Tax";
             // 
             // dgvx_XInvoice
             // 
@@ -95,12 +96,12 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvx_XInvoice.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvx_XInvoice.Location = new System.Drawing.Point(4, 42);
+            this.dgvx_XInvoice.Location = new System.Drawing.Point(4, 59);
             this.dgvx_XInvoice.Name = "dgvx_XInvoice";
             this.dgvx_XInvoice.ReadOnly = true;
             this.dgvx_XInvoice.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvx_XInvoice.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_XInvoice.Size = new System.Drawing.Size(826, 561);
+            this.dgvx_XInvoice.Size = new System.Drawing.Size(826, 544);
             this.dgvx_XInvoice.TabIndex = 0;
             this.dgvx_XInvoice.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_XInvoice_CellFormatting);
             this.dgvx_XInvoice.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_XInvoice_CellMouseDown);
@@ -129,9 +130,9 @@
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.CausesValidation = false;
             this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
-            this.btn_Print.Location = new System.Drawing.Point(71, 1);
+            this.btn_Print.Location = new System.Drawing.Point(65, 4);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(55, 37);
+            this.btn_Print.Size = new System.Drawing.Size(55, 51);
             this.btn_Print.TabIndex = 8;
             this.btn_Print.UseVisualStyleBackColor = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
@@ -140,16 +141,26 @@
             // 
             this.btn_TimeSpan.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_TimeSpan.Image = global::Tangenta.Properties.Resources.TimeSpan;
-            this.btn_TimeSpan.Location = new System.Drawing.Point(3, 1);
+            this.btn_TimeSpan.Location = new System.Drawing.Point(3, 4);
             this.btn_TimeSpan.Name = "btn_TimeSpan";
-            this.btn_TimeSpan.Size = new System.Drawing.Size(56, 38);
+            this.btn_TimeSpan.Size = new System.Drawing.Size(55, 51);
             this.btn_TimeSpan.TabIndex = 2;
             this.btn_TimeSpan.UseVisualStyleBackColor = false;
             this.btn_TimeSpan.Click += new System.EventHandler(this.btn_TimeSpan_Click);
             // 
+            // lbl_SelectionDescription
+            // 
+            this.lbl_SelectionDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_SelectionDescription.Location = new System.Drawing.Point(126, 4);
+            this.lbl_SelectionDescription.Name = "lbl_SelectionDescription";
+            this.lbl_SelectionDescription.Size = new System.Drawing.Size(427, 18);
+            this.lbl_SelectionDescription.TabIndex = 9;
+            this.lbl_SelectionDescription.Text = "Selection Description: All invoices or invoices of single user";
+            // 
             // usrc_TableOfDocuments
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.lbl_SelectionDescription);
             this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.lbl_Payment2);
             this.Controls.Add(this.lbl_Payment1);
@@ -177,6 +188,6 @@
         internal System.Windows.Forms.Label lbl_Sum_Tax;
         internal System.Windows.Forms.Label lbl_Payment1;
         internal System.Windows.Forms.Label lbl_Payment2;
-
+        internal System.Windows.Forms.Label lbl_SelectionDescription;
     }
 }

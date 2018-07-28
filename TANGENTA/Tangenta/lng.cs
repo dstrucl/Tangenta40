@@ -27,8 +27,19 @@ namespace Tangenta
 
         public static ltext s_WorkAreas = new ltext(new string[] { "Work area", "Področja dela" });
 
-        
-        public static ltext s_lbl_ExitTimeout = new ltext(new string[] { "Exit timeout in sec", "Časovnik za izhod v sek-" });
+
+        public static ltext s_lbl_SelectionDescription_AllInvoicesOfUser = new ltext(new string[] { "User:", "Uporabnik:" });
+
+
+        public static ltext s_lpl_SelectionDescription_AllProformaInvoicesOfUser = new ltext(new string[] { "User:", "Uporabnik:" });
+
+
+        public static ltext s_lbl_SelectionDescription_AllInvoices = new ltext(new string[] { "Invoices from all", "Računi od vseh" });
+
+
+        public static ltext s_lbl_SelectionDescription_AllProformaInvoices = new ltext(new string[] { "Proforma from all", "Pedračuni os vseh" });
+
+        public static ltext s_lbl_ExitTimeout = new ltext(new string[] { "Exit timeout in sec.:", "Časovnik za izhod v sek.:" });
         
         public static ltext s_Settings = new ltext(new string[] { "Settings", "Nastavitve" });
 

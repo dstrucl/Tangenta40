@@ -621,9 +621,10 @@ namespace Tangenta
 
             LayoutSet();
 
-            m_usrc_Main.Active = true;
+            
 
-            m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+            m_usrc_Main.Activate(Program.nav);
+
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 

@@ -241,6 +241,7 @@ namespace Tangenta
                 Mode = eMode.Shops_and_InvoiceTable;
             }
 
+
             loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
             if (Program.Login_MultipleUsers)
             {
@@ -457,23 +458,8 @@ namespace Tangenta
         {
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 
-            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
 
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
-            if (!m_usrc_DocumentEditor.Init(xnav, this.m_usrc_TableOfDocuments.Current_Doc_ID))
-            {
-                Program.Cursor_Arrow();
-                return false;
-            }
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
-
-            SetInitialMode();
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
-
-            SetMode(Mode);
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
             return true;
         }
 
@@ -629,6 +615,65 @@ namespace Tangenta
             {
                 m_usrc_DocumentEditor.SetSplitControlsSpliterDistance();
             }
+        }
+
+        internal void Activate(NavigationButtons.Navigation xnav)
+        {
+            int iRowsCount = m_usrc_TableOfDocuments.GetTable(false, false, Properties.Settings.Default.FinancialYear, null);
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
+            if (m_usrc_DocumentEditor.Init(xnav, this.m_usrc_TableOfDocuments.Current_Doc_ID))
+            {
+                if (Program.b_FVI_SLO)
+                {
+                    string Err = null;
+                    if (this.usrc_FVI_SLO1.Start(ref Err))
+                    {
+                        if (this.IsDocInvoice)
+                        {
+                            if (Program.b_FVI_SLO)
+                            {
+                                this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                if (Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
+                                {
+                                    this.SetDocument(xnav);
+                                }
+                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                    }
+                }
+            }
+            else
+            {
+                Program.Cursor_Arrow();
+                return;
+            }
+
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
+
+            SetInitialMode();
+
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
+
+            SetMode(Mode);
+            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
+
+            if (Program.IsAdministratorUser)
+            {
+                btn_Settings.Visible = true;
+                usrc_FVI_SLO1.Visible = true;
+            }
+            else
+            {
+                btn_Settings.Visible = false;
+                usrc_FVI_SLO1.Visible = false;
+            }
+            Active = true;
+            Activate_dgvx_XInvoice_SelectionChanged();
         }
 
         private bool Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(int financialYear)
@@ -1248,29 +1293,6 @@ namespace Tangenta
 
             if (this.InitMan(xnav))
             {
-                if (Program.b_FVI_SLO)
-                {
-                    if (this.usrc_FVI_SLO1.Start(ref Err))
-                    {
-                        if (this.IsDocInvoice)
-                        {
-                            if (Program.b_FVI_SLO)
-                            {
-                                this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                if (Program.usrc_FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
-                                {
-                                    this.SetDocument(xnav);
-                                }
-                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                        return false;
-                    }
-                }
                 return true;
             }
             else

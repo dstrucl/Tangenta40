@@ -2784,6 +2784,7 @@ namespace TangentaDataBaseDef
             /* 244 */
             t_Current_DocInvoice_ID = new SQLTable((Object)new Current_DocInvoice_ID(), "cdiid", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_Current_DocInvoice_ID);
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.DBSource, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Database", "Podatkovna baza"));
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba moje organizacije ID"));
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
@@ -2792,6 +2793,7 @@ namespace TangentaDataBaseDef
             /* 245 */
             t_Current_DocProformaInvoice_ID = new SQLTable((Object)new Current_DocProformaInvoice_ID(), "cdpiid", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_Current_DocProformaInvoice_ID);
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.DBSource, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Database", "Podatkovna baza"));
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Proforma-Invoice ID", "Predračun ID"));
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("My Organisation Person ID", "Oseba moje organizacije ID"));
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));

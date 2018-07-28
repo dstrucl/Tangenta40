@@ -158,20 +158,13 @@ namespace Tangenta
             }
         }
 
-        internal int Init(usrc_DocumentEditor.enum_Invoice xenum_Invoice,
-                          bool bNew,
-                          bool bInitialise_usrc_Invoice,
-                          int iFinancialYear,
-                          ID Doc_ID_To_show)
+        internal int GetTable(bool bNew,
+                              bool bInitialise_usrc_Invoice,
+                              int iFinancialYear,
+                              ID Doc_ID_To_show
+                        )
         {
-            ColorDraft = Properties.Settings.Default.ColorDraft;
-            ColorStorno = Properties.Settings.Default.ColorStorno;
-            ColorFurs_InvoiceConfirmed = Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
-
             int iRowsCount = -1;
-            enum_Invoice = xenum_Invoice;
             iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
             if (bNew)
             {
@@ -184,7 +177,23 @@ namespace Tangenta
                     ShowOrEditSelectedRow(Doc_ID_To_show);
                 }
             }
+
             return iRowsCount;
+        }
+
+        internal void Init(usrc_DocumentEditor.enum_Invoice xenum_Invoice,
+                          bool bNew,
+                          bool bInitialise_usrc_Invoice,
+                          int iFinancialYear,
+                          ID Doc_ID_To_show)
+        {
+            ColorDraft = Properties.Settings.Default.ColorDraft;
+            ColorStorno = Properties.Settings.Default.ColorStorno;
+            ColorFurs_InvoiceConfirmed = Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
+            ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
+            ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
+
+            enum_Invoice = xenum_Invoice;
         }
 
         private int Init_Invoice(bool bInvoice, bool bNew, int iFinancialYear)
@@ -195,6 +204,7 @@ namespace Tangenta
             string s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
             string s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
             string s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime = GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString();
+
 
             if (IsDocInvoice)
             {
@@ -225,6 +235,7 @@ namespace Tangenta
             }
 
 
+
             if (ExtraCondition!=null)
             {
                 s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
@@ -248,6 +259,7 @@ namespace Tangenta
                 }
             }
 
+
             string sql = null;
 
             string ElectronicDevice_Name = GlobalData.ElectronicDevice_Name;
@@ -258,6 +270,53 @@ namespace Tangenta
             string spar_ElectronicDevice_Name = "@par_ElectronicDevice_Name";
             SQL_Parameter par_ElectronicDevice_Name = new SQL_Parameter(spar_ElectronicDevice_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Name);
             lpar_ExtraCondition.Add(par_ElectronicDevice_Name);
+
+            string cond_Atom_myOrganisation_Person = "";
+
+            if ((Program.IsAdministratorUser)||(Program.IsUserManager))
+            {
+                if (IsDocInvoice)
+                {
+                    lng.s_lbl_SelectionDescription_AllInvoices.Text(lbl_SelectionDescription);
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    lng.s_lbl_SelectionDescription_AllProformaInvoices.Text(lbl_SelectionDescription);
+                }
+            }
+            else
+            {
+                // in case that user is not administrator
+                // set condition to show only documents of Atom_myOrg_Person
+                string spar_Atom_myOrganisation_Person = "@par_AOP";
+                SQL_Parameter par_Atom_myOrganisation_Person = new SQL_Parameter(spar_Atom_myOrganisation_Person, false,GlobalData.Atom_myOrganisation_Person_ID);
+                lpar_ExtraCondition.Add(par_Atom_myOrganisation_Person);
+                cond_Atom_myOrganisation_Person = " and  JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                cond += cond_Atom_myOrganisation_Person;
+                string s_myorg_person = "??";
+                if (myOrg.m_myOrg_Office!=null)
+                {
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person!=null)
+                    {
+                       if (myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v!=null)
+                        {
+                            s_myorg_person = myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v.v;
+                        }
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v != null)
+                        {
+                            s_myorg_person += " "+myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v.v;
+                        }
+                    }
+                }
+                if (IsDocInvoice)
+                {
+                    lng.s_lbl_SelectionDescription_AllInvoicesOfUser.Text(lbl_SelectionDescription, s_myorg_person);
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    lng.s_lbl_SelectionDescription_AllProformaInvoices.Text(lbl_SelectionDescription, s_myorg_person);
+                }
+            }
 
             if (IsDocInvoice)
             {
