@@ -406,23 +406,25 @@ namespace Tangenta
                 Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
             }
 
-           
-            if (ID.Validate(DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID))
+            if (DocumentMan != null)
             {
-                Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+                if (ID.Validate(DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID))
+                {
+                    Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+                }
+                if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA != null)
+                {
+                    if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                    {
+                        DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                        DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                    }
+                }
             }
             Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
-            if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA != null)
-            {
-                if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
-                {
-                    DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                    DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
-                }
-            }
 
-            if (Program.Login_MultipleUsers)
+                if (Program.Login_MultipleUsers)
             {
 
             }

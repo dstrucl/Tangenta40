@@ -36,7 +36,30 @@ namespace FiscalVerificationOfInvoices_SLO
         public delegate void deleagteRequestPasswordCheck(ref bool PasswordOK);
         public event deleagteRequestPasswordCheck PasswordCheck = null;
 
-
+        public new bool Enabled
+        {
+            get
+            {
+                return base.Enabled;
+            }
+            set
+            {
+                bool benabled = value;
+                base.Enabled = benabled;
+                if (benabled)
+                {
+                    if (m_FVI_SLO.IsRunning)
+                    {
+                        btn_FVI.Enabled = true;
+                    }
+                    else
+                    {
+                        btn_FVI.Enabled = false;
+                    }
+                }
+                
+            }
+        }
         #region Metods
 
         public usrc_FVI_SLO()

@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer_MessagePump = new System.Windows.Forms.Timer(this.components);
+            // 
+            // timer_MessagePump
+            // 
+            this.timer_MessagePump.Tick += new System.EventHandler(this.timer_MessagePump_Tick);
 
         }
 

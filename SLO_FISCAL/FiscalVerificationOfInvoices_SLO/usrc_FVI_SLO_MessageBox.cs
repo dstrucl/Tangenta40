@@ -25,7 +25,7 @@ namespace FiscalVerificationOfInvoices_SLO
             message_buff = new CircularBuffer_FVI_SLO_Message(Length);
         }
 
-        public Result_MessageBox_Get Get(ref usrc_FVI_SLO_Message Message)
+        public Result_MessageBox_Get Get(ref FVI_SLO_Message Message)
         {
             Result_MessageBox_Get res = Result_MessageBox_Get.TIMEOUT;
             if (myMutex.WaitOne(3000))
@@ -48,7 +48,7 @@ namespace FiscalVerificationOfInvoices_SLO
             return res;
         }
 
-        public Result_MessageBox_Post Post(usrc_FVI_SLO_Message Message)
+        public Result_MessageBox_Post Post(FVI_SLO_Message Message)
         {
             Result_MessageBox_Post res = Result_MessageBox_Post.TIMEOUT;
             if (myMutex.WaitOne(3000))

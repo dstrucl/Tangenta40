@@ -23,7 +23,7 @@ using MNet.SLOTaxService.Messages;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public class usrc_FVI_SLO_Message
+    public class FVI_SLO_Message
     {
         public enum eMessage { NONE, Thread_FVI_START, Thread_FVI_END, FVI_RESPONSE_SINGLE_INVOICE, FVI_RESPONSE_MANY_INVOICES, FVI_RESPONSE_PP, FVI_RESPONSE_ECHO, ERROR }
         private eMessage m_Message;
@@ -94,7 +94,7 @@ namespace FiscalVerificationOfInvoices_SLO
             get { return m_image_QRCode; }
         }
 
-        public usrc_FVI_SLO_Message(long xMessage_ID, eMessage xMessage, string xml_data)
+        public FVI_SLO_Message(long xMessage_ID, eMessage xMessage, string xml_data)
         {
             Message = xMessage;
             XML_Data = xml_data;
@@ -124,7 +124,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         internal void Do_Dispose()
         {
-            Message = usrc_FVI_SLO_Message.eMessage.NONE;
+            Message = FVI_SLO_Message.eMessage.NONE;
             XML_Data = null;
             m_errorMessage = null;
             m_messageType = MessageType.Unknown;

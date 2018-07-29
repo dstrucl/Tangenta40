@@ -15,6 +15,8 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class FVI_SLO : Component
     {
+        public enum eStartResult { OK,ALLREADY_RUNNING,ERROR};
+
         public usrc_FVI_SLO m_usrc_FVI_SLO = null;
         #region Declaration
         public const string FormFURSCommunication_ErrorMessage_BUSSINES_PREMISE_NOT_DEFINED = "[S006]";
@@ -42,7 +44,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public Thread_FVI thread_fvi = new Thread_FVI();
 
-        private usrc_FVI_SLO_Message message = new usrc_FVI_SLO_Message(0, usrc_FVI_SLO_Message.eMessage.NONE, null);
+        private FVI_SLO_Message message = new FVI_SLO_Message(0, FVI_SLO_Message.eMessage.NONE, null);
 
         private int m_message_box_length = 100;
         private long LastMessageID = 0;
@@ -554,6 +556,14 @@ namespace FiscalVerificationOfInvoices_SLO
             set { m_message_box_length = value; }
         }
 
+        public bool IsRunning
+        {
+            get
+            {
+                return bRun;
+            }
+        }
+
 
         #endregion
 
@@ -694,7 +704,7 @@ namespace FiscalVerificationOfInvoices_SLO
             xInvoiceNumber = fsb.InvoiceNumber;
         }
 
-        public bool Start(ref string ErrReason)
+        public eStartResult Start(ref string ErrReason)
         {
             if (!bRun)
             {
@@ -718,7 +728,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
                         timer_MessagePump.Enabled = true;
                         bRun = true;
-                        return true;
+                        return eStartResult.OK;
                     }
                     else
                     {
@@ -731,12 +741,12 @@ namespace FiscalVerificationOfInvoices_SLO
                         dlgResult = fvi_settings.ShowDialog();
                     }
                 }
-                return false;
+                return eStartResult.ERROR;
             }
             else
             {
-                ErrReason = "0 Not run";
-                return false;
+                ErrReason = "Allready_Running";
+                return eStartResult.ALLREADY_RUNNING;
             }
         }
 
@@ -792,7 +802,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public Result_MessageBox_Post Send_SingleInvoice(bool bSendSalesBookInvoice, string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref string barcode_value, ref Image Image_QR)
         {
-            for (; ; )
+            for (;;)
             {
                 LastMessageID++;
                 Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
@@ -902,7 +912,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 case Result_MessageBox_Get.OK:
                     switch (message.Message)
                     {
-                        case usrc_FVI_SLO_Message.eMessage.ERROR:
+                        case FVI_SLO_Message.eMessage.ERROR:
                             if (m_usrc_FVI_SLO != null)
                             {
                                 m_usrc_FVI_SLO.btn_FVI.Enabled = true;
@@ -911,13 +921,13 @@ namespace FiscalVerificationOfInvoices_SLO
                             LogFile.Error.Show(lng.s_FVI_SLO_Error.s + ":" + message.ErrorMessage);
                             break;
 
-                        case usrc_FVI_SLO_Message.eMessage.Thread_FVI_START:
+                        case FVI_SLO_Message.eMessage.Thread_FVI_START:
                             if (m_usrc_FVI_SLO != null)
                             {
                                 m_usrc_FVI_SLO.btn_FVI.Enabled = true;
                             }
                             break;
-                        case usrc_FVI_SLO_Message.eMessage.Thread_FVI_END:
+                        case FVI_SLO_Message.eMessage.Thread_FVI_END:
                             if (m_usrc_FVI_SLO != null)
                             {
                                 m_usrc_FVI_SLO.btn_FVI.Enabled = false;
@@ -925,7 +935,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             bRun = false;
                             break;
 
-                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO:
+                        case FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO:
                             if (FormFURSCommunication != null)
                             {
                                 if (FormFURSCommunication.FVI_Response_ECHO(message.Message_ID,
@@ -954,7 +964,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                             break;
 
-                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE:
+                        case FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE:
                             if (FormFURSCommunication != null)
                             {
                                 if (FormFURSCommunication.FVI_Response_Single_Invoice(message.Message_ID,
@@ -976,7 +986,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                             break;
 
-                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_MANY_INVOICES:
+                        case FVI_SLO_Message.eMessage.FVI_RESPONSE_MANY_INVOICES:
                             if (FormFURSCommunication != null)
                             {
                                 if (FormFURSCommunication.FVI_Response_Many_Invoice(message.Message_ID,
@@ -998,7 +1008,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             }
                             break;
 
-                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP:
+                        case FVI_SLO_Message.eMessage.FVI_RESPONSE_PP:
 
                             if (FormFURSCommunication.FVI_Response_PP(message.Message_ID,
                                                                      message.XML_Data,

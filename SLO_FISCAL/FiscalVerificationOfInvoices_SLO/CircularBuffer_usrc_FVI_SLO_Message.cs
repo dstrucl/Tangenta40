@@ -17,7 +17,7 @@ namespace FiscalVerificationOfInvoices_SLO
     public class CircularBuffer_FVI_SLO_Message
     {
         private int m_Length = 0;
-        usrc_FVI_SLO_Message[] m_obuff = null;
+        FVI_SLO_Message[] m_obuff = null;
         int pIn = 0;
         int pOut = 0;
 
@@ -31,10 +31,10 @@ namespace FiscalVerificationOfInvoices_SLO
             if (xLength > 0)
             {
                 m_Length = xLength;
-                m_obuff = new usrc_FVI_SLO_Message[m_Length];
+                m_obuff = new FVI_SLO_Message[m_Length];
                 for (int i = 0; i < m_Length; i++)
                 {
-                    usrc_FVI_SLO_Message mfvi = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.NONE, null);
+                    FVI_SLO_Message mfvi = new FVI_SLO_Message(0,FVI_SLO_Message.eMessage.NONE, null);
                     m_obuff[i] = mfvi;
                 }
             }
@@ -43,7 +43,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        public bool PutIn(usrc_FVI_SLO_Message msg)
+        public bool PutIn(FVI_SLO_Message msg)
         {
             int pInNext = Next(pIn);
             if (pInNext == pOut)
@@ -77,7 +77,7 @@ namespace FiscalVerificationOfInvoices_SLO
             return xp;
         }
 
-        public bool Get(ref usrc_FVI_SLO_Message msg)
+        public bool Get(ref FVI_SLO_Message msg)
         {
             if (pOut != pIn)
             {

@@ -179,9 +179,12 @@ namespace LoginControl
                 if (ctrl is usrc_LoginOfMyOrgUser)
                 {
                     usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser != null)
                     {
-                        iCount++;
+                        if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                        {
+                            iCount++;
+                        }
                     }
                 }
             }
@@ -282,11 +285,14 @@ namespace LoginControl
             {
                 if (ctrl is usrc_LoginOfMyOrgUser)
                 {
-                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl; 
-                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
+                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser != null)
                     {
-                        MessageBox.Show(lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut.s);
-                        return;
+                        if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                        {
+                            MessageBox.Show(lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut.s);
+                            return;
+                        }
                     }
                 }
             }

@@ -57,7 +57,7 @@ namespace FiscalVerificationOfInvoices_SLO
             ThreadData thdata = (ThreadData)othdata;
             FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = thdata.m_usrc_FVI_SLO_MessageBox;
             Thread_FVI_Message fvi_message = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.NONE,null);
-            usrc_FVI_SLO_Message xusrc_FVI_SLO_Message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_START, null);
+            FVI_SLO_Message xusrc_FVI_SLO_Message = new FVI_SLO_Message(0,FVI_SLO_Message.eMessage.Thread_FVI_START, null);
             xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
 
             try
@@ -70,14 +70,14 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR,null, lng.sFileDoesNotExist.s + ":" + thdata.certificateFileName,MessageType.Unknown,null,false,null,null,null);
+                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.ERROR,null, lng.sFileDoesNotExist.s + ":" + thdata.certificateFileName,MessageType.Unknown,null,false,null,null,null);
                     xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                     return;
                 }
             }
             catch (Exception ex)
             {
-                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR, null, ex.Message, MessageType.Unknown, null, false, null, null, null);
+                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.ERROR, null, ex.Message, MessageType.Unknown, null, false, null, null, null);
                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                 return;
             }
@@ -95,7 +95,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             case Thread_FVI_Message.eMessage.POST_ECHO:
                                 rv = taxService.Send(fvi_message.XML_Data);  
                                 xml_returned = prettyXml(rv.OriginalMessage);
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
                                 xusrc_FVI_SLO_Message.Success = rv.Success;
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
@@ -109,7 +109,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                     if (BarCodeValue != null)
                                     {
                                         Image img_QRCode = rv.BarCodes.DrawQRCode(Properties.Settings.Default.QRImageWidth, System.Drawing.Imaging.ImageFormat.Png);
-                                        xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
+                                        xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
                                                                   xml_returned,
                                                                   rv.ErrorMessage,
                                                                   rv.MessageType,
@@ -122,7 +122,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                     }
                                     else
                                     {
-                                        xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
+                                        xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
                                                                  xml_returned,
                                                                  rv.ErrorMessage,
                                                                  rv.MessageType,
@@ -135,7 +135,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                 }
                                 else
                                 {
-                                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
+                                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
                                                                 xml_returned,
                                                                 rv.ErrorMessage,
                                                                 rv.MessageType,
@@ -152,7 +152,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
                                 rv = taxService.Send(fvi_message.XML_Data);  
                                 xml_returned = prettyXml(rv.OriginalMessage);
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP, xml_returned);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.FVI_RESPONSE_PP, xml_returned);
                                 xusrc_FVI_SLO_Message.Success = rv.Success;
                                 xusrc_FVI_SLO_Message.ErrorMessage  = rv.ErrorMessage;
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
@@ -161,14 +161,14 @@ namespace FiscalVerificationOfInvoices_SLO
                             case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
                                 rv = taxService.Send(fvi_message.XML_Data);   
                                 xml_returned = prettyXml(rv.OriginalMessage);
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.END:
                                 if (xusrc_FVI_SLO_Message != null)
                                 {
-                                    xusrc_FVI_SLO_Message.Set(0, usrc_FVI_SLO_Message.eMessage.Thread_FVI_END, null);
+                                    xusrc_FVI_SLO_Message.Set(0, FVI_SLO_Message.eMessage.Thread_FVI_END, null);
                                     xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 }
                                 return;
@@ -188,7 +188,7 @@ namespace FiscalVerificationOfInvoices_SLO
             FiscalSettings = null;
             taxService = null;
 
-            usrc_FVI_SLO_Message xusrc_FVI_SLO_Message_END = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.NONE, null);
+            FVI_SLO_Message xusrc_FVI_SLO_Message_END = new FVI_SLO_Message(0,FVI_SLO_Message.eMessage.NONE, null);
             Thread_FVI_Message fvi_message_END = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.END, null);
             message_box.Post(fvi_message_END);
             long StartTicks = DateTime.Now.Ticks;
@@ -199,7 +199,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 {
                     if (xusrc_FVI_SLO_MessageBox.Get(ref xusrc_FVI_SLO_Message_END) == Result_MessageBox_Get.OK)
                     {
-                        if (xusrc_FVI_SLO_Message_END.Message == usrc_FVI_SLO_Message.eMessage.Thread_FVI_END)
+                        if (xusrc_FVI_SLO_Message_END.Message == FVI_SLO_Message.eMessage.Thread_FVI_END)
                         {
                             return true;
                         }

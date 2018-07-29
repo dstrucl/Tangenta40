@@ -96,47 +96,5 @@ namespace Tangenta
                 return false;
             }
         }
-
-        private bool Startup_12_Show_Form_Printer_Edit(startup_step xstartup_step,
-                                                            NavigationButtons.Navigation xnav,
-                                                            ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
-        {
-            startup_OnFormResult_proc = Startup_12_onformresult_Form_Printer;
-            return true;
-        }
-
-        private Startup_onformresult_proc_Result Startup_12_onformresult_Form_Printer(startup_step myStartup_step,
-                                                                                    Form form,
-                                                                                    NavigationButtons.Navigation.eEvent eExitResult,
-                                                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
-                                                                                    ref string Err)
-        {
-            switch (eExitResult)
-            {
-                case Navigation.eEvent.NEXT:
-                    if (form is Form_DefinePrinters)
-                    {
-                       return Startup_onformresult_proc_Result.NEXT;
-                    }
-                    else
-                    {
-                            return Startup_onformresult_proc_Result.ERROR;
-                    }
-
-                case Navigation.eEvent.PREV:
-                    return Startup_onformresult_proc_Result.PREV;
-
-                case Navigation.eEvent.EXIT:
-                    return Startup_onformresult_proc_Result.EXIT;
-
-                case NavigationButtons.Navigation.eEvent.NOTHING:
-                    // happens when check procedure is OK
-                    return Startup_onformresult_proc_Result.NO_FORM_BUT_CHECK_OK;
-
-                default:
-                    LogFile.Error.Show("ERROR:Tangenta:FormDocument:Startup_06_onformresult_Form_Select_DefaultCurrency:eExitResult not implemented for xnav.eExitResult = " + eExitResult.ToString());
-                    return Startup_onformresult_proc_Result.ERROR;
-            }
-        }
-    }
+     }
 }

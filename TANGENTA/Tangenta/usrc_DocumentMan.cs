@@ -998,172 +998,6 @@ namespace Tangenta
             }
         }
 
-        private bool Get_FVI(Navigation xnav)
-        {
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            Program.b_FVI_SLO = false;
-            if (myOrg.Address_v != null)
-            {
-                if (myOrg.Address_v.Country_ISO_3166_num == TangentaDB.PostAddress_v.SLO_Country_ISO_3166_num)
-                {
-                    Program.b_FVI_SLO = true;
-                    if (Program.bFirstTimeInstallation)
-                    {
-                        Do_Form_FVI_check:
-                        xnav.ChildDialog = new Form_FVI_check(xnav);
-                        xnav.ShowDialog();
-                        if (Program.b_FVI_SLO)
-                        {
-                            if (xnav.eExitResult == Navigation.eEvent.NEXT)
-                            {
-                                long FVI_SLO_RealEstateBP_rows_count = fs.GetTableRowsCount("FVI_SLO_RealEstateBP");
-                                if (FVI_SLO_RealEstateBP_rows_count == 0)
-                                {
-
-                                    Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
-                                    if (Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                                    xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID, xnav);
-                                    xnav.ShowDialog();
-                                    if (Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                                    if (xnav.eExitResult == Navigation.eEvent.PREV)
-                                    {
-                                        goto Do_Form_FVI_check;
-                                    }
-                                    else if (xnav.eExitResult == Navigation.eEvent.NEXT)
-                                    {
-                                        bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
-                                        xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1.m_FVI_SLO, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
-                                        Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
-                                        xnav.ShowDialog();
-                                        if (xnav.eExitResult == Navigation.eEvent.PREV)
-                                        {
-                                            goto Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
-                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1.m_FVI_SLO, xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
-                                    Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
-                                    xnav.ShowDialog();
-                                    if (xnav.eExitResult == Navigation.eEvent.PREV)
-                                    {
-                                        goto Do_Form_FVI_check;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-            return true;
-        }
-
-        public bool Get_ProgramSettings(NavigationButtons.Navigation xnav, bool bResetShopsInUse)
-        {
-
-            if (Program.bFirstTimeInstallation || (Program.Shops_in_use.Length == 0))
-            {
-                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                xnav.ChildDialog = new Form_ProgramSettings(this, xnav);
-                xnav.ShowDialog();
-                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-                if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
-                {
-                    switch (xnav.eExitResult)
-                    {
-                        case NavigationButtons.Navigation.eEvent.NEXT:
-                            return true;
-                        case NavigationButtons.Navigation.eEvent.PREV:
-                            return true;
-                        default:
-                            return false;
-                    }
-                }
-                else if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.OkCancel)
-                {
-                    switch (xnav.eExitResult)
-                    {
-                        case NavigationButtons.Navigation.eEvent.OK:
-
-                            if (m_usrc_DocumentEditor != null)
-                            {
-                                if (m_usrc_DocumentEditor.DBtcn != null)
-                                {
-                                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
-                                    return true;
-                                }
-                            }
-                            return true;
-                        default:
-                            return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Document:Get_shops_in_use:Error " + xnav.m_eButtons.ToString() + "not implemented!");
-                    return false;
-                }
-            }
-            else
-            {
-                if (Program.Shops_in_use.Length > 0)
-                {
-                    xnav.eExitResult = Navigation.eEvent.NEXT;
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Document:Get_shops_in_use:Error Program.Shops_in_use.Length <= 0!");
-                    return false;
-                }
-            }
-        }
-
-        internal bool Get_Printer(startup myStartup, object oData, Navigation xnav, ref string Err)
-        {
-            //Insert default templates for Proforma Invoice and for 
-            if (f_doc.InsertDefault())
-            {
-                TangentaPrint.PrintersList.Init();
-
-                if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL))
-                {
-                    //myStartup.eNextStep++;
-                    return true;
-                }
-                else
-                {
-                    if (TangentaPrint.PrintersList.Define(xnav))
-                    {
-                        if (xnav.eExitResult == Navigation.eEvent.NEXT)
-                        {
-                            //myStartup.eNextStep++;
-                            return true;
-                        }
-                        else if (xnav.eExitResult == Navigation.eEvent.PREV)
-                        {
-                            //myStartup.eNextStep--;
-                            return true;
-                        }
-                        else if (xnav.eExitResult == Navigation.eEvent.CANCEL)
-                        {
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-                    return false;
-                }
-            }
-            else
-            {
-                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
-            }
-        }
-
         internal bool Initialise(Form_Document main_Form, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
             m_Form_Document = main_Form;
@@ -1174,20 +1008,6 @@ namespace Tangenta
             return m_usrc_DocumentEditor.Initialise(this, m_LoginOfMyOrgUser);
         }
 
-
-        internal bool SetShopsPricelists(startup myStartup, object oData,  ref string Err)
-        {
-            if (m_usrc_DocumentEditor != null)
-            {
-                if (m_usrc_DocumentEditor.DBtcn != null)
-                {
-                    m_usrc_DocumentEditor.Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
-                }
-            }
-
-            //myStartup.eNextStep++;
-            return true;
-        }
 
         internal bool Init()
         {
@@ -1212,54 +1032,42 @@ namespace Tangenta
             {
                 if (Program.b_FVI_SLO)
                 {
-                    if (this.usrc_FVI_SLO1.m_FVI_SLO.Start(ref Err))
+                    switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(ref Err))
                     {
-                        if (this.IsDocInvoice)
-                        {
-                            if (Program.b_FVI_SLO)
+                        case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.OK:
+                        case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ALLREADY_RUNNING:
+                            this.usrc_FVI_SLO1.Enabled = true;
+                            if (this.IsDocInvoice)
                             {
-                                this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
+                                if (Program.b_FVI_SLO)
                                 {
-                                    this.SetDocument();
+                                    this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                    if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
+                                    {
+                                        return this.SetDocument();
+                                    }
+                                    //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
                                 }
-                                //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
                             }
-                        }
+                            return true;
+
+                        case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ERROR:
+                            LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                            return false;
                     }
-                    else
-                    {
-                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                        return false;
-                    }
+                    LogFile.Error.Show("usrc_Main:Init:Ended on wrong place!");
+                    return false;
                 }
-                return true;
+                else
+                {
+                    return this.SetDocument();
+                }
             }
             else
             {
                 return false;
             }
         }
-
-        private bool CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
-        {
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup, xnav);
-            xnav.ChildDialog = frmdlg;
-            xnav.ShowDialog();
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-            return myStartup.bInsertSampleData;
-        }
-
-
-
-
-
-
-
-
-
-
 
         public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
