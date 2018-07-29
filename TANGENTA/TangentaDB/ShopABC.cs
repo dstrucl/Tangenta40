@@ -33,11 +33,61 @@ namespace TangentaDB
 
         public CurrentInvoice m_CurrentInvoice = null;
 
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocInvoice = null;
+
+        public ShopABC(DBTablesAndColumnNames xDBtcn)
+        {
+            //may be called only from Booting_07_GetTaxation !
+            m_xTaxationList=Get_TaxationList();
+            m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
+            m_Atom_WorkPeriod_ID = null;
+            td = DBSync.DBSync.DB_for_Tangenta.mt;
+            DBtcn = xDBtcn;
+        }
+
+
+        public ShopABC(string xDocInvoice, DBTablesAndColumnNames xDBtcn, ID xAtom_WorkPeriod_ID)
+        {
+            DocInvoice = xDocInvoice;
+            m_xTaxationList=Get_TaxationList();
+            m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
+            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+            td = DBSync.DBSync.DB_for_Tangenta.mt;
+            DBtcn = xDBtcn;
+
+        }
+
+        private xTaxationList Get_TaxationList()
+        {
+
+            xTaxationList xtaxationList = new xTaxationList();
+            string Err = null;
+            DataTable dt = new DataTable();
+            if (xtaxationList.Get(ref dt, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    return xtaxationList;
+                }
+            }
+            else
+            {
+                Err = "ERROR:TangentaDB:ShopABC:Get_TaxationList:Err=" + Err;
+                LogFile.Error.Show(Err);
+                //                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+            }
+            return null;
+        }
 
         public string DocInvoice
         {
-            get { return m_DocInvoice; }
+            get {
+                  if (m_DocInvoice==null)
+                  {
+                        LogFile.Error.Show("ERROR:TangentaDB:ShopABC:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                  }
+                  return m_DocInvoice;
+                }
             set
             {
                 m_DocInvoice = value;
@@ -860,14 +910,6 @@ namespace TangentaDB
             }
         }
 
-        public ShopABC(DBTablesAndColumnNames xDBtcn,ID xAtom_WorkPeriod_ID)
-        {
-            m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
-            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-            td = DBSync.DBSync.DB_for_Tangenta.mt;
-            DBtcn = xDBtcn;
-
-        }
 
         public bool SetNewDraft_DocInvoice(ID xAtom_WorkPeriod_ID,int iFinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, Control pParent, ref ID DocInvoice_ID,
                                   ID myOrganisation_Person_ID,

@@ -1305,13 +1305,13 @@ namespace Tangenta
         private void loginControl1_UserLoggedIn(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
             usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
+            xusrc_DocumentMan.Visible = false;
+            xusrc_DocumentMan.Dock = DockStyle.Fill;
+            this.Controls.Add(xusrc_DocumentMan);
             xusrc_DocumentMan.Initialise(this, xLoginOfMyOrgUser);
             xusrc_DocumentMan.Init();
             xLoginOfMyOrgUser.m_usrc_DocumentMan = xusrc_DocumentMan;
-            xusrc_DocumentMan.Dock = DockStyle.Fill;
             xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
-            xusrc_DocumentMan.Visible = false;
-            this.Controls.Add(xusrc_DocumentMan);
         }
 
         private void loginControl1_UserLoggedOut(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)

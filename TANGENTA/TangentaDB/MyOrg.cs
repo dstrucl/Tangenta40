@@ -44,7 +44,6 @@ namespace TangentaDB
 
         public static myOrg_Office m_myOrg_Office = null;
 
-        public static ShopABC m_ShopABC = null;
 
         public static ID Office_ID
         {

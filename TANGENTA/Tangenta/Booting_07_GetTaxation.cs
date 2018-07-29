@@ -59,35 +59,11 @@ namespace Tangenta
             {
                 DBtcn = new DBTablesAndColumnNames();
             }
-            if (myOrg.m_ShopABC == null)
-            {
-                myOrg.m_ShopABC = new ShopABC(DBtcn,null);
-            }
 
-            if (myOrg.m_ShopABC.m_xTaxationList == null)
-            {
-                myOrg.m_ShopABC.m_xTaxationList = new xTaxationList();
-            }
-            DataTable dt = new DataTable();
-            if (myOrg.m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    //                        myStartup.eNextStep++;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
-                LogFile.Error.Show(Err);
-                //                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
-            }
+            ShopABC xShopABC = new ShopABC(DBtcn);
+
+            return (xShopABC.m_xTaxationList != null);
+
         }
 
         private bool Startup_07_Show_Form_Taxation_Edit(startup_step xstartup_step,

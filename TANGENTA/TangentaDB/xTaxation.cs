@@ -13,13 +13,15 @@ using System.Data;
 using System.Windows.Forms;
 using CodeTables;
 using TangentaTableClass;
+using DBConnectionControl40;
+using DBTypes;
 
 namespace TangentaDB
 {
     public class xTaxation
     {
         private int m_Index = -1;
-        private long m_ID=-1;
+        private ID m_ID= null;
         private string m_Name = null;
         private decimal m_Rate = 0;
 
@@ -28,7 +30,7 @@ namespace TangentaDB
             get { return m_Index; }
         }
 
-        public long ID
+        public ID ID
         {
             get { return m_ID; }
             set { m_ID = value; }
@@ -46,7 +48,7 @@ namespace TangentaDB
             set { m_Name = value; }
         }
 
-        public xTaxation(long xid,string xName, decimal xRate, int idx)
+        public xTaxation(ID xid,string xName, decimal xRate, int idx)
         {
             m_Index = idx;
             m_ID = xid;
@@ -74,7 +76,7 @@ namespace TangentaDB
                     for (i=0;i<Count;i++)
                     {
                         DataRow dr = dt.Rows[i];
-                        items[i] = new xTaxation((long)dr["ID"], (string)dr["Name"], (decimal)dr["Rate"],i);
+                        items[i] = new xTaxation(tf.set_ID(dr["ID"]), (string)dr["Name"], (decimal)dr["Rate"],i);
                     }
                 }
                 return true;
@@ -85,5 +87,9 @@ namespace TangentaDB
             }
         }
 
+        internal void Clear()
+        {
+            items = null;
+        }
     }
 }

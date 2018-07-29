@@ -29,7 +29,17 @@ namespace Tangenta
 {
     public partial class usrc_DocumentMan : UserControl
     {
-
+        public new bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                base.Visible = value;
+            }
+        }
         private LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
         private Door door = null;
 
@@ -58,7 +68,7 @@ namespace Tangenta
         public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocInvoice = null;
         public Tangenta.usrc_DocumentEditor.InvoiceType InvoiceType_DocProformaInvoice = null;
         public DataTable dt_FinancialYears = new DataTable();
-        private string m_DocInvoice = Program.const_DocInvoice;
+
 
         public int SplitContainer1_spd
         {
@@ -77,18 +87,38 @@ namespace Tangenta
             get { return m_usrc_DocumentEditor.m_mode == usrc_DocumentEditor.emode.view_eDocumentType; }
         }
 
+        private string m_DocInvoice = null;
+
         public string DocInvoice
         {
-            get { return m_DocInvoice; }
+            get {
+                    if (m_DocInvoice == null)
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                    }
+                    return m_DocInvoice;
+                }
             set
             {
                 string s = value;
                 if (s.Equals(Program.const_DocInvoice) || s.Equals(Program.const_DocProformaInvoice))
                 {
-                    m_DocInvoice = value;
+                    m_DocInvoice = s;
+                    m_usrc_DocumentEditor.DocInvoice = s;
+                    m_usrc_TableOfDocuments.DocInvoice = s;
                 }
-                m_usrc_DocumentEditor.DocInvoice = m_DocInvoice;
-                m_usrc_TableOfDocuments.DocInvoice = m_DocInvoice;
+                else
+                {
+                    if (s != null)
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocInvoice: DocInvoice = " + s + " is not implemented!");
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocInvoice: DocInvoice  value ==  null");
+                    }
+
+                }
             }
         }
 
