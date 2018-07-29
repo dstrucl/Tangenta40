@@ -410,7 +410,7 @@ namespace Tangenta
             {
                 if (ID.Validate(DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID))
                 {
-                    Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+                   // Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
                 }
                 if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA != null)
                 {
@@ -421,10 +421,11 @@ namespace Tangenta
                     }
                 }
             }
-            Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
+            Properties.SettingsUser.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
+            Properties.SettingsUser.Default.Save();
 
-                if (Program.Login_MultipleUsers)
+            if (Program.Login_MultipleUsers)
             {
 
             }
@@ -452,9 +453,9 @@ namespace Tangenta
         {
             DocumentMan.usrc_FVI_SLO1.Visible = Program.b_FVI_SLO;
 
-            if (Properties.Settings.Default.Form_Document_WindowState >= 0)
+            if (Properties.SettingsUser.Default.Form_Document_WindowState >= 0)
             {
-                switch (Properties.Settings.Default.Form_Document_WindowState)
+                switch (Properties.SettingsUser.Default.Form_Document_WindowState)
                 {
                     case 0:
                         this.WindowState = FormWindowState.Minimized;
@@ -462,16 +463,16 @@ namespace Tangenta
                     case 1:
                         this.WindowState = FormWindowState.Normal;
 
-                        if (Properties.Settings.Default.Form_Document_Width >= 0)
+                        if (Properties.SettingsUser.Default.Form_Document_Width >= 0)
                         {
-                            this.Width = Properties.Settings.Default.Form_Document_Width;
+                            this.Width = Properties.SettingsUser.Default.Form_Document_Width;
                         }
 
-                        if (Properties.Settings.Default.Form_Document_Height >= 0)
+                        if (Properties.SettingsUser.Default.Form_Document_Height >= 0)
                         {
-                            this.Height = Properties.Settings.Default.Form_Document_Height;
-                            this.Left = Properties.Settings.Default.Form_Document_Left;
-                            this.Top = Properties.Settings.Default.Form_Document_Top;
+                            this.Height = Properties.SettingsUser.Default.Form_Document_Height;
+                            this.Left = Properties.SettingsUser.Default.Form_Document_Left;
+                            this.Top = Properties.SettingsUser.Default.Form_Document_Top;
 
                         }
                         break;
@@ -489,17 +490,17 @@ namespace Tangenta
             switch (this.WindowState)
             {
                 case FormWindowState.Minimized:
-                    Properties.Settings.Default.Form_Document_WindowState = 0;
+                    Properties.SettingsUser.Default.Form_Document_WindowState = 0;
                     break;
                 case FormWindowState.Normal:
-                    Properties.Settings.Default.Form_Document_WindowState = 1;
-                    Properties.Settings.Default.Form_Document_Width = this.Width;
-                    Properties.Settings.Default.Form_Document_Height = this.Height;
-                    Properties.Settings.Default.Form_Document_Left = this.Left;
-                    Properties.Settings.Default.Form_Document_Top = this.Top;
+                    Properties.SettingsUser.Default.Form_Document_WindowState = 1;
+                    Properties.SettingsUser.Default.Form_Document_Width = this.Width;
+                    Properties.SettingsUser.Default.Form_Document_Height = this.Height;
+                    Properties.SettingsUser.Default.Form_Document_Left = this.Left;
+                    Properties.SettingsUser.Default.Form_Document_Top = this.Top;
                     break;
                 case FormWindowState.Maximized:
-                    Properties.Settings.Default.Form_Document_WindowState = 2;
+                    Properties.SettingsUser.Default.Form_Document_WindowState = 2;
                     break;
             }
 
@@ -527,7 +528,7 @@ namespace Tangenta
             do_exit(eres);
         }
 
-        public bool call_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
+        private bool call_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
         {
             Navigation xnav = new Navigation(null);
             xnav.m_eButtons = Navigation.eButtons.OkCancel;
@@ -1345,6 +1346,11 @@ namespace Tangenta
             
 
 
+        }
+
+        private bool loginControl1_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
+        {
+            return call_Edit_myOrganisationPerson(parentform, myOrganisation_Person_ID, ref Changed, ref myOrganisation_Person_ID_new);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Tangenta
                                                    ref string Err)
         {
 
-            if (Properties.Settings.Default.eShopsInUse.Contains("B")|| Properties.Settings.Default.eShopsInUse.Contains("C"))
+            if (Properties.SettingsUser.Default.eShopsInUse.Contains("B")|| Properties.SettingsUser.Default.eShopsInUse.Contains("C"))
             {
                 long PriceListRowsCount = fs.GetTableRowsCount("PriceList");
                 if (PriceListRowsCount > 0)

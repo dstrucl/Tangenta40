@@ -163,9 +163,12 @@ namespace LoginControl
                 if (ctrl is usrc_LoginOfMyOrgUser)
                 {
                     usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser != null)
                     {
-                        xusrc_LoginOfMyOrgUser.DoLogout();
+                        if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                        {
+                            xusrc_LoginOfMyOrgUser.DoLogout();
+                        }
                     }
                 }
             }

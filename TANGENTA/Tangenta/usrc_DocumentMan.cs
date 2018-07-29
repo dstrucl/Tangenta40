@@ -94,7 +94,7 @@ namespace Tangenta
             get {
                     if (m_DocInvoice == null)
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                         if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
                     }
                     return m_DocInvoice;
                 }
@@ -324,7 +324,7 @@ namespace Tangenta
 
             if (Program.RunAs == null)
             {
-                sLastDocInvoiceType = Properties.Settings.Default.LastDocInvoiceType;
+                sLastDocInvoiceType = Properties.SettingsUser.Default.LastDocInvoiceType;
                 if (sLastDocInvoiceType.Equals(Program.const_DocInvoice)|| sLastDocInvoiceType.Equals(Program.const_DocProformaInvoice))
                 {
                     Program.RunAs = sLastDocInvoiceType;
@@ -353,7 +353,7 @@ namespace Tangenta
             else
             {
                 this.DocInvoice = Program.const_DocProformaInvoice;
-                Properties.Settings.Default.LastDocInvoiceType = this.DocInvoice;
+                Properties.SettingsUser.Default.LastDocInvoiceType = this.DocInvoice;
                 Properties.Settings.Default.Save();
             }
 
@@ -443,14 +443,14 @@ namespace Tangenta
 
         private bool SetFinancialYears()
         {
-            int Default_FinancialYear = Properties.Settings.Default.FinancialYear;
+            int Default_FinancialYear = Properties.SettingsUser.Default.FinancialYear;
 
             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
 
             if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref dt_FinancialYears, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))
             {
-                Properties.Settings.Default.FinancialYear = Default_FinancialYear;
-                Properties.Settings.Default.Save();
+                Properties.SettingsUser.Default.FinancialYear = Default_FinancialYear;
+                Properties.SettingsUser.Default.Save();
                 cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
                 return true;
             }
@@ -480,7 +480,7 @@ namespace Tangenta
         {
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 
-            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
+            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, true, Properties.SettingsUser.Default.FinancialYear,null);
 
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
             if (!m_usrc_DocumentEditor.Init(this.m_usrc_TableOfDocuments.Current_Doc_ID))
@@ -505,7 +505,7 @@ namespace Tangenta
         {
             if (SplitContainer1_spd>0)
             {
-                Properties.Settings.Default.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
+                Properties.SettingsUser.Default.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
             }
             if (this.m_usrc_DocumentEditor != null)
             {
@@ -519,12 +519,12 @@ namespace Tangenta
             if (drv["FinancialYear"] is int)
             {
                 int iFinancialYear = (int)drv["FinancialYear"];
-                if (iFinancialYear != Properties.Settings.Default.FinancialYear)
+                if (iFinancialYear != Properties.SettingsUser.Default.FinancialYear)
                 {
-                    Properties.Settings.Default.FinancialYear = iFinancialYear;
-                    Properties.Settings.Default.Save();
+                    Properties.SettingsUser.Default.FinancialYear = iFinancialYear;
+                    Properties.SettingsUser.Default.Save();
                     SetFinancialYears();
-                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.SettingsUser.Default.FinancialYear,null);
                 }
             }
         }
@@ -542,7 +542,7 @@ namespace Tangenta
             {
                 Doc_ID_to_show_v = new ID(DocInvoice_id);
             }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType,false,false, Properties.SettingsUser.Default.FinancialYear, Doc_ID_to_show_v);
         }
 
         private void m_usrc_Invoice_DocProformaInvoiceSaved(ID DocProformaInvoice_id)
@@ -554,7 +554,7 @@ namespace Tangenta
             {
                 Doc_ID_to_show = new ID(DocProformaInvoice_id);
             }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false, false, Properties.SettingsUser.Default.FinancialYear, Doc_ID_to_show);
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(ID DocInvoice_ID,bool bInitialise)
@@ -645,9 +645,9 @@ namespace Tangenta
 
         internal void SetSplitControlsSpliterDistance()
         {
-            if (Properties.Settings.Default.DocumentMan_SplitControl1_splitterdistance>0)
+            if (Properties.SettingsUser.Default.DocumentMan_SplitControl1_splitterdistance>0)
             {
-                this.splitContainer1.SplitterDistance = Properties.Settings.Default.DocumentMan_SplitControl1_splitterdistance;
+                this.splitContainer1.SplitterDistance = Properties.SettingsUser.Default.DocumentMan_SplitControl1_splitterdistance;
             }
             if (m_usrc_DocumentEditor!=null)
             {
@@ -746,8 +746,8 @@ namespace Tangenta
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Item_Not_In_Offer))
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
-                            Properties.Settings.Default.FinancialYear = this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear;
-                            Properties.Settings.Default.Save();
+                            Properties.SettingsUser.Default.FinancialYear = this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear;
+                            Properties.SettingsUser.Default.Save();
                             m_usrc_TableOfDocuments.Init(xeInvType, true, false, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear, null);
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
                             GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear);
@@ -801,7 +801,7 @@ namespace Tangenta
                                                xShopC_Data_Item_List,
                                                xdt_ShopB_Items,
                                                xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear, null);
+                            m_usrc_TableOfDocuments.Init(eInvType, true, false, Properties.SettingsUser.Default.FinancialYear, null);
                         }
                     }
                     else
@@ -860,7 +860,7 @@ namespace Tangenta
                                             xShopC_Data_Item_List,
                                             xdt_ShopB_Items,
                                             xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(New_eInvType, true, false, Properties.Settings.Default.FinancialYear, null);
+                            m_usrc_TableOfDocuments.Init(New_eInvType, true, false, Properties.SettingsUser.Default.FinancialYear, null);
                         }
                         else
                         {
@@ -880,7 +880,7 @@ namespace Tangenta
             if (this.m_usrc_TableOfDocuments.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false,Properties.Settings.Default.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false,Properties.SettingsUser.Default.FinancialYear,null);
             }
         }
 
@@ -890,13 +890,13 @@ namespace Tangenta
             if (this.m_usrc_TableOfDocuments.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.SettingsUser.Default.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_Storno(bool bStorno)
         {
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.SettingsUser.Default.FinancialYear,null);
         }
 
         private void m_usrc_Invoice_Load(object sender, EventArgs e)
@@ -1003,6 +1003,7 @@ namespace Tangenta
             m_Form_Document = main_Form;
             m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
             door = new Door(m_LoginOfMyOrgUser);
+            this.usrc_loginControl1.Bind(main_Form.loginControl1, xLoginOfMyOrgUser);
             this.usrc_FVI_SLO1.Bind(m_Form_Document.fvI_SLO1);
             this.m_usrc_TableOfDocuments.Bind(m_LoginOfMyOrgUser);
             return m_usrc_DocumentEditor.Initialise(this, m_LoginOfMyOrgUser);
@@ -1077,7 +1078,6 @@ namespace Tangenta
                 m_Form_Document.loginControl1.Init(m_Form_Document,
                                                 LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                                m_Form_Document.call_Edit_myOrganisationPerson,
                                                 EndProgram,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
@@ -1122,7 +1122,7 @@ namespace Tangenta
             }
             else // Single user
             {
-                this.loginControl1.Visible = false;
+                this.usrc_loginControl1.Visible = false;
                 ID myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
                 if (ID.Validate(myOrganisation_Person_first_ID))
                 {

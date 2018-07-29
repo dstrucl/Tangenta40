@@ -6,6 +6,7 @@
 */
 #endregion
 using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -195,9 +196,9 @@ namespace TangentaDB
             {
                 Item_Data xItem_Data = new Item_Data();
                 xItem_Data.Set_Price_Item_Stock(dr);
-                if (dr[m_cpis.icol_Item_ID] is long)
+                ID item_id = tf.set_ID(dr[m_cpis.icol_Item_ID]);
+                if (ID.Validate(item_id))
                 {
-                    ID item_id = new ID(dr[m_cpis.icol_Item_ID]);
                     if (FillStockDataListForEachItemInItems(item_id, xItem_Data))
                     {
                         continue;

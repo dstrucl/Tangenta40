@@ -42,6 +42,7 @@
             this.loginControl1.UserLoggedIn += new LoginControl.LoginCtrl.delegate_UserLoggedIn(this.loginControl1_UserLoggedIn);
             this.loginControl1.UserLoggedOut += new LoginControl.LoginCtrl.delegate_UserLoggedOut(this.loginControl1_UserLoggedOut);
             this.loginControl1.ActivateDocumentMan += new LoginControl.LoginCtrl.delegate_ActivateDocumentMan(this.loginControl1_ActivateDocumentMan);
+            this.loginControl1.Edit_myOrganisationPerson += new LoginControl.LoginCtrl.delegate_Edit_myOrganisationPerson(this.loginControl1_Edit_myOrganisationPerson);
             // 
             // fvI_SLO1
             // 

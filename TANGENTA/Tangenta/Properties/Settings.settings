@@ -38,26 +38,14 @@
     <Setting Name="Konto_Price_with_tax_payment_cards" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1659</Value>
     </Setting>
-    <Setting Name="Color_DocProformaInvoiceForeGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Black</Value>
-    </Setting>
     <Setting Name="AllowToEditLanguageText" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DBType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FinancialYear" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="FullScreen" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="eShopsMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="eShopsInUse" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ColorFurs_InvoiceConfirmed" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">255, 255, 220</Value>
@@ -71,35 +59,11 @@
     <Setting Name="eManagerMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">Shops&amp;InvoiceTable</Value>
     </Setting>
-    <Setting Name="InvoiceHeaderChecked" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="SplitContainerDistanceUserSettings" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="LanguageID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
-    <Setting Name="Current_DocInvoice_ID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="Current_DocProformaInvoice_ID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="LastDocInvoiceType" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="MyOrgID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="AutomaticSelectionOfItemFromStock" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Color_DocInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">226, 255, 186</Value>
-    </Setting>
-    <Setting Name="Color_DocProformaInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Azure</Value>
     </Setting>
     <Setting Name="SQLiteBackupFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -116,67 +80,10 @@
     <Setting Name="HelpRemoteURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://dstrucl.github.io/Tangenta-Help/</Value>
     </Setting>
-    <Setting Name="Color_DocInvoiceForeGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Black</Value>
-    </Setting>
     <Setting Name="InstallationFinished" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Current_DataBase" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ShopC_SplitControl1_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="ShopC_SplitControl2_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="ShopB_SplitControl1_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="ShopB_SplitControl2_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="DocumentMan_SplitControl1_splitterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="ShopA_SplitControl1_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="ShopA_Editor_SplitControl1_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="ShopA_Editor_SplitControl2_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="DocumentEditor_SplitControl1_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="DocumentEditor_SplitControl2_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="DocumentEditor_SplitControl3_spliterdistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="Form_Document_WindowState" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="Form_Document_Left" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="Form_Document_Top" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="Form_Document_Width" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="Form_Document_Height" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="Office_ID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ElectronicDevice_ID" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Login_MultipleUsers" Type="System.Boolean" Scope="User">
@@ -189,10 +96,13 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="timer_Login_MultiUser_Countdown" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">30</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="UseWorkAreas" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MyOrgID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

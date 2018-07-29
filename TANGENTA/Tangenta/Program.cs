@@ -204,7 +204,7 @@ namespace Tangenta
 
         public static string Shops_in_use
         {
-            get { return Properties.Settings.Default.eShopsInUse; }
+            get { return Properties.SettingsUser.Default.eShopsInUse; }
         }
 
 

@@ -71,8 +71,8 @@ namespace Tangenta
             ShopC.lng.s_ShopC_Name.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
 
             DynSettings.LanguageTextSave();
-            Properties.Settings.Default.eShopsInUse = shinuse;
-            Properties.Settings.Default.Save();
+            Properties.SettingsUser.Default.eShopsInUse = shinuse;
+            Properties.SettingsUser.Default.Save();
             return true;
         }
     }

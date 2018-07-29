@@ -34,8 +34,13 @@ namespace LoginControl
 
         private bool bFirstTimeStartup = false;
 
-        public AWP_UserManager(Navigation xnav,Form pParent, LoginOfMyOrgUser xLoginOfMyOrgUser)
+        private LoginCtrl lctrl = null;
+
+        public AWP_UserManager(LoginCtrl xlctrl,Navigation xnav,Form pParent, LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
+
+            lctrl = xlctrl;
+
             m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
             InitializeComponent();
 
@@ -560,7 +565,7 @@ namespace LoginControl
         {
             bool bChanged = false;
             ID new_myOrganisation_Person_ID = null;
-            m_LoginOfMyOrgUser.m_usrc_LoginOfMyOrgUser.lctrl.TriggerEvent_Edit_myOrganisationPerson(this, m_LoginOfMyOrgUser.awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
+            lctrl.TriggerEvent_Edit_myOrganisationPerson(this, m_LoginOfMyOrgUser.awpld.myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
         }
 
     

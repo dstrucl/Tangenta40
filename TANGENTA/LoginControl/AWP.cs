@@ -25,7 +25,6 @@ namespace LoginControl
 
         internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
 
-        internal LoginCtrl.delegate_Edit_myOrganisationPerson call_Edit_myOrganisationPerson = null;
 
         internal static AWPBindingData awpd = new AWPBindingData();
 
@@ -47,13 +46,11 @@ namespace LoginControl
 
         public void Init(Form xpParentForm,
                           LoginCtrl xlctrl,
-                          DBConnection xcon,
-                          LoginCtrl.delegate_Edit_myOrganisationPerson xcall_Edit_myOrganisationPerson
+                          DBConnection xcon
                           )
         {
             pParentForm = xpParentForm;
             lctrl = xlctrl;
-            call_Edit_myOrganisationPerson = xcall_Edit_myOrganisationPerson;
             AWP_func.con = xcon;
             AWP_func.UpdateRoles(awpd.AllRoles);
             TemplatesLoader.Init();
@@ -151,7 +148,7 @@ eres_check:
                         {
                             if (AWP_func.Import_myOrganisationPerson(awpd, frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
                             {
-                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(xnav, parent_form,LoginOfMyOrgUser_Single);
+                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(lctrl,xnav, parent_form,LoginOfMyOrgUser_Single);
                                 if (parent_form != null)
                                 {
                                     awp_usrmgt_frm.TopMost = parent_form.TopMost;
@@ -211,7 +208,7 @@ eres_check:
                         return eres;
 
                     case eAWP_dtLogin_Vaild_result.NO_PASSWORD_FOR_FIRST_USER:
-                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(xnav, parent_form, LoginOfMyOrgUser_Single);
+                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(lctrl,xnav, parent_form, LoginOfMyOrgUser_Single);
                         if (parent_form != null)
                         {
                             awp_usrmgt2_frm.TopMost = parent_form.TopMost;

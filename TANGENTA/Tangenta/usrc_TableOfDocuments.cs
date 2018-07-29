@@ -294,11 +294,11 @@ namespace Tangenta
                 lpar_ExtraCondition.Add(par_Atom_myOrganisation_Person);
                 if (IsDocInvoice)
                 {
-                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
                 }
                 else if (IsDocProformaInvoice)
                 {
-                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
                 }
 
                     cond += cond_Atom_myOrganisation_Person;
@@ -642,7 +642,7 @@ namespace Tangenta
                                 if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
                                     Properties.Settings.Default.Current_DataBase = sdb;
-                                    Properties.Settings.Default.Current_DocInvoice_ID = "";
+                                    //Properties.Settings.Default.Current_DocInvoice_ID = "";
                                     Properties.Settings.Default.Save();
                                 }
                             }
@@ -650,9 +650,9 @@ namespace Tangenta
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (Properties.Settings.Default.Current_DocInvoice_ID.Length > 0)
+                            else if (false /*Properties.Settings.Default.Current_DocInvoice_ID.Length > 0*/)
                             {
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Properties.Settings.Default.Current_DocInvoice_ID);
+                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " /*+ Properties.Settings.Default.Current_DocInvoice_ID*/);
                                 if (dr_Current.Count() > 0)
                                 {
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
@@ -695,7 +695,7 @@ namespace Tangenta
                                 if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
                                     Properties.Settings.Default.Current_DataBase = sdb;
-                                    Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
+                                    //Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
                                     Properties.Settings.Default.Save();
                                 }
                             }
@@ -703,9 +703,9 @@ namespace Tangenta
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0)
+                            else if (false /*Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0*/)
                             {
-                                ID my_Current_DocProformaInvoice_ID = new ID(Properties.Settings.Default.Current_DocProformaInvoice_ID);
+                                ID my_Current_DocProformaInvoice_ID = new ID(1/*Properties.Settings.Default.Current_DocProformaInvoice_ID*/);
                                 DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + my_Current_DocProformaInvoice_ID.ToString());
                                 if (dr_Current.Count() > 0)
                                 {
@@ -924,7 +924,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true,false, Properties.Settings.Default.FinancialYear,null);
+                Init(enum_Invoice, true,false, Properties.SettingsUser.Default.FinancialYear,null);
                 Program.Cursor_Arrow();
             }
         }

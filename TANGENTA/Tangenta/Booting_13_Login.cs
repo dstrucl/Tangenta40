@@ -67,7 +67,6 @@ namespace Tangenta
             bool bCancel = false;
             frm.loginControl1.Init(frm,LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                             DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                            frm.call_Edit_myOrganisationPerson,
                                             frm.EndProgram,
                                             null,
                                             LanguageControl.DynSettings.LanguageID,

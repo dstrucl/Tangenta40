@@ -2640,6 +2640,7 @@ namespace TangentaDataBaseDef
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_ProgramModule, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Program Module ID", "Programski modul ID"));
+            t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_myOrganisation_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Ma Org.Person ID", "Oseba moje organizacije ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings Name", "Ime nastavitve"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_SettingsType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings data type ID", "Podatkovni tip nastavitve ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_SettingsValue, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings value ID", "Vrednost nastavitve ID"));

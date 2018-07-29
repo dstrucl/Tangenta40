@@ -39,7 +39,7 @@
             this.btn_SelectPanels = new System.Windows.Forms.Button();
             this.m_usrc_Help = new HUDCMS.usrc_Help();
             this.btn_Exit = new System.Windows.Forms.Button();
-            this.loginControl1 = new LoginControl.usrc_LoginCtrl();
+            this.usrc_loginControl1 = new LoginControl.usrc_LoginCtrl();
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
@@ -178,15 +178,15 @@
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
-            // loginControl1
+            // usrc_loginControl1
             // 
-            this.loginControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_loginControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loginControl1.Location = new System.Drawing.Point(498, 3);
-            this.loginControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.loginControl1.Name = "loginControl1";
-            this.loginControl1.Size = new System.Drawing.Size(234, 49);
-            this.loginControl1.TabIndex = 37;
+            this.usrc_loginControl1.Location = new System.Drawing.Point(498, 3);
+            this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_loginControl1.Name = "usrc_loginControl1";
+            this.usrc_loginControl1.Size = new System.Drawing.Size(234, 49);
+            this.usrc_loginControl1.TabIndex = 37;
             // 
             // usrc_FVI_SLO1
             // 
@@ -217,7 +217,7 @@
             this.pnl_MainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_MainMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.pnl_MainMenu.Controls.Add(this.loginControl1);
+            this.pnl_MainMenu.Controls.Add(this.usrc_loginControl1);
             this.pnl_MainMenu.Controls.Add(this.lbl_FinancialYear);
             this.pnl_MainMenu.Controls.Add(this.m_usrc_Help);
             this.pnl_MainMenu.Controls.Add(this.cmb_InvoiceType);
@@ -267,7 +267,7 @@
         public System.Windows.Forms.Button btn_SelectPanels;
         private HUDCMS.usrc_Help m_usrc_Help;
         private System.Windows.Forms.Button btn_Exit;
-        internal LoginControl.usrc_LoginCtrl loginControl1;
+        internal LoginControl.usrc_LoginCtrl usrc_loginControl1;
         internal FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
         private System.Windows.Forms.Button btn_Settings;
         internal System.Windows.Forms.SplitContainer splitContainer1;

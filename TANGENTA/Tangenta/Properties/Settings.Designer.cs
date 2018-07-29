@@ -169,18 +169,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color Color_DocProformaInvoiceForeGround {
-            get {
-                return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceForeGround"]));
-            }
-            set {
-                this["Color_DocProformaInvoiceForeGround"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AllowToEditLanguageText {
             get {
@@ -205,18 +193,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int FinancialYear {
-            get {
-                return ((int)(this["FinancialYear"]));
-            }
-            set {
-                this["FinancialYear"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool FullScreen {
             get {
@@ -224,30 +200,6 @@ namespace Tangenta.Properties {
             }
             set {
                 this["FullScreen"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string eShopsMode {
-            get {
-                return ((string)(this["eShopsMode"]));
-            }
-            set {
-                this["eShopsMode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string eShopsInUse {
-            get {
-                return ((string)(this["eShopsInUse"]));
-            }
-            set {
-                this["eShopsInUse"] = value;
             }
         }
         
@@ -301,30 +253,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool InvoiceHeaderChecked {
-            get {
-                return ((bool)(this["InvoiceHeaderChecked"]));
-            }
-            set {
-                this["InvoiceHeaderChecked"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SplitContainerDistanceUserSettings {
-            get {
-                return ((string)(this["SplitContainerDistanceUserSettings"]));
-            }
-            set {
-                this["SplitContainerDistanceUserSettings"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int LanguageID {
             get {
@@ -337,54 +265,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Current_DocInvoice_ID {
-            get {
-                return ((string)(this["Current_DocInvoice_ID"]));
-            }
-            set {
-                this["Current_DocInvoice_ID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Current_DocProformaInvoice_ID {
-            get {
-                return ((string)(this["Current_DocProformaInvoice_ID"]));
-            }
-            set {
-                this["Current_DocProformaInvoice_ID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastDocInvoiceType {
-            get {
-                return ((string)(this["LastDocInvoiceType"]));
-            }
-            set {
-                this["LastDocInvoiceType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MyOrgID {
-            get {
-                return ((string)(this["MyOrgID"]));
-            }
-            set {
-                this["MyOrgID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool AutomaticSelectionOfItemFromStock {
             get {
@@ -392,30 +272,6 @@ namespace Tangenta.Properties {
             }
             set {
                 this["AutomaticSelectionOfItemFromStock"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("226, 255, 186")]
-        public global::System.Drawing.Color Color_DocInvoiceBackGround {
-            get {
-                return ((global::System.Drawing.Color)(this["Color_DocInvoiceBackGround"]));
-            }
-            set {
-                this["Color_DocInvoiceBackGround"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Azure")]
-        public global::System.Drawing.Color Color_DocProformaInvoiceBackGround {
-            get {
-                return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceBackGround"]));
-            }
-            set {
-                this["Color_DocProformaInvoiceBackGround"] = value;
             }
         }
         
@@ -481,18 +337,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color Color_DocInvoiceForeGround {
-            get {
-                return ((global::System.Drawing.Color)(this["Color_DocInvoiceForeGround"]));
-            }
-            set {
-                this["Color_DocInvoiceForeGround"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool InstallationFinished {
             get {
@@ -512,222 +356,6 @@ namespace Tangenta.Properties {
             }
             set {
                 this["Current_DataBase"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopC_SplitControl1_spliterdistance {
-            get {
-                return ((int)(this["ShopC_SplitControl1_spliterdistance"]));
-            }
-            set {
-                this["ShopC_SplitControl1_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopC_SplitControl2_spliterdistance {
-            get {
-                return ((int)(this["ShopC_SplitControl2_spliterdistance"]));
-            }
-            set {
-                this["ShopC_SplitControl2_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopB_SplitControl1_spliterdistance {
-            get {
-                return ((int)(this["ShopB_SplitControl1_spliterdistance"]));
-            }
-            set {
-                this["ShopB_SplitControl1_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopB_SplitControl2_spliterdistance {
-            get {
-                return ((int)(this["ShopB_SplitControl2_spliterdistance"]));
-            }
-            set {
-                this["ShopB_SplitControl2_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int DocumentMan_SplitControl1_splitterdistance {
-            get {
-                return ((int)(this["DocumentMan_SplitControl1_splitterdistance"]));
-            }
-            set {
-                this["DocumentMan_SplitControl1_splitterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopA_SplitControl1_spliterdistance {
-            get {
-                return ((int)(this["ShopA_SplitControl1_spliterdistance"]));
-            }
-            set {
-                this["ShopA_SplitControl1_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopA_Editor_SplitControl1_spliterdistance {
-            get {
-                return ((int)(this["ShopA_Editor_SplitControl1_spliterdistance"]));
-            }
-            set {
-                this["ShopA_Editor_SplitControl1_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int ShopA_Editor_SplitControl2_spliterdistance {
-            get {
-                return ((int)(this["ShopA_Editor_SplitControl2_spliterdistance"]));
-            }
-            set {
-                this["ShopA_Editor_SplitControl2_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int DocumentEditor_SplitControl1_spliterdistance {
-            get {
-                return ((int)(this["DocumentEditor_SplitControl1_spliterdistance"]));
-            }
-            set {
-                this["DocumentEditor_SplitControl1_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int DocumentEditor_SplitControl2_spliterdistance {
-            get {
-                return ((int)(this["DocumentEditor_SplitControl2_spliterdistance"]));
-            }
-            set {
-                this["DocumentEditor_SplitControl2_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int DocumentEditor_SplitControl3_spliterdistance {
-            get {
-                return ((int)(this["DocumentEditor_SplitControl3_spliterdistance"]));
-            }
-            set {
-                this["DocumentEditor_SplitControl3_spliterdistance"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int Form_Document_WindowState {
-            get {
-                return ((int)(this["Form_Document_WindowState"]));
-            }
-            set {
-                this["Form_Document_WindowState"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int Form_Document_Left {
-            get {
-                return ((int)(this["Form_Document_Left"]));
-            }
-            set {
-                this["Form_Document_Left"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int Form_Document_Top {
-            get {
-                return ((int)(this["Form_Document_Top"]));
-            }
-            set {
-                this["Form_Document_Top"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int Form_Document_Width {
-            get {
-                return ((int)(this["Form_Document_Width"]));
-            }
-            set {
-                this["Form_Document_Width"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int Form_Document_Height {
-            get {
-                return ((int)(this["Form_Document_Height"]));
-            }
-            set {
-                this["Form_Document_Height"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Office_ID {
-            get {
-                return ((string)(this["Office_ID"]));
-            }
-            set {
-                this["Office_ID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ElectronicDevice_ID {
-            get {
-                return ((string)(this["ElectronicDevice_ID"]));
-            }
-            set {
-                this["ElectronicDevice_ID"] = value;
             }
         }
         
@@ -769,7 +397,7 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int timer_Login_MultiUser_Countdown {
             get {
                 return ((int)(this["timer_Login_MultiUser_Countdown"]));
@@ -788,6 +416,18 @@ namespace Tangenta.Properties {
             }
             set {
                 this["UseWorkAreas"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MyOrgID {
+            get {
+                return ((string)(this["MyOrgID"]));
+            }
+            set {
+                this["MyOrgID"] = value;
             }
         }
     }

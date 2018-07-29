@@ -1226,12 +1226,12 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public ElectronicDevice m_ElectronicDevice = new ElectronicDevice();
         public ProgramModule m_ProgramModule = new ProgramModule();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
         public Name Name = new Name();
         public SettingsType m_SettingsType = new SettingsType();
         public SettingsValue m_SettingsValue = new SettingsValue();
         public Description Description = new Description();
         public TestEnvironment TestEnvironment = new TestEnvironment();
-
     }
 
 

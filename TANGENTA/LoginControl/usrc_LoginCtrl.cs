@@ -18,15 +18,26 @@ namespace LoginControl
     public partial class usrc_LoginCtrl : UserControl
     {
         public LoginCtrl m_LoginCtrl = null;
+        public LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
 
         public usrc_LoginCtrl()
         {
             InitializeComponent();
         }
 
-        public void Bind(LoginCtrl xlctrl)
+        public void Bind(LoginCtrl xlctrl,LoginOfMyOrgUser loginOfMyOrgUser)
         {
             m_LoginCtrl = xlctrl;
+            m_LoginOfMyOrgUser = loginOfMyOrgUser;
+            this.lbl_username.Text = m_LoginOfMyOrgUser.UserName;
+            if (loginOfMyOrgUser.IsAdministrator|| loginOfMyOrgUser.IsUserManager)
+            {
+                btn_UserManager.Visible = true;
+            }
+            else
+            {
+                btn_UserManager.Visible = false;
+            }
         }
 
         private void btn_UserManager_Click(object sender, EventArgs e)
@@ -36,7 +47,7 @@ namespace LoginControl
                 case LoginCtrl.eDataTableCreationMode.AWP:
                     Navigation xnav = new Navigation(null);
                     xnav.m_eButtons = Navigation.eButtons.OkCancel;
-                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(xnav,this.ParentForm, m_LoginCtrl.awp.LoginOfMyOrgUser_Single);
+                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(m_LoginCtrl, xnav,this.ParentForm, m_LoginCtrl.awp.LoginOfMyOrgUser_Single);
                     AWP_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
                     break;
 

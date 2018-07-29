@@ -53,9 +53,8 @@ namespace LoginControl
             {
                 m_LoginOfMyOrgUser.awpld = new AWPLoginData();
             }
+            txt_UserName.Text = m_LoginOfMyOrgUser.m_UserName;
             m_LoginOfMyOrgUser.awpld.GetData(ref dtLoginUsers, txt_UserName.Text, AWP.awpd);
-
-            txt_UserName.Text = m_LoginOfMyOrgUser.UserName;
 
             if (m_loginType == LoginType.LOGIN)
             {

@@ -45,7 +45,7 @@ namespace LoginControl
 
         public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new);
 
-        public delegate_Edit_myOrganisationPerson Edit_myOrganisationPerson = null;
+        public event delegate_Edit_myOrganisationPerson Edit_myOrganisationPerson = null;
 
 
 
@@ -199,7 +199,6 @@ namespace LoginControl
         public void Init(Form parent_form,
                  eDataTableCreationMode xeDataTableCreationMode,
                  DBConnection xcon,
-                 delegate_Edit_myOrganisationPerson xdelegate_Edit_myOrganisationPerson,
                  delegate_EndProgram xEndProgram,
                  object DBParam, int Language_id, ref bool bCancel)
         {
@@ -213,7 +212,7 @@ namespace LoginControl
                     {
                         awp = new AWP();
                     }
-                    awp.Init(parent_form, this, xcon, xdelegate_Edit_myOrganisationPerson);
+                    awp.Init(parent_form, this, xcon);
                     break;
                 case eDataTableCreationMode.STD:
                     if (std == null)

@@ -69,7 +69,7 @@ namespace Tangenta
                 if (m_usrc_DocumentMan.Customer_Changed)
                 {
                     m_usrc_DocumentMan.Customer_Changed = false;
-                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.SettingsUser.Default.FinancialYear,null);
                 }
             }
             Close();
@@ -84,7 +84,7 @@ namespace Tangenta
                 if (m_usrc_DocumentMan.Customer_Changed)
                 {
                     m_usrc_DocumentMan.Customer_Changed = false;
-                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
+                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.eInvoiceType, false,false, Properties.SettingsUser.Default.FinancialYear,null);
                 }
             }
             Close();
