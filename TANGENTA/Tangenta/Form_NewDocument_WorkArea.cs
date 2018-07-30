@@ -17,6 +17,7 @@ namespace Tangenta
         public xCurrency Currency = new xCurrency();
         public ID Atom_Currency_ID = null;
         public int FinancialYear = -1;
+        public WArea Warea = null;
 
         public Form_NewDocument.e_NewDocument eNewDocumentResult = Form_NewDocument.e_NewDocument.UNKNOWN;
 
@@ -25,7 +26,9 @@ namespace Tangenta
         public Form_NewDocument_WorkArea()
         {
             InitializeComponent();
+            f_Atom_Currency.Get(GlobalData.BaseCurrency.ID, ref Atom_Currency_ID);
         }
+    
 
         private void Form_NewDocument_WorkArea_Load(object sender, EventArgs e)
         {
@@ -39,6 +42,20 @@ namespace Tangenta
                 this.Close();
                 DialogResult = DialogResult.Abort;
             }
+        }
+
+        private void usrc_WorkAreaAll1_Selected(WArea warea)
+        {
+            Warea = warea;
+            eNewDocumentResult = Form_NewDocument.e_NewDocument.New_Empty;
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
+
+        private void usrc_WorkAreaAll1_Exit()
+        {
+            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

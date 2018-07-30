@@ -15,6 +15,14 @@ namespace Tangenta
 {
     public partial class usrc_WorkAreaAll : UserControl
     {
+        public delegate void delegate_Selected(WArea warea);
+
+        public event delegate_Selected Selected = null;
+
+        public delegate void delegate_Exit();
+
+        public event delegate_Exit Exit = null;
+
         DataTable dtWorkAreaGroup = null;
         DataTable m_dtWorkAreaAll = null;
         int ipnl_Items_Width_default = -1;
@@ -71,6 +79,7 @@ namespace Tangenta
             for (i = 0; i < m_NumberOfItemsPerPage; i++)
             {
                 usrc_WorkArea usrc_item = new usrc_WorkArea();
+                usrc_item.Selected += Usrc_item_Selected;
                 usrc_item.m_usrc_WorkAreaAll = this;
                 usrc_item.Top = yPos;
                 usrc_item.Left = 5;
@@ -93,11 +102,19 @@ namespace Tangenta
             {
                 LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
             }
-            Get_LoginUsers_Data();
+            Get_WorkArea_Data();
 
         }
 
-        public bool Get_LoginUsers_Data()
+        private void Usrc_item_Selected(WArea warea)
+        {
+           if (Selected!=null)
+            {
+                Selected(warea); 
+            }
+        }
+
+        public bool Get_WorkArea_Data()
         {
             if (f_WorkArea.GetGroupsTable(ref dtWorkAreaGroup))
             {
@@ -246,12 +263,9 @@ namespace Tangenta
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.pnl_Items.Controls)
+           if (Exit!=null)
             {
-                if (ctrl is usrc_WorkArea)
-                {
-                    usrc_WorkArea xusrc_WorkArea = (usrc_WorkArea)ctrl; 
-                }
+                Exit();
             }
         }
     }

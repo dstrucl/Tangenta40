@@ -911,8 +911,14 @@ namespace TangentaDB
         }
 
 
-        public bool SetNewDraft_DocInvoice(ID xAtom_WorkPeriod_ID,int iFinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, Control pParent, ref ID DocInvoice_ID,
+        public bool SetNewDraft_DocInvoice(ID xAtom_WorkPeriod_ID,
+                                  int iFinancialYear, 
+                                  xCurrency xcurrency, 
+                                  ID xAtom_Currency_ID, 
+                                  Control pParent, 
+                                  ref ID DocInvoice_ID,
                                   ID myOrganisation_Person_ID,
+                                  ID xAtom_WorkArea_ID,
                                   string DocInvoice,
                                   string ElectronicDevice_Name,
                                   ref string Err)
@@ -1033,6 +1039,14 @@ namespace TangentaDB
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref xDoc_ID,  ref Err, DocInvoice))
                     {
                         this.m_CurrentInvoice.Doc_ID = xDoc_ID;
+
+                        if (ID.Validate(xAtom_WorkArea_ID))
+                        {
+                            ID xDocInvoice_Atom_WorkArea = null;
+                            // link DocInvoice and WorkArea
+                            f_DocInvoice_Atom_WorkArea.Get(xDoc_ID, xAtom_WorkArea_ID, ref xDocInvoice_Atom_WorkArea);
+                        }
+
                         ID Journal_DocInvoice_ID = null;
                         if (IsDocInvoice)
                         {

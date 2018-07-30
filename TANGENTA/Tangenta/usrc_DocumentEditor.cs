@@ -1583,7 +1583,7 @@ namespace Tangenta
             }
         }
 
-        public void SetNewDraft(LoginOfMyOrgUser xLoginOfMyOrgUser, enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID)
+        public void SetNewDraft(LoginOfMyOrgUser xLoginOfMyOrgUser, enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
         {
             switch (eInvoiceType)
             {
@@ -1593,7 +1593,7 @@ namespace Tangenta
                     {
                         m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
                     }
-                    if (SetNewInvoiceDraft(xLoginOfMyOrgUser,xFinancialYear, xcurrency, Atom_Currency_ID))
+                    if (SetNewInvoiceDraft(xLoginOfMyOrgUser,xFinancialYear, xcurrency, Atom_Currency_ID, workArea))
                     {
                         SetMode(emode.edit_eDocumentType);
                     }
@@ -1605,7 +1605,7 @@ namespace Tangenta
 
         }
 
-        private bool SetNewInvoiceDraft(LoginOfMyOrgUser xLoginOfMyOrgUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID)
+        private bool SetNewInvoiceDraft(LoginOfMyOrgUser xLoginOfMyOrgUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, WArea workArea)
         {
             ID DocInvoice_ID = null;
             string Err = null;
@@ -1620,7 +1620,16 @@ namespace Tangenta
                 return false;
             }
 
-            if (m_ShopABC.SetNewDraft_DocInvoice(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
+            ID xAtom_WorkArea_ID = null;
+            if (workArea != null)
+            {
+                if (!f_Atom_WorkArea.Get(workArea.Name, workArea.Description, ref xAtom_WorkArea_ID))
+                {
+                    return false;
+                }
+            }
+
+            if (m_ShopABC.SetNewDraft_DocInvoice(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
             {
                 if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))
                 {

@@ -41,6 +41,8 @@
             this.usrc_WorkAreaAll1.NumberOfItemsPerPage = 10;
             this.usrc_WorkAreaAll1.Size = new System.Drawing.Size(915, 553);
             this.usrc_WorkAreaAll1.TabIndex = 0;
+            this.usrc_WorkAreaAll1.Selected += new Tangenta.usrc_WorkAreaAll.delegate_Selected(this.usrc_WorkAreaAll1_Selected);
+            this.usrc_WorkAreaAll1.Exit += new Tangenta.usrc_WorkAreaAll.delegate_Exit(this.usrc_WorkAreaAll1_Exit);
             // 
             // Form_NewDocument_WorkArea
             // 

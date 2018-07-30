@@ -329,10 +329,19 @@ namespace Tangenta
 
             if (IsDocInvoice)
             {
+                string sAtom_WorkArea_Name = "";
+                string sAtom_WorkArea_Join = "";
+                if (Program.UseWorkAreas)
+                {
+                    sAtom_WorkArea_Join = @" LEFT JOIN DocInvoice_Atom_WorkArea diawa ON diawa.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
+                                             LEFT JOIN Atom_WorkArea awa ON diawa.Atom_WorkArea_ID = awa.ID ";
+                    sAtom_WorkArea_Name = " awa.Name as Atom_WorkArea_Name,";
+                }
                 if (Program.b_FVI_SLO)
                 {
-                    sql = @"SELECT
-                    JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
+                    sql = @"SELECT " +
+                    sAtom_WorkArea_Name +
+                    @"JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
                     JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
                     JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
                     diao.IssueDate as IssueDate,
@@ -412,15 +421,18 @@ namespace Tangenta
                     INNER JOIN ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
                     INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
-                    " + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " 
+                    "
+                    + sAtom_WorkArea_Join
+                    + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " 
                     + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime 
                     + ")) and  JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name 
                     + " order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
                 }
                 else
                 {
-                    sql = @"SELECT
-                    JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
+                    sql = @"SELECT" +
+                    sAtom_WorkArea_Name +
+                  @"JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
                     JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
                     JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
                     diao.IssueDate as IssueDate,
@@ -491,7 +503,9 @@ namespace Tangenta
                     INNER JOIN ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
                     INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
-                    " + cond +
+                    "
+                    + sAtom_WorkArea_Join
+                    + cond +
                     " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime
                     + ")) and  JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name
                     + " order by JOURNAL_DocInvoice_$_dinv.FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";

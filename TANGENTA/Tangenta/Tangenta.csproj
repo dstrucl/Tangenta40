@@ -919,6 +919,7 @@
     <Compile Include="usrc_Price_ItemOrService.Designer.cs">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </Compile>
+    <Compile Include="WArea.cs" />
     <Compile Include="XML_Izpis_Postavka.cs" />
     <None Include="Tangenta.licenseheader" />
     <None Include="TangentaInsatllerMUI2.nsi" />

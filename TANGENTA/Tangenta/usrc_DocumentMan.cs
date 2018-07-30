@@ -577,14 +577,14 @@ namespace Tangenta
         private void btn_New_Click(object sender, EventArgs e)
         {
             if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            if (false/*Program.UseWorkAreas*/)
+            if (Program.UseWorkAreas)
             {
                 Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea();
                 frm_new_workarea.ShowDialog(this);
                 switch (frm_new_workarea.eNewDocumentResult)
                 {
                     case Form_NewDocument.e_NewDocument.New_Empty:
-                        New_Empty_Doc(frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                        New_Empty_Doc(frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, frm_new_workarea.Warea);
                         break;
 
                     case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
@@ -604,7 +604,7 @@ namespace Tangenta
                 switch (frm_new.eNewDocumentResult)
                 {
                     case Form_NewDocument.e_NewDocument.New_Empty:
-                        New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                        New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID,null);
                         break;
 
                     case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
@@ -617,7 +617,7 @@ namespace Tangenta
             }
         }
 
-        private void New_Empty_Doc(xCurrency currency,ID xAtom_Currency_ID)
+        private void New_Empty_Doc(xCurrency currency,ID xAtom_Currency_ID, WArea workArea)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_DocumentEditor.InvoiceType)
@@ -632,7 +632,7 @@ namespace Tangenta
                     if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
                     {
                         Program.Cursor_Wait();
-                        m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, FinancialYear, currency, xAtom_Currency_ID);
+                        m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, FinancialYear, currency, xAtom_Currency_ID, workArea);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -797,7 +797,7 @@ namespace Tangenta
                         DataTable xdt_ShopA_Items = null;
                         if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                         {
-                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, xFinancialYear, currency, xAtom_Currency_ID);
+                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -856,7 +856,7 @@ namespace Tangenta
                             Set_cmb_InvoiceType_selected_index();
                             this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
-                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,New_eInvType, xFinancialYear, currency, xAtom_Currency_ID);
+                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,New_eInvType, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
