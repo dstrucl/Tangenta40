@@ -26,9 +26,10 @@ namespace Tangenta
         private NavigationButtons.Navigation nav = null;
 
 
-        public Form_ShopsInUse(NavigationButtons.Navigation xnav, bool xbResetShopsInUse, usrc_DocumentMan xusrc_Main)
+        public Form_ShopsInUse(NavigationButtons.Navigation xnav, bool xbResetShopsInUse, usrc_DocumentMan xusrc_Main,SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
+            this.usrc_ShopsInuse1.mSettingsUserValues = xSettingsUserValues;
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
             bResetShopsInUse = xbResetShopsInUse;

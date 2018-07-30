@@ -37,7 +37,11 @@ namespace ShopB
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer1, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer1, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:ShopB:usrc_ShopB:SetSplitContainer 1 SplitterDistance:Err=" + Err);
+                }
             }
         }
 
@@ -49,7 +53,12 @@ namespace ShopB
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer2, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer2, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:ShopB:usrc_ShopB:SetSplitContainer 2 SplitterDistance:Err=" + Err);
+                }
+
             }
         }
 

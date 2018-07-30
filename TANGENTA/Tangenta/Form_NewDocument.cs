@@ -32,7 +32,7 @@ namespace Tangenta
 
         private Form_NewDocument_WizzardForHelp frm_NewDocument_WizzardForHelp = null;
 
-        public Form_NewDocument(usrc_DocumentMan xusrc_DocumentMan)
+        public Form_NewDocument(usrc_DocumentMan xusrc_DocumentMan,SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             m_usrc_DocumentMan = xusrc_DocumentMan;
@@ -84,8 +84,8 @@ namespace Tangenta
             {
                 this.usrc_New_Copy_of_Same_DocType1.Visible = true;
                 this.usrc_New_Copy_of_Another_DocType1.Visible = true;
-                this.usrc_New_Copy_of_Same_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber);
-                this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber);
+                this.usrc_New_Copy_of_Same_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber, xSettingsUserValues);
+                this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber, xSettingsUserValues);
             }
             usrc_Currency1.Init(GlobalData.BaseCurrency);
             SetNewFormTag();

@@ -665,75 +665,72 @@ namespace TangentaDataBaseDef
         public SQLTable t_SettingsType = null;
 
         /* 223 */
-        public SQLTable t_SettingsValue = null;
-
-        /* 224 */
         public SQLTable t_ProgramModule = null;
 
-        /* 225 */
+        /* 224 */
         public SQLTable t_PropertiesSettings = null;
 
-        /* 226 */
+        /* 225 */
         public SQLTable t_LoginTag_TYPE = null;
 
-        /* 227 */
+        /* 226 */
         public SQLTable t_LoginTag = null;
 
-        /* 228 */
+        /* 227 */
         public SQLTable t_WorkAreaImage = null;
 
-        /* 229 */
+        /* 228 */
         public SQLTable t_WorkArea = null;
 
-        /* 230 */
+        /* 229 */
         public SQLTable t_DocInvoice_Atom_WorkArea = null;
 
-        /* 231 */
+        /* 230 */
         public SQLTable t_Atom_IP_address = null;
 
-        /* 232 */
+        /* 231 */
         public SQLTable t_myOrganisation_Person_SingleUser = null;
 
-        /* 233 */
+        /* 232 */
         public SQLTable t_TermsOfPayment_Default = null;
 
-        /* 234 */
+        /* 233 */
         public SQLTable t_Atom_ElectronicDevice = null;
 
-        /* 235 */
+        /* 234 */
         public SQLTable t_LoginUsers_ParentGroup3 = null;
 
-        /* 236 */
+        /* 235 */
         public SQLTable t_LoginUsers_ParentGroup2 = null;
 
-        /* 237 */
+        /* 236 */
         public SQLTable t_LoginUsers_ParentGroup1 = null;
 
-        /* 238 */
+        /* 237 */
         public SQLTable t_JOURNAL_Atom_WorkPeriod_TYPE = null;
 
-        /* 239 */
+        /* 238 */
         public SQLTable t_JOURNAL_Atom_WorkPeriod = null;
 
-        /* 240 */
+        /* 239 */
         public SQLTable t_DocInvoice_ShopC_Item_AdditionalData =  null;
 
-        /* 241 */
+        /* 240 */
         public SQLTable t_WorkArea_ParentGroup3 = null;
 
-        /* 242 */
+        /* 241 */
         public SQLTable t_WorkArea_ParentGroup2 = null;
 
-        /* 243 */
+        /* 242 */
         public SQLTable t_WorkArea_ParentGroup1 = null;
 
-        /* 244 */
+        /* 243 */
         public SQLTable t_Current_DocInvoice_ID = null;
 
-        /* 245 */
+        /* 244 */
         public SQLTable t_Current_DocProformaInvoice_ID = null;
 
-        /* 246 */
+        /* 245 */
         public SQLTable t_DocInvoice_ShopC_Item_AdditionalData_TYPE = null;
 
 
@@ -2623,19 +2620,13 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_SettingsType);
 
             /* 223 */
-            t_SettingsValue = new SQLTable((Object)new SettingsValue(), "setv", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_SettingsValue);
-            t_SettingsValue.AddColumn((Object)mt.m_SettingsValue.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_SettingsValue.AddColumn((Object)mt.m_SettingsValue.SettingsVal, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings Value", " Vrednost nastavitvenega parametra"));
-            m_DBTables.items.Add(t_SettingsValue);
-
-            /* 224 */
             t_ProgramModule = new SQLTable((Object)new ProgramModule(), "pm", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_ProgramModule);
             t_ProgramModule.AddColumn((Object) mt.m_ProgramModule.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_ProgramModule.AddColumn((Object) mt.m_ProgramModule.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Program Module", "Ime programskega modula"));
             t_ProgramModule.AddColumn((Object) mt.m_ProgramModule.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Program Module description", "Opis programskega modula"));
             m_DBTables.items.Add(t_ProgramModule);
 
-            /* 225 */
+            /* 224 */
             t_PropertiesSettings = new SQLTable((Object)new PropertiesSettings(), "ps", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_PropertiesSettings);
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
@@ -2643,19 +2634,19 @@ namespace TangentaDataBaseDef
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_myOrganisation_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Ma Org.Person ID", "Oseba moje organizacije ID"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings Name", "Ime nastavitve"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_SettingsType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings data type ID", "Podatkovni tip nastavitve ID"));
-            t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.m_SettingsValue, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings value ID", "Vrednost nastavitve ID"));
+            t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.SValue, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings value", "Vrednost nastavitve"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.TestEnvironment, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Test Environment", "Testno okolje"));
             t_PropertiesSettings.AddColumn((Object) mt.m_PropertiesSettings.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Settings description", "Opis nastavitve"));
             m_DBTables.items.Add(t_PropertiesSettings);
 
-            /* 226 */
+            /* 225 */
             t_LoginTag_TYPE = new SQLTable((Object)new LoginTag_TYPE(), "ltt", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginTag_TYPE);
             t_LoginTag_TYPE.AddColumn((Object) mt.m_LoginTag_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_LoginTag_TYPE.AddColumn((Object) mt.m_LoginTag_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login type", "Način prijave"));
             t_LoginTag_TYPE.AddColumn((Object) mt.m_LoginTag_TYPE.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login type description", "Opis načina prijave"));
             m_DBTables.items.Add(t_LoginTag_TYPE);
 
-            /* 227 */
+            /* 226 */
             t_LoginTag = new SQLTable((Object)new LoginTag(), "lt", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginTag);
             t_LoginTag.AddColumn((Object) mt.m_LoginTag.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_LoginTag.AddColumn((Object) mt.m_LoginTag.m_LoginUsers, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Login user  account ID", "Upirabniški račun ID"));
@@ -2671,7 +2662,7 @@ namespace TangentaDataBaseDef
             t_WorkAreaImage.AddColumn((Object)mt.m_WorkAreaImage.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image description", "Opis slike delovnega področja"));
             m_DBTables.items.Add(t_WorkAreaImage);
 
-            /* 229 */
+            /* 228 */
             t_WorkArea = new SQLTable((Object)new WorkArea(), "wa", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_WorkArea);
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area name", "Ime delovnega področja"));
@@ -2681,35 +2672,35 @@ namespace TangentaDataBaseDef
             t_WorkArea.AddColumn((Object)mt.m_WorkArea.m_WorkArea_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area group ID", "Delovno področje skupina ID"));
             m_DBTables.items.Add(t_WorkArea);
 
-            /* 230 */
+            /* 229 */
             t_DocInvoice_Atom_WorkArea = new SQLTable((Object)new DocInvoice_Atom_WorkArea(), "wadi", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_DocInvoice_Atom_WorkArea);
             t_DocInvoice_Atom_WorkArea.AddColumn((Object) mt.m_DocInvoice_Atom_WorkArea.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_DocInvoice_Atom_WorkArea.AddColumn((Object) mt.m_DocInvoice_Atom_WorkArea.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("DocInvoice ID", "Račun ID"));
             t_DocInvoice_Atom_WorkArea.AddColumn((Object) mt.m_DocInvoice_Atom_WorkArea.m_Atom_WorkArea, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area archive ID", "Delovno področje arhiv ID"));
             m_DBTables.items.Add(t_DocInvoice_Atom_WorkArea);
 
-            /* 231 */
+            /* 230 */
             t_Atom_IP_address = new SQLTable((Object)new Atom_IP_address(), "aipa", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_IP_address);
             t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.IP_address, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP address", "IP naslov"));
             t_Atom_IP_address.AddColumn((Object)mt.m_Atom_IP_address.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP description", "IP opis"));
             m_DBTables.items.Add(t_Atom_IP_address);
 
-            /* 232 */
+            /* 231 */
             t_myOrganisation_Person_SingleUser = new SQLTable((Object)new myOrganisation_Person_SingleUser(), "mopsu", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_myOrganisation_Person_SingleUser);
             t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("My organisation person ID", "Oseba podatja ID"));
             t_myOrganisation_Person_SingleUser.AddColumn((Object)mt.m_myOrganisation_Person_SingleUser.m_ElectronicDevice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_myOrganisation_Person_SingleUser);
 
-            /* 233 */
+            /* 232 */
             t_TermsOfPayment_Default = new SQLTable((Object)new TermsOfPayment_Default(), "topd", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_TermsOfPayment_Default);
             t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.m_TermsOfPayment, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Terms of payment ID", "Plačilni pogoji ID"));
             t_TermsOfPayment_Default.AddColumn((Object)mt.m_TermsOfPayment_Default.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ElectronicDevice ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_TermsOfPayment_Default);
 
-            /* 234 */
+            /* 233 */
             t_Atom_ElectronicDevice = new SQLTable((Object)new Atom_ElectronicDevice(), "aed", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_Atom_ElectronicDevice);
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Name", "Ime elektronske naprave"));
@@ -2718,34 +2709,34 @@ namespace TangentaDataBaseDef
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic Device Description", "Opis elektronske naprave"));
             m_DBTables.items.Add(t_Atom_ElectronicDevice);
 
-             /* 235 */
+             /* 234 */
              t_LoginUsers_ParentGroup3 = new SQLTable((Object)new LoginUsers_ParentGroup3(), "lupg3", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers_ParentGroup3); ;
              t_LoginUsers_ParentGroup3.AddColumn((Object)mt.m_LoginUsers_ParentGroup3.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
              t_LoginUsers_ParentGroup3.AddColumn((Object)mt.m_LoginUsers_ParentGroup3.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 3 Name", "Ime skupine 3"));
              m_DBTables.items.Add(t_LoginUsers_ParentGroup3);
 
-            /* 236 */
+            /* 235 */
             t_LoginUsers_ParentGroup2 = new SQLTable((Object)new LoginUsers_ParentGroup2(), "lupg2", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers_ParentGroup2); ;
             t_LoginUsers_ParentGroup2.AddColumn((Object)mt.m_LoginUsers_ParentGroup2.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_LoginUsers_ParentGroup2.AddColumn((Object)mt.m_LoginUsers_ParentGroup2.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 2 Name", "Ime skupine 2"));
             t_LoginUsers_ParentGroup2.AddColumn((Object)mt.m_LoginUsers_ParentGroup2.m_LoginUsers_ParentGroup3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 2 Name", "Ime skupine 2"));
             m_DBTables.items.Add(t_LoginUsers_ParentGroup2);
 
-            /* 237 */
+            /* 236 */
             t_LoginUsers_ParentGroup1 = new SQLTable((Object)new LoginUsers_ParentGroup1(), "lupg1", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_LoginUsers_ParentGroup1); ;
             t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 1 Name", "Ime skupine 1"));
             t_LoginUsers_ParentGroup1.AddColumn((Object)mt.m_LoginUsers_ParentGroup1.m_LoginUsers_ParentGroup2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Group 1 Name", "Ime skupine 1"));
             m_DBTables.items.Add(t_LoginUsers_ParentGroup1);
 
-            /* 238 */
+            /* 237 */
             t_JOURNAL_Atom_WorkPeriod_TYPE = new SQLTable((Object)new JOURNAL_Atom_WorkPeriod_TYPE(), "jawpt", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_JOURNAL_Atom_WorkPeriod_TYPE);
             t_JOURNAL_Atom_WorkPeriod_TYPE.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_JOURNAL_Atom_WorkPeriod_TYPE.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Type Name", "Ime"));
             t_JOURNAL_Atom_WorkPeriod_TYPE.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod_TYPE.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_JOURNAL_Atom_WorkPeriod_TYPE);
 
-            /* 239 */
+            /* 238 */
             t_JOURNAL_Atom_WorkPeriod = new SQLTable((Object)new JOURNAL_Atom_WorkPeriod(), "jawp", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_JOURNAL_Atom_WorkPeriod);
             t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
@@ -2753,7 +2744,7 @@ namespace TangentaDataBaseDef
             t_JOURNAL_Atom_WorkPeriod.AddColumn((Object)mt.m_JOURNAL_Atom_WorkPeriod.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
             m_DBTables.items.Add(t_JOURNAL_Atom_WorkPeriod);
 
-             /* 240 */
+             /* 239 */
             t_DocInvoice_ShopC_Item_AdditionalData = new SQLTable((Object)new DocInvoice_ShopC_Item_AdditionalData(), "disciad", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_DocInvoice_ShopC_Item_AdditionalData);
             t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.m_DocInvoice_Shopc_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Shopc Item ID", "Artikel prodajalne C račun ID"));
@@ -2762,27 +2753,27 @@ namespace TangentaDataBaseDef
             t_DocInvoice_ShopC_Item_AdditionalData.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Shopc Item additional data description", "Artikel prodajalne C račun dodatni podatek opis"));
             m_DBTables.items.Add(t_DocInvoice_ShopC_Item_AdditionalData);
 
-            /* 241 */
+            /* 240 */
             t_WorkArea_ParentGroup3 = new SQLTable((Object)new WorkArea_ParentGroup3(), "wapg3", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup3);
             t_WorkArea_ParentGroup3.AddColumn((Object)mt.m_WorkArea_ParentGroup3.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea_ParentGroup3.AddColumn((Object)mt.m_WorkArea_ParentGroup3.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
             m_DBTables.items.Add(t_WorkArea_ParentGroup3);
 
-            /* 242 */
+            /* 241 */
             t_WorkArea_ParentGroup2 = new SQLTable((Object)new WorkArea_ParentGroup2(), "wapg2", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup2);
             t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
             t_WorkArea_ParentGroup2.AddColumn((Object)mt.m_WorkArea_ParentGroup2.m_WorkArea_ParentGroup3, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Sub sub group ID", "Podpodskupina ID"));
             m_DBTables.items.Add(t_WorkArea_ParentGroup2);
 
-            /* 243 */
+            /* 242 */
             t_WorkArea_ParentGroup1 = new SQLTable((Object)new WorkArea_ParentGroup1(), "wapg1", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_WorkArea_ParentGroup1);
             t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
             t_WorkArea_ParentGroup1.AddColumn((Object)mt.m_WorkArea_ParentGroup1.m_WorkArea_ParentGroup2, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Sub group ID", "Podskupina ID"));
             m_DBTables.items.Add(t_WorkArea_ParentGroup1);
 
-            /* 244 */
+            /* 243 */
             t_Current_DocInvoice_ID = new SQLTable((Object)new Current_DocInvoice_ID(), "cdiid", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_Current_DocInvoice_ID);
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.DBSource, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Database", "Podatkovna baza"));
@@ -2791,7 +2782,7 @@ namespace TangentaDataBaseDef
             t_Current_DocInvoice_ID.AddColumn((Object)mt.m_Current_DocInvoice_ID.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_Current_DocInvoice_ID);
 
-            /* 245 */
+            /* 244 */
             t_Current_DocProformaInvoice_ID = new SQLTable((Object)new Current_DocProformaInvoice_ID(), "cdpiid", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_Current_DocProformaInvoice_ID);
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.DBSource, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Database", "Podatkovna baza"));
@@ -2800,7 +2791,7 @@ namespace TangentaDataBaseDef
             t_Current_DocProformaInvoice_ID.AddColumn((Object)mt.m_Current_DocProformaInvoice_ID.m_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Electronic Device ID", "Elektronska naprava ID"));
             m_DBTables.items.Add(t_Current_DocProformaInvoice_ID);
 
-            /* 246 */
+            /* 245 */
             t_DocInvoice_ShopC_Item_AdditionalData_TYPE = new SQLTable((Object)new DocInvoice_ShopC_Item_AdditionalData_TYPE(), "disciadt", Column.Flags.FILTER_AND_UNIQUE, lng.lng_t_DocInvoice_ShopC_Item_AdditionalData_TYPE);
             t_DocInvoice_ShopC_Item_AdditionalData_TYPE.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_DocInvoice_ShopC_Item_AdditionalData_TYPE.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_AdditionalData_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Invoice Shopc Item datatype name", "Artikel prodajalne C račun vrsta podatka ime"));

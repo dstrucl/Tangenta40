@@ -58,7 +58,7 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public void Init(string xDocInvoice, string xsInvoiceNumber)
+        public void Init(string xDocInvoice, string xsInvoiceNumber,SettingsUserValues xSettingsUserValues)
         {
             DocInvoice = xDocInvoice;
             sInvoiceNumber = xsInvoiceNumber;
@@ -77,11 +77,10 @@ namespace Tangenta
             btn_New_Copy_Of_SameDocType.Text = btn_New_Copy_Of_SameDocType.Text.Replace("%s", sInvoiceNumber);
             lng.s_IntoFinancialYear.Text(lbl_FinancialYear);
             cmb_FinancialYear.SelectedIndexChanged -= cmb_FinancialYear_SelectedIndexChanged;
-            int Default_FinancialYear = Properties.SettingsUser.Default.FinancialYear;
+            int Default_FinancialYear = xSettingsUserValues.FinancialYear;
             if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref m_dt_FiancialYear,IsDocInvoice,IsDocProformaInvoice,ref Default_FinancialYear))
             {
-                Properties.SettingsUser.Default.FinancialYear = Default_FinancialYear;
-                Properties.SettingsUser.Default.Save();
+                xSettingsUserValues.FinancialYear = Default_FinancialYear;
                 cmb_FinancialYear.SelectedIndexChanged += cmb_FinancialYear_SelectedIndexChanged;
             }
         }

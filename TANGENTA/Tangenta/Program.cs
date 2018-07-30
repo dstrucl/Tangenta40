@@ -51,6 +51,7 @@ namespace Tangenta
         #region Variables
         internal static string AdministratorLockedPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
 
+
         internal static class OperationMode
         {
             internal static bool MultiUser = true;
@@ -129,6 +130,8 @@ namespace Tangenta
         internal static bool bSymulator = false;
         internal static bool bRS232Monitor = false;
 
+        internal static ID ProgramModule_ID = null;
+
         internal static bool m_CountryHasFVI = false;
 
         internal static bool CountryHasFVI
@@ -204,7 +207,7 @@ namespace Tangenta
 
         public static string Shops_in_use
         {
-            get { return Properties.SettingsUser.Default.eShopsInUse; }
+            get { return Properties.Settings.Default.eShopsInUse; }
         }
 
 

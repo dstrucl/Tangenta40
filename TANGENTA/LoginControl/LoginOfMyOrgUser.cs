@@ -13,7 +13,7 @@ namespace LoginControl
     public class LoginOfMyOrgUser
     {
         internal usrc_LoginOfMyOrgUser m_usrc_LoginOfMyOrgUser = null;
-
+        public object oSettings = null;
         public object m_usrc_DocumentMan = null;
         internal AWPLoginData awpld = new AWPLoginData();
         internal int_v PIN_v = null;

@@ -80,7 +80,11 @@ namespace ShopC
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer2, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer2, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:ShopC:usrc_ShopC:SetSplitContainer2 SplitterDistance:Err=" + Err);
+                }
             }
         }
 

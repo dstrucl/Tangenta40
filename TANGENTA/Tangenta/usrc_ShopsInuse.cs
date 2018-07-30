@@ -12,6 +12,7 @@ namespace Tangenta
 {
     public partial class usrc_ShopsInuse : UserControl
     {
+        public SettingsUserValues mSettingsUserValues = null;
         public usrc_ShopsInuse()
         {
             InitializeComponent();
@@ -71,8 +72,15 @@ namespace Tangenta
             ShopC.lng.s_ShopC_Name.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
 
             DynSettings.LanguageTextSave();
-            Properties.SettingsUser.Default.eShopsInUse = shinuse;
-            Properties.SettingsUser.Default.Save();
+            if (mSettingsUserValues == null)
+            {
+                Properties.Settings.Default.eShopsInUse = shinuse;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                mSettingsUserValues.eShopsInUse = shinuse;
+            }
             return true;
         }
     }

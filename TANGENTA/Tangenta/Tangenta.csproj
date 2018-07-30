@@ -115,6 +115,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -505,12 +506,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\SettingsUser.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>SettingsUser.settings</DependentUpon>
-    </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
+    <Compile Include="SetiingsUserValues.cs" />
+    <Compile Include="Setting.cs" />
     <Compile Include="SettingsUser.cs" />
     <Compile Include="SumPayment.cs" />
     <Compile Include="TaxSum.cs" />
@@ -922,10 +920,6 @@
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
-    <None Include="Properties\SettingsUser.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>SettingsUser.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Tangenta.licenseheader" />
     <None Include="TangentaInsatllerMUI2.nsi" />
   </ItemGroup>

@@ -90,45 +90,71 @@ namespace StaticLib
 
         public const string ImageStoreName = "Func.ImageStore";
 
-        public static void SetSplitContainerValue(SplitContainer splitContainerx, int value)
+        public static bool  SetSplitContainerValue(SplitContainer splitContainerx, int value, ref string Err)
         {
-            if (splitContainerx.Orientation == Orientation.Vertical)
+            try
             {
-                if (splitContainerx.Width > value + 25)
-                {
-                    if (value >= splitContainerx.Panel1MinSize)
-                    {
-                        splitContainerx.SplitterDistance = value;
-                    }
-                    else
-                    {
-                        splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize;
-                    }
-                }
-                else
-                {
-                    splitContainerx.SplitterDistance = splitContainerx.Width - 25;
-                }
+                //if (splitContainerx.Orientation == Orientation.Vertical)
+                //{
+                //    int ihb = splitContainerx.Width - splitContainerx.Panel2MinSize - splitContainerx.SplitterWidth - 1;
+                //    if (value > ihb)
+                //    {
+                //        if (ihb <= splitContainerx.Panel1MinSize)
+                //        {
+                //            splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize + 1;
+                //        }
+                //        else
+                //        {
+                //            splitContainerx.SplitterDistance = ihb;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        if (value <= splitContainerx.Panel1MinSize)
+                //        {
+                //            splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize + 1;
+                //        }
+                //        else
+                //        {
+                //            splitContainerx.SplitterDistance = value;
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    int ihb = splitContainerx.Height - splitContainerx.Panel2MinSize - splitContainerx.SplitterWidth - 1;
+                //    if (value > ihb)
+                //    {
+                //        if (ihb <= splitContainerx.Panel1MinSize)
+                //        {
+                //            splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize + 1;
+                //        }
+                //        else
+                //        {
+                //            splitContainerx.SplitterDistance = ihb;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        if (value <= splitContainerx.Panel1MinSize)
+                //        {
+                //            splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize + 1;
+                //        }
+                //        else
+                //        {
+                //            splitContainerx.SplitterDistance = value;
+                //        }
+                //    }
+                //}
+                splitContainerx.SplitterDistance = value;
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                if (splitContainerx.Height > value + 25)
-                {
-                    if (value >= splitContainerx.Panel1MinSize)
-                    {
-                        splitContainerx.SplitterDistance = value;
-                    }
-                    else
-                    {
-                        splitContainerx.SplitterDistance = splitContainerx.Panel1MinSize;
-                    }
-                }
-                else
-                {
-                    splitContainerx.SplitterDistance = splitContainerx.Height - 25;
-                }
+                return true;
             }
         }
+
 
         public static ImageStore ImageStore = new ImageStore();
 

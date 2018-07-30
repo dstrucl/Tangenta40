@@ -29,6 +29,7 @@ namespace Tangenta
 {
     public partial class usrc_DocumentEditor : UserControl
     {
+        SettingsUserValues mSettingsUserValues = null;
         public ID Atom_Currency_ID = null;
         private LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
         private Door door = null;
@@ -52,7 +53,11 @@ namespace Tangenta
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer1, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer1, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:SetSplitContainer2 SplitterDistance:Err=" + Err);
+                }
             }
         }
 
@@ -64,7 +69,11 @@ namespace Tangenta
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer2, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer2, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:SetSplitContainer2 SplitterDistance:Err=" + Err);
+                }
             }
         }
 
@@ -76,7 +85,12 @@ namespace Tangenta
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer3, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer3, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:SetSplitContainer3 SplitterDistance:Err=" + Err);
+                }
+
             }
         }
 
@@ -418,7 +432,7 @@ namespace Tangenta
 
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
-            Properties.SettingsUser.Default.eShopsInUse = xshops_inuse;
+            mSettingsUserValues.eShopsInUse = xshops_inuse;
             this.Set_eShopsMode(xshops_inuse);
             if (LayoutChanged!=null)
             {
@@ -467,9 +481,9 @@ namespace Tangenta
 
         internal void Set_eShopsMode(string eShopsMode)
         {
-            if (Properties.SettingsUser.Default.eShopsInUse.Length == 1)
+            if (mSettingsUserValues.eShopsInUse.Length == 1)
             {
-                eShopsMode = Properties.SettingsUser.Default.eShopsInUse;
+                eShopsMode = mSettingsUserValues.eShopsInUse;
  //               this.btn_Show_Shops.Visible = false;
             }
             else
@@ -477,11 +491,11 @@ namespace Tangenta
                 this.btn_Show_Shops.Visible = true;
             }
 
-            if (Properties.SettingsUser.Default.eShopsInUse.Length == 2)
+            if (mSettingsUserValues.eShopsInUse.Length == 2)
             {
-                if (!Properties.SettingsUser.Default.eShopsInUse.Contains(eShopsMode))
+                if (!mSettingsUserValues.eShopsInUse.Contains(eShopsMode))
                 {
-                    eShopsMode = Properties.SettingsUser.Default.eShopsInUse;
+                    eShopsMode = mSettingsUserValues.eShopsInUse;
                 }
             }
 
@@ -637,98 +651,98 @@ namespace Tangenta
 
         public bool ShopA_DefaultVisible
         {
-            get { return Properties.SettingsUser.Default.eShopsMode.Contains("A"); }
+            get { return mSettingsUserValues.eShopsMode.Contains("A"); }
         }
         public bool ShopB_DefaultVisible
         {
-            get { return Properties.SettingsUser.Default.eShopsMode.Contains("B"); }
+            get { return mSettingsUserValues.eShopsMode.Contains("B"); }
         }
 
-        internal void SetSplitControlsSpliterDistance()
+        internal void SetSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
         {
-            if (Properties.SettingsUser.Default.DocumentEditor_SplitControl2_spliterdistance>0)
+            if (xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance>0)
             {
-                this.SplitContainer2_spd = Properties.SettingsUser.Default.DocumentEditor_SplitControl2_spliterdistance;
+                this.SplitContainer2_spd = xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance;
             }
-            if (Properties.SettingsUser.Default.DocumentEditor_SplitControl1_spliterdistance > 0)
+            if (xSettingsUserValues.DocumentEditor_SplitControl1_spliterdistance > 0)
             {
-                this.SplitContainer1_spd = Properties.SettingsUser.Default.DocumentEditor_SplitControl1_spliterdistance;
+                this.SplitContainer1_spd = xSettingsUserValues.DocumentEditor_SplitControl1_spliterdistance;
             }
-            if (Properties.SettingsUser.Default.DocumentEditor_SplitControl3_spliterdistance > 0)
+            if (xSettingsUserValues.DocumentEditor_SplitControl3_spliterdistance > 0)
             {
-                this.SplitContainer3_spd = Properties.SettingsUser.Default.DocumentEditor_SplitControl3_spliterdistance;
+                this.SplitContainer3_spd = xSettingsUserValues.DocumentEditor_SplitControl3_spliterdistance;
             }
             if (m_usrc_ShopA != null)
             {
-                if (Properties.SettingsUser.Default.ShopA_SplitControl1_spliterdistance > 0)
+                if (xSettingsUserValues.ShopA_SplitControl1_spliterdistance > 0)
                 {
-                    m_usrc_ShopA.SplitContainer1_spd = Properties.SettingsUser.Default.ShopA_SplitControl1_spliterdistance;
+                    m_usrc_ShopA.SplitContainer1_spd = xSettingsUserValues.ShopA_SplitControl1_spliterdistance;
                 }
 
-                if (Properties.SettingsUser.Default.ShopA_Editor_SplitControl1_spliterdistance > 0)
+                if (xSettingsUserValues.ShopA_Editor_SplitControl1_spliterdistance > 0)
                 {
-                    m_usrc_ShopA.Editor_SplitContainer1_spd = Properties.SettingsUser.Default.ShopA_Editor_SplitControl1_spliterdistance;
+                    m_usrc_ShopA.Editor_SplitContainer1_spd = xSettingsUserValues.ShopA_Editor_SplitControl1_spliterdistance;
                 }
 
-                if (Properties.SettingsUser.Default.ShopA_Editor_SplitControl2_spliterdistance > 0)
+                if (xSettingsUserValues.ShopA_Editor_SplitControl2_spliterdistance > 0)
                 {
-                    m_usrc_ShopA.Editor_SplitContainer2_spd = Properties.SettingsUser.Default.ShopA_Editor_SplitControl2_spliterdistance;
+                    m_usrc_ShopA.Editor_SplitContainer2_spd = xSettingsUserValues.ShopA_Editor_SplitControl2_spliterdistance;
                 }
             }
 
             if (m_usrc_ShopB!=null)
             {
-                if (Properties.SettingsUser.Default.ShopB_SplitControl2_spliterdistance > 0)
+                if (xSettingsUserValues.ShopB_SplitControl2_spliterdistance > 0)
                 {
-                    m_usrc_ShopB.SplitContainer2_spd = Properties.SettingsUser.Default.ShopB_SplitControl2_spliterdistance;
+                    m_usrc_ShopB.SplitContainer2_spd = xSettingsUserValues.ShopB_SplitControl2_spliterdistance;
                 }
-                if (Properties.SettingsUser.Default.ShopB_SplitControl1_spliterdistance > 0)
+                if (xSettingsUserValues.ShopB_SplitControl1_spliterdistance > 0)
                 {
-                    m_usrc_ShopB.SplitContainer1_spd = Properties.SettingsUser.Default.ShopB_SplitControl1_spliterdistance;
+                    m_usrc_ShopB.SplitContainer1_spd = xSettingsUserValues.ShopB_SplitControl1_spliterdistance;
                 }
             }
 
             if (m_usrc_ShopC != null)
             {
-                if (Properties.SettingsUser.Default.ShopC_SplitControl1_spliterdistance > 0)
+                if (xSettingsUserValues.ShopC_SplitControl1_spliterdistance > 0)
                 {
-                    m_usrc_ShopC.SplitContainer1_spd = Properties.SettingsUser.Default.ShopC_SplitControl1_spliterdistance;
+                    m_usrc_ShopC.SplitContainer1_spd = xSettingsUserValues.ShopC_SplitControl1_spliterdistance;
                 }
-                if (Properties.SettingsUser.Default.ShopC_SplitControl2_spliterdistance > 0)
+                if (xSettingsUserValues.ShopC_SplitControl2_spliterdistance > 0)
                 {
-                    m_usrc_ShopC.SplitContainer2_spd = Properties.SettingsUser.Default.ShopC_SplitControl2_spliterdistance;
+                    m_usrc_ShopC.SplitContainer2_spd = xSettingsUserValues.ShopC_SplitControl2_spliterdistance;
                 }
             }
         }
 
-        internal void SaveSplitControlsSpliterDistance()
+        internal void SaveSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
         {
             if (this.SplitContainer2_spd > 0)
             {
-                 Properties.SettingsUser.Default.DocumentEditor_SplitControl2_spliterdistance = this.SplitContainer2_spd;
+                 xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance = this.SplitContainer2_spd;
             }
             if (this.SplitContainer1_spd > 0)
             {
-                 Properties.SettingsUser.Default.DocumentEditor_SplitControl1_spliterdistance = this.SplitContainer1_spd;
+                 xSettingsUserValues.DocumentEditor_SplitControl1_spliterdistance = this.SplitContainer1_spd;
             }
             if (this.SplitContainer3_spd > 0)
             {
-                 Properties.SettingsUser.Default.DocumentEditor_SplitControl3_spliterdistance = this.SplitContainer3_spd;
+                 xSettingsUserValues.DocumentEditor_SplitControl3_spliterdistance = this.SplitContainer3_spd;
             }
 
             if (m_usrc_ShopA != null)
             {
                 if (m_usrc_ShopA.SplitContainer1_spd > 0)
                 {
-                    Properties.SettingsUser.Default.ShopA_SplitControl1_spliterdistance = m_usrc_ShopA.SplitContainer1_spd;
+                    xSettingsUserValues.ShopA_SplitControl1_spliterdistance = m_usrc_ShopA.SplitContainer1_spd;
                 }
                 if (m_usrc_ShopA.Editor_SplitContainer1_spd > 0)
                 {
-                    Properties.SettingsUser.Default.ShopA_Editor_SplitControl1_spliterdistance = m_usrc_ShopA.Editor_SplitContainer1_spd;
+                    xSettingsUserValues.ShopA_Editor_SplitControl1_spliterdistance = m_usrc_ShopA.Editor_SplitContainer1_spd;
                 }
                 if (m_usrc_ShopA.Editor_SplitContainer2_spd > 0)
                 {
-                    Properties.SettingsUser.Default.ShopA_Editor_SplitControl2_spliterdistance = m_usrc_ShopA.Editor_SplitContainer2_spd;
+                    xSettingsUserValues.ShopA_Editor_SplitControl2_spliterdistance = m_usrc_ShopA.Editor_SplitContainer2_spd;
                 }
             }
 
@@ -736,11 +750,11 @@ namespace Tangenta
             {
                 if (m_usrc_ShopB.SplitContainer1_spd > 0)
                 {
-                    Properties.SettingsUser.Default.ShopB_SplitControl1_spliterdistance = m_usrc_ShopB.SplitContainer1_spd;
+                    xSettingsUserValues.ShopB_SplitControl1_spliterdistance = m_usrc_ShopB.SplitContainer1_spd;
                 }
                 if (m_usrc_ShopB.SplitContainer2_spd > 0)
                 {
-                     Properties.SettingsUser.Default.ShopB_SplitControl2_spliterdistance = m_usrc_ShopB.SplitContainer2_spd;
+                     xSettingsUserValues.ShopB_SplitControl2_spliterdistance = m_usrc_ShopB.SplitContainer2_spd;
                 }
             }
 
@@ -748,11 +762,11 @@ namespace Tangenta
             {
                 if (m_usrc_ShopC.SplitContainer2_spd > 0)
                 {
-                    Properties.SettingsUser.Default.ShopC_SplitControl2_spliterdistance = m_usrc_ShopC.SplitContainer2_spd;
+                    xSettingsUserValues.ShopC_SplitControl2_spliterdistance = m_usrc_ShopC.SplitContainer2_spd;
                 }
                 if (m_usrc_ShopC.SplitContainer1_spd > 0)
                 {
-                    Properties.SettingsUser.Default.ShopC_SplitControl1_spliterdistance = m_usrc_ShopC.SplitContainer1_spd;
+                    xSettingsUserValues.ShopC_SplitControl1_spliterdistance = m_usrc_ShopC.SplitContainer1_spd;
                 }
             }
         }
@@ -760,7 +774,7 @@ namespace Tangenta
 
         public bool ShopC_DefaultVisible
         {
-            get { return Properties.SettingsUser.Default.eShopsMode.Contains("Ç"); }
+            get { return mSettingsUserValues.eShopsMode.Contains("Ç"); }
         }
 
         public bool HeadVisible
@@ -847,11 +861,12 @@ namespace Tangenta
 
         public bool Initialise(usrc_DocumentMan xusrc_DocumentMan, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
         {
+            this.mSettingsUserValues = ((SettingsUser)xLoginOfMyOrgUser.oSettings).mSettingsUserValues;
             m_usrc_DocumentMan = xusrc_DocumentMan;
             m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
             door = new Door(m_LoginOfMyOrgUser);
             lng.s_Head.Text(chk_Head);
-            chk_Head.Checked = Properties.SettingsUser.Default.InvoiceHeaderChecked;
+            chk_Head.Checked = mSettingsUserValues.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             splitContainer2.Panel1Collapsed = !chk_Head.Checked;
             SetOperationMode();
@@ -900,11 +915,11 @@ namespace Tangenta
                 m_InvoiceData.DocInvoice_ID = Document_ID;
             }
 
-            if (Properties.SettingsUser.Default.eShopsMode.Length==0)
+            if (mSettingsUserValues.eShopsMode.Length==0)
             {
-                Properties.SettingsUser.Default.eShopsMode = Properties.SettingsUser.Default.eShopsInUse;
+                mSettingsUserValues.eShopsMode = Properties.Settings.Default.eShopsInUse;
             }
-            Set_eShopsMode(Properties.SettingsUser.Default.eShopsMode);
+            Set_eShopsMode(mSettingsUserValues.eShopsMode);
             GetUnits();
 
             DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
@@ -1083,7 +1098,7 @@ namespace Tangenta
                 splitContainer2.Panel1Collapsed = true;
             }
 
-            Properties.SettingsUser.Default.InvoiceHeaderChecked = chk_Head.Checked;
+            ((SettingsUser)m_LoginOfMyOrgUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -2211,10 +2226,10 @@ namespace Tangenta
 
         private void btn_Select_Shops_Click(object sender, EventArgs e)
         {
-            Form_ShowShops frm_sel_shops = new Form_ShowShops(this);
+            Form_ShowShops frm_sel_shops = new Form_ShowShops(this,mSettingsUserValues);
             if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
             {
-                Set_eShopsMode(Properties.SettingsUser.Default.eShopsMode);
+                Set_eShopsMode(mSettingsUserValues.eShopsMode);
                 if (LayoutChanged!=null)
                 {
                     LayoutChanged();

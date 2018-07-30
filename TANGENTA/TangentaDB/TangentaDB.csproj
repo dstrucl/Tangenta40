@@ -201,11 +201,15 @@
     <Compile Include="f_PriceList_Name.cs" />
     <Compile Include="f_Price_Item.cs" />
     <Compile Include="f_Price_SimpleItem.cs" />
+    <Compile Include="f_ProgramModule.cs" />
+    <Compile Include="f_PropertiesSettings.cs" />
     <Compile Include="f_PurchasePrice.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
     <Compile Include="f_Atom_ShopBItem.cs" />
     <Compile Include="f_Reference.cs" />
     <Compile Include="f_Reference_Image.cs" />
+    <Compile Include="f_SattingsType.cs" />
+    <Compile Include="f_SettingsValue.cs" />
     <Compile Include="f_SimpleItem.cs" />
     <Compile Include="f_SimpleItemAtom_Image.cs" />
     <Compile Include="f_SimpleItemAtom_Name.cs" />

@@ -924,7 +924,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true,false, Properties.SettingsUser.Default.FinancialYear,null);
+                Init(enum_Invoice, true,false, ((SettingsUser)m_LoginOfMyOrgUser.oSettings).mSettingsUserValues.FinancialYear,null);
                 Program.Cursor_Arrow();
             }
         }

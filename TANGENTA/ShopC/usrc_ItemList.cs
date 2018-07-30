@@ -58,7 +58,11 @@ namespace ShopC
             }
             set
             {
-                StaticLib.Func.SetSplitContainerValue(splitContainer1, value);
+                string Err = null;
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer1, value, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList:SetSplitContainer 1 SplitterDistance:Err=" + Err);
+                }
             }
         }
 

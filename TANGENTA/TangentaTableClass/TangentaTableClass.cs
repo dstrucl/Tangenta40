@@ -1208,10 +1208,9 @@ namespace TangentaTableClass
 
     }
 
-    public class SettingsValue
+
+    public class SValue:DB_varchar_264
     {
-        public ID ID = new ID();
-        public SettingsVal SettingsVal = new SettingsVal();
     }
 
     public class ProgramModule
@@ -1229,7 +1228,7 @@ namespace TangentaTableClass
         public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
         public Name Name = new Name();
         public SettingsType m_SettingsType = new SettingsType();
-        public SettingsValue m_SettingsValue = new SettingsValue();
+        public SValue SValue = new SValue();
         public Description Description = new Description();
         public TestEnvironment TestEnvironment = new TestEnvironment();
     }
@@ -3547,75 +3546,72 @@ namespace TangentaTableClass
         public SettingsType m_SettingsType = new SettingsType();
 
         /* 223 */
-        public SettingsValue m_SettingsValue = new SettingsValue();
-
-        /* 224 */
         public ProgramModule m_ProgramModule = new ProgramModule();
 
-        /* 225 */
+        /* 224 */
         public PropertiesSettings m_PropertiesSettings = new PropertiesSettings();
 
-        /* 226 */
+        /* 225 */
         public LoginTag_TYPE m_LoginTag_TYPE = new LoginTag_TYPE();
 
-        /* 227 */
+        /* 226 */
         public LoginTag m_LoginTag = new LoginTag();
 
-        /* 228 */
+        /* 227 */
         public WorkAreaImage m_WorkAreaImage = new WorkAreaImage();
 
-        /* 229 */
+        /* 228 */
         public WorkArea m_WorkArea = new WorkArea();
 
-        /* 230 */
+        /* 229 */
         public DocInvoice_Atom_WorkArea m_DocInvoice_Atom_WorkArea = new DocInvoice_Atom_WorkArea();
 
-        /* 231 */
+        /* 230 */
         public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
 
-        /* 232 */
+        /* 231 */
         public myOrganisation_Person_SingleUser m_myOrganisation_Person_SingleUser = new myOrganisation_Person_SingleUser();
 
-        /* 233 */
+        /* 232 */
         public TermsOfPayment_Default m_TermsOfPayment_Default = new TermsOfPayment_Default();
 
-        /* 234 */
+        /* 233 */
         public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
 
-        /* 235 */
+        /* 234 */
         public LoginUsers_ParentGroup3 m_LoginUsers_ParentGroup3 = new LoginUsers_ParentGroup3();
 
-        /* 236 */
+        /* 235 */
         public LoginUsers_ParentGroup2 m_LoginUsers_ParentGroup2 = new LoginUsers_ParentGroup2();
 
-        /* 237 */
+        /* 236 */
         public LoginUsers_ParentGroup1 m_LoginUsers_ParentGroup1 = new LoginUsers_ParentGroup1();
 
-        /* 238 */
+        /* 237 */
         public JOURNAL_Atom_WorkPeriod_TYPE m_JOURNAL_Atom_WorkPeriod_TYPE = new JOURNAL_Atom_WorkPeriod_TYPE();
 
-        /* 239 */
+        /* 238 */
         public JOURNAL_Atom_WorkPeriod m_JOURNAL_Atom_WorkPeriod = new JOURNAL_Atom_WorkPeriod();
 
-        /* 240 */
+        /* 239 */
         public DocInvoice_ShopC_Item_AdditionalData m_DocInvoice_ShopC_Item_AdditionalData = new DocInvoice_ShopC_Item_AdditionalData();
 
-        /* 241 */
+        /* 240 */
         public WorkArea_ParentGroup3 m_WorkArea_ParentGroup3 = new WorkArea_ParentGroup3();
 
-        /* 242 */
+        /* 241 */
         public WorkArea_ParentGroup2 m_WorkArea_ParentGroup2 = new WorkArea_ParentGroup2();
 
-        /* 243 */
+        /* 242 */
         public WorkArea_ParentGroup1 m_WorkArea_ParentGroup1 = new WorkArea_ParentGroup1();
 
-        /* 244 */
+        /* 243 */
         public Current_DocInvoice_ID m_Current_DocInvoice_ID = new Current_DocInvoice_ID();
 
-        /* 245 */
+        /* 244 */
         public Current_DocProformaInvoice_ID m_Current_DocProformaInvoice_ID = new Current_DocProformaInvoice_ID();
 
-        /* 246 */
+        /* 245 */
         public DocInvoice_ShopC_Item_AdditionalData_TYPE m_DocInvoice_ShopC_Item_AdditionalData_TYPE = new DocInvoice_ShopC_Item_AdditionalData_TYPE();
 
     }

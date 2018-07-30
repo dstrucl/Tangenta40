@@ -22,9 +22,11 @@ namespace Tangenta
     public partial class Form_ShowShops : Form
     {
         private usrc_DocumentEditor m_usrc_Invoice = null;
-        public Form_ShowShops(usrc_DocumentEditor x_usrc_Invoice)
+        private SettingsUserValues mSettingsUserValues = null;
+        public Form_ShowShops(usrc_DocumentEditor x_usrc_Invoice,SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
+            mSettingsUserValues = xSettingsUserValues;
             m_usrc_Invoice = x_usrc_Invoice;
             lng.s_Show_Shops.Text(this);
             lng.s_Shop_A.Text(rdb_A);
@@ -44,37 +46,37 @@ namespace Tangenta
             rdb_AC.Checked = false;
             rdb_ABC.Checked = false;
 
-            if (Properties.SettingsUser.Default.eShopsMode.Equals("A"))
+            if (mSettingsUserValues.eShopsMode.Equals("A"))
             {
                 rdb_A.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("B"))
+            else if (mSettingsUserValues.eShopsMode.Equals("B"))
             {
                 rdb_B.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("C"))
+            else if (mSettingsUserValues.eShopsMode.Equals("C"))
             {
                 rdb_C.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("AB"))
+            else if (mSettingsUserValues.eShopsMode.Equals("AB"))
             {
                 rdb_AB.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("BC"))
+            else if (mSettingsUserValues.eShopsMode.Equals("BC"))
             {
                 rdb_BC.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("AC"))
+            else if (mSettingsUserValues.eShopsMode.Equals("AC"))
             {
                 rdb_AC.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("ABC"))
+            else if (mSettingsUserValues.eShopsMode.Equals("ABC"))
             {
                 rdb_ABC.Checked = true;
             }
             else
             { 
-                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + Properties.SettingsUser.Default.eShopsMode);
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShopsMode);
             }
             rdb_A.CheckedChanged += Rdb_A_CheckedChanged;
             rdb_B.CheckedChanged += Rdb_B_CheckedChanged;
@@ -89,8 +91,7 @@ namespace Tangenta
         {
             if (rdb_A.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "A";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "A";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -101,8 +102,7 @@ namespace Tangenta
         {
             if (rdb_B.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "B";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "B";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -112,8 +112,7 @@ namespace Tangenta
         {
             if (rdb_C.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "C";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "C";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -123,8 +122,7 @@ namespace Tangenta
         {
             if (rdb_AB.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "AB";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "AB";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -134,8 +132,7 @@ namespace Tangenta
         {
             if (rdb_BC.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "BC";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "BC";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -145,8 +142,7 @@ namespace Tangenta
         {
             if (rdb_AC.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "AC";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "AC";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -155,8 +151,7 @@ namespace Tangenta
         {
             if (rdb_ABC.Checked)
             {
-                Properties.SettingsUser.Default.eShopsMode = "ABC";
-                Properties.SettingsUser.Default.Save();
+                mSettingsUserValues.eShopsMode = "ABC";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -313,37 +308,37 @@ namespace Tangenta
             }
 
 
-            if (Properties.SettingsUser.Default.eShopsMode.Equals("A"))
+            if (mSettingsUserValues.eShopsMode.Equals("A"))
             {
                 rdb_A.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("B"))
+            else if (mSettingsUserValues.eShopsMode.Equals("B"))
             {
                 rdb_B.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("C"))
+            else if (mSettingsUserValues.eShopsMode.Equals("C"))
             {
                 rdb_C.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("AB"))
+            else if (mSettingsUserValues.eShopsMode.Equals("AB"))
             {
                 rdb_AB.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("BC"))
+            else if (mSettingsUserValues.eShopsMode.Equals("BC"))
             {
                 rdb_BC.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("AC"))
+            else if (mSettingsUserValues.eShopsMode.Equals("AC"))
             {
                 rdb_AC.Checked = true;
             }
-            else if (Properties.SettingsUser.Default.eShopsMode.Equals("ABC"))
+            else if (mSettingsUserValues.eShopsMode.Equals("ABC"))
             {
                 rdb_ABC.Checked = true;
             }
             else
             { 
-                   LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode =" + Properties.SettingsUser.Default.eShopsMode);
+                   LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode =" + mSettingsUserValues.eShopsMode);
             }
         }
 
