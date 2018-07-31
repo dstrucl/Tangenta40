@@ -92,16 +92,15 @@ namespace ShopC
 
         private bool Init()
         {
-            string selection = @" ID,
-                                  Item_$$UniqueName,
+            string selection = @" Item_$$UniqueName,
+                                  Item_$$Name,
+                                  Item_$$Description,
                                   Item_$_ipg1_$$Name,
                                   Item_$_ipg1_$_ipg2_$$Name,
                                   Item_$_ipg1_$_ipg2_$_ipg3_$$Name,
                                   Item_$_iimg_$$Image_Data,
-                                  Item_$$Name,
                                   Item_$$ToOffer,
                                   Item_$$barcode,
-                                  Item_$$Description,
                                   Item_$_exp_$$ExpectedShelfLifeInDays,
                                   Item_$_exp_$$SaleBeforeExpiryDateInDays,
                                   Item_$_exp_$$DiscardBeforeExpiryDateInDays,
@@ -111,7 +110,9 @@ namespace ShopC
                                   Item_$_wrty_$$WarrantyConditions,
                                   Item_$_u_$$Name,
                                   Item_$_u_$$Symbol,
-                                  Item_$_u_$$DecimalPlaces
+                                  Item_$_u_$$DecimalPlaces,
+                                  ID
+                                  
             ";
             string sWhereCondition = "";
             switch (ItemEditMode)

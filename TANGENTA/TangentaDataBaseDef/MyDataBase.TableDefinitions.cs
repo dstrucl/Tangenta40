@@ -921,7 +921,7 @@ namespace TangentaDataBaseDef
             t_Item = new SQLTable((Object)new Item(),"i", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_ItemName);
             t_Item.AddColumn((Object)mt.m_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Item.AddColumn((Object)mt.m_Item.UniqueName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Unique Item Name", "Unikatni Naziv Artikla") );
-            t_Item.AddColumn((Object)mt.m_Item.Name, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Name", "Ime Artikla"));
+            t_Item.AddColumn((Object)mt.m_Item.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Attribute", "Atribut"));
             t_Item.AddColumn((Object)mt.m_Item.m_Unit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Unit ID", "Enota ID"));
             t_Item.AddColumn((Object)mt.m_Item.Code, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Code", "Št.Artikla"));
             t_Item.AddColumn((Object)mt.m_Item.m_Item_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "ID item group 1", "ID skupine artiklov 1") );
