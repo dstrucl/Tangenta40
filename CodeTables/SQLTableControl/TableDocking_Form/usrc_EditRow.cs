@@ -441,6 +441,14 @@ namespace CodeTables.TableDocking_Form
             base.WndProc(ref m);
         }
 
+        internal bool InsertingNewRow
+        {
+            get
+            {
+                return (btn_Insert.Visible && Changed);
+            }
+        }
+
         private void InsertRandomData()
         {
             Random rd = new Random();
@@ -497,10 +505,11 @@ namespace CodeTables.TableDocking_Form
         private void btnInsertInDataBase_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            InsertInDataBase();
+            ID insertedRow_ID = null;
+            InsertInDataBase(ref insertedRow_ID);
             this.Cursor = Cursors.Arrow;
         }
-        private bool InsertInDataBase()
+        private bool InsertInDataBase(ref ID insertedRow_ID)
         {
            string mymsg = null;
             m_tbl.Check_Null_Values(ref mymsg);
@@ -537,6 +546,9 @@ namespace CodeTables.TableDocking_Form
                             Update(bRes, ID, Err);
 
                         }
+                        insertedRow_ID = ID;
+                        //Bug fix for recognising new editing immediately after inserting in database
+                        this.m_tbl.FillDataInputControl(m_DBTables.m_con, uctrln, ID, false, ref Err); 
                     }
                     else
                     {
@@ -668,7 +680,8 @@ namespace CodeTables.TableDocking_Form
         {
             if (btn_Insert.Visible && btn_Insert.Enabled)
             {
-                return InsertInDataBase();
+                ID insertedRow_ID = null;
+                return InsertInDataBase(ref insertedRow_ID);
             }
             else if (btn_Update.Visible && btn_Update.Enabled)
             {

@@ -24,6 +24,10 @@ namespace CodeTables
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_DoYouWantToCancelWritingDataAndDisplayAnotherSelectedRow
+            = new ltext(new string[] { "Do you want to cancel writing data and display another selected row ?", "Želite prekiniti vnos podatkov in prikazati drugo vrstico?" });
+
+
         public static ltext s_CtrlColor_EditTable = new ltext(new string[] { "Edit table color", "Barva urajanja tabele" });
         public static ltext s_CtrlColor_EditSubTable = new ltext(new string[] { "Edit sub-table color", "Barva urejanje pod-tabele" });
         public static ltext s_CtrlColor_EditSubSubTable = new ltext(new string[] { "Edit sub-sub-table color", "Barva urejanja pod-pod-tabele" });

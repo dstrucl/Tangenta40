@@ -395,7 +395,7 @@ namespace CodeTables.TableDocking_Form
 
         }
 
-        internal void EditSelectedRow()
+        private bool GetSelected_ID(ref ID selected_ID, ref int rowIndex)
         {
             DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Table.SelectedCells;
             if (dgvCellCollection.Count >= 1)
@@ -404,23 +404,59 @@ namespace CodeTables.TableDocking_Form
                 ID id1 = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
                 if (ID.Validate(id1))
                 {
-                    Identity = id1;
-                    usrc_EditRow.ShowTableRow(Identity);
-                    if (!m_WorkingSemaphore)
-                    {
-                        if (SelectedIndexChanged != null)
-                        {
-                            int index = dgvCellCollection[0].RowIndex;
-                            SelectedIndexChanged(tbl, Identity, index);
-                        }
-                    }
+                    rowIndex = dgvCellCollection[0].RowIndex;
+                    selected_ID = id1;
+                    return true;
                 }
+                
             }
             else
             {
                 //lbl_test_sender_type.Text = "Num Selected cels = 0";
             }
+            return false;
+        }
 
+        internal void EditSelectedRow()
+        {
+            ID selected_ID = null;
+            int index = -1;
+            if (GetSelected_ID(ref selected_ID,ref index))
+            {
+                if (SelectionChange_Allowed(Identity, selected_ID))
+                {
+                    Identity = selected_ID;
+                    usrc_EditRow.ShowTableRow(Identity);
+                    if (!m_WorkingSemaphore)
+                    {
+                        if (SelectedIndexChanged != null)
+                        {
+                            SelectedIndexChanged(tbl, Identity, index);
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool SelectionChange_Allowed(ID identity, ID selected_ID)
+        {
+            if (ID.Validate(identity))
+            {
+                if (ID.Validate(selected_ID))
+                {
+                    if (!identity.Equals(selected_ID))
+                    {
+                        if (this.usrc_EditRow.InsertingNewRow)
+                        {
+                            if (XMessage.Box.Show(this, lng.s_DoYouWantToCancelWritingDataAndDisplayAnotherSelectedRow, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         private void dgvx_Table_SelectionChanged(object sender, EventArgs e)
@@ -436,33 +472,29 @@ namespace CodeTables.TableDocking_Form
             if (res)
             {
                 InitDataTable(ID);
-                DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Table.SelectedCells;
-                if (dgvCellCollection.Count >= 1)
+
+                ID selected_ID = null;
+                int index = -1;
+                if (GetSelected_ID(ref selected_ID, ref index))
                 {
-                    //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                    if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
+                    ID Identity = selected_ID;
+                    if (!m_WorkingSemaphore)
                     {
-                        ID Identity = new ID(dgvCellCollection[0].OwningRow.Cells["ID"].Value);
-                        if (!m_WorkingSemaphore)
+                        if (SelectedIndexChanged != null)
                         {
-                            if (SelectedIndexChanged != null)
-                            {
-                                int index = dgvCellCollection[0].RowIndex;
-                                SelectedIndexChanged(tbl, Identity, index);
-                            }
+                            SelectedIndexChanged(tbl, Identity, index);
                         }
                     }
                 }
             }
             else
             {
-                if (Err!=null)
-                { 
+                if (Err != null)
+                {
                     LogFile.Error.Show(Err);
                 }
             }
-
-        }
+         }
 
         private void usrc_EditRow_before_InsertInDataBase(SQLTable x_tbl, ref bool bCancel)
         {
@@ -621,6 +653,11 @@ namespace CodeTables.TableDocking_Form
             {
                 dgvx_DataError(sender, e);
             }
+        }
+
+        private void dgvx_Table_MouseUp(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

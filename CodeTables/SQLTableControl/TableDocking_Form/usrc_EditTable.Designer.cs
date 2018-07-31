@@ -101,6 +101,7 @@
             this.dgvx_Table.TabIndex = 0;
             this.dgvx_Table.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_Table_CellFormatting);
             this.dgvx_Table.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvx_Table_DataError);
+            this.dgvx_Table.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvx_Table_MouseUp);
             // 
             // usrc_EditTable
             // 

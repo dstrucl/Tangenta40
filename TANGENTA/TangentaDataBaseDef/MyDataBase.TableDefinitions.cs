@@ -2667,7 +2667,7 @@ namespace TangentaDataBaseDef
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area name", "Ime delovnega področja"));
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area desription", "Opis delovnega področja"));
-            t_WorkArea.AddColumn((Object)mt.m_WorkArea.Active, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area active", "Delovno področje je aktivno"));
+            t_WorkArea.AddColumn((Object)mt.m_WorkArea.Active, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area active", "Delovno področje je aktivno"));
             t_WorkArea.AddColumn((Object) mt.m_WorkArea.m_WorkAreaImage, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image ID", "Slika delovnega področja ID"));
             t_WorkArea.AddColumn((Object)mt.m_WorkArea.m_WorkArea_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area group ID", "Delovno področje skupina ID"));
             m_DBTables.items.Add(t_WorkArea);
