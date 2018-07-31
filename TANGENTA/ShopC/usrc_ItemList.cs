@@ -232,14 +232,18 @@ namespace ShopC
                 if (m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group))
                 {
                     splitContainer1.Panel2Collapsed = false;
+                    string Err = null;
                     if (m_usrc_Item_Group_Handler.NumberOfGroupLevels > 1)
                     {
-                        splitContainer1.SplitterDistance = splitContainer1.Width - 32;
+
+                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 32,ref Err);
+                     
                     }
                     else
                     {
-                        splitContainer1.SplitterDistance = splitContainer1.Width - 82;
+                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 82, ref Err);
                     }
+
                     if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows.Count > 0)
                     {
                         string s1_name = null;

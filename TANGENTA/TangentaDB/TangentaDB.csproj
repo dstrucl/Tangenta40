@@ -155,6 +155,7 @@
     <Compile Include="f_cStreetName_Person.cs" />
     <Compile Include="f_Currency.cs" />
     <Compile Include="f_CurrencyAtom.cs" />
+    <Compile Include="f_Current_Doc_ID.cs" />
     <Compile Include="f_cZIP_org.cs" />
     <Compile Include="f_cZIP_Person.cs" />
     <Compile Include="f_doc.cs" />

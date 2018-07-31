@@ -1294,6 +1294,9 @@ namespace Tangenta
             }
         }
 
+        private void cmb_InvoiceType_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
 
+        }
     }
 }

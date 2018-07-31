@@ -13,6 +13,9 @@ namespace LoginControl
     public class LoginOfMyOrgUser
     {
         internal usrc_LoginOfMyOrgUser m_usrc_LoginOfMyOrgUser = null;
+
+        public ID Last_DocInvoice_ID = null;
+        public ID Last_DocProformaInvoice_ID = null;
         public object oSettings = null;
         public object m_usrc_DocumentMan = null;
         internal AWPLoginData awpld = new AWPLoginData();
@@ -340,6 +343,11 @@ namespace LoginControl
             }
             LoginSession_ID = null;
             LoggedIn = AWP_func.IsUserLoggedIn(LoginUsers_ID, ref LoginSession_ID);
+        }
+
+        public bool GetLast_Doc_ID()
+        {
+            throw new NotImplementedException();
         }
     }
 }
