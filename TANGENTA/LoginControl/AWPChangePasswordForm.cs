@@ -12,8 +12,7 @@ namespace LoginControl
 {
     public partial class AWPChangePasswordForm : Form
     {
-        LoginCtrl login_control = null;
-        AWPLoginData awpld = null;
+
         LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
 
         public AWPChangePasswordForm(LoginOfMyOrgUser xLoginOfMyOrgUser, string sInstruction)
@@ -33,7 +32,7 @@ namespace LoginControl
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
 
-                    if (AWP_func.LoginUsers_UserChangeItsOwnPassword(awpld, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text)))
+                    if (AWP_func.LoginUsers_UserChangeItsOwnPassword(m_LoginOfMyOrgUser.awpld, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text)))
                     {
                         DialogResult = DialogResult.OK;
                         this.Close();
@@ -50,5 +49,12 @@ namespace LoginControl
                 }
             }
         }
+
+        private void btn_Cance_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
     }
 }

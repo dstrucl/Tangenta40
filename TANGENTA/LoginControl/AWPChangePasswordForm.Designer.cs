@@ -1,4 +1,6 @@
-﻿namespace LoginControl
+﻿using System;
+
+namespace LoginControl
 {
     partial class AWPChangePasswordForm
     {
@@ -100,6 +102,7 @@
             this.btn_Cancel.TabIndex = 13;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = false;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cance_Click);
             // 
             // lbl_Instruction
             // 
@@ -133,7 +136,6 @@
             this.PerformLayout();
 
         }
-
         #endregion
 
         private System.Windows.Forms.TextBox txtConfirmPassword;
