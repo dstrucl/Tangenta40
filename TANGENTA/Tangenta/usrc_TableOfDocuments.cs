@@ -127,20 +127,23 @@ namespace Tangenta
 
                     if (m_LoginOfMyOrgUser != null)
                     {
-                           string sDataSource = DBSync.DBSync.DataSource;
-                           ID xDoc_ID = null;
-                           ID xCurrent_Doc_ID = null;
-                            if (f_Current_Doc_ID.GetLast(DocInvoice, sDataSource, m_LoginOfMyOrgUser.myOrganisation_Person_ID,myOrg.m_myOrg_Office.ElectronicDevice_ID,ref xDoc_ID,ref xCurrent_Doc_ID))
+                        string sDataSource = DBSync.DBSync.DataSource;
+                        ID xDoc_ID = null;
+                        ID xCurrent_Doc_ID = null;
+                        if (ID.Validate(m_LoginOfMyOrgUser.myOrganisation_Person_ID))
+                        {
+                            if (f_Current_Doc_ID.GetLast(DocInvoice, sDataSource, m_LoginOfMyOrgUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
                             {
                                 if (ID.Validate(xDoc_ID))
                                 {
                                     iCurrentSelectedRow = FindRow(xDoc_ID);
-                                    if (iCurrentSelectedRow>=0)
+                                    if (iCurrentSelectedRow >= 0)
                                     {
                                         return xDoc_ID;
                                     }
                                 }
                             }
+                        }
                     }
                     return ID.Invalid;
                 }

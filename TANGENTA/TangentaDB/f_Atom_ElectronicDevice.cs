@@ -447,5 +447,109 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool Get_Temp(ID xAtom_Computer_ID,ID xAtom_Office_ID, string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
+        {
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+           
+            string scond_Atom_Computer_ID = null;
+            string sval_Atom_Computer_ID = "null";
+            if (ID.Validate(xAtom_Computer_ID))
+            {
+                string spar_Atom_Computer_ID = "@par_Atom_Computer_ID";
+                SQL_Parameter par_Atom_Computer_ID = new SQL_Parameter(spar_Atom_Computer_ID, false, xAtom_Computer_ID);
+                lpar.Add(par_Atom_Computer_ID);
+                scond_Atom_Computer_ID = "Atom_Computer_ID = " + spar_Atom_Computer_ID;
+                sval_Atom_Computer_ID = spar_Atom_Computer_ID;
+            }
+            else
+            {
+                scond_Atom_Computer_ID = "Atom_Computer_ID is null";
+                sval_Atom_Computer_ID = "null";
+            }
+
+            string scond_Atom_Office_ID = null;
+            string sval_Atom_Office_ID = "null";
+            if (ID.Validate(xAtom_Office_ID))
+            {
+                string spar_Office_ID = "@par_Atom_Office_ID";
+                SQL_Parameter par_Office_ID = new SQL_Parameter(spar_Office_ID, false, xAtom_Office_ID);
+                lpar.Add(par_Office_ID);
+                scond_Atom_Office_ID = "Atom_Office_ID = " + spar_Office_ID;
+                sval_Atom_Office_ID = spar_Office_ID;
+            }
+            else
+            {
+                scond_Atom_Office_ID = "Atom_Office_ID is null";
+                sval_Atom_Office_ID = "null";
+            }
+
+
+            string scond_ElectronicDevice_Name = null;
+            string sval_ElectronicDevice_Name = "null";
+            if (ElectronicDevice_Name != null)
+            {
+                string spar_ElectronicDevice_Name = "@par_ElectronicDevice_Name";
+                SQL_Parameter par_ElectronicDevice_Name = new SQL_Parameter(spar_ElectronicDevice_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Name);
+                lpar.Add(par_ElectronicDevice_Name);
+                scond_ElectronicDevice_Name = "Name = " + spar_ElectronicDevice_Name;
+                sval_ElectronicDevice_Name = spar_ElectronicDevice_Name;
+            }
+            else
+            {
+                scond_ElectronicDevice_Name = "Name is null";
+                sval_ElectronicDevice_Name = "null";
+            }
+
+            string scond_ElectronicDevice_Description = null;
+            string sval_ElectronicDevice_Description = "null";
+            if (ElectronicDevice_Description != null)
+            {
+                string spar_ElectronicDevice_Description = "@par_ElectronicDevice_Description";
+                SQL_Parameter par_ElectronicDevice_Description = new SQL_Parameter(spar_ElectronicDevice_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ElectronicDevice_Description);
+                lpar.Add(par_ElectronicDevice_Description);
+                scond_ElectronicDevice_Description = "Description = " + spar_ElectronicDevice_Description;
+                sval_ElectronicDevice_Description = spar_ElectronicDevice_Description;
+            }
+            else
+            {
+                scond_ElectronicDevice_Description = "Description is null";
+                sval_ElectronicDevice_Description = "null";
+            }
+
+
+            string sql = @"select ID,Description from Atom_ElectronicDevice_Temp
+                                                    where (" + scond_Atom_Office_ID + " and " + scond_ElectronicDevice_Name + " and " + scond_ElectronicDevice_Description + " and " + scond_Atom_Computer_ID + ")";
+
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Atom_ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["ID"]);
+                    return true;
+                }
+                else
+                {
+                    sql = @"insert into Atom_ElectronicDevice_Temp (Name,Description,Atom_Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Atom_Office_ID + "," + sval_Atom_Computer_ID + ")";
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice_Temp"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:f_Atom_ElectronicDevice:Get_Temp:" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_ElectronicDevice:Get_Temp:" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
     }
 }

@@ -507,8 +507,22 @@ namespace Tangenta
 
         }
 
-        private void m_usrc_Main_Exit_Click(LoginControl.LoginCtrl.eExitReason eReason)
+        private void m_usrc_Main_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser, LoginControl.LoginCtrl.eExitReason eReason)
         {
+            if (xLoginOfMyOrgUser!=null)
+            {
+                if (ID.Validate(xLoginOfMyOrgUser.myOrganisation_Person_ID))
+                {
+                    string sDataSource = DBSync.DBSync.DataSource;
+                    ID xCurrent_Doc_ID = null;
+                    if (ID.Validate(doc_ID))
+                    {
+                        if (f_Current_Doc_ID.SetLast(sDocInvoice, doc_ID, sDataSource, xLoginOfMyOrgUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xCurrent_Doc_ID))
+                        {
+                        }
+                    }
+                }
+            }
             do_exit(eReason);
         }
 
@@ -586,7 +600,10 @@ namespace Tangenta
                 {
                     if (this.eExitReason != LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL)
                     {
-                        this.DocumentMan.Active = false;
+                        if (this.DocumentMan != null)
+                        {
+                            this.DocumentMan.Active = false;
+                        }
                         this.loginControl1.Login_MultipleUsers_ShowControl();
                         e.Cancel = true;
                     }

@@ -878,11 +878,11 @@ namespace ShopB
                     splitContainer1.Panel2Collapsed = false;
                     if (m_usrc_Item_Group_Handler.NumberOfGroupLevels>1)
                     {
-                        splitContainer1.SplitterDistance = splitContainer1.Width-32;
+                        StaticLib.Func.SetSplitContainerValue(splitContainer1,splitContainer1.Width-32, ref Err);
                     }
                     else
                     {
-                        splitContainer1.SplitterDistance = splitContainer1.Width - 82;
+                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 82, ref Err);
                     }
                     if (dt_Group.Rows.Count > 0)
                     {

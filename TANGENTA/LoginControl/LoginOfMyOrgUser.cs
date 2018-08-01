@@ -81,7 +81,16 @@ namespace LoginControl
 
         public ID myOrganisation_Person_ID
         {
-            get { return awpld.myOrganisation_Person_ID; }
+            get { 
+                    if (awpld != null)
+                    {
+                        return awpld.myOrganisation_Person_ID;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
         }
 
         public ID LoginUsers_id

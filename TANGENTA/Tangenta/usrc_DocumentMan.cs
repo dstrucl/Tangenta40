@@ -50,7 +50,7 @@ namespace Tangenta
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
 
-        public delegate void delegate_Exit_Click(LoginControl.LoginCtrl.eExitReason eReason);
+        public delegate void delegate_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser, LoginControl.LoginCtrl.eExitReason eReason);
 
         private int timer_Login_MultiUsers_Countdown = 100;
 
@@ -1217,7 +1217,7 @@ namespace Tangenta
         {
             if (Exit_Click != null)
             {
-                Exit_Click(LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(DocInvoice,this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LoginOfMyOrgUser,LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 
@@ -1225,7 +1225,7 @@ namespace Tangenta
         {
             if (Exit_Click != null)
             {
-                Exit_Click(eres);
+                Exit_Click(DocInvoice, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LoginOfMyOrgUser, eres);
             }
         }
 
@@ -1281,7 +1281,7 @@ namespace Tangenta
             }
             else
             {
-                Exit_Click(LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(DocInvoice, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LoginOfMyOrgUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 

@@ -191,12 +191,12 @@ namespace TangentaDB
                         string spar_Current_Doc_ID = "@par_Current_" + doctype + "_ID";
                         SQL_Parameter par_Current_Doc_ID = new SQL_Parameter(spar_Current_Doc_ID, false, xLast_Current_Doc_ID);
                         lpar.Add(par_Current_Doc_ID);
-                        scond_Current_Doc_ID = "Current_" + doctype + "_ID = " + spar_Current_Doc_ID;
+                        scond_Current_Doc_ID = "ID = " + spar_Current_Doc_ID;
                         sval_Current_Doc_ID = spar_Current_Doc_ID;
                     }
                     else
                     {
-                        scond_Current_Doc_ID = "Current_" + doctype + "_ID is null";
+                        scond_Current_Doc_ID = "ID is null";
                         sval_Current_Doc_ID = "null";
                     }
 

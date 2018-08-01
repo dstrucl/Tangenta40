@@ -101,7 +101,7 @@ namespace Tangenta
             get {
                     if (m_DocInvoice==null)
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                        //LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
                     }
                     return m_DocInvoice;
                 }
