@@ -99,8 +99,10 @@
     <Compile Include="AWPFormSelectMyOrg.Designer.cs">
       <DependentUpon>AWPFormSelectMyOrg.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataSet\AWPForm_Close_Opened_Atom_WorkingPeriods.cs" />
-    <Compile Include="DataSet\AWPForm_Close_Opened_Atom_WorkingPeriods.Designer.cs">
+    <Compile Include="AWPForm_Close_Opened_Atom_WorkingPeriods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWPForm_Close_Opened_Atom_WorkingPeriods.Designer.cs">
       <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPLoginData.cs" />
@@ -218,7 +220,7 @@
     <EmbeddedResource Include="AWPFormSelectMyOrg.resx">
       <DependentUpon>AWPFormSelectMyOrg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataSet\AWPForm_Close_Opened_Atom_WorkingPeriods.resx">
+    <EmbeddedResource Include="AWPForm_Close_Opened_Atom_WorkingPeriods.resx">
       <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AWPLoginForm_AuthentificatePIN.resx">

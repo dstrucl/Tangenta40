@@ -1324,6 +1324,10 @@ namespace Tangenta
             if (user_settings.Load(xLoginOfMyOrgUser))
             {
                 xLoginOfMyOrgUser.oSettings = user_settings;
+                //xLoginOfMyOrgUser.Form_settingsuser = new Form_SettingsUsers(xLoginOfMyOrgUser);
+                //((Form_SettingsUsers)xLoginOfMyOrgUser.Form_settingsuser).InitAfterLoad();
+                //xLoginOfMyOrgUser.Form_settingsuser.Owner = this;
+                //xLoginOfMyOrgUser.Form_settingsuser.Show();
 
                 usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
                 xusrc_DocumentMan.Visible = false;
@@ -1333,6 +1337,7 @@ namespace Tangenta
                 xusrc_DocumentMan.Init();
                 xLoginOfMyOrgUser.m_usrc_DocumentMan = xusrc_DocumentMan;
                 xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+
             }
         }
 
@@ -1341,6 +1346,8 @@ namespace Tangenta
             SettingsUser user_settings = (SettingsUser) xLoginOfMyOrgUser.oSettings;
             LayoutSave(user_settings.mSettingsUserValues);
             user_settings.Save();
+            //((Form_SettingsUsers)xLoginOfMyOrgUser.Form_settingsuser).InitAfterSave();
+            //((Form_SettingsUsers)xLoginOfMyOrgUser.Form_settingsuser).Refresh();
             this.Controls.Remove((usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan); 
             ((usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan).Dispose();
             xLoginOfMyOrgUser.m_usrc_DocumentMan = null;

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +110,8 @@ namespace Tangenta
         {
             get
             {
-                return mLastDocInvoiceType;
+                return "DocInvoice";
+                //return mLastDocInvoiceType;
             }
             set
             {
@@ -121,7 +124,8 @@ namespace Tangenta
         {
             get
             {
-                return mShopC_SplitControl1_spliterdistance;
+                return 400;
+                //return mShopC_SplitControl1_spliterdistance;
             }
             set
             {
@@ -134,7 +138,8 @@ namespace Tangenta
         {
             get
             {
-                return mShopC_SplitControl2_spliterdistance;
+                return 600;
+                //return mShopC_SplitControl2_spliterdistance;
             }
             set
             {
@@ -186,7 +191,8 @@ namespace Tangenta
         {
             get
             {
-                return mDocumentMan_SplitControl1_splitterdistance;
+                return 1000;
+                //return mDocumentMan_SplitControl1_splitterdistance;
             }
             set
             {
@@ -238,7 +244,8 @@ namespace Tangenta
         {
             get
             {
-                return mDocumentEditor_SplitControl1_spliterdistance;
+                return 600;
+                //return mDocumentEditor_SplitControl1_spliterdistance;
             }
             set
             {
@@ -251,6 +258,7 @@ namespace Tangenta
         {
             get
             {
+                return 200;
                 return mDocumentEditor_SplitControl2_spliterdistance;
             }
             set
@@ -361,6 +369,99 @@ namespace Tangenta
             {
                 mColor_DocProformaInvoiceBackGround = value;
             }
+        }
+
+
+        internal void Fill_DataTable(ref DataTable dt)
+        {
+            if (dt!=null)
+            {
+                dt.Dispose();
+                dt = new DataTable();
+            }
+            else
+            {
+                dt = new DataTable();
+            }
+            DataColumn dcol_SettingsName = new DataColumn("Name", typeof(string));
+            DataColumn dcol_SettingsType = new DataColumn("Type", typeof(string));
+            DataColumn dcol_SettingsValue = new DataColumn("Value", typeof(string));
+            dt.Columns.Clear();
+            dt.Columns.Add(dcol_SettingsName);
+            dt.Columns.Add(dcol_SettingsType);
+            dt.Columns.Add(dcol_SettingsValue);
+
+            AddRow(dt, "InvoiceHeaderChecked", InvoiceHeaderChecked);
+            AddRow(dt, "Color_DocInvoiceBackGround", Color_DocInvoiceBackGround);
+            AddRow(dt, "Color_DocProformaInvoiceForeGround", Color_DocProformaInvoiceForeGround);
+            AddRow(dt, "FinancialYear", FinancialYear);
+            AddRow(dt, "eShopsMode", eShopsMode);
+            AddRow(dt, "eShopsInUse", eShopsInUse);
+            AddRow(dt, "SplitContainerDistanceUserSettings", SplitContainerDistanceUserSettings);
+            AddRow(dt, "LastDocInvoiceType", LastDocInvoiceType);
+            AddRow(dt, "ShopC_SplitControl1_spliterdistance", ShopC_SplitControl1_spliterdistance);
+            AddRow(dt, "ShopC_SplitControl2_spliterdistance", ShopC_SplitControl2_spliterdistance);
+            AddRow(dt, "ShopB_SplitControl1_spliterdistance", ShopB_SplitControl1_spliterdistance);
+            AddRow(dt, "ShopB_SplitControl2_spliterdistance", ShopB_SplitControl2_spliterdistance);
+            AddRow(dt, "ShopA_SplitControl1_spliterdistance", ShopA_SplitControl1_spliterdistance);
+            AddRow(dt, "DocumentMan_SplitControl1_splitterdistance", DocumentMan_SplitControl1_splitterdistance);
+            AddRow(dt, "ShopA_Editor_SplitControl1_spliterdistance", ShopA_Editor_SplitControl1_spliterdistance);
+            AddRow(dt, "ShopA_Editor_SplitControl2_spliterdistance", ShopA_Editor_SplitControl2_spliterdistance);
+            AddRow(dt, "ShopA_Editor_SplitControl3_spliterdistance", ShopA_Editor_SplitControl3_spliterdistance);
+            AddRow(dt, "DocumentEditor_SplitControl1_spliterdistance", DocumentEditor_SplitControl1_spliterdistance);
+            AddRow(dt, "DocumentEditor_SplitControl2_spliterdistance", DocumentEditor_SplitControl2_spliterdistance);
+            AddRow(dt, "DocumentEditor_SplitControl3_spliterdistance", DocumentEditor_SplitControl3_spliterdistance);
+            AddRow(dt, "Form_Document_WindowState", Form_Document_WindowState);
+            AddRow(dt, "Form_Document_Left", Form_Document_Left);
+            AddRow(dt, "Form_Document_Top", Form_Document_Top);
+            AddRow(dt, "Form_Document_Width", Form_Document_Width);
+            AddRow(dt, "Form_Document_Height", Form_Document_Height);
+            AddRow(dt, "Color_DocInvoiceForeGround", Color_DocInvoiceForeGround);
+            AddRow(dt, "Color_DocProformaInvoiceBackGround", Color_DocProformaInvoiceBackGround);
+
+    }
+
+        private void AddRow(DataTable dt, string v, string eShopsMode)
+        {
+            DataRow dr = dt.NewRow();
+            dr["Name"] = v;
+            dr["Type"] = eShopsMode.GetType();
+            dr["Value"] = eShopsMode;
+            dt.Rows.Add(dr);
+        }
+
+        private void AddRow(DataTable dt, string v, int inum)
+        {
+            DataRow dr = dt.NewRow();
+            dr["Name"] = v;
+            dr["Type"] = inum.GetType();
+            dr["Value"] = inum;
+            dt.Rows.Add(dr);
+        }
+
+        private void AddRow(DataTable dt, string v, Color color)
+        {
+            DataRow dr = dt.NewRow();
+            dr["Name"] = v;
+            dr["Type"] = color.GetType();
+            dr["Value"] = color.R.ToString()+";"+ color.G.ToString() + ";" + color.B.ToString();
+            dt.Rows.Add(dr);
+        }
+
+        private void AddRow(DataTable dt, string v, bool b)
+        {
+            DataRow dr = dt.NewRow();
+            dr["Name"] = v;
+            dr["Type"] = b.GetType();
+            if (b)
+            {
+                dr["Value"] = "true";
+            }
+            else
+            {
+                dr["Value"] = "false";
+            }
+            dt.Rows.Add(dr);
         }
     }
 }

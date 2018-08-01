@@ -61,7 +61,7 @@ namespace ShopC
         public NavigationButtons.Navigation nav = null;
         private string m_DocInvoice = "DocInvoice";
 
-        public int SplitContainer1_spd
+        public int SplitContainer2_spd
         {
             get
             {
@@ -73,15 +73,15 @@ namespace ShopC
             }
         }
 
-        public int SplitContainer2_spd
+        public int SplitContainer1_spd
         {
             get {
-                return splitContainer2.SplitterDistance;
+                return splitContainer1.SplitterDistance;
             }
             set
             {
                 string Err = null;
-                if (!StaticLib.Func.SetSplitContainerValue(splitContainer2, value, ref Err))
+                if (!StaticLib.Func.SetSplitContainerValue(splitContainer1, value, ref Err))
                 {
                     LogFile.Error.Show("ERROR:ShopC:usrc_ShopC:SetSplitContainer2 SplitterDistance:Err=" + Err);
                 }
@@ -231,11 +231,11 @@ namespace ShopC
             switch (mode)
             {
                 case eMode.VIEW:
-                    splitContainer2.Panel2Collapsed = true;
+                    splitContainer1.Panel2Collapsed = true;
                     break;
 
                 case eMode.EDIT:
-                    splitContainer2.Panel2Collapsed = false;
+                    splitContainer1.Panel2Collapsed = false;
                     break;
             }
 

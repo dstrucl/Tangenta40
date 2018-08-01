@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_Atom_ItemsList = new ShopC.usrc_Atom_ItemsList();
             this.usrc_ItemList = new ShopC.usrc_ItemList();
             this.lbl_ShopC_Name = new System.Windows.Forms.Label();
@@ -38,34 +38,34 @@
             this.lbl_Stock = new System.Windows.Forms.Label();
             this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
             this.chk_AutomaticSelectionOfItemFromStock = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer2
+            // splitContainer1
             // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(0, 33);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer1.Location = new System.Drawing.Point(0, 33);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // splitContainer2.Panel1
+            // splitContainer1.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.usrc_Atom_ItemsList);
-            this.splitContainer2.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.splitContainer1.Panel1.Controls.Add(this.usrc_Atom_ItemsList);
+            this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             // 
-            // splitContainer2.Panel2
+            // splitContainer1.Panel2
             // 
-            this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.splitContainer2.Panel2.Controls.Add(this.usrc_ItemList);
-            this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Size = new System.Drawing.Size(886, 505);
-            this.splitContainer2.SplitterDistance = 418;
-            this.splitContainer2.TabIndex = 1;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.splitContainer1.Panel2.Controls.Add(this.usrc_ItemList);
+            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.splitContainer1.Size = new System.Drawing.Size(886, 505);
+            this.splitContainer1.SplitterDistance = 418;
+            this.splitContainer1.TabIndex = 1;
             // 
             // usrc_Atom_ItemsList
             // 
@@ -179,7 +179,7 @@
             this.Controls.Add(this.lbl_ShopC_Name);
             this.Controls.Add(this.chk_AutomaticSelectionOfItemFromStock);
             this.Controls.Add(this.usrc_PriceList1);
-            this.Controls.Add(this.splitContainer2);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.lbl_Items);
             this.Controls.Add(this.btn_Stock);
             this.Controls.Add(this.btn_Items);
@@ -188,10 +188,10 @@
             this.Name = "usrc_ShopC";
             this.Size = new System.Drawing.Size(886, 538);
             this.Load += new System.EventHandler(this.usrc_ShopC_Load);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,7 +199,7 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label lbl_ShopC_Name;
         private System.Windows.Forms.Button btn_Stock;
         private System.Windows.Forms.Label lbl_Items;

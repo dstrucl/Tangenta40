@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TangentaDB;
 
 namespace LoginControl
@@ -13,7 +14,7 @@ namespace LoginControl
     public class LoginOfMyOrgUser
     {
         internal usrc_LoginOfMyOrgUser m_usrc_LoginOfMyOrgUser = null;
-
+        public Form Form_settingsuser = null;
         public ID Last_DocInvoice_ID = null;
         public ID Last_DocProformaInvoice_ID = null;
         public object oSettings = null;

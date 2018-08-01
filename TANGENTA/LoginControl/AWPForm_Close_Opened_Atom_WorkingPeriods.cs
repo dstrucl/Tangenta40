@@ -21,6 +21,9 @@ namespace LoginControl
         {
             InitializeComponent();
             m_dtClose_Opened_Atom_WorkingPeriods = xdtClose_Opened_Atom_WorkingPeriods;
+            lng.s_Close_WorkingPeriods.Text(this.btn_Close_Opened_Atom_WorkingPeriods);
+            lng.s_Close_WorkingPeriods.Text(this);
+            lng.s_lbl_Instruction.Text(this.lbl_Instruction);
         }
 
         private void btn_Close_Opened_Atom_WorkingPeriods_Click(object sender, EventArgs e)

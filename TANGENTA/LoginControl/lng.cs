@@ -24,6 +24,11 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_lbl_Instruction = new ltext(new string[] { "Program didn't closed properly.May be it was a power failure? .\r\nSome work periods are not closed. Press teh button  Close opened work periods.",
+                                            "Program se v prejšnem zagonu ni normalno končal. Lahko je prišlo do izpada elektrike in podobno.\r\nOstali so nezaključeni šihti. Pritisnite na gumb Zaprite oprte šihte." });
+
+        public static ltext s_Close_WorkingPeriods = new ltext(new string[] { "Close opened work periods", "Zaprite oprte šihte" });
+
         public static ltext s_WorkPeriod = new ltext(new string[] { "Work Period", "Šiht" });
 
 
@@ -34,7 +39,7 @@ namespace LoginControl
 
         public static ltext s_WrongPIN = new ltext(new string[] { "Wrong PIN", "Napačen PIN" });
 
-        public static ltext s_btn_GetAccess = new ltext(new string[] { "Casshier", "Prevzemi balagajno" });
+        public static ltext s_btn_GetAccess = new ltext(new string[] { "Casshier", "Prevzemi blagajno" });
 
         public static ltext s_YouCanNotExitProgramUntilAllUsersAreLoggedOut = new ltext(new string[] { "You can not end program until all users are logged out", "Program lahko končate šele, ko so vsi uporabniki odjavljeni!" });
 

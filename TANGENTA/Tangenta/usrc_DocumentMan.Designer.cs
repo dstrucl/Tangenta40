@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.m_usrc_DocumentEditor = new Tangenta.usrc_DocumentEditor();
-            this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
             this.cmb_InvoiceType = new System.Windows.Forms.ComboBox();
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
@@ -44,6 +42,8 @@
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
+            this.m_usrc_DocumentEditor = new Tangenta.usrc_DocumentEditor();
+            this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,41 +67,14 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_TableOfDocuments);
-            this.splitContainer1.Size = new System.Drawing.Size(993, 658);
-            this.splitContainer1.SplitterDistance = 591;
+            this.splitContainer1.Size = new System.Drawing.Size(1623, 897);
+            this.splitContainer1.SplitterDistance = 983;
+            this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // m_usrc_DocumentEditor
-            // 
-            this.m_usrc_DocumentEditor.DocInvoice = "DocInvoice";
-            this.m_usrc_DocumentEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
-            this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
-            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(587, 654);
-            this.m_usrc_DocumentEditor.SplitContainer1_spd = 186;
-            this.m_usrc_DocumentEditor.SplitContainer2_spd = 72;
-            this.m_usrc_DocumentEditor.SplitContainer3_spd = 119;
-            this.m_usrc_DocumentEditor.TabIndex = 0;
-            this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
-            this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
-            this.m_usrc_DocumentEditor.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
-            this.m_usrc_DocumentEditor.aa_Customer_Person_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
-            this.m_usrc_DocumentEditor.aa_Customer_Org_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
-            this.m_usrc_DocumentEditor.Load += new System.EventHandler(this.m_usrc_Invoice_Load);
-            // 
-            // m_usrc_TableOfDocuments
-            // 
-            this.m_usrc_TableOfDocuments.DocInvoice = "DocInvoice";
-            this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
-            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(394, 654);
-            this.m_usrc_TableOfDocuments.TabIndex = 0;
-            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // cmb_InvoiceType
             // 
+            this.cmb_InvoiceType.Enabled = false;
             this.cmb_InvoiceType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_InvoiceType.FormattingEnabled = true;
             this.cmb_InvoiceType.Location = new System.Drawing.Point(102, 4);
@@ -158,7 +131,7 @@
             // 
             this.m_usrc_Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Help.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.m_usrc_Help.Location = new System.Drawing.Point(816, 4);
+            this.m_usrc_Help.Location = new System.Drawing.Point(1446, 4);
             this.m_usrc_Help.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_Help.Name = "m_usrc_Help";
             this.m_usrc_Help.Size = new System.Drawing.Size(56, 49);
@@ -170,7 +143,7 @@
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Exit.Location = new System.Drawing.Point(879, 3);
+            this.btn_Exit.Location = new System.Drawing.Point(1509, 3);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(110, 49);
             this.btn_Exit.TabIndex = 30;
@@ -185,7 +158,7 @@
             this.usrc_loginControl1.Location = new System.Drawing.Point(498, 3);
             this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_loginControl1.Name = "usrc_loginControl1";
-            this.usrc_loginControl1.Size = new System.Drawing.Size(234, 49);
+            this.usrc_loginControl1.Size = new System.Drawing.Size(864, 49);
             this.usrc_loginControl1.TabIndex = 37;
             // 
             // usrc_FVI_SLO1
@@ -193,7 +166,7 @@
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
-            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(731, 4);
+            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(1361, 4);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(38, 49);
@@ -205,7 +178,7 @@
             this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
-            this.btn_Settings.Location = new System.Drawing.Point(776, 3);
+            this.btn_Settings.Location = new System.Drawing.Point(1406, 3);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(33, 49);
             this.btn_Settings.TabIndex = 34;
@@ -229,13 +202,42 @@
             this.pnl_MainMenu.Controls.Add(this.usrc_FVI_SLO1);
             this.pnl_MainMenu.Location = new System.Drawing.Point(0, 0);
             this.pnl_MainMenu.Name = "pnl_MainMenu";
-            this.pnl_MainMenu.Size = new System.Drawing.Size(990, 55);
+            this.pnl_MainMenu.Size = new System.Drawing.Size(1620, 55);
             this.pnl_MainMenu.TabIndex = 38;
             // 
             // timer_Login_MultiUser
             // 
             this.timer_Login_MultiUser.Interval = 1000;
             this.timer_Login_MultiUser.Tick += new System.EventHandler(this.timer_Login_MultiUser_Tick);
+            // 
+            // m_usrc_DocumentEditor
+            // 
+            this.m_usrc_DocumentEditor.DocInvoice = "DocInvoice";
+            this.m_usrc_DocumentEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
+            this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
+            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(979, 893);
+            this.m_usrc_DocumentEditor.SplitContainer1_spd = 267;
+            this.m_usrc_DocumentEditor.SplitContainer2_spd = 103;
+            this.m_usrc_DocumentEditor.SplitContainer3_spd = 172;
+            this.m_usrc_DocumentEditor.TabIndex = 0;
+            this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
+            this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
+            this.m_usrc_DocumentEditor.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
+            this.m_usrc_DocumentEditor.aa_Customer_Person_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
+            this.m_usrc_DocumentEditor.aa_Customer_Org_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
+            this.m_usrc_DocumentEditor.Load += new System.EventHandler(this.m_usrc_Invoice_Load);
+            // 
+            // m_usrc_TableOfDocuments
+            // 
+            this.m_usrc_TableOfDocuments.DocInvoice = "DocInvoice";
+            this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
+            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(628, 893);
+            this.m_usrc_TableOfDocuments.TabIndex = 0;
+            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // usrc_DocumentMan
             // 
@@ -244,7 +246,7 @@
             this.Controls.Add(this.pnl_MainMenu);
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_DocumentMan";
-            this.Size = new System.Drawing.Size(993, 720);
+            this.Size = new System.Drawing.Size(1623, 959);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
