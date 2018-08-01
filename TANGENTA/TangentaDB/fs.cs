@@ -685,7 +685,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("WARNING:TangentaDB.cs:fs.Init_Unit_Table:Unit_table_Rows_Count !=  xUnitList.m_DefaltUnitList.Count!\r\nUnit_table_Rows_Count = " + Unit_table_Rows_Count.ToString() + " xCurrencyList.m_CurrencyList.Count = " + xUnitList.m_DefaltUnitList.Count.ToString());
+                 //   LogFile.Error.Show("WARNING:TangentaDB.cs:fs.Init_Unit_Table:Unit_table_Rows_Count !=  xUnitList.m_DefaltUnitList.Count!\r\nUnit_table_Rows_Count = " + Unit_table_Rows_Count.ToString() + " xCurrencyList.m_CurrencyList.Count = " + xUnitList.m_DefaltUnitList.Count.ToString());
                     return true;
                 }
             }

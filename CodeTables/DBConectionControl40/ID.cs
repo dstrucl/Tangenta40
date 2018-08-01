@@ -331,16 +331,23 @@ namespace DBConnectionControl40
         {
             get
             {
-                switch (IDtype)
+                if (m_V != null)
                 {
-                    case IDType.INT64:
-                        return (((long)m_V) >= 0);
-                    case IDType.INT32:
-                        return (((int)m_V) >= 0);
-                    case IDType.GUID:
-                        return (((Guid)m_V).CompareTo(Guid.Empty) != 0);
-                    default:
-                        return false;
+                    switch (IDtype)
+                    {
+                        case IDType.INT64:
+                            return (((long)m_V) >= 0);
+                        case IDType.INT32:
+                            return (((int)m_V) >= 0);
+                        case IDType.GUID:
+                            return (((Guid)m_V).CompareTo(Guid.Empty) != 0);
+                        default:
+                            return false;
+                    }
+                }
+                else
+                {
+                    return false;
                 }
             }
         }
