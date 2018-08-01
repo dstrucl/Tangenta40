@@ -509,6 +509,8 @@ namespace FiscalVerificationOfInvoices_SLO
                 else
                 {
                     //return Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+                    return "19678193";
+
                     if (myOrg.m_myOrg_Office != null)
                     {
                         if (myOrg.m_myOrg_Office.m_myOrg_Person != null)

@@ -16,14 +16,14 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_InvoiceNotConfirmed_Send : Form
     {
-        private FVI_SLO m_usrc_FVI_SLO = null;
+        private FVI_SLO m_FVI_SLO = null;
         List<InvoiceData> m_InvoiceData_List = null;
         private DataTable dt = new DataTable();
 
-        public Form_InvoiceNotConfirmed_Send(FVI_SLO xusrc_FVI_SLO, List<InvoiceData> xInvoiceData_List)
+        public Form_InvoiceNotConfirmed_Send(FVI_SLO xFVI_SLO, List<InvoiceData> xInvoiceData_List)
         {
             InitializeComponent();
-            m_usrc_FVI_SLO = xusrc_FVI_SLO;
+            m_FVI_SLO = xFVI_SLO;
             m_InvoiceData_List = xInvoiceData_List;
             lng.s_Invoice_UnsentMsg.Text(this.lbl_Invoice_UnsentMsg);
             lng.s_Invoice_UnsentMsg.Text(this);
@@ -140,10 +140,10 @@ namespace FiscalVerificationOfInvoices_SLO
                     InvoiceData xInvData = m_InvoiceData_List[e.RowIndex];
                     string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(false,
                                      Properties.Resources.FVI_SLO_Invoice,
-                                     m_usrc_FVI_SLO.FursD_MyOrgTaxID,
-                                     m_usrc_FVI_SLO.FursD_BussinesPremiseID,
-                                     m_usrc_FVI_SLO.FursD_ElectronicDeviceID,
-                                     m_usrc_FVI_SLO.FursD_InvoiceAuthorTaxID,
+                                     m_FVI_SLO.FursD_MyOrgTaxID,
+                                     m_FVI_SLO.FursD_BussinesPremiseID,
+                                     m_FVI_SLO.FursD_ElectronicDeviceID,
+                                     m_FVI_SLO.FursD_InvoiceAuthorTaxID,
                                      "", "",
                                      xInvData.IssueDate_v,
                                      xInvData.NumberInFinancialYear,
@@ -157,7 +157,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     string furs_UniqeInvID = null;
                     string furs_BarCodeValue = null;
 
-                    FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post eres = m_usrc_FVI_SLO.Send_SingleInvoice(false, furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR);
+                    FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post eres = m_FVI_SLO.Send_SingleInvoice(false, furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR);
                     switch (eres)
                     {
 
@@ -166,7 +166,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                             xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                             xInvData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                            if(xInvData.AddOnDI.m_FURS.Update_FURS_Response_Data(xInvData.DocInvoice_ID, m_usrc_FVI_SLO.FursTESTEnvironment))
+                            if(xInvData.AddOnDI.m_FURS.Update_FURS_Response_Data(xInvData.DocInvoice_ID, m_FVI_SLO.FursTESTEnvironment))
                             {
                                 buttonCell.Enabled = false;
                                 m_InvoiceData_List.RemoveAt(e.RowIndex);
