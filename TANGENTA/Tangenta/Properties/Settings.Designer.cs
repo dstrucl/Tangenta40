@@ -490,5 +490,17 @@ namespace Tangenta.Properties {
                 this["eShopsInUse"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowAdministratorsInMultiuserLogin {
+            get {
+                return ((bool)(this["ShowAdministratorsInMultiuserLogin"]));
+            }
+            set {
+                this["ShowAdministratorsInMultiuserLogin"] = value;
+            }
+        }
     }
 }

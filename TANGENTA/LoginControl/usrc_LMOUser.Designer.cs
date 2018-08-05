@@ -44,9 +44,9 @@
             this.btn_LoginLogout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_LoginLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_LoginLogout.Location = new System.Drawing.Point(3, 1);
+            this.btn_LoginLogout.Location = new System.Drawing.Point(1, 1);
             this.btn_LoginLogout.Name = "btn_LoginLogout";
-            this.btn_LoginLogout.Size = new System.Drawing.Size(115, 139);
+            this.btn_LoginLogout.Size = new System.Drawing.Size(115, 69);
             this.btn_LoginLogout.TabIndex = 0;
             this.btn_LoginLogout.Text = "Login";
             this.btn_LoginLogout.UseVisualStyleBackColor = true;
@@ -57,9 +57,9 @@
             this.btn_GetAccess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_GetAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_GetAccess.Location = new System.Drawing.Point(419, 1);
+            this.btn_GetAccess.Location = new System.Drawing.Point(357, 0);
             this.btn_GetAccess.Name = "btn_GetAccess";
-            this.btn_GetAccess.Size = new System.Drawing.Size(207, 138);
+            this.btn_GetAccess.Size = new System.Drawing.Size(233, 69);
             this.btn_GetAccess.TabIndex = 1;
             this.btn_GetAccess.Text = "Get Access";
             this.btn_GetAccess.UseVisualStyleBackColor = true;
@@ -67,9 +67,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(280, 5);
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.Location = new System.Drawing.Point(250, 1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(132, 134);
+            this.pictureBox1.Size = new System.Drawing.Size(101, 67);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -77,9 +79,9 @@
             // lbl_User
             // 
             this.lbl_User.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_User.Location = new System.Drawing.Point(124, 60);
+            this.lbl_User.Location = new System.Drawing.Point(124, 31);
             this.lbl_User.Name = "lbl_User";
-            this.lbl_User.Size = new System.Drawing.Size(150, 79);
+            this.lbl_User.Size = new System.Drawing.Size(120, 37);
             this.lbl_User.TabIndex = 3;
             this.lbl_User.Text = "User";
             // 
@@ -93,7 +95,7 @@
             // 
             // pic_UserManager
             // 
-            this.pic_UserManager.Location = new System.Drawing.Point(121, 32);
+            this.pic_UserManager.Location = new System.Drawing.Point(157, 5);
             this.pic_UserManager.Name = "pic_UserManager";
             this.pic_UserManager.Size = new System.Drawing.Size(30, 23);
             this.pic_UserManager.TabIndex = 5;
@@ -111,7 +113,7 @@
             this.Controls.Add(this.btn_GetAccess);
             this.Controls.Add(this.btn_LoginLogout);
             this.Name = "usrc_LMOUser";
-            this.Size = new System.Drawing.Size(626, 142);
+            this.Size = new System.Drawing.Size(593, 70);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_UserManager)).EndInit();

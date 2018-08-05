@@ -43,13 +43,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocTyp.Equals(Program.const_DocInvoice); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocTyp.Equals(Program.const_DocProformaInvoice); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
 

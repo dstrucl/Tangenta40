@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -209,10 +210,10 @@ namespace Tangenta
                 switch (istep_DocInvoice)
                 {
                     case 0:
-                        form_document.WizzardShow_DocInvoice(Program.const_DocProformaInvoice);
+                        form_document.WizzardShow_DocInvoice(GlobalData.const_DocProformaInvoice);
                         break;
                     case 1:
-                        form_document.WizzardShow_DocInvoice(Program.const_DocInvoice);
+                        form_document.WizzardShow_DocInvoice(GlobalData.const_DocInvoice);
                         break;
                 }
                 switch (istep_m_usrc_InvoiceTable_Visible)

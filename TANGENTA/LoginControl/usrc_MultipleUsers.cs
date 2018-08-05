@@ -41,7 +41,7 @@ namespace LoginControl
             set
             {
                 m_NumberOfItemsPerPage = value;
-                Init(m_awp);
+                Init(m_awp, this.chk_ShowAdministrators.Checked);
             }
         }
 
@@ -51,11 +51,13 @@ namespace LoginControl
         {
             InitializeComponent();
             ipnl_Items_Width_default = pnl_Items.Width;
+            lng.s_chk_ShowAdministrators.Text(chk_ShowAdministrators);
         }
 
-        internal void Init(AWP xawp
-                           )
+        internal void Init(AWP xawp,
+                           bool bShowAdministratorUsers)
         {
+            this.chk_ShowAdministrators.Checked = bShowAdministratorUsers;
             lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
             if (myOrg.m_myOrg_Office!=null)
             {
@@ -205,6 +207,18 @@ namespace LoginControl
                     if (o_data is DataRow)
                     {
                         usrc_item.SetData((DataRow)o_data);
+                        if (usrc_item.m_LMOUser!=null)
+                        {
+                            if (usrc_item.m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator }))
+                            {
+                                if (!chk_ShowAdministrators.Checked)
+                                {
+                                    usrc_item.Visible = false;
+                                    usrc_item.Enabled = false;
+                                    return;
+                                }
+                            }
+                        }
                         //Item_Data iData = (Item_Data)o_data;
                         usrc_item.Visible = true;
                         usrc_item.Enabled = true;
@@ -227,11 +241,13 @@ namespace LoginControl
 
         private void Paint_Group(string[] s_name)
         {
+            this.chk_ShowAdministrators.CheckedChanged -= new System.EventHandler(this.chk_ShowAdministrators_CheckedChanged);
             if (LoginUsers_Load(s_name))
             {
                 lbl_GroupPath.Text = this.usrc_Item_Group_Handler1.GroupPath;
                 this.usrc_Item_PageHandler1.Init(m_AWP_dtLoginView, 5, usrc_Item_aray);
             }
+            this.chk_ShowAdministrators.CheckedChanged += new System.EventHandler(this.chk_ShowAdministrators_CheckedChanged);
         }
 
         private bool LoginUsers_Load(string[] s_name)
@@ -299,7 +315,12 @@ namespace LoginControl
                     }
                 }
             }
-            m_awp.lctrl.EndProgram(LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL);
+            m_awp.lctrl.DoEndProgram(LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL);
+        }
+
+        private void chk_ShowAdministrators_CheckedChanged(object sender, EventArgs e)
+        {
+            Paint_Current_Group();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { string s = Program.const_DocInvoice;
+            { string s = GlobalData.const_DocInvoice;
                 return Program.RunAs.ToUpper().Equals(s.ToUpper());
             }
         }
@@ -24,7 +24,7 @@ namespace Tangenta
         {
             get
             {
-                string s = Program.const_DocProformaInvoice;
+                string s = GlobalData.const_DocProformaInvoice;
                 return Program.RunAs.ToUpper().Equals(s.ToUpper());
             }
         }

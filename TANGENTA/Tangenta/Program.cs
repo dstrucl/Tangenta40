@@ -74,11 +74,11 @@ namespace Tangenta
                 {
                     if (m_RunAs.ToUpper().Equals(const_command_DOCINVOICE))
                     {
-                        return const_DocInvoice;
+                        return GlobalData.const_DocInvoice;
                     }
                     else if (m_RunAs.ToUpper().Equals(const_command_DOCPROFORMAINVOICE))
                     {
-                        return const_DocProformaInvoice;
+                        return GlobalData.const_DocProformaInvoice;
                     }
                     else
                     {
@@ -318,11 +318,11 @@ namespace Tangenta
                     {
                         if (s.ToUpper().Contains(const_command_DOCINVOICE))
                         {
-                            RunAs = Program.const_DocInvoice;
+                            RunAs = GlobalData.const_DocInvoice;
                         }
                         if (s.ToUpper().Contains(const_command_DOCPROFORMAINVOICE))
                         {
-                            RunAs = Program.const_DocProformaInvoice;
+                            RunAs = GlobalData.const_DocProformaInvoice;
                         }
                         if (s.Contains(const_command_CHANGE_CONNECTION))
                         {

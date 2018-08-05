@@ -24,6 +24,8 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_chk_ShowAdministrators = new ltext(new string[] { "Show Administrators", "Prikaži skrbnike" });
+
         public static ltext s_lbl_Instruction = new ltext(new string[] { "Program didn't closed properly.May be it was a power failure? .\r\nSome work periods are not closed. Press teh button  Close opened work periods.",
                                             "Program se v prejšnem zagonu ni normalno končal. Lahko je prišlo do izpada elektrike in podobno.\r\nOstali so nezaključeni šihti. Pritisnite na gumb Zaprite oprte šihte." });
 

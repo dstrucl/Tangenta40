@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -192,11 +193,11 @@ namespace Tangenta
                 controlnameextension += "N";
             }
 
-            if (docinvoice.Equals(Program.const_DocInvoice))
+            if (docinvoice.Equals(GlobalData.const_DocInvoice))
             {
                 controlnameextension += "R";
             }
-            if (docinvoice.Equals(Program.const_DocProformaInvoice))
+            if (docinvoice.Equals(GlobalData.const_DocProformaInvoice))
             {
                 controlnameextension += "P";
             }

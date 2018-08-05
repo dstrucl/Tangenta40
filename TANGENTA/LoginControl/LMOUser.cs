@@ -19,7 +19,18 @@ namespace LoginControl
         public ID Last_DocProformaInvoice_ID = null;
         public object oSettings = null;
         public object m_usrc_DocumentMan = null;
-        internal AWPLoginData awpld = new AWPLoginData();
+        internal AWPLoginData m_awpld = new AWPLoginData();
+        internal AWPLoginData awpld
+        {
+            get
+            {
+                return m_awpld;
+            }
+            set
+            {
+                m_awpld = value;
+            }
+        }
         internal int_v PIN_v = null;
         public string m_UserName = null;
         public ID LoginUsers_ID = null;
@@ -297,6 +308,10 @@ namespace LoginControl
         {
             m_UserName = tf._set_string(dr["UserName"]);
             LoginUsers_ID = tf.set_ID(dr["ID"]);
+            if (awpld==null)
+            {
+                awpld = new AWPLoginData();
+            }
             if (AWP_func.AWPRoles_GetUserRoles(LoginUsers_ID, ref awpld.m_AWP_UserRoles))
             {
                 if (IsAdministrator)

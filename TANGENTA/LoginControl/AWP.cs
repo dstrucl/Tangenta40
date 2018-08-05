@@ -96,14 +96,13 @@ namespace LoginControl
         }
 
 
-        public bool Login_MultipleUsers_ShowControlAtStartup(NavigationButtons.Navigation xnav,
-                                  LoginCtrl.delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan)
+        public bool Login_MultipleUsers_ShowControlAtStartup(NavigationButtons.Navigation xnav,bool bShowAdministratorUsers)
         {
             eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav);
             if (xres == eAWP_dtLogin_Vaild_result.OK)
             {
                 Form parent_form = lctrl.m_parent_form;
-                return Login_MultipleUsers_SetControl(AWP_dtLoginView,parent_form);
+                return Login_MultipleUsers_SetControl(AWP_dtLoginView,parent_form, bShowAdministratorUsers);
             }
             else
             {
@@ -284,7 +283,8 @@ eres_check:
         }
 
         private bool Login_MultipleUsers_SetControl(DataTable dtAWP_dtLoginView, 
-                                                    Form parent_form)
+                                                    Form parent_form,
+                                                    bool bShowAdministratorUsers)
         {
             m_usrc_MultipleUsers = FindMutipleUsersControl(parent_form);
             if (m_usrc_MultipleUsers == null)
@@ -295,7 +295,7 @@ eres_check:
             }
             m_usrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
             m_usrc_MultipleUsers.Visible = true;
-            m_usrc_MultipleUsers.Init(this);
+            m_usrc_MultipleUsers.Init(this, bShowAdministratorUsers);
             return true;
         }
 

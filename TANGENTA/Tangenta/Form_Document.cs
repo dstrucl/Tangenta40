@@ -535,6 +535,8 @@ namespace Tangenta
 
         internal void EndProgram(LoginControl.LoginCtrl.eExitReason eres)
         {
+            Properties.Settings.Default.ShowAdministratorsInMultiuserLogin = loginControl1.ShowAdministrators;
+            Properties.Settings.Default.Save();
             do_exit(eres);
         }
 

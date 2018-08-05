@@ -67,12 +67,11 @@ namespace Tangenta
             bool bCancel = false;
             frm.loginControl1.Init(frm,LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                             DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                            frm.EndProgram,
                                             null,
                                             LanguageControl.DynSettings.LanguageID,
                                             ref bCancel
                                             );
-            if (frm.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav,  frm.Activate_usrc_DocumentMan))
+            if (frm.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav,  Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
             {
                 //myStartup.eNextStep++;
                 if (Program.Login_MultipleUsers)

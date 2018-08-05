@@ -144,13 +144,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocTyp.Equals(Program.const_DocInvoice); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocTyp.Equals(Program.const_DocProformaInvoice); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
         public enum emode
@@ -1301,7 +1301,7 @@ namespace Tangenta
         {
             if (DocTyp != null)
             {
-                if (DocTyp.Equals(Program.const_DocInvoice) || DocTyp.Equals(Program.const_DocProformaInvoice))
+                if (DocTyp.Equals(GlobalData.const_DocInvoice) || DocTyp.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     return GetCurrentInvoice(xID);
                 }
@@ -1535,7 +1535,7 @@ namespace Tangenta
 
         public void SetNewDraft(LMOUser xLMOUser, string DocTyp, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
         {
-            if (DocTyp.Equals(Program.const_DocInvoice)|| DocTyp.Equals(Program.const_DocProformaInvoice))
+            if (DocTyp.Equals(GlobalData.const_DocInvoice)|| DocTyp.Equals(GlobalData.const_DocProformaInvoice))
             {
                     if (m_ShopABC == null)
                     {

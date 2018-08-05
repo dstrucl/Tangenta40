@@ -38,9 +38,10 @@ namespace LoginControl
 
         public event delegate_ActivateDocumentMan ActivateDocumentMan = null;
 
-        public delegate void delegate_Activate_usrc_DocumentMan(usrc_MultipleUsers xm_usrc_MultipleUsers);
 
         public delegate void delegate_EndProgram(eExitReason eReason);
+
+        public event delegate_EndProgram EndProgram=null;
 
 
         public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new);
@@ -55,7 +56,6 @@ namespace LoginControl
         public AWP awp = null;
         internal STD std = null;
 
-        internal delegate_EndProgram EndProgram = null;
 
         private eAuthentificationType m_AuthentificationType = eAuthentificationType.PASSWORD;
 
@@ -81,6 +81,32 @@ namespace LoginControl
             get
             {
                 return m_Login_MultipleUsers;
+            }
+        }
+
+        
+        public bool ShowAdministrators
+        {
+            get
+            {
+                if (awp != null)
+                {
+                    if (awp.m_usrc_MultipleUsers != null)
+                    {
+                        return awp.m_usrc_MultipleUsers.chk_ShowAdministrators.Checked;
+                    }
+                }
+                return false;
+            }
+            set
+            {
+                if (awp != null)
+                {
+                    if (awp.m_usrc_MultipleUsers != null)
+                    {
+                        awp.m_usrc_MultipleUsers.chk_ShowAdministrators.Checked= value;
+                    }
+                }
             }
         }
 
@@ -199,12 +225,10 @@ namespace LoginControl
         public void Init(Form parent_form,
                  eDataTableCreationMode xeDataTableCreationMode,
                  DBConnection xcon,
-                 delegate_EndProgram xEndProgram,
                  object DBParam, int Language_id, ref bool bCancel)
         {
             m_eDataTableCreationMode = xeDataTableCreationMode;
             m_parent_form = parent_form;
-            EndProgram = xEndProgram;
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
@@ -287,14 +311,14 @@ namespace LoginControl
         }
 
         public bool Login_MultipleUsers_ShowControlAtStartup(Navigation xnav,
-                                                            delegate_Activate_usrc_DocumentMan call_Activate_usrc_DocumentMan)
+                                                            bool bShowAdministratorUsers)
         {
             Close_Opened_Atom_WorkingPeriods();
             m_Login_MultipleUsers = true;
             switch (m_eDataTableCreationMode)
             {
                 case eDataTableCreationMode.AWP:
-                    return awp.Login_MultipleUsers_ShowControlAtStartup(xnav,  call_Activate_usrc_DocumentMan);
+                    return awp.Login_MultipleUsers_ShowControlAtStartup(xnav, bShowAdministratorUsers);
                 case eDataTableCreationMode.STD:
                     return std.STD_Login();
             }
@@ -336,7 +360,15 @@ namespace LoginControl
             }
         }
 
-                public struct SystemTime
+        internal void DoEndProgram(eExitReason exitReason)
+        {
+            if (EndProgram!=null)
+            {
+                EndProgram(exitReason);
+            }
+        }
+
+        public struct SystemTime
         {
             public ushort Year;
             public ushort Month;

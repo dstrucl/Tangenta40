@@ -40,7 +40,7 @@
             this.btn_First.Image = global::usrc_Item_PageHandler.Properties.Resources.First;
             this.btn_First.Location = new System.Drawing.Point(0, 0);
             this.btn_First.Name = "btn_First";
-            this.btn_First.Size = new System.Drawing.Size(35, 35);
+            this.btn_First.Size = new System.Drawing.Size(42, 44);
             this.btn_First.TabIndex = 0;
             this.btn_First.UseVisualStyleBackColor = false;
             // 
@@ -48,9 +48,9 @@
             // 
             this.btn_Prev.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Prev.Image = global::usrc_Item_PageHandler.Properties.Resources.Prev;
-            this.btn_Prev.Location = new System.Drawing.Point(36, 0);
+            this.btn_Prev.Location = new System.Drawing.Point(42, 0);
             this.btn_Prev.Name = "btn_Prev";
-            this.btn_Prev.Size = new System.Drawing.Size(35, 35);
+            this.btn_Prev.Size = new System.Drawing.Size(42, 44);
             this.btn_Prev.TabIndex = 1;
             this.btn_Prev.UseVisualStyleBackColor = false;
             // 
@@ -58,9 +58,9 @@
             // 
             this.btn_Next.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Next.Image = global::usrc_Item_PageHandler.Properties.Resources.Next;
-            this.btn_Next.Location = new System.Drawing.Point(74, 0);
+            this.btn_Next.Location = new System.Drawing.Point(84, 0);
             this.btn_Next.Name = "btn_Next";
-            this.btn_Next.Size = new System.Drawing.Size(35, 35);
+            this.btn_Next.Size = new System.Drawing.Size(42, 44);
             this.btn_Next.TabIndex = 2;
             this.btn_Next.UseVisualStyleBackColor = false;
             // 
@@ -68,9 +68,9 @@
             // 
             this.btn_Last.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Last.Image = global::usrc_Item_PageHandler.Properties.Resources.Last;
-            this.btn_Last.Location = new System.Drawing.Point(111, 0);
+            this.btn_Last.Location = new System.Drawing.Point(126, 0);
             this.btn_Last.Name = "btn_Last";
-            this.btn_Last.Size = new System.Drawing.Size(39, 35);
+            this.btn_Last.Size = new System.Drawing.Size(42, 44);
             this.btn_Last.TabIndex = 3;
             this.btn_Last.UseVisualStyleBackColor = false;
             // 
@@ -82,7 +82,7 @@
             this.Controls.Add(this.btn_Prev);
             this.Controls.Add(this.btn_First);
             this.Name = "usrc_Item_PageHandler";
-            this.Size = new System.Drawing.Size(150, 34);
+            this.Size = new System.Drawing.Size(170, 43);
             this.ResumeLayout(false);
 
         }

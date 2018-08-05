@@ -123,8 +123,8 @@ namespace Tangenta
         {
             get
             {
-                return 400;
-                //return mShopC_SplitControl1_spliterdistance;
+                //return 400;
+                return mShopC_SplitControl1_spliterdistance;
             }
             set
             {
@@ -137,8 +137,8 @@ namespace Tangenta
         {
             get
             {
-                return 600;
-                //return mShopC_SplitControl2_spliterdistance;
+                //return 600;
+                return mShopC_SplitControl2_spliterdistance;
             }
             set
             {
@@ -190,8 +190,8 @@ namespace Tangenta
         {
             get
             {
-                return 1000;
-                //return mDocumentMan_SplitControl1_splitterdistance;
+                //return 1000;
+                return mDocumentMan_SplitControl1_splitterdistance;
             }
             set
             {
@@ -243,8 +243,8 @@ namespace Tangenta
         {
             get
             {
-                return 600;
-                //return mDocumentEditor_SplitControl1_spliterdistance;
+                //return 600;
+                return mDocumentEditor_SplitControl1_spliterdistance;
             }
             set
             {
@@ -257,7 +257,7 @@ namespace Tangenta
         {
             get
             {
-                return 200;
+                //return 200;
                 return mDocumentEditor_SplitControl2_spliterdistance;
             }
             set

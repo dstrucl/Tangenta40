@@ -77,13 +77,13 @@ namespace ShopA
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
 
@@ -143,7 +143,7 @@ namespace ShopA
                 }
                 m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.Set(null);
                 ID DocInvoice_ShopA_Item_ID = null;
-                if (ShopA_dbfunc.dbfunc.insert(DocInvoice,m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
+                if (ShopA_dbfunc.dbfunc.insert(DocTyp,m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
                 {
                     // Add Row
                     m_DocInvoice_ShopA_Item.ID.Set(DocInvoice_ShopA_Item_ID);

@@ -110,7 +110,7 @@ namespace Tangenta
             set
             {
                 string s = value;
-                if (s.Equals(Program.const_DocInvoice) || s.Equals(Program.const_DocProformaInvoice))
+                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     m_DocTyp = s;
                     m_usrc_DocumentEditor.DocTyp = s;
@@ -134,13 +134,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocTyp.Equals(Program.const_DocInvoice); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocTyp.Equals(Program.const_DocProformaInvoice); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
         public bool m_usrc_InvoiceTable_Visible
@@ -330,13 +330,13 @@ namespace Tangenta
             if (Program.RunAs == null)
             {
                 sLastDocInvoiceType = mSettingsUserValues.LastDocInvoiceType;
-                if (sLastDocInvoiceType.Equals(Program.const_DocInvoice) || sLastDocInvoiceType.Equals(Program.const_DocProformaInvoice))
+                if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     Program.RunAs = sLastDocInvoiceType;
                 }
                 else
                 {
-                    Program.RunAs = Program.const_DocInvoice;
+                    Program.RunAs = GlobalData.const_DocInvoice;
                 }
 
             }
@@ -346,30 +346,30 @@ namespace Tangenta
             }
 
 
-            if (sLastDocInvoiceType.Equals(Program.const_DocInvoice))
+            if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice))
             {
                 this.DocTyp = sLastDocInvoiceType;
             }
-            else if (sLastDocInvoiceType.Equals(Program.const_DocProformaInvoice))
+            else if (sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
             {
                 this.DocTyp = sLastDocInvoiceType;
             }
             else
             {
-                this.DocTyp = Program.const_DocProformaInvoice;
+                this.DocTyp = GlobalData.const_DocProformaInvoice;
                 mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
                 Properties.Settings.Default.Save();
             }
 
             if (m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
             {
-                DocType_DocInvoice = new DocType(lng.s_Invoice.s, Program.const_DocInvoice);
+                DocType_DocInvoice = new DocType(lng.s_Invoice.s, GlobalData.const_DocInvoice);
                 List_DocType.Add(DocType_DocInvoice);
             }
 
             if (m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteProformaInvoice }))
             {
-                DocType_DocProformaInvoice = new DocType(lng.s_DocProformaInvoice.s, Program.const_DocProformaInvoice);
+                DocType_DocProformaInvoice = new DocType(lng.s_DocProformaInvoice.s, GlobalData.const_DocProformaInvoice);
                 List_DocType.Add(DocType_DocProformaInvoice);
             }
 
@@ -450,11 +450,11 @@ namespace Tangenta
 
         internal void WizzardShow_DocInvoice(string xDocInvoice)
         {
-            if (xDocInvoice.Equals(Program.const_DocProformaInvoice))
+            if (xDocInvoice.Equals(GlobalData.const_DocProformaInvoice))
             {
                 cmb_DocType.SelectedIndex = 1;
             }
-            else if (xDocInvoice.Equals(Program.const_DocInvoice))
+            else if (xDocInvoice.Equals(GlobalData.const_DocInvoice))
             {
                 cmb_DocType.SelectedIndex = 0;
             }
@@ -489,12 +489,12 @@ namespace Tangenta
         {
             if (this.m_usrc_DocumentEditor.DocTyp != null)
             {
-                if (this.m_usrc_DocumentEditor.DocTyp.Equals(Program.const_DocInvoice))
+                if (this.m_usrc_DocumentEditor.DocTyp.Equals(GlobalData.const_DocInvoice))
                 {
                     this.cmb_DocType.SelectedIndex = 0;
                     SetFinancialYears();
                 }
-                else if (this.m_usrc_DocumentEditor.DocTyp.Equals(Program.const_DocProformaInvoice))
+                else if (this.m_usrc_DocumentEditor.DocTyp.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     this.cmb_DocType.SelectedIndex = 1;
                     SetFinancialYears();
@@ -856,7 +856,7 @@ namespace Tangenta
                 {
                     DocType xDocType = (DocType)cmb_DocType.SelectedItem;
                     string  xdoctyp = xDocType.Typ;
-                    string New_xdoctyp = Program.const_DocInvoice;
+                    string New_xdoctyp = GlobalData.const_DocInvoice;
                     if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                     {
                         List<object> xShopC_Data_Item_List = null;
@@ -866,15 +866,15 @@ namespace Tangenta
                         {
                             if (xdoctyp != null)
                             {
-                                if (xdoctyp.Equals(Program.const_DocInvoice))
+                                if (xdoctyp.Equals(GlobalData.const_DocInvoice))
                                 {
-                                    DocTyp = Program.const_DocProformaInvoice;
-                                    New_xdoctyp = Program.const_DocProformaInvoice;
+                                    DocTyp = GlobalData.const_DocProformaInvoice;
+                                    New_xdoctyp = GlobalData.const_DocProformaInvoice;
                                 }
-                                else if (xdoctyp.Equals(Program.const_DocProformaInvoice))
+                                else if (xdoctyp.Equals(GlobalData.const_DocProformaInvoice))
                                 {
-                                    DocTyp = Program.const_DocInvoice;
-                                    New_xdoctyp = Program.const_DocProformaInvoice;
+                                    DocTyp = GlobalData.const_DocInvoice;
+                                    New_xdoctyp = GlobalData.const_DocProformaInvoice;
                                 }
                                 else
                                 {
@@ -1108,7 +1108,6 @@ namespace Tangenta
                 m_Form_Document.loginControl1.Init(m_Form_Document,
                                                 LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
-                                                EndProgram,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
                                                 ref bCancel
@@ -1118,7 +1117,7 @@ namespace Tangenta
                 //myStartup.eNextStep++;
                 if (Program.Login_MultipleUsers)
                 {
-                    if (m_Form_Document.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, m_Form_Document.Activate_usrc_DocumentMan))
+                    if (m_Form_Document.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav,Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
                     {
                          return true;
                     }

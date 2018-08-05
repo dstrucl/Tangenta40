@@ -16,10 +16,8 @@ namespace Tangenta
     public partial class Form_Select_Person_SINGLE_USER : Form
     {
         private ID m_Office_ID;
-        private SQLTable tbl_myOrganisation_Person;
         DataTable dt_myOrganisation_Person = new DataTable();
 
-        private string ColumnToOrderBy = "myOrganisation_Person_$_per_$_cln_$$LastName asc";
         private NavigationButtons.Navigation nav = null;
 
         private ID m_my_Org_Person_ID = null;
