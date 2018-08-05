@@ -27,7 +27,7 @@ namespace Tangenta
 {
     public partial class usrc_TableOfDocuments : UserControl
     {
-        private LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        private LMOUser m_LMOUser = null;
 
         public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear, TimeSpan };
         public delegate void delegate_SelectedInvoiceChanged(ID Invoice_ID, bool bInitialise);
@@ -125,14 +125,14 @@ namespace Tangenta
                         }
                     }
 
-                    if (m_LoginOfMyOrgUser != null)
+                    if (m_LMOUser != null)
                     {
                         string sDataSource = DBSync.DBSync.DataSource;
                         ID xDoc_ID = null;
                         ID xCurrent_Doc_ID = null;
-                        if (ID.Validate(m_LoginOfMyOrgUser.myOrganisation_Person_ID))
+                        if (ID.Validate(m_LMOUser.myOrganisation_Person_ID))
                         {
-                            if (f_Current_Doc_ID.GetLast(DocInvoice, sDataSource, m_LoginOfMyOrgUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
+                            if (f_Current_Doc_ID.GetLast(DocInvoice, sDataSource, m_LMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
                             {
                                 if (ID.Validate(xDoc_ID))
                                 {
@@ -183,9 +183,9 @@ namespace Tangenta
             lng.s_from.Text(this.lbl_From_To);
         }
 
-        public void Bind(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        public void Bind(LMOUser xLMOUser)
         {
-            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+            m_LMOUser = xLMOUser;
         }
         internal void Activate_dgvx_XInvoice_SelectionChanged()
         {
@@ -314,7 +314,7 @@ namespace Tangenta
 
             string cond_Atom_myOrganisation_Person = "";
 
-            if ((m_LoginOfMyOrgUser.IsAdministrator)||(m_LoginOfMyOrgUser.IsUserManager))
+            if ((m_LMOUser.IsAdministrator)||(m_LMOUser.IsUserManager))
             {
                 if (IsDocInvoice)
                 {
@@ -330,7 +330,7 @@ namespace Tangenta
                 // in case that user is not administrator
                 // set condition to show only documents of Atom_myOrg_Person
                 string spar_Atom_myOrganisation_Person = "@par_AOP";
-                SQL_Parameter par_Atom_myOrganisation_Person = new SQL_Parameter(spar_Atom_myOrganisation_Person, false,m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID);
+                SQL_Parameter par_Atom_myOrganisation_Person = new SQL_Parameter(spar_Atom_myOrganisation_Person, false,m_LMOUser.Atom_myOrganisation_Person_ID);
                 lpar_ExtraCondition.Add(par_Atom_myOrganisation_Person);
                 if (IsDocInvoice)
                 {
@@ -980,7 +980,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true,false, ((SettingsUser)m_LoginOfMyOrgUser.oSettings).mSettingsUserValues.FinancialYear,null);
+                Init(enum_Invoice, true,false, ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.FinancialYear,null);
                 Program.Cursor_Arrow();
             }
         }

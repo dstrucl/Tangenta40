@@ -32,7 +32,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string ErrReason = "";
 
 
-            FVI_com_running = usrc_FVI_SLO1.Start(ref ErrReason);
+            FVI_com_running = m_FVI_SLO1.Start(ref ErrReason);
             if (FVI_com_running)
             {
                 btn_Send_ECHO.Enabled = true;
@@ -42,13 +42,13 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
 
         private void btn_End_Click(object sender, EventArgs e)
         {
-            usrc_FVI_SLO1.End();
+            m_FVI_SLO1.End();
             btn_Send_ECHO.Enabled = false;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            usrc_FVI_SLO1.End();
+            m_FVI_SLO1.End();
             btn_Send_ECHO.Enabled = false;
         }
 
@@ -75,7 +75,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string FileName = Application.StartupPath + "\\XML\\Echo.xml";
 
             string xml_echo = GetFursXmlMesage(FileName);
-            usrc_FVI_SLO1.Send_Echo(xml_echo);
+            m_FVI_SLO1.Send_Echo(xml_echo);
 
         }
 
@@ -84,7 +84,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string FileName = Application.StartupPath + "\\XML\\BusinessPremises.xml";
 
             string xml = GetFursXmlMesage(FileName);
-            usrc_FVI_SLO1.Send_PP(xml);
+            m_FVI_SLO1.Send_PP(xml);
 
         }
 
@@ -97,7 +97,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string UniqueInvoiceID = null;
             string BarCodeValue = null;
             Image Image_QR = null;
-            usrc_FVI_SLO1.Send_SingleInvoice(false, xml,this, ref UniqueMsgID,ref UniqueInvoiceID,ref BarCodeValue,ref Image_QR);
+            m_FVI_SLO1.Send_SingleInvoice(false, xml,this, ref UniqueMsgID,ref UniqueInvoiceID,ref BarCodeValue,ref Image_QR);
         }
 
 

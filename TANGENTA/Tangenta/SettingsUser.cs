@@ -19,7 +19,7 @@ namespace Tangenta
         private Setting[] item = null;
         private int icount = 0;
 
-        public bool Load(LoginControl.LoginOfMyOrgUser luser)
+        public bool Load(LoginControl.LMOUser luser)
         {
             DataTable dt = null;
 

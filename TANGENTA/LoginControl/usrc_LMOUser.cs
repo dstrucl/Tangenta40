@@ -13,15 +13,15 @@ using TangentaDB;
 
 namespace LoginControl
 {
-    public partial class usrc_LoginOfMyOrgUser : UserControl
+    public partial class usrc_LMOUser : UserControl
     {
         internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
 
         internal LoginCtrl lctrl = null;
 
-        internal LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        internal LMOUser m_LMOUser = null;
 
-        public usrc_LoginOfMyOrgUser(LoginCtrl xlxtrl)
+        public usrc_LMOUser(LoginCtrl xlxtrl)
         {
             InitializeComponent();
             lctrl = xlxtrl;
@@ -42,9 +42,9 @@ namespace LoginControl
         {
             get
             {
-                if (m_LoginOfMyOrgUser.awpld != null)
+                if (m_LMOUser.awpld != null)
                 {
-                    return m_LoginOfMyOrgUser.IsAdministrator;
+                    return m_LMOUser.IsAdministrator;
                 }
                 return false;
             }
@@ -54,9 +54,9 @@ namespace LoginControl
         {
             get
             {
-                if (m_LoginOfMyOrgUser.awpld != null)
+                if (m_LMOUser.awpld != null)
                 {
-                    return m_LoginOfMyOrgUser.IsUserManager;
+                    return m_LMOUser.IsUserManager;
                 }
                 return false;
             }
@@ -64,18 +64,18 @@ namespace LoginControl
 
         internal void SetData(DataRow dr)
         {
-            if (m_LoginOfMyOrgUser==null)
+            if (m_LMOUser==null)
             {
-                m_LoginOfMyOrgUser = new LoginOfMyOrgUser(this);
+                m_LMOUser = new LMOUser(this);
             }
-            m_LoginOfMyOrgUser.SetData(dr);
+            m_LMOUser.SetData(dr);
 
         }
 
 
         private bool Authentificate_PASSWORD()
         {
-            AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LoginOfMyOrgUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN, m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
+            AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LMOUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN, m_LMOUser.Atom_WorkPeriod_ID);
             if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
             {
                 return true;
@@ -89,7 +89,7 @@ namespace LoginControl
 
         private bool Authentificate_PIN()
         {
-            AWPLoginForm_AuthentificatePIN awpLoginForm__AuthentificatePIN = new AWPLoginForm_AuthentificatePIN(m_LoginOfMyOrgUser);
+            AWPLoginForm_AuthentificatePIN awpLoginForm__AuthentificatePIN = new AWPLoginForm_AuthentificatePIN(m_LMOUser);
             if (awpLoginForm__AuthentificatePIN.ShowDialog(this) == DialogResult.OK)
             {
                 return true;
@@ -101,7 +101,7 @@ namespace LoginControl
         }
         private void btn_LoginLogout_Click(object sender, EventArgs e)
         {
-            if (this.m_LoginOfMyOrgUser.LoggedIn)
+            if (this.m_LMOUser.LoggedIn)
             {
                 bool bLogoutAll = (IsAdministrator || IsUserManager);
                 if (bLogoutAll)
@@ -112,7 +112,7 @@ namespace LoginControl
                     }
                 }
 
-                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LoginOfMyOrgUser,  bLogoutAll, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGOUT, m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
+                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LMOUser,  bLogoutAll, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGOUT, m_LMOUser.Atom_WorkPeriod_ID);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
                     if (awpLoginForm_OneFromMultipleUsers.LogoutALL)
@@ -121,36 +121,36 @@ namespace LoginControl
                     }
                     else
                     {
-                        lctrl.Trigger_EventUserLoggedOut(this.m_LoginOfMyOrgUser);
+                        lctrl.Trigger_EventUserLoggedOut(this.m_LMOUser);
                     }
-                    m_LoginOfMyOrgUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
-                    m_LoginOfMyOrgUser.Atom_WorkPeriod_ID = null;
-                    m_LoginOfMyOrgUser.awpld = null;
-                    m_LoginOfMyOrgUser.LoggedIn = false;
+                    m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
+                    m_LMOUser.Atom_WorkPeriod_ID = null;
+                    m_LMOUser.awpld = null;
+                    m_LMOUser.LoggedIn = false;
                 }
             }
             else
             {
-                m_LoginOfMyOrgUser.LoginSession_ID = null;
-                m_LoginOfMyOrgUser.Atom_WorkPeriod_ID = null;
-                m_LoginOfMyOrgUser.awpld = null;
-                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LoginOfMyOrgUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN,null);
+                m_LMOUser.LoginSession_ID = null;
+                m_LMOUser.Atom_WorkPeriod_ID = null;
+                m_LMOUser.awpld = null;
+                AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LMOUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN,null);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
-                    m_LoginOfMyOrgUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
-                    m_LoginOfMyOrgUser.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
-                    m_LoginOfMyOrgUser.LoggedIn = true;
-                    lctrl.Trigger_EventUserLoggedIn(m_LoginOfMyOrgUser);
+                    m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
+                    m_LMOUser.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
+                    m_LMOUser.LoggedIn = true;
+                    lctrl.Trigger_EventUserLoggedIn(m_LMOUser);
                 }
             }
         }
 
         internal void DoLogout()
         {
-            if (LoginControl.LoginCtrl.Logout(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID))
+            if (LoginControl.LoginCtrl.Logout(m_LMOUser.Atom_WorkPeriod_ID))
             {
-                m_LoginOfMyOrgUser.LoggedIn = false;
-                lctrl.Trigger_EventUserLoggedOut(m_LoginOfMyOrgUser);
+                m_LMOUser.LoggedIn = false;
+                lctrl.Trigger_EventUserLoggedOut(m_LMOUser);
             }
         }
 
@@ -174,7 +174,7 @@ namespace LoginControl
                     break;
 
             }
-            if (m_LoginOfMyOrgUser.IsUserManager)
+            if (m_LMOUser.IsUserManager)
             {
                 if (lctrl.m_usrc_LoginCtrl != null)
                 {
@@ -183,10 +183,10 @@ namespace LoginControl
             }
             if (lctrl.m_usrc_LoginCtrl != null)
             {
-                lctrl.m_usrc_LoginCtrl.lbl_username.Text = m_LoginOfMyOrgUser.UserName + ": " + m_LoginOfMyOrgUser.FirstName + " " + m_LoginOfMyOrgUser.LastName;
+                lctrl.m_usrc_LoginCtrl.lbl_username.Text = m_LMOUser.UserName + ": " + m_LMOUser.FirstName + " " + m_LMOUser.LastName;
             }
 
-            lctrl.Trigger_EventUserActivateDocumentMan(this.m_LoginOfMyOrgUser);
+            lctrl.Trigger_EventUserActivateDocumentMan(this.m_LMOUser);
 
         }
     }

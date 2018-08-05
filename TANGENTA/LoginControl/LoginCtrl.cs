@@ -26,15 +26,15 @@ namespace LoginControl
 
         public enum eAuthentificationType { NONE, PASSWORD, PIN, RFID };
 
-        public delegate void delegate_UserLoggedIn(LoginOfMyOrgUser xLoginOfMyOrgUser);
+        public delegate void delegate_UserLoggedIn(LMOUser xLMOUser);
 
         public event delegate_UserLoggedIn UserLoggedIn = null;
 
-        public delegate void delegate_UserLoggedOut(LoginOfMyOrgUser xLoginOfMyOrgUser);
+        public delegate void delegate_UserLoggedOut(LMOUser xLMOUser);
 
         public event delegate_UserLoggedOut UserLoggedOut = null;
 
-        public delegate void delegate_ActivateDocumentMan(LoginOfMyOrgUser xLoginOfMyOrgUser);
+        public delegate void delegate_ActivateDocumentMan(LMOUser xLMOUser);
 
         public event delegate_ActivateDocumentMan ActivateDocumentMan = null;
 
@@ -123,29 +123,29 @@ namespace LoginControl
 
 
 
-        internal void Trigger_EventUserLoggedIn(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        internal void Trigger_EventUserLoggedIn(LMOUser xLMOUser)
         {
             if (UserLoggedIn!=null)
             {
-                UserLoggedIn(xLoginOfMyOrgUser);
+                UserLoggedIn(xLMOUser);
             }
         }
 
-        internal void Trigger_EventUserLoggedOut(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        internal void Trigger_EventUserLoggedOut(LMOUser xLMOUser)
         {
             if (UserLoggedOut != null)
             {
-                UserLoggedOut(xLoginOfMyOrgUser);
+                UserLoggedOut(xLMOUser);
             }
         }
 
 
 
-        internal void Trigger_EventUserActivateDocumentMan(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        internal void Trigger_EventUserActivateDocumentMan(LMOUser xLMOUser)
         {
             if (ActivateDocumentMan!=null)
             {
-                ActivateDocumentMan(xLoginOfMyOrgUser);
+                ActivateDocumentMan(xLMOUser);
                 if (awp.m_usrc_MultipleUsers!=null)
                 {
                     awp.m_usrc_MultipleUsers.Visible = false;
@@ -159,7 +159,7 @@ namespace LoginControl
             {
                 if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
                 {
-                    return awp.LoginOfMyOrgUser_Single.PasswordExpiresInNumberOfDays;
+                    return awp.LMOUser_Single.PasswordExpiresInNumberOfDays;
                 }
                 else
                 {

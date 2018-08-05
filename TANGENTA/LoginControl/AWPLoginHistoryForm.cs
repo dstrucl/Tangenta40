@@ -12,16 +12,16 @@ namespace LoginControl
 {
     public partial class AWPLoginHistoryForm : Form
     {
-        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        LMOUser m_LMOUser = null;
         string UserName = null;
         DataTable dtWorkingPeriod = new DataTable();
         DateTime date_From;
         DateTime date_To;
-        public AWPLoginHistoryForm(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        public AWPLoginHistoryForm(LMOUser xLMOUser)
         {
             InitializeComponent();
-            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
-            UserName = m_LoginOfMyOrgUser.UserName;
+            m_LMOUser = xLMOUser;
+            UserName = m_LMOUser.UserName;
             date_To = DateTime.Now;
             date_From = date_To.AddMonths(-1);
             dtp_To.Value = date_To;

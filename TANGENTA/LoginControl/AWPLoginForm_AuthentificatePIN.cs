@@ -18,7 +18,7 @@ namespace LoginControl
         
         private AWPLoginForm_OneFromMultipleUsers.LoginType m_loginType = AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN;
 
-        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        LMOUser m_LMOUser = null;
 
         internal ID LoginSession_id = null;
         internal ID Atom_WorkPeriod_ID = null;
@@ -27,14 +27,14 @@ namespace LoginControl
         private int_v m_PIN_v = null;
 
 
-        public AWPLoginForm_AuthentificatePIN(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        public AWPLoginForm_AuthentificatePIN(LMOUser xLMOUser)
         {
 
             InitializeComponent();
-            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+            m_LMOUser = xLMOUser;
 
-            txt_UserName.Text = m_LoginOfMyOrgUser.UserName;
-            m_PIN_v = m_LoginOfMyOrgUser.PIN_v;
+            txt_UserName.Text = m_LMOUser.UserName;
+            m_PIN_v = m_LMOUser.PIN_v;
             this.Text = lng.s_Login.s;
             this.btn_OK.Text = lng.s_Login.s;
 

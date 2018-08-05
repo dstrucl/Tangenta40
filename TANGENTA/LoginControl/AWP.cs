@@ -31,7 +31,7 @@ namespace LoginControl
 
         DataTable AWP_dtLoginView = null;
 
-        public LoginOfMyOrgUser LoginOfMyOrgUser_Single = new LoginOfMyOrgUser(null);
+        public LMOUser LMOUser_Single = new LMOUser(null);
 
         private Form pParentForm = null;
         internal LoginCtrl lctrl = null;
@@ -71,7 +71,7 @@ namespace LoginControl
                 bool bres = CallLoginForm();
                 if (bres)
                 {
-                    if (LoginOfMyOrgUser_Single.IsUserManager)
+                    if (LMOUser_Single.IsUserManager)
                     {
                         if (lctrl.m_usrc_LoginCtrl != null)
                         {
@@ -81,7 +81,7 @@ namespace LoginControl
 
                     if (lctrl.m_usrc_LoginCtrl != null)
                     {
-                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LoginOfMyOrgUser_Single.UserName + ": " + LoginOfMyOrgUser_Single.FirstName + " " + LoginOfMyOrgUser_Single.LastName;
+                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMOUser_Single.UserName + ": " + LMOUser_Single.FirstName + " " + LMOUser_Single.LastName;
                     }
                 }
 
@@ -148,7 +148,7 @@ eres_check:
                         {
                             if (AWP_func.Import_myOrganisationPerson(awpd, frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
                             {
-                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(lctrl,xnav, parent_form,LoginOfMyOrgUser_Single);
+                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(lctrl,xnav, parent_form,LMOUser_Single);
                                 if (parent_form != null)
                                 {
                                     awp_usrmgt_frm.TopMost = parent_form.TopMost;
@@ -161,7 +161,7 @@ eres_check:
                                 switch (dlgRes)
                                 {
                                     case DialogResult.OK:
-                                        if (LoginOfMyOrgUser_Single.IsUserManager)
+                                        if (LMOUser_Single.IsUserManager)
                                         {
                                             if (lctrl.m_usrc_LoginCtrl != null)
                                             {
@@ -184,14 +184,14 @@ eres_check:
                                         else
                                         {
                                             ID Atom_WorkPeriod_ID = null;
-                                            if (LoginCtrl.getWorkPeriod(LoginOfMyOrgUser_Single.awpld.myOrganisation_Person__per_ID, ref LoginOfMyOrgUser_Single.Atom_myOrganisation_Person_ID, ref LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID))
+                                            if (LoginCtrl.getWorkPeriod(LMOUser_Single.awpld.myOrganisation_Person__per_ID, ref LMOUser_Single.Atom_myOrganisation_Person_ID, ref LMOUser_Single.Atom_WorkPeriod_ID))
                                             {
                                                 ID LoginSession_ID = null;
-                                                if (AWP_func.WriteLoginSession(LoginOfMyOrgUser_Single.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                                if (AWP_func.WriteLoginSession(LMOUser_Single.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
                                                 {
                                                     if (lctrl.m_usrc_LoginCtrl != null)
                                                     {
-                                                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LoginOfMyOrgUser_Single.UserName + ": " + LoginOfMyOrgUser_Single.FirstName + " " + LoginOfMyOrgUser_Single.LastName;
+                                                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMOUser_Single.UserName + ": " + LMOUser_Single.FirstName + " " + LMOUser_Single.LastName;
                                                     }
                                                     return eAWP_dtLogin_Vaild_result.OK;
                                                 }
@@ -208,7 +208,7 @@ eres_check:
                         return eres;
 
                     case eAWP_dtLogin_Vaild_result.NO_PASSWORD_FOR_FIRST_USER:
-                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(lctrl,xnav, parent_form, LoginOfMyOrgUser_Single);
+                        AWP_UserManager awp_usrmgt2_frm = new AWP_UserManager(lctrl,xnav, parent_form, LMOUser_Single);
                         if (parent_form != null)
                         {
                             awp_usrmgt2_frm.TopMost = parent_form.TopMost;
@@ -221,7 +221,7 @@ eres_check:
                         switch (dlgRes)
                         {
                             case DialogResult.OK:
-                                if (LoginOfMyOrgUser_Single.IsUserManager)
+                                if (LMOUser_Single.IsUserManager)
                                 {
                                     if (lctrl.m_usrc_LoginCtrl != null)
                                     {
@@ -229,14 +229,14 @@ eres_check:
                                     }
                                 }
                                 ID Atom_WorkPeriod_ID = null;
-                                if (LoginCtrl.getWorkPeriod(LoginOfMyOrgUser_Single.awpld.myOrganisation_Person__per_ID,ref LoginOfMyOrgUser_Single.Atom_myOrganisation_Person_ID, ref LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID))
+                                if (LoginCtrl.getWorkPeriod(LMOUser_Single.awpld.myOrganisation_Person__per_ID,ref LMOUser_Single.Atom_myOrganisation_Person_ID, ref LMOUser_Single.Atom_WorkPeriod_ID))
                                 {
                                     ID LoginSession_ID = null;
-                                    if (AWP_func.WriteLoginSession(LoginOfMyOrgUser_Single.awpld.ID, LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                    if (AWP_func.WriteLoginSession(LMOUser_Single.awpld.ID, LMOUser_Single.Atom_WorkPeriod_ID, ref LoginSession_ID))
                                     {
                                         if (lctrl.m_usrc_LoginCtrl != null)
                                         {
-                                            lctrl.m_usrc_LoginCtrl.lbl_username.Text = LoginOfMyOrgUser_Single.UserName + ": " + LoginOfMyOrgUser_Single.FirstName + " " + LoginOfMyOrgUser_Single.LastName;
+                                            lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMOUser_Single.UserName + ": " + LMOUser_Single.FirstName + " " + LMOUser_Single.LastName;
                                         }
                                         return eAWP_dtLogin_Vaild_result.OK; 
                                     }

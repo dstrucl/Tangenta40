@@ -95,7 +95,9 @@
   <ItemGroup>
     <Compile Include="AWP.cs" />
     <Compile Include="AWPData.cs" />
-    <Compile Include="AWPFormSelectMyOrg.cs" />
+    <Compile Include="AWPFormSelectMyOrg.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWPFormSelectMyOrg.Designer.cs">
       <DependentUpon>AWPFormSelectMyOrg.cs</DependentUpon>
     </Compile>
@@ -106,36 +108,50 @@
       <DependentUpon>AWPForm_Close_Opened_Atom_WorkingPeriods.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPLoginData.cs" />
-    <Compile Include="AWPLoginForm_AuthentificatePIN.cs" />
+    <Compile Include="AWPLoginForm_AuthentificatePIN.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWPLoginForm_AuthentificatePIN.Designer.cs">
       <DependentUpon>AWPLoginForm_AuthentificatePIN.cs</DependentUpon>
     </Compile>
-    <Compile Include="AWPLoginForm_OneFromMultipleUsers.cs" />
+    <Compile Include="AWPLoginForm_OneFromMultipleUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWPLoginForm_OneFromMultipleUsers.Designer.cs">
       <DependentUpon>AWPLoginForm_OneFromMultipleUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="AWPRole.cs" />
-    <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.cs" />
+    <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWP_Select_users_from_myOrganisation_Person_Table.Designer.cs">
       <DependentUpon>AWP_Select_users_from_myOrganisation_Person_Table.cs</DependentUpon>
     </Compile>
-    <Compile Include="AWPChangePasswordForm.cs" />
+    <Compile Include="AWPChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWPChangePasswordForm.Designer.cs">
       <DependentUpon>AWPChangePasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AWP_UserInfo_Form.cs" />
+    <Compile Include="AWP_UserInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWP_UserInfo_Form.Designer.cs">
       <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="f.cs" />
     <Compile Include="HtmlTemplate.cs" />
-    <Compile Include="LoginCtrl.cs" />
+    <Compile Include="LoginCtrl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LoginCtrl.Designer.cs">
       <DependentUpon>LoginCtrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginOfMyOrgUser.cs" />
+    <Compile Include="LMOUser.cs" />
     <Compile Include="STD.cs" />
-    <Compile Include="STDChangePasswordForm.cs" />
+    <Compile Include="STDChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STDChangePasswordForm.Designer.cs">
       <DependentUpon>STDChangePasswordForm.cs</DependentUpon>
     </Compile>
@@ -145,33 +161,47 @@
     <Compile Include="DataSet\LoginaDatasetCommonClasses.cs" />
     <Compile Include="DataSet\LoginDB_DataSet.cs" />
     <Compile Include="DataSet\LoginDB_Languages.cs" />
-    <Compile Include="EditLoginData_Form.cs" />
+    <Compile Include="EditLoginData_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EditLoginData_Form.Designer.cs">
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
-    <Compile Include="usrc_LoginCtrl.cs" />
+    <Compile Include="usrc_LoginCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="usrc_LoginCtrl.Designer.cs">
       <DependentUpon>usrc_LoginCtrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="AWPLoginForm.cs" />
+    <Compile Include="AWPLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWPLoginForm.Designer.cs">
       <DependentUpon>AWPLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="STDLoginData.cs" />
-    <Compile Include="STDLoginForm.cs" />
+    <Compile Include="STDLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STDLoginForm.Designer.cs">
       <DependentUpon>STDLoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AWPLoginHistoryForm.cs" />
+    <Compile Include="AWPLoginHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWPLoginHistoryForm.Designer.cs">
       <DependentUpon>AWPLoginHistoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="STDLoginHistoryForm.cs" />
+    <Compile Include="STDLoginHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STDLoginHistoryForm.Designer.cs">
       <DependentUpon>STDLoginHistoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginSuperAdministratorForm.cs" />
+    <Compile Include="LoginSuperAdministratorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LoginSuperAdministratorForm.Designer.cs">
       <DependentUpon>LoginSuperAdministratorForm.cs</DependentUpon>
     </Compile>
@@ -181,36 +211,50 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="STDRoleManager.cs" />
+    <Compile Include="STDRoleManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STDRoleManager.Designer.cs">
       <DependentUpon>STDRoleManager.cs</DependentUpon>
     </Compile>
     <Compile Include="AWP_func.cs" />
     <Compile Include="STDRole.cs" />
     <Compile Include="STD_MSSQL.cs" />
-    <Compile Include="AWP_UserManager.cs" />
+    <Compile Include="AWP_UserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AWP_UserManager.designer.cs">
       <DependentUpon>AWP_UserManager.cs</DependentUpon>
     </Compile>
     <Compile Include="STD_username_Data.cs" />
-    <Compile Include="STDUserInfoForm.cs" />
+    <Compile Include="STDUserInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STDUserInfoForm.Designer.cs">
       <DependentUpon>STDUserInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="STD_UserManager.cs" />
+    <Compile Include="STD_UserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STD_UserManager.designer.cs">
       <DependentUpon>STD_UserManager.cs</DependentUpon>
     </Compile>
     <Compile Include="TemplatesLoader.cs" />
-    <Compile Include="usrc_LoginOfMyOrgUser.cs" />
-    <Compile Include="usrc_LoginOfMyOrgUser.Designer.cs">
-      <DependentUpon>usrc_LoginOfMyOrgUser.cs</DependentUpon>
+    <Compile Include="usrc_LMOUser.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_MultipleUsers.cs" />
+    <Compile Include="usrc_LMOUser.Designer.cs">
+      <DependentUpon>usrc_LMOUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_MultipleUsers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="usrc_MultipleUsers.Designer.cs">
       <DependentUpon>usrc_MultipleUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_PasswordBytes.cs" />
+    <Compile Include="usrc_PasswordBytes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="usrc_PasswordBytes.Designer.cs">
       <DependentUpon>usrc_PasswordBytes.cs</DependentUpon>
     </Compile>
@@ -294,8 +338,8 @@
       <DependentUpon>STD_UserManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_LoginOfMyOrgUser.resx">
-      <DependentUpon>usrc_LoginOfMyOrgUser.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_LMOUser.resx">
+      <DependentUpon>usrc_LMOUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_MultipleUsers.resx">
       <DependentUpon>usrc_MultipleUsers.cs</DependentUpon>

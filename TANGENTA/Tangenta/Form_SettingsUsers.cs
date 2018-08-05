@@ -14,25 +14,25 @@ namespace Tangenta
     {
         private DataTable dtAfterLoad = null;
         private DataTable dtAfterSave = null;
-        LoginControl.LoginOfMyOrgUser mLoginOfMyOrgUser = null;
-        public Form_SettingsUsers(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        LoginControl.LMOUser mLMOUser = null;
+        public Form_SettingsUsers(LoginControl.LMOUser xLMOUser)
         {
             InitializeComponent();
-            mLoginOfMyOrgUser = xLoginOfMyOrgUser;
-            label1.Text = "User:" + mLoginOfMyOrgUser.UserName;
+            mLMOUser = xLMOUser;
+            label1.Text = "User:" + mLMOUser.UserName;
         }
 
         public void InitAfterLoad()
         {
             dgv_AfterLoad.DataSource = null;
-            ((SettingsUser)mLoginOfMyOrgUser.oSettings).mSettingsUserValues.Fill_DataTable(ref dtAfterLoad);
+            ((SettingsUser)mLMOUser.oSettings).mSettingsUserValues.Fill_DataTable(ref dtAfterLoad);
             dgv_AfterLoad.DataSource = dtAfterLoad;
         }
 
         public void InitAfterSave()
         {
             dgv_AfterSave.DataSource = null;
-            ((SettingsUser)mLoginOfMyOrgUser.oSettings).mSettingsUserValues.Fill_DataTable(ref dtAfterSave);
+            ((SettingsUser)mLMOUser.oSettings).mSettingsUserValues.Fill_DataTable(ref dtAfterSave);
             dgv_AfterSave.DataSource = dtAfterSave;
         }
 

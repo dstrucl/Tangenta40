@@ -11,9 +11,9 @@ using TangentaDB;
 
 namespace LoginControl
 {
-    public class LoginOfMyOrgUser
+    public class LMOUser
     {
-        internal usrc_LoginOfMyOrgUser m_usrc_LoginOfMyOrgUser = null;
+        internal usrc_LMOUser m_usrc_LMOUser = null;
         public Form Form_settingsuser = null;
         public ID Last_DocInvoice_ID = null;
         public ID Last_DocProformaInvoice_ID = null;
@@ -30,9 +30,9 @@ namespace LoginControl
 
         public bool m_LoggedIn = false;
 
-        public LoginOfMyOrgUser(usrc_LoginOfMyOrgUser x_usrc_LoginOfMyOrgUser)
+        public LMOUser(usrc_LMOUser x_usrc_LMOUser)
         {
-            m_usrc_LoginOfMyOrgUser = x_usrc_LoginOfMyOrgUser;
+            m_usrc_LMOUser = x_usrc_LMOUser;
         }
 
         public bool IsUserManager
@@ -274,20 +274,20 @@ namespace LoginControl
                 m_LoggedIn = value;
                 if (m_LoggedIn)
                 {
-                    if (m_usrc_LoginOfMyOrgUser != null)
+                    if (m_usrc_LMOUser != null)
                     {
-                        lng.s_Logout.Text(m_usrc_LoginOfMyOrgUser.btn_LoginLogout);
-                        m_usrc_LoginOfMyOrgUser.btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[4].BackColor;
-                        m_usrc_LoginOfMyOrgUser.btn_GetAccess.Visible = true;
+                        lng.s_Logout.Text(m_usrc_LMOUser.btn_LoginLogout);
+                        m_usrc_LMOUser.btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[4].BackColor;
+                        m_usrc_LMOUser.btn_GetAccess.Visible = true;
                     }
                 }
                 else
                 {
-                    if (m_usrc_LoginOfMyOrgUser != null)
+                    if (m_usrc_LMOUser != null)
                     {
-                        lng.s_Login.Text(m_usrc_LoginOfMyOrgUser.btn_LoginLogout);
-                        m_usrc_LoginOfMyOrgUser.btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[0].BackColor;
-                        m_usrc_LoginOfMyOrgUser.btn_GetAccess.Visible = false;
+                        lng.s_Login.Text(m_usrc_LMOUser.btn_LoginLogout);
+                        m_usrc_LMOUser.btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[0].BackColor;
+                        m_usrc_LMOUser.btn_GetAccess.Visible = false;
                     }
                 }
             }
@@ -301,25 +301,25 @@ namespace LoginControl
             {
                 if (IsAdministrator)
                 {
-                    if (m_usrc_LoginOfMyOrgUser != null)
+                    if (m_usrc_LMOUser != null)
                     {
-                        m_usrc_LoginOfMyOrgUser.pic_administrator.Image = Properties.Resources.Login.ToBitmap();
-                        m_usrc_LoginOfMyOrgUser.pic_administrator.Visible = true;
+                        m_usrc_LMOUser.pic_administrator.Image = Properties.Resources.Login.ToBitmap();
+                        m_usrc_LMOUser.pic_administrator.Visible = true;
                     }
                 }
                 else
                 {
-                    m_usrc_LoginOfMyOrgUser.pic_administrator.Visible = false;
+                    m_usrc_LMOUser.pic_administrator.Visible = false;
                 }
 
                 if (IsUserManager)
                 {
-                    m_usrc_LoginOfMyOrgUser.pic_UserManager.Image = Properties.Resources.RoleManager.ToBitmap();
-                    m_usrc_LoginOfMyOrgUser.pic_UserManager.Visible = true;
+                    m_usrc_LMOUser.pic_UserManager.Image = Properties.Resources.RoleManager.ToBitmap();
+                    m_usrc_LMOUser.pic_UserManager.Visible = true;
                 }
                 else
                 {
-                    m_usrc_LoginOfMyOrgUser.pic_UserManager.Visible = false;
+                    m_usrc_LMOUser.pic_UserManager.Visible = false;
                 }
             }
 
@@ -338,18 +338,18 @@ namespace LoginControl
             PIN_v = tf.set_int(dr["PersonData_$$PIN"]);
             if (imagebytes_v != null)
             {
-                if (m_usrc_LoginOfMyOrgUser != null)
+                if (m_usrc_LMOUser != null)
                 {
-                    m_usrc_LoginOfMyOrgUser.pictureBox1.Image = DBTypes.func.byteArrayToImage(imagebytes_v.v);
+                    m_usrc_LMOUser.pictureBox1.Image = DBTypes.func.byteArrayToImage(imagebytes_v.v);
                 }
             }
             else
             {
 
             }
-            if (m_usrc_LoginOfMyOrgUser != null)
+            if (m_usrc_LMOUser != null)
             {
-                m_usrc_LoginOfMyOrgUser.lbl_User.Text = m_UserName;
+                m_usrc_LMOUser.lbl_User.Text = m_UserName;
             }
             LoginSession_ID = null;
             LoggedIn = AWP_func.IsUserLoggedIn(LoginUsers_ID, ref LoginSession_ID);

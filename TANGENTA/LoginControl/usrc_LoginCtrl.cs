@@ -18,18 +18,18 @@ namespace LoginControl
     public partial class usrc_LoginCtrl : UserControl
     {
         public LoginCtrl m_LoginCtrl = null;
-        public LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        public LMOUser m_LMOUser = null;
 
         public usrc_LoginCtrl()
         {
             InitializeComponent();
         }
 
-        public void Bind(LoginCtrl xlctrl,LoginOfMyOrgUser loginOfMyOrgUser)
+        public void Bind(LoginCtrl xlctrl,LMOUser loginOfMyOrgUser)
         {
             m_LoginCtrl = xlctrl;
-            m_LoginOfMyOrgUser = loginOfMyOrgUser;
-            this.lbl_username.Text = m_LoginOfMyOrgUser.UserName;
+            m_LMOUser = loginOfMyOrgUser;
+            this.lbl_username.Text = m_LMOUser.UserName;
             if (loginOfMyOrgUser.IsAdministrator|| loginOfMyOrgUser.IsUserManager)
             {
                 btn_UserManager.Visible = true;
@@ -47,7 +47,7 @@ namespace LoginControl
                 case LoginCtrl.eDataTableCreationMode.AWP:
                     Navigation xnav = new Navigation(null);
                     xnav.m_eButtons = Navigation.eButtons.OkCancel;
-                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(m_LoginCtrl, xnav,this.ParentForm, m_LoginCtrl.awp.LoginOfMyOrgUser_Single);
+                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(m_LoginCtrl, xnav,this.ParentForm, m_LoginCtrl.awp.LMOUser_Single);
                     AWP_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
                     break;
 
@@ -64,7 +64,7 @@ namespace LoginControl
             {
                 case LoginCtrl.eDataTableCreationMode.AWP:
                     Form pForm = Global.f.GetParentForm(this);
-                    AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, m_LoginCtrl.awp.LoginOfMyOrgUser_Single.UserName, m_LoginCtrl.awp.LoginOfMyOrgUser_Single);
+                    AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, m_LoginCtrl.awp.LMOUser_Single.UserName, m_LoginCtrl.awp.LMOUser_Single);
                     awp_usr_info.ShowDialog(pForm);
                     break;
                 case LoginCtrl.eDataTableCreationMode.STD:

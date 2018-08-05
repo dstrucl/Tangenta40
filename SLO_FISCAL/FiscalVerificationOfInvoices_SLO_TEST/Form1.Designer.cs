@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.FVI_SLO();
+            this.m_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.FVI_SLO();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_End = new System.Windows.Forms.Button();
             this.txt_Response_ECHO_xml = new System.Windows.Forms.TextBox();
@@ -41,17 +41,12 @@
             // 
             // usrc_FVI_SLO1
             // 
-            this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = "";
-            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(12, 12);
-            this.usrc_FVI_SLO1.MessageBox_Length = 100;
-            this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
-            this.usrc_FVI_SLO1.Size = new System.Drawing.Size(39, 26);
-            this.usrc_FVI_SLO1.TabIndex = 0;
-            this.usrc_FVI_SLO1.Response_SingleInvoice += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_SingleInvoice(this.usrc_FVI_SLO1_Response_SingleInvoice);
-            this.usrc_FVI_SLO1.Response_ManyInvoices += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_ManyInvoices(this.usrc_FVI_SLO1_Response_ManyInvoices);
-            this.usrc_FVI_SLO1.Response_PP += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_PP(this.usrc_FVI_SLO1_Response_PP);
-            this.usrc_FVI_SLO1.Response_ECHO += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_ECHO(this.usrc_FVI_SLO1_Response_ECHO);
-            this.usrc_FVI_SLO1.Load += new System.EventHandler(this.usrc_FVI_SLO1_Load);
+            this.m_FVI_SLO1.FursD_ElectronicDeviceID = "";
+            this.m_FVI_SLO1.MessageBox_Length = 100;
+            this.m_FVI_SLO1.Response_SingleInvoice += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_SingleInvoice(this.usrc_FVI_SLO1_Response_SingleInvoice);
+            this.m_FVI_SLO1.Response_ManyInvoices += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_ManyInvoices(this.usrc_FVI_SLO1_Response_ManyInvoices);
+            this.m_FVI_SLO1.Response_PP += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_PP(this.usrc_FVI_SLO1_Response_PP);
+            this.m_FVI_SLO1.Response_ECHO += new FiscalVerificationOfInvoices_SLO.FVI_SLO.delegate_Response_ECHO(this.usrc_FVI_SLO1_Response_ECHO);
             // 
             // btn_Start
             // 
@@ -144,7 +139,7 @@
             this.Controls.Add(this.txt_Response_ECHO_xml);
             this.Controls.Add(this.btn_End);
             this.Controls.Add(this.btn_Start);
-            this.Controls.Add(this.usrc_FVI_SLO1);
+            this.components.Add(this.m_FVI_SLO1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -156,7 +151,7 @@
 
         #endregion
 
-        private FiscalVerificationOfInvoices_SLO.FVI_SLO usrc_FVI_SLO1;
+        private FiscalVerificationOfInvoices_SLO.FVI_SLO m_FVI_SLO1;
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.Button btn_End;
         private System.Windows.Forms.TextBox txt_Response_ECHO_xml;

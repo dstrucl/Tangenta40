@@ -1,6 +1,6 @@
 ﻿namespace LoginControl
 {
-    partial class usrc_LoginOfMyOrgUser
+    partial class usrc_LMOUser
     {
         /// <summary> 
         /// Required designer variable.
@@ -99,7 +99,7 @@
             this.pic_UserManager.TabIndex = 5;
             this.pic_UserManager.TabStop = false;
             // 
-            // usrc_LoginOfMyOrgUser
+            // usrc_LMOUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -110,7 +110,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_GetAccess);
             this.Controls.Add(this.btn_LoginLogout);
-            this.Name = "usrc_LoginOfMyOrgUser";
+            this.Name = "usrc_LMOUser";
             this.Size = new System.Drawing.Size(626, 142);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).EndInit();

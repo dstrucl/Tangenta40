@@ -427,10 +427,10 @@ namespace Tangenta
             }
             else
             {
-                ID atom_work_period_id = loginControl1.awp.LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID;
+                ID atom_work_period_id = loginControl1.awp.LMOUser_Single.Atom_WorkPeriod_ID;
                 if (ID.Validate(atom_work_period_id))
                 {
-                    TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LoginOfMyOrgUser_Single.Atom_WorkPeriod_ID);
+                    TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMOUser_Single.Atom_WorkPeriod_ID);
                 }
             }
             if (Program.b_FVI_SLO)
@@ -507,17 +507,17 @@ namespace Tangenta
 
         }
 
-        private void m_usrc_Main_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser, LoginControl.LoginCtrl.eExitReason eReason)
+        private void m_usrc_Main_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LMOUser xLMOUser, LoginControl.LoginCtrl.eExitReason eReason)
         {
-            if (xLoginOfMyOrgUser!=null)
+            if (xLMOUser!=null)
             {
-                if (ID.Validate(xLoginOfMyOrgUser.myOrganisation_Person_ID))
+                if (ID.Validate(xLMOUser.myOrganisation_Person_ID))
                 {
                     string sDataSource = DBSync.DBSync.DataSource;
                     ID xCurrent_Doc_ID = null;
                     if (ID.Validate(doc_ID))
                     {
-                        if (f_Current_Doc_ID.SetLast(sDocInvoice, doc_ID, sDataSource, xLoginOfMyOrgUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xCurrent_Doc_ID))
+                        if (f_Current_Doc_ID.SetLast(sDocInvoice, doc_ID, sDataSource, xLMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xCurrent_Doc_ID))
                         {
                         }
                     }
@@ -1318,49 +1318,49 @@ namespace Tangenta
             return false;
         }
 
-        private void loginControl1_UserLoggedIn(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        private void loginControl1_UserLoggedIn(LoginControl.LMOUser xLMOUser)
         {
             SettingsUser user_settings = new SettingsUser();
-            if (user_settings.Load(xLoginOfMyOrgUser))
+            if (user_settings.Load(xLMOUser))
             {
-                xLoginOfMyOrgUser.oSettings = user_settings;
-                //xLoginOfMyOrgUser.Form_settingsuser = new Form_SettingsUsers(xLoginOfMyOrgUser);
-                //((Form_SettingsUsers)xLoginOfMyOrgUser.Form_settingsuser).InitAfterLoad();
-                //xLoginOfMyOrgUser.Form_settingsuser.Owner = this;
-                //xLoginOfMyOrgUser.Form_settingsuser.Show();
+                xLMOUser.oSettings = user_settings;
+                //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
+                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
+                //xLMOUser.Form_settingsuser.Owner = this;
+                //xLMOUser.Form_settingsuser.Show();
 
                 usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
                 xusrc_DocumentMan.Visible = false;
                 xusrc_DocumentMan.Dock = DockStyle.Fill;
                 this.Controls.Add(xusrc_DocumentMan);
-                xusrc_DocumentMan.Initialise(this, xLoginOfMyOrgUser);
+                xusrc_DocumentMan.Initialise(this, xLMOUser);
                 xusrc_DocumentMan.Init();
-                xLoginOfMyOrgUser.m_usrc_DocumentMan = xusrc_DocumentMan;
+                xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan;
                 xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
 
             }
         }
 
-        private void loginControl1_UserLoggedOut(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        private void loginControl1_UserLoggedOut(LoginControl.LMOUser xLMOUser)
         {
-            SettingsUser user_settings = (SettingsUser) xLoginOfMyOrgUser.oSettings;
+            SettingsUser user_settings = (SettingsUser) xLMOUser.oSettings;
             LayoutSave(user_settings.mSettingsUserValues);
             user_settings.Save();
-            //((Form_SettingsUsers)xLoginOfMyOrgUser.Form_settingsuser).InitAfterSave();
-            //((Form_SettingsUsers)xLoginOfMyOrgUser.Form_settingsuser).Refresh();
-            this.Controls.Remove((usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan); 
-            ((usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan).Dispose();
-            xLoginOfMyOrgUser.m_usrc_DocumentMan = null;
+            //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
+            //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
+            this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan); 
+            ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+            xLMOUser.m_usrc_DocumentMan = null;
         }
 
-        private void loginControl1_ActivateDocumentMan(LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        private void loginControl1_ActivateDocumentMan(LoginControl.LMOUser xLMOUser)
         {
 
-            DocumentMan = (usrc_DocumentMan)xLoginOfMyOrgUser.m_usrc_DocumentMan;
+            DocumentMan = (usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan;
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
 
-            SettingsUser user_settings = (SettingsUser)xLoginOfMyOrgUser.oSettings;
+            SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
             LayoutSet(user_settings.mSettingsUserValues);
 
             DocumentMan.Active = true;

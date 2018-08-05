@@ -45,7 +45,7 @@ namespace LoginControl
             }
         }
 
-        public usrc_LoginOfMyOrgUser[] usrc_Item_aray = null;
+        public usrc_LMOUser[] usrc_Item_aray = null;
 
         public usrc_MultipleUsers()
         {
@@ -66,7 +66,7 @@ namespace LoginControl
             }
             
             m_awp = xawp;
-            usrc_Item_aray = new usrc_LoginOfMyOrgUser[NumberOfItemsPerPage];
+            usrc_Item_aray = new usrc_LMOUser[NumberOfItemsPerPage];
 
             int i = 0;
             int yPos = 0;
@@ -80,7 +80,7 @@ namespace LoginControl
             pnl_Items.AutoScrollPosition = new Point(0, 0);
             for (i = 0; i < m_NumberOfItemsPerPage; i++)
             {
-                usrc_LoginOfMyOrgUser usrc_item = new usrc_LoginOfMyOrgUser(m_awp.lctrl);
+                usrc_LMOUser usrc_item = new usrc_LMOUser(m_awp.lctrl);
                 usrc_item.m_usrc_MultipleUsers = this;
                 usrc_item.Top = yPos;
                 usrc_item.Left = 5;
@@ -160,14 +160,14 @@ namespace LoginControl
         {
             foreach (Control ctrl in this.pnl_Items.Controls)
             {
-                if (ctrl is usrc_LoginOfMyOrgUser)
+                if (ctrl is usrc_LMOUser)
                 {
-                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser != null)
+                    usrc_LMOUser xusrc_LMOUser = (usrc_LMOUser)ctrl;
+                    if (xusrc_LMOUser.m_LMOUser != null)
                     {
-                        if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                        if (xusrc_LMOUser.m_LMOUser.LoggedIn)
                         {
-                            xusrc_LoginOfMyOrgUser.DoLogout();
+                            xusrc_LMOUser.DoLogout();
                         }
                     }
                 }
@@ -179,12 +179,12 @@ namespace LoginControl
             int iCount = 0;
             foreach (Control ctrl in this.pnl_Items.Controls)
             {
-                if (ctrl is usrc_LoginOfMyOrgUser)
+                if (ctrl is usrc_LMOUser)
                 {
-                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser != null)
+                    usrc_LMOUser xusrc_LMOUser = (usrc_LMOUser)ctrl;
+                    if (xusrc_LMOUser.m_LMOUser != null)
                     {
-                        if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                        if (xusrc_LMOUser.m_LMOUser.LoggedIn)
                         {
                             iCount++;
                         }
@@ -199,7 +199,7 @@ namespace LoginControl
             if (this.Visible)
             {
                 LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=TRUE");
-                usrc_LoginOfMyOrgUser usrc_item = (usrc_LoginOfMyOrgUser)o_usrc;
+                usrc_LMOUser usrc_item = (usrc_LMOUser)o_usrc;
                 if (bVisible)
                 {
                     if (o_data is DataRow)
@@ -286,12 +286,12 @@ namespace LoginControl
         {
             foreach (Control ctrl in this.pnl_Items.Controls)
             {
-                if (ctrl is usrc_LoginOfMyOrgUser)
+                if (ctrl is usrc_LMOUser)
                 {
-                    usrc_LoginOfMyOrgUser xusrc_LoginOfMyOrgUser = (usrc_LoginOfMyOrgUser)ctrl;
-                    if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser != null)
+                    usrc_LMOUser xusrc_LMOUser = (usrc_LMOUser)ctrl;
+                    if (xusrc_LMOUser.m_LMOUser != null)
                     {
-                        if (xusrc_LoginOfMyOrgUser.m_LoginOfMyOrgUser.LoggedIn)
+                        if (xusrc_LMOUser.m_LMOUser.LoggedIn)
                         {
                             MessageBox.Show(lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut.s);
                             return;

@@ -40,9 +40,11 @@ namespace Tangenta
                 base.Visible = value;
             }
         }
+
         private SettingsUserValues mSettingsUserValues = null;
 
-        private LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        private LoginControl.LMOUser m_LMOUser = null;
+
         private Door door = null;
 
         private Form_Document m_Form_Document = null;
@@ -50,7 +52,7 @@ namespace Tangenta
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
 
-        public delegate void delegate_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser, LoginControl.LoginCtrl.eExitReason eReason);
+        public delegate void delegate_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LMOUser m_LMOUser, LoginControl.LoginCtrl.eExitReason eReason);
 
         private int timer_Login_MultiUsers_Countdown = 100;
 
@@ -632,7 +634,7 @@ namespace Tangenta
                     if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
                     {
                         Program.Cursor_Wait();
-                        m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, FinancialYear, currency, xAtom_Currency_ID, workArea);
+                        m_usrc_DocumentEditor.SetNewDraft(m_LMOUser,eInvType, FinancialYear, currency, xAtom_Currency_ID, workArea);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -797,7 +799,7 @@ namespace Tangenta
                         DataTable xdt_ShopA_Items = null;
                         if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                         {
-                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,eInvType, xFinancialYear, currency, xAtom_Currency_ID,null);
+                            m_usrc_DocumentEditor.SetNewDraft(m_LMOUser,eInvType, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -856,7 +858,7 @@ namespace Tangenta
                             Set_cmb_InvoiceType_selected_index();
                             this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
-                            m_usrc_DocumentEditor.SetNewDraft(m_LoginOfMyOrgUser,New_eInvType, xFinancialYear, currency, xAtom_Currency_ID,null);
+                            m_usrc_DocumentEditor.SetNewDraft(m_LMOUser,New_eInvType, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -1002,16 +1004,16 @@ namespace Tangenta
             }
         }
 
-        internal bool Initialise(Form_Document main_Form, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        internal bool Initialise(Form_Document main_Form, LoginControl.LMOUser xLMOUser)
         {
-            mSettingsUserValues = ((SettingsUser)xLoginOfMyOrgUser.oSettings).mSettingsUserValues;
+            mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             m_Form_Document = main_Form;
-            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
-            door = new Door(m_LoginOfMyOrgUser);
-            this.usrc_loginControl1.Bind(main_Form.loginControl1, xLoginOfMyOrgUser);
+            m_LMOUser = xLMOUser;
+            door = new Door(m_LMOUser);
+            this.usrc_loginControl1.Bind(main_Form.loginControl1, xLMOUser);
             this.usrc_FVI_SLO1.Bind(m_Form_Document.fvI_SLO1);
-            this.m_usrc_TableOfDocuments.Bind(m_LoginOfMyOrgUser);
-            return m_usrc_DocumentEditor.Initialise(this, m_LoginOfMyOrgUser);
+            this.m_usrc_TableOfDocuments.Bind(m_LMOUser);
+            return m_usrc_DocumentEditor.Initialise(this, m_LMOUser);
         }
 
 
@@ -1107,7 +1109,7 @@ namespace Tangenta
                 {
                     if (m_Form_Document.loginControl1.Login_SingleUser(xnav))
                     {
-                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(m_Form_Document.loginControl1.awp.LoginOfMyOrgUser_Single.myOrganisation_Person_ID);
+                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(m_Form_Document.loginControl1.awp.LMOUser_Single.myOrganisation_Person_ID);
                         if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
                         {
                             return true;
@@ -1138,8 +1140,8 @@ namespace Tangenta
                                                      LoginControl.lng.s_WorkPeriod.s,
                                                      DateTime.Now,
                                                      null,
-                                                     ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,
-                                                     ref m_LoginOfMyOrgUser.Atom_WorkPeriod_ID,
+                                                     ref m_LMOUser.Atom_myOrganisation_Person_ID,
+                                                     ref m_LMOUser.Atom_WorkPeriod_ID,
                                                      ref Err))
                         {
                             //myStartup.eNextStep++;
@@ -1163,8 +1165,8 @@ namespace Tangenta
                                     LoginControl.lng.s_WorkPeriod.s,
                                     DateTime.Now,
                                     null,
-                                    ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,
-                                    ref m_LoginOfMyOrgUser.Atom_WorkPeriod_ID,
+                                    ref m_LMOUser.Atom_myOrganisation_Person_ID,
+                                    ref m_LMOUser.Atom_WorkPeriod_ID,
                                     ref Err))
                                 {
                                     //myStartup.eNextStep++;
@@ -1190,8 +1192,8 @@ namespace Tangenta
                                 LoginControl.lng.s_WorkPeriod.s,
                                 DateTime.Now,
                                 null,
-                                ref m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID,
-                                ref m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, ref Err))
+                                ref m_LMOUser.Atom_myOrganisation_Person_ID,
+                                ref m_LMOUser.Atom_WorkPeriod_ID, ref Err))
                             {
                                 //myStartup.eNextStep++;
                                 return true;
@@ -1217,7 +1219,7 @@ namespace Tangenta
         {
             if (Exit_Click != null)
             {
-                Exit_Click(DocInvoice,this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LoginOfMyOrgUser,LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(DocInvoice,this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser,LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 
@@ -1225,7 +1227,7 @@ namespace Tangenta
         {
             if (Exit_Click != null)
             {
-                Exit_Click(DocInvoice, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LoginOfMyOrgUser, eres);
+                Exit_Click(DocInvoice, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser, eres);
             }
         }
 
@@ -1281,7 +1283,7 @@ namespace Tangenta
             }
             else
             {
-                Exit_Click(DocInvoice, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LoginOfMyOrgUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(DocInvoice, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 

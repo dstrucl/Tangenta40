@@ -31,7 +31,7 @@ namespace Tangenta
     {
         SettingsUserValues mSettingsUserValues = null;
         public ID Atom_Currency_ID = null;
-        private LoginControl.LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        private LoginControl.LMOUser m_LMOUser = null;
         private Door door = null;
         public usrc_ShopA m_usrc_ShopA = null;
         public usrc_ShopB m_usrc_ShopB = null;
@@ -314,7 +314,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
-            m_usrc_ShopC.Init(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,Program.Shops_in_use,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC.Init(m_LMOUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,Program.Shops_in_use,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -322,7 +322,7 @@ namespace Tangenta
 
         private bool M_usrc_ShopC_CheckIfAdministrator()
         {
-            return m_LoginOfMyOrgUser.IsAdministrator;
+            return m_LMOUser.IsAdministrator;
         }
 
         private bool M_usrc_ShopC_CheckAccessStock()
@@ -859,12 +859,12 @@ namespace Tangenta
         }
 
 
-        public bool Initialise(usrc_DocumentMan xusrc_DocumentMan, LoginControl.LoginOfMyOrgUser xLoginOfMyOrgUser)
+        public bool Initialise(usrc_DocumentMan xusrc_DocumentMan, LoginControl.LMOUser xLMOUser)
         {
-            this.mSettingsUserValues = ((SettingsUser)xLoginOfMyOrgUser.oSettings).mSettingsUserValues;
+            this.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             m_usrc_DocumentMan = xusrc_DocumentMan;
-            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
-            door = new Door(m_LoginOfMyOrgUser);
+            m_LMOUser = xLMOUser;
+            door = new Door(m_LMOUser);
             lng.s_Head.Text(chk_Head);
             chk_Head.Checked = mSettingsUserValues.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
@@ -904,7 +904,7 @@ namespace Tangenta
             }
             if (m_ShopABC == null)
             {
-                m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
+                m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LMOUser.Atom_WorkPeriod_ID);
             }
             if (m_InvoiceData == null)
             {
@@ -1098,7 +1098,7 @@ namespace Tangenta
                 splitContainer2.Panel1Collapsed = true;
             }
 
-            ((SettingsUser)m_LoginOfMyOrgUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
+            ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -1583,7 +1583,7 @@ namespace Tangenta
             }
         }
 
-        public void SetNewDraft(LoginOfMyOrgUser xLoginOfMyOrgUser, enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
+        public void SetNewDraft(LMOUser xLMOUser, enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
         {
             switch (eInvoiceType)
             {
@@ -1591,9 +1591,9 @@ namespace Tangenta
                 case enum_Invoice.TaxInvoice:
                     if (m_ShopABC == null)
                     {
-                        m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LoginOfMyOrgUser.Atom_WorkPeriod_ID);
+                        m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LMOUser.Atom_WorkPeriod_ID);
                     }
-                    if (SetNewInvoiceDraft(xLoginOfMyOrgUser,xFinancialYear, xcurrency, Atom_Currency_ID, workArea))
+                    if (SetNewInvoiceDraft(xLMOUser,xFinancialYear, xcurrency, Atom_Currency_ID, workArea))
                     {
                         SetMode(emode.edit_eDocumentType);
                     }
@@ -1605,13 +1605,13 @@ namespace Tangenta
 
         }
 
-        private bool SetNewInvoiceDraft(LoginOfMyOrgUser xLoginOfMyOrgUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, WArea workArea)
+        private bool SetNewInvoiceDraft(LMOUser xLMOUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, WArea workArea)
         {
             ID DocInvoice_ID = null;
             string Err = null;
             if (Program.OperationMode.MultiUser)
             {
-                myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(xLoginOfMyOrgUser.myOrganisation_Person_ID);
+                myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(xLMOUser.myOrganisation_Person_ID);
             }
 
             if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
@@ -1629,7 +1629,7 @@ namespace Tangenta
                 }
             }
 
-            if (m_ShopABC.SetNewDraft_DocInvoice(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
             {
                 if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))
                 {
@@ -1807,7 +1807,7 @@ namespace Tangenta
                   
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LoginOfMyOrgUser.Atom_WorkPeriod_ID))
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
                     {
 
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
@@ -1820,7 +1820,7 @@ namespace Tangenta
                                 || (m_InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.FVI_SLO1.FVI_for_payment_on_bank_account)
                                 )
                             {
-                                UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(m_LoginOfMyOrgUser.Atom_myOrganisation_Person_ID);
+                                UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(m_LMOUser.Atom_myOrganisation_Person_ID);
                                 this.SendInvoice(GrossSum, TaxSum, xInvoiceAuthor);
                             }
                         }
@@ -1850,7 +1850,7 @@ namespace Tangenta
                 {
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LoginOfMyOrgUser.Atom_WorkPeriod_ID))
+                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
                     {
                         m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
@@ -2062,7 +2062,7 @@ namespace Tangenta
 
         private bool Printing_DocInvoice()
         {
-            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, m_InvoiceData,Properties.Resources.Exit,door.OpenIfUserIsAdministrator);
+            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, m_InvoiceData,Properties.Resources.Exit,door.OpenIfUserIsAdministrator);
             template_dlg.Owner = Global.f.GetParentForm(this);
             if (template_dlg.ShowDialog(this)==DialogResult.OK)
             {
@@ -2126,7 +2126,7 @@ namespace Tangenta
     
                                     ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(m_LoginOfMyOrgUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID,true,GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
+                                    if (m_ShopABC.m_CurrentInvoice.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID,true,GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
                                         if (Storno != null)
                                         {

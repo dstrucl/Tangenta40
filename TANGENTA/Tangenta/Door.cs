@@ -11,11 +11,11 @@ namespace Tangenta
 {
     public class Door
     {
-        LoginOfMyOrgUser m_LoginOfMyOrgUser = null;
+        LMOUser m_LMOUser = null;
 
-        public Door(LoginOfMyOrgUser xLoginOfMyOrgUser)
+        public Door(LMOUser xLMOUser)
         {
-            m_LoginOfMyOrgUser = xLoginOfMyOrgUser;
+            m_LMOUser = xLMOUser;
         }
         internal bool DoLoginAsAdministrator(Form frm)
         {
@@ -34,7 +34,7 @@ namespace Tangenta
         {
             if (Program.OperationMode.MultiUser)
             {
-                if (m_LoginOfMyOrgUser.IsAdministrator)
+                if (m_LMOUser.IsAdministrator)
                 {
                     return true;
                 }
@@ -109,7 +109,7 @@ namespace Tangenta
         {
             if (Program.MainForm!=null)
             {
-                return m_LoginOfMyOrgUser.HasLoginControlRole(Roles);
+                return m_LMOUser.HasLoginControlRole(Roles);
             }
             return true;
         }

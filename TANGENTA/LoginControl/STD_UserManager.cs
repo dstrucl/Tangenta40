@@ -267,7 +267,7 @@ namespace LoginControl
                                                                               txtLastName.Text,
                                                                               txtIdentityNumber.Text,
                                                                               txtContact.Text,
-                                                                              Convert.ToInt32(std.lctrl.awp.LoginOfMyOrgUser_Single.LoginUsers_id),
+                                                                              Convert.ToInt32(std.lctrl.awp.LMOUser_Single.LoginUsers_id),
                                                                               this.rdb_PaswordExpires_Never.Checked,
                                                                               chk_ChangePasswordOnFirstLogIn.Checked,
                                                                               Convert.ToInt32(nmUpDn_MaxPasswordAge.Value),
