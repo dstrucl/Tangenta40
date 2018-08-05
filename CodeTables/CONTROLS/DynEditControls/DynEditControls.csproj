@@ -114,6 +114,12 @@
     <Compile Include="usrc_GetImage.Designer.cs">
       <DependentUpon>usrc_GetImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_NumericUpDown2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_NumericUpDown2.Designer.cs">
+      <DependentUpon>usrc_NumericUpDown2.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_NumericUpDown.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     <EmbeddedResource Include="usrc_GetImage.resx">
       <DependentUpon>usrc_GetImage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_NumericUpDown2.resx">
+      <DependentUpon>usrc_NumericUpDown2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_NumericUpDown.resx">
       <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
     </EmbeddedResource>
@@ -197,6 +206,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Logo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up1.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

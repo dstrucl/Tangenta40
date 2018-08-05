@@ -279,6 +279,10 @@
       <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
       <Name>Country_ISO_3166</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>

@@ -21,6 +21,7 @@ using LanguageControl;
 using TangentaDB;
 using Form_Discount;
 using DBConnectionControl40;
+using DynEditControls;
 
 namespace ShopC
 {
@@ -77,10 +78,23 @@ namespace ShopC
         public usrc_Atom_Item m_usrc_Atom_Item = null;
         private Color DefaultColor = Color.Gray;
 
-        private int x0_pic_Item = 0;
-        private int x1_btn_EditItem = 0;
-        private int x2_btn_NoStock = 0;
-        private int x3_lbl_ItemPrice = 0;
+        private int x0_pic_Item_Left = 0;
+        private int x1_lbl_Item_Left = 0;
+
+        private int x1_btn_EditItem_Left = 0;
+
+        private int x2_btn_NoStock_Left = 0;
+        private int x2_btn_NoStock_Top = 0;
+        private int x2_btn_NoStock_Height = 0;
+        private int x2_btn_NoStock_Width = 0;
+
+        private int x2_btn_Stock_Left = 0;
+        private int x2_btn_Stock_Top = 0;
+        private int x2_btn_Stock_Height = 0;
+        private int x2_btn_Stock_Width = 0;
+
+
+        private int x3_lbl_ItemPrice_Left = 0;
 
         private int cx_lbl_Item_large_width = 0;
         private int cx_lbl_Item_small_width = 0;
@@ -90,12 +104,27 @@ namespace ShopC
         {
             InitializeComponent();
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-            x0_pic_Item = pic_Item.Left;
-            x1_btn_EditItem = btn_EditItem.Left;
-            x2_btn_NoStock = btn_NoStock.Left;
-            x3_lbl_ItemPrice = lbl_ItemPrice.Left;
+
+            x0_pic_Item_Left = pic_Item.Left;
+
+            x1_lbl_Item_Left = lbl_Item.Left;
+
+            x1_btn_EditItem_Left = btn_EditItem.Left;
+
+
+            x2_btn_NoStock_Left = btn_NoStock.Left;
+            x2_btn_NoStock_Top = btn_NoStock.Top;
+            x2_btn_NoStock_Height = btn_NoStock.Height;
+            x2_btn_NoStock_Width = btn_NoStock.Width;
+
+            x2_btn_Stock_Left = btn_Stock.Left;
+            x2_btn_Stock_Top = btn_Stock.Top;
+            x2_btn_Stock_Height = btn_Stock.Height;
+            x2_btn_Stock_Width = btn_Stock.Width;
+
+            x3_lbl_ItemPrice_Left = lbl_ItemPrice.Left;
             cx_lbl_Item_small_width = lbl_Item.Width;
-            cx_lbl_Item_large_width = cx_lbl_Item_small_width + x1_btn_EditItem - x0_pic_Item;
+            cx_lbl_Item_large_width = cx_lbl_Item_small_width + x1_btn_EditItem_Left - x0_pic_Item_Left;
             
             DefaultColor = BackColor;
         }
@@ -159,7 +188,7 @@ namespace ShopC
             }
         }
 
-        private decimal GetValue(NumericUpDown nmUpDn_Quantity)
+        private decimal GetValue(usrc_NumericUpDown2 nmUpDn_Quantity)
         {
             if (nmUpDn_Quantity.Visible)
             {
@@ -244,18 +273,18 @@ namespace ShopC
         private void Paint_Item_Mode(eMode xeMode)
         {
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Contains(m_Item_Data);
-            int xStart = x0_pic_Item;
+            int xStart = x0_pic_Item_Left;
             switch (xeMode)
             {
                 case eMode.STOCK_AND_FACTORY:
                     if (m_Item_Data.Item_Image_Image_Data!=null)
                     {
-                        xStart = x1_btn_EditItem;
+                        xStart = x1_lbl_Item_Left;
                     }
                     pic_Item.Visible = false;
                     btn_EditItem.Visible = true;
-                    btn_EditItem.Left = xStart;
-                    lbl_Item.Left = xStart + btn_EditItem.Width + 2;
+                    btn_EditItem.Left = xStart+  cx_lbl_Item_large_width + 4;
+                    lbl_Item.Left = xStart + 2;
                     lbl_Item.Width = cx_lbl_Item_large_width;
                     if (appisd_in_Basket != null)
                     {
@@ -304,10 +333,14 @@ namespace ShopC
                                 {
                                     btn_NoStock.Visible = true;
                                     btn_NoStock.Left = xStart;
+                                    btn_NoStock.Top = x2_btn_Stock_Top;
+                                    btn_NoStock.Width = x2_btn_Stock_Width;
+                                    btn_NoStock.Height = x2_btn_Stock_Height;
+                                    lbl_InStock.Left = btn_NoStock.Left+ btn_NoStock.Width+2;
                                     nmUpDn_FactoryQuantity.Visible = true;
                                     nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
                                 }
-                                Set_bottom_line();
+                                Set_info_line();
                             }
                             else
                             {
@@ -329,15 +362,20 @@ namespace ShopC
                         nmUpDn_StockQuantity.Left = btn_Stock.Left + btn_Stock.Width + 2;
                         txt_InStock.Visible = true;
                         lbl_InStock.Visible = true;
+                        lbl_InStock.Left = btn_Stock.Left + btn_Stock.Width + 2;
 
                         if (!ExclusivelySellFromStock)
                         {
                             btn_NoStock.Visible = true;
+                            btn_NoStock.Top = x2_btn_Stock_Top;
+                            btn_NoStock.Width = x2_btn_Stock_Width;
+                            btn_NoStock.Height = x2_btn_Stock_Height;
                             btn_NoStock.Left = nmUpDn_StockQuantity.Left + nmUpDn_StockQuantity.Width + 10;
+
                             nmUpDn_FactoryQuantity.Visible = true;
                             nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
                         }
-                        Set_bottom_line();
+                        Set_info_line();
                     }
                     this.BackColor = Colors.ItemFromStock.BackColor;
                     this.ForeColor = Colors.ItemFromStock.ForeColor;
@@ -349,15 +387,15 @@ namespace ShopC
                     break;
 
                 case eMode.FACTORY:
-                    xStart = x0_pic_Item;
+                    xStart = x0_pic_Item_Left;
                     if (m_Item_Data.Item_Image_Image_Data!=null)
                     {
-                        xStart = x1_btn_EditItem;
+                        xStart = x1_btn_EditItem_Left;
                     }
                     pic_Item.Visible = false;
                     btn_EditItem.Visible = true;
-                    btn_EditItem.Left = xStart;
-                    lbl_Item.Left = xStart + btn_EditItem.Width + 2;
+                    btn_EditItem.Left = xStart + cx_lbl_Item_large_width + 4; ;
+                    lbl_Item.Left = xStart + 2;
                     lbl_Item.Width = cx_lbl_Item_large_width;
                     lbl_InStock.Visible = false;
                     txt_InStock.Visible = false;
@@ -403,11 +441,15 @@ namespace ShopC
                         {
                             btn_NoStock.Visible = true;
                             btn_NoStock.Left = xStart;
+                            btn_NoStock.Top = x2_btn_Stock_Top;
+                            btn_NoStock.Width = x2_btn_Stock_Width;
+                            btn_NoStock.Height = x2_btn_Stock_Height;
+                            lbl_InStock.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
                             nmUpDn_FactoryQuantity.Visible = true;
                             nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
                         }
                     }
-
+                    Set_info_line();
                     //m_Arrangement.Set(0, btn_NoStock, nmUpDn_FactoryQuantity, m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Contains(m_Item_Data));
                     this.BackColor = Colors.ItemFromFactory.BackColor;
                     this.ForeColor = Colors.ItemFromFactory.ForeColor;
@@ -434,13 +476,12 @@ namespace ShopC
             
         }
 
-        private void Set_bottom_line()
+        private void Set_info_line()
         {
-            lbl_InStock.Left = 2;
             txt_InStock.Left = lbl_InStock.Left + lbl_InStock.Width + 2;
             lbl_ItemPrice.Left = txt_InStock.Left + txt_InStock.Width + 2;
             txt_Price.Left = lbl_ItemPrice.Left + lbl_ItemPrice.Width + 2;
-            btn_Discount.Left = txt_Price.Left + txt_Price.Width + 2;
+            //btn_Discount.Left = txt_Price.Left + txt_Price.Width + 2;
 
             int desc_left_After_btn_Discount = btn_Discount.Left + btn_Discount.Width + 2;
             int desc_left_After_nmUpDn_FactoryQuantity = nmUpDn_FactoryQuantity.Left + nmUpDn_FactoryQuantity.Width + 2;
