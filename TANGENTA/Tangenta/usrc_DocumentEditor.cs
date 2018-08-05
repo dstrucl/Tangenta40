@@ -94,23 +94,23 @@ namespace Tangenta
             }
         }
 
-        private string m_DocInvoice = null;
+        private string m_DocTyp = null;
 
-        public string DocInvoice
+        public string DocTyp
         {
             get {
-                    if (m_DocInvoice==null)
+                    if (m_DocTyp==null)
                     {
                         //LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
                     }
-                    return m_DocInvoice;
+                    return m_DocTyp;
                 }
             set
             {
                 string s = value;
                 if (s.Equals(Program.const_DocInvoice) || s.Equals(Program.const_DocProformaInvoice))
                 {
-                    m_DocInvoice = s;
+                    m_DocTyp = s;
                 }
                 else
                 {
@@ -127,15 +127,15 @@ namespace Tangenta
 
                 if (this.m_ShopABC != null)
                 {
-                    this.m_ShopABC.DocInvoice = DocInvoice;
+                    this.m_ShopABC.DocInvoice = DocTyp;
                 }
                 if (this.m_usrc_ShopB!= null)
                 {
-                    this.m_usrc_ShopB.DocInvoice = DocInvoice;
+                    this.m_usrc_ShopB.DocInvoice = DocTyp;
                 }
                 if (this.m_usrc_ShopC != null)
                 {
-                    this.m_usrc_ShopC.DocInvoice = DocInvoice;
+                    this.m_usrc_ShopC.DocInvoice = DocTyp;
                 }
             }
         }
@@ -143,13 +143,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals(Program.const_DocInvoice); }
+            { return DocTyp.Equals(Program.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
+            { return DocTyp.Equals(Program.const_DocProformaInvoice); }
         }
 
         public enum emode
@@ -209,12 +209,6 @@ namespace Tangenta
 
         private bool chk_Storno_CanBe_ManualyChanged = true;
 
-        public enum enum_Invoice
-        {
-            TaxInvoice,
-            ProformaInvoice
-        };
-
         public int NumberOfShopBGroupLevels
         {
             get
@@ -246,24 +240,6 @@ namespace Tangenta
         }
 
 
-        public enum_Invoice eInvoiceType
-        {
-            get
-            {
-                if (IsDocInvoice)
-                {
-                    return enum_Invoice.TaxInvoice;
-                }
-                else if (IsDocProformaInvoice)
-                {
-                    return enum_Invoice.ProformaInvoice;
-                }
-                else
-                {
-                    return enum_Invoice.ProformaInvoice;
-                }
-            }
-        }
         public List<Employee> Employees = new List<Employee>();
 
         private void New_ShopA()
@@ -309,7 +285,7 @@ namespace Tangenta
             if (m_usrc_ShopC == null)
             {
                 m_usrc_ShopC = new usrc_ShopC();
-                m_usrc_ShopC.DocInvoice = this.DocInvoice;
+                m_usrc_ShopC.DocInvoice = this.DocTyp;
                 m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
@@ -458,7 +434,7 @@ namespace Tangenta
 
                 m_usrc_ShopB = new usrc_ShopB();
 
-                m_usrc_ShopB.DocInvoice = this.DocInvoice;
+                m_usrc_ShopB.DocInvoice = this.DocTyp;
 
                 m_usrc_ShopB.CheckAccessPriceList += M_usrcCheckPriceListAccess;
 
@@ -545,43 +521,6 @@ namespace Tangenta
             {
                 Set_eShopsMode_ABC();
             }
-        }
-
-        public class InvoiceType
-        {
-            private enum_Invoice m_eInvoiceType = enum_Invoice.TaxInvoice;
-            private string m_InvoiceType_Text = null;
-            private string m_InvoiceTypeName = null;
-
-            public enum_Invoice eInvoiceType
-            {
-                get { return m_eInvoiceType; }
-            }
-            public string InvoiceType_Text
-            {
-                get { return m_InvoiceType_Text; }
-            }
-
-            public string InvoiceTypeName
-            {
-                get { return m_InvoiceTypeName; }
-            }
-
-            public InvoiceType(string name, enum_Invoice etyp)
-            {
-                m_InvoiceType_Text = name;
-                m_eInvoiceType = etyp;
-                switch (etyp)
-                {
-                    case enum_Invoice.TaxInvoice:
-                        m_InvoiceTypeName = Program.const_DocInvoice;
-                        break;
-                    case enum_Invoice.ProformaInvoice:
-                        m_InvoiceTypeName = Program.const_DocProformaInvoice;
-                        break;
-                }
-            }
-
         }
 
         public enum enum_GetOrganisation_Person_Data { MyOrganisation_Data_OK,
@@ -904,7 +843,7 @@ namespace Tangenta
             }
             if (m_ShopABC == null)
             {
-                m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LMOUser.Atom_WorkPeriod_ID);
+                m_ShopABC = new ShopABC(DocTyp,DBtcn,m_LMOUser.Atom_WorkPeriod_ID);
             }
             if (m_InvoiceData == null)
             {
@@ -1359,13 +1298,23 @@ namespace Tangenta
 
         private bool GetCurrent(ID xID)
         {
-            switch (eInvoiceType)
+            if (DocTyp != null)
             {
-                case enum_Invoice.TaxInvoice:
-                case enum_Invoice.ProformaInvoice:
+                if (DocTyp.Equals(Program.const_DocInvoice) || DocTyp.Equals(Program.const_DocProformaInvoice))
+                {
                     return GetCurrentInvoice(xID);
+                }
+                else
+                {
+                    LogFile.Error.Show("Tangenta:usrc_DocumentEditor:GetCurrent(ID xID):DocType=" + DocTyp+ " is not implemented!");
+                    return false;
+                }
             }
-            return false;
+            else
+            {
+                LogFile.Error.Show("Tangenta:usrc_DocumentEditor:GetCurrent(ID xID):DocType is null !");
+                return false;
+            }
 
         }
 
@@ -1583,23 +1532,19 @@ namespace Tangenta
             }
         }
 
-        public void SetNewDraft(LMOUser xLMOUser, enum_Invoice eInvType, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
+        public void SetNewDraft(LMOUser xLMOUser, string DocTyp, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
         {
-            switch (eInvoiceType)
+            if (DocTyp.Equals(Program.const_DocInvoice)|| DocTyp.Equals(Program.const_DocProformaInvoice))
             {
-                case enum_Invoice.ProformaInvoice:
-                case enum_Invoice.TaxInvoice:
                     if (m_ShopABC == null)
                     {
-                        m_ShopABC = new ShopABC(DocInvoice,DBtcn,m_LMOUser.Atom_WorkPeriod_ID);
+                    m_ShopABC = new ShopABC(this.DocTyp, DBtcn, m_LMOUser.Atom_WorkPeriod_ID);
                     }
                     if (SetNewInvoiceDraft(xLMOUser,xFinancialYear, xcurrency, Atom_Currency_ID, workArea))
                     {
                         SetMode(emode.edit_eDocumentType);
                     }
                     return;
-
-
             }
             return;
 
@@ -1629,7 +1574,7 @@ namespace Tangenta
                 }
             }
 
-            if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID,this.DocInvoice, GlobalData.ElectronicDevice_Name, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID,this.DocTyp, GlobalData.ElectronicDevice_Name, ref Err))
             {
                 if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))
                 {
@@ -1660,10 +1605,10 @@ namespace Tangenta
 
             foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
             {
-                decimal price = (decimal)dr[DocInvoice+"_ShopA_Item_$$EndPriceWithDiscountAndTax"];
-                decimal tax = (decimal)dr[DocInvoice + "_ShopA_Item_$$TAX"];
-                decimal tax_rate = (decimal)dr[DocInvoice + "_ShopA_Item_$_aisha_$_tax_$$Rate"];
-                string tax_name = (string)dr[DocInvoice + "_ShopA_Item_$_aisha_$_tax_$$Name"];
+                decimal price = (decimal)dr[DocTyp+"_ShopA_Item_$$EndPriceWithDiscountAndTax"];
+                decimal tax = (decimal)dr[DocTyp + "_ShopA_Item_$$TAX"];
+                decimal tax_rate = (decimal)dr[DocTyp + "_ShopA_Item_$_aisha_$_tax_$$Rate"];
+                string tax_name = (string)dr[DocTyp + "_ShopA_Item_$_aisha_$_tax_$$Name"];
                 dsum_GrossSum += price;
                 TaxSum.Add(tax, 0, tax_name, tax_rate);
                 dsum_NetSum += price - tax;
@@ -1777,7 +1722,7 @@ namespace Tangenta
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update "+this.DocInvoice+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.Doc_ID.ToString();
+            string sql_SetPrice = "update "+this.DocTyp+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.Doc_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
@@ -1799,7 +1744,7 @@ namespace Tangenta
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
 
-            if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
+            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
             {
                 if (IsDocInvoice)
                 {
@@ -2075,7 +2020,7 @@ namespace Tangenta
         {
             ID Atom_Customer_Person_ID = null;
             this.Cursor = Cursors.WaitCursor;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(DocInvoice,Customer_Person_ID, ref Atom_Customer_Person_ID))
+            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(DocTyp,Customer_Person_ID, ref Atom_Customer_Person_ID))
             {
                 if (ID.Validate(Atom_Customer_Person_ID))
                 {
@@ -2202,7 +2147,7 @@ namespace Tangenta
         {
             this.Cursor = Cursors.WaitCursor;
             ID Atom_Customer_Org_ID = null;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocInvoice,Customer_Org_ID, ref Atom_Customer_Org_ID))
+            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocTyp,Customer_Org_ID, ref Atom_Customer_Org_ID))
             {
                 m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
                 if (ID.Validate(Atom_Customer_Org_ID))

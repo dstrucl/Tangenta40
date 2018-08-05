@@ -72,7 +72,6 @@ namespace Tangenta
         {
             get
             {
-                return const_DocInvoice;
                 if (m_RunAs != null)
                 {
                     if (m_RunAs.ToUpper().Equals(const_command_DOCINVOICE))

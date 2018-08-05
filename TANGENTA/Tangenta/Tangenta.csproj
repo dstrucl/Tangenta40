@@ -148,6 +148,7 @@
     <Compile Include="Booting_00_TangentaAbout.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="ControlTagForHelp.cs" />
+    <Compile Include="DocType.cs" />
     <Compile Include="Form_NewDocument_WorkArea.cs">
       <SubType>Form</SubType>
     </Compile>

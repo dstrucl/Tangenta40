@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.cmb_InvoiceType = new System.Windows.Forms.ComboBox();
+            this.m_usrc_DocumentEditor = new Tangenta.usrc_DocumentEditor();
+            this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
+            this.cmb_DocType = new System.Windows.Forms.ComboBox();
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
             this.btn_New = new System.Windows.Forms.Button();
@@ -42,8 +44,6 @@
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
-            this.m_usrc_DocumentEditor = new Tangenta.usrc_DocumentEditor();
-            this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,15 +72,42 @@
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 0;
             // 
-            // cmb_InvoiceType
+            // m_usrc_DocumentEditor
             // 
-            this.cmb_InvoiceType.Enabled = false;
-            this.cmb_InvoiceType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmb_InvoiceType.FormattingEnabled = true;
-            this.cmb_InvoiceType.Location = new System.Drawing.Point(102, 4);
-            this.cmb_InvoiceType.Name = "cmb_InvoiceType";
-            this.cmb_InvoiceType.Size = new System.Drawing.Size(164, 28);
-            this.cmb_InvoiceType.TabIndex = 25;
+            this.m_usrc_DocumentEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_DocumentEditor.DocTyp = "DocInvoice";
+            this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
+            this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
+            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(979, 893);
+            this.m_usrc_DocumentEditor.SplitContainer1_spd = 267;
+            this.m_usrc_DocumentEditor.SplitContainer2_spd = 103;
+            this.m_usrc_DocumentEditor.SplitContainer3_spd = 172;
+            this.m_usrc_DocumentEditor.TabIndex = 0;
+            this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
+            this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
+            this.m_usrc_DocumentEditor.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
+            this.m_usrc_DocumentEditor.aa_Customer_Person_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
+            this.m_usrc_DocumentEditor.aa_Customer_Org_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
+            // 
+            // m_usrc_TableOfDocuments
+            // 
+            this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_TableOfDocuments.DocTyp = "DocInvoice";
+            this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
+            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(628, 893);
+            this.m_usrc_TableOfDocuments.TabIndex = 0;
+            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
+            // 
+            // cmb_DocType
+            // 
+            this.cmb_DocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmb_DocType.FormattingEnabled = true;
+            this.cmb_DocType.Location = new System.Drawing.Point(102, 4);
+            this.cmb_DocType.Name = "cmb_DocType";
+            this.cmb_DocType.Size = new System.Drawing.Size(164, 28);
+            this.cmb_DocType.TabIndex = 25;
             // 
             // cmb_FinancialYear
             // 
@@ -193,7 +220,7 @@
             this.pnl_MainMenu.Controls.Add(this.usrc_loginControl1);
             this.pnl_MainMenu.Controls.Add(this.lbl_FinancialYear);
             this.pnl_MainMenu.Controls.Add(this.m_usrc_Help);
-            this.pnl_MainMenu.Controls.Add(this.cmb_InvoiceType);
+            this.pnl_MainMenu.Controls.Add(this.cmb_DocType);
             this.pnl_MainMenu.Controls.Add(this.btn_New);
             this.pnl_MainMenu.Controls.Add(this.btn_Exit);
             this.pnl_MainMenu.Controls.Add(this.cmb_FinancialYear);
@@ -209,35 +236,6 @@
             // 
             this.timer_Login_MultiUser.Interval = 1000;
             this.timer_Login_MultiUser.Tick += new System.EventHandler(this.timer_Login_MultiUser_Tick);
-            // 
-            // m_usrc_DocumentEditor
-            // 
-            this.m_usrc_DocumentEditor.DocInvoice = "DocInvoice";
-            this.m_usrc_DocumentEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
-            this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
-            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(979, 893);
-            this.m_usrc_DocumentEditor.SplitContainer1_spd = 267;
-            this.m_usrc_DocumentEditor.SplitContainer2_spd = 103;
-            this.m_usrc_DocumentEditor.SplitContainer3_spd = 172;
-            this.m_usrc_DocumentEditor.TabIndex = 0;
-            this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
-            this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
-            this.m_usrc_DocumentEditor.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
-            this.m_usrc_DocumentEditor.aa_Customer_Person_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
-            this.m_usrc_DocumentEditor.aa_Customer_Org_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
-            this.m_usrc_DocumentEditor.Load += new System.EventHandler(this.m_usrc_Invoice_Load);
-            // 
-            // m_usrc_TableOfDocuments
-            // 
-            this.m_usrc_TableOfDocuments.DocInvoice = "DocInvoice";
-            this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
-            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(628, 893);
-            this.m_usrc_TableOfDocuments.TabIndex = 0;
-            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // usrc_DocumentMan
             // 
@@ -261,7 +259,7 @@
         public usrc_DocumentEditor m_usrc_DocumentEditor;
         public usrc_TableOfDocuments m_usrc_TableOfDocuments;
         private System.Windows.Forms.Button btn_New;
-        private System.Windows.Forms.ComboBox cmb_InvoiceType;
+        private System.Windows.Forms.ComboBox cmb_DocType;
         private System.Windows.Forms.ComboBox cmb_FinancialYear;
         private System.Windows.Forms.Label lbl_FinancialYear;
         #endregion

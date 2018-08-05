@@ -480,9 +480,13 @@ SELECT
             {
                 return lng.cn_Role_StockTakeManagemenent.s;
             }
-            else if (role.Equals(AWP.ROLE_WriteInvoiceAndProformaInvoice))
+            else if (role.Equals(AWP.ROLE_WriteInvoice))
             {
-                return lng.cn_Role_WriteInvoiceAndProformaInvoice.s;
+                return lng.cn_Role_WriteInvoice.s;
+            }
+            else if (role.Equals(AWP.ROLE_WriteProformaInvoice))
+            {
+                return lng.cn_Role_WriteProformaInvoice.s;
             }
 
             //else if (role.Equals(AWP.ROLE_ViewAndExport))
@@ -1318,7 +1322,7 @@ SELECT
             int iAdminNr = 1;
             foreach (DataRow dr in drsImportAdministrator)
             {
-                long myOrganisation_Person_ID = (long)dr[awpd.mcn_myOrganisation_Person_ID.ColumnName];
+                ID myOrganisation_Person_ID = tf.set_ID(dr[awpd.mcn_myOrganisation_Person_ID.ColumnName]);
 
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
@@ -1397,30 +1401,37 @@ SELECT
 
                     if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsers_ID,  ref Err, "LoginUsers"))
                     {
-                        long LoginRoles_ID = -1;
+                        ID LoginRoles_ID = null;
                         if (AWP_func.Get_LoginRoles_ID(AWP.ROLE_Administrator, ref LoginRoles_ID))
                         {
-                            List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
+                            if (ID.Validate(LoginRoles_ID))
+                            {
+                                List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
 
-                            string spar_LoginUsers_ID = "@par_LoginUsers_ID";
-                            SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
-                            lpar1.Add(par_LoginUsers_ID);
+                                string spar_LoginUsers_ID = "@par_LoginUsers_ID";
+                                SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginUsers_ID);
+                                lpar1.Add(par_LoginUsers_ID);
 
-                            string spar_LoginRoles_ID = "@par_LoginRoles_ID";
-                            SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
-                            lpar1.Add(par_LoginRoles_ID);
+                                string spar_LoginRoles_ID = "@par_LoginRoles_ID";
+                                SQL_Parameter par_LoginRoles_ID = new SQL_Parameter(spar_LoginRoles_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, LoginRoles_ID);
+                                lpar1.Add(par_LoginRoles_ID);
 
-                            sql = @"Insert into LoginUsersAndLoginRoles(LoginUsers_ID,
+                                sql = @"Insert into LoginUsersAndLoginRoles(LoginUsers_ID,
                                                                     LoginRoles_ID
                                                                    )
                                                    values ("
-                                                            + spar_LoginUsers_ID +
-                                                           "," + spar_LoginRoles_ID +
-                                                       ")";
-                            ID LoginUsersAndLoginRoles_ID = null;
-                            if (con.ExecuteNonQuerySQLReturnID(sql, lpar1, ref LoginUsersAndLoginRoles_ID,  ref Err, "LoginUsersAndLoginRoles"))
+                                                                + spar_LoginUsers_ID +
+                                                               "," + spar_LoginRoles_ID +
+                                                           ")";
+                                ID LoginUsersAndLoginRoles_ID = null;
+                                if (con.ExecuteNonQuerySQLReturnID(sql, lpar1, ref LoginUsersAndLoginRoles_ID, ref Err, "LoginUsersAndLoginRoles"))
+                                {
+                                    continue;
+                                }
+                            }
+                            else
                             {
-                                continue;
+                                return false;
                             }
                         }
                         else
@@ -1439,7 +1450,7 @@ SELECT
             return true;
         }
 
-        private static bool Get_LoginRoles_ID(string Role, ref long loginRoles_ID)
+        private static bool Get_LoginRoles_ID(string Role, ref ID loginRoles_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Role = "@par_Role";
@@ -1453,13 +1464,13 @@ SELECT
             {
                 if (dt.Rows.Count>0)
                 {
-                    loginRoles_ID = (long)dt.Rows[0]["ID"];
-                    return true;
+                    loginRoles_ID = tf.set_ID(dt.Rows[0]["ID"]);
                 }
                 else
                 {
-                    return false;
+                    loginRoles_ID =  null;
                 }
+                return true;
             }
             else
             {
@@ -1467,6 +1478,7 @@ SELECT
                 return false;
             }
         }
+
 
         internal static bool AWPRoles_GetAll(ref List<AWPRole> AllAWPRoles)
         {
@@ -1497,8 +1509,125 @@ SELECT
             }
         }
 
+        private static bool remove_WriteInvoiceAndProformaInvoice()
+        {
+            string err = null;
+            string sql = "delete from LoginRoles where Role = 'WriteInvoiceAndProformaInvoice'";
+            object ores = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:LoginControl:AWP_func:remove_WriteInvoiceAndProformaInvoice:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
+
+        private static bool Check_Role_WriteInvoice(ID id_WriteInvoiceAndProformaInvoice)
+        {
+            if (ID.Validate(id_WriteInvoiceAndProformaInvoice))
+            {
+                ID id_WriteInvoice = null;
+                if (Get_LoginRoles_ID("WriteInvoice", ref id_WriteInvoice))
+                {
+                    if (ID.Validate(id_WriteInvoice))
+                    {
+                        return remove_WriteInvoiceAndProformaInvoice();
+                    }
+                    else
+                    {
+                        string sql = "update LoginRoles set Role = 'WriteInvoice' where ID = "+ id_WriteInvoiceAndProformaInvoice.ToString();
+                        string err = null;
+                        object ores = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+                        {
+                            return remove_WriteInvoiceAndProformaInvoice();
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:LoginControl:AWP_func:Check_Role_WriteInvoice:sql=" + sql + "\r\nErr=" + err);
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                ID id_WriteInvoice = null;
+                if (Get_LoginRoles_ID("WriteInvoice", ref id_WriteInvoice))
+                {
+                    if (ID.Validate(id_WriteInvoice))
+                    {
+                        return remove_WriteInvoiceAndProformaInvoice();
+                    }
+                    else
+                    {
+                        string sql = "insert into LoginRoles (Role)values('WriteInvoice')";
+                        string err = null;
+                        object ores = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+                        {
+                            return remove_WriteInvoiceAndProformaInvoice();
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:LoginControl:AWP_func:Check_Role_WriteInvoice:sql=" + sql + "\r\nErr=" + err);
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        private static bool Correct_Roles(ID id_WriteInvoiceAndProformaInvoice)
+        {
+            string sql = null;
+            if (ID.Validate(id_WriteInvoiceAndProformaInvoice))
+            { 
+                ID id_WriteProformaInvoice = null;
+                if (Get_LoginRoles_ID("WriteProformaInvoice", ref id_WriteProformaInvoice))
+                {
+                    if (ID.Validate(id_WriteProformaInvoice))
+                    {
+                        return Check_Role_WriteInvoice(id_WriteInvoiceAndProformaInvoice);
+                    }
+                    else
+                    {
+                        string err = null;
+                        sql = "update LoginRoles set Role = 'WriteProformaInvoice' where ID = " + id_WriteInvoiceAndProformaInvoice.ToString();
+                        object ores = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+                        {
+                            return Check_Role_WriteInvoice(null);
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:LoginControl:AWP_func:AWPRoles_GetUserRoles:sql=" + sql + "\r\nErr=" + err);
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         internal static bool AWPRoles_GetUserRoles(ID LoginUsers_ID, ref List<AWPRole> AWPRoles)
         {
+AWPRoles_GetUserRoles_start:
+
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
             SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, false, LoginUsers_ID);
@@ -1520,11 +1649,26 @@ SELECT
             {
                 AWPRoles.Clear();
             }
+
             if (con.ReadDataTable(ref dt,sql,lpar, ref err))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    AWPRoles.Add(new AWPRole(new ID(dr["ID"]), (string)dr["Role"]));
+                    string srole = tf._set_string(dr["Role"]);
+
+                    if (srole.Equals("WriteInvoiceAndProformaInvoice"))
+                    {
+                        ID id_WriteInvoiceAndProformaInvoice = tf.set_ID(dr["ID"]);
+                        if (Correct_Roles(id_WriteInvoiceAndProformaInvoice))
+                        {
+                            goto AWPRoles_GetUserRoles_start;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    AWPRoles.Add(new AWPRole(new ID(dr["ID"]), srole));
                 }
                 return true;
             }

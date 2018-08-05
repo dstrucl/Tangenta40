@@ -39,7 +39,7 @@ namespace Tangenta
             string sdraft = "";
             string sNumber = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString();
             string sInvoiceNumber = null;
-            int ItemsCount = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.ItemsCount(m_usrc_DocumentMan.DocInvoice);
+            int ItemsCount = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.ItemsCount(m_usrc_DocumentMan.DocTyp);
             if (m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.bDraft)
             {
                 sdraft = lng.s_Draft.s;
@@ -84,8 +84,8 @@ namespace Tangenta
             {
                 this.usrc_New_Copy_of_Same_DocType1.Visible = true;
                 this.usrc_New_Copy_of_Another_DocType1.Visible = true;
-                this.usrc_New_Copy_of_Same_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber, xSettingsUserValues);
-                this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_DocumentMan.DocInvoice, sInvoiceNumber, xSettingsUserValues);
+                this.usrc_New_Copy_of_Same_DocType1.Init(m_usrc_DocumentMan.DocTyp, sInvoiceNumber, xSettingsUserValues);
+                this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_DocumentMan.DocTyp, sInvoiceNumber, xSettingsUserValues);
             }
             usrc_Currency1.Init(GlobalData.BaseCurrency);
             SetNewFormTag();

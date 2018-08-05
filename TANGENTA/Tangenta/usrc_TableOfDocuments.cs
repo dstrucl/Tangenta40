@@ -64,7 +64,6 @@ namespace Tangenta
             }
         }
 
-        private usrc_DocumentEditor.enum_Invoice enum_Invoice;
         private int iColIndex_DocInvoice_Draft = -1;
         private int iColIndex_DocInvoice_IssueDate = -1;
         private int iColIndex_DocProformaInvoice_IssueDate = -1;
@@ -79,27 +78,27 @@ namespace Tangenta
 
         //private bool bIgnoreChangeSelectionEvent = false;
 
-        private string m_DocInvoice = Program.const_DocInvoice;
+        private string m_DocTyp = null;
 
-        public string DocInvoice
+        public string DocTyp
         {
-            get { return m_DocInvoice; }
+            get { return m_DocTyp; }
             set
             {
-                m_DocInvoice = value;
+                m_DocTyp = value;
             }
         }
 
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals(Program.const_DocInvoice); }
+            { return DocTyp.Equals(Program.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
+            { return DocTyp.Equals(Program.const_DocProformaInvoice); }
         }
 
         public ID Current_Doc_ID
@@ -132,7 +131,7 @@ namespace Tangenta
                         ID xCurrent_Doc_ID = null;
                         if (ID.Validate(m_LMOUser.myOrganisation_Person_ID))
                         {
-                            if (f_Current_Doc_ID.GetLast(DocInvoice, sDataSource, m_LMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
+                            if (f_Current_Doc_ID.GetLast(DocTyp, sDataSource, m_LMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
                             {
                                 if (ID.Validate(xDoc_ID))
                                 {
@@ -155,7 +154,7 @@ namespace Tangenta
             {
                 foreach (DataRow dr in dt_XInvoice.Rows)
                 {
-                    ID xid = tf.set_ID(dr["JOURNAL_" + DocInvoice + "_$_dinv_$$ID"]);
+                    ID xid = tf.set_ID(dr["JOURNAL_" + DocTyp + "_$_dinv_$$ID"]);
                     if (ID.Validate(xid))
                     {
                         if (xDoc_ID.Equals(xid))
@@ -206,7 +205,7 @@ namespace Tangenta
         }
 
 
-        internal int Init(usrc_DocumentEditor.enum_Invoice xenum_Invoice,
+        internal int Init(string doc_type,
                           bool bNew,
                           bool bInitialise_usrc_Invoice,
                           int iFinancialYear,
@@ -218,7 +217,7 @@ namespace Tangenta
             ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
             ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
 
-            enum_Invoice = xenum_Invoice;
+            DocTyp = doc_type;
 
             int iRowsCount = -1;
             iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
@@ -271,7 +270,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocInvoice=" + DocInvoice + " not implemented");
+                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocInvoice=" + DocTyp + " not implemented");
                 return -1;
             }
 
@@ -980,7 +979,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true,false, ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.FinancialYear,null);
+                Init(DocTyp, true,false, ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.FinancialYear,null);
                 Program.Cursor_Arrow();
             }
         }

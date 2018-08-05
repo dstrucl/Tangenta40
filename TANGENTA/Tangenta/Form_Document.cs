@@ -1333,8 +1333,11 @@ namespace Tangenta
                 xusrc_DocumentMan.Visible = false;
                 xusrc_DocumentMan.Dock = DockStyle.Fill;
                 this.Controls.Add(xusrc_DocumentMan);
+
                 xusrc_DocumentMan.Initialise(this, xLMOUser);
                 xusrc_DocumentMan.Init();
+
+
                 xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan;
                 xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
 
@@ -1346,10 +1349,13 @@ namespace Tangenta
             SettingsUser user_settings = (SettingsUser) xLMOUser.oSettings;
             LayoutSave(user_settings.mSettingsUserValues);
             user_settings.Save();
+
             //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
             //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
             this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan); 
+
             ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+
             xLMOUser.m_usrc_DocumentMan = null;
         }
 

@@ -312,7 +312,7 @@ namespace LoginControl
 
         public static ltext cn_Role_Administrator= new ltext(new string[] { "Administrator", "Skrbništvo" });
         public static ltext cn_Role_UserManagement = new ltext(new string[] { "User management", "Upravljanje kadrov " });
-        public static ltext cn_Role_WriteInvoiceAndProformaInvoice = new ltext(new string[] { "Write Invoice and ProformaInv.", "Izdajanje računov in predračunov" });
+        public static ltext cn_Role_WriteInvoice = new ltext(new string[] { "Write Invoice", "Izdajanje računov" });
         public static ltext cn_Role_WriteProformaInvoice = new ltext(new string[] { "Write Proforma-Invoice", "Izdajanje predračunov" });
         public static ltext cn_Role_StockTakeManagemenent = new ltext(new string[] { "Stock take management", "Prevzem blaga" });
         public static ltext cn_Role_PriceListManagement = new ltext(new string[] { "Price list management", "Urejenje cenikov" });
