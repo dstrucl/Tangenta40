@@ -103,7 +103,7 @@ namespace Tangenta
             get {
                     if (m_DocTyp == null)
                     {
-                         if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                         if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
                     }
                     return m_DocTyp;
                 }
@@ -120,11 +120,11 @@ namespace Tangenta
                 {
                     if (s != null)
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocInvoice: DocInvoice = " + s + " is not implemented!");
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocTyp: DocTyp = " + s + " is not implemented!");
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocInvoice: DocInvoice  value ==  null");
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocTyp: DocTyp  value ==  null");
                     }
 
                 }
@@ -731,7 +731,7 @@ namespace Tangenta
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xShopC_Data_Item_List))
+            if (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -742,7 +742,7 @@ namespace Tangenta
                     xdt_ShopB_Items.Clear();
                     xdt_ShopB_Items.Columns.Clear();
                 }
-                if (this.m_usrc_DocumentEditor.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopB_Items))
                 {
                     if (xdt_ShopA_Items == null)
                     {
@@ -753,7 +753,7 @@ namespace Tangenta
                         xdt_ShopA_Items.Clear();
                         xdt_ShopA_Items.Columns.Clear();
                     }
-                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopA_Items))
+                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopA_Items))
                     {
                         return true;
                     }
@@ -767,22 +767,22 @@ namespace Tangenta
                                         DataTable xdt_ShopB_Items, 
                                         DataTable xdt_ShopA_Items)
         {
-            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopA_Items))
+            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items))
             {
-                if (this.m_usrc_DocumentEditor.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items))
                 {
-                    switch (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocTyp,
-                                                                                                                    this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice,
+                    switch (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocTyp,
+                                                                                                                    this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc,
                                                                                                                     xShopC_Data_Item_List,
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock,
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Select_ShopC_Item_from_Stock,
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Item_Not_In_Offer))
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
-                            mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear;
-                            m_usrc_TableOfDocuments.Init(doc_type, true, false, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear, null);
+                            mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear;
+                            m_usrc_TableOfDocuments.Init(doc_type, true, false, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear, null);
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear);
+                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear);
                             cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
                             if (this.m_usrc_DocumentEditor.m_usrc_ShopC != null)
                             {
@@ -983,10 +983,10 @@ namespace Tangenta
             switch (cmb_DocType.SelectedIndex)
             {
                 case 0: // usrc_Invoice.enum_Invoice.TaxInvoice:
-                    DocTyp = Program.const_DocInvoice;
+                    DocTyp = GlobalData.const_DocInvoice;
                     break;
                 case 1: // usrc_Invoice.enum_Invoice.ProformaInvoice:
-                    DocTyp = Program.const_DocProformaInvoice;
+                    DocTyp = GlobalData.const_DocProformaInvoice;
 
                     break;
             }

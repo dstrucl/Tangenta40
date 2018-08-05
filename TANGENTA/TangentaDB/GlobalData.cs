@@ -21,6 +21,8 @@ namespace TangentaDB
 {
     public static class GlobalData
     {
+        public const string const_DocInvoice = "DocInvoice";
+        public const string const_DocProformaInvoice = "DocProformaInvoice";
 
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
@@ -154,7 +156,7 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:GlobalData:SetFinancialYears:Unsupported DocInvoice");
+                LogFile.Error.Show("ERROR:TangentaDB:GlobalData:SetFinancialYears:Unsupported DocTyp");
                 return false;
             }
 

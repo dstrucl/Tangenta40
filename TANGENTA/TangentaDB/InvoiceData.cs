@@ -123,7 +123,7 @@ namespace TangentaDB
             {
                 if (m_ShopABC!=null)
                 {
-                    return m_ShopABC.DocInvoice;
+                    return m_ShopABC.DocTyp;
                 }
                 else
                 {
@@ -568,7 +568,7 @@ namespace TangentaDB
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
             InvoiceTime_v.v = DateTime.Now;
-            bool bRet= m_ShopABC.m_CurrentInvoice.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ElectronicDevice_Name, ref xNumberInFinancialYear);
+            bool bRet= m_ShopABC.m_CurrentDoc.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ElectronicDevice_Name, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docInvoice_ID = DocInvoice_ID;
@@ -666,7 +666,7 @@ namespace TangentaDB
         public bool SaveDocInvoice(ref ID docinvoice_ID, string ElectronicDevice_Name, ID xAtom_WorkPeriod_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
-            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ElectronicDevice_Name, ref xNumberInFinancialYear);
+            bool bRet = m_ShopABC.m_CurrentDoc.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ElectronicDevice_Name, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docinvoice_ID = DocInvoice_ID;
@@ -682,11 +682,11 @@ namespace TangentaDB
             bool bRet = false;
             if (IsDocInvoice)
             {
-                bRet = m_ShopABC.m_CurrentInvoice.SetDocInvoiceTime(issue_time, xAtom_WorkPeriod_ID);
+                bRet = m_ShopABC.m_CurrentDoc.SetDocInvoiceTime(issue_time, xAtom_WorkPeriod_ID);
             }
             else
             {
-                bRet = m_ShopABC.m_CurrentInvoice.SetDocProformaInvoiceTime(issue_time, xAtom_WorkPeriod_ID);
+                bRet = m_ShopABC.m_CurrentDoc.SetDocProformaInvoiceTime(issue_time, xAtom_WorkPeriod_ID);
 
             }
 
@@ -1493,14 +1493,14 @@ namespace TangentaDB
                                 List<object> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<object>();
                                 if (this.m_eType == eType.STORNO)
                                 {
-                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST))
+                                    if (!m_ShopABC.m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST))
                                     {
                                         return false;
                                     }
                                 }
                                 else
                                 {
-                                    xDocProformaInvoice_ShopC_Item_Data_LIST = m_ShopABC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST;
+                                    xDocProformaInvoice_ShopC_Item_Data_LIST = m_ShopABC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST;
                                 }
 
 

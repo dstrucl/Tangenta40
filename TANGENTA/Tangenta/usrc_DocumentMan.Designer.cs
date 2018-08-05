@@ -75,7 +75,7 @@
             // m_usrc_DocumentEditor
             // 
             this.m_usrc_DocumentEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_DocumentEditor.DocTyp = "DocInvoice";
+            this.m_usrc_DocumentEditor.DocTyp = "";
             this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
@@ -93,7 +93,7 @@
             // m_usrc_TableOfDocuments
             // 
             this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_TableOfDocuments.DocTyp = "DocInvoice";
+            this.m_usrc_TableOfDocuments.DocTyp = "";
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(628, 893);

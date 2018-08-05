@@ -108,7 +108,7 @@ namespace ShopA
 
         public string DocInvoice
         {
-            get { return m_ShopABC.DocInvoice; }
+            get { return m_ShopABC.DocTyp; }
         }
 
         public bool IsDocInvoice
@@ -164,12 +164,12 @@ namespace ShopA
             }
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            ID xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.Doc_ID;
+            ID xDocInvoice_ID = m_ShopABC.m_CurrentDoc.Doc_ID;
             if (IsDocInvoice)
             {
-                if (ID.Validate(m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID))
+                if (ID.Validate(m_ShopABC.m_CurrentDoc.TInvoice.StornoDocInvoice_ID))
                 {
-                    xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID;
+                    xDocInvoice_ID = m_ShopABC.m_CurrentDoc.TInvoice.StornoDocInvoice_ID;
                 }
             }
             if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,xDocInvoice_ID, ref dt_Item_Price))
@@ -209,7 +209,7 @@ namespace ShopA
         {
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,m_ShopABC.m_CurrentInvoice.Doc_ID,ref dt_Item_Price))
+            if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,m_ShopABC.m_CurrentDoc.Doc_ID,ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
                 t_DocInvoice_ShopA_Item.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);

@@ -30,13 +30,27 @@ namespace Tangenta
         public delegate void delegate_Customer_Org_Changed(ID Customer_Org_ID);
         public event delegate_Customer_Org_Changed aa_Customer_Org_Changed = null;
 
-        public delegate bool delegate_Customer_Removed();
+        public delegate bool delegate_Customer_Removed(string xDocTyp);
         public event delegate_Customer_Removed aa_Customer_Removed = null;
 
         public ID Customer_OrganisationData_ID = null;
         public ID Customer_Person_ID = null;
         public NavigationButtons.Navigation nav = null;
         private List<CustomerItem> CustomerItemType_List = null;
+
+        private string m_DocTyp = "";
+        public string DocTyp
+        {
+            get
+            {
+                return m_DocTyp;
+            }
+            set
+            {
+                m_DocTyp = value;
+            }
+        }
+
         public usrc_Customer()
         {
             InitializeComponent();
@@ -275,7 +289,7 @@ namespace Tangenta
 
         }
 
-        internal void Show_Customer(TangentaDB.CurrentInvoice x_CurrentInvoice)
+        internal void Show_Customer(TangentaDB.CurrentDoc x_CurrentInvoice)
         {
             txt_Buyer.Text = "";
 
@@ -302,11 +316,11 @@ namespace Tangenta
             }
         }
 
-        public void Show_Customer_Person(TangentaDB.CurrentInvoice x_CurrentInvoice)
+        public void Show_Customer_Person(TangentaDB.CurrentDoc x_CurrentDoc)
         {
-            if (x_CurrentInvoice.Atom_Customer_Person_ID != null)
+            if (x_CurrentDoc.Atom_Customer_Person_ID != null)
             {
-                ID Atom_Customer_Person_ID = x_CurrentInvoice.Atom_Customer_Person_ID;
+                ID Atom_Customer_Person_ID = x_CurrentDoc.Atom_Customer_Person_ID;
                 string sql = @"select
                                         Atom_Customer_Person_$_aper_$_acfn_$$FirstName,
                                         Atom_Customer_Person_$_aper_$_acln_$$LastName,
@@ -411,7 +425,7 @@ namespace Tangenta
             }
         }
 
-        public void Show_Customer_Org(TangentaDB.CurrentInvoice x_CurrentInvoice)
+        public void Show_Customer_Org(TangentaDB.CurrentDoc x_CurrentInvoice)
         {
             if (ID.Validate(x_CurrentInvoice.Atom_Customer_Org_ID))
             {
@@ -555,7 +569,7 @@ namespace Tangenta
             {
                 if (aa_Customer_Removed!=null)
                 {
-                    if (aa_Customer_Removed())
+                    if (aa_Customer_Removed(DocTyp))
                     {
                         btn_Buyer.Enabled = false;
                         btn_BuyerSelect.Enabled = false;

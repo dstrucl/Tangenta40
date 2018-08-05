@@ -59,7 +59,7 @@ namespace ShopC
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocTyp = "";
 
         public int SplitContainer2_spd
         {
@@ -89,24 +89,24 @@ namespace ShopC
         }
 
 
-        public string DocInvoice
+        public string DocTyp
         {
-            get { return m_DocInvoice; }
+            get { return m_DocTyp; }
             set
             {
                 string s = value;
-                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
                 {
-                    m_DocInvoice = s;
+                    m_DocTyp = s;
                 }
                 
                 if (this.usrc_Atom_ItemsList != null)
                 {
-                    this.usrc_Atom_ItemsList.DocInvoice = m_DocInvoice;
+                    this.usrc_Atom_ItemsList.DocTyp = m_DocTyp;
                 }
                 if (this.usrc_ItemList != null)
                 {
-                    this.usrc_ItemList.DocInvoice = m_DocInvoice;
+                    this.usrc_ItemList.DocTyp = m_DocTyp;
                 }
 
             }
@@ -114,13 +114,13 @@ namespace ShopC
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
 
@@ -461,7 +461,7 @@ namespace ShopC
             usrc_ItemList.Get_Price_Item_Stock_Data(this.usrc_PriceList1.ID);
         }
 
-        public bool proc_Select_ShopC_Item_from_Stock(string DocInvoice,
+        public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
                                                       DataTable dt_ShopC_Item_in_Stock,
                                                       Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
                                                       decimal dStockQuantity,
@@ -479,7 +479,7 @@ namespace ShopC
                 {
                     Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
                 }
-                this.m_InvoiceDB.m_CurrentInvoice.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
+                this.m_InvoiceDB.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
                 if (dQuantitySelectedFromStock != dStockQuantity)
                 {
                     string smsg = Item_UniqueName + ":" + lng.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;
@@ -553,14 +553,14 @@ namespace ShopC
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_stock > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocInvoice, ref xShopC_Data_Item, true))
+                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, true))
                 {
                     return false;
                 }
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_factory > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocInvoice, ref xShopC_Data_Item, false))
+                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, false))
                 {
                     return false;
                 }

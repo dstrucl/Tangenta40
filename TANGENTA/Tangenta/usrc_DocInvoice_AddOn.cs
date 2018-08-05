@@ -89,7 +89,7 @@ namespace Tangenta
                 this.btn_Invoice_Issue.Text = lng.s_OK.s;
             }
 
-            if (m_AddOnDI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID))
+            if (m_AddOnDI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentDoc.Doc_ID))
             {
                 if (m_AddOnDI.m_IssueDate != null)
                 {
@@ -291,7 +291,7 @@ namespace Tangenta
             m_AddOnDI.m_NoticeText = this.usrc_Notice1.NoticeText;
             if (m_AddOnDI.Completed(ref ltMsg))
             {
-                if (m_AddOnDI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
+                if (m_AddOnDI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg))
                 {
                     if (Issue != null)
                     {

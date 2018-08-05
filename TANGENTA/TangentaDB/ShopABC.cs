@@ -31,26 +31,25 @@ namespace TangentaDB
 
         public xUnitList m_xUnitList = null;
 
-        public CurrentInvoice m_CurrentInvoice = null;
+        public CurrentDoc m_CurrentDoc = null;
 
-        private string m_DocInvoice = null;
 
         public ShopABC(DBTablesAndColumnNames xDBtcn)
         {
             //may be called only from Booting_07_GetTaxation !
             m_xTaxationList=Get_TaxationList();
-            m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
+            m_CurrentDoc = new CurrentDoc(this, xDBtcn);
             m_Atom_WorkPeriod_ID = null;
             td = DBSync.DBSync.DB_for_Tangenta.mt;
             DBtcn = xDBtcn;
         }
 
 
-        public ShopABC(string xDocInvoice, DBTablesAndColumnNames xDBtcn, ID xAtom_WorkPeriod_ID)
+        public ShopABC(string xDocTyp, DBTablesAndColumnNames xDBtcn, ID xAtom_WorkPeriod_ID)
         {
-            DocInvoice = xDocInvoice;
+            DocTyp = xDocTyp;
             m_xTaxationList=Get_TaxationList();
-            m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
+            m_CurrentDoc = new CurrentDoc(this, xDBtcn);
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             td = DBSync.DBSync.DB_for_Tangenta.mt;
             DBtcn = xDBtcn;
@@ -79,32 +78,34 @@ namespace TangentaDB
             return null;
         }
 
-        public string DocInvoice
+        private string m_DocTyp = null;
+
+        public string DocTyp
         {
             get {
-                  if (m_DocInvoice==null)
+                  if (m_DocTyp==null)
                   {
-                        LogFile.Error.Show("ERROR:TangentaDB:ShopABC:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                        LogFile.Error.Show("ERROR:TangentaDB:ShopABC:property DocTyp: DocTyp is not defined (m_DocTyp = null)!");
                   }
-                  return m_DocInvoice;
+                  return m_DocTyp;
                 }
             set
             {
-                m_DocInvoice = value;
+                m_DocTyp = value;
             }
         }
 
         public bool IsDocInvoice
         {
             get
-            { return fs.IsDocInvoice(DocInvoice); }
+            { return fs.IsDocInvoice(DocTyp); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
             {
-               return fs.IsDocProformaInvoice(DocInvoice);
+               return fs.IsDocProformaInvoice(DocTyp);
             }
         }
 
@@ -266,7 +267,7 @@ namespace TangentaDB
             }
             else
             {
-                Err="ERROR:ShpaABC.cs:ShopABC:Get:Error " + this.DocInvoice + " not implemented!";
+                Err="ERROR:ShpaABC.cs:ShopABC:Get:Error " + this.DocTyp + " not implemented!";
                 LogFile.Error.Show(Err);
                 return false;
             }
@@ -275,76 +276,76 @@ namespace TangentaDB
 
 
 
-            m_CurrentInvoice.dtCurrent_Invoice.Columns.Clear();
-            m_CurrentInvoice.dtCurrent_Invoice.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref m_CurrentInvoice.dtCurrent_Invoice, sql_GetDraft, ref Err))
+            m_CurrentDoc.dtCurrent_Invoice.Columns.Clear();
+            m_CurrentDoc.dtCurrent_Invoice.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref m_CurrentDoc.dtCurrent_Invoice, sql_GetDraft, ref Err))
             {
-                if (m_CurrentInvoice.dtCurrent_Invoice.Rows.Count > 0)
+                if (m_CurrentDoc.dtCurrent_Invoice.Rows.Count > 0)
                 {
                     if (IsDocInvoice)
                     {
-                        m_CurrentInvoice.Exist = true;
-                        m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
-                        m_CurrentInvoice.Doc_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"]);
-                        m_CurrentInvoice.EventTime = (DateTime)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["EventTime"];
+                        m_CurrentDoc.Exist = true;
+                        m_CurrentDoc.bDraft = (bool)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
+                        m_CurrentDoc.Doc_ID = tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"]);
+                        m_CurrentDoc.EventTime = (DateTime)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["EventTime"];
 
-                        if (m_CurrentInvoice.Atom_Currency_ID==null)
+                        if (m_CurrentDoc.Atom_Currency_ID==null)
                         {
-                            m_CurrentInvoice.Atom_Currency_ID = new ID();
+                            m_CurrentDoc.Atom_Currency_ID = new ID();
                         }
-                        m_CurrentInvoice.Atom_Currency_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
-                        if (m_CurrentInvoice.Currency==null)
+                        m_CurrentDoc.Atom_Currency_ID = tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
+                        if (m_CurrentDoc.Currency==null)
                         {
-                            m_CurrentInvoice.Currency = new xCurrency();
+                            m_CurrentDoc.Currency = new xCurrency();
                         }
 
-                        m_CurrentInvoice.Currency.ID = m_CurrentInvoice.Atom_Currency_ID;
-                        m_CurrentInvoice.Currency.Name = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyName"];
-                        m_CurrentInvoice.Currency.Abbreviation = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
-                        m_CurrentInvoice.Currency.Symbol = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
-                        m_CurrentInvoice.Currency.CurrencyCode = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
-                        m_CurrentInvoice.Currency.DecimalPlaces = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
+                        m_CurrentDoc.Currency.ID = m_CurrentDoc.Atom_Currency_ID;
+                        m_CurrentDoc.Currency.Name = (string)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyName"];
+                        m_CurrentDoc.Currency.Abbreviation = (string)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
+                        m_CurrentDoc.Currency.Symbol = (string)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
+                        m_CurrentDoc.Currency.CurrencyCode = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
+                        m_CurrentDoc.Currency.DecimalPlaces = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
 
-                        m_CurrentInvoice.TInvoice.StornoDocInvoice_ID=tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
+                        m_CurrentDoc.TInvoice.StornoDocInvoice_ID=tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
 
-                        m_CurrentInvoice.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
-                        m_CurrentInvoice.TInvoice.bStorno_v = tf.set_bool(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"]);
+                        m_CurrentDoc.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
+                        m_CurrentDoc.TInvoice.bStorno_v = tf.set_bool(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"]);
 
-                        m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
+                        m_CurrentDoc.FinancialYear = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
 
-                        m_CurrentInvoice.Atom_Customer_Person_ID=tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"]);
+                        m_CurrentDoc.Atom_Customer_Person_ID=tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"]);
 
-                        m_CurrentInvoice.Atom_Customer_Org_ID=tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID"]);
+                        m_CurrentDoc.Atom_Customer_Org_ID=tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID"]);
 
-                        object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear"];
+                        object oNumberInFinancialYear = m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear"];
                         if (oNumberInFinancialYear is int)
                         {
-                            m_CurrentInvoice.NumberInFinancialYear = (int)oNumberInFinancialYear;
+                            m_CurrentDoc.NumberInFinancialYear = (int)oNumberInFinancialYear;
                         }
                         else
                         {
-                            m_CurrentInvoice.NumberInFinancialYear = -1;
+                            m_CurrentDoc.NumberInFinancialYear = -1;
                         }
 
-                        m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$DraftNumber"];
+                        m_CurrentDoc.DraftNumber = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$DraftNumber"];
 
-                        ID xDocInvoice_ID = m_CurrentInvoice.Doc_ID;
-                        if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID != null)
+                        ID xDocInvoice_ID = m_CurrentDoc.Doc_ID;
+                        if (m_CurrentDoc.TInvoice.StornoDocInvoice_ID != null)
                         {
-                            decimal_v dGrossSum_v = tf.set_decimal(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
+                            decimal_v dGrossSum_v = tf.set_decimal(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
                             if (dGrossSum_v!=null)
                             {
                                if (dGrossSum_v.v < 0)
                                 {
-                                    xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID;
+                                    xDocInvoice_ID = m_CurrentDoc.TInvoice.StornoDocInvoice_ID;
                                 }
                             }
                         }
 
-                        if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
+                        if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
-                            m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
-                            if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                            m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                            if (m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
                             {
                                 return true;
                             }
@@ -360,63 +361,63 @@ namespace TangentaDB
                     }
                     else if (IsDocProformaInvoice)
                     {
-                        m_CurrentInvoice.Exist = true;
-                        m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
+                        m_CurrentDoc.Exist = true;
+                        m_CurrentDoc.bDraft = (bool)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
 
-                        m_CurrentInvoice.Doc_ID= tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"])
+                        m_CurrentDoc.Doc_ID= tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"])
                         ;
-                        m_CurrentInvoice.EventTime = (DateTime)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["EventTime"];
+                        m_CurrentDoc.EventTime = (DateTime)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["EventTime"];
 
-                        if (m_CurrentInvoice.Currency==null)
+                        if (m_CurrentDoc.Currency==null)
                         {
-                            m_CurrentInvoice.Currency = new xCurrency();
+                            m_CurrentDoc.Currency = new xCurrency();
                         }
 
-                        m_CurrentInvoice.Currency.ID = m_CurrentInvoice.Atom_Currency_ID;
+                        m_CurrentDoc.Currency.ID = m_CurrentDoc.Atom_Currency_ID;
 
-                        m_CurrentInvoice.Currency.Name = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyName"];
-                        m_CurrentInvoice.Currency.Abbreviation = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
-                        m_CurrentInvoice.Currency.Symbol = (string)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
-                        m_CurrentInvoice.Currency.CurrencyCode = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
-                        m_CurrentInvoice.Currency.DecimalPlaces = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
-
-
-                        m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDuration"]);
-                        m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDurationType"]);
-
-                        m_CurrentInvoice.PInvoice.TermsOfPayment_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_ID"]);
-
-                        m_CurrentInvoice.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_Description"]);
-
-                        m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear"];
-
-                        m_CurrentInvoice.Atom_Customer_Person_ID= tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID"]);
-
-                        m_CurrentInvoice.Atom_Customer_Org_ID = tf.set_ID(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID"]);
+                        m_CurrentDoc.Currency.Name = (string)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyName"];
+                        m_CurrentDoc.Currency.Abbreviation = (string)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
+                        m_CurrentDoc.Currency.Symbol = (string)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
+                        m_CurrentDoc.Currency.CurrencyCode = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
+                        m_CurrentDoc.Currency.DecimalPlaces = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
 
 
-                        object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear"];
+                        m_CurrentDoc.PInvoice.DocDuration_v = tf.set_long(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["DocDuration"]);
+                        m_CurrentDoc.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["DocDurationType"]);
+
+                        m_CurrentDoc.PInvoice.TermsOfPayment_ID = tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["TermsOfPayment_ID"]);
+
+                        m_CurrentDoc.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["TermsOfPayment_Description"]);
+
+                        m_CurrentDoc.FinancialYear = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear"];
+
+                        m_CurrentDoc.Atom_Customer_Person_ID= tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID"]);
+
+                        m_CurrentDoc.Atom_Customer_Org_ID = tf.set_ID(m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID"]);
+
+
+                        object oNumberInFinancialYear = m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear"];
                         if (oNumberInFinancialYear is int)
                         {
-                            m_CurrentInvoice.NumberInFinancialYear = (int)oNumberInFinancialYear;
+                            m_CurrentDoc.NumberInFinancialYear = (int)oNumberInFinancialYear;
                         }
                         else
                         {
-                            m_CurrentInvoice.NumberInFinancialYear = -1;
+                            m_CurrentDoc.NumberInFinancialYear = -1;
                         }
 
-                        m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber"];
+                        m_CurrentDoc.DraftNumber = (int)m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber"];
 
-                        ID xDocInvoice_ID = m_CurrentInvoice.Doc_ID;
-                        if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID != null)
+                        ID xDocInvoice_ID = m_CurrentDoc.Doc_ID;
+                        if (m_CurrentDoc.TInvoice.StornoDocInvoice_ID != null)
                         {
-                            xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID;
+                            xDocInvoice_ID = m_CurrentDoc.TInvoice.StornoDocInvoice_ID;
                         }
 
-                        if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
+                        if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
-                            m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
-                            if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                            m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                            if (m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
                             {
                                 return true;
                             }
@@ -432,15 +433,15 @@ namespace TangentaDB
                     }
                     else
                     {
-                        Err = "ERROR:ShopABC.cs:ShopABC:Get:Error DocInvoice of type " + DocInvoice + " not implemented";
+                        Err = "ERROR:ShopABC.cs:ShopABC:Get:Error DocTyp of type " + DocTyp + " not implemented";
                         LogFile.Error.Show(Err);
                         return false;
                     }
                 }
                 else
                 {
-                    m_CurrentInvoice.bDraft = false;
-                    m_CurrentInvoice.Exist = false;
+                    m_CurrentDoc.bDraft = false;
+                    m_CurrentDoc.Exist = false;
                 }
                 return true;
             }
@@ -452,7 +453,7 @@ namespace TangentaDB
         }
 
 
-        public bool Read_ShopB_Price_Item_Table(ID DocInvoice_ID, ref DataTable dt_DocInvoice_ShopB_Item)
+        public bool Read_ShopB_Price_Item_Table(ID xDoc_ID, ref DataTable dt_DocInvoice_ShopB_Item)
         {
             string Err = null;
             string sql_select_DocInvoice_ShopB_Item = null;
@@ -489,7 +490,7 @@ namespace TangentaDB
                                                 inner join Atom_SimpleItem on DocInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
                                                 Inner Join DocInvoice on DocInvoice.ID = DocInvoice_ShopB_Item.DocInvoice_ID 
                                                 Inner Join Atom_SimpleItem_Name on Atom_SimpleItem_Name.ID = Atom_SimpleItem.Atom_SimpleItem_Name_ID
-                                                where DocInvoice_ShopB_Item.DocInvoice_ID = " + DocInvoice_ID.ToString();
+                                                where DocInvoice_ShopB_Item.DocInvoice_ID = " + xDoc_ID.ToString();
             }
             else if (IsDocProformaInvoice)
             {
@@ -524,11 +525,11 @@ namespace TangentaDB
                                                 inner join Atom_SimpleItem on DocProformaInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
                                                 Inner Join DocProformaInvoice on DocProformaInvoice.ID = DocProformaInvoice_ShopB_Item.DocProformaInvoice_ID 
                                                 Inner Join Atom_SimpleItem_Name on Atom_SimpleItem_Name.ID = Atom_SimpleItem.Atom_SimpleItem_Name_ID
-                                                where DocProformaInvoice_ShopB_Item.DocProformaInvoice_ID = " + DocInvoice_ID.ToString();
+                                                where DocProformaInvoice_ShopB_Item.DocProformaInvoice_ID = " + xDoc_ID.ToString();
             }
             else
             {
-                Err = "ERROR:Read_Atom_SimpleItem_Table:DocInvoice =" + DocInvoice + " not implemented";
+                Err = "ERROR:Read_Atom_SimpleItem_Table:DocInvoice =" + DocTyp + " not implemented";
                 LogFile.Error.Show(Err);
             }
             dt_DocInvoice_ShopB_Item.Clear();
@@ -671,7 +672,7 @@ namespace TangentaDB
         }
 
 
-        public bool Read_DocInvoice_Atom_Item_Stock_Table(ID DocInvoice_ID, ID Atom_Item_ID, ref DataTable dtDraft_DocInvoice_Atom_Item_Stock, string scond, ref string Err)
+        public bool Read_Doc_Atom_Item_Stock_Table(ID xDoc_ID, ID Atom_Item_ID, ref DataTable dtDraft_DocInvoice_Atom_Item_Stock, string scond, ref string Err)
         {
             string sql_select_DocInvoice_Atom_Item_Stock = null;
             if (IsDocInvoice)
@@ -781,7 +782,7 @@ namespace TangentaDB
                 LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
                 LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
                 LEFT JOIN  Item_Image ON itms.Item_Image_ID = Item_Image.ID 
-                where  (DocInvoice_ShopC_Item.DocInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
+                where  (DocInvoice_ShopC_Item.DocInvoice_ID =  " + xDoc_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
             }
             else if (IsDocProformaInvoice)
             {
@@ -890,15 +891,15 @@ namespace TangentaDB
                 LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
                 LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
                 LEFT JOIN  Item_Image ON itms.Item_Image_ID = Item_Image.ID 
-                where  (DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
+                where  (DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID =  " + xDoc_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
             }
             else
             {
-                Err = "DocInvoice = " + DocInvoice + " not implemented.";
+                Err = "DocInvoice = " + DocTyp + " not implemented.";
                 LogFile.Error.Show("ERROR:Read_DocInvoice_Atom_Item_Stock_Table:Err=" + Err);
                 return false;
             }
-            m_CurrentInvoice.dtCurrent_DocInvoice_ShopC_Item.Clear();
+            m_CurrentDoc.dtCurrent_DocInvoice_ShopC_Item.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dtDraft_DocInvoice_Atom_Item_Stock, sql_select_DocInvoice_Atom_Item_Stock, ref Err))
             {
                 return true;
@@ -919,7 +920,7 @@ namespace TangentaDB
                                   ref ID DocInvoice_ID,
                                   ID myOrganisation_Person_ID,
                                   ID xAtom_WorkArea_ID,
-                                  string DocInvoice,
+                                  string DocTyp,
                                   string ElectronicDevice_Name,
                                   ref string Err)
         {
@@ -936,20 +937,20 @@ namespace TangentaDB
             if (xcurrency.CurrencyCode == 978)
             {
                 // invoice Number for Euro
-                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocInvoice + " di " +
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocTyp + " di " +
                           "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
-                          "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
-                          "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+                          "\r\n inner join JOURNAL_" + DocTyp + " jdi on jdi." + DocTyp + "_ID = di.ID " +
+                          "\r\n inner join JOURNAL_" + DocTyp + "_TYPE jdit on jdi.JOURNAL_" + DocTyp + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
                           "\r\n inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode = 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             }
             else
             {
-                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocInvoice + " di " +
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocTyp + " di " +
                           "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
-                          "\r\n inner join JOURNAL_" + DocInvoice + " jdi on jdi." + DocInvoice + "_ID = di.ID " +
-                          "\r\n inner join JOURNAL_" + DocInvoice + "_TYPE jdit on jdi.JOURNAL_" + DocInvoice + "_TYPE_ID = jdit.ID " +
+                          "\r\n inner join JOURNAL_" + DocTyp + " jdi on jdi." + DocTyp + "_ID = di.ID " +
+                          "\r\n inner join JOURNAL_" + DocTyp + "_TYPE jdit on jdi.JOURNAL_" + DocTyp + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
                           "\r\n inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode <> 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
@@ -972,7 +973,7 @@ namespace TangentaDB
 
             dt.Clear();
             dt.Columns.Clear();
-            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from "+DocInvoice+" where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from "+DocTyp+" where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count == 1)
@@ -984,14 +985,14 @@ namespace TangentaDB
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft: ID is not defined in "+DocInvoice+"! Exception =" + ex.Message);
+                        LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft: ID is not defined in "+DocTyp+"! Exception =" + ex.Message);
                         return false;
                     }
                 }
 
                 ID Atom_myOrganisation_Person_ID = null;
-                m_CurrentInvoice.FinancialYear = iFinancialYear;
-                m_CurrentInvoice.DraftNumber = xDraftNumber;
+                m_CurrentDoc.FinancialYear = iFinancialYear;
+                m_CurrentDoc.DraftNumber = xDraftNumber;
                 string_v office_name = null;
                 if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name))
                 {
@@ -999,7 +1000,7 @@ namespace TangentaDB
                     string sql_SetDraftDocInvoice = null;
                     if (IsDocInvoice)
                     {
-                        sql_SetDraftDocInvoice = "insert into " + DocInvoice
+                        sql_SetDraftDocInvoice = "insert into " + DocTyp
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
@@ -1007,8 +1008,8 @@ namespace TangentaDB
                             + "Atom_Currency_ID,"
                             + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
                         + @") values ( "
-                            + m_CurrentInvoice.FinancialYear.ToString() + ","
-                            + m_CurrentInvoice.DraftNumber.ToString() + ","
+                            + m_CurrentDoc.FinancialYear.ToString() + ","
+                            + m_CurrentDoc.DraftNumber.ToString() + ","
                             + "1,"
                             + xAtom_Currency_ID.ToString()+","
                             + "0"
@@ -1016,29 +1017,29 @@ namespace TangentaDB
                     }
                     else if (IsDocProformaInvoice)
                     {
-                        sql_SetDraftDocInvoice = "insert into " + DocInvoice
+                        sql_SetDraftDocInvoice = "insert into " + DocTyp
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
                             + "Atom_Currency_ID"
                         + @") values ( "
-                            + m_CurrentInvoice.FinancialYear.ToString() + ","
-                            + m_CurrentInvoice.DraftNumber.ToString() + ","
+                            + m_CurrentDoc.FinancialYear.ToString() + ","
+                            + m_CurrentDoc.DraftNumber.ToString() + ","
                             + "1,"
                             + xAtom_Currency_ID.ToString()
                             + ")";
                     }
                     else
                     {
-                        Err="ERROR:SetDraft:DocInvoice" + DocInvoice + " not implemented.";
+                        Err="ERROR:SetDraft:DocInvoice" + DocTyp + " not implemented.";
                         LogFile.Error.Show(Err);
                         return false;
                     }
                     ID xDoc_ID = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref xDoc_ID,  ref Err, DocInvoice))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref xDoc_ID,  ref Err, DocTyp))
                     {
-                        this.m_CurrentInvoice.Doc_ID = xDoc_ID;
+                        this.m_CurrentDoc.Doc_ID = xDoc_ID;
 
                         if (ID.Validate(xAtom_WorkArea_ID))
                         {
@@ -1050,23 +1051,23 @@ namespace TangentaDB
                         ID Journal_DocInvoice_ID = null;
                         if (IsDocInvoice)
                         {
-                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocInvoice.Write(this.m_CurrentDoc.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else if (IsDocProformaInvoice)
                         {
                             DateTime_v dt_v = new DateTime_v(DateTime.Now);
-                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentDoc.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else
                         {
-                            Err = "ERROR:SetDraft:DocInvoice" + DocInvoice + " not implemented.";
+                            Err = "ERROR:SetDraft:DocInvoice" + DocTyp + " not implemented.";
                             LogFile.Error.Show(Err);
                             return false;
                         }
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:SetDraft:" + DocInvoice + ":\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:SetDraft:" + DocTyp + ":\r\nErr=" + Err);
                         return false;
                     }
                 }
@@ -1259,7 +1260,7 @@ namespace TangentaDB
             ID new_Atom_Taxation_ID = null;
             if (irow_Atom_SimpleItem >= 0)
             {
-                ID Atom_Taxation_ID = new ID(m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Rows[irow_Atom_SimpleItem]["Atom_Taxation_ID"]);
+                ID Atom_Taxation_ID = new ID(m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem.Rows[irow_Atom_SimpleItem]["Atom_Taxation_ID"]);
 
                 string sparam_Atom_Taxation_Rate = "@Atom_Taxation_Rate";
                 DBConnectionControl40.SQL_Parameter par_Atom_Taxation_Rate = new DBConnectionControl40.SQL_Parameter(sparam_Atom_Taxation_Rate, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, Taxation_Rate);
@@ -1364,7 +1365,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    Err="ERROR:Update_SelectedSimpleItem:FindRowIndex_In_dtDraft_Atom_SimpleItem:DocInvoice=" + DocInvoice + " not implemented";
+                    Err= "ERROR:Update_SelectedSimpleItem:FindRowIndex_In_dtDraft_Atom_SimpleItem:DocTyp=" + DocTyp + " not implemented";
                     LogFile.Error.Show(Err);
                     return false;
                 }
@@ -1419,10 +1420,10 @@ namespace TangentaDB
         private int FindRowIndex_In_dtDraft_Atom_SimpleItem(ID DocInvoice_ShopB_Item_ID)
         {
             DataRow[] foundRows;
-            foundRows = m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Select("ID=" + DocInvoice_ShopB_Item_ID.ToString());
+            foundRows = m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem.Select("ID=" + DocInvoice_ShopB_Item_ID.ToString());
             if (foundRows.Count() > 0)
             {
-                return m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Rows.IndexOf(foundRows[0]);
+                return m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem.Rows.IndexOf(foundRows[0]);
             }
             else
             {
@@ -1446,7 +1447,7 @@ namespace TangentaDB
             }
             else
             {
-                Err = "ERROR:ShopABC.cs:ShopABC:Delete_SelectedSimpleItem:DocInvoice=" + DocInvoice + " not implemented.";
+                Err = "ERROR:ShopABC.cs:ShopABC:Delete_SelectedSimpleItem:DocTyp=" + DocTyp + " not implemented.";
                 return false;
             }
             object ores = null;

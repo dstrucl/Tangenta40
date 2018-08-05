@@ -37,18 +37,18 @@ namespace Tangenta
             InitializeComponent();
             m_usrc_DocumentMan = xusrc_DocumentMan;
             string sdraft = "";
-            string sNumber = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString();
+            string sNumber = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
             string sInvoiceNumber = null;
-            int ItemsCount = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.ItemsCount(m_usrc_DocumentMan.DocTyp);
-            if (m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.bDraft)
+            int ItemsCount = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.ItemsCount(m_usrc_DocumentMan.DocTyp);
+            if (m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.bDraft)
             {
                 sdraft = lng.s_Draft.s;
-                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "-"+ m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.DraftNumber.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-"+ m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
                                    + " " + lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
             }
             else
             {
-                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
                 +" " +lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
             }
 
@@ -62,7 +62,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument: Unknown DocInvoice type!");
+                LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument: Unknown DocTyp type!");
             }
             if (Program.OperationMode.MultiCurrency)
             {
@@ -106,7 +106,7 @@ namespace Tangenta
             DialogResult = DialogResult.Cancel;
         }
 
-        private void usrc_New_Copy_of_Same_DocType1_Set_New_Copy_of_Same_DocType(string DocInvoice, int ixFinancialYear)
+        private void usrc_New_Copy_of_Same_DocType1_Set_New_Copy_of_Same_DocType(string DocTyp, int ixFinancialYear)
         {
             eNewDocumentResult = e_NewDocument.New_Copy_Of_SameDocType;
             FinancialYear = ixFinancialYear;
@@ -114,7 +114,7 @@ namespace Tangenta
             DialogResult = DialogResult.OK;
         }
 
-        private void usrc_New_Copy_of_Another_DocType1_Set_New_Copy_of_Another_DocType(string DocInvoice, int ixFinancialYear)
+        private void usrc_New_Copy_of_Another_DocType1_Set_New_Copy_of_Another_DocType(string DocTyp, int ixFinancialYear)
         {
             eNewDocumentResult = e_NewDocument.New_Copy_To_Another_DocType;
             FinancialYear = ixFinancialYear;

@@ -243,7 +243,7 @@ namespace ShopC
 
         private void Paint_Item_Mode(eMode xeMode)
         {
-            Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Contains(m_Item_Data);
+            Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Contains(m_Item_Data);
             int xStart = x0_pic_Item;
             switch (xeMode)
             {
@@ -506,7 +506,7 @@ namespace ShopC
         {
             //appisd.Set(this, ref m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST, false);
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.Doc_ID,
+            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                         this,
                                                                         m_Item_Data,
                                                                         nmUpDn_FactoryQuantity.Value,
@@ -533,7 +533,7 @@ namespace ShopC
                 if (EditStock_AvoidStock())
                 {
                     Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-                    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.Doc_ID,
+                    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                                    this,
                                                                                    m_Item_Data,
                                                                                    nmUpDn_FactoryQuantity.Value,
@@ -553,7 +553,7 @@ namespace ShopC
             else
             {
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-                m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.Doc_ID,
+                m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                                 this,
                                                                                 m_Item_Data,
                                                                                 nmUpDn_FactoryQuantity.Value,

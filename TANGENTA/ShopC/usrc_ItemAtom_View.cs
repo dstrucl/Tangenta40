@@ -45,8 +45,8 @@ namespace ShopC
             m_InvoiceDB = x_InvoiceDB;
             m_Atom_Item_ID = x_Atom_Item_ID;
             String Err = null;
-            string scond = " and "+ m_InvoiceDB.DocInvoice+ "_ShopC_Item.dQuantity > 0";
-            if (m_InvoiceDB.Read_DocInvoice_Atom_Item_Stock_Table(m_InvoiceDB.m_CurrentInvoice.Doc_ID, m_Atom_Item_ID, ref dt_DocInvoice_Atom_Item_Stock_view, scond,ref Err))
+            string scond = " and "+ m_InvoiceDB.DocTyp+ "_ShopC_Item.dQuantity > 0";
+            if (m_InvoiceDB.Read_Doc_Atom_Item_Stock_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID, m_Atom_Item_ID, ref dt_DocInvoice_Atom_Item_Stock_view, scond,ref Err))
             {
                 if (dt_DocInvoice_Atom_Item_Stock_view.Rows.Count > 0)
                 {
@@ -153,7 +153,7 @@ namespace ShopC
                         DataRow dria = dt_DocInvoice_Atom_Item_Stock_view.Rows[i];
 
                         Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
-                        appisd.Set(m_InvoiceDB.DocInvoice, dria,ref appisd_List);
+                        appisd.Set(m_InvoiceDB.DocTyp, dria,ref appisd_List);
 
                         if (dria[iCol_Stock_ExpiryDate] is DateTime)
                         {

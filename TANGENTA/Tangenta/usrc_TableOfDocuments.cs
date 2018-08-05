@@ -270,7 +270,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocInvoice=" + DocTyp + " not implemented");
+                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocTyp=" + DocTyp + " not implemented");
                 return -1;
             }
 

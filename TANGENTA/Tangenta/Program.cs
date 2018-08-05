@@ -42,8 +42,6 @@ namespace Tangenta
         private const string const_command_SYMULATOR = "SYMULATOR";
         private const string const_command_RS232MONITOR = "RS232MONITOR";
 
-        public const string const_DocInvoice = "DocInvoice";
-        public const string const_DocProformaInvoice = "DocProformaInvoice";
 
 
         #endregion

@@ -84,26 +84,26 @@ namespace ShopB
         DBTablesAndColumnNames DBtcn = null;
 
 
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocTyp = "";
 
-        public string DocInvoice
+        public string DocTyp
         {
-            get { return m_DocInvoice; }
+            get { return m_DocTyp; }
             set
             {
-                m_DocInvoice = value;
+                m_DocTyp = value;
             }
         }
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
         public int NumberOfGroupLevels
@@ -251,7 +251,7 @@ namespace ShopB
 
         public void SetCurrentInvoice_SelectedShopB_Items()
         {
-            m_InvoiceDB.m_CurrentInvoice.Set_SelectedShopB_Items(DocInvoice,dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
+            m_InvoiceDB.m_CurrentDoc.Set_SelectedShopB_Items(DocTyp,dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
         }
 
 
@@ -379,9 +379,9 @@ namespace ShopB
                     decimal PriceWithoutTax = 0;
 
 
-                    if (f_Atom_Price_ShopBItem.Get(DocInvoice,
+                    if (f_Atom_Price_ShopBItem.Get(DocTyp,
                                                     Price_ShopBItem_ID,
-                                                    m_InvoiceDB.m_CurrentInvoice.Doc_ID,
+                                                    m_InvoiceDB.m_CurrentDoc.Doc_ID,
                                                     ref Atom_Price_ShopBItem_ID,
                                                     ref iCount,
                                                     ref RetailShopBItemPrice,
@@ -394,7 +394,7 @@ namespace ShopB
                                                     ref PriceWithoutTax
                                                     ))
                     {
-                        if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentInvoice.Doc_ID,ref m_InvoiceDB.m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
+                        if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID,ref m_InvoiceDB.m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
                             DataRow dr = dt_SelectedShopBItem.NewRow();
                             dr[DBtcn.column_SelectedShopBItemPriceDiscount] = Discount;

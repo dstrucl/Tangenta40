@@ -207,7 +207,7 @@ namespace ShopC
                 this.lbl_DiscountText.Visible = false;
             }
 
-            if (m_InvoiceDB.m_CurrentInvoice.bDraft)
+            if (m_InvoiceDB.m_CurrentDoc.bDraft)
             {
                 this.btn_RemoveFromBasketToFactory.Enabled = true;
                 this.btn_RemoveFromBasketToStock.Enabled = true;

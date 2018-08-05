@@ -13,13 +13,13 @@ namespace Tangenta
 {
     public partial class usrc_New_Copy_of_Another_DocType : UserControl
     {
-        private string DocInvoice = "";
+        private string DocTyp = "";
         private string sInvoiceNumber = "";
         private DataTable m_dt_FiancialYear = null;
 
         private SettingsUserValues mSettingsUserValues = null;
 
-        public delegate void delegate_Set_New_Copy_of_Another_DocType(string DocInvoice,
+        public delegate void delegate_Set_New_Copy_of_Another_DocType(string DocTyp,
                                                                       int FinancialYear
                                                                      );
         public event delegate_Set_New_Copy_of_Another_DocType Set_New_Copy_of_Another_DocType = null;
@@ -45,23 +45,23 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals(Program.const_DocInvoice); }
+            { return DocTyp.Equals(Program.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
+            { return DocTyp.Equals(Program.const_DocProformaInvoice); }
         }
 
         public usrc_New_Copy_of_Another_DocType()
         {
             InitializeComponent();
         }
-        public void Init(string xDocInvoice, string xsInvoiceNumber,SettingsUserValues xSettingsUserValues)
+        public void Init(string xDocTyp, string xsInvoiceNumber,SettingsUserValues xSettingsUserValues)
         {
             mSettingsUserValues = xSettingsUserValues;
-            DocInvoice = xDocInvoice;
+            DocTyp = xDocTyp;
             sInvoiceNumber = xsInvoiceNumber;
             if (IsDocInvoice)
             {
@@ -73,7 +73,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument: Unknown DocInvoice type!");
+                LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument: Unknown DocTyp type!");
             }
             btn_New_Copy_To_Another_DocType.Text = btn_New_Copy_To_Another_DocType.Text.Replace("%s", sInvoiceNumber);
             lng.s_IntoFinancialYear.Text(lbl_FinancialYear);
@@ -90,7 +90,7 @@ namespace Tangenta
         {
             if (Set_New_Copy_of_Another_DocType != null)
             {
-                Set_New_Copy_of_Another_DocType(DocInvoice, FinancialYear);
+                Set_New_Copy_of_Another_DocType(DocTyp, FinancialYear);
             }
         
         }

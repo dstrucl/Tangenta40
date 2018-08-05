@@ -101,41 +101,42 @@ namespace Tangenta
             get {
                     if (m_DocTyp==null)
                     {
-                        //LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property DocInvoice: DocInvoice is not defined (m_DocInvoice = null)!");
+                        //LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
                     }
                     return m_DocTyp;
                 }
             set
             {
                 string s = value;
-                if (s.Equals(Program.const_DocInvoice) || s.Equals(Program.const_DocProformaInvoice))
+                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     m_DocTyp = s;
+                    this.usrc_Customer.DocTyp = m_DocTyp;
                 }
                 else
                 {
                     if (s != null)
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property string DocInvoice: DocInvoice = " + s + " is not implemented!");
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property string DocTyp: DocTyp = " + s + " is not implemented!");
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property string DocInvoice: DocInvoice  value ==  null");
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property string DocTyp: DocTyp  value ==  null");
                     }
 
                 }
 
                 if (this.m_ShopABC != null)
                 {
-                    this.m_ShopABC.DocInvoice = DocTyp;
+                    this.m_ShopABC.DocTyp = DocTyp;
                 }
                 if (this.m_usrc_ShopB!= null)
                 {
-                    this.m_usrc_ShopB.DocInvoice = DocTyp;
+                    this.m_usrc_ShopB.DocTyp = DocTyp;
                 }
                 if (this.m_usrc_ShopC != null)
                 {
-                    this.m_usrc_ShopC.DocInvoice = DocTyp;
+                    this.m_usrc_ShopC.DocTyp = DocTyp;
                 }
             }
         }
@@ -285,7 +286,7 @@ namespace Tangenta
             if (m_usrc_ShopC == null)
             {
                 m_usrc_ShopC = new usrc_ShopC();
-                m_usrc_ShopC.DocInvoice = this.DocTyp;
+                m_usrc_ShopC.DocTyp = this.DocTyp;
                 m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
@@ -434,7 +435,7 @@ namespace Tangenta
 
                 m_usrc_ShopB = new usrc_ShopB();
 
-                m_usrc_ShopB.DocInvoice = this.DocTyp;
+                m_usrc_ShopB.DocTyp = this.DocTyp;
 
                 m_usrc_ShopB.CheckAccessPriceList += M_usrcCheckPriceListAccess;
 
@@ -1006,7 +1007,7 @@ namespace Tangenta
         {
             if (DoGetCurrent(xID))
             {
-                if (m_ShopABC.m_CurrentInvoice.ShowDraftButtons())
+                if (m_ShopABC.m_CurrentDoc.ShowDraftButtons())
                 {
                     this.m_usrc_ShopB.SetDraftButtons();
                 }
@@ -1014,7 +1015,7 @@ namespace Tangenta
                 {
                     this.m_usrc_ShopB.SetViewButtons();
                 }
-                this.usrc_Customer.Show_Customer(m_ShopABC.m_CurrentInvoice);
+                this.usrc_Customer.Show_Customer(m_ShopABC.m_CurrentDoc);
                 this.usrc_AddOn1.Show(xID);
                 return true;
             }
@@ -1046,13 +1047,13 @@ namespace Tangenta
             if (GetCurrent(xID))
             {
                 GetPriceSum();
-                if (m_ShopABC.m_CurrentInvoice.bDraft)
+                if (m_ShopABC.m_CurrentDoc.bDraft)
                 {
                     AddHandler();
                 }
                 else
                 {
-                    if (m_ShopABC.m_CurrentInvoice.Exist)
+                    if (m_ShopABC.m_CurrentDoc.Exist)
                     {
                         RemoveHandler();
                     }
@@ -1325,8 +1326,8 @@ namespace Tangenta
             //
         if (m_ShopABC.Get(true, DocInvoice_ID, ref Err)) // try to get draft
         {
-                this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
-                if (m_ShopABC.m_CurrentInvoice.bDraft)
+                this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);
+                if (m_ShopABC.m_CurrentDoc.bDraft)
                 {
                     SetMode(emode.edit_eDocumentType);
                     this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
@@ -1341,9 +1342,9 @@ namespace Tangenta
                     if (IsDocInvoice)
                     {
                         this.chk_Storno.Visible = true;
-                        if (m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v != null)
+                        if (m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v != null)
                         {
-                            this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v.v;
+                            this.chk_Storno.Checked = m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v.v;
                         }
                         else
                         {
@@ -1364,7 +1365,7 @@ namespace Tangenta
                 SetMode(emode.view_eDocumentType);
                 if (m_ShopABC.Get(false, DocInvoice_ID, ref Err)) // Get invoice with Invoice_ID
                 {
-                    this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
+                    this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);
                     this.m_usrc_ShopC.Clear();
                     this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     this.m_usrc_ShopC.Reset();
@@ -1576,9 +1577,9 @@ namespace Tangenta
 
             if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID,this, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID,this.DocTyp, GlobalData.ElectronicDevice_Name, ref Err))
             {
-                if (ID.Validate(m_ShopABC.m_CurrentInvoice.Doc_ID))
+                if (ID.Validate(m_ShopABC.m_CurrentDoc.Doc_ID))
                 {
-                    this.txt_Number.Text = m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentInvoice.DraftNumber.ToString();
+                    this.txt_Number.Text = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentDoc.DraftNumber.ToString();
                     SetMode(emode.edit_eDocumentType);
                 }
 
@@ -1630,7 +1631,7 @@ namespace Tangenta
             decimal dsum_TaxSum_Basket = 0;
             decimal dsum_NetSum_Basket = 0;
 
-            m_ShopABC.m_CurrentInvoice.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
+            m_ShopABC.m_CurrentDoc.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
 
             dsum_GrossSum += dsum_GrossSum_Basket;
             dsum_TaxSum += dsum_TaxSum_Basket;
@@ -1650,7 +1651,7 @@ namespace Tangenta
             string sGrossSum = "";
             if (IsDocInvoice)
             {
-                if (m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID == null)
+                if (m_ShopABC.m_CurrentDoc.TInvoice.StornoDocInvoice_ID == null)
                 {
                     sGrossSum = dsum_GrossSum.ToString();
                     this.lbl_Sum.ForeColor = Color.Black;
@@ -1658,7 +1659,7 @@ namespace Tangenta
                 else
                 {
                     sGrossSum =  dsum_GrossSum.ToString();
-                    decimal_v dGrossSum_v = tf.set_decimal(m_ShopABC.m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
+                    decimal_v dGrossSum_v = tf.set_decimal(m_ShopABC.m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
                     if (dGrossSum_v != null)
                     {
                         if (dGrossSum_v.v < 0)
@@ -1722,7 +1723,7 @@ namespace Tangenta
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update "+this.DocTyp+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.Doc_ID.ToString();
+            string sql_SetPrice = "update "+this.DocTyp+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentDoc.Doc_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
@@ -1744,7 +1745,7 @@ namespace Tangenta
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
 
-            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
+            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentDoc.Doc_ID, GrossSum, TaxSum.Value, NetSum))
             {
                 if (IsDocInvoice)
                 {
@@ -1755,7 +1756,7 @@ namespace Tangenta
                     if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
                     {
 
-                        m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
+                        m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
 
                         if (Program.b_FVI_SLO)
                         {
@@ -1776,7 +1777,7 @@ namespace Tangenta
 
                             if (aa_DocInvoiceSaved != null)
                             {
-                                aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                                aa_DocInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
                             }
                             Printing_DocInvoice();
                             return true;
@@ -1797,14 +1798,14 @@ namespace Tangenta
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
                     {
-                        m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
+                        m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
                         if (m_InvoiceData.Read_DocInvoice())
                         {
 
                             if (aa_DocProformaInvoiceSaved != null)
                             {
-                                aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                                aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
                             }
 
                             Printing_DocInvoice();
@@ -1904,11 +1905,11 @@ namespace Tangenta
         {
             if (m_ShopABC != null)
             {
-                if (m_ShopABC.m_CurrentInvoice != null)
+                if (m_ShopABC.m_CurrentDoc != null)
                 {
-                    if (m_ShopABC.m_CurrentInvoice.Exist)
+                    if (m_ShopABC.m_CurrentDoc.Exist)
                     {
-                        if (m_ShopABC.m_CurrentInvoice.bDraft)
+                        if (m_ShopABC.m_CurrentDoc.bDraft)
                         {
                             if (IsDocInvoice)
                             {
@@ -1944,13 +1945,13 @@ namespace Tangenta
                             }
 
                             IssueDocument();
-                            DoCurrent(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                            DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
                             return;
                         }
                         else
                         {
                             //Print existing invoice
-                            m_InvoiceData.DocInvoice_ID = m_ShopABC.m_CurrentInvoice.Doc_ID;
+                            m_InvoiceData.DocInvoice_ID = m_ShopABC.m_CurrentDoc.Doc_ID;
                             if (IsDocInvoice)
                             {
                                 this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
@@ -2020,11 +2021,11 @@ namespace Tangenta
         {
             ID Atom_Customer_Person_ID = null;
             this.Cursor = Cursors.WaitCursor;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(DocTyp,Customer_Person_ID, ref Atom_Customer_Person_ID))
+            if (m_ShopABC.m_CurrentDoc.Update_Customer_Person(DocTyp,Customer_Person_ID, ref Atom_Customer_Person_ID))
             {
                 if (ID.Validate(Atom_Customer_Person_ID))
                 {
-                    usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentInvoice);
+                    usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentDoc);
                     if (aa_Customer_Person_Changed != null)
                     {
                         aa_Customer_Person_Changed(Customer_Person_ID);
@@ -2047,9 +2048,9 @@ namespace Tangenta
                 bool bstorno = false;
                 if (IsDocInvoice)
                 {
-                    if (m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v != null)
+                    if (m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v != null)
                     {
-                        bstorno = m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v.v;
+                        bstorno = m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v.v;
                     }
                 }
                 
@@ -2059,11 +2060,11 @@ namespace Tangenta
                     {
                         if (MessageBox.Show(this, lng.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentDoc.Doc_ID);
 
                             if (frm_storno_dlg.ShowDialog()==DialogResult.Yes)
                             {
-                                stornoReferenceInvoiceNumber = m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString();
+                                stornoReferenceInvoiceNumber = m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
                                 stornoReferenceInvoiceIssueDateTime = frm_storno_dlg.m_InvoiceTime;
                                 string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
                                 if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -2071,7 +2072,7 @@ namespace Tangenta
     
                                     ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID,true,GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
+                                    if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID,true,GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
                                         if (Storno != null)
                                         {
@@ -2147,12 +2148,12 @@ namespace Tangenta
         {
             this.Cursor = Cursors.WaitCursor;
             ID Atom_Customer_Org_ID = null;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocTyp,Customer_Org_ID, ref Atom_Customer_Org_ID))
+            if (m_ShopABC.m_CurrentDoc.Update_Customer_Org(DocTyp,Customer_Org_ID, ref Atom_Customer_Org_ID))
             {
-                m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
+                m_ShopABC.m_CurrentDoc.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
                 if (ID.Validate(Atom_Customer_Org_ID))
                 {
-                    usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentInvoice);
+                    usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentDoc);
                     if (aa_Customer_Org_Changed != null)
                     {
                         aa_Customer_Org_Changed(Customer_Org_ID);
@@ -2163,10 +2164,10 @@ namespace Tangenta
             this.Cursor = Cursors.Arrow;
         }
 
-        private bool usrc_Customer_aa_Customer_Removed()
+        private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp)
         {
             this.Cursor = Cursors.WaitCursor;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Remove())
+            if (m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp))
             {
                 this.Cursor = Cursors.Arrow;
                 return true;

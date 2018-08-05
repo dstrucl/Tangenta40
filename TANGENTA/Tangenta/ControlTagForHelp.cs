@@ -72,7 +72,7 @@ namespace Tangenta
 
 
         private string docinvoice = null;
-        public string DocInvoice
+        public string DocTyp
         {
             get { return docinvoice; }
         }
@@ -134,7 +134,7 @@ namespace Tangenta
                 //TagForHelpList.Add(new HUDCMS.TagForHelp("bdatabaseempty", "true"));
                 //TagForHelpList.Add(new HUDCMS.TagForHelp("bdatabaseempty", "false"));
 
-                //TagForHelpList.Add(new HUDCMS.TagForHelp("InvoiceType", "DocInvoice"));
+                //TagForHelpList.Add(new HUDCMS.TagForHelp("InvoiceType", "DocTyp"));
                 //TagForHelpList.Add(new HUDCMS.TagForHelp("InvoiceType", "DocProformaInvoice"));
 
             }

@@ -110,8 +110,7 @@ namespace Tangenta
         {
             get
             {
-                return "DocInvoice";
-                //return mLastDocInvoiceType;
+                return mLastDocInvoiceType;
             }
             set
             {

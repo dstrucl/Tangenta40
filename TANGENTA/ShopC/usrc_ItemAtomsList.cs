@@ -39,27 +39,27 @@ namespace ShopC
 
         public long Item_ID = -1;
 
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocTyp = "";
 
-        public string DocInvoice
+        public string DocTyp
         {
-            get { return m_DocInvoice; }
+            get { return m_DocTyp; }
             set
             {
-                m_DocInvoice = value;
+                m_DocTyp = value;
             }
         }
 
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
         public int m_NumberOfItemsPerPage = 10;
@@ -120,7 +120,7 @@ namespace ShopC
         {
             if (bFactory)
             {
-                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.RemoveFactory(DocInvoice,x_usrc_Atom_Item.m_appisd))
+                if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_appisd))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -142,7 +142,7 @@ namespace ShopC
             }
             else
             {
-                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocInvoice, x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentInvoice.m_ShopShelf))
+                if (this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocTyp, x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -162,18 +162,18 @@ namespace ShopC
                     LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                 }
             }
-            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
+            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
         }
 
 
         internal void SetCurrentInvoice_SelectedItems()
         {
 
-            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
+            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
             this.m_usrc_ItemList.Reset();
-            if (this.m_ShopBC.m_CurrentInvoice.bDraft)
+            if (this.m_ShopBC.m_CurrentDoc.bDraft)
             {
-                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
+                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
             }
             else
             {
@@ -204,9 +204,9 @@ namespace ShopC
 
         internal usrc_Atom_Item AddFromStock(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
-            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocInvoice,ref appisd,true))
+            if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,true))
             {
-                int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
+                int index = m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema != null)
                 {
@@ -224,10 +224,10 @@ namespace ShopC
         internal usrc_Atom_Item AddFromFactory(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
 
-            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocInvoice,ref appisd,false))
+            if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,false))
             {
 
-                int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
+                int index = m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema!=null)
                 {
@@ -247,7 +247,7 @@ namespace ShopC
             if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                m_ShopBC.m_CurrentInvoice.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocInvoice, m_ShopBC.m_CurrentInvoice.m_ShopShelf);
+                m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
                 m_usrc_Item_PageHandler.DoPaint();
                 m_usrc_ItemList.Reset();
                 this.Cursor = Cursors.Arrow;

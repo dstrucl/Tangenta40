@@ -83,14 +83,14 @@ namespace TangentaDB
             }
         }
 
-        public static bool IsDocProformaInvoice(string docInvoice)
+        public static bool IsDocProformaInvoice(string doctyp)
         {
-            return docInvoice.Equals("DocProformaInvoice");
+            return doctyp.Equals(GlobalData.const_DocProformaInvoice);
         }
 
-        public static bool IsDocInvoice(string docInvoice)
+        public static bool IsDocInvoice(string doctyp)
         {
-            return docInvoice.Equals("DocInvoice");
+            return doctyp.Equals(GlobalData.const_DocInvoice);
         }
 
         public static bool Get_JOURNAL_TYPE_ID()
@@ -503,12 +503,12 @@ namespace TangentaDB
 
         public static long NumberOfProformaInvoicesInDatabase()
         {
-            return GetTableRowsCount("DocProformaInvoice");
+            return GetTableRowsCount(GlobalData.const_DocProformaInvoice);
         }
 
         public static long NumberOInvoicesInDatabase()
         {
-            return GetTableRowsCount("DocInvoice");
+            return GetTableRowsCount(GlobalData.const_DocInvoice);
         }
 
 
@@ -2472,7 +2472,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool UpdatePriceInDraft(string DocInvoice,
+        public static bool UpdatePriceInDraft(string DocTyp,
                                       ID Doc_ID,
                                       decimal GrossSum,
                                       decimal TaxSum_Value,
@@ -2491,7 +2491,7 @@ namespace TangentaDB
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update " + DocInvoice + " set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + Doc_ID.ToString();
+            string sql_SetPrice = "update " + DocTyp + " set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + Doc_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
