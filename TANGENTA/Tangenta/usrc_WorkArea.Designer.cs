@@ -35,12 +35,13 @@
             // 
             // btn_WorkArea
             // 
-            this.btn_WorkArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_WorkArea.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_WorkArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_WorkArea.Location = new System.Drawing.Point(188, 0);
+            this.btn_WorkArea.Location = new System.Drawing.Point(190, 0);
             this.btn_WorkArea.Name = "btn_WorkArea";
-            this.btn_WorkArea.Size = new System.Drawing.Size(393, 141);
+            this.btn_WorkArea.Size = new System.Drawing.Size(393, 75);
             this.btn_WorkArea.TabIndex = 1;
             this.btn_WorkArea.Text = "Work Area";
             this.btn_WorkArea.UseVisualStyleBackColor = true;
@@ -48,9 +49,11 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(185, 142);
+            this.pictureBox1.Size = new System.Drawing.Size(185, 76);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -63,7 +66,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_WorkArea);
             this.Name = "usrc_WorkArea";
-            this.Size = new System.Drawing.Size(584, 142);
+            this.Size = new System.Drawing.Size(584, 76);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

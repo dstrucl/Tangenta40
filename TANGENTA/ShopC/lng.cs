@@ -130,6 +130,9 @@ namespace ShopC
         public static ltext s_Stock = new ltext(new string[]{"Stock",
                                                 "Zaloge"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockItem_Edit.cs
 
+        public static ltext s_StockShort = new ltext(new string[]{"Stock",
+                                                "Zaloga"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockItem_Edit.cs
+
         public static ltext s_btn_Remove = new ltext(new string[] { "Remove row", "Zbriši vrstico" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockTake_AdditionalCost_Edit.cs
 
         public static ltext s_lbl_Description = new ltext(new string[] { "Description", "Opis" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockTake_AdditionalCost_Edit.cs

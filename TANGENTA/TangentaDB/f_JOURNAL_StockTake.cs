@@ -49,7 +49,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Get(ID StockTake_id, ID stocktake_type_id,ID xAtom_WorkPeriod_ID, DateTime dEventTime,  ref ID JOURNAL_StockTake_ID)
+        public static bool Get(ID xAtom_WorkPeriod_ID, ID StockTake_id, ID stocktake_type_id, DateTime dEventTime,  ref ID JOURNAL_StockTake_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_JOURNAL_StockTake_Type_ID = "@par_JOURNAL_StockTake_Type_ID";

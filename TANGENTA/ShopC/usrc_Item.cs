@@ -45,23 +45,21 @@ namespace ShopC
         {
             get { return m_bExclusivelySellFromStock; }
             set { m_bExclusivelySellFromStock = value;
-                    if (m_bExclusivelySellFromStock)
+                if (m_bExclusivelySellFromStock)
+                {
+                    if (uItemFactory != null)
                     {
-                        if (btn_NoStock != null)
-                        {
-                            btn_NoStock.Visible = false;
-                            nmUpDn_FactoryQuantity.Visible = false;
-                        }
+                        uItemFactory.Visible = false;
                     }
-                    else
+                }
+                else
+                {
+                    if (uItemFactory != null)
                     {
-                        if (btn_NoStock != null)
-                        {
-                            btn_NoStock.Visible = true;
-                            nmUpDn_FactoryQuantity.Visible = true;
-                        }
-                    }   
-               }
+                        uItemFactory.Visible = true;
+                    }
+                }
+            }
         }
 
         public TangentaDB.Item_Data m_Item_Data = null;
@@ -83,18 +81,17 @@ namespace ShopC
 
         private int x1_btn_EditItem_Left = 0;
 
-        private int x2_btn_NoStock_Left = 0;
-        private int x2_btn_NoStock_Top = 0;
-        private int x2_btn_NoStock_Height = 0;
-        private int x2_btn_NoStock_Width = 0;
+        private int x2_uItemFactory_Left = 0;
+        private int x2_uItemFactory_Top = 0;
+        private int x2_uItemFactory_Height = 0;
+        private int x2_uItemFactory_Width = 0;
 
-        private int x2_btn_Stock_Left = 0;
-        private int x2_btn_Stock_Top = 0;
-        private int x2_btn_Stock_Height = 0;
-        private int x2_btn_Stock_Width = 0;
+        private int x2_uItemStock_Left = 0;
+        private int x2_uItemStock_Top = 0;
+        private int x2_uItemStock_Height = 0;
+        private int x2_uItemStock_Width = 0;
 
 
-        private int x3_lbl_ItemPrice_Left = 0;
 
         private int cx_lbl_Item_large_width = 0;
         private int cx_lbl_Item_small_width = 0;
@@ -104,6 +101,14 @@ namespace ShopC
         {
             InitializeComponent();
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+            uItemStock.PriceLabelText = lng.s_lbl_Cost.s;
+            uItemStock.QuantityText = lng.s_Quantity.s;
+            uItemStock.StockLabelText = lng.s_StockShort.s;
+
+            uItemFactory.PriceLabelText = lng.s_lbl_Cost.s;
+            uItemFactory.QuantityText = lng.s_Quantity.s;
+            uItemFactory.StockLabelText = "";
+            uItemFactory.StockText = "";
 
             x0_pic_Item_Left = pic_Item.Left;
 
@@ -112,17 +117,16 @@ namespace ShopC
             x1_btn_EditItem_Left = btn_EditItem.Left;
 
 
-            x2_btn_NoStock_Left = btn_NoStock.Left;
-            x2_btn_NoStock_Top = btn_NoStock.Top;
-            x2_btn_NoStock_Height = btn_NoStock.Height;
-            x2_btn_NoStock_Width = btn_NoStock.Width;
+            x2_uItemFactory_Left = uItemFactory.Left;
+            x2_uItemFactory_Top = uItemFactory.Top;
+            x2_uItemFactory_Height = uItemFactory.Height;
+            x2_uItemFactory_Width = uItemFactory.Width;
 
-            x2_btn_Stock_Left = btn_Stock.Left;
-            x2_btn_Stock_Top = btn_Stock.Top;
-            x2_btn_Stock_Height = btn_Stock.Height;
-            x2_btn_Stock_Width = btn_Stock.Width;
+            x2_uItemStock_Left = uItemStock.Left;
+            x2_uItemStock_Top = uItemStock.Top;
+            x2_uItemStock_Height = uItemStock.Height;
+            x2_uItemStock_Width = uItemStock.Width;
 
-            x3_lbl_ItemPrice_Left = lbl_ItemPrice.Left;
             cx_lbl_Item_small_width = lbl_Item.Width;
             cx_lbl_Item_large_width = cx_lbl_Item_small_width + x1_btn_EditItem_Left - x0_pic_Item_Left;
             
@@ -136,12 +140,12 @@ namespace ShopC
             if (disposed)
                 return;
 
-            this.nmUpDn_StockQuantity.ValueChanged -=  (System.EventHandler)this.nmUpDn_StockQuantity_ValueChanged;
-            this.nmUpDn_FactoryQuantity.ValueChanged -= (System.EventHandler) this.nmUpDn_FactoryQuantity_ValueChanged;
+            this.uItemStock.ValueChanged -=  (System.EventHandler)this.uItemStock_ValueChanged;
+            this.uItemFactory.ValueChanged -= (System.EventHandler) this.uItemFactory_ValueChanged;
             this.btn_Discount.Click -= (System.EventHandler)this.btn_Discount_Click;
             this.btn_EditItem.Click -=  (System.EventHandler)this.btn_EditItem_Click;
-            this.btn_NoStock.Click -= (System.EventHandler) this.btn_Factory_Click;
-            this.btn_Stock.Click -= (System.EventHandler) this.btn_Stock_Click;
+            this.uItemFactory.Click -= (System.EventHandler) this.uItemFactory_Click;
+            this.uItemStock.Click -= (System.EventHandler) this.uItemStock_Click;
 
             if (disposing)
             {
@@ -170,13 +174,13 @@ namespace ShopC
                 switch (Mode)
                 {
                     case eMode.STOCK_AND_FACTORY:
-                        return GetValue(nmUpDn_StockQuantity) + GetValue(nmUpDn_FactoryQuantity);
+                        return GetValue(uItemStock) + GetValue(uItemFactory);
 
                     case eMode.STOCK:
-                        return GetValue(nmUpDn_StockQuantity);
+                        return GetValue(uItemStock);
 
                     case eMode.FACTORY:
-                        return GetValue(nmUpDn_FactoryQuantity);
+                        return GetValue(uItemFactory);
 
                     case eMode.NONE:
                         return 0;
@@ -188,16 +192,25 @@ namespace ShopC
             }
         }
 
-        private decimal GetValue(usrc_NumericUpDown2 nmUpDn_Quantity)
+        private decimal GetValue(usrc_btn_Item uItem)
         {
-            if (nmUpDn_Quantity.Visible)
+            if (uItem.Visible)
             {
-                return nmUpDn_Quantity.Value;
+                return uItem.Value;
             }
             else
             {
                 return 0;
             }
+        }
+
+        private void setNumericUpDown(ref usrc_btn_Item uItem, object DecimalPlaces)
+        {
+            uItem.DecimalPlaces = Convert.ToInt32(DecimalPlaces);
+            decimal dincrement = fs.Increment(DecimalPlaces);
+            uItem.Increment = dincrement;
+            uItem.Minimum = dincrement;
+            uItem.Value = dincrement;
         }
 
         private void RePaint()
@@ -208,28 +221,29 @@ namespace ShopC
 
             if (dAllStockQuantity > 0)
             {
-                
-                    nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
-                    fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
-                    nmUpDn_StockQuantity.Maximum = Convert.ToDecimal(dAllStockQuantity);
-                    fs.SetNumericUpDown(ref nmUpDn_FactoryQuantity, m_Item_Data.Unit_DecimalPlaces.v);
-                    nmUpDn_FactoryQuantity.Minimum = 0;
-                    nmUpDn_FactoryQuantity.Value = 0;
-                    Paint_Item_Mode(eMode.STOCK_AND_FACTORY);
+
+                uItemStock.Maximum = Convert.ToDecimal(dAllStockQuantity);
+                setNumericUpDown(ref uItemStock, m_Item_Data.Unit_DecimalPlaces.v);
+                uItemStock.Maximum = Convert.ToDecimal(dAllStockQuantity);
+                setNumericUpDown(ref uItemFactory, m_Item_Data.Unit_DecimalPlaces.v);
+                uItemFactory.Minimum = 0;
+                uItemFactory.Value = 0;
+                Paint_Item_Mode(eMode.STOCK_AND_FACTORY);
             }
             else
             {
-                fs.SetNumericUpDown(ref nmUpDn_StockQuantity, m_Item_Data.Unit_DecimalPlaces.v);
-                nmUpDn_StockQuantity.Minimum = 0;
-                nmUpDn_StockQuantity.Value = 0;
-                fs.SetNumericUpDown(ref nmUpDn_FactoryQuantity, m_Item_Data.Unit_DecimalPlaces.v);
-                nmUpDn_FactoryQuantity.Minimum = 0;
-                nmUpDn_FactoryQuantity.Value = 0;
-                nmUpDn_FactoryQuantity.Maximum = decimal.MaxValue;
+                setNumericUpDown(ref uItemStock, m_Item_Data.Unit_DecimalPlaces.v);
+                uItemStock.Minimum = 0;
+                uItemStock.Value = 0;
+                setNumericUpDown(ref uItemFactory, m_Item_Data.Unit_DecimalPlaces.v);
+                uItemFactory.Minimum = 0;
+                uItemFactory.Value = 0;
+                uItemFactory.Maximum = decimal.MaxValue;
                 Paint_Item_Mode(eMode.FACTORY);
             }
 
-            this.txt_InStock.Text = dAllStockQuantity.ToString();
+            uItemStock.StockText = dAllStockQuantity.ToString();
+
             if (m_Item_Data.Item_UniqueName != null)
             {
                 this.lbl_Item.Text = m_Item_Data.Item_UniqueName.v;
@@ -277,13 +291,13 @@ namespace ShopC
             switch (xeMode)
             {
                 case eMode.STOCK_AND_FACTORY:
-                    if (m_Item_Data.Item_Image_Image_Data!=null)
+                    if (m_Item_Data.Item_Image_Image_Data != null)
                     {
                         xStart = x1_lbl_Item_Left;
                     }
                     pic_Item.Visible = false;
                     btn_EditItem.Visible = true;
-                    btn_EditItem.Left = xStart+  cx_lbl_Item_large_width + 4;
+                    btn_EditItem.Left = xStart + cx_lbl_Item_large_width + 4;
                     lbl_Item.Left = xStart + 2;
                     lbl_Item.Width = cx_lbl_Item_large_width;
                     if (appisd_in_Basket != null)
@@ -291,39 +305,28 @@ namespace ShopC
                         btn_Discount.Visible = false;
                         if (appisd_in_Basket.m_ShopShelf_Source.dQuantity_from_stock == 0)
                         {
-                            btn_Stock.Visible = true;
-                            btn_Stock.Left = xStart;
-                            nmUpDn_StockQuantity.Visible = true;
-                            nmUpDn_StockQuantity.Left = btn_Stock.Left + btn_Stock.Width + 2;
+                            uItemStock.Visible = true;
+                            uItemStock.Left = xStart;
                             if (appisd_in_Basket.m_ShopShelf_Source.dQuantity_from_factory == 0)
                             {
                                 if (!ExclusivelySellFromStock)
                                 {
-                                    btn_NoStock.Visible = true;
-                                    nmUpDn_FactoryQuantity.Visible = true;
-                                    btn_NoStock.Left = nmUpDn_StockQuantity.Left + nmUpDn_StockQuantity.Width + 10;
-                                    nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
+                                    uItemFactory.Visible = true;
+                                    uItemFactory.Left = uItemStock.Left + uItemStock.Width + 10;
                                 }
-                                
+
                                 Mode = eMode.STOCK_AND_FACTORY;
                             }
                             else
                             {
                                 Mode = eMode.STOCK;
-                                btn_NoStock.Visible = false;
+                                uItemFactory.Visible = false;
                                 nmUpDn_FactoryQuantity_Hide();
                             }
                         }
                         else
                         {
-                            btn_Stock.Visible = false;
-                            nmUpDn_StockQuantity.Visible = false;
-                            //lbl_InStock.Visible = false;
-                            //txt_InStock.Visible = false;
-
-                            lbl_ItemPrice.Left = txt_InStock.Left+2;
-                            txt_Price.Left = lbl_ItemPrice.Left + lbl_ItemPrice.Width + 2;
-                            btn_Discount.Left = txt_Price.Left + txt_Price.Width + 2;
+                            uItemStock.Visible = false;
                             txt_Item_Description.Left = btn_Discount.Left + btn_Discount.Width + 2;
 
                             if (appisd_in_Basket.m_ShopShelf_Source.dQuantity_from_factory == 0)
@@ -331,21 +334,17 @@ namespace ShopC
                                 Mode = eMode.FACTORY;
                                 if (!ExclusivelySellFromStock)
                                 {
-                                    btn_NoStock.Visible = true;
-                                    btn_NoStock.Left = xStart;
-                                    btn_NoStock.Top = x2_btn_Stock_Top;
-                                    btn_NoStock.Width = x2_btn_Stock_Width;
-                                    btn_NoStock.Height = x2_btn_Stock_Height;
-                                    lbl_InStock.Left = btn_NoStock.Left+ btn_NoStock.Width+2;
-                                    nmUpDn_FactoryQuantity.Visible = true;
-                                    nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
+                                    uItemFactory.Visible = true;
+                                    uItemFactory.Left = xStart;
+                                    uItemFactory.Top = x2_uItemStock_Top;
+                                    uItemFactory.Width = x2_uItemStock_Width;
+                                    uItemFactory.Height = x2_uItemStock_Height;
                                 }
-                                Set_info_line();
                             }
                             else
                             {
                                 Mode = eMode.NONE;
-                                btn_NoStock.Visible = false;
+                                uItemFactory.Visible = false;
                                 nmUpDn_FactoryQuantity_Hide();
                             }
                         }
@@ -353,29 +352,18 @@ namespace ShopC
                     else
                     {
                         Mode = eMode.STOCK_AND_FACTORY;
-                        lbl_ItemPrice.Visible = true;
-                        txt_Price.Visible = true;
                         btn_Discount.Visible = true;
-                        btn_Stock.Visible = true;
-                        btn_Stock.Left = xStart;
-                        nmUpDn_StockQuantity.Visible = true;
-                        nmUpDn_StockQuantity.Left = btn_Stock.Left + btn_Stock.Width + 2;
-                        txt_InStock.Visible = true;
-                        lbl_InStock.Visible = true;
-                        lbl_InStock.Left = btn_Stock.Left + btn_Stock.Width + 2;
+                        uItemStock.Visible = true;
+                        uItemStock.Left = xStart;
 
                         if (!ExclusivelySellFromStock)
                         {
-                            btn_NoStock.Visible = true;
-                            btn_NoStock.Top = x2_btn_Stock_Top;
-                            btn_NoStock.Width = x2_btn_Stock_Width;
-                            btn_NoStock.Height = x2_btn_Stock_Height;
-                            btn_NoStock.Left = nmUpDn_StockQuantity.Left + nmUpDn_StockQuantity.Width + 10;
-
-                            nmUpDn_FactoryQuantity.Visible = true;
-                            nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
+                            uItemFactory.Visible = true;
+                            uItemFactory.Top = x2_uItemStock_Top;
+                            uItemFactory.Width = x2_uItemStock_Width;
+                            uItemFactory.Height = x2_uItemStock_Height;
+                            uItemFactory.Left = uItemStock.Left + uItemStock.Width + 10;
                         }
-                        Set_info_line();
                     }
                     this.BackColor = Colors.ItemFromStock.BackColor;
                     this.ForeColor = Colors.ItemFromStock.ForeColor;
@@ -388,7 +376,7 @@ namespace ShopC
 
                 case eMode.FACTORY:
                     xStart = x0_pic_Item_Left;
-                    if (m_Item_Data.Item_Image_Image_Data!=null)
+                    if (m_Item_Data.Item_Image_Image_Data != null)
                     {
                         xStart = x1_btn_EditItem_Left;
                     }
@@ -397,60 +385,38 @@ namespace ShopC
                     btn_EditItem.Left = xStart + cx_lbl_Item_large_width + 4; ;
                     lbl_Item.Left = xStart + 2;
                     lbl_Item.Width = cx_lbl_Item_large_width;
-                    lbl_InStock.Visible = false;
-                    txt_InStock.Visible = false;
-                    lbl_ItemPrice.Left = xStart;
-                    txt_Price.Left = lbl_ItemPrice.Left + lbl_ItemPrice.Width + 2;
-                    btn_Discount.Left = txt_Price.Left + txt_Price.Width + 2;
                     txt_Item_Description.Left = btn_Discount.Left + btn_Discount.Width + 2;
 
                     if (appisd_in_Basket != null)
                     {
-                        btn_Stock.Visible = false;
-                        nmUpDn_StockQuantity.Visible = false;
-                        lbl_InStock.Visible = false;
-                        txt_InStock.Visible = false;
+                        uItemStock.Visible = false;
                         if (appisd_in_Basket.m_ShopShelf_Source.dQuantity_from_factory == 0)
                         {
                             Mode = eMode.FACTORY;
-                            btn_NoStock.Visible = true;
-                            btn_NoStock.Left = xStart;
-                            nmUpDn_FactoryQuantity.Visible = true;
-                            nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
+                            uItemFactory.Visible = true;
+                            uItemFactory.Left = xStart;
                         }
                         else
                         {
                             //Mode = eMode.NONE;
-                            btn_NoStock.Visible = false;
-                            this.nmUpDn_StockQuantity.Visible = false;
-                            //this.nmUpDn_FactoryQuantity.Visible = true;
-                            this.nmUpDn_FactoryQuantity.Visible = false;
+                            uItemFactory.Visible = false;
                         }
                     }
                     else
                     {
                         Mode = eMode.FACTORY;
-                        lbl_ItemPrice.Visible = true;
-                        txt_Price.Visible = true;
                         btn_Discount.Visible = true;
-                        btn_Stock.Visible = false;
-                        nmUpDn_StockQuantity.Visible = false;
-                        lbl_InStock.Visible = false;
-                        txt_InStock.Visible = false;
+                        uItemStock.Visible = false;
                         if (!ExclusivelySellFromStock)
                         {
-                            btn_NoStock.Visible = true;
-                            btn_NoStock.Left = xStart;
-                            btn_NoStock.Top = x2_btn_Stock_Top;
-                            btn_NoStock.Width = x2_btn_Stock_Width;
-                            btn_NoStock.Height = x2_btn_Stock_Height;
-                            lbl_InStock.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
-                            nmUpDn_FactoryQuantity.Visible = true;
-                            nmUpDn_FactoryQuantity.Left = btn_NoStock.Left + btn_NoStock.Width + 2;
+                            uItemFactory.Visible = true;
+                            uItemFactory.Left = xStart;
+                            uItemFactory.Top = x2_uItemStock_Top;
+                            uItemFactory.Width = x2_uItemStock_Width;
+                            uItemFactory.Height = x2_uItemStock_Height;
                         }
                     }
-                    Set_info_line();
-                    //m_Arrangement.Set(0, btn_NoStock, nmUpDn_FactoryQuantity, m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Contains(m_Item_Data));
+                    //m_Arrangement.Set(0, uItemFactory, nmUpDn_FactoryQuantity, m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Contains(m_Item_Data));
                     this.BackColor = Colors.ItemFromFactory.BackColor;
                     this.ForeColor = Colors.ItemFromFactory.ForeColor;
 
@@ -461,53 +427,34 @@ namespace ShopC
 
         private void ShowPriceAndDiscount()
         {
-            if ((btn_Stock.Visible)|| (btn_NoStock.Visible))
+            if ((uItemStock.Visible) || (uItemFactory.Visible))
             {
-                lbl_ItemPrice.Visible = true;
-                txt_Price.Visible = true;
                 btn_Discount.Visible = true;
+                if (uItemFactory.Visible)
+                {
+                    btn_Discount.Left = uItemFactory.Left + uItemFactory.Width + 2;
+                    txt_Item_Description.Left = btn_Discount.Left;
+                    btn_Discount.Width = this.Width - btn_Discount.Left - 4;
+                    txt_Item_Description.Width = this.Width - txt_Item_Description.Left - 4;
+                }
+                else if (uItemStock.Visible)
+                {
+                    btn_Discount.Left = uItemStock.Left + uItemStock.Width + 2;
+                    txt_Item_Description.Left = btn_Discount.Left;
+                    btn_Discount.Width = this.Width - btn_Discount.Left - 4;
+                    txt_Item_Description.Width = this.Width - txt_Item_Description.Left - 4;
+                }
             }
             else
             {
-                lbl_ItemPrice.Visible = false;
-                txt_Price.Visible = false;
                 btn_Discount.Visible = false;
+                txt_Item_Description.Visible = false;
             }
-            
-        }
-
-        private void Set_info_line()
-        {
-            txt_InStock.Left = lbl_InStock.Left + lbl_InStock.Width + 2;
-            lbl_ItemPrice.Left = txt_InStock.Left + txt_InStock.Width + 2;
-            txt_Price.Left = lbl_ItemPrice.Left + lbl_ItemPrice.Width + 2;
-            //btn_Discount.Left = txt_Price.Left + txt_Price.Width + 2;
-
-            int desc_left_After_btn_Discount = btn_Discount.Left + btn_Discount.Width + 2;
-            int desc_left_After_nmUpDn_FactoryQuantity = nmUpDn_FactoryQuantity.Left + nmUpDn_FactoryQuantity.Width + 2;
-            int desc_left = 0;
-            if (nmUpDn_FactoryQuantity.Visible)
-            {
-                if (desc_left_After_btn_Discount > desc_left_After_nmUpDn_FactoryQuantity)
-                {
-                    desc_left = desc_left_After_btn_Discount;
-                }
-                else
-                {
-                    desc_left = desc_left_After_nmUpDn_FactoryQuantity;
-                }
-            }
-            else
-            {
-                desc_left = desc_left_After_btn_Discount;
-            }
-            txt_Item_Description.Left = desc_left;
-
         }
 
         private void nmUpDn_FactoryQuantity_Hide()
         {
-            nmUpDn_FactoryQuantity.Visible = false;  
+           uItemFactory.Visible = false;  
         }
 
         private void Set_btn_Discount_Text()
@@ -533,25 +480,31 @@ namespace ShopC
             decimal dquantity = this.dQuantity;
             if (ExclusivelySellFromStock)
             {
-                dquantity = GetValue(nmUpDn_StockQuantity);
+               dquantity = GetValue(uItemStock);
             }      
             StaticLib.Func.CalculatePrice(m_Item_Data.RetailPricePerUnit.v, dquantity, m_Item_Data.Price_Item_Discount.v, ExtraDiscount, m_Item_Data.Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
             
             decimal EndPrice = decimal.Round(RetailPriceWithDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
-            this.txt_Price.Text = EndPrice.ToString();
+            if (uItemStock.Visible)
+            {
+                uItemStock.PriceText = EndPrice.ToString();
+            }
+            if (uItemFactory.Visible)
+            {
+                uItemFactory.PriceText = EndPrice.ToString();
+            }
         }
 
 
 
-        private void btn_Stock_Click(object sender, EventArgs e)
+        private void uItemStock_Click(object sender, EventArgs e)
         {
-            //appisd.Set(this, ref m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST, false);
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
             m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                         this,
                                                                         m_Item_Data,
-                                                                        nmUpDn_FactoryQuantity.Value,
-                                                                        nmUpDn_StockQuantity.Value,
+                                                                        uItemFactory.Value,
+                                                                        uItemStock.Value,
                                                                         ref appisd, false);
 
             usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(appisd);
@@ -566,9 +519,8 @@ namespace ShopC
             RePaint();
         }
 
-        private void btn_Factory_Click(object sender, EventArgs e)
+        private void uItemFactory_Click(object sender, EventArgs e)
         {
-            //bool bNew = false;
             if (ID.Validate(m_Item_Data.Item_Expiry_ID))
             {
                 if (EditStock_AvoidStock())
@@ -577,8 +529,8 @@ namespace ShopC
                     m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                                    this,
                                                                                    m_Item_Data,
-                                                                                   nmUpDn_FactoryQuantity.Value,
-                                                                                   nmUpDn_StockQuantity.Value,
+                                                                                   uItemFactory.Value,
+                                                                                   uItemStock.Value,
                                                                                    ref appisd, true);
                     usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
                     if (uia != null)
@@ -597,8 +549,8 @@ namespace ShopC
                 m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                                 this,
                                                                                 m_Item_Data,
-                                                                                nmUpDn_FactoryQuantity.Value,
-                                                                                nmUpDn_StockQuantity.Value,
+                                                                                uItemFactory.Value,
+                                                                                uItemStock.Value,
                                                                                 ref appisd,
                                                                                 true);
                 usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
@@ -708,7 +660,7 @@ namespace ShopC
         {
             decimal dcount = 0;
             decimal RetailPricePerUnit_Sum = 0;
-            dcount += nmUpDn_FactoryQuantity.Value;
+            dcount += uItemFactory.Value;
             if (dcount != 0)
             { 
                 return RetailPricePerUnit_Sum / dcount;
@@ -734,60 +686,38 @@ namespace ShopC
 
         internal void HideStock()
         {
-            this.btn_Stock.Visible = false;
-            //this.txt_InStock.Visible = false;
-            this.nmUpDn_StockQuantity.Visible = false;
+            this.uItemStock.Visible = false;
             HideAll();
         }
         internal void HideFactory()
         {
-            this.btn_NoStock.Visible = false;
-            this.nmUpDn_FactoryQuantity.Visible = false;
+            this.uItemFactory.Visible = false;
             HideAll();
         }
 
         private void HideAll()
         {
-            if (!this.nmUpDn_FactoryQuantity.Visible && !this.nmUpDn_StockQuantity.Visible)
+            if (!this.uItemFactory.Visible && !this.uItemStock.Visible)
             {
-                this.lbl_ItemPrice.Visible = false;
-                this.txt_Price.Visible = false;
                 btn_Discount.Visible = false;
+                txt_Item_Description.Visible = false;
             }
             else
             {
-                this.lbl_ItemPrice.Visible = true;
-                this.txt_Price.Visible = true;
                 btn_Discount.Visible = true;
-
+                txt_Item_Description.Visible = true;
             }
         }
 
 
-        private void nmUpDn_StockQuantity_ValueChanged(object sender, EventArgs e)
+        private void uItemStock_ValueChanged(object sender, EventArgs e)
         {
-            if (this.nmUpDn_StockQuantity.Value != 0)
-            {
-                this.btn_Stock.Enabled = true;
-            }
-            else
-            {
-                this.btn_Stock.Enabled = false;
-            }
 
             Set_txt_Price();
         }
 
-        private void nmUpDn_FactoryQuantity_ValueChanged(object sender, EventArgs e)
+        private void uItemFactory_ValueChanged(object sender, EventArgs e)
         {
-            if (this.nmUpDn_FactoryQuantity.Value != 0)
-            {
-                this.btn_NoStock.Enabled = true;
-            }
-            else
-            {
-                this.btn_NoStock.Enabled = false;
-            }
             Set_txt_Price();
         }
 
@@ -807,7 +737,6 @@ namespace ShopC
                     XMessage.Box.Show(this, lng.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 }
             }
-
         }
     }
 }
