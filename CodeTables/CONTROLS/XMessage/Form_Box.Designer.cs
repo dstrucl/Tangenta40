@@ -38,9 +38,9 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(196, 279);
+            this.button1.Location = new System.Drawing.Point(61, 262);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 34);
+            this.button1.Size = new System.Drawing.Size(106, 64);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -49,9 +49,9 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(268, 279);
+            this.button2.Location = new System.Drawing.Point(173, 262);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(66, 34);
+            this.button2.Size = new System.Drawing.Size(106, 64);
             this.button2.TabIndex = 1;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -60,9 +60,9 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(340, 279);
+            this.button3.Location = new System.Drawing.Point(290, 262);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(66, 34);
+            this.button3.Size = new System.Drawing.Size(106, 64);
             this.button3.TabIndex = 2;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
@@ -76,19 +76,19 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox1.ForeColor = System.Drawing.Color.Blue;
-            this.textBox1.Location = new System.Drawing.Point(7, 9);
+            this.textBox1.Location = new System.Drawing.Point(4, 3);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(608, 264);
+            this.textBox1.Size = new System.Drawing.Size(463, 253);
             this.textBox1.TabIndex = 3;
             // 
             // Form_Box
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(619, 319);
+            this.ClientSize = new System.Drawing.Size(471, 332);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);

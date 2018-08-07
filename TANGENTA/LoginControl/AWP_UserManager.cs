@@ -263,7 +263,7 @@ namespace LoginControl
                 case DialogResult.No:
                     if (eselectiontype == AWPFormSelectMyOrgPer.eSelectionType.NotInLoginUsers)
                     {
-                        MessageBox.Show(lng.s_AllEmpleyeesHaveUserAccount.s + lng.s_btn_Edit_myOrganisation_Person.s);
+                        XMessage.Box.Show(this,lng.s_AllEmpleyeesHaveUserAccount,lng.s_btn_Edit_myOrganisation_Person.s,"",MessageBoxButtons.OK,MessageBoxIcon.Information,MessageBoxDefaultButton.Button1);
                     }
                     break;
                 case DialogResult.OK:
@@ -389,7 +389,7 @@ namespace LoginControl
                         {
                             if (ID.Validate(LoginUsers_ID))
                             {
-                                MessageBox.Show(lng.s_UserName_AllreadyExist.s);//you can not overwrite existig yuser
+                                XMessage.Box.Show(this,lng.s_UserName_AllreadyExist,MessageBoxIcon.Information);//you can not overwrite existig yuser
                                 return false;
                             }
                             else
@@ -405,7 +405,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(this, lng.s_UserName_Is_Not_Defined.s);
+                    XMessage.Box.Show(this, lng.s_UserName_Is_Not_Defined,MessageBoxIcon.Information);
                     return false;
                 }
             }
@@ -452,7 +452,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lng.s_UserNameIsNotWritten.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    XMessage.Box.Show(this,lng.s_UserNameIsNotWritten, lng.s_Warning.s,"", MessageBoxButtons.OK, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1);
                 }
                 e.Handled = true;
             }

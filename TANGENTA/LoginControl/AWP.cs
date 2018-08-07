@@ -101,7 +101,7 @@ namespace LoginControl
             eAWP_dtLogin_Vaild_result xres = Check_LoginTable(xnav);
             if (xres == eAWP_dtLogin_Vaild_result.OK)
             {
-                Form parent_form = lctrl.m_parent_form;
+                Form parent_form = LoginCtrl.m_parent_form;
                 return Login_MultipleUsers_SetControl(AWP_dtLoginView,parent_form, bShowAdministratorUsers);
             }
             else
@@ -123,7 +123,7 @@ namespace LoginControl
             string Err = null;
             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
             {
-                Form parent_form = lctrl.m_parent_form;
+                Form parent_form = LoginCtrl.m_parent_form;
                 eAWP_dtLogin_Vaild_result eres = AWP_dtLogin_Vaild();
 eres_check:
                 switch (eres)

@@ -161,6 +161,12 @@
     <Compile Include="Form_SettingsUsers.Designer.cs">
       <DependentUpon>Form_SettingsUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SettingsUsersCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SettingsUsersCompare.Designer.cs">
+      <DependentUpon>Form_SettingsUsersCompare.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_WorkArea_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -671,6 +677,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SettingsUsers.resx">
       <DependentUpon>Form_SettingsUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SettingsUsersCompare.resx">
+      <DependentUpon>Form_SettingsUsersCompare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_WorkArea_Edit.resx">
       <DependentUpon>Form_WorkArea_Edit.cs</DependentUpon>

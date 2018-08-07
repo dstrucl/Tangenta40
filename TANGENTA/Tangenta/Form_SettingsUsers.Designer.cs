@@ -28,85 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgv_AfterLoad = new System.Windows.Forms.DataGridView();
-            this.dgv_AfterSave = new System.Windows.Forms.DataGridView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lbl_AfterLoad = new System.Windows.Forms.Label();
-            this.lbl_AfterSave = new System.Windows.Forms.Label();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AfterLoad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AfterSave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.dgv_USet = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_USet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgv_AfterLoad
-            // 
-            this.dgv_AfterLoad.AllowUserToAddRows = false;
-            this.dgv_AfterLoad.AllowUserToDeleteRows = false;
-            this.dgv_AfterLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_AfterLoad.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_AfterLoad.Location = new System.Drawing.Point(3, 40);
-            this.dgv_AfterLoad.Name = "dgv_AfterLoad";
-            this.dgv_AfterLoad.ReadOnly = true;
-            this.dgv_AfterLoad.Size = new System.Drawing.Size(499, 573);
-            this.dgv_AfterLoad.TabIndex = 0;
-            // 
-            // dgv_AfterSave
-            // 
-            this.dgv_AfterSave.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_AfterSave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_AfterSave.Location = new System.Drawing.Point(3, 40);
-            this.dgv_AfterSave.Name = "dgv_AfterSave";
-            this.dgv_AfterSave.Size = new System.Drawing.Size(441, 570);
-            this.dgv_AfterSave.TabIndex = 1;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(255)))), ((int)(((byte)(242)))));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 36);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_AfterLoad);
-            this.splitContainer1.Panel1.Controls.Add(this.dgv_AfterLoad);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_AfterSave);
-            this.splitContainer1.Panel2.Controls.Add(this.dgv_AfterSave);
-            this.splitContainer1.Size = new System.Drawing.Size(960, 613);
-            this.splitContainer1.SplitterDistance = 505;
-            this.splitContainer1.SplitterWidth = 8;
-            this.splitContainer1.TabIndex = 2;
-            // 
-            // lbl_AfterLoad
-            // 
-            this.lbl_AfterLoad.AutoSize = true;
-            this.lbl_AfterLoad.Location = new System.Drawing.Point(10, 17);
-            this.lbl_AfterLoad.Name = "lbl_AfterLoad";
-            this.lbl_AfterLoad.Size = new System.Drawing.Size(56, 13);
-            this.lbl_AfterLoad.TabIndex = 1;
-            this.lbl_AfterLoad.Text = "After Load";
-            // 
-            // lbl_AfterSave
-            // 
-            this.lbl_AfterSave.AutoSize = true;
-            this.lbl_AfterSave.Location = new System.Drawing.Point(14, 20);
-            this.lbl_AfterSave.Name = "lbl_AfterSave";
-            this.lbl_AfterSave.Size = new System.Drawing.Size(57, 13);
-            this.lbl_AfterSave.TabIndex = 2;
-            this.lbl_AfterSave.Text = "After Save";
             // 
             // label1
             // 
@@ -117,36 +43,49 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "label1";
             // 
+            // dgv_USet
+            // 
+            this.dgv_USet.AllowUserToAddRows = false;
+            this.dgv_USet.AllowUserToDeleteRows = false;
+            this.dgv_USet.AllowUserToOrderColumns = true;
+            this.dgv_USet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_USet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_USet.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_USet.Location = new System.Drawing.Point(3, 34);
+            this.dgv_USet.Name = "dgv_USet";
+            this.dgv_USet.Size = new System.Drawing.Size(514, 424);
+            this.dgv_USet.TabIndex = 4;
+            this.dgv_USet.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgv_AfterLoad_CellFormatting);
+            // 
             // Form_SettingsUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 661);
+            this.ClientSize = new System.Drawing.Size(517, 459);
+            this.Controls.Add(this.dgv_USet);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form_SettingsUsers";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_SettingsUsers";
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AfterLoad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AfterSave)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_USet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgv_AfterLoad;
-        private System.Windows.Forms.DataGridView dgv_AfterSave;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label lbl_AfterLoad;
-        private System.Windows.Forms.Label lbl_AfterSave;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgv_USet;
     }
 }

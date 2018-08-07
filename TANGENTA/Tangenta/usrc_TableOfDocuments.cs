@@ -1146,9 +1146,14 @@ namespace Tangenta
                         if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
                         {
                             e.CellStyle.BackColor = ColorDraft;
+                            DataGridViewRow row = dgv.Rows[e.RowIndex];
+                            row.Height = 64;
+
                         }
                         else 
                         {
+                            DataGridViewRow row = dgv.Rows[e.RowIndex];
+                            row.Height = 20;
                             e.CellStyle.BackColor = Color.White;
                           
                             if (Program.b_FVI_SLO)

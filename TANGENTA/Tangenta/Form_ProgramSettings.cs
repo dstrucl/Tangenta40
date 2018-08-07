@@ -53,6 +53,7 @@ namespace Tangenta
             lng.s_rdb_Autentification_PIN.Text(rdb_Authentification_PIN);
             lng.s_rdb_Autentification_RFID.Text(rdb_Authentification_RFID);
             lng.s_lbl_ExitTimeout.Text(lbl_ExitTimeout);
+            lng.s_btn_UserSettings.Text(btn_UserSettings);
 
             nmUpDn_ExitTimeout.Value = Convert.ToDecimal(Properties.Settings.Default.timer_Login_MultiUser_Countdown);
 
@@ -345,6 +346,13 @@ namespace Tangenta
             {
                 grp_AccessAuthentication.Enabled = false;
             }
+        }
+
+        private void btn_UserSettings_Click(object sender, EventArgs e)
+        {
+            Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(this.m_usrc_Main.m_LMOUser);
+            frm_settingsuser.Init();
+            frm_settingsuser.ShowDialog(this);
         }
     }
 }

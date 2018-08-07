@@ -161,7 +161,7 @@ namespace LoginControl
                 case LoginCtrl.eAuthentificationType.PASSWORD:
                     if (!Authentificate_PASSWORD())
                     {
-                        MessageBox.Show(lng.s_Password_does_not_match.s);
+                        XMessage.Box.Show(this,lng.s_Password_does_not_match,MessageBoxIcon.Information);
                         return;
                     }
                     break;

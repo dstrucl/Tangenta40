@@ -309,7 +309,7 @@ namespace LoginControl
                     {
                         if (xusrc_LMOUser.m_LMOUser.LoggedIn)
                         {
-                            MessageBox.Show(lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut.s);
+                            XMessage.Box.Show(this,lng.s_YouCanNotExitProgramUntilAllUsersAreLoggedOut,MessageBoxIcon.Information);
                             return;
                         }
                     }

@@ -25,6 +25,12 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_SettingsUser_Name = new ltext(new string[] { "Settings Name", "Ime nastavitve" });
+        public static ltext s_SettingsUser_Type = new ltext(new string[] { "Settings Type", "Vrsta nastavitve"  });
+        public static ltext s_SettingsUser_Value = new ltext(new string[] { "Settings Value", "Vrednost nastvitve" });
+
+
+        public static ltext s_UserName = new ltext(new string[] { "User Name", "Uporabniško ime" });
         public static ltext s_Atom_WorkArea_Name = new ltext(new string[] { "Work area", "MIZA" });
         public static ltext s_WorkAreas = new ltext(new string[] { "Work area", "Področja dela" });
 
@@ -39,6 +45,8 @@ namespace Tangenta
 
 
         public static ltext s_lbl_SelectionDescription_AllProformaInvoices = new ltext(new string[] { "Proforma from all", "Pedračuni os vseh" });
+
+        public static ltext s_btn_UserSettings = new ltext(new string[] { "User settings:", "Uporabniške nastavitve" });
 
         public static ltext s_lbl_ExitTimeout = new ltext(new string[] { "Exit timeout in sec.:", "Časovnik za izhod v sek.:" });
         

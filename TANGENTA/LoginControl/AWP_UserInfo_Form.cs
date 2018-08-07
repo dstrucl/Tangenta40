@@ -172,7 +172,7 @@ namespace LoginControl
         {
             if (UpdateAWPLoginData())
             {
-                MessageBox.Show(this, lng.s_YouHaveChangedYourPassord.s);
+                XMessage.Box.Show(this, lng.s_YouHaveChangedYourPassord,MessageBoxIcon.Information);
             }
         }
 

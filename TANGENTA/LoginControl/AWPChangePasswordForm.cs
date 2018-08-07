@@ -45,7 +45,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lng.s_Password_does_not_match.s);
+                    XMessage.Box.Show(this,lng.s_Password_does_not_match,MessageBoxIcon.Information);
                 }
             }
         }

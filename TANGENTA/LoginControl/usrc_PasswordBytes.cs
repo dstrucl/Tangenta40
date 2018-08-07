@@ -71,7 +71,7 @@ namespace LoginControl
             }
             if (m_Password==null)
             {
-                MessageBox.Show(lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s);
+                XMessage.Box.Show(this,lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1,MessageBoxIcon.Information);
                 return false;
             }
             else
@@ -98,12 +98,12 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lng.s_Password_does_not_match.s);
+                    XMessage.Box.Show(this,lng.s_Password_does_not_match,MessageBoxIcon.Information);
                 }
             }
             else
             {
-                MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers.s + " " + MinPasswordLength.ToString());
+                XMessage.Box.Show(this,lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers," " + MinPasswordLength.ToString(),"",MessageBoxButtons.OK,MessageBoxIcon.Information,MessageBoxDefaultButton.Button1);
             }
             return false;
         }
@@ -128,7 +128,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lng.s_Password_does_not_match.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    XMessage.Box.Show(this,lng.s_Password_does_not_match,"", lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1);
                     e.Handled = true;
                 }
             }

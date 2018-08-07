@@ -34,7 +34,7 @@ namespace LoginControl
             }
             else
             {
-                MessageBox.Show(lng.s_Password_Wrong.s);
+                XMessage.Box.Show(this,lng.s_Password_Wrong,MessageBoxIcon.Information);
             }
         }
 

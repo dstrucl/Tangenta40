@@ -43,7 +43,7 @@ namespace Tangenta
 
         private SettingsUserValues mSettingsUserValues = null;
 
-        private LoginControl.LMOUser m_LMOUser = null;
+        internal LoginControl.LMOUser m_LMOUser = null;
 
         private Door door = null;
 

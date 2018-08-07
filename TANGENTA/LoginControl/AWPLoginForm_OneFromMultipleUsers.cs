@@ -117,7 +117,7 @@ namespace LoginControl
                                 if (m_LMOUser.NotActiveAfterPasswordExpires)
                                 {
                                     AWP_func.DeactivateUserName(m_LMOUser.awpld.ID);
-                                    MessageBox.Show(lng.s_YourUsernameHasExpired.s);
+                                    XMessage.Box.Show(this,lng.s_YourUsernameHasExpired,MessageBoxIcon.Information);
                                 }
                                 else
                                 {
@@ -164,14 +164,14 @@ namespace LoginControl
                     }
                     else
                     {
-                        MessageBox.Show(lng.s_Password_does_not_match.s);
+                        XMessage.Box.Show(this,lng.s_Password_does_not_match,MessageBoxIcon.Information);
                         DialogResult = DialogResult.Cancel;
                         Close();
                     }
                     break;
 
                 case AWPLoginData.eGetDateResult.USER_HAS_NO_RULES:
-                    MessageBox.Show(lng.s_UserHasNoAccessRights.s+ txt_UserName.Text+"\r\n"+lng.s_AskAdministratorToSetupYourUserAccessRights.s);
+                    XMessage.Box.Show(this,lng.s_UserHasNoAccessRights,txt_UserName.Text+"\r\n"+lng.s_AskAdministratorToSetupYourUserAccessRights.s,"",MessageBoxButtons.OK,MessageBoxIcon.Information,MessageBoxDefaultButton.Button1);
                     DialogResult = DialogResult.Cancel;
                     Close();
                     return;

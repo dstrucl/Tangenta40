@@ -53,6 +53,7 @@
             this.rdb_Authentification_Password = new System.Windows.Forms.RadioButton();
             this.rdb_Authentification_None = new System.Windows.Forms.RadioButton();
             this.chk_UseWorkAreas = new System.Windows.Forms.CheckBox();
+            this.btn_UserSettings = new System.Windows.Forms.Button();
             this.grp_ColorSettings.SuspendLayout();
             this.grp_AccessAuthentication.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).BeginInit();
@@ -249,7 +250,7 @@
             this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_None);
             this.grp_AccessAuthentication.Location = new System.Drawing.Point(593, 60);
             this.grp_AccessAuthentication.Name = "grp_AccessAuthentication";
-            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 156);
+            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 149);
             this.grp_AccessAuthentication.TabIndex = 48;
             this.grp_AccessAuthentication.TabStop = false;
             this.grp_AccessAuthentication.Text = "Access Authentication";
@@ -339,11 +340,24 @@
             this.chk_UseWorkAreas.Text = "Use Work Areas";
             this.chk_UseWorkAreas.UseVisualStyleBackColor = true;
             // 
+            // btn_UserSettings
+            // 
+            this.btn_UserSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_UserSettings.Location = new System.Drawing.Point(593, 215);
+            this.btn_UserSettings.Name = "btn_UserSettings";
+            this.btn_UserSettings.Size = new System.Drawing.Size(249, 26);
+            this.btn_UserSettings.TabIndex = 50;
+            this.btn_UserSettings.Text = "button1";
+            this.btn_UserSettings.UseVisualStyleBackColor = true;
+            this.btn_UserSettings.Click += new System.EventHandler(this.btn_UserSettings_Click);
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 662);
+            this.Controls.Add(this.btn_UserSettings);
             this.Controls.Add(this.chk_UseWorkAreas);
             this.Controls.Add(this.grp_AccessAuthentication);
             this.Controls.Add(this.chk_ControlLayout_TouchScreen);
@@ -399,5 +413,6 @@
         private System.Windows.Forms.Label lbl_ExitTimeout;
         private System.Windows.Forms.NumericUpDown nmUpDn_ExitTimeout;
         private System.Windows.Forms.CheckBox chk_UseWorkAreas;
+        private System.Windows.Forms.Button btn_UserSettings;
     }
 }

@@ -20,7 +20,7 @@ namespace LoginControl
     {
         public usrc_LoginCtrl m_usrc_LoginCtrl = null;
 
-        public Form m_parent_form = null;
+        public static Form m_parent_form = null;
 
         public enum eExitReason { NORMAL, LOGIN_CONTROL };
 
@@ -207,7 +207,7 @@ namespace LoginControl
                 m_MinPasswordLength = value;
                 if (m_MinPasswordLength < 5)
                 {
-                    MessageBox.Show(lng.s_YouCanNotSetMinumumPasswordLengthLessThan5.s);
+                    XMessage.Box.Show(m_parent_form,lng.s_YouCanNotSetMinumumPasswordLengthLessThan5,MessageBoxIcon.Information);
                 }
             }
         }
