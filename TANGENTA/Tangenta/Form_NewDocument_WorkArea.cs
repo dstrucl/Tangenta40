@@ -14,7 +14,7 @@ namespace Tangenta
 {
     public partial class Form_NewDocument_WorkArea : Form
     {
-        public xCurrency Currency = new xCurrency();
+        public xCurrency Currency = null;
         public ID Atom_Currency_ID = null;
         public int FinancialYear = -1;
         public WArea Warea = null;
@@ -26,7 +26,9 @@ namespace Tangenta
         public Form_NewDocument_WorkArea()
         {
             InitializeComponent();
-            f_Atom_Currency.Get(GlobalData.BaseCurrency.ID, ref Atom_Currency_ID);
+            Currency = GlobalData.BaseCurrency;
+            f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID);
+            
         }
     
 

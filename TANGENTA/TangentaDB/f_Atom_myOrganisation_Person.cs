@@ -340,6 +340,34 @@ namespace TangentaDB
             }
         }
 
+        public static bool Get(ID xAtom_myOrganisation_Person_ID, ref string xAtomOfficeShortName, ref string xAtom_Person_Tax_ID)
+        {
+            xAtomOfficeShortName = null;
+            xAtom_Person_Tax_ID = null;
+            string sql = @"select ap.Tax_ID as Atom_Person_Tax_ID,
+                            ao.ShortName as Atom_Office_ShortName from 
+                            Atom_myOrganisation_Person amop
+                            inner join Atom_Person ap on amop.Atom_Person_ID = ap.ID
+                            inner join Atom_Office ao on amop.Atom_Office_ID = ao.ID where amop.ID = " + xAtom_myOrganisation_Person_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                int iCount = dt.Rows.Count;
+                if (iCount > 0)
+                {
+                    xAtomOfficeShortName = tf._set_string(dt.Rows[0]["Atom_Office_ShortName"]);
+                    xAtom_Person_Tax_ID = tf._set_string(dt.Rows[0]["Atom_Person_Tax_ID"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:" + sql + "\r\n:Err=" + Err);
+                return false;
+            }
+        }
+
         public static bool Get(ID myOrganisation_Person_ID, ref List<ID> atom_myOrganisation_Person_ID_List)
         {
             string sql = @"select amop.ID as Atom_myOrganisation_Person_ID

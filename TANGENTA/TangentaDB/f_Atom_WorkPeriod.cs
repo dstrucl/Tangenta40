@@ -6,6 +6,7 @@
 */
 #endregion
 using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -315,6 +316,35 @@ namespace TangentaDB
             }
             else
             {
+                return false;
+            }
+        }
+
+        public static bool Get(ID xAtom_WorkPeriod_ID, ref string xElectronicDeviceName, ref string xAtomOfficeShortName)
+        {
+            xElectronicDeviceName = null;
+            xAtomOfficeShortName = null;
+            string sql = @"select  aed.Name as Atom_ElectronicDevice_Name,
+	                        ao.ShortName as Atom_Office_ShortName 
+	                       from Atom_WorkPeriod awp
+                        inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                        inner join Atom_Office ao on aed.Atom_Office_ID = ao.ID 
+                        where awp.ID = " + xAtom_WorkPeriod_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                int iCount = dt.Rows.Count;
+                if (iCount > 0)
+                {
+                    xElectronicDeviceName = tf._set_string(dt.Rows[0]["Atom_ElectronicDevice_Name"]);
+                    xAtomOfficeShortName = tf._set_string(dt.Rows[0]["Atom_Office_ShortName"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:Get:" + sql + "\r\n:Err=" + Err);
                 return false;
             }
         }

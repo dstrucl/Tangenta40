@@ -153,7 +153,7 @@ namespace LoginControl
                 }
             }
             ID Atom_WorkPeriod_ID = null;
-            if (LoginCtrl.getWorkPeriod(m_LMOUser.awpld.myOrganisation_Person_ID,ref m_LMOUser.Atom_myOrganisation_Person_ID,ref Atom_WorkPeriod_ID))
+            if (LoginCtrl.getWorkPeriodEx(m_LMOUser,ref Atom_WorkPeriod_ID))
             {
                     ID LoginSession_id = null;
                     if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))

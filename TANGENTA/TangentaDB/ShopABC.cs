@@ -109,12 +109,29 @@ namespace TangentaDB
             }
         }
 
-        public bool Get(bool bDraft, ID ID, ref string Err)
+        public bool Get(bool bDraft, ID ID, string xTaxID,string xOfficeShortName, string xElectronicDeviceName,  ref string Err)
         {
             //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Invoice));
             //SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
             //SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation_Person));
             //SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_TaxID = null;
+            if (xTaxID != null)
+            {
+                spar_TaxID = "@par_Tax_ID";
+                SQL_Parameter par_TaxID = new SQL_Parameter(spar_TaxID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xTaxID);
+                lpar.Add(par_TaxID);
+            }
+
+            string spar_OfficeShortName = "@par_OffSName";
+            SQL_Parameter par_OfficeShortName = new SQL_Parameter(spar_OfficeShortName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xOfficeShortName);
+            lpar.Add(par_OfficeShortName);
+
+            string spar_ElectronicDeviceName = "@par_EDName";
+            SQL_Parameter par_ElectronicDeviceName = new SQL_Parameter(spar_ElectronicDeviceName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xElectronicDeviceName);
+            lpar.Add(par_ElectronicDeviceName);
 
             string cond = null;
             string sql_GetDraft = null;
@@ -132,6 +149,39 @@ namespace TangentaDB
                 {
                     cond = "";
                 }
+
+
+                if (cond.Length>0)
+                {
+                    if (xTaxID != null)
+                    {
+                        cond += " and JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                          + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                          + " and JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                    }
+                    else
+                    {
+                        cond += " and JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                          + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+
+                    }
+
+                }
+                else
+                {
+                    if (xTaxID != null)
+                    {
+                        cond += " where JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                         + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                         + " and JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                    }
+                    else
+                    {
+                        cond += " where JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                         + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                    }
+                }
+
                 sql_GetDraft = @"Select
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
@@ -177,7 +227,10 @@ namespace TangentaDB
                                                                                   and (JOURNAL_DocInvoice_$_dinv.Draft=0)))
                         INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_DocInvoice_$_dinv.Atom_Currency_ID
                         LEFT JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
+                        LEFT JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
+                        Left JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ID
                         LEFT JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
+                        Left JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ID
                         LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
                         LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
                         LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
@@ -208,6 +261,36 @@ namespace TangentaDB
                 else
                 {
                     cond = "";
+                }
+
+                if (cond.Length > 0)
+                {
+                    if (xTaxID != null)
+                    {
+                        cond += " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                          + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                          + " and JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                    }
+                    else
+                    {
+                        cond += " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                          + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                    }
+
+                }
+                else
+                {
+                    if (xTaxID != null)
+                    {
+                        cond += " where JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                    }
+                    else
+                    {
+                        cond += " where JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                    }
                 }
                 sql_GetDraft = @"Select
                         JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
@@ -250,7 +333,10 @@ namespace TangentaDB
                                                                                )
                         INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_DocProformaInvoice_$_dpinv.Atom_Currency_ID
                         INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
+                        INNER JOIN Atom_ElectronicDevice JOURNAL_DocProformaInvoice_$_awperiod_$_aed ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed.ID
+                        INNER JOIN Atom_Office JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ID
                         INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
+                        INNER JOIN Atom_Office JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.ID
                         INNER JOIN Atom_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.ID
                         INNER JOIN Atom_cFirstName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
                         LEFT JOIN Atom_cLastName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
@@ -278,7 +364,7 @@ namespace TangentaDB
 
             m_CurrentDoc.dtCurrent_Invoice.Columns.Clear();
             m_CurrentDoc.dtCurrent_Invoice.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref m_CurrentDoc.dtCurrent_Invoice, sql_GetDraft, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref m_CurrentDoc.dtCurrent_Invoice, sql_GetDraft, lpar, ref Err))
             {
                 if (m_CurrentDoc.dtCurrent_Invoice.Rows.Count > 0)
                 {
@@ -942,7 +1028,7 @@ namespace TangentaDB
                           "\r\n inner join JOURNAL_" + DocTyp + " jdi on jdi." + DocTyp + "_ID = di.ID " +
                           "\r\n inner join JOURNAL_" + DocTyp + "_TYPE jdit on jdi.JOURNAL_" + DocTyp + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
-                          "\r\n inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                          "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode = 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             }
             else
@@ -952,7 +1038,7 @@ namespace TangentaDB
                           "\r\n inner join JOURNAL_" + DocTyp + " jdi on jdi." + DocTyp + "_ID = di.ID " +
                           "\r\n inner join JOURNAL_" + DocTyp + "_TYPE jdit on jdi.JOURNAL_" + DocTyp + "_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
-                          "\r\n inner join ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
+                          "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode <> 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             }
 

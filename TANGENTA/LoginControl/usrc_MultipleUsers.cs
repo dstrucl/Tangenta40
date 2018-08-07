@@ -322,5 +322,26 @@ namespace LoginControl
         {
             Paint_Current_Group();
         }
+
+        internal void ReloadAdministratorsAndUserManagers()
+        {
+            foreach (Control ctrl in this.pnl_Items.Controls)
+            {
+                if (ctrl is usrc_LMOUser)
+                {
+                    usrc_LMOUser xusrc_LMOUser = (usrc_LMOUser)ctrl;
+                    if (xusrc_LMOUser.m_LMOUser != null)
+                    {
+                        if (xusrc_LMOUser.m_LMOUser.LoggedIn)
+                        {
+                            if (xusrc_LMOUser.m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator, AWP.ROLE_UserManagement }))
+                            {
+                                xusrc_LMOUser.m_LMOUser.ReloadRequest = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

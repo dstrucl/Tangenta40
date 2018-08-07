@@ -24,6 +24,11 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Person_with_UserName = new ltext(new string[] { "Person with UserName:", "Oseba z uporabniškim imenom:" });
+        public static ltext s_IsFromOffice = new ltext(new string[] { " is from office ", " je iz poslovne enote " });
+        public static ltext s_andThisElectronicDeviceWithName = new ltext(new string[] { " and this Electronic device with name:", " in ta elektronska naprava z imenom:" });
+
+        public static ltext s_LoginToElectronicDeviceFromAnotherOffice = new ltext(new string[] { "Login to Electronic device from person from another office!", "Prijava na elektronsko napravo s strani osebe, ki pripada drugi poslovni enoti!" });
         public static ltext s_chk_ShowAdministrators = new ltext(new string[] { "Show Administrators", "Prikaži skrbnike" });
 
         public static ltext s_lbl_Instruction = new ltext(new string[] { "Program didn't closed properly.May be it was a power failure? .\r\nSome work periods are not closed. Press teh button  Close opened work periods.",

@@ -655,6 +655,7 @@ namespace Tangenta
             }
         }
 
+
         internal void SaveSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
         {
             if (this.SplitContainer2_spd > 0)
@@ -1322,9 +1323,20 @@ namespace Tangenta
 
         private bool GetCurrentInvoice(ID DocInvoice_ID)
         {
-        string Err = null;
+            string Err = null;
             //
-        if (m_ShopABC.Get(true, DocInvoice_ID, ref Err)) // try to get draft
+            string xAtom_myOrganisation_Person_Tax_ID = m_LMOUser.Atom_myOrganisation_Person_Tax_ID;
+            if (m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator, AWP.ROLE_Administrator, AWP.ROLE_UserManagement }))
+            {
+                xAtom_myOrganisation_Person_Tax_ID = null;
+            }
+
+            if (m_ShopABC.Get(true, 
+                          DocInvoice_ID,
+                          xAtom_myOrganisation_Person_Tax_ID,
+                          m_LMOUser.Atom_ElectronicDevice_Atom_Office_ShortName,
+                          m_LMOUser.Atom_ElectronicDevice_Name,
+                          ref Err)) // try to get draft
         {
                 this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);
                 if (m_ShopABC.m_CurrentDoc.bDraft)
@@ -1363,7 +1375,18 @@ namespace Tangenta
             else
             {
                 SetMode(emode.view_eDocumentType);
-                if (m_ShopABC.Get(false, DocInvoice_ID, ref Err)) // Get invoice with Invoice_ID
+                string sxAtom_myOrganisation_Person_Tax_ID = m_LMOUser.Atom_myOrganisation_Person_Tax_ID;
+                if (m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator,AWP.ROLE_UserManagement }))
+                {
+                    sxAtom_myOrganisation_Person_Tax_ID = null;
+                }
+
+                if (m_ShopABC.Get(false, 
+                                  DocInvoice_ID,
+                                  sxAtom_myOrganisation_Person_Tax_ID,
+                                  m_LMOUser.Atom_ElectronicDevice_Atom_Office_ShortName,
+                                  m_LMOUser.Atom_ElectronicDevice_Name,
+                                  ref Err)) // Get invoice with Invoice_ID
                 {
                     this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);
                     this.m_usrc_ShopC.Clear();
@@ -1982,6 +2005,7 @@ namespace Tangenta
             }
         }
 
+   
         private InvoiceData Set_AddOn(InvoiceData invoiceData)
         {
             if (IsDocInvoice)

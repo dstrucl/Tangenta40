@@ -43,6 +43,9 @@ namespace LoginControl
 
         public event delegate_EndProgram EndProgram=null;
 
+        public delegate void delegate_ReloadDocumentMan(LMOUser xLMOUser);
+        public event delegate_ReloadDocumentMan Reload = null;
+
 
         public delegate bool delegate_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new);
 
@@ -346,16 +349,96 @@ namespace LoginControl
             awp.Login_MultipleUsers_ShowControl();
         }
 
-        internal static bool getWorkPeriod(ID myOrganisation_Person_ID,ref ID xAtom_myOrganisation_Person_ID, ref ID xAtom_WorkPeriod_ID)
+        private static bool getWorkPeriod(ID myOrganisation_Person_ID,ref ID xAtom_myOrganisation_Person_ID, ref ID xAtom_WorkPeriod_ID,
+                                          ref string xAtom_myOrganisation_Person_Tax_ID,
+                                          ref string xAtom_myOrgPerson_AtomOfficeShortName,
+                                          ref string xAtom_ElectronicDevice_AtomOfficeShortName,
+                                          ref string xElectronicDeviceName)
         {
             string Err = null;
             if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref xAtom_myOrganisation_Person_ID, ref xAtom_WorkPeriod_ID, ref Err))
             {
-                return true;
+                if (f_Atom_myOrganisation_Person.Get(xAtom_myOrganisation_Person_ID, ref xAtom_myOrgPerson_AtomOfficeShortName, ref xAtom_myOrganisation_Person_Tax_ID))
+                {
+                    if (f_Atom_WorkPeriod.Get(xAtom_WorkPeriod_ID, ref xElectronicDeviceName, ref xAtom_ElectronicDevice_AtomOfficeShortName)) 
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        xAtom_WorkPeriod_ID = null;
+                        return false;
+                    }
+                }
+                else
+                {
+                    xAtom_WorkPeriod_ID = null;
+                    return false;
+                }
             }
             else
             {
                 xAtom_WorkPeriod_ID = null;
+                return false;
+            }
+        }
+
+        internal static bool getWorkPeriodEx(LMOUser lmouUser,
+                                            ref ID xAtom_WorkPeriod_ID)
+        {
+            string xAtom_myOrganisation_Person_Tax_ID = null;
+            string xAtom_myOrgPerson_Atom_Office_ShortName = null;
+            string xAtom_ElectronicDevice_Atom_Office_ShortName = null;
+            string xAtom_ElectronicDevice_Name = null;
+            if (getWorkPeriod(lmouUser.awpld.myOrganisation_Person__per_ID,
+                                                            ref lmouUser.Atom_myOrganisation_Person_ID,
+                                                            ref xAtom_WorkPeriod_ID,
+                                                            ref xAtom_myOrganisation_Person_Tax_ID,
+                                                            ref xAtom_myOrgPerson_Atom_Office_ShortName,
+                                                            ref xAtom_ElectronicDevice_Atom_Office_ShortName,
+                                                            ref xAtom_ElectronicDevice_Name))
+            {
+                lmouUser.Atom_myOrganisation_Person_Tax_ID = xAtom_myOrganisation_Person_Tax_ID;
+                lmouUser.Atom_myOrganisation_Person_Atom_Office_ShortName = xAtom_myOrgPerson_Atom_Office_ShortName;
+                lmouUser.Atom_ElectronicDevice_Atom_Office_ShortName = xAtom_ElectronicDevice_Atom_Office_ShortName;
+                lmouUser.Atom_ElectronicDevice_Name = xAtom_ElectronicDevice_Name;
+                if (lmouUser.Atom_myOrganisation_Person_Tax_ID != null)
+                {
+                    if (lmouUser.Atom_myOrganisation_Person_Atom_Office_ShortName != null)
+                    {
+                        if (lmouUser.Atom_ElectronicDevice_Atom_Office_ShortName != null)
+                        {
+                            if (lmouUser.Atom_ElectronicDevice_Name != null)
+                            {
+                                if (!xAtom_myOrgPerson_Atom_Office_ShortName.Equals(xAtom_ElectronicDevice_Atom_Office_ShortName))
+                                {
+                                    string smsg = "\r\n" + lng.s_Person_with_UserName.s + lmouUser + lng.s_IsFromOffice.s + lmouUser.Atom_myOrganisation_Person_Atom_Office_ShortName + lng.s_andThisElectronicDeviceWithName.s + lmouUser.Atom_ElectronicDevice_Name + lng.s_IsFromOffice.s + lmouUser.Atom_ElectronicDevice_Atom_Office_ShortName;
+                                    XMessage.Box.Show(lmouUser.m_usrc_LMOUser, lng.s_LoginToElectronicDeviceFromAnotherOffice, smsg, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("WARNING:lmouUser.Atom_ElectronicDevice_Name==null");
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("WARNING:lmouUser.Atom_ElectronicDevice_Atom_Office_ShortName==null");
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("WARNING:lmouUser.Atom_myOrganisation_Person_Atom_Office_ShortName==null");
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("WARNING:lmouUser.Atom_myOrganisation_Person_Tax_ID==null");
+                }
+                return true;
+            }
+            else
+            {
                 return false;
             }
         }
@@ -443,6 +526,14 @@ namespace LoginControl
             if (Edit_myOrganisationPerson!=null)
             {
                 Edit_myOrganisationPerson(aWP_UserManager, myOrganisation_Person_ID, ref bChanged, ref new_myOrganisation_Person_ID);
+            }
+        }
+
+        internal void DoReload(LMOUser xLMOUser)
+        {
+            if (Reload!=null)
+            {
+                Reload(xLMOUser);
             }
         }
     }

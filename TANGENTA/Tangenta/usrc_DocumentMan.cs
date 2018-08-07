@@ -379,7 +379,6 @@ namespace Tangenta
                 this.cmb_DocType.DataSource = List_DocType;
                 this.cmb_DocType.DisplayMember = "DocType_Text_in_language";
                 this.cmb_DocType.ValueMember = "Typ";
-                Set_cmb_InvoiceType_selected_index();
                 if (List_DocType.Count > 1)
                 {
                     this.cmb_DocType.Enabled = true;
@@ -393,6 +392,8 @@ namespace Tangenta
             {
                 this.cmb_DocType.Enabled = false;
             }
+
+            Set_cmb_InvoiceType_selected_index();
         }
 
         internal bool InitMan()
@@ -487,27 +488,48 @@ namespace Tangenta
 
         private void Set_cmb_InvoiceType_selected_index()
         {
-            if (this.m_usrc_DocumentEditor.DocTyp != null)
+            if (this.cmb_DocType.Items.Count > 1)
             {
-                if (this.m_usrc_DocumentEditor.DocTyp.Equals(GlobalData.const_DocInvoice))
+                int idx = find_cmb_DataType_Index(this.m_usrc_DocumentEditor.DocTyp);
+                if (idx >= 0)
                 {
-                    this.cmb_DocType.SelectedIndex = 0;
+                    this.btn_New.Enabled = true;
+                    this.cmb_DocType.SelectedIndex = idx;
                     SetFinancialYears();
                 }
-                else if (this.m_usrc_DocumentEditor.DocTyp.Equals(GlobalData.const_DocProformaInvoice))
-                {
-                    this.cmb_DocType.SelectedIndex = 1;
-                    SetFinancialYears();
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:Set_cmb_InvoiceType_selected_index:this.m_usrc_DocumentEditor.DocTyp = " + this.m_usrc_DocumentEditor.DocTyp + " is not implemented!");
-                }
+            }
+            else if (this.cmb_DocType.Items.Count == 1)
+            {
+                this.btn_New.Enabled = true;
+                string xDoxtyp = ((DocType)this.cmb_DocType.Items[0]).Typ;
+                this.DocTyp = xDoxtyp;
+                SetFinancialYears();
             }
             else
             {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:Set_cmb_InvoiceType_selected_index:this.m_usrc_DocumentEditor.DocTyp is null! ");
+                cmb_FinancialYear.Enabled = false;
+                this.cmb_DocType.Enabled = false;
+                this.btn_New.Enabled = false;
             }
+        }
+
+        private int find_cmb_DataType_Index(string docTyp)
+        {
+            if (this.cmb_DocType.Items!=null)
+            {
+                int iCount = this.cmb_DocType.Items.Count;
+                if (iCount >  0)
+                {
+                    for (int i=0;i<iCount;i++)
+                    {
+                        if (((DocType)this.cmb_DocType.Items[i]).Typ.Equals(docTyp))
+                        {
+                            return i;
+                        }
+                    }
+                }
+            }
+            return -1;
         }
 
         internal bool SetDocument()
@@ -576,6 +598,7 @@ namespace Tangenta
                 Doc_ID_to_show_v = new ID(DocInvoice_id);
             }
             this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp,false,false, mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
+            m_LMOUser.ReloadAdministratorsAndUserManagers();
         }
 
         private void m_usrc_Invoice_DocProformaInvoiceSaved(ID DocProformaInvoice_id)
@@ -588,6 +611,7 @@ namespace Tangenta
                 Doc_ID_to_show = new ID(DocProformaInvoice_id);
             }
             this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show);
+            m_LMOUser.ReloadAdministratorsAndUserManagers();
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(ID DocInvoice_ID,bool bInitialise)
@@ -599,6 +623,24 @@ namespace Tangenta
                 }
             }
             SetColor();
+        }
+
+        public void Reload()
+        {
+            splitContainer1.Panel2Collapsed = false;
+            SetMode(eMode.Shops_and_InvoiceTable);
+            ID Doc_ID_to_show_v = null;
+            if (m_usrc_DocumentEditor.m_ShopABC != null)
+            {
+                if (m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc != null)
+                {
+                    if (ID.Validate(m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID))
+                    {
+                        Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID);
+                    }
+                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
+                }
+            }
         }
 
 
@@ -665,6 +707,7 @@ namespace Tangenta
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
                         m_usrc_TableOfDocuments.Init(DocTyp, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+                        m_LMOUser.ReloadAdministratorsAndUserManagers();
                     }
                 }
                 else
@@ -834,6 +877,7 @@ namespace Tangenta
                                                xdt_ShopB_Items,
                                                xdt_ShopA_Items);
                             m_usrc_TableOfDocuments.Init(xdocType, true, false, mSettingsUserValues.FinancialYear, null);
+                            m_LMOUser.ReloadAdministratorsAndUserManagers();
                         }
                     }
                     else
@@ -901,6 +945,7 @@ namespace Tangenta
                                             xdt_ShopB_Items,
                                             xdt_ShopA_Items);
                             m_usrc_TableOfDocuments.Init(New_xdoctyp, true, false, mSettingsUserValues.FinancialYear, null);
+                            m_LMOUser.ReloadAdministratorsAndUserManagers();
                         }
                         else
                         {

@@ -185,7 +185,9 @@ eres_check:
                                         else
                                         {
                                             ID Atom_WorkPeriod_ID = null;
-                                            if (LoginCtrl.getWorkPeriod(LMOUser_Single.awpld.myOrganisation_Person__per_ID, ref LMOUser_Single.Atom_myOrganisation_Person_ID, ref LMOUser_Single.Atom_WorkPeriod_ID))
+                                            if (LoginCtrl.getWorkPeriodEx(LMOUser_Single,
+                                                          ref LMOUser_Single.Atom_myOrganisation_Person_ID 
+                                                          ))
                                             {
                                                 ID LoginSession_ID = null;
                                                 if (AWP_func.WriteLoginSession(LMOUser_Single.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
@@ -230,7 +232,10 @@ eres_check:
                                     }
                                 }
                                 ID Atom_WorkPeriod_ID = null;
-                                if (LoginCtrl.getWorkPeriod(LMOUser_Single.awpld.myOrganisation_Person__per_ID,ref LMOUser_Single.Atom_myOrganisation_Person_ID, ref LMOUser_Single.Atom_WorkPeriod_ID))
+
+                                if (LoginCtrl.getWorkPeriodEx(LMOUser_Single,
+                                                            ref LMOUser_Single.Atom_WorkPeriod_ID
+                                                            ))
                                 {
                                     ID LoginSession_ID = null;
                                     if (AWP_func.WriteLoginSession(LMOUser_Single.awpld.ID, LMOUser_Single.Atom_WorkPeriod_ID, ref LoginSession_ID))

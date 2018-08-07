@@ -328,19 +328,58 @@ namespace Tangenta
             {
                 // in case that user is not administrator
                 // set condition to show only documents of Atom_myOrg_Person
-                string spar_Atom_myOrganisation_Person = "@par_AOP";
-                SQL_Parameter par_Atom_myOrganisation_Person = new SQL_Parameter(spar_Atom_myOrganisation_Person, false,m_LMOUser.Atom_myOrganisation_Person_ID);
-                lpar_ExtraCondition.Add(par_Atom_myOrganisation_Person);
+                //string spar_Atom_myOrganisation_Person_Tax_ID = "@par_AOP_Tax_ID";
+                //SQL_Parameter par_Atom_myOrganisation_Person_Tax_ID = new SQL_Parameter(spar_Atom_myOrganisation_Person_Tax_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false,m_LMOUser.Atom_myOrganisation_Person_Tax_ID);
+                //lpar_ExtraCondition.Add(par_Atom_myOrganisation_Person_Tax_ID);
+
+                string spar_TaxID = null;
+
+                if (!m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator, AWP.ROLE_UserManagement }))
+                {
+                    spar_TaxID = "@par_Tax_ID";
+                    SQL_Parameter par_TaxID = new SQL_Parameter(spar_TaxID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, m_LMOUser.Atom_myOrganisation_Person_Tax_ID);
+                    lpar_ExtraCondition.Add(par_TaxID);
+                }
+
+                string spar_OfficeShortName = "@par_OffSName";
+                SQL_Parameter par_OfficeShortName = new SQL_Parameter(spar_OfficeShortName, SQL_Parameter.eSQL_Parameter.Nvarchar, false,m_LMOUser.Atom_ElectronicDevice_Atom_Office_ShortName);
+                lpar_ExtraCondition.Add(par_OfficeShortName);
+
+                string spar_ElectronicDeviceName = "@par_EDName";
+                SQL_Parameter par_ElectronicDeviceName = new SQL_Parameter(spar_ElectronicDeviceName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, m_LMOUser.Atom_ElectronicDevice_Name);
+                lpar_ExtraCondition.Add(par_ElectronicDeviceName);
+
                 if (IsDocInvoice)
                 {
-                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                    if (spar_TaxID != null)
+                    {
+                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                             + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                             + " and JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                    }
+                    else
+                    {
+                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                             + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                    }
                 }
                 else if (IsDocProformaInvoice)
                 {
-                    cond_Atom_myOrganisation_Person = " and  JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person + " ";
+                    if (spar_TaxID != null)
+                    {
+                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                    }
+                    else
+                    {
+                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                    }
                 }
 
-                    cond += cond_Atom_myOrganisation_Person;
+
+                cond += cond_Atom_myOrganisation_Person;
                 string s_myorg_person = "??";
                 if (myOrg.m_myOrg_Office!=null)
                 {
@@ -458,6 +497,7 @@ namespace Tangenta
                     LEFT JOIN cOrgTYPE JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
                     LEFT JOIN Atom_Logo JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
                     INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
+                    INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ID
                     INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
                     "
@@ -540,6 +580,7 @@ namespace Tangenta
                     LEFT JOIN cOrgTYPE JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
                     LEFT JOIN Atom_Logo JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
                     INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
+                    INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ID
                     INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
                     "
@@ -620,6 +661,7 @@ namespace Tangenta
                 LEFT JOIN cOrgTYPE JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
                 LEFT JOIN Atom_Logo JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
                 INNER JOIN Atom_ElectronicDevice JOURNAL_DocProformaInvoice_$_awperiod_$_aed ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed.ID
+                INNER JOIN Atom_Office JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ID
                 INNER JOIN Atom_Computer JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_acomp.ID
                 LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt.ID
                 " + cond 

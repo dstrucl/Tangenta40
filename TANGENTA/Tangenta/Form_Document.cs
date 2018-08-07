@@ -1371,6 +1371,12 @@ namespace Tangenta
             SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
             LayoutSet(user_settings.mSettingsUserValues);
 
+            if (xLMOUser.ReloadRequest)
+            {
+               DocumentMan.Reload();
+                xLMOUser.ReloadRequest = false;
+            }
+
             DocumentMan.Active = true;
 
             DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
@@ -1388,6 +1394,16 @@ namespace Tangenta
         private bool loginControl1_Edit_myOrganisationPerson(Form parentform, ID myOrganisation_Person_ID, ref bool Changed, ref ID myOrganisation_Person_ID_new)
         {
             return call_Edit_myOrganisationPerson(parentform, myOrganisation_Person_ID, ref Changed, ref myOrganisation_Person_ID_new);
+        }
+
+        private void loginControl1_Reload(LoginControl.LMOUser xLMOUser)
+        {
+            usrc_DocumentMan xusrc_DocumentMan = (usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan;
+            if (xusrc_DocumentMan!=null)
+            {
+                xusrc_DocumentMan.Reload();
+            }
+
         }
     }
 }

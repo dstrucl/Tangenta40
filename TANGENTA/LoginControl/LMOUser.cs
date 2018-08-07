@@ -37,6 +37,60 @@ namespace LoginControl
         public ID LoginSession_ID = null;
 
         public ID Atom_myOrganisation_Person_ID = null;
+
+        internal string m_Atom_myOrganisation_Person_Tax_ID = null;
+        public string Atom_myOrganisation_Person_Tax_ID
+        {
+            get
+            {
+                return m_Atom_myOrganisation_Person_Tax_ID;
+            }
+            set
+            {
+                m_Atom_myOrganisation_Person_Tax_ID = value;
+            }
+        }
+
+
+        internal string m_Atom_myOrganisation_Person_Atom_Office_ShortName = null;
+        public string Atom_myOrganisation_Person_Atom_Office_ShortName
+        {
+            get
+            {
+                return m_Atom_myOrganisation_Person_Atom_Office_ShortName;
+            }
+            set
+            {
+                m_Atom_myOrganisation_Person_Atom_Office_ShortName = value;
+            }
+        }
+
+        internal string m_Atom_ElectronicDevice_Atom_Office_ShortName = null;
+        public string Atom_ElectronicDevice_Atom_Office_ShortName
+        {
+            get
+            {
+                return m_Atom_ElectronicDevice_Atom_Office_ShortName;
+            }
+            set
+            {
+                m_Atom_ElectronicDevice_Atom_Office_ShortName = value;
+            }
+        }
+
+        internal string m_Atom_ElectronicDevice_Name = null;
+        public string Atom_ElectronicDevice_Name
+        {
+            get
+            {
+                return m_Atom_ElectronicDevice_Name;
+            }
+            set
+            {
+                m_Atom_ElectronicDevice_Name = value;
+            }
+        }
+
         public ID Atom_WorkPeriod_ID = null;
 
         public bool m_LoggedIn = false;
@@ -304,6 +358,19 @@ namespace LoginControl
             }
         }
 
+        private bool m_ReloadRequest = false;
+        public bool ReloadRequest
+        {
+            get
+            { 
+                return m_ReloadRequest;
+            }
+            set
+            {
+                    m_ReloadRequest = value;
+            }
+        }
+
         internal void SetData(DataRow dr)
         {
             m_UserName = tf._set_string(dr["UserName"]);
@@ -373,6 +440,17 @@ namespace LoginControl
         public bool GetLast_Doc_ID()
         {
             throw new NotImplementedException();
+        }
+
+        public void ReloadAdministratorsAndUserManagers()
+        {
+            if (m_usrc_LMOUser!=null)
+            {
+                if (m_usrc_LMOUser.m_usrc_MultipleUsers!=null)
+                {
+                    m_usrc_LMOUser.m_usrc_MultipleUsers.ReloadAdministratorsAndUserManagers();
+                }
+            }
         }
     }
 }
