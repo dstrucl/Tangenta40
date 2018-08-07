@@ -149,5 +149,10 @@ namespace usrc_Item_Group_Handler
             }
             return ibottom;
         }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+        }
     }
 }

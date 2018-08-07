@@ -147,6 +147,9 @@ namespace LoginControl
 
         public static ltext s_lblConfirmPassword_UserManager = new ltext(new string[]{"Confirm Password:",
                                                                       "Potrdi geslo:"});
+        
+        public static ltext s_btn_AddExistingUser = new ltext(new string[]{"Add Existing User",
+                                                             "Dodaj že obstoječega uporabnika"});
 
         public static ltext s_btnAddUser_UserManager = new ltext(new string[]{"Add User:",
                                                              "Dodaj uporabnika:"});

@@ -74,9 +74,10 @@ namespace LoginControl
             lng.s_lbl_OtherRoles.Text(lbl_OtherRoles);
             lng.s_btn_Edit_myOrganisation_Person.Text(btn_Edit_myOrganisation_Person);
             lng.s_LoginHistory.Text(btn_LoginHistory);
+            lng.s_btn_AddExistingUser.Text(btn_AddExistingUser);
 
-            
-            
+
+
             this.txtUserName.Tag = null;
 
             this.Icon = Properties.Resources.user;

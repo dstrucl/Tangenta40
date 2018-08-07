@@ -29,7 +29,7 @@ namespace usrc_Item_Group_Handler
 
         public delegate void delegate_PaintGroup(string[] s_name);
         public event delegate_PaintGroup PaintGroup = null;
-        private int m_Button_Height = 32;
+        private int m_Button_Height = 48;
         private int m_Font_Height = 10;
 
         private string m_ShopName = "";
@@ -156,6 +156,7 @@ namespace usrc_Item_Group_Handler
                             if (form_group_handler == null)
                             {
                                 form_group_handler = new Form_GroupHandler();
+                                form_group_handler.Owner = getParentForm();
                                 form_group_handler.ShopName = this.ShopName;
                             }
                         }
@@ -194,6 +195,21 @@ namespace usrc_Item_Group_Handler
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
             return m_NumberOfGroupLevels > 0;
         }
+
+        private Form getParentForm()
+        {
+            Control ctrl_parent = this.Parent;
+            while (ctrl_parent != null)
+            {
+                if (ctrl_parent is Form)
+                {
+                    return (Form)ctrl_parent;
+                }
+                ctrl_parent = ctrl_parent.Parent;
+            }
+            return null;
+        }
+
 
         public bool Select(string[] sGroupArr)
         {

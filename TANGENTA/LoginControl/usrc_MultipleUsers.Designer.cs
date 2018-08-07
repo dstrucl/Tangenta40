@@ -75,7 +75,7 @@
             // 
             // usrc_Item_Group_Handler1
             // 
-            this.usrc_Item_Group_Handler1.Button_Height = 32;
+            this.usrc_Item_Group_Handler1.Button_Height = 48;
             this.usrc_Item_Group_Handler1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_Item_Group_Handler1.Font_Height = 10;
             this.usrc_Item_Group_Handler1.Location = new System.Drawing.Point(0, 0);
