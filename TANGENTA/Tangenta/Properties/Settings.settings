@@ -122,5 +122,23 @@
     <Setting Name="ShowAdministratorsInMultiuserLogin" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="IdleControl_Active" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IdleControl_TimeInSecondsToActivate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="IdleControl_UseExitButton" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IdleControl_ShowURL2" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IdleControl_URL1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http:\\www.tangenta.si</Value>
+    </Setting>
+    <Setting Name="IdleControl_URL2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -54,6 +54,7 @@
             this.rdb_Authentification_None = new System.Windows.Forms.RadioButton();
             this.chk_UseWorkAreas = new System.Windows.Forms.CheckBox();
             this.btn_UserSettings = new System.Windows.Forms.Button();
+            this.btn_IdleSettings = new System.Windows.Forms.Button();
             this.grp_ColorSettings.SuspendLayout();
             this.grp_AccessAuthentication.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).BeginInit();
@@ -250,14 +251,14 @@
             this.grp_AccessAuthentication.Controls.Add(this.rdb_Authentification_None);
             this.grp_AccessAuthentication.Location = new System.Drawing.Point(593, 60);
             this.grp_AccessAuthentication.Name = "grp_AccessAuthentication";
-            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 149);
+            this.grp_AccessAuthentication.Size = new System.Drawing.Size(249, 116);
             this.grp_AccessAuthentication.TabIndex = 48;
             this.grp_AccessAuthentication.TabStop = false;
             this.grp_AccessAuthentication.Text = "Access Authentication";
             // 
             // lbl_ExitTimeout
             // 
-            this.lbl_ExitTimeout.Location = new System.Drawing.Point(9, 117);
+            this.lbl_ExitTimeout.Location = new System.Drawing.Point(6, 89);
             this.lbl_ExitTimeout.Name = "lbl_ExitTimeout";
             this.lbl_ExitTimeout.Size = new System.Drawing.Size(166, 35);
             this.lbl_ExitTimeout.TabIndex = 5;
@@ -266,7 +267,7 @@
             // 
             // nmUpDn_ExitTimeout
             // 
-            this.nmUpDn_ExitTimeout.Location = new System.Drawing.Point(181, 117);
+            this.nmUpDn_ExitTimeout.Location = new System.Drawing.Point(178, 89);
             this.nmUpDn_ExitTimeout.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -289,7 +290,7 @@
             // rdb_Authentification_RFID
             // 
             this.rdb_Authentification_RFID.AutoSize = true;
-            this.rdb_Authentification_RFID.Location = new System.Drawing.Point(13, 97);
+            this.rdb_Authentification_RFID.Location = new System.Drawing.Point(13, 71);
             this.rdb_Authentification_RFID.Name = "rdb_Authentification_RFID";
             this.rdb_Authentification_RFID.Size = new System.Drawing.Size(50, 17);
             this.rdb_Authentification_RFID.TabIndex = 3;
@@ -300,7 +301,7 @@
             // rdb_Authentification_PIN
             // 
             this.rdb_Authentification_PIN.AutoSize = true;
-            this.rdb_Authentification_PIN.Location = new System.Drawing.Point(13, 74);
+            this.rdb_Authentification_PIN.Location = new System.Drawing.Point(13, 52);
             this.rdb_Authentification_PIN.Name = "rdb_Authentification_PIN";
             this.rdb_Authentification_PIN.Size = new System.Drawing.Size(43, 17);
             this.rdb_Authentification_PIN.TabIndex = 2;
@@ -311,7 +312,7 @@
             // rdb_Authentification_Password
             // 
             this.rdb_Authentification_Password.AutoSize = true;
-            this.rdb_Authentification_Password.Location = new System.Drawing.Point(13, 51);
+            this.rdb_Authentification_Password.Location = new System.Drawing.Point(13, 35);
             this.rdb_Authentification_Password.Name = "rdb_Authentification_Password";
             this.rdb_Authentification_Password.Size = new System.Drawing.Size(71, 17);
             this.rdb_Authentification_Password.TabIndex = 1;
@@ -322,7 +323,7 @@
             // rdb_Authentification_None
             // 
             this.rdb_Authentification_None.AutoSize = true;
-            this.rdb_Authentification_None.Location = new System.Drawing.Point(13, 28);
+            this.rdb_Authentification_None.Location = new System.Drawing.Point(13, 19);
             this.rdb_Authentification_None.Name = "rdb_Authentification_None";
             this.rdb_Authentification_None.Size = new System.Drawing.Size(138, 17);
             this.rdb_Authentification_None.TabIndex = 0;
@@ -344,19 +345,32 @@
             // 
             this.btn_UserSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_UserSettings.Location = new System.Drawing.Point(593, 215);
+            this.btn_UserSettings.Location = new System.Drawing.Point(593, 208);
             this.btn_UserSettings.Name = "btn_UserSettings";
             this.btn_UserSettings.Size = new System.Drawing.Size(249, 26);
             this.btn_UserSettings.TabIndex = 50;
-            this.btn_UserSettings.Text = "button1";
+            this.btn_UserSettings.Text = "User setting";
             this.btn_UserSettings.UseVisualStyleBackColor = true;
             this.btn_UserSettings.Click += new System.EventHandler(this.btn_UserSettings_Click);
+            // 
+            // btn_IdleSettings
+            // 
+            this.btn_IdleSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_IdleSettings.Location = new System.Drawing.Point(593, 182);
+            this.btn_IdleSettings.Name = "btn_IdleSettings";
+            this.btn_IdleSettings.Size = new System.Drawing.Size(249, 26);
+            this.btn_IdleSettings.TabIndex = 51;
+            this.btn_IdleSettings.Text = "Idle Settings";
+            this.btn_IdleSettings.UseVisualStyleBackColor = true;
+            this.btn_IdleSettings.Click += new System.EventHandler(this.btn_IdleSettings_Click);
             // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 662);
+            this.Controls.Add(this.btn_IdleSettings);
             this.Controls.Add(this.btn_UserSettings);
             this.Controls.Add(this.chk_UseWorkAreas);
             this.Controls.Add(this.grp_AccessAuthentication);
@@ -414,5 +428,6 @@
         private System.Windows.Forms.NumericUpDown nmUpDn_ExitTimeout;
         private System.Windows.Forms.CheckBox chk_UseWorkAreas;
         private System.Windows.Forms.Button btn_UserSettings;
+        private System.Windows.Forms.Button btn_IdleSettings;
     }
 }

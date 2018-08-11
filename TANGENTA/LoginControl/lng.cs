@@ -24,6 +24,19 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_chk_ShowURL2 = new ltext(new string[] { "Show URL2", "Prikazovanje Spletnega naslova 2" });
+
+        public static ltext s_lbl_URL1 = new ltext(new string[] { "URL1:", "Spletni naslov 1 :" });
+
+        public static ltext s_lbl_URL2 = new ltext(new string[] { "URL2:", "Spletni naslov 2 :" });
+
+        public static ltext s_chk_ExitWithButton = new ltext(new string[] { "End idle state by pressing Exit button", "Prekini prikazovanje spletne vsebine z uporabo gumba za izhod" });
+
+        public static ltext s_chk_ShowIdleControl = new ltext(new string[] { "Show home page in idle state", "Prikazuj spletno vsebino v času nedajavnosti" });
+
+        public static ltext s_lbl_TimeInSecondsToActivateIdleControl = new ltext(new string[] { "Idle time in seconds to show homepage", "Čas nedejavnosti v sekundah do prikaza spletne vsebine" });
+
+
         public static ltext s_Person_with_UserName = new ltext(new string[] { "Person with UserName:", "Oseba z uporabniškim imenom:" });
         public static ltext s_IsFromOffice = new ltext(new string[] { " is from office ", " je iz poslovne enote " });
         public static ltext s_andThisElectronicDeviceWithName = new ltext(new string[] { " and this Electronic device with name:", " in ta elektronska naprava z imenom:" });

@@ -149,6 +149,12 @@
     <Compile Include="Colors.cs" />
     <Compile Include="ControlTagForHelp.cs" />
     <Compile Include="DocType.cs" />
+    <Compile Include="Form_IdleSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_IdleSettings.Designer.cs">
+      <DependentUpon>Form_IdleSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_NewDocument_WorkArea.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -671,6 +677,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_DocProformaInvoice_AddOn.resx">
       <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_IdleSettings.resx">
+      <DependentUpon>Form_IdleSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_NewDocument_WorkArea.resx">
       <DependentUpon>Form_NewDocument_WorkArea.cs</DependentUpon>

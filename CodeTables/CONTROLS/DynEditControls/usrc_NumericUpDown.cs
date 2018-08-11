@@ -190,6 +190,31 @@ namespace DynEditControls
             set { m_MinValue = value; }
         }
 
+        public usrc_NumericUpDown()
+        {
+            InitializeComponent();
+            m_ReadOnly = false;
+            if (!m_ReadOnly)
+            {
+                this.txt_Value.TextChanged += new EventHandler(txt_Value_TextChanged);
+                this.Cursor = Cursors.Arrow;
+                txt_Value.Cursor = Cursors.IBeam;
+            }
+            else
+            {
+                this.Cursor = Cursors.No;
+                txt_Value.Cursor = Cursors.No;
+                btn_Minus.Visible = false;
+                btn_Plus.Visible = false;
+                txt_Value.ReadOnly = true;
+                txt_Value.Cursor = Cursors.No;
+                txt_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+                txt_Value.BackColor = Color.Gray;
+                txt_Value.ForeColor = Color.Black;
+                this.BackColor = Color.Gray;
+            }
+        }
+
         public usrc_NumericUpDown(bool xbReadOnly, string unique_index)
         {
             InitializeComponent();

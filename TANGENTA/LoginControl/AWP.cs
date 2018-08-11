@@ -170,7 +170,7 @@ eres_check:
                                             }
                                         }
 
-                                        if (lctrl.Login_MultipleUsers)
+                                        if (lctrl.LMUsers)
                                         {
                                             if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
                                             {

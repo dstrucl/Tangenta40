@@ -156,6 +156,13 @@ namespace Tangenta
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
 
+            this.idleControl1.Active = Properties.Settings.Default.IdleControl_Active;
+            this.idleControl1.UseExitButton = Properties.Settings.Default.IdleControl_UseExitButton;
+            this.idleControl1.ShowURL2 = Properties.Settings.Default.IdleControl_ShowURL2;
+            this.idleControl1.TimeInSecondsToActivate = Properties.Settings.Default.IdleControl_TimeInSecondsToActivate;
+            this.idleControl1.URL1 = Properties.Settings.Default.IdleControl_URL1;
+            this.idleControl1.URL2 = Properties.Settings.Default.IdleControl_URL2;
+
 
             // Properties.Settings.Default.SplitterPositions =
             this.Text = lng.s_Tangenta.s;

@@ -79,7 +79,7 @@ namespace LoginControl
 
         private bool m_Login_MultipleUsers = false;
 
-        public bool Login_MultipleUsers
+        public bool LMUsers
         {
             get
             {
@@ -87,7 +87,122 @@ namespace LoginControl
             }
         }
 
-        
+        internal IdleControl IdleCtrl = null;
+
+        public bool IdleControlActive
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.Active;
+                }
+                return false;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.Active = value;
+                }
+            }
+        }
+
+        public int IdleControlTimeInSecondsToActivate
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.TimeInSecondsToActivate;
+                }
+                return -1;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.TimeInSecondsToActivate = value;
+                }
+            }
+        }
+
+        public bool IdleControlUseExitButton
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.UseExitButton;
+                }
+                return false;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.UseExitButton = value;
+                }
+            }
+        }
+
+        public bool IdleControlShowURL2
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.ShowURL2;
+                }
+                return false;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.ShowURL2 = value;
+                }
+            }
+        }
+
+        public string IdleControlURL1
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.URL1;
+                }
+                return null;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.URL1 = value;
+                }
+            }
+        }
+
+        public string IdleControlURL2
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.URL2;
+                }
+                return null;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.URL2 = value;
+                }
+            }
+        }
+
         public bool ShowAdministrators
         {
             get

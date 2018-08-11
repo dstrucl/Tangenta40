@@ -502,5 +502,77 @@ namespace Tangenta.Properties {
                 this["ShowAdministratorsInMultiuserLogin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IdleControl_Active {
+            get {
+                return ((bool)(this["IdleControl_Active"]));
+            }
+            set {
+                this["IdleControl_Active"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int IdleControl_TimeInSecondsToActivate {
+            get {
+                return ((int)(this["IdleControl_TimeInSecondsToActivate"]));
+            }
+            set {
+                this["IdleControl_TimeInSecondsToActivate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IdleControl_UseExitButton {
+            get {
+                return ((bool)(this["IdleControl_UseExitButton"]));
+            }
+            set {
+                this["IdleControl_UseExitButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IdleControl_ShowURL2 {
+            get {
+                return ((bool)(this["IdleControl_ShowURL2"]));
+            }
+            set {
+                this["IdleControl_ShowURL2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http:\\\\www.tangenta.si")]
+        public string IdleControl_URL1 {
+            get {
+                return ((string)(this["IdleControl_URL1"]));
+            }
+            set {
+                this["IdleControl_URL1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IdleControl_URL2 {
+            get {
+                return ((string)(this["IdleControl_URL2"]));
+            }
+            set {
+                this["IdleControl_URL2"] = value;
+            }
+        }
     }
 }

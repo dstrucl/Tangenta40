@@ -354,5 +354,15 @@ namespace Tangenta
             frm_settingsuser.Init();
             frm_settingsuser.ShowDialog(this);
         }
+
+        private void btn_IdleSettings_Click(object sender, EventArgs e)
+        {
+            Form pParentForm = Global.f.GetParentForm(m_usrc_Main);
+            if (pParentForm != null)
+            {
+                Form_IdleSettings frm_idlesettings = new Form_IdleSettings(((Form_Document)pParentForm).idleControl1);
+                frm_idlesettings.ShowDialog(this);
+            }
+        }
     }
 }

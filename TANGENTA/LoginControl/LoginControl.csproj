@@ -141,6 +141,12 @@
     </Compile>
     <Compile Include="f.cs" />
     <Compile Include="HtmlTemplate.cs" />
+    <Compile Include="IdleControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IdleControl.Designer.cs">
+      <DependentUpon>IdleControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginCtrl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -168,6 +174,18 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
+    <Compile Include="usrc_Idle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Idle.Designer.cs">
+      <DependentUpon>usrc_Idle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_IdleSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_IdleSettings.Designer.cs">
+      <DependentUpon>usrc_IdleSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_LoginCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -292,6 +310,12 @@
     <EmbeddedResource Include="EditLoginData_Form.resx">
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Idle.resx">
+      <DependentUpon>usrc_Idle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_IdleSettings.resx">
+      <DependentUpon>usrc_IdleSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_LoginCtrl.resx">
       <DependentUpon>usrc_LoginCtrl.cs</DependentUpon>

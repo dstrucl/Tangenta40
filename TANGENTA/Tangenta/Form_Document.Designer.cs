@@ -32,12 +32,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Document));
             this.loginControl1 = new LoginControl.LoginCtrl(this.components);
             this.fvI_SLO1 = new FiscalVerificationOfInvoices_SLO.FVI_SLO(this.components);
+            this.idleControl1 = new LoginControl.IdleControl(this.components);
             this.SuspendLayout();
             // 
             // loginControl1
             // 
             this.loginControl1.AuthentificationType = LoginControl.LoginCtrl.eAuthentificationType.PASSWORD;
             this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.STD;
+            this.loginControl1.IdleControlActive = false;
+            this.loginControl1.IdleControlShowURL2 = false;
+            this.loginControl1.IdleControlTimeInSecondsToActivate = -1;
+            this.loginControl1.IdleControlURL1 = null;
+            this.loginControl1.IdleControlURL2 = null;
+            this.loginControl1.IdleControlUseExitButton = false;
             this.loginControl1.RecentItemsFolder = "";
             this.loginControl1.ShowAdministrators = false;
             this.loginControl1.UserLoggedIn += new LoginControl.LoginCtrl.delegate_UserLoggedIn(this.loginControl1_UserLoggedIn);
@@ -52,6 +59,15 @@
             this.fvI_SLO1.FursD_ElectronicDeviceID = "";
             this.fvI_SLO1.FursTESTEnvironment = false;
             this.fvI_SLO1.MessageBox_Length = 100;
+            // 
+            // idleControl1
+            // 
+            this.idleControl1.Active = false;
+            this.idleControl1.ShowURL2 = false;
+            this.idleControl1.TimeInSecondsToActivate = 20;
+            this.idleControl1.URL1 = null;
+            this.idleControl1.URL2 = null;
+            this.idleControl1.UseExitButton = true;
             // 
             // Form_Document
             // 
@@ -77,6 +93,7 @@
 
         internal LoginControl.LoginCtrl loginControl1;
         internal FiscalVerificationOfInvoices_SLO.FVI_SLO fvI_SLO1;
+        internal LoginControl.IdleControl idleControl1;
     }
 }
 
