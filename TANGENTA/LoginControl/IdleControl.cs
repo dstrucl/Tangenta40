@@ -2,17 +2,57 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LoginControl
 {
     public partial class IdleControl : Component
     {
+        public enum eShow { URL1,URL2};
         internal usrc_Idle m_usrc_Idle = null;
 
-        internal usrc_IdleSettings m_usrc_IdleSettings = null;
+        internal usrc_MultipleUsers m_usrc_MultipleUsers = null;
+
+        private Form parentform = null;
+
+
+        public delegate void delegate_IdleControlActivated();
+        public event delegate_IdleControlActivated IdleControlActivated = null;
+
+        public delegate void delegate_TimerCountDown(int countdown);
+        public event delegate_TimerCountDown TimerCountDown = null;
+
+        private Image m_ImageUrl1 = null;
+
+        public Image ImageUrl1
+        {
+            get
+            {
+                return m_ImageUrl1;
+            }
+            set
+            {
+                m_ImageUrl1 = value;
+            }
+        }
+
+        private Image m_ImageUrl2 = null;
+
+        public Image ImageUrl2
+        {
+            get
+            {
+                return m_ImageUrl2;
+            }
+            set
+            {
+                m_ImageUrl2 = value;
+            }
+        }
 
         private bool m_Active = false;
         public bool Active {
@@ -26,6 +66,8 @@ namespace LoginControl
                 m_Active = value;
             }        
         }
+
+        private int timeoutCounter = 0;
 
         private int m_TimeInSecondsToActivate = 20;
         public int TimeInSecondsToActivate
@@ -107,5 +149,76 @@ namespace LoginControl
             InitializeComponent();
         }
 
+
+        private void timer_counter_Tick(object sender, EventArgs e)
+        {
+            if (timeoutCounter>0)
+            {
+                if (m_usrc_MultipleUsers!=null)
+                {
+                    m_usrc_MultipleUsers.IdleControlTimerCountDown(timeoutCounter);
+                }
+                if (TimerCountDown!=null)
+                {
+                    TimerCountDown(timeoutCounter);
+                }
+                timeoutCounter--;
+            }
+            else
+            {
+                Show(eShow.URL1);
+                if (IdleControlActivated!=null)
+                {
+                    IdleControlActivated();
+                }
+                TimerCounter_Stop();
+            }
+        }
+
+        public void Show(eShow xShow)
+        {
+
+            if (parentform == null)
+            {
+                if (m_usrc_MultipleUsers != null)
+                {
+                    parentform = Global.f.GetParentForm(m_usrc_MultipleUsers);
+                    if (parentform != null)
+                    {
+                        if (m_usrc_Idle == null)
+                        {
+                            m_usrc_Idle = new usrc_Idle();
+                            m_usrc_Idle.m_IdleCtrl = this;
+                            m_usrc_Idle.m_usrc_MultipleUsers = this.m_usrc_MultipleUsers;
+                            m_usrc_Idle.Dock = DockStyle.Fill;
+                            m_usrc_Idle.Visible = false;
+                            m_usrc_Idle.BackColor = m_usrc_MultipleUsers.BackColor;
+                            parentform.Controls.Add(m_usrc_Idle);
+                        }
+                    }
+                }
+            }
+
+            if (m_usrc_Idle != null)
+            {
+                m_usrc_MultipleUsers.Visible = false;
+                m_usrc_Idle.Visible = true;
+                m_usrc_Idle.Show(xShow);
+            }
+            
+        }
+
+        internal void TimerCounter_Start()
+        {
+
+            timeoutCounter = TimeInSecondsToActivate;
+            timer_counter.Enabled = true;
+        }
+
+        internal void TimerCounter_Stop()
+        {
+            timeoutCounter = -1;
+            timer_counter.Enabled = false;
+        }
     }
 }

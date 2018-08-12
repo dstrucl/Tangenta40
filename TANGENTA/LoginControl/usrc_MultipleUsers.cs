@@ -106,7 +106,18 @@ namespace LoginControl
                 LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
             }
             Get_LoginUsers_Data();
+            if (m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers==null)
+            {
+                m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers = this;
+            }
+            
+            m_awp.lctrl.IdleCtrl.TimerCounter_Start();
 
+        }
+
+        internal void IdleControlTimerCountDown(int timeoutCounter)
+        {
+            this.btn_IdleCtrl_ShowURL1.Text = timeoutCounter.ToString()+  "   URL1";
         }
 
         public bool Get_LoginUsers_Data()
@@ -342,6 +353,16 @@ namespace LoginControl
                     }
                 }
             }
+        }
+
+        private void btn_IdleCtrl_ShowURL1_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            if (m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers==null)
+            {
+                m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers = this;
+            }
+            m_awp.lctrl.IdleCtrl.Show(IdleControl.eShow.URL1);
         }
     }
 }

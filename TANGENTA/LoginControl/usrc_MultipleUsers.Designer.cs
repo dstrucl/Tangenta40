@@ -38,6 +38,8 @@
             this.btn_Exit = new System.Windows.Forms.Button();
             this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrc_Item_PageHandler();
             this.chk_ShowAdministrators = new System.Windows.Forms.CheckBox();
+            this.btn_IdleCtrl_ShowURL1 = new System.Windows.Forms.Button();
+            this.btn_IdleCtrl_ShowURL2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -140,17 +142,40 @@
             // 
             this.chk_ShowAdministrators.AutoSize = true;
             this.chk_ShowAdministrators.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_ShowAdministrators.Location = new System.Drawing.Point(609, 3);
+            this.chk_ShowAdministrators.Location = new System.Drawing.Point(382, 3);
             this.chk_ShowAdministrators.Name = "chk_ShowAdministrators";
             this.chk_ShowAdministrators.Size = new System.Drawing.Size(227, 29);
             this.chk_ShowAdministrators.TabIndex = 6;
             this.chk_ShowAdministrators.Text = "Show Administrators";
             this.chk_ShowAdministrators.UseVisualStyleBackColor = true;
             // 
+            // btn_IdleCtrl_ShowURL1
+            // 
+            this.btn_IdleCtrl_ShowURL1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_IdleCtrl_ShowURL1.Location = new System.Drawing.Point(634, 0);
+            this.btn_IdleCtrl_ShowURL1.Name = "btn_IdleCtrl_ShowURL1";
+            this.btn_IdleCtrl_ShowURL1.Size = new System.Drawing.Size(89, 55);
+            this.btn_IdleCtrl_ShowURL1.TabIndex = 7;
+            this.btn_IdleCtrl_ShowURL1.Text = "URL1";
+            this.btn_IdleCtrl_ShowURL1.UseVisualStyleBackColor = true;
+            this.btn_IdleCtrl_ShowURL1.Click += new System.EventHandler(this.btn_IdleCtrl_ShowURL1_Click);
+            // 
+            // btn_IdleCtrl_ShowURL2
+            // 
+            this.btn_IdleCtrl_ShowURL2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_IdleCtrl_ShowURL2.Location = new System.Drawing.Point(729, 0);
+            this.btn_IdleCtrl_ShowURL2.Name = "btn_IdleCtrl_ShowURL2";
+            this.btn_IdleCtrl_ShowURL2.Size = new System.Drawing.Size(89, 55);
+            this.btn_IdleCtrl_ShowURL2.TabIndex = 8;
+            this.btn_IdleCtrl_ShowURL2.Text = "URL2";
+            this.btn_IdleCtrl_ShowURL2.UseVisualStyleBackColor = true;
+            // 
             // usrc_MultipleUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_IdleCtrl_ShowURL2);
+            this.Controls.Add(this.btn_IdleCtrl_ShowURL1);
             this.Controls.Add(this.chk_ShowAdministrators);
             this.Controls.Add(this.lbl_Tangenta);
             this.Controls.Add(this.pictureBox1);
@@ -181,5 +206,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lbl_Tangenta;
         internal System.Windows.Forms.CheckBox chk_ShowAdministrators;
+        private System.Windows.Forms.Button btn_IdleCtrl_ShowURL1;
+        private System.Windows.Forms.Button btn_IdleCtrl_ShowURL2;
     }
 }

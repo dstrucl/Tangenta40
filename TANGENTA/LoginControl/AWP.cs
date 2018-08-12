@@ -115,6 +115,20 @@ namespace LoginControl
             if (m_usrc_MultipleUsers!=null)
             {
                 m_usrc_MultipleUsers.Visible = true;
+                if (lctrl!=null)
+                {
+                    if (lctrl.IdleControlActive)
+                    {
+                        if (lctrl.IdleCtrl.m_usrc_MultipleUsers == null)
+                        {
+                            lctrl.IdleCtrl.m_usrc_MultipleUsers = this.m_usrc_MultipleUsers;
+                        }
+                        lctrl.IdleCtrl.TimerCounter_Start();
+                        return;
+                    }
+                    lctrl.IdleCtrl.TimerCounter_Stop();
+                }
+
             }
         }
 

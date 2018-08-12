@@ -28,9 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.timer_counter = new System.Windows.Forms.Timer(this.components);
+            // 
+            // timer_counter
+            // 
+            this.timer_counter.Interval = 1000;
+            this.timer_counter.Tick += new System.EventHandler(this.timer_counter_Tick);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timer_counter;
     }
 }

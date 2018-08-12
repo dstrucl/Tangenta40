@@ -87,7 +87,6 @@ namespace LoginControl
             }
         }
 
-        internal IdleControl IdleCtrl = null;
 
         public bool IdleControlActive
         {
@@ -650,6 +649,11 @@ namespace LoginControl
             {
                 Reload(xLMOUser);
             }
+        }
+
+        private void timer_IdleCtrl_Tick(object sender, EventArgs e)
+        {
+            
         }
     }
 }

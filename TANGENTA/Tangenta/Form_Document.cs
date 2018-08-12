@@ -156,12 +156,12 @@ namespace Tangenta
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
 
-            this.idleControl1.Active = Properties.Settings.Default.IdleControl_Active;
-            this.idleControl1.UseExitButton = Properties.Settings.Default.IdleControl_UseExitButton;
-            this.idleControl1.ShowURL2 = Properties.Settings.Default.IdleControl_ShowURL2;
-            this.idleControl1.TimeInSecondsToActivate = Properties.Settings.Default.IdleControl_TimeInSecondsToActivate;
-            this.idleControl1.URL1 = Properties.Settings.Default.IdleControl_URL1;
-            this.idleControl1.URL2 = Properties.Settings.Default.IdleControl_URL2;
+            this.loginControl1.IdleControlActive = Properties.Settings.Default.IdleControl_Active;
+            this.loginControl1.IdleControlUseExitButton = Properties.Settings.Default.IdleControl_UseExitButton;
+            this.loginControl1.IdleControlShowURL2 = Properties.Settings.Default.IdleControl_ShowURL2;
+            this.loginControl1.IdleControlTimeInSecondsToActivate = Properties.Settings.Default.IdleControl_TimeInSecondsToActivate;
+            this.loginControl1.IdleControlURL1 = Properties.Settings.Default.IdleControl_URL1;
+            this.loginControl1.IdleControlURL2 = Properties.Settings.Default.IdleControl_URL2;
 
 
             // Properties.Settings.Default.SplitterPositions =

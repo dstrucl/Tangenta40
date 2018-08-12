@@ -140,6 +140,12 @@
       <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="f.cs" />
+    <Compile Include="Form_ImageOfUrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ImageOfUrl.Designer.cs">
+      <DependentUpon>Form_ImageOfUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="HtmlTemplate.cs" />
     <Compile Include="IdleControl.cs">
       <SubType>Component</SubType>
@@ -302,6 +308,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AWP_UserInfo_Form.resx">
       <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ImageOfUrl.resx">
+      <DependentUpon>Form_ImageOfUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdleControl.resx">
+      <DependentUpon>IdleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginCtrl.resx">
+      <DependentUpon>LoginCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="STDChangePasswordForm.resx">
       <DependentUpon>STDChangePasswordForm.cs</DependentUpon>

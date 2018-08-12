@@ -39,14 +39,13 @@
             this.btn_Issue = new System.Windows.Forms.Button();
             this.chk_Head = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.txt_Issuer = new System.Windows.Forms.TextBox();
             this.btn_MyOrganisation = new System.Windows.Forms.Button();
             this.lbl_MyOrganisation = new System.Windows.Forms.Label();
             this.usrc_Customer = new Tangenta.usrc_Customer();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
-            this.usrc_Currency1 = new Tangenta.usrc_Currency();
-            this.txt_Issuer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -205,6 +204,16 @@
             this.splitContainer2.SplitterDistance = 76;
             this.splitContainer2.TabIndex = 38;
             // 
+            // txt_Issuer
+            // 
+            this.txt_Issuer.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_Issuer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Issuer.Location = new System.Drawing.Point(92, 52);
+            this.txt_Issuer.Name = "txt_Issuer";
+            this.txt_Issuer.ReadOnly = true;
+            this.txt_Issuer.Size = new System.Drawing.Size(225, 13);
+            this.txt_Issuer.TabIndex = 36;
+            // 
             // btn_MyOrganisation
             // 
             this.btn_MyOrganisation.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -234,6 +243,7 @@
             this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.usrc_Customer.DocTyp = "";
             this.usrc_Customer.Location = new System.Drawing.Point(324, 43);
             this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Customer.Name = "usrc_Customer";
@@ -277,30 +287,9 @@
             this.usrc_AddOn1.Size = new System.Drawing.Size(444, 65);
             this.usrc_AddOn1.TabIndex = 40;
             // 
-            // usrc_Currency1
-            // 
-            this.usrc_Currency1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Currency1.Location = new System.Drawing.Point(435, 0);
-            this.usrc_Currency1.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_Currency1.Name = "usrc_Currency1";
-            this.usrc_Currency1.Size = new System.Drawing.Size(189, 29);
-            this.usrc_Currency1.TabIndex = 42;
-            this.usrc_Currency1.CurrencyChanged += new Tangenta.usrc_Currency.delegate_CurrencyChanged(this.usrc_Currency1_CurrencyChanged);
-            // 
-            // txt_Issuer
-            // 
-            this.txt_Issuer.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_Issuer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_Issuer.Location = new System.Drawing.Point(92, 52);
-            this.txt_Issuer.Name = "txt_Issuer";
-            this.txt_Issuer.ReadOnly = true;
-            this.txt_Issuer.Size = new System.Drawing.Size(225, 13);
-            this.txt_Issuer.TabIndex = 36;
-            // 
             // usrc_DocumentEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.Controls.Add(this.usrc_Currency1);
             this.Controls.Add(this.btn_Show_Shops);
             this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
@@ -347,7 +336,6 @@
         private System.Windows.Forms.Label lbl_MyOrganisation;
         private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
-        internal usrc_Currency usrc_Currency1;
         private System.Windows.Forms.TextBox txt_Issuer;
     }
 }

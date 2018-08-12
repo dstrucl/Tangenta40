@@ -28,9 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.IdleCtrl = new LoginControl.IdleControl(this.components);
+            // 
+            // IdleCtrl
+            // 
+            this.IdleCtrl.Active = false;
+            this.IdleCtrl.ShowURL2 = false;
+            this.IdleCtrl.TimeInSecondsToActivate = 20;
+            this.IdleCtrl.URL1 = null;
+            this.IdleCtrl.URL2 = null;
+            this.IdleCtrl.UseExitButton = true;
+
         }
 
         #endregion
+
+        public IdleControl IdleCtrl;
     }
 }

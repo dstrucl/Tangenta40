@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Document));
             this.loginControl1 = new LoginControl.LoginCtrl(this.components);
             this.fvI_SLO1 = new FiscalVerificationOfInvoices_SLO.FVI_SLO(this.components);
-            this.idleControl1 = new LoginControl.IdleControl(this.components);
             this.SuspendLayout();
             // 
             // loginControl1
@@ -60,15 +59,6 @@
             this.fvI_SLO1.FursTESTEnvironment = false;
             this.fvI_SLO1.MessageBox_Length = 100;
             // 
-            // idleControl1
-            // 
-            this.idleControl1.Active = false;
-            this.idleControl1.ShowURL2 = false;
-            this.idleControl1.TimeInSecondsToActivate = 20;
-            this.idleControl1.URL1 = null;
-            this.idleControl1.URL2 = null;
-            this.idleControl1.UseExitButton = true;
-            // 
             // Form_Document
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -93,7 +83,6 @@
 
         internal LoginControl.LoginCtrl loginControl1;
         internal FiscalVerificationOfInvoices_SLO.FVI_SLO fvI_SLO1;
-        internal LoginControl.IdleControl idleControl1;
     }
 }
 

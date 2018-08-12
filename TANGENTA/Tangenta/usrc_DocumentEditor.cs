@@ -827,14 +827,6 @@ namespace Tangenta
                 lbl_Issuer.Visible = true;
             }
 
-            if (Program.OperationMode.MultiCurrency)
-            {
-                usrc_Currency1.Enabled = true;
-            }
-            else
-            {
-                usrc_Currency1.Enabled = false;
-            }
         }
 
         public bool Init(ID Document_ID)
@@ -1442,7 +1434,6 @@ namespace Tangenta
                 {
                     if (BaseCurrency_Text != null)
                     {
-                        usrc_Currency1.Init(GlobalData.BaseCurrency);
                         return true;
                     }
                     else
@@ -1473,7 +1464,6 @@ namespace Tangenta
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
                 {
-                    usrc_Currency1.Init(GlobalData.BaseCurrency);
                     return true;
                 }
                 else

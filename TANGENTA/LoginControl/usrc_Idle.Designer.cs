@@ -32,9 +32,9 @@
             this.btn_WebBrowserGoForward = new System.Windows.Forms.Button();
             this.btn_WebBrowserGoBack = new System.Windows.Forms.Button();
             this.txt_URL = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_URL1 = new System.Windows.Forms.Button();
+            this.btn_URL2 = new System.Windows.Forms.Button();
+            this.btn_Exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_WebBrowserGoHome
@@ -80,38 +80,40 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(335, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 38);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "-->";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_URL1.Location = new System.Drawing.Point(335, 1);
+            this.btn_URL1.Name = "button1";
+            this.btn_URL1.Size = new System.Drawing.Size(79, 38);
+            this.btn_URL1.TabIndex = 11;
+            this.btn_URL1.Text = "-->";
+            this.btn_URL1.UseVisualStyleBackColor = true;
+            this.btn_URL1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_URL1_MouseUp);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(420, 1);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(74, 38);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "-->";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_URL2.Location = new System.Drawing.Point(420, 1);
+            this.btn_URL2.Name = "button2";
+            this.btn_URL2.Size = new System.Drawing.Size(74, 38);
+            this.btn_URL2.TabIndex = 12;
+            this.btn_URL2.Text = "-->";
+            this.btn_URL2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_Exit
             // 
-            this.button3.Location = new System.Drawing.Point(552, 1);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(133, 38);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "-->";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_Exit.Image = global::LoginControl.Properties.Resources.Exit;
+            this.btn_Exit.Location = new System.Drawing.Point(552, 1);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(133, 38);
+            this.btn_Exit.TabIndex = 13;
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // usrc_Idle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Exit);
+            this.Controls.Add(this.btn_URL2);
+            this.Controls.Add(this.btn_URL1);
             this.Controls.Add(this.btn_WebBrowserGoHome);
             this.Controls.Add(this.btn_WebBrowserGoForward);
             this.Controls.Add(this.btn_WebBrowserGoBack);
@@ -129,8 +131,8 @@
         private System.Windows.Forms.Button btn_WebBrowserGoForward;
         private System.Windows.Forms.Button btn_WebBrowserGoBack;
         public System.Windows.Forms.TextBox txt_URL;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_URL1;
+        private System.Windows.Forms.Button btn_URL2;
+        private System.Windows.Forms.Button btn_Exit;
     }
 }

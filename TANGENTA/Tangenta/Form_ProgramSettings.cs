@@ -360,7 +360,7 @@ namespace Tangenta
             Form pParentForm = Global.f.GetParentForm(m_usrc_Main);
             if (pParentForm != null)
             {
-                Form_IdleSettings frm_idlesettings = new Form_IdleSettings(((Form_Document)pParentForm).idleControl1);
+                Form_IdleSettings frm_idlesettings = new Form_IdleSettings(((Form_Document)pParentForm).loginControl1.IdleCtrl);
                 frm_idlesettings.ShowDialog(this);
             }
         }
