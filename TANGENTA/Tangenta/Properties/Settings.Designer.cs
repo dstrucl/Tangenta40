@@ -574,5 +574,29 @@ namespace Tangenta.Properties {
                 this["IdleControl_URL2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IdleControl_FileImageUrl1 {
+            get {
+                return ((string)(this["IdleControl_FileImageUrl1"]));
+            }
+            set {
+                this["IdleControl_FileImageUrl1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IdleControl_FileImageUrl2 {
+            get {
+                return ((string)(this["IdleControl_FileImageUrl2"]));
+            }
+            set {
+                this["IdleControl_FileImageUrl2"] = value;
+            }
+        }
     }
 }

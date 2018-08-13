@@ -169,6 +169,7 @@
             this.btn_IdleCtrl_ShowURL2.TabIndex = 8;
             this.btn_IdleCtrl_ShowURL2.Text = "URL2";
             this.btn_IdleCtrl_ShowURL2.UseVisualStyleBackColor = true;
+            this.btn_IdleCtrl_ShowURL2.Click += new System.EventHandler(this.btn_IdleCtrl_ShowURL2_Click);
             // 
             // usrc_MultipleUsers
             // 

@@ -87,6 +87,83 @@ namespace LoginControl
             }
         }
 
+        public string IdleControlFileImageUrl1
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.FileImageUrl1;
+                }
+                return null;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.FileImageUrl1 = value;
+                }
+            }
+        }
+
+        public string IdleControlFileImageUrl2
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.FileImageUrl2;
+                }
+                return null;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.FileImageUrl2 = value;
+                }
+            }
+        }
+
+
+        public Image IdleControlImageUrl1
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.ImageUrl1;
+                }
+                return null;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.ImageUrl1 = value;
+                }
+            }
+        }
+
+        public Image IdleControlImageUrl2
+        {
+            get
+            {
+                if (IdleCtrl != null)
+                {
+                    return IdleCtrl.ImageUrl2;
+                }
+                return null;
+            }
+            set
+            {
+                if (IdleCtrl != null)
+                {
+                    IdleCtrl.ImageUrl2 = value;
+                }
+            }
+        }
+
 
         public bool IdleControlActive
         {

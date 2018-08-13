@@ -74,31 +74,37 @@
             this.txt_URL.Multiline = true;
             this.txt_URL.Name = "txt_URL";
             this.txt_URL.ReadOnly = true;
-            this.txt_URL.Size = new System.Drawing.Size(195, 34);
+            this.txt_URL.Size = new System.Drawing.Size(223, 34);
             this.txt_URL.TabIndex = 7;
             this.txt_URL.Text = "label1";
             // 
-            // button1
+            // btn_URL1
             // 
-            this.btn_URL1.Location = new System.Drawing.Point(335, 1);
-            this.btn_URL1.Name = "button1";
+            this.btn_URL1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_URL1.Location = new System.Drawing.Point(363, 1);
+            this.btn_URL1.Name = "btn_URL1";
             this.btn_URL1.Size = new System.Drawing.Size(79, 38);
             this.btn_URL1.TabIndex = 11;
             this.btn_URL1.Text = "-->";
             this.btn_URL1.UseVisualStyleBackColor = true;
+            this.btn_URL1.Click += new System.EventHandler(this.btn_URL1_Click);
             this.btn_URL1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_URL1_MouseUp);
             // 
-            // button2
+            // btn_URL2
             // 
-            this.btn_URL2.Location = new System.Drawing.Point(420, 1);
-            this.btn_URL2.Name = "button2";
+            this.btn_URL2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_URL2.Location = new System.Drawing.Point(448, 1);
+            this.btn_URL2.Name = "btn_URL2";
             this.btn_URL2.Size = new System.Drawing.Size(74, 38);
             this.btn_URL2.TabIndex = 12;
             this.btn_URL2.Text = "-->";
             this.btn_URL2.UseVisualStyleBackColor = true;
+            this.btn_URL2.Click += new System.EventHandler(this.btn_URL2_Click);
+            this.btn_URL2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_URL2_MouseUp);
             // 
             // btn_Exit
             // 
+            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.Image = global::LoginControl.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(552, 1);
             this.btn_Exit.Name = "btn_Exit";

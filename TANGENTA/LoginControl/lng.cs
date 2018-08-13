@@ -24,6 +24,12 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+        public static ltext s_btn_SetImage = new ltext(new string[] { "Set image ->", "Naredi sliko ->" });
+
+        public static ltext s_Form_ImageOfUrl = new ltext(new string[] { "Image of url:", "Slika spletne strani:" });
+
+
         public static ltext s_chk_ShowURL2 = new ltext(new string[] { "Show URL2", "Prikazovanje Spletnega naslova 2" });
 
         public static ltext s_lbl_URL1 = new ltext(new string[] { "URL1:", "Spletni naslov 1 :" });

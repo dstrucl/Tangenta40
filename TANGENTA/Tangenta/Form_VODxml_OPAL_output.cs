@@ -128,7 +128,7 @@ namespace Tangenta
             {
                 string xVodShemaFolder = null;
                 string Err = null;
-                if (StaticLib.Func.SetApplicationDataSubFolder(ref xVodShemaFolder, Program.TANGENTA_VODSHEMA_SUB_FOLDER,ref Err))
+                if (Global.f.SetApplicationDataSubFolder(ref xVodShemaFolder, Program.TANGENTA_VODSHEMA_SUB_FOLDER,ref Err))
                 {
                     string shema = Properties.Resources.VOD_shema;
 

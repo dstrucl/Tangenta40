@@ -40,6 +40,21 @@ namespace LoginControl
             }
         }
 
+
+        private string m_FileImageUrl1 = null;
+
+        public string FileImageUrl1
+        {
+            get
+            {
+                return m_FileImageUrl1;
+            }
+            set
+            {
+                m_FileImageUrl1 = value;
+            }
+        }
+
         private Image m_ImageUrl2 = null;
 
         public Image ImageUrl2
@@ -51,6 +66,20 @@ namespace LoginControl
             set
             {
                 m_ImageUrl2 = value;
+            }
+        }
+
+        private string m_FileImageUrl2 = null;
+
+        public string FileImageUrl2
+        {
+            get
+            {
+                return m_FileImageUrl2;
+            }
+            set
+            {
+                m_FileImageUrl2 = value;
             }
         }
 

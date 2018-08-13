@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -79,5 +81,63 @@ namespace Global
                 return true;
             }
         }
+
+        public static string GetApplicationDataFolder()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        }
+
+        public static bool SetApplicationDataSubFolder(ref string folder, string subFolder, ref string Err)
+        {
+            Err = null;
+            string xFolder = GetApplicationDataFolder() + subFolder;
+            try
+            {
+                if (!Directory.Exists(xFolder))
+                {
+                    Directory.CreateDirectory(xFolder);
+                }
+                GrantFolderAccess(xFolder);
+                folder = xFolder;
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                Err = Ex.Message + "\r\n" + Ex.StackTrace;
+            }
+            folder = null;
+            return false;
+        }
+
+        public static void GrantFolderAccess(string Folder)
+        {
+            bool exists = System.IO.Directory.Exists(Folder);
+            if (!exists)
+            {
+                try
+                {
+
+                    DirectoryInfo di = System.IO.Directory.CreateDirectory(Folder);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Can not create folder:" + Folder + "\r\nException:" + ex.Message);
+                }
+
+            }
+            try
+            {
+                DirectoryInfo dInfo = new DirectoryInfo(Folder);
+                DirectorySecurity dSecurity = dInfo.GetAccessControl();
+                dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                dInfo.SetAccessControl(dSecurity);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can not set FullControl permision to folder:\"" + Folder + "\"!\r\nException:" + ex.Message + "\r\n\r\nSolution:Run program as administrator.");
+            }
+
+        }
+
     }
 }

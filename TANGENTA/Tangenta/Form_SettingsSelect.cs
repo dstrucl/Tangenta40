@@ -32,12 +32,12 @@ namespace Tangenta
             nav.btn3_Image = Properties.Resources.Exit;
             string xCodeTables_IniFileFolder = null;
             string Err = null;
-            if (StaticLib.Func.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            if (Global.f.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
                 string xSQLitebackupFolder = Properties.Settings.Default.SQLiteBackupFolder;
                 if (xSQLitebackupFolder.Length == 0)
                 {
-                    if (StaticLib.Func.SetApplicationDataSubFolder(ref xSQLitebackupFolder, Program.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
+                    if (Global.f.SetApplicationDataSubFolder(ref xSQLitebackupFolder, Program.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
                     {
                     }
                 }

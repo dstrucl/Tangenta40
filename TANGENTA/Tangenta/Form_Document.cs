@@ -156,6 +156,46 @@ namespace Tangenta
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
 
+
+            this.loginControl1.IdleControlFileImageUrl1 = Properties.Settings.Default.IdleControl_FileImageUrl1;
+            if (this.loginControl1.IdleControlFileImageUrl1 != null)
+            {
+                if (this.loginControl1.IdleControlFileImageUrl1.Length > 0)
+                {
+                    if (File.Exists(this.loginControl1.IdleControlFileImageUrl1))
+                    {
+                        try
+                        {
+                            this.loginControl1.IdleControlImageUrl1 = Image.FromFile(this.loginControl1.IdleControlFileImageUrl1);
+                        }
+                        catch (Exception Ex)
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:Forum_Document:constructor Form_Document():can not load URL1 image file:" + this.loginControl1.IdleControlFileImageUrl1);
+                        }
+                    }
+                }
+            }
+
+
+            this.loginControl1.IdleControlFileImageUrl2 = Properties.Settings.Default.IdleControl_FileImageUrl2;
+            if (this.loginControl1.IdleControlFileImageUrl2 != null)
+            {
+                if (this.loginControl1.IdleControlFileImageUrl2.Length > 0)
+                {
+                    if (File.Exists(this.loginControl1.IdleControlFileImageUrl2))
+                    {
+                        try
+                        {
+                            this.loginControl1.IdleControlImageUrl2 = Image.FromFile(this.loginControl1.IdleControlFileImageUrl2);
+                        }
+                        catch (Exception Ex)
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:Forum_Document:constructor Form_Document():can not load URL2 image file:" + this.loginControl1.IdleControlFileImageUrl2);
+                        }
+                    }
+                }
+            }
+
             this.loginControl1.IdleControlActive = Properties.Settings.Default.IdleControl_Active;
             this.loginControl1.IdleControlUseExitButton = Properties.Settings.Default.IdleControl_UseExitButton;
             this.loginControl1.IdleControlShowURL2 = Properties.Settings.Default.IdleControl_ShowURL2;
@@ -410,6 +450,24 @@ namespace Tangenta
             if (sdb != null)
             {
                 Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
+            }
+
+            if (loginControl1.IdleControlFileImageUrl1 != null)
+            {
+                if (!loginControl1.IdleControlFileImageUrl1.Equals(Properties.Settings.Default.IdleControl_FileImageUrl1))
+                {
+                    Properties.Settings.Default.IdleControl_FileImageUrl1 = loginControl1.IdleControlFileImageUrl1;
+                    Properties.Settings.Default.Save();
+                }
+            }
+
+            if (loginControl1.IdleControlFileImageUrl2 != null)
+            {
+                if (!loginControl1.IdleControlFileImageUrl2.Equals(Properties.Settings.Default.IdleControl_FileImageUrl2))
+                {
+                    Properties.Settings.Default.IdleControl_FileImageUrl2 = loginControl1.IdleControlFileImageUrl2;
+                    Properties.Settings.Default.Save();
+                }
             }
 
             if (DocumentMan != null)

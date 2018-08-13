@@ -104,7 +104,7 @@ namespace Tangenta
                     this.usrc_ShopsInuse1.chk_C_in_use.Checked = true;
                 }
             }
-            txt_ApplicationDataFolder.Text = StaticLib.Func.GetApplicationDataFolder();
+            txt_ApplicationDataFolder.Text = Global.f.GetApplicationDataFolder();
             txt_GitSourceVersion.Text = LogFile.LogFile.VersionControlSourceVersion;
             this.usrc_SelectColorSheme1.ColorShemeChanged += Usrc_SelectColorSheme1_ColorShemeChanged;
 

@@ -110,14 +110,37 @@ namespace LoginControl
             {
                 m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers = this;
             }
-            
+
+            if (m_awp.lctrl.IdleControlImageUrl1 != null)
+            {
+                btn_IdleCtrl_ShowURL1.Image = m_awp.lctrl.IdleControlImageUrl1;
+                btn_IdleCtrl_ShowURL1.Text = "";
+                btn_IdleCtrl_ShowURL1.ImageAlign = ContentAlignment.MiddleRight;
+                btn_IdleCtrl_ShowURL1.TextAlign = ContentAlignment.MiddleLeft;
+            }
+
+            if (m_awp.lctrl.IdleControlImageUrl2 != null)
+            {
+                btn_IdleCtrl_ShowURL2.Image = m_awp.lctrl.IdleControlImageUrl2;
+                btn_IdleCtrl_ShowURL2.Text = "";
+                btn_IdleCtrl_ShowURL2.ImageAlign = ContentAlignment.MiddleRight;
+                btn_IdleCtrl_ShowURL2.TextAlign = ContentAlignment.MiddleLeft;
+            }
+
             m_awp.lctrl.IdleCtrl.TimerCounter_Start();
 
         }
 
         internal void IdleControlTimerCountDown(int timeoutCounter)
         {
-            this.btn_IdleCtrl_ShowURL1.Text = timeoutCounter.ToString()+  "   URL1";
+            if (btn_IdleCtrl_ShowURL1.Image == null)
+            {
+                this.btn_IdleCtrl_ShowURL1.Text = timeoutCounter.ToString() + "   URL1";
+            }
+            else
+            {
+                this.btn_IdleCtrl_ShowURL1.Text = timeoutCounter.ToString();
+            }
         }
 
         public bool Get_LoginUsers_Data()
@@ -363,6 +386,17 @@ namespace LoginControl
                 m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers = this;
             }
             m_awp.lctrl.IdleCtrl.Show(IdleControl.eShow.URL1);
+        }
+
+        private void btn_IdleCtrl_ShowURL2_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            if (m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers == null)
+            {
+                m_awp.lctrl.IdleCtrl.m_usrc_MultipleUsers = this;
+            }
+            m_awp.lctrl.IdleCtrl.Show(IdleControl.eShow.URL2);
+
         }
     }
 }

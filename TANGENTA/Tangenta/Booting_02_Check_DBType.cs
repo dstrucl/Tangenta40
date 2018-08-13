@@ -43,7 +43,7 @@ namespace Tangenta
             string sDBType = null;
 
             string xinifolder = frm.CodeTables_IniFileFolder;
-            if (StaticLib.Func.SetApplicationDataSubFolder(ref xinifolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            if (Global.f.SetApplicationDataSubFolder(ref xinifolder, Program.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
                 frm.CodeTables_IniFileFolder = xinifolder;
                 if (Program.bChangeConnection)
