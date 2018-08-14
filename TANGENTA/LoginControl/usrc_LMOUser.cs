@@ -156,12 +156,14 @@ namespace LoginControl
 
         private void btn_GetAccess_Click(object sender, EventArgs e)
         {
+            lctrl.IdleCtrl.TimerCounter_Stop();
             switch (lctrl.AuthentificationType)
             {
                 case LoginCtrl.eAuthentificationType.PASSWORD:
                     if (!Authentificate_PASSWORD())
                     {
                         XMessage.Box.Show(this,lng.s_Password_does_not_match,MessageBoxIcon.Information);
+                        lctrl.IdleCtrl.TimerCounter_Start();
                         return;
                     }
                     break;
@@ -169,6 +171,7 @@ namespace LoginControl
                 case LoginCtrl.eAuthentificationType.PIN:
                     if (!Authentificate_PIN())
                     {
+                        lctrl.IdleCtrl.TimerCounter_Start();
                         return;
                     }
                     break;
