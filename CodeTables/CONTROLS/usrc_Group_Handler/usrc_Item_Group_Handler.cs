@@ -518,6 +518,7 @@ namespace usrc_Item_Group_Handler
 
         private void Btn_GroupLevel_Click(object sender, EventArgs e)
         {
+            form_group_handler.SetInitialPosition(this);
             form_group_handler.Show();
             form_group_handler.Focus();
         }

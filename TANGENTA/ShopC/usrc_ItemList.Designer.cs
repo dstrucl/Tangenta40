@@ -31,8 +31,8 @@
             this.pnl_Items = new System.Windows.Forms.Panel();
             this.lbl_GroupPath = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.m_usrc_Item_PageHandler = new usrc_Item_PageHandler.usrc_Item_PageHandler();
             this.m_usrc_Item_Group_Handler = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
+            this.m_usrc_Item_PageHandler = new usrc_Item_PageHandler.usrc_Item_PageHandler();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -50,7 +50,7 @@
             this.pnl_Items.Location = new System.Drawing.Point(0, 0);
             this.pnl_Items.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_Items.Name = "pnl_Items";
-            this.pnl_Items.Size = new System.Drawing.Size(468, 350);
+            this.pnl_Items.Size = new System.Drawing.Size(468, 336);
             this.pnl_Items.TabIndex = 7;
             // 
             // lbl_GroupPath
@@ -69,7 +69,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 40);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 54);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -79,18 +79,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_Item_Group_Handler);
-            this.splitContainer1.Size = new System.Drawing.Size(650, 350);
+            this.splitContainer1.Size = new System.Drawing.Size(650, 336);
             this.splitContainer1.SplitterDistance = 468;
             this.splitContainer1.TabIndex = 13;
-            // 
-            // m_usrc_Item_PageHandler
-            // 
-            this.m_usrc_Item_PageHandler.CurrentPage = 0;
-            this.m_usrc_Item_PageHandler.Location = new System.Drawing.Point(3, 0);
-            this.m_usrc_Item_PageHandler.Name = "m_usrc_Item_PageHandler";
-            this.m_usrc_Item_PageHandler.Size = new System.Drawing.Size(164, 39);
-            this.m_usrc_Item_PageHandler.TabIndex = 9;
-            this.m_usrc_Item_PageHandler.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
             // m_usrc_Item_Group_Handler
             // 
@@ -101,10 +92,19 @@
             this.m_usrc_Item_Group_Handler.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_Item_Group_Handler.Name = "m_usrc_Item_Group_Handler";
             this.m_usrc_Item_Group_Handler.ShopName = "";
-            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(178, 350);
+            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(178, 336);
             this.m_usrc_Item_Group_Handler.TabIndex = 10;
             this.m_usrc_Item_Group_Handler.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.m_usrc_Item_Group_Handler_GroupsRedefined);
             this.m_usrc_Item_Group_Handler.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.m_usrc_Item_Group_Handler_GroupChanged);
+            // 
+            // m_usrc_Item_PageHandler
+            // 
+            this.m_usrc_Item_PageHandler.CurrentPage = 0;
+            this.m_usrc_Item_PageHandler.Location = new System.Drawing.Point(3, 0);
+            this.m_usrc_Item_PageHandler.Name = "m_usrc_Item_PageHandler";
+            this.m_usrc_Item_PageHandler.Size = new System.Drawing.Size(187, 56);
+            this.m_usrc_Item_PageHandler.TabIndex = 9;
+            this.m_usrc_Item_PageHandler.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
             // usrc_ItemList
             // 

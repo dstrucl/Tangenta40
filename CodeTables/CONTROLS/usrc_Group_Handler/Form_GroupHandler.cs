@@ -154,5 +154,13 @@ namespace usrc_Item_Group_Handler
         {
             this.Visible = false;
         }
+
+        internal void SetInitialPosition(usrc_Item_Group_Handler usrc_Item_Group_Handler)
+        {
+            Point locationOnForm = usrc_Item_Group_Handler.FindForm().PointToClient(
+                  usrc_Item_Group_Handler.Parent.PointToScreen(usrc_Item_Group_Handler.Location));
+            this.Top = locationOnForm.Y - 4;
+            this.Left = locationOnForm.X  + 4;
+        }
     }
 }

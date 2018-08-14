@@ -63,7 +63,7 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.Panel2.Controls.Add(this.usrc_ItemList);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(886, 505);
+            this.splitContainer1.Size = new System.Drawing.Size(886, 559);
             this.splitContainer1.SplitterDistance = 418;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -77,7 +77,7 @@
             this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
             this.usrc_Atom_ItemsList.NumberOfItemsPerPage = 10;
-            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(409, 499);
+            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(409, 553);
             this.usrc_Atom_ItemsList.TabIndex = 5;
             // 
             // usrc_ItemList
@@ -91,7 +91,7 @@
             this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_ItemList.Name = "usrc_ItemList";
             this.usrc_ItemList.NumberOfItemsPerPage = 10;
-            this.usrc_ItemList.Size = new System.Drawing.Size(460, 500);
+            this.usrc_ItemList.Size = new System.Drawing.Size(460, 502);
             this.usrc_ItemList.SplitContainer1_spd = 326;
             this.usrc_ItemList.TabIndex = 22;
             // 

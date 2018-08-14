@@ -504,12 +504,25 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 if (FursTESTEnvironment)
                 {
-                    return Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;
+                    if (myOrg.m_myOrg_Office != null)
+                    {
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                        {
+                            if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                            {
+                                if (myOrg.m_myOrg_Office.m_myOrg_Person.Tax_ID_v != null)
+                                {
+                                    return myOrg.m_myOrg_Office.m_myOrg_Person.Tax_ID_v.v;
+                                }
+                            }
+                        }
+                    }
+                    if (!this.DesignMode) LogFile.Error.Show("FiscalVerificationOfInvoices_SLO:usrc_FVI_SLO:property FursD_InvoiceAuthorTaxID is not defined!");
+                    return null;
                 }
                 else
                 {
                     //return Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
-                    return "19678193";
 
                     if (myOrg.m_myOrg_Office != null)
                     {

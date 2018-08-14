@@ -175,7 +175,11 @@ namespace LoginControl
                         return;
                     }
                     break;
-
+            }
+            myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(m_LMOUser.myOrganisation_Person_ID);
+            if (myOrg.m_myOrg_Office.m_myOrg_Person==null)
+            {
+                LogFile.Error.Show("ERROR:LoginControl:usrc_LMOUser:btn_GetAccess_Click:myOrg.m_myOrg_Office.m_myOrg_Person==null");
             }
             if (m_LMOUser.IsUserManager)
             {
