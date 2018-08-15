@@ -62,7 +62,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.25";
+        public const string VERSION = "1.26";
         public Settings Settings = null;
 
         /* 1 */
@@ -1572,6 +1572,9 @@ namespace TangentaDataBaseDef
             t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Currency ID", "Valuta ID"));
             t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Taxation ID", "Davek ID"));
             t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.PurchasePriceDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase Price Date", "Datum nabavne cene"));
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.PriceWithoutVAT, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price without VAT", "Cena brez z DDV"));
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.VATCanNotBeDeducted, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("VAT can not be deducted", "DDV se ne odbije"));
             m_DBTables.items.Add(t_PurchasePrice);
 
           /* 100 */

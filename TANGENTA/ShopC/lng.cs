@@ -24,6 +24,17 @@ namespace ShopC
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        
+        public static ltext s_lbl_Total = new ltext(new string[] { "Total", "Skupaj" });
+        public static ltext s_chk_VAT_is_deducted = new ltext(new string[] { "VAT can be deducted", "DDV smemo odbiti" });
+
+        public static ltext s_lbl_Discount = new ltext(new string[] { "Discount", "Popust" });
+
+
+
+        public static ltext s_lbl_PriceWithoutVAT = new ltext(new string[] { "Price without VAT", "Cena brez DDV" });
+        public static ltext s_lbl_PriceWithVAT = new ltext(new string[] { "Price with VAT", "Cena z DDV" });
+
         public static ltext s_CtrlColor_ItemFromFactory = new ltext(new string[] { "Item from factory colors", "Barvi artikla, ki ni v zalogi" });
         public static ltext s_CtrlColor_ItemFromProduction = new ltext(new string[] { "Item from stock colors", "Barvi artikla iz zaloge" });
 

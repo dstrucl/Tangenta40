@@ -1684,8 +1684,17 @@ namespace TangentaTableClass
         public Draft Draft = new Draft();
     }
 
-    public class PurchasePrice
+    public class PriceWithoutVAT : DB_bit
+    {
 
+    }
+
+    public class VATCanNotBeDeducted : DB_bit
+    {
+
+    }
+
+    public class PurchasePrice
     {
 
         public ID ID = new ID();
@@ -1697,6 +1706,12 @@ namespace TangentaTableClass
         public Taxation m_Taxation = new Taxation();
 
         public PurchasePriceDate PurchasePriceDate = new PurchasePriceDate();
+
+        public Discount Discount = new Discount();
+
+        public PriceWithoutVAT PriceWithoutVAT = new PriceWithoutVAT();
+
+        public VATCanNotBeDeducted VATCanNotBeDeducted = new VATCanNotBeDeducted();
 
     }
 

@@ -357,5 +357,15 @@ namespace ShopC
         {
 
         }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void usrc_EditTable1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

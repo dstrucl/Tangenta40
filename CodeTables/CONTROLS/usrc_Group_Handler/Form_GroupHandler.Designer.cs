@@ -125,13 +125,18 @@
             // 
             // Form_GroupHandler
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(610, 493);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "Form_GroupHandler";
+            this.ShowIcon = false;
             this.Text = "Form_GroupHandler";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_GroupHandler_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);

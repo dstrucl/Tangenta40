@@ -26,6 +26,19 @@ namespace ShopC
         private DataTable dtPurchasePrices = null;
         private DataTable dtCurrency = null;
 
+        private bool m_PriceWithoutVAT = false;
+        private bool PriceWithoutVAT
+        {
+            get
+            {
+                return m_PriceWithoutVAT;
+            }
+            set
+            {
+                m_PriceWithoutVAT = value;
+            }
+        }
+
         private bool m_Changed = false;
         public bool Changed
         {
@@ -169,6 +182,12 @@ namespace ShopC
             InitializeComponent();
             nmUpDn_Quantity.Maximum = decimal.MaxValue;
             EnableControls(false);
+            lng.s_lbl_PriceWithoutVAT.Text(lbl_PriceWithoutVAT);
+            lng.s_lbl_PriceWithVAT.Text(lbl_PriceWithVAT);
+            lng.s_lbl_Discount.Text(lbl_Discount);
+            lng.s_lbl_Total.Text(lbl_Total);
+            lng.s_chk_VAT_is_deducted.Text(chk_VATCanNotBeDeducted);
+
         }
 
 
@@ -447,6 +466,7 @@ namespace ShopC
         {
             bool bPPriceDefined = false;
             decimal pprice = 0;
+            decimal discount = 0;
             object oDecimalValue = cmb_PurchasePrice.SelectedValue;
             if (oDecimalValue is decimal)
             {
@@ -473,7 +493,7 @@ namespace ShopC
             ID PurchasePrice_ID = null;
             ID Taxation_ID = tf.set_ID((long)cmb_Taxation.SelectedValue);
             ID Currency_ID = tf.set_ID((long)cmb_Currency.SelectedValue);
-            if (TangentaDB.f_PurchasePrice.Get(pprice, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            if (TangentaDB.f_PurchasePrice.Get(pprice, discount,PriceWithoutVAT,chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
                 if ((bPPriceDefined)&& (ID.Validate(CurrentItem_ID))&&(ID.Validate(StockTake_ID)))
                 {
@@ -680,6 +700,13 @@ namespace ShopC
                 cmb_Taxation.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Taxation_ID"])-1;
                 cmb_Currency.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Currency_ID"])-1;
                 cmb_PurchasePrice.Text = Convert.ToString(dt_Stock_Of_Current_StockTake.Rows[current_index]["PurchasePricePerUnit"]);
+
+                cmb_Discount.Text = getDiscount(dt_Stock_Of_Current_StockTake.Rows[current_index]["Discount"]);
+
+                PriceWithoutVAT = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["PriceWithoutVAT"]);
+
+                chk_VATCanNotBeDeducted.Checked = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["VATCanNotBeDeducted"]);
+
                 txt_StockDescription.Text = "";
                 object oDescription = dt_Stock_Of_Current_StockTake.Rows[current_index]["Description"];
                 if (oDescription is string)
@@ -695,6 +722,46 @@ namespace ShopC
                 nmUpDn_Quantity.Minimum = 0;
                 nmUpDn_Quantity.Value = 0;
                 EnableControls(false);
+            }
+        }
+
+        private bool get_bool(object xb)
+        {
+            if (xb is bool)
+            {
+                try
+                {
+                    return (bool)xb;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private string getDiscount(object discount)
+        {
+            if (discount is decimal)
+            {
+                try
+                {
+                    decimal dpercent = ((decimal)discount) * 100;
+                    string spercent = Convert.ToString(dpercent) + "%";
+                    return spercent;
+                }
+                catch
+                {
+                    return "Error";
+                }
+            }
+            else
+            {
+                return "0";
             }
         }
 
@@ -836,6 +903,7 @@ namespace ShopC
         {
             bool bPPriceDefined = false;
             decimal pprice = 0;
+            decimal discount = 0;
             object oDecimalValue = cmb_PurchasePrice.SelectedValue;
             if (oDecimalValue is decimal)
             {
@@ -862,7 +930,7 @@ namespace ShopC
             ID PurchasePrice_ID = null;
             ID Taxation_ID = tf.set_ID(cmb_Taxation.SelectedValue);
             ID Currency_ID = tf.set_ID(cmb_Currency.SelectedValue);
-            if (TangentaDB.f_PurchasePrice.Get(pprice, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            if (TangentaDB.f_PurchasePrice.Get(pprice, discount,PriceWithoutVAT,chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
                 if ((bPPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {

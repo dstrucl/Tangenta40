@@ -30,6 +30,18 @@
         {
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grp_Item = new System.Windows.Forms.GroupBox();
+            this.chk_VATCanNotBeDeducted = new System.Windows.Forms.CheckBox();
+            this.lbl_PriceWithVAT = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.lbl_PriceWithoutVAT = new System.Windows.Forms.Label();
+            this.txt_Total = new System.Windows.Forms.TextBox();
+            this.lbl_Total = new System.Windows.Forms.Label();
+            this.txt_PriceWithDiscount = new System.Windows.Forms.TextBox();
+            this.lbl_PriceWithDiscount = new System.Windows.Forms.Label();
+            this.cmb_Discount = new System.Windows.Forms.ComboBox();
+            this.lbl_Discount = new System.Windows.Forms.Label();
             this.txt_StockDescription = new System.Windows.Forms.TextBox();
             this.chk_ExpiryCheck = new System.Windows.Forms.CheckBox();
             this.lbl_ImportTime = new System.Windows.Forms.Label();
@@ -93,12 +105,24 @@
             this.splitContainer2.Panel2.Controls.Add(this.btn_Add);
             this.splitContainer2.Panel2.Controls.Add(this.lbl_StockTakeItems);
             this.splitContainer2.Panel2.Controls.Add(this.dgvx_StockTakeItemsAndPrices);
-            this.splitContainer2.Size = new System.Drawing.Size(475, 713);
-            this.splitContainer2.SplitterDistance = 218;
+            this.splitContainer2.Size = new System.Drawing.Size(558, 713);
+            this.splitContainer2.SplitterDistance = 257;
             this.splitContainer2.TabIndex = 2;
             // 
             // grp_Item
             // 
+            this.grp_Item.Controls.Add(this.chk_VATCanNotBeDeducted);
+            this.grp_Item.Controls.Add(this.lbl_PriceWithVAT);
+            this.grp_Item.Controls.Add(this.textBox1);
+            this.grp_Item.Controls.Add(this.textBox2);
+            this.grp_Item.Controls.Add(this.comboBox1);
+            this.grp_Item.Controls.Add(this.lbl_PriceWithoutVAT);
+            this.grp_Item.Controls.Add(this.txt_Total);
+            this.grp_Item.Controls.Add(this.lbl_Total);
+            this.grp_Item.Controls.Add(this.txt_PriceWithDiscount);
+            this.grp_Item.Controls.Add(this.lbl_PriceWithDiscount);
+            this.grp_Item.Controls.Add(this.cmb_Discount);
+            this.grp_Item.Controls.Add(this.lbl_Discount);
             this.grp_Item.Controls.Add(this.txt_StockDescription);
             this.grp_Item.Controls.Add(this.chk_ExpiryCheck);
             this.grp_Item.Controls.Add(this.lbl_ImportTime);
@@ -119,20 +143,133 @@
             this.grp_Item.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.grp_Item.Location = new System.Drawing.Point(0, 0);
             this.grp_Item.Name = "grp_Item";
-            this.grp_Item.Size = new System.Drawing.Size(471, 214);
+            this.grp_Item.Size = new System.Drawing.Size(554, 253);
             this.grp_Item.TabIndex = 17;
             this.grp_Item.TabStop = false;
             this.grp_Item.Text = "Item:";
+            // 
+            // chk_VAT_is_deducted
+            // 
+            this.chk_VATCanNotBeDeducted.AutoSize = true;
+            this.chk_VATCanNotBeDeducted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_VATCanNotBeDeducted.Location = new System.Drawing.Point(216, 88);
+            this.chk_VATCanNotBeDeducted.Name = "chk_VAT_is_deducted";
+            this.chk_VATCanNotBeDeducted.Size = new System.Drawing.Size(150, 17);
+            this.chk_VATCanNotBeDeducted.TabIndex = 28;
+            this.chk_VATCanNotBeDeducted.Text = "VAT can be deducted";
+            this.chk_VATCanNotBeDeducted.UseVisualStyleBackColor = true;
+            // 
+            // lbl_PriceWithVAT
+            // 
+            this.lbl_PriceWithVAT.AutoSize = true;
+            this.lbl_PriceWithVAT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_PriceWithVAT.Location = new System.Drawing.Point(5, 89);
+            this.lbl_PriceWithVAT.Name = "lbl_PriceWithVAT";
+            this.lbl_PriceWithVAT.Size = new System.Drawing.Size(91, 13);
+            this.lbl_PriceWithVAT.TabIndex = 27;
+            this.lbl_PriceWithVAT.Text = "Price with VAT";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBox1.Location = new System.Drawing.Point(468, 86);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(85, 20);
+            this.textBox1.TabIndex = 26;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBox2.Location = new System.Drawing.Point(375, 86);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(84, 20);
+            this.textBox2.TabIndex = 25;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Enabled = false;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(121, 85);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(89, 21);
+            this.comboBox1.TabIndex = 24;
+            // 
+            // lbl_PriceWithoutVAT
+            // 
+            this.lbl_PriceWithoutVAT.AutoSize = true;
+            this.lbl_PriceWithoutVAT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_PriceWithoutVAT.Location = new System.Drawing.Point(5, 61);
+            this.lbl_PriceWithoutVAT.Name = "lbl_PriceWithoutVAT";
+            this.lbl_PriceWithoutVAT.Size = new System.Drawing.Size(109, 13);
+            this.lbl_PriceWithoutVAT.TabIndex = 23;
+            this.lbl_PriceWithoutVAT.Text = "Price without VAT";
+            // 
+            // txt_Total
+            // 
+            this.txt_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Total.Location = new System.Drawing.Point(468, 58);
+            this.txt_Total.Name = "txt_Total";
+            this.txt_Total.Size = new System.Drawing.Size(85, 20);
+            this.txt_Total.TabIndex = 22;
+            // 
+            // lbl_Total
+            // 
+            this.lbl_Total.AutoSize = true;
+            this.lbl_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Total.Location = new System.Drawing.Point(468, 43);
+            this.lbl_Total.Name = "lbl_Total";
+            this.lbl_Total.Size = new System.Drawing.Size(31, 13);
+            this.lbl_Total.TabIndex = 21;
+            this.lbl_Total.Text = "Total";
+            // 
+            // txt_PriceWithDiscount
+            // 
+            this.txt_PriceWithDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_PriceWithDiscount.Location = new System.Drawing.Point(375, 58);
+            this.txt_PriceWithDiscount.Name = "txt_PriceWithDiscount";
+            this.txt_PriceWithDiscount.Size = new System.Drawing.Size(84, 20);
+            this.txt_PriceWithDiscount.TabIndex = 20;
+            // 
+            // lbl_PriceWithDiscount
+            // 
+            this.lbl_PriceWithDiscount.AutoSize = true;
+            this.lbl_PriceWithDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_PriceWithDiscount.Location = new System.Drawing.Point(372, 43);
+            this.lbl_PriceWithDiscount.Name = "lbl_PriceWithDiscount";
+            this.lbl_PriceWithDiscount.Size = new System.Drawing.Size(87, 13);
+            this.lbl_PriceWithDiscount.TabIndex = 19;
+            this.lbl_PriceWithDiscount.Text = "Pr.With.Discount";
+            // 
+            // cmb_Discount
+            // 
+            this.cmb_Discount.Enabled = false;
+            this.cmb_Discount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmb_Discount.FormattingEnabled = true;
+            this.cmb_Discount.Location = new System.Drawing.Point(292, 57);
+            this.cmb_Discount.Name = "cmb_Discount";
+            this.cmb_Discount.Size = new System.Drawing.Size(74, 21);
+            this.cmb_Discount.TabIndex = 18;
+            // 
+            // lbl_Discount
+            // 
+            this.lbl_Discount.AutoSize = true;
+            this.lbl_Discount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Discount.Location = new System.Drawing.Point(292, 43);
+            this.lbl_Discount.Name = "lbl_Discount";
+            this.lbl_Discount.Size = new System.Drawing.Size(52, 13);
+            this.lbl_Discount.TabIndex = 17;
+            this.lbl_Discount.Text = "Discount:";
             // 
             // txt_StockDescription
             // 
             this.txt_StockDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_StockDescription.Enabled = false;
-            this.txt_StockDescription.Location = new System.Drawing.Point(10, 157);
+            this.txt_StockDescription.Location = new System.Drawing.Point(10, 190);
             this.txt_StockDescription.Multiline = true;
             this.txt_StockDescription.Name = "txt_StockDescription";
-            this.txt_StockDescription.Size = new System.Drawing.Size(453, 49);
+            this.txt_StockDescription.Size = new System.Drawing.Size(536, 49);
             this.txt_StockDescription.TabIndex = 13;
             // 
             // chk_ExpiryCheck
@@ -140,7 +277,7 @@
             this.chk_ExpiryCheck.AutoSize = true;
             this.chk_ExpiryCheck.Enabled = false;
             this.chk_ExpiryCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_ExpiryCheck.Location = new System.Drawing.Point(361, 131);
+            this.chk_ExpiryCheck.Location = new System.Drawing.Point(361, 164);
             this.chk_ExpiryCheck.Name = "chk_ExpiryCheck";
             this.chk_ExpiryCheck.Size = new System.Drawing.Size(112, 17);
             this.chk_ExpiryCheck.TabIndex = 16;
@@ -152,7 +289,7 @@
             // 
             this.lbl_ImportTime.AutoSize = true;
             this.lbl_ImportTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ImportTime.Location = new System.Drawing.Point(8, 85);
+            this.lbl_ImportTime.Location = new System.Drawing.Point(9, 120);
             this.lbl_ImportTime.Name = "lbl_ImportTime";
             this.lbl_ImportTime.Size = new System.Drawing.Size(62, 13);
             this.lbl_ImportTime.TabIndex = 15;
@@ -164,7 +301,7 @@
             this.tPick_ImportTime.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.tPick_ImportTime.Enabled = false;
             this.tPick_ImportTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tPick_ImportTime.Location = new System.Drawing.Point(10, 103);
+            this.tPick_ImportTime.Location = new System.Drawing.Point(11, 138);
             this.tPick_ImportTime.Name = "tPick_ImportTime";
             this.tPick_ImportTime.Size = new System.Drawing.Size(231, 20);
             this.tPick_ImportTime.TabIndex = 14;
@@ -173,7 +310,7 @@
             // 
             this.lbl_Stock_Description.AutoSize = true;
             this.lbl_Stock_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Stock_Description.Location = new System.Drawing.Point(8, 137);
+            this.lbl_Stock_Description.Location = new System.Drawing.Point(8, 170);
             this.lbl_Stock_Description.Name = "lbl_Stock_Description";
             this.lbl_Stock_Description.Size = new System.Drawing.Size(94, 13);
             this.lbl_Stock_Description.TabIndex = 12;
@@ -185,7 +322,7 @@
             this.TPiick_ExpiryDate.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.TPiick_ExpiryDate.Enabled = false;
             this.TPiick_ExpiryDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TPiick_ExpiryDate.Location = new System.Drawing.Point(134, 131);
+            this.TPiick_ExpiryDate.Location = new System.Drawing.Point(134, 164);
             this.TPiick_ExpiryDate.Name = "TPiick_ExpiryDate";
             this.TPiick_ExpiryDate.Size = new System.Drawing.Size(221, 20);
             this.TPiick_ExpiryDate.TabIndex = 10;
@@ -194,7 +331,7 @@
             // 
             this.lbl_Quantity.AutoSize = true;
             this.lbl_Quantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Quantity.Location = new System.Drawing.Point(8, 34);
+            this.lbl_Quantity.Location = new System.Drawing.Point(8, 26);
             this.lbl_Quantity.Name = "lbl_Quantity";
             this.lbl_Quantity.Size = new System.Drawing.Size(49, 13);
             this.lbl_Quantity.TabIndex = 9;
@@ -204,9 +341,9 @@
             // 
             this.nmUpDn_Quantity.Enabled = false;
             this.nmUpDn_Quantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.nmUpDn_Quantity.Location = new System.Drawing.Point(82, 32);
+            this.nmUpDn_Quantity.Location = new System.Drawing.Point(63, 24);
             this.nmUpDn_Quantity.Name = "nmUpDn_Quantity";
-            this.nmUpDn_Quantity.Size = new System.Drawing.Size(93, 20);
+            this.nmUpDn_Quantity.Size = new System.Drawing.Size(59, 20);
             this.nmUpDn_Quantity.TabIndex = 8;
             // 
             // cmb_Taxation
@@ -214,16 +351,16 @@
             this.cmb_Taxation.Enabled = false;
             this.cmb_Taxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_Taxation.FormattingEnabled = true;
-            this.cmb_Taxation.Location = new System.Drawing.Point(82, 60);
+            this.cmb_Taxation.Location = new System.Drawing.Point(216, 57);
             this.cmb_Taxation.Name = "cmb_Taxation";
-            this.cmb_Taxation.Size = new System.Drawing.Size(95, 21);
+            this.cmb_Taxation.Size = new System.Drawing.Size(69, 21);
             this.cmb_Taxation.TabIndex = 7;
             // 
             // lbl_Taxation
             // 
             this.lbl_Taxation.AutoSize = true;
             this.lbl_Taxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Taxation.Location = new System.Drawing.Point(6, 63);
+            this.lbl_Taxation.Location = new System.Drawing.Point(215, 43);
             this.lbl_Taxation.Name = "lbl_Taxation";
             this.lbl_Taxation.Size = new System.Drawing.Size(51, 13);
             this.lbl_Taxation.TabIndex = 6;
@@ -234,7 +371,7 @@
             this.cmb_Currency.Enabled = false;
             this.cmb_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_Currency.FormattingEnabled = true;
-            this.cmb_Currency.Location = new System.Drawing.Point(332, 60);
+            this.cmb_Currency.Location = new System.Drawing.Point(428, 137);
             this.cmb_Currency.Name = "cmb_Currency";
             this.cmb_Currency.Size = new System.Drawing.Size(103, 21);
             this.cmb_Currency.TabIndex = 5;
@@ -242,7 +379,7 @@
             // lbl_Currency
             // 
             this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Currency.Location = new System.Drawing.Point(199, 63);
+            this.lbl_Currency.Location = new System.Drawing.Point(295, 140);
             this.lbl_Currency.Name = "lbl_Currency";
             this.lbl_Currency.Size = new System.Drawing.Size(127, 13);
             this.lbl_Currency.TabIndex = 4;
@@ -254,9 +391,9 @@
             this.cmb_PurchasePrice.Enabled = false;
             this.cmb_PurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_PurchasePrice.FormattingEnabled = true;
-            this.cmb_PurchasePrice.Location = new System.Drawing.Point(332, 31);
+            this.cmb_PurchasePrice.Location = new System.Drawing.Point(121, 57);
             this.cmb_PurchasePrice.Name = "cmb_PurchasePrice";
-            this.cmb_PurchasePrice.Size = new System.Drawing.Size(103, 21);
+            this.cmb_PurchasePrice.Size = new System.Drawing.Size(89, 21);
             this.cmb_PurchasePrice.TabIndex = 3;
             // 
             // btn_SelectItem
@@ -264,7 +401,7 @@
             this.btn_SelectItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_SelectItem.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_SelectItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_SelectItem.Location = new System.Drawing.Point(332, 1);
+            this.btn_SelectItem.Location = new System.Drawing.Point(412, 3);
             this.btn_SelectItem.Name = "btn_SelectItem";
             this.btn_SelectItem.Size = new System.Drawing.Size(136, 25);
             this.btn_SelectItem.TabIndex = 2;
@@ -275,9 +412,9 @@
             // lbl_PurchasePrice
             // 
             this.lbl_PurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_PurchasePrice.Location = new System.Drawing.Point(196, 34);
+            this.lbl_PurchasePrice.Location = new System.Drawing.Point(120, 43);
             this.lbl_PurchasePrice.Name = "lbl_PurchasePrice";
-            this.lbl_PurchasePrice.Size = new System.Drawing.Size(130, 13);
+            this.lbl_PurchasePrice.Size = new System.Drawing.Size(87, 13);
             this.lbl_PurchasePrice.TabIndex = 0;
             this.lbl_PurchasePrice.Text = "Purchase Price:";
             this.lbl_PurchasePrice.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -339,7 +476,7 @@
             this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
             this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
             this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(465, 448);
+            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(548, 409);
             this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
             this.dgvx_StockTakeItemsAndPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_StockTakeItemsAndPrices_CellClick);
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
@@ -349,7 +486,7 @@
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(415, 2);
+            this.btn_Exit.Location = new System.Drawing.Point(443, 2);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(61, 26);
             this.btn_Exit.TabIndex = 4;
@@ -374,7 +511,7 @@
             this.lbl_StockTakeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_StockTakeName.Location = new System.Drawing.Point(84, 8);
             this.lbl_StockTakeName.Name = "lbl_StockTakeName";
-            this.lbl_StockTakeName.Size = new System.Drawing.Size(181, 16);
+            this.lbl_StockTakeName.Size = new System.Drawing.Size(264, 16);
             this.lbl_StockTakeName.TabIndex = 5;
             this.lbl_StockTakeName.Text = "Stock Take Name";
             // 
@@ -479,7 +616,7 @@
             this.Controls.Add(this.btn_CloseStockTake);
             this.Controls.Add(this.splitContainer2);
             this.Name = "usrc_StockEditForSelectedStockTake";
-            this.Size = new System.Drawing.Size(481, 798);
+            this.Size = new System.Drawing.Size(564, 798);
             this.Load += new System.EventHandler(this.usrc_StockEditForSelectedStockTake_Load);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -531,5 +668,17 @@
         private System.Windows.Forms.Label lbl_ItemsCost;
         private System.Windows.Forms.TextBox txt_Difference;
         private System.Windows.Forms.Label lbl_Difference;
+        private System.Windows.Forms.CheckBox chk_VATCanNotBeDeducted;
+        private System.Windows.Forms.Label lbl_PriceWithVAT;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label lbl_PriceWithoutVAT;
+        private System.Windows.Forms.TextBox txt_Total;
+        private System.Windows.Forms.Label lbl_Total;
+        private System.Windows.Forms.TextBox txt_PriceWithDiscount;
+        private System.Windows.Forms.Label lbl_PriceWithDiscount;
+        private System.Windows.Forms.ComboBox cmb_Discount;
+        private System.Windows.Forms.Label lbl_Discount;
     }
 }

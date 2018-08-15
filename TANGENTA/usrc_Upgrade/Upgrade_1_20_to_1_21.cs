@@ -381,7 +381,7 @@ namespace UpgradeDB
                                                 ID Supplier_ID = tf.set_ID(drPurchasePrice["Supplier_ID"]);
                                                 ID Reference_ID = null;
                                                 ID PurchasePrice_NEW_ID =null;
-                                                if (!f_PurchasePrice.Get("PurchasePrice_NEW", PurchasePricePerUnit, Taxation_ID, Currency_ID, ref PurchasePrice_NEW_ID))
+                                                if (!f_PurchasePrice.Get_InUpdate("PurchasePrice_NEW", PurchasePricePerUnit, Taxation_ID, Currency_ID, ref PurchasePrice_NEW_ID))
                                                 {
                                                     return false;
                                                 }
