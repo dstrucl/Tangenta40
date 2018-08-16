@@ -431,7 +431,7 @@ namespace LoginControl
             }
             if (m_usrc_LMOUser != null)
             {
-                m_usrc_LMOUser.lbl_User.Text = m_UserName;
+                m_usrc_LMOUser.txt_User.Text = m_UserName;
             }
             LoginSession_ID = null;
             LoggedIn = AWP_func.IsUserLoggedIn(LoginUsers_ID, ref LoginSession_ID);

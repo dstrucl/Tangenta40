@@ -298,7 +298,8 @@ namespace TangentaDB
                                     }
                                     else
                                     {
-
+                                        int iTry = 0;
+                  DoSelectAgain:
                                         sql = @"select tofpd.TermsOfPayment_ID as TermsOfPayment_ID,
                                                  topf.Description as Description
                                                  from TermsOfPayment_Default as tofpd
@@ -330,6 +331,40 @@ namespace TangentaDB
                                             }
                                             else
                                             {
+                                                // If your database is moved to some ElectronicDevice next lines of codes will write TermsOfPayment_Default table
+                                                if (iTry == 0)
+                                                {
+                                                    switch (DBSync.DBSync.m_DBType)
+                                                    {
+                                                        case DBConnection.eDBType.SQLITE:
+                                                            sql = @"select ID From TermsOfPayment limit 1";
+                                                            break;
+
+                                                        case DBConnection.eDBType.MSSQL:
+                                                            sql = @"select TOP 1 ID From TermsOfPayment";
+                                                            break;
+                                                        default:
+                                                            LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:DBSync.DBSync.m_DBType not implemeneted for DBSync.DBSync.m_DBType = " + DBSync.DBSync.m_DBType.ToString());
+                                                            break;
+                                                    }
+                                                    dt.Clear();
+                                                    dt.Columns.Clear();
+                                                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                                    {
+                                                        if (dt.Rows.Count > 0)
+                                                        {
+                                                            xIDdefault = tf.set_ID(dt.Rows[0]["ID"]);
+                                                            if (ID.Validate(xIDdefault))
+                                                            {
+                                                                if (SetDefault(xIDdefault))
+                                                                {
+                                                                    iTry++;
+                                                                    goto DoSelectAgain;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                                 LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault: Table TermsOfPayment_Default is empty!");
                                                 return false;
                                             }
@@ -371,6 +406,22 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:GetDefault:myOrg.Atom_ElectronicDevice_ID is not valid");
                 return false;
             }
+        }
+
+        public static bool GetDefault(ref ID xID,ref string xDescription)
+        {
+            string_v description_v = null;
+            ID xIDdefault = null;
+            if (f_TermsOfPayment.GetDefault(ref xIDdefault, ref description_v))
+            {
+                if (description_v != null)
+                {
+                    xID = xIDdefault;
+                    xDescription = description_v.v;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

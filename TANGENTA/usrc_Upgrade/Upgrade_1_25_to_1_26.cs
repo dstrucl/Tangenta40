@@ -11,9 +11,7 @@ namespace UpgradeDB
 {
     internal static class Upgrade_1_25_to_1_26
     {
-        public static ID Atom_ElectronicDevice_ID = null;
-
-        internal static object UpgradeDB_1_25_to_1_25(object obj, ref string Err)
+        internal static object UpgradeDB_1_25_to_1_26(object obj, ref string Err)
         {
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
@@ -30,6 +28,7 @@ namespace UpgradeDB
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_25_to_1_26:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {

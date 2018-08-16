@@ -139,20 +139,9 @@ namespace TangentaDB
                 return false;
             }
 
-            public bool GetDefault()
+            public void GetDefault()
             {
-                string_v description_v = null;
-                ID xIDdefault = null;
-                if (f_TermsOfPayment.GetDefault(ref xIDdefault, ref description_v))
-                {
-                    if (description_v != null)
-                    {
-                        ID = xIDdefault;
-                        Description = description_v.v;
-                        return true;
-                    }
-                }
-                return false;
+                f_TermsOfPayment.GetDefault(ref m_ID, ref m_Description);
             }
         }
 

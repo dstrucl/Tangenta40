@@ -31,7 +31,7 @@
             this.btn_LoginLogout = new System.Windows.Forms.Button();
             this.btn_GetAccess = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lbl_User = new System.Windows.Forms.Label();
+            this.txt_User = new System.Windows.Forms.TextBox();
             this.pic_administrator = new System.Windows.Forms.PictureBox();
             this.pic_UserManager = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -57,9 +57,9 @@
             this.btn_GetAccess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_GetAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_GetAccess.Location = new System.Drawing.Point(357, 0);
+            this.btn_GetAccess.Location = new System.Drawing.Point(380, 0);
             this.btn_GetAccess.Name = "btn_GetAccess";
-            this.btn_GetAccess.Size = new System.Drawing.Size(233, 69);
+            this.btn_GetAccess.Size = new System.Drawing.Size(210, 69);
             this.btn_GetAccess.TabIndex = 1;
             this.btn_GetAccess.Text = "Get Access";
             this.btn_GetAccess.UseVisualStyleBackColor = true;
@@ -69,21 +69,25 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Location = new System.Drawing.Point(250, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(273, 1);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(101, 67);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // lbl_User
+            // txt_User
             // 
-            this.lbl_User.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_User.Location = new System.Drawing.Point(124, 31);
-            this.lbl_User.Name = "lbl_User";
-            this.lbl_User.Size = new System.Drawing.Size(120, 37);
-            this.lbl_User.TabIndex = 3;
-            this.lbl_User.Text = "User";
+            this.txt_User.BackColor = System.Drawing.SystemColors.Info;
+            this.txt_User.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_User.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_User.Location = new System.Drawing.Point(121, 31);
+            this.txt_User.Multiline = true;
+            this.txt_User.Name = "txt_User";
+            this.txt_User.ReadOnly = true;
+            this.txt_User.Size = new System.Drawing.Size(146, 37);
+            this.txt_User.TabIndex = 3;
+            this.txt_User.Text = "User";
             // 
             // pic_administrator
             // 
@@ -103,12 +107,12 @@
             // 
             // usrc_LMOUser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.Controls.Add(this.pic_UserManager);
             this.Controls.Add(this.pic_administrator);
-            this.Controls.Add(this.lbl_User);
+            this.Controls.Add(this.txt_User);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_GetAccess);
             this.Controls.Add(this.btn_LoginLogout);
@@ -118,6 +122,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_UserManager)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,7 +131,7 @@
         internal System.Windows.Forms.Button btn_LoginLogout;
         internal System.Windows.Forms.Button btn_GetAccess;
         internal System.Windows.Forms.PictureBox pictureBox1;
-        internal System.Windows.Forms.Label lbl_User;
+        internal System.Windows.Forms.TextBox txt_User;
         internal System.Windows.Forms.PictureBox pic_administrator;
         internal System.Windows.Forms.PictureBox pic_UserManager;
     }

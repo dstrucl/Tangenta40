@@ -719,7 +719,10 @@ namespace Tangenta
 
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
-                    dgvx_XInvoice.Columns["Atom_WorkArea_Name"].HeaderText = lng.s_Atom_WorkArea_Name.s;
+                    if (IsDocInvoice && Program.UseWorkAreas)
+                    {
+                        dgvx_XInvoice.Columns["Atom_WorkArea_Name"].HeaderText = lng.s_Atom_WorkArea_Name.s;
+                    }
 
                     SetLabels();
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
