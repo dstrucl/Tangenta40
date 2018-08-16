@@ -101,6 +101,7 @@ namespace LoginControl
         }
         private void btn_LoginLogout_Click(object sender, EventArgs e)
         {
+            lctrl.IdleCtrl.TimerCounter_Stop();
             if (this.m_LMOUser.LoggedIn)
             {
                 bool bLogoutAll = (IsAdministrator || IsUserManager);
@@ -143,6 +144,7 @@ namespace LoginControl
                     lctrl.Trigger_EventUserLoggedIn(m_LMOUser);
                 }
             }
+            lctrl.IdleCtrl.TimerCounter_Start();
         }
 
         internal void DoLogout()
