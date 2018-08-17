@@ -23,7 +23,6 @@ namespace ShopC
 
         internal Form_ShopC_Item_Edit edt_Item_dlg = null;
 
-        private DataTable dtPurchasePrices = null;
         private DataTable dtCurrency = null;
 
         private bool m_PriceWithoutVAT = false;
@@ -45,7 +44,6 @@ namespace ShopC
             get { return m_Changed; }
         }
 
-        private ToolTip toolTip_cmb_PurchasePrice = null;
 
 
         private Form_StockTake_Edit m_Form_StockTake_Edit = null;
@@ -180,13 +178,7 @@ namespace ShopC
         public usrc_StockEditForSelectedStockTake()
         {
             InitializeComponent();
-            nmUpDn_Quantity.Maximum = decimal.MaxValue;
             EnableControls(false);
-            lng.s_lbl_PriceWithoutVAT.Text(lbl_PriceWithoutVAT);
-            lng.s_lbl_PriceWithVAT.Text(lbl_PriceWithVAT);
-            lng.s_lbl_Discount.Text(lbl_Discount);
-            lng.s_lbl_Total.Text(lbl_Total);
-            lng.s_chk_VAT_is_deducted.Text(chk_VATCanNotBeDeducted);
 
         }
 
@@ -200,9 +192,9 @@ namespace ShopC
         internal void SetItem(ID ID,string xUniqueName, string symbol,short uDecimalPlaces)
         {
             CurrentItem_ID = ID;
-            lng.s_Item.TextWithToolTip(this.grp_Item, lng.s_Item.s + ":" + xUniqueName, lng.s_Item.s+ ":" + xUniqueName+" "+lng.s_Unit.s + ":"+symbol + " ; "+lng.s_DecimalPlaces.s+"="+ uDecimalPlaces.ToString());
-            fs.SetNumericUpDown(ref nmUpDn_Quantity, uDecimalPlaces);
-            nmUpDn_Quantity.Maximum = decimal.MaxValue;
+            lng.s_Item.TextWithToolTip(this.grp_Item, lng.s_Item.s + ":" + xUniqueName, lng.s_Item.s + ":" + xUniqueName + " " + lng.s_Unit.s + ":" + symbol + " ; " + lng.s_DecimalPlaces.s + "=" + uDecimalPlaces.ToString());
+            usrc_StockTake_Item1.SetQuantity_NumericUpdDown(uDecimalPlaces);
+            usrc_StockTake_Item1.nmUpDn_Quantity.Maximum = decimal.MaxValue;
 
             EnableControls(true);
         }
@@ -243,81 +235,9 @@ namespace ShopC
 
         private void Set_cmb_PurchasePrice(ID Item_ID, ID Currency_ID)
         {
-            toolTip_cmb_PurchasePrice.SetToolTip(cmb_PurchasePrice,lng.s_PurchasePricesNotDefinedYeet.s);
-
-            cmb_PurchasePrice.DataSource = null;
-            cmb_PurchasePrice.Items.Clear();
-            cmb_PurchasePrice.Text = "0";
-            if (ID.Validate(Item_ID))
-            {
-                if (ID.Validate(Currency_ID))
-                {
-                    if (f_PurchasePrice_Item.GetLastItemPrices(Item_ID, Currency_ID,ref dtPurchasePrices,5))
-                    {
-                        if (dtPurchasePrices.Rows.Count > 0)
-                        {
-                            cmb_PurchasePrice.DataSource = dtPurchasePrices;
-                            cmb_PurchasePrice.DisplayMember = "PurchasePricePerUnit";
-                            cmb_PurchasePrice.ValueMember = "PurchasePricePerUnit";
-                            cmb_PurchasePrice.SelectedIndex = 0;
-                            string sPurchasePricesInThePast = GetPastPurchasePrices(dtPurchasePrices);
-                            toolTip_cmb_PurchasePrice.SetToolTip(cmb_PurchasePrice, sPurchasePricesInThePast);
-                        }
-                    }
-                }
-            }
+            usrc_StockTake_Item1.Set_cmb_PurchasePrice(Item_ID, Currency_ID);
         }
 
-        private string GetPastPurchasePrices(DataTable xdtPurchasePrices)
-        {
-            StringBuilder sb = new StringBuilder(lng.s_PurchasePricesInThePast.s+"\r\n");
-            foreach (DataRow dr in xdtPurchasePrices.Rows)
-            {
-                decimal_v dPurchasePricePerUnit_v = tf.set_decimal(dr["PurchasePricePerUnit"]);
-                DateTime_v dtPurchasePriceDatet_v = tf.set_DateTime(dr["PurchasePriceDate"]);
-                string_v SupplierName_v = tf.set_string(dr["SupplierName"]);
-                string_v StockTakeName_v = tf.set_string(dr["StockTakeName"]);
-                DateTime_v StockTake_Date_v = tf.set_DateTime(dr["StockTake_Date"]);
-                if (dPurchasePricePerUnit_v!=null)
-                {
-                    sb.Append(lng.s_PurchasePricePerUnit.s);
-                    sb.Append("=");
-                    sb.Append(dPurchasePricePerUnit_v.v.ToString());
-                    sb.Append(";");
-                }
-                if (dtPurchasePriceDatet_v != null)
-                {
-                    sb.Append(lng.s_PurchasePriceDate.s);
-                    sb.Append("=");
-                    sb.Append(LanguageControl.DynSettings.SetLanguageDateTimeString(dtPurchasePriceDatet_v.v));
-                    sb.Append(";");
-                }
-                if (SupplierName_v != null)
-                {
-                    sb.Append(lng.s_Supplier.s);
-                    sb.Append("=");
-                    sb.Append(SupplierName_v.v);
-                    sb.Append(";");
-                }
-
-                if (StockTakeName_v != null)
-                {
-                    sb.Append(lng.s_StockTakeName.s);
-                    sb.Append("=");
-                    sb.Append(StockTakeName_v.v);
-                    sb.Append(";");
-                }
-                if (StockTake_Date_v != null)
-                {
-                    sb.Append(lng.s_StockTakeDate.s);
-                    sb.Append("=");
-                    sb.Append(LanguageControl.DynSettings.SetLanguageDateTimeString(StockTake_Date_v.v));
-                    sb.Append(";");
-                }
-                sb.Append("\r\n");
-            }
-            return sb.ToString();
-        }
 
         private void usrc_StockEditForSelectedStockTake_Load(object sender, EventArgs e)
         {
@@ -328,9 +248,6 @@ namespace ShopC
                 lng.s_Add.Text(btn_Add);
                 lng.s_Remove.Text(btn_Remove);
                 lng.s_Update.Text(this.btn_Update);
-                lng.s_Quantity.Text(lbl_Quantity);
-                lng.s_PurchasePricePerUnit.Text(lbl_PurchasePrice);
-                lng.s_Taxation.Text(lbl_Taxation);
                 lng.s_Currency.Text(lbl_Currency);
                 lng.s_ExpiryDate.Text(chk_ExpiryCheck);
                 lng.s_ImportTime.Text(lbl_ImportTime);
@@ -345,9 +262,6 @@ namespace ShopC
                 btn_Add.Visible = false;
                 btn_Remove.Visible = false;
                 btn_Update.Visible = false;
-                cmb_Taxation.DataSource = TangentaDB.f_Taxation.GetTable(false);
-                cmb_Taxation.DisplayMember = "Name";
-                cmb_Taxation.ValueMember = "ID";
                 dtCurrency = TangentaDB.f_Currency.GetTable(false);
                 cmb_Currency.DataSource = dtCurrency;
                 cmb_Currency.DisplayMember = "Symbol";
@@ -356,17 +270,6 @@ namespace ShopC
                 {
                     cmb_Currency.SelectedIndex = 0;
                 }
-                if (toolTip_cmb_PurchasePrice == null)
-                {
-                    toolTip_cmb_PurchasePrice = new ToolTip();
-                }
-
-                // Set up the delays for the ToolTip.
-                toolTip_cmb_PurchasePrice.AutoPopDelay = 5000;
-                toolTip_cmb_PurchasePrice.InitialDelay = 1000;
-                toolTip_cmb_PurchasePrice.ReshowDelay = 500;
-                // Force the ToolTip text to be displayed whether or not the form is active.
-                toolTip_cmb_PurchasePrice.ShowAlways = true;
 
                 // Set up the ToolTip text for the control
 
@@ -396,6 +299,12 @@ namespace ShopC
             return false;
         }
 
+        private bool Check_PurchasePricePerUnit()
+        {
+            bool bTopmost = edt_Item_dlg != null;
+            return usrc_StockTake_Item1.Check_PurchasePricePerUnit(bTopmost);
+        }
+
         private bool Check_Item()
         {
            if (ID.Validate(CurrentItem_ID))
@@ -412,90 +321,24 @@ namespace ShopC
 
         private bool Check_dQuantity()
         {
-            decimal dquantity = nmUpDn_Quantity.Value;
-            if (dquantity == 0)
-            {
-                bool bTopmost = edt_Item_dlg != null;
-                if (XMessage.Box.Show(bTopmost,this, lng.s_dQuantityEqualsZero_InsertItemInStock,"?",MessageBoxButtons.YesNo,null,MessageBoxDefaultButton.Button2)== DialogResult.Yes)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private bool Check_PurchasePricePerUnit()
-        {
-            decimal d = 0;
             bool bTopmost = edt_Item_dlg != null;
-            try
-            {
-                d = Convert.ToDecimal(cmb_PurchasePrice.Text);
-            }
-            catch
-            {
-                XMessage.Box.Show(bTopmost, this, lng.s_PurchasePricePerUnitIsNotDefined, "?", MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
-                return false;
-            }
-             if (d == 0)
-            {
-                if (XMessage.Box.Show(bTopmost, this, lng.s_PurchasePriceIsZeroAreYouSure, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
-
+            return usrc_StockTake_Item1.Check_dQuantity(bTopmost);
         }
+
 
         private void AddItemToStockTake()
         {
             bool bPPriceDefined = false;
             decimal pprice = 0;
             decimal discount = 0;
-            object oDecimalValue = cmb_PurchasePrice.SelectedValue;
-            if (oDecimalValue is decimal)
-            {
-                pprice = (decimal)oDecimalValue;
-                bPPriceDefined = true;
-            }
-            if (!bPPriceDefined)
-            {
-                string sValue = cmb_PurchasePrice.Text;
-                if (sValue.Length > 0)
-                {
-                    try
-                    {
-                        pprice = Convert.ToDecimal(sValue);
-                        bPPriceDefined = true;
-                    }
-                    catch 
-                    {
-                        XMessage.Box.ShowTopMost(this, lng.s_InvalidPurchasePrice, lng.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
-                    }
-                }
-            }
+
 
             ID PurchasePrice_ID = null;
-            ID Taxation_ID = tf.set_ID((long)cmb_Taxation.SelectedValue);
-            ID Currency_ID = tf.set_ID((long)cmb_Currency.SelectedValue);
-            if (TangentaDB.f_PurchasePrice.Get(pprice, discount,PriceWithoutVAT,chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            ID Taxation_ID = tf.set_ID(usrc_StockTake_Item1.cmb_Taxation.SelectedValue);
+            ID Currency_ID = tf.set_ID(cmb_Currency.SelectedValue);
+            if (TangentaDB.f_PurchasePrice.Get(pprice, discount, PriceWithoutVAT, usrc_StockTake_Item1.chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
-                if ((bPPriceDefined)&& (ID.Validate(CurrentItem_ID))&&(ID.Validate(StockTake_ID)))
+                if ((bPPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
                     ID PurchasePrice_Item_ID = null;
                     if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
@@ -506,10 +349,10 @@ namespace ShopC
                             dtExpiry_v = new DateTime_v(this.TPiick_ExpiryDate.Value);
                         }
                         DateTime tImportTime = tPick_ImportTime.Value;
-                        decimal dquantity = nmUpDn_Quantity.Value;
+                        decimal dquantity = usrc_StockTake_Item1.nmUpDn_Quantity.Value;
                         ID Stock_AddressLevel1_ID = null;
                         ID Stock_ID = null;
-                        if (TangentaDB.f_Stock.Add(m_Atom_WorkPeriod_ID,tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID,this.txt_StockDescription.Text,ref Stock_ID))
+                        if (TangentaDB.f_Stock.Add(m_Atom_WorkPeriod_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text, ref Stock_ID))
                         {
                             m_Changed = true;
                             if (Reload(StockTakeTable))
@@ -659,7 +502,7 @@ namespace ShopC
             {
                 bool_v StockTake_Draft_v = tf.set_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["Draft"]);
                 bool bClosed = false;
-                if (StockTake_Draft_v!=null)
+                if (StockTake_Draft_v != null)
                 {
                     bClosed = !StockTake_Draft_v.v;
                 }
@@ -673,18 +516,19 @@ namespace ShopC
                     btn_CloseStockTake.Enabled = true;
                 }
 
-                string sItem_UniqueName =((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]);
+                string sItem_UniqueName = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]);
                 string sItem_UnitName = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitName"]);
                 string sItem_UnitSymbol = ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitSymbol"]);
                 int iItem_UnitDecimalPlaces = ((int)dt_Stock_Of_Current_StockTake.Rows[current_index]["UnitDecimalPlaces"]);
-                fs.SetNumericUpDown(ref nmUpDn_Quantity, iItem_UnitDecimalPlaces);
-                lng.s_Item.TextWithToolTip(grp_Item, ":" + sItem_UniqueName, lng.s_Item.s+" : "+lng.s_Unit.s+ " = "+ sItem_UnitSymbol+" : "+lng.s_DecimalPlaces.s+" = "+ iItem_UnitDecimalPlaces.ToString());
+                usrc_StockTake_Item1.SetQuantity_NumericUpdDown(iItem_UnitDecimalPlaces);
+                
+                lng.s_Item.TextWithToolTip(grp_Item, ":" + sItem_UniqueName, lng.s_Item.s + " : " + lng.s_Unit.s + " = " + sItem_UnitSymbol + " : " + lng.s_DecimalPlaces.s + " = " + iItem_UnitDecimalPlaces.ToString());
                 decimal dValue = ((decimal)dt_Stock_Of_Current_StockTake.Rows[current_index]["dQuantity"]);
-                if (nmUpDn_Quantity.Minimum> dValue)
+                if (usrc_StockTake_Item1.nmUpDn_Quantity.Minimum > dValue)
                 {
-                    nmUpDn_Quantity.Minimum = dValue;
+                    usrc_StockTake_Item1.nmUpDn_Quantity.Minimum = dValue;
                 }
-                nmUpDn_Quantity.Value = dValue;
+                usrc_StockTake_Item1.nmUpDn_Quantity.Value = dValue;
                 tPick_ImportTime.Value = ((DateTime)dt_Stock_Of_Current_StockTake.Rows[current_index]["ImportTime"]);
                 object oExpiryDate = dt_Stock_Of_Current_StockTake.Rows[current_index]["ExpiryDate"];
                 if (oExpiryDate is DateTime)
@@ -697,15 +541,15 @@ namespace ShopC
                     chk_ExpiryCheck.Checked = false;
                     this.TPiick_ExpiryDate.Enabled = false;
                 }
-                cmb_Taxation.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Taxation_ID"])-1;
-                cmb_Currency.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Currency_ID"])-1;
-                cmb_PurchasePrice.Text = Convert.ToString(dt_Stock_Of_Current_StockTake.Rows[current_index]["PurchasePricePerUnit"]);
+                usrc_StockTake_Item1.cmb_Taxation.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Taxation_ID"]) - 1;
+                cmb_Currency.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Currency_ID"]) - 1;
+                usrc_StockTake_Item1.cmb_PurchasePrice.Text = Convert.ToString(dt_Stock_Of_Current_StockTake.Rows[current_index]["PurchasePricePerUnit"]);
 
-                cmb_Discount.Text = getDiscount(dt_Stock_Of_Current_StockTake.Rows[current_index]["Discount"]);
+                usrc_StockTake_Item1.cmb_Discount.Text = getDiscount(dt_Stock_Of_Current_StockTake.Rows[current_index]["Discount"]);
 
                 PriceWithoutVAT = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["PriceWithoutVAT"]);
 
-                chk_VATCanNotBeDeducted.Checked = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["VATCanNotBeDeducted"]);
+                usrc_StockTake_Item1.chk_VATCanNotBeDeducted.Checked = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["VATCanNotBeDeducted"]);
 
                 txt_StockDescription.Text = "";
                 object oDescription = dt_Stock_Of_Current_StockTake.Rows[current_index]["Description"];
@@ -717,10 +561,9 @@ namespace ShopC
             }
             else
             {
-                lng.s_Item.TextWithToolTip(grp_Item, ":","");
-                cmb_PurchasePrice.Text = "";
-                nmUpDn_Quantity.Minimum = 0;
-                nmUpDn_Quantity.Value = 0;
+                lng.s_Item.TextWithToolTip(grp_Item, ":", "");
+                usrc_StockTake_Item1.SetInitialValues();
+
                 EnableControls(false);
             }
         }
@@ -767,9 +610,7 @@ namespace ShopC
 
         private void EnableControls(bool v)
         {
-            nmUpDn_Quantity.Enabled = v;
-            cmb_PurchasePrice.Enabled = v;
-            cmb_Taxation.Enabled = v;
+            usrc_StockTake_Item1.EnableControls(v);
             cmb_Currency.Enabled = v;
             tPick_ImportTime.Enabled = v;
             TPiick_ExpiryDate.Enabled = v;
@@ -904,7 +745,7 @@ namespace ShopC
             bool bPPriceDefined = false;
             decimal pprice = 0;
             decimal discount = 0;
-            object oDecimalValue = cmb_PurchasePrice.SelectedValue;
+            object oDecimalValue = usrc_StockTake_Item1.cmb_PurchasePrice.SelectedValue;
             if (oDecimalValue is decimal)
             {
                 pprice = (decimal)oDecimalValue;
@@ -912,7 +753,7 @@ namespace ShopC
             }
             if (!bPPriceDefined)
             {
-                string sValue = cmb_PurchasePrice.Text;
+                string sValue = usrc_StockTake_Item1.cmb_PurchasePrice.Text;
                 if (sValue.Length > 0)
                 {
                     try
@@ -920,7 +761,7 @@ namespace ShopC
                         pprice = Convert.ToDecimal(sValue);
                         bPPriceDefined = true;
                     }
-                    catch 
+                    catch
                     {
                         XMessage.Box.ShowTopMost(this, lng.s_InvalidPurchasePrice, lng.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                     }
@@ -928,9 +769,9 @@ namespace ShopC
             }
 
             ID PurchasePrice_ID = null;
-            ID Taxation_ID = tf.set_ID(cmb_Taxation.SelectedValue);
+            ID Taxation_ID = tf.set_ID(usrc_StockTake_Item1.cmb_Taxation.SelectedValue);
             ID Currency_ID = tf.set_ID(cmb_Currency.SelectedValue);
-            if (TangentaDB.f_PurchasePrice.Get(pprice, discount,PriceWithoutVAT,chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            if (TangentaDB.f_PurchasePrice.Get(pprice, discount, PriceWithoutVAT, usrc_StockTake_Item1.chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
                 if ((bPPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
@@ -943,9 +784,9 @@ namespace ShopC
                             dtExpiry_v = new DateTime_v(this.TPiick_ExpiryDate.Value);
                         }
                         DateTime tImportTime = tPick_ImportTime.Value;
-                        decimal dquantity = nmUpDn_Quantity.Value;
+                        decimal dquantity = usrc_StockTake_Item1.nmUpDn_Quantity.Value;
                         ID Stock_AddressLevel1_ID = null;
-                        if (TangentaDB.f_Stock.Update(m_Atom_WorkPeriod_ID,CurrentStock_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
+                        if (TangentaDB.f_Stock.Update(m_Atom_WorkPeriod_ID, CurrentStock_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
                         {
                             m_Changed = true;
                             if (Reload(StockTakeTable))

@@ -222,6 +222,12 @@
     <Compile Include="usrc_StockEditForSelectedStockTake.Designer.cs">
       <DependentUpon>usrc_StockEditForSelectedStockTake.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_StockTake_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_StockTake_Item.Designer.cs">
+      <DependentUpon>usrc_StockTake_Item.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_StockEditForSelectedStockTake.resx">
       <DependentUpon>usrc_StockEditForSelectedStockTake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_StockTake_Item.resx">
+      <DependentUpon>usrc_StockTake_Item.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
