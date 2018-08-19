@@ -30,33 +30,31 @@
         {
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grp_Item = new System.Windows.Forms.GroupBox();
+            this.usrc_StockTake_Item1 = new ShopC.usrc_StockTake_Item();
+            this.btn_SelectItem = new System.Windows.Forms.Button();
             this.txt_StockDescription = new System.Windows.Forms.TextBox();
             this.chk_ExpiryCheck = new System.Windows.Forms.CheckBox();
             this.lbl_ImportTime = new System.Windows.Forms.Label();
             this.tPick_ImportTime = new System.Windows.Forms.DateTimePicker();
             this.lbl_Stock_Description = new System.Windows.Forms.Label();
             this.TPiick_ExpiryDate = new System.Windows.Forms.DateTimePicker();
-            this.cmb_Currency = new System.Windows.Forms.ComboBox();
-            this.lbl_Currency = new System.Windows.Forms.Label();
-            this.btn_SelectItem = new System.Windows.Forms.Button();
             this.btn_Update = new System.Windows.Forms.Button();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
             this.lbl_StockTakeItems = new System.Windows.Forms.Label();
+            this.dgvx_StockTakeItemsAndPrices = new DataGridView_2xls.DataGridView2xls();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.btn_CloseStockTake = new System.Windows.Forms.Button();
             this.lbl_StockTakeName = new System.Windows.Forms.Label();
             this.btn_AdditionalCost = new System.Windows.Forms.Button();
-            this.lbl_TotalPrice = new System.Windows.Forms.Label();
-            this.txt_TotalPrice = new System.Windows.Forms.TextBox();
+            this.lbl_TotalPriceWithoutTax = new System.Windows.Forms.Label();
+            this.txt_TotalPriceWithoutTax = new System.Windows.Forms.TextBox();
             this.txt_TruckingCustomsPlusAddtitional = new System.Windows.Forms.TextBox();
             this.lbl_TruckingCustosPlusAddtional = new System.Windows.Forms.Label();
-            this.txt_ItemsPrice = new System.Windows.Forms.TextBox();
-            this.lbl_ItemsCost = new System.Windows.Forms.Label();
+            this.txt_VAT = new System.Windows.Forms.TextBox();
+            this.lbl_TotalTax = new System.Windows.Forms.Label();
             this.txt_Difference = new System.Windows.Forms.TextBox();
             this.lbl_Difference = new System.Windows.Forms.Label();
-            this.dgvx_StockTakeItemsAndPrices = new DataGridView_2xls.DataGridView2xls();
-            this.usrc_StockTake_Item1 = new ShopC.usrc_StockTake_Item();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -93,16 +91,14 @@
             // 
             // grp_Item
             // 
-            this.grp_Item.Controls.Add(this.btn_SelectItem);
             this.grp_Item.Controls.Add(this.usrc_StockTake_Item1);
+            this.grp_Item.Controls.Add(this.btn_SelectItem);
             this.grp_Item.Controls.Add(this.txt_StockDescription);
             this.grp_Item.Controls.Add(this.chk_ExpiryCheck);
             this.grp_Item.Controls.Add(this.lbl_ImportTime);
             this.grp_Item.Controls.Add(this.tPick_ImportTime);
             this.grp_Item.Controls.Add(this.lbl_Stock_Description);
             this.grp_Item.Controls.Add(this.TPiick_ExpiryDate);
-            this.grp_Item.Controls.Add(this.cmb_Currency);
-            this.grp_Item.Controls.Add(this.lbl_Currency);
             this.grp_Item.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grp_Item.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grp_Item.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -112,6 +108,94 @@
             this.grp_Item.TabIndex = 17;
             this.grp_Item.TabStop = false;
             this.grp_Item.Text = "Item:";
+            // 
+            // usrc_StockTake_Item1
+            // 
+            this.usrc_StockTake_Item1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_StockTake_Item1.Currency_Abbreviation = null;
+            this.usrc_StockTake_Item1.Currency_Code = 0;
+            this.usrc_StockTake_Item1.Currency_DecimalPlaces = 2;
+            this.usrc_StockTake_Item1.Currency_Name = null;
+            this.usrc_StockTake_Item1.Currency_Symbol = null;
+            this.usrc_StockTake_Item1.Discount = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.Location = new System.Drawing.Point(1, 28);
+            this.usrc_StockTake_Item1.Name = "usrc_StockTake_Item1";
+            this.usrc_StockTake_Item1.PPriceDefined = false;
+            this.usrc_StockTake_Item1.PriceWithDiscountWithoutTax = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.PriceWithoutVAT = true;
+            this.usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.PurchasePricePerUnitWithoutTaxWithDiscount = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.PurchasePricePerUnitWithTax = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.PurchasePricePerUnitWithTaxWithDiscount = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.Quantity = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.Size = new System.Drawing.Size(552, 91);
+            this.usrc_StockTake_Item1.TabIndex = 17;
+            this.usrc_StockTake_Item1.TaxationRate = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.TotalWithoutTax = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.TotalWithoutTaxWithDiscount = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.TotalWithTax = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.usrc_StockTake_Item1.TotalWithTaxWithDiscount = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // btn_SelectItem
+            // 
+            this.btn_SelectItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SelectItem.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_SelectItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_SelectItem.Location = new System.Drawing.Point(420, 0);
+            this.btn_SelectItem.Name = "btn_SelectItem";
+            this.btn_SelectItem.Size = new System.Drawing.Size(136, 25);
+            this.btn_SelectItem.TabIndex = 2;
+            this.btn_SelectItem.Text = "Select Item";
+            this.btn_SelectItem.UseVisualStyleBackColor = false;
+            this.btn_SelectItem.Click += new System.EventHandler(this.btn_SelectItem_Click);
             // 
             // txt_StockDescription
             // 
@@ -179,39 +263,6 @@
             this.TPiick_ExpiryDate.Size = new System.Drawing.Size(221, 20);
             this.TPiick_ExpiryDate.TabIndex = 10;
             // 
-            // cmb_Currency
-            // 
-            this.cmb_Currency.Enabled = false;
-            this.cmb_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmb_Currency.FormattingEnabled = true;
-            this.cmb_Currency.Location = new System.Drawing.Point(428, 137);
-            this.cmb_Currency.Name = "cmb_Currency";
-            this.cmb_Currency.Size = new System.Drawing.Size(103, 21);
-            this.cmb_Currency.TabIndex = 5;
-            // 
-            // lbl_Currency
-            // 
-            this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Currency.Location = new System.Drawing.Point(295, 140);
-            this.lbl_Currency.Name = "lbl_Currency";
-            this.lbl_Currency.Size = new System.Drawing.Size(127, 13);
-            this.lbl_Currency.TabIndex = 4;
-            this.lbl_Currency.Text = "Currency:";
-            this.lbl_Currency.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // btn_SelectItem
-            // 
-            this.btn_SelectItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SelectItem.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_SelectItem.Location = new System.Drawing.Point(420, 0);
-            this.btn_SelectItem.Name = "btn_SelectItem";
-            this.btn_SelectItem.Size = new System.Drawing.Size(136, 25);
-            this.btn_SelectItem.TabIndex = 2;
-            this.btn_SelectItem.Text = "Select Item";
-            this.btn_SelectItem.UseVisualStyleBackColor = false;
-            this.btn_SelectItem.Click += new System.EventHandler(this.btn_SelectItem_Click);
-            // 
             // btn_Update
             // 
             this.btn_Update.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -254,12 +305,32 @@
             this.lbl_StockTakeItems.TabIndex = 1;
             this.lbl_StockTakeItems.Text = "lbl_StockTakeItems";
             // 
+            // dgvx_StockTakeItemsAndPrices
+            // 
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToAddRows = false;
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToDeleteRows = false;
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToOrderColumns = true;
+            this.dgvx_StockTakeItemsAndPrices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_StockTakeItemsAndPrices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = true;
+            this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
+            this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
+            this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
+            this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(548, 409);
+            this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
+            this.dgvx_StockTakeItemsAndPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_StockTakeItemsAndPrices_CellClick);
+            this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
+            // 
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(443, 2);
+            this.btn_Exit.Location = new System.Drawing.Point(497, 1);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(61, 26);
             this.btn_Exit.TabIndex = 4;
@@ -291,7 +362,7 @@
             // btn_AdditionalCost
             // 
             this.btn_AdditionalCost.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_AdditionalCost.Location = new System.Drawing.Point(358, 54);
+            this.btn_AdditionalCost.Location = new System.Drawing.Point(386, 53);
             this.btn_AdditionalCost.Name = "btn_AdditionalCost";
             this.btn_AdditionalCost.Size = new System.Drawing.Size(120, 23);
             this.btn_AdditionalCost.TabIndex = 6;
@@ -299,28 +370,28 @@
             this.btn_AdditionalCost.UseVisualStyleBackColor = false;
             this.btn_AdditionalCost.Click += new System.EventHandler(this.btn_AdditionalCost_Click);
             // 
-            // lbl_TotalPrice
+            // lbl_TotalPriceWithoutTax
             // 
-            this.lbl_TotalPrice.Location = new System.Drawing.Point(8, 31);
-            this.lbl_TotalPrice.Name = "lbl_TotalPrice";
-            this.lbl_TotalPrice.Size = new System.Drawing.Size(91, 15);
-            this.lbl_TotalPrice.TabIndex = 7;
-            this.lbl_TotalPrice.Text = "Total Price:";
-            this.lbl_TotalPrice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_TotalPriceWithoutTax.Location = new System.Drawing.Point(8, 29);
+            this.lbl_TotalPriceWithoutTax.Name = "lbl_TotalPriceWithoutTax";
+            this.lbl_TotalPriceWithoutTax.Size = new System.Drawing.Size(109, 15);
+            this.lbl_TotalPriceWithoutTax.TabIndex = 7;
+            this.lbl_TotalPriceWithoutTax.Text = "Total Price:";
+            this.lbl_TotalPriceWithoutTax.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_TotalPrice
+            // txt_TotalPriceWithoutTax
             // 
-            this.txt_TotalPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_TotalPrice.Location = new System.Drawing.Point(105, 30);
-            this.txt_TotalPrice.Name = "txt_TotalPrice";
-            this.txt_TotalPrice.ReadOnly = true;
-            this.txt_TotalPrice.Size = new System.Drawing.Size(75, 13);
-            this.txt_TotalPrice.TabIndex = 8;
+            this.txt_TotalPriceWithoutTax.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_TotalPriceWithoutTax.Location = new System.Drawing.Point(123, 29);
+            this.txt_TotalPriceWithoutTax.Name = "txt_TotalPriceWithoutTax";
+            this.txt_TotalPriceWithoutTax.ReadOnly = true;
+            this.txt_TotalPriceWithoutTax.Size = new System.Drawing.Size(75, 13);
+            this.txt_TotalPriceWithoutTax.TabIndex = 8;
             // 
             // txt_TruckingCustomsPlusAddtitional
             // 
             this.txt_TruckingCustomsPlusAddtitional.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_TruckingCustomsPlusAddtitional.Location = new System.Drawing.Point(407, 30);
+            this.txt_TruckingCustomsPlusAddtitional.Location = new System.Drawing.Point(443, 29);
             this.txt_TruckingCustomsPlusAddtitional.Name = "txt_TruckingCustomsPlusAddtitional";
             this.txt_TruckingCustomsPlusAddtitional.ReadOnly = true;
             this.txt_TruckingCustomsPlusAddtitional.Size = new System.Drawing.Size(73, 13);
@@ -328,35 +399,35 @@
             // 
             // lbl_TruckingCustosPlusAddtional
             // 
-            this.lbl_TruckingCustosPlusAddtional.Location = new System.Drawing.Point(185, 29);
+            this.lbl_TruckingCustosPlusAddtional.Location = new System.Drawing.Point(215, 27);
             this.lbl_TruckingCustosPlusAddtional.Name = "lbl_TruckingCustosPlusAddtional";
             this.lbl_TruckingCustosPlusAddtional.Size = new System.Drawing.Size(222, 15);
             this.lbl_TruckingCustosPlusAddtional.TabIndex = 11;
             this.lbl_TruckingCustosPlusAddtional.Text = "Price for Trucking,Customs,Additional Cost:";
             this.lbl_TruckingCustosPlusAddtional.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_ItemsPrice
+            // txt_VAT
             // 
-            this.txt_ItemsPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_ItemsPrice.Location = new System.Drawing.Point(105, 57);
-            this.txt_ItemsPrice.Name = "txt_ItemsPrice";
-            this.txt_ItemsPrice.ReadOnly = true;
-            this.txt_ItemsPrice.Size = new System.Drawing.Size(75, 13);
-            this.txt_ItemsPrice.TabIndex = 14;
+            this.txt_VAT.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_VAT.Location = new System.Drawing.Point(123, 57);
+            this.txt_VAT.Name = "txt_VAT";
+            this.txt_VAT.ReadOnly = true;
+            this.txt_VAT.Size = new System.Drawing.Size(75, 13);
+            this.txt_VAT.TabIndex = 14;
             // 
-            // lbl_ItemsCost
+            // lbl_TotalTax
             // 
-            this.lbl_ItemsCost.Location = new System.Drawing.Point(8, 57);
-            this.lbl_ItemsCost.Name = "lbl_ItemsCost";
-            this.lbl_ItemsCost.Size = new System.Drawing.Size(91, 15);
-            this.lbl_ItemsCost.TabIndex = 13;
-            this.lbl_ItemsCost.Text = "Items Price:";
-            this.lbl_ItemsCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_TotalTax.Location = new System.Drawing.Point(8, 56);
+            this.lbl_TotalTax.Name = "lbl_TotalTax";
+            this.lbl_TotalTax.Size = new System.Drawing.Size(109, 15);
+            this.lbl_TotalTax.TabIndex = 13;
+            this.lbl_TotalTax.Text = "Items Price:";
+            this.lbl_TotalTax.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txt_Difference
             // 
             this.txt_Difference.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_Difference.Location = new System.Drawing.Point(279, 57);
+            this.txt_Difference.Location = new System.Drawing.Point(300, 57);
             this.txt_Difference.Name = "txt_Difference";
             this.txt_Difference.ReadOnly = true;
             this.txt_Difference.Size = new System.Drawing.Size(75, 13);
@@ -364,40 +435,12 @@
             // 
             // lbl_Difference
             // 
-            this.lbl_Difference.Location = new System.Drawing.Point(182, 57);
+            this.lbl_Difference.Location = new System.Drawing.Point(224, 56);
             this.lbl_Difference.Name = "lbl_Difference";
-            this.lbl_Difference.Size = new System.Drawing.Size(91, 15);
+            this.lbl_Difference.Size = new System.Drawing.Size(69, 15);
             this.lbl_Difference.TabIndex = 15;
             this.lbl_Difference.Text = "Difference:";
             this.lbl_Difference.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // dgvx_StockTakeItemsAndPrices
-            // 
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToAddRows = false;
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToDeleteRows = false;
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToOrderColumns = true;
-            this.dgvx_StockTakeItemsAndPrices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_StockTakeItemsAndPrices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = true;
-            this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
-            this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
-            this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
-            this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(548, 409);
-            this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
-            this.dgvx_StockTakeItemsAndPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_StockTakeItemsAndPrices_CellClick);
-            this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
-            // 
-            // usrc_StockTake_Item1
-            // 
-            this.usrc_StockTake_Item1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.usrc_StockTake_Item1.Location = new System.Drawing.Point(2, 23);
-            this.usrc_StockTake_Item1.Name = "usrc_StockTake_Item1";
-            this.usrc_StockTake_Item1.Size = new System.Drawing.Size(550, 93);
-            this.usrc_StockTake_Item1.TabIndex = 17;
             // 
             // usrc_StockEditForSelectedStockTake
             // 
@@ -405,12 +448,12 @@
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.Controls.Add(this.txt_Difference);
             this.Controls.Add(this.lbl_Difference);
-            this.Controls.Add(this.txt_ItemsPrice);
-            this.Controls.Add(this.lbl_ItemsCost);
+            this.Controls.Add(this.txt_VAT);
+            this.Controls.Add(this.lbl_TotalTax);
             this.Controls.Add(this.txt_TruckingCustomsPlusAddtitional);
             this.Controls.Add(this.lbl_TruckingCustosPlusAddtional);
-            this.Controls.Add(this.txt_TotalPrice);
-            this.Controls.Add(this.lbl_TotalPrice);
+            this.Controls.Add(this.txt_TotalPriceWithoutTax);
+            this.Controls.Add(this.lbl_TotalPriceWithoutTax);
             this.Controls.Add(this.btn_AdditionalCost);
             this.Controls.Add(this.lbl_StockTakeName);
             this.Controls.Add(this.btn_Exit);
@@ -438,8 +481,6 @@
         private System.Windows.Forms.TextBox txt_StockDescription;
         private System.Windows.Forms.Label lbl_Stock_Description;
         private System.Windows.Forms.DateTimePicker TPiick_ExpiryDate;
-        private System.Windows.Forms.ComboBox cmb_Currency;
-        private System.Windows.Forms.Label lbl_Currency;
         private System.Windows.Forms.Button btn_SelectItem;
         private System.Windows.Forms.Button btn_Update;
         private System.Windows.Forms.Button btn_Remove;
@@ -454,12 +495,12 @@
         private System.Windows.Forms.Label lbl_StockTakeName;
         private System.Windows.Forms.GroupBox grp_Item;
         private System.Windows.Forms.Button btn_AdditionalCost;
-        private System.Windows.Forms.Label lbl_TotalPrice;
-        private System.Windows.Forms.TextBox txt_TotalPrice;
+        private System.Windows.Forms.Label lbl_TotalPriceWithoutTax;
+        private System.Windows.Forms.TextBox txt_TotalPriceWithoutTax;
         private System.Windows.Forms.TextBox txt_TruckingCustomsPlusAddtitional;
         private System.Windows.Forms.Label lbl_TruckingCustosPlusAddtional;
-        private System.Windows.Forms.TextBox txt_ItemsPrice;
-        private System.Windows.Forms.Label lbl_ItemsCost;
+        private System.Windows.Forms.TextBox txt_VAT;
+        private System.Windows.Forms.Label lbl_TotalTax;
         private System.Windows.Forms.TextBox txt_Difference;
         private System.Windows.Forms.Label lbl_Difference;
         private usrc_StockTake_Item usrc_StockTake_Item1;

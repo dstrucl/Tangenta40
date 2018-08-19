@@ -24,7 +24,11 @@ namespace ShopC
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        
+
+        public static ltext s_PriceTotalWithDiscountWithoutVAT = new ltext(new string[] { "Net total with discunt", "Skupaj s popustom brez DDV" });
+
+        public static ltext s_PriceTotalWithDiscountWithVAT = new ltext(new string[] { "Total with discount", "Skupaj s popustom z DDV" });
+
         public static ltext s_lbl_Total = new ltext(new string[] { "Total", "Skupaj" });
         public static ltext s_chk_VAT_is_deducted = new ltext(new string[] { "VAT can be deducted", "DDV smemo odbiti" });
 
@@ -232,7 +236,7 @@ namespace ShopC
 
         public static ltext s_TruckingOrganisation = new ltext(new string[] { "Trucking organisation", "Transportna družba" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
-        public static ltext s_lbl_StockTakeTotalPrice = new ltext(new string[] { "Total Cost", "Celotna cena" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
+        public static ltext s_lbl_StockTakeTotalPriceWithoutTax = new ltext(new string[] { "Total net price", "Cena brez DDV" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
         public static ltext s_lbl_Difference = new ltext(new string[] { "Difference:", "Razlika:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
@@ -244,6 +248,8 @@ namespace ShopC
 
         public static ltext s_btn_CloseStockTake = new ltext(new string[] { "Close Stock-Take", "Zapri prevzemnico" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
+        public static ltext s_InvalidDiscount = new ltext(new string[] { "Discount is not valid\r\nError:Can not convert to decimal velue!", "Popust ni veljaven.\r\nNapaka:Neupešna pretvorba v decimalno število!" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
+        
         public static ltext s_InvalidPurchasePrice = new ltext(new string[] { "Purchase price is not valid\r\nError:Can not convert to decimal velue!", "Nabavna cena ni veljavna.\r\nNapaka:Neupešna pretvorba v decimalno število!" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
         public static ltext s_Stock_Description = new ltext(new string[] { "Stock description", "Opis zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
@@ -277,7 +283,7 @@ namespace ShopC
 
         public static ltext s_lbl_TruckingCustosPlusAddtional = new ltext(new string[] { "Price for Trucking,Customs,Additional Cost:", "Dodatni stroski (carina,transport..):" });
 
-        public static ltext s_lbl_ItemsCost = new ltext(new string[] { "Items total:", "Cena vseh artiklov:" });
+        public static ltext s_lbl_TotalTax = new ltext(new string[] { "VAT:", "DDV:" });
 
         public static ltext s_PurchasePricesNotDefinedYeet = new ltext(new string[] { "Purchase price has never bin defined before", "Nabavna cena še nikoli ni bila določena" });
         public static ltext s_PurchasePricesInThePast = new ltext(new string[] { "Purchase prices in the past", "Nabavne cene v preteklosti" });

@@ -220,7 +220,14 @@ namespace DBConnectionControl40
         {
             try
             {
-                return V.ToString();
+                if (V != null)
+                {
+                    return V.ToString();
+                }
+                else
+                {
+                    return ID.Invalid.ToString();
+                }
             }
             catch (Exception ex)
             {

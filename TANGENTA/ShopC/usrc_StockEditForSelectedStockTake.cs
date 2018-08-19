@@ -16,6 +16,9 @@ namespace ShopC
 {
     public partial class usrc_StockEditForSelectedStockTake : UserControl
     {
+        private const string scol_TotalWithoutTaxWithDiscount = "TotalWithoutTaxWithDiscount";
+        private const string scol_TotalWithTaxWithDiscount = "TotalWithTaxWithDiscount";
+
         private ID m_Atom_WorkPeriod_ID = null;
 
         public delegate void delegate_BtnExitPressed();
@@ -23,9 +26,8 @@ namespace ShopC
 
         internal Form_ShopC_Item_Edit edt_Item_dlg = null;
 
-        private DataTable dtCurrency = null;
 
-        private bool m_PriceWithoutVAT = false;
+        private bool m_PriceWithoutVAT = true;
         private bool PriceWithoutVAT
         {
             get
@@ -194,7 +196,6 @@ namespace ShopC
             CurrentItem_ID = ID;
             lng.s_Item.TextWithToolTip(this.grp_Item, lng.s_Item.s + ":" + xUniqueName, lng.s_Item.s + ":" + xUniqueName + " " + lng.s_Unit.s + ":" + symbol + " ; " + lng.s_DecimalPlaces.s + "=" + uDecimalPlaces.ToString());
             usrc_StockTake_Item1.SetQuantity_NumericUpdDown(uDecimalPlaces);
-            usrc_StockTake_Item1.nmUpDn_Quantity.Maximum = decimal.MaxValue;
 
             EnableControls(true);
         }
@@ -226,9 +227,7 @@ namespace ShopC
             {
                 if (ID.Validate(CurrentItem_ID))
                 {
-                    object oID = cmb_Currency.SelectedValue;
-                    ID Selected_Currency_ID = tf.set_ID(oID);
-                    Set_cmb_PurchasePrice(iD, Selected_Currency_ID);
+                    Set_cmb_PurchasePrice(iD, usrc_StockTake_Item1.Selected_Currency_ID);
                 }
             }
         }
@@ -248,28 +247,19 @@ namespace ShopC
                 lng.s_Add.Text(btn_Add);
                 lng.s_Remove.Text(btn_Remove);
                 lng.s_Update.Text(this.btn_Update);
-                lng.s_Currency.Text(lbl_Currency);
                 lng.s_ExpiryDate.Text(chk_ExpiryCheck);
                 lng.s_ImportTime.Text(lbl_ImportTime);
                 lng.s_Stock_Description.Text(lbl_Stock_Description);
                 lng.s_btn_CloseStockTake.Text(btn_CloseStockTake);
                 lng.s_btn_AdditionalCost.Text(btn_AdditionalCost);
-                lng.s_lbl_StockTakeTotalPrice.Text(this.lbl_TotalPrice);
+                lng.s_lbl_PriceWithoutVAT.Text(this.lbl_TotalPriceWithoutTax);
                 lng.s_lbl_Difference.Text(this.lbl_Difference);
                 lng.s_lbl_TruckingCustosPlusAddtional.Text(lbl_TruckingCustosPlusAddtional);
-                lng.s_lbl_ItemsCost.Text(lbl_ItemsCost);
+                lng.s_lbl_TotalTax.Text(lbl_TotalTax);
 
                 btn_Add.Visible = false;
                 btn_Remove.Visible = false;
                 btn_Update.Visible = false;
-                dtCurrency = TangentaDB.f_Currency.GetTable(false);
-                cmb_Currency.DataSource = dtCurrency;
-                cmb_Currency.DisplayMember = "Symbol";
-                cmb_Currency.ValueMember = "ID";
-                if (ID.Validate(TangentaDB.myOrg.Default_Currency_ID))
-                {
-                    cmb_Currency.SelectedIndex = 0;
-                }
 
                 // Set up the ToolTip text for the control
 
@@ -328,17 +318,13 @@ namespace ShopC
 
         private void AddItemToStockTake()
         {
-            bool bPPriceDefined = false;
-            decimal pprice = 0;
-            decimal discount = 0;
-
 
             ID PurchasePrice_ID = null;
-            ID Taxation_ID = tf.set_ID(usrc_StockTake_Item1.cmb_Taxation.SelectedValue);
-            ID Currency_ID = tf.set_ID(cmb_Currency.SelectedValue);
-            if (TangentaDB.f_PurchasePrice.Get(pprice, discount, PriceWithoutVAT, usrc_StockTake_Item1.chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            ID Taxation_ID = usrc_StockTake_Item1.Taxation_ID;
+            ID Currency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
+            if (TangentaDB.f_PurchasePrice.Get(usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax, usrc_StockTake_Item1.Discount, PriceWithoutVAT, usrc_StockTake_Item1.VATCanNotBeDeducted, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
-                if ((bPPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
+                if ((usrc_StockTake_Item1.PPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
                     ID PurchasePrice_Item_ID = null;
                     if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
@@ -349,7 +335,7 @@ namespace ShopC
                             dtExpiry_v = new DateTime_v(this.TPiick_ExpiryDate.Value);
                         }
                         DateTime tImportTime = tPick_ImportTime.Value;
-                        decimal dquantity = usrc_StockTake_Item1.nmUpDn_Quantity.Value;
+                        decimal dquantity = usrc_StockTake_Item1.Quantity;
                         ID Stock_AddressLevel1_ID = null;
                         ID Stock_ID = null;
                         if (TangentaDB.f_Stock.Add(m_Atom_WorkPeriod_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text, ref Stock_ID))
@@ -386,10 +372,11 @@ namespace ShopC
         private bool Reload(ID xStockTake_ID)
         {
             dgvx_StockTakeItemsAndPrices.DataSource = null;
-            dt_Stock_Of_Current_StockTake.Rows.Clear();
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
             if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake, ref aDoc_ShopC_Item, StockTake_ID))
             {
+                decimal xCalculatedSum_withouttax = 0;
+                AddCalculatedColumns(dt_Stock_Of_Current_StockTake,ref xCalculatedSum_withouttax);
                 dgvx_StockTakeItemsAndPrices.Columns.Clear();
                 dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
 
@@ -442,12 +429,13 @@ namespace ShopC
                 {
                     CurrentStock_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"]);
                     CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
-                    object ocurrency_id = cmb_Currency.SelectedValue;
-                    ID xCurrency_ID = tf.set_ID(ocurrency_id);
+
+                    ID xCurrency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
                     if (ID.Validate(xCurrency_ID))
                     {
                         Set_cmb_PurchasePrice(CurrentItem_ID, xCurrency_ID);
                     }
+
                     dgvx_StockTakeItemsAndPrices.Rows[current_index].Selected = true;
                     btn_Remove.Visible = true;
                     btn_Update.Visible = true;
@@ -471,21 +459,66 @@ namespace ShopC
             return false;
         }
 
+        private void AddCalculatedColumns(DataTable dt_Stock_Of_Current_StockTake, ref decimal calculatedsum_withouttax)
+        {
+            DataColumn col_TotalWithoutTaxWithDiscount = new DataColumn(scol_TotalWithoutTaxWithDiscount, typeof(decimal));
+            dt_Stock_Of_Current_StockTake.Columns.Add(col_TotalWithoutTaxWithDiscount);
+            DataColumn col_TotalWithTaxWithDiscount = new DataColumn(scol_TotalWithTaxWithDiscount, typeof(decimal));
+            dt_Stock_Of_Current_StockTake.Columns.Add(col_TotalWithTaxWithDiscount);
+            calculatedsum_withouttax = 0;
+            foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
+            {
+                decimal xPurchasePricePerUnitWithoutTax = (decimal)dr["PurchasePricePerUnit"];
+                decimal xTaxationRate = (decimal)dr["TaxationRate"];
+                decimal xDiscount = (decimal)dr["Discount"];
+                decimal xQuantity = (decimal)dr["dInitialQuantity"];
+
+                decimal xPurchasePricePerUnitWithTax = xPurchasePricePerUnitWithoutTax * (1 + xTaxationRate);
+
+                decimal xPurchasePricePerUnitWithoutTaxWithDiscount = decimal.Round(xPurchasePricePerUnitWithoutTax * (1 - xDiscount), 4);
+
+                decimal xPurchasePricePerUnitWithTaxWithDiscount = xPurchasePricePerUnitWithoutTaxWithDiscount * (1 + xTaxationRate);
+
+                decimal xTotalWithoutTaxWithDiscount = decimal.Round(xPurchasePricePerUnitWithoutTax * (1 - xDiscount) * xQuantity, 4);
+
+                decimal xTotalWithTaxWithDiscount = decimal.Round(xTotalWithoutTaxWithDiscount * (1 + xTaxationRate),usrc_StockTake_Item1.Currency_DecimalPlaces);
+
+                dr["TotalWithoutTaxWithDiscount"] = xTotalWithoutTaxWithDiscount;
+                calculatedsum_withouttax += xTotalWithoutTaxWithDiscount;
+
+                dr["TotalWithTaxWithDiscount"] = xTotalWithTaxWithDiscount;
+            }
+            calculatedsum_withouttax = decimal.Round(calculatedsum_withouttax, usrc_StockTake_Item1.Currency_DecimalPlaces);
+        }
+
         private void Set_StockTakeItems_Table_headers()
         {
             dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].HeaderText = lng.s_UniqueName.s;
-            dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].DisplayIndex = 0;
+            dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].DisplayIndex = 1;
             dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].HeaderText = lng.s_Stock_dInitialQuantity.s;
-            dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].DisplayIndex = 1;
+            dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].DisplayIndex = 2;
             dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].HeaderText = lng.s_Stock_dQuantity.s;
-            dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].DisplayIndex = 2;
-            dgvx_StockTakeItemsAndPrices.Columns["ImportTime"].HeaderText = lng.s_ImportTime.s;
-            dgvx_StockTakeItemsAndPrices.Columns["ExpiryDate"].HeaderText = lng.s_ExpiryDate.s;
+            dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].DisplayIndex = 3;
             dgvx_StockTakeItemsAndPrices.Columns["PurchasePricePerUnit"].HeaderText = lng.s_PurchasePricePerUnit.s;
-            dgvx_StockTakeItemsAndPrices.Columns["Symbol"].HeaderText = lng.s_Currency.s;
-            dgvx_StockTakeItemsAndPrices.Columns["Supplier"].HeaderText = lng.s_Supplier.s;
+            dgvx_StockTakeItemsAndPrices.Columns["PurchasePricePerUnit"].DisplayIndex = 4;
+            dgvx_StockTakeItemsAndPrices.Columns["TotalWithoutTaxWithDiscount"].HeaderText = lng.s_PriceTotalWithDiscountWithoutVAT.s;
+            dgvx_StockTakeItemsAndPrices.Columns["TotalWithoutTaxWithDiscount"].DisplayIndex = 5;
+            dgvx_StockTakeItemsAndPrices.Columns["TotalWithTaxWithDiscount"].HeaderText = lng.s_PriceTotalWithDiscountWithVAT.s;
+            dgvx_StockTakeItemsAndPrices.Columns["TotalWithTaxWithDiscount"].DisplayIndex = 6;
             dgvx_StockTakeItemsAndPrices.Columns["TaxationName"].HeaderText = lng.s_Taxation.s;
+            dgvx_StockTakeItemsAndPrices.Columns["TaxationName"].DisplayIndex = 7;
+            dgvx_StockTakeItemsAndPrices.Columns["ImportTime"].HeaderText = lng.s_ImportTime.s;
+            dgvx_StockTakeItemsAndPrices.Columns["ImportTime"].DisplayIndex = 8;
+            dgvx_StockTakeItemsAndPrices.Columns["ExpiryDate"].HeaderText = lng.s_ExpiryDate.s;
+            dgvx_StockTakeItemsAndPrices.Columns["ExpiryDate"].DisplayIndex = 9;
+            dgvx_StockTakeItemsAndPrices.Columns["Supplier"].HeaderText = lng.s_Supplier.s;
+            dgvx_StockTakeItemsAndPrices.Columns["Supplier"].DisplayIndex = 10;
             dgvx_StockTakeItemsAndPrices.Columns["TruckingOrganisation"].HeaderText = lng.s_TruckingOrganisation.s;
+            dgvx_StockTakeItemsAndPrices.Columns["TruckingOrganisation"].DisplayIndex = 10;
+            dgvx_StockTakeItemsAndPrices.Columns["Symbol"].HeaderText = lng.s_Currency.s;
+            dgvx_StockTakeItemsAndPrices.Columns["Symbol"].DisplayIndex = 11;
+
+
             dgvx_StockTakeItemsAndPrices.Columns["Supplier_Tax_ID"].Visible = false;
             dgvx_StockTakeItemsAndPrices.Columns["StockTakePriceTotal"].Visible = false;
             dgvx_StockTakeItemsAndPrices.Columns["TruckingCost"].Visible = false;
@@ -493,6 +526,7 @@ namespace ShopC
             dgvx_StockTakeItemsAndPrices.Columns["PurchasePrice_ID"].Visible = false;
             dgvx_StockTakeItemsAndPrices.Columns["Currency_ID"].Visible = false;
             dgvx_StockTakeItemsAndPrices.Columns["Taxation_ID"].Visible = false;
+            dgvx_StockTakeItemsAndPrices.Columns["TaxationRate"].Visible = false;
         }
 
         private void FillControls()
@@ -523,12 +557,6 @@ namespace ShopC
                 usrc_StockTake_Item1.SetQuantity_NumericUpdDown(iItem_UnitDecimalPlaces);
                 
                 lng.s_Item.TextWithToolTip(grp_Item, ":" + sItem_UniqueName, lng.s_Item.s + " : " + lng.s_Unit.s + " = " + sItem_UnitSymbol + " : " + lng.s_DecimalPlaces.s + " = " + iItem_UnitDecimalPlaces.ToString());
-                decimal dValue = ((decimal)dt_Stock_Of_Current_StockTake.Rows[current_index]["dQuantity"]);
-                if (usrc_StockTake_Item1.nmUpDn_Quantity.Minimum > dValue)
-                {
-                    usrc_StockTake_Item1.nmUpDn_Quantity.Minimum = dValue;
-                }
-                usrc_StockTake_Item1.nmUpDn_Quantity.Value = dValue;
                 tPick_ImportTime.Value = ((DateTime)dt_Stock_Of_Current_StockTake.Rows[current_index]["ImportTime"]);
                 object oExpiryDate = dt_Stock_Of_Current_StockTake.Rows[current_index]["ExpiryDate"];
                 if (oExpiryDate is DateTime)
@@ -541,15 +569,9 @@ namespace ShopC
                     chk_ExpiryCheck.Checked = false;
                     this.TPiick_ExpiryDate.Enabled = false;
                 }
-                usrc_StockTake_Item1.cmb_Taxation.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Taxation_ID"]) - 1;
-                cmb_Currency.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[current_index]["Currency_ID"]) - 1;
-                usrc_StockTake_Item1.cmb_PurchasePrice.Text = Convert.ToString(dt_Stock_Of_Current_StockTake.Rows[current_index]["PurchasePricePerUnit"]);
 
-                usrc_StockTake_Item1.cmb_Discount.Text = getDiscount(dt_Stock_Of_Current_StockTake.Rows[current_index]["Discount"]);
+                usrc_StockTake_Item1.Init(dt_Stock_Of_Current_StockTake.Rows[current_index]);
 
-                PriceWithoutVAT = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["PriceWithoutVAT"]);
-
-                usrc_StockTake_Item1.chk_VATCanNotBeDeducted.Checked = get_bool(dt_Stock_Of_Current_StockTake.Rows[current_index]["VATCanNotBeDeducted"]);
 
                 txt_StockDescription.Text = "";
                 object oDescription = dt_Stock_Of_Current_StockTake.Rows[current_index]["Description"];
@@ -568,50 +590,11 @@ namespace ShopC
             }
         }
 
-        private bool get_bool(object xb)
-        {
-            if (xb is bool)
-            {
-                try
-                {
-                    return (bool)xb;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
 
-        private string getDiscount(object discount)
-        {
-            if (discount is decimal)
-            {
-                try
-                {
-                    decimal dpercent = ((decimal)discount) * 100;
-                    string spercent = Convert.ToString(dpercent) + "%";
-                    return spercent;
-                }
-                catch
-                {
-                    return "Error";
-                }
-            }
-            else
-            {
-                return "0";
-            }
-        }
 
         private void EnableControls(bool v)
         {
             usrc_StockTake_Item1.EnableControls(v);
-            cmb_Currency.Enabled = v;
             tPick_ImportTime.Enabled = v;
             TPiick_ExpiryDate.Enabled = v;
             chk_ExpiryCheck.Enabled = v;
@@ -658,9 +641,8 @@ namespace ShopC
                     CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
                     if (ID.Validate(CurrentItem_ID))
                     {
-                        object oID = cmb_Currency.ValueMember;
                         ID Selected_Currency_ID = null;
-                        Selected_Currency_ID = tf.set_ID((long)oID);
+                        Selected_Currency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
                         if (ID.Validate(Selected_Currency_ID))
                         {
                             Set_cmb_PurchasePrice(CurrentItem_ID, Selected_Currency_ID);
@@ -742,38 +724,12 @@ namespace ShopC
 
         public void UpdateStock()
         {
-            bool bPPriceDefined = false;
-            decimal pprice = 0;
-            decimal discount = 0;
-            object oDecimalValue = usrc_StockTake_Item1.cmb_PurchasePrice.SelectedValue;
-            if (oDecimalValue is decimal)
-            {
-                pprice = (decimal)oDecimalValue;
-                bPPriceDefined = true;
-            }
-            if (!bPPriceDefined)
-            {
-                string sValue = usrc_StockTake_Item1.cmb_PurchasePrice.Text;
-                if (sValue.Length > 0)
-                {
-                    try
-                    {
-                        pprice = Convert.ToDecimal(sValue);
-                        bPPriceDefined = true;
-                    }
-                    catch
-                    {
-                        XMessage.Box.ShowTopMost(this, lng.s_InvalidPurchasePrice, lng.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
-                    }
-                }
-            }
-
             ID PurchasePrice_ID = null;
-            ID Taxation_ID = tf.set_ID(usrc_StockTake_Item1.cmb_Taxation.SelectedValue);
-            ID Currency_ID = tf.set_ID(cmb_Currency.SelectedValue);
-            if (TangentaDB.f_PurchasePrice.Get(pprice, discount, PriceWithoutVAT, usrc_StockTake_Item1.chk_VATCanNotBeDeducted.Checked, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            ID Taxation_ID = usrc_StockTake_Item1.Taxation_ID;
+            ID Currency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
+            if (TangentaDB.f_PurchasePrice.Get(usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax, usrc_StockTake_Item1.Discount, PriceWithoutVAT, usrc_StockTake_Item1.VATCanNotBeDeducted, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
             {
-                if ((bPPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
+                if ((usrc_StockTake_Item1.PPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
                     ID PurchasePrice_Item_ID = null;
                     if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
@@ -784,7 +740,7 @@ namespace ShopC
                             dtExpiry_v = new DateTime_v(this.TPiick_ExpiryDate.Value);
                         }
                         DateTime tImportTime = tPick_ImportTime.Value;
-                        decimal dquantity = usrc_StockTake_Item1.nmUpDn_Quantity.Value;
+                        decimal dquantity = usrc_StockTake_Item1.Quantity;
                         ID Stock_AddressLevel1_ID = null;
                         if (TangentaDB.f_Stock.Update(m_Atom_WorkPeriod_ID, CurrentStock_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
                         {
@@ -869,13 +825,35 @@ namespace ShopC
                     }
                 }
 
-                decimal dItemsPrice = 0;
+                decimal dItemsPrice_withouttax = 0;
+                decimal dItemsPrice_withttax = 0;
                 foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
                 {
-                    decimal dQuantity = (decimal)dr["dInitialQuantity"];
-                    decimal dPurchasePricePerUnit = (decimal)dr["PurchasePricePerUnit"];
-                    dItemsPrice += dQuantity * dPurchasePricePerUnit;
+                    decimal xPurchasePricePerUnitWithoutTax = (decimal)dr["PurchasePricePerUnit"];
+                    decimal xTaxationRate = (decimal)dr["TaxationRate"];
+                    decimal xDiscount = (decimal)dr["Discount"];
+                    decimal xQuantity = (decimal)dr["dInitialQuantity"];
+
+                    decimal xPurchasePricePerUnitWithTax = xPurchasePricePerUnitWithoutTax * (1 + xTaxationRate);
+
+                    decimal xPurchasePricePerUnitWithoutTaxWithDiscount = decimal.Round(xPurchasePricePerUnitWithoutTax * (1 - xDiscount), 4);
+
+                    decimal xPurchasePricePerUnitWithTaxWithDiscount = xPurchasePricePerUnitWithoutTaxWithDiscount * (1 + xTaxationRate);
+
+                    decimal xTotalWithoutTaxWithDiscount = decimal.Round(xPurchasePricePerUnitWithoutTax * (1 - xDiscount) * xQuantity, 4);
+
+                    dItemsPrice_withouttax += xTotalWithoutTaxWithDiscount;
+
+                    decimal xTotalWithTaxWithDiscount = decimal.Round(xTotalWithoutTaxWithDiscount * (1 + xTaxationRate), usrc_StockTake_Item1.Currency_DecimalPlaces);
+
+                    dItemsPrice_withttax += xTotalWithTaxWithDiscount;
+
                 }
+
+                dItemsPrice_withouttax = decimal.Round(dItemsPrice_withouttax, usrc_StockTake_Item1.Currency_DecimalPlaces);
+                dItemsPrice_withttax = decimal.Round(dItemsPrice_withttax, usrc_StockTake_Item1.Currency_DecimalPlaces);
+                decimal dVAT = dItemsPrice_withttax - dItemsPrice_withouttax;
+
                 decimal dAdditionalCost = 0;
                 DataTable dtStockTake_AdditionalCost = new DataTable();
                 if (TangentaDB.f_StockTake_AdditionalCost.ReadDataTable(ref dtStockTake_AdditionalCost, StockTake_ID))
@@ -887,9 +865,9 @@ namespace ShopC
                     }
                 }
                 decimal dTruckingCostPLUSdCustomsPLUSdAdditionalCost =  dTruckingCost + dCustoms + dAdditionalCost;
-                decimal difference = dTotalPrice - dTruckingCostPLUSdCustomsPLUSdAdditionalCost - dItemsPrice ;
+                decimal difference = dTotalPrice - dTruckingCostPLUSdCustomsPLUSdAdditionalCost - dItemsPrice_withouttax ;
 
-                ShowComputationOfDifference(dTotalPrice, dTruckingCostPLUSdCustomsPLUSdAdditionalCost, dItemsPrice,difference);
+                ShowComputationOfDifference(dItemsPrice_withouttax,dVAT, dTruckingCostPLUSdCustomsPLUSdAdditionalCost, difference);
                 return difference;
             }
             else
@@ -898,11 +876,11 @@ namespace ShopC
             }
         }
 
-        private void ShowComputationOfDifference(decimal dTotalPrice, decimal dTruckingCostPLUSdCustomsPLUSdAdditionalCost, decimal dItemsPrice, decimal difference)
+        private void ShowComputationOfDifference(decimal dItemsPrice_withouttax,decimal dVAT, decimal dTruckingCostPLUSdCustomsPLUSdAdditionalCost,  decimal difference)
         {
-            txt_TotalPrice.Text = Convert.ToString(dTotalPrice);
+            txt_TotalPriceWithoutTax.Text = Convert.ToString(dItemsPrice_withouttax);
             txt_TruckingCustomsPlusAddtitional.Text = Convert.ToString(dTruckingCostPLUSdCustomsPLUSdAdditionalCost);
-            txt_ItemsPrice.Text = Convert.ToString(dItemsPrice);
+            txt_VAT.Text = Convert.ToString(dVAT);
             if (difference != 0)
             {
                 txt_Difference.BackColor = Color.LightPink;

@@ -111,6 +111,7 @@ namespace TangentaDB
                                   pp.Discount,
                                   pp.PriceWithoutVAT,
                                   pp.VATCanNotBeDeducted,
+                                  t.Rate as TaxationRate,
                                   s.ID as Stock_ID,
                                   s.PurchasePrice_Item_ID,
                                   ppi.PurchasePrice_ID,
@@ -139,6 +140,7 @@ namespace TangentaDB
             {
                 dt_Stock_Of_Current_StockTake = new DataTable();
             }
+            dt_Stock_Of_Current_StockTake.Rows.Clear();
             dt_Stock_Of_Current_StockTake.Columns.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_Stock_Of_Current_StockTake, sql, ref Err))
             {
@@ -357,7 +359,7 @@ namespace TangentaDB
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
             {
                 ID JOURNAL_Stock_ID = null;
-                if (f_JOURNAL_Stock.Get(xAtom_WorkPeriod_ID,currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))
+                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, xAtom_WorkPeriod_ID, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))
                 {
                     return true;
                 }

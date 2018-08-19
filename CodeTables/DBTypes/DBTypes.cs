@@ -2291,6 +2291,18 @@ namespace DBTypes
             {
                 Type type = col_obj.GetType().BaseType;
 
+                if (col_obj != null)
+                {
+                    if (col_obj is ID)
+                    {
+                       col_obj = tf.set_ID(Value);
+                        if (ID.Validate((ID)col_obj))
+                        {
+                            ((ID)col_obj).Defined = true;
+                        }
+                       return true;
+                    }
+                }
                 vs = (ValSet)col_obj;
                 if (Value.GetType() == typeof(System.DBNull))
                 {

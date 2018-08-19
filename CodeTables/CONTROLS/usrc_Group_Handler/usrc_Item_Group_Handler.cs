@@ -80,93 +80,44 @@ namespace usrc_Item_Group_Handler
             
         }
 
-        public bool Set_Groups(DataTable xdt_Group)
+        private void set_groups()
         {
-            bGroupChanged = false;
-            if (!Set_Groups_Table_Equals(xdt_Group))
+            DataRow[] drs = null;
+            drs = m_dt_Group.Select("s3_name is not null");
+            if (drs.Count() > 0)
             {
-                bGroupChanged = true;
-                m_dt_Group = xdt_Group.Copy();
-                DataRow[] drs = null;
-                drs = m_dt_Group.Select("s3_name is not null");
+                m_NumberOfGroupLevels = 3;
+            }
+            else
+            {
+                drs = m_dt_Group.Select("s2_name is not null");
                 if (drs.Count() > 0)
                 {
-                    m_NumberOfGroupLevels = 3;
+                    m_NumberOfGroupLevels = 2;
                 }
                 else
                 {
-                    drs = m_dt_Group.Select("s2_name is not null");
+                    drs = m_dt_Group.Select("s1_name is not null");
                     if (drs.Count() > 0)
                     {
-                        m_NumberOfGroupLevels = 2;
+                        m_NumberOfGroupLevels = 1;
                     }
                     else
                     {
-                        drs = m_dt_Group.Select("s1_name is not null");
-                        if (drs.Count() > 0)
-                        {
-                            m_NumberOfGroupLevels = 1;
-                        }
-                        else
-                        {
-                            m_NumberOfGroupLevels = 0;
-                        }
+                        m_NumberOfGroupLevels = 0;
                     }
                 }
+            }
 
-                if (m_GroupRoot == null)
-                {
-                    m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
-                }
-                m_GroupRoot.Clear();
+            if (m_GroupRoot == null)
+            {
+                m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
+            }
+            m_GroupRoot.Clear();
 
-                if (m_NumberOfGroupLevels > 0)
-                {
-                    if (m_NumberOfGroupLevels == 1)
-                    {
-                        if (form_group_handler != null)
-                        {
-                            form_group_handler.Dispose();
-                            form_group_handler = null;
-                        }
-                        if (btn_GroupLevel != null)
-                        {
-                            btn_GroupLevel.Click -= Btn_GroupLevel_Click;
-                            pnl_Group.Controls.Remove(btn_GroupLevel);
-                            btn_GroupLevel.Dispose();
-                            btn_GroupLevel = null;
-                        }
-                    }
-                    else if (m_NumberOfGroupLevels > 1)
-                    {
-                        if (btn_GroupLevel == null)
-                        {
-                            pnl_Group.Controls.Clear();
-                            btn_GroupLevel = new Button();
-                            btn_GroupLevel.Text = "";
-                            btn_GroupLevel.Image = Properties.Resources.GroupTree;
-                            btn_GroupLevel.Dock = DockStyle.Fill;
-                            btn_GroupLevel.ImageAlign = ContentAlignment.MiddleCenter;
-                            btn_GroupLevel.Click += Btn_GroupLevel_Click;
-                            pnl_Group.Controls.Add(btn_GroupLevel);
-                        }
-
-                        if (m_LastNumberOfGroupLevels != m_NumberOfGroupLevels)
-                        {
-                            if (form_group_handler == null)
-                            {
-                                form_group_handler = new Form_GroupHandler();
-                                form_group_handler.Owner = getParentForm();
-                                form_group_handler.ShopName = this.ShopName;
-                            }
-                        }
-
-                    }
-
-                    CreateGroupTree();
-
-                }
-                else
+            if (m_NumberOfGroupLevels > 0)
+            {
+                if (m_NumberOfGroupLevels == 1)
                 {
                     if (form_group_handler != null)
                     {
@@ -181,16 +132,70 @@ namespace usrc_Item_Group_Handler
                         btn_GroupLevel = null;
                     }
                 }
-
-                if (GroupsRedefined != null)
+                else if (m_NumberOfGroupLevels > 1)
                 {
-                    GroupsRedefined(m_NumberOfGroupLevels);
+                    if (btn_GroupLevel == null)
+                    {
+                        pnl_Group.Controls.Clear();
+                        btn_GroupLevel = new Button();
+                        btn_GroupLevel.Text = "";
+                        btn_GroupLevel.Image = Properties.Resources.GroupTree;
+                        btn_GroupLevel.Dock = DockStyle.Fill;
+                        btn_GroupLevel.ImageAlign = ContentAlignment.MiddleCenter;
+                        btn_GroupLevel.Click += Btn_GroupLevel_Click;
+                        pnl_Group.Controls.Add(btn_GroupLevel);
+                    }
+
+                    if (m_LastNumberOfGroupLevels != m_NumberOfGroupLevels)
+                    {
+                        if (form_group_handler == null)
+                        {
+                            form_group_handler = new Form_GroupHandler();
+                            form_group_handler.Owner = getParentForm();
+                            form_group_handler.ShopName = this.ShopName;
+                        }
+                    }
+
                 }
 
-                if (m_GroupRoot.m_CurrentSubGroup_In_m_GroupList == null)
+                CreateGroupTree();
+
+            }
+            else
+            {
+                if (form_group_handler != null)
                 {
-                    m_GroupRoot.m_CurrentSubGroup_In_m_GroupList = m_GroupRoot.SetFirst();
+                    form_group_handler.Dispose();
+                    form_group_handler = null;
                 }
+                if (btn_GroupLevel != null)
+                {
+                    btn_GroupLevel.Click -= Btn_GroupLevel_Click;
+                    pnl_Group.Controls.Remove(btn_GroupLevel);
+                    btn_GroupLevel.Dispose();
+                    btn_GroupLevel = null;
+                }
+            }
+
+            if (GroupsRedefined != null)
+            {
+                GroupsRedefined(m_NumberOfGroupLevels);
+            }
+
+            if (m_GroupRoot.m_CurrentSubGroup_In_m_GroupList == null)
+            {
+                m_GroupRoot.m_CurrentSubGroup_In_m_GroupList = m_GroupRoot.SetFirst();
+            }
+        }
+
+        public bool Set_Groups(DataTable xdt_Group)
+        {
+            bGroupChanged = false;
+            if (!Set_Groups_Table_Equals(xdt_Group))
+            {
+                bGroupChanged = true;
+                m_dt_Group = xdt_Group.Copy();
+                set_groups();
             }
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
             return m_NumberOfGroupLevels > 0;
@@ -518,8 +523,10 @@ namespace usrc_Item_Group_Handler
 
         private void Btn_GroupLevel_Click(object sender, EventArgs e)
         {
+          
             form_group_handler.SetInitialPosition(this);
             form_group_handler.Show();
+            form_group_handler.Visible = true;
             form_group_handler.Focus();
         }
 
@@ -615,5 +622,9 @@ namespace usrc_Item_Group_Handler
             }
         }
 
+        private void pnl_Group_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

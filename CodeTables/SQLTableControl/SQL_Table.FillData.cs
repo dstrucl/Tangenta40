@@ -178,8 +178,10 @@ namespace CodeTables
                 {
                     if (col.IsIdentity)
                     {
-                       ID my_ID = (ID) col.obj;
-                       my_ID = ID;
+                        if (dt.Rows.Count > 0)
+                        {
+                            col.SetValue(ID);
+                        }
                     }
                     else
                     {

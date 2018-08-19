@@ -39,6 +39,7 @@
             this.pnl_Group.Name = "pnl_Group";
             this.pnl_Group.Size = new System.Drawing.Size(128, 296);
             this.pnl_Group.TabIndex = 0;
+            this.pnl_Group.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_Group_Paint);
             // 
             // usrc_Item_Group_Handler
             // 
