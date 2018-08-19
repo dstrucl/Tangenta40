@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using System.Drawing.Printing;
 
 namespace TangentaPrint
 {
@@ -19,6 +20,21 @@ namespace TangentaPrint
         public bool bChanged = false;
 
         public int m_index = -1;
+
+        
+        public bool PrintingWithHtmlTemplates
+        {
+            get
+            {
+                return Properties.Settings.Default.PrintingWithHtmlTemplates;
+            }
+            set
+            {
+                Properties.Settings.Default.PrintingWithHtmlTemplates = value;
+                Properties.Settings.Default.Save();
+            }
+
+        }
 
         public bool bInvoicePrinting
         {
@@ -88,6 +104,14 @@ namespace TangentaPrint
             if (bInstalled)
             {
                 this.grp_Printer.Text = (string)PrintersList.dt.Rows[IndexInPrinterList][PrintersList.dcol_PrinterName];
+                PrinterSettings printerSettings = new PrinterSettings();
+                printerSettings.PrinterName = this.grp_Printer.Text;
+                if ((printerSettings.DefaultPageSettings.PaperSize.Width == 284)&& (printerSettings.DefaultPageSettings.PaperSize.Height > 12000))
+                {
+                    //Rol paper 80 mm
+                    chk_PrintingWithHtmlTemplates.Checked = PrintingWithHtmlTemplates;
+                    chk_PrintingWithHtmlTemplates.CheckedChanged += Chk_PrintingWithHtmlTemplates_CheckedChanged;
+                }
             }
             else
             {
@@ -111,6 +135,11 @@ namespace TangentaPrint
             this.chk_BankAccount.CheckedChanged += new System.EventHandler(this.chk_CheckedChanged);
             this.chk_Printing_Reports.CheckedChanged += new System.EventHandler(this.chk_CheckedChanged);
             this.chk_Printing_ProformaInvoices.CheckedChanged += new System.EventHandler(this.chk_CheckedChanged);
+        }
+
+        private void Chk_PrintingWithHtmlTemplates_CheckedChanged(object sender, EventArgs e)
+        {
+            PrintingWithHtmlTemplates = chk_PrintingWithHtmlTemplates.Checked;
         }
 
         private void chk_CheckedChanged(object sender, EventArgs e)

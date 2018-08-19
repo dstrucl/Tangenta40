@@ -2,11 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TangentaPrint.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DocInvoicePrintTemplate" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="DocProformaInvoicePrintTemplate" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="PrintingWithHtmlTemplates" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

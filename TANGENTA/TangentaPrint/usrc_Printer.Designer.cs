@@ -38,6 +38,7 @@
             this.chk_Printing_Invoices = new System.Windows.Forms.CheckBox();
             this.chk_Printing_Reports = new System.Windows.Forms.CheckBox();
             this.chk_Printing_ProformaInvoices = new System.Windows.Forms.CheckBox();
+            this.chk_PrintingWithHtmlTemplates = new System.Windows.Forms.CheckBox();
             this.grp_Printer.SuspendLayout();
             this.grp_Invoice.SuspendLayout();
             this.grp_Payment.SuspendLayout();
@@ -46,6 +47,7 @@
             // grp_Printer
             // 
             this.grp_Printer.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.grp_Printer.Controls.Add(this.chk_PrintingWithHtmlTemplates);
             this.grp_Printer.Controls.Add(this.btn_Remove);
             this.grp_Printer.Controls.Add(this.grp_Invoice);
             this.grp_Printer.Controls.Add(this.chk_Printing_Reports);
@@ -143,7 +145,7 @@
             // chk_Printing_Reports
             // 
             this.chk_Printing_Reports.AutoSize = true;
-            this.chk_Printing_Reports.Location = new System.Drawing.Point(9, 59);
+            this.chk_Printing_Reports.Location = new System.Drawing.Point(9, 82);
             this.chk_Printing_Reports.Name = "chk_Printing_Reports";
             this.chk_Printing_Reports.Size = new System.Drawing.Size(101, 17);
             this.chk_Printing_Reports.TabIndex = 3;
@@ -153,12 +155,22 @@
             // chk_Printing_ProformaInvoices
             // 
             this.chk_Printing_ProformaInvoices.AutoSize = true;
-            this.chk_Printing_ProformaInvoices.Location = new System.Drawing.Point(9, 82);
+            this.chk_Printing_ProformaInvoices.Location = new System.Drawing.Point(9, 105);
             this.chk_Printing_ProformaInvoices.Name = "chk_Printing_ProformaInvoices";
             this.chk_Printing_ProformaInvoices.Size = new System.Drawing.Size(149, 17);
             this.chk_Printing_ProformaInvoices.TabIndex = 2;
             this.chk_Printing_ProformaInvoices.Text = "Printing Proforma Invoices";
             this.chk_Printing_ProformaInvoices.UseVisualStyleBackColor = true;
+            // 
+            // chk_PrintingWithHtmlTemplates
+            // 
+            this.chk_PrintingWithHtmlTemplates.AutoSize = true;
+            this.chk_PrintingWithHtmlTemplates.Location = new System.Drawing.Point(9, 47);
+            this.chk_PrintingWithHtmlTemplates.Name = "chk_PrintingWithHtmlTemplates";
+            this.chk_PrintingWithHtmlTemplates.Size = new System.Drawing.Size(164, 17);
+            this.chk_PrintingWithHtmlTemplates.TabIndex = 7;
+            this.chk_PrintingWithHtmlTemplates.Text = "Printing with HTML templates";
+            this.chk_PrintingWithHtmlTemplates.UseVisualStyleBackColor = true;
             // 
             // usrc_Printer
             // 
@@ -189,5 +201,6 @@
         private System.Windows.Forms.CheckBox chk_Card;
         private System.Windows.Forms.CheckBox chk_Cash;
         private System.Windows.Forms.Button btn_Remove;
+        private System.Windows.Forms.CheckBox chk_PrintingWithHtmlTemplates;
     }
 }

@@ -12,7 +12,7 @@ namespace TangentaPrint.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,25 +25,13 @@ namespace TangentaPrint.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DocInvoicePrintTemplate {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PrintingWithHtmlTemplates {
             get {
-                return ((string)(this["DocInvoicePrintTemplate"]));
+                return ((bool)(this["PrintingWithHtmlTemplates"]));
             }
             set {
-                this["DocInvoicePrintTemplate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DocProformaInvoicePrintTemplate {
-            get {
-                return ((string)(this["DocProformaInvoicePrintTemplate"]));
-            }
-            set {
-                this["DocProformaInvoicePrintTemplate"] = value;
+                this["PrintingWithHtmlTemplates"] = value;
             }
         }
     }

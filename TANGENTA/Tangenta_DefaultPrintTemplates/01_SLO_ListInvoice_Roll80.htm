@@ -1,0 +1,179 @@
+﻿<style>
+    html {
+        background-color: gray;
+    }
+
+    body {
+        display: block;
+        width: 8cm;
+        overflow: hidden;
+        background-color: white;
+        padding-left: 0.2cm;
+        padding-right: 0.2cm;
+        margin-top: 0cm;
+        margin-left: 0cm;
+    }
+
+    header {
+        padding: 0.5cm 0;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 0.5cm;
+    }
+
+        #logo img {
+            width: 5cm;
+        }
+
+    h1 {
+        border-bottom: 0.1cm solid #5D6975;
+        color: #5D6975;
+        font-size: 1.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: left;
+        margin: 0.3cm 0 0.2cm 0;
+    }
+
+    #time_span td {
+        vertical-align: top;
+    }
+
+    #project {
+        float: left;
+    }
+
+        #project span {
+            color: black;
+            text-align: right;
+            width: 52px;
+            margin-right: 0.5cm;
+            display: inline-block;
+            font-size: 1em;
+        }
+
+    #company {
+        float: right;
+        text-align: left;
+        font-size: 0.2cm;
+    }
+
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
+
+    .tableitems {
+        width: 100%;
+        border-spacing: 0.01cm;
+        font-size: 0.2cm;
+        margin-bottom: 1cm;
+    }
+
+        .tableitems th,
+        .tableitems td {
+            text-align: left;
+        }
+
+        .tableitems th {
+            color: black;
+            padding: 0.1cm;
+            border-bottom: 0.05cm solid black;
+            white-space: wrap;
+            word-wrap: wrap;
+            font-weight: normal;
+            text-align: left;
+            font-size: 0.25cm;
+        }
+
+
+
+        .tableitems td {
+            padding: 0.1cm;
+            text-align: left;
+            font-size: 0.25cm;
+        }
+
+    .text_right_aligned {
+        text-align: right;
+    }
+
+    .tableitems td.grand {
+        border-top: 0.1cm solid #5D6975;
+    }
+
+    # notices .notice {
+        color: #5D6975;
+        font-size: 0.8cm;
+    }
+
+    .myORG_Logo {
+        padding-left: 50px;
+        height: 80px;
+        width: 160px;
+        ;
+    }
+
+    .methodofpayment {
+        padding: 0.2cm;
+    }
+
+    .paymenttobankaccount {
+        padding: 0.2cm;
+    }
+
+    .QRImage {
+        width: 128px;
+        height: 128px;
+    }
+</style>
+
+
+<html>
+<body>
+    <div class="listinvoicetop">
+        <h1>
+            Izpisek računov
+        </h1>
+        <table id="time_span">
+            <thead>
+                <tr> <th></th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div id="project">
+                            <div><span>OD:</span>(@@Od@@)</div>
+                            <div><span>DO:</span>(@@Do@@)</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table class="tableitems">
+        <thead>
+            <tr>
+                <th style="width:4cm">Račun</th>
+                <th style="width:2cm">Način plačila</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="item">
+                <td>
+                    <div class="invoicenr">Račun št.:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)/(@@Račun_ObračunskoLeto@@) (@@Račun_Stornacija@@)</div>
+                    <div class="totalwithoutVAT">Skupaj brez DDV:(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)</div>
+                    <div class="VAT">(@@Račun_DavčneStopnje@@)</div>
+                    <div class="totalwithVAT">Skupaj z DDV:(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)</div>
+                </td>
+                <td class="text_right_aligned">
+                    <div class="price_with_tax">(@@Račun_NačinPlačila@@)</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

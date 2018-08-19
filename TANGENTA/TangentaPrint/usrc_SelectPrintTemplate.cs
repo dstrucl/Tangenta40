@@ -180,9 +180,9 @@ namespace TangentaPrint
             {
                 if (m_InvoiceData.IsDocInvoice)
                 {
-                    if (Properties.Settings.Default.DocInvoicePrintTemplate.Length > 0)
+                    if (Properties.Settings.Default.PrintingWithHtmlTemplates.Length > 0)
                     {
-                        return Properties.Settings.Default.DocInvoicePrintTemplate;
+                        return Properties.Settings.Default.PrintingWithHtmlTemplates;
                     }
                     else
                     {
