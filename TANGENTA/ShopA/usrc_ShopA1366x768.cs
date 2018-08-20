@@ -46,65 +46,6 @@ namespace ShopA
         SQLTable t_DocInvoice_ShopA_Item = null;
 
 
-        public int SplitContainer1_spd
-        {
-            get
-            {
-                return splitContainer1.SplitterDistance;
-            }
-            set
-            {
-                string Err = null;
-                if (!StaticLib.Func.SetSplitContainerValue(splitContainer1, value, ref Err))
-                {
-                    LogFile.Error.Show("ERROR:ShopA:usrc_ShopA:SetSplitContainer 1 SplitterDistance:Err=" + Err);
-                }
-            }
-        }
-
-        public int Editor_SplitContainer1_spd
-        {
-            get
-            {
-                if (usrc_Editor1 != null)
-                {
-                    return usrc_Editor1.SplitContainer1_spd;
-                }
-                else
-                {
-                   return -1;
-                }
-            }
-            set
-            {
-                if (usrc_Editor1 != null)
-                {
-                    usrc_Editor1.SplitContainer1_spd = value;
-                }
-            }
-        }
-
-        public int Editor_SplitContainer2_spd
-        {
-            get
-            {
-                if (usrc_Editor1 != null)
-                {
-                    return usrc_Editor1.SplitContainer2_spd;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            set
-            {
-                if (usrc_Editor1 != null)
-                {
-                    usrc_Editor1.SplitContainer2_spd = value;
-                }
-            }
-        }
 
         public string DocInvoice
         {
@@ -127,7 +68,6 @@ namespace ShopA
         public usrc_ShopA1366x768()
         {
             InitializeComponent();
-            t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
             lng.s_ShopA_Name.Text(this.lbl_ShopA_Name);
         }
 
@@ -135,14 +75,6 @@ namespace ShopA
         {
             this.BackColor = Colors.ShopA.BackColor;
             this.ForeColor = Colors.ShopA.ForeColor;
-            this.usrc_Editor1.splitContainer1.Panel1.BackColor = Colors.ShopA.BackColor;
-            this.usrc_Editor1.splitContainer1.Panel1.ForeColor = Colors.ShopA.ForeColor;
-            this.usrc_Editor1.splitContainer1.Panel2.BackColor = Colors.ShopA.BackColor;
-            this.usrc_Editor1.splitContainer1.Panel2.ForeColor = Colors.ShopA.ForeColor;
-            this.usrc_Editor1.splitContainer2.Panel1.BackColor = Colors.ShopA.BackColor;
-            this.usrc_Editor1.splitContainer2.Panel1.ForeColor = Colors.ShopA.ForeColor;
-            this.usrc_Editor1.splitContainer2.Panel2.BackColor = Colors.ShopA.BackColor;
-            this.usrc_Editor1.splitContainer2.Panel2.ForeColor = Colors.ShopA.ForeColor;
             lbl_ShopA_Name.BackColor = Colors.ShopA.BackColor;
             lbl_ShopA_Name.ForeColor = Colors.ShopA.ForeColor; ;
         }
@@ -284,7 +216,7 @@ namespace ShopA
                     dgvxc_btn_Remove.Text = "-";
                     dgvxc_btn_Remove.Name = column_deselect;
                     this.dgvx_ShopA.Columns.Add(dgvxc_btn_Remove);
-                    this.usrc_Editor1.Init(m_ShopABC, m_DocInvoice_ShopA_Item);
+                    this.usrc_Editor1366x768_1.Init(m_ShopABC, m_DocInvoice_ShopA_Item);
                 }
 
 
@@ -297,12 +229,12 @@ namespace ShopA
             switch (mode)
             {
                 case eMode.VIEW:
-                    this.splitContainer1.Panel1Collapsed = true;
+                    //this.splitContainer1.Panel1Collapsed = true;
                     SetView();
                     break;
 
                 case eMode.EDIT:
-                    this.splitContainer1.Panel1Collapsed = false;
+                    //this.splitContainer1.Panel1Collapsed = false;
                     SetDraft();
                     break;
             }
@@ -413,6 +345,14 @@ namespace ShopA
                 return EditUnits();
             }
             return false;
+        }
+
+        private void usrc_ShopA1366x768_Load(object sender, EventArgs e)
+        {
+            if (!this.DesignMode)
+            {
+                t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+            }
         }
     }
 }

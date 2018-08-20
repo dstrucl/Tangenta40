@@ -157,6 +157,7 @@ namespace ShopA
             dQuantity_v = new decimal_v();
             m_Unit = new Unit();
             //lbl_Price.Text = "";
+            this.btn_Edit_Units.Image = ShopA.Properties.Resources.Edit;
             chk_Unit.CheckedChanged += Chk_Unit_CheckedChanged;
             chk_Unit.Checked = false;
             enable(chk_Unit.Checked);

@@ -43,6 +43,7 @@
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
             this.txt_Issuer = new System.Windows.Forms.TextBox();
+            this.usrc_ShopA1366x7681 = new ShopA.usrc_ShopA1366x768();
             this.SuspendLayout();
             // 
             // txt_MyOrganisation
@@ -204,9 +205,18 @@
             this.txt_Issuer.Size = new System.Drawing.Size(225, 13);
             this.txt_Issuer.TabIndex = 43;
             // 
+            // usrc_ShopA1366x7681
+            // 
+            this.usrc_ShopA1366x7681.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_ShopA1366x7681.Location = new System.Drawing.Point(6, 105);
+            this.usrc_ShopA1366x7681.Name = "usrc_ShopA1366x7681";
+            this.usrc_ShopA1366x7681.Size = new System.Drawing.Size(612, 372);
+            this.usrc_ShopA1366x7681.TabIndex = 44;
+            // 
             // usrc_DocumentEditor1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_ShopA1366x7681);
             this.Controls.Add(this.txt_Issuer);
             this.Controls.Add(this.btn_Show_Shops);
             this.Controls.Add(this.lbl_Issuer);
@@ -246,5 +256,6 @@
         private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
         private System.Windows.Forms.TextBox txt_Issuer;
+        private ShopA.usrc_ShopA1366x768 usrc_ShopA1366x7681;
     }
 }

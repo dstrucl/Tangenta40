@@ -33,9 +33,9 @@ namespace Tangenta
         public ID Atom_Currency_ID = null;
         private LoginControl.LMOUser m_LMOUser = null;
         private Door door = null;
-        public usrc_ShopA m_usrc_ShopA = null;
-        public usrc_ShopB m_usrc_ShopB = null;
-        public usrc_ShopC m_usrc_ShopC = null;
+        //public usrc_ShopA m_usrc_ShopA = null;
+        //public usrc_ShopB m_usrc_ShopB = null;
+        //public usrc_ShopC m_usrc_ShopC = null;
 
         public string ShopsMode = "";
         private usrc_DocumentMan1366x768 m_usrc_DocumentMan = null;
@@ -198,12 +198,8 @@ namespace Tangenta
 
         private void New_ShopA()
         {
-            if (m_usrc_ShopA==null)
-            {
-                m_usrc_ShopA = new usrc_ShopA();
-            }
             m_usrc_ShopA.Init(this.m_ShopABC, DBtcn);
-            m_usrc_ShopA.Dock = DockStyle.Fill;
+            m_usrc_ShopA.Dock = DockStyle.None;
             m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
             m_usrc_ShopA.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
             m_usrc_ShopA.EditUnits += M_usrc_ShopA_EditUnits;
@@ -245,7 +241,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
             m_usrc_ShopC.Init(m_LMOUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,Program.Shops_in_use,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
-            m_usrc_ShopC.Dock = DockStyle.Fill;
+            m_usrc_ShopC.Dock = DockStyle.None;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
         }
@@ -338,7 +334,7 @@ namespace Tangenta
 
             m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use);
 
-            m_usrc_ShopB.Dock = DockStyle.Fill;
+            m_usrc_ShopB.Dock = DockStyle.None;
 
             m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
 

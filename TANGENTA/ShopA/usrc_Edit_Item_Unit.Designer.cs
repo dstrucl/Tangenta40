@@ -96,7 +96,7 @@
             // btn_Edit_Units
             // 
             this.btn_Edit_Units.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Edit_Units.Image = global::ShopA.Properties.Resources.Edit;
+            this.btn_Edit_Units.Image = null;
             this.btn_Edit_Units.Location = new System.Drawing.Point(2, 1);
             this.btn_Edit_Units.Name = "btn_Edit_Units";
             this.btn_Edit_Units.Size = new System.Drawing.Size(37, 33);

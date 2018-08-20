@@ -113,6 +113,36 @@ namespace Tangenta
             }
         }
 
+        private usrc_DocumentMan1366x768 m_DocumentMan1366x768 = null;
+
+        public usrc_DocumentMan1366x768 DocumentMan1366x768
+        {
+            get
+            {
+                return m_DocumentMan1366x768;
+            }
+            set
+            {
+                m_DocumentMan1366x768 = value;
+            }
+        }
+
+        public bool HasDocumentMan1366x768
+        {
+            get
+            {
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl is usrc_DocumentMan1366x768)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        
+
         public Form_Document()
         {
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
@@ -147,7 +177,7 @@ namespace Tangenta
             Program.nav.ExitProgramQuestionInLanguage = lng.s_RealyWantToExitProgram.s;
 
 
-            if (Properties.Settings.Default.FullScreen)
+            if (Properties.Settings.Default.FullScreen || Properties.Settings.Default.ControlLayout_TouchScreen)
             {
                 this.FormBorderStyle = FormBorderStyle.None;
             }
@@ -155,6 +185,7 @@ namespace Tangenta
             {
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
+
 
 
             this.loginControl1.IdleControlFileImageUrl1 = Properties.Settings.Default.IdleControl_FileImageUrl1;
@@ -315,22 +346,52 @@ namespace Tangenta
 
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
-            DocumentMan.WizzardShow_ShopsVisible(xshops_inuse);
+            if (HasDocumentMan1366x768)
+            {
+                DocumentMan1366x768.WizzardShow_ShopsVisible(xshops_inuse);
+            }
+            else
+            {
+                DocumentMan.WizzardShow_ShopsVisible(xshops_inuse);
+            }
         }
 
         internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
         {
-            DocumentMan.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+            if (HasDocumentMan1366x768)
+            {
+                DocumentMan1366x768.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+            }
+            else
+            {
+                DocumentMan.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
+            }
         }
 
         internal void WizzardShow_InvoiceTable_Visible(bool bvisible)
         {
-            DocumentMan.WizzardShow_InvoiceTable_Visible(bvisible);
+            if (HasDocumentMan1366x768)
+            {
+                DocumentMan1366x768.WizzardShow_InvoiceTable_Visible(bvisible);
+            }
+            else
+            {
+                DocumentMan.WizzardShow_InvoiceTable_Visible(bvisible);
+            }
+
         }
 
         internal void WizzardShow_DocInvoice(string xDocInvoice)
         {
-            DocumentMan.WizzardShow_DocInvoice(xDocInvoice);
+            if (HasDocumentMan1366x768)
+            {
+                DocumentMan1366x768.WizzardShow_DocInvoice(xDocInvoice);
+            }
+            else
+            {
+                DocumentMan.WizzardShow_DocInvoice(xDocInvoice);
+            }
+
         }
 
         private void M_usrc_Startup_WebBrowserControl_DocumentCompleted(string url)
@@ -470,18 +531,39 @@ namespace Tangenta
                 }
             }
 
-            if (DocumentMan != null)
+            if (HasDocumentMan1366x768)
             {
-                if (ID.Validate(DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID))
+                if (DocumentMan1366x768 != null)
                 {
-                   // Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
-                }
-                if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA != null)
-                {
-                    if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                    if (ID.Validate(DocumentMan1366x768.m_usrc_TableOfDocuments.Current_Doc_ID))
                     {
-                        DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                        DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                        // Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+                    }
+                    if (DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA != null)
+                    {
+                        if (DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                        {
+                            DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                            DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (DocumentMan != null)
+                {
+                    if (ID.Validate(DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID))
+                    {
+                        // Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
+                    }
+                    if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA != null)
+                    {
+                        if (DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                        {
+                            DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                            DocumentMan.m_usrc_DocumentEditor.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                        }
                     }
                 }
             }
@@ -620,13 +702,13 @@ namespace Tangenta
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:myOrg.m_myOrg_Office.m_myOrg_Person.ID is not valid!");
+                    LogFile.Error.Show("ERROR:Tangenta:Form_Document:call_Edit_myOrganisationPerson:myOrg.m_myOrg_Office.m_myOrg_Person.ID is not valid!");
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:call_Edit_myOrganisationPerson:(myOrg.m_myOrg_Office == null!");
+                LogFile.Error.Show("ERROR:Tangenta:Form_Document:call_Edit_myOrganisationPerson:(myOrg.m_myOrg_Office == null!");
                 return false;
             }
         }
@@ -667,10 +749,21 @@ namespace Tangenta
                 {
                     if (this.eExitReason != LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL)
                     {
-                        if (this.DocumentMan != null)
+                        if (HasDocumentMan1366x768)
                         {
-                            LayoutSave(((SettingsUser)this.DocumentMan.m_LMOUser.oSettings).mSettingsUserValues);
-                            this.DocumentMan.Active = false;
+                            if (this.DocumentMan1366x768 != null)
+                            {
+                                LayoutSave(((SettingsUser)this.DocumentMan1366x768.m_LMOUser.oSettings).mSettingsUserValues);
+                                this.DocumentMan1366x768.Active = false;
+                            }
+                        }
+                        else
+                        {
+                            if (this.DocumentMan != null)
+                            {
+                                LayoutSave(((SettingsUser)this.DocumentMan.m_LMOUser.oSettings).mSettingsUserValues);
+                                this.DocumentMan.Active = false;
+                            }
                         }
                         this.loginControl1.Login_MultipleUsers_ShowControl();
                         e.Cancel = true;
@@ -761,7 +854,14 @@ namespace Tangenta
         private void M_usrc_Main_LayoutChanged()
         {
             SetNewFormTag();
-            DocumentMan.HelpReload();
+            if (HasDocumentMan1366x768)
+            {
+                DocumentMan1366x768.HelpReload();
+            }
+            else
+            {
+                DocumentMan.HelpReload();
+            }
         }
 
 
@@ -770,17 +870,36 @@ namespace Tangenta
             string sNewTag = "_";
             sXMLFiletag = "_";
             List<string> tag_conditions = new List<string>();
-            if (this.DocumentMan.IsDocInvoice)
+
+            if (HasDocumentMan1366x768)
             {
-                numberOfAll = fs.NumberOInvoicesInDatabase();
-                sNewTag += "i";
-                tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
+                if (this.DocumentMan1366x768.IsDocInvoice)
+                {
+                    numberOfAll = fs.NumberOInvoicesInDatabase();
+                    sNewTag += "i";
+                    tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
+                }
+                else if (this.DocumentMan1366x768.IsDocProformaInvoice)
+                {
+                    numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                    sNewTag += "p";
+                    tag_conditions.Add(tagDC_DocType_ProformeInvoice.NamedCondition);
+                }
             }
-            else if (this.DocumentMan.IsDocProformaInvoice)
+            else
             {
-                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
-                sNewTag += "p";
-                tag_conditions.Add(tagDC_DocType_ProformeInvoice.NamedCondition);
+                if (this.DocumentMan.IsDocInvoice)
+                {
+                    numberOfAll = fs.NumberOInvoicesInDatabase();
+                    sNewTag += "i";
+                    tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
+                }
+                else if (this.DocumentMan.IsDocProformaInvoice)
+                {
+                    numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                    sNewTag += "p";
+                    tag_conditions.Add(tagDC_DocType_ProformeInvoice.NamedCondition);
+                }
             }
 
             if (numberOfAll < 0)
@@ -814,86 +933,173 @@ namespace Tangenta
                 tag_conditions.Add(tagDC_MultiUser_false.NamedCondition);
             }
 
-            if (DocumentMan.m_usrc_Invoice_Visible)
+            if (HasDocumentMan1366x768)
             {
-                sNewTag += "I";
-                tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
+                if (DocumentMan1366x768.m_usrc_Invoice_Visible)
+                {
+                    sNewTag += "I";
+                    tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
 
-                if (DocumentMan.m_usrc_InvoiceHead_Visible)
-                {
-                    sNewTag += "h1";
-                    tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
-                }
-                else
-                {
-                    sNewTag += "h0";
-                    tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
-                }
-
-                if (DocumentMan.m_usrc_Invoice_ViewMode)
-                {
-                    if (sNewTag.Contains("N"))
+                    if (DocumentMan1366x768.m_usrc_InvoiceHead_Visible)
                     {
-                        sNewTag += "v";
-                        tag_conditions.Add(tagDC_usrc_Invoice_Mode_ViewMode.NamedCondition);
+                        sNewTag += "h1";
+                        tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
+                    }
+                    else
+                    {
+                        sNewTag += "h0";
+                        tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
+                    }
+
+                    if (DocumentMan1366x768.m_usrc_Invoice_ViewMode)
+                    {
+                        if (sNewTag.Contains("N"))
+                        {
+                            sNewTag += "v";
+                            tag_conditions.Add(tagDC_usrc_Invoice_Mode_ViewMode.NamedCondition);
+                        }
+                    }
+                    else
+                    {
+                        if (sNewTag.Contains("N"))
+                        {
+                            sNewTag += "e";
+                            sXMLFiletag += "e";
+                            tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
+                        }
+                    }
+                    if (DocumentMan1366x768.ShopA_Visible)
+                    {
+                        sNewTag += "A";
+                        tag_conditions.Add(tagDC_ShopA_Visible_true.NamedCondition);
+                    }
+                    else
+                    {
+                        tag_conditions.Add(tagDC_ShopA_Visible_false.NamedCondition);
+                    }
+
+                    if (DocumentMan1366x768.ShopB_Visible)
+                    {
+                        sNewTag += "B";
+                        tag_conditions.Add(tagDC_ShopB_Visible_true.NamedCondition);
+                        if (sNewTag.Contains("e"))
+                        {
+                            GetNumberOfShopBGroupsLevel(tag_conditions, ref sNewTag, ref sXMLFiletag);
+                        }
+                    }
+                    else
+                    {
+                        tag_conditions.Add(tagDC_ShopB_Visible_false.NamedCondition);
+                    }
+                    if (DocumentMan1366x768.ShopC_Visible)
+                    {
+                        sNewTag += "C";
+                        tag_conditions.Add(tagDC_ShopC_Visible_true.NamedCondition);
+                        if (sNewTag.Contains("e"))
+                        {
+                            GetNumberOfShopCGroupsLevel(tag_conditions, ref sNewTag, ref sXMLFiletag);
+                        }
+                    }
+                    else
+                    {
+                        tag_conditions.Add(tagDC_ShopC_Visible_false.NamedCondition);
                     }
                 }
-                else
+                if (DocumentMan1366x768.m_usrc_InvoiceTable_Visible)
                 {
-                    if (sNewTag.Contains("N"))
-                    {
-                        sNewTag += "e";
-                        sXMLFiletag += "e";
-                        tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
-                    }
-                }
-                if (DocumentMan.ShopA_Visible)
-                {
-                    sNewTag += "A";
-                    tag_conditions.Add(tagDC_ShopA_Visible_true.NamedCondition);
+                    sNewTag += "t";
+                    tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_true.NamedCondition);
                 }
                 else
                 {
-                    tag_conditions.Add(tagDC_ShopA_Visible_false.NamedCondition);
+                    tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_false.NamedCondition);
                 }
 
-                if (DocumentMan.ShopB_Visible)
-                {
-                    sNewTag += "B";
-                    tag_conditions.Add(tagDC_ShopB_Visible_true.NamedCondition);
-                    if (sNewTag.Contains("e"))
-                    {
-                        GetNumberOfShopBGroupsLevel(tag_conditions,ref sNewTag, ref sXMLFiletag);
-                    }
-                }
-                else
-                {
-                    tag_conditions.Add(tagDC_ShopB_Visible_false.NamedCondition);
-                }
-                if (DocumentMan.ShopC_Visible)
-                {
-                    sNewTag += "C";
-                    tag_conditions.Add(tagDC_ShopC_Visible_true.NamedCondition);
-                    if (sNewTag.Contains("e"))
-                    {
-                        GetNumberOfShopCGroupsLevel(tag_conditions,ref sNewTag, ref sXMLFiletag);
-                    }
-                }
-                else
-                {
-                    tag_conditions.Add(tagDC_ShopC_Visible_false.NamedCondition);
-                }
-            }
-
-            if (DocumentMan.m_usrc_InvoiceTable_Visible)
-            {
-                sNewTag += "t";
-                tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_true.NamedCondition);
             }
             else
             {
-                tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_false.NamedCondition);
+                if (DocumentMan.m_usrc_Invoice_Visible)
+                {
+                    sNewTag += "I";
+                    tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
+
+                    if (DocumentMan.m_usrc_InvoiceHead_Visible)
+                    {
+                        sNewTag += "h1";
+                        tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
+                    }
+                    else
+                    {
+                        sNewTag += "h0";
+                        tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
+                    }
+
+                    if (DocumentMan.m_usrc_Invoice_ViewMode)
+                    {
+                        if (sNewTag.Contains("N"))
+                        {
+                            sNewTag += "v";
+                            tag_conditions.Add(tagDC_usrc_Invoice_Mode_ViewMode.NamedCondition);
+                        }
+                    }
+                    else
+                    {
+                        if (sNewTag.Contains("N"))
+                        {
+                            sNewTag += "e";
+                            sXMLFiletag += "e";
+                            tag_conditions.Add(tagDC_usrc_Invoice_Mode_EditMode.NamedCondition);
+                        }
+                    }
+                    if (DocumentMan.ShopA_Visible)
+                    {
+                        sNewTag += "A";
+                        tag_conditions.Add(tagDC_ShopA_Visible_true.NamedCondition);
+                    }
+                    else
+                    {
+                        tag_conditions.Add(tagDC_ShopA_Visible_false.NamedCondition);
+                    }
+
+                    if (DocumentMan.ShopB_Visible)
+                    {
+                        sNewTag += "B";
+                        tag_conditions.Add(tagDC_ShopB_Visible_true.NamedCondition);
+                        if (sNewTag.Contains("e"))
+                        {
+                            GetNumberOfShopBGroupsLevel(tag_conditions, ref sNewTag, ref sXMLFiletag);
+                        }
+                    }
+                    else
+                    {
+                        tag_conditions.Add(tagDC_ShopB_Visible_false.NamedCondition);
+                    }
+                    if (DocumentMan.ShopC_Visible)
+                    {
+                        sNewTag += "C";
+                        tag_conditions.Add(tagDC_ShopC_Visible_true.NamedCondition);
+                        if (sNewTag.Contains("e"))
+                        {
+                            GetNumberOfShopCGroupsLevel(tag_conditions, ref sNewTag, ref sXMLFiletag);
+                        }
+                    }
+                    else
+                    {
+                        tag_conditions.Add(tagDC_ShopC_Visible_false.NamedCondition);
+                    }
+                }
+                if (DocumentMan.m_usrc_InvoiceTable_Visible)
+                {
+                    sNewTag += "t";
+                    tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_true.NamedCondition);
+                }
+                else
+                {
+                    tag_conditions.Add(tagDC_usrc_InvoiceTable_Visible_false.NamedCondition);
+                }
             }
+
+
             int iconditions_count = tag_conditions.Count;
             sTagConditions = new string[iconditions_count];
             for (int i=0;i< iconditions_count;i++)
@@ -935,7 +1141,16 @@ namespace Tangenta
 
         private void GetNumberOfShopCGroupsLevel(List<string> tagconditions, ref string sNewTag, ref string sXMLFileTag)
         {
-            int numberofshopBgroupslevel = DocumentMan.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
+            int numberofshopBgroupslevel = 0;
+            if (HasDocumentMan1366x768)
+            {
+                numberofshopBgroupslevel = DocumentMan1366x768.m_usrc_DocumentEditor1366x768.NumberOfShopBGroupLevels;
+            }
+            else
+            {
+                numberofshopBgroupslevel = DocumentMan.m_usrc_DocumentEditor.NumberOfShopBGroupLevels;
+            }
+
             switch (numberofshopBgroupslevel)
             {
                 case 0:
@@ -1392,22 +1607,41 @@ namespace Tangenta
             if (user_settings.Load(xLMOUser))
             {
                 xLMOUser.oSettings = user_settings;
+
                 //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
                 //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
                 //xLMOUser.Form_settingsuser.Owner = this;
                 //xLMOUser.Form_settingsuser.Show();
 
-                usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
-                xusrc_DocumentMan.Visible = false;
-                xusrc_DocumentMan.Dock = DockStyle.Fill;
-                this.Controls.Add(xusrc_DocumentMan);
+                if (Properties.Settings.Default.ControlLayout_TouchScreen)
+                {
+                    usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768  = new usrc_DocumentMan1366x768();
+                    xusrc_DocumentMan1366x768.Visible = false;
+                    xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
+                    this.Controls.Add(xusrc_DocumentMan1366x768);
 
-                xusrc_DocumentMan.Initialise(this, xLMOUser);
-                xusrc_DocumentMan.Init();
+                    xusrc_DocumentMan1366x768.Initialise(this, xLMOUser);
+                    xusrc_DocumentMan1366x768.Init();
 
 
-                xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan;
-                xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+                    xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
+                    xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+
+                }
+                else
+                {
+                    usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
+                    xusrc_DocumentMan.Visible = false;
+                    xusrc_DocumentMan.Dock = DockStyle.Fill;
+                    this.Controls.Add(xusrc_DocumentMan);
+
+                    xusrc_DocumentMan.Initialise(this, xLMOUser);
+                    xusrc_DocumentMan.Init();
+
+
+                    xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan;
+                    xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+                }
 
             }
         }
@@ -1420,9 +1654,16 @@ namespace Tangenta
 
             //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
             //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
-            this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan); 
-
-            ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+            if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
+            {
+                this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
+                ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+            }
+            else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+            {
+                this.Controls.Remove((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan);
+                ((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan).Dispose();
+            }
 
             xLMOUser.m_usrc_DocumentMan = null;
         }
@@ -1430,30 +1671,52 @@ namespace Tangenta
         private void loginControl1_ActivateDocumentMan(LoginControl.LMOUser xLMOUser)
         {
 
-            DocumentMan = (usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan;
-
-            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
-
-            SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
-            LayoutSet(user_settings.mSettingsUserValues);
-
-            if (xLMOUser.ReloadRequest)
+            if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
             {
-               DocumentMan.Reload();
-                xLMOUser.ReloadRequest = false;
+                DocumentMan = (usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan;
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+
+                SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
+                LayoutSet(user_settings.mSettingsUserValues);
+
+                if (xLMOUser.ReloadRequest)
+                {
+                    DocumentMan.Reload();
+                    xLMOUser.ReloadRequest = false;
+                }
+
+                DocumentMan.Active = true;
+
+                DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
+
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
+
+                SetNewFormTag();
+                DocumentMan.LayoutChanged += M_usrc_Main_LayoutChanged;
             }
+            else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+            {
+                DocumentMan1366x768 = (usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan;
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
 
-            DocumentMan.Active = true;
+                SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
+                //LayoutSet(user_settings.mSettingsUserValues);
 
-            DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
+                if (xLMOUser.ReloadRequest)
+                {
+                    DocumentMan1366x768.Reload();
+                    xLMOUser.ReloadRequest = false;
+                }
 
-            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
+                DocumentMan1366x768.Active = true;
 
-            SetNewFormTag();
-            DocumentMan.LayoutChanged += M_usrc_Main_LayoutChanged;
+                DocumentMan1366x768.Activate_dgvx_XInvoice_SelectionChanged();
 
-            
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
+                SetNewFormTag();
+                DocumentMan1366x768.LayoutChanged += M_usrc_Main_LayoutChanged;
+            }
 
         }
 
@@ -1464,10 +1727,21 @@ namespace Tangenta
 
         private void loginControl1_Reload(LoginControl.LMOUser xLMOUser)
         {
-            usrc_DocumentMan xusrc_DocumentMan = (usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan;
-            if (xusrc_DocumentMan!=null)
+            if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
             {
-                xusrc_DocumentMan.Reload();
+                usrc_DocumentMan xusrc_DocumentMan = (usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan;
+                if (xusrc_DocumentMan != null)
+                {
+                    xusrc_DocumentMan.Reload();
+                }
+            }
+            else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+            {
+                usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = (usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan;
+                if (xusrc_DocumentMan1366x768 != null)
+                {
+                    xusrc_DocumentMan1366x768.Reload();
+                }
             }
 
         }
