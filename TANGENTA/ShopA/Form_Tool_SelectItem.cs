@@ -25,11 +25,11 @@ namespace ShopA
         public Atom_ItemShopA m_Atom_ItemShopA = null;
         public int iSelectedIndex = -1;
         DataTable dt_Atom_ItemShopA = new DataTable();
-        usrc_Editor m_usrc_Editor = null;
+        object m_usrc_Editor = null;
         SQLTable t_Atom_ItemShopA = null;
         long dgSortingSelectedItem_ID = -1;
 
-        public Form_Tool_SelectItem(Atom_ItemShopA xAtom_ItemShopA, usrc_Editor xusrc_Editor)
+        public Form_Tool_SelectItem(Atom_ItemShopA xAtom_ItemShopA, object xusrc_Editor)
         {
             InitializeComponent();
             m_Atom_ItemShopA = xAtom_ItemShopA;
@@ -168,7 +168,14 @@ namespace ShopA
 
         private void Form_Tool_SelectItem_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_usrc_Editor.Form_Tool_SelectItem_FormClosed();
+            if (m_usrc_Editor is usrc_Editor)
+            {
+                ((usrc_Editor)m_usrc_Editor).Form_Tool_SelectItem_FormClosed();
+            }
+            else if (m_usrc_Editor is usrc_Editor1366x768)
+            {
+                ((usrc_Editor1366x768)m_usrc_Editor).Form_Tool_SelectItem_FormClosed();
+            }
         }
 
         private void dgvx_Item_SelectionChanged(object sender, EventArgs e)
@@ -193,8 +200,11 @@ namespace ShopA
                 {
                     m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(null);
                 }
-                
-                m_usrc_Editor.SetControls(m_Atom_ItemShopA);
+
+                if (m_usrc_Editor is usrc_Editor)
+                {
+                    ((usrc_Editor)m_usrc_Editor).SetControls(m_Atom_ItemShopA);
+                }
             }
         }
 

@@ -34,5 +34,29 @@ namespace TangentaPrint.Properties {
                 this["PrintingWithHtmlTemplates"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DocProformaInvoicePrintTemplate {
+            get {
+                return ((string)(this["DocProformaInvoicePrintTemplate"]));
+            }
+            set {
+                this["DocProformaInvoicePrintTemplate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DocInvoicePrintTemplate {
+            get {
+                return ((string)(this["DocInvoicePrintTemplate"]));
+            }
+            set {
+                this["DocInvoicePrintTemplate"] = value;
+            }
+        }
     }
 }

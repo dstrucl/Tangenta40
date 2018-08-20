@@ -22,6 +22,8 @@ namespace Tangenta
     public partial class Form_ShowShops : Form
     {
         private usrc_DocumentEditor m_usrc_Invoice = null;
+        private usrc_DocumentEditor1366x768 m_usrc_Invoice1366x768 = null;
+
         private SettingsUserValues mSettingsUserValues = null;
         public Form_ShowShops(usrc_DocumentEditor x_usrc_Invoice,SettingsUserValues xSettingsUserValues)
         {
@@ -87,6 +89,69 @@ namespace Tangenta
             rdb_ABC.CheckedChanged += Rdb_ABC_CheckedChanged;
         }
 
+        public Form_ShowShops(usrc_DocumentEditor1366x768 x_usrc_Invoice1366x768, SettingsUserValues xSettingsUserValues)
+        {
+            InitializeComponent();
+            mSettingsUserValues = xSettingsUserValues;
+            m_usrc_Invoice1366x768 = x_usrc_Invoice1366x768;
+            lng.s_Show_Shops.Text(this);
+            lng.s_Shop_A.Text(rdb_A);
+            lng.s_Shop_B.Text(rdb_B);
+            lng.s_Shop_C.Text(rdb_C);
+            lng.s_Shop_AB.Text(rdb_AB);
+            lng.s_Shop_BC.Text(rdb_BC);
+            lng.s_Shop_AC.Text(rdb_AC);
+            lng.s_Shop_ABC.Text(rdb_ABC);
+
+
+            rdb_A.Checked = false;
+            rdb_B.Checked = false;
+            rdb_C.Checked = false;
+            rdb_AB.Checked = false;
+            rdb_BC.Checked = false;
+            rdb_AC.Checked = false;
+            rdb_ABC.Checked = false;
+
+            if (mSettingsUserValues.eShopsMode.Equals("A"))
+            {
+                rdb_A.Checked = true;
+            }
+            else if (mSettingsUserValues.eShopsMode.Equals("B"))
+            {
+                rdb_B.Checked = true;
+            }
+            else if (mSettingsUserValues.eShopsMode.Equals("C"))
+            {
+                rdb_C.Checked = true;
+            }
+            else if (mSettingsUserValues.eShopsMode.Equals("AB"))
+            {
+                rdb_AB.Checked = true;
+            }
+            else if (mSettingsUserValues.eShopsMode.Equals("BC"))
+            {
+                rdb_BC.Checked = true;
+            }
+            else if (mSettingsUserValues.eShopsMode.Equals("AC"))
+            {
+                rdb_AC.Checked = true;
+            }
+            else if (mSettingsUserValues.eShopsMode.Equals("ABC"))
+            {
+                rdb_ABC.Checked = true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShopsMode);
+            }
+            rdb_A.CheckedChanged += Rdb_A_CheckedChanged;
+            rdb_B.CheckedChanged += Rdb_B_CheckedChanged;
+            rdb_C.CheckedChanged += Rdb_C_CheckedChanged;
+            rdb_AB.CheckedChanged += Rdb_AB_CheckedChanged;
+            rdb_BC.CheckedChanged += Rdb_BC_CheckedChanged;
+            rdb_AC.CheckedChanged += Rdb_AC_CheckedChanged;
+            rdb_ABC.CheckedChanged += Rdb_ABC_CheckedChanged;
+        }
         private void Rdb_A_CheckedChanged(object sender, EventArgs e)
         {
             if (rdb_A.Checked)

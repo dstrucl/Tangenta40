@@ -10,6 +10,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiscalVerificationOfInvoices_SLO_TEST", "SLO_FISCAL\FiscalVerificationOfInvoices_SLO_TEST\FiscalVerificationOfInvoices_SLO_TEST.csproj", "{060072A4-7185-426B-ACF6-91A90AC8B6B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TANGENTA", "TANGENTA", "{39381E0E-1B09-4509-A5B5-2F1139C1C606}"
+	ProjectSection(SolutionItems) = preProject
+		TANGENTA\Tangenta\usrc_DocumentMan.cs = TANGENTA\Tangenta\usrc_DocumentMan.cs
+		TANGENTA\Tangenta\usrc_DocumentMan.Designer.cs = TANGENTA\Tangenta\usrc_DocumentMan.Designer.cs
+		TANGENTA\Tangenta\usrc_DocumentMan.resx = TANGENTA\Tangenta\usrc_DocumentMan.resx
+		TANGENTA\ShopC\usrc_Item.cs = TANGENTA\ShopC\usrc_Item.cs
+		TANGENTA\ShopC\usrc_Item.Designer.cs = TANGENTA\ShopC\usrc_Item.Designer.cs
+		TANGENTA\ShopC\usrc_Item.resx = TANGENTA\ShopC\usrc_Item.resx
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeTables", "CodeTables", "{5DF51282-E200-46AE-9FBC-7C3FDBD60A53}"
 EndProject

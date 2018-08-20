@@ -21,15 +21,15 @@ using DBConnectionControl40;
 
 namespace ShopC
 {
-    public partial class usrc_Atom_ItemsList : UserControl
+    public partial class usrc_Atom_ItemsList1366x768 : UserControl
     {
         public ID m_Atom_WorkPeriod_ID = null;
 
-        public usrc_Atom_Item[] usrc_Atom_Item_array = null;
+        public usrc_Atom_Item1366x768[] usrc_Atom_Item_array = null;
 
         public int yPosLast = 5;
 
-        private usrc_ItemList m_usrc_ItemList = null;
+        private usrc_ItemList1366x768 m_usrc_ItemList1366x768 = null;
 
 
         public TangentaDB.ShopABC m_ShopBC;
@@ -81,13 +81,13 @@ namespace ShopC
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             if (usrc_Atom_Item_array==null)
             { 
-                usrc_Atom_Item_array = new usrc_Atom_Item[NumberOfItemsPerPage];
+                usrc_Atom_Item_array = new usrc_Atom_Item1366x768[NumberOfItemsPerPage];
 
                 int i = 0;
                 int yPos = 0;
                 for (i = 0; i < m_NumberOfItemsPerPage; i++)
                 {
-                    usrc_Atom_Item xusrc_Atom_Item = new usrc_Atom_Item();
+                    usrc_Atom_Item1366x768 xusrc_Atom_Item = new usrc_Atom_Item1366x768();
                     xusrc_Atom_Item.btn_RemoveClick += usrc_Atom_Item_RemoveClick; 
                     xusrc_Atom_Item.Top = yPos;
                     xusrc_Atom_Item.Left = 5;
@@ -102,14 +102,14 @@ namespace ShopC
             }
         }
 
-        public usrc_Atom_ItemsList()
+        public usrc_Atom_ItemsList1366x768()
         {
             InitializeComponent();
         }
 
-        internal void Init(ID xAtom_WorkPeriod_ID,usrc_ItemList x_usrc_ItemList, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        internal void Init(ID xAtom_WorkPeriod_ID, usrc_ItemList1366x768 x_usrc_ItemList1366x768, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
-            m_usrc_ItemList = x_usrc_ItemList;
+            m_usrc_ItemList1366x768 = x_usrc_ItemList1366x768;
             m_ShopBC=xm_InvoiceDB;
             DBtcn = xDBtcn;
             // pias_Atom_Item_List.Clear();
@@ -118,13 +118,13 @@ namespace ShopC
 
 
 
-        internal void usrc_Atom_Item_RemoveClick(usrc_Atom_Item x_usrc_Atom_Item, bool bFactory)
+        internal void usrc_Atom_Item_RemoveClick(usrc_Atom_Item1366x768 x_usrc_Atom_Item, bool bFactory)
         {
             if (bFactory)
             {
                 if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_appisd))
                 {
-                    if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
+                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
                     {
                         m_usrc_Item_PageHandler.DoPaint();
                         if (After_Atom_Item_Remove!=null)
@@ -146,7 +146,7 @@ namespace ShopC
             {
                 if (this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocTyp, x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf))
                 {
-                    if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
+                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
                     {
                         m_usrc_Item_PageHandler.DoPaint();
                         if (After_Atom_Item_Remove != null)
@@ -172,7 +172,7 @@ namespace ShopC
         {
 
             m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
-            this.m_usrc_ItemList.Reset();
+            this.m_usrc_ItemList1366x768.Reset();
             if (this.m_ShopBC.m_CurrentDoc.bDraft)
             {
                 this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
@@ -251,7 +251,7 @@ namespace ShopC
                 this.Cursor = Cursors.WaitCursor;
                 m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
                 m_usrc_Item_PageHandler.DoPaint();
-                m_usrc_ItemList.Reset();
+                m_usrc_ItemList1366x768.Reset();
                 this.Cursor = Cursors.Arrow;
                 btn_ClearAll.Visible = false;
             }

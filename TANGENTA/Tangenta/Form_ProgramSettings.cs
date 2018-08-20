@@ -26,16 +26,43 @@ namespace Tangenta
     {
         private int default_language_ID = -1;
         private int newLanguage = -1;
-        private usrc_DocumentMan m_usrc_Main;
+
+        private usrc_DocumentMan m_usrc_DocumentMan = null;
+        private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
+
         private bool bChanged = false;
         private NavigationButtons.Navigation nav = null;
         private Form LogManager_dlg = null;
         private bool bDBSettingsChanged = false;
 
-        public Form_ProgramSettings(usrc_DocumentMan usrc_Main,NavigationButtons.Navigation xnav)
+        public Form_ProgramSettings(NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             nav = xnav;
+            Init();
+        }
+
+
+        public Form_ProgramSettings(usrc_DocumentMan xusrc_DocumentMan,NavigationButtons.Navigation xnav)
+        {
+            InitializeComponent();
+            m_usrc_DocumentMan = xusrc_DocumentMan;
+            nav = xnav;
+            Init();
+
+        }
+
+        public Form_ProgramSettings(usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768, NavigationButtons.Navigation xnav)
+        {
+            InitializeComponent();
+            m_usrc_DocumentMan1366x768 = xusrc_DocumentMan1366x768;
+            nav = xnav;
+            Init();
+
+        }
+
+        private void Init()
+        {
             this.usrc_NavigationButtons1.Init(nav);
             lng.sProgramSettings.Text(this);
             lng.s_LogFile.Text(btn_LogFile);
@@ -61,7 +88,7 @@ namespace Tangenta
             rdb_Authentification_Password.Checked = (Properties.Settings.Default.AccessAuthentication == 1);
             rdb_Authentification_PIN.Checked = (Properties.Settings.Default.AccessAuthentication == 2);
             rdb_Authentification_RFID.Checked = (Properties.Settings.Default.AccessAuthentication == 3);
-            if ((Properties.Settings.Default.AccessAuthentication <0)||(Properties.Settings.Default.AccessAuthentication > 3))
+            if ((Properties.Settings.Default.AccessAuthentication < 0) || (Properties.Settings.Default.AccessAuthentication > 3))
             {
                 LogFile.Error.Show("ERROR:Tangenta:ProgramSettings:Properties.Settings.Default.AccessAuthentication is not 0,1,2,3 it may not be " + Properties.Settings.Default.AccessAuthentication.ToString());
             }
@@ -94,7 +121,6 @@ namespace Tangenta
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
             chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
             chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
-            m_usrc_Main = usrc_Main;
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
             {
                 if (nav.m_Auto_NEXT != null)
@@ -108,13 +134,18 @@ namespace Tangenta
             txt_GitSourceVersion.Text = LogFile.LogFile.VersionControlSourceVersion;
             this.usrc_SelectColorSheme1.ColorShemeChanged += Usrc_SelectColorSheme1_ColorShemeChanged;
 
+
         }
 
         private void Usrc_SelectColorSheme1_ColorShemeChanged()
         {
-            if (m_usrc_Main != null)
+            if (m_usrc_DocumentMan != null)
             {
-                this.m_usrc_Main.SetColor();
+                this.m_usrc_DocumentMan.SetColor();
+            }
+            else if (m_usrc_DocumentMan1366x768 != null)
+            {
+                this.m_usrc_DocumentMan1366x768.SetColor();
             }
         }
 
@@ -350,14 +381,25 @@ namespace Tangenta
 
         private void btn_UserSettings_Click(object sender, EventArgs e)
         {
-            Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(this.m_usrc_Main.m_LMOUser);
-            frm_settingsuser.Init();
-            frm_settingsuser.ShowDialog(this);
+            if (m_usrc_DocumentMan != null)
+            {
+                Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(this.m_usrc_DocumentMan.m_LMOUser);
+                frm_settingsuser.Init();
+                frm_settingsuser.ShowDialog(this);
+            }
         }
 
         private void btn_IdleSettings_Click(object sender, EventArgs e)
         {
-            Form pParentForm = Global.f.GetParentForm(m_usrc_Main);
+            Form pParentForm = null;
+            if (m_usrc_DocumentMan != null)
+            {
+                pParentForm = Global.f.GetParentForm(m_usrc_DocumentMan);
+            }
+            else if (m_usrc_DocumentMan1366x768 != null)
+            {
+                pParentForm = Global.f.GetParentForm(m_usrc_DocumentMan1366x768);
+            }
             if (pParentForm != null)
             {
                 Form_IdleSettings frm_idlesettings = new Form_IdleSettings(((Form_Document)pParentForm).loginControl1.IdleCtrl);

@@ -99,6 +99,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="usrc_ShopB1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ShopB1366x768.Designer.cs">
+      <DependentUpon>usrc_ShopB1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ShopB.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ShopB1366x768.resx">
+      <DependentUpon>usrc_ShopB1366x768.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopB.resx">
       <DependentUpon>usrc_ShopB.cs</DependentUpon>

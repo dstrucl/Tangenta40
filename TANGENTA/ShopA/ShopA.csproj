@@ -108,6 +108,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Editor1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Editor1366x768.Designer.cs">
+      <DependentUpon>usrc_Editor1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Edit_Item_Description.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,6 +150,12 @@
     <Compile Include="usrc_Edit_Item_Unit.Designer.cs">
       <DependentUpon>usrc_Edit_Item_Unit.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_ShopA1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ShopA1366x768.Designer.cs">
+      <DependentUpon>usrc_ShopA1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ShopA.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -165,6 +177,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Editor1366x768.resx">
+      <DependentUpon>usrc_Editor1366x768.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Editor.resx">
       <DependentUpon>usrc_Editor.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Edit_Item_Unit.resx">
       <DependentUpon>usrc_Edit_Item_Unit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ShopA1366x768.resx">
+      <DependentUpon>usrc_ShopA1366x768.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopA.resx">
       <DependentUpon>usrc_ShopA.cs</DependentUpon>

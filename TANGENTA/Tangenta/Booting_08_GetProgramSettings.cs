@@ -75,7 +75,7 @@ namespace Tangenta
 
         private bool Startup_08_Show_Form_ProgramSettings(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_ProgramSettings(null, xnav), typeof(Form_ProgramSettings).ToString());
+            xnav.ShowForm(new Form_ProgramSettings(xnav), typeof(Form_ProgramSettings).ToString());
             return true;
         }
 

@@ -14,11 +14,21 @@ namespace Tangenta
     {
         private Form Main_Form = null;
         private usrc_DocumentMan m_usrc_DocumentMan = null;
+        private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
+
         public Form_SettingsSelect(Form xMain_Form,usrc_DocumentMan xusrc_DocumentMan)
         {
             InitializeComponent();
             Main_Form = xMain_Form;
             m_usrc_DocumentMan = xusrc_DocumentMan;
+            lng.s_Settings.Text(this);
+        }
+
+        public Form_SettingsSelect(Form xMain_Form, usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768)
+        {
+            InitializeComponent();
+            Main_Form = xMain_Form;
+            m_usrc_DocumentMan1366x768 = xusrc_DocumentMan1366x768;
             lng.s_Settings.Text(this);
         }
 
@@ -54,7 +64,15 @@ namespace Tangenta
             NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation(null);
             nav_Form_ProgramSettings.bDoModal = true;
             nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            Form_ProgramSettings edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan, nav_Form_ProgramSettings);
+            Form_ProgramSettings edt_Form = null;
+            if (m_usrc_DocumentMan != null)
+            {
+                edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan, nav_Form_ProgramSettings);
+            }
+            else if (m_usrc_DocumentMan1366x768 != null)
+            {
+                edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan1366x768, nav_Form_ProgramSettings);
+            }
             edt_Form.ShowDialog(this);
             edt_Form.Dispose();
         }

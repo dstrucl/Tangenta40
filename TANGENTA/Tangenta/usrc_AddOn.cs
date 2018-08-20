@@ -24,6 +24,7 @@ namespace Tangenta
     public partial class usrc_AddOn : UserControl
     {
         internal usrc_DocumentEditor m_usrc_Invoice = null;
+        internal usrc_DocumentEditor1366x768 m_usrc_Invoice1366x768 = null;
 
         private bool IsDocInvoice
         {
@@ -64,6 +65,12 @@ namespace Tangenta
         {
             m_usrc_Invoice = x_usrc_Invoice;
         }
+
+        public void Init(usrc_DocumentEditor1366x768 x_usrc_Invoice1366x768)
+        {
+            m_usrc_Invoice1366x768 = x_usrc_Invoice1366x768;
+        }
+
         private void btn_Notice_Click(object sender, EventArgs e)
         {
 

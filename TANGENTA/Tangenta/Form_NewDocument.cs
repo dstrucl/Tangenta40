@@ -27,29 +27,63 @@ namespace Tangenta
         public enum e_NewDocument { New_Empty, New_Copy_Of_SameDocType, New_Copy_To_Another_DocType,UNKNOWN}
 
         private usrc_DocumentMan m_usrc_DocumentMan = null;
+        private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
+
+        private ShopABC m_ShopABC = null;
+
         public e_NewDocument eNewDocumentResult = e_NewDocument.UNKNOWN;
         public int FinancialYear = -1;
 
         private Form_NewDocument_WizzardForHelp frm_NewDocument_WizzardForHelp = null;
 
+        private bool IsDocInvoice
+        {
+            get
+            {
+                if (m_usrc_DocumentMan != null)
+                {
+                    return m_usrc_DocumentMan.IsDocInvoice;
+                }
+                else if (m_usrc_DocumentMan1366x768 != null)
+                {
+                    return m_usrc_DocumentMan1366x768.IsDocInvoice;
+                }
+                return false;
+            }
+        }
+
+        public Form_NewDocument(usrc_DocumentMan1366x768 x_usrc_DocumentMan1366x768, SettingsUserValues xSettingsUserValues)
+        {
+            InitializeComponent();
+            m_usrc_DocumentMan1366x768 = x_usrc_DocumentMan1366x768;
+            m_ShopABC = m_usrc_DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_ShopABC;
+            Init(xSettingsUserValues);
+        }
+
         public Form_NewDocument(usrc_DocumentMan xusrc_DocumentMan,SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             m_usrc_DocumentMan = xusrc_DocumentMan;
+            m_ShopABC = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC;
+            Init(xSettingsUserValues);
+        }
+
+        private void Init(SettingsUserValues xSettingsUserValues)
+        {
             string sdraft = "";
-            string sNumber = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
+            string sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
             string sInvoiceNumber = null;
-            int ItemsCount = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.ItemsCount(m_usrc_DocumentMan.DocTyp);
+            int ItemsCount = m_ShopABC.m_CurrentDoc.ItemsCount(m_usrc_DocumentMan.DocTyp);
             if (m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.bDraft)
             {
                 sdraft = lng.s_Draft.s;
-                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-"+ m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
                                    + " " + lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
             }
             else
             {
                 sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
-                +" " +lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
+                + " " + lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
             }
 
             if (m_usrc_DocumentMan.IsDocInvoice)
@@ -73,7 +107,7 @@ namespace Tangenta
                 usrc_Currency1.Enabled = false;
             }
 
-            if (ItemsCount == 0 )
+            if (ItemsCount == 0)
             {
                 this.usrc_New_Copy_of_Same_DocType1.Visible = false;
                 this.usrc_New_Copy_of_Another_DocType1.Visible = false;
@@ -89,8 +123,8 @@ namespace Tangenta
             }
             usrc_Currency1.Init(GlobalData.BaseCurrency);
             SetNewFormTag();
-        }
 
+        }
         private void btn_New_Empty_Click(object sender, EventArgs e)
         {
             eNewDocumentResult = e_NewDocument.New_Empty;

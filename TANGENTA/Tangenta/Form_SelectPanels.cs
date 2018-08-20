@@ -21,31 +21,69 @@ namespace Tangenta
     public partial class Form_SelectPanels : Form
     {
         private usrc_DocumentMan m_usrc_DocumentMan = null;
+        private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
         private SettingsUserValues mSettingsUserValues = null;
 
         public Form_SelectPanels(usrc_DocumentMan x_usrc_DocumentMan, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             mSettingsUserValues = xSettingsUserValues;
+            m_usrc_DocumentMan = x_usrc_DocumentMan;
+            Init();
+
+        }
+
+        public Form_SelectPanels(usrc_DocumentMan1366x768 x_usrc_DocumentMan1366x768, SettingsUserValues xSettingsUserValues)
+        {
+            InitializeComponent();
+            mSettingsUserValues = xSettingsUserValues;
+            m_usrc_DocumentMan1366x768 = x_usrc_DocumentMan1366x768;
+            Init();
+
+        }
+
+        private void Init()
+        {
             rdb_Items.Checked = false;
             rdb_ItemsAndDoc.Checked = false;
             rdb_Doc.Checked = false;
-            m_usrc_DocumentMan = x_usrc_DocumentMan;
-            if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops)
+            if (m_usrc_DocumentMan != null)
             {
-                rdb_Items.Checked = true;
+                if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops)
+                {
+                    rdb_Items.Checked = true;
+                }
+                else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops_and_InvoiceTable)
+                {
+                    rdb_ItemsAndDoc.Checked = true;
+                }
+                else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.InvoiceTable)
+                {
+                    rdb_Doc.Checked = true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_DocumentMan.Mode illegal Mode!");
+                }
             }
-            else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops_and_InvoiceTable)
+            else if (m_usrc_DocumentMan1366x768 != null)
             {
-                rdb_ItemsAndDoc.Checked = true;
-            }
-            else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.InvoiceTable)
-            {
-                rdb_Doc.Checked = true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_DocumentMan.Mode illegal Mode!");
+                if (m_usrc_DocumentMan1366x768.Mode == usrc_DocumentMan1366x768.eMode.Shops)
+                {
+                    rdb_Items.Checked = true;
+                }
+                else if (m_usrc_DocumentMan1366x768.Mode == usrc_DocumentMan1366x768.eMode.Shops_and_InvoiceTable)
+                {
+                    rdb_ItemsAndDoc.Checked = true;
+                }
+                else if (m_usrc_DocumentMan1366x768.Mode == usrc_DocumentMan1366x768.eMode.InvoiceTable)
+                {
+                    rdb_Doc.Checked = true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_DocumentMan1366x768.Mode illegal Mode!");
+                }
             }
 
             this.rdb_Doc.CheckedChanged += new System.EventHandler(this.rdb_Doc_CheckedChanged);
@@ -53,7 +91,6 @@ namespace Tangenta
             this.rdb_Items.CheckedChanged += new System.EventHandler(this.rdb_Items_CheckedChanged);
 
         }
-
         private void rdb_Items_CheckedChanged(object sender, EventArgs e)
         {
             if (rdb_Items.Checked)

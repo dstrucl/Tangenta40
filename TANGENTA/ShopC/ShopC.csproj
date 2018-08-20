@@ -180,17 +180,35 @@
     <Compile Include="usrc_checkmark.Designer.cs">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Item1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item1366x768.Designer.cs">
+      <DependentUpon>usrc_Item1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_Item.Designer.cs">
       <DependentUpon>usrc_Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_ItemAtom1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtom1366x768.Designer.cs">
+      <DependentUpon>usrc_ItemAtom1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ItemAtom.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_ItemAtom.Designer.cs">
       <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemAtomsList1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtomsList1366x768.Designer.cs">
+      <DependentUpon>usrc_ItemAtomsList1366x768.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_ItemAtomsList.cs">
       <SubType>UserControl</SubType>
@@ -204,11 +222,23 @@
     <Compile Include="usrc_ItemAtom_View.Designer.cs">
       <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_ItemList1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemList1366x768.Designer.cs">
+      <DependentUpon>usrc_ItemList1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ItemList.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_ItemList.Designer.cs">
       <DependentUpon>usrc_ItemList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ShopC1366x768.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ShopC1366x768.Designer.cs">
+      <DependentUpon>usrc_ShopC1366x768.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_ShopC.cs">
       <SubType>UserControl</SubType>
@@ -283,12 +313,24 @@
     <EmbeddedResource Include="usrc_checkmark.resx">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item1366x768.resx">
+      <DependentUpon>usrc_Item1366x768.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item.resx">
       <DependentUpon>usrc_Item.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtom1366x768.resx">
+      <DependentUpon>usrc_ItemAtom1366x768.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemAtom.resx">
       <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtomsList1366x768.resx">
+      <DependentUpon>usrc_ItemAtomsList1366x768.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemAtomsList.resx">
@@ -298,8 +340,16 @@
     <EmbeddedResource Include="usrc_ItemAtom_View.resx">
       <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemList1366x768.resx">
+      <DependentUpon>usrc_ItemList1366x768.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemList.resx">
       <DependentUpon>usrc_ItemList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ShopC1366x768.resx">
+      <DependentUpon>usrc_ShopC1366x768.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopC.resx">
