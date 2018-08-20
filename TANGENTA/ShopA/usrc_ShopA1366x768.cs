@@ -68,15 +68,12 @@ namespace ShopA
         public usrc_ShopA1366x768()
         {
             InitializeComponent();
-            lng.s_ShopA_Name.Text(this.lbl_ShopA_Name);
         }
 
         public void SetColor()
         {
             this.BackColor = Colors.ShopA.BackColor;
             this.ForeColor = Colors.ShopA.ForeColor;
-            lbl_ShopA_Name.BackColor = Colors.ShopA.BackColor;
-            lbl_ShopA_Name.ForeColor = Colors.ShopA.ForeColor; ;
         }
 
         public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNames xDBtcn)

@@ -128,11 +128,17 @@ namespace ShopC
             lng.s_lbl_Stock.Text(lbl_Stock);
             lng.s_lbl_Items.Text(lbl_Items);
             lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
+            //this.btn_Stock.Image = ShopC.Properties.Resources.Edit;
+            //this.btn_Items.Image = ShopC.Properties.Resources.Edit;
+
         }
 
         private void usrc_ShopC_Load(object sender, EventArgs e)
         {
+            if (!DesignMode)
+            { 
             usrc_ItemList1366x768.Init(this.usrc_Atom_ItemsList1366x768);
+            }
         }
 
         public ID PriceList_ID

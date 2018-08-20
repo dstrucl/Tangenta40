@@ -155,7 +155,7 @@
             // usrc_PriceList1
             // 
             this.usrc_PriceList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.usrc_PriceList1.Location = new System.Drawing.Point(150, 4);
+            this.usrc_PriceList1.Location = new System.Drawing.Point(153, 7);
             this.usrc_PriceList1.Name = "usrc_PriceList1";
             this.usrc_PriceList1.Size = new System.Drawing.Size(260, 24);
             this.usrc_PriceList1.TabIndex = 22;

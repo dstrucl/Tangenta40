@@ -30,7 +30,6 @@
         {
             this.usrc_Editor1366x768_1 = new ShopA.usrc_Editor1366x768();
             this.dgvx_ShopA = new DataGridView_2xls.DataGridView2xls();
-            this.lbl_ShopA_Name = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ShopA)).BeginInit();
             this.SuspendLayout();
             // 
@@ -38,9 +37,9 @@
             // 
             this.usrc_Editor1366x768_1.AutoScroll = true;
             this.usrc_Editor1366x768_1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_Editor1366x768_1.Location = new System.Drawing.Point(-3, 22);
+            this.usrc_Editor1366x768_1.Location = new System.Drawing.Point(0, 0);
             this.usrc_Editor1366x768_1.Name = "usrc_Editor1366x768_1";
-            this.usrc_Editor1366x768_1.Size = new System.Drawing.Size(677, 143);
+            this.usrc_Editor1366x768_1.Size = new System.Drawing.Size(840, 143);
             this.usrc_Editor1366x768_1.TabIndex = 0;
             this.usrc_Editor1366x768_1.AddRow += new ShopA.usrc_Editor1366x768.delegate_AddRow(this.usrc_Editor1_AddRow);
             this.usrc_Editor1366x768_1.EditUnits += new ShopA.usrc_Editor1366x768.delegate_EditUnis(this.usrc_Editor1_EditUnits);
@@ -54,22 +53,13 @@
             this.dgvx_ShopA.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvx_ShopA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_ShopA.DataGridViewWithRowNumber = false;
-            this.dgvx_ShopA.Location = new System.Drawing.Point(3, 165);
+            this.dgvx_ShopA.Location = new System.Drawing.Point(2, 143);
             this.dgvx_ShopA.Name = "dgvx_ShopA";
             this.dgvx_ShopA.ReadOnly = true;
             this.dgvx_ShopA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_ShopA.Size = new System.Drawing.Size(667, 139);
+            this.dgvx_ShopA.Size = new System.Drawing.Size(836, 117);
             this.dgvx_ShopA.TabIndex = 0;
             this.dgvx_ShopA.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_ShopA_CellMouseUp);
-            // 
-            // lbl_ShopA_Name
-            // 
-            this.lbl_ShopA_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
-            this.lbl_ShopA_Name.Location = new System.Drawing.Point(3, 0);
-            this.lbl_ShopA_Name.Name = "lbl_ShopA_Name";
-            this.lbl_ShopA_Name.Size = new System.Drawing.Size(677, 19);
-            this.lbl_ShopA_Name.TabIndex = 8;
-            this.lbl_ShopA_Name.Text = "A";
             // 
             // usrc_ShopA1366x768
             // 
@@ -77,9 +67,8 @@
             this.BackColor = System.Drawing.Color.MistyRose;
             this.Controls.Add(this.usrc_Editor1366x768_1);
             this.Controls.Add(this.dgvx_ShopA);
-            this.Controls.Add(this.lbl_ShopA_Name);
             this.Name = "usrc_ShopA1366x768";
-            this.Size = new System.Drawing.Size(675, 304);
+            this.Size = new System.Drawing.Size(840, 260);
             this.Load += new System.EventHandler(this.usrc_ShopA1366x768_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ShopA)).EndInit();
             this.ResumeLayout(false);
@@ -89,6 +78,5 @@
         #endregion
         private DataGridView_2xls.DataGridView2xls dgvx_ShopA;
         public usrc_Editor1366x768 usrc_Editor1366x768_1;
-        private System.Windows.Forms.Label lbl_ShopA_Name;
     }
 }

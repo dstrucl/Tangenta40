@@ -151,14 +151,14 @@ namespace ShopC
         public usrc_ShopC()
         {
             InitializeComponent();
-            lng.s_lbl_Stock.Text(lbl_Stock);
-            lng.s_lbl_Items.Text(lbl_Items);
-            lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
+            //lng.s_lbl_Stock.Text(lbl_Stock);
+            //lng.s_lbl_Items.Text(lbl_Items);
+            //lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
         }
 
         private void usrc_ShopC_Load(object sender, EventArgs e)
         {
-            usrc_ItemList.Init(this.usrc_Atom_ItemsList);
+            //usrc_ItemList.Init(this.usrc_Atom_ItemsList);
         }
 
         public ID PriceList_ID

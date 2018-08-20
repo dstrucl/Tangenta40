@@ -67,8 +67,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_TableOfDocuments);
-            this.splitContainer1.Size = new System.Drawing.Size(1623, 897);
-            this.splitContainer1.SplitterDistance = 983;
+            this.splitContainer1.Size = new System.Drawing.Size(1366, 706);
+            this.splitContainer1.SplitterDistance = 827;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -79,10 +79,10 @@
             this.m_usrc_DocumentEditor.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocumentEditor.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_DocumentEditor.Name = "m_usrc_DocumentEditor";
-            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(979, 893);
-            this.m_usrc_DocumentEditor.SplitContainer1_spd = 267;
-            this.m_usrc_DocumentEditor.SplitContainer2_spd = 103;
-            this.m_usrc_DocumentEditor.SplitContainer3_spd = 172;
+            this.m_usrc_DocumentEditor.Size = new System.Drawing.Size(823, 702);
+            this.m_usrc_DocumentEditor.SplitContainer1_spd = 202;
+            this.m_usrc_DocumentEditor.SplitContainer2_spd = 78;
+            this.m_usrc_DocumentEditor.SplitContainer3_spd = 130;
             this.m_usrc_DocumentEditor.TabIndex = 0;
             this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
             this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
@@ -96,7 +96,7 @@
             this.m_usrc_TableOfDocuments.DocTyp = "DocInvoice";
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
-            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(628, 893);
+            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(527, 702);
             this.m_usrc_TableOfDocuments.TabIndex = 0;
             this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
@@ -158,7 +158,7 @@
             // 
             this.m_usrc_Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Help.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.m_usrc_Help.Location = new System.Drawing.Point(1446, 4);
+            this.m_usrc_Help.Location = new System.Drawing.Point(1189, 4);
             this.m_usrc_Help.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_Help.Name = "m_usrc_Help";
             this.m_usrc_Help.Size = new System.Drawing.Size(56, 49);
@@ -170,7 +170,7 @@
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
             this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Exit.Location = new System.Drawing.Point(1509, 3);
+            this.btn_Exit.Location = new System.Drawing.Point(1252, 3);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(110, 49);
             this.btn_Exit.TabIndex = 30;
@@ -185,7 +185,7 @@
             this.usrc_loginControl1.Location = new System.Drawing.Point(498, 3);
             this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_loginControl1.Name = "usrc_loginControl1";
-            this.usrc_loginControl1.Size = new System.Drawing.Size(864, 49);
+            this.usrc_loginControl1.Size = new System.Drawing.Size(607, 49);
             this.usrc_loginControl1.TabIndex = 37;
             // 
             // usrc_FVI_SLO1
@@ -193,7 +193,7 @@
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
-            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(1361, 4);
+            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(1104, 4);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(38, 49);
@@ -205,7 +205,7 @@
             this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
-            this.btn_Settings.Location = new System.Drawing.Point(1406, 3);
+            this.btn_Settings.Location = new System.Drawing.Point(1149, 3);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(33, 49);
             this.btn_Settings.TabIndex = 34;
@@ -229,7 +229,7 @@
             this.pnl_MainMenu.Controls.Add(this.usrc_FVI_SLO1);
             this.pnl_MainMenu.Location = new System.Drawing.Point(0, 0);
             this.pnl_MainMenu.Name = "pnl_MainMenu";
-            this.pnl_MainMenu.Size = new System.Drawing.Size(1620, 55);
+            this.pnl_MainMenu.Size = new System.Drawing.Size(1363, 55);
             this.pnl_MainMenu.TabIndex = 38;
             // 
             // timer_Login_MultiUser
@@ -244,7 +244,7 @@
             this.Controls.Add(this.pnl_MainMenu);
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_DocumentMan";
-            this.Size = new System.Drawing.Size(1623, 959);
+            this.Size = new System.Drawing.Size(1366, 768);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

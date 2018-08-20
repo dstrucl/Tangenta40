@@ -28,53 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_DocumentEditor1366x768));
-            this.txt_MyOrganisation = new System.Windows.Forms.TextBox();
-            this.lbl_Issuer = new System.Windows.Forms.Label();
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
             this.lbl_Sum = new System.Windows.Forms.Label();
             this.btn_Issue = new System.Windows.Forms.Button();
             this.chk_Head = new System.Windows.Forms.CheckBox();
-            this.btn_MyOrganisation = new System.Windows.Forms.Button();
-            this.lbl_MyOrganisation = new System.Windows.Forms.Label();
             this.usrc_Customer = new Tangenta.usrc_Customer();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
-            this.txt_Issuer = new System.Windows.Forms.TextBox();
             this.usrc_ShopA1366x7681 = new ShopA.usrc_ShopA1366x768();
             this.SuspendLayout();
-            // 
-            // txt_MyOrganisation
-            // 
-            this.txt_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_MyOrganisation.Location = new System.Drawing.Point(191, 34);
-            this.txt_MyOrganisation.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_MyOrganisation.Multiline = true;
-            this.txt_MyOrganisation.Name = "txt_MyOrganisation";
-            this.txt_MyOrganisation.Size = new System.Drawing.Size(423, 34);
-            this.txt_MyOrganisation.TabIndex = 1;
-            // 
-            // lbl_Issuer
-            // 
-            this.lbl_Issuer.AutoSize = true;
-            this.lbl_Issuer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Issuer.Location = new System.Drawing.Point(9, 74);
-            this.lbl_Issuer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_Issuer.Name = "lbl_Issuer";
-            this.lbl_Issuer.Size = new System.Drawing.Size(78, 17);
-            this.lbl_Issuer.TabIndex = 2;
-            this.lbl_Issuer.Text = "Izdajatelj:";
             // 
             // txt_Number
             // 
             this.txt_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Number.Location = new System.Drawing.Point(91, 3);
+            this.txt_Number.Location = new System.Drawing.Point(81, 3);
             this.txt_Number.Name = "txt_Number";
             this.txt_Number.ReadOnly = true;
-            this.txt_Number.Size = new System.Drawing.Size(92, 24);
+            this.txt_Number.Size = new System.Drawing.Size(104, 24);
             this.txt_Number.TabIndex = 22;
             // 
             // lbl_Number
@@ -116,35 +88,11 @@
             this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Head.Location = new System.Drawing.Point(191, 1);
             this.chk_Head.Name = "chk_Head";
-            this.chk_Head.Size = new System.Drawing.Size(72, 28);
+            this.chk_Head.Size = new System.Drawing.Size(65, 36);
             this.chk_Head.TabIndex = 37;
             this.chk_Head.Text = "Glava";
             this.chk_Head.UseVisualStyleBackColor = true;
             this.chk_Head.CheckedChanged += new System.EventHandler(this.chk_Head_CheckedChanged_1);
-            // 
-            // btn_MyOrganisation
-            // 
-            this.btn_MyOrganisation.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_MyOrganisation.Image = ((System.Drawing.Image)(resources.GetObject("btn_MyOrganisation.Image")));
-            this.btn_MyOrganisation.Location = new System.Drawing.Point(151, 36);
-            this.btn_MyOrganisation.Name = "btn_MyOrganisation";
-            this.btn_MyOrganisation.Size = new System.Drawing.Size(35, 28);
-            this.btn_MyOrganisation.TabIndex = 35;
-            this.btn_MyOrganisation.UseVisualStyleBackColor = false;
-            this.btn_MyOrganisation.Click += new System.EventHandler(this.btn_MyOrganisation_Click);
-            // 
-            // lbl_MyOrganisation
-            // 
-            this.lbl_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_MyOrganisation.AutoSize = true;
-            this.lbl_MyOrganisation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_MyOrganisation.Location = new System.Drawing.Point(8, 42);
-            this.lbl_MyOrganisation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_MyOrganisation.Name = "lbl_MyOrganisation";
-            this.lbl_MyOrganisation.Size = new System.Drawing.Size(126, 17);
-            this.lbl_MyOrganisation.TabIndex = 34;
-            this.lbl_MyOrganisation.Text = "My Organisation";
             // 
             // usrc_Customer
             // 
@@ -152,10 +100,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_Customer.DocTyp = "";
-            this.usrc_Customer.Location = new System.Drawing.Point(324, 69);
+            this.usrc_Customer.Location = new System.Drawing.Point(259, 4);
             this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(294, 29);
+            this.usrc_Customer.Size = new System.Drawing.Size(577, 31);
             this.usrc_Customer.TabIndex = 33;
             this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
             this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
@@ -163,11 +111,11 @@
             // 
             // chk_Storno
             // 
-            this.chk_Storno.AutoSize = true;
+            this.chk_Storno.Appearance = System.Windows.Forms.Appearance.Button;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(352, 4);
+            this.chk_Storno.Location = new System.Drawing.Point(734, 616);
             this.chk_Storno.Name = "chk_Storno";
-            this.chk_Storno.Size = new System.Drawing.Size(69, 21);
+            this.chk_Storno.Size = new System.Drawing.Size(107, 65);
             this.chk_Storno.TabIndex = 39;
             this.chk_Storno.Text = "Storno";
             this.chk_Storno.UseVisualStyleBackColor = true;
@@ -177,9 +125,9 @@
             // 
             this.btn_Show_Shops.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Show_Shops.Location = new System.Drawing.Point(263, 0);
+            this.btn_Show_Shops.Location = new System.Drawing.Point(369, 616);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
-            this.btn_Show_Shops.Size = new System.Drawing.Size(85, 29);
+            this.btn_Show_Shops.Size = new System.Drawing.Size(107, 65);
             this.btn_Show_Shops.TabIndex = 41;
             this.btn_Show_Shops.Text = "trgovine";
             this.btn_Show_Shops.UseVisualStyleBackColor = false;
@@ -192,39 +140,24 @@
             this.usrc_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
             this.usrc_AddOn1.Location = new System.Drawing.Point(174, 615);
             this.usrc_AddOn1.Name = "usrc_AddOn1";
-            this.usrc_AddOn1.Size = new System.Drawing.Size(444, 65);
+            this.usrc_AddOn1.Size = new System.Drawing.Size(190, 65);
             this.usrc_AddOn1.TabIndex = 40;
-            // 
-            // txt_Issuer
-            // 
-            this.txt_Issuer.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_Issuer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_Issuer.Location = new System.Drawing.Point(92, 78);
-            this.txt_Issuer.Name = "txt_Issuer";
-            this.txt_Issuer.ReadOnly = true;
-            this.txt_Issuer.Size = new System.Drawing.Size(225, 13);
-            this.txt_Issuer.TabIndex = 43;
             // 
             // usrc_ShopA1366x7681
             // 
             this.usrc_ShopA1366x7681.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_ShopA1366x7681.Location = new System.Drawing.Point(6, 105);
+            this.usrc_ShopA1366x7681.Location = new System.Drawing.Point(0, 42);
             this.usrc_ShopA1366x7681.Name = "usrc_ShopA1366x7681";
-            this.usrc_ShopA1366x7681.Size = new System.Drawing.Size(612, 372);
+            this.usrc_ShopA1366x7681.Size = new System.Drawing.Size(840, 260);
             this.usrc_ShopA1366x7681.TabIndex = 44;
             // 
             // usrc_DocumentEditor1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_ShopA1366x7681);
-            this.Controls.Add(this.txt_Issuer);
             this.Controls.Add(this.btn_Show_Shops);
-            this.Controls.Add(this.lbl_Issuer);
             this.Controls.Add(this.usrc_AddOn1);
-            this.Controls.Add(this.btn_MyOrganisation);
             this.Controls.Add(this.chk_Storno);
-            this.Controls.Add(this.txt_MyOrganisation);
-            this.Controls.Add(this.lbl_MyOrganisation);
             this.Controls.Add(this.usrc_Customer);
             this.Controls.Add(this.chk_Head);
             this.Controls.Add(this.btn_Issue);
@@ -233,7 +166,7 @@
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_DocumentEditor1366x768";
-            this.Size = new System.Drawing.Size(624, 680);
+            this.Size = new System.Drawing.Size(840, 680);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,9 +174,6 @@
 
 
         #endregion
-
-        private System.Windows.Forms.TextBox txt_MyOrganisation;
-        private System.Windows.Forms.Label lbl_Issuer;
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
         private System.Windows.Forms.Button btn_Issue;
@@ -252,10 +182,7 @@
         private System.Windows.Forms.CheckBox chk_Storno;
         private usrc_AddOn usrc_AddOn1;
         public System.Windows.Forms.Button btn_Show_Shops;
-        private System.Windows.Forms.Label lbl_MyOrganisation;
-        private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
-        private System.Windows.Forms.TextBox txt_Issuer;
         private ShopA.usrc_ShopA1366x768 usrc_ShopA1366x7681;
     }
 }

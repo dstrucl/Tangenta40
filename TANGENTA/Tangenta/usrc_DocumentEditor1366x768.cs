@@ -33,9 +33,9 @@ namespace Tangenta
         public ID Atom_Currency_ID = null;
         private LoginControl.LMOUser m_LMOUser = null;
         private Door door = null;
-        //public usrc_ShopA m_usrc_ShopA = null;
-        //public usrc_ShopB m_usrc_ShopB = null;
-        //public usrc_ShopC m_usrc_ShopC = null;
+        public usrc_ShopA m_usrc_ShopA = null;
+        public usrc_ShopB m_usrc_ShopB = null;
+        public usrc_ShopC m_usrc_ShopC = null;
 
         public string ShopsMode = "";
         private usrc_DocumentMan1366x768 m_usrc_DocumentMan = null;
@@ -507,7 +507,6 @@ namespace Tangenta
             usrc_AddOn1.Init(this);
             m_mode = emode.view_eDocumentType;
             lng.s_Show_Shops.Text(btn_Show_Shops);
-            lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_Number.Text(lbl_Number);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
             lng.s_Issue.Text(btn_Issue);
@@ -518,7 +517,6 @@ namespace Tangenta
             lng.s_Shop_AC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_C.sText(1));
             lng.s_Shop_ABC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
 
-            lng.s_MyOrganisation.Text(lbl_MyOrganisation);
             lng.s_Total.Text(this.lbl_Sum);
 
         }
@@ -592,16 +590,16 @@ namespace Tangenta
 
         private void SetOperationMode()
         {
-            if (Program.OperationMode.MultiUser)
-            {
-                txt_Issuer.Visible = false;
-                lbl_Issuer.Visible = false;
-            }
-            else 
-            {
-                txt_Issuer.Visible = true;
-                lbl_Issuer.Visible = true;
-            }
+            //if (Program.OperationMode.MultiUser)
+            //{
+            //    txt_Issuer.Visible = false;
+            //    lbl_Issuer.Visible = false;
+            //}
+            //else 
+            //{
+            //    txt_Issuer.Visible = true;
+            //    lbl_Issuer.Visible = true;
+            //}
 
         }
 
@@ -1292,23 +1290,6 @@ namespace Tangenta
                             Employees.Add(employee);
                         }
 
-                        string suser = "??";
-                        if (myOrg.m_myOrg_Office!=null)
-                        {
-                            if (myOrg.m_myOrg_Office.m_myOrg_Person!=null)
-                            {
-                                if (myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v!=null)
-                                {
-                                    suser = myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v.v;
-                                }
-                                if (myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v != null)
-                                {
-                                    suser += " " +myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v.v;
-                                }
-
-                            }
-                        }
-                        this.txt_Issuer.Text = suser;
                     }
                 }
                 else

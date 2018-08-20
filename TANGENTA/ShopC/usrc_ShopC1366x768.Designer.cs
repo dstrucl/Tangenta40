@@ -65,7 +65,7 @@
             // 
             this.btn_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Stock.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Stock.Image = global::ShopC.Properties.Resources.Edit;
+            this.btn_Stock.Image = null;
             this.btn_Stock.Location = new System.Drawing.Point(690, 3);
             this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stock.Name = "btn_Stock";
@@ -89,7 +89,7 @@
             // 
             this.btn_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Items.Image = global::ShopC.Properties.Resources.Edit;
+            this.btn_Items.Image = null;
             this.btn_Items.Location = new System.Drawing.Point(842, 3);
             this.btn_Items.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Items.Name = "btn_Items";

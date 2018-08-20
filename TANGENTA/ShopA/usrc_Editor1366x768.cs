@@ -62,6 +62,7 @@ namespace ShopA
             this.lbl_EndPriceWidthDisocunt_Value.Text = "";
             this.lbl_Tax_Value.Text = "";
             this.lbl_NetPrice_Value.Text = "";
+            lng.s_ShopA_Name.Text(this.lbl_ShopA_Name);
         }
 
         private void usrc_Edit_Item_Name2_Load(object sender, EventArgs e)
@@ -82,6 +83,8 @@ namespace ShopA
             lng.s_lbl_EndPriceWidthDisocunt.Text(lbl_EndPriceWidthDisocunt);
             lng.s_lbl_Tax.Text(lbl_Tax);
             lng.s_chk_PriceWithTax.Text(chk_PriceWithTax);
+            lbl_ShopA_Name.BackColor = Colors.ShopA.BackColor;
+            lbl_ShopA_Name.ForeColor = Colors.ShopA.ForeColor; ;
         }
 
         private void Chk_PriceWithTax_CheckedChanged(object sender, EventArgs e)

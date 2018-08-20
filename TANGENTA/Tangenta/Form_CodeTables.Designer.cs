@@ -31,11 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CodeTables));
             this.usrc_CodeTables1 = new Tangenta.usrc_CodeTables();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.btn_MyOrganisation = new System.Windows.Forms.Button();
+            this.txt_MyOrganisation = new System.Windows.Forms.TextBox();
+            this.lbl_MyOrganisation = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usrc_CodeTables1
             // 
-            this.usrc_CodeTables1.Location = new System.Drawing.Point(12, 45);
+            this.usrc_CodeTables1.Location = new System.Drawing.Point(12, 110);
             this.usrc_CodeTables1.Name = "usrc_CodeTables1";
             this.usrc_CodeTables1.Size = new System.Drawing.Size(611, 197);
             this.usrc_CodeTables1.TabIndex = 0;
@@ -50,11 +53,48 @@
             this.usrc_Help1.Size = new System.Drawing.Size(42, 26);
             this.usrc_Help1.TabIndex = 1;
             // 
+            // btn_MyOrganisation
+            // 
+            this.btn_MyOrganisation.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_MyOrganisation.Image = ((System.Drawing.Image)(resources.GetObject("btn_MyOrganisation.Image")));
+            this.btn_MyOrganisation.Location = new System.Drawing.Point(147, 59);
+            this.btn_MyOrganisation.Name = "btn_MyOrganisation";
+            this.btn_MyOrganisation.Size = new System.Drawing.Size(50, 30);
+            this.btn_MyOrganisation.TabIndex = 38;
+            this.btn_MyOrganisation.UseVisualStyleBackColor = false;
+            // 
+            // txt_MyOrganisation
+            // 
+            this.txt_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_MyOrganisation.Location = new System.Drawing.Point(202, 56);
+            this.txt_MyOrganisation.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_MyOrganisation.Multiline = true;
+            this.txt_MyOrganisation.Name = "txt_MyOrganisation";
+            this.txt_MyOrganisation.Size = new System.Drawing.Size(415, 34);
+            this.txt_MyOrganisation.TabIndex = 36;
+            // 
+            // lbl_MyOrganisation
+            // 
+            this.lbl_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_MyOrganisation.AutoSize = true;
+            this.lbl_MyOrganisation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_MyOrganisation.Location = new System.Drawing.Point(16, 65);
+            this.lbl_MyOrganisation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_MyOrganisation.Name = "lbl_MyOrganisation";
+            this.lbl_MyOrganisation.Size = new System.Drawing.Size(126, 17);
+            this.lbl_MyOrganisation.TabIndex = 37;
+            this.lbl_MyOrganisation.Text = "My Organisation";
+            // 
             // Form_CodeTables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(625, 243);
+            this.ClientSize = new System.Drawing.Size(617, 302);
+            this.Controls.Add(this.btn_MyOrganisation);
+            this.Controls.Add(this.txt_MyOrganisation);
+            this.Controls.Add(this.lbl_MyOrganisation);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.usrc_CodeTables1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -63,6 +103,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_CodeTables";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -70,5 +111,8 @@
 
         private usrc_CodeTables usrc_CodeTables1;
         private HUDCMS.usrc_Help usrc_Help1;
+        private System.Windows.Forms.Button btn_MyOrganisation;
+        private System.Windows.Forms.TextBox txt_MyOrganisation;
+        private System.Windows.Forms.Label lbl_MyOrganisation;
     }
 }

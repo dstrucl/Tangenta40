@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -25,6 +26,27 @@ namespace Tangenta
         {
             InitializeComponent();
             lng.s_CodeTables.Text(this);
+            lng.s_Issuer.Text(lbl_MyOrganisation);
+            lng.s_MyOrganisation.Text(lbl_MyOrganisation);
+
+            string suser = "??";
+            if (myOrg.m_myOrg_Office != null)
+            {
+                if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                {
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v != null)
+                    {
+                        suser = myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v.v;
+                    }
+                    if (myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v != null)
+                    {
+                        suser += " " + myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v.v;
+                    }
+
+                }
+            }
+            //this.txt_Issuer.Text = suser;
+
         }
 
         private void usrc_CodeTables1_OK_Click()

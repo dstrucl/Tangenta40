@@ -192,14 +192,14 @@
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(518, 706);
             this.m_usrc_TableOfDocuments.TabIndex = 39;
             // 
-            // m_usrc_DocumentEditor
+            // m_usrc_DocumentEditor1366x768
             // 
             this.m_usrc_DocumentEditor1366x768.BackColor = System.Drawing.Color.Gainsboro;
             this.m_usrc_DocumentEditor1366x768.DocTyp = "DocInvoice";
             this.m_usrc_DocumentEditor1366x768.Location = new System.Drawing.Point(5, 59);
             this.m_usrc_DocumentEditor1366x768.Margin = new System.Windows.Forms.Padding(2);
-            this.m_usrc_DocumentEditor1366x768.Name = "m_usrc_DocumentEditor";
-            this.m_usrc_DocumentEditor1366x768.Size = new System.Drawing.Size(838, 706);
+            this.m_usrc_DocumentEditor1366x768.Name = "m_usrc_DocumentEditor1366x768";
+            this.m_usrc_DocumentEditor1366x768.Size = new System.Drawing.Size(840, 706);
             this.m_usrc_DocumentEditor1366x768.TabIndex = 40;
             // 
             // usrc_DocumentMan1366x768
