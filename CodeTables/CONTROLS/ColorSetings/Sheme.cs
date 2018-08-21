@@ -225,40 +225,53 @@ namespace ColorSettings
         public static ColorSheme Current()
         {
             DataTable sheme = dsColorSheme.Tables["Sheme"];
-            DataRow drsheme = sheme.Rows[Properties.Settings.Default.CurrentColorsIndex];
-            int idsheme = (int) drsheme["ID"];
-            string shemeName = (string)drsheme["Name"];
-            bool bReadOnly = (bool)drsheme["ReadOnly"];
-            DataTable colors = dsColorSheme.Tables["Colors"];
-            DataRow[] drscolorsfore = colors.Select("Sheme_ID = " + idsheme.ToString()+" and Type='fore'");
-            DataRow[] drscolorsback = colors.Select("Sheme_ID = " + idsheme.ToString() + " and Type='back'");
-            ColorShemeCurrent.Name = shemeName;
-            ColorShemeCurrent.ReadOnly = bReadOnly;
-            int icolorsforelength = drscolorsfore.Length;
-            int icolorsbacklength = drscolorsback.Length;
-            if (icolorsforelength > 0)
+            if (sheme != null)
             {
-                if (icolorsbacklength > 0)
+                int iCount = sheme.Rows.Count;
+                if (iCount > 0)
                 {
-                    ColorShemeCurrent.Colorpair = new ColorPair[ShemeList.ColorPairsCount];
-                    for (int j = 0; j < ShemeList.ColorPairsCount; j++)
+                    if ((Properties.Settings.Default.CurrentColorsIndex >= 0)
+                        && (Properties.Settings.Default.CurrentColorsIndex < iCount))
                     {
-                        ColorShemeCurrent.Colorpair[j] = new ColorPair(ColorTranslator.FromHtml((string)drscolorsfore[0]["Color" + j.ToString()]),
-                                                                       ColorTranslator.FromHtml((string)drscolorsback[0]["Color" + j.ToString()]));
+                        DataRow drsheme = sheme.Rows[Properties.Settings.Default.CurrentColorsIndex];
+
+                        int idsheme = (int)drsheme["ID"];
+                        string shemeName = (string)drsheme["Name"];
+                        bool bReadOnly = (bool)drsheme["ReadOnly"];
+                        DataTable colors = dsColorSheme.Tables["Colors"];
+                        DataRow[] drscolorsfore = colors.Select("Sheme_ID = " + idsheme.ToString() + " and Type='fore'");
+                        DataRow[] drscolorsback = colors.Select("Sheme_ID = " + idsheme.ToString() + " and Type='back'");
+                        ColorShemeCurrent.Name = shemeName;
+                        ColorShemeCurrent.ReadOnly = bReadOnly;
+                        int icolorsforelength = drscolorsfore.Length;
+                        int icolorsbacklength = drscolorsback.Length;
+                        if (icolorsforelength > 0)
+                        {
+                            if (icolorsbacklength > 0)
+                            {
+                                ColorShemeCurrent.Colorpair = new ColorPair[ShemeList.ColorPairsCount];
+                                for (int j = 0; j < ShemeList.ColorPairsCount; j++)
+                                {
+                                    ColorShemeCurrent.Colorpair[j] = new ColorPair(ColorTranslator.FromHtml((string)drscolorsfore[0]["Color" + j.ToString()]),
+                                                                                   ColorTranslator.FromHtml((string)drscolorsback[0]["Color" + j.ToString()]));
+                                }
+                            }
+                            else
+                            {
+                                ColorShemeCurrent.Colorpair = null;
+                                MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
+                            }
+                        }
+                        else
+                        {
+                            ColorShemeCurrent.Colorpair = null;
+                            MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
+                        }
+                        return ColorShemeCurrent;
                     }
                 }
-                else
-                {
-                    ColorShemeCurrent.Colorpair = null;
-                    MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
-                }
             }
-            else
-            {
-                ColorShemeCurrent.Colorpair = null;
-                 MessageBox.Show("ERROR:!(icolorsforelength > 0) for Select(\"Sheme_ID = " + idsheme.ToString() + " and Type = 'fore'\")");
-            }
-            return ColorShemeCurrent;
+            return null;
         }
 
 

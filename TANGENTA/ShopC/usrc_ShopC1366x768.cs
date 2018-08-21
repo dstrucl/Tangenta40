@@ -61,7 +61,19 @@ namespace ShopC
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
 
-    
+        private bool m_bAutomaticSelectionOfItemsFromStock = true;
+        public bool AutomaticSelectionOfItemsFromStock
+        {
+            get
+            {
+                return m_bAutomaticSelectionOfItemsFromStock;
+            }
+
+            set
+            {
+                m_bAutomaticSelectionOfItemsFromStock = value;
+            }
+        }
 
         public string DocTyp
         {
@@ -125,11 +137,9 @@ namespace ShopC
         public usrc_ShopC1366x768()
         {
             InitializeComponent();
-            lng.s_lbl_Stock.Text(lbl_Stock);
-            lng.s_lbl_Items.Text(lbl_Items);
-            lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
             //this.btn_Stock.Image = ShopC.Properties.Resources.Edit;
             //this.btn_Items.Image = ShopC.Properties.Resources.Edit;
+            //this.Load += new System.EventHandler(this.usrc_ShopC_Load);
 
         }
 
@@ -137,23 +147,28 @@ namespace ShopC
         {
             if (!DesignMode)
             { 
-            usrc_ItemList1366x768.Init(this.usrc_Atom_ItemsList1366x768);
+              usrc_ItemList1366x768.Init(this.usrc_Atom_ItemsList1366x768);
             }
         }
 
+        private ID m_PriceList_ID = null;
+
         public ID PriceList_ID
         {
-            get { return this.usrc_PriceList1.ID; }
-        }
-
-        public bool AutomaticSelectionOfItemsFromStock {
-            get { return chk_AutomaticSelectionOfItemFromStock.Checked; }
+            get
+            {
+              return this.m_PriceList_ID;
+            }
+            set
+            {
+                m_PriceList_ID = value;
+            }
         }
 
         public void SetColor()
         {
-            this.BackColor = Colors.ShopC.BackColor;
-            this.ForeColor = Colors.ShopC.ForeColor;
+            //this.BackColor = Colors.ShopC.BackColor;
+            //this.ForeColor = Colors.ShopC.ForeColor;
             Reset();
         }
 
@@ -168,8 +183,6 @@ namespace ShopC
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_InvoiceDB = xm_InvoiceDB;
-            this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
-            this.chk_AutomaticSelectionOfItemFromStock.Visible = false; 
             DBtcn = xDBtcn;
             if (DBtcn == null)
             {
@@ -186,7 +199,6 @@ namespace ShopC
             this.usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             string Err = null;
 
-            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC, ShopsInUse, ref Err);
             SetColor();
         }
 
@@ -370,75 +382,9 @@ namespace ShopC
             return true;
         }
 
-        private void btn_Items_Click(object sender, EventArgs e)
+        private void usrc_PriceList1_PriceListChanged(ID xPriceList_ID)
         {
-            decimal count_in_baskets = 0;
-            if (CountInBaskets(ref count_in_baskets))
-            {
-                if (count_in_baskets == 0)
-                {
-                    NavigationButtons.Navigation nav_EditItem = new NavigationButtons.Navigation(null);
-                    nav_EditItem.bDoModal = true;
-                    nav_EditItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                    if (EditItem(nav_EditItem))
-                    {
-                        usrc_ItemList1366x768.Get_Price_Item_Stock_Data(PriceList_ID);
-                    }
-                }
-                else
-                {
-                    XMessage.Box.Show(this, lng.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                }
-
-            }
-
-            
-        }
-
-        public bool EditItem(NavigationButtons.Navigation xnav)
-        {
-            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                            tbl_Item,
-                                                            "Item_$$Code desc",xnav);
-            edt_Item_dlg.ShowDialog(Global.f.GetParentForm(this));
-
-            if (edt_Item_dlg.List_of_Inserted_Items_ID.Count>0)
-            {
-                DataTable dt_ShopC_Items_NotIn_PriceList = new DataTable();
-                if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Items_NotIn_PriceList))
-                {
-                    if (dt_ShopC_Items_NotIn_PriceList.Rows.Count > 0)
-                    {
-                        if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList, this))
-                        {
-                            bool bPriceListChanged = false;
-                            this.usrc_PriceList1.PriceList_Edit(true,  ref bPriceListChanged);
-                        }
-                    }
-                    else
-                    {
-                        bool bEdit = false;
-                        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                        if (bEdit)
-                        {
-                            bool bPriceListChanged = false;
-                            this.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                        }
-                    }
-                }
-            }
-            if (edt_Item_dlg.Changed)
-            {
-                usrc_ItemList1366x768.Get_Price_Item_Stock_Data(this.usrc_PriceList1.ID);
-            }
-
-            return edt_Item_dlg.Changed;
-        }
-
-        private void usrc_PriceList1_PriceListChanged()
-        {
-            usrc_ItemList1366x768.Get_Price_Item_Stock_Data(this.usrc_PriceList1.ID);
+            usrc_ItemList1366x768.Get_Price_Item_Stock_Data(xPriceList_ID);
         }
 
         public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,

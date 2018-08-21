@@ -43,7 +43,7 @@
             // cmb_Unit
             // 
             this.cmb_Unit.FormattingEnabled = true;
-            this.cmb_Unit.Location = new System.Drawing.Point(6, 52);
+            this.cmb_Unit.Location = new System.Drawing.Point(85, 28);
             this.cmb_Unit.Name = "cmb_Unit";
             this.cmb_Unit.Size = new System.Drawing.Size(96, 21);
             this.cmb_Unit.TabIndex = 5;
@@ -51,7 +51,7 @@
             // lbl_Item_Unit
             // 
             this.lbl_Item_Unit.AutoSize = true;
-            this.lbl_Item_Unit.Location = new System.Drawing.Point(6, 37);
+            this.lbl_Item_Unit.Location = new System.Drawing.Point(6, 31);
             this.lbl_Item_Unit.Name = "lbl_Item_Unit";
             this.lbl_Item_Unit.Size = new System.Drawing.Size(73, 13);
             this.lbl_Item_Unit.TabIndex = 4;
@@ -60,7 +60,7 @@
             // lbl_Quantity
             // 
             this.lbl_Quantity.AutoSize = true;
-            this.lbl_Quantity.Location = new System.Drawing.Point(114, 38);
+            this.lbl_Quantity.Location = new System.Drawing.Point(181, 30);
             this.lbl_Quantity.Name = "lbl_Quantity";
             this.lbl_Quantity.Size = new System.Drawing.Size(44, 13);
             this.lbl_Quantity.TabIndex = 7;
@@ -68,35 +68,34 @@
             // 
             // nm_dQuantity
             // 
-            this.nm_dQuantity.Location = new System.Drawing.Point(116, 53);
+            this.nm_dQuantity.Location = new System.Drawing.Point(231, 28);
             this.nm_dQuantity.Maximum = new decimal(new int[] {
             1410065408,
             2,
             0,
             0});
             this.nm_dQuantity.Name = "nm_dQuantity";
-            this.nm_dQuantity.Size = new System.Drawing.Size(82, 20);
+            this.nm_dQuantity.Size = new System.Drawing.Size(74, 20);
             this.nm_dQuantity.TabIndex = 6;
             this.nm_dQuantity.ValueChanged += new System.EventHandler(this.nm_dQuantity_ValueChanged);
             // 
             // nm_PricePerUnit
             // 
             this.nm_PricePerUnit.DecimalPlaces = 2;
-            this.nm_PricePerUnit.Location = new System.Drawing.Point(149, 17);
+            this.nm_PricePerUnit.Location = new System.Drawing.Point(231, 2);
             this.nm_PricePerUnit.Maximum = new decimal(new int[] {
             1215752192,
             23,
             0,
             0});
             this.nm_PricePerUnit.Name = "nm_PricePerUnit";
-            this.nm_PricePerUnit.Size = new System.Drawing.Size(84, 20);
+            this.nm_PricePerUnit.Size = new System.Drawing.Size(74, 20);
             this.nm_PricePerUnit.TabIndex = 18;
             this.nm_PricePerUnit.ValueChanged += new System.EventHandler(this.nm_PricePerUnit_ValueChanged);
             // 
             // btn_Edit_Units
             // 
             this.btn_Edit_Units.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Edit_Units.Image = null;
             this.btn_Edit_Units.Location = new System.Drawing.Point(2, 1);
             this.btn_Edit_Units.Name = "btn_Edit_Units";
             this.btn_Edit_Units.Size = new System.Drawing.Size(37, 33);
@@ -135,7 +134,7 @@
             this.Controls.Add(this.cmb_Unit);
             this.Controls.Add(this.lbl_Item_Unit);
             this.Name = "usrc_Edit_Item_Unit";
-            this.Size = new System.Drawing.Size(241, 78);
+            this.Size = new System.Drawing.Size(307, 51);
             ((System.ComponentModel.ISupportInitialize)(this.nm_dQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_PricePerUnit)).EndInit();
             this.ResumeLayout(false);

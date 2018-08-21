@@ -74,7 +74,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.pnl_DataGrid);
             this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Size = new System.Drawing.Size(810, 409);
+            this.splitContainer2.Size = new System.Drawing.Size(810, 115);
             this.splitContainer2.SplitterDistance = 330;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 1;
@@ -103,7 +103,7 @@
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.dgv_SelectedShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_SelectedShopB_Items.RowTemplate.Height = 24;
-            this.dgv_SelectedShopB_Items.Size = new System.Drawing.Size(330, 409);
+            this.dgv_SelectedShopB_Items.Size = new System.Drawing.Size(330, 115);
             this.dgv_SelectedShopB_Items.TabIndex = 0;
             this.dgv_SelectedShopB_Items.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_SelectedShopB_Items_CellMouseUp);
             // 
@@ -113,7 +113,7 @@
             this.pnl_DataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_DataGrid.Location = new System.Drawing.Point(0, 0);
             this.pnl_DataGrid.Name = "pnl_DataGrid";
-            this.pnl_DataGrid.Size = new System.Drawing.Size(477, 409);
+            this.pnl_DataGrid.Size = new System.Drawing.Size(477, 115);
             this.pnl_DataGrid.TabIndex = 19;
             // 
             // splitContainer1
@@ -130,7 +130,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_Item_Group_Handler);
-            this.splitContainer1.Size = new System.Drawing.Size(477, 409);
+            this.splitContainer1.Size = new System.Drawing.Size(477, 115);
             this.splitContainer1.SplitterDistance = 328;
             this.splitContainer1.TabIndex = 21;
             // 
@@ -159,7 +159,7 @@
             this.dgv_ShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_ShopB_Items.RowTemplate.Height = 48;
             this.dgv_ShopB_Items.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_ShopB_Items.Size = new System.Drawing.Size(328, 409);
+            this.dgv_ShopB_Items.Size = new System.Drawing.Size(328, 115);
             this.dgv_ShopB_Items.TabIndex = 1;
             this.dgv_ShopB_Items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ShopB_Items_CellContentClick);
             this.dgv_ShopB_Items.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_ShopB_Items_CellMouseDown);
@@ -175,7 +175,7 @@
             this.m_usrc_Item_Group_Handler.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_Item_Group_Handler.Name = "m_usrc_Item_Group_Handler";
             this.m_usrc_Item_Group_Handler.ShopName = "";
-            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(145, 409);
+            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(145, 115);
             this.m_usrc_Item_Group_Handler.TabIndex = 20;
             this.m_usrc_Item_Group_Handler.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.usrc_Item_Group_Handler_GroupsRedefined);
             this.m_usrc_Item_Group_Handler.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.usrc_Item_Group_Handler_GroupChanged);
@@ -246,7 +246,7 @@
             this.Controls.Add(this.lbl_ShopB_Items);
             this.Controls.Add(this.btn_edit_ShopB_Items);
             this.Name = "usrc_ShopB";
-            this.Size = new System.Drawing.Size(810, 441);
+            this.Size = new System.Drawing.Size(810, 147);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
