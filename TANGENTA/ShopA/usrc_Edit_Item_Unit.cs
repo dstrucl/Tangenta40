@@ -157,7 +157,7 @@ namespace ShopA
             dQuantity_v = new decimal_v();
             m_Unit = new Unit();
             //lbl_Price.Text = "";
-            this.btn_Edit_Units.Image = ShopA.Properties.Resources.Edit;
+           // this.btn_Edit_Units.Image = ShopA.Properties.Resources.Edit;
             chk_Unit.CheckedChanged += Chk_Unit_CheckedChanged;
             chk_Unit.Checked = false;
             enable(chk_Unit.Checked);
@@ -170,7 +170,7 @@ namespace ShopA
                 this.cmb_Unit.Enabled = true;
                 this.nm_dQuantity.Enabled = true;
                 this.nm_PricePerUnit.Enabled = true;
-                this.lbl_Item_Unit.Enabled = true;
+             //   this.lbl_Item_Unit.Enabled = true;
                 //this.lbl_Price.Enabled = true;
                 this.lbl_PricePerUnit.Enabled = true;
                 this.lbl_Quantity.Enabled = true;
@@ -180,7 +180,7 @@ namespace ShopA
                 this.cmb_Unit.Enabled = false;
                 this.nm_dQuantity.Enabled = false;
                 this.nm_PricePerUnit.Enabled = false;
-                this.lbl_Item_Unit.Enabled = false;
+               // this.lbl_Item_Unit.Enabled = false;
                 //this.lbl_Price.Enabled = false;
                 this.lbl_PricePerUnit.Enabled = false;
                 this.lbl_Quantity.Enabled = false;
@@ -213,7 +213,7 @@ namespace ShopA
             lng.s_lbl_PricePerUnit.Text(lbl_PricePerUnit);
             lng.s_lbl_Quantity.Text(lbl_Quantity);
             lng.s_chk_Unit.Text(chk_Unit);
-            lng.s_lbl_Item_Unit.Text(lbl_Item_Unit);
+           // lng.s_lbl_Item_Unit.Text(lbl_Item_Unit);
         }
 
         internal void Fill(ref Unit xUnit)
@@ -359,6 +359,11 @@ namespace ShopA
                     Set_DataSource();
                 }
             }
+        }
+
+        private void lbl_Quantity_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

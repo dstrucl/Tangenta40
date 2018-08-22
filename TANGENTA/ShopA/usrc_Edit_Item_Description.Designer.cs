@@ -29,29 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lbl_Item_Description = new System.Windows.Forms.Label();
             this.txt_Item_Description = new TextBoxRecent.TextBoxR();
             this.SuspendLayout();
             // 
-            // lbl_Item_Description
-            // 
-            this.lbl_Item_Description.AutoSize = true;
-            this.lbl_Item_Description.Location = new System.Drawing.Point(5, 7);
-            this.lbl_Item_Description.Name = "lbl_Item_Description";
-            this.lbl_Item_Description.Size = new System.Drawing.Size(106, 13);
-            this.lbl_Item_Description.TabIndex = 3;
-            this.lbl_Item_Description.Text = "Opis artikla ali storive";
-            // 
             // txt_Item_Description
             // 
-            this.txt_Item_Description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Item_Description.Location = new System.Drawing.Point(2, 24);
+            this.txt_Item_Description.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Item_Description.Location = new System.Drawing.Point(0, 0);
             this.txt_Item_Description.Multiline = true;
             this.txt_Item_Description.Name = "txt_Item_Description";
             this.txt_Item_Description.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_Item_Description.Size = new System.Drawing.Size(220, 184);
+            this.txt_Item_Description.Size = new System.Drawing.Size(224, 40);
             this.txt_Item_Description.TabIndex = 4;
             // 
             // usrc_Edit_Item_Description
@@ -59,17 +47,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.txt_Item_Description);
-            this.Controls.Add(this.lbl_Item_Description);
             this.Name = "usrc_Edit_Item_Description";
-            this.Size = new System.Drawing.Size(224, 210);
+            this.Size = new System.Drawing.Size(224, 40);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lbl_Item_Description;
         private TextBoxRecent.TextBoxR txt_Item_Description;
     }
 }

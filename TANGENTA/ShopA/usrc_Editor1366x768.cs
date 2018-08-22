@@ -63,6 +63,7 @@ namespace ShopA
             this.lbl_Tax_Value.Text = "";
             this.lbl_NetPrice_Value.Text = "";
             lng.s_ShopA_Name.Text(this.lbl_ShopA_Name);
+            lng.s_lbl_Item_Description.Text(lbl_Description);
         }
 
         private void usrc_Edit_Item_Name2_Load(object sender, EventArgs e)

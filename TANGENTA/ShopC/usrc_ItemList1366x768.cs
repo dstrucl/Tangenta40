@@ -159,11 +159,11 @@ namespace ShopC
             this.pnl_Items.VerticalScroll.Enabled = true;
             if (this.Visible)
             {
-                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=TRUE");
+                //LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=TRUE");
             }
             else
             {
-                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
+                //LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
             }
         }
 

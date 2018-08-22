@@ -28,21 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Item = new System.Windows.Forms.Button();
             this.usrc_NumericUpDown21 = new DynEditControls.usrc_NumericUpDown2();
+            this.btn_Item = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btn_Item
-            // 
-            this.btn_Item.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Item.Location = new System.Drawing.Point(0, 0);
-            this.btn_Item.Name = "btn_Item";
-            this.btn_Item.Size = new System.Drawing.Size(66, 72);
-            this.btn_Item.TabIndex = 1;
-            this.btn_Item.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btn_Item.UseVisualStyleBackColor = true;
-            this.btn_Item.Click += new System.EventHandler(this.btn_Item_Click);
             // 
             // usrc_NumericUpDown21
             // 
@@ -91,6 +79,18 @@
             0});
             this.usrc_NumericUpDown21.ValueChanged += new System.EventHandler(this.usrc_NumericUpDown21_ValueChanged);
             // 
+            // btn_Item
+            // 
+            this.btn_Item.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Item.Location = new System.Drawing.Point(0, 0);
+            this.btn_Item.Name = "btn_Item";
+            this.btn_Item.Size = new System.Drawing.Size(66, 72);
+            this.btn_Item.TabIndex = 1;
+            this.btn_Item.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btn_Item.UseVisualStyleBackColor = true;
+            this.btn_Item.Click += new System.EventHandler(this.btn_Item_Click);
+            // 
             // usrc_btn_Item
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,7 +105,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btn_Item;
         private DynEditControls.usrc_NumericUpDown2 usrc_NumericUpDown21;
+        private System.Windows.Forms.Button btn_Item;
     }
 }

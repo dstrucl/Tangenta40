@@ -71,8 +71,8 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.pnl_DataGrid);
             this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Size = new System.Drawing.Size(840, 80);
-            this.splitContainer2.SplitterDistance = 342;
+            this.splitContainer2.Size = new System.Drawing.Size(1006, 80);
+            this.splitContainer2.SplitterDistance = 409;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -100,7 +100,7 @@
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.dgv_SelectedShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_SelectedShopB_Items.RowTemplate.Height = 24;
-            this.dgv_SelectedShopB_Items.Size = new System.Drawing.Size(342, 80);
+            this.dgv_SelectedShopB_Items.Size = new System.Drawing.Size(409, 80);
             this.dgv_SelectedShopB_Items.TabIndex = 0;
             this.dgv_SelectedShopB_Items.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_SelectedShopB_Items_CellMouseUp);
             // 
@@ -110,7 +110,7 @@
             this.pnl_DataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_DataGrid.Location = new System.Drawing.Point(0, 0);
             this.pnl_DataGrid.Name = "pnl_DataGrid";
-            this.pnl_DataGrid.Size = new System.Drawing.Size(492, 80);
+            this.pnl_DataGrid.Size = new System.Drawing.Size(591, 80);
             this.pnl_DataGrid.TabIndex = 19;
             // 
             // splitContainer1
@@ -127,8 +127,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_Item_Group_Handler);
-            this.splitContainer1.Size = new System.Drawing.Size(492, 80);
-            this.splitContainer1.SplitterDistance = 338;
+            this.splitContainer1.Size = new System.Drawing.Size(591, 80);
+            this.splitContainer1.SplitterDistance = 406;
             this.splitContainer1.TabIndex = 21;
             // 
             // dgv_ShopB_Items
@@ -156,7 +156,7 @@
             this.dgv_ShopB_Items.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_ShopB_Items.RowTemplate.Height = 48;
             this.dgv_ShopB_Items.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_ShopB_Items.Size = new System.Drawing.Size(338, 80);
+            this.dgv_ShopB_Items.Size = new System.Drawing.Size(406, 80);
             this.dgv_ShopB_Items.TabIndex = 1;
             this.dgv_ShopB_Items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ShopB_Items_CellContentClick);
             this.dgv_ShopB_Items.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_ShopB_Items_CellMouseDown);
@@ -172,7 +172,7 @@
             this.m_usrc_Item_Group_Handler.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_Item_Group_Handler.Name = "m_usrc_Item_Group_Handler";
             this.m_usrc_Item_Group_Handler.ShopName = "";
-            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(150, 80);
+            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(181, 80);
             this.m_usrc_Item_Group_Handler.TabIndex = 20;
             this.m_usrc_Item_Group_Handler.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.usrc_Item_Group_Handler_GroupsRedefined);
             this.m_usrc_Item_Group_Handler.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.usrc_Item_Group_Handler_GroupChanged);
@@ -192,7 +192,7 @@
             this.lbl_GroupPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_GroupPath.AutoSize = true;
             this.lbl_GroupPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_GroupPath.Location = new System.Drawing.Point(472, 0);
+            this.lbl_GroupPath.Location = new System.Drawing.Point(638, 0);
             this.lbl_GroupPath.Name = "lbl_GroupPath";
             this.lbl_GroupPath.Size = new System.Drawing.Size(20, 16);
             this.lbl_GroupPath.TabIndex = 21;
@@ -207,7 +207,7 @@
             this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.splitContainer2);
             this.Name = "usrc_ShopB1366x768";
-            this.Size = new System.Drawing.Size(840, 100);
+            this.Size = new System.Drawing.Size(1006, 100);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
