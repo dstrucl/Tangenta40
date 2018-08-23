@@ -13,7 +13,19 @@ namespace usrc_Item_InsidePageHandler
     public partial class Form1 : Form
     {
 
-        private string[] Items = null;
+        public class Item
+        {
+            public bool bSelected = false;
+            public string sitem = null;
+            public Item(string s)
+            {
+                sitem = s;
+                bSelected = false;
+            }
+            
+        }
+
+        private Item[] Items = null;
 
         public Form1()
         {
@@ -29,9 +41,19 @@ namespace usrc_Item_InsidePageHandler
         {
             if (ctrl is Button)
             {
-                if (oData is string)
+                if (oData is Item)
                 {
-                    ((Button)ctrl).Text = (string)oData;
+
+                    if (((Item)oData).bSelected)
+                    {
+                        ctrl.BackColor = Color.MistyRose;
+                    }
+                    else
+                    {
+                        ctrl.BackColor = Color.White;
+                    }
+
+                    ((Button)ctrl).Text = ((Item)oData).sitem;
                 }
             }
         }
@@ -43,10 +65,10 @@ namespace usrc_Item_InsidePageHandler
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             int icount = Convert.ToInt32(numericUpDown1.Value);
-            Items = new string[icount];
+            Items = new Item[icount];
             for (int i = 0;i< icount;i++)
             {
-                Items[i] = "Item " + i.ToString();
+                Items[i] = new Item("Item "+ i.ToString());
             }
             usrc_Item_InsidePageHandler1.Init(Items);
             usrc_Item_InsidePageHandler1.ShowPage(0);
@@ -56,6 +78,53 @@ namespace usrc_Item_InsidePageHandler
         {
             int iPage = Convert.ToInt32(numericUpDown2.Value);
             usrc_Item_InsidePageHandler1.ShowPage(iPage);
+        }
+
+        private void usrc_Item_InsidePageHandler1_Select(object oData, int index)
+        {
+            if (oData is Item)
+            {
+                ((Item)oData).bSelected = true;
+            }
+        }
+
+        private void usrc_Item_InsidePageHandler1_SelectControl(Control ctrl, object oData, int index, bool select)
+        {
+            if (select)
+            {
+                ctrl.BackColor = Color.MistyRose;
+                if (oData is Item)
+                {
+                    ((Item)oData).bSelected = true;
+                }
+            }
+            else
+            {
+                ctrl.BackColor = Color.White;
+                if (oData is Item)
+                {
+                    ((Item)oData).bSelected = false;
+                }
+            }
+        }
+
+        private void usrc_Item_InsidePageHandler1_Deselect(object oData, int index)
+        {
+            if (oData is Item)
+            {
+                ((Item)oData).bSelected = false;
+            }
+        }
+
+        private void nmUpDn_SelectItem_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Convert.ToInt32(nmUpDn_SelectItem.Value);
+            usrc_Item_InsidePageHandler1.SelectObject(index);
+        }
+
+        private void usrc_Item_InsidePageHandler1_PageChanged(int iPage)
+        {
+            lbl_Page.Text = iPage.ToString();
         }
     }
 }

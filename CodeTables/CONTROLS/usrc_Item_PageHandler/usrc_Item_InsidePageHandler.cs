@@ -34,6 +34,21 @@ namespace usrc_Item_PageHandler
         public delegate void delegate_FillControl(Control ctrl, object oData);
         public event delegate_FillControl FillControl = null;
 
+        public delegate void delegate_SelectControl(Control ctrl, object oData,int index, bool selected);
+        public event delegate_SelectControl SelectControl = null;
+
+        public delegate void delegate_Select(object oData, int index);
+        public event delegate_Select Select = null;
+
+        public delegate void delegate_SelectionChanged(Control ctrl,object oData, int index);
+        public event delegate_SelectionChanged SelectionChanged = null;
+
+        public delegate void delegate_PageChanged(int iPage);
+        public event delegate_PageChanged PageChanged = null;
+
+        public delegate void delegate_Deselect(object oData, int index);
+        public event delegate_Deselect Deselect = null;
+
         private object[] m_ousrc_Item_array = null;
         private Control[] ctrlItems = null;
 
@@ -102,15 +117,26 @@ namespace usrc_Item_PageHandler
         }
 
 
-        private int m_CurrentPage = 0;
+        private int m_CurrentPage = -1;
         public int CurrentPage
         {
             get { return m_CurrentPage; }
-            set
+            private set
             {
                 m_CurrentPage = value;
             }
         }
+
+        private int m_SelectedIndex = -1;
+        public int SelectedIndex
+        {
+            get { return m_SelectedIndex; }
+            set
+            {
+                m_SelectedIndex = value;
+            }
+        }
+
 
         public int NumberOfPages
         {
@@ -356,7 +382,14 @@ namespace usrc_Item_PageHandler
                             ictrl++;
                         }
 
-                        m_CurrentPage = iPage;
+                        if (CurrentPage != iPage)
+                        {
+                            CurrentPage = iPage;
+                            if (PageChanged!=null)
+                            {
+                                PageChanged(m_CurrentPage+1);
+                            }
+                        }
                         btn_Prev.Visible = false;
                         btn_Next.Visible = false;
                         if (iPage == 0)
@@ -365,7 +398,7 @@ namespace usrc_Item_PageHandler
                             if (iPage < Pages.Count - 1)
                             {
                                 btn_Next.Visible = true;
-                                btn_Next.Text = Convert.ToString(iPage + 1); ;
+                                btn_Next.Text = Convert.ToString(iPage + 2); ;
                             }
                             else
                             {
@@ -379,7 +412,7 @@ namespace usrc_Item_PageHandler
                             if (iPage < Pages.Count - 1)
                             {
                                 btn_Next.Visible = true;
-                                btn_Next.Text = Convert.ToString(iPage + 1); ;
+                                btn_Next.Text = Convert.ToString(iPage + 2); ;
                             }
                             else
                             {
@@ -390,7 +423,97 @@ namespace usrc_Item_PageHandler
                 }
             }
         }
-    
+
+        public bool SelectObject(int index)
+        {
+            if (index < m_NumberOfItems)
+            {
+                int ictrl = 0;
+                int ipage = 0;
+                if (get_page(index,ref ipage, ref ictrl))
+                {
+                    int icount = m_NumberOfItems;
+                    for (int i=0;i< icount;i++)
+                    {
+                        if (i == index)
+                        {
+                            if (Select != null)
+                            {
+                                if (ipage != m_CurrentPage)
+                                {
+                                    Select(m_ousrc_Item_array[index], index);
+                                    for (int k=index+1;k<icount;k++)
+                                    {
+                                        Deselect(m_ousrc_Item_array[k], k);
+                                    }
+                                    ShowPage(ipage);
+                                    if (m_SelectedIndex != index)
+                                    {
+                                        m_SelectedIndex = index;
+                                        if (SelectionChanged!=null)
+                                        {
+                                            SelectionChanged(ctrlItems[ictrl], m_ousrc_Item_array[index], index);
+                                        }
+                                    }
+                                    
+                                    return true;
+                                }
+                                else
+                                {
+                                    int ixctrls_Start = Pages[ipage].iControlStartIndex;
+                                    int ixctrls_End = Pages[ipage].iControlEndIndex;
+                                    int ixobj_Start = Pages[ipage].iObjectDataStartIndex;
+                                    for (int j = ixctrls_Start; j <= ixctrls_End; j++)
+                                    {
+                                        if (j == ictrl)
+                                        {
+                                            SelectControl(ctrlItems[j], m_ousrc_Item_array[index], index, true);
+                                        }
+                                        else
+                                        {
+                                            SelectControl(ctrlItems[j], m_ousrc_Item_array[ixobj_Start], ixobj_Start, false);
+                                        }
+                                        ixobj_Start++;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (Deselect != null)
+                            {
+                                Deselect(m_ousrc_Item_array[i], i);
+                            }
+                        }
+                    }
+                    m_SelectedIndex = index;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        private bool get_page(int index,ref int iPage,ref int iCtrl)
+        {
+            int icount = Pages.Count;
+            int isum = 0;
+            iPage = -1;
+            iCtrl = -1;
+            for (int i=0;i< icount;i++)
+            {
+                int ipgcount = Pages[i].ItemsCount;
+                if ((index >=isum)&&(index < isum+ ipgcount))
+                {
+                    iCtrl = Pages[i].iControlStartIndex + (index - isum);
+                    iPage = i;
+                    return true;
+                }
+                isum += ipgcount;
+            }
+            return false;
+        }
+
         private void HideControls()
         {
             foreach (Control xctrl in this.Controls)
