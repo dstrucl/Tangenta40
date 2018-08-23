@@ -25,7 +25,9 @@ namespace usrc_Item_InsidePageHandler
             
         }
 
-        private Item[] Items = null;
+        private Item[] Items_array = null;
+
+        private List<Item> Items_list = null;
 
         public Form1()
         {
@@ -65,12 +67,34 @@ namespace usrc_Item_InsidePageHandler
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             int icount = Convert.ToInt32(numericUpDown1.Value);
-            Items = new Item[icount];
-            for (int i = 0;i< icount;i++)
+            if (rdb_Array.Checked)
             {
-                Items[i] = new Item("Item "+ i.ToString());
+                Items_array = new Item[icount];
+                for (int i = 0; i < icount; i++)
+                {
+                    Items_array[i] = new Item("Item " + i.ToString());
+                }
+                usrc_Item_InsidePageHandler1.Init(Items_array);
             }
-            usrc_Item_InsidePageHandler1.Init(Items);
+
+            if (rdb_List.Checked)
+            {
+                if (Items_list == null)
+                {
+                    Items_list = new List<Item>();
+                }
+                else
+                {
+                    Items_list.Clear();
+                }
+
+                for (int i = 0; i < icount; i++)
+                {
+                    Items_list.Add(new Item("Item " + i.ToString()));
+                }
+                usrc_Item_InsidePageHandler1.Init(Items_list.Cast<object>().ToList());
+            }
+
             usrc_Item_InsidePageHandler1.ShowPage(0);
         }
 

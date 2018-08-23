@@ -36,6 +36,8 @@
             this.nmUpDn_SelectItem = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_Page = new System.Windows.Forms.Label();
+            this.rdb_Array = new System.Windows.Forms.RadioButton();
+            this.rdb_List = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).BeginInit();
@@ -134,11 +136,35 @@
             this.lbl_Page.TabIndex = 7;
             this.lbl_Page.Text = "label4";
             // 
+            // rdb_Array
+            // 
+            this.rdb_Array.AutoSize = true;
+            this.rdb_Array.Location = new System.Drawing.Point(17, 8);
+            this.rdb_Array.Name = "rdb_Array";
+            this.rdb_Array.Size = new System.Drawing.Size(62, 17);
+            this.rdb_Array.TabIndex = 8;
+            this.rdb_Array.Text = "ARRAY";
+            this.rdb_Array.UseVisualStyleBackColor = true;
+            // 
+            // rdb_List
+            // 
+            this.rdb_List.AutoSize = true;
+            this.rdb_List.Checked = true;
+            this.rdb_List.Location = new System.Drawing.Point(82, 8);
+            this.rdb_List.Name = "rdb_List";
+            this.rdb_List.Size = new System.Drawing.Size(48, 17);
+            this.rdb_List.TabIndex = 9;
+            this.rdb_List.TabStop = true;
+            this.rdb_List.Text = "LIST";
+            this.rdb_List.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 410);
+            this.Controls.Add(this.rdb_List);
+            this.Controls.Add(this.rdb_Array);
             this.Controls.Add(this.lbl_Page);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -167,6 +193,8 @@
         private System.Windows.Forms.NumericUpDown nmUpDn_SelectItem;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Page;
+        private System.Windows.Forms.RadioButton rdb_Array;
+        private System.Windows.Forms.RadioButton rdb_List;
     }
 }
 

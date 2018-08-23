@@ -350,5 +350,45 @@ namespace ShopC
             }
 
         }
+
+        private void pnl_Items_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_PageChanged(int iPage)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_Deselect(object oData, int index)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_Select(object oData, int index)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
+        {
+
+        }
+
+        private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
+        {
+
+        }
     }
 }

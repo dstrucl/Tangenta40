@@ -19,6 +19,7 @@ namespace usrc_Item_PageHandler
 {
     public partial class usrc_Item_InsidePageHandler : UserControl
     {
+        public enum eCollectionType { ARRAY,LIST};
         private class Page
         {
             public int ItemsCount;
@@ -27,6 +28,20 @@ namespace usrc_Item_PageHandler
             public int iObjectDataStartIndex;
             public int iObjectDataEndIndex;
         }
+
+        private eCollectionType m_ecollectiontype = eCollectionType.ARRAY;
+        public eCollectionType CollectionType
+        {
+            get
+            {
+                return m_ecollectiontype;
+            }
+            private set
+            {
+                m_ecollectiontype = value;
+            }
+        }
+
 
         public delegate void delegate_CreateControl(ref Control ctrl);
         public event delegate_CreateControl CreateControl = null;
@@ -50,7 +65,10 @@ namespace usrc_Item_PageHandler
         public event delegate_Deselect Deselect = null;
 
         private object[] m_ousrc_Item_array = null;
-        private Control[] ctrlItems = null;
+        private Control[] ctrlItems_array = null;
+
+        private List<object> m_ousrc_Item_list = null;
+        private List<Control> ctrlItems_list = null;
 
         private List<Page> Pages = new List<Page>();
 
@@ -159,9 +177,9 @@ namespace usrc_Item_PageHandler
 
         private void RemoveControlItems()
         {
-            if (ctrlItems != null)
+            if (ctrlItems_array != null)
             {
-                foreach (Control xc in ctrlItems)
+                foreach (Control xc in ctrlItems_array)
                 {
                     if (xc != null)
                     {
@@ -169,13 +187,13 @@ namespace usrc_Item_PageHandler
                         xc.Dispose();
                     }
                 }
-                ctrlItems = null;
+                ctrlItems_array = null;
             }
         }
         private void create_controls()
         {
             int i = 0;
-            ctrlItems = new Control[ctrlItemsCount];
+            ctrlItems_array = new Control[ctrlItemsCount];
             for (int irow = 0; irow < numberOCtrlfRows; irow++)
             {
                 for (int icol = 0; icol < numberOfCtrlColumns; icol++)
@@ -190,22 +208,22 @@ namespace usrc_Item_PageHandler
                         xctrl.Height = CtrlHeight;
                         xctrl.Visible = false;
                         this.Controls.Add(xctrl);
-                        ctrlItems[i] = xctrl;
+                        ctrlItems_array[i] = xctrl;
                         i++;
                     }
                 }
             }
-            btn_Prev.Top = ctrlItems[0].Top;
-            btn_Prev.Left = ctrlItems[0].Left;
-            btn_Prev.Width = ctrlItems[0].Width;
-            btn_Prev.Height = ctrlItems[0].Height;
+            btn_Prev.Top = ctrlItems_array[0].Top;
+            btn_Prev.Left = ctrlItems_array[0].Left;
+            btn_Prev.Width = ctrlItems_array[0].Width;
+            btn_Prev.Height = ctrlItems_array[0].Height;
             btn_Prev.Visible = false;
 
             int ilast = ctrlItemsCount - 1;
-            btn_Next.Top = ctrlItems[ilast].Top;
-            btn_Next.Left = ctrlItems[ilast].Left;
-            btn_Next.Width = ctrlItems[ilast].Width;
-            btn_Next.Height = ctrlItems[ilast].Height;
+            btn_Next.Top = ctrlItems_array[ilast].Top;
+            btn_Next.Left = ctrlItems_array[ilast].Left;
+            btn_Next.Width = ctrlItems_array[ilast].Width;
+            btn_Next.Height = ctrlItems_array[ilast].Height;
             btn_Next.Visible = false;
 
         }
@@ -232,7 +250,7 @@ namespace usrc_Item_PageHandler
             {
                 if (CreateControl != null)
                 {
-                    if (ctrlItems==null)
+                    if (ctrlItems_array==null)
                     {
                         create_controls();
                     }
@@ -335,10 +353,20 @@ namespace usrc_Item_PageHandler
             }
         }
 
-        public void Init(object[] ousrc_Item_array)
+        public void Init(object xDataCollection)
         {
-            m_ousrc_Item_array = ousrc_Item_array;
-            m_NumberOfItems = ousrc_Item_array.Length;
+            if (xDataCollection is object[])
+            {
+                m_ousrc_Item_array = (object[])xDataCollection;
+                m_NumberOfItems = m_ousrc_Item_array.Length;
+                CollectionType = eCollectionType.ARRAY;
+            }
+            else
+            {
+                m_ousrc_Item_list = (List<object>)xDataCollection;
+                m_NumberOfItems = m_ousrc_Item_list.Count;
+                CollectionType = eCollectionType.LIST;
+            }
             initialise();
         }
 
@@ -354,13 +382,13 @@ namespace usrc_Item_PageHandler
                     {
                         int icount = Pages[iPage].ItemsCount;
                         int ictrl = Pages[iPage].iControlStartIndex;
-                        if (ictrl==1)
+                        if (ictrl == 1)
                         {
-                            ctrlItems[0].Visible = false;
+                            ctrlItems_array[0].Visible = false;
                         }
                         else if (ictrl == 0)
                         {
-                            ctrlItems[0].Visible = true;
+                            ctrlItems_array[0].Visible = true;
                         }
 
                         int iobj = Pages[iPage].iObjectDataStartIndex;
@@ -368,8 +396,16 @@ namespace usrc_Item_PageHandler
                         {
                             if (FillControl != null)
                             {
-                                FillControl(ctrlItems[ictrl], m_ousrc_Item_array[iobj]);
-                                ctrlItems[ictrl].Visible = true;
+                                switch (CollectionType)
+                                {
+                                    case eCollectionType.ARRAY:
+                                        FillControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj]);
+                                        break;
+                                    case eCollectionType.LIST:
+                                        FillControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj]);
+                                        break;
+                                }
+                                ctrlItems_array[ictrl].Visible = true;
                                 ictrl++;
                                 iobj++;
 
@@ -378,7 +414,7 @@ namespace usrc_Item_PageHandler
 
                         while (ictrl <ctrlItemsCount )
                         {
-                            ctrlItems[ictrl].Visible = false;
+                            ctrlItems_array[ictrl].Visible = false;
                             ictrl++;
                         }
 
@@ -441,39 +477,81 @@ namespace usrc_Item_PageHandler
                             {
                                 if (ipage != m_CurrentPage)
                                 {
-                                    Select(m_ousrc_Item_array[index], index);
+                                    switch (CollectionType)
+                                    {
+                                        case eCollectionType.ARRAY:
+                                            Select(m_ousrc_Item_array[index], index);
+                                            break;
+                                        case eCollectionType.LIST:
+                                            Select(m_ousrc_Item_list[index], index);
+                                            break;
+                                    }
                                     for (int k=index+1;k<icount;k++)
                                     {
-                                        Deselect(m_ousrc_Item_array[k], k);
+                                        switch (CollectionType)
+                                        {
+                                            case eCollectionType.ARRAY:
+                                                Deselect(m_ousrc_Item_array[k], k);
+                                                break;
+                                            case eCollectionType.LIST:
+                                                Deselect(m_ousrc_Item_list[k], k);
+                                                break;
+                                        }
                                     }
                                     ShowPage(ipage);
                                     if (m_SelectedIndex != index)
                                     {
                                         m_SelectedIndex = index;
-                                        if (SelectionChanged!=null)
+                                        if (SelectionChanged != null)
                                         {
-                                            SelectionChanged(ctrlItems[ictrl], m_ousrc_Item_array[index], index);
+                                            switch (CollectionType)
+                                            {
+                                                case eCollectionType.ARRAY:
+                                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index);
+                                                    break;
+                                                case eCollectionType.LIST:
+                                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index);
+                                                    break;
+                                            }
                                         }
                                     }
-                                    
                                     return true;
                                 }
                                 else
                                 {
-                                    int ixctrls_Start = Pages[ipage].iControlStartIndex;
-                                    int ixctrls_End = Pages[ipage].iControlEndIndex;
-                                    int ixobj_Start = Pages[ipage].iObjectDataStartIndex;
-                                    for (int j = ixctrls_Start; j <= ixctrls_End; j++)
+                                    if (SelectControl != null)
                                     {
-                                        if (j == ictrl)
+                                        int ixctrls_Start = Pages[ipage].iControlStartIndex;
+                                        int ixctrls_End = Pages[ipage].iControlEndIndex;
+                                        int ixobj_Start = Pages[ipage].iObjectDataStartIndex;
+                                        for (int j = ixctrls_Start; j <= ixctrls_End; j++)
                                         {
-                                            SelectControl(ctrlItems[j], m_ousrc_Item_array[index], index, true);
+                                            if (j == ictrl)
+                                            {
+                                                switch (CollectionType)
+                                                {
+                                                    case eCollectionType.ARRAY:
+                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_array[index], index, true);
+                                                        break;
+                                                    case eCollectionType.LIST:
+                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_list[index], index, true);
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                switch (CollectionType)
+                                                {
+                                                    case eCollectionType.ARRAY:
+                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_array[ixobj_Start], ixobj_Start, false);
+                                                        break;
+                                                    case eCollectionType.LIST:
+                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_list[ixobj_Start], ixobj_Start, false);
+                                                        break;
+                                                }
+                                            }
+                                            ixobj_Start++;
                                         }
-                                        else
-                                        {
-                                            SelectControl(ctrlItems[j], m_ousrc_Item_array[ixobj_Start], ixobj_Start, false);
-                                        }
-                                        ixobj_Start++;
                                     }
                                 }
                             }
@@ -482,7 +560,15 @@ namespace usrc_Item_PageHandler
                         {
                             if (Deselect != null)
                             {
-                                Deselect(m_ousrc_Item_array[i], i);
+                                switch (CollectionType)
+                                {
+                                    case eCollectionType.ARRAY:
+                                        Deselect(m_ousrc_Item_array[i], i);
+                                        break;
+                                    case eCollectionType.LIST:
+                                        Deselect(m_ousrc_Item_list[i], i);
+                                        break;
+                                }
                             }
                         }
                     }
