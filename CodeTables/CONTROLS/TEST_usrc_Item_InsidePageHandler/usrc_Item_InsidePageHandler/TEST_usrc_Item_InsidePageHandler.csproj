@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LanguageControl">
+      <HintPath>..\..\..\UTIL\LanguageControl\bin\AnyCPU\Debug\LanguageControl.dll</HintPath>
+    </Reference>
+    <Reference Include="LogFile">
+      <HintPath>..\..\..\UTIL\LogFile\bin\AnyCPU\Debug\LogFile.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,10 +56,21 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Items_Samples.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Items_Samples.Designer.cs">
+      <DependentUpon>Form_Items_Samples.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleDB.cs" />
+    <Compile Include="SampleDB_Price_ShopC_Item.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Items_Samples.resx">
+      <DependentUpon>Form_Items_Samples.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -78,6 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
+      <Project>{AE38E7C4-AC11-4E43-9DE3-364533FCC83B}</Project>
+      <Name>usrc_Item_Group_Handler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>

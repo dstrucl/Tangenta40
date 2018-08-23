@@ -16,22 +16,23 @@ using System.Windows.Forms;
 
 namespace usrc_Item_Group_Handler
 {
-    public class GroupList
+    public class GroupListInForm
     {
-        public List<Group> Items = new List<Group>();
-        public Group m_GroupParent = null;
-        public void Add(Group grp)
+        
+        public List<GroupInForm> Items = new List<GroupInForm>();
+        public GroupInForm m_GroupParent = null;
+        public void Add(GroupInForm grp)
         {
             Items.Add(grp);
         }
 
-        public GroupList(Group xGroupParent)
+        public GroupListInForm(GroupInForm xGroupParent)
         {
             m_GroupParent = xGroupParent;
         }
-        public Group Find(string sx_name)
+        public GroupInForm Find(string sx_name)
         {
-            foreach (Group xgrp in Items)
+            foreach (GroupInForm xgrp in Items)
             {
                 if (xgrp.EqualsTo(sx_name))
                 {
@@ -47,23 +48,23 @@ namespace usrc_Item_Group_Handler
             Items.Clear();
         }
 
-        internal void Remove(Group grp)
+        internal void Remove(GroupInForm grp)
         {
             Items.Remove(grp);
         }
 
-        public Group First()
+        public GroupInForm First()
         {
             return Items[0];
         }
 
-        internal Group SelectFirst()
+        internal GroupInForm SelectFirst()
         {
             if (Items.Count > 0)
             {
-                Group grpFirst = Items.First();
+                GroupInForm grpFirst = Items.First();
                 grpFirst.SingleSelected = true;
-                Group sub_grp = grpFirst;
+                GroupInForm sub_grp = grpFirst;
                 if (sub_grp.m_GroupList != null)
                 {
                     sub_grp = sub_grp.m_GroupList.SelectFirst();
@@ -76,19 +77,19 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        internal Group Set(string s1_name,string s2_name,string s3_name)
+        internal GroupInForm Set(string s1_name,string s2_name,string s3_name)
         {
             if (s3_name != null)
             {
-                foreach (Group grp1 in Items)
+                foreach (GroupInForm grp1 in Items)
                 {
                     if (s3_name.Equals(grp1.Name))
                     {
-                        foreach (Group grp2 in grp1.m_GroupList.Items)
+                        foreach (GroupInForm grp2 in grp1.m_GroupList.Items)
                         {
                             if (s2_name.Equals(grp2.Name))
                             {
-                                foreach (Group grp3 in grp2.m_GroupList.Items)
+                                foreach (GroupInForm grp3 in grp2.m_GroupList.Items)
                                 {
                                     if (s1_name.Equals(grp3.Name))
                                     {
@@ -113,12 +114,12 @@ namespace usrc_Item_Group_Handler
             {
                 
             }
-            foreach(Group g in Items)
+            foreach(GroupInForm g in Items)
             {
                 g.SingleSelected = false;
             }
-            Group grp = Items.First();
-            Group sub_grp = grp;
+            GroupInForm grp = Items.First();
+            GroupInForm sub_grp = grp;
             while (sub_grp.m_GroupList != null)
             {
                 sub_grp = sub_grp.m_GroupList.SelectFirst();
@@ -129,12 +130,12 @@ namespace usrc_Item_Group_Handler
 
         internal void CurrentPath(ref List<string > sGroupList)
         {
-            Group g = Current();
+            GroupInForm g = Current();
             if (g != null)
             {
                 if (g.m_GroupList != null)
                 {
-                    GroupList gl = g.m_GroupList;
+                    GroupListInForm gl = g.m_GroupList;
                     if (gl != null)
                     {
                         gl.CurrentPath(ref sGroupList);
@@ -144,9 +145,9 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        internal Group Current()
+        internal GroupInForm Current()
         {
-            foreach (Group grp in Items)
+            foreach (GroupInForm grp in Items)
             {
                 if (grp.rbtn != null)
                 {
@@ -161,15 +162,15 @@ namespace usrc_Item_Group_Handler
 
         internal void PurgeNull(Panel pnl)
         {
-            List<Group> groups_to_remove = new List<Group>();
-            foreach (Group xgrp in Items)
+            List<GroupInForm> groups_to_remove = new List<GroupInForm>();
+            foreach (GroupInForm xgrp in Items)
             {
                 if (xgrp.Name == null)
                 {
                     groups_to_remove.Add(xgrp);
                 }
             }
-            foreach (Group xgrp in groups_to_remove)
+            foreach (GroupInForm xgrp in groups_to_remove)
             {
                 Items.Remove(xgrp);
                 pnl.Controls.Remove(xgrp.rbtn);
@@ -179,24 +180,24 @@ namespace usrc_Item_Group_Handler
             Arrange(pnl);
         }
 
-        internal void PurgeNotNull(Panel pnl, System.Data.DataRow[] drs_not_null, Group.delegate_NewGroupSelected NewGroupSelected)
+        internal void PurgeNotNull(Panel pnl, System.Data.DataRow[] drs_not_null, GroupInForm.delegate_NewGroupSelected NewGroupSelected)
         {
             int ypos = 0;
             foreach (DataRow dr in drs_not_null)
             {
                 string name = (string)dr["s1_name"];
-                Group grp = this.Find(name);
+                GroupInForm grp = this.Find(name);
                 if (grp==null)
                 {
-                    grp = new Group(name,pnl,null, NewGroupSelected, ref ypos, 64,14);
+                    grp = new GroupInForm(name,pnl,null, NewGroupSelected, ref ypos, 64,14);
                     grp.rbtn.CheckedChanged += grp.rbtn_CheckedChanged;
                     Add(grp);
 
                 }
             }
 
-            List<Group> groups_to_remove = new List<Group>();
-            foreach (Group xgrp in Items)
+            List<GroupInForm> groups_to_remove = new List<GroupInForm>();
+            foreach (GroupInForm xgrp in Items)
             {
                 if (!find_in_drs_not_null(xgrp.Name,drs_not_null))
                 {
@@ -204,7 +205,7 @@ namespace usrc_Item_Group_Handler
                 }
             }
 
-            foreach (Group xgrp in groups_to_remove)
+            foreach (GroupInForm xgrp in groups_to_remove)
             {
                 Items.Remove(xgrp);
                 pnl.Controls.Remove(xgrp.rbtn);
@@ -216,7 +217,7 @@ namespace usrc_Item_Group_Handler
 
         private void Arrange(Panel pnl)
         {
-            Items.Sort(delegate(Group x, Group y)
+            Items.Sort(delegate(GroupInForm x, GroupInForm y)
             {
                 if (x.Name == null && y.Name == null) return 0;
                 else if (x.Name == null) return -1;
@@ -226,7 +227,7 @@ namespace usrc_Item_Group_Handler
             int yy = 0;
             pnl.AutoScrollOffset = new System.Drawing.Point(0, 0);
             pnl.AutoScrollPosition = new System.Drawing.Point(0, 0);
-            foreach(Group g in Items)
+            foreach(GroupInForm g in Items)
             {
                 g.rbtn.Top = yy;
                 yy += g.rbtn.Height;

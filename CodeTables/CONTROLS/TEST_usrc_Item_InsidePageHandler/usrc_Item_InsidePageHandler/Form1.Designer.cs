@@ -38,6 +38,8 @@
             this.lbl_Page = new System.Windows.Forms.Label();
             this.rdb_Array = new System.Windows.Forms.RadioButton();
             this.rdb_List = new System.Windows.Forms.RadioButton();
+            this.usrc_Item_InsideGroup_Handler1 = new usrc_Item_Group_Handler.usrc_Item_InsideGroup_Handler();
+            this.usrc_Item_InsidePageHandler2 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).BeginInit();
@@ -52,7 +54,7 @@
             this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 115);
             this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(582, 292);
+            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(582, 106);
             this.usrc_Item_InsidePageHandler1.TabIndex = 0;
             this.usrc_Item_InsidePageHandler1.CreateControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_CreateControl(this.usrc_Item_InsidePageHandler1_CreateControl);
             this.usrc_Item_InsidePageHandler1.FillControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_FillControl(this.usrc_Item_InsidePageHandler1_FillControl);
@@ -158,11 +160,36 @@
             this.rdb_List.Text = "LIST";
             this.rdb_List.UseVisualStyleBackColor = true;
             // 
+            // usrc_Item_InsideGroup_Handler1
+            // 
+            this.usrc_Item_InsideGroup_Handler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsideGroup_Handler1.Button_Height = 40;
+            this.usrc_Item_InsideGroup_Handler1.Font_Height = 10;
+            this.usrc_Item_InsideGroup_Handler1.Location = new System.Drawing.Point(0, 432);
+            this.usrc_Item_InsideGroup_Handler1.Name = "usrc_Item_InsideGroup_Handler1";
+            this.usrc_Item_InsideGroup_Handler1.Size = new System.Drawing.Size(582, 120);
+            this.usrc_Item_InsideGroup_Handler1.TabIndex = 10;
+            // 
+            // usrc_Item_InsidePageHandler2
+            // 
+            this.usrc_Item_InsidePageHandler2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsidePageHandler2.BackColor = System.Drawing.Color.MistyRose;
+            this.usrc_Item_InsidePageHandler2.Location = new System.Drawing.Point(0, 294);
+            this.usrc_Item_InsidePageHandler2.Name = "usrc_Item_InsidePageHandler2";
+            this.usrc_Item_InsidePageHandler2.SelectedIndex = -1;
+            this.usrc_Item_InsidePageHandler2.Size = new System.Drawing.Size(582, 106);
+            this.usrc_Item_InsidePageHandler2.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 410);
+            this.ClientSize = new System.Drawing.Size(583, 563);
+            this.Controls.Add(this.usrc_Item_InsidePageHandler2);
+            this.Controls.Add(this.usrc_Item_InsideGroup_Handler1);
             this.Controls.Add(this.rdb_List);
             this.Controls.Add(this.rdb_Array);
             this.Controls.Add(this.lbl_Page);
@@ -195,6 +222,8 @@
         private System.Windows.Forms.Label lbl_Page;
         private System.Windows.Forms.RadioButton rdb_Array;
         private System.Windows.Forms.RadioButton rdb_List;
+        private usrc_Item_Group_Handler.usrc_Item_InsideGroup_Handler usrc_Item_InsideGroup_Handler1;
+        private usrc_Item_PageHandler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler2;
     }
 }
 

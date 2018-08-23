@@ -17,13 +17,16 @@ using LanguageControl;
 
 namespace usrc_Item_Group_Handler
 {
-    public class Group
+    public class GroupInForm
     {
-        public delegate void delegate_NewGroupSelected(Group grp);
+
+
+        public delegate void delegate_NewGroupSelected(GroupInForm grp);
+
 
         private delegate_NewGroupSelected m_delegate_NewGroupSelected_trigger = null;
         private int m_button_height = 48;
-        
+
         private int button_height
         {
             get {
@@ -34,12 +37,18 @@ namespace usrc_Item_Group_Handler
                 m_button_height = value;
             }
         }
+
+
         int font_height = 10;
         private bool m_bSingleSelected = false;
-        public Group m_CurrentSubGroup_In_m_GroupList = null;
-        internal Group m_pParent = null;
-        internal GroupList m_GroupList = null;
-        internal Panel m_pnl = null;
+        public GroupInForm m_CurrentSubGroup_In_m_GroupList = null;
+        internal GroupInForm m_pParent = null;
+        internal GroupListInForm m_GroupList = null;
+
+        internal RadioButton rbtn = null;
+        internal Control m_cpnl = null;
+
+
         private string m_Name = null;
         private string m_Name_In_Language = null;
         public string Name
@@ -63,7 +72,7 @@ namespace usrc_Item_Group_Handler
                     {
                         if (m_pParent.m_GroupList != null)
                         {
-                            foreach (Group g in m_pParent.m_GroupList.Items)
+                            foreach (GroupInForm g in m_pParent.m_GroupList.Items)
                             {
                                 g.m_bSingleSelected = false;
                                 if (g.rbtn != null)
@@ -82,11 +91,11 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        public bool IsRoot { get { return m_pnl == null; } }
+        public bool IsRoot { get { return m_cpnl == null; } }
 
         public int GroupLevel { get
                                 { int iLevel = 0;
-                                  Group g = this;
+                                  GroupInForm g = this;
                                   while (g.m_pParent!=null)
                                   { iLevel++;
                                     g = g.m_pParent;
@@ -95,20 +104,25 @@ namespace usrc_Item_Group_Handler
                                 }
                               }
 
-        internal RadioButton rbtn = null;
 
         public Color default_back_color = Color.Gray;
 
 
-        public Group(string xName,Panel pnl,Group pParent, delegate_NewGroupSelected delegate_NewGroupSelected_trigger,ref int yPos,int xbutton_height,int xfont_height)
+        public GroupInForm(string xName,
+                    Control pnl,
+                    GroupInForm pParent,
+                    delegate_NewGroupSelected delegate_NewGroupSelected_trigger,
+                    ref int yPos,
+                    int xbutton_height,
+                    int xfont_height)
         {
             button_height = xbutton_height;
             font_height = xfont_height;
             m_delegate_NewGroupSelected_trigger = delegate_NewGroupSelected_trigger;
-            m_pnl = pnl;
-            if (m_pnl!=null)
+            m_cpnl = pnl;
+            if (m_cpnl!=null)
             {
-                default_back_color = m_pnl.BackColor;
+                default_back_color = m_cpnl.BackColor;
             }
             m_pParent = pParent;
             yPos += button_height + 2;
@@ -127,7 +141,7 @@ namespace usrc_Item_Group_Handler
             {
                 if (m_pParent.m_GroupList== null)
                 {
-                    m_pParent.m_GroupList = new GroupList(this);
+                    m_pParent.m_GroupList = new GroupListInForm( this);
                 }
                 m_pParent.m_GroupList.Add(this);
             }
@@ -138,9 +152,9 @@ namespace usrc_Item_Group_Handler
             RadioButton rb = (RadioButton)sender;
             if (rb.Checked)
             {
-                if (rb.Tag is Group)
+                if (rb.Tag is GroupInForm)
                 {
-                    Group grp = (Group)rb.Tag;
+                    GroupInForm grp = (GroupInForm)rb.Tag;
                     if (grp != null)
                     {
                         grp.SingleSelected = true;
@@ -152,7 +166,7 @@ namespace usrc_Item_Group_Handler
 
         internal void ShowButton(int i, ref int ypos)
         {
-            if (i>=this.m_pnl.Controls.Count )
+            if (i>=this.m_cpnl.Controls.Count )
             {
                 if (rbtn != null)
                 {
@@ -162,7 +176,7 @@ namespace usrc_Item_Group_Handler
                 if (rbtn == null)
                 {
                     rbtn = new RadioButton();
-                    this.m_pnl.Controls.Add(rbtn);
+                    this.m_cpnl.Controls.Add(rbtn);
                     rbtn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                     rbtn.Appearance = Appearance.Button;
                     rbtn.Left = 0;
@@ -174,7 +188,7 @@ namespace usrc_Item_Group_Handler
             }
             else
             {
-                rbtn = (RadioButton)this.m_pnl.Controls[i];
+                rbtn = (RadioButton)this.m_cpnl.Controls[i];
             }
 
             rbtn.Tag = this;
@@ -197,7 +211,7 @@ namespace usrc_Item_Group_Handler
                 rbtn.BackColor = default_back_color;
             }
             rbtn.CheckedChanged += rbtn_CheckedChanged;
-            rbtn.Width = m_pnl.Width;
+            rbtn.Width = m_cpnl.Width;
             rbtn.Height = button_height;
             rbtn.Top = ypos;
             rbtn.Visible = true;
@@ -206,31 +220,31 @@ namespace usrc_Item_Group_Handler
 
         private object GetGroupHandlerControl()
         {
-            if (m_pnl != null)
+            if (m_cpnl != null)
             {
-                if (m_pnl.Parent != null)
+                if (m_cpnl.Parent != null)
                 {
-                    if (m_pnl.Parent is System.Windows.Forms.SplitterPanel)
+                    if (m_cpnl.Parent is System.Windows.Forms.SplitterPanel)
                     {
-                        if (m_pnl.Parent.Parent != null)
+                        if (m_cpnl.Parent.Parent != null)
                         {
-                            if (m_pnl.Parent.Parent is System.Windows.Forms.SplitContainer)
+                            if (m_cpnl.Parent.Parent is System.Windows.Forms.SplitContainer)
                             {
-                                if (m_pnl.Parent.Parent.Parent != null)
+                                if (m_cpnl.Parent.Parent.Parent != null)
                                 {
-                                    if (m_pnl.Parent.Parent.Parent is System.Windows.Forms.SplitterPanel)
+                                    if (m_cpnl.Parent.Parent.Parent is System.Windows.Forms.SplitterPanel)
                                     {
-                                        if (m_pnl.Parent.Parent.Parent.Parent != null)
+                                        if (m_cpnl.Parent.Parent.Parent.Parent != null)
                                         {
-                                            if (m_pnl.Parent.Parent.Parent.Parent is System.Windows.Forms.SplitContainer)
+                                            if (m_cpnl.Parent.Parent.Parent.Parent is System.Windows.Forms.SplitContainer)
                                             {
-                                                return m_pnl.Parent.Parent.Parent.Parent.Parent;
+                                                return m_cpnl.Parent.Parent.Parent.Parent.Parent;
                                             }
                                         }
                                     }
-                                    else if (m_pnl.Parent.Parent.Parent is Form_GroupHandler)
+                                    else if (m_cpnl.Parent.Parent.Parent is Form_GroupHandler)
                                     {
-                                        return m_pnl.Parent.Parent.Parent;
+                                        return m_cpnl.Parent.Parent.Parent;
                                     }
                                 }
                             }
@@ -238,7 +252,7 @@ namespace usrc_Item_Group_Handler
                     }
                     else
                     {
-                        return m_pnl.Parent;
+                        return m_cpnl.Parent;
                     }
                 }
             }
@@ -256,17 +270,20 @@ namespace usrc_Item_Group_Handler
                     int mypos = 0;
                     int i = 0;
                     int iCount = m_pParent.m_GroupList.Items.Count;
-                    Panel xpnl = null;
+                    Control xpnl = null;
                     for (i = 0; i < iCount; i++)
                     {
                         if (xpnl == null)
                         {
-                            xpnl = m_pParent.m_GroupList.Items[i].m_pnl;
+                            xpnl = m_pParent.m_GroupList.Items[i].m_cpnl;
                         }
                     }
                     if (xpnl != null)
                     {
-                        xpnl.AutoScrollPosition = new Point(0, 0);
+                        if (xpnl is Panel)
+                        {
+                            ((Panel)xpnl).AutoScrollPosition = new Point(0, 0);
+                        }
                     }
 
                     int TopPosition = -1;
@@ -297,7 +314,7 @@ namespace usrc_Item_Group_Handler
         private int GetGroupLevel()
         {
             int level = 0;
-            Group xParent = m_pParent;
+            GroupInForm xParent = m_pParent;
             while (xParent != null)
             {
                 xParent = xParent.m_pParent;
@@ -306,7 +323,7 @@ namespace usrc_Item_Group_Handler
             return level;
         }
 
-        internal Group SetFirst()
+        internal GroupInForm SetFirst()
         {
             if (m_GroupList != null)
             {
@@ -323,7 +340,7 @@ namespace usrc_Item_Group_Handler
 
         private void ActivateHandlers()
         {
-            foreach (Control ctrl in m_pnl.Controls)
+            foreach (Control ctrl in m_cpnl.Controls)
             {
                 if (ctrl is RadioButton)
                 {
@@ -335,7 +352,7 @@ namespace usrc_Item_Group_Handler
 
         private void RemoveHandlers()
         {
-            foreach (Control ctrl in m_pnl.Controls)
+            foreach (Control ctrl in m_cpnl.Controls)
             {
                 if (ctrl is RadioButton)
                 {
@@ -371,7 +388,7 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        internal Group Find(string sGroupName)
+        internal GroupInForm Find(string sGroupName)
         {
             if (this.m_GroupList != null)
             {
@@ -383,11 +400,11 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        internal void Add(Group grp)
+        internal void Add(GroupInForm grp)
         {
             if (this.m_GroupList== null)
             {
-                this.m_GroupList = new GroupList(this);
+                this.m_GroupList = new GroupListInForm(this);
             }
             this.m_GroupList.Add(grp);
         }
@@ -409,15 +426,15 @@ namespace usrc_Item_Group_Handler
         }
 
 
-        public Group Select(int NumberOfGroupLevel,string[] sGroupArr)
+        public GroupInForm Select(int NumberOfGroupLevel,string[] sGroupArr)
         {
             if (IsRoot)
             {
                 if (m_GroupList != null)
                 {
-                    foreach (Group grp in m_GroupList.Items)
+                    foreach (GroupInForm grp in m_GroupList.Items)
                     {
-                        Group g =  grp.Select(NumberOfGroupLevel - 1, sGroupArr);
+                        GroupInForm g =  grp.Select(NumberOfGroupLevel - 1, sGroupArr);
                         if (g!=null)
                         {
                             this.m_CurrentSubGroup_In_m_GroupList = g;
@@ -450,9 +467,9 @@ namespace usrc_Item_Group_Handler
                                 this.SingleSelected = true;
                                 if (m_GroupList != null)
                                 {
-                                    foreach (Group grp in m_GroupList.Items)
+                                    foreach (GroupInForm grp in m_GroupList.Items)
                                     {
-                                        Group g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
+                                        GroupInForm g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
                                         if (g != null)
                                         {
                                             this.m_CurrentSubGroup_In_m_GroupList = g;
@@ -470,9 +487,9 @@ namespace usrc_Item_Group_Handler
                         {
                             if (m_GroupList != null)
                             {
-                                foreach (Group grp in m_GroupList.Items)
+                                foreach (GroupInForm grp in m_GroupList.Items)
                                 {
-                                    Group g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
+                                    GroupInForm g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
                                     if (g != null)
                                     {
                                         this.m_CurrentSubGroup_In_m_GroupList = g;
@@ -509,7 +526,7 @@ namespace usrc_Item_Group_Handler
             return null;
         }
 
-        public Group GetCurrent()
+        public GroupInForm GetCurrent()
         {
             if (m_GroupList!=null)
             {
@@ -517,7 +534,7 @@ namespace usrc_Item_Group_Handler
                 int iCount = m_GroupList.Items.Count;
                 if (iCount > 0)
                 {
-                    Group g = null;
+                    GroupInForm g = null;
                     for (i = 0; i < iCount; i++)
                     {
                         g = m_GroupList.Items[i];

@@ -87,13 +87,21 @@
     <Compile Include="Form_GroupHandler.Designer.cs">
       <DependentUpon>Form_GroupHandler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Group.cs" />
-    <Compile Include="GroupList.cs" />
+    <Compile Include="GroupInsideControl.cs" />
+    <Compile Include="GroupInForm.cs" />
+    <Compile Include="GroupListInsideControl.cs" />
+    <Compile Include="GroupListInForm.cs" />
     <Compile Include="lng.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_InsideGroup_Handler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_InsideGroup_Handler.Designer.cs">
+      <DependentUpon>usrc_Item_InsideGroup_Handler.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Item_Group_Handler.cs">
       <SubType>UserControl</SubType>
@@ -112,6 +120,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item_InsideGroup_Handler.resx">
+      <DependentUpon>usrc_Item_InsideGroup_Handler.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item_Group_Handler.resx">
       <DependentUpon>usrc_Item_Group_Handler.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,6 +135,10 @@
     <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+      <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
+      <Name>usrc_Item_PageHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
