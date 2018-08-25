@@ -30,6 +30,7 @@ namespace Tangenta
             InitializeComponent();
             m_usrc_InvoiceTable = xusrc_InvoiceTable;
             this.lbl_From_To.Text = xusrc_InvoiceTable.lbl_From_To.Text;
+            lng.s_Details.Text(chk_Details);
             this.Text = "";
             btn_DURS_output.Text = lng.s_DURS_output.s;
             this.btn_XML_export.Text = lng.s_XML_export.s;
@@ -88,7 +89,8 @@ namespace Tangenta
             if (bDoPrint)
             {
                 PrintReport printreport = new PrintReport(m_usrc_InvoiceTable.dt_XInvoice, 
-                                                          sfromtomode, dtStart_v, dtEnd_v);
+                                                          sfromtomode, dtStart_v, dtEnd_v,
+                                                          chk_Details.Checked);
                 printreport.Print();
             }
 

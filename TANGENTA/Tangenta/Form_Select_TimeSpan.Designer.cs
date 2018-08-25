@@ -78,15 +78,15 @@
             this.dateTimePicker_From.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dateTimePicker_From.Location = new System.Drawing.Point(108, 252);
             this.dateTimePicker_From.Name = "dateTimePicker_From";
-            this.dateTimePicker_From.Size = new System.Drawing.Size(271, 38);
+            this.dateTimePicker_From.Size = new System.Drawing.Size(525, 38);
             this.dateTimePicker_From.TabIndex = 2;
             // 
             // dateTimePicker_To
             // 
             this.dateTimePicker_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dateTimePicker_To.Location = new System.Drawing.Point(518, 251);
+            this.dateTimePicker_To.Location = new System.Drawing.Point(119, 296);
             this.dateTimePicker_To.Name = "dateTimePicker_To";
-            this.dateTimePicker_To.Size = new System.Drawing.Size(271, 38);
+            this.dateTimePicker_To.Size = new System.Drawing.Size(532, 38);
             this.dateTimePicker_To.TabIndex = 3;
             // 
             // lbl_From
@@ -103,7 +103,7 @@
             // 
             this.lbl_To.AutoSize = true;
             this.lbl_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_To.Location = new System.Drawing.Point(429, 254);
+            this.lbl_To.Location = new System.Drawing.Point(30, 299);
             this.lbl_To.Name = "lbl_To";
             this.lbl_To.Size = new System.Drawing.Size(44, 31);
             this.lbl_To.TabIndex = 5;
@@ -233,14 +233,14 @@
             this.dateTimePicker_ForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dateTimePicker_ForDay.Location = new System.Drawing.Point(146, 165);
             this.dateTimePicker_ForDay.Name = "dateTimePicker_ForDay";
-            this.dateTimePicker_ForDay.Size = new System.Drawing.Size(271, 38);
+            this.dateTimePicker_ForDay.Size = new System.Drawing.Size(463, 38);
             this.dateTimePicker_ForDay.TabIndex = 17;
             // 
             // Form_Select_TimeSpan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(829, 333);
+            this.ClientSize = new System.Drawing.Size(829, 352);
             this.Controls.Add(this.dateTimePicker_ForDay);
             this.Controls.Add(this.rdb_ForDay);
             this.Controls.Add(this.usrc_Help1);

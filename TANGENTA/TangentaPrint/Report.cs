@@ -37,6 +37,45 @@ namespace TangentaPrint
                     m_Count = value;
                 }
             }
+
+            private decimal m_Net = 0;
+            public decimal Net
+            {
+                get
+                {
+                    return m_Net;
+                }
+                internal set
+                {
+                    m_Net = value;
+                }
+            }
+
+            private decimal m_TaxTotal = 0;
+            public decimal TaxTotal
+            {
+                get
+                {
+                    return m_TaxTotal;
+                }
+                internal set
+                {
+                    m_TaxTotal = value;
+                }
+            }
+
+            private decimal m_Total = 0;
+            public decimal Total
+            {
+                get
+                {
+                    return m_Total;
+                }
+                internal set
+                {
+                    m_Total = value;
+                }
+            }
         }
 
         public class PaymentList
@@ -56,17 +95,23 @@ namespace TangentaPrint
                 return null;
             }
 
-            public void Add(string name)
+            public void Add(string name, decimal xNet,decimal xTaxTotal,Decimal xTotal)
             {
                 PaymentType pt = FindItem(name);
                 if (pt != null)
                 {
                     pt.Count = pt.Count + 1;
+                    pt.Net = pt.Net + xNet;
+                    pt.TaxTotal = pt.TaxTotal + xTaxTotal;
+                    pt.Total = pt.Total + xTotal;
                 }
                 else
                 {
                     pt = new PaymentType();
                     pt.Name = name;
+                    pt.Net = xNet;
+                    pt.TaxTotal = xTaxTotal;
+                    pt.Total = xTotal;
                     pt.Count = 1;
                     items.Add(pt);
                 }
@@ -347,7 +392,6 @@ namespace TangentaPrint
                                         return false;
                                     }
 
-                                    HeadR.PaymentTypeList.Add(sPaymentType_Name_v.v);
 
                                     decimal_v dTotal_v = tf.set_decimal(dr["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
                                     if (dTotal_v == null)
@@ -369,6 +413,8 @@ namespace TangentaPrint
                                         LogFile.Error.Show("ERROR:TangentaPrint:Report:Print: dTaxSum_v == null");
                                         return false;
                                     }
+
+                                    HeadR.PaymentTypeList.Add(sPaymentType_Name_v.v, dNetSum_v.v, dTaxSum_v.v, dTotal_v.v);
 
 
                                     string_v Issuer_FirstName_v = tf.set_string(dr["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"]);

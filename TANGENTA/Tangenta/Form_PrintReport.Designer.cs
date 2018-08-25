@@ -38,13 +38,14 @@ namespace Tangenta
             this.btn_XML_export = new System.Windows.Forms.Button();
             this.btn_VOD_xml_OPAL_export = new System.Windows.Forms.Button();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.chk_Details = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_Print
             // 
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
-            this.btn_Print.Location = new System.Drawing.Point(143, 73);
+            this.btn_Print.Location = new System.Drawing.Point(143, 100);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(188, 39);
             this.btn_Print.TabIndex = 1;
@@ -74,7 +75,7 @@ namespace Tangenta
             // btn_DURS_output
             // 
             this.btn_DURS_output.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_DURS_output.Location = new System.Drawing.Point(6, 73);
+            this.btn_DURS_output.Location = new System.Drawing.Point(6, 100);
             this.btn_DURS_output.Name = "btn_DURS_output";
             this.btn_DURS_output.Size = new System.Drawing.Size(114, 37);
             this.btn_DURS_output.TabIndex = 4;
@@ -86,7 +87,7 @@ namespace Tangenta
             // btn_XML_export
             // 
             this.btn_XML_export.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_XML_export.Location = new System.Drawing.Point(6, 30);
+            this.btn_XML_export.Location = new System.Drawing.Point(6, 57);
             this.btn_XML_export.Name = "btn_XML_export";
             this.btn_XML_export.Size = new System.Drawing.Size(114, 37);
             this.btn_XML_export.TabIndex = 5;
@@ -98,7 +99,7 @@ namespace Tangenta
             // btn_VOD_xml_OPAL_export
             // 
             this.btn_VOD_xml_OPAL_export.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_VOD_xml_OPAL_export.Location = new System.Drawing.Point(143, 30);
+            this.btn_VOD_xml_OPAL_export.Location = new System.Drawing.Point(143, 57);
             this.btn_VOD_xml_OPAL_export.Name = "btn_VOD_xml_OPAL_export";
             this.btn_VOD_xml_OPAL_export.Size = new System.Drawing.Size(188, 37);
             this.btn_VOD_xml_OPAL_export.TabIndex = 6;
@@ -112,11 +113,22 @@ namespace Tangenta
             this.usrc_Help1.Size = new System.Drawing.Size(34, 39);
             this.usrc_Help1.TabIndex = 7;
             // 
+            // chk_Details
+            // 
+            this.chk_Details.AutoSize = true;
+            this.chk_Details.Location = new System.Drawing.Point(356, 109);
+            this.chk_Details.Name = "chk_Details";
+            this.chk_Details.Size = new System.Drawing.Size(58, 17);
+            this.chk_Details.TabIndex = 8;
+            this.chk_Details.Text = "Details";
+            this.chk_Details.UseVisualStyleBackColor = true;
+            // 
             // Form_PrintReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(528, 151);
+            this.ClientSize = new System.Drawing.Size(580, 151);
+            this.Controls.Add(this.chk_Details);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_VOD_xml_OPAL_export);
             this.Controls.Add(this.btn_XML_export);
@@ -133,6 +145,7 @@ namespace Tangenta
             this.Text = "Form_PrintReport";
             this.Load += new System.EventHandler(this.Form_PrintReport_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -145,5 +158,6 @@ namespace Tangenta
         private System.Windows.Forms.Button btn_XML_export;
         private System.Windows.Forms.Button btn_VOD_xml_OPAL_export;
         private HUDCMS.usrc_Help usrc_Help1;
+        private System.Windows.Forms.CheckBox chk_Details;
     }
 }

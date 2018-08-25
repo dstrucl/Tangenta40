@@ -25,6 +25,7 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Details = new ltext(new string[] { "Details", "Podrobnosti" });
         public static ltext s_SettingsUser_Name = new ltext(new string[] { "Settings Name", "Ime nastavitve" });
         public static ltext s_SettingsUser_Type = new ltext(new string[] { "Settings Type", "Vrsta nastavitve"  });
         public static ltext s_SettingsUser_Value = new ltext(new string[] { "Settings Value", "Vrednost nastvitve" });

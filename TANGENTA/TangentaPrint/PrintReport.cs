@@ -24,12 +24,20 @@ namespace TangentaPrint
         private DateTime_v dt1_v = null;
         private DateTime_v dt2_v = null;
         private DataTable m_dt_XInvoice = null;
+        private bool m_PrintSingleInvoices = false;
+
+        private bool PrintSingleInvoices
+        { 
+            get { return m_PrintSingleInvoices; }
+        }
 
         public PrintReport(DataTable x_dt_XInvoice,
                            string xsTimeSpan,
                            DateTime_v xdt1_v,
-                           DateTime_v xdt2_v)
+                           DateTime_v xdt2_v,
+                           bool xPrintSingleInvoices)
         {
+            m_PrintSingleInvoices = xPrintSingleInvoices;
             m_dt_XInvoice = x_dt_XInvoice;
             sTimeSpan = xsTimeSpan;
             dt1_v = xdt1_v;
@@ -136,45 +144,59 @@ namespace TangentaPrint
             {
                 Offset = Offset + OFS;
                 graphics.DrawString(pt.Name + ":" + pt.Count.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                Offset = Offset + OFS;
+                graphics.DrawString(pt.Name + " neto:" + pt.Net.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                Offset = Offset + OFS;
+                graphics.DrawString(pt.Name + " davek:" + pt.TaxTotal.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                Offset = Offset + OFS;
+                graphics.DrawString(pt.Name + " SKUPAJ:" + pt.Total.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
             }
 
-            for (int i=0;i< icount;i++)
+            if (PrintSingleInvoices)
             {
-                Offset = Offset + OFS;
-                int iInv = i + 1;
-                underLine = iInv.ToString()+ " -----------------------------------";
-                graphics.DrawString(underLine, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-                Report.Item itm= report.ItemList[i];
-                Offset = Offset + OFS;
-                graphics.DrawString(lng.s_InvoiceNumber.s+":" + itm.InvoiceNumber, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-                Offset = Offset + OFS;
-                graphics.DrawString(lng.s_IssueTime.s + ":" + itm.IssueTime, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
-                StaticLib.TaxSum tsum = itm.TaxSum;
-                foreach (StaticLib.Tax tax in tsum.TaxList)
+                for (int i = 0; i < icount; i++)
                 {
                     Offset = Offset + OFS;
-                    graphics.DrawString(tax.Name +":"+ tax.TaxAmount.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                    int iInv = i + 1;
+                    underLine = iInv.ToString() + " -----------------------------------";
+                    graphics.DrawString(underLine, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                    Report.Item itm = report.ItemList[i];
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_InvoiceNumber.s + ":" + itm.InvoiceNumber, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_IssueTime.s + ":" + itm.IssueTime, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    StaticLib.TaxSum tsum = itm.TaxSum;
+                    foreach (StaticLib.Tax tax in tsum.TaxList)
+                    {
+                        Offset = Offset + OFS;
+                        graphics.DrawString(tax.Name + ":" + tax.TaxAmount.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+                    }
+
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_TaxTotal.s + ":" + tsum.Value.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    //Offset = Offset + OFS;
+                    //graphics.DrawString(lng.s_TaxTotalcheck.s + ":" + itm.TaxTotal.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_NetSum.s + ":" + itm.NetSum.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_Total.s + ":" + itm.Total.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_MethodOfPayment.s + ":" + itm.MethodOfPayment, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    Offset = Offset + OFS;
+                    graphics.DrawString(lng.s_IssuerPerson.s + ":" + itm.IssuerPerson, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
                 }
-
+            }
+            else
+            {
                 Offset = Offset + OFS;
-                graphics.DrawString(lng.s_TaxTotal.s +":"+ tsum.Value.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
-                //Offset = Offset + OFS;
-                //graphics.DrawString(lng.s_TaxTotalcheck.s + ":" + itm.TaxTotal.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
-                Offset = Offset + OFS;
-                graphics.DrawString(lng.s_NetSum.s + ":" + itm.NetSum.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
-                Offset = Offset + OFS;
-                graphics.DrawString(lng.s_Total.s + ":" + itm.Total.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
-                Offset = Offset + OFS;
-                graphics.DrawString(lng.s_MethodOfPayment.s + ":" + itm.MethodOfPayment, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
-                Offset = Offset + OFS;
-                graphics.DrawString(lng.s_IssuerPerson.s + ":" + itm.IssuerPerson, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-
+                underLine = " -----------------------------------";
+                graphics.DrawString(underLine, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
             }
 
             //graphics.DrawString("Ticket No:" + this.TicketNo, new Font("Courier New", 14), new SolidBrush(Color.Black), startX, startY + Offset);
