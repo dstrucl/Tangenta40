@@ -44,7 +44,7 @@ namespace TangentaPrint
         public static ltext s_TaxTotal = new ltext(new string[] { "Tax sum", "Davek skupaj" });
         public static ltext s_TaxTotalcheck = new ltext(new string[] { "Tax 2 sum ", "Davek 2 skupaj" });
         public static ltext s_IssueTime = new ltext(new string[] { "Inv. Time", "Datum računa" });
-        public static ltext s_InvoiceNumber = new ltext(new string[] { "Inv. Num.:", "Številka računa" });
+        public static ltext s_InvoiceNumber = new ltext(new string[] { "Inv. Num.:", "Št.računa" });
         public static ltext s_StornoInvoice = new ltext(new string[] { "STORNO", "Stornacija računa" });
 
         public static ltext s_InvoiceAllreadyPrintedToPrintCopyCloseAndOpenThisDialogAgain = new ltext(new string[] { "To print copy of this invoice close and open this dialog again.", "Za tiskanje kopije računa zapustite ta dialog in ponovno pritisnite na gumb Tiskanje." });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
