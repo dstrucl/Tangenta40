@@ -1145,6 +1145,10 @@ namespace Tangenta
                         lbl_From_To.Text = lng.s_TimeSpan.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
+                    case usrc_TableOfDocuments.eMode.ForDay:
+                        lbl_From_To.Text = lng.s_ForDay.s + sTimeSpan();
+                        sFromTo_Suffix = sTimeSpan_Suffix();
+                        break;
                 }
             }
         }

@@ -400,7 +400,6 @@ namespace TangentaPrint
                                         HeadR.TaxSum.Add(tax.TaxAmount, 0, tax.Name, tax.Rate);
                                     }
 
-                                    HeadR.PaymentTypeList.Add(sPaymentType_Name_v.v);
                                     HeadR.TaxTotal += dTaxSum_v.v;
                                     HeadR.NetSum += dNetSum_v.v;
                                     HeadR.Total += dTotal_v.v;

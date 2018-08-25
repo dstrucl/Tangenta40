@@ -176,7 +176,6 @@
             this.rdb_TimeSpan.TabIndex = 11;
             this.rdb_TimeSpan.Text = "Time Span";
             this.rdb_TimeSpan.UseVisualStyleBackColor = true;
-            this.rdb_TimeSpan.CheckedChanged += new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
             // 
             // rdb_ThisMonth
             // 
@@ -228,7 +227,6 @@
             this.rdb_ForDay.TabIndex = 16;
             this.rdb_ForDay.Text = "ForDay";
             this.rdb_ForDay.UseVisualStyleBackColor = true;
-            this.rdb_ForDay.CheckedChanged += new System.EventHandler(this.rdb_ForDay_CheckedChanged);
             // 
             // dateTimePicker_ForDay
             // 
@@ -237,7 +235,6 @@
             this.dateTimePicker_ForDay.Name = "dateTimePicker_ForDay";
             this.dateTimePicker_ForDay.Size = new System.Drawing.Size(271, 38);
             this.dateTimePicker_ForDay.TabIndex = 17;
-            this.dateTimePicker_ForDay.ValueChanged += new System.EventHandler(this.dateTimePicker_ForDay_ValueChanged);
             // 
             // Form_Select_TimeSpan
             // 

@@ -32,7 +32,7 @@ namespace TangentaPrint
         public static ltext s_NumberOfCashInvoices = new ltext(new string[] { "Number Of cash payments", "Število plačil z gotovino" });
         public static ltext s_NumberOfCardInvoices = new ltext(new string[] { "Number Of card payments", "Število plačil s kartico" });
 
-        public static ltext s_IncomeForOrg = new ltext(new string[] { "Income for", "Izržki za" });
+        public static ltext s_IncomeForOrg = new ltext(new string[] { "Income for", "Iztržki za" });
         public static ltext s_To = new ltext(new string[] { "to", "do" });
 
         public static ltext s_IssuerPerson = new ltext(new string[] { "Person", "Oseba" });

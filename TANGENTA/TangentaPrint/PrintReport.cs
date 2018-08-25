@@ -141,7 +141,8 @@ namespace TangentaPrint
             for (int i=0;i< icount;i++)
             {
                 Offset = Offset + OFS;
-                underLine = i.ToString()+ " -----------------------------------";
+                int iInv = i + 1;
+                underLine = iInv.ToString()+ " -----------------------------------";
                 graphics.DrawString(underLine, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
                 Report.Item itm= report.ItemList[i];
                 Offset = Offset + OFS;

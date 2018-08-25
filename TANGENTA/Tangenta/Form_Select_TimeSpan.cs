@@ -97,9 +97,11 @@ namespace Tangenta
             this.dateTimePicker_From.Value = m_usrc_InvoiceTable.dtStartTime;
             this.dateTimePicker_To.Value = m_usrc_InvoiceTable.dtEndTime;
 
+            this.dateTimePicker_ForDay.ValueChanged += new System.EventHandler(this.dateTimePicker_ForDay_ValueChanged);
             this.dateTimePicker_From.ValueChanged += new System.EventHandler(this.dateTimePicker_From_ValueChanged);
             this.dateTimePicker_To.ValueChanged += new System.EventHandler(this.dateTimePicker_To_ValueChanged);
-
+            this.rdb_TimeSpan.CheckedChanged += new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
+            this.rdb_ForDay.CheckedChanged += new System.EventHandler(this.rdb_ForDay_CheckedChanged);
         }
 
 
@@ -301,24 +303,38 @@ namespace Tangenta
 
         private void dateTimePicker_From_ValueChanged(object sender, EventArgs e)
         {
+            this.rdb_TimeSpan.CheckedChanged -= new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
+            rdb_TimeSpan.Checked = true;
             m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+            this.rdb_TimeSpan.CheckedChanged += new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
         }
 
         private void dateTimePicker_To_ValueChanged(object sender, EventArgs e)
         {
+            this.rdb_TimeSpan.CheckedChanged -= new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
+            rdb_TimeSpan.Checked = true;
             m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+            this.rdb_TimeSpan.CheckedChanged += new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
         }
 
         private void rdb_ForDay_CheckedChanged(object sender, EventArgs e)
         {
-            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+
+            DateTime xdtStart = dateTimePicker_ForDay.Value;
+            DateTime xdtEnd = xdtStart;
+            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ForDay, xdtStart, xdtEnd);
         }
 
         private void dateTimePicker_ForDay_ValueChanged(object sender, EventArgs e)
         {
-            DateTime dtForDay = dateTimePicker_ForDay.Value;
-            DateTime dtForDayNextDay = dtForDay.AddDays(1);
-            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ForDay, dtForDay, dtForDayNextDay);
+
+            this.rdb_ForDay.CheckedChanged -= new System.EventHandler(this.rdb_ForDay_CheckedChanged);
+            rdb_ForDay.Checked = true;
+            DateTime xdtStart = dateTimePicker_ForDay.Value;
+            DateTime xdtEnd = xdtStart;
+            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ForDay, xdtStart, xdtEnd);
+            this.rdb_ForDay.CheckedChanged += new System.EventHandler(this.rdb_ForDay_CheckedChanged);
         }
+
     }
 }
