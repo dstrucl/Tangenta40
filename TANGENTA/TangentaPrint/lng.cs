@@ -23,6 +23,30 @@ namespace TangentaPrint
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
+
+        public static ltext s_OrganisationName = new ltext(new string[] { "Organisation name", "Organizacija" });
+        public static ltext s_OfficeName = new ltext(new string[] { "Office Name", "Poslovna enota" });
+        public static ltext s_ElectronicDevice = new ltext(new string[] { "Electronic device", "Elektronska naprava" });
+
+        public static ltext s_NumberOfInvoices = new ltext(new string[] { "NumberOfInvoices", "Število računov" });
+        public static ltext s_NumberOfCashInvoices = new ltext(new string[] { "Number Of cash payments", "Število plačil z gotovino" });
+        public static ltext s_NumberOfCardInvoices = new ltext(new string[] { "Number Of card payments", "Število plačil s kartico" });
+
+        public static ltext s_IncomeForOrg = new ltext(new string[] { "Income for", "Izržki za" });
+        public static ltext s_To = new ltext(new string[] { "to", "do" });
+
+        public static ltext s_IssuerPerson = new ltext(new string[] { "Person", "Oseba" });
+        public static ltext s_MethodOfPayment = new ltext(new string[] { "Method of payment", "Način plačila:" });
+        public static ltext s_Total = new ltext(new string[] { "Total", "Skupaj z DDV" });
+
+        public static ltext s_NetSum = new ltext(new string[] { "Net sum", "Skupaj brez DDV" });
+
+        public static ltext s_TaxTotal = new ltext(new string[] { "Tax sum", "Davek skupaj" });
+        public static ltext s_TaxTotalcheck = new ltext(new string[] { "Tax 2 sum ", "Davek 2 skupaj" });
+        public static ltext s_IssueTime = new ltext(new string[] { "Inv. Time", "Datum računa" });
+        public static ltext s_InvoiceNumber = new ltext(new string[] { "Inv. Num.:", "Številka računa" });
+        public static ltext s_StornoInvoice = new ltext(new string[] { "STORNO", "Stornacija računa" });
+
         public static ltext s_InvoiceAllreadyPrintedToPrintCopyCloseAndOpenThisDialogAgain = new ltext(new string[] { "To print copy of this invoice close and open this dialog again.", "Za tiskanje kopije računa zapustite ta dialog in ponovno pritisnite na gumb Tiskanje." });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs
 
         public static ltext s_HistoryOfInvoiceAndPrint = new ltext(new string[] { "History of Invoice", "Zgodovina računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\Form_PrintJournal.cs

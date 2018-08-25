@@ -339,6 +339,8 @@ namespace Tangenta
 
         public static ltext s_DateOfBirth = new ltext(new string[] { "Date of Birth", "Datum rojstva" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Customer_Person_Assign.cs
 
+        public static ltext s_ForDay = new ltext(new string[] { "For day", "Za dan" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
         public static ltext s_Today = new ltext(new string[] { "Today", "Danes" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
 
         public static ltext s_ThisWeek = new ltext(new string[] { "This week", "Ta teden" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs

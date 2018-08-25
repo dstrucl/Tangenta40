@@ -45,6 +45,7 @@ namespace Tangenta
             this.rdb_ThisMonth.Text = lng.s_ThisMonth.s;
             this.rdb_LastWeek.Text= lng.s_LastWeek.s; 
             this.rdb_ThisWeek.Text= lng.s_ThisWeek.s;
+            this.rdb_ForDay.Text = lng.s_ForDay.s;
             lbl_From.Text = lng.ss_From.s;
             lbl_To.Text = lng.ss_To.s;
             btn_OK.Text = lng.ss_OK.s;
@@ -306,6 +307,18 @@ namespace Tangenta
         private void dateTimePicker_To_ValueChanged(object sender, EventArgs e)
         {
             m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+        }
+
+        private void rdb_ForDay_CheckedChanged(object sender, EventArgs e)
+        {
+            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dateTimePicker_To.Value);
+        }
+
+        private void dateTimePicker_ForDay_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dtForDay = dateTimePicker_ForDay.Value;
+            DateTime dtForDayNextDay = dtForDay.AddDays(1);
+            m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.ForDay, dtForDay, dtForDayNextDay);
         }
     }
 }

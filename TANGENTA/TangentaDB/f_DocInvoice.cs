@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -124,6 +125,104 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetExistingFinancialYears:sql:"+sql+"\r\nErr=" + Err);
                 return false;
             }
+        }
+
+        public static bool GetTaxSum(ID DocInvoice_ID, StaticLib.TaxSum taxSum)
+        {
+            string Err = null;
+            //ShopA
+            //string sqlA = @"
+            //    select disai.DocInvoice_ID,
+            //           disai.Atom_ItemShopA_ID,
+            //           disai.Discount,
+            //           disai.dQuantity,
+            //           disai.PricePerUnit,
+            //           disai.EndPriceWithDiscountAndTax,
+            //           disai.TAX,
+            //           aisa.Name as ItemName,
+            //           aisa.Description as ItemDescription,
+            //           aisa.Taxation_ID,
+            //           aisa.Unit_ID,
+            //           aisa.Supplier_ID,
+            //           aisa.VisibleForSelection,
+            //           tax.Name as TaxName,
+            //           tax.Rate  as Taxrate
+            //           from DocInvoice_ShopA_Item disai
+            //           inner join Atom_ItemShopA aisa on disai.Atom_ItemShopA_ID = aisa.ID
+            //           inner join Taxation tax on aisa.Taxation_ID = tax.ID
+            //           where DocInvoice_ID = " + DocInvoice_ID.ToString();
+            string sqlA = @"
+                            select 
+                                   'ShopA' as ShopName,
+                                   disai.TAX as TaxPrice,
+                                   tax.Name as TaxName,
+                                   tax.Rate  as Taxrate
+                                   from DocInvoice_ShopA_Item disai
+                                   inner join Atom_ItemShopA aisa on disai.Atom_ItemShopA_ID = aisa.ID
+                                   inner join Taxation tax on aisa.Taxation_ID = tax.ID
+                                   where DocInvoice_ID = " + DocInvoice_ID.ToString();
+
+            DataTable dtitemtax = new DataTable();
+
+            if (!DBSync.DBSync.ReadDataTable(ref dtitemtax, sqlA, ref Err))
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:sqlA=" + sqlA + "\r\nErr=" + Err);
+                return false;
+            }
+            //ShopB
+            string sqlB = @"
+                        select
+                        'ShopB' as ShopName,
+                        disbi.TaxPrice,
+                        atax.Name as TaxName,
+                        atax.Rate as TaxRate
+                        from DocInvoice_ShopB_Item disbi
+                        inner join Atom_Taxation  atax on disbi.Atom_Taxation_ID = atax.ID
+                        where DocInvoice_ID = " + DocInvoice_ID.ToString();
+            if (!DBSync.DBSync.ReadDataTable(ref dtitemtax, sqlB, ref Err))
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:sqlB=" + sqlB + "\r\nErr=" + Err);
+                return false;
+            }
+
+
+            //ShopC
+            string sqlC = @"
+                         select 
+                       'ShopC' as ShopName,
+                        disci.TaxPrice,
+                        atax.Name as TaxName,
+                        atax.Rate as TaxRate
+                        from  DocInvoice_ShopC_Item disci
+                        inner join Atom_Price_Item api on api.ID = disci.Atom_Price_Item_ID
+                        inner join Atom_Taxation  atax on api.Atom_Taxation_ID = atax.ID
+                        where DocInvoice_ID = " + DocInvoice_ID.ToString();
+            if (!DBSync.DBSync.ReadDataTable(ref dtitemtax, sqlC, ref Err))
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:sqlC=" + sqlC + "\r\nErr=" + Err);
+                return false;
+            }
+            int idtitemtax_count = dtitemtax.Rows.Count;
+
+            for (int j = 0; j < idtitemtax_count; j++)
+            {
+                DataRow drj = dtitemtax.Rows[j];
+
+                decimal_v tax_v = tf.set_decimal(drj["TaxPrice"]);
+                if (tax_v != null)
+                {
+                    string_v tax_name_v = tf.set_string(drj["TaxName"]);
+                    if (tax_name_v != null)
+                    {
+                        decimal_v tax_rate_v = tf.set_decimal(drj["TaxRate"]);
+                        if (tax_rate_v != null)
+                        {
+                            taxSum.Add(tax_v.v, 0, tax_name_v.v, tax_rate_v.v);
+                        }
+                    }
+                }
+            }
+            return true;
         }
     }
 }

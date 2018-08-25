@@ -45,11 +45,12 @@
             this.rdb_LastYear = new System.Windows.Forms.RadioButton();
             this.rdb_LastWeek = new System.Windows.Forms.RadioButton();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.rdb_ForDay = new System.Windows.Forms.RadioButton();
+            this.dateTimePicker_ForDay = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btn_OK
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_OK.Location = new System.Drawing.Point(581, 3);
@@ -62,7 +63,6 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
@@ -76,7 +76,7 @@
             // dateTimePicker_From
             // 
             this.dateTimePicker_From.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dateTimePicker_From.Location = new System.Drawing.Point(103, 162);
+            this.dateTimePicker_From.Location = new System.Drawing.Point(108, 252);
             this.dateTimePicker_From.Name = "dateTimePicker_From";
             this.dateTimePicker_From.Size = new System.Drawing.Size(271, 38);
             this.dateTimePicker_From.TabIndex = 2;
@@ -84,7 +84,7 @@
             // dateTimePicker_To
             // 
             this.dateTimePicker_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dateTimePicker_To.Location = new System.Drawing.Point(513, 161);
+            this.dateTimePicker_To.Location = new System.Drawing.Point(518, 251);
             this.dateTimePicker_To.Name = "dateTimePicker_To";
             this.dateTimePicker_To.Size = new System.Drawing.Size(271, 38);
             this.dateTimePicker_To.TabIndex = 3;
@@ -93,7 +93,7 @@
             // 
             this.lbl_From.AutoSize = true;
             this.lbl_From.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_From.Location = new System.Drawing.Point(20, 165);
+            this.lbl_From.Location = new System.Drawing.Point(25, 255);
             this.lbl_From.Name = "lbl_From";
             this.lbl_From.Size = new System.Drawing.Size(50, 31);
             this.lbl_From.TabIndex = 4;
@@ -103,7 +103,7 @@
             // 
             this.lbl_To.AutoSize = true;
             this.lbl_To.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_To.Location = new System.Drawing.Point(424, 164);
+            this.lbl_To.Location = new System.Drawing.Point(429, 254);
             this.lbl_To.Name = "lbl_To";
             this.lbl_To.Size = new System.Drawing.Size(44, 31);
             this.lbl_To.TabIndex = 5;
@@ -170,12 +170,13 @@
             // 
             this.rdb_TimeSpan.AutoSize = true;
             this.rdb_TimeSpan.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_TimeSpan.Location = new System.Drawing.Point(584, 108);
+            this.rdb_TimeSpan.Location = new System.Drawing.Point(30, 219);
             this.rdb_TimeSpan.Name = "rdb_TimeSpan";
             this.rdb_TimeSpan.Size = new System.Drawing.Size(149, 33);
             this.rdb_TimeSpan.TabIndex = 11;
             this.rdb_TimeSpan.Text = "Time Span";
             this.rdb_TimeSpan.UseVisualStyleBackColor = true;
+            this.rdb_TimeSpan.CheckedChanged += new System.EventHandler(this.rdb_TimeSpan_CheckedChanged);
             // 
             // rdb_ThisMonth
             // 
@@ -217,11 +218,34 @@
             this.usrc_Help1.Size = new System.Drawing.Size(58, 34);
             this.usrc_Help1.TabIndex = 15;
             // 
+            // rdb_ForDay
+            // 
+            this.rdb_ForDay.AutoSize = true;
+            this.rdb_ForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rdb_ForDay.Location = new System.Drawing.Point(31, 165);
+            this.rdb_ForDay.Name = "rdb_ForDay";
+            this.rdb_ForDay.Size = new System.Drawing.Size(109, 33);
+            this.rdb_ForDay.TabIndex = 16;
+            this.rdb_ForDay.Text = "ForDay";
+            this.rdb_ForDay.UseVisualStyleBackColor = true;
+            this.rdb_ForDay.CheckedChanged += new System.EventHandler(this.rdb_ForDay_CheckedChanged);
+            // 
+            // dateTimePicker_ForDay
+            // 
+            this.dateTimePicker_ForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dateTimePicker_ForDay.Location = new System.Drawing.Point(146, 165);
+            this.dateTimePicker_ForDay.Name = "dateTimePicker_ForDay";
+            this.dateTimePicker_ForDay.Size = new System.Drawing.Size(271, 38);
+            this.dateTimePicker_ForDay.TabIndex = 17;
+            this.dateTimePicker_ForDay.ValueChanged += new System.EventHandler(this.dateTimePicker_ForDay_ValueChanged);
+            // 
             // Form_Select_TimeSpan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(829, 219);
+            this.ClientSize = new System.Drawing.Size(829, 333);
+            this.Controls.Add(this.dateTimePicker_ForDay);
+            this.Controls.Add(this.rdb_ForDay);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.rdb_LastWeek);
             this.Controls.Add(this.rdb_LastYear);
@@ -265,5 +289,7 @@
         private System.Windows.Forms.RadioButton rdb_LastYear;
         private System.Windows.Forms.RadioButton rdb_LastWeek;
         private HUDCMS.usrc_Help usrc_Help1;
+        private System.Windows.Forms.RadioButton rdb_ForDay;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_ForDay;
     }
 }

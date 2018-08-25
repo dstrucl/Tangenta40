@@ -6,6 +6,7 @@
 */
 #endregion
 
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -48,10 +49,53 @@ namespace Tangenta
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
+            string sfromtomode = null;
+            bool bDoPrint = true;
+            DateTime_v dtStart_v = new DateTime_v(m_usrc_InvoiceTable.dtStartTime);
+            DateTime_v dtEnd_v = new DateTime_v(m_usrc_InvoiceTable.dtEndTime);
+            switch (m_usrc_InvoiceTable.Mode)
+            {
+                case usrc_TableOfDocuments.eMode.ForDay:
+                    sfromtomode = lng.s_ForDay.s;
+                    dtEnd_v = null;
+                    break;
+                case usrc_TableOfDocuments.eMode.LastMonth:
+                    sfromtomode = lng.s_LastMonth.s;
+                    break;
+                case usrc_TableOfDocuments.eMode.LastWeek:
+                    sfromtomode = lng.s_LastWeek.s;
+                    break;
+                case usrc_TableOfDocuments.eMode.ThisMonth:
+                    sfromtomode = lng.s_ThisMonth.s;
+                    break;
+                case usrc_TableOfDocuments.eMode.ThisWeek:
+                    sfromtomode = lng.s_ThisMonth.s;
+                    break;
+                case usrc_TableOfDocuments.eMode.ThisYear:
+                    sfromtomode = lng.s_ThisYear.s;
+                    break;
+                case usrc_TableOfDocuments.eMode.TimeSpan:
+                    sfromtomode = lng.s_TimeSpan.s;
+                    break;
+                case usrc_TableOfDocuments.eMode.Today:
+                    sfromtomode = lng.s_Today.s;
+                    dtEnd_v = null;
+                    break;
+                default:
+                    bDoPrint = false;
+                    break;
+            }
+            if (bDoPrint)
+            {
+                PrintReport printreport = new PrintReport(m_usrc_InvoiceTable.dt_XInvoice, 
+                                                          sfromtomode, dtStart_v, dtEnd_v);
+                printreport.Print();
+            }
+
             //Program.usrc_TangentaPrint1.PrintReport(m_usrc_InvoiceTable);
-            XMessage.Box.Show(this, false, lng.s_Printing_InvoiceListIsNotImplementedYet_YouCanExportDataTableToExcelAndPrintExcelFile,MessageBoxIcon.Information);
-            this.Close();
-            DialogResult = DialogResult.OK;
+            // XMessage.Box.Show(this, false, lng.s_Printing_InvoiceListIsNotImplementedYet_YouCanExportDataTableToExcelAndPrintExcelFile,MessageBoxIcon.Information);
+            // this.Close();
+            // DialogResult = DialogResult.OK;
         }
 
         private void btn_DURS_output_Click(object sender, EventArgs e)

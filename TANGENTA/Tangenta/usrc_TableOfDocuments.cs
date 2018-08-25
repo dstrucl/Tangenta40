@@ -29,7 +29,7 @@ namespace Tangenta
     {
         private LMOUser m_LMOUser = null;
 
-        public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear, TimeSpan };
+        public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear,ForDay, TimeSpan };
         public delegate void delegate_SelectedInvoiceChanged(ID Invoice_ID, bool bInitialise);
         public event delegate_SelectedInvoiceChanged SelectedInvoiceChanged;
         public Color ColorDraft;
@@ -46,6 +46,8 @@ namespace Tangenta
 
         public string ExtraCondition = null;
         public List<SQL_Parameter> lpar_ExtraCondition = null;
+
+
         public DateTime dtStartTime;
         public DateTime dtEndTime;
         public eMode Mode = eMode.All;
@@ -446,6 +448,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
+                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ShortName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$ShortName,
                     JOURNAL_DocInvoice_$_awperiod_$_aed.Name as JOURNAL_DocInvoice_$_awperiod_$_aed_$$Name,
                     JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID AS EOR,
                     JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
@@ -536,6 +539,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
+                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ShortName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$ShortName,
                     JOURNAL_DocInvoice_$_awperiod_$_aed.Name as JOURNAL_DocInvoice_$_awperiod_$_aed_$$Name,
                     JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
                     JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
@@ -615,6 +619,7 @@ namespace Tangenta
                 JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                 JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                 JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
+                JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.ShortName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$ShortName,
                 JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
                 JOURNAL_DocProformaInvoice.EventTime AS JOURNAL_DocProformaInvoice_$$EventTime,
                 JOURNAL_DocProformaInvoice_$_dpinv.Draft AS JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
@@ -1038,17 +1043,24 @@ namespace Tangenta
 
         private string sTimeSpan()
         {
-            return " " + lng.s_from.s + " " + sDate(dtStartTime) + " " + lng.s_to.s +" "+ sDate(DayMinus(dtEndTime)) ;
+            return " " + lng.s_from.s + " " + sDate(dtStartTime) + " " + lng.s_to.s +" "+ sDate(dtEndTime) ;
         }
 
         private string sTimeSpan_Suffix()
         {
-            return "_"+sDate_Suffix(dtStartTime) + "__" + sDate_Suffix(DayMinus(dtEndTime));
+            return "_"+sDate_Suffix(dtStartTime) + "__" + sDate_Suffix(dtEndTime);
         }
 
         private DateTime DayMinus(DateTime date)
         {
             DateTime dt = date.AddDays(-1);
+            return dt;
+        }
+
+        private DateTime NextDay(DateTime date)
+        {
+            DateTime justdate = new DateTime(date.Year, date.Month, date.Day);
+            DateTime dt = justdate.AddDays(1);
             return dt;
         }
 
@@ -1072,7 +1084,8 @@ namespace Tangenta
             lpar_ExtraCondition = new List<DBConnectionControl40.SQL_Parameter>();
             SQL_Parameter par1 = new SQL_Parameter(sparam1, SQL_Parameter.eSQL_Parameter.Datetime, false, dtStartTime);
             lpar_ExtraCondition.Add(par1);
-            SQL_Parameter par2 = new SQL_Parameter(sparam2, SQL_Parameter.eSQL_Parameter.Datetime, false, dtEndTime);
+            DateTime dtNextDay = NextDay(dtEndTime);
+            SQL_Parameter par2 = new SQL_Parameter(sparam2, SQL_Parameter.eSQL_Parameter.Datetime, false, dtNextDay);
             lpar_ExtraCondition.Add(par2);
             if (IsDocInvoice)
             {

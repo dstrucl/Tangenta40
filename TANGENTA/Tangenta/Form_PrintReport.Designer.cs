@@ -116,7 +116,7 @@ namespace Tangenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(528, 119);
+            this.ClientSize = new System.Drawing.Size(528, 151);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_VOD_xml_OPAL_export);
             this.Controls.Add(this.btn_XML_export);
