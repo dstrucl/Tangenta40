@@ -121,6 +121,7 @@
     <Compile Include="Upgrade_1_18_to_1_19.cs" />
     <Compile Include="Upgrade_1_19_to_1_20.cs" />
     <Compile Include="Upgrade_1_20_to_1_21.cs" />
+    <Compile Include="Upgrade_1_26_to_1_27.cs" />
     <Compile Include="Upgrade_1_25_to_1_26.cs" />
     <Compile Include="Upgrade_1_24_to_1_25.cs" />
     <Compile Include="Upgrade_1_23_to_1_24.cs" />

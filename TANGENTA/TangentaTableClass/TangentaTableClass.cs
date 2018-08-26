@@ -2876,6 +2876,38 @@ namespace TangentaTableClass
 
     }
 
+    public class CashierActivityOpened
+    {
+        public ID ID = new ID();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+    }
+
+    public class CashierActivityClosed
+    {
+        public ID ID = new ID();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+    }
+
+    public class  CashierActivityNumber:DB_Int32
+    {
+
+    }
+
+    public class  CashierActivity
+    {
+        public ID ID = new ID();
+        public CashierActivityNumber CashierActivityNumber = new CashierActivityNumber();
+        public CashierActivityOpened m_CashierActivityOpened = new CashierActivityOpened();
+        public CashierActivityClosed m_CashierActivityClosed = new CashierActivityClosed();
+    }
+
+    public class CashierActivity_DocInvoice
+    {
+        public ID ID = new ID();
+        public CashierActivity m_CashierActivity = new CashierActivity();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+    }
+
     public class Current_DocInvoice_ID
     {
         public ID ID = new ID();
@@ -3628,6 +3660,18 @@ namespace TangentaTableClass
 
         /* 245 */
         public DocInvoice_ShopC_Item_AdditionalData_TYPE m_DocInvoice_ShopC_Item_AdditionalData_TYPE = new DocInvoice_ShopC_Item_AdditionalData_TYPE();
+
+        /* 246 */
+        public CashierActivityOpened m_CashierActivityOpened = new CashierActivityOpened();
+
+        /* 247 */
+        public CashierActivityClosed m_CashierActivityClosed = new CashierActivityClosed();
+
+        /* 248 */
+        public CashierActivity m_CashierActivity = new CashierActivity();
+
+        /* 249 */
+        public CashierActivity_DocInvoice m_CashierActivity_DocInvoice = new CashierActivity_DocInvoice();
 
     }
 }

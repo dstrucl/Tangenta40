@@ -24,6 +24,13 @@ namespace TangentaDataBaseDef
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext lng_t_CashierActivityOpened = new ltext(new string[] { "Cashier opening","Odprtje blagajne" });
+
+        public static ltext lng_t_CashierActivityClosed = new ltext(new string[] { "Cashier closing", "Zaprtje blagajne" });
+
+        public static ltext lng_t_CashierActivity_DocInvoice = new ltext(new string[] { "Casshier activity Invoice", "Aktivnost blagajne računi" });
+
+        public static ltext lng_t_CashierActivity = new ltext(new string[] { "Casshier activity", "Aktivnost blagajne" });
 
         public static ltext lng_t_DocInvoice_ShopC_Item_AdditionalData = new ltext(new string[] { "DocInvoice ShopC Item Additional Data", "Artikel prodajalne C dodatni podatki na računu" });
 

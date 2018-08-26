@@ -138,6 +138,10 @@
     <Compile Include="f_BankAccount.cs" />
     <Compile Include="f_cAddress_Org.cs" />
     <Compile Include="f_cAddress_Person.cs" />
+    <Compile Include="f_CashierActivity.cs" />
+    <Compile Include="f_CashierActivityClosed.cs" />
+    <Compile Include="f_CashierActivityOpened.cs" />
+    <Compile Include="f_CashierActivity_DocInvoice.cs" />
     <Compile Include="f_cCity_Org.cs" />
     <Compile Include="f_cCity_Person.cs" />
     <Compile Include="f_cCountry_Org.cs" />
