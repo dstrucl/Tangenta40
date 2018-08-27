@@ -11,19 +11,31 @@ namespace TangentaDB
 {
     public static class f_CashierActivity
     {
-        public static bool Open(string xAtom_ElectronicDevice_Name, string xAtom_Office_ShortName, ID xAtom_WorkPeriod_ID, ref int xCashierActivityNumber,  ref ID xCashierActivity_ID, ref bool bAllreadyOpened)
+        public static bool Open(string xAtom_ElectronicDevice_Name,
+                                string xAtom_Office_ShortName, 
+                                ID xAtom_WorkPeriod_ID,
+                                ref ID xCashierActivityOpened_ID,
+                                ref int xCashierActivityNumber,  
+                                ref ID xCashierActivity_ID, 
+                                ref bool bAllreadyOpened)
         {
             string Err = null;
             string sql = null;
             bAllreadyOpened = false;
-
+            xCashierActivityOpened_ID = null
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            ID existing_CashierActivityOpened_ID = null;
             ID existingOpened_CashierActivity_ID = null;
             int existingOpened_CashierActivityNumber = -1;
-            if (GetOpened(xAtom_ElectronicDevice_Name, xAtom_Office_ShortName, ref existingOpened_CashierActivity_ID, ref existingOpened_CashierActivityNumber))
+            if (GetOpened(xAtom_ElectronicDevice_Name,
+                          xAtom_Office_ShortName,
+                          ref existing_CashierActivityOpened_ID,
+                          ref existingOpened_CashierActivity_ID,
+                          ref existingOpened_CashierActivityNumber))
             {
                 if (ID.Validate(existingOpened_CashierActivity_ID))
                 {
+                    xCashierActivityOpened_ID = existing_CashierActivityOpened_ID;
                     xCashierActivity_ID = existingOpened_CashierActivity_ID;
                     xCashierActivityNumber =existingOpened_CashierActivityNumber;
                     bAllreadyOpened = true;
@@ -46,7 +58,6 @@ namespace TangentaDB
                 return false;
             }
 
-            ID xCashierActivityOpened_ID = null;
             if (!f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID))
             {
                 return false;
@@ -84,8 +95,13 @@ namespace TangentaDB
             }
         }
 
-        public static bool GetOpened(string xAtom_ElectronicDevice_Name, string xAtom_Office_ShortName, ref ID xCashierActivity_ID, ref int xCashierActivityNumber)
+        public static bool GetOpened(string xAtom_ElectronicDevice_Name,
+                                     string xAtom_Office_ShortName,
+                                     ref ID xCashierActivityOpened_ID,
+                                     ref ID xCashierActivity_ID, 
+                                     ref int xCashierActivityNumber)
         {
+            xCashierActivityNumber = -1;
             xCashierActivity_ID = null;
             string Err = null;
             string sql = null;
@@ -117,6 +133,7 @@ namespace TangentaDB
             dt.Columns.Clear();
             dt.Clear();
             sql = @"select ca.ID as ID,
+                           ca.CashierActivityOpened_ID as CashierActivityOpened_ID,
                            ca.CashierActivityNumber as CashierActivityNumber
                     from CashierActivity ca
                     inner join CashierActivityOpened cao on  ca.CashierActivityOpened_ID = cao.ID
@@ -128,6 +145,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
+                    xCashierActivityOpened_ID = tf.set_ID(dt.Rows[0]["CashierActivityOpened_ID"]);
                     int_v xCashierActivityNumber_v = tf.set_int(dt.Rows[0]["CashierActivityNumber"]);
                     if (xCashierActivityNumber_v!=null)
                     {
@@ -198,7 +216,7 @@ namespace TangentaDB
             }
         }
 
-        private static bool IsOpened(ID xCashierActivity_ID, ref bool bIsOpened)
+        public static bool IsOpened(ID xCashierActivity_ID, ref bool bIsOpened)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

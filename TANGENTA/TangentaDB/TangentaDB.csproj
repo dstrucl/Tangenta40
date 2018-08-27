@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Atom_ProformaInvoice_Price_Item_Stock_Data.cs" />
     <Compile Include="Basket.cs" />
+    <Compile Include="CashierActivity.cs" />
     <Compile Include="Columns_Price_Item_Stock.cs" />
     <Compile Include="CurrentDoc.cs" />
     <Compile Include="DBTablesAndColumnNames.cs" />

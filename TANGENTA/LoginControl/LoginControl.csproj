@@ -146,6 +146,18 @@
     <Compile Include="Form_ImageOfUrl.Designer.cs">
       <DependentUpon>Form_ImageOfUrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_CloseCashier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CloseCashier.Designer.cs">
+      <DependentUpon>Form_CloseCashier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_OpenCashier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OpenCashier.Designer.cs">
+      <DependentUpon>Form_OpenCashier.cs</DependentUpon>
+    </Compile>
     <Compile Include="HtmlTemplate.cs" />
     <Compile Include="IdleControl.cs">
       <SubType>Component</SubType>
@@ -282,6 +294,12 @@
     <Compile Include="usrc_PasswordBytes.Designer.cs">
       <DependentUpon>usrc_PasswordBytes.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_TaxRateReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_TaxRateReport.Designer.cs">
+      <DependentUpon>usrc_TaxRateReport.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +329,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ImageOfUrl.resx">
       <DependentUpon>Form_ImageOfUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_CloseCashier.resx">
+      <DependentUpon>Form_CloseCashier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OpenCashier.resx">
+      <DependentUpon>Form_OpenCashier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdleControl.resx">
       <DependentUpon>IdleControl.cs</DependentUpon>
@@ -385,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PasswordBytes.resx">
       <DependentUpon>usrc_PasswordBytes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_TaxRateReport.resx">
+      <DependentUpon>usrc_TaxRateReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

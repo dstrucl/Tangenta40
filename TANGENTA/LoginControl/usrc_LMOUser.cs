@@ -135,6 +135,9 @@ namespace LoginControl
                 m_LMOUser.LoginSession_ID = null;
                 m_LMOUser.Atom_WorkPeriod_ID = null;
                 m_LMOUser.awpld = null;
+
+                int last_LoggedIn_Count = m_usrc_MultipleUsers.LoggedIn_Count();
+
                 AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LMOUser,  false, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN,null);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
@@ -142,6 +145,14 @@ namespace LoginControl
                     m_LMOUser.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
                     m_LMOUser.LoggedIn = true;
                     lctrl.Trigger_EventUserLoggedIn(m_LMOUser);
+                    if (m_usrc_MultipleUsers.CashierActivity == usrc_MultipleUsers.eCashierActivity.CLOSED)
+                    {
+                        Form_OpenCashier frm_opencashier = new Form_OpenCashier();
+                        if (frm_opencashier.ShowDialog(this) == DialogResult.Yes)
+                        {
+                            m_usrc_MultipleUsers.CashierActivity = usrc_MultipleUsers.eCashierActivity.OPENED;
+                        }
+                    }
                 }
             }
             lctrl.IdleCtrl.TimerCounter_Start();

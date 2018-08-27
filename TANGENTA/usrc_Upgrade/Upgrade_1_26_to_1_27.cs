@@ -9,207 +9,13 @@ using TangentaDB;
 
 namespace UpgradeDB
 {
-    public class DocInvoiceData
-    {
-        private ID m_ID = null;
-        public ID ID
-        {
-            get
-            {
-              return m_ID;
-            }
-            private set
-            {
-                m_ID = value;
-            }
-        }
-
-        private string m_Atom_ElectronicDevice_Name = null;
-        public string Atom_ElectronicDevice_Name
-        {
-            get
-            {
-                return m_Atom_ElectronicDevice_Name;
-            }
-            private set
-            {
-                m_Atom_ElectronicDevice_Name = value;
-            }
-        }
-
-        private string m_Atom_Office_ShortName = null;
-        public string Atom_Office_ShortName
-        {
-            get
-            {
-                return m_Atom_Office_ShortName;
-            }
-            private set
-            {
-                m_Atom_Office_ShortName = value;
-            }
-        }
-
-        private DateTime m_IssueDate = DateTime.MaxValue;
-        public DateTime IssueDate
-        {
-            get
-            {
-                return m_IssueDate;
-            }
-            private set
-            {
-                m_IssueDate = value;
-            }
-        }
-
-        private DateTime m_IssueJustDate = DateTime.MaxValue;
-        public DateTime IssueJustDate
-        {
-            get
-            {
-                return m_IssueJustDate;
-            }
-            private set
-            {
-                m_IssueJustDate = value;
-            }
-        }
-
-        private int m_NumberInFinancialYear = -1;
-        public int NumberInFinancialYear
-        {
-            get
-            {
-                return m_NumberInFinancialYear;
-            }
-            private set
-            {
-                m_NumberInFinancialYear = value;
-            }
-        }
-
-        private int m_FinancialYear = -1;
-        public int FinancialYear
-        {
-            get
-            {
-                return m_FinancialYear;
-            }
-            private set
-            {
-                m_FinancialYear = value;
-            }
-        }
-
-        public DocInvoiceData(string xAtom_ElectronicDevice_Name,
-                              string xAtom_Office_ShortName,
-                              ID xID,
-                              DateTime xIssueDate,
-                              int xNumberInFinancialYear,
-                              int xFinancialYear)
-        {
-            this.Atom_ElectronicDevice_Name = xAtom_ElectronicDevice_Name;
-            this.Atom_Office_ShortName = xAtom_Office_ShortName;
-            this.ID = xID;
-            this.IssueDate = xIssueDate;
-            this.IssueJustDate = new DateTime(xIssueDate.Year, xIssueDate.Month, xIssueDate.Day);
-            this.NumberInFinancialYear = xNumberInFinancialYear;
-            this.FinancialYear = xFinancialYear;
-        }
-
-
-
-    }
-    public class CashierActivity
-    {
-        public List<DocInvoiceData> DocInvoice_ID_List = new List<DocInvoiceData>();
-        
-
-        private ID m_First_Atom_WorkPeriod_ID = null;
-        public ID First_Atom_WorkPeriod_ID
-        {
-            get
-            {
-                return m_First_Atom_WorkPeriod_ID;
-            }
-            set
-            {
-                m_First_Atom_WorkPeriod_ID = value;
-            }
-        }
-
-        private ID m_Last_Atom_WorkPeriod_ID = null;
-        public ID Last_Atom_WorkPeriod_ID
-        {
-            get
-            {
-                return m_Last_Atom_WorkPeriod_ID;
-            }
-            set
-            {
-                m_Last_Atom_WorkPeriod_ID = value;
-            }
-        }
-
-        private DateTime m_FirstLogin = DateTime.MaxValue;
-        public DateTime FirstLogin
-        {
-            get
-            {
-                return m_FirstLogin;
-            }
-            set
-            {
-                m_FirstLogin = value;
-            }
-        }
-
-        private DateTime m_LastLogin = DateTime.MinValue;
-        public DateTime LastLogin
-        {
-            get
-            {
-                return m_LastLogin;
-            }
-            set
-            {
-                m_LastLogin = value;
-            }
-        }
-
-
-        public CashierActivity(DocInvoiceData xDocInvoiceData,
-                               ID xFirstAtom_WorkPeriod_ID,
-                               DateTime v1,
-                               ID xLastAtom_WorkPeriod_ID,
-                               DateTime v2)
-        {
-            this.Add(xDocInvoiceData);
-            this.First_Atom_WorkPeriod_ID = xFirstAtom_WorkPeriod_ID;
-            this.FirstLogin = v1;
-            this.Last_Atom_WorkPeriod_ID = xLastAtom_WorkPeriod_ID;
-            this.LastLogin = v2;
-        }
-
-        internal void Add(DocInvoiceData xDocInvoiceData)
-        {
-            foreach (DocInvoiceData id in DocInvoice_ID_List)
-            {
-                if (id.ID.Equals(xDocInvoiceData.ID))
-                {
-                    return;
-                }
-            }
-            DocInvoice_ID_List.Add(xDocInvoiceData);
-        }
-    }
+   
 
     public class CashierActivityList
     {
         public List<CashierActivity> Items = new List<CashierActivity>();
 
-        public void Add(DocInvoiceData xDocInvoiceData)
+        public void Add(CashierActivity.DocInvoiceData xDocInvoiceData)
         {
             ID xFirstAtom_WorkPeriod_ID = null;
             DateTime_v FirstAtomWorkPeriodLoginTimeCoveringIssueDate_v = null;
@@ -243,7 +49,7 @@ namespace UpgradeDB
             }
         }
 
-        private CashierActivity FindCashierActivity(DocInvoiceData xDocInvoiceData,
+        private CashierActivity FindCashierActivity(CashierActivity.DocInvoiceData xDocInvoiceData,
                                                     DateTime xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID,
                                                     ID xFirstAtom_WorkPeriod_ID,
                                                     DateTime xLastAtomWorkPeriodLoginTimeCoveringIssueDateID,
@@ -277,7 +83,7 @@ namespace UpgradeDB
                 }
                 else
                 {
-                    foreach (DocInvoiceData did in ca.DocInvoice_ID_List)
+                    foreach (CashierActivity.DocInvoiceData did in ca.DocInvoice_ID_List)
                     { 
                         DateTime caIssueDate = new DateTime(did.IssueJustDate.Year, did.IssueJustDate.Month, did.IssueJustDate.Day);
                         DateTime xIssueJustDate = new DateTime(xDocInvoiceData.IssueDate.Year, xDocInvoiceData.IssueDate.Month, xDocInvoiceData.IssueDate.Day);
@@ -308,7 +114,7 @@ namespace UpgradeDB
             return ((TimeInBetween >= xTimeStart) && (TimeInBetween < xTimeEnd));
         }
 
-        private bool FindFirstAtomWorkPeriodTimeCoveringIssueDate(DocInvoiceData xDocInvoiceData,
+        private bool FindFirstAtomWorkPeriodTimeCoveringIssueDate(CashierActivity.DocInvoiceData xDocInvoiceData,
                                                                  ref DateTime_v xFirstAtomWorkPeriodLoginTimeCoveringIssueDate_v,
                                                                  ref ID xFirstAtom_WorkPeriod_ID)
         {
@@ -358,7 +164,7 @@ namespace UpgradeDB
             }
         }
 
-        private bool FindLastAtomWorkPeriodTimeCoveringIssueDate(DocInvoiceData xDocInvoiceData,
+        private bool FindLastAtomWorkPeriodTimeCoveringIssueDate(CashierActivity.DocInvoiceData xDocInvoiceData,
                                                                 ref DateTime_v xLastAtomWorkPeriodLoginTimeCoveringIssueDate_v,
                                                                  ref ID xLastAtom_WorkPeriod_ID)
         {
@@ -515,7 +321,7 @@ namespace UpgradeDB
                                 
                                 string_v xAtom_ElectronicDevice_Name_v = tf.set_string(dr["Atom_ElectronicDevice_Name"]);
                                 string_v xAtom_Office_ShortName_v = tf.set_string(dr["Atom_Office_ShortName"]);
-                                DocInvoiceData docinvdata = new DocInvoiceData(xAtom_ElectronicDevice_Name_v.v, xAtom_Office_ShortName_v.v, xDocument_ID, IssueTime_v.v, NumberInFinancialYear, FinancialYear);
+                                CashierActivity.DocInvoiceData docinvdata = new CashierActivity.DocInvoiceData(xAtom_ElectronicDevice_Name_v.v, xAtom_Office_ShortName_v.v, xDocument_ID, IssueTime_v.v, NumberInFinancialYear, FinancialYear);
 
                                 Upgrade_1_26_to_1_27.cashierActivityList.Add(docinvdata);
                             }

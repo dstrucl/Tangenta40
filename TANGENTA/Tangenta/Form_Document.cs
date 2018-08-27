@@ -26,6 +26,7 @@ using NavigationButtons;
 using TangentaSampleDB;
 using Country_ISO_3166;
 using HUDCMS;
+using LoginControl;
 
 namespace Tangenta
 {
@@ -141,7 +142,21 @@ namespace Tangenta
                 return false;
             }
         }
-        
+
+        public usrc_MultipleUsers.eCashierActivity CashierActivity
+        {
+            get
+            {
+                if (loginControl1!=null)
+                {
+                    return loginControl1.CashierActivity;
+                }
+                else
+                {
+                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                }
+            }
+        }
 
         public Form_Document()
         {

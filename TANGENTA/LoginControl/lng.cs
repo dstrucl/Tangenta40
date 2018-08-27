@@ -24,6 +24,11 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Neto = new ltext(new string[] { "Net price:", "Osnova:" });
+        public static ltext s_Tax = new ltext(new string[] { "Tax:", "Davek:" });
+        public static ltext s_Total = new ltext(new string[] { "Total:", "Skupaj:" });
+
+        public static ltext s_OpenCashierInfo = new ltext(new string[] { "Open Cashier ?", "Odprem blagajno ?" });
 
         public static ltext s_btn_SetImage = new ltext(new string[] { "Set image ->", "Naredi sliko ->" });
 
@@ -54,6 +59,11 @@ namespace LoginControl
                                             "Program se v prejšnem zagonu ni normalno končal. Lahko je prišlo do izpada elektrike in podobno.\r\nOstali so nezaključeni šihti. Pritisnite na gumb Zaprite oprte šihte." });
 
         public static ltext s_Close_WorkingPeriods = new ltext(new string[] { "Close opened work periods", "Zaprite oprte šihte" });
+
+        public static ltext s_Cashier = new ltext(new string[] { "Cashier:", "Blagajna:" });
+
+        public static ltext s_CashierOpened = new ltext(new string[] { "OPENED", "ODPRTA" });
+        public static ltext s_CashierClosed = new ltext(new string[] { "CLOSED", "ZAPRTA" });
 
         public static ltext s_WorkPeriod = new ltext(new string[] { "Work Period", "Šiht" });
 

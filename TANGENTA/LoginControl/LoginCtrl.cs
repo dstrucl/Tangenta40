@@ -60,6 +60,29 @@ namespace LoginControl
         internal STD std = null;
 
 
+        public usrc_MultipleUsers.eCashierActivity CashierActivity
+        {
+            get
+            {
+                if (awp != null)
+                {
+                    if (awp.m_usrc_MultipleUsers != null)
+                    {
+                        return awp.m_usrc_MultipleUsers.CashierActivity;
+                    }
+                    else
+                    {
+                        return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                    }
+                }
+                else
+                {
+                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                }
+            }
+        }
+
+
         private eAuthentificationType m_AuthentificationType = eAuthentificationType.PASSWORD;
 
         public eAuthentificationType AuthentificationType

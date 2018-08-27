@@ -62,5 +62,48 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool GetPerson(ID xCashierActivityClosed_ID, ref string firstName, ref string lastName)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Clear();
+            dt.Clear();
+            string sql = @"select 
+                           acfn.FirstName as FirstName,
+                           acln.LastName as LastName
+                           from CashierActivityClosed  cac
+                           inner join Atom_WorkPeriod awp on cac.Atom_WorkPeriod_ID = awp.ID
+                           inner join Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
+                           inner join Atom_Person aper on amop.Atom_Person_ID = aper.ID
+                           inner join Atom_cFirstName acfn on aper.Atom_cFirstName_ID = acfn.ID
+                           inner join Atom_cLastName acln on aper.Atom_cLastName_ID = acln.ID
+                    where cac.ID = " + xCashierActivityClosed_ID.ToString();
+            string Err = null;
+            lastName = null;
+            firstName = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    string_v first_name_v = tf.set_string(dt.Rows[0]["FirstName"]);
+                    if (first_name_v != null)
+                    {
+                        firstName = first_name_v.v;
+                    }
+
+                    string_v last_name_v = tf.set_string(dt.Rows[0]["LastName"]);
+                    if (last_name_v != null)
+                    {
+                        lastName = last_name_v.v;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivityClosed:GetPerson:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

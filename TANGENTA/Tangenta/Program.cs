@@ -23,6 +23,7 @@ using FiscalVerificationOfInvoices_SLO;
 using TangentaDB;
 using System.Reflection;
 using TangentaPrint;
+using LoginControl;
 
 namespace Tangenta
 {
@@ -208,6 +209,20 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsInUse; }
         }
 
+        public static usrc_MultipleUsers.eCashierActivity CashierActivity
+        {
+            get
+            {
+                if (MainForm != null)
+                {
+                    return MainForm.CashierActivity;
+                }
+                else
+                {
+                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                }
+            }
+        }
 
         public static bool ProgramDiagnostic
         {

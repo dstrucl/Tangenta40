@@ -40,6 +40,8 @@
             this.chk_ShowAdministrators = new System.Windows.Forms.CheckBox();
             this.btn_IdleCtrl_ShowURL1 = new System.Windows.Forms.Button();
             this.btn_IdleCtrl_ShowURL2 = new System.Windows.Forms.Button();
+            this.lbl_Cashier = new System.Windows.Forms.Label();
+            this.lbl_OpenedClosed = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -134,7 +136,7 @@
             this.usrc_Item_PageHandler1.CurrentPage = 0;
             this.usrc_Item_PageHandler1.Location = new System.Drawing.Point(317, 36);
             this.usrc_Item_PageHandler1.Name = "usrc_Item_PageHandler1";
-            this.usrc_Item_PageHandler1.Size = new System.Drawing.Size(169, 42);
+            this.usrc_Item_PageHandler1.Size = new System.Drawing.Size(255, 42);
             this.usrc_Item_PageHandler1.TabIndex = 1;
             this.usrc_Item_PageHandler1.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
@@ -171,10 +173,32 @@
             this.btn_IdleCtrl_ShowURL2.UseVisualStyleBackColor = true;
             this.btn_IdleCtrl_ShowURL2.Click += new System.EventHandler(this.btn_IdleCtrl_ShowURL2_Click);
             // 
+            // lbl_Cashier
+            // 
+            this.lbl_Cashier.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Cashier.Location = new System.Drawing.Point(48, 3);
+            this.lbl_Cashier.Name = "lbl_Cashier";
+            this.lbl_Cashier.Size = new System.Drawing.Size(92, 19);
+            this.lbl_Cashier.TabIndex = 9;
+            this.lbl_Cashier.Text = "Cashier:";
+            this.lbl_Cashier.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbl_OpenedClosed
+            // 
+            this.lbl_OpenedClosed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_OpenedClosed.Location = new System.Drawing.Point(137, 3);
+            this.lbl_OpenedClosed.Name = "lbl_OpenedClosed";
+            this.lbl_OpenedClosed.Size = new System.Drawing.Size(92, 19);
+            this.lbl_OpenedClosed.TabIndex = 10;
+            this.lbl_OpenedClosed.Text = "Closed";
+            this.lbl_OpenedClosed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // usrc_MultipleUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_OpenedClosed);
+            this.Controls.Add(this.lbl_Cashier);
             this.Controls.Add(this.btn_IdleCtrl_ShowURL2);
             this.Controls.Add(this.btn_IdleCtrl_ShowURL1);
             this.Controls.Add(this.chk_ShowAdministrators);
@@ -209,5 +233,7 @@
         internal System.Windows.Forms.CheckBox chk_ShowAdministrators;
         private System.Windows.Forms.Button btn_IdleCtrl_ShowURL1;
         private System.Windows.Forms.Button btn_IdleCtrl_ShowURL2;
+        private System.Windows.Forms.Label lbl_Cashier;
+        private System.Windows.Forms.Label lbl_OpenedClosed;
     }
 }

@@ -44,7 +44,20 @@ namespace LoginControl
             set { m_con = value; }
         }
 
-
+        public usrc_MultipleUsers.eCashierActivity CashierActivity
+        {
+            get
+            {
+                if (m_usrc_MultipleUsers!=null)
+                {
+                    return m_usrc_MultipleUsers.CashierActivity;
+                }
+                else
+                {
+                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                }
+            }
+        }
 
         public void Init(Form xpParentForm,
                           LoginCtrl xlctrl,

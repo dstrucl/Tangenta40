@@ -15,10 +15,77 @@ namespace LoginControl
 {
     public partial class usrc_MultipleUsers : UserControl
     {
+        public enum eCashierActivity { OPENED,CLOSED};
+
         private AWP m_awp = null;
         DataTable dtLoginUsersGroup = null;
         DataTable m_AWP_dtLoginView = null;
         int ipnl_Items_Width_default = -1;
+
+        private ID m_CashierActivity_ID = null;
+
+        public ID CashierActivity_ID
+        {
+            get {
+                return m_CashierActivity_ID;
+                }
+            internal set
+            {
+                m_CashierActivity_ID = value;
+            }
+        }
+
+        private ID m_CashierActivityOpened_ID = null;
+        public ID CashierActivityOpened_ID
+        {
+            get
+            {
+                return m_CashierActivityOpened_ID;
+            }
+            internal set
+            {
+                m_CashierActivityOpened_ID = value;
+            }
+        }
+
+        private eCashierActivity m_CashierActivity = eCashierActivity.CLOSED;
+        public eCashierActivity CashierActivity
+        {
+            get
+            {
+                return m_CashierActivity;
+            }
+            internal set
+            {
+                m_CashierActivity = value;
+                if (m_CashierActivity == eCashierActivity.OPENED)
+                {
+                    lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
+                    lbl_OpenedClosed.ForeColor = Color.Green;
+                }
+                else
+                {
+                    lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
+                    lbl_OpenedClosed.ForeColor = Color.Red;
+                }
+            }
+        }
+
+
+        private int m_CashierActivityNumber = -1;
+
+        public int CashierActivityNumber
+        {
+            get
+            {
+                return m_CashierActivityNumber;
+            }
+            internal set
+            {
+                m_CashierActivityNumber = value;
+            }
+        }
+
 
         public DataTable AWP_dtLoginView
         {
@@ -52,6 +119,7 @@ namespace LoginControl
             InitializeComponent();
             ipnl_Items_Width_default = pnl_Items.Width;
             lng.s_chk_ShowAdministrators.Text(chk_ShowAdministrators);
+            lng.s_Cashier.Text(lbl_Cashier);
         }
 
         internal void Init(AWP xawp,
@@ -59,16 +127,57 @@ namespace LoginControl
         {
             this.chk_ShowAdministrators.Checked = bShowAdministratorUsers;
             lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
-            if (myOrg.m_myOrg_Office!=null)
+            if (myOrg.m_myOrg_Office != null)
             {
-                if (myOrg.m_myOrg_Office.Name_v!=null)
+                if (myOrg.m_myOrg_Office.Name_v != null)
                 {
                     lbl_Tangenta.Text = myOrg.m_myOrg_Office.Name_v.v;
                 }
             }
-            
+
             m_awp = xawp;
             usrc_Item_aray = new usrc_LMOUser[NumberOfItemsPerPage];
+            ID xCashierActivityOpened_ID = null;
+            ID xCashierActivity_ID = null;
+            int lastCashierActivityNumber = -1;
+            string atom_electronicdevicename = null;
+            string atom_office_shortname = null;
+            if (myOrg.m_myOrg_Office!=null)
+            {
+                if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice != null)
+                {
+                    atom_electronicdevicename = myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name;
+                }
+                if (myOrg.m_myOrg_Office.ShortName_v!=null)
+                {
+                    atom_office_shortname = myOrg.m_myOrg_Office.ShortName_v.v;
+                }
+            }
+            lbl_OpenedClosed.Text = "";
+            if ((atom_electronicdevicename != null) && (atom_office_shortname != null))
+            {
+                if (f_CashierActivity.GetOpened(atom_electronicdevicename,
+                                               atom_office_shortname,
+                                               ref xCashierActivityOpened_ID,
+                                                ref xCashierActivity_ID,
+                                                ref lastCashierActivityNumber
+                                               ))
+                {
+                    if (ID.Validate(xCashierActivity_ID))
+                    {
+                        CashierActivityOpened_ID = xCashierActivityOpened_ID;
+                        CashierActivity_ID = xCashierActivity_ID;
+                        CashierActivityNumber = lastCashierActivityNumber;
+                        CashierActivity = eCashierActivity.OPENED;
+                    }
+                    else
+                    {
+                        CashierActivity_ID = null;
+                        CashierActivityNumber = -1;
+                        CashierActivity = eCashierActivity.CLOSED;
+                    }
+                }
+            }
 
             int i = 0;
             int yPos = 0;
