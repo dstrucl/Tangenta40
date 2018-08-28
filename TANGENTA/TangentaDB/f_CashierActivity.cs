@@ -22,7 +22,7 @@ namespace TangentaDB
             string Err = null;
             string sql = null;
             bAllreadyOpened = false;
-            xCashierActivityOpened_ID = null
+            xCashierActivityOpened_ID = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID existing_CashierActivityOpened_ID = null;
             ID existingOpened_CashierActivity_ID = null;

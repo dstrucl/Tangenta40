@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DBTypes;
 using DBConnectionControl40;
 using TangentaDB;
+using static TangentaDB.CashierActivity;
 
 namespace LoginControl
 {
@@ -145,12 +146,36 @@ namespace LoginControl
                     m_LMOUser.Atom_WorkPeriod_ID = awpLoginForm_OneFromMultipleUsers.Atom_WorkPeriod_ID;
                     m_LMOUser.LoggedIn = true;
                     lctrl.Trigger_EventUserLoggedIn(m_LMOUser);
-                    if (m_usrc_MultipleUsers.CashierActivity == usrc_MultipleUsers.eCashierActivity.CLOSED)
+
+                    if (lctrl.RecordCashierActivity)
                     {
-                        Form_OpenCashier frm_opencashier = new Form_OpenCashier();
-                        if (frm_opencashier.ShowDialog(this) == DialogResult.Yes)
+
+                        eCashierState xCashierState = eCashierState.CLOSED;
+                        if (m_usrc_MultipleUsers.m_CashierActivity != null)
                         {
-                            m_usrc_MultipleUsers.CashierActivity = usrc_MultipleUsers.eCashierActivity.OPENED;
+                            xCashierState = m_usrc_MultipleUsers.m_CashierActivity.CashierState;
+                        }
+
+                        if (xCashierState == eCashierState.CLOSED)
+                        {
+                            Form_OpenCashier frm_opencashier = new Form_OpenCashier();
+                            if (frm_opencashier.ShowDialog(this) == DialogResult.Yes)
+                            {
+                                if (m_usrc_MultipleUsers.m_CashierActivity == null)
+                                {
+                                    m_usrc_MultipleUsers.m_CashierActivity = new CashierActivity();
+                                    if (m_usrc_MultipleUsers.m_CashierActivity.Open(m_LMOUser.Atom_WorkPeriod_ID))
+                                    {
+                                        m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
+                                    }
+
+                                    
+                            }
+                                m_usrc_MultipleUsers.CashierActivity_InfoShow(true);
+                            }
+                            else
+                        {
+                                m_usrc_MultipleUsers.CashierActivity_InfoShow(false);
                         }
                     }
                 }

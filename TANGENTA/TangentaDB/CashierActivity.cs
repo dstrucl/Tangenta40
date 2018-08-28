@@ -122,6 +122,19 @@ namespace TangentaDB
 
         public List<DocInvoiceData> DocInvoice_ID_List = new List<DocInvoiceData>();
 
+        public enum eCashierState { OPENED, CLOSED };
+        private eCashierState m_CashierState = eCashierState.CLOSED;
+        public eCashierState CashierState
+        {
+            get
+            {
+                return m_CashierState;
+            }
+            set
+            {
+                m_CashierState = value;
+            }
+        }
         public int NumberOfInvoices
         {
             get
@@ -143,53 +156,21 @@ namespace TangentaDB
             }
         }
 
-        public string CashierActivityOpened_Person(ID xCashierActivityOpened_ID)
-        {
-            string firstName = null;
-            string lastName = null;
 
-            if (f_CashierActivityOpened.GetPerson(xCashierActivityOpened_ID, ref firstName, ref lastName))
+
+        private int m_CashierActivityNumber = -1;
+        public int CashierActivityNumber
+        {
+            get
             {
-                string sperson = "";
-                if (firstName!=null)
-                {
-                    sperson = firstName;
-                }
-                if (lastName != null)
-                {
-                    sperson += " "+lastName;
-                }
-                return sperson;
+                return m_CashierActivityNumber;
             }
-            else
+            set
             {
-                return null;
+                m_CashierActivityNumber = value;
             }
         }
 
-        public string CashierActivityClosed_Person(ID xCashierActivityClosed_ID)
-        {
-            string firstName = null;
-            string lastName = null;
-
-            if (f_CashierActivityClosed.GetPerson(xCashierActivityClosed_ID, ref firstName, ref lastName))
-            {
-                string sperson = "";
-                if (firstName != null)
-                {
-                    sperson = firstName;
-                }
-                if (lastName != null)
-                {
-                    sperson += " " + lastName;
-                }
-                return sperson;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         private ID m_CashierActivityOpened_ID = null;
         public ID CashierActivityOpened_ID
@@ -272,20 +253,94 @@ namespace TangentaDB
         }
 
 
-        public CashierActivity(DocInvoiceData xDocInvoiceData,
+
+        public CashierActivity(CashierActivity.DocInvoiceData xDocInvoiceData,
+                               int xCashierActivityNumber,
                                ID xFirstAtom_WorkPeriod_ID,
                                DateTime v1,
                                ID xLastAtom_WorkPeriod_ID,
                                DateTime v2)
         {
             this.Add(xDocInvoiceData);
+            CashierActivityNumber = xCashierActivityNumber;
             this.First_Atom_WorkPeriod_ID = xFirstAtom_WorkPeriod_ID;
             this.FirstLogin = v1;
             this.Last_Atom_WorkPeriod_ID = xLastAtom_WorkPeriod_ID;
             this.LastLogin = v2;
         }
 
-        internal void Add(DocInvoiceData xDocInvoiceData)
+        public CashierActivity()
+        {
+        }
+
+        public bool Open(ID xAtom_WorkPeriod_ID)
+        {
+           if (ID.Validate(this.CashierActivityOpened_ID))
+            {
+                LogFile.Error.Show("ERROR:LoginControl:CashierActivity:Open:CashierActivity already opened!");
+                return false;
+            }
+            ID xCashierActivityOpened_ID = null;
+            if (f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID))
+            {
+                this.CashierActivityOpened_ID = xCashierActivityOpened_ID;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string CashierActivityOpened_Person(ID xCashierActivityOpened_ID)
+        {
+            string firstName = null;
+            string lastName = null;
+
+            if (f_CashierActivityOpened.GetPerson(xCashierActivityOpened_ID, ref firstName, ref lastName))
+            {
+                string sperson = "";
+                if (firstName != null)
+                {
+                    sperson = firstName;
+                }
+                if (lastName != null)
+                {
+                    sperson += " " + lastName;
+                }
+                return sperson;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public string CashierActivityClosed_Person(ID xCashierActivityClosed_ID)
+        {
+            string firstName = null;
+            string lastName = null;
+
+            if (f_CashierActivityClosed.GetPerson(xCashierActivityClosed_ID, ref firstName, ref lastName))
+            {
+                string sperson = "";
+                if (firstName != null)
+                {
+                    sperson = firstName;
+                }
+                if (lastName != null)
+                {
+                    sperson += " " + lastName;
+                }
+                return sperson;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void Add(CashierActivity.DocInvoiceData xDocInvoiceData)
         {
             foreach (DocInvoiceData id in DocInvoice_ID_List)
             {

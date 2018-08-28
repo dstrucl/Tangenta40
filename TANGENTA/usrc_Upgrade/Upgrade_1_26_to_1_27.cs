@@ -38,6 +38,7 @@ namespace UpgradeDB
                     if (itm == null)
                     {
                         itm = new CashierActivity(xDocInvoiceData,
+                                                  Items.Count + 1,
                                                   xFirstAtom_WorkPeriod_ID,
                                                   FirstAtomWorkPeriodLoginTimeCoveringIssueDate_v.v,
                                                   xLastAtom_WorkPeriod_ID,
@@ -351,18 +352,20 @@ namespace UpgradeDB
                 CashierActivity ca = Upgrade_1_26_to_1_27.cashierActivityList.Items[j];
                 if (ca.DocInvoice_ID_List.Count>0)
                 {
+                    ID xCashierActivityOpened_ID = null;
                     ID xCashierActivity_ID = null;
                     int iCashierActivityNumber = -1;
-                    bool bAlreadOpened = false;
+                    bool bAlreadyOpened = false;
                     if (f_CashierActivity.Open(ca.DocInvoice_ID_List[0].Atom_ElectronicDevice_Name,
                                            ca.DocInvoice_ID_List[0].Atom_Office_ShortName,
                                            ca.First_Atom_WorkPeriod_ID,
+                                           ref xCashierActivityOpened_ID,
                                            ref iCashierActivityNumber,
                                            ref xCashierActivity_ID,
-                                           ref bAlreadOpened
+                                           ref bAlreadyOpened
                                            ))
                     {
-                        if (bAlreadOpened)
+                        if (bAlreadyOpened)
                         {
                             LogFile.Error.Show("ERROR:UpgradeDB:UpgradeDB_1_26_to_1_27:Create_DailyCashierActivityFromAtomWorkPeriod:CashierActivity already opened!");
                             return false;
@@ -370,7 +373,7 @@ namespace UpgradeDB
                         int kcount = ca.DocInvoice_ID_List.Count;
                         for (int k=0;k<kcount;k++)
                         {
-                            DocInvoiceData did = ca.DocInvoice_ID_List[k];
+                            CashierActivity.DocInvoiceData did = ca.DocInvoice_ID_List[k];
                             ID xCashierActivity_DocInvoice_ID = null;
                             if (!f_CashierActivity_DocInvoice.Insert(xCashierActivity_ID, did.ID, ref xCashierActivity_DocInvoice_ID))
                             {

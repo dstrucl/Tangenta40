@@ -282,6 +282,12 @@
     <Compile Include="usrc_LMOUser.Designer.cs">
       <DependentUpon>usrc_LMOUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_MethotOfPaymentReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_MethotOfPaymentReport.Designer.cs">
+      <DependentUpon>usrc_MethotOfPaymentReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_MultipleUsers.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -403,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_LMOUser.resx">
       <DependentUpon>usrc_LMOUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_MethotOfPaymentReport.resx">
+      <DependentUpon>usrc_MethotOfPaymentReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_MultipleUsers.resx">
       <DependentUpon>usrc_MultipleUsers.cs</DependentUpon>

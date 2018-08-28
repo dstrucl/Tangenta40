@@ -143,7 +143,7 @@ namespace Tangenta
             }
         }
 
-        public usrc_MultipleUsers.eCashierActivity CashierActivity
+        public usrc_MultipleUsers.eCashierState CashierActivity
         {
             get
             {
@@ -153,7 +153,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                    return usrc_MultipleUsers.eCashierState.CLOSED;
                 }
             }
         }
@@ -236,7 +236,7 @@ namespace Tangenta
                         }
                         catch (Exception Ex)
                         {
-                            LogFile.Error.Show("ERROR:Tangenta:Forum_Document:constructor Form_Document():can not load URL2 image file:" + this.loginControl1.IdleControlFileImageUrl2);
+                            LogFile.Error.Show("ERROR:Tangenta:Forum_Document:constructor Form_Document():can not load URL2 image file:" + this.loginControl1.IdleControlFileImageUrl2+ "\r\nException="+Ex.Message);
                         }
                     }
                 }

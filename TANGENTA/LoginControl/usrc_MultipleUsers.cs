@@ -10,12 +10,13 @@ using System.Windows.Forms;
 using DBTypes;
 using TangentaDB;
 using DBConnectionControl40;
+using static TangentaDB.CashierActivity;
 
 namespace LoginControl
 {
     public partial class usrc_MultipleUsers : UserControl
     {
-        public enum eCashierActivity { OPENED,CLOSED};
+        
 
         private AWP m_awp = null;
         DataTable dtLoginUsersGroup = null;
@@ -26,63 +27,92 @@ namespace LoginControl
 
         public ID CashierActivity_ID
         {
-            get {
-                return m_CashierActivity_ID;
+            get
+            {
+                if (m_CashierActivity != null)
+                {
+                    return m_CashierActivity.ID;
                 }
+                return null;
+            }
             internal set
             {
-                m_CashierActivity_ID = value;
+                m_CashierActivity.ID = value;
             }
         }
 
-        private ID m_CashierActivityOpened_ID = null;
+        public CashierActivity m_CashierActivity = null;
+
         public ID CashierActivityOpened_ID
         {
             get
             {
-                return m_CashierActivityOpened_ID;
+                if (m_CashierActivity != null)
+                {
+                    return m_CashierActivity.CashierActivityOpened_ID;
+                }
+                return null;
             }
             internal set
             {
-                m_CashierActivityOpened_ID = value;
+
+                if (m_CashierActivity != null)
+                {
+                    m_CashierActivity.CashierActivityOpened_ID = value;
+                }
             }
         }
 
-        private eCashierActivity m_CashierActivity = eCashierActivity.CLOSED;
-        public eCashierActivity CashierActivity
+       
+        public eCashierState CashierState
         {
             get
             {
-                return m_CashierActivity;
+                if (m_CashierActivity != null)
+                {
+                    return m_CashierActivity.CashierState;
+                }
+                return eCashierState.CLOSED;
             }
             internal set
             {
-                m_CashierActivity = value;
-                if (m_CashierActivity == eCashierActivity.OPENED)
+                eCashierState estate = value;
+                if (m_CashierActivity != null)
                 {
-                    lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
-                    lbl_OpenedClosed.ForeColor = Color.Green;
-                }
-                else
-                {
-                    lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
-                    lbl_OpenedClosed.ForeColor = Color.Red;
+                    m_CashierActivity.CashierState = estate;
+                    if (estate == eCashierState.OPENED)
+                    {
+                        lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
+                        lbl_OpenedClosed.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
+                        lbl_OpenedClosed.ForeColor = Color.Red;
+                    }
                 }
             }
         }
 
 
-        private int m_CashierActivityNumber = -1;
+     
 
         public int CashierActivityNumber
         {
             get
             {
-                return m_CashierActivityNumber;
+                if (m_CashierActivity!=null)
+                {
+                    return m_CashierActivity.CashierActivityNumber;
+                }
+                return -1;
             }
             internal set
             {
-                m_CashierActivityNumber = value;
+                if (m_CashierActivity != null)
+                {
+                    m_CashierActivity.CashierActivityNumber = value;
+                }
             }
         }
 
@@ -123,8 +153,14 @@ namespace LoginControl
         }
 
         internal void Init(AWP xawp,
+                           bool bRecordCashierActivity,
                            bool bShowAdministratorUsers)
         {
+
+            m_awp = xawp;
+            m_awp.lctrl.RecordCashierActivity = bRecordCashierActivity;
+            lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
+            lbl_OpenedClosed.ForeColor = Color.Green;
             this.chk_ShowAdministrators.Checked = bShowAdministratorUsers;
             lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
             if (myOrg.m_myOrg_Office != null)
@@ -135,7 +171,6 @@ namespace LoginControl
                 }
             }
 
-            m_awp = xawp;
             usrc_Item_aray = new usrc_LMOUser[NumberOfItemsPerPage];
             ID xCashierActivityOpened_ID = null;
             ID xCashierActivity_ID = null;
@@ -168,13 +203,13 @@ namespace LoginControl
                         CashierActivityOpened_ID = xCashierActivityOpened_ID;
                         CashierActivity_ID = xCashierActivity_ID;
                         CashierActivityNumber = lastCashierActivityNumber;
-                        CashierActivity = eCashierActivity.OPENED;
+                        CashierState = eCashierState.OPENED;
                     }
                     else
                     {
                         CashierActivity_ID = null;
                         CashierActivityNumber = -1;
-                        CashierActivity = eCashierActivity.CLOSED;
+                        CashierState = eCashierState.CLOSED;
                     }
                 }
             }
@@ -238,6 +273,12 @@ namespace LoginControl
 
             m_awp.lctrl.IdleCtrl.TimerCounter_Start();
 
+        }
+
+        internal void CashierActivity_InfoShow(bool bshow)
+        {
+            lbl_Cashier.Visible = bshow;
+            lbl_OpenedClosed.Visible = bshow;
         }
 
         internal void IdleControlTimerCountDown(int timeoutCounter)

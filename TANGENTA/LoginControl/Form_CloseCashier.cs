@@ -23,6 +23,7 @@ namespace LoginControl
         {
             InitializeComponent();
             m_ca = ca;
+            lbl_CashierActivityNumber_Value.Text = ca.CashierActivityNumber.ToString();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -37,6 +38,16 @@ namespace LoginControl
 
         private void btn_YES_Click(object sender, EventArgs e)
         {
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

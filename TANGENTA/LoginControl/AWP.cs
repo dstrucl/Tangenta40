@@ -44,17 +44,17 @@ namespace LoginControl
             set { m_con = value; }
         }
 
-        public usrc_MultipleUsers.eCashierActivity CashierActivity
+        public usrc_MultipleUsers.eCashierState CashierActivity
         {
             get
             {
                 if (m_usrc_MultipleUsers!=null)
                 {
-                    return m_usrc_MultipleUsers.CashierActivity;
+                    return m_usrc_MultipleUsers.CashierState;
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                    return usrc_MultipleUsers.eCashierState.CLOSED;
                 }
             }
         }

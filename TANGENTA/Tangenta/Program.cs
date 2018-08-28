@@ -209,7 +209,7 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsInUse; }
         }
 
-        public static usrc_MultipleUsers.eCashierActivity CashierActivity
+        public static usrc_MultipleUsers.eCashierState CashierActivity
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                    return usrc_MultipleUsers.eCashierState.CLOSED;
                 }
             }
         }

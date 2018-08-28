@@ -40,9 +40,9 @@
             // lbl_TaxName
             // 
             this.lbl_TaxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_TaxName.Location = new System.Drawing.Point(5, 7);
+            this.lbl_TaxName.Location = new System.Drawing.Point(5, 2);
             this.lbl_TaxName.Name = "lbl_TaxName";
-            this.lbl_TaxName.Size = new System.Drawing.Size(88, 22);
+            this.lbl_TaxName.Size = new System.Drawing.Size(134, 22);
             this.lbl_TaxName.TabIndex = 0;
             this.lbl_TaxName.Text = "DDV xx%";
             this.lbl_TaxName.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -50,57 +50,54 @@
             // lbl_Neto
             // 
             this.lbl_Neto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Neto.Location = new System.Drawing.Point(13, 29);
+            this.lbl_Neto.Location = new System.Drawing.Point(145, 2);
             this.lbl_Neto.Name = "lbl_Neto";
-            this.lbl_Neto.Size = new System.Drawing.Size(116, 22);
+            this.lbl_Neto.Size = new System.Drawing.Size(104, 22);
             this.lbl_Neto.TabIndex = 1;
             this.lbl_Neto.Text = "Neto:";
-            this.lbl_Neto.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lbl_Tax
             // 
             this.lbl_Tax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Tax.Location = new System.Drawing.Point(9, 51);
+            this.lbl_Tax.Location = new System.Drawing.Point(274, 2);
             this.lbl_Tax.Name = "lbl_Tax";
-            this.lbl_Tax.Size = new System.Drawing.Size(120, 22);
+            this.lbl_Tax.Size = new System.Drawing.Size(104, 22);
             this.lbl_Tax.TabIndex = 2;
             this.lbl_Tax.Text = "Tax:";
-            this.lbl_Tax.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lbl_Neto_Value
             // 
             this.lbl_Neto_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Neto_Value.Location = new System.Drawing.Point(135, 29);
+            this.lbl_Neto_Value.Location = new System.Drawing.Point(145, 20);
             this.lbl_Neto_Value.Name = "lbl_Neto_Value";
-            this.lbl_Neto_Value.Size = new System.Drawing.Size(166, 22);
+            this.lbl_Neto_Value.Size = new System.Drawing.Size(123, 22);
             this.lbl_Neto_Value.TabIndex = 3;
             this.lbl_Neto_Value.Text = "Neto value";
             // 
             // lbl_Total
             // 
             this.lbl_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Total.Location = new System.Drawing.Point(12, 75);
+            this.lbl_Total.Location = new System.Drawing.Point(384, 2);
             this.lbl_Total.Name = "lbl_Total";
-            this.lbl_Total.Size = new System.Drawing.Size(116, 22);
+            this.lbl_Total.Size = new System.Drawing.Size(110, 22);
             this.lbl_Total.TabIndex = 4;
             this.lbl_Total.Text = "Total:";
-            this.lbl_Total.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lbl_Tax_Value
             // 
             this.lbl_Tax_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Tax_Value.Location = new System.Drawing.Point(135, 51);
+            this.lbl_Tax_Value.Location = new System.Drawing.Point(274, 20);
             this.lbl_Tax_Value.Name = "lbl_Tax_Value";
-            this.lbl_Tax_Value.Size = new System.Drawing.Size(166, 22);
+            this.lbl_Tax_Value.Size = new System.Drawing.Size(104, 22);
             this.lbl_Tax_Value.TabIndex = 5;
             this.lbl_Tax_Value.Text = "Tax value";
             // 
             // lbl_Total_Value
             // 
             this.lbl_Total_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Total_Value.Location = new System.Drawing.Point(135, 75);
+            this.lbl_Total_Value.Location = new System.Drawing.Point(384, 20);
             this.lbl_Total_Value.Name = "lbl_Total_Value";
-            this.lbl_Total_Value.Size = new System.Drawing.Size(166, 22);
+            this.lbl_Total_Value.Size = new System.Drawing.Size(128, 22);
             this.lbl_Total_Value.TabIndex = 6;
             this.lbl_Total_Value.Text = "Total value";
             // 
@@ -118,7 +115,7 @@
             this.Controls.Add(this.lbl_Neto);
             this.Controls.Add(this.lbl_TaxName);
             this.Name = "usrc_TaxRateReport";
-            this.Size = new System.Drawing.Size(310, 99);
+            this.Size = new System.Drawing.Size(515, 40);
             this.ResumeLayout(false);
 
         }

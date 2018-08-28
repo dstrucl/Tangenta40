@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using NavigationButtons;
 using System.Runtime.InteropServices;
 using TangentaDB;
+using static TangentaDB.CashierActivity;
 
 namespace LoginControl
 {
@@ -59,8 +60,21 @@ namespace LoginControl
         public AWP awp = null;
         internal STD std = null;
 
+        private bool m_RecordCashierActivity = false;
 
-        public usrc_MultipleUsers.eCashierActivity CashierActivity
+        public bool RecordCashierActivity
+        {
+            get
+            {
+                return m_RecordCashierActivity;
+            }
+            set
+            {
+                m_RecordCashierActivity = value;
+            }
+        }
+
+        public eCashierState CashierState
         {
             get
             {
@@ -68,16 +82,16 @@ namespace LoginControl
                 {
                     if (awp.m_usrc_MultipleUsers != null)
                     {
-                        return awp.m_usrc_MultipleUsers.CashierActivity;
+                        return awp.m_usrc_MultipleUsers.CashierState;
                     }
                     else
                     {
-                        return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                        return usrc_MultipleUsers.eCashierState.CLOSED;
                     }
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierActivity.CLOSED;
+                    return usrc_MultipleUsers.eCashierState.CLOSED;
                 }
             }
         }
