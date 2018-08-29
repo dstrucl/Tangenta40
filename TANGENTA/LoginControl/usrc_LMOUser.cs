@@ -129,6 +129,26 @@ namespace LoginControl
                     m_LMOUser.Atom_WorkPeriod_ID = null;
                     m_LMOUser.awpld = null;
                     m_LMOUser.LoggedIn = false;
+
+                    if (lctrl.RecordCashierActivity)
+                    {
+
+                        eCashierState xCashierState = eCashierState.CLOSED;
+                        if (m_usrc_MultipleUsers.m_CashierActivity != null)
+                        {
+                            xCashierState = m_usrc_MultipleUsers.m_CashierActivity.CashierState;
+                        }
+
+                        if (xCashierState == eCashierState.OPENED)
+                        {
+                            m_usrc_MultipleUsers.m_CashierActivity.Last_Atom_WorkPeriod_ID = m_LMOUser.Atom_WorkPeriod_ID;
+                            Form_CloseCashier frm_closecashier = new Form_CloseCashier(m_usrc_MultipleUsers.m_CashierActivity);
+                            if (frm_closecashier.ShowDialog(this) == DialogResult.Yes)
+                            {
+                               m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                            }
+                        }
+                    }
                 }
             }
             else
@@ -174,8 +194,9 @@ namespace LoginControl
                                 m_usrc_MultipleUsers.CashierActivity_InfoShow(true);
                             }
                             else
-                        {
-                                m_usrc_MultipleUsers.CashierActivity_InfoShow(false);
+                            {
+                                    m_usrc_MultipleUsers.CashierActivity_InfoShow(false);
+                            }
                         }
                     }
                 }

@@ -102,12 +102,97 @@ namespace TangentaDB
                 }
             }
 
+            private bool m_Storno = false;
+            public bool Storno
+            {
+                get
+                {
+                    return m_Storno;
+                }
+                private set
+                {
+                    m_Storno = value;
+                }
+            }
+
+            private StaticLib.TaxSum m_TaxSum = null;
+
+            public StaticLib.TaxSum TaxSum
+            {
+                get
+                {
+                    return m_TaxSum;
+                }
+                private set
+                {
+                    m_TaxSum = value;
+                }
+            }
+
+            private decimal m_NetTotal = 0;
+            public decimal NetTotal 
+            {
+                get
+                {
+                    return m_NetTotal;
+                }
+                private set
+                {
+                    m_NetTotal = value;
+                }
+            }
+
+            private decimal m_TaxTotal = 0;
+            public decimal TaxTotal
+            {
+                get
+                {
+                    return m_TaxTotal;
+                }
+                private set
+                {
+                    m_TaxTotal = value;
+                }
+            }
+
+            private decimal m_Total = 0;
+            public decimal Total
+            {
+                get
+                {
+                    return m_Total;
+                }
+                private set
+                {
+                    m_Total = value;
+                }
+            }
+
+            private string m_PaymentTypeName = "";
+            public string PaymentTypeName
+            {
+                get
+                {
+                    return m_PaymentTypeName;
+                }
+                private set
+                {
+                    m_PaymentTypeName = value;
+                }
+            }
+
             public DocInvoiceData(string xAtom_ElectronicDevice_Name,
                                   string xAtom_Office_ShortName,
                                   ID xID,
                                   DateTime xIssueDate,
                                   int xNumberInFinancialYear,
-                                  int xFinancialYear)
+                                  int xFinancialYear,
+                                  bool xStorno,
+                                  decimal xNetSum,
+                                  decimal xTaxSum,
+                                  decimal xGrossSum,
+                                  StaticLib.TaxSum xtaxSum,
+                                  string xPaymentTypeName)
             {
                 this.Atom_ElectronicDevice_Name = xAtom_ElectronicDevice_Name;
                 this.Atom_Office_ShortName = xAtom_Office_ShortName;
@@ -116,6 +201,12 @@ namespace TangentaDB
                 this.IssueJustDate = new DateTime(xIssueDate.Year, xIssueDate.Month, xIssueDate.Day);
                 this.NumberInFinancialYear = xNumberInFinancialYear;
                 this.FinancialYear = xFinancialYear;
+                this.Storno = xStorno;
+                this.NetTotal = xNetSum;
+                this.TaxTotal = xTaxSum;
+                this.Total = xGrossSum;
+                this.TaxSum = xtaxSum;
+                this.PaymentTypeName = xPaymentTypeName;
             }
         }
 
@@ -135,6 +226,36 @@ namespace TangentaDB
                 m_CashierState = value;
             }
         }
+
+
+        private string m_Atom_ElectronicDevice_Name = null;
+        public string Atom_ElectronicDevice_Name
+        {
+            get
+            {
+                return m_Atom_ElectronicDevice_Name;
+            }
+            private set
+            {
+                m_Atom_ElectronicDevice_Name = value;
+            }
+        }
+
+
+        private string m_Atom_Office_ShortName = null;
+        public string Atom_Office_ShortName
+        {
+            get
+            {
+                return m_Atom_Office_ShortName;
+            }
+            private set
+            {
+                m_Atom_Office_ShortName = value;
+            }
+        }
+
+
         public int NumberOfInvoices
         {
             get
@@ -252,7 +373,76 @@ namespace TangentaDB
             }
         }
 
+        public decimal NetTotal
+        {
+            get
+            {
+                decimal nettotal = 0;
+                foreach (DocInvoiceData di in this.DocInvoice_ID_List)
+                {
+                    nettotal += di.NetTotal;
+                }
+                return nettotal;
+            }
+        }
 
+        public decimal TaxTotal
+        {
+            get
+            {
+                decimal taxtotal = 0;
+                foreach (DocInvoiceData di in this.DocInvoice_ID_List)
+                {
+                    taxtotal += di.TaxTotal;
+                }
+                return taxtotal;
+            }
+        }
+
+        public decimal Total
+        {
+            get
+            {
+                decimal total = 0;
+                foreach (DocInvoiceData di in this.DocInvoice_ID_List)
+                {
+                    total += di.Total;
+                }
+                return total;
+            }
+        }
+
+        private StaticLib.TaxSum m_TaxSum = new StaticLib.TaxSum();
+        public StaticLib.TaxSum TaxSum
+        {
+            get
+            {
+                m_TaxSum.Clear();
+                foreach (DocInvoiceData di in DocInvoice_ID_List)
+                {
+                    foreach (StaticLib.Tax tax in di.TaxSum.TaxList)
+                    {
+                        m_TaxSum.Add(tax.TaxAmount, tax.TaxableAmount, tax.Name, tax.Rate);
+                    }
+                }
+                return m_TaxSum;
+            }
+        }
+
+
+        private Report.PaymentList m_PaymentList = new Report.PaymentList();
+        public Report.PaymentList PaymentList
+        {
+            get
+            {
+                m_PaymentList.Clear();
+                foreach (DocInvoiceData di in DocInvoice_ID_List)
+                {
+                    m_PaymentList.Add(di.PaymentTypeName, di.NetTotal, di.TaxTotal, di.Total);
+                }
+                return m_PaymentList;
+            }
+        }
 
         public CashierActivity(CashierActivity.DocInvoiceData xDocInvoiceData,
                                int xCashierActivityNumber,
@@ -269,28 +459,68 @@ namespace TangentaDB
             this.LastLogin = v2;
         }
 
+       
+
         public CashierActivity()
         {
         }
 
+
+       
+
         public bool Open(ID xAtom_WorkPeriod_ID)
         {
-           if (ID.Validate(this.CashierActivityOpened_ID))
+
+            if (f_Atom_WorkPeriod.Get(xAtom_WorkPeriod_ID, ref m_Atom_ElectronicDevice_Name, ref m_Atom_Office_ShortName))
             {
-                LogFile.Error.Show("ERROR:LoginControl:CashierActivity:Open:CashierActivity already opened!");
-                return false;
-            }
-            ID xCashierActivityOpened_ID = null;
-            if (f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID))
-            {
-                this.CashierActivityOpened_ID = xCashierActivityOpened_ID;
-                return true;
+                if (ID.Validate(this.CashierActivityOpened_ID))
+                {
+                    LogFile.Error.Show("ERROR:LoginControl:CashierActivity:Open:CashierActivity already opened!");
+                    return false;
+                }
+                ID xCashierActivityOpened_ID = null;
+                if (f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID))
+                {
+                    this.CashierActivityOpened_ID = xCashierActivityOpened_ID;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
                 return false;
             }
         }
+
+        public bool Close(ID xAtom_WorkPeriod_ID)
+        {
+            if (ID.Validate(xAtom_WorkPeriod_ID))
+            {
+                LogFile.Error.Show("ERROR:LoginControl:CashierActivity:Close:xAtom_WorkPeriod_ID is not valid!");
+                return false;
+            }
+            ID xCashierActivityClosed_ID = null;
+            if (f_CashierActivityClosed.Get(xAtom_WorkPeriod_ID, ref xCashierActivityClosed_ID))
+            {
+                this.CashierActivityClosed_ID = xCashierActivityClosed_ID;
+                if (f_CashierActivity.Close(this.ID, xAtom_WorkPeriod_ID))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         public string CashierActivityOpened_Person(ID xCashierActivityOpened_ID)
         {

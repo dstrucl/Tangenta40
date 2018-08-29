@@ -27,6 +27,7 @@ using TangentaSampleDB;
 using Country_ISO_3166;
 using HUDCMS;
 using LoginControl;
+using static TangentaDB.CashierActivity;
 
 namespace Tangenta
 {
@@ -143,17 +144,17 @@ namespace Tangenta
             }
         }
 
-        public usrc_MultipleUsers.eCashierState CashierActivity
+        public eCashierState CashierState
         {
             get
             {
                 if (loginControl1!=null)
                 {
-                    return loginControl1.CashierActivity;
+                    return loginControl1.CashierState;
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierState.CLOSED;
+                    return eCashierState.CLOSED;
                 }
             }
         }

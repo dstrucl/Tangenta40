@@ -192,6 +192,12 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
+    <Compile Include="usrc_CashierActivity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_CashierActivity.Designer.cs">
+      <DependentUpon>usrc_CashierActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Idle.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -356,6 +362,9 @@
       <DependentUpon>EditLoginData_Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_CashierActivity.resx">
+      <DependentUpon>usrc_CashierActivity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Idle.resx">
       <DependentUpon>usrc_Idle.cs</DependentUpon>
     </EmbeddedResource>
@@ -519,6 +528,10 @@
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355D-D6DC-46C9-9787-96A74EF27BE3}</Project>
       <Name>TangentaDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tangenta_DefaultPrintTemplates\Tangenta_DefaultPrintTemplates.csproj">
+      <Project>{881e369b-527b-4a80-83e8-f350c26b6bab}</Project>
+      <Name>Tangenta_DefaultPrintTemplates</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

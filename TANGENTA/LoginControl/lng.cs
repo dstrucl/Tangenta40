@@ -24,6 +24,35 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_No_Issued_Invoices = new ltext(new string[] { "No invoices", "Ni računov" });
+
+        public static ltext s_Storno = new ltext(new string[] { "STORNO", "STORNO" });
+        public static ltext s_Form_CloseCashier = new ltext(new string[] { "Closing Cashier", "Zapiranje blagajne" });
+
+        public static ltext s_lbl_MethodOfPayment_Name = new ltext(new string[] { "Method of payment:", "Način plačila:" });
+
+        public static ltext s_lbl_MethodOfPayment_Total = new ltext(new string[] { "Total:", "Znesek:" });
+
+        public static ltext s_lbl_CashierOpen_Question = new ltext(new string[] {"Open cashier ?","Odprem blagajno ?"});
+        public static ltext s_btn_NO = new ltext(new string[] { "NO", "NE" });
+        public static ltext s_btn_YES = new ltext(new string[] { "YES", "DA" });
+        public static ltext s_btn_YesPrint = new ltext(new string[] { "Yes & Print", "DA in Natisni" });
+
+        public static ltext s_lbl_CashierActivityNumber = new ltext(new string[] { "Št. Zaključka:", "Report.Num:" });
+        public static ltext s_lbl_CashierOpenedTime = new ltext(new string[] { "Cashier opened:", "Odprtje blagajne:" });
+        public static ltext s_lbl_PersonWhoOpenedCashier = new ltext(new string[] { "Person who opened:", "Oseba,ki je odprla:" });
+        public static ltext s_pnl_Realisation_ByTaxRate = new ltext(new string[] {"Income by tax rate:", "Iztržki po davčnih stopnjah:" });
+        public static ltext s_lbl_NumberOfInvoices = new ltext(new string[] { "Nr. of Invoices:", "Število računov:" });
+        public static ltext s_lbl_NetPrice = new ltext(new string[] { "Net", "Osnova" });
+        public static ltext s_lbl_TaxPrice = new ltext(new string[] { "Tax Total", "Davek skupaj" });
+        public static ltext s_lbl_Total = new ltext(new string[] { "Total", "Skupaj" });
+        public static ltext s_lbl_ReportByPaymentMethod = new ltext(new string[] { "Report by method of payment", "Po načinu plačila" });
+        public static ltext s_lbl_Report_ByTaxiation = new ltext(new string[] { "Report by tax rate", "Po davčni stopnji" });
+        public static ltext s_lbl_FromInvoice = new ltext(new string[] { "From invoice:", "Od računa:" });
+        public static ltext s_lbl_ToInvoice = new ltext(new string[] { "To invoice:", "Do računa:" });
+
+
+
         public static ltext s_Neto = new ltext(new string[] { "Net price:", "Osnova:" });
         public static ltext s_Tax = new ltext(new string[] { "Tax:", "Davek:" });
         public static ltext s_Total = new ltext(new string[] { "Total:", "Skupaj:" });
@@ -254,8 +283,7 @@ namespace LoginControl
         public static ltext s_Password_Wrong = new ltext(new string[]{"Password wrong!",
                                                          "Geslo ni pravilno!"});
 
-        public static ltext s_ManageUSers = new ltext(new string[]{"Manage Users",
-    "Urejanje uporabnikov"});
+        public static ltext s_ManageUSers = new ltext(new string[]{"Manage Users","Urejanje uporabnikov"});
 
         public static ltext s_AddUser = new ltext(new string[]{"Add User",
                                                   "Dodaj uporabnika"});

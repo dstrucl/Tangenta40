@@ -252,6 +252,7 @@
     <Compile Include="MyOrgBankAccountPayment.cs" />
     <Compile Include="myOrg_Office_ElectronicDevice.cs" />
     <Compile Include="PaymentType_definitions.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="TermsOfPayment_definitions.cs" />
     <Compile Include="MyOrg.cs" />
     <Compile Include="myOrg_Office.cs" />

@@ -138,7 +138,7 @@ namespace LoginControl
             set
             {
                 m_NumberOfItemsPerPage = value;
-                Init(m_awp, this.chk_ShowAdministrators.Checked);
+                Init(m_awp,m_awp.lctrl.RecordCashierActivity, this.chk_ShowAdministrators.Checked);
             }
         }
 

@@ -132,7 +132,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Report.cs" />
     <Compile Include="usrc_Invoice_Preview.cs">
       <SubType>UserControl</SubType>
     </Compile>

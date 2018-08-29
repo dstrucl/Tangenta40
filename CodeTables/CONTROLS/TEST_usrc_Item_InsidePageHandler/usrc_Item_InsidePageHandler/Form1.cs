@@ -150,5 +150,11 @@ namespace usrc_Item_InsidePageHandler
         {
             lbl_Page.Text = iPage.ToString();
         }
+
+        private void numUpDn_decimal_ValueChanged(object sender, EventArgs e)
+        {
+            LanguageControl.DynSettings.LanguageID = LanguageControl.DynSettings.Slovensko_ID;
+            this.textBox1.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(numUpDn_decimal.Value, 2, "€");
+        }
     }
 }

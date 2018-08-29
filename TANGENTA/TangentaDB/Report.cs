@@ -6,9 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TangentaDB;
 
-namespace TangentaPrint
+namespace TangentaDB
 {
     public class Report
     {
@@ -292,7 +291,9 @@ namespace TangentaPrint
             }
         }
 
-        internal bool Get(DataTable m_dt_XInvoice)
+
+        
+        public bool Get(DataTable m_dt_XInvoice)
         {
             if (m_dt_XInvoice != null)
             {

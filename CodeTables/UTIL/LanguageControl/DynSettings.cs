@@ -187,6 +187,53 @@ namespace LanguageControl
             }
         }
 
+        public static string SetLanguageCurrencyString(decimal xdecimal, int decimalplaces, string symbol)
+        {
+            string sdecimal = xdecimal.ToString();
+            string sdectotal = null;
+            int idecimalpoint = sdecimal.IndexOfAny(new char[] { '.', ',' });
+            if (idecimalpoint >= 0)
+            {
+                string[] spart = sdecimal.Split(new char[] { '.', ',' });
+                if (spart.Length == 2)
+                {
+                    string sdec = spart[1];
+                    while (sdec.Length < decimalplaces)
+                    {
+                        sdec += '0';
+                    }
+                    sdectotal = spart[0] + lng.s_DecimalPoint.s + sdec;
+                }
+                if (spart.Length == 1)
+                {
+                    string sdec = "";
+                    while (sdec.Length < decimalplaces)
+                    {
+                        sdec += '0';
+                    }
+                    sdectotal = spart[0] + lng.s_DecimalPoint.s + sdec;
+                }
+            }
+            else
+            {
+                string sdec = "";
+                while (sdec.Length < decimalplaces)
+                {
+                    sdec += '0';
+                }
+                sdectotal = sdecimal + lng.s_DecimalPoint.s + sdec; 
+            }
+            if (sdectotal!=null)
+            {
+                if (symbol!=null)
+                {
+                    sdectotal += " " + symbol;
+                }
+                return sdectotal;
+            }
+            return "Err decimal";
+        }
+
 
         public static void LanguageTextSave()
         {
@@ -230,6 +277,8 @@ namespace LanguageControl
                 return false;
             }
         }
+
+
 
         internal static void Create_dt_Language(ref DataTable dt_Languages)
         {

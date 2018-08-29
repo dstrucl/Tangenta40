@@ -40,9 +40,13 @@
             this.rdb_List = new System.Windows.Forms.RadioButton();
             this.usrc_Item_InsideGroup_Handler1 = new usrc_Item_Group_Handler.usrc_Item_InsideGroup_Handler();
             this.usrc_Item_InsidePageHandler2 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.numUpDn_decimal = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDn_decimal)).BeginInit();
             this.SuspendLayout();
             // 
             // usrc_Item_InsidePageHandler1
@@ -183,11 +187,48 @@
             this.usrc_Item_InsidePageHandler2.Size = new System.Drawing.Size(582, 106);
             this.usrc_Item_InsidePageHandler2.TabIndex = 11;
             // 
+            // numUpDn_decimal
+            // 
+            this.numUpDn_decimal.Location = new System.Drawing.Point(342, 5);
+            this.numUpDn_decimal.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numUpDn_decimal.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
+            this.numUpDn_decimal.Name = "numUpDn_decimal";
+            this.numUpDn_decimal.Size = new System.Drawing.Size(114, 20);
+            this.numUpDn_decimal.TabIndex = 12;
+            this.numUpDn_decimal.ValueChanged += new System.EventHandler(this.numUpDn_decimal_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(217, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(119, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "TestDecimalConversion";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(462, 5);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(109, 20);
+            this.textBox1.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 563);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.numUpDn_decimal);
             this.Controls.Add(this.usrc_Item_InsidePageHandler2);
             this.Controls.Add(this.usrc_Item_InsideGroup_Handler1);
             this.Controls.Add(this.rdb_List);
@@ -206,6 +247,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDn_decimal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +266,9 @@
         private System.Windows.Forms.RadioButton rdb_List;
         private usrc_Item_Group_Handler.usrc_Item_InsideGroup_Handler usrc_Item_InsideGroup_Handler1;
         private usrc_Item_PageHandler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler2;
+        private System.Windows.Forms.NumericUpDown numUpDn_decimal;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

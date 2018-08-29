@@ -24,6 +24,7 @@ using TangentaDB;
 using System.Reflection;
 using TangentaPrint;
 using LoginControl;
+using static TangentaDB.CashierActivity;
 
 namespace Tangenta
 {
@@ -209,17 +210,17 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsInUse; }
         }
 
-        public static usrc_MultipleUsers.eCashierState CashierActivity
+        public static eCashierState CashierState
         {
             get
             {
                 if (MainForm != null)
                 {
-                    return MainForm.CashierActivity;
+                    return MainForm.CashierState;
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierState.CLOSED;
+                    return eCashierState.CLOSED;
                 }
             }
         }

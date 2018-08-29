@@ -266,10 +266,14 @@ namespace UpgradeDB
 
         private static bool Create_DailyCashierActivityFromAtomWorkPeriod()
         {
-            string sql = @"select 
-								  di.ID as DocInvoice_ID,
+            string sql = @"select di.ID as DocInvoice_ID,
 								  di.NumberInFinancialYear,
 								  di.FinancialYear,
+                                  di.Storno,
+                                  di.NetSum,
+                                  di.TaxSum,
+                                  di.GrossSum,
+								  pt.Name as PaymentTypeName,
 								  jdit.Name,
 								  jdi.JOURNAL_DocInvoice_TYPE_ID,
 								  diao.IssueDate,
@@ -280,6 +284,8 @@ namespace UpgradeDB
                                   ao.ShortName as Atom_Office_ShortName
 								  from DocInvoice di 
 								  inner join DocInvoiceAddOn diao  on diao.DocInvoice_ID = di.ID
+                                  inner join MethodOfPayment_DI mopdi on mopdi.ID = diao.MethodOfPayment_DI_ID
+                                  inner join PaymentType pt on pt.ID = mopdi.PaymentType_ID
 								  inner join JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = di.ID
 								  inner join JOURNAL_DocInvoice_TYPE jdit on jdi.JOURNAL_DocInvoice_TYPE_ID = jdit.ID and jdi.JOURNAL_DocInvoice_TYPE_ID=2
                                   inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID
@@ -322,9 +328,60 @@ namespace UpgradeDB
                                 
                                 string_v xAtom_ElectronicDevice_Name_v = tf.set_string(dr["Atom_ElectronicDevice_Name"]);
                                 string_v xAtom_Office_ShortName_v = tf.set_string(dr["Atom_Office_ShortName"]);
-                                CashierActivity.DocInvoiceData docinvdata = new CashierActivity.DocInvoiceData(xAtom_ElectronicDevice_Name_v.v, xAtom_Office_ShortName_v.v, xDocument_ID, IssueTime_v.v, NumberInFinancialYear, FinancialYear);
 
-                                Upgrade_1_26_to_1_27.cashierActivityList.Add(docinvdata);
+                                bool bStorno = false;
+                                bool_v Storno_v= tf.set_bool(dr["Storno"]);
+                                if (Storno_v!=null)
+                                {
+                                    bStorno = Storno_v.v;
+                                }
+
+                                decimal xnetSum = 0;
+                                decimal_v xnetSum_v = tf.set_decimal(dr["NetSum"]);
+                                if (xnetSum_v != null)
+                                {
+                                    xnetSum = xnetSum_v.v;
+                                }
+
+                                decimal xtaxSum = 0;
+                                decimal_v xtaxSum_v = tf.set_decimal(dr["TaxSum"]);
+                                if (xtaxSum_v != null)
+                                {
+                                    xtaxSum = xtaxSum_v.v;
+                                }
+
+                                decimal xgrossSum = 0;
+                                decimal_v xgrossSum_v = tf.set_decimal(dr["GrossSum"]);
+                                if (xgrossSum_v != null)
+                                {
+                                   xgrossSum = xgrossSum_v.v;
+                                }
+
+                                string xPaymentTypeName = lng.s_Undefined.s;
+                                string_v xPaymentTypeName_v = tf.set_string(dr["PaymentTypeName"]);
+                                if (xPaymentTypeName_v!=null)
+                                {
+                                    xPaymentTypeName = xPaymentTypeName_v.v;
+                                }
+
+
+                                StaticLib.TaxSum taxSum = new StaticLib.TaxSum();
+                                if (f_DocInvoice.GetTaxSum(xDocument_ID, taxSum))
+                                {
+                                    CashierActivity.DocInvoiceData docinvdata = new CashierActivity.DocInvoiceData(xAtom_ElectronicDevice_Name_v.v,
+                                                                                                                  xAtom_Office_ShortName_v.v,
+                                                                                                                  xDocument_ID,
+                                                                                                                  IssueTime_v.v,
+                                                                                                                  NumberInFinancialYear,
+                                                                                                                  FinancialYear,
+                                                                                                                  bStorno,
+                                                                                                                  xnetSum,
+                                                                                                                  xtaxSum,
+                                                                                                                  xgrossSum,
+                                                                                                                  taxSum,
+                                                                                                                  xPaymentTypeName);
+                                    Upgrade_1_26_to_1_27.cashierActivityList.Add(docinvdata);
+                                }
                             }
                             else
                             {

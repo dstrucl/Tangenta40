@@ -24,6 +24,9 @@ namespace LanguageControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_DecimalPoint = new ltext(new string[] { ".", "," });   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\DynSettings.cs
+
+
         public static ltext s_Text_in_language = new ltext(new string[] { "Text in Language", "Prevod v jeziku" });   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
 
         public static ltext s_Language = new ltext(new string[]{"Language",

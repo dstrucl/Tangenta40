@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using TangentaDB;
 using Tangenta_DefaultPrintTemplates;
 using System.Windows.Forms;
-using static TangentaPrint.Report;
+
 
 namespace TangentaPrint
 {
@@ -140,7 +140,7 @@ namespace TangentaPrint
             graphics.DrawString(lng.s_Total.s + ":" + report.HeadR.Total.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + OFS;
             graphics.DrawString(lng.s_NumberOfInvoices.s + ":" + report.HeadR.NumberOfInvoices.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
-            foreach (PaymentType pt in report.HeadR.PaymentTypeList.items)
+            foreach (TangentaDB.Report.PaymentType pt in report.HeadR.PaymentTypeList.items)
             {
                 Offset = Offset + OFS;
                 graphics.DrawString(pt.Name + ":" + pt.Count.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);

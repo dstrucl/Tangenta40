@@ -24,6 +24,8 @@ namespace UpgradeDB
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Undefined = new ltext(new string[] { "Undefined", "Nedoločeno" });   // referenced in C:\Tangenta40\TANGENTA\usrc_Upgrade\Upgrade_inThread.cs
+
         public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext(new string[] { "Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?" });   // referenced in C:\Tangenta40\TANGENTA\usrc_Upgrade\Upgrade_inThread.cs
 
         public static ltext s_RealGrossSumIs = new ltext(new string[] { "Correct gross price = ", "\r\nPravilna končna cena = " });   // referenced in C:\Tangenta40\TANGENTA\usrc_Upgrade\Upgrade_inThread.cs

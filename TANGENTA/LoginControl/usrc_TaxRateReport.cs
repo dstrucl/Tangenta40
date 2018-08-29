@@ -20,16 +20,17 @@ namespace LoginControl
             lng.s_Total.Text(lbl_Total);
         }
 
+
         public usrc_TaxRateReport(string taxation_name ,decimal net, decimal tax, decimal total)
         {
             InitializeComponent();
             lng.s_Neto.Text(lbl_Neto);
             lng.s_Tax.Text(lbl_Tax);
             lng.s_Total.Text(lbl_Total);
-            lbl_TaxName.Text = taxation_name;
-            lbl_Neto_Value.Text = net.ToString();
-            lbl_Tax_Value.Text = tax.ToString();
-            lbl_Total_Value.Text = total.ToString();
+            txt_TaxName.Text = taxation_name;
+            txt_Neto_Value.Text = net.ToString();
+            txt_Tax_Value.Text = tax.ToString();
+            txt_Total_Value.Text = total.ToString();
         }
     }
 }

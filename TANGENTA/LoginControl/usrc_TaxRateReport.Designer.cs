@@ -28,106 +28,117 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_TaxName = new System.Windows.Forms.Label();
+            this.txt_TaxName = new System.Windows.Forms.TextBox();
             this.lbl_Neto = new System.Windows.Forms.Label();
             this.lbl_Tax = new System.Windows.Forms.Label();
-            this.lbl_Neto_Value = new System.Windows.Forms.Label();
+            this.txt_Neto_Value = new System.Windows.Forms.TextBox();
             this.lbl_Total = new System.Windows.Forms.Label();
-            this.lbl_Tax_Value = new System.Windows.Forms.Label();
-            this.lbl_Total_Value = new System.Windows.Forms.Label();
+            this.txt_Tax_Value = new System.Windows.Forms.TextBox();
+            this.txt_Total_Value = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // lbl_TaxName
+            // txt_TaxName
             // 
-            this.lbl_TaxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_TaxName.Location = new System.Drawing.Point(5, 2);
-            this.lbl_TaxName.Name = "lbl_TaxName";
-            this.lbl_TaxName.Size = new System.Drawing.Size(134, 22);
-            this.lbl_TaxName.TabIndex = 0;
-            this.lbl_TaxName.Text = "DDV xx%";
-            this.lbl_TaxName.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.txt_TaxName.BackColor = System.Drawing.Color.SeaShell;
+            this.txt_TaxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_TaxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_TaxName.Location = new System.Drawing.Point(1, 4);
+            this.txt_TaxName.Name = "txt_TaxName";
+            this.txt_TaxName.Size = new System.Drawing.Size(77, 13);
+            this.txt_TaxName.TabIndex = 0;
+            this.txt_TaxName.Text = "DDV xx%";
             // 
             // lbl_Neto
             // 
-            this.lbl_Neto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Neto.Location = new System.Drawing.Point(145, 2);
+            this.lbl_Neto.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.lbl_Neto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Neto.Location = new System.Drawing.Point(79, 3);
             this.lbl_Neto.Name = "lbl_Neto";
-            this.lbl_Neto.Size = new System.Drawing.Size(104, 22);
+            this.lbl_Neto.Size = new System.Drawing.Size(67, 14);
             this.lbl_Neto.TabIndex = 1;
             this.lbl_Neto.Text = "Neto:";
             // 
             // lbl_Tax
             // 
-            this.lbl_Tax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Tax.Location = new System.Drawing.Point(274, 2);
+            this.lbl_Tax.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.lbl_Tax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Tax.Location = new System.Drawing.Point(155, 3);
             this.lbl_Tax.Name = "lbl_Tax";
-            this.lbl_Tax.Size = new System.Drawing.Size(104, 22);
+            this.lbl_Tax.Size = new System.Drawing.Size(67, 14);
             this.lbl_Tax.TabIndex = 2;
             this.lbl_Tax.Text = "Tax:";
             // 
-            // lbl_Neto_Value
+            // txt_Neto_Value
             // 
-            this.lbl_Neto_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Neto_Value.Location = new System.Drawing.Point(145, 20);
-            this.lbl_Neto_Value.Name = "lbl_Neto_Value";
-            this.lbl_Neto_Value.Size = new System.Drawing.Size(123, 22);
-            this.lbl_Neto_Value.TabIndex = 3;
-            this.lbl_Neto_Value.Text = "Neto value";
+            this.txt_Neto_Value.BackColor = System.Drawing.Color.SeaShell;
+            this.txt_Neto_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Neto_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Neto_Value.Location = new System.Drawing.Point(79, 16);
+            this.txt_Neto_Value.Name = "txt_Neto_Value";
+            this.txt_Neto_Value.Size = new System.Drawing.Size(67, 13);
+            this.txt_Neto_Value.TabIndex = 3;
+            this.txt_Neto_Value.Text = "Neto value";
             // 
             // lbl_Total
             // 
-            this.lbl_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Total.Location = new System.Drawing.Point(384, 2);
+            this.lbl_Total.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.lbl_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Total.Location = new System.Drawing.Point(231, 3);
             this.lbl_Total.Name = "lbl_Total";
-            this.lbl_Total.Size = new System.Drawing.Size(110, 22);
+            this.lbl_Total.Size = new System.Drawing.Size(67, 14);
             this.lbl_Total.TabIndex = 4;
             this.lbl_Total.Text = "Total:";
             // 
-            // lbl_Tax_Value
+            // txt_Tax_Value
             // 
-            this.lbl_Tax_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Tax_Value.Location = new System.Drawing.Point(274, 20);
-            this.lbl_Tax_Value.Name = "lbl_Tax_Value";
-            this.lbl_Tax_Value.Size = new System.Drawing.Size(104, 22);
-            this.lbl_Tax_Value.TabIndex = 5;
-            this.lbl_Tax_Value.Text = "Tax value";
+            this.txt_Tax_Value.BackColor = System.Drawing.Color.SeaShell;
+            this.txt_Tax_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Tax_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Tax_Value.Location = new System.Drawing.Point(155, 15);
+            this.txt_Tax_Value.Name = "txt_Tax_Value";
+            this.txt_Tax_Value.Size = new System.Drawing.Size(67, 13);
+            this.txt_Tax_Value.TabIndex = 5;
+            this.txt_Tax_Value.Text = "Tax value";
             // 
-            // lbl_Total_Value
+            // txt_Total_Value
             // 
-            this.lbl_Total_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Total_Value.Location = new System.Drawing.Point(384, 20);
-            this.lbl_Total_Value.Name = "lbl_Total_Value";
-            this.lbl_Total_Value.Size = new System.Drawing.Size(128, 22);
-            this.lbl_Total_Value.TabIndex = 6;
-            this.lbl_Total_Value.Text = "Total value";
+            this.txt_Total_Value.BackColor = System.Drawing.Color.SeaShell;
+            this.txt_Total_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Total_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Total_Value.Location = new System.Drawing.Point(231, 16);
+            this.txt_Total_Value.Name = "txt_Total_Value";
+            this.txt_Total_Value.Size = new System.Drawing.Size(67, 13);
+            this.txt_Total_Value.TabIndex = 6;
+            this.txt_Total_Value.Text = "Total value";
             // 
             // usrc_TaxRateReport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Linen;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Controls.Add(this.lbl_Total_Value);
-            this.Controls.Add(this.lbl_Tax_Value);
+            this.Controls.Add(this.txt_Total_Value);
+            this.Controls.Add(this.txt_Tax_Value);
             this.Controls.Add(this.lbl_Total);
-            this.Controls.Add(this.lbl_Neto_Value);
+            this.Controls.Add(this.txt_Neto_Value);
             this.Controls.Add(this.lbl_Tax);
             this.Controls.Add(this.lbl_Neto);
-            this.Controls.Add(this.lbl_TaxName);
+            this.Controls.Add(this.txt_TaxName);
             this.Name = "usrc_TaxRateReport";
-            this.Size = new System.Drawing.Size(515, 40);
+            this.Size = new System.Drawing.Size(300, 32);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lbl_TaxName;
+        private System.Windows.Forms.TextBox txt_TaxName;
         private System.Windows.Forms.Label lbl_Neto;
         private System.Windows.Forms.Label lbl_Tax;
-        private System.Windows.Forms.Label lbl_Neto_Value;
+        private System.Windows.Forms.TextBox txt_Neto_Value;
         private System.Windows.Forms.Label lbl_Total;
-        private System.Windows.Forms.Label lbl_Tax_Value;
-        private System.Windows.Forms.Label lbl_Total_Value;
+        private System.Windows.Forms.TextBox txt_Tax_Value;
+        private System.Windows.Forms.TextBox txt_Total_Value;
     }
 }

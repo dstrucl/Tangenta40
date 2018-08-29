@@ -22,32 +22,9 @@ namespace LoginControl
         public Form_CloseCashier(CashierActivity ca)
         {
             InitializeComponent();
+            lng.s_Form_CloseCashier.Text(this);
             m_ca = ca;
-            lbl_CashierActivityNumber_Value.Text = ca.CashierActivityNumber.ToString();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_YES_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
+            this.usrc_CashierActivity1.Init(m_ca);
         }
     }
 }

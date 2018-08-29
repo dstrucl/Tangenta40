@@ -86,12 +86,12 @@ namespace LoginControl
                     }
                     else
                     {
-                        return usrc_MultipleUsers.eCashierState.CLOSED;
+                        return eCashierState.CLOSED;
                     }
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierState.CLOSED;
+                    return eCashierState.CLOSED;
                 }
             }
         }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static TangentaDB.CashierActivity;
 
 namespace LoginControl
 {
@@ -44,7 +45,7 @@ namespace LoginControl
             set { m_con = value; }
         }
 
-        public usrc_MultipleUsers.eCashierState CashierActivity
+        public eCashierState CashierActivity
         {
             get
             {
@@ -54,7 +55,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    return usrc_MultipleUsers.eCashierState.CLOSED;
+                    return eCashierState.CLOSED;
                 }
             }
         }
@@ -327,7 +328,7 @@ eres_check:
             }
             m_usrc_MultipleUsers.AWP_dtLoginView = dtAWP_dtLoginView;
             m_usrc_MultipleUsers.Visible = true;
-            m_usrc_MultipleUsers.Init(this, bShowAdministratorUsers);
+            m_usrc_MultipleUsers.Init(this,lctrl.RecordCashierActivity, bShowAdministratorUsers);
             return true;
         }
 
