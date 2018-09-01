@@ -113,6 +113,8 @@ namespace LoginControl
 
         public static ltext s_btn_GetAccess = new ltext(new string[] { "Casshier", "Prevzemi blagajno" });
 
+        public static ltext s_btn_CashierDrawings = new ltext(new string[] { "Casshier turnover", "Blagajniški zaključki" });
+
         public static ltext s_YouCanNotExitProgramUntilAllUsersAreLoggedOut = new ltext(new string[] { "You can not end program until all users are logged out", "Program lahko končate šele, ko so vsi uporabniki odjavljeni!" });
 
         public static ltext s_New_Password = new ltext(new string[] { "New password:", "Novo geslo:" });

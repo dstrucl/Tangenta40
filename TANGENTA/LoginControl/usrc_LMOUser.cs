@@ -27,6 +27,7 @@ namespace LoginControl
             InitializeComponent();
             lctrl = xlxtrl;
             lng.s_btn_GetAccess.Text(btn_GetAccess);
+            lng.s_btn_CashierDrawings.Text(btn_CashierDrawings);
         }
 
         private void RePaint()

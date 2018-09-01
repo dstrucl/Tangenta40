@@ -30,14 +30,14 @@
         {
             this.btn_LoginLogout = new System.Windows.Forms.Button();
             this.btn_GetAccess = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_User = new System.Windows.Forms.TextBox();
-            this.pic_administrator = new System.Windows.Forms.PictureBox();
-            this.pic_UserManager = new System.Windows.Forms.PictureBox();
             this.btn_CashierDrawings = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).BeginInit();
+            this.pic_UserManager = new System.Windows.Forms.PictureBox();
+            this.pic_administrator = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pic_UserManager)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_LoginLogout
@@ -60,22 +60,11 @@
             this.btn_GetAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_GetAccess.Location = new System.Drawing.Point(380, 0);
             this.btn_GetAccess.Name = "btn_GetAccess";
-            this.btn_GetAccess.Size = new System.Drawing.Size(268, 69);
+            this.btn_GetAccess.Size = new System.Drawing.Size(233, 69);
             this.btn_GetAccess.TabIndex = 1;
             this.btn_GetAccess.Text = "Get Access";
             this.btn_GetAccess.UseVisualStyleBackColor = true;
             this.btn_GetAccess.Click += new System.EventHandler(this.btn_GetAccess_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Location = new System.Drawing.Point(273, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(101, 67);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // txt_User
             // 
@@ -90,13 +79,17 @@
             this.txt_User.TabIndex = 3;
             this.txt_User.Text = "User";
             // 
-            // pic_administrator
+            // btn_CashierDrawings
             // 
-            this.pic_administrator.Location = new System.Drawing.Point(121, 4);
-            this.pic_administrator.Name = "pic_administrator";
-            this.pic_administrator.Size = new System.Drawing.Size(30, 23);
-            this.pic_administrator.TabIndex = 4;
-            this.pic_administrator.TabStop = false;
+            this.btn_CashierDrawings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CashierDrawings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_CashierDrawings.Location = new System.Drawing.Point(619, 0);
+            this.btn_CashierDrawings.Name = "btn_CashierDrawings";
+            this.btn_CashierDrawings.Size = new System.Drawing.Size(167, 69);
+            this.btn_CashierDrawings.TabIndex = 6;
+            this.btn_CashierDrawings.Text = "cash drawings";
+            this.btn_CashierDrawings.UseVisualStyleBackColor = true;
+            this.btn_CashierDrawings.Click += new System.EventHandler(this.btn_CashierDrawings_Click);
             // 
             // pic_UserManager
             // 
@@ -106,17 +99,24 @@
             this.pic_UserManager.TabIndex = 5;
             this.pic_UserManager.TabStop = false;
             // 
-            // btn_CashierDrawings
+            // pic_administrator
             // 
-            this.btn_CashierDrawings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_CashierDrawings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_CashierDrawings.Location = new System.Drawing.Point(654, 0);
-            this.btn_CashierDrawings.Name = "btn_CashierDrawings";
-            this.btn_CashierDrawings.Size = new System.Drawing.Size(132, 69);
-            this.btn_CashierDrawings.TabIndex = 6;
-            this.btn_CashierDrawings.Text = "cash drawings";
-            this.btn_CashierDrawings.UseVisualStyleBackColor = true;
-            this.btn_CashierDrawings.Click += new System.EventHandler(this.btn_CashierDrawings_Click);
+            this.pic_administrator.Location = new System.Drawing.Point(121, 4);
+            this.pic_administrator.Name = "pic_administrator";
+            this.pic_administrator.Size = new System.Drawing.Size(30, 23);
+            this.pic_administrator.TabIndex = 4;
+            this.pic_administrator.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.Location = new System.Drawing.Point(273, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(101, 67);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // usrc_LMOUser
             // 
@@ -132,9 +132,9 @@
             this.Controls.Add(this.btn_LoginLogout);
             this.Name = "usrc_LMOUser";
             this.Size = new System.Drawing.Size(789, 70);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_UserManager)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
