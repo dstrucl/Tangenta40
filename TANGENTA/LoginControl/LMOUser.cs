@@ -344,6 +344,14 @@ namespace LoginControl
                         lng.s_Logout.Text(m_usrc_LMOUser.btn_LoginLogout);
                         m_usrc_LMOUser.btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[4].BackColor;
                         m_usrc_LMOUser.btn_GetAccess.Visible = true;
+                        if (m_usrc_LMOUser.m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_UserManagement,AWP.ROLE_Administrator }))
+                        {
+                            m_usrc_LMOUser.btn_CashierDrawings.Visible = true;
+                        }
+                        else
+                        {
+                            m_usrc_LMOUser.btn_CashierDrawings.Visible = false;
+                        }
                     }
                 }
                 else
@@ -353,6 +361,7 @@ namespace LoginControl
                         lng.s_Login.Text(m_usrc_LMOUser.btn_LoginLogout);
                         m_usrc_LMOUser.btn_LoginLogout.BackColor = ColorSettings.Sheme.Current().Colorpair[0].BackColor;
                         m_usrc_LMOUser.btn_GetAccess.Visible = false;
+                        m_usrc_LMOUser.btn_CashierDrawings.Visible = false;
                     }
                 }
             }

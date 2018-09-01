@@ -35,7 +35,6 @@
             this.lbl_Report_ByTaxiation = new System.Windows.Forms.Label();
             this.lbl_ReportByPaymentMethod = new System.Windows.Forms.Label();
             this.pnl_ByPayment = new System.Windows.Forms.Panel();
-            this.btn_YesPrint = new System.Windows.Forms.Button();
             this.txt_Total_Value = new System.Windows.Forms.TextBox();
             this.lbl_Total = new System.Windows.Forms.Label();
             this.txt_TaxPrice_Value = new System.Windows.Forms.TextBox();
@@ -51,9 +50,10 @@
             this.lbl_CashierOpenedTime = new System.Windows.Forms.Label();
             this.txt_CashierActivityNumber_Value = new System.Windows.Forms.TextBox();
             this.lbl_CashierActivityNumber = new System.Windows.Forms.Label();
-            this.lbl_CashierOpen_Question = new System.Windows.Forms.Label();
-            this.btn_NO = new System.Windows.Forms.Button();
-            this.btn_YES = new System.Windows.Forms.Button();
+            this.txt_PersonWhoClosedCashier_Value = new System.Windows.Forms.TextBox();
+            this.lbl_PersonWhoClosedCashier = new System.Windows.Forms.Label();
+            this.txt_CashierClosedTime_Value = new System.Windows.Forms.TextBox();
+            this.lbl_CashierClosedTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txt_ToInvoice_Value
@@ -98,7 +98,7 @@
             // 
             // lbl_Report_ByTaxiation
             // 
-            this.lbl_Report_ByTaxiation.Location = new System.Drawing.Point(4, 69);
+            this.lbl_Report_ByTaxiation.Location = new System.Drawing.Point(4, 86);
             this.lbl_Report_ByTaxiation.Name = "lbl_Report_ByTaxiation";
             this.lbl_Report_ByTaxiation.Size = new System.Drawing.Size(158, 17);
             this.lbl_Report_ByTaxiation.TabIndex = 49;
@@ -106,7 +106,7 @@
             // 
             // lbl_ReportByPaymentMethod
             // 
-            this.lbl_ReportByPaymentMethod.Location = new System.Drawing.Point(333, 69);
+            this.lbl_ReportByPaymentMethod.Location = new System.Drawing.Point(333, 86);
             this.lbl_ReportByPaymentMethod.Name = "lbl_ReportByPaymentMethod";
             this.lbl_ReportByPaymentMethod.Size = new System.Drawing.Size(144, 17);
             this.lbl_ReportByPaymentMethod.TabIndex = 48;
@@ -116,27 +116,16 @@
             // 
             this.pnl_ByPayment.AutoScroll = true;
             this.pnl_ByPayment.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnl_ByPayment.Location = new System.Drawing.Point(336, 89);
+            this.pnl_ByPayment.Location = new System.Drawing.Point(336, 106);
             this.pnl_ByPayment.Name = "pnl_ByPayment";
-            this.pnl_ByPayment.Size = new System.Drawing.Size(343, 224);
+            this.pnl_ByPayment.Size = new System.Drawing.Size(343, 92);
             this.pnl_ByPayment.TabIndex = 38;
-            // 
-            // btn_YesPrint
-            // 
-            this.btn_YesPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_YesPrint.Location = new System.Drawing.Point(37, 372);
-            this.btn_YesPrint.Name = "btn_YesPrint";
-            this.btn_YesPrint.Size = new System.Drawing.Size(216, 112);
-            this.btn_YesPrint.TabIndex = 47;
-            this.btn_YesPrint.Text = "PRINT";
-            this.btn_YesPrint.UseVisualStyleBackColor = true;
-            this.btn_YesPrint.Click += new System.EventHandler(this.btn_YesPrint_Click);
             // 
             // txt_Total_Value
             // 
             this.txt_Total_Value.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txt_Total_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_Total_Value.Location = new System.Drawing.Point(461, 50);
+            this.txt_Total_Value.Location = new System.Drawing.Point(461, 67);
             this.txt_Total_Value.Name = "txt_Total_Value";
             this.txt_Total_Value.ReadOnly = true;
             this.txt_Total_Value.Size = new System.Drawing.Size(100, 13);
@@ -145,7 +134,7 @@
             // 
             // lbl_Total
             // 
-            this.lbl_Total.Location = new System.Drawing.Point(399, 50);
+            this.lbl_Total.Location = new System.Drawing.Point(399, 67);
             this.lbl_Total.Name = "lbl_Total";
             this.lbl_Total.Size = new System.Drawing.Size(62, 18);
             this.lbl_Total.TabIndex = 45;
@@ -156,7 +145,7 @@
             // 
             this.txt_TaxPrice_Value.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txt_TaxPrice_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_TaxPrice_Value.Location = new System.Drawing.Point(297, 50);
+            this.txt_TaxPrice_Value.Location = new System.Drawing.Point(297, 67);
             this.txt_TaxPrice_Value.Name = "txt_TaxPrice_Value";
             this.txt_TaxPrice_Value.ReadOnly = true;
             this.txt_TaxPrice_Value.Size = new System.Drawing.Size(100, 13);
@@ -165,7 +154,7 @@
             // 
             // lbl_TaxPrice
             // 
-            this.lbl_TaxPrice.Location = new System.Drawing.Point(191, 50);
+            this.lbl_TaxPrice.Location = new System.Drawing.Point(191, 67);
             this.lbl_TaxPrice.Name = "lbl_TaxPrice";
             this.lbl_TaxPrice.Size = new System.Drawing.Size(103, 17);
             this.lbl_TaxPrice.TabIndex = 43;
@@ -176,7 +165,7 @@
             // 
             this.txt_NetPrice_Value.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txt_NetPrice_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_NetPrice_Value.Location = new System.Drawing.Point(83, 47);
+            this.txt_NetPrice_Value.Location = new System.Drawing.Point(83, 64);
             this.txt_NetPrice_Value.Name = "txt_NetPrice_Value";
             this.txt_NetPrice_Value.ReadOnly = true;
             this.txt_NetPrice_Value.Size = new System.Drawing.Size(99, 13);
@@ -185,7 +174,7 @@
             // 
             // lbl_NetPrice
             // 
-            this.lbl_NetPrice.Location = new System.Drawing.Point(3, 49);
+            this.lbl_NetPrice.Location = new System.Drawing.Point(3, 66);
             this.lbl_NetPrice.Name = "lbl_NetPrice";
             this.lbl_NetPrice.Size = new System.Drawing.Size(75, 17);
             this.lbl_NetPrice.TabIndex = 41;
@@ -216,16 +205,16 @@
             // 
             this.pnl_Realisation_ByTaxRate.AutoScroll = true;
             this.pnl_Realisation_ByTaxRate.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnl_Realisation_ByTaxRate.Location = new System.Drawing.Point(7, 89);
+            this.pnl_Realisation_ByTaxRate.Location = new System.Drawing.Point(7, 106);
             this.pnl_Realisation_ByTaxRate.Name = "pnl_Realisation_ByTaxRate";
-            this.pnl_Realisation_ByTaxRate.Size = new System.Drawing.Size(314, 224);
+            this.pnl_Realisation_ByTaxRate.Size = new System.Drawing.Size(314, 92);
             this.pnl_Realisation_ByTaxRate.TabIndex = 37;
             // 
             // txt_PersonWhoOpenedCashier_Value
             // 
             this.txt_PersonWhoOpenedCashier_Value.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txt_PersonWhoOpenedCashier_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_PersonWhoOpenedCashier_Value.Location = new System.Drawing.Point(407, 27);
+            this.txt_PersonWhoOpenedCashier_Value.Location = new System.Drawing.Point(161, 46);
             this.txt_PersonWhoOpenedCashier_Value.Name = "txt_PersonWhoOpenedCashier_Value";
             this.txt_PersonWhoOpenedCashier_Value.ReadOnly = true;
             this.txt_PersonWhoOpenedCashier_Value.Size = new System.Drawing.Size(133, 13);
@@ -234,7 +223,7 @@
             // 
             // lbl_PersonWhoOpenedCashier
             // 
-            this.lbl_PersonWhoOpenedCashier.Location = new System.Drawing.Point(247, 27);
+            this.lbl_PersonWhoOpenedCashier.Location = new System.Drawing.Point(1, 46);
             this.lbl_PersonWhoOpenedCashier.Name = "lbl_PersonWhoOpenedCashier";
             this.lbl_PersonWhoOpenedCashier.Size = new System.Drawing.Size(158, 17);
             this.lbl_PersonWhoOpenedCashier.TabIndex = 35;
@@ -281,43 +270,54 @@
             this.lbl_CashierActivityNumber.Text = "Cashier Activity Number:";
             this.lbl_CashierActivityNumber.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lbl_CashierOpen_Question
+            // txt_PersonWhoClosedCashier_Value
             // 
-            this.lbl_CashierOpen_Question.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_CashierOpen_Question.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_CashierOpen_Question.Location = new System.Drawing.Point(172, 334);
-            this.lbl_CashierOpen_Question.Name = "lbl_CashierOpen_Question";
-            this.lbl_CashierOpen_Question.Size = new System.Drawing.Size(338, 22);
-            this.lbl_CashierOpen_Question.TabIndex = 30;
-            this.lbl_CashierOpen_Question.Text = "Close Cashier ?";
-            this.lbl_CashierOpen_Question.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txt_PersonWhoClosedCashier_Value.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txt_PersonWhoClosedCashier_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_PersonWhoClosedCashier_Value.Location = new System.Drawing.Point(477, 46);
+            this.txt_PersonWhoClosedCashier_Value.Name = "txt_PersonWhoClosedCashier_Value";
+            this.txt_PersonWhoClosedCashier_Value.ReadOnly = true;
+            this.txt_PersonWhoClosedCashier_Value.Size = new System.Drawing.Size(133, 13);
+            this.txt_PersonWhoClosedCashier_Value.TabIndex = 55;
+            this.txt_PersonWhoClosedCashier_Value.Text = "Damjan";
             // 
-            // btn_NO
+            // lbl_PersonWhoClosedCashier
             // 
-            this.btn_NO.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_NO.Location = new System.Drawing.Point(512, 372);
-            this.btn_NO.Name = "btn_NO";
-            this.btn_NO.Size = new System.Drawing.Size(117, 112);
-            this.btn_NO.TabIndex = 29;
-            this.btn_NO.Text = "NO";
-            this.btn_NO.UseVisualStyleBackColor = true;
-            this.btn_NO.Click += new System.EventHandler(this.btn_NO_Click);
+            this.lbl_PersonWhoClosedCashier.Location = new System.Drawing.Point(317, 46);
+            this.lbl_PersonWhoClosedCashier.Name = "lbl_PersonWhoClosedCashier";
+            this.lbl_PersonWhoClosedCashier.Size = new System.Drawing.Size(158, 17);
+            this.lbl_PersonWhoClosedCashier.TabIndex = 54;
+            this.lbl_PersonWhoClosedCashier.Text = "Person who opened cashier:";
+            this.lbl_PersonWhoClosedCashier.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // btn_YES
+            // txt_CashierClosedTime_Value
             // 
-            this.btn_YES.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_YES.Location = new System.Drawing.Point(300, 372);
-            this.btn_YES.Name = "btn_YES";
-            this.btn_YES.Size = new System.Drawing.Size(155, 112);
-            this.btn_YES.TabIndex = 28;
-            this.btn_YES.Text = "YES";
-            this.btn_YES.UseVisualStyleBackColor = true;
-            this.btn_YES.Click += new System.EventHandler(this.btn_YES_Click);
+            this.txt_CashierClosedTime_Value.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txt_CashierClosedTime_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_CashierClosedTime_Value.Location = new System.Drawing.Point(368, 27);
+            this.txt_CashierClosedTime_Value.Name = "txt_CashierClosedTime_Value";
+            this.txt_CashierClosedTime_Value.ReadOnly = true;
+            this.txt_CashierClosedTime_Value.Size = new System.Drawing.Size(122, 13);
+            this.txt_CashierClosedTime_Value.TabIndex = 57;
+            this.txt_CashierClosedTime_Value.Text = "dd.mm.yyyy hh:mm:ss";
+            // 
+            // lbl_CashierClosedTime
+            // 
+            this.lbl_CashierClosedTime.Location = new System.Drawing.Point(252, 27);
+            this.lbl_CashierClosedTime.Name = "lbl_CashierClosedTime";
+            this.lbl_CashierClosedTime.Size = new System.Drawing.Size(116, 17);
+            this.lbl_CashierClosedTime.TabIndex = 56;
+            this.lbl_CashierClosedTime.Text = "Time Cashier Closed:";
+            this.lbl_CashierClosedTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // usrc_CashierActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txt_CashierClosedTime_Value);
+            this.Controls.Add(this.lbl_CashierClosedTime);
+            this.Controls.Add(this.txt_PersonWhoClosedCashier_Value);
+            this.Controls.Add(this.lbl_PersonWhoClosedCashier);
             this.Controls.Add(this.txt_ToInvoice_Value);
             this.Controls.Add(this.lbl_ToInvoice);
             this.Controls.Add(this.txt_FromInvoice_Value);
@@ -325,7 +325,6 @@
             this.Controls.Add(this.lbl_Report_ByTaxiation);
             this.Controls.Add(this.lbl_ReportByPaymentMethod);
             this.Controls.Add(this.pnl_ByPayment);
-            this.Controls.Add(this.btn_YesPrint);
             this.Controls.Add(this.txt_Total_Value);
             this.Controls.Add(this.lbl_Total);
             this.Controls.Add(this.txt_TaxPrice_Value);
@@ -341,11 +340,8 @@
             this.Controls.Add(this.lbl_CashierOpenedTime);
             this.Controls.Add(this.txt_CashierActivityNumber_Value);
             this.Controls.Add(this.lbl_CashierActivityNumber);
-            this.Controls.Add(this.lbl_CashierOpen_Question);
-            this.Controls.Add(this.btn_NO);
-            this.Controls.Add(this.btn_YES);
             this.Name = "usrc_CashierActivity";
-            this.Size = new System.Drawing.Size(691, 491);
+            this.Size = new System.Drawing.Size(691, 204);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,7 +356,6 @@
         private System.Windows.Forms.Label lbl_Report_ByTaxiation;
         private System.Windows.Forms.Label lbl_ReportByPaymentMethod;
         private System.Windows.Forms.Panel pnl_ByPayment;
-        private System.Windows.Forms.Button btn_YesPrint;
         private System.Windows.Forms.TextBox txt_Total_Value;
         private System.Windows.Forms.Label lbl_Total;
         private System.Windows.Forms.TextBox txt_TaxPrice_Value;
@@ -376,8 +371,9 @@
         private System.Windows.Forms.Label lbl_CashierOpenedTime;
         private System.Windows.Forms.TextBox txt_CashierActivityNumber_Value;
         private System.Windows.Forms.Label lbl_CashierActivityNumber;
-        private System.Windows.Forms.Label lbl_CashierOpen_Question;
-        private System.Windows.Forms.Button btn_NO;
-        private System.Windows.Forms.Button btn_YES;
+        private System.Windows.Forms.TextBox txt_PersonWhoClosedCashier_Value;
+        private System.Windows.Forms.Label lbl_PersonWhoClosedCashier;
+        private System.Windows.Forms.TextBox txt_CashierClosedTime_Value;
+        private System.Windows.Forms.Label lbl_CashierClosedTime;
     }
 }

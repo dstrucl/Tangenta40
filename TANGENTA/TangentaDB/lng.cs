@@ -24,6 +24,8 @@ namespace TangentaDB
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name); 
         }
 
+        public static ltext s_Undefined = new ltext(new string[] { "Undefined", "Nedoločeno" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\CashierActivity.cs
+
         public static ltext s_To = new ltext(new string[] { "to", "do" });
 
         public static ltext s_StornoInvoice = new ltext(new string[] { "STORNO", "Stornacija računa" });

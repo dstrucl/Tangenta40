@@ -8,19 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
+using DBConnectionControl40;
 
 namespace LoginControl
 {
     public partial class usrc_CashierActivity : UserControl
     {
-        public delegate void delegate_btn_Yes_Click();
-        public event delegate_btn_Yes_Click Yes_Click = null;
-
-        public delegate void delegate_btn_No_Click();
-        public event delegate_btn_No_Click No_Click = null;
-
-        public delegate void delegate_btn_YesPrint_Click();
-        public event delegate_btn_YesPrint_Click YesPrint_Click = null;
 
         private CashierActivity m_ca = null;
 
@@ -31,21 +24,19 @@ namespace LoginControl
 
         public void Init(CashierActivity ca)
         {
-            lng.s_lbl_CashierOpen_Question.Text(lbl_CashierOpen_Question);
-            lng.s_btn_NO.Text(btn_NO);
-            lng.s_btn_YES.Text(btn_YES);
             lng.s_lbl_CashierActivityNumber.Text(lbl_CashierActivityNumber);
             lng.s_lbl_CashierOpenedTime.Text(lbl_CashierOpenedTime);
+            lng.s_lbl_CashierClosedTime.Text(lbl_CashierClosedTime);
             lng.s_lbl_PersonWhoOpenedCashier.Text(lbl_PersonWhoOpenedCashier);
+            lng.s_lbl_PersonWhoClosedCashier.Text(lbl_PersonWhoClosedCashier);
             lng.s_pnl_Realisation_ByTaxRate.Text(pnl_Realisation_ByTaxRate);
             lng.s_lbl_NumberOfInvoices.Text(lbl_NumberOfInvoices);
             lng.s_lbl_NetPrice.Text(lbl_NetPrice);
             lng.s_lbl_TaxPrice.Text(lbl_TaxPrice);
             lng.s_lbl_Total.Text(lbl_Total);
-            lng.s_btn_YesPrint.Text(btn_YesPrint);
             lng.s_lbl_ReportByPaymentMethod.Text(lbl_ReportByPaymentMethod);
             lng.s_lbl_Report_ByTaxiation.Text(lbl_Report_ByTaxiation);
-            lng.s_lbl_FromInvoice.Text(lbl_Report_ByTaxiation);
+            lng.s_lbl_FromInvoice.Text(lbl_FromInvoice);
             lng.s_lbl_ToInvoice.Text(lbl_ToInvoice);
 
             this.txt_CashierActivityNumber_Value.Text = ca.CashierActivityNumber.ToString();
@@ -79,15 +70,36 @@ namespace LoginControl
             }
             this.txt_CashierOpenedTime_Value.Text = LanguageControl.DynSettings.SetLanguageDateTimeString(ca.FirstLogin);
             this.txt_PersonWhoOpenedCashier_Value.Text = ca.CashierActivityOpened_Person(ca.CashierActivityOpened_ID);
+            if (ID.Validate(ca.CashierActivityClosed_ID))
+            {
+                setClosingDataVisible(true);
+                this.txt_PersonWhoClosedCashier_Value.Text = ca.CashierActivityClosed_Person(ca.CashierActivityClosed_ID);
+                this.txt_CashierClosedTime_Value.Text = LanguageControl.DynSettings.SetLanguageDateTimeString(ca.LastLogin);
+            }
+            else
+            {
+                setClosingDataVisible(false);
+            }
+
             this.txt_NetPrice_Value.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(ca.NetTotal, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, TangentaDB.GlobalData.BaseCurrency.Symbol);
             this.txt_TaxPrice_Value.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(ca.TaxTotal, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, TangentaDB.GlobalData.BaseCurrency.Symbol);
             this.txt_Total_Value.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(ca.Total, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, TangentaDB.GlobalData.BaseCurrency.Symbol);
             int ypos = 1;
             int idx = 1;
+
+            foreach (Control ctrl in pnl_Realisation_ByTaxRate.Controls)
+            {
+                if (ctrl is usrc_TaxRateReport)
+                {
+                    pnl_Realisation_ByTaxRate.Controls.Remove(ctrl);
+                    ctrl.Dispose();
+                }
+            }
+
             this.pnl_Realisation_ByTaxRate.Controls.Clear();
             foreach (StaticLib.Tax tax in ca.TaxSum.TaxList )
             {
-                decimal dtotal = tax.TaxableAmount * (1 + tax.Rate);
+                decimal dtotal = tax.TaxableAmount + tax.TaxAmount;// tax.TaxableAmount * (1 + tax.Rate);
                 usrc_TaxRateReport usrctreport = new usrc_TaxRateReport(tax.Name, tax.TaxableAmount, tax.TaxAmount, dtotal);
                 usrctreport.Name = "usrc_TaxRateReport" + idx.ToString();
                 usrctreport.Left = 1;
@@ -98,6 +110,16 @@ namespace LoginControl
             }
             ypos = 1;
             idx = 1;
+
+            foreach (Control ctrl in pnl_ByPayment.Controls)
+            {
+                if (ctrl is usrc_MethotOfPaymentReport)
+                {
+                    pnl_ByPayment.Controls.Remove(ctrl);
+                    ctrl.Dispose();
+                }
+            }
+
             pnl_ByPayment.Controls.Clear();
             foreach (Report.PaymentType pt in ca.PaymentList.items)
             {
@@ -112,29 +134,13 @@ namespace LoginControl
             }
         }
 
-        private void btn_YES_Click(object sender, EventArgs e)
+        private void setClosingDataVisible(bool v)
         {
-            this.m_ca.Close(m_ca.Last_Atom_WorkPeriod_ID);
-            if (this.Yes_Click != null)
-            {
-                this.Yes_Click();
-            }
-        }
+            lbl_CashierClosedTime.Visible = v;
+            lbl_PersonWhoClosedCashier.Visible = v;
+            txt_CashierClosedTime_Value.Visible = v;
+            txt_PersonWhoClosedCashier_Value.Visible = v;
 
-        private void btn_NO_Click(object sender, EventArgs e)
-        {
-            if (this.No_Click != null)
-            {
-                this.No_Click();
-            }
-        }
-
-        private void btn_YesPrint_Click(object sender, EventArgs e)
-        {
-            if (this.YesPrint_Click != null)
-            {
-                this.YesPrint_Click();
-            }
         }
     }
 }

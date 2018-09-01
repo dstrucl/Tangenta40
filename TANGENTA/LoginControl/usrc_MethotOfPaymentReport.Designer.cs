@@ -37,7 +37,7 @@
             // lbl_MethodOfPayment_Name
             // 
             this.lbl_MethodOfPayment_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_MethodOfPayment_Name.Location = new System.Drawing.Point(2, 3);
+            this.lbl_MethodOfPayment_Name.Location = new System.Drawing.Point(-2, 3);
             this.lbl_MethodOfPayment_Name.Name = "lbl_MethodOfPayment_Name";
             this.lbl_MethodOfPayment_Name.Size = new System.Drawing.Size(105, 15);
             this.lbl_MethodOfPayment_Name.TabIndex = 2;

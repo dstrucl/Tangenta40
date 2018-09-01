@@ -139,5 +139,26 @@ namespace Global
 
         }
 
+        public static string GetStringDate(DateTime firstLogin)
+        {
+            return firstLogin.Day.ToString() + "." + firstLogin.Month.ToString() + "." + firstLogin.Year.ToString();
+        }
+
+        public static string GetStringTime(DateTime firstLogin)
+        {
+            string shour = firstLogin.Hour.ToString();
+            if (shour.Length == 1)
+            {
+                shour = '0' + shour;
+            }
+            string sminute = firstLogin.Minute.ToString();
+            if (sminute.Length == 1)
+            {
+                sminute = '0' + sminute;
+            }
+
+            return shour + ":" + sminute;
+        }
+
     }
 }

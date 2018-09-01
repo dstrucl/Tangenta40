@@ -19,9 +19,8 @@ namespace LoginControl
         }
         public void Init(Report.PaymentType pt)
         {
-            InitializeComponent();
-            lng.s_lbl_MethodOfPayment_Name.Text(lbl_MethodOfPayment_Name);
             lng.s_lbl_MethodOfPayment_Total.Text(lbl_Total);
+            lbl_MethodOfPayment_Name.Text = pt.Name;
             txt_MethodOfPayment_NumOfInvoices.Text = pt.Count.ToString();
             txt_Total_Value.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(pt.Total, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
         }

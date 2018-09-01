@@ -140,6 +140,12 @@
       <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="f.cs" />
+    <Compile Include="Form_CashierDrawings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CashierDrawings.Designer.cs">
+      <DependentUpon>Form_CashierDrawings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ImageOfUrl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -339,6 +345,9 @@
     <EmbeddedResource Include="AWP_UserInfo_Form.resx">
       <DependentUpon>AWP_UserInfo_Form.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_CashierDrawings.resx">
+      <DependentUpon>Form_CashierDrawings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ImageOfUrl.resx">
       <DependentUpon>Form_ImageOfUrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -528,6 +537,10 @@
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355D-D6DC-46C9-9787-96A74EF27BE3}</Project>
       <Name>TangentaDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaPrint\TangentaPrint.csproj">
+      <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
+      <Name>TangentaPrint</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tangenta_DefaultPrintTemplates\Tangenta_DefaultPrintTemplates.csproj">
       <Project>{881e369b-527b-4a80-83e8-f350c26b6bab}</Project>

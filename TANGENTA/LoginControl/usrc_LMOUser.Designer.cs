@@ -34,6 +34,7 @@
             this.txt_User = new System.Windows.Forms.TextBox();
             this.pic_administrator = new System.Windows.Forms.PictureBox();
             this.pic_UserManager = new System.Windows.Forms.PictureBox();
+            this.btn_CashierDrawings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_UserManager)).BeginInit();
@@ -59,7 +60,7 @@
             this.btn_GetAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_GetAccess.Location = new System.Drawing.Point(380, 0);
             this.btn_GetAccess.Name = "btn_GetAccess";
-            this.btn_GetAccess.Size = new System.Drawing.Size(210, 69);
+            this.btn_GetAccess.Size = new System.Drawing.Size(268, 69);
             this.btn_GetAccess.TabIndex = 1;
             this.btn_GetAccess.Text = "Get Access";
             this.btn_GetAccess.UseVisualStyleBackColor = true;
@@ -105,11 +106,24 @@
             this.pic_UserManager.TabIndex = 5;
             this.pic_UserManager.TabStop = false;
             // 
+            // btn_CashierDrawings
+            // 
+            this.btn_CashierDrawings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CashierDrawings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_CashierDrawings.Location = new System.Drawing.Point(654, 0);
+            this.btn_CashierDrawings.Name = "btn_CashierDrawings";
+            this.btn_CashierDrawings.Size = new System.Drawing.Size(132, 69);
+            this.btn_CashierDrawings.TabIndex = 6;
+            this.btn_CashierDrawings.Text = "cash drawings";
+            this.btn_CashierDrawings.UseVisualStyleBackColor = true;
+            this.btn_CashierDrawings.Click += new System.EventHandler(this.btn_CashierDrawings_Click);
+            // 
             // usrc_LMOUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Info;
+            this.Controls.Add(this.btn_CashierDrawings);
             this.Controls.Add(this.pic_UserManager);
             this.Controls.Add(this.pic_administrator);
             this.Controls.Add(this.txt_User);
@@ -117,7 +131,7 @@
             this.Controls.Add(this.btn_GetAccess);
             this.Controls.Add(this.btn_LoginLogout);
             this.Name = "usrc_LMOUser";
-            this.Size = new System.Drawing.Size(593, 70);
+            this.Size = new System.Drawing.Size(789, 70);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_administrator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_UserManager)).EndInit();
@@ -134,5 +148,6 @@
         internal System.Windows.Forms.TextBox txt_User;
         internal System.Windows.Forms.PictureBox pic_administrator;
         internal System.Windows.Forms.PictureBox pic_UserManager;
+        internal System.Windows.Forms.Button btn_CashierDrawings;
     }
 }

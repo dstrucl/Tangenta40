@@ -143,9 +143,23 @@ namespace LoginControl
                         {
                             m_usrc_MultipleUsers.m_CashierActivity.Last_Atom_WorkPeriod_ID = m_LMOUser.Atom_WorkPeriod_ID;
                             Form_CloseCashier frm_closecashier = new Form_CloseCashier(m_usrc_MultipleUsers.m_CashierActivity);
-                            if (frm_closecashier.ShowDialog(this) == DialogResult.Yes)
+                            switch (frm_closecashier.ShowDialog(this))
                             {
-                               m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                case DialogResult.OK:
+                                    if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
+                                    {
+                                        m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                    }
+                                    break;
+                                case  DialogResult.Yes:
+                                    if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
+                                    {
+                                        //Do Print
+                                        m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                    }
+                                    break;
+                                case DialogResult.No:
+                                    break;
                             }
                         }
                     }
@@ -254,6 +268,12 @@ namespace LoginControl
 
             lctrl.Trigger_EventUserActivateDocumentMan(this.m_LMOUser);
 
+        }
+
+        private void btn_CashierDrawings_Click(object sender, EventArgs e)
+        {
+            Form_CashierDrawings frm_cashierDrawings = new Form_CashierDrawings();
+            frm_cashierDrawings.ShowDialog(this);
         }
     }
 }

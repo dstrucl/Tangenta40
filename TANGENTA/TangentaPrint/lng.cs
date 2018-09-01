@@ -24,11 +24,34 @@ namespace TangentaPrint
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_CalculatedVAT = new ltext(new string[] { "VAT:", "Obračunani DDV:" });
+        
+        public static ltext s_TaxBase = new ltext(new string[] { "Taxable amount:", "Osnova:" });
+
+        public static ltext s_Total_turnover = new ltext(new string[] { "Total turnover:", "Skupni promet:" });
+        
+
+        public static ltext s_InvoicesIssued = new ltext(new string[] { "Invoices:", "Izdani računi:" });
+
+        public static ltext s_Storno = new ltext(new string[] { "STORNO", "STORNO" });
+
+        public static ltext s_From = new ltext(new string[] { "from", "od" });
+        public static ltext s_To = new ltext(new string[] { "to", "do" });
+
+        public static ltext s_SaleStartDate = new ltext(new string[] { "Sales start date:", "Datum začetka prodaje:" });
+        public static ltext s_SaleEndDate = new ltext(new string[] { "Sales end date:", "Datum zaključka prodaje:" });
+
+        public static ltext s_CashierClose_Number = new ltext(new string[] { "Closing cashier ((@@EDName@@)) Closing Num.:", "Zaključek blagajne ((@@EDName@@)) Št. zaključka:"});
+
+        
+        public static ltext s_TaxID_for_VAT = new ltext(new string[] { "ID for VAT: ", "ID za DDV: " });
+        
+        public static ltext s_BussinessUnit = new ltext(new string[] { "Office: ", "PE: " });
         public static ltext s_OrganisationName = new ltext(new string[] { "Organisation name", "Organizacija" });
         public static ltext s_OfficeName = new ltext(new string[] { "Office Name", "Poslovna enota" });
         public static ltext s_ElectronicDevice = new ltext(new string[] { "Electronic device", "Elektronska naprava" });
 
-        public static ltext s_NumberOfInvoices = new ltext(new string[] { "NumberOfInvoices", "Število računov" });
+        public static ltext s_NumberOfInvoices = new ltext(new string[] { "Number Of Invoices", "Število računov" });
         public static ltext s_NumberOfCashInvoices = new ltext(new string[] { "Number Of cash payments", "Število plačil z gotovino" });
         public static ltext s_NumberOfCardInvoices = new ltext(new string[] { "Number Of card payments", "Število plačil s kartico" });
 

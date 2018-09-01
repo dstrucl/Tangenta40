@@ -1,6 +1,8 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -235,7 +237,7 @@ namespace TangentaDB
             {
                 return m_Atom_ElectronicDevice_Name;
             }
-            private set
+            set
             {
                 m_Atom_ElectronicDevice_Name = value;
             }
@@ -249,7 +251,7 @@ namespace TangentaDB
             {
                 return m_Atom_Office_ShortName;
             }
-            private set
+            set
             {
                 m_Atom_Office_ShortName = value;
             }
@@ -386,6 +388,156 @@ namespace TangentaDB
             }
         }
 
+        internal bool GetDocInvoices()
+        {
+            //List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            //string spar_CharirtyActivity_ID = "@spar_CharityActivity_ID";
+            //SQL_Parameter par_CharirtyActivity_ID = new SQL_Parameter(spar_CharirtyActivity_ID, false, ID);
+            //lpar.Add(par_CharirtyActivity_ID);
+
+            string sql = @"select
+              di.ID as DocInvoice_ID,
+	          di.NumberInFinancialYear as NumberInFinancialYear,
+	          di.FinancialYear as FinancialYear,
+	          di.Storno as Storno,
+	          di.NetSum as NetSum,
+	          di.TaxSum as TaxSum,
+	          di.GrossSum as GrossSum,
+	          pt.Name as PaymentTypeName,
+	          jdit.Name as Name,
+	          jdi.JOURNAL_DocInvoice_TYPE_ID as JOURNAL_DocInvoice_TYPE_ID,
+	          diao.IssueDate as IssueDate,
+	          awp.LoginTime as LoginTime,
+	          awp.LogoutTime as LogoutTime,
+	          awp.ID as Atom_WorkPeriod_ID,
+	          aed.Name as Atom_ElectronicDevice_Name,
+	          ao.ShortName as Atom_Office_ShortName
+              from CashierActivity ca
+              inner join CashierActivity_DocInvoice cadi on cadi.CashierActivity_ID = ca.ID
+              inner join DocInvoice di on cadi.DocInvoice_ID = di.ID
+              inner join DocInvoiceAddOn diao  on diao.DocInvoice_ID = di.ID
+              inner join MethodOfPayment_DI mopdi on mopdi.ID = diao.MethodOfPayment_DI_ID
+              inner join PaymentType pt on pt.ID = mopdi.PaymentType_ID
+              inner join JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = di.ID
+              inner join JOURNAL_DocInvoice_TYPE jdit on jdi.JOURNAL_DocInvoice_TYPE_ID = jdit.ID and jdi.JOURNAL_DocInvoice_TYPE_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString() + @"
+              inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID
+              INNER JOIN Atom_ElectronicDevice aed ON aed.ID = awp.Atom_ElectronicDevice_ID
+              INNER JOIN Atom_Office ao ON aed.Atom_Office_ID = ao.ID
+              INNER JOIN Atom_myOrganisation_Person amop ON amop.ID = awp.Atom_myOrganisation_Person_ID
+              LEFT JOIN Atom_WorkPeriod_TYPE awpt on awpt.ID = awp.Atom_WorkPeriod_TYPE_ID
+              where di.Draft = 0 and ca.ID = "+this.ID.ToString()+ @"
+              order by ca.CashierActivityNumber desc, di.NumberInFinancialYear asc";
+
+            DataTable dtInvoices = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dtInvoices, sql, ref Err))
+            {
+                int iCount = dtInvoices.Rows.Count;
+                int i = 1;
+                if (iCount > 0)
+                {
+                    foreach (DataRow dr in dtInvoices.Rows)
+                    {
+                        ID xDocument_ID = tf.set_ID(dr["DocInvoice_ID"]);
+                        if (ID.Validate(xDocument_ID))
+                        {
+                            DateTime_v IssueTime_v = tf.set_DateTime(dr["IssueDate"]);
+                            if (IssueTime_v != null)
+                            {
+                                int NumberInFinancialYear = -1;
+                                int_v xNumberInFinancialYear_v = tf.set_int(dr["NumberInFinancialYear"]);
+                                if (xNumberInFinancialYear_v != null)
+                                {
+                                    NumberInFinancialYear = xNumberInFinancialYear_v.v;
+                                }
+                                int FinancialYear = -1;
+                                int_v xFinancialYear_v = tf.set_int(dr["FinancialYear"]);
+                                if (xFinancialYear_v != null)
+                                {
+                                    FinancialYear = xFinancialYear_v.v;
+                                }
+
+
+                                string_v xAtom_ElectronicDevice_Name_v = tf.set_string(dr["Atom_ElectronicDevice_Name"]);
+                                string_v xAtom_Office_ShortName_v = tf.set_string(dr["Atom_Office_ShortName"]);
+
+                                bool bStorno = false;
+                                bool_v Storno_v = tf.set_bool(dr["Storno"]);
+                                if (Storno_v != null)
+                                {
+                                    bStorno = Storno_v.v;
+                                }
+
+                                decimal xnetSum = 0;
+                                decimal_v xnetSum_v = tf.set_decimal(dr["NetSum"]);
+                                if (xnetSum_v != null)
+                                {
+                                    xnetSum = xnetSum_v.v;
+                                }
+
+                                decimal xtaxSum = 0;
+                                decimal_v xtaxSum_v = tf.set_decimal(dr["TaxSum"]);
+                                if (xtaxSum_v != null)
+                                {
+                                    xtaxSum = xtaxSum_v.v;
+                                }
+
+                                decimal xgrossSum = 0;
+                                decimal_v xgrossSum_v = tf.set_decimal(dr["GrossSum"]);
+                                if (xgrossSum_v != null)
+                                {
+                                    xgrossSum = xgrossSum_v.v;
+                                }
+
+                                string xPaymentTypeName = lng.s_Undefined.s;
+                                string_v xPaymentTypeName_v = tf.set_string(dr["PaymentTypeName"]);
+                                if (xPaymentTypeName_v != null)
+                                {
+                                    xPaymentTypeName = xPaymentTypeName_v.v;
+                                }
+
+
+                                StaticLib.TaxSum taxSum = new StaticLib.TaxSum();
+                                if (f_DocInvoice.GetTaxSum(xDocument_ID, taxSum))
+                                {
+                                    CashierActivity.DocInvoiceData docinvdata = new CashierActivity.DocInvoiceData(xAtom_ElectronicDevice_Name_v.v,
+                                                                                                                  xAtom_Office_ShortName_v.v,
+                                                                                                                  xDocument_ID,
+                                                                                                                  IssueTime_v.v,
+                                                                                                                  NumberInFinancialYear,
+                                                                                                                  FinancialYear,
+                                                                                                                  bStorno,
+                                                                                                                  xnetSum,
+                                                                                                                  xtaxSum,
+                                                                                                                  xgrossSum,
+                                                                                                                  taxSum,
+                                                                                                                  xPaymentTypeName);
+                                    this.DocInvoice_ID_List.Add(docinvdata);
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:TangentaDB:CashierActivity:GetDocInvoices:IssueTime_v == null");
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:CashierActivity:GetDocInvoices::xDocument_ID is not valid!");
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:CashierActivity:GetDocInvoices:\r\nsql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+
+        }
+
         public decimal TaxTotal
         {
             get
@@ -459,7 +611,20 @@ namespace TangentaDB
             this.LastLogin = v2;
         }
 
-       
+
+        public CashierActivity(int xCashierActivityNumber,
+                               ID xFirstAtom_WorkPeriod_ID,
+                               DateTime v1,
+                               ID xLastAtom_WorkPeriod_ID,
+                               DateTime v2)
+        {
+            CashierActivityNumber = xCashierActivityNumber;
+            this.First_Atom_WorkPeriod_ID = xFirstAtom_WorkPeriod_ID;
+            this.FirstLogin = v1;
+            this.Last_Atom_WorkPeriod_ID = xLastAtom_WorkPeriod_ID;
+            this.LastLogin = v2;
+        }
+
 
         public CashierActivity()
         {

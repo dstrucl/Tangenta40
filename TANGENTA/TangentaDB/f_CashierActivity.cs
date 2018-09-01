@@ -95,6 +95,193 @@ namespace TangentaDB
             }
         }
 
+        public static bool GetTable(ref DataTable dt, ref List<CashierActivity> CashierActivity_List)
+        {
+            string Err = null;
+            string sql = @"select
+                    ca.CashierActivityNumber as CashierActivityNumber,
+		            aof.Name As Atom_Office_Name,
+		            aof.ShortName As Atom_Office_ShortName,
+		            aedf.Name As Atom_ElectronicDevice_Name,
+		             awpf.LoginTime as LoginTime,
+		             acfnf.FirstName As Person_LoggedIn_FirstName,
+		             aclnf.LastName As Person_LoggedIn_LastName,
+	                 apf.Tax_ID as Person_LoggedIn_TaxID,
+		             awpl.LogoutTime as LogoutTime,
+		             acfnl.FirstName As Person_LoggedOut_FirstName,
+		             aclnl.LastName As Person_LoggedOut_LastName,
+	                 apl.Tax_ID as Person_LoggedOut_TaxID,
+		             ca.ID as CashierActivity_ID,
+                     ca.CashierActivityOpened_ID as CashierActivityOpened_ID,
+                     awpf.ID as Login_Atom_WorkPeriod_ID,
+                     ca.CashierActivityClosed_ID as CashierActivityClosed_ID,
+                     awpl.ID as Logout_Atom_WorkPeriod_ID
+              from CashierActivity ca
+              inner  join CashierActivityOpened cao on ca.CashierActivityOpened_ID = cao.ID
+              inner  join Atom_WorkPeriod awpf on cao.Atom_WorkPeriod_ID = awpf.ID
+              inner  join Atom_ElectronicDevice aedf on awpf.Atom_ElectronicDevice_ID = aedf.ID
+              inner  join Atom_Office aof on aedf.Atom_Office_ID = aof.ID
+              inner  join Atom_myOrganisation_Person amopf on awpf.Atom_myOrganisation_Person_ID = amopf.ID
+              inner  join Atom_Person apf on amopf.Atom_Person_ID = apf.ID
+              inner  join Atom_cFirstName acfnf on apf.Atom_cFirstName_ID = acfnf.ID
+              inner  join Atom_cLastName aclnf on apf.Atom_cLastName_ID = aclnf.ID
+              inner  join CashierActivityClosed cac on ca.CashierActivityClosed_ID = cac.ID
+              inner  join Atom_WorkPeriod awpl on cac.Atom_WorkPeriod_ID = awpl.ID
+              inner  join Atom_myOrganisation_Person amopl on awpl.Atom_myOrganisation_Person_ID = amopl.ID
+              inner  join Atom_Person apl on amopl.Atom_Person_ID = apl.ID
+              inner  join Atom_cFirstName acfnl on apl.Atom_cFirstName_ID = acfnl.ID
+              inner  join Atom_cLastName aclnl on apl.Atom_cLastName_ID = aclnl.ID
+              order by awpl.LogoutTime desc
+            ";
+            if (dt== null)
+            {
+                dt = new DataTable();
+            }
+            else
+            {
+                dt.Clear();
+                dt.Columns.Clear();
+            }
+            if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+            {
+
+                if (CashierActivity_List==null)
+                {
+                    CashierActivity_List = new List<CashierActivity>();
+                }
+                else
+                {
+                    CashierActivity_List.Clear();
+                }
+
+                int iCount = dt.Rows.Count;
+                for (int i =0;i<iCount;i++)
+                {
+                    DataRow dr = dt.Rows[i];
+                    CashierActivity ca = Get(dr);
+                    if (ca != null)
+                    {
+                        CashierActivity_List.Add(ca);
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:GetTable:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private static CashierActivity Get(DataRow dr)
+        {
+            int_v xCashierActivityNUmber_v = tf.set_int(dr["CashierActivityNumber"]);
+            if (xCashierActivityNUmber_v==null)
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): (xCashierActivityNUmber_v==null)");
+                return null;
+
+            }
+
+            ID xCashierActivity_ID = tf.set_ID(dr["CashierActivity_ID"]);
+            if (!ID.Validate(xCashierActivity_ID))
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): xCashierActivity_ID is not valid");
+                return null;
+
+            }
+
+
+            ID xCashierActivityOpened_ID = tf.set_ID(dr["CashierActivityOpened_ID"]);
+            if (!ID.Validate(xCashierActivityOpened_ID))
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): xCashierActivityOpened_ID is not valid");
+                return null;
+
+            }
+
+            ID xCashierActivityClosed_ID = tf.set_ID(dr["CashierActivityClosed_ID"]);
+            if (!ID.Validate(xCashierActivityClosed_ID))
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): xCashierActivityClosed_ID is not valid");
+                return null;
+
+            }
+
+            ID xLogin_Atom_WorkPeriod_ID = tf.set_ID(dr["Login_Atom_WorkPeriod_ID"]);
+            if (!ID.Validate(xLogin_Atom_WorkPeriod_ID))
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): Login_Atom_WorkPeriod_ID is not valid");
+                return null;
+
+            }
+
+            DateTime_v xFirstTime_v = tf.set_DateTime(dr["LoginTime"]);
+            if (xFirstTime_v==null)
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): xFirstTime_v == null");
+                return null;
+
+            }
+
+            ID xLogout_Atom_WorkPeriod_ID = tf.set_ID(dr["Logout_Atom_WorkPeriod_ID"]);
+            if (!ID.Validate(xLogout_Atom_WorkPeriod_ID))
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): Logout_Atom_WorkPeriod_ID is not valid");
+                return null;
+
+            }
+
+            DateTime_v xLastTime_v = tf.set_DateTime(dr["LogoutTime"]);
+            if (xLastTime_v == null)
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): xLastTime_v == null");
+                return null;
+
+            }
+
+            string_v xAtom_ElectronicDevice_Name_v = tf.set_string(dr["Atom_ElectronicDevice_Name"]);
+            if (xAtom_ElectronicDevice_Name_v == null)
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): Atom_ElectronicDevice_Name_v == null");
+                return null;
+
+            }
+
+            string_v xAtom_Office_ShortName_v = tf.set_string(dr["Atom_Office_ShortName"]);
+            if (xAtom_Office_ShortName_v == null)
+            {
+                LogFile.Error.Show("ERROR:f_CashierActivity:Get(DataRow dr): xAtom_Office_ShortName_v == null");
+                return null;
+
+            }
+
+            
+
+            CashierActivity ca = new CashierActivity(xCashierActivityNUmber_v.v,
+                                                     xLogin_Atom_WorkPeriod_ID,
+                                                     xFirstTime_v.v,
+                                                     xLogout_Atom_WorkPeriod_ID,
+                                                     xLastTime_v.v
+                                                     );
+            ca.Atom_Office_ShortName = xAtom_Office_ShortName_v.v;
+            ca.Atom_ElectronicDevice_Name = xAtom_ElectronicDevice_Name_v.v;
+            ca.CashierActivityOpened_ID = xCashierActivityOpened_ID;
+            ca.CashierActivityClosed_ID = xCashierActivityClosed_ID;
+            if (ID.Validate(ca.CashierActivityClosed_ID))
+            {
+                ca.CashierState = CashierActivity.eCashierState.CLOSED;
+            }
+            else
+            {
+                ca.CashierState = CashierActivity.eCashierState.OPENED;
+            }
+
+            ca.ID = xCashierActivity_ID;
+            ca.GetDocInvoices();
+            return ca;
+        }
+
         public static bool GetOpened(string xAtom_ElectronicDevice_Name,
                                      string xAtom_Office_ShortName,
                                      ref ID xCashierActivityOpened_ID,

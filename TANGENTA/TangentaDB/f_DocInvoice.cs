@@ -155,6 +155,9 @@ namespace TangentaDB
                             select 
                                    'ShopA' as ShopName,
                                    disai.TAX as TaxPrice,
+                                   disai.Discount,
+                                   disai.dQuantity,
+                                   disai.PricePerUnit,
                                    tax.Name as TaxName,
                                    tax.Rate  as Taxrate
                                    from DocInvoice_ShopA_Item disai
@@ -162,18 +165,23 @@ namespace TangentaDB
                                    inner join Taxation tax on aisa.Taxation_ID = tax.ID
                                    where DocInvoice_ID = " + DocInvoice_ID.ToString();
 
-            DataTable dtitemtax = new DataTable();
+            DataTable dtitemtaxA = new DataTable();
 
-            if (!DBSync.DBSync.ReadDataTable(ref dtitemtax, sqlA, ref Err))
+            if (!DBSync.DBSync.ReadDataTable(ref dtitemtaxA, sqlA, ref Err))
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:sqlA=" + sqlA + "\r\nErr=" + Err);
                 return false;
             }
             //ShopB
+            DataTable dtitemtax = new DataTable();
+
+
+
             string sqlB = @"
                         select
                         'ShopB' as ShopName,
-                        disbi.TaxPrice,
+                        disbi.TaxPrice as TaxPrice,
+                        disbi.RetailSimpleItemPriceWithDiscount as Total,
                         atax.Name as TaxName,
                         atax.Rate as TaxRate
                         from DocInvoice_ShopB_Item disbi
@@ -185,12 +193,62 @@ namespace TangentaDB
                 return false;
             }
 
+            //Import rows from ShopA
+            if (dtitemtaxA.Rows.Count>0)
+            {
+                foreach (DataRow drA in dtitemtaxA.Rows)
+                {
+                    decimal_v Discount_v = tf.set_decimal(drA["Discount"]);
+                    if (Discount_v==null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:Discount_v == null");
+                        return false;
+                    }
+                    decimal_v dQuantity_v = tf.set_decimal(drA["dQuantity"]);
+                    if (dQuantity_v == null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:dQuantity_v == null");
+                        return false;
+                    }
+
+                    decimal_v PricePerUnit_v =tf.set_decimal(drA["PricePerUnit"]);
+                    if (PricePerUnit_v == null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:PricePerUnit_v == null");
+                        return false;
+                    }
+
+                    decimal_v xTaxRate_v = tf.set_decimal(drA["TaxRate"]);
+                    if (xTaxRate_v == null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetTaxSum:xTaxRate_v == null");
+                        return false;
+                    }
+
+                    decimal dxbase = PricePerUnit_v.v * Discount_v.v;
+                    dxbase = decimal.Round(dxbase, GlobalData.BaseCurrency.DecimalPlaces);
+                    decimal dxbaseTotal =dxbase * dQuantity_v.v;
+
+                    decimal dtaxbase = decimal.Round(dxbaseTotal, GlobalData.BaseCurrency.DecimalPlaces);
+                    decimal dxtotal = dtaxbase * (1 + xTaxRate_v.v);
+                    decimal dtotal =  decimal.Round(dxtotal, GlobalData.BaseCurrency.DecimalPlaces);
+
+                    DataRow drnew = dtitemtax.NewRow();
+                    drnew["ShopName"] = "ShopA";
+                    drnew["TaxPrice"] = drA["TaxPrice"];
+                    drnew["Total"] = dtotal;
+                    drnew["TaxName"] = drA["TaxName"];
+                    drnew["TaxRate"] = drA["TaxRate"];
+                    dtitemtax.Rows.Add(drnew);
+                }
+            }
 
             //ShopC
             string sqlC = @"
                          select 
                        'ShopC' as ShopName,
-                        disci.TaxPrice,
+                        disci.TaxPrice as TaxPrice,
+                        disci.RetailPriceWithDiscount as Total,
                         atax.Name as TaxName,
                         atax.Rate as TaxRate
                         from  DocInvoice_ShopC_Item disci
@@ -211,13 +269,18 @@ namespace TangentaDB
                 decimal_v tax_v = tf.set_decimal(drj["TaxPrice"]);
                 if (tax_v != null)
                 {
-                    string_v tax_name_v = tf.set_string(drj["TaxName"]);
-                    if (tax_name_v != null)
+                    decimal_v total_v = tf.set_decimal(drj["Total"]);
+                    if (total_v != null)
                     {
-                        decimal_v tax_rate_v = tf.set_decimal(drj["TaxRate"]);
-                        if (tax_rate_v != null)
+                        string_v tax_name_v = tf.set_string(drj["TaxName"]);
+                        if (tax_name_v != null)
                         {
-                            taxSum.Add(tax_v.v, 0, tax_name_v.v, tax_rate_v.v);
+                            decimal_v tax_rate_v = tf.set_decimal(drj["TaxRate"]);
+                            if (tax_rate_v != null)
+                            {
+                                decimal taxbase = total_v.v - tax_v.v;
+                                taxSum.Add(tax_v.v, taxbase, tax_name_v.v, tax_rate_v.v);
+                            }
                         }
                     }
                 }

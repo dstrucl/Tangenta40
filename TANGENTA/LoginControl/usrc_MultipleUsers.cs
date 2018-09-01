@@ -37,7 +37,10 @@ namespace LoginControl
             }
             internal set
             {
-                m_CashierActivity.ID = value;
+                if (m_CashierActivity != null)
+                {
+                    m_CashierActivity.ID = value;
+                }
             }
         }
 

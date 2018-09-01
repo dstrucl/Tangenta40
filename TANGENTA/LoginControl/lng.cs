@@ -27,6 +27,9 @@ namespace LoginControl
         public static ltext s_No_Issued_Invoices = new ltext(new string[] { "No invoices", "Ni računov" });
 
         public static ltext s_Storno = new ltext(new string[] { "STORNO", "STORNO" });
+        
+        public static ltext s_Form_CloseDrawings = new ltext(new string[] { "Cashier closings", "Blagajniški zaključki" });
+
         public static ltext s_Form_CloseCashier = new ltext(new string[] { "Closing Cashier", "Zapiranje blagajne" });
 
         public static ltext s_lbl_MethodOfPayment_Name = new ltext(new string[] { "Method of payment:", "Način plačila:" });
@@ -36,11 +39,15 @@ namespace LoginControl
         public static ltext s_lbl_CashierOpen_Question = new ltext(new string[] {"Open cashier ?","Odprem blagajno ?"});
         public static ltext s_btn_NO = new ltext(new string[] { "NO", "NE" });
         public static ltext s_btn_YES = new ltext(new string[] { "YES", "DA" });
+
         public static ltext s_btn_YesPrint = new ltext(new string[] { "Yes & Print", "DA in Natisni" });
+        public static ltext s_btn_Print = new ltext(new string[] { "Print", "Natisni" });
 
         public static ltext s_lbl_CashierActivityNumber = new ltext(new string[] { "Št. Zaključka:", "Report.Num:" });
         public static ltext s_lbl_CashierOpenedTime = new ltext(new string[] { "Cashier opened:", "Odprtje blagajne:" });
+        public static ltext s_lbl_CashierClosedTime = new ltext(new string[] { "Cashier closed:", "Zaprtje blagajne:" });
         public static ltext s_lbl_PersonWhoOpenedCashier = new ltext(new string[] { "Person who opened:", "Oseba,ki je odprla:" });
+        public static ltext s_lbl_PersonWhoClosedCashier = new ltext(new string[] { "Person who closed:", "Oseba,ki je zaprla:" });
         public static ltext s_pnl_Realisation_ByTaxRate = new ltext(new string[] {"Income by tax rate:", "Iztržki po davčnih stopnjah:" });
         public static ltext s_lbl_NumberOfInvoices = new ltext(new string[] { "Nr. of Invoices:", "Število računov:" });
         public static ltext s_lbl_NetPrice = new ltext(new string[] { "Net", "Osnova" });
