@@ -1898,11 +1898,6 @@ namespace TangentaDB
                 lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Bit, false, ((bool_v)type_v).v));
                 return sParam;
             }
-            else if (type_v is ID)
-            {
-                lpar.Add(new SQL_Parameter(sParam, false, ((ID)type_v)));
-                return sParam;
-            }
             else
             {
                 LogFile.Error.Show("ERROR:CurrentInvoice:GetParam:type_v not implemented : " + type_v.GetType().ToString());

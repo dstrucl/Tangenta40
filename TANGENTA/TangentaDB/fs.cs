@@ -19,7 +19,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
 using System.Security.Cryptography;
-using DynEditControls;
 
 namespace TangentaDB
 {
@@ -168,15 +167,6 @@ namespace TangentaDB
         }
 
         public static void SetNumericUpDown(ref NumericUpDown nmUpDn_Quantity, object DecimalPlaces)
-        {
-            nmUpDn_Quantity.DecimalPlaces = Convert.ToInt32(DecimalPlaces);
-            decimal dincrement = Increment(DecimalPlaces);
-            nmUpDn_Quantity.Increment = dincrement;
-            nmUpDn_Quantity.Minimum = dincrement;
-            nmUpDn_Quantity.Value = dincrement;
-        }
-
-        public static void SetNumericUpDown(ref usrc_NumericUpDown2 nmUpDn_Quantity, object DecimalPlaces)
         {
             nmUpDn_Quantity.DecimalPlaces = Convert.ToInt32(DecimalPlaces);
             decimal dincrement = Increment(DecimalPlaces);
