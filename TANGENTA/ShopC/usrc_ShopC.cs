@@ -285,6 +285,13 @@ namespace ShopC
             }
         }
 
+        public void HideGroupHandlerForm()
+        {
+            if (this.usrc_ItemList!=null)
+            {
+                this.usrc_ItemList.HideGroupHandlerForm();
+            }
+        }
 
         private void pnl_Items_Paint(object sender, PaintEventArgs e)
         {

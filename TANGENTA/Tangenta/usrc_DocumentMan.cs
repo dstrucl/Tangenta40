@@ -224,6 +224,29 @@ namespace Tangenta
                 this.Visible = value;
                 if (this.Visible)
                 {
+                    if (Program.RecordCashierActivity)
+                    {
+                        lbl_Cashier.Visible = true;
+                        lbl_OpenedClosed.Visible = true;
+                        switch (Program.CashierState)
+                        {
+                            case TangentaDB.CashierActivity.eCashierState.CLOSED:
+                                lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
+                                lbl_OpenedClosed.ForeColor = Color.Red;
+                                break;
+
+                            case TangentaDB.CashierActivity.eCashierState.OPENED:
+                                lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
+                                lbl_OpenedClosed.ForeColor = Color.Green;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        lbl_Cashier.Visible = false;
+                        lbl_OpenedClosed.Visible = false;
+                    }
+
                     if (Program.OperationMode.MultiUser)
                     {
                         if (Program.Login_MultipleUsers)
@@ -235,6 +258,7 @@ namespace Tangenta
                 }
                 else
                 {
+                    this.m_usrc_DocumentEditor.HideGroupHandlerForm();
                     this.timer_Login_MultiUser.Enabled = false;
                 }
             }
@@ -245,7 +269,9 @@ namespace Tangenta
             InitializeComponent();
             lng.s_btn_New.Text(btn_New);
             lng.s_Year.Text(lbl_FinancialYear);
-            m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
+            lng.s_Cashier.Text(lbl_Cashier);
+
+m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         }
 
         private void M_usrc_Invoice_LayoutChanged()
@@ -646,45 +672,53 @@ namespace Tangenta
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            if (Program.UseWorkAreas)
+            if ((!Program.RecordCashierActivity)||(Program.CashierState == TangentaDB.CashierActivity.eCashierState.OPENED))
             {
-                Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea();
-                frm_new_workarea.ShowDialog(this);
-                switch (frm_new_workarea.eNewDocumentResult)
+                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+                if (Program.UseWorkAreas)
                 {
-                    case Form_NewDocument.e_NewDocument.New_Empty:
-                        New_Empty_Doc(frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, frm_new_workarea.Warea);
-                        break;
+                    Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea();
+                    frm_new_workarea.ShowDialog(this);
+                    switch (frm_new_workarea.eNewDocumentResult)
+                    {
+                        case Form_NewDocument.e_NewDocument.New_Empty:
+                            New_Empty_Doc(frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, frm_new_workarea.Warea);
+                            break;
 
-                    case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                        New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
-                        break;
-                    case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                        New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
-                        break;
+                        case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+                            New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                            break;
+                        case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+                            New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                            break;
+                    }
+                }
+                else
+                {
+                    Form_NewDocument frm_new = new Form_NewDocument(this, mSettingsUserValues);
+                    frm_new.ShowDialog(this);
+                    if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+
+                    switch (frm_new.eNewDocumentResult)
+                    {
+                        case Form_NewDocument.e_NewDocument.New_Empty:
+                            New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, null);
+                            break;
+
+                        case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+                            New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                            break;
+                        case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+                            New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                            break;
+                    }
                 }
             }
             else
             {
-                Form_NewDocument frm_new = new Form_NewDocument(this, mSettingsUserValues);
-                frm_new.ShowDialog(this);
-                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-
-                switch (frm_new.eNewDocumentResult)
-                {
-                    case Form_NewDocument.e_NewDocument.New_Empty:
-                        New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID,null);
-                        break;
-
-                    case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                        New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
-                        break;
-                    case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                        New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
-                        break;
-                }
+                XMessage.Box.Show(this, lng.s_YouCanNotWriteInvoices_CasshierIsClosed, MessageBoxIcon.Stop);
             }
+        
         }
 
         private void New_Empty_Doc(xCurrency currency,ID xAtom_Currency_ID, WArea workArea)

@@ -305,7 +305,17 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-  
+        public void HideGroupHandlerForm()
+        {
+            if (form_group_handler!=null)
+            {
+                if (!form_group_handler.IsDisposed)
+                {
+                    form_group_handler.Visible = false;
+                }
+            }
+        }
+
         private void Set_Groups_NumberOfGroupLevel_EQ_1()
         {
             DataRow[] drs_null = null;

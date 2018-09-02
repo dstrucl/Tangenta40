@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_CashierActivityOpened
     {
-        public static bool Get(ID Atom_WorkPeriod_ID, ref ID xCashierActivityOpened_ID)
+        public static bool Get(ID Atom_WorkPeriod_ID, ref ID xCashierActivityOpened_ID, ref DateTime loginTime)
         {
             string Err = null;
             string sql = null;
@@ -29,6 +29,10 @@ namespace TangentaDB
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_CashierActivityOpened:Get:Atom_WorkPeriod_ID is not valid");
+                return false;
+            }
+            if (!f_Atom_WorkPeriod.GetLoginTime(Atom_WorkPeriod_ID,ref loginTime))
+            {
                 return false;
             }
             DataTable dt = new DataTable();

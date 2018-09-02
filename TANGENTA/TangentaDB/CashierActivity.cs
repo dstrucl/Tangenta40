@@ -425,7 +425,7 @@ namespace TangentaDB
             }
         }
 
-        internal bool GetDocInvoices()
+        public bool GetDocInvoices()
         {
             //List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             //string spar_CharirtyActivity_ID = "@spar_CharityActivity_ID";
@@ -467,6 +467,7 @@ namespace TangentaDB
 
             DataTable dtInvoices = new DataTable();
             string Err = null;
+            this.DocInvoice_ID_List.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dtInvoices, sql, ref Err))
             {
                 int iCount = dtInvoices.Rows.Count;
@@ -684,15 +685,18 @@ namespace TangentaDB
                 ID xCashierActivity_ID = null;
                 int iCashierActivityNumber = -1;
                 bool balreadyopened = false;
+                DateTime loginTime = DateTime.MaxValue;
                 if (f_CashierActivity.Open(m_Atom_ElectronicDevice_Name,
                                             m_Atom_Office_ShortName,
                                             xAtom_WorkPeriod_ID,
                                             ref xCashierActivityOpened_ID,
                                             ref iCashierActivityNumber,
+                                            ref loginTime,
                                             ref xCashierActivity_ID,
                                             ref balreadyopened
                     ))
-                { 
+                {
+                    this.FirstLogin = loginTime;
                     this.CashierActivityOpened_ID = xCashierActivityOpened_ID;
                     this.ID = xCashierActivity_ID;
                     this.CashierActivityNumber = iCashierActivityNumber;
@@ -794,6 +798,12 @@ namespace TangentaDB
                 }
             }
             DocInvoice_ID_List.Add(xDocInvoiceData);
+        }
+
+        internal bool Add(ID xDocInvoice_ID)
+        {
+            ID xCashierActivity_DocInvoice_ID = null;
+            return f_CashierActivity_DocInvoice.Insert(this.ID, xDocInvoice_ID, ref xCashierActivity_DocInvoice_ID);
         }
     }
 }

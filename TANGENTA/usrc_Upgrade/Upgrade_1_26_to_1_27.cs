@@ -413,11 +413,13 @@ namespace UpgradeDB
                     ID xCashierActivity_ID = null;
                     int iCashierActivityNumber = -1;
                     bool bAlreadyOpened = false;
+                    DateTime loginTime = DateTime.MaxValue;
                     if (f_CashierActivity.Open(ca.DocInvoice_ID_List[0].Atom_ElectronicDevice_Name,
                                            ca.DocInvoice_ID_List[0].Atom_Office_ShortName,
                                            ca.First_Atom_WorkPeriod_ID,
                                            ref xCashierActivityOpened_ID,
                                            ref iCashierActivityNumber,
+                                           ref loginTime,
                                            ref xCashierActivity_ID,
                                            ref bAlreadyOpened
                                            ))

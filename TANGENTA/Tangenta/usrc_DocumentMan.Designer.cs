@@ -44,6 +44,8 @@
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
+            this.lbl_OpenedClosed = new System.Windows.Forms.Label();
+            this.lbl_Cashier = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -217,6 +219,8 @@
             this.pnl_MainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_MainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnl_MainMenu.Controls.Add(this.lbl_OpenedClosed);
+            this.pnl_MainMenu.Controls.Add(this.lbl_Cashier);
             this.pnl_MainMenu.Controls.Add(this.usrc_loginControl1);
             this.pnl_MainMenu.Controls.Add(this.lbl_FinancialYear);
             this.pnl_MainMenu.Controls.Add(this.m_usrc_Help);
@@ -236,6 +240,26 @@
             // 
             this.timer_Login_MultiUser.Interval = 1000;
             this.timer_Login_MultiUser.Tick += new System.EventHandler(this.timer_Login_MultiUser_Tick);
+            // 
+            // lbl_OpenedClosed
+            // 
+            this.lbl_OpenedClosed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_OpenedClosed.Location = new System.Drawing.Point(214, 33);
+            this.lbl_OpenedClosed.Name = "lbl_OpenedClosed";
+            this.lbl_OpenedClosed.Size = new System.Drawing.Size(92, 20);
+            this.lbl_OpenedClosed.TabIndex = 39;
+            this.lbl_OpenedClosed.Text = "Closed";
+            this.lbl_OpenedClosed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbl_Cashier
+            // 
+            this.lbl_Cashier.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Cashier.Location = new System.Drawing.Point(102, 33);
+            this.lbl_Cashier.Name = "lbl_Cashier";
+            this.lbl_Cashier.Size = new System.Drawing.Size(112, 20);
+            this.lbl_Cashier.TabIndex = 38;
+            this.lbl_Cashier.Text = "Cashier:";
+            this.lbl_Cashier.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // usrc_DocumentMan
             // 
@@ -273,5 +297,7 @@
         internal System.Windows.Forms.SplitContainer splitContainer1;
         internal System.Windows.Forms.Panel pnl_MainMenu;
         private System.Windows.Forms.Timer timer_Login_MultiUser;
+        private System.Windows.Forms.Label lbl_OpenedClosed;
+        private System.Windows.Forms.Label lbl_Cashier;
     }
 }

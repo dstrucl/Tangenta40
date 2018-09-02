@@ -270,6 +270,14 @@ namespace Tangenta
             return false;
         }
 
+        internal void HideGroupHandlerForm()
+        {
+            if (m_usrc_ShopC!=null)
+            {
+                m_usrc_ShopC.HideGroupHandlerForm();
+            }
+        }
+
         private void M_usrc_ShopA_aa_ItemRemoved(ID ID, DataTable dt)
         {
             GetPriceSum();
@@ -1766,7 +1774,7 @@ namespace Tangenta
                   
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
                     {
 
                         m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
@@ -1916,6 +1924,11 @@ namespace Tangenta
 
         private void btn_Issue_Click(object sender, EventArgs e)
         {
+            if ((Program.RecordCashierActivity)&&(Program.CashierState== TangentaDB.CashierActivity.eCashierState.CLOSED))
+            {
+                XMessage.Box.Show(this, lng.s_YouCanNotWriteInvoices_CasshierIsClosed, MessageBoxIcon.Stop);
+                return;
+            }
             if (m_ShopABC != null)
             {
                 if (m_ShopABC.m_CurrentDoc != null)

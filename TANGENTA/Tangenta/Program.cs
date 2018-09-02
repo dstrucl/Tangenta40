@@ -225,6 +225,22 @@ namespace Tangenta
             }
         }
 
+        
+        public static CashierActivity CashierActivity
+        {
+            get
+            {
+                if (MainForm != null)
+                {
+                    return MainForm.CashierActivity;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public static bool ProgramDiagnostic
         {
             get { return m_bProgramDiagnostic; }

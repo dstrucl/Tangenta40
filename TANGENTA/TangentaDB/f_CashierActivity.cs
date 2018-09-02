@@ -15,7 +15,8 @@ namespace TangentaDB
                                 string xAtom_Office_ShortName, 
                                 ID xAtom_WorkPeriod_ID,
                                 ref ID xCashierActivityOpened_ID,
-                                ref int xCashierActivityNumber,  
+                                ref int xCashierActivityNumber, 
+                                ref DateTime loginTime,
                                 ref ID xCashierActivity_ID, 
                                 ref bool bAllreadyOpened)
         {
@@ -31,7 +32,8 @@ namespace TangentaDB
                           xAtom_Office_ShortName,
                           ref existing_CashierActivityOpened_ID,
                           ref existingOpened_CashierActivity_ID,
-                          ref existingOpened_CashierActivityNumber))
+                          ref existingOpened_CashierActivityNumber,
+                          ref loginTime))
             {
                 if (ID.Validate(existingOpened_CashierActivity_ID))
                 {
@@ -58,10 +60,11 @@ namespace TangentaDB
                 return false;
             }
 
-            if (!f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID))
+            if (!f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID, ref loginTime))
             {
                 return false;
             }
+
             if (!ID.Validate(xCashierActivityOpened_ID))
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_CashierActivity:Open:xCashierActivityOpened_ID is not valid");
@@ -86,6 +89,7 @@ namespace TangentaDB
 
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xCashierActivity_ID, ref Err, "CashierActivity"))
             {
+                xCashierActivityNumber = cashierActivityNumber;
                 return true;
             }
             else
@@ -286,7 +290,8 @@ namespace TangentaDB
                                      string xAtom_Office_ShortName,
                                      ref ID xCashierActivityOpened_ID,
                                      ref ID xCashierActivity_ID, 
-                                     ref int xCashierActivityNumber)
+                                     ref int xCashierActivityNumber,
+                                     ref DateTime firstTime)
         {
             xCashierActivityNumber = -1;
             xCashierActivity_ID = null;
@@ -321,7 +326,8 @@ namespace TangentaDB
             dt.Clear();
             sql = @"select ca.ID as ID,
                            ca.CashierActivityOpened_ID as CashierActivityOpened_ID,
-                           ca.CashierActivityNumber as CashierActivityNumber
+                           ca.CashierActivityNumber as CashierActivityNumber,
+                           awp.LoginTime
                     from CashierActivity ca
                     inner join CashierActivityOpened cao on  ca.CashierActivityOpened_ID = cao.ID
                     inner join Atom_WorkPeriod awp on  cao.Atom_WorkPeriod_ID = awp.ID
@@ -338,6 +344,11 @@ namespace TangentaDB
                     {
                         xCashierActivityNumber = xCashierActivityNumber_v.v;
                         xCashierActivity_ID = tf.set_ID(dt.Rows[0]["ID"]);
+                        DateTime_v firstTime_v = tf.set_DateTime(dt.Rows[0]["LoginTime"]);
+                        if (firstTime_v!=null)
+                        {
+                            firstTime = firstTime_v.v;
+                        }
                     }
                     else
                     {

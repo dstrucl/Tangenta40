@@ -96,6 +96,28 @@ namespace LoginControl
             }
         }
 
+        public CashierActivity CashierActivity
+        {
+            get
+            {
+                if (awp != null)
+                {
+                    if (awp.m_usrc_MultipleUsers != null)
+                    {
+                        return awp.m_usrc_MultipleUsers.m_CashierActivity;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
 
         private eAuthentificationType m_AuthentificationType = eAuthentificationType.PASSWORD;
 

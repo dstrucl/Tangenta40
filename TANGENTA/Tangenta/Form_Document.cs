@@ -159,6 +159,21 @@ namespace Tangenta
             }
         }
 
+        
+        public CashierActivity CashierActivity
+        {
+            get
+            {
+                if (loginControl1 != null)
+                {
+                    return loginControl1.CashierActivity;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         public bool RecordCashierActivity
         {
             get

@@ -280,7 +280,13 @@ namespace ShopC
             return false;
         }
 
-
+        internal void HideGroupHandlerForm()
+        {
+            if (m_usrc_Item_Group_Handler!=null)
+            {
+                m_usrc_Item_Group_Handler.HideGroupHandlerForm();
+            }
+        }
 
         internal void Reset()
         {

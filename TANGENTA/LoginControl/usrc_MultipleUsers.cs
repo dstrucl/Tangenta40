@@ -83,16 +83,16 @@ namespace LoginControl
                 if (m_CashierActivity != null)
                 {
                     m_CashierActivity.CashierState = estate;
-                    if (estate == eCashierState.OPENED)
-                    {
-                        lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
-                        lbl_OpenedClosed.ForeColor = Color.Green;
-                    }
-                    else
-                    {
-                        lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
-                        lbl_OpenedClosed.ForeColor = Color.Red;
-                    }
+                }
+                if (estate == eCashierState.OPENED)
+                {
+                    lbl_OpenedClosed.Text = lng.s_CashierOpened.s;
+                    lbl_OpenedClosed.ForeColor = Color.Green;
+                }
+                else
+                {
+                    lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
+                    lbl_OpenedClosed.ForeColor = Color.Red;
                 }
             }
         }
@@ -191,31 +191,46 @@ namespace LoginControl
                     atom_office_shortname = myOrg.m_myOrg_Office.ShortName_v.v;
                 }
             }
-            lbl_OpenedClosed.Text = "";
-            if ((atom_electronicdevicename != null) && (atom_office_shortname != null))
+
+            if (m_awp.lctrl.RecordCashierActivity)
             {
-                if (f_CashierActivity.GetOpened(atom_electronicdevicename,
-                                               atom_office_shortname,
-                                               ref xCashierActivityOpened_ID,
-                                                ref xCashierActivity_ID,
-                                                ref lastCashierActivityNumber
-                                               ))
+                lbl_Cashier.Visible = true;
+                lbl_OpenedClosed.Visible = true;
+                if ((atom_electronicdevicename != null) && (atom_office_shortname != null))
                 {
-                    if (ID.Validate(xCashierActivity_ID))
+                    DateTime loginTime = DateTime.MaxValue;
+                    if (f_CashierActivity.GetOpened(atom_electronicdevicename,
+                                                   atom_office_shortname,
+                                                   ref xCashierActivityOpened_ID,
+                                                    ref xCashierActivity_ID,
+                                                    ref lastCashierActivityNumber,
+                                                    ref loginTime
+                                                   ))
                     {
-                        CashierActivityOpened_ID = xCashierActivityOpened_ID;
-                        CashierActivity_ID = xCashierActivity_ID;
-                        CashierActivityNumber = lastCashierActivityNumber;
-                        CashierState = eCashierState.OPENED;
-                    }
-                    else
-                    {
-                        CashierActivity_ID = null;
-                        CashierActivityNumber = -1;
-                        CashierState = eCashierState.CLOSED;
+                        if (ID.Validate(xCashierActivity_ID))
+                        {
+                            this.m_CashierActivity = new CashierActivity();
+                            this.m_CashierActivity.FirstLogin = loginTime;
+                            CashierActivityOpened_ID = xCashierActivityOpened_ID;
+                            CashierActivity_ID = xCashierActivity_ID;
+                            CashierActivityNumber = lastCashierActivityNumber;
+                            CashierState = eCashierState.OPENED;
+                        }
+                        else
+                        {
+                            this.m_CashierActivity = null;
+                            lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
+                            lbl_OpenedClosed.ForeColor = Color.Red;
+                        }
                     }
                 }
             }
+            else
+            {
+                lbl_Cashier.Visible = false;
+                lbl_OpenedClosed.Visible = false;
+            }
+
 
             int i = 0;
             int yPos = 0;

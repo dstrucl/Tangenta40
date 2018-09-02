@@ -663,10 +663,10 @@ namespace TangentaDB
         }
 
 
-        public bool SaveDocInvoice(ref ID docinvoice_ID, string ElectronicDevice_Name, ID xAtom_WorkPeriod_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref ID docinvoice_ID,CashierActivity ca, string ElectronicDevice_Name, ID xAtom_WorkPeriod_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
-            bool bRet = m_ShopABC.m_CurrentDoc.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ElectronicDevice_Name, ref xNumberInFinancialYear);
+            bool bRet = m_ShopABC.m_CurrentDoc.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI,ca, ElectronicDevice_Name, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docinvoice_ID = DocInvoice_ID;

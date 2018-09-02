@@ -113,6 +113,7 @@
             this.Controls.Add(this.usrc_CashierActivity1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_CashierDrawings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_CloseCashier";
             this.Load += new System.EventHandler(this.Form_CashierDrawings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_CashierDrawings)).EndInit();

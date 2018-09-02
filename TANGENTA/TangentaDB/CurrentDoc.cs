@@ -1541,7 +1541,7 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn,CashierActivity ca, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
         {
             string sql = null;
             object ores = null;
@@ -1553,7 +1553,22 @@ namespace TangentaDB
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
                     xDocInvoice_ID = Doc_ID;
-                    return true;
+                    if (ca != null)
+                    {
+                       if (ca.Add(xDocInvoice_ID))
+                        {
+                            return true;
+                        }
+                       else
+                        {
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {

@@ -11,6 +11,7 @@ using DBTypes;
 using DBConnectionControl40;
 using TangentaDB;
 using static TangentaDB.CashierActivity;
+using TangentaPrint;
 
 namespace LoginControl
 {
@@ -106,21 +107,31 @@ namespace LoginControl
             lctrl.IdleCtrl.TimerCounter_Stop();
             if (this.m_LMOUser.LoggedIn)
             {
+                int xNumberOfAllLoggedIn = m_usrc_MultipleUsers.LoggedIn_Count();
                 bool bLogoutAll = (IsAdministrator || IsUserManager);
                 if (bLogoutAll)
                 {
-                    if (m_usrc_MultipleUsers.LoggedIn_Count() == 1)
+                    if (xNumberOfAllLoggedIn == 1)
                     {
                         bLogoutAll = false;
                     }
                 }
 
+                
                 AWPLoginForm_OneFromMultipleUsers awpLoginForm_OneFromMultipleUsers = new AWPLoginForm_OneFromMultipleUsers(m_LMOUser,  bLogoutAll, AWPLoginForm_OneFromMultipleUsers.LoginType.LOGOUT, m_LMOUser.Atom_WorkPeriod_ID);
                 if (awpLoginForm_OneFromMultipleUsers.ShowDialog(this) == DialogResult.OK)
                 {
+                    bool bAllLoggedOut = false;
+
+                    if (xNumberOfAllLoggedIn==1)
+                    {
+                        bAllLoggedOut = true;
+                    }
+
                     if (awpLoginForm_OneFromMultipleUsers.LogoutALL)
                     {
                         this.m_usrc_MultipleUsers.LogoutAll();
+                        bAllLoggedOut = true;
                     }
                     else
                     {
@@ -138,25 +149,30 @@ namespace LoginControl
 
                         if (xCashierState == eCashierState.OPENED)
                         {
-                            m_usrc_MultipleUsers.m_CashierActivity.Last_Atom_WorkPeriod_ID = m_LMOUser.Atom_WorkPeriod_ID;
-                            Form_CloseCashier frm_closecashier = new Form_CloseCashier(m_usrc_MultipleUsers.m_CashierActivity);
-                            switch (frm_closecashier.ShowDialog(this))
+                            if (bAllLoggedOut)
                             {
-                                case DialogResult.OK:
-                                    if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
-                                    {
-                                        m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
-                                    }
-                                    break;
-                                case  DialogResult.Yes:
-                                    if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
-                                    {
-                                        //Do Print
-                                        m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
-                                    }
-                                    break;
-                                case DialogResult.No:
-                                    break;
+                                m_usrc_MultipleUsers.m_CashierActivity.Last_Atom_WorkPeriod_ID = m_LMOUser.Atom_WorkPeriod_ID;
+                                Form_CloseCashier frm_closecashier = new Form_CloseCashier(m_usrc_MultipleUsers.m_CashierActivity, m_LMOUser);
+                                switch (frm_closecashier.ShowDialog(this))
+                                {
+                                    case DialogResult.OK:
+                                        if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
+                                        {
+                                            m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                            PrintCashierActivity printcashieractivity = new PrintCashierActivity(m_usrc_MultipleUsers.m_CashierActivity);
+                                            printcashieractivity.Print();
+                                        }
+                                        break;
+                                    case DialogResult.Yes:
+                                        if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
+                                        {
+                                            //Do Print
+                                            m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                        }
+                                        break;
+                                    case DialogResult.No:
+                                        break;
+                                }
                             }
                         }
                         m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
@@ -194,7 +210,7 @@ namespace LoginControl
 
                         if (xCashierState == eCashierState.CLOSED)
                         {
-                            Form_OpenCashier frm_opencashier = new Form_OpenCashier();
+                            Form_OpenCashier frm_opencashier = new Form_OpenCashier(this);
                             if (frm_opencashier.ShowDialog(this) == DialogResult.Yes)
                             {
                                 if (m_usrc_MultipleUsers.m_CashierActivity == null)
@@ -204,14 +220,12 @@ namespace LoginControl
                                     {
                                         m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
                                     }
-
-                                    
-                            }
+                                }
+                                else
+                                {
+                                    m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
+                                }
                                 m_usrc_MultipleUsers.CashierActivity_InfoShow(true);
-                            }
-                            else
-                            {
-                                    m_usrc_MultipleUsers.CashierActivity_InfoShow(false);
                             }
                         }
                     }

@@ -52,6 +52,8 @@ namespace LoginControl
         
         public static ltext s_Form_CloseDrawings = new ltext(new string[] { "Cashier closings", "Blagajniški zaključki" });
 
+        public static ltext s_Form_OpenCashier = new ltext(new string[] { "Open Cashier", "Opiranje blagajne" });
+
         public static ltext s_Form_CloseCashier = new ltext(new string[] { "Closing Cashier", "Zapiranje blagajne" });
 
         public static ltext s_lbl_MethodOfPayment_Name = new ltext(new string[] { "Method of payment:", "Način plačila:" });
@@ -59,6 +61,9 @@ namespace LoginControl
         public static ltext s_lbl_MethodOfPayment_Total = new ltext(new string[] { "Total:", "Znesek:" });
 
         public static ltext s_lbl_CashierOpen_Question = new ltext(new string[] {"Open cashier ?","Odprem blagajno ?"});
+
+        public static ltext s_lbl_CashierClose_Question = new ltext(new string[] { "All users are loged out. Close cashier ?", "Vsi uporabniki so odjavljeni. Zaprem blagajno ?" });
+
         public static ltext s_btn_NO = new ltext(new string[] { "NO", "NE" });
         public static ltext s_btn_YES = new ltext(new string[] { "YES", "DA" });
 
@@ -134,9 +139,9 @@ namespace LoginControl
 
         public static ltext s_WrongPIN = new ltext(new string[] { "Wrong PIN", "Napačen PIN" });
 
-        public static ltext s_btn_GetAccess = new ltext(new string[] { "Casshier", "Prevzemi blagajno" });
+        public static ltext s_btn_GetAccess = new ltext(new string[] { "Take control of Cashier", "Prevzemi blagajno" });
 
-        public static ltext s_btn_CashierDrawings = new ltext(new string[] { "Casshier turnover", "Blagajniški zaključki" });
+        public static ltext s_btn_CashierDrawings = new ltext(new string[] { "Cashier turnover", "Blagajniški zaključki" });
 
         public static ltext s_YouCanNotExitProgramUntilAllUsersAreLoggedOut = new ltext(new string[] { "You can not end program until all users are logged out", "Program lahko končate šele, ko so vsi uporabniki odjavljeni!" });
 

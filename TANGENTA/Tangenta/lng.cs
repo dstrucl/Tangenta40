@@ -25,6 +25,7 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_YouCanNotWriteInvoices_CasshierIsClosed = new ltext(new string[] { "You can not write invoices. Cashier is closed!", "Kadar je blagajna zaprta ni možno pisati in izdajati računov!" });
         public static ltext s_Details = new ltext(new string[] { "Details", "Podrobnosti" });
         public static ltext s_SettingsUser_Name = new ltext(new string[] { "Settings Name", "Ime nastavitve" });
         public static ltext s_SettingsUser_Type = new ltext(new string[] { "Settings Type", "Vrsta nastavitve"  });
@@ -532,6 +533,9 @@ namespace Tangenta
         public static ltext s_OK = new ltext(new string[]{"OK",
                                                  "V redu"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocProformaInvoice_AddOn .cs
 
+        public static ltext s_CashierOpened = new ltext(new string[] { "OPENED", "ODPRTA" });
+        public static ltext s_CashierClosed = new ltext(new string[] { "CLOSED", "ZAPRTA" });
+        public static ltext s_Cashier = new ltext(new string[] { "Cashier:", "Blagajna:" });
         public static ltext s_Year = new ltext(new string[] { "Year", "Leto" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
 
         public static ltext s_DocProformaInvoice = new ltext(new string[]{"Proforma-Invoice",

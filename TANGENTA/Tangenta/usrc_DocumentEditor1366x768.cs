@@ -1523,7 +1523,7 @@ namespace Tangenta
                   
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name,m_LMOUser.Atom_WorkPeriod_ID))
                     {
 
                         m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;

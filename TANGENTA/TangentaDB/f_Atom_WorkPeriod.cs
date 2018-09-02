@@ -174,6 +174,56 @@ namespace TangentaDB
             }
         }
 
+        public static bool GetLogoutTime(ID atom_WorkPeriod_ID, ref DateTime logoutTime)
+        {
+            string Err = null;
+            logoutTime = DateTime.MinValue;
+            string sql = @"select LogoutTime from Atom_WorkPeriod where ID = " + atom_WorkPeriod_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    DateTime_v logoutTime_v = tf.set_DateTime(dt.Rows[0]["LogoutTime"]);
+                    if (logoutTime_v != null)
+                    {
+                        logoutTime = logoutTime_v.v;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:GetLogoutTime:" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        public static bool GetLoginTime(ID xAtom_WorkPeriod_ID, ref DateTime loginTime)
+        {
+            string Err = null;
+            loginTime = DateTime.MaxValue;
+            string sql = @"select LoginTime from Atom_WorkPeriod where ID = " + xAtom_WorkPeriod_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    DateTime_v loginTime_v = tf.set_DateTime(dt.Rows[0]["LoginTime"]);
+                    if (loginTime_v!=null)
+                    {
+                        loginTime = loginTime_v.v;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:GetLoginTime:" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
         public static bool Insert_into_Atom_WorkPeriod_Temp(
                                ID  Atom_WorkPeriod_ID,
                               string Atom_WorkPeriod_Type_Name,

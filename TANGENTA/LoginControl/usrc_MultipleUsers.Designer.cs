@@ -101,12 +101,11 @@
             // 
             // lbl_Tangenta
             // 
-            this.lbl_Tangenta.AutoSize = true;
-            this.lbl_Tangenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Tangenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Tangenta.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_Tangenta.Location = new System.Drawing.Point(26, 19);
+            this.lbl_Tangenta.Location = new System.Drawing.Point(32, 38);
             this.lbl_Tangenta.Name = "lbl_Tangenta";
-            this.lbl_Tangenta.Size = new System.Drawing.Size(285, 55);
+            this.lbl_Tangenta.Size = new System.Drawing.Size(280, 40);
             this.lbl_Tangenta.TabIndex = 5;
             this.lbl_Tangenta.Text = "TANGENTA";
             // 
@@ -176,9 +175,9 @@
             // lbl_Cashier
             // 
             this.lbl_Cashier.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Cashier.Location = new System.Drawing.Point(48, 3);
+            this.lbl_Cashier.Location = new System.Drawing.Point(48, 9);
             this.lbl_Cashier.Name = "lbl_Cashier";
-            this.lbl_Cashier.Size = new System.Drawing.Size(92, 19);
+            this.lbl_Cashier.Size = new System.Drawing.Size(112, 20);
             this.lbl_Cashier.TabIndex = 9;
             this.lbl_Cashier.Text = "Cashier:";
             this.lbl_Cashier.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -186,9 +185,9 @@
             // lbl_OpenedClosed
             // 
             this.lbl_OpenedClosed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_OpenedClosed.Location = new System.Drawing.Point(137, 3);
+            this.lbl_OpenedClosed.Location = new System.Drawing.Point(160, 9);
             this.lbl_OpenedClosed.Name = "lbl_OpenedClosed";
-            this.lbl_OpenedClosed.Size = new System.Drawing.Size(92, 19);
+            this.lbl_OpenedClosed.Size = new System.Drawing.Size(92, 20);
             this.lbl_OpenedClosed.TabIndex = 10;
             this.lbl_OpenedClosed.Text = "Closed";
             this.lbl_OpenedClosed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
