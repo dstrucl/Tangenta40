@@ -75,7 +75,8 @@ namespace ShopC
 
         public int SplitContainer1_spd
         {
-            get {
+            get
+            {
                 return splitContainer1.SplitterDistance;
             }
             set
@@ -99,7 +100,7 @@ namespace ShopC
                 {
                     m_DocTyp = s;
                 }
-                
+
                 if (this.usrc_Atom_ItemsList != null)
                 {
                     this.usrc_Atom_ItemsList.DocTyp = m_DocTyp;
@@ -151,14 +152,14 @@ namespace ShopC
         public usrc_ShopC()
         {
             InitializeComponent();
-            //lng.s_lbl_Stock.Text(lbl_Stock);
-            //lng.s_lbl_Items.Text(lbl_Items);
-            //lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
+            lng.s_lbl_Stock.Text(lbl_Stock);
+            lng.s_lbl_Items.Text(lbl_Items);
+            lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
         }
 
         private void usrc_ShopC_Load(object sender, EventArgs e)
         {
-            //usrc_ItemList.Init(this.usrc_Atom_ItemsList);
+            usrc_ItemList.Init(this.usrc_Atom_ItemsList);
         }
 
         public ID PriceList_ID
@@ -166,7 +167,8 @@ namespace ShopC
             get { return this.usrc_PriceList1.ID; }
         }
 
-        public bool AutomaticSelectionOfItemsFromStock {
+        public bool AutomaticSelectionOfItemsFromStock
+        {
             get { return chk_AutomaticSelectionOfItemFromStock.Checked; }
         }
 
@@ -189,7 +191,7 @@ namespace ShopC
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_InvoiceDB = xm_InvoiceDB;
             this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
-            this.chk_AutomaticSelectionOfItemFromStock.Visible = false; 
+            this.chk_AutomaticSelectionOfItemFromStock.Visible = false;
             DBtcn = xDBtcn;
             if (DBtcn == null)
             {
@@ -199,8 +201,8 @@ namespace ShopC
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
-            this.usrc_Atom_ItemsList.Init(m_Atom_WorkPeriod_ID,usrc_ItemList, xm_InvoiceDB, xDBtcn);
-            this.usrc_ItemList.Init(m_Atom_WorkPeriod_ID,xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
+            this.usrc_Atom_ItemsList.Init(m_Atom_WorkPeriod_ID, usrc_ItemList, xm_InvoiceDB, xDBtcn);
+            this.usrc_ItemList.Init(m_Atom_WorkPeriod_ID, xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
 
             this.usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
@@ -305,7 +307,7 @@ namespace ShopC
 
         private void btn_Stock_Click(object sender, EventArgs e)
         {
-            if (CheckAccessStock!=null)
+            if (CheckAccessStock != null)
             {
                 if (!CheckAccessStock())
                 {
@@ -340,11 +342,11 @@ namespace ShopC
                             where pi.Draft = 1 and appis.Stock_ID is not null";
             DataTable dt = new DataTable();
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-                decimal  d = 0;
+                decimal d = 0;
                 int iCount = dt.Rows.Count;
-                for (int i=0;i<iCount;i++)
+                for (int i = 0; i < iCount; i++)
                 {
                     d += (decimal)dt.Rows[i][0];
                 }
@@ -360,7 +362,7 @@ namespace ShopC
 
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
-            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(m_Atom_WorkPeriod_ID,xnav);
+            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(m_Atom_WorkPeriod_ID, xnav);
             frmSelectStockEditType.CheckIfAdministrator += FrmSelectStockEditType_CheckIfAdministrator;
             if (frmSelectStockEditType.ShowDialog(this) == DialogResult.OK)
             {
@@ -383,7 +385,7 @@ namespace ShopC
 
         private bool FrmSelectStockEditType_CheckIfAdministrator()
         {
-            if (CheckIfAdministrator!=null)
+            if (CheckIfAdministrator != null)
             {
                 return CheckIfAdministrator();
             }
@@ -412,7 +414,7 @@ namespace ShopC
 
             }
 
-            
+
         }
 
         public bool EditItem(NavigationButtons.Navigation xnav)
@@ -420,10 +422,10 @@ namespace ShopC
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
             Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
-                                                            "Item_$$Code desc",xnav);
+                                                            "Item_$$Code desc", xnav);
             edt_Item_dlg.ShowDialog(Global.f.GetParentForm(this));
 
-            if (edt_Item_dlg.List_of_Inserted_Items_ID.Count>0)
+            if (edt_Item_dlg.List_of_Inserted_Items_ID.Count > 0)
             {
                 DataTable dt_ShopC_Items_NotIn_PriceList = new DataTable();
                 if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Items_NotIn_PriceList))
@@ -433,7 +435,7 @@ namespace ShopC
                         if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList, this))
                         {
                             bool bPriceListChanged = false;
-                            this.usrc_PriceList1.PriceList_Edit(true,  ref bPriceListChanged);
+                            this.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
                         }
                     }
                     else
@@ -553,14 +555,14 @@ namespace ShopC
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_stock > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, true))
+                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID, DocTyp, ref xShopC_Data_Item, true))
                 {
                     return false;
                 }
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_factory > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, false))
+                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID, DocTyp, ref xShopC_Data_Item, false))
                 {
                     return false;
                 }
@@ -576,7 +578,7 @@ namespace ShopC
 
         private bool usrc_PriceList1_CheckAccess()
         {
-            if (CheckAccessPriceList!=null)
+            if (CheckAccessPriceList != null)
             {
                 return CheckAccessPriceList();
             }

@@ -99,15 +99,15 @@ namespace TangentaDB
         {
             string Err = null;
             string sql = @"select
-                    ca.CashierActivityNumber as CashierActivityNumber,
-		            aof.Name As Atom_Office_Name,
-		            aof.ShortName As Atom_Office_ShortName,
-		            aedf.Name As Atom_ElectronicDevice_Name,
+                     ca.CashierActivityNumber as CashierActivityNumber,
 		             awpf.LoginTime as LoginTime,
+		             awpl.LogoutTime as LogoutTime,
+		             aof.Name As Atom_Office_Name,
+		             aof.ShortName As Atom_Office_ShortName,
+		             aedf.Name As Atom_ElectronicDevice_Name,
 		             acfnf.FirstName As Person_LoggedIn_FirstName,
 		             aclnf.LastName As Person_LoggedIn_LastName,
 	                 apf.Tax_ID as Person_LoggedIn_TaxID,
-		             awpl.LogoutTime as LogoutTime,
 		             acfnl.FirstName As Person_LoggedOut_FirstName,
 		             aclnl.LastName As Person_LoggedOut_LastName,
 	                 apl.Tax_ID as Person_LoggedOut_TaxID,

@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CashierDrawings));
             this.usrc_CashierActivity1 = new LoginControl.usrc_CashierActivity();
             this.btn_PrintSingle = new System.Windows.Forms.Button();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.dgvx_CashierDrawings = new DataGridView_2xls.DataGridView2xls();
-            this.btn_PrintMany = new System.Windows.Forms.Button();
+            this.btn_PrintMultipleSelection = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_CashierDrawings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +47,8 @@
             // btn_PrintSingle
             // 
             this.btn_PrintSingle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_PrintSingle.Image = global::LoginControl.Properties.Resources.Print;
+            this.btn_PrintSingle.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_PrintSingle.Location = new System.Drawing.Point(1, 1);
             this.btn_PrintSingle.Name = "btn_PrintSingle";
             this.btn_PrintSingle.Size = new System.Drawing.Size(255, 46);
@@ -84,16 +87,18 @@
             this.dgvx_CashierDrawings.Size = new System.Drawing.Size(681, 377);
             this.dgvx_CashierDrawings.TabIndex = 52;
             // 
-            // btn_PrintMany
+            // btn_PrintMultipleSelection
             // 
-            this.btn_PrintMany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_PrintMany.Location = new System.Drawing.Point(262, 1);
-            this.btn_PrintMany.Name = "btn_PrintMany";
-            this.btn_PrintMany.Size = new System.Drawing.Size(286, 46);
-            this.btn_PrintMany.TabIndex = 53;
-            this.btn_PrintMany.Text = "PRINT";
-            this.btn_PrintMany.UseVisualStyleBackColor = true;
-            this.btn_PrintMany.Click += new System.EventHandler(this.btn_PrintMany_Click);
+            this.btn_PrintMultipleSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_PrintMultipleSelection.Image = global::LoginControl.Properties.Resources.Print;
+            this.btn_PrintMultipleSelection.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.btn_PrintMultipleSelection.Location = new System.Drawing.Point(262, 1);
+            this.btn_PrintMultipleSelection.Name = "btn_PrintMultipleSelection";
+            this.btn_PrintMultipleSelection.Size = new System.Drawing.Size(286, 46);
+            this.btn_PrintMultipleSelection.TabIndex = 53;
+            this.btn_PrintMultipleSelection.Text = "Print selection";
+            this.btn_PrintMultipleSelection.UseVisualStyleBackColor = true;
+            this.btn_PrintMultipleSelection.Click += new System.EventHandler(this.btn_PrintMultipleSelection_Click);
             // 
             // Form_CashierDrawings
             // 
@@ -101,12 +106,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(688, 631);
-            this.Controls.Add(this.btn_PrintMany);
+            this.Controls.Add(this.btn_PrintMultipleSelection);
             this.Controls.Add(this.dgvx_CashierDrawings);
             this.Controls.Add(this.btn_PrintSingle);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.usrc_CashierActivity1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_CashierDrawings";
             this.Text = "Form_CloseCashier";
             this.Load += new System.EventHandler(this.Form_CashierDrawings_Load);
@@ -120,6 +125,6 @@
         private System.Windows.Forms.Button btn_PrintSingle;
         private System.Windows.Forms.Button btn_Exit;
         private DataGridView_2xls.DataGridView2xls dgvx_CashierDrawings;
-        private System.Windows.Forms.Button btn_PrintMany;
+        private System.Windows.Forms.Button btn_PrintMultipleSelection;
     }
 }

@@ -598,5 +598,17 @@ namespace Tangenta.Properties {
                 this["IdleControl_FileImageUrl2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RecordCashierActivity {
+            get {
+                return ((bool)(this["RecordCashierActivity"]));
+            }
+            set {
+                this["RecordCashierActivity"] = value;
+            }
+        }
     }
 }

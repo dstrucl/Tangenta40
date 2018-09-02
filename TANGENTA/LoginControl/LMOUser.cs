@@ -91,7 +91,19 @@ namespace LoginControl
             }
         }
 
-        public ID Atom_WorkPeriod_ID = null;
+        private ID m_Atom_WorkPeriod_ID = null;
+        public ID Atom_WorkPeriod_ID
+        {
+            get
+            {
+                return m_Atom_WorkPeriod_ID;
+            }
+            set
+            {
+                m_Atom_WorkPeriod_ID = value;
+            }
+        }
+
 
         public bool m_LoggedIn = false;
 

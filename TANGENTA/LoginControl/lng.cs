@@ -24,6 +24,28 @@ namespace LoginControl
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext dgvx_NumberOfInvoices = new ltext(new string[] { "Number of invoice", "Število računov" });
+        public static ltext dgvx_Total = new ltext(new string[] { "Total sum", "Skupni znesek" });
+        public static ltext dgvx_FromInvoice = new ltext(new string[] { "First Invoice", "Prvi račun" });
+        public static ltext dgvx_ToInvoice = new ltext(new string[] { "Last Invoice", "Zadnji račun" });
+        public static ltext dvgx_CashierActivityNumber = new ltext(new string[] { "Closing nr.", "Št. zključka" });
+		public static ltext dgvx_Atom_Office_Name = new ltext(new string[] { "Office Name", "Ime PE" });
+        public static ltext dgvx_Atom_Office_ShortName = new ltext(new string[] { "Office", "PE" });
+        public static ltext dgvx_Atom_ElectronicDevice_Name = new ltext(new string[] { "Electronic device", "Elektronska naprava" });
+        public static ltext dgvx_LoginTime = new ltext(new string[] { "Opened", "Odprto" });
+        public static ltext dgvx_Person_LoggedIn_FirstName = new ltext(new string[] { "Opened First Name", "Odprto Ime" });
+        public static ltext dgvx_Person_LoggedIn_LastName = new ltext(new string[] { "Opened Last Name", "Odprto Priimek" });
+        public static ltext dgvx_Person_LoggedIn_TaxID = new ltext(new string[] { "Opened VAT ID", "Odprto davčna št." });
+        public static ltext dgvx_LogoutTime = new ltext(new string[] { "Closed", "Zaprto" });
+        public static ltext dgvx_Person_LoggedOut_FirstName = new ltext(new string[] { "Closed First Name", "Zaprto Ime" });
+        public static ltext dgvx_Person_LoggedOut_LastName = new ltext(new string[] { "Closed Last Name", "Zaprto Priimek" });
+        public static ltext dgvx_Person_LoggedOut_TaxID = new ltext(new string[] { "Closed VAT ID", "Zaprto davčna št" });
+        public static ltext dgvx_CashierActivity_ID = new ltext(new string[] { "Cashier activity ID", "Blagajniški zakluček ID" });
+        public static ltext dgvx_CashierActivityOpened_ID = new ltext(new string[] { "Cashier activity ppened ID", "Blagajna odprta ID" });
+        public static ltext dgvx_Login_Atom_WorkPeriod_ID = new ltext(new string[] { "Work period opened ID", "Šiht odprtja ID" });
+        public static ltext dgvx_CashierActivityClosed_ID = new ltext(new string[] { "Cashier Activity Closed ID", "Blagajna zaprta ID" });
+        public static ltext dgvx_Logout_Atom_WorkPeriod_ID = new ltext(new string[] { "Work period closed ID", "Šiht zaprtja ID" });
+
         public static ltext s_No_Issued_Invoices = new ltext(new string[] { "No invoices", "Ni računov" });
 
         public static ltext s_Storno = new ltext(new string[] { "STORNO", "STORNO" });
@@ -42,6 +64,7 @@ namespace LoginControl
 
         public static ltext s_btn_YesPrint = new ltext(new string[] { "Yes & Print", "DA in Natisni" });
         public static ltext s_btn_Print = new ltext(new string[] { "Print", "Natisni" });
+        public static ltext s_btn_PrintSelection = new ltext(new string[] { "Print selection", "Natisni izbor" });
 
         public static ltext s_lbl_CashierActivityNumber = new ltext(new string[] { "Št. Zaključka:", "Report.Num:" });
         public static ltext s_lbl_CashierOpenedTime = new ltext(new string[] { "Cashier opened:", "Odprtje blagajne:" });

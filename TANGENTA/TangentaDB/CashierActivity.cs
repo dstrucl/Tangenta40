@@ -212,6 +212,43 @@ namespace TangentaDB
             }
         }
 
+        public string GetFirstInvoiceNumber()
+        {
+            if (this.DocInvoice_ID_List.Count > 0)
+            {
+                DocInvoiceData di = this.DocInvoice_ID_List[0];
+                return Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(di.Atom_Office_ShortName,
+                                                                                       di.Atom_ElectronicDevice_Name,
+                                                                                       di.NumberInFinancialYear,
+                                                                                       di.FinancialYear,
+                                                                                       di.Storno,
+                                                                                        lng.s_STORNO.s
+                                                                                        );
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public string GetLastInvoiceNumber()
+        {
+            if (this.DocInvoice_ID_List.Count > 0)
+            {
+                DocInvoiceData di = this.DocInvoice_ID_List[this.DocInvoice_ID_List.Count-1];
+                return Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(di.Atom_Office_ShortName,
+                                                                                       di.Atom_ElectronicDevice_Name,
+                                                                                       di.NumberInFinancialYear,
+                                                                                       di.FinancialYear,
+                                                                                       di.Storno,
+                                                                                        lng.s_STORNO.s
+                                                                                        );
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public List<DocInvoiceData> DocInvoice_ID_List = new List<DocInvoiceData>();
 
@@ -644,9 +681,21 @@ namespace TangentaDB
                     return false;
                 }
                 ID xCashierActivityOpened_ID = null;
-                if (f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID))
-                {
+                ID xCashierActivity_ID = null;
+                int iCashierActivityNumber = -1;
+                bool balreadyopened = false;
+                if (f_CashierActivity.Open(m_Atom_ElectronicDevice_Name,
+                                            m_Atom_Office_ShortName,
+                                            xAtom_WorkPeriod_ID,
+                                            ref xCashierActivityOpened_ID,
+                                            ref iCashierActivityNumber,
+                                            ref xCashierActivity_ID,
+                                            ref balreadyopened
+                    ))
+                { 
                     this.CashierActivityOpened_ID = xCashierActivityOpened_ID;
+                    this.ID = xCashierActivity_ID;
+                    this.CashierActivityNumber = iCashierActivityNumber;
                     return true;
                 }
                 else
@@ -662,7 +711,7 @@ namespace TangentaDB
 
         public bool Close(ID xAtom_WorkPeriod_ID)
         {
-            if (ID.Validate(xAtom_WorkPeriod_ID))
+            if (!ID.Validate(xAtom_WorkPeriod_ID))
             {
                 LogFile.Error.Show("ERROR:LoginControl:CashierActivity:Close:xAtom_WorkPeriod_ID is not valid!");
                 return false;

@@ -259,13 +259,14 @@ eres_check:
                                         lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
                                     }
                                 }
-                                ID Atom_WorkPeriod_ID = null;
+                                ID xAtom_WorkPeriod_ID = null;
 
                                 if (LoginCtrl.getWorkPeriodEx(LMOUser_Single,
-                                                            ref LMOUser_Single.Atom_WorkPeriod_ID
+                                                            ref xAtom_WorkPeriod_ID
                                                             ))
                                 {
                                     ID LoginSession_ID = null;
+                                    LMOUser_Single.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
                                     if (AWP_func.WriteLoginSession(LMOUser_Single.awpld.ID, LMOUser_Single.Atom_WorkPeriod_ID, ref LoginSession_ID))
                                     {
                                         if (lctrl.m_usrc_LoginCtrl != null)

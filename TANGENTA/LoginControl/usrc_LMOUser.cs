@@ -126,10 +126,6 @@ namespace LoginControl
                     {
                         lctrl.Trigger_EventUserLoggedOut(this.m_LMOUser);
                     }
-                    m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
-                    m_LMOUser.Atom_WorkPeriod_ID = null;
-                    m_LMOUser.awpld = null;
-                    m_LMOUser.LoggedIn = false;
 
                     if (lctrl.RecordCashierActivity)
                     {
@@ -163,6 +159,11 @@ namespace LoginControl
                                     break;
                             }
                         }
+                        m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
+                        m_LMOUser.Atom_WorkPeriod_ID = null;
+                        m_LMOUser.awpld = null;
+                        m_LMOUser.LoggedIn = false;
+
                     }
                 }
             }
@@ -273,8 +274,10 @@ namespace LoginControl
 
         private void btn_CashierDrawings_Click(object sender, EventArgs e)
         {
+            lctrl.IdleCtrl.TimerCounter_Stop();
             Form_CashierDrawings frm_cashierDrawings = new Form_CashierDrawings();
             frm_cashierDrawings.ShowDialog(this);
+            lctrl.IdleCtrl.TimerCounter_Start();
         }
     }
 }

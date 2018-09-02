@@ -159,6 +159,28 @@ namespace Tangenta
             }
         }
 
+        public bool RecordCashierActivity
+        {
+            get
+            {
+                if (loginControl1!=null)
+                {
+                    return loginControl1.RecordCashierActivity;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (loginControl1 != null)
+                {
+                    loginControl1.RecordCashierActivity = value;
+                }
+            }
+        }
+
         public Form_Document()
         {
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
@@ -167,6 +189,8 @@ namespace Tangenta
             Program.FVI_SLO1 = this.fvI_SLO1;
             Program.thread_fvi = this.fvI_SLO1.thread_fvi;
             Program.message_box = this.fvI_SLO1.message_box;
+
+            this.loginControl1.RecordCashierActivity = Properties.Settings.Default.RecordCashierActivity;
 
             default_FormName = this.Name;
             this.Icon = Properties.Resources.Tangenta_Icon;

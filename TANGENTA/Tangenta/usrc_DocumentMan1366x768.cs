@@ -1165,16 +1165,18 @@ namespace Tangenta
                 {
                     if (Program.bFirstTimeInstallation)
                     {
+                        ID xAtom_WorkPeriod_ID = null;
                         if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
                                                      f_Atom_WorkPeriod.sWorkPeriod, 
                                                      LoginControl.lng.s_WorkPeriod.s,
                                                      DateTime.Now,
                                                      null,
                                                      ref m_LMOUser.Atom_myOrganisation_Person_ID,
-                                                     ref m_LMOUser.Atom_WorkPeriod_ID,
+                                                     ref xAtom_WorkPeriod_ID,
                                                      ref Err))
                         {
                             //myStartup.eNextStep++;
+                            m_LMOUser.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
                             return true;
                         }
                         else
@@ -1190,16 +1192,18 @@ namespace Tangenta
                         {
                             if (door.DoLoginAsAdministrator((Form)this.Parent))
                             {
+                                ID xAtom_WorkPeriod_ID = null;
                                 if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
                                     f_Atom_WorkPeriod.sWorkPeriod,
                                     LoginControl.lng.s_WorkPeriod.s,
                                     DateTime.Now,
                                     null,
                                     ref m_LMOUser.Atom_myOrganisation_Person_ID,
-                                    ref m_LMOUser.Atom_WorkPeriod_ID,
+                                    ref xAtom_WorkPeriod_ID,
                                     ref Err))
                                 {
                                     //myStartup.eNextStep++;
+                                    m_LMOUser.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
                                     return true;
                                 }
                                 else
@@ -1217,15 +1221,17 @@ namespace Tangenta
                         }
                         else
                         {
+                            ID xAtom_WorkPeriod_ID = null;
                             if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
                                 f_Atom_WorkPeriod.sWorkPeriod,
                                 LoginControl.lng.s_WorkPeriod.s,
                                 DateTime.Now,
                                 null,
                                 ref m_LMOUser.Atom_myOrganisation_Person_ID,
-                                ref m_LMOUser.Atom_WorkPeriod_ID, ref Err))
+                                ref xAtom_WorkPeriod_ID, ref Err))
                             {
                                 //myStartup.eNextStep++;
+                                m_LMOUser.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
                                 return true;
                             }
                             else

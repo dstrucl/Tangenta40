@@ -83,12 +83,14 @@ namespace ShopC
         public int NumberOfItemsPerPage
         {
             get { return m_NumberOfItemsPerPage; }
-            set { m_NumberOfItemsPerPage = value;
-                 Init(m_Atom_WorkPeriod_ID);
-                }
+            set
+            {
+                m_NumberOfItemsPerPage = value;
+                Init(m_Atom_WorkPeriod_ID);
+            }
         }
 
-        
+
 
         private bool m_bExclusivelySellFromStock = false;
         public bool ExclusivelySellFromStock
@@ -116,7 +118,7 @@ namespace ShopC
         {
             get
             {
-                if (m_usrc_Item_Group_Handler!=null)
+                if (m_usrc_Item_Group_Handler != null)
                 {
                     return m_usrc_Item_Group_Handler.NumberOfGroupLevels;
                 }
@@ -139,9 +141,9 @@ namespace ShopC
 
             usrc_Item_aray = new usrc_Item[NumberOfItemsPerPage];
 
-            int i=0;
+            int i = 0;
             int yPos = 0;
-            while (pnl_Items.Controls.Count>0)
+            while (pnl_Items.Controls.Count > 0)
             {
                 Control ctrl = pnl_Items.Controls[0];
                 this.pnl_Items.Controls.Remove(ctrl);
@@ -149,7 +151,7 @@ namespace ShopC
             }
             pnl_Items.AutoScrollOffset = new Point(0, 0);
             pnl_Items.AutoScrollPosition = new Point(0, 0);
-            for (i=0;i<m_NumberOfItemsPerPage;i++)
+            for (i = 0; i < m_NumberOfItemsPerPage; i++)
             {
                 usrc_Item usrc_item = new usrc_Item(m_Atom_WorkPeriod_ID);
                 usrc_item.m_usrc_ItemList = this;
@@ -196,7 +198,7 @@ namespace ShopC
             }
         }
 
-        internal void Init(ID xAtom_WorkPeriod_ID,TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
+        internal void Init(ID xAtom_WorkPeriod_ID, TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_ShopBC = xm_ShopBC;
@@ -236,8 +238,8 @@ namespace ShopC
                     if (m_usrc_Item_Group_Handler.NumberOfGroupLevels > 1)
                     {
 
-                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 32,ref Err);
-                     
+                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 32, ref Err);
+
                     }
                     else
                     {
@@ -340,8 +342,8 @@ namespace ShopC
             sGroupArr[2] = appisd.s3_name;
             m_usrc_Item_Group_Handler.Select(sGroupArr);
             int index = m_ShopBC.m_CurrentDoc.m_ShopShelf.GetIndex(appisd);
-            if (index>=0)
-            { 
+            if (index >= 0)
+            {
                 m_usrc_Item_PageHandler.Show(index);
                 return true;
             }
@@ -358,7 +360,7 @@ namespace ShopC
             }
             else
             {
-               m_usrc_Item_Group_Handler.SetVisible(true);
+                m_usrc_Item_Group_Handler.SetVisible(true);
                 pnl_Items.Width = ipnl_Items_Width_default;
             }
 

@@ -571,6 +571,8 @@
     <EmbeddedResource Include="Resources\01_SLO_myOrganisation_Person.htm" />
     <None Include="Resources\Exit.bmp" />
     <None Include="Resources\Tangenta-Logo SMALL.gif" />
+    <None Include="Resources\CashierActivity.ico" />
+    <None Include="Resources\Print.bmp" />
     <Content Include="Resources\UserInfo.png" />
     <Content Include="Resources\Users.png" />
   </ItemGroup>

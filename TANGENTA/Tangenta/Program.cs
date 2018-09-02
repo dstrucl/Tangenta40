@@ -246,7 +246,27 @@ namespace Tangenta
             }
         }
 
-
+        public static bool RecordCashierActivity
+        {
+            get
+            {
+                if (MainForm != null)
+                {
+                    return MainForm.RecordCashierActivity;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (MainForm != null)
+                {
+                    MainForm.RecordCashierActivity = value;
+                }
+            }
+        }
 
 
         public static bool UseWorkAreas {

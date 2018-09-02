@@ -77,7 +77,7 @@
             this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
             this.usrc_Atom_ItemsList.NumberOfItemsPerPage = 10;
-            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(409, 553);
+            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(409, 502);
             this.usrc_Atom_ItemsList.TabIndex = 5;
             // 
             // usrc_ItemList
