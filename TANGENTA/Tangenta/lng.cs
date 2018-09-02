@@ -25,6 +25,7 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_SaveAsTextFile = new ltext(new string[] { "Save as text file", "Shrani v tekstovno datoteko" });
         public static ltext s_YouCanNotWriteInvoices_CasshierIsClosed = new ltext(new string[] { "You can not write invoices. Cashier is closed!", "Kadar je blagajna zaprta ni možno pisati in izdajati računov!" });
         public static ltext s_Details = new ltext(new string[] { "Details", "Podrobnosti" });
         public static ltext s_SettingsUser_Name = new ltext(new string[] { "Settings Name", "Ime nastavitve" });

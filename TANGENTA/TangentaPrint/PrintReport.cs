@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using TangentaDB;
 using Tangenta_DefaultPrintTemplates;
 using System.Windows.Forms;
-
+using System.IO;
 
 namespace TangentaPrint
 {
@@ -25,6 +25,19 @@ namespace TangentaPrint
         private DateTime_v dt2_v = null;
         private DataTable m_dt_XInvoice = null;
         private bool m_PrintSingleInvoices = false;
+
+        private int m_MaxTextLineLength = 80;
+        public int MaxTextLineLength
+        {
+            get {
+                return m_MaxTextLineLength;
+                }
+            set
+            {
+                m_MaxTextLineLength = value;
+            }
+        }
+
 
         private bool PrintSingleInvoices
         { 
@@ -42,6 +55,107 @@ namespace TangentaPrint
             sTimeSpan = xsTimeSpan;
             dt1_v = xdt1_v;
             dt2_v = xdt2_v;
+        }
+
+        private string sline(char ch)
+        {
+            return new String(ch, MaxTextLineLength);
+        }
+        
+        public bool Save(Form parentform)
+        {
+            report = new Report(sTimeSpan, dt1_v, dt2_v);
+            if (report.Get(m_dt_XInvoice))
+            {
+                int icount = report.ItemList.Count;
+                StringBuilder sb = new StringBuilder(3000);
+                addLine(sb, sline('*'));
+                addLine(sb, lng.s_IncomeForOrg.s + ":" + report.HeadR.OrganisationName);
+                addLine(sb, lng.s_OfficeName.s + ":" + report.HeadR.OfficeName);
+                addLine(sb, lng.s_ElectronicDevice.s + ":" + report.HeadR.ElectronicDevice);
+                addLine(sb, report.HeadR.From_To);
+                foreach (StaticLib.Tax tx in report.HeadR.TaxSum.TaxList)
+                {
+                    addLine(sb, tx.Name + ":" + tx.TaxAmount.ToString());
+                }
+                addLine(sb, lng.s_TaxTotal.s + ":" + report.HeadR.TaxTotal.ToString());
+                addLine(sb, lng.s_NetSum.s + ":" + report.HeadR.NetSum.ToString());
+                addLine(sb, lng.s_Total.s + ":" + report.HeadR.Total.ToString());
+                addLine(sb, lng.s_NumberOfInvoices.s + ":" + report.HeadR.NumberOfInvoices.ToString());
+                foreach (TangentaDB.Report.PaymentType pt in report.HeadR.PaymentTypeList.items)
+                {
+                    addLine(sb, pt.Name + ":" + pt.Count.ToString());
+                    addLine(sb, pt.Name + " Osnova:" + pt.Net.ToString());
+                    addLine(sb, pt.Name + " Obračunani DDV:" + pt.TaxTotal.ToString());
+                    addLine(sb, pt.Name + " Skupaj z DDV:" + pt.Total.ToString());
+                }
+
+                string underLine = null;
+                if (PrintSingleInvoices)
+                {
+                    for (int i = 0; i < icount; i++)
+                    {
+                        int iInv = i + 1;
+                        underLine = iInv.ToString() + " -----------------------------------";
+                        addLine(sb, underLine);
+                        Report.Item itm = report.ItemList[i];
+                        addLine(sb, lng.s_InvoiceNumber.s + ":" + itm.InvoiceNumber);
+                        addLine(sb, lng.s_IssueTime.s + ":" + itm.IssueTime);
+                        StaticLib.TaxSum tsum = itm.TaxSum;
+                        foreach (StaticLib.Tax tax in tsum.TaxList)
+                        {
+                            addLine(sb, tax.Name + ":" + tax.TaxAmount.ToString());
+                        }
+
+                        addLine(sb, lng.s_TaxTotal.s + ":" + tsum.Value.ToString());
+
+                        //Offset = Offset + OFS;
+                        //graphics.DrawString(lng.s_TaxTotalcheck.s + ":" + itm.TaxTotal.ToString(), myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                        addLine(sb, lng.s_NetSum.s + ":" + itm.NetSum.ToString());
+
+                        addLine(sb, lng.s_Total.s + ":" + itm.Total.ToString());
+
+                        addLine(sb, lng.s_MethodOfPayment.s + ":" + itm.MethodOfPayment);
+
+                        addLine(sb, lng.s_IssuerPerson.s + ":" + itm.IssuerPerson);
+                    }
+                }
+                else
+                {
+                    underLine = " -----------------------------------";
+                    addLine(sb, underLine);
+                }
+                string textFileName = "??";
+                try
+                {
+                    SaveFileDialog sfd = new SaveFileDialog();
+                    string s1 = report.HeadR.From_To.Replace(' ', '_');
+                    string s2 = s1.Replace('.', '-');
+                    string s3 = s2.Replace(':', '_');
+                    sfd.FileName = "TangentaReport"+s3+".txt";
+                    if (sfd.ShowDialog(parentform) == DialogResult.OK)
+                    {
+                        textFileName = sfd.FileName;
+                        File.WriteAllText(textFileName, sb.ToString(), Encoding.UTF8);
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    LogFile.Error.Show("ERROR:TangentaPrint:PrintReport:Save:Can not write to file ='" + textFileName + "'\r\nException=" + ex.Message);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void addLine(StringBuilder sb, string s)
+        {
+            sb.Append(s + "\r\n");
         }
 
         public bool Print()
@@ -198,30 +312,6 @@ namespace TangentaPrint
                 underLine = " -----------------------------------";
                 graphics.DrawString(underLine, myFont1, new SolidBrush(Color.Black), startX, startY + Offset);
             }
-
-            //graphics.DrawString("Ticket No:" + this.TicketNo, new Font("Courier New", 14), new SolidBrush(Color.Black), startX, startY + Offset);
-            //Offset = Offset + 20;
-            //graphics.DrawString("Ticket Date :" + this.ticketDate, new Font("Courier New", 12), new SolidBrush(Color.Black), startX, startY + Offset);
-            //Offset = Offset + 20;
-            //String underLine = "------------------------------------------";
-            //graphics.DrawString(underLine, new Font("Courier New", 10), new SolidBrush(Color.Black), startX, startY + Offset);
-
-            //Offset = Offset + 20;
-            //String Source = this.source;
-            //graphics.DrawString("From " + Source + " To " + Destination, new Font("Courier New", 10), new SolidBrush(Color.Black), startX, startY + Offset);
-
-            //Offset = Offset + 20;
-            //String Grosstotal = "Total Amount to Pay = " + this.amount;
-
-            //Offset = Offset + 20;
-            //underLine = "------------------------------------------";
-            //graphics.DrawString(underLine, new Font("Courier New", 10), new SolidBrush(Color.Black), startX, startY + Offset);
-            //Offset = Offset + 20;
-
-            //graphics.DrawString(Grosstotal, new Font("Courier New", 10), new SolidBrush(Color.Black), startX, startY + Offset);
-            //Offset = Offset + 20;
-            //String DrawnBy = this.drawnBy;
-            // graphics.DrawString("Conductor - " + DrawnBy, new Font("Courier New", 10), new SolidBrush(Color.Black), startX, startY + Offset);
         }
     }
 }
