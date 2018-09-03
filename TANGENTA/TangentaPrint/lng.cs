@@ -24,6 +24,27 @@ namespace TangentaPrint
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        #region PrintStockTake
+
+        public static ltext s_STOCKTAKE = new ltext(new string[] { "STOCKTAKE", "PREVZEMNICA" });
+        public static ltext s_Date = new ltext(new string[] { "Date", "Datum" });
+        public static ltext s_SupplierTaxID = new ltext(new string[] { "Supplier VAT ID", "Dobavitelj davčna št." });
+        public static ltext s_Supplier = new ltext(new string[] { "Supplier", "Dobavitelj" });
+        public static ltext s_BuyerTaxID = new ltext(new string[] { "Buyer VAT ID", "Kupec davčna št." });
+        public static ltext s_Buyer = new ltext(new string[] { "Buyer", "Kupec" });
+        public static ltext s_DeliveryNumber = new ltext(new string[] { "Delivery number", "Št, dobavnice" });
+        public static ltext s_DeliveryNumberDate = new ltext(new string[] { "Delivery date", "Datum dobavnice" });
+        public static ltext s_Item = new ltext(new string[] { "Item", "Artikel" });
+        public static ltext s_Amount = new ltext(new string[] { "Amount", "Znesek" });
+        public static ltext s_Quantity = new ltext(new string[] { "Quantity", "Količina" });
+        public static ltext s_VAT = new ltext(new string[] { "VAT", "DDV" });
+        public static ltext s_without_VAT = new ltext(new string[] { "without VAT", "brez DDV" });
+        public static ltext s_with_VAT = new ltext(new string[] { "with VAT", "z DDV" });
+        public static ltext s_Total = new ltext(new string[] { "without VAT", "brez DDV" });
+        public static ltext s_PostingDate = new ltext(new string[] { "Posting Date", "Datum knjiženja" });
+
+        #endregion
+
         public static ltext s_CalculatedVAT = new ltext(new string[] { "VAT:", "Obračunani DDV:" });
         
         public static ltext s_TaxBase = new ltext(new string[] { "Taxable amount:", "Osnova:" });
@@ -59,7 +80,7 @@ namespace TangentaPrint
 
         public static ltext s_IssuerPerson = new ltext(new string[] { "Person", "Oseba" });
         public static ltext s_MethodOfPayment = new ltext(new string[] { "Method of payment", "Način plačila:" });
-        public static ltext s_Total = new ltext(new string[] { "Total", "Skupaj z DDV" });
+        public static ltext s_TotalWithVAT = new ltext(new string[] { "Total", "Skupaj z DDV" });
 
         public static ltext s_NetSum = new ltext(new string[] { "Net sum", "Skupaj brez DDV" });
 

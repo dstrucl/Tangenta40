@@ -57,7 +57,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_StockEditForSelectedStockTake1);
             this.splitContainer1.Size = new System.Drawing.Size(1045, 724);
-            this.splitContainer1.SplitterDistance = 461;
+            this.splitContainer1.SplitterDistance = 459;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
@@ -70,7 +71,7 @@
             this.usrc_EditTable1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(461, 724);
+            this.usrc_EditTable1.Size = new System.Drawing.Size(459, 724);
             this.usrc_EditTable1.TabIndex = 1;
             this.usrc_EditTable1.Title = "";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;

@@ -126,15 +126,14 @@
             // txt_Number
             // 
             this.txt_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Number.Location = new System.Drawing.Point(91, 3);
+            this.txt_Number.Location = new System.Drawing.Point(85, 3);
             this.txt_Number.Name = "txt_Number";
             this.txt_Number.ReadOnly = true;
-            this.txt_Number.Size = new System.Drawing.Size(92, 24);
+            this.txt_Number.Size = new System.Drawing.Size(171, 24);
             this.txt_Number.TabIndex = 22;
             // 
             // lbl_Number
             // 
-            this.lbl_Number.AutoSize = true;
             this.lbl_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Number.Location = new System.Drawing.Point(2, 4);
             this.lbl_Number.Name = "lbl_Number";
@@ -169,7 +168,7 @@
             // chk_Head
             // 
             this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Head.Location = new System.Drawing.Point(191, 1);
+            this.chk_Head.Location = new System.Drawing.Point(274, 2);
             this.chk_Head.Name = "chk_Head";
             this.chk_Head.Size = new System.Drawing.Size(72, 28);
             this.chk_Head.TabIndex = 37;
@@ -257,7 +256,7 @@
             // 
             this.chk_Storno.AutoSize = true;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(352, 4);
+            this.chk_Storno.Location = new System.Drawing.Point(460, 6);
             this.chk_Storno.Name = "chk_Storno";
             this.chk_Storno.Size = new System.Drawing.Size(69, 21);
             this.chk_Storno.TabIndex = 39;
@@ -269,7 +268,7 @@
             // 
             this.btn_Show_Shops.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Show_Shops.Location = new System.Drawing.Point(263, 0);
+            this.btn_Show_Shops.Location = new System.Drawing.Point(352, 1);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
             this.btn_Show_Shops.Size = new System.Drawing.Size(85, 29);
             this.btn_Show_Shops.TabIndex = 41;

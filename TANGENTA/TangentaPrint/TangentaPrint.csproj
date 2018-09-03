@@ -76,6 +76,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -121,6 +122,7 @@
     <Compile Include="PrintersList.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="PrintCashierActivity.cs" />
+    <Compile Include="PrintStockTake.cs" />
     <Compile Include="PrintReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -268,10 +270,6 @@
     <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\HtmlRenderer\HtmlRenderer.csproj">
       <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
       <Name>HtmlRenderer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ShopC\ShopC.csproj">
-      <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>
-      <Name>ShopC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Startup\Startup.csproj">
       <Project>{C4E59CF1-D085-4636-8BB4-2BFA63E54F4D}</Project>

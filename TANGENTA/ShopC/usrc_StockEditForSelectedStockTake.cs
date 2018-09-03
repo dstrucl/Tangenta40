@@ -11,6 +11,7 @@ using CodeTables;
 using DBTypes;
 using TangentaDB;
 using DBConnectionControl40;
+using TangentaPrint;
 
 namespace ShopC
 {
@@ -63,6 +64,7 @@ namespace ShopC
         private bool m_Draft = false;
 
         private DataTable dt_Stock_Of_Current_StockTake = new DataTable();
+
         internal Doc_ShopC_Item[] aDoc_ShopC_Item = null;
 
 
@@ -175,6 +177,180 @@ namespace ShopC
                 }
         }
 
+        internal string_v Description_v
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_Description = m_StockTakeTable.Value("Description");
+                    if (o_Description is TangentaTableClass.Description)
+                    {
+                        if (((TangentaTableClass.Description)o_Description).defined)
+                        {
+                            return new string_v(((TangentaTableClass.Description)o_Description).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+
+        internal DateTime_v StockTake_Date_v
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_StockTake_Date = m_StockTakeTable.Value("StockTake_Date");
+                    if (o_StockTake_Date is TangentaTableClass.StockTake_Date)
+                    {
+                        if (((TangentaTableClass.StockTake_Date)o_StockTake_Date).defined)
+                        {
+                            return new DateTime_v(((TangentaTableClass.StockTake_Date)o_StockTake_Date).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        internal string_v ReferenceNote_v
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_ReferenceNote = m_StockTakeTable.Value("StockTake_$_ref_$$ReferenceNote");
+                    if (o_ReferenceNote is TangentaTableClass.ReferenceNote)
+                    {
+                        if (((TangentaTableClass.ReferenceNote)o_ReferenceNote).defined)
+                        {
+                            return new string_v(((TangentaTableClass.ReferenceNote)o_ReferenceNote).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+        
+
+        internal decimal_v StockTakePriceTotal
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_StockTakePriceTotal = m_StockTakeTable.Value("StockTakePriceTotal");
+                    if (o_StockTakePriceTotal is TangentaTableClass.StockTakePriceTotal)
+                    {
+                        if (((TangentaTableClass.StockTake_Date)o_StockTakePriceTotal).defined)
+                        {
+                            return  new decimal_v(((TangentaTableClass.StockTakePriceTotal)o_StockTakePriceTotal).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        internal ID Reference_ID
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_Reference_ID = m_StockTakeTable.Value("Reference_ID");
+                    if (o_Reference_ID is TangentaTableClass.Reference)
+                    {
+                        if (ID.Validate(((TangentaTableClass.Reference)o_Reference_ID).ID))
+                        {
+                            return ((TangentaTableClass.Reference)o_Reference_ID).ID;
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        internal ID Supplier_ID
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_Supplier_ID = m_StockTakeTable.Value("Supplier_ID");
+                    if (o_Supplier_ID is TangentaTableClass.Supplier)
+                    {
+                        if (ID.Validate(((TangentaTableClass.Supplier)o_Supplier_ID).ID))
+                        {
+                            return ((TangentaTableClass.Reference)o_Supplier_ID).ID;
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        internal string_v Supplier_Name_v
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_Supplier_Name = m_StockTakeTable.Value("StockTake_$_sup_$_c_$_orgd_$_org_$$Name");
+                    if (o_Supplier_Name is TangentaTableClass.Name)
+                    {
+                        if (((TangentaTableClass.Name)o_Supplier_Name).defined)
+                        {
+                            return new string_v(((TangentaTableClass.Name)o_Supplier_Name).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        internal string_v Supplier_TaxID_v
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_SupplierTaxID = m_StockTakeTable.Value("StockTake_$_sup_$_c_$_orgd_$_org_$$Tax_ID");
+                    if (o_SupplierTaxID is TangentaTableClass.Tax_ID)
+                    {
+                        if (((TangentaTableClass.Tax_ID)o_SupplierTaxID).defined)
+                        {
+                            return new string_v(((TangentaTableClass.Tax_ID)o_SupplierTaxID).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        internal bool_v StockTake_Draft_v
+        {
+            get
+            {
+                if (m_StockTakeTable != null)
+                {
+                    object o_StockTake_Draft = m_StockTakeTable.Value("StockTake_$$Draft");
+                    if (o_StockTake_Draft is TangentaTableClass.Draft)
+                    {
+                        if (((TangentaTableClass.Draft)o_StockTake_Draft).defined)
+                        {
+                            return new bool_v(((TangentaTableClass.Draft)o_StockTake_Draft).val);
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        
 
 
         public usrc_StockEditForSelectedStockTake()
@@ -890,6 +1066,60 @@ namespace ShopC
                 txt_Difference.BackColor = Color.LightGreen;
             }
             txt_Difference.Text = Convert.ToString(difference);
+        }
+
+        private void btn_Print_Click(object sender, EventArgs e)
+        {
+            DateTime xStockTake_Date = DateTime.MaxValue;
+            DateTime_v xStockTake_Date_v = StockTake_Date_v;
+            if (xStockTake_Date_v != null)
+            {
+               xStockTake_Date = xStockTake_Date_v.v;
+
+            }
+            string_v xsupplier_name_v = Supplier_Name_v;
+            string suppliername = "";
+            if (xsupplier_name_v!=null)
+            {
+                suppliername = xsupplier_name_v.v;
+            }
+
+            string_v xsupplier_taxID_v = Supplier_TaxID_v;
+            string suppliertaxID = "";
+            if (xsupplier_taxID_v != null)
+            {
+                suppliertaxID = Supplier_TaxID_v.v;
+            }
+
+            string myorg_name = "";
+            if (myOrg.Name_v!=null)
+            {
+                myorg_name = myOrg.Name_v.v;
+            }
+
+            string myorg_TaxID = "";
+            if (myOrg.Tax_ID_v != null)
+            {
+                myorg_TaxID = myOrg.Tax_ID_v.v;
+            }
+
+            string reference_note = "";
+            string_v xReferenceNote_v = ReferenceNote_v;
+            if (xReferenceNote_v!=null)
+            {
+                reference_note = xReferenceNote_v.v;
+            }
+            PrintStockTake prnstocktake = new PrintStockTake(StockTakeName,
+                                                             xStockTake_Date,
+                                                             suppliername,
+                                                             suppliertaxID,
+                                                             myorg_name,
+                                                             myorg_TaxID,
+                                                             reference_note,
+                                                             dt_Stock_Of_Current_StockTake
+                                                             );
+
+            prnstocktake.Print(this);
         }
     }
 }

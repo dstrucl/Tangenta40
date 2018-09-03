@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Reflection;
 using System.Text;
 
@@ -238,6 +240,59 @@ namespace TangentaPrint
             dt.Rows.Add(dr);
             prn.Index = dt.Rows.IndexOf(dr);
             return prn.Index;
+        }
+
+        //public static bool IsPrinterConnected(string printername)
+        //{
+        //    bool printerStatus = false;
+        //    try
+        //    {
+        //        PrintDocument pd = new PrintDocument
+        //        {
+        //            PrinterSettings = new PrinterSettings
+        //            {
+        //                PrinterName = printername
+        //            }
+        //        };
+        //        printerStatus = pd.PrinterSettings.IsValid;
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //    }
+        //    return printerStatus;
+        //}
+        public static bool IsPrinterConnected(string printername)
+        {
+            // Set management scope
+            ManagementScope scope = new ManagementScope(@"\root\cimv2");
+            scope.Connect();
+
+            // Select Printers from WMI Object Collections
+            ManagementObjectSearcher searcher = new
+             ManagementObjectSearcher("SELECT * FROM Win32_Printer");
+
+            string printerName = "";
+            foreach (ManagementObject printer in searcher.Get())
+            {
+                printerName = printer["Name"].ToString().ToLower();
+                if (printerName.Equals(printername))
+                {
+                    Console.WriteLine("Printer = " + printer["Name"]);
+                    if (printer["WorkOffline"].ToString().ToLower().Equals("true"))
+                    {
+                        // printer is offline by user
+                        return false;
+                        //Console.WriteLine("Your Plug-N-Play printer is not connected.");
+                    }
+                    else
+                    {
+                        // printer is not offline
+                        //Console.WriteLine("Your Plug-N-Play printer is connected.");
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

@@ -1632,10 +1632,15 @@ namespace TangentaTableClass
 
     }
 
+    public class ReferenceDate:DB_DateTime
+    {
+
+    }
     public class Reference
     {
         public ID ID = new ID();
         public ReferenceNote ReferenceNote = new ReferenceNote();
+        public ReferenceDate ReferenceDate = new ReferenceDate();
         public Reference_Image m_Reference_Image = new Reference_Image();
     }
 
@@ -1671,9 +1676,14 @@ namespace TangentaTableClass
 
     }
 
+    public class StockTakeNum:DB_Int64
+    {
+
+    }
     public class StockTake
     {
         public ID ID = new ID();
+        public StockTakeNum StockTakeNum = new StockTakeNum();
         public Name Name = new Name();
         public StockTake_Date StockTake_Date = new StockTake_Date();
         public Supplier m_Supplier = new Supplier();

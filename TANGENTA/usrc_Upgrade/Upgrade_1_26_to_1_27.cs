@@ -50,11 +50,12 @@ namespace UpgradeDB
             }
         }
 
+
         private CashierActivity FindCashierActivity(CashierActivity.DocInvoiceData xDocInvoiceData,
-                                                    DateTime xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID,
-                                                    ID xFirstAtom_WorkPeriod_ID,
-                                                    DateTime xLastAtomWorkPeriodLoginTimeCoveringIssueDateID,
-                                                    ID xLastAtom_WorkPeriod_ID)
+                                               DateTime xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID,
+                                               ID xFirstAtom_WorkPeriod_ID,
+                                               DateTime xLastAtomWorkPeriodLoginTimeCoveringIssueDateID,
+                                               ID xLastAtom_WorkPeriod_ID)
         {
             //check extending before
             foreach (CashierActivity ca in Items)
@@ -85,25 +86,39 @@ namespace UpgradeDB
                 else
                 {
                     foreach (CashierActivity.DocInvoiceData did in ca.DocInvoice_ID_List)
-                    { 
+                    {
                         DateTime caIssueDate = new DateTime(did.IssueJustDate.Year, did.IssueJustDate.Month, did.IssueJustDate.Day);
-                        DateTime xIssueJustDate = new DateTime(xDocInvoiceData.IssueDate.Year, xDocInvoiceData.IssueDate.Month, xDocInvoiceData.IssueDate.Day);
-                        if (caIssueDate == xIssueJustDate)
+                        if (did.IssueDate.Hour > 2)
                         {
-                            if (ca.FirstLogin > xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID)
-                            {
-                                ca.FirstLogin = xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID;
-                                ca.First_Atom_WorkPeriod_ID = xFirstAtom_WorkPeriod_ID;
-                            }
+                            DateTime dtAfterMidnight = xDocInvoiceData.IssueDate.AddHours(-2);
 
-                            if (ca.LastLogin < xLastAtomWorkPeriodLoginTimeCoveringIssueDateID)
+                            DateTime xIssueJustDate_AfterMidnight = new DateTime(dtAfterMidnight.Year, dtAfterMidnight.Month, dtAfterMidnight.Day);
+                            DateTime xIssueJustDate = new DateTime(xDocInvoiceData.IssueDate.Year, xDocInvoiceData.IssueDate.Month, xDocInvoiceData.IssueDate.Day);
+
+                            if ((caIssueDate == xIssueJustDate) || (caIssueDate == xIssueJustDate_AfterMidnight))
                             {
-                                ca.LastLogin = xLastAtomWorkPeriodLoginTimeCoveringIssueDateID;
-                                ca.Last_Atom_WorkPeriod_ID = xLastAtom_WorkPeriod_ID;
+                                if (ca.FirstLogin > xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID)
+                                {
+                                    ca.FirstLogin = xFirstAtomWorkPeriodLoginTimeCoveringIssueDateID;
+                                    ca.First_Atom_WorkPeriod_ID = xFirstAtom_WorkPeriod_ID;
+                                }
+
+                                if (ca.LastLogin < xLastAtomWorkPeriodLoginTimeCoveringIssueDateID)
+                                {
+                                    ca.LastLogin = xLastAtomWorkPeriodLoginTimeCoveringIssueDateID;
+                                    ca.Last_Atom_WorkPeriod_ID = xLastAtom_WorkPeriod_ID;
+                                }
+                                ca.Add(xDocInvoiceData);
+                                return ca;
                             }
-                            ca.Add(xDocInvoiceData);
-                            return ca;
                         }
+                    }
+                    if (IsInTimeBetween(ca.FirstLogin,
+                                        xDocInvoiceData.IssueDate,
+                                        ca.LastLogin))
+                    {
+                        ca.Add(xDocInvoiceData);
+                        return ca;
                     }
                 }
             }
@@ -114,6 +129,8 @@ namespace UpgradeDB
         {
             return ((TimeInBetween >= xTimeStart) && (TimeInBetween < xTimeEnd));
         }
+
+        internal static string svillabelacorrection = " awp.ID<> 140 and ";
 
         private bool FindFirstAtomWorkPeriodTimeCoveringIssueDate(CashierActivity.DocInvoiceData xDocInvoiceData,
                                                                  ref DateTime_v xFirstAtomWorkPeriodLoginTimeCoveringIssueDate_v,
@@ -136,7 +153,7 @@ namespace UpgradeDB
                             from Atom_WorkPeriod awp
                             INNER JOIN Atom_ElectronicDevice aed ON aed.ID = awp.Atom_ElectronicDevice_ID
                             LEFT JOIN Atom_WorkPeriod_TYPE awpt on awpt.ID = awp.Atom_WorkPeriod_TYPE_ID 
-							 where " + spar_issueDate + @" > awp.LoginTime
+							 where "+ CashierActivityList.svillabelacorrection + " " + spar_issueDate + @" > awp.LoginTime
 						     and  " + spar_issueDate + " < awp.LogoutTime order by awp.LoginTime asc";
 
             DataTable dtAWP = new DataTable();
@@ -186,8 +203,9 @@ namespace UpgradeDB
                             from Atom_WorkPeriod awp
                             INNER JOIN Atom_ElectronicDevice aed ON aed.ID = awp.Atom_ElectronicDevice_ID
                             LEFT JOIN Atom_WorkPeriod_TYPE awpt on awpt.ID = awp.Atom_WorkPeriod_TYPE_ID 
-							 where " + spar_issueDate + @" > awp.LoginTime
-						     and  " + spar_issueDate + " < awp.LogoutTime order by awp.LogoutTime desc";
+							 where awp.LogoutTime is not null and "+ CashierActivityList.svillabelacorrection + @"
+                            " + spar_issueDate + @" > awp.LoginTime
+						     and  " + spar_issueDate + " < awp.LogoutTime order by awp.LogoutTime asc";
 
             DataTable dtAWP = new DataTable();
             string Err = null;
@@ -244,6 +262,26 @@ namespace UpgradeDB
                     return false;
                 }
 
+                string sql = @"
+                    alter table Reference add column 'ReferenceDate'  DATETIME NULL;
+                    alter table StockTake add column  'StockTakeNum'  INTEGER  NULL;
+                    ";
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_26_to_1_27:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+
+                if (!set_stocktake_numbers())
+                {
+                    return false;
+                }
+
+                if (!correct_vilabella_atomWorkPeriodsBug())
+                {
+                    return false;
+                }
+
                 if (!Create_DailyCashierActivityFromAtomWorkPeriod())
                 {
                     return false;
@@ -260,6 +298,124 @@ namespace UpgradeDB
             }
             else
             {
+                return false;
+            }
+        }
+
+        private static bool correct_vilabella_atomWorkPeriodsBug()
+        {
+            if (DBSync.DBSync.DataBase.Contains("Bella") && (DBSync.DBSync.DataBase.Contains("Vil")))
+            {
+                string sql = @"select 
+	                               awp.ID as ID,
+	                               acfn.FirstName,
+	                               awp.LoginTime as LoginTime,
+                                   awp.LogoutTime as LogoutTime
+	                               from Atom_WorkPeriod awp
+	                               inner join Atom_myOrganisation_Person amop on  awp.Atom_myOrganisation_Person_ID = amop.ID
+	                               inner join Atom_Person aper on  amop.Atom_Person_ID = aper.ID
+	                               inner join Atom_cFirstName acfn on  aper.Atom_cFirstName_ID = acfn.ID
+	                               where awp.ID <> 140 and acfn.FirstName='Rok'";
+                string Err = null;
+                DataTable dt = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql,ref Err))
+                {
+                    int i = 0;
+                    int icount = dt.Rows.Count;
+                    for (i=0;i<icount;i++)
+                    {
+                        int inext = i + 1;
+                        
+                        if (inext<icount)
+                        {
+                            ID id = tf.set_ID(dt.Rows[i]["ID"]);
+                            DateTime_v dt_lout_v = tf.set_DateTime(dt.Rows[i]["LogoutTime"]);
+                            DateTime_v dt_nlin_v = tf.set_DateTime(dt.Rows[inext]["LoginTime"]);
+                            if (dt_lout_v!=null)
+                            {
+                                if (dt_nlin_v.v != null)
+                                {
+                                    if (dt_lout_v.v > dt_nlin_v.v)
+                                    {
+                                        //correct 
+                                        DateTime dtcorr = dt_nlin_v.v.AddMinutes(-30);
+
+                                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                                        string spar_Logout = "@spar_LogoutTime";
+                                        SQL_Parameter par_Logout = new SQL_Parameter(spar_Logout, SQL_Parameter.eSQL_Parameter.Datetime, false, dtcorr);
+                                        lpar.Add(par_Logout);
+                                        sql = "update Atom_WorkPeriod set LogoutTime = " + spar_Logout + " where ID = " + id.ToString();
+                                        object oret = null;
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref oret,ref Err))
+                                        {
+                                            LogFile.Error.Show("ERROR:UpgradeDB:UpgradeDB_1_26_to_1_27:correct_vilabella_atomWorkPeriodsBug:\r\nsql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:UpgradeDB:UpgradeDB_1_26_to_1_27:correct_vilabella_atomWorkPeriodsBug:\r\nsql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                CashierActivityList.svillabelacorrection = "";
+                return true;
+            }
+        }
+
+        private static bool set_stocktake_numbers()
+        {
+            string sql = "select ID,Draft,StockTakeNum from StockTake";
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                int i = 0;
+                int iCount = dt.Rows.Count;
+                long j = 1;
+                for (i=0;i<iCount;i++)
+                {
+                    DataRow dr = dt.Rows[i];
+                    bool bdraft = true;
+                    bool_v bDraft_v = tf.set_bool(dr["Draft"]);
+                    if (bDraft_v!=null)
+                    {
+                        bdraft = bDraft_v.v;
+                    }
+
+                    if (!bdraft)
+                    {
+                        long_v sStockTakeNum_v = tf.set_long(dr["StockTakeNum"]);
+                        if (sStockTakeNum_v==null)
+                        {
+                            ID id = tf.set_ID(dr["ID"]);
+                            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                            string spar_StockTakeNum = "@par_StockTakeNum";
+                            SQL_Parameter par_StockTakeNum = new SQL_Parameter(spar_StockTakeNum, SQL_Parameter.eSQL_Parameter.Bigint, false, j);
+                            lpar.Add(par_StockTakeNum);
+                            sql = "update StockTake set StockTakeNum = " + spar_StockTakeNum + " where ID = " + id.ToString();
+                            object ores = null;
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref ores,ref Err))
+                            {
+                                return false;
+                            }
+                        }
+                        j++;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:UpgradeDB:UpgradeDB_1_26_to_1_27:set_stocktake_numbers:\r\nsql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

@@ -55,6 +55,7 @@
             this.lbl_TotalTax = new System.Windows.Forms.Label();
             this.txt_Difference = new System.Windows.Forms.TextBox();
             this.lbl_Difference = new System.Windows.Forms.Label();
+            this.btn_Print = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -330,9 +331,9 @@
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(497, 1);
+            this.btn_Exit.Location = new System.Drawing.Point(491, 0);
             this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(61, 26);
+            this.btn_Exit.Size = new System.Drawing.Size(70, 27);
             this.btn_Exit.TabIndex = 4;
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
@@ -340,7 +341,7 @@
             // btn_CloseStockTake
             // 
             this.btn_CloseStockTake.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_CloseStockTake.Location = new System.Drawing.Point(2, 2);
+            this.btn_CloseStockTake.Location = new System.Drawing.Point(2, 0);
             this.btn_CloseStockTake.Name = "btn_CloseStockTake";
             this.btn_CloseStockTake.Size = new System.Drawing.Size(76, 27);
             this.btn_CloseStockTake.TabIndex = 3;
@@ -372,7 +373,7 @@
             // 
             // lbl_TotalPriceWithoutTax
             // 
-            this.lbl_TotalPriceWithoutTax.Location = new System.Drawing.Point(8, 29);
+            this.lbl_TotalPriceWithoutTax.Location = new System.Drawing.Point(8, 34);
             this.lbl_TotalPriceWithoutTax.Name = "lbl_TotalPriceWithoutTax";
             this.lbl_TotalPriceWithoutTax.Size = new System.Drawing.Size(109, 15);
             this.lbl_TotalPriceWithoutTax.TabIndex = 7;
@@ -382,7 +383,7 @@
             // txt_TotalPriceWithoutTax
             // 
             this.txt_TotalPriceWithoutTax.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_TotalPriceWithoutTax.Location = new System.Drawing.Point(123, 29);
+            this.txt_TotalPriceWithoutTax.Location = new System.Drawing.Point(123, 34);
             this.txt_TotalPriceWithoutTax.Name = "txt_TotalPriceWithoutTax";
             this.txt_TotalPriceWithoutTax.ReadOnly = true;
             this.txt_TotalPriceWithoutTax.Size = new System.Drawing.Size(75, 13);
@@ -391,7 +392,7 @@
             // txt_TruckingCustomsPlusAddtitional
             // 
             this.txt_TruckingCustomsPlusAddtitional.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_TruckingCustomsPlusAddtitional.Location = new System.Drawing.Point(443, 29);
+            this.txt_TruckingCustomsPlusAddtitional.Location = new System.Drawing.Point(443, 34);
             this.txt_TruckingCustomsPlusAddtitional.Name = "txt_TruckingCustomsPlusAddtitional";
             this.txt_TruckingCustomsPlusAddtitional.ReadOnly = true;
             this.txt_TruckingCustomsPlusAddtitional.Size = new System.Drawing.Size(73, 13);
@@ -399,7 +400,7 @@
             // 
             // lbl_TruckingCustosPlusAddtional
             // 
-            this.lbl_TruckingCustosPlusAddtional.Location = new System.Drawing.Point(215, 27);
+            this.lbl_TruckingCustosPlusAddtional.Location = new System.Drawing.Point(215, 32);
             this.lbl_TruckingCustosPlusAddtional.Name = "lbl_TruckingCustosPlusAddtional";
             this.lbl_TruckingCustosPlusAddtional.Size = new System.Drawing.Size(222, 15);
             this.lbl_TruckingCustosPlusAddtional.TabIndex = 11;
@@ -442,10 +443,22 @@
             this.lbl_Difference.Text = "Difference:";
             this.lbl_Difference.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // btn_Print
+            // 
+            this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Print.Image = global::ShopC.Properties.Resources.PrinterSettings;
+            this.btn_Print.Location = new System.Drawing.Point(354, 0);
+            this.btn_Print.Name = "btn_Print";
+            this.btn_Print.Size = new System.Drawing.Size(93, 27);
+            this.btn_Print.TabIndex = 17;
+            this.btn_Print.UseVisualStyleBackColor = false;
+            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
+            // 
             // usrc_StockEditForSelectedStockTake
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.txt_Difference);
             this.Controls.Add(this.lbl_Difference);
             this.Controls.Add(this.txt_VAT);
@@ -504,5 +517,6 @@
         private System.Windows.Forms.TextBox txt_Difference;
         private System.Windows.Forms.Label lbl_Difference;
         private usrc_StockTake_Item usrc_StockTake_Item1;
+        private System.Windows.Forms.Button btn_Print;
     }
 }

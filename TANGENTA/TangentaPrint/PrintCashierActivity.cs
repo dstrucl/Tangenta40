@@ -77,22 +77,6 @@ namespace TangentaPrint
             return true;
         }
 
-        private void DrawStringAlignCenter(Graphics graphics,string s,Font font,Color color,int ypos)
-        {
-            SizeF sf = graphics.MeasureString(s, font);
-            float fwidth = pagewidth;
-            float fxpos = fwidth / 2 - sf.Width / 2;
-            graphics.DrawString(s, font, new SolidBrush(color), fxpos, ypos);
-
-        }
-
-        private void DrawStringAlignRight(Graphics graphics, string s, Font font, Color color, int xpos_rightalignemnt, int ypos)
-        {
-            SizeF sf = graphics.MeasureString(s, font);
-            float fxpos = xpos_rightalignemnt - sf.Width;
-            graphics.DrawString(s, font, new SolidBrush(color), fxpos, ypos);
-
-        }
 
         void pdoc_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -152,11 +136,11 @@ namespace TangentaPrint
                 }
             }
 
-            DrawStringAlignCenter(graphics, myOrg_Name, mFCurrier10, Color.Black, startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics, myOrg_Name, mFCurrier10, Color.Black, startY + Offset,pagewidth);
             Offset = Offset + OFS;
 
             string saddress = sStreetName + " " + sHouseNumber + ", " + sZIP + " " + sCity;
-            DrawStringAlignCenter(graphics, saddress, mFCurrier10, Color.Black, startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics, saddress, mFCurrier10, Color.Black, startY + Offset,pagewidth);
             Offset = Offset + OFS;
 
             string sOfficeName = "";
@@ -167,7 +151,7 @@ namespace TangentaPrint
                     sOfficeName = myOrg.m_myOrg_Office.Name_v.v;
                 }
             }
-            DrawStringAlignCenter(graphics,lng.s_BussinessUnit.s + sOfficeName, mFCurrier10, Color.Black, startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics,lng.s_BussinessUnit.s + sOfficeName, mFCurrier10, Color.Black, startY + Offset, pagewidth);
             Offset = Offset + OFS;
 
 
@@ -221,7 +205,7 @@ namespace TangentaPrint
             }
 
             string sOffice_address = sOfficeStreetName + " " + sOfficeHouseNumber + ", " + sOfficeZIP + " " + sOfficeCity;
-            DrawStringAlignCenter(graphics, sOffice_address, mFCurrier10, Color.Black, startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics, sOffice_address, mFCurrier10, Color.Black, startY + Offset, pagewidth);
             Offset = Offset + OFS;
 
             string sTaxID = "";
@@ -244,7 +228,7 @@ namespace TangentaPrint
             }
 
 
-            DrawStringAlignCenter(graphics, lng.s_TaxID_for_VAT.s+ sCountryPrefix+ sTaxID, mFCurrier10, Color.Black, startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics, lng.s_TaxID_for_VAT.s+ sCountryPrefix+ sTaxID, mFCurrier10, Color.Black, startY + Offset,pagewidth);
             Offset = Offset + OFS;
 
 
@@ -336,7 +320,7 @@ namespace TangentaPrint
 
             graphics.DrawString(lng.s_Total_turnover.s + ":", mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             string sTotal = LanguageControl.DynSettings.SetLanguageCurrencyString(ca.Total, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, scurrencyid);
-            DrawStringAlignRight(graphics,sTotal, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
+            Global.g.DrawStringAlignRight(graphics,sTotal, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
             Offset = Offset + OFS;
 
             graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
@@ -347,18 +331,18 @@ namespace TangentaPrint
                 graphics.DrawString(tax.Name, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
                 graphics.DrawString(lng.s_TaxBase.s, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 10) / 40, startY + Offset);
                 string sTaxBase = LanguageControl.DynSettings.SetLanguageCurrencyString(tax.TaxableAmount, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, scurrencyid);
-                DrawStringAlignRight(graphics, sTaxBase, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
+                Global.g.DrawStringAlignRight(graphics, sTaxBase, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
                 Offset = Offset + OFS;
 
                 graphics.DrawString(lng.s_CalculatedVAT.s, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 10) / 40, startY + Offset);
                 string sTaxAmount = LanguageControl.DynSettings.SetLanguageCurrencyString(tax.TaxAmount, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, scurrencyid);
-                DrawStringAlignRight(graphics, sTaxAmount, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
+                Global.g.DrawStringAlignRight(graphics, sTaxAmount, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
                 Offset = Offset + OFS;
 
-                graphics.DrawString(lng.s_Total.s, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 10) / 40, startY + Offset);
+                graphics.DrawString(lng.s_TotalWithVAT.s, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 10) / 40, startY + Offset);
                 decimal dtotal = tax.TaxableAmount + tax.TaxAmount;
                 string stotal = LanguageControl.DynSettings.SetLanguageCurrencyString(dtotal, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, scurrencyid);
-                DrawStringAlignRight(graphics, stotal, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
+                Global.g.DrawStringAlignRight(graphics, stotal, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
                 Offset = Offset + OFS;
             }
             Offset = Offset + OFS;
@@ -372,12 +356,12 @@ namespace TangentaPrint
             {
                 graphics.DrawString(pt.Name, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
                 string sAmount = LanguageControl.DynSettings.SetLanguageCurrencyString(pt.Total, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, scurrencyid);
-                DrawStringAlignRight(graphics, sAmount, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
+                Global.g.DrawStringAlignRight(graphics, sAmount, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
                 Offset = Offset + OFS;
             }
             graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + OFS;
-            DrawStringAlignCenter(graphics,"www.tangenta.si", mFCurrier10, Color.Black,startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics,"www.tangenta.si", mFCurrier10, Color.Black,startY + Offset,pagewidth);
         }
     }
 }
