@@ -160,5 +160,11 @@ namespace Global
             return shour + ":" + sminute;
         }
 
+        public static string GetPercent(decimal v,int idecimalplaces)
+        {
+            decimal d = decimal.Round(v * 100, idecimalplaces);
+            return d.ToString();
+
+        }
     }
 }

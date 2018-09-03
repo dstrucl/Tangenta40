@@ -135,7 +135,8 @@ namespace ShopC
             this.Cursor = Cursors.WaitCursor;
             SQLTable tbl_StockTake = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(StockTake)));
             string ColumnToOrderBy = "StockTake_$$Draft desc, StockTake_$$StockTake_Date desc";
-            string selection = @"StockTake_$$Name,
+            string selection = @"ID,
+                                 StockTake_$$Name,
                                  StockTake_$$StockTake_Date,
                                  StockTake_$$Description,
                                  StockTake_$$StockTakePriceTotal,

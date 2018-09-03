@@ -1109,7 +1109,8 @@ namespace ShopC
             {
                 reference_note = xReferenceNote_v.v;
             }
-            PrintStockTake prnstocktake = new PrintStockTake(StockTakeName,
+            PrintStockTake prnstocktake = new PrintStockTake(StockTake_ID,
+                                                             StockTakeName,
                                                              xStockTake_Date,
                                                              suppliername,
                                                              suppliertaxID,

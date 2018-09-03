@@ -264,7 +264,6 @@ namespace UpgradeDB
 
                 string sql = @"
                     alter table Reference add column 'ReferenceDate'  DATETIME NULL;
-                    alter table StockTake add column  'StockTakeNum'  INTEGER  NULL;
                     ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
@@ -272,10 +271,10 @@ namespace UpgradeDB
                     return false;
                 }
 
-                if (!set_stocktake_numbers())
-                {
-                    return false;
-                }
+                //if (!set_stocktake_numbers())
+                //{
+                //    return false;
+                //}
 
                 if (!correct_vilabella_atomWorkPeriodsBug())
                 {

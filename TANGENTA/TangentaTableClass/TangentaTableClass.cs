@@ -1676,14 +1676,9 @@ namespace TangentaTableClass
 
     }
 
-    public class StockTakeNum:DB_Int64
-    {
-
-    }
     public class StockTake
     {
         public ID ID = new ID();
-        public StockTakeNum StockTakeNum = new StockTakeNum();
         public Name Name = new Name();
         public StockTake_Date StockTake_Date = new StockTake_Date();
         public Supplier m_Supplier = new Supplier();

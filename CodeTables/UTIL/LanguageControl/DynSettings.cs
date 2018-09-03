@@ -191,6 +191,7 @@ namespace LanguageControl
         {
             string sdecimal = xdecimal.ToString();
             string sdectotal = null;
+
             int idecimalpoint = sdecimal.IndexOfAny(new char[] { '.', ',' });
             if (idecimalpoint >= 0)
             {

@@ -925,7 +925,7 @@ namespace TangentaDataBaseDef
             t_Reference = new SQLTable((Object)new Reference(), "ref", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Reference);
             t_Reference.AddColumn((Object)mt.m_Reference.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Reference.AddColumn((Object)mt.m_Reference.ReferenceNote, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference", "Sklic"));
-            t_Reference.AddColumn((Object)mt.m_Reference.ReferenceDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference Date", "Sklic datum"));
+            t_Reference.AddColumn((Object)mt.m_Reference.ReferenceDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference Date", "Sklic datum"));
             t_Reference.AddColumn((Object)mt.m_Reference.m_Reference_Image, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Document Image", "Slika dokumenta"));
             m_DBTables.items.Add(t_Reference);
 
@@ -2426,7 +2426,6 @@ namespace TangentaDataBaseDef
             t_StockTake = new SQLTable((Object)new StockTake(), "st", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_StockTake);
             t_StockTake.AddColumn((Object)mt.m_StockTake.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Oznaka"));
-            t_StockTake.AddColumn((Object)mt.m_StockTake.StockTakeNum, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Number", "Številka"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.StockTake_Date, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker_Now, new ltext("Stock Take Date", "Datum Prevzemnice"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.StockTakePriceTotal, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take price total", "Skupna cena prevzemnice"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.m_Reference, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference ID", "Sklic ID"));

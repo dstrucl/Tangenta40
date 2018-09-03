@@ -27,6 +27,7 @@ namespace TangentaPrint
         #region PrintStockTake
 
         public static ltext s_STOCKTAKE = new ltext(new string[] { "STOCKTAKE", "PREVZEMNICA" });
+        public static ltext s_STOCKTAKE_ID = new ltext(new string[] { "Stocktake ID", "Prevzemnica ID" });
         public static ltext s_Date = new ltext(new string[] { "Date", "Datum" });
         public static ltext s_SupplierTaxID = new ltext(new string[] { "Supplier VAT ID", "Dobavitelj davčna št." });
         public static ltext s_Supplier = new ltext(new string[] { "Supplier", "Dobavitelj" });

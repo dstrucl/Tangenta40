@@ -19,7 +19,8 @@ namespace TangentaPrint
     {
         private int pagewidth = 0;
 
-        private string m_stocktakenum = null;
+        private ID m_stocktake_ID = null;
+        private string m_stocktakename = null;
         private DateTime m_stocktaketime = new DateTime();
         private string m_supplier = null;
         private string m_supplierTaxID = null;
@@ -42,7 +43,8 @@ namespace TangentaPrint
 
 
 
-        public PrintStockTake(string stocktakenum,
+        public PrintStockTake(ID stocktake_ID,
+                             string stocktakename,
                              DateTime stocktaketime,
                              string supplier,
                              string supplierTaxID,
@@ -51,14 +53,15 @@ namespace TangentaPrint
                              string deliverynumber,
                              DataTable xdt_Stock_Of_Current_StockTake)
         {
-        m_stocktakenum = stocktakenum;
-        m_stocktaketime = stocktaketime;
-        m_supplier = supplier;
-        m_supplierTaxID = supplierTaxID;
-        m_buyer = buyer;
-        m_buyerTaxID = buyerTaxID;
-        m_deliverynumber = deliverynumber;
-        m_dt_Stock_Of_Current_StockTake = xdt_Stock_Of_Current_StockTake;
+            m_stocktake_ID = stocktake_ID;
+            m_stocktakename = stocktakename;
+            m_stocktaketime = stocktaketime;
+            m_supplier = supplier;
+            m_supplierTaxID = supplierTaxID;
+            m_buyer = buyer;
+            m_buyerTaxID = buyerTaxID;
+            m_deliverynumber = deliverynumber;
+            m_dt_Stock_Of_Current_StockTake = xdt_Stock_Of_Current_StockTake;
         }
 
 
@@ -236,13 +239,20 @@ namespace TangentaPrint
             int startY = 55;
             int Offset = 40;
             int icount = m_dt_Stock_Of_Current_StockTake.Rows.Count;
-            Font fArial10 = new Font(familyName: "Arial", emSize: 10, style: FontStyle.Bold);
+            Font fArial10 = new Font(familyName: "Arial", emSize: 9, style: FontStyle.Bold);
             Font fCurierNew14 = new Font("Courier New", 14);
             String underLine = "****************";
             Offset = Offset + OFS;
             graphics.DrawString(underLine, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + OFS;
-            graphics.DrawString(lng.s_STOCKTAKE.s + ":" + m_stocktakenum, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+            string stocktake_ID = "";
+            if (ID.Validate(m_stocktake_ID))
+            {
+                stocktake_ID = m_stocktake_ID.ToString();
+            }
+            graphics.DrawString(lng.s_STOCKTAKE.s + ":" + m_stocktakename, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + OFS;
+            graphics.DrawString(lng.s_STOCKTAKE_ID.s + ":" + stocktake_ID, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + OFS;
             string sdate = LanguageControl.DynSettings.SetLanguageDateString(m_stocktaketime);
             graphics.DrawString(lng.s_Date.s + ":" + sdate, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
@@ -263,7 +273,7 @@ namespace TangentaPrint
 
             Offset = Offset + OFS;
             graphics.DrawString(lng.s_Quantity.s, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
-            graphics.DrawString(lng.s_VAT.s, fArial10, new SolidBrush(Color.Black), startX + (pagewidth*3)/60, startY + Offset);
+            graphics.DrawString(lng.s_VAT.s, fArial10, new SolidBrush(Color.Black), startX + (pagewidth*34)/60, startY + Offset);
             Global.g.DrawStringAlignRight(graphics, lng.s_without_VAT.s, fArial10, Color.Black, startX + pagewidth, startY + Offset);
 
             underLine = "---------------------------------------";
@@ -272,11 +282,64 @@ namespace TangentaPrint
 
             foreach (DataRow dr in m_dt_Stock_Of_Current_StockTake.Rows)
             {
+                Offset = Offset + OFS/2;
+
                 string_v item_name_v = tf.set_string(dr["UniqueName"]);
+                string sitem = "";
+                if (item_name_v!=null)
+                {
+                    sitem = item_name_v.v;
+                    Offset = Offset + OFS;
+                    graphics.DrawString(sitem, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+                    decimal_v dQuantity_v = tf.set_decimal(dr["dQuantity"]);
+                    string sQUantity = "";
+                    if (dQuantity_v!=null)
+                    {
+                        sQUantity = dQuantity_v.v.ToString();
+                    }
+                    string_v sUnitSymbol_v = tf.set_string(dr["UnitSymbol"]);
+                    string sUnitSymbol = "";
+                    if (sUnitSymbol_v!=null)
+                    {
+                        sUnitSymbol = sUnitSymbol_v.v;
+                    }
+                    Offset = Offset + OFS;
+
+
+                    decimal_v dPurchasePricePerUnit_v = tf.set_decimal(dr["PurchasePricePerUnit"]);
+                    string sPurchasePricePerUnit = "";
+                    if (dPurchasePricePerUnit_v!=null)
+                    {
+                        sPurchasePricePerUnit = LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit_v.v, GlobalData.BaseCurrency.DecimalPlaces, null);
+                    }
+
+                    string spercent = "0";
+                    decimal_v dDisount_v =  tf.set_decimal(dr["Discount"]);
+                    if (dDisount_v != null)
+                    {
+                        spercent = Global.f.GetPercent(dDisount_v.v,2);
+                    }
+
+                    graphics.DrawString(sQUantity + " "+ sUnitSymbol+" x "+ sPurchasePricePerUnit + "(-"+spercent+"%)", fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+
+                    string staxrate = "";
+                    decimal_v dTaxRate_v = tf.set_decimal(dr["TaxationRate"]);
+                    if (dTaxRate_v!=null)
+                    {
+                        staxrate = Global.f.GetPercent(dTaxRate_v.v,1) + "%";
+                    }
+                    Global.g.DrawStringAlignRight(graphics, staxrate, fArial10, Color.Black, startX + (pagewidth * 44) / 60, startY + Offset);
+
+                    string sdTotalWithoutTaxWithDiscount = "";
+                    decimal_v dTotalWithoutTaxWithDiscount_v = tf.set_decimal(dr["TotalWithoutTaxWithDiscount"]);
+                    if (dTotalWithoutTaxWithDiscount_v!=null)
+                    {
+                        sdTotalWithoutTaxWithDiscount = LanguageControl.DynSettings.SetLanguageCurrencyString(dTotalWithoutTaxWithDiscount_v.v, GlobalData.BaseCurrency.DecimalPlaces, null);
+                    }
+                    Global.g.DrawStringAlignRight(graphics, sdTotalWithoutTaxWithDiscount, fArial10, Color.Black, startX + pagewidth, startY + Offset);
+
+                }
                 //dr["dInitialQuantity"]
-                decimal_v dQuantity_v = tf.set_decimal(dr["dQuantity"]);
-                decimal_v dPurchasePricePerUnit_v = tf.set_decimal(dr["PurchasePricePerUnit"]);
-                decimal_v dTotalWithoutTaxWithDiscount_v = tf.set_decimal(dr["TotalWithoutTaxWithDiscount"]);
                 decimal_v dTotalWithTaxWithDiscount_v = tf.set_decimal(dr["TotalWithTaxWithDiscount"]);
                 string_v taxation_name_v = tf.set_string(dr["TaxationName"]);
                 //dr["ImportTime"]
