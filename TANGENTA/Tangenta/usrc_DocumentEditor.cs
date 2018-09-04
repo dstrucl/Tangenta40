@@ -1924,11 +1924,6 @@ namespace Tangenta
 
         private void btn_Issue_Click(object sender, EventArgs e)
         {
-            if ((Program.RecordCashierActivity)&&(Program.CashierState== TangentaDB.CashierActivity.eCashierState.CLOSED))
-            {
-                XMessage.Box.Show(this, lng.s_YouCanNotWriteInvoices_CasshierIsClosed, MessageBoxIcon.Stop);
-                return;
-            }
             if (m_ShopABC != null)
             {
                 if (m_ShopABC.m_CurrentDoc != null)
@@ -1937,6 +1932,13 @@ namespace Tangenta
                     {
                         if (m_ShopABC.m_CurrentDoc.bDraft)
                         {
+
+                            if ((Program.RecordCashierActivity) && (Program.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
+                            {
+                                XMessage.Box.Show(this, lng.s_YouCanNotWriteInvoices_CasshierIsClosed, MessageBoxIcon.Stop);
+                                return;
+                            }
+
                             if (IsDocInvoice)
                             {
                                 if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.m_InvoiceData.AddOnDI))
