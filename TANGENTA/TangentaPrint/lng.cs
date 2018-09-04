@@ -43,6 +43,16 @@ namespace TangentaPrint
         public static ltext s_with_VAT = new ltext(new string[] { "with VAT", "z DDV" });
         public static ltext s_Total = new ltext(new string[] { "without VAT", "brez DDV" });
         public static ltext s_PostingDate = new ltext(new string[] { "Posting Date", "Datum knjiženja" });
+        public static ltext s_Total_without_VAT = new ltext(new string[] { "Total without VAT", "SKUPAJ brez DDV" });
+        public static ltext s_Plus_VAT = new ltext(new string[] { "+ VAT", "+ DDV" });
+        public static ltext s_From_Base = new ltext(new string[] { "of the net", "od osnove" });
+        public static ltext s_Total_with_VAT = new ltext(new string[] { "Total with VAT", "SKUPAJ z DDV" });
+        #endregion
+
+        #region PrintCashierActivity
+        public static ltext s_CASHIER_CLOSE = new ltext(new string[] { "CASHIER CLOSE", "ZAKLJUČEK BLAGAJNE" });
+        public static ltext s_CASHIER = new ltext(new string[] { "CASHIER", "BLAGAJNA" });
+        public static ltext s_CLOSE = new ltext(new string[] { "CLOSE", "ZAKLJUČEK" });
 
         #endregion
 

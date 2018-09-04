@@ -9,7 +9,7 @@ namespace Global
 {
     public static class g
     {
-        public static void DrawStringAlignCenter(Graphics graphics, string s, Font font, Color color, int ypos, float pagewidth)
+        public static void DrawStringAlignCenter(Graphics graphics, string s, Font font, Color color, float ypos, float pagewidth)
         {
             SizeF sf = graphics.MeasureString(s, font);
             float fwidth = pagewidth;
@@ -18,7 +18,7 @@ namespace Global
 
         }
 
-        public static void DrawStringAlignRight(Graphics graphics, string s, Font font, Color color, int xpos_rightalignemnt, int ypos)
+        public static void DrawStringAlignRight(Graphics graphics, string s, Font font, Color color, float xpos_rightalignemnt, float ypos)
         {
             SizeF sf = graphics.MeasureString(s, font);
             float fxpos = xpos_rightalignemnt - sf.Width;
@@ -26,5 +26,16 @@ namespace Global
 
         }
 
+        public static void DrawWordWrap(Graphics graphics, string s, Font font, Color color, float xpos, float ypos, float pagewidth, ref float offset)
+        {
+            Pen pen = new Pen(Color.Black);
+            StringFormat sformat = new StringFormat();
+            sformat.Alignment = StringAlignment.Near;
+            SizeF sfx = graphics.MeasureString(s,font, (int)(pagewidth - xpos), sformat);
+            RectangleF drawRect = new RectangleF(xpos, ypos, pagewidth-xpos, sfx.Height);
+            //graphics.FillRectangle(Brushes.Azure, drawRect);
+            graphics.DrawString(s, font, new SolidBrush(color), drawRect);
+            offset = sfx.Height;
+        }
     }
 }

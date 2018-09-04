@@ -84,16 +84,32 @@ namespace TangentaPrint
             Graphics graphics = e.Graphics;
             Font font = new Font("Courier New", 10);
             float fontHeight = font.GetHeight();
+            Pen pen1 = new Pen(Color.Black, 1);
             int startX = 0;
             int startY = 55;
             int Offset = 40;
             Font mFCurrier10 = new Font("Courier New", 10, FontStyle.Bold);
             Font mFArial10 = new Font("Arial", 10, FontStyle.Bold);
+            Font fArial12 = new Font(familyName: "Arial", emSize: 12, style: FontStyle.Bold);
             Font myFont2 = new Font("Courier New", 14);
-            String underLine = "********************************";
-            Offset = Offset + OFS;
-            graphics.DrawString(underLine, mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + OFS;
+
+
+            string sElectronicDeviceName = "";
+            if (myOrg.m_myOrg_Office != null)
+            {
+                if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice != null)
+                {
+                    if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name != null)
+                    {
+
+                        sElectronicDeviceName = myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name;
+                    }
+                }
+            }
+
+            graphics.DrawImage(Properties.Resources.Tangenta_Logo1colorH32, startX, startY + Offset);
+            graphics.DrawString(lng.s_CASHIER.s+" "+ sElectronicDeviceName+ " "+lng.s_CLOSE.s+":" +ca.CashierActivityNumber.ToString(), fArial12, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
+
             string myOrg_Name = "";
             if (myOrg.Name_v!=null)
             {
@@ -136,11 +152,12 @@ namespace TangentaPrint
                 }
             }
 
-            Global.g.DrawStringAlignCenter(graphics, myOrg_Name, mFCurrier10, Color.Black, startY + Offset,pagewidth);
+            Offset = Offset + OFS + 16;
+            Global.g.DrawStringAlignCenter(graphics, myOrg_Name, mFArial10, Color.Black, startY + Offset,pagewidth);
             Offset = Offset + OFS;
 
             string saddress = sStreetName + " " + sHouseNumber + ", " + sZIP + " " + sCity;
-            Global.g.DrawStringAlignCenter(graphics, saddress, mFCurrier10, Color.Black, startY + Offset,pagewidth);
+            Global.g.DrawStringAlignCenter(graphics, saddress, mFArial10, Color.Black, startY + Offset,pagewidth);
             Offset = Offset + OFS;
 
             string sOfficeName = "";
@@ -151,7 +168,7 @@ namespace TangentaPrint
                     sOfficeName = myOrg.m_myOrg_Office.Name_v.v;
                 }
             }
-            Global.g.DrawStringAlignCenter(graphics,lng.s_BussinessUnit.s + sOfficeName, mFCurrier10, Color.Black, startY + Offset, pagewidth);
+            Global.g.DrawStringAlignCenter(graphics,lng.s_BussinessUnit.s + sOfficeName, mFArial10, Color.Black, startY + Offset, pagewidth);
             Offset = Offset + OFS;
 
 
@@ -205,8 +222,7 @@ namespace TangentaPrint
             }
 
             string sOffice_address = sOfficeStreetName + " " + sOfficeHouseNumber + ", " + sOfficeZIP + " " + sOfficeCity;
-            Global.g.DrawStringAlignCenter(graphics, sOffice_address, mFCurrier10, Color.Black, startY + Offset, pagewidth);
-            Offset = Offset + OFS;
+            Global.g.DrawStringAlignCenter(graphics, sOffice_address, mFArial10, Color.Black, startY + Offset, pagewidth);
 
             string sTaxID = "";
             if (myOrg.Tax_ID_v != null)
@@ -227,35 +243,24 @@ namespace TangentaPrint
                 }
             }
 
-
-            Global.g.DrawStringAlignCenter(graphics, lng.s_TaxID_for_VAT.s+ sCountryPrefix+ sTaxID, mFCurrier10, Color.Black, startY + Offset,pagewidth);
             Offset = Offset + OFS;
-
-
-            graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
+            Global.g.DrawStringAlignCenter(graphics, lng.s_TaxID_for_VAT.s+ sCountryPrefix+ sTaxID, mFArial10, Color.Black, startY + Offset,pagewidth);
+            
+            // DRAW LINE ___________________________________________________________
             Offset = Offset + OFS;
+            graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
 
-            string sElectronicDeviceName = "";
-            if (myOrg.m_myOrg_Office != null)
-            {
-                if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice != null)
-                {
-                    if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name != null)
-                    {
 
-                        sElectronicDeviceName =myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name;
-                    }
-                }
-            }
 
             string sClosingCashierNum = lng.s_CashierClose_Number.s.Replace("(@@EDName@@)", sElectronicDeviceName) + ca.CashierActivityNumber.ToString();
 
+            Offset = Offset + OFS / 2;
             graphics.DrawString(sClosingCashierNum, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + OFS;
 
             string sOpenningDate = Global.f.GetStringDate(ca.FirstLogin);
             string sOpenningTime = Global.f.GetStringTime(ca.FirstLogin);
 
+            Offset = Offset + OFS;
             graphics.DrawString(lng.s_SaleStartDate.s, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             graphics.DrawString(sOpenningDate, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 12) / 20, startY + Offset);
             graphics.DrawString(sOpenningTime, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 17) / 20, startY + Offset);
@@ -267,12 +272,13 @@ namespace TangentaPrint
             graphics.DrawString(lng.s_SaleEndDate.s, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             graphics.DrawString(sClosingDate, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 12) / 20, startY + Offset);
             graphics.DrawString(sClosingTime, mFArial10, new SolidBrush(Color.Black), startX + (pagewidth * 17) / 20, startY + Offset);
+
+
+            // DRAW LINE ___________________________________________________________
+            Offset = Offset + OFS + OFS / 5;
+            graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
+
             Offset = Offset + OFS;
-
-
-            graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + OFS;
-
             graphics.DrawString(lng.s_InvoicesIssued.s, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + OFS;
 
@@ -321,11 +327,12 @@ namespace TangentaPrint
             graphics.DrawString(lng.s_Total_turnover.s + ":", mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
             string sTotal = LanguageControl.DynSettings.SetLanguageCurrencyString(ca.Total, TangentaDB.GlobalData.BaseCurrency.DecimalPlaces, scurrencyid);
             Global.g.DrawStringAlignRight(graphics,sTotal, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
-            Offset = Offset + OFS;
 
-            graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + OFS;
+            // DRAW LINE ___________________________________________________________
+            Offset = Offset + OFS + OFS / 5;
+            graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
 
+            Offset = Offset + OFS;
             foreach (Tax tax in ca.TaxSum.TaxList)
             {
                 graphics.DrawString(tax.Name, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
@@ -347,9 +354,12 @@ namespace TangentaPrint
             }
             Offset = Offset + OFS;
 
-            graphics.DrawString(lng.s_MethodOfPayment.s, mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
+            graphics.DrawString(lng.s_MethodOfPayment.s, mFArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+
+            // DRAW LINE ___________________________________________________________
             Offset = Offset + OFS;
-            graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
+            graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
+
             Offset = Offset + OFS;
 
             foreach (Report.PaymentType pt in ca.PaymentList.items)
@@ -359,7 +369,9 @@ namespace TangentaPrint
                 Global.g.DrawStringAlignRight(graphics, sAmount, mFArial10, Color.Black, startX + pagewidth, startY + Offset);
                 Offset = Offset + OFS;
             }
-            graphics.DrawString(" -----------------------------------", mFCurrier10, new SolidBrush(Color.Black), startX, startY + Offset);
+
+            // DRAW LINE ___________________________________________________________
+            graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
             Offset = Offset + OFS;
             Global.g.DrawStringAlignCenter(graphics,"www.tangenta.si", mFCurrier10, Color.Black,startY + Offset,pagewidth);
         }
