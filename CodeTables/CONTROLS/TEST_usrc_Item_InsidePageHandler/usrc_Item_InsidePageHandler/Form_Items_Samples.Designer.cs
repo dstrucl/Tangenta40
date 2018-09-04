@@ -42,6 +42,7 @@
             this.lbl_ItemAbbreviationPrefix = new System.Windows.Forms.Label();
             this.txt_Item_Name_Prefix = new System.Windows.Forms.TextBox();
             this.lbl_ItemPrefix = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.grp_AutoGenerateSampleItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_NumberOfItemsPerGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel3)).BeginInit();
@@ -66,7 +67,7 @@
             this.grp_AutoGenerateSampleItems.Controls.Add(this.lbl_ItemPrefix);
             this.grp_AutoGenerateSampleItems.Location = new System.Drawing.Point(3, 59);
             this.grp_AutoGenerateSampleItems.Name = "grp_AutoGenerateSampleItems";
-            this.grp_AutoGenerateSampleItems.Size = new System.Drawing.Size(620, 284);
+            this.grp_AutoGenerateSampleItems.Size = new System.Drawing.Size(620, 220);
             this.grp_AutoGenerateSampleItems.TabIndex = 3;
             this.grp_AutoGenerateSampleItems.TabStop = false;
             this.grp_AutoGenerateSampleItems.Text = "Auto generator of demo sample items";
@@ -190,10 +191,21 @@
             this.lbl_ItemPrefix.Text = "Item Name Prefix:";
             this.lbl_ItemPrefix.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(258, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(160, 40);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form_Items_Samples
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(628, 348);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.grp_AutoGenerateSampleItems);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Form_Items_Samples";
@@ -225,5 +237,6 @@
         private System.Windows.Forms.TextBox txt_ItemAbbreviationPrefix;
         private System.Windows.Forms.Label lbl_ItemAbbreviationPrefix;
         private System.Windows.Forms.Label lbl_NumberOfTitemsToBeInserted;
+        private System.Windows.Forms.Button button1;
     }
 }

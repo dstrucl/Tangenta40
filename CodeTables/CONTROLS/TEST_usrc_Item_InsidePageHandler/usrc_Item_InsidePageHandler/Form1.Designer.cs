@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,34 +37,18 @@
             this.lbl_Page = new System.Windows.Forms.Label();
             this.rdb_Array = new System.Windows.Forms.RadioButton();
             this.rdb_List = new System.Windows.Forms.RadioButton();
-            this.usrc_Item_InsideGroup_Handler1 = new usrc_Item_Group_Handler.usrc_Item_InsideGroup_Handler();
-            this.usrc_Item_InsidePageHandler2 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
             this.numUpDn_decimal = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.usrc_Item_InsidePageHandler2 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.usrc_Item_InsideGroup_Handler1 = new usrc_Item_Group_Handler.usrc_Item_InsideGroup_Handler();
+            this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.btn_usrc_GroupHandler = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDn_decimal)).BeginInit();
             this.SuspendLayout();
-            // 
-            // usrc_Item_InsidePageHandler1
-            // 
-            this.usrc_Item_InsidePageHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.MistyRose;
-            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 115);
-            this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
-            this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(582, 106);
-            this.usrc_Item_InsidePageHandler1.TabIndex = 0;
-            this.usrc_Item_InsidePageHandler1.CreateControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_CreateControl(this.usrc_Item_InsidePageHandler1_CreateControl);
-            this.usrc_Item_InsidePageHandler1.FillControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_FillControl(this.usrc_Item_InsidePageHandler1_FillControl);
-            this.usrc_Item_InsidePageHandler1.SelectControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_SelectControl(this.usrc_Item_InsidePageHandler1_SelectControl);
-            this.usrc_Item_InsidePageHandler1.Select += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Select(this.usrc_Item_InsidePageHandler1_Select);
-            this.usrc_Item_InsidePageHandler1.PageChanged += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_PageChanged(this.usrc_Item_InsidePageHandler1_PageChanged);
-            this.usrc_Item_InsidePageHandler1.Deselect += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Deselect(this.usrc_Item_InsidePageHandler1_Deselect);
             // 
             // numericUpDown1
             // 
@@ -164,29 +147,6 @@
             this.rdb_List.Text = "LIST";
             this.rdb_List.UseVisualStyleBackColor = true;
             // 
-            // usrc_Item_InsideGroup_Handler1
-            // 
-            this.usrc_Item_InsideGroup_Handler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsideGroup_Handler1.Button_Height = 40;
-            this.usrc_Item_InsideGroup_Handler1.Font_Height = 10;
-            this.usrc_Item_InsideGroup_Handler1.Location = new System.Drawing.Point(0, 432);
-            this.usrc_Item_InsideGroup_Handler1.Name = "usrc_Item_InsideGroup_Handler1";
-            this.usrc_Item_InsideGroup_Handler1.Size = new System.Drawing.Size(582, 120);
-            this.usrc_Item_InsideGroup_Handler1.TabIndex = 10;
-            // 
-            // usrc_Item_InsidePageHandler2
-            // 
-            this.usrc_Item_InsidePageHandler2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsidePageHandler2.BackColor = System.Drawing.Color.MistyRose;
-            this.usrc_Item_InsidePageHandler2.Location = new System.Drawing.Point(0, 294);
-            this.usrc_Item_InsidePageHandler2.Name = "usrc_Item_InsidePageHandler2";
-            this.usrc_Item_InsidePageHandler2.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler2.Size = new System.Drawing.Size(582, 106);
-            this.usrc_Item_InsidePageHandler2.TabIndex = 11;
-            // 
             // numUpDn_decimal
             // 
             this.numUpDn_decimal.Location = new System.Drawing.Point(342, 5);
@@ -221,11 +181,63 @@
             this.textBox1.Size = new System.Drawing.Size(109, 20);
             this.textBox1.TabIndex = 14;
             // 
+            // usrc_Item_InsidePageHandler2
+            // 
+            this.usrc_Item_InsidePageHandler2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsidePageHandler2.BackColor = System.Drawing.Color.MistyRose;
+            this.usrc_Item_InsidePageHandler2.Location = new System.Drawing.Point(0, 294);
+            this.usrc_Item_InsidePageHandler2.Name = "usrc_Item_InsidePageHandler2";
+            this.usrc_Item_InsidePageHandler2.SelectedIndex = -1;
+            this.usrc_Item_InsidePageHandler2.Size = new System.Drawing.Size(582, 106);
+            this.usrc_Item_InsidePageHandler2.TabIndex = 11;
+            // 
+            // usrc_Item_InsideGroup_Handler1
+            // 
+            this.usrc_Item_InsideGroup_Handler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsideGroup_Handler1.Button_Height = 40;
+            this.usrc_Item_InsideGroup_Handler1.Font_Height = 10;
+            this.usrc_Item_InsideGroup_Handler1.Location = new System.Drawing.Point(0, 432);
+            this.usrc_Item_InsideGroup_Handler1.Name = "usrc_Item_InsideGroup_Handler1";
+            this.usrc_Item_InsideGroup_Handler1.Size = new System.Drawing.Size(582, 120);
+            this.usrc_Item_InsideGroup_Handler1.TabIndex = 10;
+            // 
+            // usrc_Item_InsidePageHandler1
+            // 
+            this.usrc_Item_InsidePageHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.MistyRose;
+            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 115);
+            this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
+            this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
+            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(582, 106);
+            this.usrc_Item_InsidePageHandler1.TabIndex = 0;
+            this.usrc_Item_InsidePageHandler1.CreateControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_CreateControl(this.usrc_Item_InsidePageHandler1_CreateControl);
+            this.usrc_Item_InsidePageHandler1.FillControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_FillControl(this.usrc_Item_InsidePageHandler1_FillControl);
+            this.usrc_Item_InsidePageHandler1.SelectControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_SelectControl(this.usrc_Item_InsidePageHandler1_SelectControl);
+            this.usrc_Item_InsidePageHandler1.Select += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Select(this.usrc_Item_InsidePageHandler1_Select);
+            this.usrc_Item_InsidePageHandler1.PageChanged += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_PageChanged(this.usrc_Item_InsidePageHandler1_PageChanged);
+            this.usrc_Item_InsidePageHandler1.Deselect += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Deselect(this.usrc_Item_InsidePageHandler1_Deselect);
+            // 
+            // btn_usrc_GroupHandler
+            // 
+            this.btn_usrc_GroupHandler.Location = new System.Drawing.Point(362, 41);
+            this.btn_usrc_GroupHandler.Name = "btn_usrc_GroupHandler";
+            this.btn_usrc_GroupHandler.Size = new System.Drawing.Size(191, 32);
+            this.btn_usrc_GroupHandler.TabIndex = 15;
+            this.btn_usrc_GroupHandler.Text = "TEST usrc_Item_Group_Handler";
+            this.btn_usrc_GroupHandler.UseVisualStyleBackColor = true;
+            this.btn_usrc_GroupHandler.Click += new System.EventHandler(this.btn_usrc_GroupHandler_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 563);
+            this.Controls.Add(this.btn_usrc_GroupHandler);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.numUpDn_decimal);
@@ -269,6 +281,7 @@
         private System.Windows.Forms.NumericUpDown numUpDn_decimal;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btn_usrc_GroupHandler;
     }
 }
 

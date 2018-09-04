@@ -13,6 +13,7 @@ namespace usrc_Item_InsidePageHandler
     public partial class Form1 : Form
     {
 
+        public Form_Items_Samples frmitemssamples = null;
         public class Item
         {
             public bool bSelected = false;
@@ -155,6 +156,16 @@ namespace usrc_Item_InsidePageHandler
         {
             LanguageControl.DynSettings.LanguageID = LanguageControl.DynSettings.Slovensko_ID;
             this.textBox1.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(numUpDn_decimal.Value, 2, "€");
+        }
+
+        private void btn_usrc_GroupHandler_Click(object sender, EventArgs e)
+        {
+            if (frmitemssamples==null)
+            {
+                frmitemssamples = new Form_Items_Samples();
+                frmitemssamples.Owner = this;
+            }
+            frmitemssamples.Show();
         }
     }
 }
