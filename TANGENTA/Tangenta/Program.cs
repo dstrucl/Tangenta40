@@ -272,14 +272,16 @@ namespace Tangenta
                 }
                 else
                 {
-                    return false;
+                    return Properties.Settings.Default.RecordCashierActivity;
                 }
             }
             set
             {
+                Properties.Settings.Default.RecordCashierActivity = value;
+                Properties.Settings.Default.Save();
                 if (MainForm != null)
                 {
-                    MainForm.RecordCashierActivity = value;
+                    MainForm.RecordCashierActivity = Properties.Settings.Default.RecordCashierActivity;
                 }
             }
         }

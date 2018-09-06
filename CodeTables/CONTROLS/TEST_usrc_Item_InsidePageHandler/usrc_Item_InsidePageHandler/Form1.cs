@@ -12,8 +12,9 @@ namespace usrc_Item_InsidePageHandler
 {
     public partial class Form1 : Form
     {
+        SampleDB sdb = null;
 
-        public Form_Items_Samples frmitemssamples = null;
+        public Form_Items_Samples frmitems = null;
         public class Item
         {
             public bool bSelected = false;
@@ -160,12 +161,18 @@ namespace usrc_Item_InsidePageHandler
 
         private void btn_usrc_GroupHandler_Click(object sender, EventArgs e)
         {
-            if (frmitemssamples==null)
+            if (frmitems==null)
             {
-                frmitemssamples = new Form_Items_Samples();
-                frmitemssamples.Owner = this;
+                frmitems = new Form_Items_Samples();
+                frmitems.Owner = this;
+                frmitems.NewSampleData += Frmitems_NewSampleData;
             }
-            frmitemssamples.Show();
+            frmitems.Show();
+        }
+
+        private void Frmitems_NewSampleData(SampleDB xsdb)
+        {
+            sdb = xsdb;
         }
     }
 }

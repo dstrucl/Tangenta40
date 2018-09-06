@@ -148,7 +148,7 @@ namespace DBSync
             string Err = null;
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
-                bool bGet = m_SQLite_Support.Get(bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xnav, ref bCanceled);
+                bool bGet = m_SQLite_Support.Get(bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xnav, ref bCanceled,MyDataBase_Tangenta.VERSION);
                 if (xnav.bDoModal)
                 {
                     if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -210,7 +210,7 @@ namespace DBSync
                 {
                     if (iTablesCount == 0)
                     {
-                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel))
+                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel, MyDataBase_Tangenta.VERSION))
                         {
                             return true;
                         }
@@ -241,13 +241,13 @@ namespace DBSync
             return DB_for_Tangenta.m_DBTables.m_con.Startup_03_CreateNewDataBaseConnection(pParentForm, ref bNewDatabase, ref bCancel);
         }
 
-        public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
+        public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled,string dbVersion)
         {
             string Err = null;           
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
                 my_StartupWindowThread.Message(lng.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
-                bool bGet = m_SQLite_Support.Evaluate_Connection(xnav, ref bNewDatabaseCreated, ref bCanceled);
+                bool bGet = m_SQLite_Support.Evaluate_Connection(xnav, ref bNewDatabaseCreated, ref bCanceled, dbVersion);
                 if (xnav.bDoModal)
                 {
                     if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -473,7 +473,7 @@ namespace DBSync
             }
 
 
-            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled))
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled, MyDataBase_Tangenta.VERSION))
             {
                 if (!DBSync.RemoteDB_data.Save(inifile_prefix, ref Err))
                 {

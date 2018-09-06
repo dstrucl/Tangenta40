@@ -105,7 +105,7 @@ namespace TangentaDataBaseDef
 
         public void Init(DBConnection.eDBType eDBType)
         {
-            this.m_DBTables.Init(eDBType);
+            this.m_DBTables.Init(eDBType,VERSION);
         }
 
         public bool DropViews(ref string Err)
@@ -256,7 +256,7 @@ namespace TangentaDataBaseDef
             if (this.m_DBTables.DataBase_Create())
             {
                 bool bxCancel = false;
-                return this.m_DBTables.CreateDatabaseTables(false, ref bxCancel);
+                return this.m_DBTables.CreateDatabaseTables(false, ref bxCancel, MyDataBase_Tangenta.VERSION);
             }
             else
             {

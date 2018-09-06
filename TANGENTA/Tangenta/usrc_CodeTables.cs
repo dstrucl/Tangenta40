@@ -207,5 +207,11 @@ namespace Tangenta
             }
             End();
         }
+
+        private void btn_TableInspection_Click(object sender, EventArgs e)
+        {
+            Form_TableInspection frmtbli = new Form_TableInspection();
+            frmtbli.ShowDialog(this);
+        }
     }
 }

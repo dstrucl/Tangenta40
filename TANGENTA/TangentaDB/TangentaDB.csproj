@@ -166,10 +166,12 @@
     <Compile Include="f_doc.cs" />
     <Compile Include="f_DocInvoice.cs" />
     <Compile Include="f_DocInvoice_Atom_WorkArea.cs" />
+    <Compile Include="f_DocInvoice_ShopB_Item.cs" />
     <Compile Include="f_DocProformaInvoiceAddOn.cs" />
     <Compile Include="f_DocInvoiceAddOn.cs" />
     <Compile Include="f_DocInvoice_ShopC_Item.cs" />
     <Compile Include="f_DocProformaInvoice.cs" />
+    <Compile Include="f_DocProformaInvoice_ShopB_Item.cs" />
     <Compile Include="f_DocProformaInvoice_ShopC_Item.cs" />
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />

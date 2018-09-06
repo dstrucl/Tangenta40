@@ -91,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(617, 302);
+            this.ClientSize = new System.Drawing.Size(617, 314);
             this.Controls.Add(this.btn_MyOrganisation);
             this.Controls.Add(this.txt_MyOrganisation);
             this.Controls.Add(this.lbl_MyOrganisation);

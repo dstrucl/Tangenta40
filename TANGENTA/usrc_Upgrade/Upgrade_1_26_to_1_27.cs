@@ -276,15 +276,15 @@ namespace UpgradeDB
                 //    return false;
                 //}
 
-                if (!correct_vilabella_atomWorkPeriodsBug())
-                {
-                    return false;
-                }
+                //if (!correct_vilabella_atomWorkPeriodsBug())
+                //{
+                //    return false;
+                //}
 
-                if (!Create_DailyCashierActivityFromAtomWorkPeriod())
-                {
-                    return false;
-                }
+                //if (!Create_DailyCashierActivityFromAtomWorkPeriod())
+                //{
+                //    return false;
+                //}
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {

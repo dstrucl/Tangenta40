@@ -25,6 +25,7 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Form_TableInspection = new ltext(new string[] { "Table Inspection", "Pregled tabel" });
         public static ltext s_SaveAsTextFile = new ltext(new string[] { "Save as text file", "Shrani v tekstovno datoteko" });
         public static ltext s_YouCanNotWriteInvoices_CasshierIsClosed = new ltext(new string[] { "You can not write invoices. Cashier is closed!", "Kadar je blagajna zaprta ni možno pisati in izdajati računov!" });
         public static ltext s_Details = new ltext(new string[] { "Details", "Podrobnosti" });
@@ -645,6 +646,8 @@ namespace Tangenta
         public static ltext s_chk_ControlLayout_TouchScreen = new ltext(new string[] { "Control layout touch screen", "Prikaz za zaslon na dotik" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_chk_UserWorkAreas = new ltext(new string[] { "Use work areas", "Vključi področja dela" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
+        public static ltext s_chk_RecordCashierActivity = new ltext(new string[] { "Open and Close Cashier", "Odpiranje in zapiranje blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_chk_MultipleUserLogin = new ltext(new string[] { "Multiple users login", "Prijava več uporabnikov hkrati" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 

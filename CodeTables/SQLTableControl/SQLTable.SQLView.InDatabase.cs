@@ -23,7 +23,7 @@ namespace CodeTables
 
         internal StringBuilder SQLCreateView_InDataBase(List<SQLTable> lTable)
         {
-            StringBuilder SQL_View = new StringBuilder("");
+            StringBuilder SQL_View = new StringBuilder(30000);
             try
             {
                 if (this.m_Fkey.Count > 0)
@@ -155,11 +155,21 @@ namespace CodeTables
                         }
                     }
 
-                    SQL_View.Append(s_join + join.TableName + " " + join.AliasTableName + " ON " + join.Param_ID1 + " = " + join.Param_ID2);
+                SQL_View.Append(s_join);
+                SQL_View.Append(join.TableName);
+                SQL_View.Append(" ");
+                SQL_View.Append(join.AliasTableName);
+                SQL_View.Append(" ON ");
+                SQL_View.Append(join.Param_ID1);
+                SQL_View.Append(" = ");
+                    SQL_View.Append(join.Param_ID2);
                     SubJoin_for_SQLView_InDataBase pSubJ = join.pSubJoin;
                     while (pSubJ != null)
                     {
-                        SQL_View.Append("\n   AND "  + join.Param_ID1 + " = " + join.Param_ID2);
+                    SQL_View.Append("\n   AND ");
+                    SQL_View.Append(join.Param_ID1);
+                    SQL_View.Append(" = ");
+                    SQL_View.Append(join.Param_ID2);
                         pSubJ = pSubJ.pSubJoin;
                     }
                     if (join.tbl != null)

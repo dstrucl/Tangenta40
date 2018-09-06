@@ -175,12 +175,12 @@ namespace LoginControl
                                 }
                             }
                         }
-                        m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
-                        m_LMOUser.Atom_WorkPeriod_ID = null;
-                        m_LMOUser.awpld = null;
-                        m_LMOUser.LoggedIn = false;
 
                     }
+                    m_LMOUser.LoginSession_ID = awpLoginForm_OneFromMultipleUsers.LoginSession_id;
+                    m_LMOUser.Atom_WorkPeriod_ID = null;
+                    m_LMOUser.awpld = null;
+                    m_LMOUser.LoggedIn = false;
                 }
             }
             else

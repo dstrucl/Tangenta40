@@ -1681,4 +1681,19 @@ Format v katerem je slika generirana, ki se nahaja v elementu RAW
   <data name="Tangenta_Logo_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tangenta-Logo SMALL.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TableInspection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_ShopA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_ShopA.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_ShopB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_ShopB.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_ShopC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_ShopC.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

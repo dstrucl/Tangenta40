@@ -71,6 +71,18 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataGridView_2xls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AnyCPU\Release\DataGridView_2xls.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridView_2xls_base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CodeTables\CONTROLS\DataGridView_2xls_base\bin\AnyCPU\Release\DataGridView_2xls_base.dll</HintPath>
+    </Reference>
+    <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CodeTables\SQLTableControl\bin\AnyCPU\Release\Excell_Export.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -86,6 +98,12 @@
     <Compile Include="DataGridViewButtonImageCell.cs" />
     <Compile Include="DataGridViewButtonImageColumn.cs" />
     <Compile Include="DataGridViewImageButtonSelectCell.cs" />
+    <Compile Include="Form_Atom_SimpleItem_Check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Atom_SimpleItem_Check.Designer.cs">
+      <DependentUpon>Form_Atom_SimpleItem_Check.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_SimpleItem_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +132,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_Atom_SimpleItem_Check.resx">
+      <DependentUpon>Form_Atom_SimpleItem_Check.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_SimpleItem_Edit.resx">
       <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -226,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DiscountHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -43,6 +43,7 @@
             this.btn_DBSettings = new System.Windows.Forms.Button();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_WorkArea = new System.Windows.Forms.Button();
+            this.btn_TableInspection = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Currency
@@ -205,9 +206,9 @@
             // 
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_OK.Location = new System.Drawing.Point(485, 153);
+            this.btn_OK.Location = new System.Drawing.Point(461, 153);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(121, 44);
+            this.btn_OK.Size = new System.Drawing.Size(145, 44);
             this.btn_OK.TabIndex = 12;
             this.btn_OK.UseVisualStyleBackColor = false;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
@@ -225,9 +226,24 @@
             this.btn_WorkArea.UseVisualStyleBackColor = false;
             this.btn_WorkArea.Click += new System.EventHandler(this.btn_WorkArea_Click);
             // 
+            // btn_TableInspection
+            // 
+            this.btn_TableInspection.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_TableInspection.Image = global::Tangenta.Properties.Resources.TableInspection;
+            this.btn_TableInspection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_TableInspection.Location = new System.Drawing.Point(310, 153);
+            this.btn_TableInspection.Name = "btn_TableInspection";
+            this.btn_TableInspection.Size = new System.Drawing.Size(145, 44);
+            this.btn_TableInspection.TabIndex = 14;
+            this.btn_TableInspection.Text = "Table Inspection";
+            this.btn_TableInspection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_TableInspection.UseVisualStyleBackColor = false;
+            this.btn_TableInspection.Click += new System.EventHandler(this.btn_TableInspection_Click);
+            // 
             // usrc_CodeTables
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.btn_TableInspection);
             this.Controls.Add(this.btn_WorkArea);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.btn_DBSettings);
@@ -264,5 +280,6 @@
         private System.Windows.Forms.Button btn_DBSettings;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_WorkArea;
+        private System.Windows.Forms.Button btn_TableInspection;
     }
 }

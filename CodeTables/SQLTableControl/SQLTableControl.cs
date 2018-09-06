@@ -26,6 +26,20 @@ namespace CodeTables
     [ToolboxBitmap("E:\\ManualReader\\ctlogina\\CodeTables\\Resources\\CodeTables.ico")]
     public partial class DBTableControl : Component
     {
+        public static DataTable  dtSQLdb = new DataTable();
+        private static string m_SQLdbFile=null;
+        public static string SQLdbFile
+        {
+            get
+            {
+                return m_SQLdbFile;
+            }
+            private set
+            {
+                m_SQLdbFile = value;
+            }
+        }
+
         public xml m_xml;
 
         public DBConnection m_con;
@@ -45,16 +59,16 @@ namespace CodeTables
         StringBuilder m_strSQLCheckTables = new StringBuilder();
         public Form m_ParentForm;
 
-        public void Init(DBConnection.eDBType eDBType)
+        public void Init(DBConnection.eDBType eDBType,string dbVersion)
         {
             m_con.DBType = eDBType;
             m_strSQLUseDatabase = new StringBuilder("\nUSE " + this.m_con.DataBase + "\n SET DATEFORMAT dmy\n\n");
 
-            StringBuilder sbAll = SQLcmd_CreateAllTables(this.m_con); // this fuction creates all fkey links !
+            StringBuilder sbAll = SQLcmd_CreateAllTables(this.m_con, dbVersion); // this fuction creates all fkey links !
             string sAll = sbAll.ToString();
 
-
             SQLcmd_DropAllTables(this.m_con);
+
         }
 
 
@@ -108,145 +122,372 @@ namespace CodeTables
             return null;
         }
         
-        public StringBuilder SQLcmd_CreateAllTables(DBConnection xcon)
+        public StringBuilder SQLcmd_CreateAllTables(DBConnection xcon, string dbVersion)
         {
-            StringBuilder strSqlAll = new StringBuilder("");
-            StringBuilder strSqlTables = new StringBuilder("");
-            //strSql.Append(Create_Database_Table(SQL_Table tbl_eva_User, m_eva_UserSQL_Table(());) new eva_User           ());
 
-            //strSql.Append(Create_Database_Table(col_evl_CmdTYPE, m_evl_CmdTYPE)),
-            //strSql.Append(Create_Database_Table(col_evl_History, m_evl_History));
-            int iTable;
-            int iTableCount;
-            iTableCount = items.Count;
-
-            List<string> UniqueConstraintNameList = new List<string>();
-            string sql_DBm = "";
-
-            for (iTable = 0; iTable < iTableCount; iTable++)
+            string sversion = dbVersion.Replace('.', '-');
+            string sDBtype = "??";
+            switch (xcon.DBType)
             {
-                SQLTable tbl = items[iTable];
-                if (DBtypesFunc.Is_DBm_Type(tbl.objTable)) 
-                {
-                    continue; // ignore DBm_*  Tables
-                }
-                else
-                {
-                    tbl.sql_CreateTable = tbl.SQLcmd_CreateTable(this, UniqueConstraintNameList, ref sql_DBm, null);
-                    strSqlTables.Append(tbl.sql_CreateTable);
-                }
+                case DBConnection.eDBType.MSSQL:
+                    sDBtype = "MSSQL";
+                    break;
+                case DBConnection.eDBType.SQLITE:
+                    sDBtype = "SQLite";
+                    break;
+                default:
+                    LogFile.Error.Show("ERROR:CodeTables:DBTableControl:SQLcmd_CreateAllTables:xcon.DBType not implemented: \"" + xcon.DBType.ToString() + "\"");
+                    break;
             }
-            strSqlAll.Append(sql_DBm);
-            strSqlAll.Append(strSqlTables);
+            string filename = "\\"+ sDBtype+"db-" + sversion+".xml";
+            string sfolder = Global.f.GetApplicationDataFolder();
 
-            StringBuilder strTableAlterTable = new StringBuilder("");
+            SQLdbFile = sfolder + filename;
 
-            for (iTable = 0; iTable < iTableCount; iTable++)
+            string col_TABLE_NAME = "TABLE_NAME";
+            string col_SQL_CreateTABLE = "SQL_CreateTABLE";
+            string col_SQL_AddFkey = "SQL_AddFkey";
+            string col_SQL_CreateVIEW = "SQL_CreateVIEW";
+
+            dtSQLdb.Clear();
+            dtSQLdb.Columns.Clear();
+
+            StringBuilder strSqlAll = new StringBuilder(30000);
+            StringBuilder strSqlTables = new StringBuilder(30000);
+
+            if (!File.Exists(SQLdbFile))
             {
-                switch (m_con.DBType)
+                DataColumn dcol_TableName = new DataColumn(col_TABLE_NAME, typeof(string));
+                DataColumn dcol_SQL_CreateTable = new DataColumn(col_SQL_CreateTABLE, typeof(string));
+                DataColumn dcol_SQL_AddFkey = new DataColumn(col_SQL_AddFkey, typeof(string));
+                DataColumn dcol_SQL_CreateView = new DataColumn(col_SQL_CreateVIEW, typeof(string));
+                dtSQLdb.Columns.Add(dcol_TableName);
+                dtSQLdb.Columns.Add(dcol_SQL_CreateTable);
+                dtSQLdb.Columns.Add(dcol_SQL_AddFkey);
+                dtSQLdb.Columns.Add(dcol_SQL_CreateView);
+
+                //strSql.Append(Create_Database_Table(SQL_Table tbl_eva_User, m_eva_UserSQL_Table(());) new eva_User           ());
+
+                //strSql.Append(Create_Database_Table(col_evl_CmdTYPE, m_evl_CmdTYPE)),
+                //strSql.Append(Create_Database_Table(col_evl_History, m_evl_History));
+                int iTable;
+                int iTableCount;
+                iTableCount = items.Count;
+
+                List<string> UniqueConstraintNameList = new List<string>();
+                string sql_DBm = "";
+
+                dtSQLdb.TableName = SQLdbFile;
+
+                for (iTable = 0; iTable < iTableCount; iTable++)
                 {
-                    case DBConnection.eDBType.MYSQL:
-                        strTableAlterTable.Append(items[iTable].SQLcmdMySQL_AlterTableAddConstraintForeign()).ToString();
-                    break;
-
-                    case DBConnection.eDBType.MSSQL:
-                        strTableAlterTable.Append(items[iTable].SQLcmdMSSQL_AlterTableAddConstraintForeign());
-                    break;
-
-                    case DBConnection.eDBType.SQLITE:
-                    //strTable = new StringBuilder(items[iTable].SQLcmd_AlterTableAddConstraintForeign());
-                    break;
-
-                    default:
-                    break;
+                    DataRow dr = dtSQLdb.NewRow();
+                    dr[dcol_TableName] = items[iTable].TableName;
+                    SQLTable tbl = items[iTable];
+                    if (DBtypesFunc.Is_DBm_Type(tbl.objTable))
+                    {
+                        continue; // ignore DBm_*  Tables
+                    }
+                    else
+                    {
+                        tbl.sql_CreateTable = tbl.SQLcmd_CreateTable(this, UniqueConstraintNameList, ref sql_DBm, null);
+                        dr[dcol_SQL_CreateTable] = tbl.sql_CreateTable;
+                        strSqlTables.Append(tbl.sql_CreateTable);
+                    }
+                    dtSQLdb.Rows.Add(dr);
                 }
-            }
-            strSqlAll.Append(strTableAlterTable);
+                strSqlAll.Append(sql_DBm);
+                strSqlAll.Append(strSqlTables);
 
-            // Also create views! in one step
-            SQL_DataBase_VIEW_List.Clear();
-            string ErrMSSQLNameToLong = null;
-            for (iTable = 0; iTable < iTableCount; iTable++)
-            {
+                StringBuilder strTableAlterTable = new StringBuilder("");
 
-                Application.DoEvents();
-                string table_view = null;
-                StringBuilder SQLCreateView_InDataBase = items[iTable].SQLCreateView_InDataBase(items);
-                if (SQLCreateView_InDataBase.Length > 0)
+                for (iTable = 0; iTable < iTableCount; iTable++)
                 {
+                    DataRow dr = dtSQLdb.Rows[iTable];
                     switch (m_con.DBType)
                     {
                         case DBConnection.eDBType.MYSQL:
+                            dr[dcol_SQL_AddFkey] = items[iTable].SQLcmdMySQL_AlterTableAddConstraintForeign();
+                            strTableAlterTable.Append((string)dr[dcol_SQL_AddFkey]);
                             break;
 
                         case DBConnection.eDBType.MSSQL:
-                            foreach (SQLTable.Table_View.ColumnNames cnames in items[iTable].m_Table_View.View_ColumnNames_List)
-                            {
-                                if (cnames.Name.Length>=128)
-                                {
-                                    if (ErrMSSQLNameToLong == null)
-                                    {
-                                        ErrMSSQLNameToLong = "ERROR:SQLTableControl.cs:SQLcmd_CreateAllTables:View column name to long (>128) fo MSSQL database:\r\n  " + table_view;
-                                    }
-                                    else
-                                    {
-                                        if (table_view == null)
-                                        {
-                                            table_view = items[iTable].ViewName;
-                                            ErrMSSQLNameToLong += "\r\n  " + table_view;
-                                        }
-                                    }
-                                    ErrMSSQLNameToLong += "\r\n      " + cnames.Name;
-                                }
-                            }
-                            if (ErrMSSQLNameToLong!= null)
-                            {
-                                LogFile.Error.Show(ErrMSSQLNameToLong);
-                            }
+                            dr[dcol_SQL_AddFkey] = items[iTable].SQLcmdMSSQL_AlterTableAddConstraintForeign();
+                            strTableAlterTable.Append((string)dr[dcol_SQL_AddFkey]);
                             break;
 
                         case DBConnection.eDBType.SQLITE:
+                            //strTable = new StringBuilder(items[iTable].SQLcmd_AlterTableAddConstraintForeign());
                             break;
 
                         default:
                             break;
                     }
+                }
+                strSqlAll.Append(strTableAlterTable);
 
-                    items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
-                    DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
-                    SQL_DataBase_VIEW_List.Add(xDataBaseView);
+                // Also create views! in one step
+                SQL_DataBase_VIEW_List.Clear();
+                string ErrMSSQLNameToLong = null;
+                for (iTable = 0; iTable < iTableCount; iTable++)
+                {
+                    DataRow dr = dtSQLdb.Rows[iTable];
+                    Application.DoEvents();
+                    string table_view = null;
+                    StringBuilder SQLCreateView_InDataBase = items[iTable].SQLCreateView_InDataBase(items);
+                    if (SQLCreateView_InDataBase.Length > 0)
+                    {
+                        switch (m_con.DBType)
+                        {
+                            case DBConnection.eDBType.MYSQL:
+                                break;
+
+                            case DBConnection.eDBType.MSSQL:
+                                foreach (SQLTable.Table_View.ColumnNames cnames in items[iTable].m_Table_View.View_ColumnNames_List)
+                                {
+                                    if (cnames.Name.Length >= 128)
+                                    {
+                                        if (ErrMSSQLNameToLong == null)
+                                        {
+                                            ErrMSSQLNameToLong = "ERROR:SQLTableControl.cs:SQLcmd_CreateAllTables:View column name to long (>128) fo MSSQL database:\r\n  " + table_view;
+                                        }
+                                        else
+                                        {
+                                            if (table_view == null)
+                                            {
+                                                table_view = items[iTable].ViewName;
+                                                ErrMSSQLNameToLong += "\r\n  " + table_view;
+                                            }
+                                        }
+                                        ErrMSSQLNameToLong += "\r\n      " + cnames.Name;
+                                    }
+                                }
+                                if (ErrMSSQLNameToLong != null)
+                                {
+                                    LogFile.Error.Show(ErrMSSQLNameToLong);
+                                }
+                                break;
+
+                            case DBConnection.eDBType.SQLITE:
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
+                        dr[dcol_SQL_CreateView] = items[iTable].sql_CreateView;
+
+                        DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
+                        SQL_DataBase_VIEW_List.Add(xDataBaseView);
+                    }
+                }
+
+                //    int jTable = 0;
+                //for (jTable = 0; jTable < iTableCount; jTable++)
+                //{
+                //    for (iTable = 0; iTable < iTableCount; iTable++)
+                //    {
+                //        if (jTable != iTable)
+                //        {
+                //            foreach (Column col in items[iTable].Column)
+                //            {
+                //                if (!col.IsIdentity)
+                //                {
+                //                    if (col.fKey != null)
+                //                    {
+                //                        if (col.fKey.refInListOfTables != null)
+                //                        {
+                //                            if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
+                //                            {
+                //                                col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                try
+                {
+                    dtSQLdb.WriteXml(SQLdbFile,XmlWriteMode.WriteSchema);
+                }
+                catch (Exception ex)
+                {
+                    LogFile.Error.Show("ERROR:CodeTables:DBTableControl:SQLcmd_CreateAllTables:Can not write \"" + SQLdbFile + "\"\r\nException=" + ex.Message);
                 }
             }
+            else
+            {
+                try
+                {
+                    dtSQLdb.TableName = SQLdbFile;
+                    dtSQLdb.ReadXml(SQLdbFile);
 
-            //    int jTable = 0;
-            //for (jTable = 0; jTable < iTableCount; jTable++)
-            //{
-            //    for (iTable = 0; iTable < iTableCount; iTable++)
-            //    {
-            //        if (jTable != iTable)
-            //        {
-            //            foreach (Column col in items[iTable].Column)
-            //            {
-            //                if (!col.IsIdentity)
-            //                {
-            //                    if (col.fKey != null)
-            //                    {
-            //                        if (col.fKey.refInListOfTables != null)
-            //                        {
-            //                            if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
-            //                            {
-            //                                col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                    //strSql.Append(Create_Database_Table(SQL_Table tbl_eva_User, m_eva_UserSQL_Table(());) new eva_User           ());
 
-         
+                    //strSql.Append(Create_Database_Table(col_evl_CmdTYPE, m_evl_CmdTYPE)),
+                    //strSql.Append(Create_Database_Table(col_evl_History, m_evl_History));
+                    int iTable;
+                    int iTableCount;
+                    iTableCount = items.Count;
+
+                    List<string> UniqueConstraintNameList = new List<string>();
+                    string sql_DBm = "";
+
+                    
+
+                    for (iTable = 0; iTable < iTableCount; iTable++)
+                    {
+                        DataRow dr = dtSQLdb.Rows[iTable];
+                        items[iTable].TableName = (string)dr[col_TABLE_NAME];
+                        SQLTable tbl = items[iTable];
+                        if (DBtypesFunc.Is_DBm_Type(tbl.objTable))
+                        {
+                            continue; // ignore DBm_*  Tables
+                        }
+                        else
+                        {
+                            tbl.sql_CreateTable = (string)dr[col_SQL_CreateTABLE];
+                            strSqlTables.Append(tbl.sql_CreateTable);
+                        }
+                    }
+                    strSqlAll.Append(sql_DBm);
+                    strSqlAll.Append(strSqlTables);
+
+                    StringBuilder strTableAlterTable = new StringBuilder("");
+
+                    for (iTable = 0; iTable < iTableCount; iTable++)
+                    {
+                        string_v s_v = null;
+                        DataRow dr = dtSQLdb.Rows[iTable];
+                        switch (m_con.DBType)
+                        {
+                            case DBConnection.eDBType.MYSQL:
+                                s_v = tf.set_string(dr[col_SQL_AddFkey]);
+                                if (s_v != null)
+                                {
+                                    strTableAlterTable.Append(s_v.v);
+                                }
+                                break;
+
+                            case DBConnection.eDBType.MSSQL:
+                                s_v = tf.set_string(dr[col_SQL_AddFkey]);
+                                if (s_v != null)
+                                {
+                                    strTableAlterTable.Append((string)dr[s_v.v]);
+                                }
+                                break;
+
+                            case DBConnection.eDBType.SQLITE:
+                                //strTable = new StringBuilder(items[iTable].SQLcmd_AlterTableAddConstraintForeign());
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                    strSqlAll.Append(strTableAlterTable);
+
+                    // Also create views! in one step
+                    SQL_DataBase_VIEW_List.Clear();
+                    string ErrMSSQLNameToLong = null;
+                    for (iTable = 0; iTable < iTableCount; iTable++)
+                    {
+                        DataRow dr = dtSQLdb.Rows[iTable];
+                        Application.DoEvents();
+                        string table_view = null;
+                        string_v s_v = tf.set_string(dr[col_SQL_CreateVIEW]);
+                        if (s_v!=null)
+                        { 
+                            StringBuilder SQLCreateView_InDataBase = new StringBuilder(s_v.v);
+                            if (SQLCreateView_InDataBase.Length > 0)
+                            {
+                                switch (m_con.DBType)
+                                {
+                                    case DBConnection.eDBType.MYSQL:
+                                        break;
+
+                                    case DBConnection.eDBType.MSSQL:
+                                        foreach (SQLTable.Table_View.ColumnNames cnames in items[iTable].m_Table_View.View_ColumnNames_List)
+                                        {
+                                            if (cnames.Name.Length >= 128)
+                                            {
+                                                if (ErrMSSQLNameToLong == null)
+                                                {
+                                                    ErrMSSQLNameToLong = "ERROR:SQLTableControl.cs:SQLcmd_CreateAllTables:View column name to long (>128) fo MSSQL database:\r\n  " + table_view;
+                                                }
+                                                else
+                                                {
+                                                    if (table_view == null)
+                                                    {
+                                                        table_view = items[iTable].ViewName;
+                                                        ErrMSSQLNameToLong += "\r\n  " + table_view;
+                                                    }
+                                                }
+                                                ErrMSSQLNameToLong += "\r\n      " + cnames.Name;
+                                            }
+                                        }
+                                        if (ErrMSSQLNameToLong != null)
+                                        {
+                                            LogFile.Error.Show(ErrMSSQLNameToLong);
+                                        }
+                                        break;
+
+                                    case DBConnection.eDBType.SQLITE:
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
+
+                                DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
+                                SQL_DataBase_VIEW_List.Add(xDataBaseView);
+                            }
+                        }
+                    }
+
+                    //    int jTable = 0;
+                    //for (jTable = 0; jTable < iTableCount; jTable++)
+                    //{
+                    //    for (iTable = 0; iTable < iTableCount; iTable++)
+                    //    {
+                    //        if (jTable != iTable)
+                    //        {
+                    //            foreach (Column col in items[iTable].Column)
+                    //            {
+                    //                if (!col.IsIdentity)
+                    //                {
+                    //                    if (col.fKey != null)
+                    //                    {
+                    //                        if (col.fKey.refInListOfTables != null)
+                    //                        {
+                    //                            if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
+                    //                            {
+                    //                                col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
+                    //                            }
+                    //                        }
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
+
+
+                }
+                catch (Exception ex)
+                {
+                    LogFile.Error.Show("ERROR:CodeTables:DBTableControl:SQLcmd_CreateAllTables:Can not read \"" + SQLdbFile + "\"\r\nException=" + ex.Message);
+                }
+
+            }
+
             return strSqlAll;
+
         }
 
 
@@ -878,7 +1119,7 @@ namespace CodeTables
             }
         }
 
-        public bool CreateDatabaseTables(bool bAsk, ref bool bCancel)
+        public bool CreateDatabaseTables(bool bAsk, ref bool bCancel, string dbVersion)
         {
             bCancel = false;
             if (bAsk)
@@ -898,7 +1139,7 @@ namespace CodeTables
 
             bool bRes;
 
-            StringBuilder m_strSQLCreate = SQLcmd_CreateAllTables(m_con);
+            StringBuilder m_strSQLCreate = SQLcmd_CreateAllTables(m_con, dbVersion);
 
             switch (m_con.DBType)
             {
@@ -1361,7 +1602,7 @@ namespace CodeTables
             return m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled)
+        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled, string dbVersion)
         {
             while (true)
             {
@@ -1373,7 +1614,7 @@ namespace CodeTables
                         if (local_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            if (CreateDatabaseTables(true,ref bxCancel))
+                            if (CreateDatabaseTables(true,ref bxCancel, dbVersion))
                             {
                                 return true;
                             }
@@ -1392,7 +1633,7 @@ namespace CodeTables
                         if (remote_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            if (CreateDatabaseTables(true, ref bxCancel))
+                            if (CreateDatabaseTables(true, ref bxCancel, dbVersion))
                             {
                                 return true;
                             }
@@ -1438,7 +1679,7 @@ namespace CodeTables
                                     if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
                                     {
                                         bool bxCancel = false;
-                                        return CreateDatabaseTables(true, ref bxCancel);
+                                        return CreateDatabaseTables(true, ref bxCancel, dbVersion);
                                     }
                                     else
                                     {
@@ -1470,7 +1711,7 @@ namespace CodeTables
             }
         }
 
-        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled,string dbVersion)
         {
             while (true)
             {
@@ -1482,7 +1723,7 @@ namespace CodeTables
                         if (local_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel);
+                            bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel, dbVersion);
                             if (bNewDataBaseCreated)
                             {
                                 return true;
@@ -1502,7 +1743,7 @@ namespace CodeTables
                         if (remote_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
+                            bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
                             if (bNewDataBaseCreated)
                             {
                                 return bNewDataBaseCreated;
@@ -1549,7 +1790,7 @@ namespace CodeTables
                                     if (DropAllTablesInDataBase(pParentForm, ref bCancel))
                                     {
                                         bool bxCancel = false;
-                                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
+                                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
                                         return bNewDataBaseCreated;
                                     }
                                     else
@@ -1569,7 +1810,7 @@ namespace CodeTables
             }
         }
 
-        public bool Evaluate_DataBaseConnection(Form parentForm, object DB_Param, ref bool bNewDataBaseCreated, Navigation xnav, ref bool bCanceled)
+        public bool Evaluate_DataBaseConnection(Form parentForm, object DB_Param, ref bool bNewDataBaseCreated, Navigation xnav, ref bool bCanceled, string dbVersion)
         {
             if (m_con.Evaluate_MakeDataBaseConnection(xnav.parentForm, DB_Param, xnav, ref bCanceled))
             {
@@ -1579,7 +1820,7 @@ namespace CodeTables
                     if (local_DB_Data.bNewDatabase)
                     {
                         bool bxCancel = false;
-                        bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel);
+                        bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel, dbVersion);
                         if (bNewDataBaseCreated)
                         {
                             return true;
@@ -1599,7 +1840,7 @@ namespace CodeTables
                     if (remote_DB_Data.bNewDatabase)
                     {
                         bool bxCancel = false;
-                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
+                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
                         if (bNewDataBaseCreated)
                         {
                             return bNewDataBaseCreated;
@@ -1646,7 +1887,7 @@ namespace CodeTables
                                 if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
                                 {
                                     bool bxCancel = false;
-                                    bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel);
+                                    bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
                                     return bNewDataBaseCreated;
                                 }
                                 else

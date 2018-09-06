@@ -1630,7 +1630,15 @@ namespace TangentaDB
                 if (dt.Rows.Count == 1)
                 {
                     int iLastNumberInFinancialYear = (int)dt.Rows[0]["NumberInFinancialYear"];
-                    xNumberInFinancialYear = iLastNumberInFinancialYear + 1;
+                    if (iLastNumberInFinancialYear == 452)
+                    {
+                        MessageBox.Show("Number changed from 452 to 456");
+                        xNumberInFinancialYear = 456;
+                    }
+                    else
+                    {
+                        xNumberInFinancialYear = iLastNumberInFinancialYear + 1;
+                    }
                 }
                 else
                 {

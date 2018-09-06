@@ -55,6 +55,7 @@
             this.chk_UseWorkAreas = new System.Windows.Forms.CheckBox();
             this.btn_UserSettings = new System.Windows.Forms.Button();
             this.btn_IdleSettings = new System.Windows.Forms.Button();
+            this.chk_RecordCashierActivity = new System.Windows.Forms.CheckBox();
             this.grp_ColorSettings.SuspendLayout();
             this.grp_AccessAuthentication.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).BeginInit();
@@ -365,11 +366,22 @@
             this.btn_IdleSettings.UseVisualStyleBackColor = true;
             this.btn_IdleSettings.Click += new System.EventHandler(this.btn_IdleSettings_Click);
             // 
+            // chk_RecordCashierActivity
+            // 
+            this.chk_RecordCashierActivity.AutoSize = true;
+            this.chk_RecordCashierActivity.Location = new System.Drawing.Point(199, 60);
+            this.chk_RecordCashierActivity.Name = "chk_RecordCashierActivity";
+            this.chk_RecordCashierActivity.Size = new System.Drawing.Size(104, 17);
+            this.chk_RecordCashierActivity.TabIndex = 52;
+            this.chk_RecordCashierActivity.Text = "Use Work Areas";
+            this.chk_RecordCashierActivity.UseVisualStyleBackColor = true;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 662);
+            this.Controls.Add(this.chk_RecordCashierActivity);
             this.Controls.Add(this.btn_IdleSettings);
             this.Controls.Add(this.btn_UserSettings);
             this.Controls.Add(this.chk_UseWorkAreas);
@@ -429,5 +441,6 @@
         private System.Windows.Forms.CheckBox chk_UseWorkAreas;
         private System.Windows.Forms.Button btn_UserSettings;
         private System.Windows.Forms.Button btn_IdleSettings;
+        private System.Windows.Forms.CheckBox chk_RecordCashierActivity;
     }
 }
