@@ -36,6 +36,8 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.txt_UserName = new System.Windows.Forms.TextBox();
             this.chk_LogoutAll = new System.Windows.Forms.CheckBox();
+            this.btn_ViewPassword = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer();
             this.SuspendLayout();
             // 
             // lbl_UserName
@@ -53,9 +55,9 @@
             this.txt_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_Password.Location = new System.Drawing.Point(164, 104);
             this.txt_Password.Name = "txt_Password";
-            this.txt_Password.PasswordChar = '*';
-            this.txt_Password.Size = new System.Drawing.Size(308, 31);
+            this.txt_Password.Size = new System.Drawing.Size(262, 31);
             this.txt_Password.TabIndex = 2;
+            this.txt_Password.UseSystemPasswordChar = true;
             this.txt_Password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Password_KeyPress);
             // 
             // lbl_Password
@@ -72,7 +74,7 @@
             // 
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_OK.Location = new System.Drawing.Point(382, 150);
+            this.btn_OK.Location = new System.Drawing.Point(382, 155);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(130, 60);
             this.btn_OK.TabIndex = 4;
@@ -115,11 +117,27 @@
             this.chk_LogoutAll.Text = "chk_LogoutAll";
             this.chk_LogoutAll.UseVisualStyleBackColor = true;
             // 
+            // btn_ViewPassword
+            // 
+            this.btn_ViewPassword.Image = global::LoginControl.Properties.Resources.PasswordView;
+            this.btn_ViewPassword.Location = new System.Drawing.Point(432, 101);
+            this.btn_ViewPassword.Name = "btn_ViewPassword";
+            this.btn_ViewPassword.Size = new System.Drawing.Size(79, 35);
+            this.btn_ViewPassword.TabIndex = 8;
+            this.btn_ViewPassword.UseVisualStyleBackColor = true;
+            this.btn_ViewPassword.Click += new System.EventHandler(this.btn_ViewPassword_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // AWPLoginForm_OneFromMultipleUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(524, 222);
+            this.Controls.Add(this.btn_ViewPassword);
             this.Controls.Add(this.chk_LogoutAll);
             this.Controls.Add(this.txt_UserName);
             this.Controls.Add(this.btn_Cancel);
@@ -148,5 +166,7 @@
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.TextBox txt_UserName;
         private System.Windows.Forms.CheckBox chk_LogoutAll;
+        private System.Windows.Forms.Button btn_ViewPassword;
+        private System.Windows.Forms.Timer timer1;
     }
 }

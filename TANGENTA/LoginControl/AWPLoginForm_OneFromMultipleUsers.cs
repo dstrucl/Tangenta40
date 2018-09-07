@@ -45,6 +45,7 @@ namespace LoginControl
             m_blogoutall = blogoutall;
             Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_loginType = xloginType;
+            this.txt_Password.UseSystemPasswordChar = true;
         }
 
         private void AWPLoginForm_OneFromMultipleUsers_Load(object sender, EventArgs e)
@@ -281,5 +282,17 @@ namespace LoginControl
             }
         }
 
+        private void btn_ViewPassword_Click(object sender, EventArgs e)
+        {
+            this.txt_Password.UseSystemPasswordChar = false;
+            timer1.Enabled = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.txt_Password.UseSystemPasswordChar = true;
+            timer1.Enabled = false;
+
+        }
     }
 }

@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM2 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM3 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM4 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM5 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM6 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM7 = new ComboBox_Recent.myIteM();
+            ComboBox_Recent.myIteM myIteM8 = new ComboBox_Recent.myIteM();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AWPLoginForm));
             this.lbl_UserName = new System.Windows.Forms.Label();
             this.txt_Password = new System.Windows.Forms.TextBox();
@@ -36,6 +43,8 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.cmbR_UserName = new ComboBox_Recent.ComboBox_RecentList();
+            this.btn_ViewPassword = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer();
             this.SuspendLayout();
             // 
             // lbl_UserName
@@ -49,18 +58,17 @@
             // 
             // txt_Password
             // 
-            this.txt_Password.Location = new System.Drawing.Point(114, 97);
+            this.txt_Password.Location = new System.Drawing.Point(114, 82);
             this.txt_Password.Name = "txt_Password";
-            this.txt_Password.PasswordChar = '*';
-            this.txt_Password.Size = new System.Drawing.Size(384, 20);
+            this.txt_Password.Size = new System.Drawing.Size(328, 20);
             this.txt_Password.TabIndex = 2;
             this.txt_Password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Password_KeyPress);
             // 
             // lbl_Password
             // 
-            this.lbl_Password.Location = new System.Drawing.Point(12, 97);
+            this.lbl_Password.Location = new System.Drawing.Point(12, 82);
             this.lbl_Password.Name = "lbl_Password";
-            this.lbl_Password.Size = new System.Drawing.Size(96, 18);
+            this.lbl_Password.Size = new System.Drawing.Size(81, 18);
             this.lbl_Password.TabIndex = 3;
             this.lbl_Password.Text = "Password:";
             this.lbl_Password.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -95,24 +103,55 @@
             this.cmbR_UserName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbR_UserName.FormattingEnabled = true;
             this.cmbR_UserName.InsertOnKeyPress = true;
+            myIteM1.Value = null;
+            myIteM2.Value = null;
+            myIteM3.Value = null;
+            myIteM4.Value = null;
+            myIteM5.Value = null;
+            myIteM6.Value = null;
+            myIteM7.Value = null;
+            myIteM8.Value = null;
             this.cmbR_UserName.Items.AddRange(new object[] {
-            myIteM1});
+            myIteM1,
+            myIteM2,
+            myIteM3,
+            myIteM4,
+            myIteM5,
+            myIteM6,
+            myIteM7,
+            myIteM8});
             this.cmbR_UserName.Key = "UserName";
             this.cmbR_UserName.Location = new System.Drawing.Point(114, 35);
             this.cmbR_UserName.MaxRecentCount = 10;
             this.cmbR_UserName.Name = "cmbR_UserName";
             this.cmbR_UserName.ReadOnly = false;
             this.cmbR_UserName.RecentItemsFileName = "LoginComboBoxRecentXmlFile_UserName.xml";
-            this.cmbR_UserName.RecentItemsFolder = "";
+            this.cmbR_UserName.RecentItemsFolder = "C:\\Users\\V\\AppData\\Roaming\\RecentComboBoxItems";
             this.cmbR_UserName.Size = new System.Drawing.Size(385, 21);
             this.cmbR_UserName.TabIndex = 0;
             this.cmbR_UserName.EnterPressed += new ComboBox_Recent.ComboBox_RecentList.delagate_EnterPressed(this.cmbR_UserName_EnterPressed);
+            // 
+            // btn_ViewPassword
+            // 
+            this.btn_ViewPassword.Image = global::LoginControl.Properties.Resources.PasswordView;
+            this.btn_ViewPassword.Location = new System.Drawing.Point(448, 80);
+            this.btn_ViewPassword.Name = "btn_ViewPassword";
+            this.btn_ViewPassword.Size = new System.Drawing.Size(49, 23);
+            this.btn_ViewPassword.TabIndex = 6;
+            this.btn_ViewPassword.UseVisualStyleBackColor = true;
+            this.btn_ViewPassword.Click += new System.EventHandler(this.btn_ViewPassword_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // AWPLoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(524, 179);
+            this.Controls.Add(this.btn_ViewPassword);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lbl_Password);
@@ -139,5 +178,7 @@
         private System.Windows.Forms.Label lbl_Password;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Button btn_ViewPassword;
+        private System.Windows.Forms.Timer timer1;
     }
 }

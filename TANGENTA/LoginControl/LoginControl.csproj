@@ -573,6 +573,7 @@
     <None Include="Resources\Tangenta-Logo SMALL.gif" />
     <None Include="Resources\CashierActivity.ico" />
     <None Include="Resources\Print.bmp" />
+    <None Include="Resources\PasswordView.png" />
     <Content Include="Resources\UserInfo.png" />
     <Content Include="Resources\Users.png" />
   </ItemGroup>
