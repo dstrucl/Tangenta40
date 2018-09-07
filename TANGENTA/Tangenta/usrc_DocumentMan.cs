@@ -383,9 +383,10 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             else
             {
                 this.DocTyp = GlobalData.const_DocProformaInvoice;
-                mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
-                Properties.Settings.Default.Save();
             }
+
+            mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
+            Properties.Settings.Default.Save();
 
             if (m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
             {
@@ -1182,6 +1183,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
+            mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
             if (Exit_Click != null)
             {
                 Exit_Click(DocTyp,this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser,LoginControl.LoginCtrl.eExitReason.NORMAL);

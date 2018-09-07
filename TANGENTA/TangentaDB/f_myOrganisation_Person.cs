@@ -102,29 +102,21 @@ namespace TangentaDB
             return fs.DeleteAll("myOrganisation_Person");
         }
 
-        public static ID First_ID()
+        public static ID myOrganisation_Person_SingleUser_ID()
         {
             string sql = null;
-            switch (DBSync.DBSync.m_DBType)
-            {
-                case DBConnection.eDBType.SQLITE:
-                    sql = "select ID from myOrganisation_Person order by ID asc limit 1";
-                    break;
-                case DBConnection.eDBType.MSSQL:
-                    sql = "select top 1 ID from myOrganisation_Person order by ID asc";
-                    break;
+            sql = @"select mopsu.myOrganisation_Person_ID as myOrganisation_Person_ID
+                    from myOrganisation_Person_SingleUser mopsu 
+	                inner join myOrganisation_Person mop on mopsu.myOrganisation_Person_ID = mop.ID
+	                where mopsu.ElectronicDevice_ID = " + myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ID.ToString();
 
-                default:
-                    LogFile.Error.Show("ERROR:TangentaDB:f_myOrganisation_Person:First_ID:DBSync.DBSync.m_DBType = " + DBSync.DBSync.m_DBType.ToString() + " not implemented!");
-                    return null;
-            }
             DataTable dt = new DataTable();
             string err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref err))
             {
                 if (dt.Rows.Count>0)
                 {
-                    return new ID(dt.Rows[0]["ID"]);
+                    return new ID(dt.Rows[0]["myOrganisation_Person_ID"]);
                 }
                 else
                 {

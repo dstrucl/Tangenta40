@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaDB;
 using static TangentaDB.CashierActivity;
 
 namespace LoginControl
@@ -62,7 +63,8 @@ namespace LoginControl
 
         public void Init(Form xpParentForm,
                           LoginCtrl xlctrl,
-                          DBConnection xcon
+                          DBConnection xcon,
+                          bool bSingleUser
                           )
         {
             pParentForm = xpParentForm;
@@ -70,6 +72,27 @@ namespace LoginControl
             AWP_func.con = xcon;
             AWP_func.UpdateRoles(awpd.AllRoles);
             TemplatesLoader.Init();
+            if (bSingleUser)
+            {
+                LMO1User.awpld = new AWPLoginData();
+                AWPRole awpr = new AWPRole(null, ROLE_Administrator);
+                LMO1User.awpld.m_AWP_UserRoles = new List<AWPRole>();
+                LMO1User.awpld.m_AWP_UserRoles.Add(awpr);
+                string sfirstname = "";
+                if (myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v != null)
+                {
+                    sfirstname = myOrg.m_myOrg_Office.m_myOrg_Person.FirstName_v.v;
+                }
+                string slastname = "";
+                if (myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v != null)
+                {
+                    slastname = myOrg.m_myOrg_Office.m_myOrg_Person.LastName_v.v;
+                }
+                LMO1User.awpld.myOrganisation_Person__per__cfn_FirstName = sfirstname;
+                LMO1User.awpld.myOrganisation_Person__per__cln_LastName = slastname;
+                LMO1User.awpld.UserName = sfirstname + " " + slastname; 
+
+            }
         }
 
 

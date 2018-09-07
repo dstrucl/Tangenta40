@@ -69,6 +69,7 @@ namespace Tangenta
                                             DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
                                             null,
                                             LanguageControl.DynSettings.LanguageID,
+                                            false,
                                             ref bCancel
                                             );
             if (frm.loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav,  Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))

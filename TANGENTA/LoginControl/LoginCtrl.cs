@@ -493,7 +493,10 @@ namespace LoginControl
         public void Init(Form parent_form,
                  eDataTableCreationMode xeDataTableCreationMode,
                  DBConnection xcon,
-                 object DBParam, int Language_id, ref bool bCancel)
+                 object DBParam,
+                 int Language_id,
+                 bool bSingleUser,
+                 ref bool bCancel)
         {
             m_eDataTableCreationMode = xeDataTableCreationMode;
             m_parent_form = parent_form;
@@ -504,7 +507,7 @@ namespace LoginControl
                     {
                         awp = new AWP();
                     }
-                    awp.Init(parent_form, this, xcon);
+                    awp.Init(parent_form, this, xcon, bSingleUser);
                     break;
                 case eDataTableCreationMode.STD:
                     if (std == null)

@@ -425,6 +425,7 @@ namespace Tangenta
                                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
+                                                false,
                                                 ref bCancel
                                                 );
 
@@ -467,13 +468,22 @@ namespace Tangenta
             else // Single user
             {
                 //this.usrc_loginControl1.Visible = false;
-                ID myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
-                if (ID.Validate(myOrganisation_Person_first_ID))
+                ID myOrganisation_Person_SingleUser_ID = f_myOrganisation_Person.myOrganisation_Person_SingleUser_ID();
+                if (ID.Validate(myOrganisation_Person_SingleUser_ID))
                 {
+                    bool bCancel = false;
+                    loginControl1.Init(this,
+                                                    LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                                    null,
+                                                    LanguageControl.DynSettings.LanguageID,
+                                                    true,
+                                                    ref bCancel
+                                                    );
                     if (Program.bFirstTimeInstallation)
                     {
                         ID xAtom_WorkPeriod_ID = null;
-                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
                                                      f_Atom_WorkPeriod.sWorkPeriod,
                                                      LoginControl.lng.s_WorkPeriod.s,
                                                      DateTime.Now,
@@ -504,7 +514,7 @@ namespace Tangenta
                             if (doorFor1.DoLoginAsAdministrator((Form)this.Parent))
                             {
                                 ID xAtom_WorkPeriod_ID = null;
-                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
                                     f_Atom_WorkPeriod.sWorkPeriod,
                                     LoginControl.lng.s_WorkPeriod.s,
                                     DateTime.Now,
@@ -533,7 +543,7 @@ namespace Tangenta
                         else
                         {
                             ID xAtom_WorkPeriod_ID = null;
-                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
                                 f_Atom_WorkPeriod.sWorkPeriod,
                                 LoginControl.lng.s_WorkPeriod.s,
                                 DateTime.Now,
@@ -1003,6 +1013,7 @@ namespace Tangenta
                 {
                     if (AskToExit())
                     {
+                        SaveSettings(LMO1User);
                         Exit();
                         e.Cancel = false;
                     }
@@ -1079,7 +1090,7 @@ namespace Tangenta
                 if (Properties.Settings.Default.ControlLayout_TouchScreen)
                 {
                     usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
-                    xusrc_DocumentMan1366x768.Visible = true;
+                    xusrc_DocumentMan1366x768.Active = true;
                     xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                     this.Controls.Add(xusrc_DocumentMan1366x768);
 
@@ -1094,7 +1105,7 @@ namespace Tangenta
                 else
                 {
                     usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
-                    xusrc_DocumentMan.Visible = true;
+                    xusrc_DocumentMan.Active = true;
                     xusrc_DocumentMan.Dock = DockStyle.Fill;
                     this.Controls.Add(xusrc_DocumentMan);
 
@@ -1904,9 +1915,9 @@ namespace Tangenta
             }
         }
 
-        private void loginControl1_UserLoggedOut(LoginControl.LMOUser xLMOUser)
+        private void SaveSettings(LoginControl.LMOUser xLMOUser)
         {
-            SettingsUser user_settings = (SettingsUser) xLMOUser.oSettings;
+            SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
             LayoutSave(user_settings.mSettingsUserValues);
             user_settings.Save();
 
@@ -1924,6 +1935,11 @@ namespace Tangenta
             }
 
             xLMOUser.m_usrc_DocumentMan = null;
+
+        }
+        private void loginControl1_UserLoggedOut(LoginControl.LMOUser xLMOUser)
+        {
+            SaveSettings(xLMOUser);
         }
 
         private void loginControl1_ActivateDocumentMan(LoginControl.LMOUser xLMOUser)

@@ -1118,6 +1118,7 @@ namespace Tangenta
                                                 DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
+                                                false,
                                                 ref bCancel
                                                 );
 
@@ -1160,7 +1161,7 @@ namespace Tangenta
             else // Single user
             {
                 this.usrc_loginControl1.Visible = false;
-                ID myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
+                ID myOrganisation_Person_first_ID = f_myOrganisation_Person.myOrganisation_Person_SingleUser_ID();
                 if (ID.Validate(myOrganisation_Person_first_ID))
                 {
                     if (Program.bFirstTimeInstallation)

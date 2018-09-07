@@ -39,26 +39,26 @@ namespace TangentaDB
                             sval_myOrganisation_Person_ID = "null";
                         }
 
-                        string scond_xAtom_ElectronicDevice_ID = null;
-                        string sval_xAtom_ElectronicDevice_ID = "null";
+                        string scond_x_ElectronicDevice_ID = null;
+                        string sval_x_ElectronicDevice_ID = "null";
                         if (ID.Validate(xAtom_ElectronicDevice_ID))
                         {
-                            string spar_xAtom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_ID";
-                            SQL_Parameter par_xAtom_ElectronicDevice_ID = new SQL_Parameter(spar_xAtom_ElectronicDevice_ID, false, xAtom_ElectronicDevice_ID);
+                            string spar_xAtom_ElectronicDevice_ID = "@par_ElectronicDevice_ID";
+                            SQL_Parameter par_xAtom_ElectronicDevice_ID = new SQL_Parameter(spar_xAtom_ElectronicDevice_ID, false, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ID);
                             lpar.Add(par_xAtom_ElectronicDevice_ID);
-                            scond_xAtom_ElectronicDevice_ID = "Atom_ElectronicDevice_ID = " + spar_xAtom_ElectronicDevice_ID;
-                            sval_xAtom_ElectronicDevice_ID = spar_xAtom_ElectronicDevice_ID;
+                            scond_x_ElectronicDevice_ID = "ElectronicDevice_ID = " + spar_xAtom_ElectronicDevice_ID;
+                            sval_x_ElectronicDevice_ID = spar_xAtom_ElectronicDevice_ID;
                         }
                         else
                         {
-                            scond_xAtom_ElectronicDevice_ID = "Atom_ElectronicDevice_ID is null";
-                            sval_xAtom_ElectronicDevice_ID = "null";
+                            scond_x_ElectronicDevice_ID = "ElectronicDevice_ID is null";
+                            sval_x_ElectronicDevice_ID = "null";
                         }
 
                         DataTable dt = new DataTable();
                         dt.Columns.Clear();
                         dt.Clear();
-                        sql = @"select ID from myOrganisation_Person_SingleUser where " + scond_myOrganisation_Person_ID + " and " + scond_xAtom_ElectronicDevice_ID;
+                        sql = @"select ID from myOrganisation_Person_SingleUser where " + scond_myOrganisation_Person_ID + " and " + scond_x_ElectronicDevice_ID;
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                         {
                             if (dt.Rows.Count > 0)
@@ -72,7 +72,7 @@ namespace TangentaDB
                             }
                             else
                             {
-                                sql = @"insert into myOrganisation_Person_SingleUser (myOrganisation_Person_ID,Atom_ElectronicDevice_ID) values (" + sval_myOrganisation_Person_ID + "," + sval_xAtom_ElectronicDevice_ID + ")";
+                                sql = @"insert into myOrganisation_Person_SingleUser (myOrganisation_Person_ID,ElectronicDevice_ID) values (" + sval_myOrganisation_Person_ID + "," + sval_x_ElectronicDevice_ID + ")";
                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_SingleUser_ID, ref Err, "myOrganisation_Person_SingleUser"))
                                 {
                                     return true;

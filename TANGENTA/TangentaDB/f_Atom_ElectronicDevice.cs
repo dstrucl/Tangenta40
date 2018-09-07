@@ -292,10 +292,10 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID Office_ID, ref ID Atom_ElectronicDevice_ID)
+        public static bool Get(ID Atom_Office_ID, ref ID xAtom_ElectronicDevice_ID)
         {
-            Atom_ElectronicDevice_ID = null;
-            if (ID.Validate(Office_ID))
+            xAtom_ElectronicDevice_ID = null;
+            if (ID.Validate(Atom_Office_ID))
             {
                 ID Atom_Computer_ID = null;
                 if (f_Atom_Computer.Get(ref Atom_Computer_ID))
@@ -308,8 +308,8 @@ namespace TangentaDB
                                 LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
                                 LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
                                 LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
-                                LEFT JOIN Office Atom_ElectronicDevice_$_office ON Atom_ElectronicDevice.Atom_Office_ID = Atom_ElectronicDevice_$_office.ID where Atom_ElectronicDevice_$_office.ID = " + Office_ID.ToString() 
-                                + " and Atom_Computer_ID = "+ Atom_Computer_ID.ToString();
+                                LEFT JOIN Atom_Office Atom_ElectronicDevice_$_office ON Atom_ElectronicDevice.Atom_Office_ID = Atom_ElectronicDevice_$_office.ID where Atom_ElectronicDevice_$_office.ID = " + Atom_Office_ID.ToString() 
+                                + " and Atom_Computer_ID = "+ Atom_Computer_ID.ToString() + " and Atom_Office_ID = " + Atom_Office_ID.ToString();
 
                     DataTable dt = new DataTable();
                     string Err = null;
@@ -317,9 +317,20 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count>0)
                         {
-                            Atom_ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["Atom_ElectronicDevice_ID"]);
+                            xAtom_ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["Atom_ElectronicDevice_ID"]);
+                            return true;
                         }
-                        return true;
+                        else
+                        {
+                            if (Get(Atom_Office_ID, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, ref xAtom_ElectronicDevice_ID))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
                     }
                     else
                     {
