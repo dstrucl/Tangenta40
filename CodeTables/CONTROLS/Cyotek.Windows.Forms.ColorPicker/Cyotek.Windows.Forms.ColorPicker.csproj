@@ -133,6 +133,7 @@
     <Compile Include="EditColorCancelEventArgs.cs" />
     <Compile Include="GimpPaletteSerializer.cs" />
     <Compile Include="AdobePhotoshopColorSwatchSerializer.cs" />
+    <Compile Include="lng.cs" />
     <Compile Include="NavigationOrigin.cs" />
     <Compile Include="RawPaletteSerializer.cs" />
     <Compile Include="InterleavedBitmapPaletteSerializer.cs" />
@@ -197,6 +198,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Color Picker.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -494,6 +494,11 @@ namespace Tangenta
                         {
                             //myStartup.eNextStep++;
                             LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                            SettingsUser user_settings = new SettingsUser();
+                            if (user_settings.Load(this.LMO1User))
+                            {
+                                LMO1User.oSettings = user_settings;
+                            }
                             return true;
                         }
                         else
@@ -525,6 +530,11 @@ namespace Tangenta
                                 {
                                     //myStartup.eNextStep++;
                                     LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                                    SettingsUser user_settings = new SettingsUser();
+                                    if (user_settings.Load(this.LMO1User))
+                                    {
+                                        LMO1User.oSettings = user_settings;
+                                    }
                                     return true;
                                 }
                                 else
@@ -553,6 +563,11 @@ namespace Tangenta
                             {
                                 //myStartup.eNextStep++;
                                 LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                                SettingsUser user_settings = new SettingsUser();
+                                if (user_settings.Load(this.LMO1User))
+                                {
+                                    LMO1User.oSettings = user_settings;
+                                }
                                 return true;
                             }
                             else
@@ -1918,25 +1933,28 @@ namespace Tangenta
         private void SaveSettings(LoginControl.LMOUser xLMOUser)
         {
             SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
-            LayoutSave(user_settings.mSettingsUserValues);
-            user_settings.Save();
-
-            //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
-            //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
-            if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
+            if (user_settings != null)
             {
-                this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
-                ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
-            }
-            else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
-            {
-                this.Controls.Remove((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan);
-                ((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan).Dispose();
-            }
+                LayoutSave(user_settings.mSettingsUserValues);
+                user_settings.Save();
 
+                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
+                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
+                if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
+                {
+                    this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
+                    ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+                }
+                else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+                {
+                    this.Controls.Remove((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan);
+                    ((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan).Dispose();
+                }
+            }
             xLMOUser.m_usrc_DocumentMan = null;
-
         }
+
+
         private void loginControl1_UserLoggedOut(LoginControl.LMOUser xLMOUser)
         {
             SaveSettings(xLMOUser);
