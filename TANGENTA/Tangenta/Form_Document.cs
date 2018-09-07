@@ -83,6 +83,23 @@ namespace Tangenta
         public bool bNewDatabaseCreated = false;
         public bool bInit_DBType_Canceled = false;
 
+        public LMOUser LMO1User
+        {
+            get
+            {
+                if (loginControl1!=null)
+                {
+                    return loginControl1.LMO1User;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        Door doorFor1 = null;
+
 
         internal Booting_00_TangentaAbout booting_00_TangentaAbout = null;
         internal Booting_01_TangentaLicence booting_01_TangentaLicence = null;
@@ -398,6 +415,152 @@ namespace Tangenta
             Program.nav.oStartup = m_startup;
         }
 
+        public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        {
+            if (Program.OperationMode.MultiUser)
+            {
+                bool bCancel = false;
+                loginControl1.Init(this,
+                                                LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                                null,
+                                                LanguageControl.DynSettings.LanguageID,
+                                                ref bCancel
+                                                );
+
+
+                //myStartup.eNextStep++;
+                if (Program.Login_MultipleUsers)
+                {
+                    if (loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (loginControl1.Login_SingleUser(xnav))
+                    {
+                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(loginControl1.awp.LMO1User.myOrganisation_Person_ID);
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+            }
+            else // Single user
+            {
+                //this.usrc_loginControl1.Visible = false;
+                ID myOrganisation_Person_first_ID = f_myOrganisation_Person.First_ID();
+                if (ID.Validate(myOrganisation_Person_first_ID))
+                {
+                    if (Program.bFirstTimeInstallation)
+                    {
+                        ID xAtom_WorkPeriod_ID = null;
+                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                                     f_Atom_WorkPeriod.sWorkPeriod,
+                                                     LoginControl.lng.s_WorkPeriod.s,
+                                                     DateTime.Now,
+                                                     null,
+                                                     ref LMO1User.Atom_myOrganisation_Person_ID,
+                                                     ref xAtom_WorkPeriod_ID,
+                                                     ref Err))
+                        {
+                            //myStartup.eNextStep++;
+                            LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (Program.OperationMode.SingleUserLoginAsAdministrator)
+                        {
+                            if (doorFor1 == null)
+                            {
+                                doorFor1 = new Door(LMO1User);
+                            }
+                            if (doorFor1.DoLoginAsAdministrator((Form)this.Parent))
+                            {
+                                ID xAtom_WorkPeriod_ID = null;
+                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                    f_Atom_WorkPeriod.sWorkPeriod,
+                                    LoginControl.lng.s_WorkPeriod.s,
+                                    DateTime.Now,
+                                    null,
+                                    ref LMO1User.Atom_myOrganisation_Person_ID,
+                                    ref xAtom_WorkPeriod_ID,
+                                    ref Err))
+                                {
+                                    //myStartup.eNextStep++;
+                                    LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                                    return true;
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            ID xAtom_WorkPeriod_ID = null;
+                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_first_ID,
+                                f_Atom_WorkPeriod.sWorkPeriod,
+                                LoginControl.lng.s_WorkPeriod.s,
+                                DateTime.Now,
+                                null,
+                                ref LMO1User.Atom_myOrganisation_Person_ID,
+                                ref xAtom_WorkPeriod_ID, ref Err))
+                            {
+                                //myStartup.eNextStep++;
+                                LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
@@ -629,10 +792,10 @@ namespace Tangenta
             }
             else
             {
-                ID atom_work_period_id = loginControl1.awp.LMOUser_Single.Atom_WorkPeriod_ID;
+                ID atom_work_period_id = loginControl1.awp.LMO1User.Atom_WorkPeriod_ID;
                 if (ID.Validate(atom_work_period_id))
                 {
-                    TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMOUser_Single.Atom_WorkPeriod_ID);
+                    TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMO1User.Atom_WorkPeriod_ID);
                 }
             }
             if (Program.b_FVI_SLO)
@@ -897,12 +1060,52 @@ namespace Tangenta
             }
             else
             {
-                Activate_usrc_DocumentMan(null);
+                Activate_usrc_DocumentMan_for_LMO1User(null);
             }
         }
 
-        internal void Activate_usrc_DocumentMan(LoginControl.usrc_MultipleUsers xm_usrc_MultipleUsers)
+        internal void Activate_usrc_DocumentMan_for_LMO1User(LoginControl.usrc_MultipleUsers xm_usrc_MultipleUsers)
         {
+            SettingsUser user_settings = new SettingsUser();
+            if (user_settings.Load(this.LMO1User))
+            {
+                LMO1User.oSettings = user_settings;
+
+                //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
+                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
+                //xLMOUser.Form_settingsuser.Owner = this;
+                //xLMOUser.Form_settingsuser.Show();
+
+                if (Properties.Settings.Default.ControlLayout_TouchScreen)
+                {
+                    usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
+                    xusrc_DocumentMan1366x768.Visible = true;
+                    xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
+                    this.Controls.Add(xusrc_DocumentMan1366x768);
+
+                    xusrc_DocumentMan1366x768.Initialise(this, LMO1User);
+                    xusrc_DocumentMan1366x768.Init();
+
+
+                    LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
+                    xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+
+                }
+                else
+                {
+                    usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
+                    xusrc_DocumentMan.Visible = true;
+                    xusrc_DocumentMan.Dock = DockStyle.Fill;
+                    this.Controls.Add(xusrc_DocumentMan);
+
+                    xusrc_DocumentMan.Initialise(this, LMO1User);
+                    xusrc_DocumentMan.Init();
+
+
+                    LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan;
+                    xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+                }
+            }
         }
 
 

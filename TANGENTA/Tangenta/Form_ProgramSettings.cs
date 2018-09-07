@@ -212,9 +212,12 @@ namespace Tangenta
 
                 if (Program.OperationMode.MultiUser)
                 {
-                    Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
+                    if (Properties.Settings.Default.Login_MultipleUsers != chk_MultipleUserLogin.Checked)
+                    {
+                        Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
+                        bChanged = true;
+                    }
                 }
-
                 if (chk_RecordCashierActivity.Checked !=  Properties.Settings.Default.RecordCashierActivity)
                 {
                     Properties.Settings.Default.RecordCashierActivity = chk_RecordCashierActivity.Checked;

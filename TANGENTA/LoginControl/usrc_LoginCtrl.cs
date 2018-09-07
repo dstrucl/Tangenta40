@@ -47,7 +47,7 @@ namespace LoginControl
                 case LoginCtrl.eDataTableCreationMode.AWP:
                     Navigation xnav = new Navigation(null);
                     xnav.m_eButtons = Navigation.eButtons.OkCancel;
-                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(m_LoginCtrl, xnav,this.ParentForm, m_LoginCtrl.awp.LMOUser_Single);
+                    AWP_UserManager AWP_usr_mangaer = new AWP_UserManager(m_LoginCtrl, xnav,this.ParentForm, m_LoginCtrl.awp.LMO1User);
                     AWP_usr_mangaer.ShowDialog(Global.f.GetParentForm(this));
                     break;
 
@@ -64,7 +64,7 @@ namespace LoginControl
             {
                 case LoginCtrl.eDataTableCreationMode.AWP:
                     Form pForm = Global.f.GetParentForm(this);
-                    AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, m_LoginCtrl.awp.LMOUser_Single.UserName, m_LoginCtrl.awp.LMOUser_Single);
+                    AWP_UserInfo_Form awp_usr_info = new AWP_UserInfo_Form(pForm, m_LoginCtrl.awp.LMO1User.UserName, m_LoginCtrl.awp.LMO1User);
                     awp_usr_info.ShowDialog(pForm);
                     break;
                 case LoginCtrl.eDataTableCreationMode.STD:

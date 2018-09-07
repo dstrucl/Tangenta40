@@ -133,6 +133,21 @@ namespace LoginControl
             }
         }
 
+        public LMOUser LMO1User
+        {
+            get
+            {
+                if (awp != null)
+                {
+                    return awp.LMO1User;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
 
         internal static int m_MinPasswordLength = 5;
 
@@ -438,7 +453,7 @@ namespace LoginControl
             {
                 if (m_eDataTableCreationMode == eDataTableCreationMode.AWP)
                 {
-                    return awp.LMOUser_Single.PasswordExpiresInNumberOfDays;
+                    return awp.LMO1User.PasswordExpiresInNumberOfDays;
                 }
                 else
                 {

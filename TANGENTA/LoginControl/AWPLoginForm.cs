@@ -23,7 +23,7 @@ namespace LoginControl
         {
             InitializeComponent();
             awp = xawp;
-            m_LMOUser = awp.LMOUser_Single;
+            m_LMOUser = awp.LMO1User;
             cmbR_UserName.RecentItemsFolder = awp.lctrl.RecentItemsFolder;
             this.Text = lng.s_Login.s;
             this.btn_OK.Text = lng.s_Login.s;

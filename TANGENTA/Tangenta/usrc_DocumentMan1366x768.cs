@@ -1139,7 +1139,7 @@ namespace Tangenta
                 {
                     if (m_Form_Document.loginControl1.Login_SingleUser(xnav))
                     {
-                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(m_Form_Document.loginControl1.awp.LMOUser_Single.myOrganisation_Person_ID);
+                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(m_Form_Document.loginControl1.awp.LMO1User.myOrganisation_Person_ID);
                         if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
                         {
                             return true;
