@@ -1000,8 +1000,10 @@ namespace Tangenta
                     DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Doc_ID_to_show.ToString());
                     if (drs.Count() > 0)
                     {
+                        dgvx_XInvoice.ClearSelection();
                         int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
                         dgvx_XInvoice.Rows[iRow].Selected = true;
+                        dgvx_XInvoice.CurrentCell = dgvx_XInvoice.Rows[iRow].Cells[0];
                     }
                 }
                 else
@@ -1009,8 +1011,10 @@ namespace Tangenta
                     DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show.ToString());
                     if (drs.Count() > 0)
                     {
+                        dgvx_XInvoice.ClearSelection();
                         int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
                         dgvx_XInvoice.Rows[iRow].Selected = true;
+                        dgvx_XInvoice.CurrentCell = dgvx_XInvoice.Rows[iRow].Cells[0];
                     }
                 }
             }

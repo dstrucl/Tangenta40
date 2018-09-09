@@ -28,6 +28,7 @@ using Country_ISO_3166;
 using HUDCMS;
 using LoginControl;
 using static TangentaDB.CashierActivity;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -480,17 +481,28 @@ namespace Tangenta
                                                     true,
                                                     ref bCancel
                                                     );
+                    LMO1User.myOrganisation_Person_ID = myOrganisation_Person_SingleUser_ID;
+                    ID xAtom_myOrganisation_Person_ID = null;
+                    string_v office_v = null;
+                    if (!f_Atom_myOrganisation_Person.Get(LMO1User.myOrganisation_Person_ID,ref xAtom_myOrganisation_Person_ID, ref office_v))
+                    {
+                        return false;
+                    }
+                    LMO1User.Atom_myOrganisation_Person_ID = xAtom_myOrganisation_Person_ID;
+
+
                     if (Program.bFirstTimeInstallation)
                     {
                         ID xAtom_WorkPeriod_ID = null;
-                        if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
-                                                     f_Atom_WorkPeriod.sWorkPeriod,
-                                                     LoginControl.lng.s_WorkPeriod.s,
-                                                     DateTime.Now,
-                                                     null,
-                                                     ref LMO1User.Atom_myOrganisation_Person_ID,
-                                                     ref xAtom_WorkPeriod_ID,
-                                                     ref Err))
+                        if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
+                        //if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
+                        //                             f_Atom_WorkPeriod.sWorkPeriod,
+                        //                             LoginControl.lng.s_WorkPeriod.s,
+                        //                             DateTime.Now,
+                        //                             null,
+                        //                             ref LMO1User.Atom_myOrganisation_Person_ID,
+                        //                             ref xAtom_WorkPeriod_ID,
+                        //                             ref Err))
                         {
                             //myStartup.eNextStep++;
                             LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
@@ -519,14 +531,15 @@ namespace Tangenta
                             if (doorFor1.DoLoginAsAdministrator((Form)this.Parent))
                             {
                                 ID xAtom_WorkPeriod_ID = null;
-                                if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
-                                    f_Atom_WorkPeriod.sWorkPeriod,
-                                    LoginControl.lng.s_WorkPeriod.s,
-                                    DateTime.Now,
-                                    null,
-                                    ref LMO1User.Atom_myOrganisation_Person_ID,
-                                    ref xAtom_WorkPeriod_ID,
-                                    ref Err))
+                                if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
+                                    //if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
+                                    //f_Atom_WorkPeriod.sWorkPeriod,
+                                    //LoginControl.lng.s_WorkPeriod.s,
+                                    //DateTime.Now,
+                                    //null,
+                                    //ref LMO1User.Atom_myOrganisation_Person_ID,
+                                    //ref xAtom_WorkPeriod_ID,
+                                    //ref Err))
                                 {
                                     //myStartup.eNextStep++;
                                     LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
@@ -553,13 +566,15 @@ namespace Tangenta
                         else
                         {
                             ID xAtom_WorkPeriod_ID = null;
-                            if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
-                                f_Atom_WorkPeriod.sWorkPeriod,
-                                LoginControl.lng.s_WorkPeriod.s,
-                                DateTime.Now,
-                                null,
-                                ref LMO1User.Atom_myOrganisation_Person_ID,
-                                ref xAtom_WorkPeriod_ID, ref Err))
+                            if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
+
+                                //if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
+                                //f_Atom_WorkPeriod.sWorkPeriod,
+                                //LoginControl.lng.s_WorkPeriod.s,
+                                //DateTime.Now,
+                                //null,
+                                //ref LMO1User.Atom_myOrganisation_Person_ID,
+                                //ref xAtom_WorkPeriod_ID, ref Err))
                             {
                                 //myStartup.eNextStep++;
                                 LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
@@ -1115,6 +1130,7 @@ namespace Tangenta
 
                     LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
                     xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+                    xusrc_DocumentMan1366x768.Activate_dgvx_XInvoice_SelectionChanged();
 
                 }
                 else
@@ -1126,10 +1142,10 @@ namespace Tangenta
 
                     xusrc_DocumentMan.Initialise(this, LMO1User);
                     xusrc_DocumentMan.Init();
-
-
+                    this.DocumentMan = xusrc_DocumentMan;
                     LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan;
                     xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+                    xusrc_DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
                 }
             }
         }

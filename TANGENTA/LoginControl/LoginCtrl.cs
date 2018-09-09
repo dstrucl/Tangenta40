@@ -651,7 +651,7 @@ namespace LoginControl
             }
         }
 
-        internal static bool getWorkPeriodEx(LMOUser lmouUser,
+        public static bool GetWorkPeriodEx(LMOUser lmouUser,
                                             ref ID xAtom_WorkPeriod_ID)
         {
             string xAtom_myOrganisation_Person_Tax_ID = null;

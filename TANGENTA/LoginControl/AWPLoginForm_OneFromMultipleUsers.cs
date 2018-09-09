@@ -220,7 +220,7 @@ namespace LoginControl
                 {
                 }
             }
-            if (LoginCtrl.getWorkPeriodEx(m_LMOUser,
+            if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,
                                         ref Atom_WorkPeriod_ID))
             {
 

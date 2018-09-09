@@ -169,6 +169,14 @@ namespace LoginControl
                         return null;
                     }
                 }
+            set
+            {
+                if (awpld != null)
+                {
+                    awpld.myOrganisation_Person_ID = value;
+                    awpld.myOrganisation_Person__per_ID = value;
+                }
+            }
         }
 
         public ID LoginUsers_id

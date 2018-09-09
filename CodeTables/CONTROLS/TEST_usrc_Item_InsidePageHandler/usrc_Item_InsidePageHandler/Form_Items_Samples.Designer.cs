@@ -43,11 +43,13 @@
             this.txt_Item_Name_Prefix = new System.Windows.Forms.TextBox();
             this.lbl_ItemPrefix = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.dgvItems = new System.Windows.Forms.DataGridView();
             this.grp_AutoGenerateSampleItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_NumberOfItemsPerGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.SuspendLayout();
             // 
             // grp_AutoGenerateSampleItems
@@ -65,7 +67,7 @@
             this.grp_AutoGenerateSampleItems.Controls.Add(this.lbl_ItemAbbreviationPrefix);
             this.grp_AutoGenerateSampleItems.Controls.Add(this.txt_Item_Name_Prefix);
             this.grp_AutoGenerateSampleItems.Controls.Add(this.lbl_ItemPrefix);
-            this.grp_AutoGenerateSampleItems.Location = new System.Drawing.Point(3, 59);
+            this.grp_AutoGenerateSampleItems.Location = new System.Drawing.Point(3, 12);
             this.grp_AutoGenerateSampleItems.Name = "grp_AutoGenerateSampleItems";
             this.grp_AutoGenerateSampleItems.Size = new System.Drawing.Size(620, 220);
             this.grp_AutoGenerateSampleItems.TabIndex = 3;
@@ -193,7 +195,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(258, 13);
+            this.button1.Location = new System.Drawing.Point(3, 238);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 40);
             this.button1.TabIndex = 4;
@@ -201,10 +203,26 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // dgvItems
+            // 
+            this.dgvItems.AllowUserToAddRows = false;
+            this.dgvItems.AllowUserToDeleteRows = false;
+            this.dgvItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvItems.Location = new System.Drawing.Point(6, 298);
+            this.dgvItems.Name = "dgvItems";
+            this.dgvItems.ReadOnly = true;
+            this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvItems.Size = new System.Drawing.Size(617, 319);
+            this.dgvItems.TabIndex = 5;
+            // 
             // Form_Items_Samples
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(628, 348);
+            this.ClientSize = new System.Drawing.Size(628, 617);
+            this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.grp_AutoGenerateSampleItems);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -218,6 +236,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_NumberOfGroupsInLevel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -238,5 +257,6 @@
         private System.Windows.Forms.Label lbl_ItemAbbreviationPrefix;
         private System.Windows.Forms.Label lbl_NumberOfTitemsToBeInserted;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dgvItems;
     }
 }

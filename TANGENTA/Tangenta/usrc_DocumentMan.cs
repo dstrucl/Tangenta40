@@ -1000,6 +1000,17 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             if (this.m_usrc_TableOfDocuments.Visible)
             {
                 Customer_Changed = false;
+                if (this.m_usrc_DocumentEditor!=null)
+                {
+                    if (this.m_usrc_DocumentEditor.m_ShopABC!=null)
+                    {
+                        if (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc!=null)
+                        {
+                            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID);
+                            return;
+                        }
+                    }
+                }
                 this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false,false,mSettingsUserValues.FinancialYear,null);
             }
         }

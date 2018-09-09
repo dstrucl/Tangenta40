@@ -161,6 +161,13 @@ namespace usrc_Item_InsidePageHandler
 
         private void btn_usrc_GroupHandler_Click(object sender, EventArgs e)
         {
+            if (frmitems != null)
+            {
+                if (frmitems.IsDisposed)
+                {
+                    frmitems = null;
+                }
+            }
             if (frmitems==null)
             {
                 frmitems = new Form_Items_Samples();
@@ -173,6 +180,12 @@ namespace usrc_Item_InsidePageHandler
         private void Frmitems_NewSampleData(SampleDB xsdb)
         {
             sdb = xsdb;
+            this.usrc_Item_InsideGroup_Handler1.Init(sdb.dtItm);
+        }
+
+        private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
+        {
+
         }
     }
 }

@@ -160,6 +160,13 @@ namespace CodeTables
                     return null;
                 }
             }
+            set
+            {
+                if (m_Table_View != null)
+                {
+                    m_Table_View.View_Name = value;
+                }
+            }
         }
 
 
@@ -758,6 +765,28 @@ namespace CodeTables
             //    }
             //}
             return SQL;
+        }
+
+        public void SQLitecmd_CreateFkeys(DBTableControl dbTables, SQLTable DBm_owner_Table)
+        {
+            m_Fkey.Clear();
+            foreach (Column col in this.Column)
+            {
+                    col.GetColumnSQLiteDefinitionLine_ForFkey(dbTables, ref m_Fkey, DBm_owner_Table);
+            }
+
+            //foreach (Column col in this.Column)
+            //{
+            //    if (col.utyp == CodeTables.UNIQUE)
+            //    {
+            //        if (!col.IsIdentity)
+            //        {
+            //            string sUniqueConstraintName = UniqueNames.GetName(UniqueConstraintNameList, "uniquec_" + col.Name);
+            //            SQL = SQL + "\nALTER TABLE `" + TableName + "`\n" + "ADD CONSTRAINT " + sUniqueConstraintName + " UNIQUE(" + col.Name + ");\n";
+            //            UniqueConstraintNameList.Add(sUniqueConstraintName);
+            //        }
+            //    }
+            //}
         }
 
         public string SQLcmd_CreateTable(DBTableControl dbTables, List<string> UniqueConstraintNameList, ref string sql_DBm, SQLTable DBm_owner_Table)

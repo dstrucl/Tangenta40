@@ -145,6 +145,7 @@ namespace CodeTables
             SQLdbFile = sfolder + filename;
 
             string col_TABLE_NAME = "TABLE_NAME";
+            string col_VIEW_NAME = "VIEW_NAME";
             string col_SQL_CreateTABLE = "SQL_CreateTABLE";
             string col_SQL_AddFkey = "SQL_AddFkey";
             string col_SQL_CreateVIEW = "SQL_CreateVIEW";
@@ -158,10 +159,12 @@ namespace CodeTables
             if (!File.Exists(SQLdbFile))
             {
                 DataColumn dcol_TableName = new DataColumn(col_TABLE_NAME, typeof(string));
+                DataColumn dcol_ViewName = new DataColumn(col_VIEW_NAME, typeof(string));
                 DataColumn dcol_SQL_CreateTable = new DataColumn(col_SQL_CreateTABLE, typeof(string));
                 DataColumn dcol_SQL_AddFkey = new DataColumn(col_SQL_AddFkey, typeof(string));
                 DataColumn dcol_SQL_CreateView = new DataColumn(col_SQL_CreateVIEW, typeof(string));
                 dtSQLdb.Columns.Add(dcol_TableName);
+                dtSQLdb.Columns.Add(dcol_ViewName);
                 dtSQLdb.Columns.Add(dcol_SQL_CreateTable);
                 dtSQLdb.Columns.Add(dcol_SQL_AddFkey);
                 dtSQLdb.Columns.Add(dcol_SQL_CreateView);
@@ -276,6 +279,7 @@ namespace CodeTables
                         }
 
                         items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
+                        dr[dcol_ViewName] = items[iTable].ViewName;
                         dr[dcol_SQL_CreateView] = items[iTable].sql_CreateView;
 
                         DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
@@ -400,7 +404,16 @@ namespace CodeTables
                         string table_view = null;
                         string_v s_v = tf.set_string(dr[col_SQL_CreateVIEW]);
                         if (s_v!=null)
-                        { 
+                        {
+                            string_v viewName_v = tf.set_string(dr[col_VIEW_NAME]);
+                            if (viewName_v != null)
+                            {
+                                if (items[iTable].m_Table_View==null)
+                                {
+                                    items[iTable].m_Table_View = new SQLTable.Table_View();
+                                }
+                                items[iTable].ViewName = viewName_v.v;
+                            }
                             StringBuilder SQLCreateView_InDataBase = new StringBuilder(s_v.v);
                             if (SQLCreateView_InDataBase.Length > 0)
                             {
@@ -443,7 +456,8 @@ namespace CodeTables
                                 }
 
                                 items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
-
+                                items[iTable].SQLitecmd_CreateFkeys(this, null);
+                                //items[iTable].CreateTableTree(items);
                                 DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
                                 SQL_DataBase_VIEW_List.Add(xDataBaseView);
                             }

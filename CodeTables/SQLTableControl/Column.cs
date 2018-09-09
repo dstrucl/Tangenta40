@@ -452,6 +452,53 @@ namespace CodeTables
                 return "!!!Object Is Null!!!";
             }
         }
+
+
+        public void GetColumnSQLiteDefinitionLine_ForFkey(DBTableControl dbTables, ref List<ForeignKey> m_Fkey, SQLTable DBm_owner_Table)
+        {
+            SQLTable refTable = null;
+            SQLTable new_ref_Table = null;
+            if (obj != null)
+            {
+                string columnName = StaticLib.Func.GetNameFromObjectType(obj);
+                this.Name = columnName;
+                if (obj.GetType() == typeof(ID))
+                {
+                    ID ID = (ID)obj;
+                    return;
+                }
+                else if (dbTables.IsMyTable(out refTable, obj.GetType()))
+                {
+
+                    if (DBtypesFunc.Is_DBm_Type(refTable.objTable))
+                    {
+                        if (DBm_owner_Table == null)
+                        {
+                            DBm_owner_Table = this.ownerTable;
+                        }
+                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.items);
+                        dbTables.items.Add(new_ref_Table);
+
+                        new_ref_Table.SQLitecmd_CreateFkeys(dbTables,  DBm_owner_Table);
+
+                        refTable = new_ref_Table;
+                        this.Name = refTable.TableName;
+                        int iCount = this.Name_in_language.sText_Length;
+                        for (int i = 0; i < iCount; i++)
+                        {
+                            this.Name_in_language.sText(i, refTable.lngTableName.sText(i) + ":" + this.Name_in_language.sText(i));
+                        }
+                    }
+                    this.Name = this.Name + "_ID";
+                    ForeignKey fk = new ForeignKey();
+                    AddForeignKeySQLite(ref m_Fkey, refTable, ref fk);
+                    fKey = fk;
+                    return;
+                }
+            }
+        }
+
+
         public Type BasicType()
         {
             //MemberInfo[] myMemberInfo;

@@ -202,6 +202,7 @@ namespace usrc_Item_PageHandler
                     CreateControl(ref xctrl);
                     if (xctrl != null)
                     {
+                        xctrl.Click += Xctrl_Click;
                         xctrl.Left = icol * CtrlWidth;
                         xctrl.Top = irow * CtrlHeight;
                         xctrl.Width = CtrlWidth;
@@ -227,6 +228,20 @@ namespace usrc_Item_PageHandler
             btn_Next.Visible = false;
 
         }
+
+        private void Xctrl_Click(object sender, EventArgs e)
+        {
+            if (sender is Control)
+            {
+                Control xtrl = (Control)sender;
+                if (xtrl.Tag is int)
+                {
+                    int iObj = (int)xtrl.Tag;
+                    SelectObject(iObj);
+                }
+            }
+        }
+
         private void GetLayoutMatrix()
         {
             numberOfCtrlColumns = this.Width / m_ctrlWidth;
@@ -399,9 +414,11 @@ namespace usrc_Item_PageHandler
                                 switch (CollectionType)
                                 {
                                     case eCollectionType.ARRAY:
+                                        ctrlItems_array[ictrl].Tag = iobj;
                                         FillControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj]);
                                         break;
                                     case eCollectionType.LIST:
+                                        ctrlItems_array[ictrl].Tag = iobj;
                                         FillControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj]);
                                         break;
                                 }
@@ -499,22 +516,6 @@ namespace usrc_Item_PageHandler
                                         }
                                     }
                                     ShowPage(ipage);
-                                    if (m_SelectedIndex != index)
-                                    {
-                                        m_SelectedIndex = index;
-                                        if (SelectionChanged != null)
-                                        {
-                                            switch (CollectionType)
-                                            {
-                                                case eCollectionType.ARRAY:
-                                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index);
-                                                    break;
-                                                case eCollectionType.LIST:
-                                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index);
-                                                    break;
-                                            }
-                                        }
-                                    }
                                     return true;
                                 }
                                 else
@@ -569,6 +570,22 @@ namespace usrc_Item_PageHandler
                                         Deselect(m_ousrc_Item_list[i], i);
                                         break;
                                 }
+                            }
+                        }
+                    }
+                    if (m_SelectedIndex != index)
+                    {
+                        m_SelectedIndex = index;
+                        if (SelectionChanged != null)
+                        {
+                            switch (CollectionType)
+                            {
+                                case eCollectionType.ARRAY:
+                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index);
+                                    break;
+                                case eCollectionType.LIST:
+                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index);
+                                    break;
                             }
                         }
                     }

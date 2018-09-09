@@ -14,9 +14,13 @@ namespace usrc_Item_InsidePageHandler
 {
     public class SampleDB
     {
-        public enum eSampleType { DEMO,REAL,NONE};
-        public static eSampleType eType = eSampleType.NONE;
+        public DataTable dtItm = null;
         public SampleDB_Price_ShopC_Item[] SampleDB_Price_ShopC_Item_List = null;
+        public string col_ItemName = "ItemName";
+        public string col_pg1 = "s1_name";
+        public string col_pg2 = "s2_name";
+        public string col_pg3 = "s3_name";
+
 
 
         private void SetCValues(ref string ShopC_Item_Abbreviation,
@@ -321,6 +325,32 @@ namespace usrc_Item_InsidePageHandler
             }
             int k = 0;
             int SampleDB_Price_ShopC_Item_List_Count = SampleDB_Price_ShopC_Item_List.Count();
+            if (dtItm!=null)
+            {
+                dtItm.Dispose();
+                dtItm = null;
+            }
+            dtItm = new DataTable();
+            DataColumn dcol_ItemName = new DataColumn(col_ItemName,typeof(string));
+            DataColumn dcol_pg1 = new DataColumn(col_pg1, typeof(string));
+            DataColumn dcol_pg2 = new DataColumn(col_pg2, typeof(string));
+            DataColumn dcol_pg3 = new DataColumn(col_pg3, typeof(string));
+            dtItm.Columns.Add(dcol_ItemName);
+            dtItm.Columns.Add(dcol_pg1);
+            dtItm.Columns.Add(dcol_pg2);
+            dtItm.Columns.Add(dcol_pg3);
+
+            for (k=0;k< SampleDB_Price_ShopC_Item_List_Count;k++)
+            {
+                SampleDB_Price_ShopC_Item spsci = SampleDB_Price_ShopC_Item_List[k];
+
+                DataRow dr = dtItm.NewRow();
+                dr[dcol_ItemName] = spsci.ShopC_Item_Name;
+                dr[dcol_pg1] = spsci.ShopC_Item_ParentGroup1;
+                dr[dcol_pg2] = spsci.ShopC_Item_ParentGroup2;
+                dr[dcol_pg3] = spsci.ShopC_Item_ParentGroup3;
+                dtItm.Rows.Add(dr);
+            }
             return true;
         }
 

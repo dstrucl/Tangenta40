@@ -236,7 +236,7 @@ eres_check:
                                         else
                                         {
                                             ID Atom_WorkPeriod_ID = null;
-                                            if (LoginCtrl.getWorkPeriodEx(LMO1User,
+                                            if (LoginCtrl.GetWorkPeriodEx(LMO1User,
                                                           ref LMO1User.Atom_myOrganisation_Person_ID 
                                                           ))
                                             {
@@ -284,7 +284,7 @@ eres_check:
                                 }
                                 ID xAtom_WorkPeriod_ID = null;
 
-                                if (LoginCtrl.getWorkPeriodEx(LMO1User,
+                                if (LoginCtrl.GetWorkPeriodEx(LMO1User,
                                                             ref xAtom_WorkPeriod_ID
                                                             ))
                                 {

@@ -66,7 +66,6 @@ namespace usrc_Item_Group_Handler
             if (Items.Count > 0)
             {
                 GroupInsideControl grpFirst = Items.First();
-                grpFirst.SingleSelected = true;
                 GroupInsideControl sub_grp = grpFirst;
                 if (sub_grp.m_GroupList != null)
                 {
@@ -117,17 +116,12 @@ namespace usrc_Item_Group_Handler
             {
                 
             }
-            foreach(GroupInsideControl g in Items)
-            {
-                g.SingleSelected = false;
-            }
             GroupInsideControl grp = Items.First();
             GroupInsideControl sub_grp = grp;
             while (sub_grp.m_GroupList != null)
             {
                 sub_grp = sub_grp.m_GroupList.SelectFirst();
             }
-            grp.SingleSelected = true; 
             return grp;
         }
 
@@ -152,10 +146,6 @@ namespace usrc_Item_Group_Handler
         {
             foreach (GroupInsideControl grp in Items)
             {
-                if (grp.SingleSelected)
-                {
-                    return grp;
-                }
             }
             return null;
         }

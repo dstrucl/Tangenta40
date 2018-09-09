@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
+using usrc_Item_PageHandler;
 
 namespace usrc_Item_Group_Handler
 {
@@ -42,10 +43,21 @@ namespace usrc_Item_Group_Handler
             set { m_Font_Height = value; }
         }
 
-   
+
+        private bool b_usrc_Item_InsidePageHandler_Defined = false;
+        public bool usrc_Item_InsidePageHandler_Defined
+        {
+            get
+            {
+                return b_usrc_Item_InsidePageHandler_Defined;
+            }
+            set
+            {
+                b_usrc_Item_InsidePageHandler_Defined = value;
+            }
+        }
 
         private DataTable m_dt_Group = null;
-        int ypos = 0;
 
 
         internal GroupInsideControl m_GroupRoot = null;
@@ -53,8 +65,6 @@ namespace usrc_Item_Group_Handler
 
         private int m_NumberOfGroupLevels = -1;
         private int m_LastNumberOfGroupLevels = -1;
-        private int m_Last_CurrentGroup_GroupLevel = -1;
-        private int m_Last_CurrentSelectedGroup_GroupLevel = -1;
 
         public int NumberOfGroupLevels
         {
@@ -67,7 +77,7 @@ namespace usrc_Item_Group_Handler
             
         }
 
-        private void set_groups()
+        private void groups_set()
         {
             DataRow[] drs = null;
             drs = m_dt_Group.Select("s3_name is not null");
@@ -98,7 +108,7 @@ namespace usrc_Item_Group_Handler
 
             if (m_GroupRoot == null)
             {
-                m_GroupRoot = new GroupInsideControl( null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
+                m_GroupRoot = new GroupInsideControl(null, null);
             }
             m_GroupRoot.Clear();
 
@@ -150,11 +160,251 @@ namespace usrc_Item_Group_Handler
             {
                 bGroupChanged = true;
                 m_dt_Group = xdt_Group.Copy();
-                set_groups();
+                groups_set();
+                groups_createcontrols();
             }
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
+            
+            usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
+            usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
+            usrc_Item_InsidePageHandler1.Select += Usrc_Item_InsidePageHandler1_Select;
+            usrc_Item_InsidePageHandler1.Deselect += Usrc_Item_InsidePageHandler1_Deselect;
+            usrc_Item_InsidePageHandler1.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
+            usrc_Item_InsidePageHandler1.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
+
+            usrc_Item_InsidePageHandler2.CreateControl += Usrc_Item_InsidePageHandler2_CreateControl;
+            usrc_Item_InsidePageHandler2.FillControl += Usrc_Item_InsidePageHandler2_FillControl;
+            usrc_Item_InsidePageHandler2.Select += Usrc_Item_InsidePageHandler2_Select;
+            usrc_Item_InsidePageHandler2.Deselect += Usrc_Item_InsidePageHandler2_Deselect;
+            usrc_Item_InsidePageHandler2.SelectControl += Usrc_Item_InsidePageHandler2_SelectControl;
+            usrc_Item_InsidePageHandler2.SelectionChanged += Usrc_Item_InsidePageHandler2_SelectionChanged;
+
+            usrc_Item_InsidePageHandler3.CreateControl += Usrc_Item_InsidePageHandler3_CreateControl;
+            usrc_Item_InsidePageHandler3.FillControl += Usrc_Item_InsidePageHandler3_FillControl;
+            usrc_Item_InsidePageHandler3.Select += Usrc_Item_InsidePageHandler3_Select;
+            usrc_Item_InsidePageHandler3.Deselect += Usrc_Item_InsidePageHandler3_Deselect;
+            usrc_Item_InsidePageHandler3.SelectControl += Usrc_Item_InsidePageHandler3_SelectControl;
+            usrc_Item_InsidePageHandler3.SelectionChanged += Usrc_Item_InsidePageHandler3_SelectionChanged;
+
             return m_NumberOfGroupLevels > 0;
         }
+
+        private void groups_createcontrols()
+        {
+            if (m_GroupRoot!=null)
+            {
+                if (m_GroupRoot.m_GroupList!=null)
+                {
+                    int icount = m_GroupRoot.m_GroupList.Items.Count;
+                    if (icount > 0)
+                    {
+                        usrc_Item_InsidePageHandler1.Init(m_GroupRoot.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler1.ShowPage(0);
+                        usrc_Item_InsidePageHandler1.SelectObject(0);
+                    }
+                }
+            }
+        }
+
+        private void select(object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                ((GroupInsideControl)oData).bSelected = true;
+            }
+        }
+
+        private void deselect(object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                ((GroupInsideControl)oData).bSelected = false;
+            }
+        }
+
+        private void selectControl(Control ctrl, object oData, int index, bool selected)
+        {
+            if (selected)
+            {
+                ctrl.BackColor = Color.MistyRose;
+                if (oData is GroupInsideControl)
+                {
+                    ((GroupInsideControl)oData).bSelected = true;
+                }
+            }
+            else
+            {
+                ctrl.BackColor = Color.White;
+                if (oData is GroupInsideControl)
+                {
+                    ((GroupInsideControl)oData).bSelected = false;
+                }
+            }
+        }
+
+        private void Usrc_Item_InsidePageHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
+        {
+            selectControl(ctrl, oData, index, selected);
+        }
+
+
+        private void Usrc_Item_InsidePageHandler2_SelectControl(Control ctrl, object oData, int index, bool selected)
+        {
+            selectControl(ctrl, oData, index, selected);
+        }
+
+        private void Usrc_Item_InsidePageHandler3_SelectControl(Control ctrl, object oData, int index, bool selected)
+        {
+            selectControl(ctrl, oData, index, selected);
+        }
+
+        private void Usrc_Item_InsidePageHandler1_Deselect(object oData, int index)
+        {
+            deselect(oData, index);
+        }
+        private void Usrc_Item_InsidePageHandler2_Deselect(object oData, int index)
+        {
+            deselect(oData, index);
+        }
+        private void Usrc_Item_InsidePageHandler3_Deselect(object oData, int index)
+        {
+            deselect(oData, index);
+        }
+
+
+        private void Usrc_Item_InsidePageHandler1_Select(object oData, int index)
+        {
+            select(oData, index);
+        }
+        private void Usrc_Item_InsidePageHandler2_Select(object oData, int index)
+        {
+            select(oData, index);
+        }
+        private void Usrc_Item_InsidePageHandler3_Select(object oData, int index)
+        {
+            select(oData, index);
+        }
+
+        private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                if (gic.m_GroupList != null)
+                {
+                    int iCount = gic.m_GroupList.Items.Count;
+                    if (iCount > 0)
+                    {
+                        usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler2.ShowPage(0);
+                        usrc_Item_InsidePageHandler2.SelectObject(0);
+                        ShowRootLevel2();
+                    }
+                    else
+                    {
+                        ShowRootLevel1();
+                    }
+                }
+                else
+                {
+                    ShowRootLevel1();
+                }
+            }
+        }
+
+        private void add_usrc_Item_InsidePageHandlers(usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Usrc_Item_InsidePageHandler2_SelectionChanged(Control ctrl, object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                if (gic.m_GroupList != null)
+                {
+                    int iCount = gic.m_GroupList.Items.Count;
+                    if (iCount > 0)
+                    {
+                        usrc_Item_InsidePageHandler3.Init(gic.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler3.ShowPage(0);
+                        usrc_Item_InsidePageHandler3.SelectObject(0);
+                        ShowRootLevel3();
+                    }
+                    else
+                    {
+                        ShowRootLevel2();
+                    }
+                }
+                else
+                {
+                    ShowRootLevel2();
+                }
+            }
+        }
+
+        private void Usrc_Item_InsidePageHandler3_SelectionChanged(Control ctrl, object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                ShowRootLevel3();
+                    // Show Items of GroupInsideControl
+            }
+        }
+
+
+        private void Usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
+        {
+            Button btn = new Button();
+            ctrl = btn;
+        }
+
+        private void Usrc_Item_InsidePageHandler2_CreateControl(ref Control ctrl)
+        {
+            Button btn = new Button();
+            ctrl = btn;
+        }
+
+        private void Usrc_Item_InsidePageHandler3_CreateControl(ref Control ctrl)
+        {
+            Button btn = new Button();
+            ctrl = btn;
+        }
+
+        private void fillControl(Control ctrl, object oData)
+        {
+            if (oData is GroupInsideControl)
+            {
+                Button btn = (Button)ctrl;
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                if (gic.Name != null)
+                {
+                    btn.Text = gic.Name;
+                }
+                else
+                {
+                    btn.Text = lng.s_Other.s;
+                }
+            }
+        }
+                
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
+        {
+            fillControl(ctrl, oData);
+        }
+
+        private void Usrc_Item_InsidePageHandler2_FillControl(Control ctrl, object oData)
+        {
+            fillControl(ctrl, oData);
+        }
+
+        private void Usrc_Item_InsidePageHandler3_FillControl(Control ctrl, object oData)
+        {
+            fillControl(ctrl, oData);
+        }
+
 
         private Form getParentForm()
         {
@@ -173,41 +423,41 @@ namespace usrc_Item_Group_Handler
 
         public bool Select(string[] sGroupArr)
         {
-            m_CurrentGroup = m_GroupRoot.Select(m_NumberOfGroupLevels, sGroupArr);
-            if (m_CurrentGroup != null)
-            {
-                DoPaintGroup(m_CurrentGroup);
-            }
-            else
-            {
-                string Err = "ERROR:usrc_Item_Group_Handler:Select(string[] sGroupArr)";
-                string s1_name_cond = " s1_name == null ";
-                string s2_name_cond = " s2_name == null ";
-                string s3_name_cond = " s3_name == null ";
-                if (sGroupArr.Count()==3)
-                {
-                    if (sGroupArr[0]!=null)
-                    {
-                        s1_name_cond = " s1_name =='" + sGroupArr[0] + "' ";
-                    }
-                    if (sGroupArr[1] != null)
-                    {
-                        s2_name_cond = " s2_name =='" + sGroupArr[1] + "' ";
-                    }
-                    if (sGroupArr[2] != null)
-                    {
-                        s3_name_cond = " s3_name =='" + sGroupArr[2] + "' ";
-                    }
-                    //Err += " Group not found :" + s1_name_cond + " and " + s2_name_cond + " and " + s3_name_cond;
-                }
-                else
-                {
-                    Err += ":sGroupArr.Count() != 3 ";
-                    LogFile.Error.Show(Err);
-                }
+            //m_CurrentGroup = m_GroupRoot.Select(m_NumberOfGroupLevels, sGroupArr);
+            //if (m_CurrentGroup != null)
+            //{
+            //    DoPaintGroup(m_CurrentGroup);
+            //}
+            //else
+            //{
+            //    string Err = "ERROR:usrc_Item_Group_Handler:Select(string[] sGroupArr)";
+            //    string s1_name_cond = " s1_name == null ";
+            //    string s2_name_cond = " s2_name == null ";
+            //    string s3_name_cond = " s3_name == null ";
+            //    if (sGroupArr.Count()==3)
+            //    {
+            //        if (sGroupArr[0]!=null)
+            //        {
+            //            s1_name_cond = " s1_name =='" + sGroupArr[0] + "' ";
+            //        }
+            //        if (sGroupArr[1] != null)
+            //        {
+            //            s2_name_cond = " s2_name =='" + sGroupArr[1] + "' ";
+            //        }
+            //        if (sGroupArr[2] != null)
+            //        {
+            //            s3_name_cond = " s3_name =='" + sGroupArr[2] + "' ";
+            //        }
+            //        //Err += " Group not found :" + s1_name_cond + " and " + s2_name_cond + " and " + s3_name_cond;
+            //    }
+            //    else
+            //    {
+            //        Err += ":sGroupArr.Count() != 3 ";
+            //        LogFile.Error.Show(Err);
+            //    }
 
                 
-            }
+            //}
             return m_CurrentGroup != null;
 
         }
@@ -276,7 +526,7 @@ namespace usrc_Item_Group_Handler
                 grp = m_GroupRoot.Find(null);
                 if (grp == null)
                 {
-                    grp = new GroupInsideControl( null,this.usrc_Item_InsidePageHandler1, m_GroupRoot, DoPaintGroup,ref ypos,64,14);
+                    grp = new GroupInsideControl(m_GroupRoot, null);
                 }
             }
             else
@@ -300,76 +550,71 @@ namespace usrc_Item_Group_Handler
 
         private void CreateGroupTree()
         {
-            int ypos_pnl1 = 0;
-            int ypos_pnl2 = 0;
-            int ypos_pnl3 = 0;
-            DataRow[] drs_spnl3 = null;
-            drs_spnl3 = m_dt_Group.Select("s3_name is not null");
-            if (drs_spnl3.Count() > 0)
+            DataRow[] drs_s3_root = null;
+            drs_s3_root = m_dt_Group.Select("s3_name is not null");
+            if (drs_s3_root.Count() > 0)
             {
-                foreach (DataRow dr_pnl3 in drs_spnl3)
+                foreach (DataRow dr_root in drs_s3_root)
                 {
-                    string sGroupName_pnl1 = null;
-                    if (dr_pnl3["s3_name"] is string)
+                    string sGroupName_root = null;
+                    if (dr_root["s3_name"] is string)
                     {
-                        sGroupName_pnl1 = (string)dr_pnl3["s3_name"];
-                        if (this.m_GroupRoot.Find(sGroupName_pnl1) != null)
+                        sGroupName_root = (string)dr_root["s3_name"];
+                        if (this.m_GroupRoot.Find(sGroupName_root) != null)
                         {
                             continue;
                         }
-                        GroupInsideControl grp_pnl1 = new GroupInsideControl( sGroupName_pnl1, this.usrc_Item_InsidePageHandler3,m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
-                        DataRow[] drs_s2 = null;
-                        drs_s2 = m_dt_Group.Select("s3_name ='" + sGroupName_pnl1 + "'");
-                        if (drs_s2.Count() > 0)
+                        GroupInsideControl grp_root_child = new GroupInsideControl(m_GroupRoot, sGroupName_root);
+                        DataRow[] drs_root_child = null;
+                        drs_root_child = m_dt_Group.Select("s3_name ='" + sGroupName_root + "'");
+                        if (drs_root_child.Count() > 0)
                         {
-                            ypos_pnl2 = 0;
-                            foreach (DataRow dr_pnl2 in drs_s2)
+                            foreach (DataRow dr_root_child in drs_root_child)
                             {
-                                string s2GroupName = null;
-                                if (dr_pnl2["s2_name"] is string)
+                                string s_root_child = null;
+                                if (dr_root_child["s2_name"] is string)
                                 {
-                                    s2GroupName = (string)dr_pnl2["s2_name"];
-                                    if (grp_pnl1.m_GroupList == null)
+                                    s_root_child = (string)dr_root_child["s2_name"];
+                                    if (grp_root_child.m_GroupList == null)
                                     {
-                                        grp_pnl1.m_GroupList = new GroupListInsideControl( grp_pnl1);
+                                        grp_root_child.m_GroupList = new GroupListInsideControl(grp_root_child);
                                     }
                                     else
                                     {
-                                        if (grp_pnl1.m_GroupList.Find(s2GroupName) != null)
+                                        if (grp_root_child.m_GroupList.Find(s_root_child) != null)
                                         {
                                             continue;
                                         }
                                     }
-                                    GroupInsideControl grp2 = new GroupInsideControl( s2GroupName, this.usrc_Item_InsidePageHandler2, grp_pnl1, DoPaintGroup, ref ypos_pnl2, m_Button_Height, m_Font_Height);
+                                    GroupInsideControl grp_root_child_child = new GroupInsideControl(grp_root_child, s_root_child);
                                     DataRow[] drs_s1 = null;
-                                    drs_s1 = m_dt_Group.Select("s2_name ='" + s2GroupName + "' and s3_name = '" + sGroupName_pnl1 + "'");
+                                    drs_s1 = m_dt_Group.Select("s2_name ='" + s_root_child + "' and s3_name = '" + sGroupName_root + "'");
                                     if (drs_s1.Count() > 0)
                                     {
-                                        ypos_pnl3 = 0;
                                         foreach (DataRow dr1 in drs_s1)
                                         {
                                             if (dr1["s1_name"] is string)
                                             {
                                                 string s1GroupName = (string)dr1["s1_name"];
-                                                if (grp2.m_GroupList == null)
+                                                if (grp_root_child_child.m_GroupList == null)
                                                 {
-                                                    grp2.m_GroupList = new GroupListInsideControl( grp2);
+                                                    grp_root_child_child.m_GroupList = new GroupListInsideControl(grp_root_child_child);
                                                 }
                                                 else
                                                 {
-                                                    if (grp2.m_GroupList.Find(s1GroupName) != null)
+                                                    if (grp_root_child_child.m_GroupList.Find(s1GroupName) != null)
                                                     {
                                                         continue;
                                                     }
                                                 }
-                                                GroupInsideControl grp1 = new GroupInsideControl( s1GroupName, this.usrc_Item_InsidePageHandler2, grp2, DoPaintGroup, ref ypos_pnl3, m_Button_Height, m_Font_Height);
+                                                GroupInsideControl grp1 = new GroupInsideControl(grp_root_child_child, s1GroupName);
                                             }
                                         }
-                                        DataRow[] drs_s1_root = null;
-                                        drs_s1_root = m_dt_Group.Select("s1_name ='" + s2GroupName + "' and s2_name = '" + sGroupName_pnl1 + "' and s3_name is null");
-                                        if (drs_s1_root.Count() > 0)
+                                        DataRow[] drs_s3_root_child_child = null;
+                                        drs_s3_root_child_child = m_dt_Group.Select("s1_name ='" + s_root_child + "' and s2_name = '" + sGroupName_root + "' and s3_name is null");
+                                        if (drs_s3_root_child_child.Count() > 0)
                                         {
-                                            GroupInsideControl grp2_root = new GroupInsideControl( null, this.usrc_Item_InsidePageHandler1, grp2, DoPaintGroup, ref ypos_pnl2, m_Button_Height, m_Font_Height);
+                                            GroupInsideControl grp2_root = new GroupInsideControl(grp_root_child_child, null);
                                         }
                                     }
                                     else
@@ -378,11 +623,11 @@ namespace usrc_Item_Group_Handler
                                     }
                                 }
                             }
-                            DataRow[] drs_s2_root = null;
-                            drs_s2_root = m_dt_Group.Select("s2_name ='" + sGroupName_pnl1 + "' and s3_name is null");
-                            if (drs_s2_root.Count() > 0)
+                            DataRow[] drs_root_child_child = null;
+                            drs_root_child_child = m_dt_Group.Select("s2_name ='" + sGroupName_root + "' and s3_name is null");
+                            if (drs_root_child_child.Count() > 0)
                             {
-                                GroupInsideControl grp2_root = new GroupInsideControl( null, this.usrc_Item_InsidePageHandler2, grp_pnl1, DoPaintGroup, ref ypos_pnl2, m_Button_Height, m_Font_Height);
+                                GroupInsideControl grp_root_child_child = new GroupInsideControl(grp_root_child, null);
                             }
                         }
                         else
@@ -392,82 +637,82 @@ namespace usrc_Item_Group_Handler
                     }
                 }
             }
-            drs_spnl3 = m_dt_Group.Select("s2_name is not null and s3_name is null");
-            if (drs_spnl3.Count() > 0)
+            DataRow[] drs_s2_root = m_dt_Group.Select("s2_name is not null and s3_name is null");
+            if (drs_s2_root.Count() > 0)
             {
-                foreach (DataRow dr_pnl3 in drs_spnl3)
+                foreach (DataRow dr_s2_root in drs_s2_root)
                 {
-                    string sGroupName_pnl1 = null;
-                    if (dr_pnl3["s2_name"] is string)
+                    string sGroupName_s2_root = null;
+                    if (dr_s2_root["s2_name"] is string)
                     {
-                        sGroupName_pnl1 = (string)dr_pnl3["s2_name"];
-                        if (this.m_GroupRoot.Find(sGroupName_pnl1) != null)
+                        sGroupName_s2_root = (string)dr_s2_root["s2_name"];
+                        if (this.m_GroupRoot.Find(sGroupName_s2_root) != null)
                         {
                             continue;
                         }
-                        GroupInsideControl grp_pnl1 = new GroupInsideControl( sGroupName_pnl1, this.usrc_Item_InsidePageHandler3, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
-                        DataRow[] drs_s1 = null;
-                        drs_s1 = m_dt_Group.Select("s2_name ='" + sGroupName_pnl1 + "'");
-                        if (drs_s1.Count() > 0)
+                        GroupInsideControl grp_s2_root_child = new GroupInsideControl(m_GroupRoot, sGroupName_s2_root);
+                        DataRow[] drs_s2_root_child = null;
+                        drs_s2_root_child = m_dt_Group.Select("s2_name ='" + sGroupName_s2_root + "'");
+                        if (drs_s2_root_child.Count() > 0)
                         {
-                            ypos_pnl2 = 0;
-                            foreach (DataRow dr_pnl2 in drs_s1)
+                            foreach (DataRow dr_s2_root_child in drs_s2_root_child)
                             {
-                                if (dr_pnl2["s1_name"] is string)
+                                if (dr_s2_root_child["s1_name"] is string)
                                 {
-                                    string s1GroupName = (string)dr_pnl2["s1_name"];
-                                    if (grp_pnl1.m_GroupList == null)
+                                    string sGroup_s2_root_child = (string)dr_s2_root_child["s1_name"];
+                                    if (grp_s2_root_child.m_GroupList == null)
                                     {
-                                        grp_pnl1.m_GroupList = new GroupListInsideControl( grp_pnl1);
+                                        grp_s2_root_child.m_GroupList = new GroupListInsideControl(grp_s2_root_child);
                                     }
                                     else
                                     {
-                                        if (grp_pnl1.m_GroupList.Find(s1GroupName) != null)
+                                        if (grp_s2_root_child.m_GroupList.Find(sGroup_s2_root_child) != null)
                                         {
                                             continue;
                                         }
                                     }
-                                    GroupInsideControl grp1 = new GroupInsideControl( s1GroupName, this.usrc_Item_InsidePageHandler2, grp_pnl1, DoPaintGroup, ref ypos_pnl3, m_Button_Height, m_Font_Height);
+                                    GroupInsideControl grp1 = new GroupInsideControl(grp_s2_root_child, sGroup_s2_root_child);
                                 }
                             }
                         }
                     }
                 }
             }
-            drs_spnl3 = m_dt_Group.Select("s1_name is not null and s2_name is null and s3_name is null");
-            if (drs_spnl3.Count() > 0)
+            DataRow[] drs_s1_root = m_dt_Group.Select("s1_name is not null and s2_name is null and s3_name is null");
+            if (drs_s1_root.Count() > 0)
             {
-                foreach (DataRow dr_pnl3 in drs_spnl3)
+                foreach (DataRow dr_s1_root in drs_s1_root)
                 {
-                    string sGroupName_pnl1 = null;
-                    if (dr_pnl3["s1_name"] is string)
+                    string sGroupName_s1_root = null;
+                    if (dr_s1_root["s1_name"] is string)
                     {
-                        sGroupName_pnl1 = (string)dr_pnl3["s1_name"];
-                        if (this.m_GroupRoot.Find(sGroupName_pnl1) != null)
+                        sGroupName_s1_root = (string)dr_s1_root["s1_name"];
+                        if (this.m_GroupRoot.Find(sGroupName_s1_root) != null)
                         {
                             continue;
                         }
                         if (m_NumberOfGroupLevels > 1)
                         {
-                            GroupInsideControl grp_pnl1 = new GroupInsideControl( sGroupName_pnl1, this.usrc_Item_InsidePageHandler3, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
+                            GroupInsideControl grp_pnl1 = new GroupInsideControl(m_GroupRoot, sGroupName_s1_root);
                         }
                         else
                         {
-                            GroupInsideControl grp_pnl1 = new GroupInsideControl( sGroupName_pnl1, this.usrc_Item_InsidePageHandler1, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
+                            GroupInsideControl grp_pnl1 = new GroupInsideControl(m_GroupRoot, sGroupName_s1_root);
                         }
                     }
                 }
             }
-            drs_spnl3 = m_dt_Group.Select("s1_name is null and s2_name is null and s3_name is null");
-            if (drs_spnl3.Count() > 0)
+
+            DataRow[] drs_root = m_dt_Group.Select("s1_name is null and s2_name is null and s3_name is null");
+            if (drs_s1_root.Count() > 0)
             {
                 if (m_NumberOfGroupLevels > 1)
                 {
-                    GroupInsideControl grp_pnl1 = new GroupInsideControl( null, this.usrc_Item_InsidePageHandler3, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
+                    GroupInsideControl grp_pnl1 = new GroupInsideControl(m_GroupRoot, null);
                 }
                 else
                 {
-                    GroupInsideControl grp_pnl1 = new GroupInsideControl( null, this.usrc_Item_InsidePageHandler1, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, m_Button_Height, m_Font_Height);
+                    GroupInsideControl grp_pnl1 = new GroupInsideControl(m_GroupRoot, null);
                 }
             }
         }
@@ -496,68 +741,6 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        private void DoPaintGroup(GroupInsideControl SelectedGroup)
-        {
-            m_CurrentGroup = m_GroupRoot.GetCurrent();
-            if (m_CurrentGroup != null)
-            {
-                m_sGroupList.Clear();
-                m_CurrentGroup.Path(ref m_sGroupList);
-                int icount = m_sGroupList.Count;
-                string[] sgrups = new string[icount];
-                int i;
-                for (i = 0; i < icount; i++)
-                {
-                    sgrups[i] = m_sGroupList[i];
-                }
-                if (m_NumberOfGroupLevels > 1)
-                {
-                    int iCurrentGroup_GroupLevel = m_CurrentGroup.GroupLevel;
-                    int iCurrentSelectedGroup_GroupLevel = SelectedGroup.GroupLevel;
-                    if ((m_Last_CurrentGroup_GroupLevel != iCurrentGroup_GroupLevel) ||
-                        (m_Last_CurrentSelectedGroup_GroupLevel != iCurrentSelectedGroup_GroupLevel) ||
-                        (iCurrentSelectedGroup_GroupLevel< m_NumberOfGroupLevels) || bGroupChanged)
-                    {
-                        bGroupChanged = false;
-                        m_Last_CurrentGroup_GroupLevel = iCurrentGroup_GroupLevel;
-                        m_Last_CurrentSelectedGroup_GroupLevel = iCurrentSelectedGroup_GroupLevel;
-                        m_CurrentGroup.SetVisible();
-                        switch (iCurrentGroup_GroupLevel)
-                        {
-                            case 1:
-                                ShowRootLevel1();
-                                break;
-                            case 2:
-                                ShowRootLevel2();
-                                break;
-                            case 3:
-                                ShowRootLevel3();
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    if (bGroupChanged)
-                    {
-                        bGroupChanged = false;
-                        m_CurrentGroup.SetVisible();
-                    }
-                }
-                if (PaintGroup != null)
-                {
-                    PaintGroup(sgrups);
-                }
-            }
-            else
-            {
-                //No Groups
-                if (PaintGroup != null)
-                {
-                    PaintGroup(null);
-                }
-            }
-        }
 
         internal void ShowRootLevel1()
         {
@@ -595,7 +778,7 @@ namespace usrc_Item_Group_Handler
                 string s = "";
                 if (m_CurrentGroup != null)
                 {
-                    m_CurrentGroup.Path(ref s);
+                    //m_CurrentGroup.Path(ref s);
                 }
                 return s;
             }
