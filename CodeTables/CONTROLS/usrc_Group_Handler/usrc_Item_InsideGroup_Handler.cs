@@ -24,6 +24,11 @@ namespace usrc_Item_Group_Handler
         public List<string> m_sGroupList = new List<string>();
         private bool bGroupChanged = false;
 
+        public delegate void delegate_SizeChanged(int top, int height);
+        public event delegate_SizeChanged SizeChanged = null;
+
+
+
         public delegate void delegate_GroupsRedefined(int Level);
         public event delegate_GroupsRedefined GroupsRedefined = null;
 
@@ -43,6 +48,9 @@ namespace usrc_Item_Group_Handler
             set { m_Font_Height = value; }
         }
 
+        private string s1_name = null;
+        private string s2_name = null;
+        private string s3_name = null;
 
         private bool b_usrc_Item_InsidePageHandler_Defined = false;
         public bool usrc_Item_InsidePageHandler_Defined
@@ -156,6 +164,11 @@ namespace usrc_Item_Group_Handler
         public bool Init(DataTable xdt_Group)
         {
             bGroupChanged = false;
+            if (!usrc_Item_InsidePageHandler_Defined)
+            {
+                AddHandlers();
+                usrc_Item_InsidePageHandler_Defined = true;
+            }
             if (!Set_Groups_Table_Equals(xdt_Group))
             {
                 bGroupChanged = true;
@@ -164,7 +177,11 @@ namespace usrc_Item_Group_Handler
                 groups_createcontrols();
             }
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
-            
+            return m_NumberOfGroupLevels > 0;
+        }
+
+        private void AddHandlers()
+        {
             usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
             usrc_Item_InsidePageHandler1.Select += Usrc_Item_InsidePageHandler1_Select;
@@ -185,10 +202,7 @@ namespace usrc_Item_Group_Handler
             usrc_Item_InsidePageHandler3.Deselect += Usrc_Item_InsidePageHandler3_Deselect;
             usrc_Item_InsidePageHandler3.SelectControl += Usrc_Item_InsidePageHandler3_SelectControl;
             usrc_Item_InsidePageHandler3.SelectionChanged += Usrc_Item_InsidePageHandler3_SelectionChanged;
-
-            return m_NumberOfGroupLevels > 0;
         }
-
         private void groups_createcontrols()
         {
             if (m_GroupRoot!=null)
@@ -224,6 +238,7 @@ namespace usrc_Item_Group_Handler
 
         private void selectControl(Control ctrl, object oData, int index, bool selected)
         {
+            ctrl.Visible = true;
             if (selected)
             {
                 ctrl.BackColor = Color.MistyRose;
@@ -290,15 +305,16 @@ namespace usrc_Item_Group_Handler
             if (oData is GroupInsideControl)
             {
                 GroupInsideControl gic = (GroupInsideControl)oData;
+                s1_name = gic.Name;
                 if (gic.m_GroupList != null)
                 {
                     int iCount = gic.m_GroupList.Items.Count;
                     if (iCount > 0)
                     {
+                        ShowRootLevel2();
                         usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList());
                         usrc_Item_InsidePageHandler2.ShowPage(0);
                         usrc_Item_InsidePageHandler2.SelectObject(0);
-                        ShowRootLevel2();
                     }
                     else
                     {
@@ -322,6 +338,7 @@ namespace usrc_Item_Group_Handler
             if (oData is GroupInsideControl)
             {
                 GroupInsideControl gic = (GroupInsideControl)oData;
+                s2_name = gic.Name;
                 if (gic.m_GroupList != null)
                 {
                     int iCount = gic.m_GroupList.Items.Count;
@@ -349,6 +366,7 @@ namespace usrc_Item_Group_Handler
             if (oData is GroupInsideControl)
             {
                 GroupInsideControl gic = (GroupInsideControl)oData;
+                s3_name = gic.Name;
                 ShowRootLevel3();
                     // Show Items of GroupInsideControl
             }
@@ -744,20 +762,28 @@ namespace usrc_Item_Group_Handler
 
         internal void ShowRootLevel1()
         {
-            usrc_Item_InsidePageHandler1.Top = 0;
+            usrc_Item_InsidePageHandler1.Top = Button_Height*2;
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = false;
             usrc_Item_InsidePageHandler3.Visible = false;
             this.Height = Button_Height;
+            if (SizeChanged!=null)
+            {
+                SizeChanged(usrc_Item_InsidePageHandler1.Top, this.Height);
+            }
         }
         internal void ShowRootLevel2()
         {
-            usrc_Item_InsidePageHandler2.Top = 0;
-            usrc_Item_InsidePageHandler1.Top = Button_Height;
+            usrc_Item_InsidePageHandler2.Top = Button_Height;
+            usrc_Item_InsidePageHandler1.Top = Button_Height*2;
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = true;
             usrc_Item_InsidePageHandler3.Visible = false;
             this.Height = Button_Height * 2;
+            if (SizeChanged != null)
+            {
+                SizeChanged(usrc_Item_InsidePageHandler2.Top, this.Height);
+            }
         }
 
         internal void ShowRootLevel3()
@@ -769,6 +795,10 @@ namespace usrc_Item_Group_Handler
             usrc_Item_InsidePageHandler2.Visible = true;
             usrc_Item_InsidePageHandler3.Visible = true;
             this.Height = Button_Height * 3;
+            if (SizeChanged != null)
+            {
+                SizeChanged(usrc_Item_InsidePageHandler3.Top, this.Height);
+            }
         }
 
         public string GroupPath 

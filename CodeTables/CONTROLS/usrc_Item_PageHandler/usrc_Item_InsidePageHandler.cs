@@ -125,12 +125,16 @@ namespace usrc_Item_PageHandler
         }
 
 
-        private int m_NumberOfItems = 0;
+        private int m_xNumberOfItems = 0;
         public int NumberOfItems
         {
             get
             {
-                return m_NumberOfItems;
+                return m_xNumberOfItems;
+            }
+            private set
+            {
+                m_xNumberOfItems = value;
             }
         }
 
@@ -173,6 +177,25 @@ namespace usrc_Item_PageHandler
         {
             GetLayoutMatrix();
             initialise();
+            if (m_SelectedIndex>=0)
+            {
+                if (m_SelectedIndex >= NumberOfItems)
+                {
+                    SelectObject(NumberOfItems - 1);
+                }
+                else
+                {
+                    SelectObject(m_SelectedIndex);
+                }
+            }
+            else
+            {
+                if (NumberOfItems > 0)
+                {
+                    SelectObject(0);
+                }
+            }
+
         }
 
         private void RemoveControlItems()
@@ -261,7 +284,7 @@ namespace usrc_Item_PageHandler
         private void initialise()
         {
             Pages.Clear();
-            if (m_NumberOfItems > 0)
+            if (NumberOfItems > 0)
             {
                 if (CreateControl != null)
                 {
@@ -271,7 +294,7 @@ namespace usrc_Item_PageHandler
                     }
                 }
                 Page pgPrev = null;
-                int rest_items = m_NumberOfItems - NumberOfPageAllocatedItems;
+                int rest_items = NumberOfItems - NumberOfPageAllocatedItems;
                 while (rest_items > 0)
                 {
                     if (Pages.Count == 0)
@@ -286,7 +309,7 @@ namespace usrc_Item_PageHandler
                             pg.iObjectDataEndIndex = pg.iObjectDataStartIndex + pg.ItemsCount - 1;
                             Pages.Add(pg);
                             pgPrev = pg;
-                            rest_items = m_NumberOfItems - NumberOfPageAllocatedItems;
+                            rest_items = NumberOfItems - NumberOfPageAllocatedItems;
                         }
                         else
                         {
@@ -306,7 +329,7 @@ namespace usrc_Item_PageHandler
                             }
                             Pages.Add(pg);
                             pgPrev = pg;
-                            rest_items = m_NumberOfItems - NumberOfPageAllocatedItems;
+                            rest_items = NumberOfItems - NumberOfPageAllocatedItems;
                         }
                     }
                     else
@@ -341,7 +364,7 @@ namespace usrc_Item_PageHandler
                             }
                             Pages.Add(pg);
                             pgPrev = pg;
-                            rest_items = m_NumberOfItems - NumberOfPageAllocatedItems;
+                            rest_items = NumberOfItems - NumberOfPageAllocatedItems;
                         }
                         else
                         {
@@ -361,7 +384,7 @@ namespace usrc_Item_PageHandler
                             }
                             Pages.Add(pg);
                             pgPrev = pg;
-                            rest_items = m_NumberOfItems - NumberOfPageAllocatedItems;
+                            rest_items = NumberOfItems - NumberOfPageAllocatedItems;
                         }
                     }
                 }
@@ -373,13 +396,13 @@ namespace usrc_Item_PageHandler
             if (xDataCollection is object[])
             {
                 m_ousrc_Item_array = (object[])xDataCollection;
-                m_NumberOfItems = m_ousrc_Item_array.Length;
+                NumberOfItems = m_ousrc_Item_array.Length;
                 CollectionType = eCollectionType.ARRAY;
             }
             else
             {
                 m_ousrc_Item_list = (List<object>)xDataCollection;
-                m_NumberOfItems = m_ousrc_Item_list.Count;
+                NumberOfItems = m_ousrc_Item_list.Count;
                 CollectionType = eCollectionType.LIST;
             }
             initialise();
@@ -479,13 +502,13 @@ namespace usrc_Item_PageHandler
 
         public bool SelectObject(int index)
         {
-            if (index < m_NumberOfItems)
+            if (index < NumberOfItems)
             {
                 int ictrl = 0;
                 int ipage = 0;
                 if (get_page(index,ref ipage, ref ictrl))
                 {
-                    int icount = m_NumberOfItems;
+                    int icount = NumberOfItems;
                     for (int i=0;i< icount;i++)
                     {
                         if (i == index)
@@ -554,6 +577,7 @@ namespace usrc_Item_PageHandler
                                             ixobj_Start++;
                                         }
                                     }
+                                    ShowPage(ipage);
                                 }
                             }
                         }
@@ -575,7 +599,6 @@ namespace usrc_Item_PageHandler
                     }
                     if (m_SelectedIndex != index)
                     {
-                        m_SelectedIndex = index;
                         if (SelectionChanged != null)
                         {
                             switch (CollectionType)

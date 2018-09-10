@@ -110,6 +110,12 @@
       <DependentUpon>usrc_Item_Group_Handler.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="usrc_Item_InsidePageGroupHandler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageGroupHandler.Designer.cs">
+      <DependentUpon>usrc_Item_InsidePageGroupHandler.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item_Group_Handler.resx">
       <DependentUpon>usrc_Item_Group_Handler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item_InsidePageGroupHandler.resx">
+      <DependentUpon>usrc_Item_InsidePageGroupHandler.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

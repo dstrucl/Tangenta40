@@ -30,22 +30,22 @@ namespace usrc_Item_Group_Handler
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
-            this.usrc_Item_InsidePageHandler2 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
             this.usrc_Item_InsidePageHandler3 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.usrc_Item_InsidePageHandler2 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
             this.SuspendLayout();
             // 
-            // usrc_Item_InsidePageHandler1
+            // usrc_Item_InsidePageHandler3
             // 
-            this.usrc_Item_InsidePageHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_Item_InsidePageHandler3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.MistyRose;
-            this.usrc_Item_InsidePageHandler1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 80);
-            this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
-            this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(640, 40);
-            this.usrc_Item_InsidePageHandler1.TabIndex = 0;
+            this.usrc_Item_InsidePageHandler3.BackColor = System.Drawing.Color.LightSalmon;
+            this.usrc_Item_InsidePageHandler3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_Item_InsidePageHandler3.Location = new System.Drawing.Point(0, 0);
+            this.usrc_Item_InsidePageHandler3.Name = "usrc_Item_InsidePageHandler3";
+            this.usrc_Item_InsidePageHandler3.SelectedIndex = -1;
+            this.usrc_Item_InsidePageHandler3.Size = new System.Drawing.Size(640, 40);
+            this.usrc_Item_InsidePageHandler3.TabIndex = 2;
             // 
             // usrc_Item_InsidePageHandler2
             // 
@@ -59,17 +59,17 @@ namespace usrc_Item_Group_Handler
             this.usrc_Item_InsidePageHandler2.Size = new System.Drawing.Size(640, 40);
             this.usrc_Item_InsidePageHandler2.TabIndex = 1;
             // 
-            // usrc_Item_InsidePageHandler3
+            // usrc_Item_InsidePageHandler1
             // 
-            this.usrc_Item_InsidePageHandler3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_Item_InsidePageHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsidePageHandler3.BackColor = System.Drawing.Color.LightSalmon;
-            this.usrc_Item_InsidePageHandler3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_Item_InsidePageHandler3.Location = new System.Drawing.Point(0, 0);
-            this.usrc_Item_InsidePageHandler3.Name = "usrc_Item_InsidePageHandler3";
-            this.usrc_Item_InsidePageHandler3.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler3.Size = new System.Drawing.Size(640, 40);
-            this.usrc_Item_InsidePageHandler3.TabIndex = 2;
+            this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.MistyRose;
+            this.usrc_Item_InsidePageHandler1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 80);
+            this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
+            this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
+            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(640, 40);
+            this.usrc_Item_InsidePageHandler1.TabIndex = 0;
             // 
             // usrc_Item_InsideGroup_Handler
             // 

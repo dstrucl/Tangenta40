@@ -180,7 +180,7 @@ namespace usrc_Item_InsidePageHandler
         private void Frmitems_NewSampleData(SampleDB xsdb)
         {
             sdb = xsdb;
-            this.usrc_Item_InsideGroup_Handler1.Init(sdb.dtItm);
+            usrc_Item_InsidePageGroupHandler1.Init(sdb.dtItm);
         }
 
         private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
