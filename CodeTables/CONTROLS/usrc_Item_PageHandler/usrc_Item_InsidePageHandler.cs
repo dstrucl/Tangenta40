@@ -49,20 +49,25 @@ namespace usrc_Item_PageHandler
         public delegate void delegate_FillControl(Control ctrl, object oData);
         public event delegate_FillControl FillControl = null;
 
+        public delegate bool delegate_SetName(object oData, ref string name);
+        public event delegate_SetName SetName = null;
+
+
         public delegate void delegate_SelectControl(Control ctrl, object oData,int index, bool selected);
         public event delegate_SelectControl SelectControl = null;
 
-        public delegate void delegate_Select(object oData, int index);
-        public event delegate_Select Select = null;
+        public delegate void delegate_ControlClick(Control ctrl, object oData, int index, bool selected);
+        public event delegate_ControlClick ControlClick = null;
 
-        public delegate void delegate_SelectionChanged(Control ctrl,object oData, int index);
+        public delegate void delegate_SelectionChanged(Control ctrl, object oData, int index, bool selected);
         public event delegate_SelectionChanged SelectionChanged = null;
+
+        public delegate void delegate_Paint(Control ctrl,object oData, int index);
+        public event delegate_Paint Paint = null;
 
         public delegate void delegate_PageChanged(int iPage);
         public event delegate_PageChanged PageChanged = null;
 
-        public delegate void delegate_Deselect(object oData, int index);
-        public event delegate_Deselect Deselect = null;
 
         private object[] m_ousrc_Item_array = null;
         private Control[] ctrlItems_array = null;
@@ -165,7 +170,51 @@ namespace usrc_Item_PageHandler
             get { return Pages.Count; }
         }
 
-
+        public string SelectedItemName
+        {
+            get
+            {
+                if (SetName != null)
+                {
+                    if (m_SelectedIndex >= 0)
+                    {
+                        string sname = null;
+                        switch (CollectionType)
+                        {
+                            case eCollectionType.ARRAY:
+                                if (SetName(m_ousrc_Item_array[m_SelectedIndex], ref sname))
+                                {
+                                    return sname;
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            case eCollectionType.LIST:
+                                if (SetName(m_ousrc_Item_list[m_SelectedIndex], ref sname))
+                                {
+                                    return sname;
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            default:
+                                MessageBox.Show("ERROR:CollectionType not implemented:" + CollectionType.ToString());
+                                return null;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public usrc_Item_InsidePageHandler()
         {
@@ -237,17 +286,25 @@ namespace usrc_Item_PageHandler
                     }
                 }
             }
-            btn_Prev.Top = ctrlItems_array[0].Top;
-            btn_Prev.Left = ctrlItems_array[0].Left;
-            btn_Prev.Width = ctrlItems_array[0].Width;
-            btn_Prev.Height = ctrlItems_array[0].Height;
+            Control Xctrl0 = ctrlItems_array[0];
+            if (Xctrl0 != null)
+            {
+                btn_Prev.Top = Xctrl0.Top;
+                btn_Prev.Left = Xctrl0.Left;
+                btn_Prev.Width = Xctrl0.Width;
+                btn_Prev.Height = Xctrl0.Height;
+            }
             btn_Prev.Visible = false;
 
             int ilast = ctrlItemsCount - 1;
-            btn_Next.Top = ctrlItems_array[ilast].Top;
-            btn_Next.Left = ctrlItems_array[ilast].Left;
-            btn_Next.Width = ctrlItems_array[ilast].Width;
-            btn_Next.Height = ctrlItems_array[ilast].Height;
+            Control Xctrlast = ctrlItems_array[ilast];
+            if (Xctrlast != null)
+            {
+                btn_Next.Top = Xctrlast.Top;
+                btn_Next.Left = Xctrlast.Left;
+                btn_Next.Width = Xctrlast.Width;
+                btn_Next.Height = Xctrlast.Height;
+            }
             btn_Next.Visible = false;
 
         }
@@ -260,7 +317,46 @@ namespace usrc_Item_PageHandler
                 if (xtrl.Tag is int)
                 {
                     int iObj = (int)xtrl.Tag;
-                    SelectObject(iObj);
+
+                    if (ControlClick!=null)
+                    {
+                        switch (CollectionType)
+                        {
+                            case eCollectionType.ARRAY:
+                                ControlClick(xtrl, m_ousrc_Item_array[iObj], iObj, iObj == SelectedIndex);
+                                break;
+                            case eCollectionType.LIST:
+                                ControlClick(xtrl, m_ousrc_Item_list[iObj], iObj, iObj == SelectedIndex);
+                                break;
+                            default:
+                                MessageBox.Show("ERROR:Xctrl_Click:CollectionType not implemented:" + CollectionType.ToString());
+                                break;
+                        }
+                    }
+                    if (iObj != m_SelectedIndex)
+                    {
+                        SelectObject(iObj);
+                        if (SelectionChanged != null)
+                        {
+                            switch (CollectionType)
+                            {
+                                case eCollectionType.ARRAY:
+                                    SelectionChanged(xtrl, m_ousrc_Item_array[iObj], iObj, iObj == SelectedIndex);
+                                    break;
+                                case eCollectionType.LIST:
+                                    SelectionChanged(xtrl, m_ousrc_Item_list[iObj], iObj, iObj == SelectedIndex);
+                                    break;
+                                default:
+                                    MessageBox.Show("ERROR:Xctrl_Click:CollectionType not implemented:" + CollectionType.ToString());
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        SelectObject(iObj);
+                    }
+                    
                 }
             }
         }
@@ -439,10 +535,32 @@ namespace usrc_Item_PageHandler
                                     case eCollectionType.ARRAY:
                                         ctrlItems_array[ictrl].Tag = iobj;
                                         FillControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj]);
+                                        if (SelectControl != null)
+                                        {
+                                            if (m_SelectedIndex == iobj)
+                                            {
+                                                SelectControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj], iobj, true);
+                                            }
+                                            else
+                                            {
+                                                SelectControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj], iobj, false);
+                                            }
+                                        }
                                         break;
                                     case eCollectionType.LIST:
                                         ctrlItems_array[ictrl].Tag = iobj;
                                         FillControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj]);
+                                        if (SelectControl != null)
+                                        {
+                                            if (m_SelectedIndex == iobj)
+                                            {
+                                                SelectControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj], iobj, true);
+                                            }
+                                            else
+                                            {
+                                                SelectControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj], iobj, false);
+                                            }
+                                        }
                                         break;
                                 }
                                 ctrlItems_array[ictrl].Visible = true;
@@ -508,111 +626,20 @@ namespace usrc_Item_PageHandler
                 int ipage = 0;
                 if (get_page(index,ref ipage, ref ictrl))
                 {
-                    int icount = NumberOfItems;
-                    for (int i=0;i< icount;i++)
-                    {
-                        if (i == index)
-                        {
-                            if (Select != null)
-                            {
-                                if (ipage != m_CurrentPage)
-                                {
-                                    switch (CollectionType)
-                                    {
-                                        case eCollectionType.ARRAY:
-                                            Select(m_ousrc_Item_array[index], index);
-                                            break;
-                                        case eCollectionType.LIST:
-                                            Select(m_ousrc_Item_list[index], index);
-                                            break;
-                                    }
-                                    for (int k=index+1;k<icount;k++)
-                                    {
-                                        switch (CollectionType)
-                                        {
-                                            case eCollectionType.ARRAY:
-                                                Deselect(m_ousrc_Item_array[k], k);
-                                                break;
-                                            case eCollectionType.LIST:
-                                                Deselect(m_ousrc_Item_list[k], k);
-                                                break;
-                                        }
-                                    }
-                                    ShowPage(ipage);
-                                    return true;
-                                }
-                                else
-                                {
-                                    if (SelectControl != null)
-                                    {
-                                        int ixctrls_Start = Pages[ipage].iControlStartIndex;
-                                        int ixctrls_End = Pages[ipage].iControlEndIndex;
-                                        int ixobj_Start = Pages[ipage].iObjectDataStartIndex;
-                                        for (int j = ixctrls_Start; j <= ixctrls_End; j++)
-                                        {
-                                            if (j == ictrl)
-                                            {
-                                                switch (CollectionType)
-                                                {
-                                                    case eCollectionType.ARRAY:
-                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_array[index], index, true);
-                                                        break;
-                                                    case eCollectionType.LIST:
-                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_list[index], index, true);
-                                                        break;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                switch (CollectionType)
-                                                {
-                                                    case eCollectionType.ARRAY:
-                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_array[ixobj_Start], ixobj_Start, false);
-                                                        break;
-                                                    case eCollectionType.LIST:
-                                                        SelectControl(ctrlItems_array[j], m_ousrc_Item_list[ixobj_Start], ixobj_Start, false);
-                                                        break;
-                                                }
-                                            }
-                                            ixobj_Start++;
-                                        }
-                                    }
-                                    ShowPage(ipage);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (Deselect != null)
-                            {
-                                switch (CollectionType)
-                                {
-                                    case eCollectionType.ARRAY:
-                                        Deselect(m_ousrc_Item_array[i], i);
-                                        break;
-                                    case eCollectionType.LIST:
-                                        Deselect(m_ousrc_Item_list[i], i);
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                    if (m_SelectedIndex != index)
-                    {
-                        if (SelectionChanged != null)
-                        {
-                            switch (CollectionType)
-                            {
-                                case eCollectionType.ARRAY:
-                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index);
-                                    break;
-                                case eCollectionType.LIST:
-                                    SelectionChanged(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index);
-                                    break;
-                            }
-                        }
-                    }
                     m_SelectedIndex = index;
+                    ShowPage(ipage);
+                    if (Paint != null)
+                    {
+                        switch (CollectionType)
+                        {
+                            case eCollectionType.ARRAY:
+                                Paint(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index);
+                                break;
+                            case eCollectionType.LIST:
+                                Paint(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index);
+                                break;
+                        }
+                    }
                     return true;
                 }
             }

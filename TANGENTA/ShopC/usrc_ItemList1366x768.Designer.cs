@@ -92,7 +92,7 @@
             this.usrc_Item_InsidePageHandler1.FillControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_FillControl(this.usrc_Item_InsidePageHandler1_FillControl);
             this.usrc_Item_InsidePageHandler1.SelectControl += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_SelectControl(this.usrc_Item_InsidePageHandler1_SelectControl);
             this.usrc_Item_InsidePageHandler1.Select += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Select(this.usrc_Item_InsidePageHandler1_Select);
-            this.usrc_Item_InsidePageHandler1.SelectionChanged += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_SelectionChanged(this.usrc_Item_InsidePageHandler1_SelectionChanged);
+            this.usrc_Item_InsidePageHandler1.Paint += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Paint(this.usrc_Item_InsidePageHandler1_SelectionChanged);
             this.usrc_Item_InsidePageHandler1.PageChanged += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_PageChanged(this.usrc_Item_InsidePageHandler1_PageChanged);
             this.usrc_Item_InsidePageHandler1.Deselect += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Deselect(this.usrc_Item_InsidePageHandler1_Deselect);
             // 

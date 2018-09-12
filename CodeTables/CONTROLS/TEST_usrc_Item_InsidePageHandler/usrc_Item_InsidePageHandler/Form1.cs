@@ -64,6 +64,7 @@ namespace usrc_Item_InsidePageHandler
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ShowItemsForm();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -159,7 +160,7 @@ namespace usrc_Item_InsidePageHandler
             this.textBox1.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(numUpDn_decimal.Value, 2, "€");
         }
 
-        private void btn_usrc_GroupHandler_Click(object sender, EventArgs e)
+        private void ShowItemsForm()
         {
             if (frmitems != null)
             {
@@ -170,11 +171,15 @@ namespace usrc_Item_InsidePageHandler
             }
             if (frmitems==null)
             {
-                frmitems = new Form_Items_Samples();
-                frmitems.Owner = this;
-                frmitems.NewSampleData += Frmitems_NewSampleData;
-            }
+                            frmitems = new Form_Items_Samples();
+            frmitems.Owner = this;
+                            frmitems.NewSampleData += Frmitems_NewSampleData;
+                        }
             frmitems.Show();
+        }
+        private void btn_usrc_GroupHandler_Click(object sender, EventArgs e)
+        {
+            ShowItemsForm();
         }
 
         private void Frmitems_NewSampleData(SampleDB xsdb)
@@ -186,6 +191,33 @@ namespace usrc_Item_InsidePageHandler
         private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
         {
 
+        }
+
+        private void usrc_Item_InsidePageGroupHandler1_CreateControl(ref Control ctrl)
+        {
+            Button btn = new Button();
+            ctrl = btn;
+        }
+
+        private void usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData)
+        {
+            if (oData is DataRow)
+            {
+                DataRow dr = (DataRow)oData;
+                ctrl.Text = (string)dr["ItemName"];
+            }
+        }
+
+        private void usrc_Item_InsidePageGroupHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
+        {
+            if (selected)
+            {
+                ctrl.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                ctrl.BackColor = Color.White;
+            }
         }
     }
 }

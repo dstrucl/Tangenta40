@@ -56,74 +56,74 @@ namespace usrc_Item_Group_Handler
             Items.Remove(grp);
         }
 
-        public GroupInsideControl First()
-        {
-            return Items[0];
-        }
+        //public GroupInsideControl First()
+        //{
+        //    return Items[0];
+        //}
 
-        internal GroupInsideControl SelectFirst()
-        {
-            if (Items.Count > 0)
-            {
-                GroupInsideControl grpFirst = Items.First();
-                GroupInsideControl sub_grp = grpFirst;
-                if (sub_grp.m_GroupList != null)
-                {
-                    sub_grp = sub_grp.m_GroupList.SelectFirst();
-                }
-                return sub_grp;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //internal GroupInsideControl SelectFirst()
+        //{
+        //    if (Items.Count > 0)
+        //    {
+        //        GroupInsideControl grpFirst = Items.First();
+        //        GroupInsideControl sub_grp = grpFirst;
+        //        if (sub_grp.m_GroupList != null)
+        //        {
+        //            sub_grp = sub_grp.m_GroupList.SelectFirst();
+        //        }
+        //        return sub_grp;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        internal GroupInsideControl Set(string s1_name,string s2_name,string s3_name)
-        {
-            if (s3_name != null)
-            {
-                foreach (GroupInsideControl grp1 in Items)
-                {
-                    if (s3_name.Equals(grp1.Name))
-                    {
-                        foreach (GroupInsideControl grp2 in grp1.m_GroupList.Items)
-                        {
-                            if (s2_name.Equals(grp2.Name))
-                            {
-                                foreach (GroupInsideControl grp3 in grp2.m_GroupList.Items)
-                                {
-                                    if (s1_name.Equals(grp3.Name))
-                                    {
-                                        return grp3;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                return null;
-            }
-            else if (s2_name != null)
-            {
+        //internal GroupInsideControl Set(string s1_name,string s2_name,string s3_name)
+        //{
+        //    if (s3_name != null)
+        //    {
+        //        foreach (GroupInsideControl grp1 in Items)
+        //        {
+        //            if (s3_name.Equals(grp1.Name))
+        //            {
+        //                foreach (GroupInsideControl grp2 in grp1.m_GroupList.Items)
+        //                {
+        //                    if (s2_name.Equals(grp2.Name))
+        //                    {
+        //                        foreach (GroupInsideControl grp3 in grp2.m_GroupList.Items)
+        //                        {
+        //                            if (s1_name.Equals(grp3.Name))
+        //                            {
+        //                                return grp3;
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return null;
+        //    }
+        //    else if (s2_name != null)
+        //    {
 
-            }
-            else if (s1_name != null)
-            {
+        //    }
+        //    else if (s1_name != null)
+        //    {
 
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
                 
-            }
-            GroupInsideControl grp = Items.First();
-            GroupInsideControl sub_grp = grp;
-            while (sub_grp.m_GroupList != null)
-            {
-                sub_grp = sub_grp.m_GroupList.SelectFirst();
-            }
-            return grp;
-        }
+        //    }
+        //    //GroupInsideControl grp = Items.First();
+        //    //GroupInsideControl sub_grp = grp;
+        //    //while (sub_grp.m_GroupList != null)
+        //    //{
+        //    //    sub_grp = sub_grp.m_GroupList.SelectFirst();
+        //    //}
+        //    return grp;
+        //}
 
         internal void CurrentPath(ref List<string > sGroupList)
         {

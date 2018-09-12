@@ -116,17 +116,17 @@ namespace usrc_Item_Group_Handler
             return level;
         }
 
-        internal GroupInsideControl SetFirst()
-        {
-            if (m_GroupList != null)
-            {
-                return m_GroupList.SelectFirst();
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //internal GroupInsideControl SetFirst()
+        //{
+        //    if (m_GroupList != null)
+        //    {
+        //        return m_GroupList.SelectFirst();
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
 

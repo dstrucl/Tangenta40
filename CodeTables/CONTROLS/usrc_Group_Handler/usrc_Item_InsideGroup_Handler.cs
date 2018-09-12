@@ -21,19 +21,22 @@ namespace usrc_Item_Group_Handler
 {
     public partial class usrc_Item_InsideGroup_Handler : UserControl
     {
+        private string[] currentGroups = null;
+
         public List<string> m_sGroupList = new List<string>();
         private bool bGroupChanged = false;
 
-        public delegate void delegate_SizeChanged(int top, int height);
+        public delegate void delegate_SizeChanged(int height);
         public event delegate_SizeChanged SizeChanged = null;
 
+        public delegate void delegate_SelectionChanged(string []sgroup);
+        public event delegate_SelectionChanged SelectionChanged = null;
 
+        //public delegate void delegate_GroupsRedefined(int Level);
+        //public event delegate_GroupsRedefined GroupsRedefined = null;
 
-        public delegate void delegate_GroupsRedefined(int Level);
-        public event delegate_GroupsRedefined GroupsRedefined = null;
-
-        public delegate void delegate_PaintGroup(string[] s_name);
-        public event delegate_PaintGroup PaintGroup = null;
+        //public delegate void delegate_PaintGroup(string[] s_name);
+        //public event delegate_PaintGroup PaintGroup = null;
 
         private int m_Button_Height = 40;
         private int m_Font_Height = 10;
@@ -65,7 +68,7 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        private DataTable m_dt_Group = null;
+        public DataTable m_dt_Group = null;
 
 
         internal GroupInsideControl m_GroupRoot = null;
@@ -133,6 +136,7 @@ namespace usrc_Item_Group_Handler
                         break;
 
                     case 3:
+                        ShowRootLevel3();
                         break;
                     default:
                         LogFile.Error.Show("ERROR:usrc_Group_Handler:usrc_Item_InsideGroup_Handler group level = " + m_NumberOfGroupLevels.ToString() + " not implemented!\r\nMaximal group levels = 3");
@@ -141,23 +145,6 @@ namespace usrc_Item_Group_Handler
 
                 CreateGroupTree();
 
-            }
-            else
-            {
-                usrc_Item_InsidePageHandler1.Visible = false;
-                usrc_Item_InsidePageHandler2.Visible = false;
-                usrc_Item_InsidePageHandler3.Visible = false;
-                this.Height = Button_Height;
-            }
-
-            if (GroupsRedefined != null)
-            {
-                GroupsRedefined(m_NumberOfGroupLevels);
-            }
-
-            if (m_GroupRoot.m_CurrentSubGroup_In_m_GroupList == null)
-            {
-                m_GroupRoot.m_CurrentSubGroup_In_m_GroupList = m_GroupRoot.SetFirst();
             }
         }
 
@@ -182,27 +169,63 @@ namespace usrc_Item_Group_Handler
 
         private void AddHandlers()
         {
+            usrc_Item_InsidePageHandler1.SetName += Usrc_Item_InsidePageHandler1_SetName;
             usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
-            usrc_Item_InsidePageHandler1.Select += Usrc_Item_InsidePageHandler1_Select;
-            usrc_Item_InsidePageHandler1.Deselect += Usrc_Item_InsidePageHandler1_Deselect;
             usrc_Item_InsidePageHandler1.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
+            usrc_Item_InsidePageHandler1.Paint += Usrc_Item_InsidePageHandler1_Paint;
             usrc_Item_InsidePageHandler1.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
 
+            usrc_Item_InsidePageHandler2.SetName += Usrc_Item_InsidePageHandler2_SetName;
             usrc_Item_InsidePageHandler2.CreateControl += Usrc_Item_InsidePageHandler2_CreateControl;
             usrc_Item_InsidePageHandler2.FillControl += Usrc_Item_InsidePageHandler2_FillControl;
-            usrc_Item_InsidePageHandler2.Select += Usrc_Item_InsidePageHandler2_Select;
-            usrc_Item_InsidePageHandler2.Deselect += Usrc_Item_InsidePageHandler2_Deselect;
             usrc_Item_InsidePageHandler2.SelectControl += Usrc_Item_InsidePageHandler2_SelectControl;
+            usrc_Item_InsidePageHandler2.Paint += Usrc_Item_InsidePageHandler2_Paint;
             usrc_Item_InsidePageHandler2.SelectionChanged += Usrc_Item_InsidePageHandler2_SelectionChanged;
 
+            usrc_Item_InsidePageHandler3.SetName += Usrc_Item_InsidePageHandler3_SetName;
             usrc_Item_InsidePageHandler3.CreateControl += Usrc_Item_InsidePageHandler3_CreateControl;
             usrc_Item_InsidePageHandler3.FillControl += Usrc_Item_InsidePageHandler3_FillControl;
-            usrc_Item_InsidePageHandler3.Select += Usrc_Item_InsidePageHandler3_Select;
-            usrc_Item_InsidePageHandler3.Deselect += Usrc_Item_InsidePageHandler3_Deselect;
             usrc_Item_InsidePageHandler3.SelectControl += Usrc_Item_InsidePageHandler3_SelectControl;
+            usrc_Item_InsidePageHandler3.Paint += Usrc_Item_InsidePageHandler3_Paint;
             usrc_Item_InsidePageHandler3.SelectionChanged += Usrc_Item_InsidePageHandler3_SelectionChanged;
+
         }
+
+
+        private bool Usrc_Item_InsidePageHandler3_SetName(object oData, ref string name)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                name = gic.Name;
+                return true;
+            }
+            return false;
+        }
+
+        private bool Usrc_Item_InsidePageHandler2_SetName(object oData, ref string name)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                name = gic.Name;
+                return true;
+            }
+            return false;
+        }
+
+        private bool Usrc_Item_InsidePageHandler1_SetName(object oData, ref string name)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                name = gic.Name;
+                return true;
+            }
+            return false;
+        }
+
         private void groups_createcontrols()
         {
             if (m_GroupRoot!=null)
@@ -213,29 +236,177 @@ namespace usrc_Item_Group_Handler
                     if (icount > 0)
                     {
                         usrc_Item_InsidePageHandler1.Init(m_GroupRoot.m_GroupList.Items.Cast<object>().ToList());
-                        usrc_Item_InsidePageHandler1.ShowPage(0);
                         usrc_Item_InsidePageHandler1.SelectObject(0);
+                        getSelectedGroups();
+                        return;
+                    }
+                }
+            }
+            ShowRootLevel0();
+            if (SelectionChanged!=null)
+            {
+                SelectionChanged(new string[3] { null, null, null });
+            }
+        }
+
+        private void getSelectedGroups()
+        {
+            string s3_Name = null;
+            string s2_Name = null;
+            string s1_Name = null;
+            if (usrc_Item_InsidePageHandler3.Visible)
+            {
+                s3_Name = usrc_Item_InsidePageHandler1.SelectedItemName;
+                s2_Name = usrc_Item_InsidePageHandler2.SelectedItemName;
+                s1_Name = usrc_Item_InsidePageHandler3.SelectedItemName;
+                if (s1_Name==null)
+                {
+                    s1_Name = s2_Name;
+                    s2_name = s3_Name;
+                    s3_Name = null;
+                }
+            }
+            else
+            {
+                if (usrc_Item_InsidePageHandler2.Visible)
+                {
+                    s1_Name = usrc_Item_InsidePageHandler1.SelectedItemName;
+                    s2_Name = usrc_Item_InsidePageHandler2.SelectedItemName;
+                }
+                else
+                {
+                    if (usrc_Item_InsidePageHandler1.Visible)
+                    {
+                        s1_Name = usrc_Item_InsidePageHandler1.SelectedItemName;
+                    }
+                }
+
+            }
+            string[] newgroups = new string[3] { s1_Name, s2_Name, s3_Name };
+
+            if (currentGroups==null)
+            {
+                currentGroups = newgroups;
+                if (SelectionChanged != null)
+                {
+                    SelectionChanged(newgroups);
+                }
+            }
+            else
+            {
+                if (!groupsEqual(currentGroups, newgroups))
+                {
+                    currentGroups = newgroups;
+                    if (SelectionChanged!=null)
+                    {
+                        SelectionChanged(newgroups);
                     }
                 }
             }
         }
 
-        private void select(object oData, int index)
+        private bool groupsEqual(string[] currentGroups, string[] newgroups)
         {
-            if (oData is GroupInsideControl)
+            if (currentGroups.Length == newgroups.Length)
             {
-                ((GroupInsideControl)oData).bSelected = true;
+                int ilen = currentGroups.Length;
+                for (int i = 0; i < ilen; i++)
+                {
+                    if ((currentGroups[i] != null) && (newgroups[i] != null))
+                    {
+                        if (!currentGroups[i].Equals(newgroups[i]))
+                        {
+                            return false;
+                        }
+                    }
+                    else if ((currentGroups[i] == null) && (newgroups[i] == null))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        private void deselect(object oData, int index)
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index)
         {
             if (oData is GroupInsideControl)
             {
-                ((GroupInsideControl)oData).bSelected = false;
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                s1_name = gic.Name;
+                if (gic.m_GroupList != null)
+                {
+                    int iCount = gic.m_GroupList.Items.Count;
+                    if (iCount > 0)
+                    {
+                        ShowRootLevel2();
+                        usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler2.SelectObject(0);
+                        return;
+                    }
+                }
             }
+            ShowRootLevel1();
         }
 
+        private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
+        {
+            getSelectedGroups();
+        }
+
+        private void Usrc_Item_InsidePageHandler2_SelectionChanged(Control ctrl, object oData, int index, bool selected)
+        {
+            getSelectedGroups();
+        }
+
+        private void Usrc_Item_InsidePageHandler3_SelectionChanged(Control ctrl, object oData, int index, bool selected)
+        {
+            getSelectedGroups();
+        }
+
+        private void Usrc_Item_InsidePageHandler2_Paint(Control ctrl, object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                s2_name = gic.Name;
+                if (gic.m_GroupList != null)
+                {
+                    int iCount = gic.m_GroupList.Items.Count;
+                    if (iCount > 0)
+                    {
+                        ShowRootLevel3();
+                        usrc_Item_InsidePageHandler3.Init(gic.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler3.SelectObject(0);
+                        return;
+                    }
+                }
+            }
+            ShowRootLevel2();
+        }
+
+        private void Usrc_Item_InsidePageHandler3_Paint(Control ctrl, object oData, int index)
+        {
+            if (oData is GroupInsideControl)
+            {
+                GroupInsideControl gic = (GroupInsideControl)oData;
+                s3_name = gic.Name;
+                ShowRootLevel3();
+                return;
+                // Show Items of GroupInsideControl
+            }
+            ShowRootLevel2();
+        }
+
+      
         private void selectControl(Control ctrl, object oData, int index, bool selected)
         {
             ctrl.Visible = true;
@@ -273,104 +444,7 @@ namespace usrc_Item_Group_Handler
             selectControl(ctrl, oData, index, selected);
         }
 
-        private void Usrc_Item_InsidePageHandler1_Deselect(object oData, int index)
-        {
-            deselect(oData, index);
-        }
-        private void Usrc_Item_InsidePageHandler2_Deselect(object oData, int index)
-        {
-            deselect(oData, index);
-        }
-        private void Usrc_Item_InsidePageHandler3_Deselect(object oData, int index)
-        {
-            deselect(oData, index);
-        }
-
-
-        private void Usrc_Item_InsidePageHandler1_Select(object oData, int index)
-        {
-            select(oData, index);
-        }
-        private void Usrc_Item_InsidePageHandler2_Select(object oData, int index)
-        {
-            select(oData, index);
-        }
-        private void Usrc_Item_InsidePageHandler3_Select(object oData, int index)
-        {
-            select(oData, index);
-        }
-
-        private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
-        {
-            if (oData is GroupInsideControl)
-            {
-                GroupInsideControl gic = (GroupInsideControl)oData;
-                s1_name = gic.Name;
-                if (gic.m_GroupList != null)
-                {
-                    int iCount = gic.m_GroupList.Items.Count;
-                    if (iCount > 0)
-                    {
-                        ShowRootLevel2();
-                        usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList());
-                        usrc_Item_InsidePageHandler2.ShowPage(0);
-                        usrc_Item_InsidePageHandler2.SelectObject(0);
-                    }
-                    else
-                    {
-                        ShowRootLevel1();
-                    }
-                }
-                else
-                {
-                    ShowRootLevel1();
-                }
-            }
-        }
-
-        private void add_usrc_Item_InsidePageHandlers(usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Usrc_Item_InsidePageHandler2_SelectionChanged(Control ctrl, object oData, int index)
-        {
-            if (oData is GroupInsideControl)
-            {
-                GroupInsideControl gic = (GroupInsideControl)oData;
-                s2_name = gic.Name;
-                if (gic.m_GroupList != null)
-                {
-                    int iCount = gic.m_GroupList.Items.Count;
-                    if (iCount > 0)
-                    {
-                        usrc_Item_InsidePageHandler3.Init(gic.m_GroupList.Items.Cast<object>().ToList());
-                        usrc_Item_InsidePageHandler3.ShowPage(0);
-                        usrc_Item_InsidePageHandler3.SelectObject(0);
-                        ShowRootLevel3();
-                    }
-                    else
-                    {
-                        ShowRootLevel2();
-                    }
-                }
-                else
-                {
-                    ShowRootLevel2();
-                }
-            }
-        }
-
-        private void Usrc_Item_InsidePageHandler3_SelectionChanged(Control ctrl, object oData, int index)
-        {
-            if (oData is GroupInsideControl)
-            {
-                GroupInsideControl gic = (GroupInsideControl)oData;
-                s3_name = gic.Name;
-                ShowRootLevel3();
-                    // Show Items of GroupInsideControl
-            }
-        }
+   
 
 
         private void Usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
@@ -482,15 +556,15 @@ namespace usrc_Item_Group_Handler
 
         private bool Set_Groups_Table_Equals(DataTable xdt_Group)
         {
-            if (m_dt_Group!=null)
+            if (m_dt_Group != null)
             {
-                int irows_count =m_dt_Group.Rows.Count;
-                if (irows_count==xdt_Group.Rows.Count)
+                int irows_count = m_dt_Group.Rows.Count;
+                if (irows_count == xdt_Group.Rows.Count)
                 {
                     int jcolumn_count = m_dt_Group.Columns.Count;
                     if (jcolumn_count == xdt_Group.Columns.Count)
                     {
-                        for (int i = 0; i<irows_count;i++)
+                        for (int i = 0; i < irows_count; i++)
                         {
                             for (int j = 0; j < jcolumn_count; j++)
                             {
@@ -528,43 +602,6 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-  
-        private void Set_Groups_NumberOfGroupLevel_EQ_1()
-        {
-            DataRow[] drs_null = null;
-            if (m_GroupRoot!=null)
-            {
-                m_GroupRoot.Clear();
-            }
-
-            drs_null = m_dt_Group.Select("s1_name is null");
-            GroupInsideControl grp = null;
-            if (drs_null.Count() > 0)
-            {
-                grp = m_GroupRoot.Find(null);
-                if (grp == null)
-                {
-                    grp = new GroupInsideControl(m_GroupRoot, null);
-                }
-            }
-            else
-            {
-                grp = m_GroupRoot.Find(null);
-                if (grp != null)
-                {
-                    if (m_CurrentGroup != null)
-                    {
-                        if (m_CurrentGroup.EqualsTo(grp.Name))
-                        {
-                            m_CurrentGroup = null;
-                        }
-                    }
-                }
-            }
-
-            DataRow[] drs_not_null = null;
-            drs_not_null = m_dt_Group.Select("s1_name is not null");
-        }
 
         private void CreateGroupTree()
         {
@@ -759,30 +796,42 @@ namespace usrc_Item_Group_Handler
             }
         }
 
+        internal void ShowRootLevel0()
+        {
+            usrc_Item_InsidePageHandler1.Top = 0;
+            usrc_Item_InsidePageHandler1.Visible = false;
+            usrc_Item_InsidePageHandler2.Visible = false;
+            usrc_Item_InsidePageHandler3.Visible = false;
+            this.Height = 0;
+            if (SizeChanged != null)
+            {
+                SizeChanged(this.Height);
+            }
+        }
 
         internal void ShowRootLevel1()
         {
-            usrc_Item_InsidePageHandler1.Top = Button_Height*2;
+            usrc_Item_InsidePageHandler1.Top = 0;
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = false;
             usrc_Item_InsidePageHandler3.Visible = false;
             this.Height = Button_Height;
             if (SizeChanged!=null)
             {
-                SizeChanged(usrc_Item_InsidePageHandler1.Top, this.Height);
+                SizeChanged(this.Height);
             }
         }
         internal void ShowRootLevel2()
         {
-            usrc_Item_InsidePageHandler2.Top = Button_Height;
-            usrc_Item_InsidePageHandler1.Top = Button_Height*2;
+            usrc_Item_InsidePageHandler2.Top = 0;
+            usrc_Item_InsidePageHandler1.Top = Button_Height;
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = true;
             usrc_Item_InsidePageHandler3.Visible = false;
             this.Height = Button_Height * 2;
             if (SizeChanged != null)
             {
-                SizeChanged(usrc_Item_InsidePageHandler2.Top, this.Height);
+                SizeChanged(this.Height);
             }
         }
 
@@ -797,7 +846,7 @@ namespace usrc_Item_Group_Handler
             this.Height = Button_Height * 3;
             if (SizeChanged != null)
             {
-                SizeChanged(usrc_Item_InsidePageHandler3.Top, this.Height);
+                SizeChanged(this.Height);
             }
         }
 
