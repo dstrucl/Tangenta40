@@ -117,54 +117,54 @@ namespace ShopC
         public usrc_ItemList1366x768()
         {
             InitializeComponent();
-            ipnl_Items_Width_default = pnl_Items.Width;
+            //ipnl_Items_Width_default = pnl_Items.Width;
         }
 
         private void Init(ID xAtom_WorkPeriod_ID)
         {
-            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+            //m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
 
-            usrc_Item_aray = new usrc_Item1366x768[NumberOfItemsPerPage];
+            //usrc_Item_aray = new usrc_Item1366x768[NumberOfItemsPerPage];
 
-            int i=0;
-            int yPos = 0;
-            while (pnl_Items.Controls.Count>0)
-            {
-                Control ctrl = pnl_Items.Controls[0];
-                this.pnl_Items.Controls.Remove(ctrl);
-                ctrl.Dispose();
-            }
-            pnl_Items.AutoScrollOffset = new Point(0, 0);
-            pnl_Items.AutoScrollPosition = new Point(0, 0);
-            for (i=0;i<m_NumberOfItemsPerPage;i++)
-            {
-                usrc_Item1366x768 usrc_item = new usrc_Item1366x768(m_Atom_WorkPeriod_ID);
-                usrc_item.m_usrc_ItemList = this;
-                usrc_item.ExclusivelySellFromStock = this.ExclusivelySellFromStock;
-                usrc_item.Top = yPos;
-                usrc_item.Left = 5;
-                usrc_item.Width = this.pnl_Items.Width - 10;
-                usrc_item.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-                yPos += usrc_item.Height + 1;
-                usrc_item.ItemAdded2Basket += new usrc_Item1366x768.delegate_ItemAdded2Basket(usrc_item_ItemAdded);
-                usrc_item.ItemChanged += usrc_item_ItemChanged;
-                usrc_item.StockChanged += usrc_item_StockChanged;
-                usrc_item.BackColor = Colors.ItemFromStock.BackColor;
-                usrc_item.ForeColor = Colors.ItemFromStock.ForeColor;
-                usrc_Item_aray[i] = usrc_item;
-                this.pnl_Items.Controls.Add(usrc_item);
-            }
-            this.pnl_Items.AutoScroll = true;
-            this.pnl_Items.HorizontalScroll.Enabled = true;
-            this.pnl_Items.VerticalScroll.Enabled = true;
-            if (this.Visible)
-            {
-                //LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=TRUE");
-            }
-            else
-            {
-                //LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
-            }
+            //int i=0;
+            //int yPos = 0;
+            //while (pnl_Items.Controls.Count>0)
+            //{
+            //    Control ctrl = pnl_Items.Controls[0];
+            //    this.pnl_Items.Controls.Remove(ctrl);
+            //    ctrl.Dispose();
+            //}
+            //pnl_Items.AutoScrollOffset = new Point(0, 0);
+            //pnl_Items.AutoScrollPosition = new Point(0, 0);
+            //for (i=0;i<m_NumberOfItemsPerPage;i++)
+            //{
+            //    usrc_Item1366x768 usrc_item = new usrc_Item1366x768(m_Atom_WorkPeriod_ID);
+            //    usrc_item.m_usrc_ItemList = this;
+            //    usrc_item.ExclusivelySellFromStock = this.ExclusivelySellFromStock;
+            //    usrc_item.Top = yPos;
+            //    usrc_item.Left = 5;
+            //    usrc_item.Width = this.pnl_Items.Width - 10;
+            //    usrc_item.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
+            //    yPos += usrc_item.Height + 1;
+            //    usrc_item.ItemAdded2Basket += new usrc_Item1366x768.delegate_ItemAdded2Basket(usrc_item_ItemAdded);
+            //    usrc_item.ItemChanged += usrc_item_ItemChanged;
+            //    usrc_item.StockChanged += usrc_item_StockChanged;
+            //    usrc_item.BackColor = Colors.ItemFromStock.BackColor;
+            //    usrc_item.ForeColor = Colors.ItemFromStock.ForeColor;
+            //    usrc_Item_aray[i] = usrc_item;
+            //    this.pnl_Items.Controls.Add(usrc_item);
+            //}
+            //this.pnl_Items.AutoScroll = true;
+            //this.pnl_Items.HorizontalScroll.Enabled = true;
+            //this.pnl_Items.VerticalScroll.Enabled = true;
+            //if (this.Visible)
+            //{
+            //    //LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=TRUE");
+            //}
+            //else
+            //{
+            //    //LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
+            //}
         }
 
         void usrc_item_StockChanged(object obj)
@@ -340,13 +340,13 @@ namespace ShopC
         {
             if (Level == 0)
             {
-                pnl_Items.Width = ipnl_Items_Width_default + m_usrc_Item_Group_Handler.Width + 2;
+//                pnl_Items.Width = ipnl_Items_Width_default + m_usrc_Item_Group_Handler.Width + 2;
                 m_usrc_Item_Group_Handler.SetVisible(false);
             }
             else
             {
                m_usrc_Item_Group_Handler.SetVisible(true);
-                pnl_Items.Width = ipnl_Items_Width_default;
+//                pnl_Items.Width = ipnl_Items_Width_default;
             }
 
         }

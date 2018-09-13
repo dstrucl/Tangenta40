@@ -126,7 +126,7 @@ namespace ShopC
                 {
                     if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
                     {
-                        m_usrc_Item_PageHandler.DoPaint();
+//                        m_usrc_Item_PageHandler.DoPaint();
                         if (After_Atom_Item_Remove!=null)
                         {
                             After_Atom_Item_Remove();
@@ -148,7 +148,7 @@ namespace ShopC
                 {
                     if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
                     {
-                        m_usrc_Item_PageHandler.DoPaint();
+//                        m_usrc_Item_PageHandler.DoPaint();
                         if (After_Atom_Item_Remove != null)
                         {
                             After_Atom_Item_Remove();
@@ -171,7 +171,7 @@ namespace ShopC
         internal void SetCurrentInvoice_SelectedItems()
         {
 
-            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
+//            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
             this.m_usrc_ItemList1366x768.Reset();
             if (this.m_ShopBC.m_CurrentDoc.bDraft)
             {
