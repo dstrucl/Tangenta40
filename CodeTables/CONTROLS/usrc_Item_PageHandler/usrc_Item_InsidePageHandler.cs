@@ -489,6 +489,7 @@ namespace usrc_Item_PageHandler
 
         public void Init(object xDataCollection)
         {
+            SelectedIndex = -1;
             if (xDataCollection is object[])
             {
                 m_ousrc_Item_array = (object[])xDataCollection;

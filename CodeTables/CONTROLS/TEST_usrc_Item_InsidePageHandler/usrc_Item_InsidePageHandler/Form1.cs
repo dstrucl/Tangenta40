@@ -171,10 +171,10 @@ namespace usrc_Item_InsidePageHandler
             }
             if (frmitems==null)
             {
-                            frmitems = new Form_Items_Samples();
-            frmitems.Owner = this;
-                            frmitems.NewSampleData += Frmitems_NewSampleData;
-                        }
+                frmitems = new Form_Items_Samples();
+                frmitems.Owner = this;
+                frmitems.NewSampleData += Frmitems_NewSampleData;
+            }
             frmitems.Show();
         }
         private void btn_usrc_GroupHandler_Click(object sender, EventArgs e)
@@ -217,6 +217,14 @@ namespace usrc_Item_InsidePageHandler
             else
             {
                 ctrl.BackColor = Color.White;
+            }
+        }
+
+        private void usrc_Item_InsidePageGroupHandler1_SelectionChanged(Control ctrl, object oData, int index)
+        {
+            if (oData is DataRow)
+            {
+                lbl_Item.Text = (string)((DataRow)oData)["ItemName"];
             }
         }
     }

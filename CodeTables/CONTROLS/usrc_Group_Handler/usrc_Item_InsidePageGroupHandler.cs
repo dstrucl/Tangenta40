@@ -40,15 +40,12 @@ namespace usrc_Item_Group_Handler
         //public event delegate_Deselect Deselect = null;
 
 
-        private int ilasttop = -1;
         public usrc_Item_InsidePageGroupHandler()
         {
             InitializeComponent();
             usrc_Item_InsidePageHandler1.SetName += Usrc_Item_InsidePageHandler1_SetName;
             usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
-//            usrc_Item_InsidePageHandler1.Select += Usrc_Item_InsidePageHandler1_Select;
-//            usrc_Item_InsidePageHandler1.Deselect += Usrc_Item_InsidePageHandler1_Deselect;
             usrc_Item_InsidePageHandler1.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
             usrc_Item_InsidePageHandler1.Paint += Usrc_Item_InsidePageHandler1_SelectionChanged;
         }
@@ -69,22 +66,7 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        //private void Usrc_Item_InsidePageHandler1_Deselect(object oData, int index)
-        //{
-        //    if (Deselect != null)
-        //    {
-        //        Deselect(oData, index);
-        //    }
-        //}
-
-        //private void Usrc_Item_InsidePageHandler1_Select(object oData, int index)
-        //{
-        //    if (Select != null)
-        //    {
-        //        Select(oData, index);
-        //    }
-        //}
-
+  
         private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
         {
             if (FillControl != null)

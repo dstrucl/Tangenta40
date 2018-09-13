@@ -43,6 +43,7 @@
             this.btn_usrc_GroupHandler = new System.Windows.Forms.Button();
             this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler();
             this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.lbl_Item = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).BeginInit();
@@ -195,13 +196,14 @@
             this.usrc_Item_InsidePageGroupHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsidePageGroupHandler1.Location = new System.Drawing.Point(0, 227);
+            this.usrc_Item_InsidePageGroupHandler1.Location = new System.Drawing.Point(0, 269);
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
-            this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(582, 338);
+            this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(582, 296);
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 16;
             this.usrc_Item_InsidePageGroupHandler1.CreateControl += new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler.delegate_CreateControl(this.usrc_Item_InsidePageGroupHandler1_CreateControl);
             this.usrc_Item_InsidePageGroupHandler1.FillControl += new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler.delegate_FillControl(this.usrc_Item_InsidePageGroupHandler1_FillControl);
             this.usrc_Item_InsidePageGroupHandler1.SelectControl += new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler.delegate_SelectControl(this.usrc_Item_InsidePageGroupHandler1_SelectControl);
+            this.usrc_Item_InsidePageGroupHandler1.SelectionChanged += new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler.delegate_SelectionChanged(this.usrc_Item_InsidePageGroupHandler1_SelectionChanged);
             // 
             // usrc_Item_InsidePageHandler1
             // 
@@ -220,11 +222,21 @@
             this.usrc_Item_InsidePageHandler1.Paint += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_Paint(this.usrc_Item_InsidePageHandler1_SelectionChanged);
             this.usrc_Item_InsidePageHandler1.PageChanged += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_PageChanged(this.usrc_Item_InsidePageHandler1_PageChanged);
             // 
+            // lbl_Item
+            // 
+            this.lbl_Item.AutoSize = true;
+            this.lbl_Item.Location = new System.Drawing.Point(16, 243);
+            this.lbl_Item.Name = "lbl_Item";
+            this.lbl_Item.Size = new System.Drawing.Size(35, 13);
+            this.lbl_Item.TabIndex = 17;
+            this.lbl_Item.Text = "label5";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 563);
+            this.Controls.Add(this.lbl_Item);
             this.Controls.Add(this.usrc_Item_InsidePageGroupHandler1);
             this.Controls.Add(this.btn_usrc_GroupHandler);
             this.Controls.Add(this.textBox1);
@@ -268,6 +280,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btn_usrc_GroupHandler;
         private usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
+        private System.Windows.Forms.Label lbl_Item;
     }
 }
 

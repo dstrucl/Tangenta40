@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LanguageControl">
-      <HintPath>..\..\..\UTIL\LanguageControl\bin\AnyCPU\Debug\LanguageControl.dll</HintPath>
-    </Reference>
-    <Reference Include="LogFile">
-      <HintPath>..\..\..\UTIL\LogFile\bin\AnyCPU\Debug\LogFile.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -95,8 +89,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
-      <Project>{AE38E7C4-AC11-4E43-9DE3-364533FCC83B}</Project>
+      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
       <Name>usrc_Item_Group_Handler</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">

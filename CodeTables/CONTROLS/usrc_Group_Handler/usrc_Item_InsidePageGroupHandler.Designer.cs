@@ -1,5 +1,4 @@
 ﻿using usrc_Item_PageHandler;
-
 namespace usrc_Item_Group_Handler
 {
     partial class usrc_Item_InsidePageGroupHandler
@@ -50,6 +49,7 @@ namespace usrc_Item_Group_Handler
             // 
             this.usrc_Item_InsideGroup_Handler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsideGroup_Handler1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usrc_Item_InsideGroup_Handler1.Button_Height = 40;
             this.usrc_Item_InsideGroup_Handler1.Font_Height = 10;
             this.usrc_Item_InsideGroup_Handler1.Location = new System.Drawing.Point(0, 200);
@@ -58,7 +58,7 @@ namespace usrc_Item_Group_Handler
             this.usrc_Item_InsideGroup_Handler1.TabIndex = 0;
             this.usrc_Item_InsideGroup_Handler1.usrc_Item_InsidePageHandler_Defined = false;
             this.usrc_Item_InsideGroup_Handler1.SizeChanged += new usrc_Item_InsideGroup_Handler.delegate_SizeChanged(this.usrc_Item_InsideGroup_Handler1_SizeChanged);
-            this.usrc_Item_InsideGroup_Handler1.SelectionChanged +=this.usrc_Item_InsideGroup_Handler1_SelectionChanged;
+            this.usrc_Item_InsideGroup_Handler1.SelectionChanged += new usrc_Item_InsideGroup_Handler.delegate_SelectionChanged(this.usrc_Item_InsideGroup_Handler1_SelectionChanged);
             // 
             // usrc_Item_InsidePageGroupHandler
             // 
