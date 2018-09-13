@@ -251,38 +251,39 @@ namespace usrc_Item_Group_Handler
 
         private void getSelectedGroups()
         {
-            string s3_Name = null;
-            string s2_Name = null;
-            string s1_Name = null;
+            s1_name = null;
+            s2_name = null;
+            s3_name = null;
+
             if (usrc_Item_InsidePageHandler3.Visible)
             {
-                s3_Name = usrc_Item_InsidePageHandler1.SelectedItemName;
-                s2_Name = usrc_Item_InsidePageHandler2.SelectedItemName;
-                s1_Name = usrc_Item_InsidePageHandler3.SelectedItemName;
-                if (s1_Name==null)
+                s3_name = usrc_Item_InsidePageHandler1.SelectedItemName;
+                s2_name = usrc_Item_InsidePageHandler2.SelectedItemName;
+                s1_name = usrc_Item_InsidePageHandler3.SelectedItemName;
+                if (s1_name==null)
                 {
-                    s1_Name = s2_Name;
-                    s2_name = s3_Name;
-                    s3_Name = null;
+                    s1_name = s2_name;
+                    s2_name = s3_name;
+                    s3_name = null;
                 }
             }
             else
             {
                 if (usrc_Item_InsidePageHandler2.Visible)
                 {
-                    s1_Name = usrc_Item_InsidePageHandler1.SelectedItemName;
-                    s2_Name = usrc_Item_InsidePageHandler2.SelectedItemName;
+                    s1_name = usrc_Item_InsidePageHandler1.SelectedItemName;
+                    s2_name = usrc_Item_InsidePageHandler2.SelectedItemName;
                 }
                 else
                 {
                     if (usrc_Item_InsidePageHandler1.Visible)
                     {
-                        s1_Name = usrc_Item_InsidePageHandler1.SelectedItemName;
+                        s1_name = usrc_Item_InsidePageHandler1.SelectedItemName;
                     }
                 }
 
             }
-            string[] newgroups = new string[3] { s1_Name, s2_Name, s3_Name };
+            string[] newgroups = new string[3] { s1_name, s2_name, s3_name };
 
             if (currentGroups==null)
             {
