@@ -86,13 +86,13 @@ namespace ShopC
                     m_DocTyp = s;
                 }
                 
-                if (this.usrc_Atom_ItemsList1366x768 != null)
+                if (this.m_usrc_Atom_ItemsList1366x768 != null)
                 {
-                    this.usrc_Atom_ItemsList1366x768.DocTyp = m_DocTyp;
+                    this.m_usrc_Atom_ItemsList1366x768.DocTyp = m_DocTyp;
                 }
-                if (this.usrc_ItemList1366x768 != null)
+                if (this.m_usrc_ItemList1366x768 != null)
                 {
-                    this.usrc_ItemList1366x768.DocTyp = m_DocTyp;
+                    this.m_usrc_ItemList1366x768.DocTyp = m_DocTyp;
                 }
 
             }
@@ -118,20 +118,20 @@ namespace ShopC
         }
 
 
-        public int NumberOfGroupLevels
-        {
-            get
-            {
-                if (this.usrc_ItemList1366x768 != null)
-                {
-                    return usrc_ItemList1366x768.NumberOfGroupLevels;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
+        //public int NumberOfGroupLevels
+        //{
+        //    get
+        //    {
+        //        if (this.usrc_ItemList1366x768 != null)
+        //        {
+        //           // return usrc_ItemList1366x768.NumberOfGroupLevels;
+        //        }
+        //        else
+        //        {
+        //            return 0;
+        //        }
+        //    }
+        //}
 
 
         public usrc_ShopC1366x768()
@@ -146,8 +146,8 @@ namespace ShopC
         private void usrc_ShopC_Load(object sender, EventArgs e)
         {
             if (!DesignMode)
-            { 
-              usrc_ItemList1366x768.Init(this.usrc_Atom_ItemsList1366x768);
+            {
+                m_usrc_ItemList1366x768.Init(this.m_usrc_Atom_ItemsList1366x768);
             }
         }
 
@@ -192,11 +192,11 @@ namespace ShopC
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
-            this.usrc_Atom_ItemsList1366x768.Init(m_Atom_WorkPeriod_ID,usrc_ItemList1366x768, xm_InvoiceDB, xDBtcn);
-            this.usrc_ItemList1366x768.Init(m_Atom_WorkPeriod_ID,xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
+            this.m_usrc_Atom_ItemsList1366x768.Init(m_Atom_WorkPeriod_ID,m_usrc_ItemList1366x768, xm_InvoiceDB, xDBtcn);
+            this.m_usrc_ItemList1366x768.Init(m_Atom_WorkPeriod_ID,xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
 
-            this.usrc_ItemList1366x768.ItemAdded += new usrc_ItemList1366x768.delegate_ItemAdded(usrc_ItemList_ItemAdded);
-            this.usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
+            this.m_usrc_ItemList1366x768.ItemAdded += new usrc_ItemList1366x768.delegate_ItemAdded(usrc_ItemList_ItemAdded);
+            this.m_usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             string Err = null;
 
             SetColor();
@@ -283,16 +283,16 @@ namespace ShopC
 
         public void Reset()
         {
-            this.usrc_ItemList1366x768.Reset();
+            //this.usrc_ItemList1366x768.Reset();
         }
 
         public void Clear()
         {
-            this.usrc_Atom_ItemsList1366x768.Clear();
+            this.m_usrc_Atom_ItemsList1366x768.Clear();
         }
         public void SetCurrentInvoice_SelectedItems()
         {
-            this.usrc_Atom_ItemsList1366x768.SetCurrentInvoice_SelectedItems();
+            this.m_usrc_Atom_ItemsList1366x768.SetCurrentInvoice_SelectedItems();
         }
 
         private void btn_Stock_Click(object sender, EventArgs e)
@@ -312,7 +312,7 @@ namespace ShopC
                 {
                     if (EditStock(nav))
                     {
-                        usrc_ItemList1366x768.Get_Price_Item_Stock_Data(PriceList_ID);
+                        m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(PriceList_ID);
                         Reset();
                     }
                 }
@@ -373,6 +373,47 @@ namespace ShopC
             }
         }
 
+        public bool EditItem(NavigationButtons.Navigation xnav)
+        {
+            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
+            Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                            tbl_Item,
+                                                            "Item_$$Code desc", xnav);
+            edt_Item_dlg.ShowDialog(Global.f.GetParentForm(this));
+
+            if (edt_Item_dlg.List_of_Inserted_Items_ID.Count > 0)
+            {
+                DataTable dt_ShopC_Items_NotIn_PriceList = new DataTable();
+                if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Items_NotIn_PriceList))
+                {
+                    if (dt_ShopC_Items_NotIn_PriceList.Rows.Count > 0)
+                    {
+                        if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList, this))
+                        {
+                            bool bPriceListChanged = false;
+                            this.m_usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                        }
+                    }
+                    else
+                    {
+                        bool bEdit = false;
+                        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+                        if (bEdit)
+                        {
+                            bool bPriceListChanged = false;
+                            this.m_usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                        }
+                    }
+                }
+            }
+            if (edt_Item_dlg.Changed)
+            {
+                m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(this.m_usrc_PriceList1.ID);
+            }
+
+            return edt_Item_dlg.Changed;
+        }
+
         private bool FrmSelectStockEditType_CheckIfAdministrator()
         {
             if (CheckIfAdministrator!=null)
@@ -384,7 +425,7 @@ namespace ShopC
 
         private void usrc_PriceList1_PriceListChanged(ID xPriceList_ID)
         {
-            usrc_ItemList1366x768.Get_Price_Item_Stock_Data(xPriceList_ID);
+            m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(xPriceList_ID);
         }
 
         public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
@@ -500,16 +541,14 @@ namespace ShopC
             XMessage.Box.Show(this, lng.s_Item_Not_In_Offer, s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
         }
 
-        private bool usrc_PriceList1_CheckAccess()
+        //private bool usrc_PriceList1_CheckAccess()
+        //{
+
+        //}
+        private void usrc_PriceList1_PriceListChanged()
         {
-            if (CheckAccessPriceList!=null)
-            {
-                return CheckAccessPriceList();
-            }
-            else
-            {
-                return true;
-            }
+
         }
+
     }
 }

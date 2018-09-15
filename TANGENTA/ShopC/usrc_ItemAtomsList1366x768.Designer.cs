@@ -48,10 +48,11 @@
             // usrc_Item_InsidePageHandler1
             // 
             this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.OldLace;
-            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(4, 46);
+            this.usrc_Item_InsidePageHandler1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(2, 46);
             this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(469, 249);
+            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(470, 250);
             this.usrc_Item_InsidePageHandler1.TabIndex = 11;
             // 
             // usrc_Atom_ItemsList1366x768

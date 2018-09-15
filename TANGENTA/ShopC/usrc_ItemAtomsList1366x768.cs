@@ -91,13 +91,13 @@ namespace ShopC
                     xusrc_Atom_Item.btn_RemoveClick += usrc_Atom_Item_RemoveClick; 
                     xusrc_Atom_Item.Top = yPos;
                     xusrc_Atom_Item.Left = 5;
-                    xusrc_Atom_Item.Width = this.pnl_Atom_Items.Width - 10;
+//                    xusrc_Atom_Item.Width = this.pnl_Atom_Items.Width - 10;
                     xusrc_Atom_Item.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
                     xusrc_Atom_Item.Visible = false;
                     yPos += xusrc_Atom_Item.Height + 1;
                     //usrc_item.ItemAdded += new usrc_Item.delegate_ItemAdded(usrc_item_ItemAdded);
                     usrc_Atom_Item_array[i] = xusrc_Atom_Item;
-                    this.pnl_Atom_Items.Controls.Add(xusrc_Atom_Item);
+//                    this.pnl_Atom_Items.Controls.Add(xusrc_Atom_Item);
                 }
             }
         }
@@ -124,18 +124,18 @@ namespace ShopC
             {
                 if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_appisd))
                 {
-                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
-                    {
-//                        m_usrc_Item_PageHandler.DoPaint();
-                        if (After_Atom_Item_Remove!=null)
-                        {
-                            After_Atom_Item_Remove();
-                        }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
-                    }
+//                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
+//                    {
+////                        m_usrc_Item_PageHandler.DoPaint();
+//                        if (After_Atom_Item_Remove!=null)
+//                        {
+//                            After_Atom_Item_Remove();
+//                        }
+//                    }
+//                    else
+//                    {
+//                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
+//                    }
                 }
                 else
                 {
@@ -146,18 +146,18 @@ namespace ShopC
             {
                 if (this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocTyp, x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf))
                 {
-                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
-                    {
-//                        m_usrc_Item_PageHandler.DoPaint();
-                        if (After_Atom_Item_Remove != null)
-                        {
-                            After_Atom_Item_Remove();
-                        }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
-                    }
+//                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
+//                    {
+////                        m_usrc_Item_PageHandler.DoPaint();
+//                        if (After_Atom_Item_Remove != null)
+//                        {
+//                            After_Atom_Item_Remove();
+//                        }
+//                    }
+//                    else
+//                    {
+//                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
+//                    }
                 }
                 else
                 {
@@ -172,15 +172,15 @@ namespace ShopC
         {
 
 //            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
-            this.m_usrc_ItemList1366x768.Reset();
-            if (this.m_ShopBC.m_CurrentDoc.bDraft)
-            {
-                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
-            }
-            else
-            {
-                this.btn_ClearAll.Visible = false;
-            }
+//            this.m_usrc_ItemList1366x768.Reset();
+            //if (this.m_ShopBC.m_CurrentDoc.bDraft)
+            //{
+            //    this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
+            //}
+            //else
+            //{
+            //    this.btn_ClearAll.Visible = false;
+            //}
         }
 
   
@@ -209,13 +209,13 @@ namespace ShopC
             if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,true))
             {
                 int index = m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
-                usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
-                if (usrc_itema != null)
+//                usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
+//                if (usrc_itema != null)
                 {
-                    pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
+//                    pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
                 }
                 this.btn_ClearAll.Visible = true;
-                return usrc_itema;
+                return null;
             }
             else
             {
@@ -230,13 +230,14 @@ namespace ShopC
             {
 
                 int index = m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
-                usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
-                if (usrc_itema!=null)
+//                usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
+//                if (usrc_itema!=null)
                 {
-                    pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
+//                    pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
                 }
                 this.btn_ClearAll.Visible = true;
-                return usrc_itema;
+                //return usrc_itema;
+                return null;
             }
             else
             {
@@ -250,8 +251,8 @@ namespace ShopC
             {
                 this.Cursor = Cursors.WaitCursor;
                 m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
-                m_usrc_Item_PageHandler.DoPaint();
-                m_usrc_ItemList1366x768.Reset();
+  //              m_usrc_Item_PageHandler.DoPaint();
+   //             m_usrc_ItemList1366x768.Reset();
                 this.Cursor = Cursors.Arrow;
                 btn_ClearAll.Visible = false;
             }

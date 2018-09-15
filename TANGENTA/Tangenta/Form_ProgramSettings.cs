@@ -74,6 +74,7 @@ namespace Tangenta
             lng.s_chk_ControlLayout_TouchScreen.Text(chk_ControlLayout_TouchScreen);
             lng.s_chk_UserWorkAreas.Text(chk_UseWorkAreas);
             lng.s_chk_RecordCashierActivity.Text(chk_RecordCashierActivity);
+            lng.s_chk_ShowChangeDatabaseButtonAtStartup.Text(chk_ShowChangeDatabaseButtonAtStartup);
 
             lng.s_grp_AccessAuthentication.Text(grp_AccessAuthentication);
             lng.s_rdb_Autentification_None.Text(rdb_Authentification_None);
@@ -106,6 +107,9 @@ namespace Tangenta
                 chk_MultipleUserLogin.Enabled = false;
                 chk_MultipleUserLogin.Checked = false;
             }
+
+
+            chk_ShowChangeDatabaseButtonAtStartup.Checked = Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
 
             chk_RecordCashierActivity.Checked = Program.RecordCashierActivity;
 
@@ -228,6 +232,13 @@ namespace Tangenta
                     Properties.Settings.Default.UseWorkAreas = chk_UseWorkAreas.Checked;
                     bChanged = true;
                 }
+
+                if (chk_ShowChangeDatabaseButtonAtStartup.Checked != Properties.Settings.Default.WaitToChangeDataBaseAtStartup)
+                {
+                    Properties.Settings.Default.WaitToChangeDataBaseAtStartup = chk_ShowChangeDatabaseButtonAtStartup.Checked;
+                    bChanged = true;
+                }
+
 
                 if (Properties.Settings.Default.Login_MultipleUsers)
                 {

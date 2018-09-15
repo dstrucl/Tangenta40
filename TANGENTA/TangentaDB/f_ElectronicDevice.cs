@@ -208,13 +208,12 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID Office_ID, ref ID ElectronicDevice_ID)
+        public static bool Get(ID Office_ID, ref ID ElectronicDevice_ID, ref ID xAtom_Computer_ID)
         {
             ElectronicDevice_ID = null;
             if (ID.Validate(Office_ID))
             {
-                ID Atom_Computer_ID = null;
-                if (f_Atom_Computer.Get(ref Atom_Computer_ID))
+                if (f_Atom_Computer.Get(ref xAtom_Computer_ID))
                 {
                     string sql = @"SELECT 
                                  ElectronicDevice.ID as ElectronicDevice_ID
@@ -225,7 +224,7 @@ namespace TangentaDB
                                 LEFT JOIN Atom_ComputerUserName ElectronicDevice_$_acomp_$_acun ON ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = ElectronicDevice_$_acomp_$_acun.ID 
                                 LEFT JOIN Atom_IP_address ElectronicDevice_$_acomp_$_aipa ON ElectronicDevice_$_acomp.Atom_IP_address_ID = ElectronicDevice_$_acomp_$_aipa.ID 
                                 LEFT JOIN Office ElectronicDevice_$_office ON ElectronicDevice.Office_ID = ElectronicDevice_$_office.ID where ElectronicDevice_$_office.ID = " + Office_ID.ToString()
-                                + " and Atom_Computer_ID = " + Atom_Computer_ID.ToString();
+                                + " and Atom_Computer_ID = " + xAtom_Computer_ID.ToString();
 
                     DataTable dt = new DataTable();
                     string Err = null;
@@ -234,9 +233,8 @@ namespace TangentaDB
                         if (dt.Rows.Count > 0)
                         {
                             ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["ElectronicDevice_ID"]);
-                            return true;
                         }
-                        return false;
+                        return true;
                     }
                     else
                     {

@@ -270,13 +270,13 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Get_m_myOrg_Office_m_myOrg_Person_SingleUser()
+        public static myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result Get_m_myOrg_Office_m_myOrg_Person_SingleUser()
         {
             if (m_myOrg_Office!=null)
             {
                 if (m_myOrg_Office.m_myOrg_Person!=null)
                 {
-                    return true;
+                    return myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.OK;
                 }
                 else
                 {
@@ -285,7 +285,7 @@ namespace TangentaDB
             }
             else
             {
-                return false;
+                return myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.myOrg_Office_NOT_DEFINED;
             }
         }
 
@@ -304,6 +304,8 @@ namespace TangentaDB
             NO_ELECTRONIC_DEVICE_NAME,
             NO_MY_ORG_OFFICE_PERSON,
             NO_MY_ORG_OFFICE_PERSON_SINGLE_USER,
+            ELECTRONIC_DEVICE_NOT_DEFINED_FOR_THIS_COMPUTER,
+            NO_MYORGANISATION_PERSON_SingleUser_FOR_THIS_ELECTRONIC_DEVICE_ID,
             OK,
             ERROR
         }
@@ -392,8 +394,20 @@ namespace TangentaDB
                     {
                         if (!Program_OperationMode_MultiUser)
                         {
-                            if (!myOrg.Get_m_myOrg_Office_m_myOrg_Person_SingleUser())
+                            switch (myOrg.Get_m_myOrg_Office_m_myOrg_Person_SingleUser())
                             {
+                                case myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.OK:
+                                    break;
+                                case myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.ELECTRONIC_DEVICE_NOT_DEFINED_FOR_THIS_COMPUTER:
+                                    return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME; ;
+                                case myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.myOrg_Office_NOT_DEFINED:
+                                    return eGetOrganisationDataResult.NO_OFFICE;
+                                case myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.NO_MYORGANISATION_PERSON_SingleUser_FOR_THIS_ELECTRONIC_DEVICE_ID:
+                                    return eGetOrganisationDataResult.NO_MYORGANISATION_PERSON_SingleUser_FOR_THIS_ELECTRONIC_DEVICE_ID;
+                                case myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.NO_myOrganisation_Person_ID_IN_myOrg_Person_list:
+                                    return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
+                                case myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.ERROR:
+                                    return eGetOrganisationDataResult.ERROR;
                             }
                         }
                     }

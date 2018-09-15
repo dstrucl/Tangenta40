@@ -29,50 +29,61 @@
         private void InitializeComponent()
         {
             this.lbl_ShopC_Name = new System.Windows.Forms.Label();
-            this.usrc_ItemList1366x7681 = new ShopC.usrc_ItemList1366x768();
-            this.usrc_Atom_ItemsList1366x768 = new ShopC.usrc_Atom_ItemsList1366x768();
+            this.m_usrc_ItemList1366x768 = new ShopC.usrc_ItemList1366x768();
+            this.m_usrc_Atom_ItemsList1366x768 = new ShopC.usrc_Atom_ItemsList1366x768();
+            this.m_usrc_PriceList1 = new PriseLists.usrc_PriceList();
             this.SuspendLayout();
             // 
             // lbl_ShopC_Name
             // 
             this.lbl_ShopC_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_ShopC_Name.Location = new System.Drawing.Point(2, 3);
+            this.lbl_ShopC_Name.Location = new System.Drawing.Point(1, 3);
             this.lbl_ShopC_Name.Name = "lbl_ShopC_Name";
-            this.lbl_ShopC_Name.Size = new System.Drawing.Size(142, 13);
+            this.lbl_ShopC_Name.Size = new System.Drawing.Size(96, 22);
             this.lbl_ShopC_Name.TabIndex = 4;
             this.lbl_ShopC_Name.Text = "Shop C";
             // 
             // usrc_ItemList1366x7681
             // 
-            this.usrc_ItemList1366x7681.BackColor = System.Drawing.Color.YellowGreen;
-            this.usrc_ItemList1366x7681.DocTyp = "";
-            this.usrc_ItemList1366x7681.ExclusivelySellFromStock = false;
-            this.usrc_ItemList1366x7681.Location = new System.Drawing.Point(360, 0);
-            this.usrc_ItemList1366x7681.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_ItemList1366x7681.Name = "usrc_ItemList1366x7681";
-            this.usrc_ItemList1366x7681.NumberOfItemsPerPage = 10;
-            this.usrc_ItemList1366x7681.Size = new System.Drawing.Size(646, 280);
-            this.usrc_ItemList1366x7681.TabIndex = 24;
+            this.m_usrc_ItemList1366x768.BackColor = System.Drawing.Color.YellowGreen;
+            this.m_usrc_ItemList1366x768.DocTyp = "";
+            this.m_usrc_ItemList1366x768.ExclusivelySellFromStock = false;
+            this.m_usrc_ItemList1366x768.Location = new System.Drawing.Point(360, 0);
+            this.m_usrc_ItemList1366x768.Margin = new System.Windows.Forms.Padding(4);
+            this.m_usrc_ItemList1366x768.Name = "usrc_ItemList1366x7681";
+            this.m_usrc_ItemList1366x768.NumberOfItemsPerPage = 10;
+            this.m_usrc_ItemList1366x768.Size = new System.Drawing.Size(646, 280);
+            this.m_usrc_ItemList1366x768.TabIndex = 24;
             // 
             // usrc_Atom_ItemsList1366x768
             // 
-            this.usrc_Atom_ItemsList1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.m_usrc_Atom_ItemsList1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Atom_ItemsList1366x768.DocTyp = "";
-            this.usrc_Atom_ItemsList1366x768.Location = new System.Drawing.Point(0, 19);
-            this.usrc_Atom_ItemsList1366x768.Margin = new System.Windows.Forms.Padding(5);
-            this.usrc_Atom_ItemsList1366x768.Name = "usrc_Atom_ItemsList1366x768";
-            this.usrc_Atom_ItemsList1366x768.NumberOfItemsPerPage = 10;
-            this.usrc_Atom_ItemsList1366x768.Size = new System.Drawing.Size(360, 258);
-            this.usrc_Atom_ItemsList1366x768.TabIndex = 5;
+            this.m_usrc_Atom_ItemsList1366x768.DocTyp = "";
+            this.m_usrc_Atom_ItemsList1366x768.Location = new System.Drawing.Point(0, 32);
+            this.m_usrc_Atom_ItemsList1366x768.Margin = new System.Windows.Forms.Padding(5);
+            this.m_usrc_Atom_ItemsList1366x768.Name = "usrc_Atom_ItemsList1366x768";
+            this.m_usrc_Atom_ItemsList1366x768.NumberOfItemsPerPage = 10;
+            this.m_usrc_Atom_ItemsList1366x768.Size = new System.Drawing.Size(360, 244);
+            this.m_usrc_Atom_ItemsList1366x768.TabIndex = 5;
+            // 
+            // usrc_PriceList1
+            // 
+            this.m_usrc_PriceList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.m_usrc_PriceList1.Location = new System.Drawing.Point(100, 0);
+            this.m_usrc_PriceList1.Name = "usrc_PriceList1";
+            this.m_usrc_PriceList1.Size = new System.Drawing.Size(260, 24);
+            this.m_usrc_PriceList1.TabIndex = 25;
+            this.m_usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             // 
             // usrc_ShopC1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Controls.Add(this.usrc_ItemList1366x7681);
-            this.Controls.Add(this.usrc_Atom_ItemsList1366x768);
+            this.Controls.Add(this.m_usrc_PriceList1);
+            this.Controls.Add(this.m_usrc_ItemList1366x768);
+            this.Controls.Add(this.m_usrc_Atom_ItemsList1366x768);
             this.Controls.Add(this.lbl_ShopC_Name);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_ShopC1366x768";
@@ -83,8 +94,8 @@
 
         #endregion
         private System.Windows.Forms.Label lbl_ShopC_Name;
-        public usrc_Atom_ItemsList1366x768 usrc_Atom_ItemsList1366x768;
-        public usrc_ItemList1366x768 usrc_ItemList1366x768;
-        private usrc_ItemList1366x768 usrc_ItemList1366x7681;
+        public usrc_Atom_ItemsList1366x768 m_usrc_Atom_ItemsList1366x768;
+        public usrc_ItemList1366x768 m_usrc_ItemList1366x768;
+        public PriseLists.usrc_PriceList m_usrc_PriceList1;
     }
 }

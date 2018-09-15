@@ -78,11 +78,7 @@
         }
 
         #endregion
-        private usrc_Item_PageHandler.usrc_Item_PageHandler m_usrc_Item_PageHandler;
-        private usrc_Item_Group_Handler.usrc_Item_Group_Handler m_usrc_Item_Group_Handler;
         private System.Windows.Forms.Label lbl_GroupPath;
-        private usrc_Item1366x768 usrc_Item1366x7681;
-        private usrc_Item1366x768_Button usrc_Item1366x768_Button1;
         private usrc_Item_TextSearch usrc_Item_TextSearch1;
         private usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
     }

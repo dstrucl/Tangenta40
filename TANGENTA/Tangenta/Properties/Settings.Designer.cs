@@ -610,5 +610,17 @@ namespace Tangenta.Properties {
                 this["RecordCashierActivity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WaitToChangeDataBaseAtStartup {
+            get {
+                return ((bool)(this["WaitToChangeDataBaseAtStartup"]));
+            }
+            set {
+                this["WaitToChangeDataBaseAtStartup"] = value;
+            }
+        }
     }
 }

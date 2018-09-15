@@ -114,6 +114,10 @@ namespace Tangenta
                         return Startup_check_proc_Result.WAIT_USER_INTERACTION;
                     }
 
+                case myOrg.eGetOrganisationDataResult.NO_MYORGANISATION_PERSON_SingleUser_FOR_THIS_ELECTRONIC_DEVICE_ID:
+                    startup_ShowForm_proc = Startup_05_Show_Form_Select_Person_SINGLE_USER;
+                    return Startup_check_proc_Result.WAIT_USER_INTERACTION;
+
                 case myOrg.eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER:
                         startup_ShowForm_proc = Startup_05_Show_Form_Select_Person_SINGLE_USER;
                         return Startup_check_proc_Result.WAIT_USER_INTERACTION;

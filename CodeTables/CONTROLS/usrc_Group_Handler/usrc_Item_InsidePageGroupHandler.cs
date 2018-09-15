@@ -12,13 +12,18 @@ namespace usrc_Item_Group_Handler
 {
     public partial class usrc_Item_InsidePageGroupHandler : UserControl
     {
-        DataRow[] drItems = null;
+        private object[] oItems = null;
+        private DataRow[] drItems = null;
 
         public delegate void delegate_CreateControl(ref Control ctrl);
         public event delegate_CreateControl CreateControl = null;
 
         public delegate void delegate_FillControl(Control ctrl, object oData);
         public event delegate_FillControl FillControl = null;
+
+        public delegate bool delegate_LoadItems(string[] groups, ref object[] arr);
+        public event delegate_LoadItems LoadItems = null;
+
 
         public delegate bool delegate_SetName(object oData, ref string name);
         public event delegate_SetName SetName = null;
@@ -106,41 +111,52 @@ namespace usrc_Item_Group_Handler
 
         private void usrc_Item_InsideGroup_Handler1_SelectionChanged(string[] sgroup)
         {
-            string s1_name = sgroup[0];
-            string s2_name = sgroup[1];
-            string s3_name = sgroup[2];
-            string selection = "";
-            if (s1_name != null)
+            if (LoadItems != null)
             {
-                selection = "s1_name = '" + s1_name + "'";
+                if (LoadItems(sgroup, ref oItems))
+                {
+                    this.usrc_Item_InsidePageHandler1.Init(oItems);
+                    this.usrc_Item_InsidePageHandler1.ShowPage(0);
+                }
             }
             else
             {
-                selection = "s1_name is null ";
-            }
+                string s1_name = sgroup[0];
+                string s2_name = sgroup[1];
+                string s3_name = sgroup[2];
+                string selection = "";
+                if (s1_name != null)
+                {
+                    selection = "s1_name = '" + s1_name + "'";
+                }
+                else
+                {
+                    selection = "s1_name is null ";
+                }
 
-            if (s2_name != null)
-            {
-                selection += "and s2_name = '" + s2_name + "'";
-            }
-            else
-            {
-                selection += " and s2_name is null ";
-            }
+                if (s2_name != null)
+                {
+                    selection += "and s2_name = '" + s2_name + "'";
+                }
+                else
+                {
+                    selection += " and s2_name is null ";
+                }
 
-            if (s3_name != null)
-            {
-                selection += "and s3_name = '" + s3_name + "'";
-            }
-            else
-            {
-                selection += " and s3_name is null ";
-            }
+                if (s3_name != null)
+                {
+                    selection += "and s3_name = '" + s3_name + "'";
+                }
+                else
+                {
+                    selection += " and s3_name is null ";
+                }
 
 
-            drItems = usrc_Item_InsideGroup_Handler1.m_dt_Group.Select(selection);
-            this.usrc_Item_InsidePageHandler1.Init(drItems);
-            this.usrc_Item_InsidePageHandler1.ShowPage(0);
+                drItems = usrc_Item_InsideGroup_Handler1.m_dt_Group.Select(selection);
+                this.usrc_Item_InsidePageHandler1.Init(drItems);
+                this.usrc_Item_InsidePageHandler1.ShowPage(0);
+            }
         }
     }
 }

@@ -44,6 +44,7 @@
             this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler();
             this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
             this.lbl_Item = new System.Windows.Forms.Label();
+            this.userControl11 = new usrc_Item_InsidePageHandler.UserControl1();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SelectItem)).BeginInit();
@@ -231,11 +232,21 @@
             this.lbl_Item.TabIndex = 17;
             this.lbl_Item.Text = "label5";
             // 
+            // userControl11
+            // 
+            this.userControl11.BackColor = System.Drawing.Color.Salmon;
+            this.userControl11.Location = new System.Drawing.Point(193, 225);
+            this.userControl11.Name = "userControl11";
+            this.userControl11.Size = new System.Drawing.Size(228, 38);
+            this.userControl11.TabIndex = 18;
+            this.userControl11.Click += new System.EventHandler<System.EventArgs>(this.userControl11_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 563);
+            this.Controls.Add(this.userControl11);
             this.Controls.Add(this.lbl_Item);
             this.Controls.Add(this.usrc_Item_InsidePageGroupHandler1);
             this.Controls.Add(this.btn_usrc_GroupHandler);
@@ -281,6 +292,7 @@
         private System.Windows.Forms.Button btn_usrc_GroupHandler;
         private usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
         private System.Windows.Forms.Label lbl_Item;
+        private UserControl1 userControl11;
     }
 }
 

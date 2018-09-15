@@ -56,6 +56,7 @@
             this.btn_UserSettings = new System.Windows.Forms.Button();
             this.btn_IdleSettings = new System.Windows.Forms.Button();
             this.chk_RecordCashierActivity = new System.Windows.Forms.CheckBox();
+            this.chk_ShowChangeDatabaseButtonAtStartup = new System.Windows.Forms.CheckBox();
             this.grp_ColorSettings.SuspendLayout();
             this.grp_AccessAuthentication.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_ExitTimeout)).BeginInit();
@@ -101,7 +102,7 @@
             // btn_LogFile
             // 
             this.btn_LogFile.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_LogFile.Location = new System.Drawing.Point(437, 69);
+            this.btn_LogFile.Location = new System.Drawing.Point(874, 82);
             this.btn_LogFile.Name = "btn_LogFile";
             this.btn_LogFile.Size = new System.Drawing.Size(129, 43);
             this.btn_LogFile.TabIndex = 16;
@@ -127,7 +128,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(850, 26);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(1008, 26);
             this.usrc_NavigationButtons1.TabIndex = 39;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -150,7 +151,7 @@
             // 
             this.btn_DBSettings.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_DBSettings.Image = global::Tangenta.Properties.Resources.DBSettings;
-            this.btn_DBSettings.Location = new System.Drawing.Point(380, 69);
+            this.btn_DBSettings.Location = new System.Drawing.Point(949, 32);
             this.btn_DBSettings.Name = "btn_DBSettings";
             this.btn_DBSettings.Size = new System.Drawing.Size(51, 43);
             this.btn_DBSettings.TabIndex = 40;
@@ -161,7 +162,7 @@
             // 
             this.lbl_AppData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_AppData.AutoSize = true;
-            this.lbl_AppData.Location = new System.Drawing.Point(-1, 623);
+            this.lbl_AppData.Location = new System.Drawing.Point(-1, 690);
             this.lbl_AppData.Name = "lbl_AppData";
             this.lbl_AppData.Size = new System.Drawing.Size(88, 13);
             this.lbl_AppData.TabIndex = 42;
@@ -172,10 +173,10 @@
             this.txt_ApplicationDataFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_ApplicationDataFolder.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 639);
+            this.txt_ApplicationDataFolder.Location = new System.Drawing.Point(3, 706);
             this.txt_ApplicationDataFolder.Name = "txt_ApplicationDataFolder";
             this.txt_ApplicationDataFolder.ReadOnly = true;
-            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(435, 20);
+            this.txt_ApplicationDataFolder.Size = new System.Drawing.Size(593, 20);
             this.txt_ApplicationDataFolder.TabIndex = 41;
             // 
             // grp_ColorSettings
@@ -186,7 +187,7 @@
             this.grp_ColorSettings.Controls.Add(this.usrc_SelectColorSheme1);
             this.grp_ColorSettings.Location = new System.Drawing.Point(10, 240);
             this.grp_ColorSettings.Name = "grp_ColorSettings";
-            this.grp_ColorSettings.Size = new System.Drawing.Size(835, 378);
+            this.grp_ColorSettings.Size = new System.Drawing.Size(993, 445);
             this.grp_ColorSettings.TabIndex = 43;
             this.grp_ColorSettings.TabStop = false;
             this.grp_ColorSettings.Text = "Color Settings";
@@ -197,14 +198,14 @@
             this.usrc_SelectColorSheme1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_SelectColorSheme1.Location = new System.Drawing.Point(3, 16);
             this.usrc_SelectColorSheme1.Name = "usrc_SelectColorSheme1";
-            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(829, 359);
+            this.usrc_SelectColorSheme1.Size = new System.Drawing.Size(987, 426);
             this.usrc_SelectColorSheme1.TabIndex = 0;
             // 
             // lbl_GitSourceVersion
             // 
             this.lbl_GitSourceVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_GitSourceVersion.AutoSize = true;
-            this.lbl_GitSourceVersion.Location = new System.Drawing.Point(414, 623);
+            this.lbl_GitSourceVersion.Location = new System.Drawing.Point(414, 690);
             this.lbl_GitSourceVersion.Name = "lbl_GitSourceVersion";
             this.lbl_GitSourceVersion.Size = new System.Drawing.Size(102, 13);
             this.lbl_GitSourceVersion.TabIndex = 45;
@@ -215,10 +216,10 @@
             this.txt_GitSourceVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_GitSourceVersion.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txt_GitSourceVersion.Location = new System.Drawing.Point(418, 639);
+            this.txt_GitSourceVersion.Location = new System.Drawing.Point(418, 706);
             this.txt_GitSourceVersion.Name = "txt_GitSourceVersion";
             this.txt_GitSourceVersion.ReadOnly = true;
-            this.txt_GitSourceVersion.Size = new System.Drawing.Size(424, 20);
+            this.txt_GitSourceVersion.Size = new System.Drawing.Size(582, 20);
             this.txt_GitSourceVersion.TabIndex = 44;
             // 
             // chk_MultipleUserLogin
@@ -348,7 +349,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_UserSettings.Location = new System.Drawing.Point(593, 208);
             this.btn_UserSettings.Name = "btn_UserSettings";
-            this.btn_UserSettings.Size = new System.Drawing.Size(249, 26);
+            this.btn_UserSettings.Size = new System.Drawing.Size(407, 26);
             this.btn_UserSettings.TabIndex = 50;
             this.btn_UserSettings.Text = "User setting";
             this.btn_UserSettings.UseVisualStyleBackColor = true;
@@ -360,7 +361,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_IdleSettings.Location = new System.Drawing.Point(593, 182);
             this.btn_IdleSettings.Name = "btn_IdleSettings";
-            this.btn_IdleSettings.Size = new System.Drawing.Size(249, 26);
+            this.btn_IdleSettings.Size = new System.Drawing.Size(407, 26);
             this.btn_IdleSettings.TabIndex = 51;
             this.btn_IdleSettings.Text = "Idle Settings";
             this.btn_IdleSettings.UseVisualStyleBackColor = true;
@@ -376,11 +377,22 @@
             this.chk_RecordCashierActivity.Text = "Use Work Areas";
             this.chk_RecordCashierActivity.UseVisualStyleBackColor = true;
             // 
+            // chk_ShowChangeDatabaseButtonAtStartup
+            // 
+            this.chk_ShowChangeDatabaseButtonAtStartup.AutoSize = true;
+            this.chk_ShowChangeDatabaseButtonAtStartup.Location = new System.Drawing.Point(304, 84);
+            this.chk_ShowChangeDatabaseButtonAtStartup.Name = "chk_ShowChangeDatabaseButtonAtStartup";
+            this.chk_ShowChangeDatabaseButtonAtStartup.Size = new System.Drawing.Size(273, 17);
+            this.chk_ShowChangeDatabaseButtonAtStartup.TabIndex = 53;
+            this.chk_ShowChangeDatabaseButtonAtStartup.Text = "Show Button To Change DatabaseButton At Startup";
+            this.chk_ShowChangeDatabaseButtonAtStartup.UseVisualStyleBackColor = true;
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(850, 662);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.chk_ShowChangeDatabaseButtonAtStartup);
             this.Controls.Add(this.chk_RecordCashierActivity);
             this.Controls.Add(this.btn_IdleSettings);
             this.Controls.Add(this.btn_UserSettings);
@@ -442,5 +454,6 @@
         private System.Windows.Forms.Button btn_UserSettings;
         private System.Windows.Forms.Button btn_IdleSettings;
         private System.Windows.Forms.CheckBox chk_RecordCashierActivity;
+        private System.Windows.Forms.CheckBox chk_ShowChangeDatabaseButtonAtStartup;
     }
 }

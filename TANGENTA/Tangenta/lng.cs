@@ -649,6 +649,8 @@ namespace Tangenta
 
         public static ltext s_chk_RecordCashierActivity = new ltext(new string[] { "Open and Close Cashier", "Odpiranje in zapiranje blagajne" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
+        public static ltext s_chk_ShowChangeDatabaseButtonAtStartup = new ltext(new string[] { "Show button to change database at startup", "Prikaži gumb za menjavo baze ob zagonu" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
+
         public static ltext s_chk_MultipleUserLogin = new ltext(new string[] { "Multiple users login", "Prijava več uporabnikov hkrati" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
         public static ltext s_grp_ColorSettings = new ltext(new string[] { "Color Settings", "Barvne nastavitve" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs

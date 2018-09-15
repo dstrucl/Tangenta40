@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using DBConnectionControl40;
 using TangentaDB;
 using LanguageControl;
+using DBTypes;
 
 namespace ShopC
 {
@@ -95,33 +96,88 @@ namespace ShopC
 
         ShopABC m_ShopBC;
         DBTablesAndColumnNames DBtcn;
-        int ipnl_Items_Width_default = -1;
         private ID m_PriceList_ID = null;
 
 
-        public int NumberOfGroupLevels
-        {
-            get
-            {
-                if (m_usrc_Item_Group_Handler!=null)
-                {
-                    return m_usrc_Item_Group_Handler.NumberOfGroupLevels;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
 
         public usrc_ItemList1366x768()
         {
             InitializeComponent();
             //ipnl_Items_Width_default = pnl_Items.Width;
+            usrc_Item_InsidePageGroupHandler1.CreateControl += Usrc_Item_InsidePageGroupHandler1_CreateControl;
+            usrc_Item_InsidePageGroupHandler1.FillControl += Usrc_Item_InsidePageGroupHandler1_FillControl;
+            usrc_Item_InsidePageGroupHandler1.LoadItems += Usrc_Item_InsidePageGroupHandler1_LoadItems;
+        }
+
+        private bool Usrc_Item_InsidePageGroupHandler1_LoadItems(string[] groups, ref object[] arr)
+        {
+            string[] sreversgroup = reversegroup(groups);
+
+           if ( m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
+            {
+                arr = m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Stock.Rows.Cast<DataRow>().ToArray<object>();
+                return true;
+            }
+            return false;
+        }
+
+        private string[] reversegroup(string[] groups)
+        {
+            string[] sr = new string[3] { null, null, null };
+            if (groups[2]==null)
+            {
+                if (groups[1] == null)
+                {
+                    sr[0] = groups[0];
+                }
+                else
+                {
+                    sr[0] = groups[1];
+                    sr[1] = groups[0];
+                }
+            }
+            else
+            {
+                sr[0] = groups[0];
+                sr[1] = groups[1];
+                sr[2] = groups[2];
+            }
+            return sr;
+        }
+
+        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData)
+        {
+            if (oData is DataRow)
+            {
+                DataRow dr = (DataRow)oData;
+                if (ctrl is usrc_Item1366x768)
+                {
+                    usrc_Item1366x768 xusrc_Item1366x768 = (usrc_Item1366x768)ctrl;
+                    string_v Item_UniqueName_v = tf.set_string(dr["Item_UniqueName"]);
+                    if (Item_UniqueName_v != null)
+                    {
+                        xusrc_Item1366x768.Item_UniqueName = Item_UniqueName_v.v;
+                    }
+                }
+            }
+        }
+
+        private void Usrc_Item_InsidePageGroupHandler1_CreateControl(ref Control ctrl)
+        {
+            usrc_Item1366x768 xusrc_Item1366x768 = new usrc_Item1366x768();
+            ctrl = xusrc_Item1366x768;
         }
 
         private void Init(ID xAtom_WorkPeriod_ID)
         {
+
+            //    //        m_PriceList_ID = PriceList_ID
+            //    if (m_ShopBC.m_CurrentDoc.m_ShopShelf.GetGroupsTable(PriceList_ID))
+            //{
+            //    usrc_Item_InsidePageGroupHandler1.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group);
+            //    return true;
+            //}
+
             //m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
 
             //usrc_Item_aray = new usrc_Item1366x768[NumberOfItemsPerPage];
@@ -189,7 +245,7 @@ namespace ShopC
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
-            this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
+//            this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
             m_bExclusivelySellFromStock = xbExclusivelySellFromStock;
             Init(m_Atom_WorkPeriod_ID);
         }
@@ -200,195 +256,107 @@ namespace ShopC
         }
 
 
-        void usrc_item_ItemAdded()
+        //void usrc_item_ItemAdded()
+        //{
+        //    if (ItemAdded != null)
+        //    {
+        //        ItemAdded();
+        //    }
+        //}
+
+
+
+
+        public bool Get_Price_Item_Stock_Data(ID xPriceList_ID)
         {
-            if (ItemAdded != null)
+            m_PriceList_ID = xPriceList_ID;
+            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.GetGroupsTable(xPriceList_ID))
             {
-                ItemAdded();
-            }
-        }
-
-
-
-
-        public bool Get_Price_Item_Stock_Data(ID PriceList_ID)
-        {
-            m_PriceList_ID = PriceList_ID;
-            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.GetGroupsTable(PriceList_ID))
-            {
-                if (m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group))
-                {
-//                    splitContainer1.Panel2Collapsed = false;
-                    string Err = null;
-                    if (m_usrc_Item_Group_Handler.NumberOfGroupLevels > 1)
-                    {
-
-                        //                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 32,ref Err);
-
-                    }
-                    else
-                    {
-                        //                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 82, ref Err);
-                    }
-
-                    if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows.Count > 0)
-                    {
-                        string s1_name = null;
-                        string s2_name = null;
-                        string s3_name = null;
-                        if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"] is string)
-                        {
-                            s1_name = (string)m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"];
-                        }
-                        if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"] is string)
-                        {
-                            s2_name = (string)m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"];
-                        }
-                        if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"] is string)
-                        {
-                            s3_name = (string)m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"];
-                        }
-
-                        string[] sGroup = new string[] { s1_name, s2_name, s3_name };
-                        m_usrc_Item_Group_Handler.Select(sGroup);
-                        return true;
-                    }
-                }
-                else
-                {
-                    //splitContainer1.Panel2Collapsed = true;
-                    string[] sGroup = new string[] { null, null, null };
-                    m_usrc_Item_Group_Handler.Select(sGroup);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-
-        internal void Reset()
-        {
-            m_usrc_Item_PageHandler.DoPaint();
-
-        }
-
-        private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)
-        {
-            if (this.Visible)
-            {
-                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=TRUE");
-                usrc_Item1366x768 usrc_item = (usrc_Item1366x768)o_usrc;
-                if (bVisible)
-                {
-                    Item_Data iData = (Item_Data)o_data;
-                    usrc_item.Visible = true;
-                    usrc_item.Enabled = true;
-                    usrc_item.DoPaint(iData, s_name_Group, m_usrc_Atom_ItemsList1366x768);
-                }
-                else
-                {
-                    usrc_item.Visible = false;
-                    usrc_item.Enabled = false;
-                }
-            }
-            else
-            {
-                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=FALSE");
-            }
-        }
-
-        private void Paint_Group(string[] s_name)
-        {
-            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, s_name))
-            {
-                lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
-                m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
-            }
-        }
-
-        private void m_usrc_Item_Group_Handler_GroupChanged(string[] s_name)
-        {
-            s_name_Group = s_name;
-            Paint_Group(s_name_Group);
-        }
-
-        public void Paint_Current_Group()
-        {
-            Paint_Group(s_name_Group);
-        }
-
-
-        internal bool Show(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
-        {
-            string[] sGroupArr = new string[3];
-            sGroupArr[0] = appisd.s1_name;
-            sGroupArr[1] = appisd.s2_name;
-            sGroupArr[2] = appisd.s3_name;
-            m_usrc_Item_Group_Handler.Select(sGroupArr);
-            int index = m_ShopBC.m_CurrentDoc.m_ShopShelf.GetIndex(appisd);
-            if (index>=0)
-            { 
-                m_usrc_Item_PageHandler.Show(index);
+                usrc_Item_InsidePageGroupHandler1.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group);
                 return true;
             }
             return false;
-
         }
 
-        private void m_usrc_Item_Group_Handler_GroupsRedefined(int Level)
+
+        //private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)
+        //{
+        //    if (this.Visible)
+        //    {
+        //        LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=TRUE");
+        //        usrc_Item1366x768 usrc_item = (usrc_Item1366x768)o_usrc;
+        //        if (bVisible)
+        //        {
+        //            Item_Data iData = (Item_Data)o_data;
+        //            usrc_item.Visible = true;
+        //            usrc_item.Enabled = true;
+        //            usrc_item.DoPaint(iData, s_name_Group, m_usrc_Atom_ItemsList1366x768);
+        //        }
+        //        else
+        //        {
+        //            usrc_item.Visible = false;
+        //            usrc_item.Enabled = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=FALSE");
+        //    }
+        //}
+
+        //private void Paint_Group(string[] s_name)
+        //{
+        //    if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, s_name))
+        //    {
+        //        lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
+        //        m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
+        //    }
+        //}
+
+        //private void m_usrc_Item_Group_Handler_GroupChanged(string[] s_name)
+        //{
+        //    s_name_Group = s_name;
+        //    Paint_Group(s_name_Group);
+        //}
+
+        public void Paint_Current_Group()
         {
-            if (Level == 0)
-            {
-//                pnl_Items.Width = ipnl_Items_Width_default + m_usrc_Item_Group_Handler.Width + 2;
-                m_usrc_Item_Group_Handler.SetVisible(false);
-            }
-            else
-            {
-               m_usrc_Item_Group_Handler.SetVisible(true);
-//                pnl_Items.Width = ipnl_Items_Width_default;
-            }
-
+            //Paint_Group(s_name_Group);
         }
 
-        private void pnl_Items_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
+        //internal bool Show(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        //{
+        //    string[] sGroupArr = new string[3];
+        //    sGroupArr[0] = appisd.s1_name;
+        //    sGroupArr[1] = appisd.s2_name;
+        //    sGroupArr[2] = appisd.s3_name;
+        //    m_usrc_Item_Group_Handler.Select(sGroupArr);
+        //    int index = m_ShopBC.m_CurrentDoc.m_ShopShelf.GetIndex(appisd);
+        //    if (index>=0)
+        //    { 
+        //        m_usrc_Item_PageHandler.Show(index);
+        //        return true;
+        //    }
+        //    return false;
 
-        private void usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
-        {
+        //}
 
-        }
+        //        private void m_usrc_Item_Group_Handler_GroupsRedefined(int Level)
+        //        {
+        //            if (Level == 0)
+        //            {
+        ////                pnl_Items.Width = ipnl_Items_Width_default + m_usrc_Item_Group_Handler.Width + 2;
+        //                m_usrc_Item_Group_Handler.SetVisible(false);
+        //            }
+        //            else
+        //            {
+        //               m_usrc_Item_Group_Handler.SetVisible(true);
+        ////                pnl_Items.Width = ipnl_Items_Width_default;
+        //            }
 
-        private void usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
-        {
+        //        }
 
-        }
 
-        private void usrc_Item_InsidePageHandler1_PageChanged(int iPage)
-        {
-
-        }
-
-        private void usrc_Item_InsidePageHandler1_Deselect(object oData, int index)
-        {
-
-        }
-
-        private void usrc_Item_InsidePageHandler1_Select(object oData, int index)
-        {
-
-        }
-
-        private void usrc_Item_InsidePageHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
-        {
-
-        }
-
-        private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
-        {
-
-        }
     }
 }

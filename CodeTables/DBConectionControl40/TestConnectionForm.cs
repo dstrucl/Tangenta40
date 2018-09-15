@@ -19,6 +19,19 @@ namespace DBConnectionControl40
 {
     public partial class TestConnectionForm : Form
     {
+        private static bool m_WaitToChangeDatabase = true;
+        public static bool WaitToChangeDatabase
+        {
+            get
+            {
+                return m_WaitToChangeDatabase;
+            }
+            set
+            {
+                m_WaitToChangeDatabase = value;
+            }
+        }
+
         public enum eTestConnectionFormResult {NONE, OK, FAILED,CHANGE}
         private eTestConnectionFormResult m_eResult = eTestConnectionFormResult.NONE;
 
@@ -69,7 +82,11 @@ namespace DBConnectionControl40
 
         }
 
-        public TestConnectionForm(Form xParentForm,DBConnection sqlCon, bool bTimerClose, bool bDataBaseConnection,string sTitle)
+        public TestConnectionForm(Form xParentForm,
+                                  DBConnection sqlCon, 
+                                  bool bTimerClose, 
+                                  bool bDataBaseConnection,
+                                  string sTitle)
         {
             m_ParentForm = xParentForm;
             this.Owner = m_ParentForm;
@@ -230,9 +247,19 @@ namespace DBConnectionControl40
                             {
                                 sqlConn.Disconnect();
                                 ShowOK();
-                                this.TimerSQLiteShowOkResult.Enabled = true;
-                                m_eResult = eTestConnectionFormResult.OK;
-                                return;
+                                if (WaitToChangeDatabase)
+                                {
+                                    this.TimerSQLiteShowOkResult.Enabled = true;
+                                    m_eResult = eTestConnectionFormResult.OK;
+                                    return;
+                                }
+                                else
+                                {
+                                    this.TimerSQLiteShowOkResult.Interval = 10;
+                                    this.TimerSQLiteShowOkResult.Enabled = true;
+                                    m_eResult = eTestConnectionFormResult.OK;
+                                    return; 
+                                }
                             }
                             else
                             {
@@ -335,8 +362,8 @@ namespace DBConnectionControl40
  
         private void TimerSQLiteShowOkResult_Tick(object sender, EventArgs e)
         {
-            DateTime dt = DateTime.Now;
-            System.Diagnostics.Debug.Print("\r\nTimerSQLiteShowOkResult_Tick;" + dt.Hour.ToString() + ":" + dt.Minute.ToString() + ":" + dt.Second.ToString() + "." + dt.Millisecond.ToString());
+            //DateTime dt = DateTime.Now;
+            //System.Diagnostics.Debug.Print("\r\nTimerSQLiteShowOkResult_Tick;" + dt.Hour.ToString() + ":" + dt.Minute.ToString() + ":" + dt.Second.ToString() + "." + dt.Millisecond.ToString());
             this.Close();
             this.DialogResult = DialogResult.OK;
         }

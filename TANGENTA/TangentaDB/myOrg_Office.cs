@@ -316,11 +316,19 @@ namespace TangentaDB
             }
         }
 
-        internal bool Get_m_myOrg_Person_SingleUser()
+        public enum eGet_m_myOrg_Person_SingleUser_Result {OK,
+                                                          ELECTRONIC_DEVICE_NOT_DEFINED_FOR_THIS_COMPUTER,
+                                                          NO_MYORGANISATION_PERSON_SingleUser_FOR_THIS_ELECTRONIC_DEVICE_ID,
+                                                          NO_myOrganisation_Person_ID_IN_myOrg_Person_list,
+                                                          myOrg_Office_NOT_DEFINED,
+                                                          ERROR };
+
+        internal eGet_m_myOrg_Person_SingleUser_Result Get_m_myOrg_Person_SingleUser()
         {
             string Err = null;
             ID xElectronicDevice_ID = null;
-            if (f_ElectronicDevice.Get(this.ID, ref xElectronicDevice_ID))
+            ID xAtom_Computer_ID = null;
+            if (f_ElectronicDevice.Get(this.ID, ref xElectronicDevice_ID,ref xAtom_Computer_ID))
             {
                 if (ID.Validate(xElectronicDevice_ID))
                 {
@@ -330,7 +338,7 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count == 0)
                         {
-                            return false;
+                            return eGet_m_myOrg_Person_SingleUser_Result.NO_MYORGANISATION_PERSON_SingleUser_FOR_THIS_ELECTRONIC_DEVICE_ID;
                         }
                         else if (dt.Rows.Count == 1)
                         {
@@ -344,29 +352,29 @@ namespace TangentaDB
                                         if (myOrganisation_Person_ID.Equals(mop.ID))
                                         {
                                             this.m_myOrg_Person = mop;
-                                            return true;
+                                            return eGet_m_myOrg_Person_SingleUser_Result.OK;
                                         }
                                     }
                                 }
                             }
-                            return false;
+                            return eGet_m_myOrg_Person_SingleUser_Result.NO_myOrganisation_Person_ID_IN_myOrg_Person_list;
                         }
                         else
                         {
                             LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:More than one row in myOrganisation_Person_SingleUser table: Rows.Count =" + dt.Rows.Count.ToString());
-                            return false;
+                            return eGet_m_myOrg_Person_SingleUser_Result.ERROR;
                         }
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:sql =" + sql + "\r\nErr=" + Err);
-                        return false;
+                        return eGet_m_myOrg_Person_SingleUser_Result.ERROR;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:xAtom_ElectronicDevice_ID is not valid!");
-                    return false;
+                    //LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser:xAtom_ElectronicDevice_ID is not valid!");
+                    return eGet_m_myOrg_Person_SingleUser_Result.ELECTRONIC_DEVICE_NOT_DEFINED_FOR_THIS_COMPUTER;
                 }
             }
             else
@@ -379,7 +387,7 @@ namespace TangentaDB
                 {
                     LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office:Get_m_myOrg_Person_SingleUser: Can not get electronic device for this office! Office name = null");
                 }
-                return false;
+                return eGet_m_myOrg_Person_SingleUser_Result.ERROR; 
             }
         }
     }

@@ -27,7 +27,7 @@ namespace ShopB
 {
     public partial class usrc_ShopB1366x768 : UserControl
     {
-        public enum eMode { VIEW,EDIT};
+        public enum eMode { VIEW, EDIT };
 
         public delegate bool delegate_CheckAccessPriceList();
         public event delegate_CheckAccessPriceList CheckAccessPriceList = null;
@@ -40,8 +40,8 @@ namespace ShopB
         DataTable dt_Group = new DataTable();
         DataTable dt_ShopBItem = new DataTable();
         DataTable dt_Price_ShopBItem_Group = new DataTable();
-        public enum eLayout {NONE,DRAFT,VIEW }
-        private  new eLayout Layout = eLayout.NONE;
+        public enum eLayout { NONE, DRAFT, VIEW }
+        private new eLayout Layout = eLayout.NONE;
 
         DataTable dt_Price_ShopBItem = new DataTable();
 
@@ -77,7 +77,7 @@ namespace ShopB
         {
             get
             {
-                if (m_usrc_Item_Group_Handler!=null)
+                if (m_usrc_Item_Group_Handler != null)
                 {
                     return m_usrc_Item_Group_Handler.NumberOfGroupLevels;
                 }
@@ -94,10 +94,10 @@ namespace ShopB
             idgv_ShopB_Items_Width_default = this.dgv_ShopB_Items.Width;
         }
 
-        public delegate void delegate_ItemUpdated(ID ID,DataTable dt_SelectedShopBItem);
+        public delegate void delegate_ItemUpdated(ID ID, DataTable dt_SelectedShopBItem);
         public event delegate_ItemUpdated aa_ItemUpdated = null;
 
-        public delegate void delegate_ItemAdded(ID ID,DataTable dt_SelectedShopBItem);
+        public delegate void delegate_ItemAdded(ID ID, DataTable dt_SelectedShopBItem);
         public event delegate_ItemAdded aa_ItemAdded = null;
 
         public delegate void delegate_ItemRemoved(ID ID, DataTable dt_SelectedShopBItem);
@@ -158,7 +158,7 @@ namespace ShopB
             string Err = null;
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_B.s;
             SetColor();
-       }
+        }
 
         public void SetMode(eMode mode)
         {
@@ -208,7 +208,7 @@ namespace ShopB
 
                     if (buttonCell.Enabled)
                     {
-                        buttonCell.ButtonState= pushButtonState;
+                        buttonCell.ButtonState = pushButtonState;
                     }
                 }
             }
@@ -216,7 +216,7 @@ namespace ShopB
 
         public void SetCurrentInvoice_SelectedShopB_Items()
         {
-            m_InvoiceDB.m_CurrentDoc.Set_SelectedShopB_Items(DocTyp,dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
+            m_InvoiceDB.m_CurrentDoc.Set_SelectedShopB_Items(DocTyp, dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
         }
 
 
@@ -249,8 +249,8 @@ namespace ShopB
             {
                 ID Price_ShopBItem_ID = tf.set_ID(dt_Price_ShopBItem.Rows[iShopBItemRow]["ID"]);
 
-                string PriceList_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow]["PriceList_Name"]; 
-                string ShopBItem_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemName]; 
+                string PriceList_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow]["PriceList_Name"];
+                string ShopBItem_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemName];
                 string ShopBItem_Abbreviation = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemAbbreviation];
                 string ShopBItem_Taxation_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Name];
                 decimal ShopBItem_Taxation_Rate = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Rate];
@@ -284,7 +284,7 @@ namespace ShopB
                     iCount++;
                     decimal RetailPrice_per_unit = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colPriceShopBItemRetailShopBItemPrice];
                     Discount = 0;
-                    oDiscount = dt_Price_ShopBItem.Rows[iShopBItemRow]["Discount"]; 
+                    oDiscount = dt_Price_ShopBItem.Rows[iShopBItemRow]["Discount"];
                     if (oDiscount is decimal)
                     {
                         Discount = (decimal)oDiscount;
@@ -322,7 +322,7 @@ namespace ShopB
                         dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
                         if (aa_ItemUpdated != null)
                         {
-                            aa_ItemUpdated(PriceShopBItem_Atom_ShopBItem_ID,dt_SelectedShopBItem);
+                            aa_ItemUpdated(PriceShopBItem_Atom_ShopBItem_ID, dt_SelectedShopBItem);
                         }
                     }
                     else
@@ -334,7 +334,7 @@ namespace ShopB
                 {
                     decimal RetailPriceWithDiscount = 0;
                     decimal RetailShopBItemPrice = 0;
-                    Discount = 0; 
+                    Discount = 0;
                     ExtraDiscount = 0;
                     decimal Taxation_Rate = 0;
                     string Taxation_Name = null;
@@ -359,7 +359,7 @@ namespace ShopB
                                                     ref PriceWithoutTax
                                                     ))
                     {
-                        if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID,ref m_InvoiceDB.m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
+                        if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID, ref m_InvoiceDB.m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
                             DataRow dr = dt_SelectedShopBItem.NewRow();
                             dr[DBtcn.column_SelectedShopBItemPriceDiscount] = Discount;
@@ -375,15 +375,15 @@ namespace ShopB
                             dr[DBtcn.column_SelectedShopBItemPrice] = RetailPriceWithDiscount;
                             dr[DBtcn.column_SelectedShopBItemRetailPricePerUnit] = RetailShopBItemPrice;
                             dt_SelectedShopBItem.Rows.Add(dr);
-                            if (Layout!=eLayout.DRAFT)
+                            if (Layout != eLayout.DRAFT)
                             {
                                 SetDraftButtons();
                             }
-                            dgv_SelectedShopB_Items.Rows[dt_SelectedShopBItem.Rows.Count-1].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
+                            dgv_SelectedShopB_Items.Rows[dt_SelectedShopBItem.Rows.Count - 1].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
 
                             if (aa_ItemAdded != null)
                             {
-                                aa_ItemAdded(Atom_Price_ShopBItem_ID,dt_SelectedShopBItem);
+                                aa_ItemAdded(Atom_Price_ShopBItem_ID, dt_SelectedShopBItem);
                             }
 
                         }
@@ -413,7 +413,7 @@ namespace ShopB
             {
                 ExtraDiscount = (decimal)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ExtraDiscount];
             }
-            Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(RetailPricePerUnit, null,ExtraDiscount, ShopBItem_Name);
+            Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(RetailPricePerUnit, null, ExtraDiscount, ShopBItem_Name);
             if (discount_frm.ShowDialog() == DialogResult.OK)
             {
                 ExtraDiscount = discount_frm.ExtraDiscount;
@@ -482,7 +482,7 @@ namespace ShopB
         private void dgv_SelectedShopB_Items_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
 
-            if ((e.ColumnIndex >= 0)&&(e.RowIndex>=0))
+            if ((e.ColumnIndex >= 0) && (e.RowIndex >= 0))
             {
                 SetGridButtonCountry(dgv_SelectedShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
                 if (dgv_SelectedShopB_Items.Columns[e.ColumnIndex].Name.Equals(DBtcn.column_SelectedShopBItem_btn_deselect))
@@ -662,7 +662,7 @@ namespace ShopB
 
         public void SetDraftButtons()
         {
-            if ((Layout == eLayout.VIEW)||(Layout == eLayout.NONE))
+            if ((Layout == eLayout.VIEW) || (Layout == eLayout.NONE))
             {
                 if (Layout == eLayout.VIEW)
                 {
@@ -685,7 +685,7 @@ namespace ShopB
                 btn_Remove.HeaderText = "Odstrani";
                 btn_Remove.Text = "-";
                 btn_Remove.Name = DBtcn.column_SelectedShopBItem_btn_deselect;
-                this.dgv_SelectedShopB_Items.Columns.Insert(0,btn_Remove);
+                this.dgv_SelectedShopB_Items.Columns.Insert(0, btn_Remove);
                 Layout = eLayout.DRAFT;
             }
 
@@ -764,7 +764,7 @@ namespace ShopB
                     }
                 }
             }
-            
+
         }
 
         public void Set_dgv_SelectedShopB_Items()
@@ -774,7 +774,7 @@ namespace ShopB
                 dt_SelectedShopBItem.Rows.Clear();
                 dgv_SelectedShopB_Items.DataSource = dt_SelectedShopBItem;
                 m_InvoiceDB.Set_dgv_selected_ShopB_Items_Columns(dgv_SelectedShopB_Items);
-                
+
             }
             catch (Exception Ex)
             {
@@ -841,9 +841,9 @@ namespace ShopB
                 if (m_usrc_Item_Group_Handler.Set_Groups(dt_Group))
                 {
                     splitContainer1.Panel2Collapsed = false;
-                    if (m_usrc_Item_Group_Handler.NumberOfGroupLevels>1)
+                    if (m_usrc_Item_Group_Handler.NumberOfGroupLevels > 1)
                     {
-                        StaticLib.Func.SetSplitContainerValue(splitContainer1,splitContainer1.Width-32, ref Err);
+                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 32, ref Err);
                     }
                     else
                     {
@@ -889,7 +889,7 @@ namespace ShopB
         }
 
 
-        public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data,ID PriceList_id)
+        public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data, ID PriceList_id)
         {
             m_PriceList_id = PriceList_id;
             SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
@@ -921,7 +921,7 @@ namespace ShopB
         private void usrc_Item_Group_Handler_GroupChanged(string[] s_name)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string s_group_condition = fs.GetGroupCondition(ref lpar,s_name);
+            string s_group_condition = fs.GetGroupCondition(ref lpar, s_name);
 
 
             string sql_ShopBItem = @"SELECT 
@@ -954,11 +954,11 @@ namespace ShopB
             string Err = null;
             dt_Price_ShopBItem.Clear();
             dt_Price_ShopBItem.Columns.Clear();
-            
+
             dgv_ShopB_Items.DataSource = null;
             dgv_ShopB_Items.Columns.Clear();
             dgv_ShopB_Items.Rows.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref dt_Price_ShopBItem, sql_ShopBItem,lpar, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_Price_ShopBItem, sql_ShopBItem, lpar, ref Err))
             {
                 lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
                 dgv_ShopB_Items.DataSource = dt_Price_ShopBItem;
@@ -1010,7 +1010,7 @@ namespace ShopB
             else
             {
                 m_usrc_Item_Group_Handler.SetVisible(true);
-                dgv_ShopB_Items.Width = m_usrc_Item_Group_Handler.Left - dgv_ShopB_Items.Left-2;
+                dgv_ShopB_Items.Width = m_usrc_Item_Group_Handler.Left - dgv_ShopB_Items.Left - 2;
             }
 
         }
@@ -1025,7 +1025,7 @@ namespace ShopB
 
         private bool usrc_PriceList1_CheckAccess()
         {
-            if (CheckAccessPriceList!=null)
+            if (CheckAccessPriceList != null)
             {
                 return CheckAccessPriceList();
             }
@@ -1033,6 +1033,38 @@ namespace ShopB
             {
                 return true;
             }
+        }
+
+        public bool EditShopBItem()
+        {
+            SQLTable tbl_ShopBItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem)));
+            Form_ShopB_Item_Edit edt_ShopBItem_dlg = new Form_ShopB_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                                    tbl_ShopBItem,
+                                                                    "SimpleItem_$$Code desc", null);
+            edt_ShopBItem_dlg.ShowDialog();
+            if (edt_ShopBItem_dlg.List_of_Inserted_Items_ID.Count > 0)
+            {
+                DataTable dt_ShopB_Items_NotIn_PriceList = new DataTable();
+                if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Items_NotIn_PriceList))
+                {
+                    if (dt_ShopB_Items_NotIn_PriceList.Rows.Count > 0)
+                    {
+                        if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList, this))
+                        {
+                            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
+                            nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                            bool bPriceListChanged = false;
+                            this.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                        }
+                    }
+                }
+            }
+
+
+            int iCount = 0;
+            this.GetShopBItemData(ref iCount);
+            SetGroups(m_PriceList_id);
+            return true;
         }
     }
 }

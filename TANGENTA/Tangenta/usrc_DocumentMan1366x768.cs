@@ -780,9 +780,9 @@ namespace Tangenta
                     switch (this.m_usrc_DocumentEditor1366x768.m_ShopABC.m_CurrentDoc.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocTyp,
                                                                                                                     this.m_usrc_DocumentEditor1366x768.m_ShopABC.m_CurrentDoc,
                                                                                                                     xShopC_Data_Item_List,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC.proc_Select_ShopC_Item_from_Stock,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC.proc_Item_Not_In_Offer))
+                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock,
+                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.proc_Select_ShopC_Item_from_Stock,
+                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.proc_Item_Not_In_Offer))
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
                             mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor1366x768.m_ShopABC.m_CurrentDoc.FinancialYear;
@@ -790,9 +790,9 @@ namespace Tangenta
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
                             GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor1366x768.m_ShopABC.m_CurrentDoc.FinancialYear);
                             cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
-                            if (this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC != null)
+                            if (this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768 != null)
                             {
-                                this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC.usrc_ItemList.Paint_Current_Group();
+                                this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.m_usrc_ItemList1366x768.Paint_Current_Group();
                             }
                             return true;
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_NO_ITEM_IN_DB:

@@ -33,9 +33,6 @@ namespace Tangenta
         public ID Atom_Currency_ID = null;
         private LoginControl.LMOUser m_LMOUser = null;
         private Door door = null;
-        public usrc_ShopA m_usrc_ShopA = null;
-        public usrc_ShopB m_usrc_ShopB = null;
-        public usrc_ShopC m_usrc_ShopC = null;
 
         public string ShopsMode = "";
         private usrc_DocumentMan1366x768 m_usrc_DocumentMan = null;
@@ -83,13 +80,13 @@ namespace Tangenta
                 {
                     this.m_ShopABC.DocTyp = DocTyp;
                 }
-                if (this.m_usrc_ShopB!= null)
+                if (this.m_usrc_ShopB1366x768!= null)
                 {
-                    this.m_usrc_ShopB.DocTyp = DocTyp;
+                    this.m_usrc_ShopB1366x768.DocTyp = DocTyp;
                 }
-                if (this.m_usrc_ShopC != null)
+                if (this.m_usrc_ShopC1366x768 != null)
                 {
-                    this.m_usrc_ShopC.DocTyp = DocTyp;
+                    this.m_usrc_ShopC1366x768.DocTyp = DocTyp;
                 }
             }
         }
@@ -167,9 +164,9 @@ namespace Tangenta
         {
             get
             {
-                if (this.m_usrc_ShopB != null)
+                if (this.m_usrc_ShopB1366x768 != null)
                 {
-                    return m_usrc_ShopB.NumberOfGroupLevels;
+                    return m_usrc_ShopB1366x768.NumberOfGroupLevels;
                 }
                 else
                 {
@@ -182,9 +179,10 @@ namespace Tangenta
         {
             get
             {
-                if (this.m_usrc_ShopC != null)
+                if (this.m_usrc_ShopC1366x768 != null)
                 {
-                    return m_usrc_ShopC.NumberOfGroupLevels;
+                    //return m_usrc_ShopC1366x768.NumberOfGroupLevels;
+                    return 0;
                 }
                 else
                 {
@@ -196,13 +194,13 @@ namespace Tangenta
 
         public List<Employee> Employees = new List<Employee>();
 
-        private void New_ShopA()
+        private void Init_ShopA()
         {
-            m_usrc_ShopA.Init(this.m_ShopABC, DBtcn);
-            m_usrc_ShopA.Dock = DockStyle.None;
-            m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
-            m_usrc_ShopA.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
-            m_usrc_ShopA.EditUnits += M_usrc_ShopA_EditUnits;
+            m_usrc_ShopA1366x768.Init(this.m_ShopABC, DBtcn);
+            m_usrc_ShopA1366x768.Dock = DockStyle.None;
+            m_usrc_ShopA1366x768.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
+            m_usrc_ShopA1366x768.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
+            m_usrc_ShopA1366x768.EditUnits += M_usrc_ShopA_EditUnits;
 
         }
 
@@ -230,20 +228,20 @@ namespace Tangenta
         }
 
 
-        private void New_ShopC()
+        private void Init_ShopC()
         {
-            if (m_usrc_ShopC == null)
-            {
-                m_usrc_ShopC = new usrc_ShopC();
-                m_usrc_ShopC.DocTyp = this.DocTyp;
-                m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-                m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
-                m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
-            }
-            m_usrc_ShopC.Init(m_LMOUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,Program.Shops_in_use,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
-            m_usrc_ShopC.Dock = DockStyle.None;
-            m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
-            m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+            //if (m_usrc_ShopC1366x768 == null)
+            //{
+            //    m_usrc_ShopC1366x768 = new usrc_ShopC1366x768();
+            //    m_usrc_ShopC1366x768.DocTyp = this.DocTyp;
+            //    m_usrc_ShopC1366x768.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+            //    m_usrc_ShopC1366x768.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
+            //    m_usrc_ShopC1366x768.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
+            //}
+            m_usrc_ShopC1366x768.Init(m_LMOUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,Program.Shops_in_use,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC1366x768.Dock = DockStyle.None;
+            m_usrc_ShopC1366x768.ItemAdded += usrc_ShopC_ItemAdded;
+            m_usrc_ShopC1366x768.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
         }
 
         private bool M_usrc_ShopC_CheckIfAdministrator()
@@ -316,33 +314,33 @@ namespace Tangenta
             this.Refresh();
         }
 
-        private void New_ShopB()
+        private void Init_ShopB()
 
         {
 
-            if (m_usrc_ShopB == null)
+            //if (m_usrc_ShopB1366x768 == null)
 
-            {
+            //{
 
-                m_usrc_ShopB = new usrc_ShopB();
+            //    m_usrc_ShopB1366x768 = new usrc_ShopB1366x768();
 
-                m_usrc_ShopB.DocTyp = this.DocTyp;
+            //    m_usrc_ShopB1366x768.DocTyp = this.DocTyp;
 
-                m_usrc_ShopB.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+            //    m_usrc_ShopB1366x768.CheckAccessPriceList += M_usrcCheckPriceListAccess;
 
-            }
+            //}
 
-            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use);
+            m_usrc_ShopB1366x768.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use);
 
-            m_usrc_ShopB.Dock = DockStyle.None;
+            m_usrc_ShopB1366x768.Dock = DockStyle.None;
 
-            m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
+            m_usrc_ShopB1366x768.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
 
-            m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
+            m_usrc_ShopB1366x768.aa_ItemAdded += usrc_ShopB_ItemAdded;
 
-            m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
+            m_usrc_ShopB1366x768.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
 
-            m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
+            m_usrc_ShopB1366x768.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
 
         }
 
@@ -368,20 +366,20 @@ namespace Tangenta
             }
 
 
-            if (m_usrc_ShopA==null)
-            {
-                New_ShopA();
-            }
+            //if (m_usrc_ShopA1366x768 == null)
+            //{
+            //    Init_ShopA();
+            //}
 
-            if (m_usrc_ShopB == null)
-            {
-                New_ShopB();
-            }
+            //if (m_usrc_ShopB1366x768 == null)
+            //{
+            //    Init_ShopB();
+            //}
             
-            if (m_usrc_ShopC == null)
-            {
-                New_ShopC();
-            }
+            //if (m_usrc_ShopC1366x768 == null)
+            //{
+            //    Init_ShopC();
+            //}
 
             if (eShopsMode.Equals("A"))
             {
@@ -437,9 +435,9 @@ namespace Tangenta
         {
             get
             {
-                if (m_usrc_ShopB != null)
+                if (m_usrc_ShopB1366x768 != null)
                 {
-                    return m_usrc_ShopB.usrc_PriceList1.ID;
+                    return m_usrc_ShopB1366x768.usrc_PriceList1.ID;
                 }
                 else
                 {
@@ -461,9 +459,9 @@ namespace Tangenta
         {
             get
             {
-                if (m_usrc_ShopC != null)
+                if (m_usrc_ShopC1366x768 != null)
                 {
-                    return m_usrc_ShopC.usrc_PriceList1.ID;
+                    return m_usrc_ShopC1366x768.m_usrc_PriceList1.ID;
                 }
                 else
                 {
@@ -526,15 +524,15 @@ namespace Tangenta
             m_mode = mode;
             if (mode == emode.edit_eDocumentType)
             {
-                this.m_usrc_ShopA.SetMode(usrc_ShopA.eMode.EDIT);
-                this.m_usrc_ShopB.SetMode(usrc_ShopB.eMode.EDIT);
-                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.EDIT);
+                this.m_usrc_ShopA1366x768.SetMode(usrc_ShopA1366x768.eMode.EDIT);
+                this.m_usrc_ShopB1366x768.SetMode(usrc_ShopB1366x768.eMode.EDIT);
+                this.m_usrc_ShopC1366x768.SetMode(usrc_ShopC1366x768.eMode.EDIT);
             }
             else
             {
-                this.m_usrc_ShopA.SetMode(usrc_ShopA.eMode.VIEW);
-                this.m_usrc_ShopB.SetMode(usrc_ShopB.eMode.VIEW);
-                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.VIEW);
+                this.m_usrc_ShopA1366x768.SetMode(usrc_ShopA1366x768.eMode.VIEW);
+                this.m_usrc_ShopB1366x768.SetMode(usrc_ShopB1366x768.eMode.VIEW);
+                this.m_usrc_ShopC1366x768.SetMode(usrc_ShopC1366x768.eMode.VIEW);
             }
 
             if (mode == emode.view_eDocumentType)
@@ -584,6 +582,9 @@ namespace Tangenta
             chk_Head.Checked = mSettingsUserValues.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             //splitContainer2.Panel1Collapsed = !chk_Head.Checked;
+
+         
+
             SetOperationMode();
             return true;
         }
@@ -622,6 +623,12 @@ namespace Tangenta
                 m_InvoiceData.DocInvoice_ID = Document_ID;
             }
 
+            Init_ShopA();
+
+            Init_ShopB();
+
+            Init_ShopC();
+
             if (mSettingsUserValues.eShopsMode.Length==0)
             {
                 mSettingsUserValues.eShopsMode = Properties.Settings.Default.eShopsInUse;
@@ -641,7 +648,7 @@ namespace Tangenta
                             if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
                             {
                                 bool bPriceListChanged = false;
-                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                                this.m_usrc_ShopB1366x768.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
                             }
                         }
                     }
@@ -659,9 +666,9 @@ namespace Tangenta
                 }
 
                 int iCount_Price_SimpleItem_Data = 0;
-                if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+                if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB1366x768.usrc_PriceList1.ID))
                 {
-                    this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+                    this.m_usrc_ShopB1366x768.Set_dgv_SelectedShopB_Items();
                 }
             }
             else
@@ -683,7 +690,7 @@ namespace Tangenta
                                 if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
                                 {
                                     bool bPriceListChanged = false;
-                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                                    this.m_usrc_ShopC1366x768.m_usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
                                 }
                             }
                         }
@@ -699,7 +706,7 @@ namespace Tangenta
                         }
                     }
 
-                    if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
+                    if (this.m_usrc_ShopC1366x768.m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(this.m_usrc_ShopC1366x768.m_usrc_PriceList1.ID))
                     {
                         if (Program.bStartup)
                         {
@@ -756,17 +763,17 @@ namespace Tangenta
             //this.splitContainer2.Panel1.BackColor = Colors.HeadColor.BackColor;
             //this.splitContainer2.Panel1.ForeColor = Colors.HeadColor.ForeColor;
 
-            if (m_usrc_ShopA!=null)
+            if (m_usrc_ShopA1366x768 != null)
             {
-                m_usrc_ShopA.SetColor();
+                m_usrc_ShopA1366x768.SetColor();
             }
-            if (m_usrc_ShopB != null)
+            if (m_usrc_ShopB1366x768 != null)
             {
-                m_usrc_ShopB.SetColor();
+                m_usrc_ShopB1366x768.SetColor();
             }
-            if (m_usrc_ShopC != null)
+            if (m_usrc_ShopC1366x768 != null)
             {
-                m_usrc_ShopC.SetColor();
+                m_usrc_ShopC1366x768.SetColor();
             }
         }
 
@@ -776,11 +783,11 @@ namespace Tangenta
             {
                 if (m_ShopABC.m_CurrentDoc.ShowDraftButtons())
                 {
-                    this.m_usrc_ShopB.SetDraftButtons();
+                    this.m_usrc_ShopB1366x768.SetDraftButtons();
                 }
                 else
                 {
-                    this.m_usrc_ShopB.SetViewButtons();
+                    this.m_usrc_ShopB1366x768.SetViewButtons();
                 }
                 this.usrc_Customer.Show_Customer(m_ShopABC.m_CurrentDoc);
                 this.usrc_AddOn1.Show(xID);
@@ -838,12 +845,12 @@ namespace Tangenta
             if (!EventsActive)
             {
                 EventsActive = true;
-                if (this.m_usrc_ShopB!=null)
+                if (this.m_usrc_ShopB1366x768 != null)
                 {
-                    this.m_usrc_ShopB.aa_ItemAdded += new usrc_ShopB.delegate_ItemAdded(usrc_ShopB_ItemAdded);
-                    this.m_usrc_ShopB.aa_ItemRemoved += new usrc_ShopB.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
-                    this.m_usrc_ShopB.aa_ItemUpdated += new usrc_ShopB.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
-                    this.m_usrc_ShopB.aa_ExtraDiscount += new usrc_ShopB.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
+                    this.m_usrc_ShopB1366x768.aa_ItemAdded += new usrc_ShopB1366x768.delegate_ItemAdded(usrc_ShopB_ItemAdded);
+                    this.m_usrc_ShopB1366x768.aa_ItemRemoved += new usrc_ShopB1366x768.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
+                    this.m_usrc_ShopB1366x768.aa_ItemUpdated += new usrc_ShopB1366x768.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
+                    this.m_usrc_ShopB1366x768.aa_ExtraDiscount += new usrc_ShopB1366x768.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
                 }
             }
         }
@@ -853,12 +860,12 @@ namespace Tangenta
             if (EventsActive)
             {
                 EventsActive = false;
-                if (m_usrc_ShopB != null)
+                if (m_usrc_ShopB1366x768 != null)
                 {
-                    this.m_usrc_ShopB.aa_ItemAdded -= new usrc_ShopB.delegate_ItemAdded(usrc_ShopB_ItemAdded);
-                    this.m_usrc_ShopB.aa_ItemRemoved -= new usrc_ShopB.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
-                    this.m_usrc_ShopB.aa_ItemUpdated -= new usrc_ShopB.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
-                    this.m_usrc_ShopB.aa_ExtraDiscount -= new usrc_ShopB.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
+                    this.m_usrc_ShopB1366x768.aa_ItemAdded -= new usrc_ShopB1366x768.delegate_ItemAdded(usrc_ShopB_ItemAdded);
+                    this.m_usrc_ShopB1366x768.aa_ItemRemoved -= new usrc_ShopB1366x768.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
+                    this.m_usrc_ShopB1366x768.aa_ItemUpdated -= new usrc_ShopB1366x768.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
+                    this.m_usrc_ShopB1366x768.aa_ExtraDiscount -= new usrc_ShopB1366x768.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
                 }
             }
         }
@@ -891,7 +898,7 @@ namespace Tangenta
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB,Program.Shops_in_use,  ref Err))
+            if (m_usrc_ShopB1366x768.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB,Program.Shops_in_use,  ref Err))
             {
 
             }
@@ -908,7 +915,7 @@ namespace Tangenta
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, Program.Shops_in_use,  ref Err))
+            if (m_usrc_ShopC1366x768.m_usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, Program.Shops_in_use,  ref Err))
             {
 
             }
@@ -941,7 +948,7 @@ namespace Tangenta
                         return true;
                     }
                 }
-                if (this.m_usrc_ShopB == null)
+                if (this.m_usrc_ShopB1366x768 == null)
                 {
                     Set_eShopsMode(Program.Shops_in_use);
                 }
@@ -963,7 +970,7 @@ namespace Tangenta
 
         private bool GetSimpleItemData(ref int iCountSimpleItemData)
         {
-            if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
+            if (this.m_usrc_ShopB1366x768.GetShopBItemData(ref iCountSimpleItemData))
             {
                 if (iCountSimpleItemData > 0)
                 {
@@ -975,8 +982,8 @@ namespace Tangenta
                     {
                         //if (MessageBox.Show(this, lng.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         //{
-                            this.m_usrc_ShopB.EditShopBItem();
-                            if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
+                            this.m_usrc_ShopB1366x768.EditShopBItem();
+                            if (this.m_usrc_ShopB1366x768.GetShopBItemData(ref iCountSimpleItemData))
                             {
                                 return true;
                             }
@@ -1004,7 +1011,7 @@ namespace Tangenta
 
         internal bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data, ID PriceList_id)
         {
-            if (this.m_usrc_ShopB.Get_Price_ShopBItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
+            if (this.m_usrc_ShopB1366x768.Get_Price_ShopBItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
             {
                 if (iCount_Price_SimpleItem_Data > 0)
                 {
@@ -1032,7 +1039,7 @@ namespace Tangenta
 
         private bool GetItemData(ref int iCountItemData,NavigationButtons.Navigation xnav)
         {
-            if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
+            if (this.m_usrc_ShopC1366x768.GetItemData(ref iCountItemData))
             {
                 if (iCountItemData > 0)
                 {
@@ -1042,8 +1049,8 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("C"))
                     {
-                        this.m_usrc_ShopC.EditItem(xnav);
-                        if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
+                        this.m_usrc_ShopC1366x768.EditItem(xnav);
+                        if (this.m_usrc_ShopC1366x768.GetItemData(ref iCountItemData))
                         {
                             return true;
                         }
@@ -1108,14 +1115,14 @@ namespace Tangenta
                 if (m_ShopABC.m_CurrentDoc.bDraft)
                 {
                     SetMode(emode.edit_eDocumentType);
-                    this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
-                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    this.m_usrc_ShopB1366x768.SetCurrentInvoice_SelectedShopB_Items();
+                    this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems();
                 }
                 else
                 {
                     SetMode(emode.view_eDocumentType);
-                    this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
-                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    this.m_usrc_ShopB1366x768.SetCurrentInvoice_SelectedShopB_Items();
+                    this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems();
                     chk_Storno_CanBe_ManualyChanged = false;
                     if (IsDocInvoice)
                     {
@@ -1135,7 +1142,7 @@ namespace Tangenta
                         this.chk_Storno.Visible = false;
                     }
                 }
-                this.m_usrc_ShopC.Reset();
+                this.m_usrc_ShopC1366x768.Reset();
                 return true;
             }
             else
@@ -1155,14 +1162,14 @@ namespace Tangenta
                                   ref Err)) // Get invoice with Invoice_ID
                 {
                     this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);
-                    this.m_usrc_ShopC.Clear();
-                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
-                    this.m_usrc_ShopC.Reset();
+                    this.m_usrc_ShopC1366x768.Clear();
+                    this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems();
+                    this.m_usrc_ShopC1366x768.Reset();
                     return true;
                 }
                 else
                 {
-                    this.m_usrc_ShopC.Reset();
+                    this.m_usrc_ShopC1366x768.Reset();
                     return false;
                 }
             }
@@ -1374,7 +1381,7 @@ namespace Tangenta
             TaxSum = null;
             TaxSum = new StaticLib.TaxSum();
 
-            foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
+            foreach (DataRow dr in this.m_usrc_ShopA1366x768.dt_Item_Price.Rows)
             {
                 decimal price = (decimal)dr[DocTyp+"_ShopA_Item_$$EndPriceWithDiscountAndTax"];
                 decimal tax = (decimal)dr[DocTyp + "_ShopA_Item_$$TAX"];
@@ -1386,7 +1393,7 @@ namespace Tangenta
             }
 
 
-            foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedShopBItem.Rows)
+            foreach (DataRow dr in this.m_usrc_ShopB1366x768.dt_SelectedShopBItem.Rows)
             {
                 decimal price = (decimal)dr["SelectedSimpleItemPrice"];
                 decimal tax = (decimal)dr["SelectedSimpleItemPriceTax"];

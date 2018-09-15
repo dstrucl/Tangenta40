@@ -17,10 +17,11 @@ namespace TangentaDB
 
             if (ID.Validate(Office_ID))
             {
-                ID xAtom_ElectronicDevice_ID = null;
-                if (f_Atom_ElectronicDevice.Get(Office_ID, ref xAtom_ElectronicDevice_ID))
+                ID xElectronicDevice_ID = null;
+                ID xAtom_Computer_ID = null;
+                if (f_ElectronicDevice.Get(Office_ID, ref xElectronicDevice_ID, ref xAtom_Computer_ID))
                 {
-                    if (ID.Validate(xAtom_ElectronicDevice_ID))
+                    if (ID.Validate(xElectronicDevice_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                         string scond_myOrganisation_Person_ID = null;
@@ -41,10 +42,10 @@ namespace TangentaDB
 
                         string scond_x_ElectronicDevice_ID = null;
                         string sval_x_ElectronicDevice_ID = "null";
-                        if (ID.Validate(xAtom_ElectronicDevice_ID))
+                        if (ID.Validate(xElectronicDevice_ID))
                         {
                             string spar_xAtom_ElectronicDevice_ID = "@par_ElectronicDevice_ID";
-                            SQL_Parameter par_xAtom_ElectronicDevice_ID = new SQL_Parameter(spar_xAtom_ElectronicDevice_ID, false, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ID);
+                            SQL_Parameter par_xAtom_ElectronicDevice_ID = new SQL_Parameter(spar_xAtom_ElectronicDevice_ID, false, xElectronicDevice_ID);
                             lpar.Add(par_xAtom_ElectronicDevice_ID);
                             scond_x_ElectronicDevice_ID = "ElectronicDevice_ID = " + spar_xAtom_ElectronicDevice_ID;
                             sval_x_ElectronicDevice_ID = spar_xAtom_ElectronicDevice_ID;

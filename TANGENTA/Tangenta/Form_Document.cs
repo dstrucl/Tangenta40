@@ -219,6 +219,8 @@ namespace Tangenta
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
 
+
+
             Program.FVI_SLO1 = this.fvI_SLO1;
             Program.thread_fvi = this.fvI_SLO1.thread_fvi;
             Program.message_box = this.fvI_SLO1.message_box;
@@ -259,6 +261,8 @@ namespace Tangenta
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
 
+
+            DBConnectionControl40.TestConnectionForm.WaitToChangeDatabase = Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
 
 
             this.loginControl1.IdleControlFileImageUrl1 = Properties.Settings.Default.IdleControl_FileImageUrl1;
@@ -797,12 +801,12 @@ namespace Tangenta
                     {
                         // Properties.Settings.Default.Current_DocInvoice_ID = DocumentMan.m_usrc_TableOfDocuments.Current_Doc_ID.V.ToString();
                     }
-                    if (DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA != null)
+                    if (DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA1366x768 != null)
                     {
-                        if (DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                        if (DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA1366x768.usrc_Editor1366x768_1.m_tool_SelectItem != null)
                         {
-                            DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                            DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                            DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA1366x768.usrc_Editor1366x768_1.m_tool_SelectItem.Close();
+                            DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_usrc_ShopA1366x768.usrc_Editor1366x768_1.m_tool_SelectItem = null;
                         }
                     }
                 }

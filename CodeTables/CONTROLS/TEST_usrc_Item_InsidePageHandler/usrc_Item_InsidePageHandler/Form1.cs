@@ -227,5 +227,10 @@ namespace usrc_Item_InsidePageHandler
                 lbl_Item.Text = (string)((DataRow)oData)["ItemName"];
             }
         }
+
+        private void userControl11_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("userControl11_Click");
+        }
     }
 }

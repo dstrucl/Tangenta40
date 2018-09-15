@@ -35,12 +35,12 @@
             this.chk_Head = new System.Windows.Forms.CheckBox();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
-            this.usrc_ShopB1 = new ShopB.usrc_ShopB();
-            this.usrc_ShopA1366x7681 = new ShopA.usrc_ShopA1366x768();
+            this.m_usrc_ShopB1366x768 = new ShopB.usrc_ShopB1366x768();
+            this.m_usrc_ShopA1366x768 = new ShopA.usrc_ShopA1366x768();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
             this.usrc_Customer = new Tangenta.usrc_Customer();
             this.usrc_Item1366x7681 = new ShopC.usrc_Item1366x768();
-            this.usrc_ShopC1366x7681 = new ShopC.usrc_ShopC1366x768();
+            this.m_usrc_ShopC1366x768 = new ShopC.usrc_ShopC1366x768();
             this.SuspendLayout();
             // 
             // txt_Number
@@ -123,21 +123,19 @@
             // 
             // usrc_ShopB1
             // 
-            this.usrc_ShopB1.DocTyp = "";
-            this.usrc_ShopB1.Location = new System.Drawing.Point(0, 220);
-            this.usrc_ShopB1.Name = "usrc_ShopB1";
-            this.usrc_ShopB1.Size = new System.Drawing.Size(1006, 119);
-            this.usrc_ShopB1.SplitContainer1_spd = 408;
-            this.usrc_ShopB1.SplitContainer2_spd = 409;
-            this.usrc_ShopB1.TabIndex = 45;
+            this.m_usrc_ShopB1366x768.DocTyp = "";
+            this.m_usrc_ShopB1366x768.Location = new System.Drawing.Point(0, 220);
+            this.m_usrc_ShopB1366x768.Name = "usrc_ShopB1";
+            this.m_usrc_ShopB1366x768.Size = new System.Drawing.Size(1006, 119);
+            this.m_usrc_ShopB1366x768.TabIndex = 45;
             // 
             // usrc_ShopA1366x7681
             // 
-            this.usrc_ShopA1366x7681.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_ShopA1366x7681.Location = new System.Drawing.Point(0, 40);
-            this.usrc_ShopA1366x7681.Name = "usrc_ShopA1366x7681";
-            this.usrc_ShopA1366x7681.Size = new System.Drawing.Size(1006, 180);
-            this.usrc_ShopA1366x7681.TabIndex = 44;
+            this.m_usrc_ShopA1366x768.BackColor = System.Drawing.SystemColors.Control;
+            this.m_usrc_ShopA1366x768.Location = new System.Drawing.Point(0, 40);
+            this.m_usrc_ShopA1366x768.Name = "usrc_ShopA1366x7681";
+            this.m_usrc_ShopA1366x768.Size = new System.Drawing.Size(1006, 180);
+            this.m_usrc_ShopA1366x768.TabIndex = 44;
             // 
             // usrc_AddOn1
             // 
@@ -172,30 +170,29 @@
             this.usrc_Item1366x7681.Location = new System.Drawing.Point(204, 624);
             this.usrc_Item1366x7681.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Item1366x7681.Name = "usrc_Item1366x7681";
-            this.usrc_Item1366x7681.PriceText = "Price:";
             this.usrc_Item1366x7681.Size = new System.Drawing.Size(397, 82);
             this.usrc_Item1366x7681.TabIndex = 47;
             // 
             // usrc_ShopC1366x7681
             // 
-            this.usrc_ShopC1366x7681.AutomaticSelectionOfItemsFromStock = true;
-            this.usrc_ShopC1366x7681.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.usrc_ShopC1366x7681.DocTyp = "";
-            this.usrc_ShopC1366x7681.ExclusivelySellFromStock = false;
-            this.usrc_ShopC1366x7681.Location = new System.Drawing.Point(1, 340);
-            this.usrc_ShopC1366x7681.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_ShopC1366x7681.Name = "usrc_ShopC1366x7681";
-            this.usrc_ShopC1366x7681.PriceList_ID = null;
-            this.usrc_ShopC1366x7681.Size = new System.Drawing.Size(1006, 280);
-            this.usrc_ShopC1366x7681.TabIndex = 46;
+            this.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock = true;
+            this.m_usrc_ShopC1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.m_usrc_ShopC1366x768.DocTyp = "";
+            this.m_usrc_ShopC1366x768.ExclusivelySellFromStock = false;
+            this.m_usrc_ShopC1366x768.Location = new System.Drawing.Point(1, 340);
+            this.m_usrc_ShopC1366x768.Margin = new System.Windows.Forms.Padding(4);
+            this.m_usrc_ShopC1366x768.Name = "usrc_ShopC1366x7681";
+            this.m_usrc_ShopC1366x768.PriceList_ID = null;
+            this.m_usrc_ShopC1366x768.Size = new System.Drawing.Size(1006, 280);
+            this.m_usrc_ShopC1366x768.TabIndex = 46;
             // 
             // usrc_DocumentEditor1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_Item1366x7681);
-            this.Controls.Add(this.usrc_ShopC1366x7681);
-            this.Controls.Add(this.usrc_ShopB1);
-            this.Controls.Add(this.usrc_ShopA1366x7681);
+            this.Controls.Add(this.m_usrc_ShopC1366x768);
+            this.Controls.Add(this.m_usrc_ShopB1366x768);
+            this.Controls.Add(this.m_usrc_ShopA1366x768);
             this.Controls.Add(this.btn_Show_Shops);
             this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
@@ -224,9 +221,9 @@
         private usrc_AddOn usrc_AddOn1;
         public System.Windows.Forms.Button btn_Show_Shops;
         public System.Windows.Forms.Label lbl_Sum;
-        private ShopA.usrc_ShopA1366x768 usrc_ShopA1366x7681;
-        private ShopB.usrc_ShopB usrc_ShopB1;
-        private ShopC.usrc_ShopC1366x768 usrc_ShopC1366x7681;
-        private ShopC.usrc_Item1366x768 usrc_Item1366x7681;
+        internal ShopA.usrc_ShopA1366x768 m_usrc_ShopA1366x768;
+        internal ShopB.usrc_ShopB1366x768 m_usrc_ShopB1366x768;
+        internal ShopC.usrc_Item1366x768 usrc_Item1366x7681;
+        internal ShopC.usrc_ShopC1366x768 m_usrc_ShopC1366x768;
     }
 }

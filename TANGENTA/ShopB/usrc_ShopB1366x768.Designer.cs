@@ -40,6 +40,7 @@
             this.m_usrc_Item_Group_Handler = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
             this.lbl_ShopB_Name = new System.Windows.Forms.Label();
             this.lbl_GroupPath = new System.Windows.Forms.Label();
+            this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -58,7 +59,7 @@
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(2, 18);
+            this.splitContainer2.Location = new System.Drawing.Point(2, 20);
             this.splitContainer2.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer2.Name = "splitContainer2";
             // 
@@ -183,7 +184,7 @@
             this.lbl_ShopB_Name.Location = new System.Drawing.Point(5, 0);
             this.lbl_ShopB_Name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_ShopB_Name.Name = "lbl_ShopB_Name";
-            this.lbl_ShopB_Name.Size = new System.Drawing.Size(142, 18);
+            this.lbl_ShopB_Name.Size = new System.Drawing.Size(142, 20);
             this.lbl_ShopB_Name.TabIndex = 3;
             this.lbl_ShopB_Name.Text = "Shop B";
             // 
@@ -198,11 +199,20 @@
             this.lbl_GroupPath.TabIndex = 21;
             this.lbl_GroupPath.Text = "...";
             // 
+            // usrc_PriceList1
+            // 
+            this.usrc_PriceList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.usrc_PriceList1.Location = new System.Drawing.Point(207, 0);
+            this.usrc_PriceList1.Name = "usrc_PriceList1";
+            this.usrc_PriceList1.Size = new System.Drawing.Size(278, 20);
+            this.usrc_PriceList1.TabIndex = 22;
+            // 
             // usrc_ShopB1366x768
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.lbl_ShopB_Name);
             this.Controls.Add(this.lbl_GroupPath);
             this.Controls.Add(this.splitContainer2);
@@ -234,5 +244,6 @@
         private usrc_Item_Group_Handler.usrc_Item_Group_Handler m_usrc_Item_Group_Handler;
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        public PriseLists.usrc_PriceList usrc_PriceList1;
     }
 }
