@@ -56,9 +56,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\usrc_Item_InsideGroupHandler\usrc_Item_InsideGroupHandler.csproj">
+    <ProjectReference Include="..\usrc_Item_InsideGroupHandler\usrc_Item_InsideGroup_Handler.csproj">
       <Project>{f049f942-bcf9-4955-8267-dfb2dbdf78d5}</Project>
-      <Name>usrc_Item_InsideGroupHandler</Name>
+      <Name>usrc_Item_InsideGroup_Handler</Name>
     </ProjectReference>
     <ProjectReference Include="..\usrc_Item_InsidePage_Handler\usrc_Item_InsidePage_Handler.csproj">
       <Project>{035aaec7-b4a5-4e7a-aca6-5564052addf9}</Project>

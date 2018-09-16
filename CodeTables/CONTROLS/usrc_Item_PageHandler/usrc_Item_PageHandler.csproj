@@ -86,12 +86,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Item_InsidePageHandler.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Item_InsidePageHandler.Designer.cs">
-      <DependentUpon>usrc_Item_InsidePageHandler.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_Item_PageHandler.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -105,9 +99,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Item_InsidePageHandler.resx">
-      <DependentUpon>usrc_Item_InsidePageHandler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item_PageHandler.resx">
       <DependentUpon>usrc_Item_PageHandler.cs</DependentUpon>

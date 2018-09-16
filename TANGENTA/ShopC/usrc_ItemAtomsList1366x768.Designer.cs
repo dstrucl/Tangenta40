@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.btn_ClearAll = new System.Windows.Forms.Button();
-            this.usrc_Item_InsidePageHandler1 = new usrc_Item_PageHandler.usrc_Item_InsidePageHandler();
+            this.usrc_Item_InsidePageHandler1 = new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler();
             this.SuspendLayout();
             // 
             // btn_ClearAll
@@ -74,6 +74,6 @@
 
         #endregion
         private System.Windows.Forms.Button btn_ClearAll;
-        private usrc_Item_PageHandler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler1;
+        private usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler1;
     }
 }

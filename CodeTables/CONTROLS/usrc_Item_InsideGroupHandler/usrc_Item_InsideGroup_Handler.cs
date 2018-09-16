@@ -38,18 +38,59 @@ namespace usrc_Item_InsideGroup_Handler
         //public delegate void delegate_PaintGroup(string[] s_name);
         //public event delegate_PaintGroup PaintGroup = null;
 
-        private int m_Button_Height = 40;
-        private int m_Font_Height = 10;
-        public int Button_Height
+
+        private int m_ctrlWidth = 100;
+
+        public int CtrlWidth
         {
-            get { return m_Button_Height; }
-            set { m_Button_Height = value; }
+            get
+            {
+                return m_ctrlWidth;
+            }
+            set
+            {
+                m_ctrlWidth = value;
+                if (usrc_Item_InsidePageHandler1 != null)
+                {
+                    usrc_Item_InsidePageHandler1.CtrlWidth = m_ctrlWidth;
+                }
+                if (usrc_Item_InsidePageHandler2 != null)
+                {
+                    usrc_Item_InsidePageHandler2.CtrlWidth = m_ctrlWidth;
+                }
+                if (usrc_Item_InsidePageHandler3 != null)
+                {
+                    usrc_Item_InsidePageHandler3.CtrlWidth = m_ctrlWidth;
+                }
+            }
         }
-        public int Font_Height
+
+        private int m_ctrlHeight = 40;
+        public int CtrlHeight
         {
-            get { return m_Font_Height; }
-            set { m_Font_Height = value; }
+            get
+            {
+                return m_ctrlHeight;
+            }
+            set
+            {
+                m_ctrlHeight = value;
+                if (usrc_Item_InsidePageHandler1!=null)
+                {
+                    usrc_Item_InsidePageHandler1.CtrlHeight = m_ctrlHeight;
+                }
+                if (usrc_Item_InsidePageHandler2 != null)
+                {
+                    usrc_Item_InsidePageHandler2.CtrlHeight = m_ctrlHeight;
+                }
+                if (usrc_Item_InsidePageHandler3 != null)
+                {
+                    usrc_Item_InsidePageHandler3.CtrlHeight = m_ctrlHeight;
+                }
+            }
         }
+
+
 
         private string s1_name = null;
         private string s2_name = null;
@@ -514,47 +555,6 @@ namespace usrc_Item_InsideGroup_Handler
         }
 
 
-        public bool Select(string[] sGroupArr)
-        {
-            //m_CurrentGroup = m_GroupRoot.Select(m_NumberOfGroupLevels, sGroupArr);
-            //if (m_CurrentGroup != null)
-            //{
-            //    DoPaintGroup(m_CurrentGroup);
-            //}
-            //else
-            //{
-            //    string Err = "ERROR:usrc_Item_Group_Handler:Select(string[] sGroupArr)";
-            //    string s1_name_cond = " s1_name == null ";
-            //    string s2_name_cond = " s2_name == null ";
-            //    string s3_name_cond = " s3_name == null ";
-            //    if (sGroupArr.Count()==3)
-            //    {
-            //        if (sGroupArr[0]!=null)
-            //        {
-            //            s1_name_cond = " s1_name =='" + sGroupArr[0] + "' ";
-            //        }
-            //        if (sGroupArr[1] != null)
-            //        {
-            //            s2_name_cond = " s2_name =='" + sGroupArr[1] + "' ";
-            //        }
-            //        if (sGroupArr[2] != null)
-            //        {
-            //            s3_name_cond = " s3_name =='" + sGroupArr[2] + "' ";
-            //        }
-            //        //Err += " Group not found :" + s1_name_cond + " and " + s2_name_cond + " and " + s3_name_cond;
-            //    }
-            //    else
-            //    {
-            //        Err += ":sGroupArr.Count() != 3 ";
-            //        LogFile.Error.Show(Err);
-            //    }
-
-                
-            //}
-            return m_CurrentGroup != null;
-
-        }
-
         private bool Set_Groups_Table_Equals(DataTable xdt_Group)
         {
             if (m_dt_Group != null)
@@ -773,29 +773,17 @@ namespace usrc_Item_InsideGroup_Handler
             }
         }
 
-
-
-        private void Btn_GroupLevel_Click(object sender, EventArgs e)
-        {
-
-            //form_group_handler.SetInitialPosition(this);
-            //form_group_handler.Show();
-            //form_group_handler.Visible = true;
-            //form_group_handler.Focus();
-        }
-
-
-        public void SetVisible(bool v)
-        {
-            if (v)
-            {
-                this.Visible = true;
-            }
-            else
-            {
-                this.Visible = false;
-            }
-        }
+        //public void SetVisible(bool v)
+        //{
+        //    if (v)
+        //    {
+        //        this.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        this.Visible = false;
+        //    }
+        //}
 
         internal void ShowRootLevel0()
         {
@@ -816,7 +804,7 @@ namespace usrc_Item_InsideGroup_Handler
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = false;
             usrc_Item_InsidePageHandler3.Visible = false;
-            this.Height = Button_Height;
+            this.Height = this.CtrlHeight;
             if (SizeChanged!=null)
             {
                 SizeChanged(this.Height);
@@ -825,11 +813,11 @@ namespace usrc_Item_InsideGroup_Handler
         internal void ShowRootLevel2()
         {
             usrc_Item_InsidePageHandler2.Top = 0;
-            usrc_Item_InsidePageHandler1.Top = Button_Height;
+            usrc_Item_InsidePageHandler1.Top = this.CtrlHeight;
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = true;
             usrc_Item_InsidePageHandler3.Visible = false;
-            this.Height = Button_Height * 2;
+            this.Height = this.CtrlHeight * 2;
             if (SizeChanged != null)
             {
                 SizeChanged(this.Height);
@@ -839,34 +827,16 @@ namespace usrc_Item_InsideGroup_Handler
         internal void ShowRootLevel3()
         {
             usrc_Item_InsidePageHandler3.Top = 0;
-            usrc_Item_InsidePageHandler2.Top = Button_Height;
-            usrc_Item_InsidePageHandler1.Top = Button_Height * 2;
+            usrc_Item_InsidePageHandler2.Top = this.CtrlHeight;
+            usrc_Item_InsidePageHandler1.Top = this.CtrlHeight * 2;
             usrc_Item_InsidePageHandler1.Visible = true;
             usrc_Item_InsidePageHandler2.Visible = true;
             usrc_Item_InsidePageHandler3.Visible = true;
-            this.Height = Button_Height * 3;
+            this.Height = this.CtrlHeight * 3;
             if (SizeChanged != null)
             {
                 SizeChanged(this.Height);
             }
-        }
-
-        public string GroupPath 
-        {
-            get
-            {
-                string s = "";
-                if (m_CurrentGroup != null)
-                {
-                    //m_CurrentGroup.Path(ref s);
-                }
-                return s;
-            }
-        }
-
-        private void pnl_Group_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

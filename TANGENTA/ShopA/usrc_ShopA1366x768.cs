@@ -348,7 +348,13 @@ namespace ShopA
         {
             if (!this.DesignMode)
             {
-                t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+                if (DBSync.DBSync.DB_for_Tangenta != null)
+                {
+                    if (DBSync.DBSync.DB_for_Tangenta.m_DBTables != null)
+                    {
+                        t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+                    }
+                }
             }
         }
     }

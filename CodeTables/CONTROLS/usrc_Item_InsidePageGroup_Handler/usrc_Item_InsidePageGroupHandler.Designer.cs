@@ -54,8 +54,8 @@ namespace usrc_Item_InsidePageGroup_Handler
             // 
             this.usrc_Item_InsideGroup_Handler1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item_InsideGroup_Handler1.Button_Height = 40;
-            this.usrc_Item_InsideGroup_Handler1.Font_Height = 10;
+            this.usrc_Item_InsideGroup_Handler1.CtrlHeight = 40;
+            this.usrc_Item_InsideGroup_Handler1.CtrlWidth = 100;
             this.usrc_Item_InsideGroup_Handler1.Location = new System.Drawing.Point(0, 200);
             this.usrc_Item_InsideGroup_Handler1.Name = "usrc_Item_InsideGroup_Handler1";
             this.usrc_Item_InsideGroup_Handler1.Size = new System.Drawing.Size(640, 122);

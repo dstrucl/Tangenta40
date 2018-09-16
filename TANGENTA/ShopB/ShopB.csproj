@@ -163,10 +163,6 @@
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
-      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
-      <Name>usrc_Item_Group_Handler</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>

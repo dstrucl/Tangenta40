@@ -420,9 +420,21 @@
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_Group_Handler\usrc_Item_Group_Handler.csproj">
       <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
       <Name>usrc_Item_Group_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsideGroupHandler\usrc_Item_InsideGroup_Handler.csproj">
+      <Project>{f049f942-bcf9-4955-8267-dfb2dbdf78d5}</Project>
+      <Name>usrc_Item_InsideGroup_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsidePageGroup_Handler\usrc_Item_InsidePageGroup_Handler.csproj">
+      <Project>{173e7499-bc98-4204-aa0e-3538d566fb69}</Project>
+      <Name>usrc_Item_InsidePageGroup_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsidePage_Handler\usrc_Item_InsidePage_Handler.csproj">
+      <Project>{035aaec7-b4a5-4e7a-aca6-5564052addf9}</Project>
+      <Name>usrc_Item_InsidePage_Handler</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>

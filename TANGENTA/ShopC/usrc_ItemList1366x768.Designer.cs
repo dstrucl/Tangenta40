@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.usrc_Item_TextSearch1 = new ShopC.usrc_Item_TextSearch();
-            this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler();
+            this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler();
             this.SuspendLayout();
             // 
             // usrc_Item_TextSearch1
@@ -46,7 +46,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Item_InsidePageGroupHandler1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_Item_InsidePageGroupHandler1.Location = new System.Drawing.Point(3, 38);
+            this.usrc_Item_InsidePageGroupHandler1.Location = new System.Drawing.Point(3, 36);
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(640, 300);
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 17;
@@ -66,6 +66,6 @@
 
         #endregion
         private usrc_Item_TextSearch usrc_Item_TextSearch1;
-        private usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
+        private usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
     }
 }
