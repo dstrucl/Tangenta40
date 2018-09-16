@@ -12,7 +12,8 @@ namespace usrc_Item_Group_Handler
 {
     public partial class usrc_Item_InsidePageGroupHandler : UserControl
     {
-        private object[] oItems = null;
+        private List<object> oItemsList = null;
+        private object[] oItemsArray = null;
         private DataRow[] drItems = null;
 
         public delegate void delegate_CreateControl(ref Control ctrl);
@@ -21,8 +22,11 @@ namespace usrc_Item_Group_Handler
         public delegate void delegate_FillControl(Control ctrl, object oData);
         public event delegate_FillControl FillControl = null;
 
-        public delegate bool delegate_LoadItems(string[] groups, ref object[] arr);
-        public event delegate_LoadItems LoadItems = null;
+        public delegate bool delegate_LoadItemsArray(string[] groups, ref object[] arr);
+        public event delegate_LoadItemsArray LoadItemsArray = null;
+
+        public delegate bool delegate_LoadItemsList(string[] groups, ref List<object> list);
+        public event delegate_LoadItemsList LoadItemsList = null;
 
 
         public delegate bool delegate_SetName(object oData, ref string name);
@@ -37,6 +41,9 @@ namespace usrc_Item_Group_Handler
 
         public delegate void delegate_SelectionChanged(Control ctrl, object oData, int index);
         public event delegate_SelectionChanged SelectionChanged = null;
+
+        public delegate void delegate_ControlClick(Control ctrl, object oData, int index, bool selected);
+        public event delegate_ControlClick ControlClick = null;
 
         public delegate void delegate_PageChanged(int iPage);
         public event delegate_PageChanged PageChanged = null;
@@ -109,15 +116,35 @@ namespace usrc_Item_Group_Handler
             this.usrc_Item_InsideGroup_Handler1.Top = dheight;
         }
 
+        private bool LoadItems(string[] sgroup)
+        {
+            if (LoadItemsArray != null)
+            {
+                if (LoadItemsArray(sgroup, ref oItemsArray))
+                {
+                    this.usrc_Item_InsidePageHandler1.Init(oItemsArray);
+                    this.usrc_Item_InsidePageHandler1.ShowPage(0);
+                    return true;
+                }
+            }
+            else if (LoadItemsList != null)
+            {
+                if (LoadItemsList(sgroup, ref oItemsList))
+                {
+                    this.usrc_Item_InsidePageHandler1.Init(oItemsList);
+                    this.usrc_Item_InsidePageHandler1.ShowPage(0);
+                    return true;
+
+                }
+            }
+            return false;
+        }
+
         private void usrc_Item_InsideGroup_Handler1_SelectionChanged(string[] sgroup)
         {
-            if (LoadItems != null)
+            if (LoadItems(sgroup))
             {
-                if (LoadItems(sgroup, ref oItems))
-                {
-                    this.usrc_Item_InsidePageHandler1.Init(oItems);
-                    this.usrc_Item_InsidePageHandler1.ShowPage(0);
-                }
+                return;
             }
             else
             {
@@ -156,6 +183,14 @@ namespace usrc_Item_Group_Handler
                 drItems = usrc_Item_InsideGroup_Handler1.m_dt_Group.Select(selection);
                 this.usrc_Item_InsidePageHandler1.Init(drItems);
                 this.usrc_Item_InsidePageHandler1.ShowPage(0);
+            }
+        }
+
+        private void usrc_Item_InsidePageHandler1_ControlClick(Control ctrl, object oData, int index, bool selected)
+        {
+            if (ControlClick!=null)
+            {
+                ControlClick(ctrl, oData, index, selected);
             }
         }
     }

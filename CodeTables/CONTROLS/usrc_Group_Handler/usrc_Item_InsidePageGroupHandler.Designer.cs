@@ -44,6 +44,7 @@ namespace usrc_Item_Group_Handler
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(640, 200);
             this.usrc_Item_InsidePageHandler1.TabIndex = 1;
+            this.usrc_Item_InsidePageHandler1.ControlClick += new usrc_Item_PageHandler.usrc_Item_InsidePageHandler.delegate_ControlClick(this.usrc_Item_InsidePageHandler1_ControlClick);
             // 
             // usrc_Item_InsideGroup_Handler1
             // 

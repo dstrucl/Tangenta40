@@ -16,5 +16,36 @@ namespace ShopC
         {
             InitializeComponent();
         }
+
+        public string Item_UniqueName
+        {
+            get
+            {
+                return this.txt_Item_UniqueName.Text;
+            }
+            internal set
+            {
+                this.txt_Item_UniqueName.Text = value;
+            }
+
+        }
+
+        internal void ShowGroup(string s1_name, string s2_name, string s3_name)
+        {
+            string sgroup = "..";
+            if (s1_name != null)
+            {
+                sgroup = s1_name;
+                if (s2_name != null)
+                {
+                    sgroup += "\\" + s2_name;
+                    if (s3_name != null)
+                    {
+                        sgroup += "\\" + s3_name;
+                    }
+                }
+            }
+            lbl_Group.Text = sgroup;
+        }
     }
 }

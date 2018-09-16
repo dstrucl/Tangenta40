@@ -37,9 +37,9 @@
             this.btn_ClearAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_ClearAll.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_ClearAll.Image = global::ShopC.Properties.Resources.RemoveAll;
-            this.btn_ClearAll.Location = new System.Drawing.Point(410, 0);
+            this.btn_ClearAll.Location = new System.Drawing.Point(334, 0);
             this.btn_ClearAll.Name = "btn_ClearAll";
-            this.btn_ClearAll.Size = new System.Drawing.Size(61, 44);
+            this.btn_ClearAll.Size = new System.Drawing.Size(61, 40);
             this.btn_ClearAll.TabIndex = 10;
             this.btn_ClearAll.UseVisualStyleBackColor = false;
             this.btn_ClearAll.Visible = false;
@@ -47,12 +47,17 @@
             // 
             // usrc_Item_InsidePageHandler1
             // 
+            this.usrc_Item_InsidePageHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.OldLace;
             this.usrc_Item_InsidePageHandler1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(2, 46);
+            this.usrc_Item_InsidePageHandler1.CtrlHeight = 40;
+            this.usrc_Item_InsidePageHandler1.CtrlWidth = 350;
+            this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 40);
             this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
-            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(470, 250);
+            this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(395, 236);
             this.usrc_Item_InsidePageHandler1.TabIndex = 11;
             // 
             // usrc_Atom_ItemsList1366x768
@@ -62,7 +67,7 @@
             this.Controls.Add(this.btn_ClearAll);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Atom_ItemsList1366x768";
-            this.Size = new System.Drawing.Size(476, 297);
+            this.Size = new System.Drawing.Size(400, 279);
             this.ResumeLayout(false);
 
         }

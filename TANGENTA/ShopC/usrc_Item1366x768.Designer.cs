@@ -30,15 +30,15 @@
             this.lbl_Item_UniqueName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // lbl_Item
+            // lbl_Item_UniqueName
             // 
             this.lbl_Item_UniqueName.AutoEllipsis = true;
-            this.lbl_Item_UniqueName.Location = new System.Drawing.Point(1, 1);
-            this.lbl_Item_UniqueName.Name = "lbl_Item";
-            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(100, 24);
+            this.lbl_Item_UniqueName.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.lbl_Item_UniqueName.Location = new System.Drawing.Point(2, 3);
+            this.lbl_Item_UniqueName.Name = "lbl_Item_UniqueName";
+            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(96, 28);
             this.lbl_Item_UniqueName.TabIndex = 0;
             this.lbl_Item_UniqueName.Text = "label1";
-            this.lbl_Item_UniqueName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_Click_1);
             // 
             // usrc_Item1366x768

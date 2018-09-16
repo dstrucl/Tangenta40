@@ -143,14 +143,7 @@ namespace ShopC
 
         }
 
-        private void usrc_ShopC_Load(object sender, EventArgs e)
-        {
-            if (!DesignMode)
-            {
-                m_usrc_ItemList1366x768.Init(this.m_usrc_Atom_ItemsList1366x768);
-            }
-        }
-
+       
         private ID m_PriceList_ID = null;
 
         public ID PriceList_ID
@@ -193,7 +186,7 @@ namespace ShopC
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
             this.m_usrc_Atom_ItemsList1366x768.Init(m_Atom_WorkPeriod_ID,m_usrc_ItemList1366x768, xm_InvoiceDB, xDBtcn);
-            this.m_usrc_ItemList1366x768.Init(m_Atom_WorkPeriod_ID,xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
+            this.m_usrc_ItemList1366x768.Init(m_Atom_WorkPeriod_ID,xm_InvoiceDB, xDBtcn, this,m_usrc_Atom_ItemsList1366x768, m_bExclusivelySellFromStock);
 
             this.m_usrc_ItemList1366x768.ItemAdded += new usrc_ItemList1366x768.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.m_usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);

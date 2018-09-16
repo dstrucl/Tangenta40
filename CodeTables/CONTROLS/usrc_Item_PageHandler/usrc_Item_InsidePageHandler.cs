@@ -82,7 +82,7 @@ namespace usrc_Item_PageHandler
 
         private int m_ctrlWidth = 100;
 
-        private int CtrlWidth
+        public int CtrlWidth
         {
             get
             {
@@ -95,7 +95,7 @@ namespace usrc_Item_PageHandler
         }
 
         private int m_ctrlHeight = 40;
-        private int CtrlHeight
+        public int CtrlHeight
         {
             get
             {

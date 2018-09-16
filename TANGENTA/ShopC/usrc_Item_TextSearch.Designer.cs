@@ -28,25 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_Item_UniqueName = new System.Windows.Forms.TextBox();
+            this.lbl_Group = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txt_Item_UniqueName
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_Item_UniqueName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox1.Location = new System.Drawing.Point(2, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(447, 31);
-            this.textBox1.TabIndex = 0;
+            this.txt_Item_UniqueName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Item_UniqueName.Location = new System.Drawing.Point(3, 17);
+            this.txt_Item_UniqueName.Name = "txt_Item_UniqueName";
+            this.txt_Item_UniqueName.Size = new System.Drawing.Size(447, 22);
+            this.txt_Item_UniqueName.TabIndex = 0;
+            // 
+            // lbl_Group
+            // 
+            this.lbl_Group.Location = new System.Drawing.Point(1, 1);
+            this.lbl_Group.Name = "lbl_Group";
+            this.lbl_Group.Size = new System.Drawing.Size(446, 16);
+            this.lbl_Group.TabIndex = 1;
+            this.lbl_Group.Text = "lbl_Group";
             // 
             // usrc_Item_TextSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lbl_Group);
+            this.Controls.Add(this.txt_Item_UniqueName);
             this.Name = "usrc_Item_TextSearch";
             this.Size = new System.Drawing.Size(452, 40);
             this.ResumeLayout(false);
@@ -56,6 +66,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_Item_UniqueName;
+        private System.Windows.Forms.Label lbl_Group;
     }
 }

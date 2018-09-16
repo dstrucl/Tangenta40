@@ -73,6 +73,10 @@ namespace TangentaDB
 
         public List<Stock_Data> Stock_Data_List = new List<Stock_Data>();
 
+        public Item_Data()
+        {
+        }
+
         public void Set_Price_Item_Stock(DataRow xdr)
         {
             Price_Item_ID = tf.set_ID(xdr["Price_Item_ID"]);

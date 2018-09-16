@@ -514,71 +514,71 @@ namespace ShopC
 
 
 
-        private void uItemStock_Click(object sender, EventArgs e)
-        {
-            //Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-            //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-            //                                                            this,
-            //                                                            m_Item_Data,
-            //                                                            uItemFactory.Value,
-            //                                                            uItemStock.Value,
-            //                                                            ref appisd, false);
+        //private void uItemStock_Click(object sender, EventArgs e)
+        //{
+        //    Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
+        //    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+        //                                                                this,
+        //                                                                m_Item_Data,
+        //                                                                uItemFactory.Value,
+        //                                                                uItemStock.Value,
+        //                                                                ref appisd, false);
 
-            ////usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(appisd);
-            //if (uia != null)
-            //{
-            //    if (ItemAdded2Basket != null)
-            //    {
-            //        ItemAdded2Basket();
-            //    }
-            //    this.HideStock();
-            //}
-            RePaint();
-        }
+        //    //usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(appisd);
+        //    if (uia != null)
+        //    {
+        //        if (ItemAdded2Basket != null)
+        //        {
+        //            ItemAdded2Basket();
+        //        }
+        //        this.HideStock();
+        //    }
+        //    RePaint();
+        //}
 
-        private void uItemFactory_Click(object sender, EventArgs e)
-        {
-            if (ID.Validate(m_Item_Data.Item_Expiry_ID))
-            {
-                if (EditStock_AvoidStock())
-                {
-                    Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-                    //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                    //                                                               this,
-                    //                                                               m_Item_Data,
-                    //                                                               uItemFactory.Value,
-                    //                                                               uItemStock.Value,
-                    //                                                               ref appisd, true);
-                    usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
-                    if (uia != null)
-                    {
-                        if (ItemAdded2Basket != null)
-                        {
-                            ItemAdded2Basket();
-                        }
-                        this.HideFactory();
-                    }
-                }
-            }
-            else
-            {
-                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-                //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                //                                                                this,
-                //                                                                m_Item_Data,
-                //                                                                uItemFactory.Value,
-                //                                                                uItemStock.Value,
-                //                                                                ref appisd,
-                //                                                                true);
-                usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
-                if (uia != null)
-                {
-                    ItemAdded2Basket();
-                    this.HideFactory();
-                }
-            }
+        //private void uItemFactory_Click(object sender, EventArgs e)
+        //{
+        //    if (ID.Validate(m_Item_Data.Item_Expiry_ID))
+        //    {
+        //        if (EditStock_AvoidStock())
+        //        {
+        //            Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
+        //            //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+        //            //                                                               this,
+        //            //                                                               m_Item_Data,
+        //            //                                                               uItemFactory.Value,
+        //            //                                                               uItemStock.Value,
+        //            //                                                               ref appisd, true);
+        //            usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
+        //            if (uia != null)
+        //            {
+        //                if (ItemAdded2Basket != null)
+        //                {
+        //                    ItemAdded2Basket();
+        //                }
+        //                this.HideFactory();
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
+        //        //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+        //        //                                                                this,
+        //        //                                                                m_Item_Data,
+        //        //                                                                uItemFactory.Value,
+        //        //                                                                uItemStock.Value,
+        //        //                                                                ref appisd,
+        //        //                                                                true);
+        //        usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
+        //        if (uia != null)
+        //        {
+        //            ItemAdded2Basket();
+        //            this.HideFactory();
+        //        }
+        //    }
 
-        }
+        //}
 
         private bool EditStock_AvoidStock()
         {

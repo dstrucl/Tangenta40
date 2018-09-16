@@ -28,27 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_GroupPath = new System.Windows.Forms.Label();
             this.usrc_Item_TextSearch1 = new ShopC.usrc_Item_TextSearch();
             this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler();
             this.SuspendLayout();
             // 
-            // lbl_GroupPath
-            // 
-            this.lbl_GroupPath.AutoSize = true;
-            this.lbl_GroupPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_GroupPath.Location = new System.Drawing.Point(13, 12);
-            this.lbl_GroupPath.Name = "lbl_GroupPath";
-            this.lbl_GroupPath.Size = new System.Drawing.Size(60, 13);
-            this.lbl_GroupPath.TabIndex = 11;
-            this.lbl_GroupPath.Text = "Group path";
-            // 
             // usrc_Item_TextSearch1
             // 
             this.usrc_Item_TextSearch1.BackColor = System.Drawing.Color.RosyBrown;
-            this.usrc_Item_TextSearch1.Location = new System.Drawing.Point(79, -1);
+            this.usrc_Item_TextSearch1.Location = new System.Drawing.Point(3, 0);
             this.usrc_Item_TextSearch1.Name = "usrc_Item_TextSearch1";
-            this.usrc_Item_TextSearch1.Size = new System.Drawing.Size(567, 37);
+            this.usrc_Item_TextSearch1.Size = new System.Drawing.Size(640, 37);
             this.usrc_Item_TextSearch1.TabIndex = 16;
             // 
             // usrc_Item_InsidePageGroupHandler1
@@ -68,17 +57,14 @@
             this.BackColor = System.Drawing.Color.YellowGreen;
             this.Controls.Add(this.usrc_Item_InsidePageGroupHandler1);
             this.Controls.Add(this.usrc_Item_TextSearch1);
-            this.Controls.Add(this.lbl_GroupPath);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_ItemList1366x768";
             this.Size = new System.Drawing.Size(646, 340);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label lbl_GroupPath;
         private usrc_Item_TextSearch usrc_Item_TextSearch1;
         private usrc_Item_Group_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
     }
