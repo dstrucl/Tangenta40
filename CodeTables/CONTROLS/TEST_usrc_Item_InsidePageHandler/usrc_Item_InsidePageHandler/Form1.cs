@@ -41,7 +41,7 @@ namespace usrc_Item_InsidePageHandler
             ctrl = new Button();
         }
 
-        private void usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
+        private void usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
         {
             if (ctrl is Button)
             {
@@ -77,7 +77,7 @@ namespace usrc_Item_InsidePageHandler
                 {
                     Items_array[i] = new Item("Item " + i.ToString());
                 }
-                usrc_Item_InsidePageHandler1.Init(Items_array);
+                usrc_Item_InsidePageHandler1.Init(Items_array, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
             }
 
             if (rdb_List.Checked)
@@ -95,7 +95,7 @@ namespace usrc_Item_InsidePageHandler
                 {
                     Items_list.Add(new Item("Item " + i.ToString()));
                 }
-                usrc_Item_InsidePageHandler1.Init(Items_list.Cast<object>().ToList());
+                usrc_Item_InsidePageHandler1.Init(Items_list.Cast<object>().ToList(), usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
             }
 
             usrc_Item_InsidePageHandler1.ShowPage(0);
@@ -199,7 +199,7 @@ namespace usrc_Item_InsidePageHandler
             ctrl = btn;
         }
 
-        private void usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData)
+        private void usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
         {
             if (oData is DataRow)
             {

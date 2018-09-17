@@ -750,5 +750,10 @@ namespace ShopC
                 }
             }
         }
+
+        private void uItemFactory_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

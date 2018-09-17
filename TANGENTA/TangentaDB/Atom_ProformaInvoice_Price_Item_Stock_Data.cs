@@ -224,5 +224,54 @@ namespace TangentaDB
             s3_name = xItem_Data.s3_name;
             m_ShopShelf_Source.Add_Stock_Data(xItem_Data, xFactoryQuantity, xStockQuantity, b_from_factory);
         }
+
+
+        public void GetPrices(
+                        ref decimal Discount, 
+                        ref decimal ExtraDiscount, 
+                        ref decimal RetailPrice, 
+                        ref decimal RetailPriceWithDiscount,
+                        ref decimal TaxPrice,
+                        ref string TaxName,
+                        ref decimal TaxRate,
+                        ref decimal NetPrice)
+        {
+            decimal dquantity_all = 0;
+            decimal RetailPricePerUnit = 0;
+            int i = 0;
+            int iCount = this.m_ShopShelf_Source.Stock_Data_List.Count;
+            Discount = this.Discount.v;
+            ExtraDiscount = this.ExtraDiscount.v;
+            RetailPricePerUnit = this.RetailPricePerUnit.v;
+            TaxRate = this.Atom_Taxation_Rate.v;
+            if (TaxName == null)
+            {
+                TaxName = this.Atom_Taxation_Name.v;
+            }
+
+            if (iCount > 0)
+            {
+                for (i = 0; i < iCount; i++)
+                {
+                    Stock_Data stock_data = this.m_ShopShelf_Source.Stock_Data_List[i];
+                    if (stock_data.Stock_ID != null)
+                    {
+                        dquantity_all += stock_data.dQuantity_from_stock.v;
+                    }
+                    else
+                    {
+                        dquantity_all += stock_data.dQuantity_from_factory.v;
+                    }
+                }
+                RetailPrice = RetailPricePerUnit * dquantity_all;
+                int decimal_places = 2;
+                if (GlobalData.BaseCurrency != null)
+                {
+                    decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
+                }
+                StaticLib.Func.CalculatePrice(RetailPricePerUnit, dquantity_all, Discount, ExtraDiscount, TaxRate, ref RetailPriceWithDiscount, ref TaxPrice, ref NetPrice, decimal_places);
+            }
+        }
+
     }
 }

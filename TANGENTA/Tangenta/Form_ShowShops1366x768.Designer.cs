@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_ShowShops
+    partial class Form_ShowShops1366x768
     {
         /// <summary>
         /// Required designer variable.

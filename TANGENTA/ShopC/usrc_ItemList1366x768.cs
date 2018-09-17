@@ -151,6 +151,10 @@ namespace ShopC
                                                                                 ref appisd, false);
                     m_usrc_Atom_ItemsList1366x768.AddFromStock(appisd);
                     m_usrc_Atom_ItemsList1366x768.ShowBasket();
+                    if (ItemAdded != null)
+                    {
+                        ItemAdded();
+                    }
                 }
                 else
                 {
@@ -160,9 +164,13 @@ namespace ShopC
                                                                                 idata,
                                                                                 1,
                                                                                 0,
-                                                                                ref appisd, false);
+                                                                                ref appisd, true);
                     m_usrc_Atom_ItemsList1366x768.AddFromFactory(appisd);
                     m_usrc_Atom_ItemsList1366x768.ShowBasket();
+                    if (ItemAdded!=null)
+                    {
+                        ItemAdded();
+                    }
                 }
                 if (appisd!=null)
                 {
@@ -229,7 +237,7 @@ namespace ShopC
             return sr;
         }
 
-        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData)
+        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
         {
             if (oData is Item_Data)
             {
@@ -237,10 +245,8 @@ namespace ShopC
                 if (ctrl is usrc_Item1366x768)
                 {
                     usrc_Item1366x768 xusrc_Item1366x768 = (usrc_Item1366x768)ctrl;
-                    if (idata.Item_UniqueName != null)
-                    {
-                        xusrc_Item1366x768.Item_UniqueName = idata.Item_UniqueName.v;
-                    }
+
+                    xusrc_Item1366x768.DoPaint(idata);
                 }
             }
         }

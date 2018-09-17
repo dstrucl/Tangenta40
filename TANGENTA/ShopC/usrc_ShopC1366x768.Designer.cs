@@ -45,6 +45,8 @@
             // 
             // m_usrc_ItemList1366x768
             // 
+            this.m_usrc_ItemList1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.m_usrc_ItemList1366x768.BackColor = System.Drawing.Color.YellowGreen;
             this.m_usrc_ItemList1366x768.DocTyp = "";
             this.m_usrc_ItemList1366x768.ExclusivelySellFromStock = false;

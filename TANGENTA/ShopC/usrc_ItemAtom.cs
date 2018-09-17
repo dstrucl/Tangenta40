@@ -118,7 +118,7 @@ namespace ShopC
             decimal TaxRate = 0;
 
             decimal NetPrice = 0;
-            GetPrices(appisd,
+            appisd.GetPrices(
                         ref  Discount,
                         ref  ExtraDiscount,
                         ref  RetailPrice,

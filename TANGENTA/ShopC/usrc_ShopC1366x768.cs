@@ -295,6 +295,7 @@ namespace ShopC
         {
             this.m_usrc_Atom_ItemsList1366x768.Clear();
         }
+
         public void SetCurrentInvoice_SelectedItems()
         {
             this.m_usrc_Atom_ItemsList1366x768.SetCurrentInvoice_SelectedItems();

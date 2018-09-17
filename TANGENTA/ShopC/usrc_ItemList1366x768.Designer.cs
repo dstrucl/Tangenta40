@@ -46,6 +46,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Item_InsidePageGroupHandler1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlHeightInGroupBox = 40;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlHeightInPage = 60;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlWidthInGroupBox = 100;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlWidthInPage = 106;
             this.usrc_Item_InsidePageGroupHandler1.Location = new System.Drawing.Point(3, 36);
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(640, 300);

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using usrc_Item_InsidePage_Handler;
 
 namespace usrc_Item_InsidePageGroup_Handler
 {
@@ -19,7 +20,7 @@ namespace usrc_Item_InsidePageGroup_Handler
         public delegate void delegate_CreateControl(ref Control ctrl);
         public event delegate_CreateControl CreateControl = null;
 
-        public delegate void delegate_FillControl(Control ctrl, object oData);
+        public delegate void delegate_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode);
         public event delegate_FillControl FillControl = null;
 
         public delegate bool delegate_LoadItemsArray(string[] groups, ref object[] arr);
@@ -51,6 +52,73 @@ namespace usrc_Item_InsidePageGroup_Handler
         //public delegate void delegate_Deselect(object oData, int index);
         //public event delegate_Deselect Deselect = null;
 
+        private int m_ctrlWidthInPage = 100;
+        public int CtrlWidthInPage
+        {
+            get
+            {
+                return m_ctrlWidthInPage;
+            }
+            set
+            {
+                m_ctrlWidthInPage = value;
+                if (usrc_Item_InsidePageHandler1 != null)
+                {
+                    usrc_Item_InsidePageHandler1.CtrlWidth = m_ctrlWidthInPage;
+                }
+            }
+        }
+
+        private int m_ctrlHeightInPage = 40;
+        public int CtrlHeightInPage
+        {
+            get
+            {
+                return m_ctrlHeightInPage;
+            }
+            set
+            {
+                m_ctrlHeightInPage = value;
+                if (usrc_Item_InsidePageHandler1 != null)
+                {
+                    usrc_Item_InsidePageHandler1.CtrlHeight = m_ctrlHeightInPage;
+                }
+            }
+        }
+
+        private int m_ctrlWidthInGroupBox = 100;
+        public int CtrlWidthInGroupBox
+        {
+            get
+            {
+                return m_ctrlWidthInGroupBox;
+            }
+            set
+            {
+                m_ctrlWidthInGroupBox = value;
+                if (usrc_Item_InsideGroup_Handler1 != null)
+                {
+                    usrc_Item_InsideGroup_Handler1.CtrlWidth = m_ctrlWidthInGroupBox;
+                }
+            }
+        }
+
+        private int m_ctrlHeightInGroupBox = 40;
+        public int CtrlHeightInGroupBox
+        {
+            get
+            {
+                return m_ctrlHeightInGroupBox;
+            }
+            set
+            {
+                m_ctrlHeightInGroupBox = value;
+                if (usrc_Item_InsideGroup_Handler1 != null)
+                {
+                    usrc_Item_InsideGroup_Handler1.CtrlHeight = m_ctrlHeightInGroupBox;
+                }
+            }
+        }
 
         public usrc_Item_InsidePageGroupHandler()
         {
@@ -79,11 +147,11 @@ namespace usrc_Item_InsidePageGroup_Handler
         }
 
   
-        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
         {
             if (FillControl != null)
             {
-                FillControl(ctrl, oData);
+                FillControl(ctrl, oData, emode);
             }
         }
 
@@ -122,7 +190,7 @@ namespace usrc_Item_InsidePageGroup_Handler
             {
                 if (LoadItemsArray(sgroup, ref oItemsArray))
                 {
-                    this.usrc_Item_InsidePageHandler1.Init(oItemsArray);
+                    this.usrc_Item_InsidePageHandler1.Init(oItemsArray, usrc_Item_InsidePageHandler.eMode.EDIT);
                     this.usrc_Item_InsidePageHandler1.ShowPage(0);
                     return true;
                 }
@@ -131,7 +199,7 @@ namespace usrc_Item_InsidePageGroup_Handler
             {
                 if (LoadItemsList(sgroup, ref oItemsList))
                 {
-                    this.usrc_Item_InsidePageHandler1.Init(oItemsList);
+                    this.usrc_Item_InsidePageHandler1.Init(oItemsList, usrc_Item_InsidePageHandler.eMode.EDIT);
                     this.usrc_Item_InsidePageHandler1.ShowPage(0);
                     return true;
 
@@ -181,7 +249,7 @@ namespace usrc_Item_InsidePageGroup_Handler
 
 
                 drItems = usrc_Item_InsideGroup_Handler1.m_dt_Group.Select(selection);
-                this.usrc_Item_InsidePageHandler1.Init(drItems);
+                this.usrc_Item_InsidePageHandler1.Init(drItems, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
                 this.usrc_Item_InsidePageHandler1.ShowPage(0);
             }
         }

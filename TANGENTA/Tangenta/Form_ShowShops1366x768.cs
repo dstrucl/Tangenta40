@@ -19,15 +19,18 @@ using System.Windows.Forms;
 
 namespace Tangenta
 {
-    public partial class Form_ShowShops : Form
+    public partial class Form_ShowShops1366x768 : Form
     {
-        private usrc_DocumentEditor m_usrc_Invoice = null;
+        private usrc_DocumentEditor1366x768 m_usrc_Invoice1366x768 = null;
+
         private SettingsUserValues mSettingsUserValues = null;
-        public Form_ShowShops(usrc_DocumentEditor x_usrc_Invoice,SettingsUserValues xSettingsUserValues)
+     
+
+        public Form_ShowShops1366x768(usrc_DocumentEditor1366x768 x_usrc_Invoice1366x768, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             mSettingsUserValues = xSettingsUserValues;
-            m_usrc_Invoice = x_usrc_Invoice;
+            m_usrc_Invoice1366x768 = x_usrc_Invoice1366x768;
             lng.s_Show_Shops.Text(this);
             lng.s_Shop_A.Text(rdb_A);
             lng.s_Shop_B.Text(rdb_B);
@@ -75,18 +78,17 @@ namespace Tangenta
                 rdb_ABC.Checked = true;
             }
             else
-            { 
-                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShopsMode);
+            {
+                LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShopsMode);
             }
             rdb_A.CheckedChanged += Rdb_A_CheckedChanged;
             rdb_B.CheckedChanged += Rdb_B_CheckedChanged;
-            rdb_C.CheckedChanged += Rdb_C_CheckedChanged; 
+            rdb_C.CheckedChanged += Rdb_C_CheckedChanged;
             rdb_AB.CheckedChanged += Rdb_AB_CheckedChanged;
             rdb_BC.CheckedChanged += Rdb_BC_CheckedChanged;
             rdb_AC.CheckedChanged += Rdb_AC_CheckedChanged;
             rdb_ABC.CheckedChanged += Rdb_ABC_CheckedChanged;
         }
-
         private void Rdb_A_CheckedChanged(object sender, EventArgs e)
         {
             if (rdb_A.Checked)
@@ -169,8 +171,8 @@ namespace Tangenta
             const int TOPM = 10;
             const int YDIST = 10;
             const int BDIST = 60;
-            this.Top = m_usrc_Invoice.btn_Show_Shops.Top + m_usrc_Invoice.btn_Show_Shops.Height;
-            this.Left = m_usrc_Invoice.btn_Show_Shops.Left;
+            this.Top = m_usrc_Invoice1366x768.btn_Show_Shops.Top + m_usrc_Invoice1366x768.btn_Show_Shops.Height;
+            this.Left = m_usrc_Invoice1366x768.btn_Show_Shops.Left;
             string shinuse = Program.Shops_in_use;
 
             if (shinuse.Equals("A"))

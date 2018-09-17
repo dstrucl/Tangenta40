@@ -173,6 +173,12 @@
     <Compile Include="Form_SettingsUsersCompare.Designer.cs">
       <DependentUpon>Form_SettingsUsersCompare.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ShowShops1366x768.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ShowShops1366x768.Designer.cs">
+      <DependentUpon>Form_ShowShops1366x768.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_TableInspection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -707,6 +713,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SettingsUsersCompare.resx">
       <DependentUpon>Form_SettingsUsersCompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ShowShops1366x768.resx">
+      <DependentUpon>Form_ShowShops1366x768.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_TableInspection.resx">
       <DependentUpon>Form_TableInspection.cs</DependentUpon>

@@ -325,6 +325,52 @@ namespace ShopC
             }
             Set_btn_Discount_Text();
         }
+
+        internal void DoPaint(Item_Data idata)
+        {
+            if (idata != null)
+            {
+                if (idata.Item_UniqueName != null)
+                {
+                    this.Item_UniqueName = idata.Item_UniqueName.v;
+                }
+
+                decimal dAllStockQuantity = 0;
+
+                dAllStockQuantity = idata.dQuantity_OfStockItems;
+
+                string sunit = "";
+                if (idata.Unit_Symbol!=null)
+                {
+                    sunit = idata.Unit_Symbol.v;
+                }
+
+                
+                if (dAllStockQuantity > 0)
+                {
+                    
+                    lbl_InStock.Text = lng.s_StockShort.s + ":" + dAllStockQuantity.ToString()+" "+ sunit;
+                    lbl_InStock.Visible = true;
+                }
+                else
+                {
+                    lbl_InStock.Visible = false;
+                }
+
+                decimal dRetailPricePerUnit = -1;
+                if (idata.RetailPricePerUnit!=null)
+                {
+                    dRetailPricePerUnit = idata.RetailPricePerUnit.v;
+                    lbl_Price.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(dRetailPricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
+                    lbl_Price.Visible = true;
+                }
+                else
+                {
+                    lbl_Price.Visible = false;
+                }
+            }
+        }
+
         internal void DoPaint(TangentaDB.Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_ItemsList1366x768 x_usrc_Atom_ItemsList)
         {
             m_Item_Data = xItem_Data;

@@ -18,6 +18,7 @@ using LanguageControl;
 using XMessage;
 using TangentaDB;
 using DBConnectionControl40;
+using usrc_Item_InsidePage_Handler;
 
 namespace ShopC
 {
@@ -103,7 +104,7 @@ namespace ShopC
             }
         }
 
-        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
         {
             if (oData is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
             {
@@ -111,10 +112,7 @@ namespace ShopC
                 if (ctrl is usrc_Atom_Item1366x768)
                 {
                     usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768 = (usrc_Atom_Item1366x768)ctrl;
-                    if (appisd.Atom_Item_UniqueName != null)
-                    {
-                        xusrc_Atom_Item1366x768.Item_UniqueName = appisd.Atom_Item_UniqueName.v;
-                    }
+                    xusrc_Atom_Item1366x768.DoPaint(appisd, emode);
                 }
             }
         }
@@ -122,77 +120,54 @@ namespace ShopC
         private void Usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
         {
             usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768 = new usrc_Atom_Item1366x768();
+            xusrc_Atom_Item1366x768.btn_RemoveClick += Xusrc_Atom_Item1366x768_btn_RemoveClick;
             ctrl = xusrc_Atom_Item1366x768;
         }
 
-        internal void Init(ID xAtom_WorkPeriod_ID, usrc_ItemList1366x768 x_usrc_ItemList1366x768, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        private void Xusrc_Atom_Item1366x768_btn_RemoveClick(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        {
+            if (appisd.dQuantity_FromFactory>0)
+            {
+                this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp, appisd);
+            }
+            if (appisd.dQuantity_FromStock > 0)
+            {
+                this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID, DocTyp, appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf);
+            }
+            usrc_Item_InsidePageHandler1.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
+            usrc_Item_InsidePageHandler1.ShowPage(0);
+        }
+
+        internal void Init(ID xAtom_WorkPeriod_ID,
+                           usrc_ItemList1366x768 x_usrc_ItemList1366x768,
+                           TangentaDB.ShopABC xm_InvoiceDB, 
+                           DBTablesAndColumnNames xDBtcn)
         {
             m_usrc_ItemList1366x768 = x_usrc_ItemList1366x768;
             m_ShopBC=xm_InvoiceDB;
             DBtcn = xDBtcn;
-            // pias_Atom_Item_List.Clear();
-
             Init(xAtom_WorkPeriod_ID);
-        }
-
-        internal void usrc_Atom_Item_RemoveClick(usrc_Atom_Item1366x768 x_usrc_Atom_Item, bool bFactory)
-        {
-            if (bFactory)
-            {
-                if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_appisd))
-                {
-//                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
-//                    {
-////                        m_usrc_Item_PageHandler.DoPaint();
-//                        if (After_Atom_Item_Remove!=null)
-//                        {
-//                            After_Atom_Item_Remove();
-//                        }
-//                    }
-//                    else
-//                    {
-//                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
-//                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
-                }
-            }
-            else
-            {
-                if (this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocTyp, x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf))
-                {
-//                    if (m_usrc_ItemList1366x768.Show(x_usrc_Atom_Item.m_appisd))
-//                    {
-////                        m_usrc_Item_PageHandler.DoPaint();
-//                        if (After_Atom_Item_Remove != null)
-//                        {
-//                            After_Atom_Item_Remove();
-//                        }
-//                    }
-//                    else
-//                    {
-//                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
-//                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
-                }
-            }
-            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
         }
 
         internal void ShowBasket()
         {
-            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>());
+            usrc_Item_InsidePageHandler.eMode emode = usrc_Item_InsidePageHandler.eMode.EDIT;
+            if (!m_ShopBC.m_CurrentDoc.bDraft)
+            {
+                emode = usrc_Item_InsidePageHandler.eMode.VIEW;
+            }
+            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
             this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }
 
         internal void SetCurrentInvoice_SelectedItems()
         {
-            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>());
+            usrc_Item_InsidePageHandler.eMode emode = usrc_Item_InsidePageHandler.eMode.EDIT;
+            if (!m_ShopBC.m_CurrentDoc.bDraft)
+            {
+                emode = usrc_Item_InsidePageHandler.eMode.VIEW;
+            }
+            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
             this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }
 

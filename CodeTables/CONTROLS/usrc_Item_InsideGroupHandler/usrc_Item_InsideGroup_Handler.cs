@@ -276,7 +276,7 @@ namespace usrc_Item_InsideGroup_Handler
                     int icount = m_GroupRoot.m_GroupList.Items.Count;
                     if (icount > 0)
                     {
-                        usrc_Item_InsidePageHandler1.Init(m_GroupRoot.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler1.Init(m_GroupRoot.m_GroupList.Items.Cast<object>().ToList(), usrc_Item_InsidePageHandler.eMode.EDIT);
                         usrc_Item_InsidePageHandler1.SelectObject(0);
                         getSelectedGroups();
                         return;
@@ -390,7 +390,7 @@ namespace usrc_Item_InsideGroup_Handler
                     if (iCount > 0)
                     {
                         ShowRootLevel2();
-                        usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList(), usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
                         usrc_Item_InsidePageHandler2.SelectObject(0);
                         return;
                     }
@@ -426,7 +426,7 @@ namespace usrc_Item_InsideGroup_Handler
                     if (iCount > 0)
                     {
                         ShowRootLevel3();
-                        usrc_Item_InsidePageHandler3.Init(gic.m_GroupList.Items.Cast<object>().ToList());
+                        usrc_Item_InsidePageHandler3.Init(gic.m_GroupList.Items.Cast<object>().ToList(), usrc_Item_InsidePageHandler.eMode.EDIT);
                         usrc_Item_InsidePageHandler3.SelectObject(0);
                         return;
                     }
@@ -507,7 +507,7 @@ namespace usrc_Item_InsideGroup_Handler
             ctrl = btn;
         }
 
-        private void fillControl(Control ctrl, object oData)
+        private void fillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
         {
             if (oData is GroupInsideControl)
             {
@@ -524,19 +524,19 @@ namespace usrc_Item_InsideGroup_Handler
             }
         }
                 
-        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData)
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
         {
-            fillControl(ctrl, oData);
+            fillControl(ctrl, oData, emode);
         }
 
-        private void Usrc_Item_InsidePageHandler2_FillControl(Control ctrl, object oData)
+        private void Usrc_Item_InsidePageHandler2_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
         {
-            fillControl(ctrl, oData);
+            fillControl(ctrl, oData, emode);
         }
 
-        private void Usrc_Item_InsidePageHandler3_FillControl(Control ctrl, object oData)
+        private void Usrc_Item_InsidePageHandler3_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
         {
-            fillControl(ctrl, oData);
+            fillControl(ctrl, oData,emode);
         }
 
 

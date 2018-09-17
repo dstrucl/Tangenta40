@@ -228,7 +228,6 @@ namespace Tangenta
         public usrc_DocumentMan1366x768()
         {
             InitializeComponent();
-            lng.s_btn_New.Text(btn_New);
             lng.s_Year.Text(lbl_FinancialYear);
             m_usrc_DocumentEditor1366x768.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         }
@@ -478,14 +477,14 @@ namespace Tangenta
                 int idx = find_cmb_DataType_Index(this.m_usrc_DocumentEditor1366x768.DocTyp);
                 if (idx >= 0)
                 {
-                    this.btn_New.Enabled = true;
+                    this.m_usrc_DocumentEditor1366x768.btn_New.Enabled = true;
                     this.cmb_DocType.SelectedIndex = idx;
                     SetFinancialYears();
                 }
             }
             else if (this.cmb_DocType.Items.Count == 1)
             {
-                this.btn_New.Enabled = true;
+                this.m_usrc_DocumentEditor1366x768.btn_New.Enabled = true;
                 string xDoxtyp = ((DocType)this.cmb_DocType.Items[0]).Typ;
                 this.DocTyp = xDoxtyp;
                 SetFinancialYears();
@@ -494,7 +493,7 @@ namespace Tangenta
             {
                 cmb_FinancialYear.Enabled = false;
                 this.cmb_DocType.Enabled = false;
-                this.btn_New.Enabled = false;
+                this.m_usrc_DocumentEditor1366x768.btn_New.Enabled = false;
             }
         }
 
@@ -1009,8 +1008,8 @@ namespace Tangenta
             if (IsDocInvoice)
             {
                 this.BackColor = Colors.DocInvoice.BackColor;
-                this.pnl_MainMenu.BackColor = Colors.DocInvoice.BackColor;
-                this.pnl_MainMenu.ForeColor = Colors.DocInvoice.ForeColor;
+                //this.pnl_MainMenu.BackColor = Colors.DocInvoice.BackColor;
+                //this.pnl_MainMenu.ForeColor = Colors.DocInvoice.ForeColor;
                 //this.splitContainer1.BackColor = Colors.DocInvoice.BackColor;
                 this.m_usrc_DocumentEditor1366x768.SetColor();
                 this.m_usrc_TableOfDocuments.BackColor = Colors.m_usrc_TableOfDocuments.BackColor;
@@ -1019,8 +1018,8 @@ namespace Tangenta
             else
             {
                 this.BackColor = Colors.DocProformaInvoice.BackColor;
-                this.pnl_MainMenu.BackColor = Colors.DocProformaInvoice.BackColor;
-                this.pnl_MainMenu.ForeColor = Colors.DocProformaInvoice.ForeColor;
+                //this.pnl_MainMenu.BackColor = Colors.DocProformaInvoice.BackColor;
+                //this.pnl_MainMenu.ForeColor = Colors.DocProformaInvoice.ForeColor;
                 //this.splitContainer1.BackColor = Colors.DocProformaInvoice.BackColor;
                 this.m_usrc_DocumentEditor1366x768.SetColor();
                 this.m_usrc_TableOfDocuments.BackColor = Colors.m_usrc_TableOfDocuments.BackColor;

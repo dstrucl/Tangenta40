@@ -32,7 +32,7 @@
             this.lbl_RetailPriceValue = new System.Windows.Forms.Label();
             this.lbl_DiscountValue = new System.Windows.Forms.Label();
             this.lbl_DiscountText = new System.Windows.Forms.Label();
-            this.btn_RemoveFromBasketToFactory = new System.Windows.Forms.Button();
+            this.btn_RemoveFromBasket = new System.Windows.Forms.Button();
             this.lbl_Quantity_Value = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             this.lbl_DiscountValue.Location = new System.Drawing.Point(223, 22);
             this.lbl_DiscountValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_DiscountValue.Name = "lbl_DiscountValue";
-            this.lbl_DiscountValue.Size = new System.Drawing.Size(51, 13);
+            this.lbl_DiscountValue.Size = new System.Drawing.Size(64, 13);
             this.lbl_DiscountValue.TabIndex = 21;
             this.lbl_DiscountValue.Text = "0%";
             this.lbl_DiscountValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -83,18 +83,18 @@
             this.lbl_DiscountText.Text = "Popust:";
             this.lbl_DiscountText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btn_RemoveFromBasketToFactory
+            // btn_RemoveFromBasket
             // 
-            this.btn_RemoveFromBasketToFactory.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_RemoveFromBasketToFactory.Image = global::ShopC.Properties.Resources.RemoveFromBoxToFactory;
-            this.btn_RemoveFromBasketToFactory.Location = new System.Drawing.Point(289, 0);
-            this.btn_RemoveFromBasketToFactory.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_RemoveFromBasketToFactory.Name = "btn_RemoveFromBasketToFactory";
-            this.btn_RemoveFromBasketToFactory.Size = new System.Drawing.Size(70, 40);
-            this.btn_RemoveFromBasketToFactory.TabIndex = 25;
-            this.btn_RemoveFromBasketToFactory.UseVisualStyleBackColor = false;
-            this.btn_RemoveFromBasketToFactory.Visible = false;
-            this.btn_RemoveFromBasketToFactory.Click += new System.EventHandler(this.btn_RemoveFromBasketToFactory_Click);
+            this.btn_RemoveFromBasket.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_RemoveFromBasket.Image = global::ShopC.Properties.Resources.RemoveFromBoxToFactory;
+            this.btn_RemoveFromBasket.Location = new System.Drawing.Point(289, 0);
+            this.btn_RemoveFromBasket.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_RemoveFromBasket.Name = "btn_RemoveFromBasket";
+            this.btn_RemoveFromBasket.Size = new System.Drawing.Size(70, 40);
+            this.btn_RemoveFromBasket.TabIndex = 25;
+            this.btn_RemoveFromBasket.UseVisualStyleBackColor = false;
+            this.btn_RemoveFromBasket.Visible = false;
+            this.btn_RemoveFromBasket.Click += new System.EventHandler(this.btn_RemoveFromBasket_Click);
             // 
             // lbl_Quantity_Value
             // 
@@ -113,7 +113,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.lbl_Quantity_Value);
-            this.Controls.Add(this.btn_RemoveFromBasketToFactory);
+            this.Controls.Add(this.btn_RemoveFromBasket);
             this.Controls.Add(this.lbl_DiscountText);
             this.Controls.Add(this.lbl_DiscountValue);
             this.Controls.Add(this.lbl_RetailPriceValue);
@@ -131,7 +131,7 @@
         private System.Windows.Forms.Label lbl_RetailPriceValue;
         private System.Windows.Forms.Label lbl_DiscountValue;
         private System.Windows.Forms.Label lbl_DiscountText;
-        private System.Windows.Forms.Button btn_RemoveFromBasketToFactory;
+        private System.Windows.Forms.Button btn_RemoveFromBasket;
         private System.Windows.Forms.Label lbl_Quantity_Value;
     }
 }

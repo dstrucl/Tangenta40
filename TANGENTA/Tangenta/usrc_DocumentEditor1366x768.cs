@@ -42,7 +42,22 @@ namespace Tangenta
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
 
-       
+        public delegate void delegate_New_Click(object sender, EventArgs e);
+        public event delegate_New_Click New_Click = null;
+
+        public int ShopA_default_X = -1;
+        public int ShopA_default_Y = -1;
+        public int ShopB_default_X = -1;
+        public int ShopB_default_Y = -1;
+        public int ShopC_default_X = -1;
+        public int ShopC_default_Y = -1;
+
+        public int ShopA_default_W = -1;
+        public int ShopA_default_H = -1;
+        public int ShopB_default_W = -1;
+        public int ShopB_default_H = -1;
+        public int ShopC_default_W = -1;
+        public int ShopC_default_H = -1;
 
         private string m_DocTyp = null;
 
@@ -262,38 +277,95 @@ namespace Tangenta
         private void Set_eShopsMode_A()
         {
             ShopsMode = "A";
+            m_usrc_ShopA1366x768.Visible = true;
+            m_usrc_ShopA1366x768.Top = ShopA_default_Y;
+            m_usrc_ShopA1366x768.Height = (ShopC_default_Y+ShopC_default_H)- ShopA_default_Y;
+
+            m_usrc_ShopB1366x768.Visible = false;
+            m_usrc_ShopC1366x768.Visible = false;
         }
 
         private void Set_eShopsMode_B()
         {
             ShopsMode = "B";
+            m_usrc_ShopB1366x768.Visible = true;
+            m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
+            m_usrc_ShopB1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
+
+            m_usrc_ShopA1366x768.Visible = false;
+            m_usrc_ShopC1366x768.Visible = false;
         }
 
         private void Set_eShopsMode_C()
         {
             ShopsMode = "C";
+            m_usrc_ShopC1366x768.Visible = true;
+            m_usrc_ShopC1366x768.Top = ShopA_default_Y; 
+            m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
+
+            m_usrc_ShopB1366x768.Visible = false;
+            m_usrc_ShopA1366x768.Visible = false;
         }
 
 
         private void Set_eShopsMode_AB()
         {
             ShopsMode = "AB";
+
+            m_usrc_ShopA1366x768.Visible = true;
+            m_usrc_ShopA1366x768.Top = ShopA_default_Y;
+            m_usrc_ShopA1366x768.Height = (ShopB_default_Y + ShopB_default_H/2)- ShopA_default_Y;
+
+            m_usrc_ShopB1366x768.Visible = true;
+            m_usrc_ShopB1366x768.Top = ShopA_default_Y+m_usrc_ShopA1366x768.Height;
+            m_usrc_ShopB1366x768.Height = (ShopC_default_Y + ShopC_default_H)- (ShopA_default_Y + m_usrc_ShopA1366x768.Height);
+
+            m_usrc_ShopC1366x768.Visible = false;
         }
 
 
         private void Set_eShopsMode_BC()
         {
             ShopsMode = "BC";
+            m_usrc_ShopB1366x768.Visible = true;
+            m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
+            m_usrc_ShopB1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y;
+
+            m_usrc_ShopC1366x768.Visible = true;
+            m_usrc_ShopC1366x768.Top = ShopA_default_Y+m_usrc_ShopB1366x768.Height;
+            m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H) - (ShopA_default_Y + m_usrc_ShopB1366x768.Height);
+
+            m_usrc_ShopA1366x768.Visible = false;
         }
 
         private void Set_eShopsMode_AC()
         {
             ShopsMode = "AC";
+            m_usrc_ShopA1366x768.Visible = true;
+            m_usrc_ShopA1366x768.Top = ShopA_default_Y; 
+            m_usrc_ShopA1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y; 
+
+            m_usrc_ShopC1366x768.Visible = true;
+            m_usrc_ShopC1366x768.Top = ShopA_default_Y + m_usrc_ShopA1366x768.Height;
+            m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H) - (ShopA_default_Y + m_usrc_ShopA1366x768.Height);
+
+            m_usrc_ShopB1366x768.Visible = false;
         }
 
         private void Set_eShopsMode_ABC()
         {
             ShopsMode = "ABC";
+            m_usrc_ShopA1366x768.Visible = true;
+            m_usrc_ShopA1366x768.Top = ShopA_default_Y;
+            m_usrc_ShopA1366x768.Height = ShopA_default_H;
+
+            m_usrc_ShopB1366x768.Visible = true;
+            m_usrc_ShopB1366x768.Top = ShopB_default_Y; 
+            m_usrc_ShopB1366x768.Height = ShopB_default_H;
+
+            m_usrc_ShopC1366x768.Visible = true;
+            m_usrc_ShopC1366x768.Top = ShopC_default_Y; ;
+            m_usrc_ShopC1366x768.Height = ShopC_default_H;
         }
 
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
@@ -317,19 +389,6 @@ namespace Tangenta
         private void Init_ShopB()
 
         {
-
-            //if (m_usrc_ShopB1366x768 == null)
-
-            //{
-
-            //    m_usrc_ShopB1366x768 = new usrc_ShopB1366x768();
-
-            //    m_usrc_ShopB1366x768.DocTyp = this.DocTyp;
-
-            //    m_usrc_ShopB1366x768.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-
-            //}
-
             m_usrc_ShopB1366x768.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use);
 
             m_usrc_ShopB1366x768.Dock = DockStyle.None;
@@ -350,7 +409,6 @@ namespace Tangenta
             if (mSettingsUserValues.eShopsInUse.Length == 1)
             {
                 eShopsMode = mSettingsUserValues.eShopsInUse;
- //               this.btn_Show_Shops.Visible = false;
             }
             else
             {
@@ -365,22 +423,6 @@ namespace Tangenta
                 }
             }
 
-
-            //if (m_usrc_ShopA1366x768 == null)
-            //{
-            //    Init_ShopA();
-            //}
-
-            //if (m_usrc_ShopB1366x768 == null)
-            //{
-            //    Init_ShopB();
-            //}
-            
-            //if (m_usrc_ShopC1366x768 == null)
-            //{
-            //    Init_ShopC();
-            //}
-
             if (eShopsMode.Equals("A"))
             {
                 Set_eShopsMode_A();
@@ -388,12 +430,10 @@ namespace Tangenta
             else if (eShopsMode.Equals("B"))
             {
                 Set_eShopsMode_B();
-                //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("C"))
             {
                 Set_eShopsMode_C();
-                //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("AB"))
             {
@@ -502,6 +542,20 @@ namespace Tangenta
         public usrc_DocumentEditor1366x768()
         {
             InitializeComponent();
+            ShopA_default_X = this.m_usrc_ShopA1366x768.Left;
+            ShopA_default_Y = this.m_usrc_ShopA1366x768.Top;
+            ShopB_default_X = this.m_usrc_ShopB1366x768.Left;
+            ShopB_default_Y = this.m_usrc_ShopB1366x768.Top;
+            ShopC_default_X = this.m_usrc_ShopC1366x768.Left;
+            ShopC_default_Y = this.m_usrc_ShopC1366x768.Top;
+
+            ShopA_default_W = this.m_usrc_ShopA1366x768.Width;
+            ShopA_default_H = this.m_usrc_ShopA1366x768.Height;
+            ShopB_default_W = this.m_usrc_ShopB1366x768.Width;
+            ShopB_default_H = this.m_usrc_ShopB1366x768.Height;
+            ShopC_default_W = this.m_usrc_ShopC1366x768.Width;
+            ShopC_default_H = this.m_usrc_ShopC1366x768.Height;
+
             usrc_AddOn1.Init(this);
             m_mode = emode.view_eDocumentType;
             lng.s_Show_Shops.Text(btn_Show_Shops);
@@ -516,6 +570,8 @@ namespace Tangenta
             lng.s_Shop_ABC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
 
             lng.s_Total.Text(this.lbl_Sum);
+            lng.s_btn_New.Text(btn_New);
+
 
         }
 
@@ -1959,7 +2015,7 @@ namespace Tangenta
 
         private void btn_Select_Shops_Click(object sender, EventArgs e)
         {
-            Form_ShowShops frm_sel_shops = new Form_ShowShops(this,mSettingsUserValues);
+            Form_ShowShops1366x768 frm_sel_shops = new Form_ShowShops1366x768(this,mSettingsUserValues);
             if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
             {
                 Set_eShopsMode(mSettingsUserValues.eShopsMode);
@@ -1990,6 +2046,14 @@ namespace Tangenta
             if (LayoutChanged != null)
             {
                 LayoutChanged();
+            }
+        }
+
+        private void btn_New_Click(object sender, EventArgs e)
+        {
+            if (New_Click!=null)
+            {
+                New_Click(sender, e);
             }
         }
     }

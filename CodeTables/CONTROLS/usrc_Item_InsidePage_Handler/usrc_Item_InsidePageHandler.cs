@@ -19,6 +19,21 @@ namespace usrc_Item_InsidePage_Handler
 {
     public partial class usrc_Item_InsidePageHandler : UserControl
     {
+        public enum eMode { VIEW,EDIT};
+
+        private eMode m_eMode = eMode.VIEW;
+        public eMode Mode
+        {
+            get
+            {
+                return m_eMode;
+            }
+            private set
+            {
+                m_eMode = value;
+            }
+        }
+
         public enum eCollectionType { ARRAY,LIST};
         private class Page
         {
@@ -46,7 +61,7 @@ namespace usrc_Item_InsidePage_Handler
         public delegate void delegate_CreateControl(ref Control ctrl);
         public event delegate_CreateControl CreateControl = null;
 
-        public delegate void delegate_FillControl(Control ctrl, object oData);
+        public delegate void delegate_FillControl(Control ctrl, object oData, eMode xMode);
         public event delegate_FillControl FillControl = null;
 
         public delegate bool delegate_SetName(object oData, ref string name);
@@ -507,8 +522,9 @@ namespace usrc_Item_InsidePage_Handler
             }
         }
 
-        public void Init(object xDataCollection)
+        public void Init(object xDataCollection, eMode xMode)
         {
+            Mode = xMode;
             SelectedIndex = -1;
             if (xDataCollection is object[])
             {
@@ -555,7 +571,7 @@ namespace usrc_Item_InsidePage_Handler
                                 {
                                     case eCollectionType.ARRAY:
                                         ctrlItems_array[ictrl].Tag = iobj;
-                                        FillControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj]);
+                                        FillControl(ctrlItems_array[ictrl], m_ousrc_Item_array[iobj],Mode);
                                         if (SelectControl != null)
                                         {
                                             if (m_SelectedIndex == iobj)
@@ -570,7 +586,7 @@ namespace usrc_Item_InsidePage_Handler
                                         break;
                                     case eCollectionType.LIST:
                                         ctrlItems_array[ictrl].Tag = iobj;
-                                        FillControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj]);
+                                        FillControl(ctrlItems_array[ictrl], m_ousrc_Item_list[iobj],Mode);
                                         if (SelectControl != null)
                                         {
                                             if (m_SelectedIndex == iobj)

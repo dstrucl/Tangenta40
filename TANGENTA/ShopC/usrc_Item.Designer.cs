@@ -108,6 +108,7 @@
             this.uItemStock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.uItemStock.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.uItemStock.ButtonItemText = "";
             this.uItemStock.DecimalPlaces = 2;
             this.uItemStock.Image = global::ShopC.Properties.Resources.Item_Stock;
             this.uItemStock.Increment = new decimal(new int[] {
@@ -155,6 +156,7 @@
             this.uItemFactory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.uItemFactory.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.uItemFactory.ButtonItemText = "";
             this.uItemFactory.DecimalPlaces = 2;
             this.uItemFactory.Image = global::ShopC.Properties.Resources.Item_NoStock;
             this.uItemFactory.Increment = new decimal(new int[] {
@@ -196,6 +198,7 @@
             0});
             this.uItemFactory.ClickItem += new System.EventHandler(this.uItemFactory_Click);
             this.uItemFactory.ValueChanged += new System.EventHandler(this.uItemFactory_ValueChanged);
+            this.uItemFactory.Load += new System.EventHandler(this.uItemFactory_Load);
             // 
             // usrc_Item
             // 
