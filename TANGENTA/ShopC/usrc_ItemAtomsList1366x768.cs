@@ -192,20 +192,11 @@ namespace ShopC
 
         internal void SetCurrentInvoice_SelectedItems()
         {
-
-//            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, 5, usrc_Atom_Item_array);
-//            this.m_usrc_ItemList1366x768.Reset();
-            //if (this.m_ShopBC.m_CurrentDoc.bDraft)
-            //{
-            //    this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0;
-            //}
-            //else
-            //{
-            //    this.btn_ClearAll.Visible = false;
-            //}
+            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>());
+            this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }
 
-  
+
 
         private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)
         {

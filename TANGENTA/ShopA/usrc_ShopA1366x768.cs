@@ -141,6 +141,10 @@ namespace ShopA
             if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,m_ShopABC.m_CurrentDoc.Doc_ID,ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
+                if (t_DocInvoice_ShopA_Item==null)
+                {
+                    t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+                }
                 t_DocInvoice_ShopA_Item.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 HideNotImportantColumns();
 
@@ -352,7 +356,10 @@ namespace ShopA
                 {
                     if (DBSync.DBSync.DB_for_Tangenta.m_DBTables != null)
                     {
-                        t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+                        if (t_DocInvoice_ShopA_Item == null)
+                        {
+                            t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+                        }
                     }
                 }
             }

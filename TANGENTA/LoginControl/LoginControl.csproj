@@ -478,6 +478,10 @@
       <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>
       <Name>SelectGender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_Group_Handler\usrc_Item_Group_Handler.csproj">
+      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
+      <Name>usrc_Item_Group_Handler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>

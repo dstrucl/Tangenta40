@@ -191,6 +191,7 @@
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(360, 706);
             this.m_usrc_TableOfDocuments.TabIndex = 39;
+            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // m_usrc_DocumentEditor1366x768
             // 

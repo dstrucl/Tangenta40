@@ -216,14 +216,26 @@ namespace ShopC
             switch (mode)
             {
                 case eMode.VIEW:
-                    //splitContainer1.Panel2Collapsed = true;
+                    setmode_VIEW();
                     break;
 
                 case eMode.EDIT:
-                    //splitContainer1.Panel2Collapsed = false;
+                    setmode_EDIT();
                     break;
             }
 
+        }
+
+        private void setmode_VIEW()
+        {
+            this.m_usrc_Atom_ItemsList1366x768.Width = this.m_usrc_ItemList1366x768.Right - m_usrc_Atom_ItemsList1366x768.Left;
+            this.m_usrc_ItemList1366x768.Visible = false;
+        }
+
+        private void setmode_EDIT()
+        {
+            this.m_usrc_ItemList1366x768.Visible = true;
+            this.m_usrc_Atom_ItemsList1366x768.Width = this.m_usrc_ItemList1366x768.Left - m_usrc_Atom_ItemsList1366x768.Left;
         }
 
         public bool GetItemData(ref int iCount)

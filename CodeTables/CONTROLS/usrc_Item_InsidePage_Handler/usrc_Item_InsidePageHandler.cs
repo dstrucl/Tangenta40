@@ -485,6 +485,26 @@ namespace usrc_Item_InsidePage_Handler
                     }
                 }
             }
+            else
+            {
+                if (CreateControl != null)
+                {
+                    if (ctrlItems_array == null)
+                    {
+                        create_controls();
+                    }
+                }
+                if (ctrlItems_array != null)
+                {
+                    foreach (Control xctrl in ctrlItems_array)
+                    {
+                        if (xctrl != null)
+                        {
+                            xctrl.Visible = false;
+                        }
+                    }
+                }
+            }
         }
 
         public void Init(object xDataCollection)
