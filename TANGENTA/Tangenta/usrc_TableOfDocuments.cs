@@ -512,7 +512,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    sql = @"SELECT" +
+                    sql = @"SELECT " +
                     sAtom_WorkArea_Name +
                   @"JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
                     JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,

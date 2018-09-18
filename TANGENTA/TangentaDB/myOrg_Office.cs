@@ -192,7 +192,7 @@ namespace TangentaDB
                                 Address_v.Country_ISO_3166_num_v = tf.set_dshort(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
                                 myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID);
 
-                                if (Get_Atom_ElectronicDevice_List(this, ref myOrg_Office_ElectronicDevice_List))
+                                if (Get_ElectronicDevice_List(this, ref myOrg_Office_ElectronicDevice_List))
                                 {
                                     return myOrg_Person_List.Get(this, ref myOrg_Person_list);
                                 }
@@ -278,7 +278,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_Atom_ElectronicDevice_List(myOrg_Office Office, ref List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_list)
+        public static bool Get_ElectronicDevice_List(myOrg_Office Office, ref List<myOrg_Office_ElectronicDevice> myOrg_Office_ElectronicDevice_list)
         {
 
             DataTable dt = new DataTable();

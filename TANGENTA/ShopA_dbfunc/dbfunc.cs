@@ -133,7 +133,7 @@ namespace ShopA_dbfunc
 
         public static bool insert(string DocInvoice,DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref ID DocInvoice_ShopA_Item_ID)
         {
-            if (m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID != null)
+            if (ID.Validate(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID))
             {
                 return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref  DocInvoice_ShopA_Item_ID);
             }
@@ -239,11 +239,16 @@ namespace ShopA_dbfunc
                 }
                 else
                 {
+                    string sval_Unit = "null";
+                    if (ID.Validate(m_Atom_ItemShopA.m_Unit.ID))
+                    {
+                        sval_Unit = m_Atom_ItemShopA.m_Unit.ID.ToString();
+                    }
                     sql = "insert into Atom_ItemShopA (Name,Description,Taxation_ID,Unit_ID,VisibleForSelection) values ("
                             + m_Atom_ItemShopA.Name.value + ","
                             + m_Atom_ItemShopA.Description.value + ","
                             + m_Atom_ItemShopA.m_Taxation.ID.value + ","
-                            + m_Atom_ItemShopA.m_Unit.ID.value + ",1)";
+                            + sval_Unit + ",1)";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Atom_ItemShopA_ID, ref Err, "Atom_ItemShopA"))
                     {
                         return true;

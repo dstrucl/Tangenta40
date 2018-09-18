@@ -666,7 +666,7 @@ namespace ShopB
             {
                 if (Layout == eLayout.VIEW)
                 {
-                    if (FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
+                    if (Global.f.FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
                     {
                         this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_total_discount);
                     }
@@ -691,17 +691,7 @@ namespace ShopB
 
         }
 
-        private bool FindColumn(DataGridView dgv, string column_name)
-        {
-            foreach (DataGridViewColumn dgvcol in dgv.Columns)
-            {
-                if (dgvcol.Name.Equals(column_name))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+    
 
         public void SetViewButtons()
         {
@@ -712,7 +702,7 @@ namespace ShopB
                     this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_discount);
                     this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_deselect);
                 }
-                if (!FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
+                if (!Global.f.FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
                 {
                     dgv_total_discount_column = null;
                 }

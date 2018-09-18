@@ -235,7 +235,7 @@ namespace Tangenta
             CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(tbl_Customer_Org, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog() == DialogResult.OK)
             {
-                Customer_OrganisationData_ID.Set(selectID_Table_Assistant_Form.ID);
+                Customer_OrganisationData_ID = tf.set_ID(selectID_Table_Assistant_Form.ID);
                 if (aa_Customer_Org_Changed != null)
                 {
                     aa_Customer_Org_Changed(Customer_OrganisationData_ID);

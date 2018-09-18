@@ -239,13 +239,13 @@ namespace ShopA
             }
             else
             {
-                xUnit.ID.Set(null);
+                xUnit.ID.Set(ID.Invalid);
                 xUnit.Name.set(null);
                 xUnit.Symbol.set(null);
                 xUnit.StorageOption.set(null);
                 xUnit.DecimalPlaces.set(null);
                 xUnit.Description.set(null);
-                m_Unit.ID.Set(null);
+                m_Unit.ID.Set(ID.Invalid);
                 m_Unit.Name.set(null);
                 m_Unit.Symbol.set(null);
                 m_Unit.StorageOption.set(null);

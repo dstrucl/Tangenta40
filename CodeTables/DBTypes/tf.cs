@@ -439,6 +439,10 @@ namespace DBTypes
                 {
                     return ((byte_array_v)o).v;
                 }
+                else if (o is ID)
+                {
+                    return ((ID)o).V;
+                }
                 else
                 {
                     LogFile.Error.Show("ERROR:func:Copy:Not supported object type = " + o.GetType().ToString());

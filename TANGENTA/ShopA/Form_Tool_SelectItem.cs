@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
+using DBTypes;
 
 namespace ShopA
 {
@@ -184,10 +185,10 @@ namespace ShopA
             if (dgvrcol.Count==1)
             {
                 DataGridViewRow dgvr = dgvrcol[0];
-                m_Atom_ItemShopA.ID.Set(dgvr.Cells["ID"].Value);
+                m_Atom_ItemShopA.ID = tf.set_ID(dgvr.Cells["ID"].Value);
                 m_Atom_ItemShopA.Name.set(dgvr.Cells["Atom_ItemShopA_$$Name"].Value);
                 m_Atom_ItemShopA.Description.set(dgvr.Cells["Atom_ItemShopA_$$Description"].Value);
-                m_Atom_ItemShopA.m_Unit.ID.Set(dgvr.Cells["Atom_ItemShopA_$_u_$$ID"].Value);
+                m_Atom_ItemShopA.m_Unit.ID = tf.set_ID(dgvr.Cells["Atom_ItemShopA_$_u_$$ID"].Value);
                 m_Atom_ItemShopA.m_Unit.Name.set(dgvr.Cells["Atom_ItemShopA_$_u_$$Name"].Value);
                 m_Atom_ItemShopA.m_Unit.Symbol.set(dgvr.Cells["Atom_ItemShopA_$_u_$$Symbol"].Value);
                 short decimal_places = 0;

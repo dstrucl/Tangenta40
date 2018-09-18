@@ -83,7 +83,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(ID atom_ElectronicDevice_ID,
+        internal static bool Get(ID xElectronicDevice_ID,
                                 ref string electronicDevice_Name,
                                 ref string electronicDevice_Description,
                                 ref string computerName,
@@ -127,7 +127,7 @@ namespace TangentaDB
                             LEFT JOIN Atom_MAC_address ElectronicDevice_$_acomp_$_amac ON ElectronicDevice_$_acomp.Atom_MAC_address_ID = ElectronicDevice_$_acomp_$_amac.ID 
                             LEFT JOIN Atom_ComputerUserName ElectronicDevice_$_acomp_$_acun ON ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = ElectronicDevice_$_acomp_$_acun.ID 
                             LEFT JOIN Atom_IP_address ElectronicDevice_$_acomp_$_aipa ON ElectronicDevice_$_acomp.Atom_IP_address_ID = ElectronicDevice_$_acomp_$_aipa.ID 
-                            LEFT JOIN Office ElectronicDevice_$_office ON ElectronicDevice.Office_ID = ElectronicDevice_$_office.ID  where ElectronicDevice.ID = " + atom_ElectronicDevice_ID.ToString();
+                            LEFT JOIN Office ElectronicDevice_$_office ON ElectronicDevice.Office_ID = ElectronicDevice_$_office.ID  where ElectronicDevice.ID = " + xElectronicDevice_ID.ToString();
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -233,8 +233,13 @@ namespace TangentaDB
                         if (dt.Rows.Count > 0)
                         {
                             ElectronicDevice_ID = tf.set_ID(dt.Rows[0]["ElectronicDevice_ID"]);
+                            return true;
                         }
-                        return true;
+                        else
+                        {
+                            return true;
+                        }
+                        
                     }
                     else
                     {

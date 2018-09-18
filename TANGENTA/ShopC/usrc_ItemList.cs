@@ -321,10 +321,13 @@ namespace ShopC
 
         private void Paint_Group(string[] s_name)
         {
-            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, s_name))
+            if (s_name != null)
             {
-                lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
-                m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
+                if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, s_name))
+                {
+                    lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
+                    m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
+                }
             }
         }
 

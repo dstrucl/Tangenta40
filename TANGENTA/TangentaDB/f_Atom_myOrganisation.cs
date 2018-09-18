@@ -52,6 +52,7 @@ namespace TangentaDB
                                 left  join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
                                 where
                                 ( (  Logo.Image_Hash is null  and   Atom_Logo.Image_Hash is null  ) or  (Logo.Image_Hash=Atom_Logo.Image_Hash) ) and
+                                (
                                 ( (  cStreetName_Org.StreetName is null  and   Atom_cStreetName_Org.StreetName  is null  ) or (cStreetName_Org.StreetName = Atom_cStreetName_Org.StreetName ) ) and
                                 ( (  cHouseNumber_Org.HouseNumber is null  and   Atom_cHouseNumber_Org.HouseNumber is null  )or  ( cHouseNumber_Org.HouseNumber = Atom_cHouseNumber_Org.HouseNumber ) ) and
                                 ( (  Atom_OrganisationData.cHomePage_Org_ID is null   and  OrganisationData.cHomePage_Org_ID is null  ) or  ( Atom_OrganisationData.cHomePage_Org_ID = OrganisationData.cHomePage_Org_ID ) ) and
@@ -61,7 +62,9 @@ namespace TangentaDB
                                 ( (  cCity_Org.City is null ) and  Atom_cCity_Org.City is null   ) or  (cCity_Org.City = Atom_cCity_Org.City  ) and
                                 ( (  cZip_Org.ZIP is null  and  Atom_cZIP_Org.ZIP is null  )or  (cZip_Org.ZIP = Atom_cZIP_Org.ZIP ) ) and
                                 ( ( cCountry_Org.Country is null  and   Atom_cCountry_Org.Country is null )  or  ( cCountry_Org.Country = Atom_cCountry_Org.Country) ) and
-                                ( ( cState_Org.State is null and  Atom_cState_Org.State is null  ) or  (cState_Org.State = Atom_cState_Org.State ) ) and
+                                ( ( cState_Org.State is null and  Atom_cState_Org.State is null  ) or  (cState_Org.State = Atom_cState_Org.State ) ) 
+                                )
+                                and
                                 myOrganisation.id = " + myOrganisation_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myOrganisation_ID, ref Err))

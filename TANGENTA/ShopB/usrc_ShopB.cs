@@ -701,53 +701,49 @@ namespace ShopB
             {
                 if (Layout == eLayout.VIEW)
                 {
-                    if (FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
+                    if (Global.f.FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
                     {
                         this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_total_discount);
                     }
                     dgv_total_discount_column = null;
                 }
 
-                DataGridViewImageButtonColumn btn_Discount = null;
+                if (this.dgv_SelectedShopB_Items.Columns.Count > 0)
+                {
+                    DataGridViewImageButtonColumn btn_Discount = null;
 
-                btn_Discount = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.discount);
-                btn_Discount.HeaderText = "";
-                btn_Discount.Text = "";
-                btn_Discount.Name = DBtcn.column_SelectedShopBItem_btn_discount;
-                btn_Discount.Width = 32;
-                this.dgv_SelectedShopB_Items.Columns.Insert(2, btn_Discount);
-                DataGridViewImageButtonColumn btn_Remove = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.deselect);
-                btn_Remove.HeaderText = "Odstrani";
-                btn_Remove.Text = "-";
-                btn_Remove.Name = DBtcn.column_SelectedShopBItem_btn_deselect;
-                this.dgv_SelectedShopB_Items.Columns.Insert(0,btn_Remove);
+                    btn_Discount = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.discount);
+                    btn_Discount.HeaderText = "";
+                    btn_Discount.Text = "";
+                    btn_Discount.Name = DBtcn.column_SelectedShopBItem_btn_discount;
+                    btn_Discount.Width = 32;
+                    this.dgv_SelectedShopB_Items.Columns.Insert(2, btn_Discount);
+                    DataGridViewImageButtonColumn btn_Remove = new DataGridViewImageButtonColumn(DataGridViewImageButtonColumn.eselection.deselect);
+                    btn_Remove.HeaderText = "Odstrani";
+                    btn_Remove.Text = "-";
+                    btn_Remove.Name = DBtcn.column_SelectedShopBItem_btn_deselect;
+                    this.dgv_SelectedShopB_Items.Columns.Insert(0, btn_Remove);
+                }
                 Layout = eLayout.DRAFT;
             }
 
         }
 
-        private bool FindColumn(DataGridView dgv, string column_name)
-        {
-            foreach (DataGridViewColumn dgvcol in dgv.Columns)
-            {
-                if (dgvcol.Name.Equals(column_name))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+   
         public void SetViewButtons()
         {
             if ((Layout == eLayout.DRAFT) || (Layout == eLayout.NONE))
             {
                 if (Layout == eLayout.DRAFT)
                 {
-                    this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_discount);
-                    this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_deselect);
+
+                    if (Global.f.FindColumn(dgv_SelectedShopB_Items, DBtcn.column_SelectedShopBItem_btn_discount))
+                    {
+                        this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_discount);
+                        this.dgv_SelectedShopB_Items.Columns.Remove(DBtcn.column_SelectedShopBItem_btn_deselect);
+                    }
                 }
-                if (!FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
+                if (!Global.f.FindColumn(dgv_SelectedShopB_Items, DBtcn.column_total_discount))
                 {
                     dgv_total_discount_column = null;
                 }
@@ -760,19 +756,23 @@ namespace ShopB
                     dgv_total_discount_column.HeaderText = lng.s_TotalDiscount.s;
                     this.dgv_SelectedShopB_Items.Columns.Add(dgv_total_discount_column);
                 }
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = true;
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = true;
 
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].HeaderText = lng.s_PriceListDiscount.s;
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].HeaderText = lng.s_ExtraDiscount.s;
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_total_discount].HeaderText = lng.s_TotalDiscount.s;
-                if (col_Discount == null)
+                if (Global.f.FindColumn(dgv_SelectedShopB_Items, DBtcn.column_SelectedShopBItemPriceDiscount))
                 {
-                    col_Discount = new DataGridViewTextBoxColumn();
-                    col_Discount.HeaderText = lng.s_Discount.s;
-                    col_Discount.Name = DBtcn.column_SelectedShopBItem_btn_discount;
-                    col_Discount.Width = 32;
-                    this.dgv_SelectedShopB_Items.Columns.Insert(4, col_Discount);
+                    this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = true;
+                    this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = true;
+
+                    this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].HeaderText = lng.s_PriceListDiscount.s;
+                    this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].HeaderText = lng.s_ExtraDiscount.s;
+                    this.dgv_SelectedShopB_Items.Columns[DBtcn.column_total_discount].HeaderText = lng.s_TotalDiscount.s;
+                    if (col_Discount == null)
+                    {
+                        col_Discount = new DataGridViewTextBoxColumn();
+                        col_Discount.HeaderText = lng.s_Discount.s;
+                        col_Discount.Name = DBtcn.column_SelectedShopBItem_btn_discount;
+                        col_Discount.Width = 32;
+                        this.dgv_SelectedShopB_Items.Columns.Insert(4, col_Discount);
+                    }
                 }
                 Layout = eLayout.VIEW;
             }
@@ -799,7 +799,6 @@ namespace ShopB
                     }
                 }
             }
-            
         }
 
         public void Set_dgv_SelectedShopB_Items()
@@ -854,7 +853,9 @@ namespace ShopB
 
         private bool SetGroups(ID PriceList_id)
         {
-            string sql_Group = @"SELECT 
+            if (ID.Validate(PriceList_id))
+            {
+                string sql_Group = @"SELECT 
               s1.Name as s1_name,
               s2.Name as s2_name,
               s3.Name as s3_name
@@ -869,58 +870,62 @@ namespace ShopB
               where SimpleItem.ToOffer = 1 and Price_SimpleItem.RetailSimpleItemPrice>=0 and Price_SimpleItem.PriceList_ID = " + PriceList_id.ToString() + @"
 		       group by s1.Name,s2.Name,s3.Name";
 
-            dt_Group = new DataTable();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt_Group, sql_Group, ref Err))
-            {
-                if (m_usrc_Item_Group_Handler.Set_Groups(dt_Group))
+                dt_Group = new DataTable();
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref dt_Group, sql_Group, ref Err))
                 {
-                    splitContainer1.Panel2Collapsed = false;
-                    if (m_usrc_Item_Group_Handler.NumberOfGroupLevels>1)
+                    if (m_usrc_Item_Group_Handler.Set_Groups(dt_Group))
                     {
-                        StaticLib.Func.SetSplitContainerValue(splitContainer1,splitContainer1.Width-32, ref Err);
+                        splitContainer1.Panel2Collapsed = false;
+                        if (m_usrc_Item_Group_Handler.NumberOfGroupLevels > 1)
+                        {
+                            StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 32, ref Err);
+                        }
+                        else
+                        {
+                            StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 82, ref Err);
+                        }
+                        if (dt_Group.Rows.Count > 0)
+                        {
+                            string s1_name = null;
+                            string s2_name = null;
+                            string s3_name = null;
+                            if (dt_Group.Rows[0]["s1_name"] is string)
+                            {
+                                s1_name = (string)dt_Group.Rows[0]["s1_name"];
+                            }
+                            if (dt_Group.Rows[0]["s2_name"] is string)
+                            {
+                                s2_name = (string)dt_Group.Rows[0]["s2_name"];
+                            }
+                            if (dt_Group.Rows[0]["s3_name"] is string)
+                            {
+                                s3_name = (string)dt_Group.Rows[0]["s3_name"];
+                            }
+
+                            string[] sGroup = new string[] { s1_name, s2_name, s3_name };
+                            m_usrc_Item_Group_Handler.Select(sGroup);
+                        }
+                        return true;
                     }
                     else
                     {
-                        StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 82, ref Err);
-                    }
-                    if (dt_Group.Rows.Count > 0)
-                    {
-                        string s1_name = null;
-                        string s2_name = null;
-                        string s3_name = null;
-                        if (dt_Group.Rows[0]["s1_name"] is string)
-                        {
-                            s1_name = (string)dt_Group.Rows[0]["s1_name"];
-                        }
-                        if (dt_Group.Rows[0]["s2_name"] is string)
-                        {
-                            s2_name = (string)dt_Group.Rows[0]["s2_name"];
-                        }
-                        if (dt_Group.Rows[0]["s3_name"] is string)
-                        {
-                            s3_name = (string)dt_Group.Rows[0]["s3_name"];
-                        }
-
-                        string[] sGroup = new string[] { s1_name, s2_name, s3_name };
+                        splitContainer1.Panel2Collapsed = true;
+                        string[] sGroup = new string[] { null, null, null };
                         m_usrc_Item_Group_Handler.Select(sGroup);
+                        return true;
                     }
-                    return true;
                 }
                 else
                 {
-                    splitContainer1.Panel2Collapsed = true;
-                    string[] sGroup = new string[] { null, null, null };
-                    m_usrc_Item_Group_Handler.Select(sGroup);
-                    return true;
+                    LogFile.Error.Show("ERROR:usrc_ShopBItemMan:SetGroups:sql=" + sql_Group + "\r\nErr=" + Err);
+                    return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_ShopBItemMan:SetGroups:sql=" + sql_Group + "\r\nErr=" + Err);
                 return false;
             }
-
         }
 
 

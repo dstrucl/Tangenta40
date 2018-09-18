@@ -232,7 +232,7 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Find_Atom_ElectronicDevice()
+        public static bool Find_ElectronicDevice()
         {
             string xComputerName = f_Atom_ComputerName.Get();
             string xComputerUserName = f_Atom_ComputerUsername.Get();
@@ -390,7 +390,7 @@ namespace TangentaDB
 
                 if (myOrg.myOrg_Office_list.Count > 0)
                 {
-                    if (myOrg.Find_Atom_ElectronicDevice())
+                    if (myOrg.Find_ElectronicDevice())
                     {
                         if (!Program_OperationMode_MultiUser)
                         {
@@ -429,13 +429,6 @@ namespace TangentaDB
                             return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON;
                         }
 
-                        if (!Program_OperationMode_MultiUser)
-                        {
-                            if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
-                            {
-                                return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER;
-                            }
-                        }
 
                         if (myOrg.Address_v.Country_ISO_3166_a3.Equals(Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_A3))
                         {
@@ -469,6 +462,14 @@ namespace TangentaDB
                         if (myOrg.ElectronicDevice_ID == null)
                         {
                             return eGetOrganisationDataResult.NO_ELECTRONIC_DEVICE_NAME;
+                        }
+
+                        if (!Program_OperationMode_MultiUser)
+                        {
+                            if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
+                            {
+                                return eGetOrganisationDataResult.NO_MY_ORG_OFFICE_PERSON_SINGLE_USER;
+                            }
                         }
                     }
                 }

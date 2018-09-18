@@ -315,18 +315,18 @@ namespace ShopA
             dr["ID"] = m_DocInvoice_ShopA_Item.ID.V;
             if (IsDocInvoice)
             {
-                dr["DocInvoice_ShopA_Item_$_dinv_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_DocInvoice.ID.V);
+                dr["DocInvoice_ShopA_Item_$_dinv_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_DocInvoice.ID);
                 dr["DocInvoice_ShopA_Item_$_dinv_$$Draft"] = 1;
                 dr["DocInvoice_ShopA_Item_$_aisha_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Name.type_v);
                 dr["DocInvoice_ShopA_Item_$_aisha_$$Description"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Description.type_v);
-                dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.ID.V);
+                dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.ID);
                 dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Name.type_v);
                 dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Rate.type_v);
-                dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.ID.V);
+                dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.ID);
                 dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Name.type_v);
                 dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$Symbol"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Symbol.type_v);
                 dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.DecimalPlaces.type_v);
-                dr["DocInvoice_ShopA_Item_$_aisha_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.V);
+                dr["DocInvoice_ShopA_Item_$_aisha_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID);
                 dr["DocInvoice_ShopA_Item_$$Discount"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.Discount.type_v);
                 dr["DocInvoice_ShopA_Item_$$dQuantity"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.dQuantity.type_v);
                 dr["DocInvoice_ShopA_Item_$$PricePerUnit"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.PricePerUnit.type_v);
@@ -335,18 +335,18 @@ namespace ShopA
             }
             else if (IsDocProformaInvoice)
             {
-                dr["DocProformaInvoice_ShopA_Item_$_dpinv_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_DocInvoice.ID.V);
+                dr["DocProformaInvoice_ShopA_Item_$_dpinv_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_DocInvoice.ID);
                 dr["DocProformaInvoice_ShopA_Item_$_dpinv_$$Draft"] = 1;
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Name.type_v);
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$$Description"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Description.type_v);
-                dr["DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.ID.V);
+                dr["DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.ID);
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Name.type_v);
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Rate.type_v);
-                dr["DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.ID.V);
+                dr["DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.ID);
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Name.type_v);
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$Symbol"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Symbol.type_v);
                 dr["DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.DecimalPlaces.type_v);
-                dr["DocProformaInvoice_ShopA_Item_$_aisha_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.V);
+                dr["DocProformaInvoice_ShopA_Item_$_aisha_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID);
                 dr["DocProformaInvoice_ShopA_Item_$$Discount"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.Discount.type_v);
                 dr["DocProformaInvoice_ShopA_Item_$$dQuantity"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.dQuantity.type_v);
                 dr["DocProformaInvoice_ShopA_Item_$$PricePerUnit"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.PricePerUnit.type_v);

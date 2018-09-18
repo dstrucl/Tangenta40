@@ -1474,33 +1474,38 @@ namespace TangentaDB
 
         public void Set_dgv_selected_ShopB_Items_Columns(DataGridView dgv)
         {
-            dgv.Columns[DBtcn.column_SelectedShopBItemName].HeaderText = lng.s_Shop_B.s;
-            //this.dgv.Columns[DBtcn.column_SelectedShopBItemName].MinimumWidth = 120;
-            //this.dgv.Columns[DBtcn.column_SelectedShopBItemName].Width = 120;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].HeaderText = lng.s_PriceWithoutTax.s;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPriceTax].HeaderText = lng.s_Tax.s;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPrice].HeaderText = lng.s_EndPrice.s;
-            dgv.Columns[DBtcn.column_SelectedShopBItem_Count].HeaderText = lng.s_Quantity.s;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = false;
-            dgv.Columns[DBtcn.column_SelectedShopBItem_ShopBItem_ID].Visible = false;
-            dgv.Columns[DBtcn.column_Selected_Atom_Price_ShopBItem_ID].Visible = false;
-            //dgv.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
-            dgv.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = false;
-            dgv.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].Visible = true;
-            dgv.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].HeaderText = lng.s_RetailPricePerUnit.s;
-            
-            dgv.Columns[DBtcn.column_SelectedShopBItem_TaxName].Visible = false;
-            dgv.Columns[DBtcn.column_SelectedShopBItem_TaxRate].Visible = false;
+            if (dgv.Columns.Count > 0)
+            {
+                if (Global.f.FindColumn(dgv, DBtcn.column_SelectedShopBItemName))
+                {
+                    dgv.Columns[DBtcn.column_SelectedShopBItemName].HeaderText = lng.s_Shop_B.s;
+                    //this.dgv.Columns[DBtcn.column_SelectedShopBItemName].MinimumWidth = 120;
+                    //this.dgv.Columns[DBtcn.column_SelectedShopBItemName].Width = 120;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].HeaderText = lng.s_PriceWithoutTax.s;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPriceTax].HeaderText = lng.s_Tax.s;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPrice].HeaderText = lng.s_EndPrice.s;
+                    dgv.Columns[DBtcn.column_SelectedShopBItem_Count].HeaderText = lng.s_Quantity.s;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = false;
+                    dgv.Columns[DBtcn.column_SelectedShopBItem_ShopBItem_ID].Visible = false;
+                    dgv.Columns[DBtcn.column_Selected_Atom_Price_ShopBItem_ID].Visible = false;
+                    //dgv.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
+                    dgv.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = false;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].Visible = true;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].HeaderText = lng.s_RetailPricePerUnit.s;
 
-            //dgv.Columns[DBtcn.column_SelectedShopBItem_btn_deselect].DisplayIndex = 0;
-            dgv.Columns[DBtcn.column_SelectedShopBItemName].DisplayIndex = 1;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPrice].DisplayIndex = 2;
-            //dgv.Columns[DBtcn.column_SelectedShopBItem_btn_discount].DisplayIndex = 3;
-            dgv.Columns[DBtcn.column_SelectedShopBItem_Count].DisplayIndex = 3;
-            dgv.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].DisplayIndex = 4;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPriceTax].DisplayIndex = 5;
-            dgv.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].DisplayIndex = 6;
+                    dgv.Columns[DBtcn.column_SelectedShopBItem_TaxName].Visible = false;
+                    dgv.Columns[DBtcn.column_SelectedShopBItem_TaxRate].Visible = false;
 
+                    //dgv.Columns[DBtcn.column_SelectedShopBItem_btn_deselect].DisplayIndex = 0;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemName].DisplayIndex = 1;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPrice].DisplayIndex = 2;
+                    //dgv.Columns[DBtcn.column_SelectedShopBItem_btn_discount].DisplayIndex = 3;
+                    dgv.Columns[DBtcn.column_SelectedShopBItem_Count].DisplayIndex = 3;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].DisplayIndex = 4;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPriceTax].DisplayIndex = 5;
+                    dgv.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].DisplayIndex = 6;
+                }
+            }
         }
 
         private int FindRowIndex_In_dtDraft_Atom_SimpleItem(ID DocInvoice_ShopB_Item_ID)

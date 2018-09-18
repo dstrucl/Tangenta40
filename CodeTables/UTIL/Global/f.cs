@@ -82,6 +82,18 @@ namespace Global
             }
         }
 
+        public static bool FindColumn(DataGridView dgv, string column_name)
+        {
+            foreach (DataGridViewColumn dgvcol in dgv.Columns)
+            {
+                if (dgvcol.Name.Equals(column_name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static string GetApplicationDataFolder()
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
