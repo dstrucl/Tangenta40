@@ -30,6 +30,8 @@ namespace Tangenta
         private usrc_DocumentMan m_usrc_DocumentMan = null;
         private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
 
+        
+
         private bool bChanged = false;
         private NavigationButtons.Navigation nav = null;
         private Form LogManager_dlg = null;
@@ -43,20 +45,24 @@ namespace Tangenta
         }
 
 
-        public Form_ProgramSettings(usrc_DocumentMan xusrc_DocumentMan,NavigationButtons.Navigation xnav)
+        public Form_ProgramSettings(usrc_DocumentMan xusrc_DocumentMan,NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             m_usrc_DocumentMan = xusrc_DocumentMan;
             nav = xnav;
+            usrc_ShopsInuse1.SettingsUserValues = xSettingsUserValues;
+            usrc_ShopsInuse1.Init();
             Init();
 
         }
 
-        public Form_ProgramSettings(usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768, NavigationButtons.Navigation xnav)
+        public Form_ProgramSettings(usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768, NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             m_usrc_DocumentMan1366x768 = xusrc_DocumentMan1366x768;
             nav = xnav;
+            usrc_ShopsInuse1.SettingsUserValues = xSettingsUserValues;
+            usrc_ShopsInuse1.Init();
             Init();
 
         }

@@ -1214,7 +1214,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             if (door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this);
+                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this,this.mSettingsUserValues);
                 frm_settingsselect.ShowDialog(this);
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 

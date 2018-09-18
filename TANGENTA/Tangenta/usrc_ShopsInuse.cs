@@ -12,7 +12,18 @@ namespace Tangenta
 {
     public partial class usrc_ShopsInuse : UserControl
     {
-        public SettingsUserValues mSettingsUserValues = null;
+        private SettingsUserValues m_SettingsUserValues = null;
+        public SettingsUserValues SettingsUserValues
+        {
+            get {
+                return m_SettingsUserValues;
+                }
+            set
+            {
+                m_SettingsUserValues = value;
+            }
+        }
+
         public usrc_ShopsInuse()
         {
             InitializeComponent();
@@ -23,13 +34,25 @@ namespace Tangenta
             lng.s_lbl_ShopA_Name.Text(lbl_ShopA_Name);
             lng.s_lbl_ShopB_Name.Text(lbl_ShopB_Name);
             lng.s_lbl_ShopC_Name.Text(lbl_ShopC_Name);
-            string shinuse = Program.Shops_in_use;
             lng.s_Shop_A.Text(txt_ShopA_Name);
             lng.s_Shop_B.Text(txt_ShopB_Name);
             lng.s_Shop_C.Text(txt_ShopC_Name);
             chk_A_in_use.Checked = false;
             chk_B_in_use.Checked = false;
             chk_C_in_use.Checked = false;
+        }
+
+        public void Init()
+        {
+            string shinuse = "";
+            if (SettingsUserValues != null)
+            {
+                shinuse = SettingsUserValues.eShopsInUse;
+            }
+            else
+            {
+                shinuse = Program.Shops_in_use;
+            }
             if (shinuse.Contains("A"))
             {
                 chk_A_in_use.Checked = true;
@@ -72,14 +95,14 @@ namespace Tangenta
             ShopC.lng.s_ShopC_Name.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
 
             DynSettings.LanguageTextSave();
-            if (mSettingsUserValues == null)
+            if (SettingsUserValues == null)
             {
                 Properties.Settings.Default.eShopsInUse = shinuse;
                 Properties.Settings.Default.Save();
             }
             else
             {
-                mSettingsUserValues.eShopsInUse = shinuse;
+                SettingsUserValues.eShopsInUse = shinuse;
             }
             return true;
         }

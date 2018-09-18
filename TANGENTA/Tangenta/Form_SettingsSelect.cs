@@ -12,23 +12,26 @@ namespace Tangenta
 {
     public partial class Form_SettingsSelect : Form
     {
+        private SettingsUserValues m_SettingsUserValues = null;
         private Form Main_Form = null;
         private usrc_DocumentMan m_usrc_DocumentMan = null;
         private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
 
-        public Form_SettingsSelect(Form xMain_Form,usrc_DocumentMan xusrc_DocumentMan)
+        public Form_SettingsSelect(Form xMain_Form,usrc_DocumentMan xusrc_DocumentMan, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             Main_Form = xMain_Form;
             m_usrc_DocumentMan = xusrc_DocumentMan;
+            m_SettingsUserValues = xSettingsUserValues;
             lng.s_Settings.Text(this);
         }
 
-        public Form_SettingsSelect(Form xMain_Form, usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768)
+        public Form_SettingsSelect(Form xMain_Form, usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             Main_Form = xMain_Form;
             m_usrc_DocumentMan1366x768 = xusrc_DocumentMan1366x768;
+            m_SettingsUserValues = xSettingsUserValues;
             lng.s_Settings.Text(this);
         }
 
@@ -67,11 +70,11 @@ namespace Tangenta
             Form_ProgramSettings edt_Form = null;
             if (m_usrc_DocumentMan != null)
             {
-                edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan, nav_Form_ProgramSettings);
+                edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan, nav_Form_ProgramSettings, m_SettingsUserValues);
             }
             else if (m_usrc_DocumentMan1366x768 != null)
             {
-                edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan1366x768, nav_Form_ProgramSettings);
+                edt_Form = new Form_ProgramSettings(m_usrc_DocumentMan1366x768, nav_Form_ProgramSettings, m_SettingsUserValues);
             }
             edt_Form.ShowDialog(this);
             edt_Form.Dispose();
