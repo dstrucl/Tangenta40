@@ -46,7 +46,7 @@ namespace Tangenta
                 }
                 else if (m_usrc_DocumentMan1366x768 != null)
                 {
-                    return m_usrc_DocumentMan1366x768.IsDocInvoice;
+                    return m_usrc_DocumentMan1366x768.DocM.IsDocInvoice;
                 }
                 return false;
             }
@@ -56,7 +56,7 @@ namespace Tangenta
         {
             InitializeComponent();
             m_usrc_DocumentMan1366x768 = x_usrc_DocumentMan1366x768;
-            m_ShopABC = m_usrc_DocumentMan1366x768.m_usrc_DocumentEditor1366x768.m_ShopABC;
+            m_ShopABC = m_usrc_DocumentMan1366x768.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC;
             Init(xSettingsUserValues);
         }
 
@@ -64,25 +64,25 @@ namespace Tangenta
         {
             InitializeComponent();
             m_usrc_DocumentMan = xusrc_DocumentMan;
-            m_ShopABC = m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC;
+            m_ShopABC = m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC;
             Init(xSettingsUserValues);
         }
 
         private void Init(SettingsUserValues xSettingsUserValues)
         {
             string sdraft = "";
-            string sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
+            string sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
             string sInvoiceNumber = null;
             int ItemsCount = m_ShopABC.m_CurrentDoc.ItemsCount(m_usrc_DocumentMan.DocTyp);
-            if (m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.bDraft)
+            if (m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.bDraft)
             {
                 sdraft = lng.s_Draft.s;
-                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
                                    + " " + lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
             }
             else
             {
-                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + m_usrc_DocumentMan.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
                 + " " + lng.s_Total.s + " = " + m_usrc_DocumentMan.m_usrc_DocumentEditor.lbl_Sum.Text + ")";
             }
 

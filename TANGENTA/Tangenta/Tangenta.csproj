@@ -149,6 +149,8 @@
     <Compile Include="Colors.cs" />
     <Compile Include="ControlTagForHelp.cs" />
     <Compile Include="DocType.cs" />
+    <Compile Include="DocumentEditor.cs" />
+    <Compile Include="DocumentMan.cs" />
     <Compile Include="Form_IdleSettings.cs">
       <SubType>Form</SubType>
     </Compile>

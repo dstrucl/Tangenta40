@@ -152,7 +152,6 @@
             // m_usrc_DocumentEditor1366x768
             // 
             this.m_usrc_DocumentEditor1366x768.BackColor = System.Drawing.Color.Gainsboro;
-            this.m_usrc_DocumentEditor1366x768.DocTyp = "DocInvoice";
             this.m_usrc_DocumentEditor1366x768.Location = new System.Drawing.Point(360, 0);
             this.m_usrc_DocumentEditor1366x768.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_DocumentEditor1366x768.Name = "m_usrc_DocumentEditor1366x768";

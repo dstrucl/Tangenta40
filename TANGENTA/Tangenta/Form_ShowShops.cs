@@ -46,7 +46,7 @@ namespace Tangenta
           BDIST,
           this,
           btn_Cancel,
-          m_usrc_Invoice.mSettingsUserValues,
+          m_usrc_Invoice.DocE.mSettingsUserValues,
           rdb_A,
           rdb_B,
           rdb_C,

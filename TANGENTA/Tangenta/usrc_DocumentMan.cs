@@ -93,7 +93,7 @@ namespace Tangenta
 
         internal bool m_usrc_Invoice_ViewMode
         {
-            get { return m_usrc_DocumentEditor.m_mode == usrc_DocumentEditor.emode.view_eDocumentType; }
+            get { return m_usrc_DocumentEditor.DocE.m_mode == DocumentEditor.emode.view_eDocumentType; }
         }
 
         private string m_DocTyp = null;
@@ -657,13 +657,13 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Shops_and_InvoiceTable);
             ID Doc_ID_to_show_v = null;
-            if (m_usrc_DocumentEditor.m_ShopABC != null)
+            if (m_usrc_DocumentEditor.DocE.m_ShopABC != null)
             {
-                if (m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc != null)
+                if (m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc != null)
                 {
-                    if (ID.Validate(m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID))
+                    if (ID.Validate(m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID))
                     {
-                        Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID);
+                        Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                     }
                     this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
                 }
@@ -809,7 +809,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List))
+            if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -820,7 +820,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                     xdt_ShopB_Items.Clear();
                     xdt_ShopB_Items.Columns.Clear();
                 }
-                if (this.m_usrc_DocumentEditor.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopB_Items))
                 {
                     if (xdt_ShopA_Items == null)
                     {
@@ -831,7 +831,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                         xdt_ShopA_Items.Clear();
                         xdt_ShopA_Items.Columns.Clear();
                     }
-                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopA_Items))
+                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopA_Items))
                     {
                         return true;
                     }
@@ -845,22 +845,22 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                                         DataTable xdt_ShopB_Items, 
                                         DataTable xdt_ShopA_Items)
         {
-            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items))
+            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items))
             {
-                if (this.m_usrc_DocumentEditor.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocTyp, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items))
                 {
-                    switch (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocTyp,
-                                                                                                                    this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc,
+                    switch (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Copy_ShopC_Price_Item_Stock_Table(DocTyp,
+                                                                                                                    this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc,
                                                                                                                     xShopC_Data_Item_List,
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock,
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Select_ShopC_Item_from_Stock,
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Item_Not_In_Offer))
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
-                            mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear;
-                            m_usrc_TableOfDocuments.Init(doc_type, true, false, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear, null);
+                            mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear;
+                            m_usrc_TableOfDocuments.Init(doc_type, true, false, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.FinancialYear);
+                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear);
                             cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
                             if (this.m_usrc_DocumentEditor.m_usrc_ShopC != null)
                             {
@@ -1002,11 +1002,11 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                 Customer_Changed = false;
                 if (this.m_usrc_DocumentEditor!=null)
                 {
-                    if (this.m_usrc_DocumentEditor.m_ShopABC!=null)
+                    if (this.m_usrc_DocumentEditor.DocE.m_ShopABC!=null)
                     {
-                        if (this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc!=null)
+                        if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc!=null)
                         {
-                            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.m_ShopABC.m_CurrentDoc.Doc_ID);
+                            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                             return;
                         }
                     }
@@ -1059,12 +1059,12 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             {
                 if (Program.b_FVI_SLO)
                 {
-                    if (this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI == null)
+                    if (this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI == null)
                     {
-                        this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
+                        this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
-                    this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI);
+                    this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -1163,8 +1163,8 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                             {
                                 if (Program.b_FVI_SLO)
                                 {
-                                    this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                    if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.m_ShopABC, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.m_InvoiceData.AddOnDPI))
+                                    this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                    if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDPI))
                                     {
                                         return this.SetDocument();
                                     }

@@ -1015,7 +1015,7 @@ namespace Tangenta
                         {
                             if (this.DocumentMan1366x768 != null)
                             {
-                                LayoutSave(((SettingsUser)this.DocumentMan1366x768.m_LMOUser.oSettings).mSettingsUserValues);
+                                LayoutSave(((SettingsUser)this.DocumentMan1366x768.DocM.m_LMOUser.oSettings).mSettingsUserValues);
                                 this.DocumentMan1366x768.Active = false;
                             }
                         }
@@ -1177,13 +1177,13 @@ namespace Tangenta
 
             if (HasDocumentMan1366x768)
             {
-                if (this.DocumentMan1366x768.IsDocInvoice)
+                if (this.DocumentMan1366x768.DocM.IsDocInvoice)
                 {
                     numberOfAll = fs.NumberOInvoicesInDatabase();
                     sNewTag += "i";
                     tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
                 }
-                else if (this.DocumentMan1366x768.IsDocProformaInvoice)
+                else if (this.DocumentMan1366x768.DocM.IsDocProformaInvoice)
                 {
                     numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
                     sNewTag += "p";

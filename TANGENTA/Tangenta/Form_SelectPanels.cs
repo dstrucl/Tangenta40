@@ -68,15 +68,15 @@ namespace Tangenta
             }
             else if (m_usrc_DocumentMan1366x768 != null)
             {
-                if (m_usrc_DocumentMan1366x768.Mode == usrc_DocumentMan1366x768.eMode.Shops)
+                if (m_usrc_DocumentMan1366x768.DocM.Mode == DocumentMan.eMode.Shops)
                 {
                     rdb_Items.Checked = true;
                 }
-                else if (m_usrc_DocumentMan1366x768.Mode == usrc_DocumentMan1366x768.eMode.Shops_and_InvoiceTable)
+                else if (m_usrc_DocumentMan1366x768.DocM.Mode == DocumentMan.eMode.Shops_and_InvoiceTable)
                 {
                     rdb_ItemsAndDoc.Checked = true;
                 }
-                else if (m_usrc_DocumentMan1366x768.Mode == usrc_DocumentMan1366x768.eMode.InvoiceTable)
+                else if (m_usrc_DocumentMan1366x768.DocM.Mode == DocumentMan.eMode.InvoiceTable)
                 {
                     rdb_Doc.Checked = true;
                 }

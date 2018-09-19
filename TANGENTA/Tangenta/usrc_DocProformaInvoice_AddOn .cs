@@ -129,7 +129,7 @@ namespace Tangenta
                 lng.s_OK.Text(this.btn_ProformaInvoice_Issue);
             }
 
-            if (m_AddOnDPI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentDoc.Doc_ID))
+            if (m_AddOnDPI.Get(m_usrc_AddOn.m_usrc_Invoice.DocE.m_ShopABC.m_CurrentDoc.Doc_ID))
             {
                 if (m_AddOnDPI.m_IssueDate != null)
                 {
@@ -343,7 +343,7 @@ namespace Tangenta
             ltext ltMsg = null;
             if (m_AddOnDPI.Completed(ref ltMsg))
             {
-                if (m_AddOnDPI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg))
+                if (m_AddOnDPI.Set(m_usrc_AddOn.m_usrc_Invoice.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg))
                 {
 
                     if (OK != null)
