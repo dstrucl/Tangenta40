@@ -455,7 +455,6 @@ namespace Tangenta
             ShopC_default_H = this.m_usrc_ShopC1366x768.Height;
 
             usrc_AddOn1.Init(this);
-            DocE.m_mode = DocumentEditor.emode.view_eDocumentType;
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Number.Text(lbl_Number);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
@@ -530,6 +529,7 @@ namespace Tangenta
         {
             DocM = xDocM;
             DocE = DocM.DocE;
+            DocE.m_mode = DocumentEditor.emode.view_eDocumentType;
             DocE.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             DocM = xDocM;
             DocE.m_LMOUser = xLMOUser;
