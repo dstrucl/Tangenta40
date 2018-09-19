@@ -541,6 +541,7 @@
     <Compile Include="SetiingsUserValues.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SettingsUser.cs" />
+    <Compile Include="ShopsUse.cs" />
     <Compile Include="SumPayment.cs" />
     <Compile Include="TaxSum.cs" />
     <Compile Include="usrc_checkmark.cs">
@@ -651,11 +652,11 @@
     <Compile Include="usrc_PurchasePriceList_Edit.Designer.cs">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_ShopsInuse.cs">
+    <Compile Include="usrc_ShopsInUse.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_ShopsInuse.Designer.cs">
-      <DependentUpon>usrc_ShopsInuse.cs</DependentUpon>
+    <Compile Include="usrc_ShopsInUse.Designer.cs">
+      <DependentUpon>usrc_ShopsInUse.cs</DependentUpon>
     </Compile>
     <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
       <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
@@ -958,8 +959,8 @@
     <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ShopsInuse.resx">
-      <DependentUpon>usrc_ShopsInuse.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_ShopsInUse.resx">
+      <DependentUpon>usrc_ShopsInUse.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

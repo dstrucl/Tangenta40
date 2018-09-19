@@ -143,7 +143,7 @@ namespace Tangenta
             get {
                     if (m_usrc_DocumentEditor1366x768!=null)
                     {
-                        return m_usrc_DocumentEditor1366x768.ShopsMode.Contains("A");
+                        return ShopsUse.ShowShops_Get(((SettingsUser)this.m_LMOUser.oSettings).mSettingsUserValues).Contains("A");
                     }
                     else
                     {
@@ -158,7 +158,7 @@ namespace Tangenta
             {
                 if (m_usrc_DocumentEditor1366x768 != null)
                 {
-                    return m_usrc_DocumentEditor1366x768.ShopsMode.Contains("B");
+                    return ShopsUse.ShowShops_Get(((SettingsUser)this.m_LMOUser.oSettings).mSettingsUserValues).Contains("B");
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace Tangenta
             {
                 if (m_usrc_DocumentEditor1366x768 != null)
                 {
-                    return m_usrc_DocumentEditor1366x768.ShopsMode.Contains("C");
+                    return ShopsUse.ShowShops_Get(((SettingsUser)this.m_LMOUser.oSettings).mSettingsUserValues).Contains("C");
                 }
                 else
                 {

@@ -41,7 +41,7 @@ namespace Tangenta
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (Program.Shops_in_use.Contains("B"))
+            if (ShopsUse.ShopsInUse_Get(null).Contains("B"))
             {
 
                 long ShopB_Items_Count = fs.GetTableRowsCount("SimpleItem");
@@ -51,7 +51,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (Program.Shops_in_use.Contains("B"))
+                    if (ShopsUse.ShopsInUse_Get(null).Contains("B"))
                     {
                         startup_ShowForm_proc = Startup_10_Show_Form_Items_Samples;
                         return Startup_check_proc_Result.WAIT_USER_INTERACTION;

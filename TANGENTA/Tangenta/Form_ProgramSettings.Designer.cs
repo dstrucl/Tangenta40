@@ -35,7 +35,7 @@
             this.chk_FullScreen = new System.Windows.Forms.CheckBox();
             this.btn_LogFile = new System.Windows.Forms.Button();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
-            this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
+            this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInUse();
             this.btn_DBSettings = new System.Windows.Forms.Button();
             this.lbl_AppData = new System.Windows.Forms.Label();
             this.txt_ApplicationDataFolder = new System.Windows.Forms.TextBox();
@@ -432,7 +432,7 @@
         private System.Windows.Forms.Label lbl_Language;
         private System.Windows.Forms.CheckBox chk_FullScreen;
         private System.Windows.Forms.Button btn_LogFile;
-        private usrc_ShopsInuse usrc_ShopsInuse1;
+        private usrc_ShopsInUse usrc_ShopsInuse1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private System.Windows.Forms.Button btn_DBSettings;
         private System.Windows.Forms.Label lbl_AppData;

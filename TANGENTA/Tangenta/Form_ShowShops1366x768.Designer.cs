@@ -135,7 +135,7 @@
             this.usrc_Help1.Size = new System.Drawing.Size(33, 29);
             this.usrc_Help1.TabIndex = 44;
             // 
-            // Form_ShowShops
+            // Form_ShowShops1366x768
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -152,8 +152,8 @@
             this.Controls.Add(this.btn_Cancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form_ShowShops";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Name = "Form_ShowShops1366x768";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form_SelectPanels_Load);
             this.ResumeLayout(false);
 

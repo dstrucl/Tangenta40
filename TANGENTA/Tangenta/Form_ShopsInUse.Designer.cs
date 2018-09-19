@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopsInUse));
             this.wb1 = new System.Windows.Forms.WebBrowser();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
-            this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
+            this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInUse();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
@@ -110,7 +110,7 @@
         #endregion
         private System.Windows.Forms.WebBrowser wb1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
-        private usrc_ShopsInuse usrc_ShopsInuse1;
+        private usrc_ShopsInUse usrc_ShopsInuse1;
         private HUDCMS.usrc_Help usrc_Help1;
     }
 }

@@ -29,7 +29,7 @@ namespace Tangenta
 {
     public partial class usrc_DocumentEditor : UserControl
     {
-        SettingsUserValues mSettingsUserValues = null;
+        public SettingsUserValues mSettingsUserValues = null;
         public ID Atom_Currency_ID = null;
         private LoginControl.LMOUser m_LMOUser = null;
         private Door door = null;
@@ -37,9 +37,62 @@ namespace Tangenta
         public usrc_ShopB m_usrc_ShopB = null;
         public usrc_ShopC m_usrc_ShopC = null;
 
-        public string ShopsMode = "";
         private usrc_DocumentMan m_usrc_DocumentMan = null;
         private NavigationButtons.Navigation nav = null;
+
+        public string ShopsInUse
+        {
+            get
+            {
+                if (mSettingsUserValues != null)
+                {
+                    return mSettingsUserValues.eShopsInUse;
+                }
+                else
+                {
+                    return Properties.Settings.Default.eShopsInUse;
+                }
+            }
+            set
+            {
+                string shopsinuse = value;
+                if (mSettingsUserValues != null)
+                {
+                    mSettingsUserValues.eShopsInUse = shopsinuse;
+                }
+                else
+                {
+                    Properties.Settings.Default.eShopsInUse = shopsinuse;
+                }
+            }
+        }
+
+        public string ShowShops
+        {
+            get
+            {
+                if (mSettingsUserValues != null)
+                {
+                    return mSettingsUserValues.eShowShops;
+                }
+                else
+                {
+                    return Properties.Settings.Default.eShowShops;
+                }
+            }
+            set
+            {
+                string showshops = value;
+                if (mSettingsUserValues != null)
+                {
+                    mSettingsUserValues.eShowShops = showshops;
+                }
+                else
+                {
+                    Properties.Settings.Default.eShowShops = showshops;
+                }
+            }
+        }
 
 
         public delegate void delegate_LayoutChanged();
@@ -299,7 +352,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
-            m_usrc_ShopC.Init(m_LMOUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,Program.Shops_in_use,Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC.Init(m_LMOUser.Atom_WorkPeriod_ID,this.m_ShopABC, DBtcn,ShopsUse.ShopsInUse_Get(mSettingsUserValues),Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -320,9 +373,9 @@ namespace Tangenta
             return door.OpenPriceList(Global.f.GetParentForm(this));
         }
 
-        private void Set_eShopsMode_A()
+        private void Set_ShowShops_A()
         {
-            ShopsMode = "A";
+            ShopsUse.ShowShops_Set(mSettingsUserValues,"A");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -330,9 +383,9 @@ namespace Tangenta
             this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
         }
 
-        private void Set_eShopsMode_B()
+        private void Set_ShowShops_B()
         {
-            ShopsMode = "B";
+            ShopsUse.ShowShops_Set(mSettingsUserValues, "B");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -340,9 +393,9 @@ namespace Tangenta
             this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopB);
         }
 
-        private void Set_eShopsMode_C()
+        private void Set_ShowShops_C()
         {
-            ShopsMode = "C";
+            ShopsUse.ShowShops_Set(mSettingsUserValues, "C");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -351,9 +404,9 @@ namespace Tangenta
         }
 
 
-        private void Set_eShopsMode_AB()
+        private void Set_ShowShops_AB()
         {
-            ShopsMode = "AB";
+            ShopsUse.ShowShops_Set(mSettingsUserValues, "AB");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -367,9 +420,9 @@ namespace Tangenta
         }
 
 
-        private void Set_eShopsMode_BC()
+        private void Set_ShowShops_BC()
         {
-            ShopsMode = "BC";
+            ShopsUse.ShowShops_Set(mSettingsUserValues, "BC");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -384,7 +437,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_AC()
         {
-            ShopsMode = "AC";
+            ShopsUse.ShowShops_Set(mSettingsUserValues, "AC");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -397,9 +450,9 @@ namespace Tangenta
             this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopC);
         }
 
-        private void Set_eShopsMode_ABC()
+        private void Set_ShowShops_ABC()
         {
-            ShopsMode = "ABC";
+            ShopsUse.ShowShops_Set(mSettingsUserValues, "ABC");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -418,7 +471,7 @@ namespace Tangenta
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
             mSettingsUserValues.eShopsInUse = xshops_inuse;
-            this.Set_eShopsMode(xshops_inuse);
+            this.Set_ShowShops(xshops_inuse);
             if (LayoutChanged!=null)
             {
                 LayoutChanged();
@@ -449,7 +502,7 @@ namespace Tangenta
 
             }
 
-            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use);
+            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, ShopsUse.ShopsInUse_Get(mSettingsUserValues));
 
             m_usrc_ShopB.Dock = DockStyle.Fill;
 
@@ -464,11 +517,11 @@ namespace Tangenta
         }
 
 
-        internal void Set_eShopsMode(string eShopsMode)
+        internal void Set_ShowShops(string eShopsShow)
         {
             if (mSettingsUserValues.eShopsInUse.Length == 1)
             {
-                eShopsMode = mSettingsUserValues.eShopsInUse;
+                eShopsShow = mSettingsUserValues.eShopsInUse;
  //               this.btn_Show_Shops.Visible = false;
             }
             else
@@ -478,9 +531,9 @@ namespace Tangenta
 
             if (mSettingsUserValues.eShopsInUse.Length == 2)
             {
-                if (!mSettingsUserValues.eShopsInUse.Contains(eShopsMode))
+                if (!mSettingsUserValues.eShopsInUse.Contains(eShopsShow))
                 {
-                    eShopsMode = mSettingsUserValues.eShopsInUse;
+                    eShopsShow = mSettingsUserValues.eShopsInUse;
                 }
             }
 
@@ -500,35 +553,35 @@ namespace Tangenta
                 New_ShopC();
             }
 
-            if (eShopsMode.Equals("A"))
+            if (eShopsShow.Equals("A"))
             {
-                Set_eShopsMode_A();
+                Set_ShowShops_A();
             }
-            else if (eShopsMode.Equals("B"))
+            else if (eShopsShow.Equals("B"))
             {
-                Set_eShopsMode_B();
+                Set_ShowShops_B();
                 //this.btn_Show_Shops.Visible = false;
             }
-            else if (eShopsMode.Equals("C"))
+            else if (eShopsShow.Equals("C"))
             {
-                Set_eShopsMode_C();
+                Set_ShowShops_C();
                 //this.btn_Show_Shops.Visible = false;
             }
-            else if (eShopsMode.Equals("AB"))
+            else if (eShopsShow.Equals("AB"))
             {
-                Set_eShopsMode_AB();
+                Set_ShowShops_AB();
             }
-            else if (eShopsMode.Equals("BC"))
+            else if (eShopsShow.Equals("BC"))
             {
-                Set_eShopsMode_BC();
+                Set_ShowShops_BC();
             }
-            else if (eShopsMode.Equals("AC"))
+            else if (eShopsShow.Equals("AC"))
             {
                 Set_eShopsMode_AC();
             }
-            else if (eShopsMode.Equals("ABC"))
+            else if (eShopsShow.Equals("ABC"))
             {
-                Set_eShopsMode_ABC();
+                Set_ShowShops_ABC();
             }
         }
 
@@ -599,11 +652,11 @@ namespace Tangenta
 
         public bool ShopA_DefaultVisible
         {
-            get { return mSettingsUserValues.eShopsMode.Contains("A"); }
+            get { return mSettingsUserValues.eShowShops.Contains("A"); }
         }
         public bool ShopB_DefaultVisible
         {
-            get { return mSettingsUserValues.eShopsMode.Contains("B"); }
+            get { return mSettingsUserValues.eShowShops.Contains("B"); }
         }
 
         internal void SetSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
@@ -723,7 +776,7 @@ namespace Tangenta
 
         public bool ShopC_DefaultVisible
         {
-            get { return mSettingsUserValues.eShopsMode.Contains("Ç"); }
+            get { return mSettingsUserValues.eShowShops.Contains("Ç"); }
         }
 
         public bool HeadVisible
@@ -856,11 +909,20 @@ namespace Tangenta
                 m_InvoiceData.DocInvoice_ID = Document_ID;
             }
 
-            if (mSettingsUserValues.eShopsMode.Length==0)
+            string showshops = Properties.Settings.Default.eShowShops;
+            if (mSettingsUserValues != null)
             {
-                mSettingsUserValues.eShopsMode = Properties.Settings.Default.eShopsInUse;
+                if (mSettingsUserValues.eShowShops.Length == 0)
+                {
+                    mSettingsUserValues.eShowShops = showshops;
+                }
+                else
+                {
+                    showshops = mSettingsUserValues.eShowShops;
+                }
             }
-            Set_eShopsMode(mSettingsUserValues.eShopsMode);
+
+            Set_ShowShops(mSettingsUserValues.eShowShops);
             GetUnits();
 
             DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
@@ -903,7 +965,7 @@ namespace Tangenta
                 return false;
             }
 
-            if (Program.Shops_in_use.Contains("C"))
+            if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("C"))
             {
                 if (GetPriceList_ShopC())
                 {
@@ -1125,7 +1187,7 @@ namespace Tangenta
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB,Program.Shops_in_use,  ref Err))
+            if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB,ShopsUse.ShopsInUse_Get(mSettingsUserValues),  ref Err))
             {
 
             }
@@ -1142,7 +1204,7 @@ namespace Tangenta
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, Program.Shops_in_use,  ref Err))
+            if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ShopsUse.ShopsInUse_Get(mSettingsUserValues),  ref Err))
             {
 
             }
@@ -1155,7 +1217,7 @@ namespace Tangenta
 
         public bool Get_ShopB_ItemData(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
-            if (Program.Shops_in_use.Contains("B"))
+            if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("B"))
             {
                 if (myStartup.bInsertSampleData)
                 {
@@ -1177,7 +1239,7 @@ namespace Tangenta
                 }
                 if (this.m_usrc_ShopB == null)
                 {
-                    Set_eShopsMode(Program.Shops_in_use);
+                    Set_ShowShops(ShopsUse.ShopsInUse_Get(mSettingsUserValues));
                 }
             }
 
@@ -1205,24 +1267,17 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (Program.Shops_in_use.Contains("B"))
+                    if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("B"))
                     {
-                        //if (MessageBox.Show(this, lng.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                        //{
-                            this.m_usrc_ShopB.EditShopBItem();
-                            if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        //}
-                        //else
-                        //{
-                        //    return true;
-                        //}
+                        this.m_usrc_ShopB.EditShopBItem();
+                        if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -1246,7 +1301,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (Program.Shops_in_use.Contains("B"))
+                    if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("B"))
                     {
                         string smsg = lng.s_No_ShopB_Items_or_no_prices_for_those_items.s.Replace("%s",lng.s_Shop_B.s);
                         MessageBox.Show(this, smsg);
@@ -1274,7 +1329,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (Program.Shops_in_use.Contains("C"))
+                    if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("C"))
                     {
                         this.m_usrc_ShopC.EditItem(xnav);
                         if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
@@ -2213,7 +2268,7 @@ namespace Tangenta
             Form_ShowShops frm_sel_shops = new Form_ShowShops(this,mSettingsUserValues);
             if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
             {
-                Set_eShopsMode(mSettingsUserValues.eShopsMode);
+                Set_ShowShops(mSettingsUserValues.eShowShops);
                 if (LayoutChanged!=null)
                 {
                     LayoutChanged();

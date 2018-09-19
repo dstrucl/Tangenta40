@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_ShopsInuse
+    partial class usrc_ShopsInUse
     {
         /// <summary> 
         /// Required designer variable.

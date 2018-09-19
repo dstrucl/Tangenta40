@@ -65,16 +65,16 @@ namespace Tangenta
             }
         }
 
-        private string meShopsMode = "";
-        public string eShopsMode
+        private string meShowShops = "";
+        public string eShowShops
         {
             get
             {
-                return meShopsMode;
+                return meShowShops;
             }
             set
             {
-                meShopsMode = value;
+                meShowShops = value;
             }
         }
 
@@ -396,7 +396,7 @@ namespace Tangenta
             AddRow(dt, "Color_DocInvoiceBackGround", Color_DocInvoiceBackGround,false);
             AddRow(dt, "Color_DocProformaInvoiceForeGround", Color_DocProformaInvoiceForeGround, false);
             AddRow(dt, "FinancialYear", FinancialYear, true);
-            AddRow(dt, "eShopsMode", eShopsMode, true);
+            AddRow(dt, "eShopsMode", eShowShops, true);
             AddRow(dt, "eShopsInUse", eShopsInUse,true);
             AddRow(dt, "SplitContainerDistanceUserSettings", SplitContainerDistanceUserSettings, false);
             AddRow(dt, "LastDocInvoiceType", LastDocInvoiceType, true);

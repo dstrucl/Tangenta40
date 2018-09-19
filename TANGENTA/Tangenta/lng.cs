@@ -285,6 +285,7 @@ namespace Tangenta
 
         public static ltext s_Shop_ABC = new ltext(new string[] { s_Shop_A.sText(0) + " & " + s_Shop_B.sText(0) + " & " + s_Shop_C.sText(0), s_Shop_A.sText(1) + " & " + s_Shop_B.sText(1) + "&" + s_Shop_C.sText(1) });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
+
         public static ltext s_Shops_In_Use = new ltext(new string[] { "Shops in use", "Prodajalne v uporabi" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShopsInUse.cs
 
         public static ltext s_SimpleItemGroups = new ltext(new string[] { "Simple Item groups", "Skupine enostavnih Artiklov" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_SimpleItemGroups_Edit.cs

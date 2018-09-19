@@ -285,6 +285,9 @@ namespace TangentaDB
             }
         }
 
+
+
+
         public static bool DeleteTableAndSetAutoincrementToZero(string TableName)
         {
             string Err = null;

@@ -1,4 +1,5 @@
-﻿using DBConnectionControl40;
+﻿using CodeTables;
+using DBConnectionControl40;
 using DBTypes;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,55 @@ namespace TangentaDB
 {
     public static class f_Item
     {
+        public static bool GetItemData(ref DataTable dt_Item, ref int iCount)
+        {
+            SQLTable tbl_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item));
+
+            string sql_Item = @"SELECT 
+              Item.ID,
+              Item.Name AS Item_Name,
+              Item.UniqueName AS Item_UniqueName,
+              Item_Image.Image_Hash AS Item_Image_Image_Hash,
+              Item_Image.Image_Data AS Item_Image_Image_Data,
+              Item.Code AS Item_Code,
+              Item.ToOffer AS Item_ToOffer,
+              Expiry.ExpectedShelfLifeInDays,
+              Expiry.SaleBeforeExpiryDateInDays,
+              Expiry.DiscardBeforeExpiryDateInDays,
+              Expiry.ExpiryDescription,
+              Warranty.WarrantyDuration,
+              Warranty.WarrantyDurationType,
+              Warranty.WarrantyConditions
+             From Item 
+                LEFT JOIN Item_Image ON Item.Item_Image_ID = Item_Image.ID
+                LEFT JOIN Expiry ON Item.Expiry_ID = Expiry.ID
+                LEFT JOIN Warranty ON Item.Warranty_ID = Warranty.ID
+                where Item.ToOffer = 1
+            ";
+
+            string Err = null;
+            if (dt_Item == null)
+            {
+                dt_Item = new DataTable();
+            }
+            else
+            {
+                dt_Item.Clear();
+                dt_Item.Columns.Clear();
+            }
+            if (DBSync.DBSync.ReadDataTable(ref dt_Item, sql_Item, ref Err))
+            {
+                iCount = dt_Item.Rows.Count;
+                return true;
+
+            }
+            else
+            {
+                LogFile.Error.Show("Error Load Item data:" + Err);
+                return false;
+            }
+        }
+
         public static bool Get(string Name,
                                string UniqueName,
                                bool bToOffer,

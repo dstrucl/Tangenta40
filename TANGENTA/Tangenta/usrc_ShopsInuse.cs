@@ -10,7 +10,7 @@ using LanguageControl;
 
 namespace Tangenta
 {
-    public partial class usrc_ShopsInuse : UserControl
+    public partial class usrc_ShopsInUse : UserControl
     {
         private SettingsUserValues m_SettingsUserValues = null;
         public SettingsUserValues SettingsUserValues
@@ -24,7 +24,7 @@ namespace Tangenta
             }
         }
 
-        public usrc_ShopsInuse()
+        public usrc_ShopsInUse()
         {
             InitializeComponent();
             lng.s_Shops_In_Use.Text(grp_ShopsInUse);
@@ -44,15 +44,8 @@ namespace Tangenta
 
         public void Init()
         {
-            string shinuse = "";
-            if (SettingsUserValues != null)
-            {
-                shinuse = SettingsUserValues.eShopsInUse;
-            }
-            else
-            {
-                shinuse = Program.Shops_in_use;
-            }
+            string shinuse = ShopsUse.ShopsInUse_Get(SettingsUserValues);
+
             if (shinuse.Contains("A"))
             {
                 chk_A_in_use.Checked = true;
@@ -69,20 +62,20 @@ namespace Tangenta
 
         internal bool do_OK()
         {
-            string shinuse = "";
+            string shInUse = "";
             if (chk_A_in_use.Checked)
             {
-                shinuse += "A";
+                shInUse += "A";
             }
             if (chk_B_in_use.Checked)
             {
-                shinuse += "B";
+                shInUse += "B";
             }
             if (chk_C_in_use.Checked)
             {
-                shinuse += "C";
+                shInUse += "C";
             }
-            if (shinuse.Length == 0)
+            if (shInUse.Length == 0)
             {
                 MessageBox.Show(this, lng.s_YouMustSelectAtLeastOneShop.s, lng.s_Warning.s,  MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return false;
@@ -97,12 +90,12 @@ namespace Tangenta
             DynSettings.LanguageTextSave();
             if (SettingsUserValues == null)
             {
-                Properties.Settings.Default.eShopsInUse = shinuse;
+                Properties.Settings.Default.eShopsInUse = shInUse;
                 Properties.Settings.Default.Save();
             }
             else
             {
-                SettingsUserValues.eShopsInUse = shinuse;
+                SettingsUserValues.eShopsInUse = shInUse;
             }
             return true;
         }

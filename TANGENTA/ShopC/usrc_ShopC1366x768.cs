@@ -55,7 +55,7 @@ namespace ShopC
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
 
         private ID m_Atom_WorkPeriod_ID = null;
-        DataTable dt_Item = new DataTable();
+        private DataTable dt_Item = new DataTable();
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
@@ -236,48 +236,6 @@ namespace ShopC
         {
             this.m_usrc_ItemList1366x768.Visible = true;
             this.m_usrc_Atom_ItemsList1366x768.Width = this.m_usrc_ItemList1366x768.Left - m_usrc_Atom_ItemsList1366x768.Left;
-        }
-
-        public bool GetItemData(ref int iCount)
-        {
-            SQLTable tbl_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item));
-
-
-            string sql_Item = @"SELECT 
-              Item.ID,
-              Item.Name AS Item_Name,
-              Item.UniqueName AS Item_UniqueName,
-              Item_Image.Image_Hash AS Item_Image_Image_Hash,
-              Item_Image.Image_Data AS Item_Image_Image_Data,
-              Item.Code AS Item_Code,
-              Item.ToOffer AS Item_ToOffer,
-              Expiry.ExpectedShelfLifeInDays,
-              Expiry.SaleBeforeExpiryDateInDays,
-              Expiry.DiscardBeforeExpiryDateInDays,
-              Expiry.ExpiryDescription,
-              Warranty.WarrantyDuration,
-              Warranty.WarrantyDurationType,
-              Warranty.WarrantyConditions
-             From Item 
-                LEFT JOIN Item_Image ON Item.Item_Image_ID = Item_Image.ID
-                LEFT JOIN Expiry ON Item.Expiry_ID = Expiry.ID
-                LEFT JOIN Warranty ON Item.Warranty_ID = Warranty.ID
-                where Item.ToOffer = 1
-            ";
-
-            string Err = null;
-            dt_Item.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref dt_Item, sql_Item, ref Err))
-            {
-                iCount = dt_Item.Rows.Count;
-                return true;
-
-            }
-            else
-            {
-                LogFile.Error.Show("Error Load Item data:" + Err);
-                return false;
-            }
         }
 
 
@@ -556,5 +514,9 @@ namespace ShopC
 
         }
 
+        public bool GetItemData(ref int iCountItemData)
+        {
+            return f_Item.GetItemData(ref dt_Item, ref iCountItemData);
+        }
     }
 }

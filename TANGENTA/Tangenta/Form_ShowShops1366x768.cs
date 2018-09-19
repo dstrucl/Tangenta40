@@ -28,6 +28,10 @@ namespace Tangenta
 
         public Form_ShowShops1366x768(usrc_DocumentEditor1366x768 x_usrc_Invoice1366x768, SettingsUserValues xSettingsUserValues)
         {
+            const int TOPM = 10;
+            const int YDIST = 10;
+            const int BDIST = 60;
+
             InitializeComponent();
             mSettingsUserValues = xSettingsUserValues;
             m_usrc_Invoice1366x768 = x_usrc_Invoice1366x768;
@@ -40,47 +44,21 @@ namespace Tangenta
             lng.s_Shop_AC.Text(rdb_AC);
             lng.s_Shop_ABC.Text(rdb_ABC);
 
-
-            rdb_A.Checked = false;
-            rdb_B.Checked = false;
-            rdb_C.Checked = false;
-            rdb_AB.Checked = false;
-            rdb_BC.Checked = false;
-            rdb_AC.Checked = false;
-            rdb_ABC.Checked = false;
-
-            if (mSettingsUserValues.eShopsMode.Equals("A"))
-            {
-                rdb_A.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("B"))
-            {
-                rdb_B.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("C"))
-            {
-                rdb_C.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("AB"))
-            {
-                rdb_AB.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("BC"))
-            {
-                rdb_BC.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("AC"))
-            {
-                rdb_AC.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("ABC"))
-            {
-                rdb_ABC.Checked = true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShopsMode);
-            }
+            ShopsUse.SetRadioButtons(
+                               TOPM,
+                               YDIST,
+                               BDIST,
+                               this,
+                               btn_Cancel,
+                               m_usrc_Invoice1366x768.mSettingsUserValues,
+                               rdb_A,
+                               rdb_B,
+                               rdb_C,
+                               rdb_AB,
+                               rdb_BC,
+                               rdb_AC,
+                               rdb_ABC
+                              );
             rdb_A.CheckedChanged += Rdb_A_CheckedChanged;
             rdb_B.CheckedChanged += Rdb_B_CheckedChanged;
             rdb_C.CheckedChanged += Rdb_C_CheckedChanged;
@@ -93,7 +71,7 @@ namespace Tangenta
         {
             if (rdb_A.Checked)
             {
-                mSettingsUserValues.eShopsMode = "A";
+                mSettingsUserValues.eShowShops = "A";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -104,7 +82,7 @@ namespace Tangenta
         {
             if (rdb_B.Checked)
             {
-                mSettingsUserValues.eShopsMode = "B";
+                mSettingsUserValues.eShowShops = "B";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -114,7 +92,7 @@ namespace Tangenta
         {
             if (rdb_C.Checked)
             {
-                mSettingsUserValues.eShopsMode = "C";
+                mSettingsUserValues.eShowShops = "C";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -124,7 +102,7 @@ namespace Tangenta
         {
             if (rdb_AB.Checked)
             {
-                mSettingsUserValues.eShopsMode = "AB";
+                mSettingsUserValues.eShowShops = "AB";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -134,7 +112,7 @@ namespace Tangenta
         {
             if (rdb_BC.Checked)
             {
-                mSettingsUserValues.eShopsMode = "BC";
+                mSettingsUserValues.eShowShops = "BC";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -144,7 +122,7 @@ namespace Tangenta
         {
             if (rdb_AC.Checked)
             {
-                mSettingsUserValues.eShopsMode = "AC";
+                mSettingsUserValues.eShowShops = "AC";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -153,7 +131,7 @@ namespace Tangenta
         {
             if (rdb_ABC.Checked)
             {
-                mSettingsUserValues.eShopsMode = "ABC";
+                mSettingsUserValues.eShowShops = "ABC";
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -168,180 +146,8 @@ namespace Tangenta
 
         private void Form_SelectPanels_Load(object sender, EventArgs e)
         {
-            const int TOPM = 10;
-            const int YDIST = 10;
-            const int BDIST = 60;
-            this.Top = m_usrc_Invoice1366x768.btn_Show_Shops.Top + m_usrc_Invoice1366x768.btn_Show_Shops.Height;
-            this.Left = m_usrc_Invoice1366x768.btn_Show_Shops.Left;
-            string shinuse = Program.Shops_in_use;
-
-            if (shinuse.Equals("A"))
-            {
-                rdb_A.Checked = true;
-                rdb_A.Enabled = false;
-                rdb_A.Visible = true;
-                rdb_B.Visible = false;
-                rdb_C.Visible = false;
-                rdb_AB.Visible = false;
-                rdb_AC.Visible = false;
-                rdb_ABC.Visible = false;
-                rdb_A.Top = TOPM;
-                btn_Cancel.Top = rdb_A.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-            if (shinuse.Equals("B"))
-            {
-                rdb_B.Checked = true;
-                rdb_B.Enabled = false;
-                rdb_B.Visible = true;
-                rdb_A.Visible = false;
-                rdb_C.Visible = false;
-                rdb_AB.Visible = false;
-                rdb_AC.Visible = false;
-                rdb_ABC.Visible = false;
-                rdb_B.Top = TOPM;
-                btn_Cancel.Top = rdb_B.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-            if (shinuse.Equals("C"))
-            {
-                rdb_A.Visible = false;
-                rdb_C.Checked = true;
-                rdb_C.Enabled = false;
-                rdb_C.Visible = true;
-                rdb_B.Visible = false;
-                rdb_AB.Visible = false;
-                rdb_AC.Visible = false;
-                rdb_ABC.Visible = false;
-                rdb_C.Top = TOPM;
-                btn_Cancel.Top = rdb_C.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-            if (shinuse.Equals("AB"))
-            {
-                rdb_A.Enabled = true;
-                rdb_A.Visible = true;
-                rdb_B.Visible = true;
-                rdb_B.Enabled = true;
-                rdb_AB.Visible = true;
-                rdb_AB.Enabled = true;
-
-                rdb_C.Visible = false;
-                rdb_AC.Visible = false;
-                rdb_ABC.Visible = false;
-
-                rdb_A.Top = TOPM;
-                rdb_B.Top = rdb_A.Bottom + YDIST;
-                rdb_AB.Top = rdb_B.Bottom + YDIST;
-                btn_Cancel.Top = rdb_AB.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-            if (shinuse.Equals("AC"))
-            {
-                rdb_A.Enabled = true;
-                rdb_A.Visible = true;
-                rdb_C.Visible = true;
-                rdb_C.Enabled = true;
-                rdb_AC.Visible = true;
-                rdb_AC.Enabled = true;
-
-                rdb_B.Visible = false;
-                rdb_AB.Visible = false;
-                rdb_ABC.Visible = false;
-
-                rdb_A.Top = TOPM;
-                rdb_C.Top = rdb_A.Bottom + YDIST;
-                rdb_AC.Top = rdb_C.Bottom + YDIST;
-                btn_Cancel.Top = rdb_AC.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-            if (shinuse.Equals("BC"))
-            {
-                rdb_B.Enabled = true;
-                rdb_B.Visible = true;
-                rdb_C.Visible = true;
-                rdb_C.Enabled = true;
-                rdb_BC.Visible = true;
-                rdb_BC.Enabled = true;
-
-                rdb_A.Visible = false;
-                rdb_AB.Visible = false;
-                rdb_AC.Visible = false;
-                rdb_ABC.Visible = false;
-
-                rdb_B.Top = TOPM;
-                rdb_C.Top = rdb_B.Bottom + YDIST;
-                rdb_BC.Top = rdb_C.Bottom + YDIST;
-                btn_Cancel.Top = rdb_BC.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-            if (shinuse.Equals("ABC"))
-            {
-                rdb_A.Visible = true;
-                rdb_A.Enabled = true;
-                rdb_B.Enabled = true;
-                rdb_B.Visible = true;
-                rdb_C.Visible = true;
-                rdb_C.Enabled = true;
-                rdb_AB.Visible = true;
-                rdb_AB.Enabled = true;
-                rdb_AC.Visible = true;
-                rdb_AC.Enabled = true;
-                rdb_BC.Visible = true;
-                rdb_BC.Enabled = true;
-                rdb_ABC.Visible = true;
-                rdb_ABC.Enabled = true;
-
-                rdb_A.Top = TOPM;
-                rdb_B.Top = rdb_A.Bottom + YDIST;
-                rdb_C.Top = rdb_B.Bottom + YDIST;
-                rdb_AB.Top = rdb_C.Bottom + YDIST;
-                rdb_AC.Top = rdb_AB.Bottom + YDIST;
-                rdb_BC.Top = rdb_AC.Bottom + YDIST;
-                rdb_ABC.Top = rdb_BC.Bottom + YDIST;
-                btn_Cancel.Top = rdb_ABC.Bottom + YDIST;
-                this.Height = btn_Cancel.Bottom + BDIST;
-            }
-
-
-            if (mSettingsUserValues.eShopsMode.Equals("A"))
-            {
-                rdb_A.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("B"))
-            {
-                rdb_B.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("C"))
-            {
-                rdb_C.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("AB"))
-            {
-                rdb_AB.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("BC"))
-            {
-                rdb_BC.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("AC"))
-            {
-                rdb_AC.Checked = true;
-            }
-            else if (mSettingsUserValues.eShopsMode.Equals("ABC"))
-            {
-                rdb_ABC.Checked = true;
-            }
-            else
-            { 
-                   LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode =" + mSettingsUserValues.eShopsMode);
-            }
+            //this.Top = m_usrc_Invoice1366x768.btn_Show_Shops.Top + m_usrc_Invoice1366x768.btn_Show_Shops.Height;
+            //this.Left = m_usrc_Invoice1366x768.btn_Show_Shops.Left;
         }
     }
 }
