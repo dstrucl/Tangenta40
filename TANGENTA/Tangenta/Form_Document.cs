@@ -1023,7 +1023,7 @@ namespace Tangenta
                         {
                             if (this.DocumentMan != null)
                             {
-                                LayoutSave(((SettingsUser)this.DocumentMan.m_LMOUser.oSettings).mSettingsUserValues);
+                                LayoutSave(((SettingsUser)this.DocumentMan.DocM.m_LMOUser.oSettings).mSettingsUserValues);
                                 this.DocumentMan.Active = false;
                             }
                         }

@@ -411,7 +411,7 @@ namespace Tangenta
         {
             if (m_usrc_DocumentMan != null)
             {
-                Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(this.m_usrc_DocumentMan.m_LMOUser);
+                Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(this.m_usrc_DocumentMan.DocM.m_LMOUser);
                 frm_settingsuser.Init();
                 frm_settingsuser.ShowDialog(this);
             }

@@ -80,14 +80,20 @@ namespace Tangenta
 
         //private bool bIgnoreChangeSelectionEvent = false;
 
-        private string m_DocTyp = null;
+        private DocumentMan docM = null;
 
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
+            get
             {
-                m_DocTyp = value;
+                if (docM != null)
+                {
+                    return docM.DocTyp;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -207,19 +213,20 @@ namespace Tangenta
         }
 
 
-        internal int Init(string doc_type,
+        internal int Init(DocumentMan xdocM,
                           bool bNew,
                           bool bInitialise_usrc_Invoice,
                           int iFinancialYear,
                           ID Doc_ID_To_show)
         {
+            docM = xdocM;
+
             ColorDraft = Properties.Settings.Default.ColorDraft;
             ColorStorno = Properties.Settings.Default.ColorStorno;
             ColorFurs_InvoiceConfirmed = Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
             ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
             ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
 
-            DocTyp = doc_type;
 
             int iRowsCount = -1;
             iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
@@ -1033,7 +1040,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(DocTyp, true,false, ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.FinancialYear,null);
+                Init(docM, true,false, ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.FinancialYear,null);
                 Program.Cursor_Arrow();
             }
         }

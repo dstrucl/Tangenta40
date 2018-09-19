@@ -29,6 +29,8 @@ namespace Tangenta
 {
     public partial class usrc_DocumentMan : UserControl
     {
+        internal Form_Document m_Form_Document = null;
+
         public new bool Visible
         {
             get
@@ -41,37 +43,12 @@ namespace Tangenta
             }
         }
 
-        private SettingsUserValues mSettingsUserValues = null;
-
-        internal LoginControl.LMOUser m_LMOUser = null;
-
-        private Door door = null;
-
-        private Form_Document m_Form_Document = null;
+        public DocumentMan DocM = null;
 
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
-
         public delegate void delegate_Exit_Click(string sDocInvoice, ID doc_ID, LoginControl.LMOUser m_LMOUser, LoginControl.LoginCtrl.eExitReason eReason);
-
-        private int timer_Login_MultiUsers_Countdown = 100;
-
-
         public event delegate_Exit_Click Exit_Click;
-
-        internal CtrlLayout cl_btn_New = null;
-        internal CtrlLayout cl_cmb_InvoiceType = null;
-        internal CtrlLayout cl_lbl_FinancialYear = null;
-
-        internal bool Customer_Changed = false;
-
-        public enum eMode { Shops, InvoiceTable, Shops_and_InvoiceTable };
-        public eMode Mode = eMode.Shops_and_InvoiceTable;
-
-        public List<DocType> List_DocType = new List<DocType>();
-        public DocType DocType_DocInvoice = null;
-        public DocType DocType_DocProformaInvoice = null;
-        public DataTable dt_FinancialYears = new DataTable();
 
 
         public int SplitContainer1_spd
@@ -96,25 +73,18 @@ namespace Tangenta
             get { return m_usrc_DocumentEditor.DocE.m_mode == DocumentEditor.emode.view_eDocumentType; }
         }
 
-        private string m_DocTyp = null;
 
         public string DocTyp
         {
             get {
-                    if (m_DocTyp == null)
-                    {
-                         if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
-                    }
-                    return m_DocTyp;
+                    return DocM.DocTyp;
                 }
             set
             {
                 string s = value;
                 if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
                 {
-                    m_DocTyp = s;
-                    m_usrc_DocumentEditor.DocTyp = s;
-                    m_usrc_TableOfDocuments.DocTyp = s;
+                    DocM.DocTyp = s;
                 }
                 else
                 {
@@ -158,7 +128,7 @@ namespace Tangenta
             get {
                     if (m_usrc_DocumentEditor!=null)
                     {
-                        return ShopsUse.ShowShops_Get(((SettingsUser)this.m_LMOUser.oSettings).mSettingsUserValues).Contains("A");
+                    return ShopsUse.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("A");
                     }
                     else
                     {
@@ -173,7 +143,7 @@ namespace Tangenta
             {
                 if (m_usrc_DocumentEditor != null)
                 {
-                    return ShopsUse.ShowShops_Get(((SettingsUser)this.m_LMOUser.oSettings).mSettingsUserValues).Contains("B");
+                    return ShopsUse.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("B");
                 }
                 else
                 {
@@ -188,7 +158,7 @@ namespace Tangenta
             {
                 if (m_usrc_DocumentEditor != null)
                 {
-                    return ShopsUse.ShowShops_Get(((SettingsUser)this.m_LMOUser.oSettings).mSettingsUserValues).Contains("C");
+                    return ShopsUse.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("C");
                 }
                 else
                 {
@@ -251,7 +221,7 @@ namespace Tangenta
                     {
                         if (Program.Login_MultipleUsers)
                         {
-                            timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
+                            DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
                             this.timer_Login_MultiUser.Enabled = true;
                         }
                     }
@@ -271,7 +241,12 @@ namespace Tangenta
             lng.s_Year.Text(lbl_FinancialYear);
             lng.s_Cashier.Text(lbl_Cashier);
 
-m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
+            DocM = new DocumentMan(SetMode,
+                                   TableOfDocuments_Init,
+                                   Control_DocumentEditor_Init,
+                                   SetInitialMode);
+
+            m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         }
 
         private void M_usrc_Invoice_LayoutChanged()
@@ -287,20 +262,20 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             string sManagerMode = Properties.Settings.Default.eManagerMode;
             if ((sManagerMode.Contains("Shops")) && (sManagerMode.Contains("InvoiceTable")))
             {
-                Mode = eMode.Shops_and_InvoiceTable;
+                DocM.Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
             }
             else if (sManagerMode.Equals("Shops"))
             {
-                Mode = eMode.Shops;
+                DocM.Mode = DocumentMan.eMode.Shops;
             }
             else if (sManagerMode.Equals("InvoiceTable"))
             {
-                Mode = eMode.InvoiceTable;
+                DocM.Mode = DocumentMan.eMode.InvoiceTable;
             }
             else
             {
                 LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
-                Mode = eMode.Shops_and_InvoiceTable;
+                DocM.Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
             }
 
 
@@ -311,28 +286,32 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             }
         }
 
-        public void SetMode(eMode mode)
+        private int TableOfDocuments_Init(DocumentMan xdocM,
+                     bool bNew,
+                     bool bInitialise_usrc_Invoice,
+                     int iFinancialYear,
+                     ID Doc_ID_To_show)
         {
-            Mode = mode;
-            if (mode == eMode.Shops)
+            return this.m_usrc_TableOfDocuments.Init(xdocM, bNew, bInitialise_usrc_Invoice, iFinancialYear, Doc_ID_To_show);
+        }
+
+        public void SetMode(DocumentMan.eMode mode)
+        {
+            if (mode == DocumentMan.eMode.Shops)
             {
                 splitContainer1.Panel2Collapsed = true;
                 splitContainer1.Panel1Collapsed = false;
-                Properties.Settings.Default.eManagerMode = "Shops";
             }
-            else if (mode == eMode.InvoiceTable)
+            else if (mode == DocumentMan.eMode.InvoiceTable)
             {
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel1Collapsed = true;
-                Properties.Settings.Default.eManagerMode = "InvoiceTable";
             }
             else
             {
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel1Collapsed = false;
-                Properties.Settings.Default.eManagerMode = "Shops&InvoiceTable";
             }
-            Properties.Settings.Default.Save();
         }
 
         private void Set_cmb_DocType()
@@ -355,7 +334,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
             if (Program.RunAs == null)
             {
-                sLastDocInvoiceType = mSettingsUserValues.LastDocInvoiceType;
+                sLastDocInvoiceType = DocM.mSettingsUserValues.LastDocInvoiceType;
                 if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     Program.RunAs = sLastDocInvoiceType;
@@ -385,28 +364,28 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                 this.DocTyp = GlobalData.const_DocProformaInvoice;
             }
 
-            mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
+            DocM.mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
             Properties.Settings.Default.Save();
 
-            if (m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
+            if (DocM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
             {
-                DocType_DocInvoice = new DocType(lng.s_Invoice.s, GlobalData.const_DocInvoice);
-                List_DocType.Add(DocType_DocInvoice);
+                DocM.DocType_DocInvoice = new DocType(lng.s_Invoice.s, GlobalData.const_DocInvoice);
+                DocM.List_DocType.Add(DocM.DocType_DocInvoice);
             }
 
-            if (m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteProformaInvoice }))
+            if (DocM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteProformaInvoice }))
             {
-                DocType_DocProformaInvoice = new DocType(lng.s_DocProformaInvoice.s, GlobalData.const_DocProformaInvoice);
-                List_DocType.Add(DocType_DocProformaInvoice);
+                DocM.DocType_DocProformaInvoice = new DocType(lng.s_DocProformaInvoice.s, GlobalData.const_DocProformaInvoice);
+                DocM.List_DocType.Add(DocM.DocType_DocProformaInvoice);
             }
 
-            if (List_DocType.Count>0)
+            if (DocM.List_DocType.Count>0)
             {
                 this.cmb_DocType.DataSource = null;
-                this.cmb_DocType.DataSource = List_DocType;
+                this.cmb_DocType.DataSource = DocM.List_DocType;
                 this.cmb_DocType.DisplayMember = "DocType_Text_in_language";
                 this.cmb_DocType.ValueMember = "Typ";
-                if (List_DocType.Count > 1)
+                if (DocM.List_DocType.Count > 1)
                 {
                     this.cmb_DocType.Enabled = true;
                 }
@@ -463,11 +442,11 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         {
             if (bvisible)
             {
-                SetMode(usrc_DocumentMan.eMode.Shops_and_InvoiceTable);
+                SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
             }
             else
             {
-                SetMode(usrc_DocumentMan.eMode.Shops);
+                SetMode(DocumentMan.eMode.Shops);
             }
             if (LayoutChanged!=null)
             {
@@ -495,13 +474,13 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         private bool SetFinancialYears()
         {
-            int Default_FinancialYear = mSettingsUserValues.FinancialYear;
+            int Default_FinancialYear = DocM.mSettingsUserValues.FinancialYear;
 
             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
 
-            if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref dt_FinancialYears, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))
+            if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref DocM.dt_FinancialYears, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))
             {
-                mSettingsUserValues.FinancialYear = Default_FinancialYear;
+                DocM.mSettingsUserValues.FinancialYear = Default_FinancialYear;
                 cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
                 return true;
             }
@@ -559,36 +538,21 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             return -1;
         }
 
+        internal bool Control_DocumentEditor_Init(ID xdoc_ID)
+        {
+            return m_usrc_DocumentEditor.Init(xdoc_ID);
+        }
+
         internal bool SetDocument()
         {
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
-
-            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, true, mSettingsUserValues.FinancialYear,null);
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
-            if (!m_usrc_DocumentEditor.Init(this.m_usrc_TableOfDocuments.Current_Doc_ID))
-            {
-                Program.Cursor_Arrow();
-                return false;
-            }
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
-
-            SetInitialMode();
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
-
-            SetMode(Mode);
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
-            return true;
-
+            return DocM.SetDocument(this.m_usrc_TableOfDocuments.Current_Doc_ID);
         }
 
         internal void SaveSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
         {
             if (SplitContainer1_spd>0)
             {
-                mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
+                DocM.mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
             }
             if (this.m_usrc_DocumentEditor != null)
             {
@@ -598,47 +562,22 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         private void Cmb_FinancialYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
-            if (drv["FinancialYear"] is int)
-            {
-                int iFinancialYear = (int)drv["FinancialYear"];
-                if (iFinancialYear != mSettingsUserValues.FinancialYear)
-                {
-                    mSettingsUserValues.FinancialYear = iFinancialYear;
-                    SetFinancialYears();
-                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false,false, mSettingsUserValues.FinancialYear,null);
-                }
-            }
+            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
+            DocM.Cmb_FinancialYear_SelectedIndexChanged(cmb_FinancialYear);
+            cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
         }
-
-
-
 
 
         private void m_usrc_Invoice_DocInvoiceSaved(ID DocInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
-            SetMode(eMode.Shops_and_InvoiceTable);
-            ID Doc_ID_to_show_v = null;
-            if (ID.Validate(DocInvoice_id))
-            {
-                Doc_ID_to_show_v = new ID(DocInvoice_id);
-            }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp,false,false, mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
-            m_LMOUser.ReloadAdministratorsAndUserManagers();
+            DocM.DocInvoiceSaved(DocInvoice_id);
         }
 
         private void m_usrc_Invoice_DocProformaInvoiceSaved(ID DocProformaInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
-            SetMode(eMode.Shops_and_InvoiceTable);
-            ID Doc_ID_to_show = null;
-            if (ID.Validate(DocProformaInvoice_id))
-            {
-                Doc_ID_to_show = new ID(DocProformaInvoice_id);
-            }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show);
-            m_LMOUser.ReloadAdministratorsAndUserManagers();
+            DocM.DocProformaInvoiceSaved(DocProformaInvoice_id);
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(ID DocInvoice_ID,bool bInitialise)
@@ -655,7 +594,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         public void Reload()
         {
             splitContainer1.Panel2Collapsed = false;
-            SetMode(eMode.Shops_and_InvoiceTable);
+            SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
             ID Doc_ID_to_show_v = null;
             if (m_usrc_DocumentEditor.DocE.m_ShopABC != null)
             {
@@ -665,7 +604,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                     {
                         Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                     }
-                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
+                    this.m_usrc_TableOfDocuments.Init(DocM, false, false, DocM.mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
                 }
             }
         }
@@ -696,7 +635,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                 }
                 else
                 {
-                    Form_NewDocument frm_new = new Form_NewDocument(this, mSettingsUserValues);
+                    Form_NewDocument frm_new = new Form_NewDocument(this, DocM.mSettingsUserValues);
                     frm_new.ShowDialog(this);
                     if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
@@ -737,12 +676,12 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                     if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
                     {
                         Program.Cursor_Wait();
-                        m_usrc_DocumentEditor.SetNewDraft(m_LMOUser, DocTyp, FinancialYear, currency, xAtom_Currency_ID, workArea);
+                        m_usrc_DocumentEditor.SetNewDraft(DocM.m_LMOUser, DocTyp, FinancialYear, currency, xAtom_Currency_ID, workArea);
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                        m_usrc_TableOfDocuments.Init(DocTyp, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
-                        m_LMOUser.ReloadAdministratorsAndUserManagers();
+                        m_usrc_TableOfDocuments.Init(DocM, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+                        DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                     }
                 }
                 else
@@ -756,13 +695,13 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         internal void SetSplitControlsSpliterDistance()
         {
-            if (mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance>0)
+            if (DocM.mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance>0)
             {
-                this.splitContainer1.SplitterDistance = mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance;
+                this.splitContainer1.SplitterDistance = DocM.mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance;
             }
             if (m_usrc_DocumentEditor!=null)
             {
-                m_usrc_DocumentEditor.SetSplitControlsSpliterDistance(mSettingsUserValues);
+                m_usrc_DocumentEditor.SetSplitControlsSpliterDistance(DocM.mSettingsUserValues);
             }
         }
 
@@ -857,8 +796,8 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                                                                                                                     this.m_usrc_DocumentEditor.m_usrc_ShopC.proc_Item_Not_In_Offer))
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
-                            mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear;
-                            m_usrc_TableOfDocuments.Init(doc_type, true, false, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
+                            DocM.mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear;
+                            m_usrc_TableOfDocuments.Init(DocM, true, false, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
                             GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear);
                             cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
@@ -903,7 +842,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                         DataTable xdt_ShopA_Items = null;
                         if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
                         {
-                            m_usrc_DocumentEditor.SetNewDraft(m_LMOUser,xdocType, xFinancialYear, currency, xAtom_Currency_ID,null);
+                            m_usrc_DocumentEditor.SetNewDraft(DocM.m_LMOUser,xdocType, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -911,8 +850,8 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                                                xShopC_Data_Item_List,
                                                xdt_ShopB_Items,
                                                xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(xdocType, true, false, mSettingsUserValues.FinancialYear, null);
-                            m_LMOUser.ReloadAdministratorsAndUserManagers();
+                            m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                            DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                         }
                     }
                     else
@@ -971,7 +910,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                             Set_cmb_InvoiceType_selected_index();
                             this.cmb_DocType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
-                            m_usrc_DocumentEditor.SetNewDraft(m_LMOUser, New_xdoctyp, xFinancialYear, currency, xAtom_Currency_ID,null);
+                            m_usrc_DocumentEditor.SetNewDraft(DocM.m_LMOUser, New_xdoctyp, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
@@ -979,8 +918,8 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
                                             xShopC_Data_Item_List,
                                             xdt_ShopB_Items,
                                             xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(New_xdoctyp, true, false, mSettingsUserValues.FinancialYear, null);
-                            m_LMOUser.ReloadAdministratorsAndUserManagers();
+                            m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                            DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                         }
                         else
                         {
@@ -996,45 +935,45 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
  
         private void m_usrc_Invoice_Customer_Person_Changed(ID Customer_Person_ID)
         {
-            Customer_Changed = true;
+            DocM.Customer_Changed = true;
             if (this.m_usrc_TableOfDocuments.Visible)
             {
-                Customer_Changed = false;
+                DocM.Customer_Changed = false;
                 if (this.m_usrc_DocumentEditor!=null)
                 {
                     if (this.m_usrc_DocumentEditor.DocE.m_ShopABC!=null)
                     {
                         if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc!=null)
                         {
-                            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false, false, mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                            this.m_usrc_TableOfDocuments.Init(DocM, false, false, DocM.mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                             return;
                         }
                     }
                 }
-                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false,false,mSettingsUserValues.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(DocM, false,false, DocM.mSettingsUserValues.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_aa_Customer_Org_Changed(ID Customer_Org_ID)
         {
-            Customer_Changed = true;
+            DocM.Customer_Changed = true;
             if (this.m_usrc_TableOfDocuments.Visible)
             {
-                Customer_Changed = false;
-                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false,false, mSettingsUserValues.FinancialYear,null);
+                DocM.Customer_Changed = false;
+                this.m_usrc_TableOfDocuments.Init(DocM, false,false, DocM.mSettingsUserValues.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_Storno(bool bStorno)
         {
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor.DocTyp, false,false, mSettingsUserValues.FinancialYear,null);
+            this.m_usrc_TableOfDocuments.Init(DocM, false,false, DocM.mSettingsUserValues.FinancialYear,null);
         }
 
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)
         {
             if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            Form_SelectPanels frm_select_panels = new Form_SelectPanels(this,mSettingsUserValues);
+            Form_SelectPanels frm_select_panels = new Form_SelectPanels(DocM, DocM.mSettingsUserValues);
             if (frm_select_panels.ShowDialog(this)==DialogResult.OK)
             {
                 if (LayoutChanged!=null)
@@ -1120,14 +1059,14 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         internal bool Initialise(Form_Document main_Form, LoginControl.LMOUser xLMOUser)
         {
-            mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
+            DocM.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             m_Form_Document = main_Form;
-            m_LMOUser = xLMOUser;
-            door = new Door(m_LMOUser);
+            DocM.m_LMOUser = xLMOUser;
+            DocM.door = new Door(DocM.m_LMOUser);
             this.usrc_loginControl1.Bind(main_Form.loginControl1, xLMOUser);
             this.usrc_FVI_SLO1.Bind(m_Form_Document.fvI_SLO1);
-            this.m_usrc_TableOfDocuments.Bind(m_LMOUser);
-            return m_usrc_DocumentEditor.Initialise(this, m_LMOUser);
+            this.m_usrc_TableOfDocuments.Bind(DocM.m_LMOUser);
+            return m_usrc_DocumentEditor.Initialise(DocM, DocM.m_LMOUser);
         }
 
 
@@ -1194,10 +1133,10 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
+            DocM.mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
             if (Exit_Click != null)
             {
-                Exit_Click(DocTyp,this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser,LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(DocTyp,this.m_usrc_TableOfDocuments.Current_Doc_ID, DocM.m_LMOUser,LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 
@@ -1205,16 +1144,16 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         {
             if (Exit_Click != null)
             {
-                Exit_Click(DocTyp, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser, eres);
+                Exit_Click(DocTyp, this.m_usrc_TableOfDocuments.Current_Doc_ID, DocM.m_LMOUser, eres);
             }
         }
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            if (door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
+            if (DocM.door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this,this.mSettingsUserValues);
+                Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this, DocM.mSettingsUserValues);
                 frm_settingsselect.ShowDialog(this);
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
@@ -1224,7 +1163,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         private void usrc_FVI_SLO1_PasswordCheck(ref bool PasswordOK)
         {
             PasswordOK = false;
-            if (door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
+            if (DocM.door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
                 PasswordOK = true;
             }
@@ -1247,21 +1186,21 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
 
         private void timer_Login_MultiUser_Tick(object sender, EventArgs e)
         {
-            if (timer_Login_MultiUsers_Countdown>0)
+            if (DocM.timer_Login_MultiUsers_Countdown >0)
             {
                 if (HasWindowsOpened())
                 {
-                    timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
+                    DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
                 }
                 else
                 {
-                    btn_Exit.Text = timer_Login_MultiUsers_Countdown.ToString();
-                    timer_Login_MultiUsers_Countdown--;
+                    btn_Exit.Text = DocM.timer_Login_MultiUsers_Countdown.ToString();
+                    DocM.timer_Login_MultiUsers_Countdown--;
                 }
             }
             else
             {
-                Exit_Click(DocTyp, this.m_usrc_TableOfDocuments.Current_Doc_ID, m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(DocTyp, this.m_usrc_TableOfDocuments.Current_Doc_ID, DocM.m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 
@@ -1269,7 +1208,7 @@ m_usrc_DocumentEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
         {
             foreach (Control c in coll)
             {
-                c.MouseClick += (sender, e) => { timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown; };
+                c.MouseClick += (sender, e) => { DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown; };
                 initControlsRecursive(c.Controls);
             }
         }

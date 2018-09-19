@@ -43,7 +43,7 @@ namespace Tangenta
             }
         }
 
-        public  DocumentMan DocM = new DocumentMan();
+        public DocumentMan DocM = null;
 
         public delegate void delegate_LayoutChanged();
         public event delegate_LayoutChanged LayoutChanged = null;
@@ -60,8 +60,6 @@ namespace Tangenta
             {
                 string s = value;
                 DocM.DocTyp = s;
-                m_usrc_DocumentEditor1366x768.DocE.DocTyp = s;
-                m_usrc_TableOfDocuments.DocTyp = s;
             }
         }
 
@@ -174,6 +172,21 @@ namespace Tangenta
             InitializeComponent();
             lng.s_Year.Text(lbl_FinancialYear);
             m_usrc_DocumentEditor1366x768.LayoutChanged += M_usrc_Invoice_LayoutChanged;
+            DocM = new DocumentMan(SetMode, TableOfDocuments_Init, Control_DocumentEditor_Init,SetInitialMode);
+        }
+
+        internal bool Control_DocumentEditor_Init(ID xdoc_ID)
+        {
+            return m_usrc_DocumentEditor1366x768.Init(xdoc_ID);
+        }
+
+        private int TableOfDocuments_Init(DocumentMan xdocM,
+                 bool bNew,
+                 bool bInitialise_usrc_Invoice,
+                 int iFinancialYear,
+                 ID Doc_ID_To_show)
+        {
+            return this.m_usrc_TableOfDocuments.Init(xdocM, bNew, bInitialise_usrc_Invoice, iFinancialYear, Doc_ID_To_show);
         }
 
         private void M_usrc_Invoice_LayoutChanged()
@@ -186,26 +199,6 @@ namespace Tangenta
 
         public void SetInitialMode()
         {
-            string sManagerMode = Properties.Settings.Default.eManagerMode;
-            if ((sManagerMode.Contains("Shops")) && (sManagerMode.Contains("InvoiceTable")))
-            {
-                DocM.Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
-            }
-            else if (sManagerMode.Equals("Shops"))
-            {
-                DocM.Mode = DocumentMan.eMode.Shops;
-            }
-            else if (sManagerMode.Equals("InvoiceTable"))
-            {
-                DocM.Mode = DocumentMan.eMode.InvoiceTable;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
-                DocM.Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
-            }
-
-
             m_Form_Document.loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
             if (Program.Login_MultipleUsers)
             {
@@ -213,28 +206,25 @@ namespace Tangenta
             }
         }
 
+
+
         public void SetMode(DocumentMan.eMode mode)
         {
-            DocM.Mode = mode;
             if (mode == DocumentMan.eMode.Shops)
             {
                 //splitContainer1.Panel2Collapsed = true;
                 //splitContainer1.Panel1Collapsed = false;
-                Properties.Settings.Default.eManagerMode = "Shops";
             }
             else if (mode == DocumentMan.eMode.InvoiceTable)
             {
                 //splitContainer1.Panel2Collapsed = false;
                 //splitContainer1.Panel1Collapsed = true;
-                Properties.Settings.Default.eManagerMode = "InvoiceTable";
             }
             else
             {
                 //splitContainer1.Panel2Collapsed = false;
                 //splitContainer1.Panel1Collapsed = false;
-                Properties.Settings.Default.eManagerMode = "Shops&InvoiceTable";
             }
-            Properties.Settings.Default.Save();
         }
 
         private void Set_cmb_DocType()
@@ -460,76 +450,32 @@ namespace Tangenta
             return -1;
         }
 
+
         internal bool SetDocument()
         {
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
-
-            int iRowsCount = this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false, true, DocM.mSettingsUserValues.FinancialYear,null);
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
-            if (!m_usrc_DocumentEditor1366x768.Init(this.m_usrc_TableOfDocuments.Current_Doc_ID))
-            {
-                Program.Cursor_Arrow();
-                return false;
-            }
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
-
-            SetInitialMode();
-
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
-
-            SetMode(DocM.Mode);
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
-            return true;
-
+            return DocM.SetDocument(this.m_usrc_TableOfDocuments.Current_Doc_ID);
         }
 
       
 
         private void Cmb_FinancialYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
-            if (drv["FinancialYear"] is int)
-            {
-                int iFinancialYear = (int)drv["FinancialYear"];
-                if (iFinancialYear != DocM.mSettingsUserValues.FinancialYear)
-                {
-                    DocM.mSettingsUserValues.FinancialYear = iFinancialYear;
-                    SetFinancialYears();
-                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false,false,DocM.mSettingsUserValues.FinancialYear,null);
-                }
-            }
+            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
+            DocM.Cmb_FinancialYear_SelectedIndexChanged(cmb_FinancialYear);
+            cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
         }
-
-
-
 
 
         private void m_usrc_Invoice_DocInvoiceSaved(ID DocInvoice_id)
         {
             //splitContainer1.Panel2Collapsed = false;
-            SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
-            ID Doc_ID_to_show_v = null;
-            if (ID.Validate(DocInvoice_id))
-            {
-                Doc_ID_to_show_v = new ID(DocInvoice_id);
-            }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp,false,false, DocM.mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
-            DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+            DocM.DocInvoiceSaved(DocInvoice_id);
         }
 
         private void m_usrc_Invoice_DocProformaInvoiceSaved(ID DocProformaInvoice_id)
         {
             //splitContainer1.Panel2Collapsed = false;
-            SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
-            ID Doc_ID_to_show = null;
-            if (ID.Validate(DocProformaInvoice_id))
-            {
-                Doc_ID_to_show = new ID(DocProformaInvoice_id);
-            }
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false, false, DocM.mSettingsUserValues.FinancialYear, Doc_ID_to_show);
-            DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+            DocM.DocProformaInvoiceSaved(DocProformaInvoice_id);
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(ID DocInvoice_ID,bool bInitialise)
@@ -556,7 +502,7 @@ namespace Tangenta
                     {
                         Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                     }
-                    this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false, false, DocM.mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
+                    this.m_usrc_TableOfDocuments.Init(DocM, false, false, DocM.mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
                 }
             }
         }
@@ -624,7 +570,7 @@ namespace Tangenta
                         DateTime dtStart = DateTime.Now;
                         DateTime dtEnd = DateTime.Now;
                         m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                        m_usrc_TableOfDocuments.Init(DocM.DocTyp, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+                        m_usrc_TableOfDocuments.Init(DocM, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
                         DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                     }
                 }
@@ -729,7 +675,7 @@ namespace Tangenta
                     {
                         case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
                             DocM.mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear;
-                            m_usrc_TableOfDocuments.Init(doc_type, true, false, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
+                            m_usrc_TableOfDocuments.Init(DocM, true, false, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
                             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
                             GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear);
                             cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
@@ -779,7 +725,7 @@ namespace Tangenta
                                                xShopC_Data_Item_List,
                                                xdt_ShopB_Items,
                                                xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(xdocType, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                            m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
                             DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                         }
                     }
@@ -847,7 +793,7 @@ namespace Tangenta
                                             xShopC_Data_Item_List,
                                             xdt_ShopB_Items,
                                             xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(New_xdoctyp, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                            m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
                             DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                         }
                         else
@@ -868,7 +814,7 @@ namespace Tangenta
             if (this.m_usrc_TableOfDocuments.Visible)
             {
                 DocM.Customer_Changed = false;
-                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false,false,DocM.mSettingsUserValues.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(DocM, false,false,DocM.mSettingsUserValues.FinancialYear,null);
             }
         }
 
@@ -878,20 +824,20 @@ namespace Tangenta
             if (this.m_usrc_TableOfDocuments.Visible)
             {
                 DocM.Customer_Changed = false;
-                this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false,false, DocM.mSettingsUserValues.FinancialYear,null);
+                this.m_usrc_TableOfDocuments.Init(DocM, false,false, DocM.mSettingsUserValues.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_Storno(bool bStorno)
         {
-            this.m_usrc_TableOfDocuments.Init(m_usrc_DocumentEditor1366x768.DocE.DocTyp, false,false, DocM.mSettingsUserValues.FinancialYear,null);
+            this.m_usrc_TableOfDocuments.Init(DocM, false,false, DocM.mSettingsUserValues.FinancialYear,null);
         }
 
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)
         {
             if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            Form_SelectPanels frm_select_panels = new Form_SelectPanels(this,DocM.mSettingsUserValues);
+            Form_SelectPanels frm_select_panels = new Form_SelectPanels(DocM,DocM.mSettingsUserValues);
             if (frm_select_panels.ShowDialog(this)==DialogResult.OK)
             {
                 if (LayoutChanged!=null)
@@ -984,7 +930,7 @@ namespace Tangenta
             this.usrc_loginControl1.Bind(main_Form.loginControl1, xLMOUser);
             this.usrc_FVI_SLO1.Bind(m_Form_Document.fvI_SLO1);
             this.m_usrc_TableOfDocuments.Bind(DocM.m_LMOUser);
-            return m_usrc_DocumentEditor1366x768.Initialise(this, DocM.m_LMOUser);
+            return m_usrc_DocumentEditor1366x768.Initialise(DocM, DocM.m_LMOUser);
         }
 
 

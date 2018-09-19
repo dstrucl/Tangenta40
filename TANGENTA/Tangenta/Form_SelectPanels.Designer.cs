@@ -101,7 +101,7 @@
             this.Controls.Add(this.rdb_Items);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form_SelectPanels";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form_SelectPanels_Load);
             this.ResumeLayout(false);
 

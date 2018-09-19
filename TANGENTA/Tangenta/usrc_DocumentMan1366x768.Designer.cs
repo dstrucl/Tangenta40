@@ -142,7 +142,6 @@
             // m_usrc_TableOfDocuments
             // 
             this.m_usrc_TableOfDocuments.BackColor = System.Drawing.Color.Linen;
-            this.m_usrc_TableOfDocuments.DocTyp = "DocInvoice";
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 72);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(357, 622);

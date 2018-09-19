@@ -929,21 +929,6 @@ namespace ShopB
         }
 
 
-        public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data,ID PriceList_id)
-        {
-            m_PriceList_id = PriceList_id;
-            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
-
-            if (SetGroups(PriceList_id))
-            {
-                iCount_Price_ShopBItem_Data = dt_Price_ShopBItem.Rows.Count;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
 
         private bool No_btn_Select_column(DataGridView dgv_ShopB_Items)
@@ -1091,6 +1076,23 @@ namespace ShopB
             }
 
         }
+
+        public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data, ID PriceList_id)
+        {
+            m_PriceList_id = PriceList_id;
+            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
+
+            if (SetGroups(PriceList_id))
+            {
+                iCount_Price_ShopBItem_Data = dt_Price_ShopBItem.Rows.Count;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         private void usrc_PriceList1_PriceListChanged()
         {

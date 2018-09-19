@@ -20,44 +20,35 @@ namespace Tangenta
 {
     public partial class Form_SelectPanels : Form
     {
-        private usrc_DocumentMan m_usrc_DocumentMan = null;
-        private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
+        private DocumentMan docM = null;
         private SettingsUserValues mSettingsUserValues = null;
 
-        public Form_SelectPanels(usrc_DocumentMan x_usrc_DocumentMan, SettingsUserValues xSettingsUserValues)
+        public Form_SelectPanels(DocumentMan xdocM, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
             mSettingsUserValues = xSettingsUserValues;
-            m_usrc_DocumentMan = x_usrc_DocumentMan;
+            docM = xdocM;
             Init();
 
         }
 
-        public Form_SelectPanels(usrc_DocumentMan1366x768 x_usrc_DocumentMan1366x768, SettingsUserValues xSettingsUserValues)
-        {
-            InitializeComponent();
-            mSettingsUserValues = xSettingsUserValues;
-            m_usrc_DocumentMan1366x768 = x_usrc_DocumentMan1366x768;
-            Init();
-
-        }
 
         private void Init()
         {
             rdb_Items.Checked = false;
             rdb_ItemsAndDoc.Checked = false;
             rdb_Doc.Checked = false;
-            if (m_usrc_DocumentMan != null)
+            if (docM != null)
             {
-                if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops)
+                if (docM.Mode == DocumentMan.eMode.Shops)
                 {
                     rdb_Items.Checked = true;
                 }
-                else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.Shops_and_InvoiceTable)
+                else if (docM.Mode == DocumentMan.eMode.Shops_and_InvoiceTable)
                 {
                     rdb_ItemsAndDoc.Checked = true;
                 }
-                else if (m_usrc_DocumentMan.Mode == usrc_DocumentMan.eMode.InvoiceTable)
+                else if (docM.Mode == DocumentMan.eMode.InvoiceTable)
                 {
                     rdb_Doc.Checked = true;
                 }
@@ -66,17 +57,17 @@ namespace Tangenta
                     LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_DocumentMan.Mode illegal Mode!");
                 }
             }
-            else if (m_usrc_DocumentMan1366x768 != null)
+            else if (docM != null)
             {
-                if (m_usrc_DocumentMan1366x768.DocM.Mode == DocumentMan.eMode.Shops)
+                if (docM.Mode == DocumentMan.eMode.Shops)
                 {
                     rdb_Items.Checked = true;
                 }
-                else if (m_usrc_DocumentMan1366x768.DocM.Mode == DocumentMan.eMode.Shops_and_InvoiceTable)
+                else if (docM.Mode == DocumentMan.eMode.Shops_and_InvoiceTable)
                 {
                     rdb_ItemsAndDoc.Checked = true;
                 }
-                else if (m_usrc_DocumentMan1366x768.DocM.Mode == DocumentMan.eMode.InvoiceTable)
+                else if (docM.Mode == DocumentMan.eMode.InvoiceTable)
                 {
                     rdb_Doc.Checked = true;
                 }
@@ -95,7 +86,7 @@ namespace Tangenta
         {
             if (rdb_Items.Checked)
             {
-                m_usrc_DocumentMan.SetMode(usrc_DocumentMan.eMode.Shops);
+                docM.SetMode(DocumentMan.eMode.Shops);
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -105,11 +96,11 @@ namespace Tangenta
         {
             if (rdb_ItemsAndDoc.Checked)
             {
-                m_usrc_DocumentMan.SetMode(usrc_DocumentMan.eMode.Shops_and_InvoiceTable);
-                if (m_usrc_DocumentMan.Customer_Changed)
+                docM.SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
+                if (docM.Customer_Changed)
                 {
-                    m_usrc_DocumentMan.Customer_Changed = false;
-                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.DocTyp, false,false, mSettingsUserValues.FinancialYear,null);
+                    docM.Customer_Changed = false;
+                    docM.Delegate_control_TableOfDocuments_Init(docM, false,false, mSettingsUserValues.FinancialYear,null);
                 }
             }
             Close();
@@ -120,11 +111,11 @@ namespace Tangenta
         {
             if (rdb_Doc.Checked)
             {
-                m_usrc_DocumentMan.SetMode(usrc_DocumentMan.eMode.InvoiceTable);
-                if (m_usrc_DocumentMan.Customer_Changed)
+                docM.SetMode(DocumentMan.eMode.InvoiceTable);
+                if (docM.Customer_Changed)
                 {
-                    m_usrc_DocumentMan.Customer_Changed = false;
-                    m_usrc_DocumentMan.m_usrc_TableOfDocuments.Init(m_usrc_DocumentMan.m_usrc_DocumentEditor.DocTyp, false,false, mSettingsUserValues.FinancialYear,null);
+                    docM.Customer_Changed = false;
+                    docM.Delegate_control_TableOfDocuments_Init(docM, false,false, mSettingsUserValues.FinancialYear,null);
                 }
             }
             Close();
@@ -139,8 +130,8 @@ namespace Tangenta
 
         private void Form_SelectPanels_Load(object sender, EventArgs e)
         {
-            this.Top = m_usrc_DocumentMan.btn_SelectPanels.Top + m_usrc_DocumentMan.btn_SelectPanels.Height;
-            this.Left = m_usrc_DocumentMan.btn_SelectPanels.Left;
+            //this.Top = m_usrc_DocumentMan.btn_SelectPanels.Top + m_usrc_DocumentMan.btn_SelectPanels.Height;
+            //this.Left = m_usrc_DocumentMan.btn_SelectPanels.Left;
         }
     }
 }
