@@ -82,6 +82,18 @@ namespace Tangenta
 
         private DocumentMan docM = null;
 
+        public DocumentMan DocM
+        {
+            get
+            {
+                return docM;
+            }
+            set
+            {
+                docM = value;
+            }
+        }
+
         public string DocTyp
         {
             get
@@ -229,7 +241,7 @@ namespace Tangenta
 
 
             int iRowsCount = -1;
-            iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
+            iRowsCount = Init_Doc(true, bNew, iFinancialYear);
             if (bNew)
             {
                 ShowOrEditSelectedRow(false);
@@ -245,7 +257,7 @@ namespace Tangenta
             return iRowsCount;
         }
 
-        private int Init_Invoice(bool bInvoice, bool bNew, int iFinancialYear)
+        private int Init_Doc(bool bInvoice, bool bNew, int iFinancialYear)
         {
             m_bInvoice = bInvoice;
             int iRowsCount = -1;

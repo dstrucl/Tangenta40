@@ -53,7 +53,7 @@ namespace PriseLists
        
 
 
-        public bool Init(ID Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse,  ref string Err)
+        public bool Init(ID Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse,ref ID price_list_ID,  ref string Err)
         {
             this.cmb_PriceListType.SelectedIndexChanged -= new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
             m_eShopType = xeShopType;
@@ -73,6 +73,7 @@ namespace PriseLists
                     this.cmb_PriceListType.ValueMember = "xPriceList_ID";
                 }
                 this.cmb_PriceListType.SelectedIndexChanged += new System.EventHandler(this.cmb_PriceListType_SelectedIndexChanged);
+                price_list_ID = this.ID;
                 return true;
             }
             else

@@ -44,7 +44,7 @@ namespace Tangenta
 
         public void Init()
         {
-            string shinuse = ShopsUse.ShopsInUse_Get(SettingsUserValues);
+            string shinuse = PropertiesUser.ShopsInUse_Get(SettingsUserValues);
 
             if (shinuse.Contains("A"))
             {

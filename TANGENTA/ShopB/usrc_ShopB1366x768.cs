@@ -92,6 +92,10 @@ namespace ShopB
         {
             InitializeComponent();
             idgv_ShopB_Items_Width_default = this.dgv_ShopB_Items.Width;
+            if (DBtcn == null)
+            {
+                DBtcn = new DBTablesAndColumnNames();
+            }
         }
 
         public delegate void delegate_ItemUpdated(ID ID, DataTable dt_SelectedShopBItem);
@@ -138,7 +142,6 @@ namespace ShopB
 
             if (DBtcn == null)
             {
-                LogFile.Error.Show("ERROR:usrc_ShopB:Init:DBtcn == null!");
                 DBtcn = new DBTablesAndColumnNames();
             }
             //dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index, DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index_TYPE);

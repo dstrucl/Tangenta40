@@ -190,7 +190,8 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_Count, DBtcn.column_SelectedShopBItem_Count_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
-            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use, ref Err);
+            ID price_list_ID = null;
+            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,ref price_list_ID, ref Err);
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_B.s;
             SetColor();
        }

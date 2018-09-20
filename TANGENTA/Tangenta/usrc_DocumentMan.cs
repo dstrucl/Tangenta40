@@ -128,7 +128,7 @@ namespace Tangenta
             get {
                     if (m_usrc_DocumentEditor!=null)
                     {
-                    return ShopsUse.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("A");
+                    return PropertiesUser.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("A");
                     }
                     else
                     {
@@ -143,7 +143,7 @@ namespace Tangenta
             {
                 if (m_usrc_DocumentEditor != null)
                 {
-                    return ShopsUse.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("B");
+                    return PropertiesUser.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("B");
                 }
                 else
                 {
@@ -158,7 +158,7 @@ namespace Tangenta
             {
                 if (m_usrc_DocumentEditor != null)
                 {
-                    return ShopsUse.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("C");
+                    return PropertiesUser.ShowShops_Get(((SettingsUser)DocM.m_LMOUser.oSettings).mSettingsUserValues).Contains("C");
                 }
                 else
                 {
@@ -334,7 +334,7 @@ namespace Tangenta
 
             if (Program.RunAs == null)
             {
-                sLastDocInvoiceType = DocM.mSettingsUserValues.LastDocInvoiceType;
+                sLastDocInvoiceType = PropertiesUser.LastDocType_Get(DocM.mSettingsUserValues);
                 if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     Program.RunAs = sLastDocInvoiceType;
@@ -364,8 +364,9 @@ namespace Tangenta
                 this.DocTyp = GlobalData.const_DocProformaInvoice;
             }
 
-            DocM.mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
-            Properties.Settings.Default.Save();
+
+            PropertiesUser.LastDocType_Set(DocM.mSettingsUserValues, this.DocTyp);
+
 
             if (DocM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
             {
@@ -1133,7 +1134,7 @@ namespace Tangenta
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            DocM.mSettingsUserValues.LastDocInvoiceType = this.DocTyp;
+            PropertiesUser.LastDocType_Set(DocM.mSettingsUserValues, this.DocTyp);
             if (Exit_Click != null)
             {
                 Exit_Click(DocTyp,this.m_usrc_TableOfDocuments.Current_Doc_ID, DocM.m_LMOUser,LoginControl.LoginCtrl.eExitReason.NORMAL);

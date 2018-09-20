@@ -59,13 +59,13 @@ namespace Tangenta
 
         private bool Startup_08_CheckPogramSettings(bool bResetShopsInUse)
         {
-            if (Program.bFirstTimeInstallation || (ShopsUse.ShopsInUse_Get(null).Length == 0))
+            if (Program.bFirstTimeInstallation || (PropertiesUser.ShopsInUse_Get(null).Length == 0))
             {
                 return false;
             }
             else
             {
-                if (ShopsUse.ShopsInUse_Get(null).Length > 0)
+                if (PropertiesUser.ShopsInUse_Get(null).Length > 0)
                 {
                     return true;
                 }

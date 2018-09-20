@@ -1124,6 +1124,7 @@ namespace Tangenta
                 if (Properties.Settings.Default.ControlLayout_TouchScreen)
                 {
                     usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
+                    xusrc_DocumentMan1366x768.DocM.DocTyp = PropertiesUser.LastDocType_Get(user_settings.mSettingsUserValues);
                     xusrc_DocumentMan1366x768.Active = true;
                     xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                     this.Controls.Add(xusrc_DocumentMan1366x768);

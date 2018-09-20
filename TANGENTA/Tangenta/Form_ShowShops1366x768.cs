@@ -44,7 +44,7 @@ namespace Tangenta
             lng.s_Shop_AC.Text(rdb_AC);
             lng.s_Shop_ABC.Text(rdb_ABC);
 
-            ShopsUse.SetRadioButtons(
+            PropertiesUser.SetRadioButtons(
                                TOPM,
                                YDIST,
                                BDIST,

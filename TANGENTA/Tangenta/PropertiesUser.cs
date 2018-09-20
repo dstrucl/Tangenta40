@@ -8,8 +8,33 @@ using System.Windows.Forms;
 
 namespace Tangenta
 {
-    public static class ShopsUse
+    public static class PropertiesUser
     {
+
+        public static string LastDocType_Get(SettingsUserValues xSettingsUserValues)
+        {
+            if (xSettingsUserValues != null)
+            {
+                return xSettingsUserValues.LastDocInvoiceType;
+            }
+            else
+            {
+                return Properties.Settings.Default.LastDocInvoiceType;
+            }
+        }
+
+        public static void LastDocType_Set(SettingsUserValues xSettingsUserValues,string doctype)
+        {
+            if (xSettingsUserValues != null)
+            {
+                xSettingsUserValues.LastDocInvoiceType = doctype;
+            }
+            else
+            {
+                Properties.Settings.Default.LastDocInvoiceType = doctype;
+                Properties.Settings.Default.Save();
+            }
+        }
 
         public static string ShopsInUse_Get(SettingsUserValues xSettingsUserValues)
         {
@@ -22,6 +47,7 @@ namespace Tangenta
                 return Properties.Settings.Default.eShopsInUse;
             }
         }
+
         public static void ShopsInUse_Set(SettingsUserValues xSettingsUserValues, string shopsinuse)
         { 
             if (xSettingsUserValues != null)
@@ -107,7 +133,7 @@ namespace Tangenta
             bool bDoAgain = false;
 
 Goto_SetChecksAgain:
-            string shinuse = ShopsUse.ShopsInUse_Get(xSettingsUserValues);
+            string shinuse = PropertiesUser.ShopsInUse_Get(xSettingsUserValues);
 
             if (shinuse.Equals("A"))
             {
@@ -243,7 +269,7 @@ Goto_SetChecksAgain:
                 frm.Height = btn_Cancel.Bottom + bdist;
             }
 
-            string showshops = ShopsUse.ShowShops_Get(xSettingsUserValues);
+            string showshops = PropertiesUser.ShowShops_Get(xSettingsUserValues);
             if (showshops.Equals("A"))
             {
                 rdb_A.Checked = true;
@@ -274,10 +300,10 @@ Goto_SetChecksAgain:
             }
             else
             {
-                string shops_in_use = ShopsUse.ShopsInUse_Get(xSettingsUserValues);
+                string shops_in_use = PropertiesUser.ShopsInUse_Get(xSettingsUserValues);
                 if ((shops_in_use.Length > 0) && (!bDoAgain))
                 {
-                    ShopsUse.ShowShops_Set(xSettingsUserValues, shops_in_use);
+                    PropertiesUser.ShowShops_Set(xSettingsUserValues, shops_in_use);
                     bDoAgain = true;
                     goto Goto_SetChecksAgain;
                 }

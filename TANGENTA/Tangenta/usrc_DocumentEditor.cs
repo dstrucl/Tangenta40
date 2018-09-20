@@ -266,7 +266,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
-            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,ShopsUse.ShopsInUse_Get(DocE.mSettingsUserValues),Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -289,7 +289,7 @@ namespace Tangenta
 
         private void Set_ShowShops_A()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues,"A");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"A");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -299,7 +299,7 @@ namespace Tangenta
 
         private void Set_ShowShops_B()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues, "B");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "B");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -309,7 +309,7 @@ namespace Tangenta
 
         private void Set_ShowShops_C()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues, "C");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "C");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -320,7 +320,7 @@ namespace Tangenta
 
         private void Set_ShowShops_AB()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues, "AB");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AB");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -336,7 +336,7 @@ namespace Tangenta
 
         private void Set_ShowShops_BC()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues, "BC");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "BC");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -351,7 +351,7 @@ namespace Tangenta
 
         private void Set_eShopsMode_AC()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues, "AC");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -366,7 +366,7 @@ namespace Tangenta
 
         private void Set_ShowShops_ABC()
         {
-            ShopsUse.ShowShops_Set(DocE.mSettingsUserValues, "ABC");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "ABC");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -416,7 +416,7 @@ namespace Tangenta
 
             }
 
-            m_usrc_ShopB.Init(DocE.m_ShopABC, DocE.DBtcn, ShopsUse.ShopsInUse_Get(DocE.mSettingsUserValues));
+            m_usrc_ShopB.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
 
             m_usrc_ShopB.Dock = DockStyle.Fill;
 
@@ -807,10 +807,12 @@ namespace Tangenta
         public bool Init(ID Document_ID)
         {
             Form pform = Global.f.GetParentForm(this);
-            return DocE.Init(pform,
+            ID m_usrc_ShopB_usrc_PriceList1_ID = null;
+            ID m_usrc_ShopC_usrc_PriceList1_ID = null;
+            if (DocE.Init(pform,
                             Document_ID,
-                            m_usrc_ShopB.usrc_PriceList1.ID,
-                            m_usrc_ShopC.usrc_PriceList1.ID,
+                            ref m_usrc_ShopB_usrc_PriceList1_ID,
+                            ref m_usrc_ShopC_usrc_PriceList1_ID,
                             this.Set_ShowShops,
                             m_usrc_ShopB.usrc_PriceList1.Init,
                             m_usrc_ShopC.usrc_PriceList1.Init,
@@ -819,7 +821,14 @@ namespace Tangenta
                             this.DoCurrent,
                             m_usrc_ShopB.Set_dgv_SelectedShopB_Items,
                             m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data
-                            );
+                            ))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         internal void SetColor()

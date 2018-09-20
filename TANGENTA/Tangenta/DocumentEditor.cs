@@ -52,8 +52,8 @@ namespace Tangenta
 
         public delegate void delegate_control_Set_ShowShops(string eShopsShow);
 
-        public delegate bool delegate_control_m_usrc_ShopB_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref string Err);
-        public delegate bool delegate_control_m_usrc_ShopC_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref string Err);
+        public delegate bool delegate_control_m_usrc_ShopB_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref ID price_list_id, ref string Err);
+        public delegate bool delegate_control_m_usrc_ShopC_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref ID price_list_id, ref string Err);
 
         public delegate void delegate_control_usrc_PriceList_Ask_To_Update(char chShop, DataTable dt_ShopB_Item_NotIn_PriceList);
 
@@ -93,7 +93,7 @@ namespace Tangenta
 
         public emode m_mode = emode.view_eDocumentType;
 
-        public DBTablesAndColumnNames DBtcn = null;
+        public DBTablesAndColumnNames DBtcn = new DBTablesAndColumnNames();
 
         public TangentaDB.ShopABC m_ShopABC = null;
 
@@ -658,14 +658,14 @@ namespace Tangenta
             }
         }
 
-        private bool GetPriceList_ShopB(delegate_control_m_usrc_ShopB_usrc_PriceList1_Init xdelegate_control_m_usrc_ShopB_usrc_PriceList1_Init)
+        private bool GetPriceList_ShopB(ref ID price_list_id,delegate_control_m_usrc_ShopB_usrc_PriceList1_Init xdelegate_control_m_usrc_ShopB_usrc_PriceList1_Init)
         {
             string Err = null;
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             //if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, ShopsUse.ShopsInUse_Get(DocE.mSettingsUserValues), ref Err))
-            if (xdelegate_control_m_usrc_ShopB_usrc_PriceList1_Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, ShopsUse.ShopsInUse_Get(mSettingsUserValues), ref Err))
+            if (xdelegate_control_m_usrc_ShopB_usrc_PriceList1_Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, PropertiesUser.ShopsInUse_Get(mSettingsUserValues),ref price_list_id, ref Err))
             {
 
             }
@@ -679,8 +679,8 @@ namespace Tangenta
 
         internal bool Init(Form pform,
                           ID document_ID,
-                          ID ShopB_pricelist_ID,
-                          ID ShopC_pricelist_ID,
+                          ref ID ShopB_pricelist_ID,
+                          ref ID ShopC_pricelist_ID,
                           delegate_control_Set_ShowShops xdelegate_control_Set_ShowShops,
                           delegate_control_m_usrc_ShopB_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopB_usrc_PriceList1_Init,
                           delegate_control_m_usrc_ShopC_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init,
@@ -720,11 +720,11 @@ namespace Tangenta
                 }
             }
 
-            xdelegate_control_Set_ShowShops(ShopsUse.ShowShops_Get(mSettingsUserValues));// Set_ShowShops(mSettingsUserValues.eShowShops);
+            xdelegate_control_Set_ShowShops(PropertiesUser.ShowShops_Get(mSettingsUserValues));// Set_ShowShops(mSettingsUserValues.eShowShops);
             GetUnits();
 
             DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-            if (GetPriceList_ShopB(xdeleagte_control_m_usrc_ShopB_usrc_PriceList1_Init))
+            if (GetPriceList_ShopB(ref ShopB_pricelist_ID,xdeleagte_control_m_usrc_ShopB_usrc_PriceList1_Init))
             {
                 if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
                 {
@@ -767,9 +767,9 @@ namespace Tangenta
                 return false;
             }
 
-            if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("C"))
+            if (PropertiesUser.ShopsInUse_Get(mSettingsUserValues).Contains("C"))
             {
-                if (GetPriceList_ShopC(xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init))
+                if (GetPriceList_ShopC(ref ShopC_pricelist_ID,xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init))
                 {
                     DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
                     if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
@@ -851,14 +851,14 @@ namespace Tangenta
             return xdelegate_control_DoCurrent(document_ID); 
         }
 
-        private bool GetPriceList_ShopC(delegate_control_m_usrc_ShopC_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init)
+        private bool GetPriceList_ShopC(ref ID price_list_ID,delegate_control_m_usrc_ShopC_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init)
         {
             string Err = null;
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             //if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ShopsUse.ShopsInUse_Get(DocE.mSettingsUserValues), ref Err))
-            if (xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ShopsUse.ShopsInUse_Get(mSettingsUserValues), ref Err))
+            if (xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, PropertiesUser.ShopsInUse_Get(mSettingsUserValues),ref price_list_ID, ref Err))
             {
 
             }
@@ -885,7 +885,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (ShopsUse.ShopsInUse_Get(mSettingsUserValues).Contains("B"))
+                    if (PropertiesUser.ShopsInUse_Get(mSettingsUserValues).Contains("B"))
                     {
                         string smsg = lng.s_No_ShopB_Items_or_no_prices_for_those_items.s.Replace("%s", lng.s_Shop_B.s);
                         MessageBox.Show(pform, smsg);

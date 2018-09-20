@@ -543,7 +543,7 @@
     <Compile Include="SetiingsUserValues.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SettingsUser.cs" />
-    <Compile Include="ShopsUse.cs" />
+    <Compile Include="PropertiesUser.cs" />
     <Compile Include="SumPayment.cs" />
     <Compile Include="TaxSum.cs" />
     <Compile Include="usrc_checkmark.cs">

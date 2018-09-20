@@ -160,9 +160,6 @@
             this.usrc_Customer.Name = "usrc_Customer";
             this.usrc_Customer.Size = new System.Drawing.Size(743, 31);
             this.usrc_Customer.TabIndex = 33;
-            this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-            this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-            this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
             // 
             // usrc_Item1366x7681
             // 
