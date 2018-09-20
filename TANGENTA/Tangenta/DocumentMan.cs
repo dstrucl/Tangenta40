@@ -139,11 +139,9 @@ namespace Tangenta
 
         internal bool SetDocument(ID xCurrent_Doc_ID )
         {
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 
             int iRowsCount = Delegate_control_TableOfDocuments_Init(this, false, true, this.mSettingsUserValues.FinancialYear, null);
 
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
 
             if (!Delegate_Control_DocumentEditor_Init(xCurrent_Doc_ID))
             {
@@ -151,14 +149,9 @@ namespace Tangenta
                 return false;
             }
 
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():before SetInitialMode()");
-
             SetInitialMode();
 
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():after SetInitialMode()");
-
             SetMode(Mode);
-            LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:SetDocument():End procedure ");
             return true;
 
         }

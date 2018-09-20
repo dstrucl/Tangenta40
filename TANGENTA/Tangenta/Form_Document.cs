@@ -1065,6 +1065,9 @@ namespace Tangenta
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void M_usrc_Startup_Finished()
         {
             //Startup finished

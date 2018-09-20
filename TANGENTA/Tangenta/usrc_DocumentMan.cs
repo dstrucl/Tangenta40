@@ -993,7 +993,11 @@ namespace Tangenta
         private void SetDocInvoiceOrDocPoformaInvoice()
         {
             Program.RunAs = DocTyp;
+
+            this.m_usrc_TableOfDocuments.Clear();
+
             bool bRes = SetDocument();
+
             Program.Cursor_Arrow();
             if (this.IsDocInvoice)
             {
@@ -1074,6 +1078,8 @@ namespace Tangenta
         internal bool Init()
         {
             string Err = null;
+
+            m_usrc_TableOfDocuments.DocM = this.DocM;
 
             if (Program.b_FVI_SLO)
             {

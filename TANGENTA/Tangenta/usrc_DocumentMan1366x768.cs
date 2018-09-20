@@ -856,6 +856,9 @@ namespace Tangenta
         private void SetDocInvoiceOrDocPoformaInvoice()
         {
             Program.RunAs = DocM.DocTyp;
+
+            this.m_usrc_TableOfDocuments.Clear();
+
             bool bRes = SetDocument();
             Program.Cursor_Arrow();
             if (DocM.IsDocInvoice)

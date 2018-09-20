@@ -24,6 +24,7 @@ using System.Linq;
 using Startup;
 using DBConnectionControl40;
 using LoginControl;
+using PriseLists;
 
 namespace Tangenta
 {
@@ -804,6 +805,31 @@ namespace Tangenta
 
         }
 
+        private bool m_usrc_ShopB_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref ID price_list_ID, ref string Err)
+        {
+            return m_usrc_ShopB.usrc_PriceList1.Init(Currency_ID, xeShopType, ShopsInUse, ref price_list_ID, ref Err);
+        }
+
+        private bool m_usrc_ShopC_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref ID price_list_ID, ref string Err)
+        {
+            return m_usrc_ShopC.usrc_PriceList1.Init(Currency_ID, xeShopType, ShopsInUse, ref price_list_ID, ref Err);
+        }
+
+        public bool m_usrc_ShopB_Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data, ID PriceList_id)
+        {
+            return m_usrc_ShopB.Get_Price_ShopBItem_Data(ref iCount_Price_ShopBItem_Data, PriceList_id);
+        }
+
+        public void m_usrc_ShopB_Set_dgv_SelectedShopB_Items()
+        {
+            m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+        }
+
+        public bool m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ID xPriceList_ID)
+        {
+            return m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(xPriceList_ID);
+        }
+        
         public bool Init(ID Document_ID)
         {
             Form pform = Global.f.GetParentForm(this);
@@ -814,15 +840,18 @@ namespace Tangenta
                             ref m_usrc_ShopB_usrc_PriceList1_ID,
                             ref m_usrc_ShopC_usrc_PriceList1_ID,
                             this.Set_ShowShops,
-                            m_usrc_ShopB.usrc_PriceList1.Init,
-                            m_usrc_ShopC.usrc_PriceList1.Init,
+                            m_usrc_ShopB_usrc_PriceList1_Init,
+                            m_usrc_ShopC_usrc_PriceList1_Init,
                             this.usrc_PriceList_Ask_To_Update,
-                            m_usrc_ShopB.Get_Price_ShopBItem_Data,
+                            m_usrc_ShopB_Get_Price_ShopBItem_Data,
                             this.DoCurrent,
-                            m_usrc_ShopB.Set_dgv_SelectedShopB_Items,
-                            m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data
+                            m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
+                            m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data
                             ))
             {
+                this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+                this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+                this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
                 return true;
             }
             else

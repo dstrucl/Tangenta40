@@ -57,7 +57,7 @@ namespace Tangenta
 
         private int m_iCurrentSelectedRow = -1;
 
-        private int iCurrentSelectedRow
+        internal int iCurrentSelectedRow
         {
             get { return m_iCurrentSelectedRow; }
             set
@@ -856,6 +856,14 @@ namespace Tangenta
                 LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice Err=" + Err);
             }
             return iRowsCount;
+        }
+
+        internal void Clear()
+        {
+            this.dgvx_XInvoice.DataSource = null;
+            this.dt_XInvoice.Clear();
+            this.dt_XInvoice.Columns.Clear();
+            this.iCurrentSelectedRow = -1;
         }
 
         private decimal Sum(string ColumnName)
