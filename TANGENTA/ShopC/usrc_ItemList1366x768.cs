@@ -18,6 +18,7 @@ using DBConnectionControl40;
 using TangentaDB;
 using LanguageControl;
 using DBTypes;
+using usrc_Item_InsideGroup_Handler;
 
 namespace ShopC
 {
@@ -113,10 +114,10 @@ namespace ShopC
             usrc_Item_InsidePageGroupHandler1.ControlClick += Usrc_Item_InsidePageGroupHandler1_ControlClick;
         }
 
-        internal void Select(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        internal void Select(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, string s_ItemUniqueName)
         {
            string[] sgroup = new string[3] { appisd.s1_name, appisd.s2_name, appisd.s3_name };
-            this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup);
+           this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName);
         }
 
         private decimal quantityinStock(Item_Data ixdata)
@@ -213,7 +214,7 @@ namespace ShopC
 
         private bool Usrc_Item_InsidePageGroupHandler1_LoadItemsList(string[] groups, ref List<object> list)
         {
-            string[] sreversgroup = reversegroup(groups);
+            string[] sreversgroup = usrc_Item_InsideGroupHandler.reversegroup(groups);
 
            if ( m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
             {
@@ -223,29 +224,6 @@ namespace ShopC
             return false;
         }
 
-        private string[] reversegroup(string[] groups)
-        {
-            string[] sr = new string[3] { null, null, null };
-            if (groups[2]==null)
-            {
-                if (groups[1] == null)
-                {
-                    sr[0] = groups[0];
-                }
-                else
-                {
-                    sr[0] = groups[1];
-                    sr[1] = groups[0];
-                }
-            }
-            else
-            {
-                sr[0] = groups[0];
-                sr[1] = groups[1];
-                sr[2] = groups[2];
-            }
-            return sr;
-        }
 
         private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
         {
@@ -303,15 +281,6 @@ namespace ShopC
         }
 
 
-
-        //void usrc_item_ItemAdded()
-        //{
-        //    if (ItemAdded != null)
-        //    {
-        //        ItemAdded();
-        //    }
-        //}
-
         public bool Get_Price_Item_Stock_Data(ID xPriceList_ID)
         {
             m_PriceList_ID = xPriceList_ID;
@@ -319,6 +288,19 @@ namespace ShopC
             {
                 usrc_Item_InsidePageGroupHandler1.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group);
                 return true;
+            }
+            return false;
+        }
+
+        private bool usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString(object oData, string s)
+        {
+            if (oData is Item_Data)
+            {
+                Item_Data idata = (Item_Data)oData;
+                if (idata.Item_UniqueName!=null)
+                { 
+                    return idata.Item_UniqueName.v.Equals(s);
+                }
             }
             return false;
         }

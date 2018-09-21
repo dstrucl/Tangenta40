@@ -21,6 +21,8 @@ namespace usrc_Item_InsidePage_Handler
     {
         public enum eMode { VIEW,EDIT};
 
+        public enum eSelection {ON_CLIK, ON_REMOTE,ON_REFRESH,ON_SELECT_GROUP,ON_PAINT};
+
         private int ipenindex = 0;
         private float penwidth = 2;
         Pen[] pen = new Pen[5] { null, null, null, null, null };
@@ -177,6 +179,7 @@ namespace usrc_Item_InsidePage_Handler
         }
 
         private int m_SelectedIndex = -1;
+
         public int SelectedIndex
         {
             get { return m_SelectedIndex; }
@@ -323,18 +326,18 @@ namespace usrc_Item_InsidePage_Handler
             {
                 if (m_SelectedIndex >= NumberOfItems)
                 {
-                    SelectObject(NumberOfItems - 1);
+                    SelectObject(NumberOfItems - 1, eSelection.ON_REFRESH);
                 }
                 else
                 {
-                    SelectObject(m_SelectedIndex);
+                    SelectObject(m_SelectedIndex, eSelection.ON_REFRESH);
                 }
             }
             else
             {
                 if (NumberOfItems > 0)
                 {
-                    SelectObject(0);
+                    SelectObject(0, eSelection.ON_REFRESH);
                 }
             }
 
@@ -455,7 +458,7 @@ namespace usrc_Item_InsidePage_Handler
                     }
                     if (iObj != m_SelectedIndex)
                     {
-                        SelectObject(iObj);
+                        SelectObject(iObj,eSelection.ON_CLIK);
                         if (SelectionChanged != null)
                         {
                             switch (CollectionType)
@@ -474,7 +477,7 @@ namespace usrc_Item_InsidePage_Handler
                     }
                     else
                     {
-                        SelectObject(iObj);
+                        SelectObject(iObj, eSelection.ON_CLIK);
                     }
                     
                 }
@@ -760,7 +763,7 @@ namespace usrc_Item_InsidePage_Handler
             }
         }
 
-        public bool SelectObject(int index)
+        public bool SelectObject(int index,eSelection esel)
         {
             if (index < NumberOfItems)
             {

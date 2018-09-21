@@ -48,6 +48,7 @@ namespace usrc_Item_InsideGroup_Handler
             this.usrc_Item_InsidePageHandler3.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler3.Size = new System.Drawing.Size(640, 40);
             this.usrc_Item_InsidePageHandler3.TabIndex = 2;
+            this.usrc_Item_InsidePageHandler3.CompareWithString += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_CompareWithString(this.usrc_Item_InsidePageHandler3_CompareWithString);
             // 
             // usrc_Item_InsidePageHandler2
             // 
@@ -62,6 +63,7 @@ namespace usrc_Item_InsideGroup_Handler
             this.usrc_Item_InsidePageHandler2.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler2.Size = new System.Drawing.Size(640, 40);
             this.usrc_Item_InsidePageHandler2.TabIndex = 1;
+            this.usrc_Item_InsidePageHandler2.CompareWithString += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_CompareWithString(this.usrc_Item_InsidePageHandler2_CompareWithString);
             // 
             // usrc_Item_InsidePageHandler1
             // 
@@ -76,14 +78,15 @@ namespace usrc_Item_InsideGroup_Handler
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(640, 40);
             this.usrc_Item_InsidePageHandler1.TabIndex = 0;
+            this.usrc_Item_InsidePageHandler1.CompareWithString += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_CompareWithString(this.usrc_Item_InsidePageHandler1_CompareWithString);
             // 
-            // usrc_Item_InsideGroup_Handler
+            // usrc_Item_InsideGroupHandler
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_Item_InsidePageHandler3);
             this.Controls.Add(this.usrc_Item_InsidePageHandler2);
             this.Controls.Add(this.usrc_Item_InsidePageHandler1);
-            this.Name = "usrc_Item_InsideGroup_Handler";
+            this.Name = "usrc_Item_InsideGroupHandler";
             this.Size = new System.Drawing.Size(640, 120);
             this.ResumeLayout(false);
 

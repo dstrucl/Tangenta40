@@ -85,10 +85,15 @@ namespace ShopC
         public usrc_Atom_ItemsList1366x768()
         {
             InitializeComponent();
-            this.usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
-            this.usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
-            this.usrc_Item_InsidePageHandler1.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
-            this.usrc_Item_InsidePageHandler1.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
+            this.usrc_Item_InsidePageHandler_ItemAtomList.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
+            this.usrc_Item_InsidePageHandler_ItemAtomList.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
+            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
+            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Paint += Usrc_Item_InsidePageHandler1_Paint;
+        }
+
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index)
+        {
         }
 
         private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
@@ -98,7 +103,7 @@ namespace ShopC
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oData;
                 if (this.Parent is usrc_ShopC1366x768)
                 {
-                    ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd);
+                    ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd, appisd.Atom_Item_UniqueName.v);
                 }
             }
         }
@@ -147,8 +152,8 @@ namespace ShopC
             {
                 this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID, DocTyp, appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf);
             }
-            usrc_Item_InsidePageHandler1.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
-            usrc_Item_InsidePageHandler1.ShowPage(0);
+            usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
+            usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
             if (this.Parent is usrc_ShopC1366x768)
             {
                 ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.DoRepaint();
@@ -173,11 +178,11 @@ namespace ShopC
             {
                 emode = usrc_Item_InsidePageHandler.eMode.VIEW;
             }
-            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
-            int index = this.usrc_Item_InsidePageHandler1.FindItem(xItemUniqueName);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
+            int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName);
             if (index >= 0)
             {
-                this.usrc_Item_InsidePageHandler1.SelectObject(index);
+                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index,usrc_Item_InsidePageHandler.eSelection.ON_REMOTE);
             }
             //this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }
@@ -189,8 +194,8 @@ namespace ShopC
             {
                 emode = usrc_Item_InsidePageHandler.eMode.VIEW;
             }
-            this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
-            this.usrc_Item_InsidePageHandler1.ShowPage(0);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
         }
 
 

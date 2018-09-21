@@ -54,6 +54,7 @@
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(640, 300);
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 17;
+            this.usrc_Item_InsidePageGroupHandler1.InsidePageHandler_CompareWithString += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.deleagte_InsidePageHandler_CompareWithString(this.usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString);
             // 
             // usrc_ItemList1366x768
             // 

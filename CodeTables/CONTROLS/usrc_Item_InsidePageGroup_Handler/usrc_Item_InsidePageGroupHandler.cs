@@ -33,6 +33,9 @@ namespace usrc_Item_InsidePageGroup_Handler
         public delegate bool delegate_LoadItemsList(string[] groups, ref List<object> list);
         public event delegate_LoadItemsList LoadItemsList = null;
 
+        public delegate void delegate_Paint(Control ctrl, object oData, int index);
+        public event delegate_Paint Paint = null;
+
 
         public delegate bool delegate_SetName(object oData, ref string name);
         public event delegate_SetName SetName = null;
@@ -112,6 +115,16 @@ namespace usrc_Item_InsidePageGroup_Handler
             usrc_Item_InsideGroup_Handler1.SelectGroup(sgroup);
         }
 
+        public void SelectGroup(string[] sgroup, string s_ItemUniqueName )
+        {
+            usrc_Item_InsideGroup_Handler1.SelectGroup(sgroup);
+            int index = this.usrc_Item_InsidePageHandler1.FindItem(s_ItemUniqueName);
+            if (index >=0)
+            {
+                this.usrc_Item_InsidePageHandler1.SelectObject(index,usrc_Item_InsidePageHandler.eSelection.ON_REMOTE);
+            }
+        }
+
         private int m_ctrlHeightInGroupBox = 40;
         public int CtrlHeightInGroupBox
         {
@@ -136,14 +149,24 @@ namespace usrc_Item_InsidePageGroup_Handler
             usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
             usrc_Item_InsidePageHandler1.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
-            usrc_Item_InsidePageHandler1.Paint += Usrc_Item_InsidePageHandler1_SelectionChanged;
+            usrc_Item_InsidePageHandler1.Paint += Usrc_Item_InsidePageHandler1_Paint;
+            usrc_Item_InsidePageHandler1.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
+            usrc_Item_InsidePageHandler1.CompareWithString += usrc_Item_InsidePageHandler1_CompareWithString;
         }
 
-        private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
+        private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
         {
             if (SelectionChanged != null)
             {
                 SelectionChanged(ctrl, oData, index);
+            }
+        }
+
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index)
+        {
+            if (Paint != null)
+            {
+                Paint(ctrl, oData, index);
             }
         }
 

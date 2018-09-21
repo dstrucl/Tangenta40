@@ -136,27 +136,86 @@ namespace usrc_Item_InsideGroup_Handler
                 int index = usrc_Item_InsidePageHandler1.FindItem(sgroup[2]);
                 if (index >= 0)
                 {
-                    usrc_Item_InsidePageHandler1.SelectObject(index);
+                    usrc_Item_InsidePageHandler1.SelectObject(index,usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
                     if (sgroup[1] != null)
                     {
                         index = usrc_Item_InsidePageHandler2.FindItem(sgroup[1]);
                         if (index >= 0)
                         {
-                            usrc_Item_InsidePageHandler2.SelectObject(index);
+                            usrc_Item_InsidePageHandler2.SelectObject(index, usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
                         }
                         if (sgroup[0] != null)
                         {
                             index = usrc_Item_InsidePageHandler3.FindItem(sgroup[0]);
                             if (index >= 0)
                             {
-                                usrc_Item_InsidePageHandler3.SelectObject(index);
+                                usrc_Item_InsidePageHandler3.SelectObject(index, usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
                             }
-
                         }
                     }
                 }
             }
+            else
+            {
+                if (sgroup[1] != null)
+                {
+                    int index = usrc_Item_InsidePageHandler1.FindItem(sgroup[1]);
+                    if (index >= 0)
+                    {
+                        usrc_Item_InsidePageHandler1.SelectObject(index, usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
+                        if (sgroup[0] != null)
+                        {
+                            index = usrc_Item_InsidePageHandler2.FindItem(sgroup[0]);
+                            if (index >= 0)
+                            {
+                                usrc_Item_InsidePageHandler2.SelectObject(index, usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (sgroup[0] != null)
+                    {
+                        int index = usrc_Item_InsidePageHandler1.FindItem(sgroup[0]);
+                        if (index >= 0)
+                        {
+                            usrc_Item_InsidePageHandler1.SelectObject(index, usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
+                        }
+                    }
+                }
+            }
+            if (SelectionChanged!=null)
+            {
+                string[] s =  usrc_Item_InsideGroupHandler.reversegroup(sgroup);
+                SelectionChanged(s);
+            }
         }
+
+        public static string[] reversegroup(string[] groups)
+        {
+            string[] sr = new string[3] { null, null, null };
+            if (groups[2] == null)
+            {
+                if (groups[1] == null)
+                {
+                    sr[0] = groups[0];
+                }
+                else
+                {
+                    sr[0] = groups[1];
+                    sr[1] = groups[0];
+                }
+            }
+            else
+            {
+                sr[0] = groups[0];
+                sr[1] = groups[1];
+                sr[2] = groups[2];
+            }
+            return sr;
+        }
+
 
         private void groups_set()
         {
@@ -306,7 +365,7 @@ namespace usrc_Item_InsideGroup_Handler
                     if (icount > 0)
                     {
                         usrc_Item_InsidePageHandler1.Init(m_GroupRoot.m_GroupList.Items.Cast<object>().ToList(), usrc_Item_InsidePageHandler.eMode.EDIT);
-                        usrc_Item_InsidePageHandler1.SelectObject(0);
+                        usrc_Item_InsidePageHandler1.SelectObject(0, usrc_Item_InsidePageHandler.eSelection.ON_SELECT_GROUP);
                         getSelectedGroups();
                         return;
                     }
@@ -420,7 +479,7 @@ namespace usrc_Item_InsideGroup_Handler
                     {
                         ShowRootLevel2();
                         usrc_Item_InsidePageHandler2.Init(gic.m_GroupList.Items.Cast<object>().ToList(), usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
-                        usrc_Item_InsidePageHandler2.SelectObject(0);
+                        usrc_Item_InsidePageHandler2.SelectObject(0,usrc_Item_InsidePageHandler.eSelection.ON_PAINT);
                         return;
                     }
                 }
@@ -456,7 +515,7 @@ namespace usrc_Item_InsideGroup_Handler
                     {
                         ShowRootLevel3();
                         usrc_Item_InsidePageHandler3.Init(gic.m_GroupList.Items.Cast<object>().ToList(), usrc_Item_InsidePageHandler.eMode.EDIT);
-                        usrc_Item_InsidePageHandler3.SelectObject(0);
+                        usrc_Item_InsidePageHandler3.SelectObject(0,usrc_Item_InsidePageHandler.eSelection.ON_PAINT);
                         return;
                     }
                 }
@@ -802,18 +861,7 @@ namespace usrc_Item_InsideGroup_Handler
             }
         }
 
-        //public void SetVisible(bool v)
-        //{
-        //    if (v)
-        //    {
-        //        this.Visible = true;
-        //    }
-        //    else
-        //    {
-        //        this.Visible = false;
-        //    }
-        //}
-
+      
         internal void ShowRootLevel0()
         {
             usrc_Item_InsidePageHandler1.Top = 0;
@@ -866,6 +914,34 @@ namespace usrc_Item_InsideGroup_Handler
             {
                 SizeChanged(this.Height);
             }
+        }
+
+        private bool usrc_Item_InsidePageHandler1_CompareWithString(object oData, string s)
+        {
+            if (oData is GroupInsideControl)
+            {
+                return ((GroupInsideControl)oData).Name.Equals(s);
+            }
+            return false;
+        }
+
+        private bool usrc_Item_InsidePageHandler2_CompareWithString(object oData, string s)
+        {
+
+            if (oData is GroupInsideControl)
+            {
+                return ((GroupInsideControl)oData).Name.Equals(s);
+            }
+            return false;
+        }
+
+        private bool usrc_Item_InsidePageHandler3_CompareWithString(object oData, string s)
+        {
+            if (oData is GroupInsideControl)
+            {
+                return ((GroupInsideControl)oData).Name.Equals(s);
+            }
+            return false;
         }
     }
 }
