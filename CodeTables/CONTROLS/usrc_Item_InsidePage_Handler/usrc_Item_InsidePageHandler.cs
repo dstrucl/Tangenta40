@@ -21,6 +21,10 @@ namespace usrc_Item_InsidePage_Handler
     {
         public enum eMode { VIEW,EDIT};
 
+        private int ipenindex = 0;
+        private float penwidth = 2;
+        Pen[] pen = new Pen[5] { null, null, null, null, null };
+
         private eMode m_eMode = eMode.VIEW;
         public eMode Mode
         {
@@ -176,6 +180,14 @@ namespace usrc_Item_InsidePage_Handler
             set
             {
                 m_SelectedIndex = value;
+                if (m_SelectedIndex>=0)
+                {
+                    timer1.Enabled = true;
+                }
+                else
+                {
+                    timer1.Enabled = false;
+                }
             }
         }
 
@@ -234,6 +246,24 @@ namespace usrc_Item_InsidePage_Handler
         public usrc_Item_InsidePageHandler()
         {
             InitializeComponent();
+            //Color color = Color.FromArgb(255 - this.BackColor.R, 255 - this.BackColor.G, 255 - this.BackColor.B);
+            Color color = Color.Black;
+            Brush br = new SolidBrush(color);
+            float[] dashValues0 = { 0.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues1 = { 1.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues2 = { 2.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues3 = { 3.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues4 = { 4.01F, 5, 5, 5, 5, 5, 5 };
+            pen[0] = new Pen(br, penwidth);
+            pen[0].DashPattern = dashValues0;
+            pen[1] = new Pen(br, penwidth);
+            pen[1].DashPattern = dashValues1;
+            pen[2] = new Pen(br, penwidth);
+            pen[2].DashPattern = dashValues2;
+            pen[3] = new Pen(br, penwidth);
+            pen[3].DashPattern = dashValues3;
+            pen[4] = new Pen(br, penwidth);
+            pen[4].DashPattern = dashValues4;
         }
 
 
@@ -289,6 +319,7 @@ namespace usrc_Item_InsidePage_Handler
                     CreateControl(ref xctrl);
                     if (xctrl != null)
                     {
+                        xctrl.Paint += Xctrl_Paint;
                         xctrl.Click += Xctrl_Click;
                         xctrl.Left = icol * CtrlWidth;
                         xctrl.Top = irow * CtrlHeight;
@@ -322,6 +353,37 @@ namespace usrc_Item_InsidePage_Handler
             }
             btn_Next.Visible = false;
 
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Rectangle insideRect(Rectangle clientRectangle, int penwidth)
+        {
+            return new Rectangle(clientRectangle.Left + penwidth, clientRectangle.Top + penwidth, clientRectangle.Width - 2 * penwidth, clientRectangle.Height - 2 * penwidth);
+        }
+
+        private void Xctrl_Paint(object sender, PaintEventArgs e)
+        {
+            if (sender is Control)
+            {
+                if (((Control)sender).Tag is int)
+                {
+                    int iobj = (int)((Control)sender).Tag;
+                    if (iobj == SelectedIndex)
+                    {
+                        Rectangle rect = insideRect(((Control)sender).ClientRectangle, Convert.ToInt32(penwidth));
+                        e.Graphics.DrawRectangle(pen[ipenindex], rect);
+                        ipenindex++;
+                        if (ipenindex >= pen.Length)
+                        {
+                            ipenindex = 0;
+                        }
+                    }
+                }
+            }
         }
 
         private void Xctrl_Click(object sender, EventArgs e)
@@ -663,7 +725,7 @@ namespace usrc_Item_InsidePage_Handler
                 int ipage = 0;
                 if (get_page(index,ref ipage, ref ictrl))
                 {
-                    m_SelectedIndex = index;
+                    SelectedIndex = index;
                     ShowPage(ipage);
                     if (Paint != null)
                     {
@@ -733,5 +795,24 @@ namespace usrc_Item_InsidePage_Handler
             }
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int index = SelectedIndex;
+            if (index>=0)
+            {
+                if (index < NumberOfItems)
+                {
+                    int ictrl = 0;
+                    int ipage = 0;
+                    if (get_page(index, ref ipage, ref ictrl))
+                    {
+                        if (ctrlItems_array[ictrl].Visible)
+                        {
+                            ctrlItems_array[ictrl].Refresh();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

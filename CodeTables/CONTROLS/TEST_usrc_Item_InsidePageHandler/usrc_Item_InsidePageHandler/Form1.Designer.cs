@@ -198,6 +198,10 @@ namespace usrc_Item_InsidePageHandler
             this.usrc_Item_InsidePageGroupHandler1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_InsidePageGroupHandler1.CtrlHeightInGroupBox = 40;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlHeightInPage = 40;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlWidthInGroupBox = 100;
+            this.usrc_Item_InsidePageGroupHandler1.CtrlWidthInPage = 100;
             this.usrc_Item_InsidePageGroupHandler1.Location = new System.Drawing.Point(0, 269);
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(582, 296);
@@ -213,6 +217,8 @@ namespace usrc_Item_InsidePageHandler
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Item_InsidePageHandler1.BackColor = System.Drawing.Color.MistyRose;
+            this.usrc_Item_InsidePageHandler1.CtrlHeight = 40;
+            this.usrc_Item_InsidePageHandler1.CtrlWidth = 100;
             this.usrc_Item_InsidePageHandler1.Location = new System.Drawing.Point(0, 115);
             this.usrc_Item_InsidePageHandler1.Name = "usrc_Item_InsidePageHandler1";
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
@@ -264,6 +270,7 @@ namespace usrc_Item_InsidePageHandler
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.usrc_Item_InsidePageHandler1);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

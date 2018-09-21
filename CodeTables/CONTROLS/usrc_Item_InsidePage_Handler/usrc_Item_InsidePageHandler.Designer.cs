@@ -30,8 +30,10 @@ namespace usrc_Item_InsidePage_Handler
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_Prev = new System.Windows.Forms.Button();
             this.btn_Next = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btn_Prev
@@ -60,6 +62,10 @@ namespace usrc_Item_InsidePage_Handler
             this.btn_Next.Visible = false;
             this.btn_Next.Click += new System.EventHandler(this.btn_Next_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // usrc_Item_InsidePageHandler
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -76,5 +82,6 @@ namespace usrc_Item_InsidePage_Handler
 
         private System.Windows.Forms.Button btn_Prev;
         private System.Windows.Forms.Button btn_Next;
+        private System.Windows.Forms.Timer timer1;
     }
 }
