@@ -187,6 +187,12 @@
     <Compile Include="usrc_checkmark.Designer.cs">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Item1366x768_selected.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item1366x768_selected.Designer.cs">
+      <DependentUpon>usrc_Item1366x768_selected.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Item1366x768_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -334,6 +340,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_checkmark.resx">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item1366x768_selected.resx">
+      <DependentUpon>usrc_Item1366x768_selected.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item1366x768_Button.resx">
       <DependentUpon>usrc_Item1366x768_Button.cs</DependentUpon>
@@ -572,6 +582,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PrinterSettings.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InBasket.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

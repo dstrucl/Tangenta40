@@ -59,6 +59,7 @@
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(395, 236);
             this.usrc_Item_InsidePageHandler1.TabIndex = 11;
+            this.usrc_Item_InsidePageHandler1.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
             // 
             // usrc_Atom_ItemsList1366x768
             // 

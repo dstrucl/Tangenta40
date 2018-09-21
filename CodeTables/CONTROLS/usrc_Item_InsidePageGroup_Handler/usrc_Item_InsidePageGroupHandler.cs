@@ -20,6 +20,10 @@ namespace usrc_Item_InsidePageGroup_Handler
         public delegate void delegate_CreateControl(ref Control ctrl);
         public event delegate_CreateControl CreateControl = null;
 
+        public delegate bool deleagte_InsidePageHandler_CompareWithString(object oData, string s);
+        public event deleagte_InsidePageHandler_CompareWithString InsidePageHandler_CompareWithString = null;
+
+
         public delegate void delegate_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode);
         public event delegate_FillControl FillControl = null;
 
@@ -101,6 +105,11 @@ namespace usrc_Item_InsidePageGroup_Handler
                     usrc_Item_InsideGroup_Handler1.CtrlWidth = m_ctrlWidthInGroupBox;
                 }
             }
+        }
+
+        public void SelectGroup(string[] sgroup)
+        {
+            usrc_Item_InsideGroup_Handler1.SelectGroup(sgroup);
         }
 
         private int m_ctrlHeightInGroupBox = 40;
@@ -208,6 +217,11 @@ namespace usrc_Item_InsidePageGroup_Handler
             return false;
         }
 
+        public void DoRepaint()
+        {
+            this.usrc_Item_InsidePageHandler1.ShowPage(this.usrc_Item_InsidePageHandler1.CurrentPage);
+        }
+
         private void usrc_Item_InsideGroup_Handler1_SelectionChanged(string[] sgroup)
         {
             if (LoadItems(sgroup))
@@ -259,6 +273,19 @@ namespace usrc_Item_InsidePageGroup_Handler
             if (ControlClick!=null)
             {
                 ControlClick(ctrl, oData, index, selected);
+            }
+        }
+
+        private bool usrc_Item_InsidePageHandler1_CompareWithString(object oData, string s)
+        {
+            if (InsidePageHandler_CompareWithString!=null)
+            {
+                return InsidePageHandler_CompareWithString(oData, s);
+            }
+            else
+            {
+                MessageBox.Show("Error: event InsidePageHandler_CompareWithString is not set!");
+                return false;
             }
         }
     }

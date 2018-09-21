@@ -48,6 +48,7 @@ namespace usrc_Item_InsidePageGroup_Handler
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(640, 200);
             this.usrc_Item_InsidePageHandler1.TabIndex = 1;
+            this.usrc_Item_InsidePageHandler1.CompareWithString += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_CompareWithString(this.usrc_Item_InsidePageHandler1_CompareWithString);
             this.usrc_Item_InsidePageHandler1.ControlClick += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_ControlClick(this.usrc_Item_InsidePageHandler1_ControlClick);
             // 
             // usrc_Item_InsideGroup_Handler1

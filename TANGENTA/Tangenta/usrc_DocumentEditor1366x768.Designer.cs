@@ -39,9 +39,9 @@
             this.m_usrc_ShopA1366x768 = new ShopA.usrc_ShopA1366x768();
             this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
             this.usrc_Customer = new Tangenta.usrc_Customer();
-            this.usrc_Item1366x7681 = new ShopC.usrc_Item1366x768();
             this.m_usrc_ShopC1366x768 = new ShopC.usrc_ShopC1366x768();
             this.btn_New = new System.Windows.Forms.Button();
+            this.usrc_Item1366x768_selected1 = new ShopC.usrc_Item1366x768_selected();
             this.SuspendLayout();
             // 
             // txt_Number
@@ -102,9 +102,9 @@
             // 
             this.chk_Storno.Appearance = System.Windows.Forms.Appearance.Button;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(936, 685);
+            this.chk_Storno.Location = new System.Drawing.Point(938, 685);
             this.chk_Storno.Name = "chk_Storno";
-            this.chk_Storno.Size = new System.Drawing.Size(68, 82);
+            this.chk_Storno.Size = new System.Drawing.Size(60, 82);
             this.chk_Storno.TabIndex = 39;
             this.chk_Storno.Text = "Storno";
             this.chk_Storno.UseVisualStyleBackColor = true;
@@ -114,9 +114,9 @@
             // 
             this.btn_Show_Shops.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Show_Shops.Location = new System.Drawing.Point(833, 685);
+            this.btn_Show_Shops.Location = new System.Drawing.Point(868, 685);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
-            this.btn_Show_Shops.Size = new System.Drawing.Size(98, 82);
+            this.btn_Show_Shops.Size = new System.Drawing.Size(68, 82);
             this.btn_Show_Shops.TabIndex = 41;
             this.btn_Show_Shops.Text = "trgovine";
             this.btn_Show_Shops.UseVisualStyleBackColor = false;
@@ -161,17 +161,6 @@
             this.usrc_Customer.Size = new System.Drawing.Size(743, 31);
             this.usrc_Customer.TabIndex = 33;
             // 
-            // usrc_Item1366x7681
-            // 
-            this.usrc_Item1366x7681.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
-            this.usrc_Item1366x7681.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_Item1366x7681.ExclusivelySellFromStock = false;
-            this.usrc_Item1366x7681.Location = new System.Drawing.Point(343, 685);
-            this.usrc_Item1366x7681.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_Item1366x7681.Name = "usrc_Item1366x7681";
-            this.usrc_Item1366x7681.Size = new System.Drawing.Size(355, 82);
-            this.usrc_Item1366x7681.TabIndex = 47;
-            // 
             // m_usrc_ShopC1366x768
             // 
             this.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock = true;
@@ -191,19 +180,29 @@
             this.btn_New.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_New.Image = global::Tangenta.Properties.Resources.New;
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_New.Location = new System.Drawing.Point(704, 685);
+            this.btn_New.Location = new System.Drawing.Point(756, 685);
             this.btn_New.Name = "btn_New";
-            this.btn_New.Size = new System.Drawing.Size(122, 82);
+            this.btn_New.Size = new System.Drawing.Size(111, 82);
             this.btn_New.TabIndex = 48;
             this.btn_New.Text = "Nov";
             this.btn_New.UseVisualStyleBackColor = false;
             this.btn_New.Click += new System.EventHandler(this.btn_New_Click);
             // 
+            // usrc_Item1366x768_selected1
+            // 
+            this.usrc_Item1366x768_selected1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
+            this.usrc_Item1366x768_selected1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_Item1366x768_selected1.Location = new System.Drawing.Point(338, 679);
+            this.usrc_Item1366x768_selected1.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_Item1366x768_selected1.Name = "usrc_Item1366x768_selected1";
+            this.usrc_Item1366x768_selected1.Size = new System.Drawing.Size(413, 88);
+            this.usrc_Item1366x768_selected1.TabIndex = 49;
+            // 
             // usrc_DocumentEditor1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_Item1366x768_selected1);
             this.Controls.Add(this.btn_New);
-            this.Controls.Add(this.usrc_Item1366x7681);
             this.Controls.Add(this.m_usrc_ShopC1366x768);
             this.Controls.Add(this.m_usrc_ShopB1366x768);
             this.Controls.Add(this.m_usrc_ShopA1366x768);
@@ -237,8 +236,8 @@
         public System.Windows.Forms.Label lbl_Sum;
         internal ShopA.usrc_ShopA1366x768 m_usrc_ShopA1366x768;
         internal ShopB.usrc_ShopB1366x768 m_usrc_ShopB1366x768;
-        internal ShopC.usrc_Item1366x768 usrc_Item1366x7681;
         internal ShopC.usrc_ShopC1366x768 m_usrc_ShopC1366x768;
         internal System.Windows.Forms.Button btn_New;
+        private ShopC.usrc_Item1366x768_selected usrc_Item1366x768_selected1;
     }
 }

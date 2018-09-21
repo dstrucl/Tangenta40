@@ -129,6 +129,35 @@ namespace usrc_Item_InsideGroup_Handler
             
         }
 
+        public void SelectGroup(string[] sgroup)
+        {
+            if (sgroup[2] != null)
+            {
+                int index = usrc_Item_InsidePageHandler1.FindItem(sgroup[2]);
+                if (index >= 0)
+                {
+                    usrc_Item_InsidePageHandler1.SelectObject(index);
+                    if (sgroup[1] != null)
+                    {
+                        index = usrc_Item_InsidePageHandler2.FindItem(sgroup[1]);
+                        if (index >= 0)
+                        {
+                            usrc_Item_InsidePageHandler2.SelectObject(index);
+                        }
+                        if (sgroup[0] != null)
+                        {
+                            index = usrc_Item_InsidePageHandler3.FindItem(sgroup[0]);
+                            if (index >= 0)
+                            {
+                                usrc_Item_InsidePageHandler3.SelectObject(index);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
         private void groups_set()
         {
             DataRow[] drs = null;

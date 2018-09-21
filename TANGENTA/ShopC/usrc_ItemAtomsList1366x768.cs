@@ -88,6 +88,19 @@ namespace ShopC
             this.usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             this.usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
             this.usrc_Item_InsidePageHandler1.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
+            this.usrc_Item_InsidePageHandler1.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
+        }
+
+        private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
+        {
+            if (oData is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+            {
+                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oData;
+                if (this.Parent is usrc_ShopC1366x768)
+                {
+                    ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd);
+                }
+            }
         }
 
         private void Usrc_Item_InsidePageHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
@@ -130,12 +143,16 @@ namespace ShopC
             {
                 this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp, appisd);
             }
-            if (appisd.dQuantity_FromStock > 0)
+            else if (appisd.dQuantity_FromStock > 0)
             {
                 this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID, DocTyp, appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf);
             }
             usrc_Item_InsidePageHandler1.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
             usrc_Item_InsidePageHandler1.ShowPage(0);
+            if (this.Parent is usrc_ShopC1366x768)
+            {
+                ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.DoRepaint();
+            }
         }
 
         internal void Init(ID xAtom_WorkPeriod_ID,
@@ -149,7 +166,7 @@ namespace ShopC
             Init(xAtom_WorkPeriod_ID);
         }
 
-        internal void ShowBasket()
+        internal void ShowBasket(string xItemUniqueName)
         {
             usrc_Item_InsidePageHandler.eMode emode = usrc_Item_InsidePageHandler.eMode.EDIT;
             if (!m_ShopBC.m_CurrentDoc.bDraft)
@@ -157,7 +174,12 @@ namespace ShopC
                 emode = usrc_Item_InsidePageHandler.eMode.VIEW;
             }
             this.usrc_Item_InsidePageHandler1.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
-            this.usrc_Item_InsidePageHandler1.ShowPage(0);
+            int index = this.usrc_Item_InsidePageHandler1.FindItem(xItemUniqueName);
+            if (index >= 0)
+            {
+                this.usrc_Item_InsidePageHandler1.SelectObject(index);
+            }
+            //this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }
 
         internal void SetCurrentInvoice_SelectedItems()

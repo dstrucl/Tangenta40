@@ -113,6 +113,11 @@ namespace ShopC
             usrc_Item_InsidePageGroupHandler1.ControlClick += Usrc_Item_InsidePageGroupHandler1_ControlClick;
         }
 
+        internal void Select(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        {
+           string[] sgroup = new string[3] { appisd.s1_name, appisd.s2_name, appisd.s3_name };
+            this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup);
+        }
 
         private decimal quantityinStock(Item_Data ixdata)
         {
@@ -150,7 +155,7 @@ namespace ShopC
                                                                                 dquantity,
                                                                                 ref appisd, false);
                     m_usrc_Atom_ItemsList1366x768.AddFromStock(appisd);
-                    m_usrc_Atom_ItemsList1366x768.ShowBasket();
+                    m_usrc_Atom_ItemsList1366x768.ShowBasket(appisd.Atom_Item_UniqueName.v);
                     if (ItemAdded != null)
                     {
                         ItemAdded();
@@ -166,7 +171,7 @@ namespace ShopC
                                                                                 0,
                                                                                 ref appisd, true);
                     m_usrc_Atom_ItemsList1366x768.AddFromFactory(appisd);
-                    m_usrc_Atom_ItemsList1366x768.ShowBasket();
+                    m_usrc_Atom_ItemsList1366x768.ShowBasket(appisd.Atom_Item_UniqueName.v);
                     if (ItemAdded!=null)
                     {
                         ItemAdded();
@@ -182,6 +187,11 @@ namespace ShopC
                 }
                 
             }
+        }
+
+        internal void DoRepaint()
+        {
+            this.usrc_Item_InsidePageGroupHandler1.DoRepaint();
         }
 
         private void Usrc_Item_InsidePageGroupHandler1_ControlClick(Control ctrl, object oData, int index, bool selected)
@@ -246,7 +256,7 @@ namespace ShopC
                 {
                     usrc_Item1366x768 xusrc_Item1366x768 = (usrc_Item1366x768)ctrl;
 
-                    xusrc_Item1366x768.DoPaint(idata);
+                    xusrc_Item1366x768.DoPaint(idata, m_ShopBC.m_CurrentDoc.m_Basket);
                 }
             }
         }

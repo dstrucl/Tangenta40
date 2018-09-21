@@ -124,7 +124,7 @@ namespace ShopC
         }
 
 
-        internal void DoPaint(Item_Data idata)
+        internal void DoPaint(Item_Data idata, Basket xBasket)
         {
             if (idata != null)
             {
@@ -135,6 +135,17 @@ namespace ShopC
 
                 decimal dAllStockQuantity = 0;
 
+                if (xBasket!=null)
+                {
+                    if (xBasket.IsInBasket(this.Item_UniqueName))
+                    {
+                        this.picInBasket.Visible = true;
+                    }
+                    else
+                    {
+                        this.picInBasket.Visible = false;
+                    }
+                }
                 dAllStockQuantity = idata.dQuantity_OfStockItems;
 
                 string sunit = "";
@@ -180,6 +191,11 @@ namespace ShopC
         }
 
         private void lbl_InStock_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void picInBasket_Click(object sender, EventArgs e)
         {
             OnClick(e);
         }

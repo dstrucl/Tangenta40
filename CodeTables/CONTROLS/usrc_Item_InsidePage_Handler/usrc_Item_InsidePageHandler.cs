@@ -65,6 +65,9 @@ namespace usrc_Item_InsidePage_Handler
         public delegate void delegate_CreateControl(ref Control ctrl);
         public event delegate_CreateControl CreateControl = null;
 
+        public delegate bool delegate_CompareWithString(object oData, string s);
+        public event delegate_CompareWithString CompareWithString = null;
+
         public delegate void delegate_FillControl(Control ctrl, object oData, eMode xMode);
         public event delegate_FillControl FillControl = null;
 
@@ -240,6 +243,51 @@ namespace usrc_Item_InsidePage_Handler
                 {
                     return null;
                 }
+            }
+        }
+
+        public int FindItem(string s)
+        {
+            int ilen = 0;
+            switch (CollectionType)
+            {
+                case eCollectionType.ARRAY:
+                    ilen = m_ousrc_Item_array.Length;
+                    if (ilen > 0)
+                    {
+                        for (int i=0;i<ilen;i++)
+                        {
+                            if (CompareWithString!=null)
+                            {
+                                if (CompareWithString(m_ousrc_Item_array[i], s))
+                                {
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    return -1;
+
+                case eCollectionType.LIST:
+                    ilen = m_ousrc_Item_list.Count;
+                    if (ilen > 0)
+                    {
+                        for (int i = 0; i < ilen; i++)
+                        {
+                            if (CompareWithString != null)
+                            {
+                                if (CompareWithString(m_ousrc_Item_list[i], s))
+                                {
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    return -1;
+
+                default:
+                    MessageBox.Show("ERROR:CollectionType not implemented:" + CollectionType.ToString());
+                    return -1;
             }
         }
 

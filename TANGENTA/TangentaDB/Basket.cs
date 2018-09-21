@@ -238,6 +238,24 @@ namespace TangentaDB
             }
         }
 
+        public bool IsInBasket(string item_UniqueName)
+        {
+            if (this.m_DocInvoice_ShopC_Item_Data_LIST != null)
+            {
+                if (this.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0)
+                {
+                    foreach (object o in this.m_DocInvoice_ShopC_Item_Data_LIST)
+                    {
+                        if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Atom_Item_UniqueName.v.Equals(item_UniqueName))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Gets ShopC Items of DocInvoice_ID
         /// </summary>

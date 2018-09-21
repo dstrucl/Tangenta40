@@ -92,10 +92,7 @@ namespace ShopB
         {
             InitializeComponent();
             idgv_ShopB_Items_Width_default = this.dgv_ShopB_Items.Width;
-            if (DBtcn == null)
-            {
-                DBtcn = new DBTablesAndColumnNames();
-            }
+         
         }
 
         public delegate void delegate_ItemUpdated(ID ID, DataTable dt_SelectedShopBItem);
@@ -119,6 +116,10 @@ namespace ShopB
 
         public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use)
         {
+            if (DBtcn == null)
+            {
+               DBtcn = new DBTablesAndColumnNames();
+            }
             lng.s_ShopB_Name.Text(lbl_ShopB_Name);
 
             Layout = eLayout.NONE;
