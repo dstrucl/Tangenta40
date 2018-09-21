@@ -50,6 +50,17 @@ namespace ShopC
             }
         }
 
+        public new event EventHandler<EventArgs> Click;
+
+        protected override void OnClick(EventArgs e)
+        {
+            EventArgs myArgs = new EventArgs();
+            EventHandler<EventArgs> myEvent = Click;
+            if (myEvent != null)
+                myEvent(this, myArgs);
+            base.OnClick(e);
+        }
+
         public usrc_Atom_Item1366x768()
         {
             InitializeComponent();
@@ -142,8 +153,7 @@ namespace ShopC
 
         private void lbl_Item_Click(object sender, EventArgs e)
         {
-            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB, this.m_appisd.Atom_Item_ID);
-            itma_frm.ShowDialog();
+            OnClick(e);
         }
 
         private void btn_RemoveFromBasket_Click(object sender, EventArgs e)
@@ -152,6 +162,26 @@ namespace ShopC
             {
                 btn_RemoveClick(m_appisd);
             }
+        }
+
+        private void lbl_Quantity_Value_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void lbl_RetailPriceValue_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void lbl_DiscountText_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void lbl_DiscountValue_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
         }
     }
 }

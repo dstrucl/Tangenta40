@@ -355,11 +355,6 @@ namespace usrc_Item_InsidePage_Handler
 
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private Rectangle insideRect(Rectangle clientRectangle, int penwidth)
         {
             return new Rectangle(clientRectangle.Left + penwidth, clientRectangle.Top + penwidth, clientRectangle.Width - 2 * penwidth, clientRectangle.Height - 2 * penwidth);

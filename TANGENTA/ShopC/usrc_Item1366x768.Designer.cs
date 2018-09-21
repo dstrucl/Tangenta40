@@ -41,7 +41,7 @@
             this.lbl_Item_UniqueName.Size = new System.Drawing.Size(100, 28);
             this.lbl_Item_UniqueName.TabIndex = 0;
             this.lbl_Item_UniqueName.Text = "label1";
-            this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_Click_1);
+            this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_UniqueName_Click);
             // 
             // lbl_InStock
             // 
@@ -51,6 +51,7 @@
             this.lbl_InStock.Size = new System.Drawing.Size(103, 14);
             this.lbl_InStock.TabIndex = 1;
             this.lbl_InStock.Text = "Stock:";
+            this.lbl_InStock.Click += new System.EventHandler(this.lbl_InStock_Click);
             // 
             // lbl_Price
             // 
@@ -59,6 +60,7 @@
             this.lbl_Price.Size = new System.Drawing.Size(71, 14);
             this.lbl_Price.TabIndex = 2;
             this.lbl_Price.Text = "Price";
+            this.lbl_Price.Click += new System.EventHandler(this.lbl_Price_Click);
             // 
             // usrc_Item1366x768
             // 
