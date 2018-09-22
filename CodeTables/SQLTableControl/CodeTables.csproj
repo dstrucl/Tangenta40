@@ -92,6 +92,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Tangenta40\DLL\FastColoredTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -121,6 +125,12 @@
     <Compile Include="DefWinowsPos.cs" />
     <Compile Include="Document_Box.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form_dtSQLdb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_dtSQLdb.Designer.cs">
+      <DependentUpon>Form_dtSQLdb.cs</DependentUpon>
     </Compile>
     <Compile Include="IndexBox.cs">
       <SubType>Component</SubType>
@@ -422,6 +432,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_dtSQLdb.resx">
+      <DependentUpon>Form_dtSQLdb.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_InputControl_DataBox.resx">
       <DependentUpon>usrc_InputControl_DataBox.cs</DependentUpon>
       <SubType>Designer</SubType>

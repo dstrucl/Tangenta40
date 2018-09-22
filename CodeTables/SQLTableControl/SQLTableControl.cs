@@ -26,7 +26,37 @@ namespace CodeTables
     [ToolboxBitmap("E:\\ManualReader\\ctlogina\\CodeTables\\Resources\\CodeTables.ico")]
     public partial class DBTableControl : Component
     {
+        private static Form_dtSQLdb form_dtSQLdb = null;
+
         public static DataTable  dtSQLdb = new DataTable();
+        public const string col_TABLE_NAME = "TABLE_NAME";
+        public const string col_VIEW_NAME = "VIEW_NAME";
+        public const string col_SQL_CreateTABLE = "SQL_CreateTABLE";
+        public const string col_SQL_AddFkey = "SQL_AddFkey";
+        public const string col_SQL_CreateVIEW = "SQL_CreateVIEW";
+
+        public static void Show_Form_dtSQLdb(Form pform, DBConnection xcon, string sdbversion)
+        {
+            if (form_dtSQLdb != null)
+            {
+                if (form_dtSQLdb.IsDisposed)
+                {
+                    form_dtSQLdb = null;
+                }
+            }
+            if (form_dtSQLdb == null)
+            {
+
+                form_dtSQLdb = new Form_dtSQLdb(xcon, sdbversion);
+                form_dtSQLdb.Owner = pform;
+                form_dtSQLdb.Show(pform);
+            }
+            else
+            {
+                form_dtSQLdb.Show();
+            }
+        }
+            
         private static string m_SQLdbFile=null;
         public static string SQLdbFile
         {
@@ -144,11 +174,6 @@ namespace CodeTables
 
             SQLdbFile = sfolder + filename;
 
-            string col_TABLE_NAME = "TABLE_NAME";
-            string col_VIEW_NAME = "VIEW_NAME";
-            string col_SQL_CreateTABLE = "SQL_CreateTABLE";
-            string col_SQL_AddFkey = "SQL_AddFkey";
-            string col_SQL_CreateVIEW = "SQL_CreateVIEW";
 
             dtSQLdb.Clear();
             dtSQLdb.Columns.Clear();

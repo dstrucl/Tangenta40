@@ -22,12 +22,22 @@ namespace Tangenta
 {
     public partial class Form_CodeTables : Form
     {
+        
+
         public Form_CodeTables()
+        {
+            InitializeComponent();
+        }
+
+        public Form_CodeTables(object x_usrc_DocumentManX)
         {
             InitializeComponent();
             lng.s_CodeTables.Text(this);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_MyOrganisation.Text(lbl_MyOrganisation);
+
+            this.usrc_CodeTables1.M_usrc_DocumentManX = x_usrc_DocumentManX;
+        
 
             string suser = "??";
             if (myOrg.m_myOrg_Office != null)

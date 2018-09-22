@@ -27,8 +27,8 @@ namespace ShopC
 {
     public partial class usrc_Item1366x768_Button : UserControl
     {
-        public delegate void delegate_ItemAdded2Basket();
-        public event delegate_ItemAdded2Basket ItemAdded2Basket = null;
+        //public delegate void delegate_ItemAdded2Basket();
+        //public event delegate_ItemAdded2Basket ItemAdded2Basket = null;
 
         public delegate void delegate_ItemChanged(object obj);
         public event delegate_ItemChanged ItemChanged = null;
@@ -81,20 +81,12 @@ namespace ShopC
 
         private int x1_btn_EditItem_Left = 0;
 
-        private int x2_uItemFactory_Left = 0;
-        private int x2_uItemFactory_Top = 0;
-        private int x2_uItemFactory_Height = 0;
-        private int x2_uItemFactory_Width = 0;
-
-        private int x2_uItemStock_Left = 0;
-        private int x2_uItemStock_Top = 0;
-        private int x2_uItemStock_Height = 0;
-        private int x2_uItemStock_Width = 0;
+    
 
 
 
         private int cx_lbl_Item_large_width = 0;
-        private int cx_lbl_Item_small_width = 0;
+
         public NavigationButtons.Navigation nav = null;
 
         public usrc_Item1366x768_Button()

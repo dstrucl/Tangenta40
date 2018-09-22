@@ -27,10 +27,7 @@ namespace Tangenta
         private int default_language_ID = -1;
         private int newLanguage = -1;
 
-        private usrc_DocumentMan m_usrc_DocumentMan = null;
-        private usrc_DocumentMan1366x768 m_usrc_DocumentMan1366x768 = null;
-
-        
+        private object m_usrc_DocumentManX = null;
 
         private bool bChanged = false;
         private NavigationButtons.Navigation nav = null;
@@ -45,21 +42,10 @@ namespace Tangenta
         }
 
 
-        public Form_ProgramSettings(usrc_DocumentMan xusrc_DocumentMan,NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
+        public Form_ProgramSettings(object xusrc_DocumentManX,NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
-            m_usrc_DocumentMan = xusrc_DocumentMan;
-            nav = xnav;
-            usrc_ShopsInuse1.SettingsUserValues = xSettingsUserValues;
-            usrc_ShopsInuse1.Init();
-            Init();
-
-        }
-
-        public Form_ProgramSettings(usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768, NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
-        {
-            InitializeComponent();
-            m_usrc_DocumentMan1366x768 = xusrc_DocumentMan1366x768;
+            m_usrc_DocumentManX = xusrc_DocumentManX;
             nav = xnav;
             usrc_ShopsInuse1.SettingsUserValues = xSettingsUserValues;
             usrc_ShopsInuse1.Init();
@@ -152,13 +138,13 @@ namespace Tangenta
 
         private void Usrc_SelectColorSheme1_ColorShemeChanged()
         {
-            if (m_usrc_DocumentMan != null)
+            if (m_usrc_DocumentManX is usrc_DocumentMan)
             {
-                this.m_usrc_DocumentMan.SetColor();
+                ((usrc_DocumentMan)this.m_usrc_DocumentManX).SetColor();
             }
-            else if (m_usrc_DocumentMan1366x768 != null)
+            else if (m_usrc_DocumentManX is usrc_DocumentMan1366x768)
             {
-                this.m_usrc_DocumentMan1366x768.SetColor();
+                ((usrc_DocumentMan1366x768)this.m_usrc_DocumentManX).SetColor();
             }
         }
 
@@ -409,9 +395,18 @@ namespace Tangenta
 
         private void btn_UserSettings_Click(object sender, EventArgs e)
         {
-            if (m_usrc_DocumentMan != null)
+            LoginControl.LMOUser xLMO_User = null;
+            if (m_usrc_DocumentManX is usrc_DocumentMan)
             {
-                Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(this.m_usrc_DocumentMan.DocM.m_LMOUser);
+                xLMO_User = ((usrc_DocumentMan)this.m_usrc_DocumentManX).DocM.m_LMOUser;
+            }
+            else if (m_usrc_DocumentManX is usrc_DocumentMan1366x768)
+            {
+                xLMO_User = ((usrc_DocumentMan1366x768)this.m_usrc_DocumentManX).DocM.m_LMOUser;
+            }
+            if (xLMO_User!=null)
+            { 
+                Form_SettingsUsers frm_settingsuser = new Form_SettingsUsers(xLMO_User);
                 frm_settingsuser.Init();
                 frm_settingsuser.ShowDialog(this);
             }
@@ -420,14 +415,15 @@ namespace Tangenta
         private void btn_IdleSettings_Click(object sender, EventArgs e)
         {
             Form pParentForm = null;
-            if (m_usrc_DocumentMan != null)
+            if (m_usrc_DocumentManX is usrc_DocumentMan)
             {
-                pParentForm = Global.f.GetParentForm(m_usrc_DocumentMan);
+                pParentForm = Global.f.GetParentForm((usrc_DocumentMan)m_usrc_DocumentManX);
             }
-            else if (m_usrc_DocumentMan1366x768 != null)
+            else if (m_usrc_DocumentManX is usrc_DocumentMan1366x768)
             {
-                pParentForm = Global.f.GetParentForm(m_usrc_DocumentMan1366x768);
+                pParentForm = Global.f.GetParentForm((usrc_DocumentMan1366x768)m_usrc_DocumentManX);
             }
+
             if (pParentForm != null)
             {
                 Form_IdleSettings frm_idlesettings = new Form_IdleSettings(((Form_Document)pParentForm).loginControl1.IdleCtrl);

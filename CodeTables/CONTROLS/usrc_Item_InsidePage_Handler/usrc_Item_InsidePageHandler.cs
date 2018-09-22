@@ -65,7 +65,7 @@ namespace usrc_Item_InsidePage_Handler
 
 
         public delegate void delegate_CreateControl(ref Control ctrl);
-        public event delegate_CreateControl CreateControl = null;
+        public new event delegate_CreateControl  CreateControl = null;
 
         public delegate bool delegate_CompareWithString(object oData, string s);
         public event delegate_CompareWithString CompareWithString = null;
@@ -86,18 +86,19 @@ namespace usrc_Item_InsidePage_Handler
         public delegate void delegate_SelectionChanged(Control ctrl, object oData, int index, bool selected);
         public event delegate_SelectionChanged SelectionChanged = null;
 
-        public delegate void delegate_Paint(Control ctrl,object oData, int index);
-        public event delegate_Paint Paint = null;
+        public delegate void delegate_Paint(Control ctrl,object oData, int index, eMode xMode);
+        public new event delegate_Paint Paint = null;
 
         public delegate void delegate_PageChanged(int iPage);
         public event delegate_PageChanged PageChanged = null;
 
 
         private object[] m_ousrc_Item_array = null;
+
         private Control[] ctrlItems_array = null;
+        private Control[] ctrlItems_array_resource = null;
 
         private List<object> m_ousrc_Item_list = null;
-        private List<Control> ctrlItems_list = null;
 
         private List<Page> Pages = new List<Page>();
 
@@ -249,6 +250,45 @@ namespace usrc_Item_InsidePage_Handler
             }
         }
 
+        public object GetItem(int index)
+        {
+            if (index >=0)
+            {
+                switch (CollectionType)
+                {
+                    case eCollectionType.ARRAY:
+                        if (index < m_ousrc_Item_array.Length)
+                        {
+                            return m_ousrc_Item_array[index];
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR:usrc_Item_InsidePageHandler:GetItem:index > m_ousrc_Item_array.Length!");
+                            return null;
+                        }
+                    case eCollectionType.LIST:
+                        if (index < m_ousrc_Item_list.Count)
+                        {
+                            return m_ousrc_Item_list[index];
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR:usrc_Item_InsidePageHandler:GetItem:index > m_ousrc_Item_array.Length!");
+                            return null;
+                        }
+                    default:
+                        MessageBox.Show("ERROR:CollectionType not implemented:" + CollectionType.ToString());
+                        return null;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("ERROR:usrc_Item_InsidePageHandler:GetItem:index < 0!");
+                return null;
+            }
+        }
+
         public int FindItem(string s)
         {
             int ilen = 0;
@@ -358,31 +398,76 @@ namespace usrc_Item_InsidePage_Handler
                 ctrlItems_array = null;
             }
         }
-        private void create_controls()
+
+        private void create_ctrl_array_resource()
         {
+            //ctrlItems_array = new Control[ctrlItemsCount];
             int i = 0;
-            ctrlItems_array = new Control[ctrlItemsCount];
             for (int irow = 0; irow < numberOCtrlfRows; irow++)
             {
                 for (int icol = 0; icol < numberOfCtrlColumns; icol++)
                 {
-                    Control xctrl = null;
-                    CreateControl(ref xctrl);
-                    if (xctrl != null)
+                    if (ctrlItems_array_resource[i] == null)
                     {
-                        xctrl.Paint += Xctrl_Paint;
-                        xctrl.Click += Xctrl_Click;
-                        xctrl.Left = icol * CtrlWidth;
-                        xctrl.Top = irow * CtrlHeight;
-                        xctrl.Width = CtrlWidth;
-                        xctrl.Height = CtrlHeight;
-                        xctrl.Visible = false;
-                        this.Controls.Add(xctrl);
-                        ctrlItems_array[i] = xctrl;
-                        i++;
+                        Control xctrl = null;
+                        CreateControl(ref xctrl);
+                        if (xctrl != null)
+                        {
+                            xctrl.Paint += Xctrl_Paint;
+                            xctrl.Click += Xctrl_Click;
+                            xctrl.Left = icol * CtrlWidth;
+                            xctrl.Top = irow * CtrlHeight;
+                            xctrl.Width = CtrlWidth;
+                            xctrl.Height = CtrlHeight;
+                            xctrl.Visible = false;
+                            this.Controls.Add(xctrl);
+                            ctrlItems_array_resource[i] = xctrl;
+                        }
+                    }
+                    i++;
+                }
+            }
+        }
+        private void create_controls()
+        {
+            int lenght_arr_resource = 0;
+            if (ctrlItems_array_resource == null)
+            {
+                ctrlItems_array_resource = new Control[ctrlItemsCount];
+                lenght_arr_resource = ctrlItems_array_resource.Length;
+            }
+            else
+            {
+                if (lenght_arr_resource < ctrlItemsCount)
+                {
+                    int lengthDif_new = ctrlItemsCount - lenght_arr_resource;
+                    ctrlItems_array_resource = ctrlItems_array_resource.Concat(new Control[lengthDif_new]).ToArray();
+                    lenght_arr_resource = ctrlItems_array_resource.Length;
+                }
+                else
+                {
+                    lenght_arr_resource = ctrlItems_array_resource.Length;
+                }
+            }
+            create_ctrl_array_resource();
+
+            ctrlItems_array = new Control[ctrlItemsCount];
+
+            for (int i = 0; i < lenght_arr_resource; i++)
+            {
+                if (ctrlItems_array_resource[i] != null)
+                {
+                    if (i < ctrlItemsCount)
+                    {
+                        ctrlItems_array[i] = ctrlItems_array_resource[i];
+                    }
+                    else
+                    {
+                        ctrlItems_array_resource[i].Visible = false;
                     }
                 }
             }
+
             Control Xctrl0 = ctrlItems_array[0];
             if (Xctrl0 != null)
             {
@@ -441,21 +526,6 @@ namespace usrc_Item_InsidePage_Handler
                 {
                     int iObj = (int)xtrl.Tag;
 
-                    if (ControlClick!=null)
-                    {
-                        switch (CollectionType)
-                        {
-                            case eCollectionType.ARRAY:
-                                ControlClick(xtrl, m_ousrc_Item_array[iObj], iObj, iObj == SelectedIndex);
-                                break;
-                            case eCollectionType.LIST:
-                                ControlClick(xtrl, m_ousrc_Item_list[iObj], iObj, iObj == SelectedIndex);
-                                break;
-                            default:
-                                MessageBox.Show("ERROR:Xctrl_Click:CollectionType not implemented:" + CollectionType.ToString());
-                                break;
-                        }
-                    }
                     if (iObj != m_SelectedIndex)
                     {
                         SelectObject(iObj,eSelection.ON_CLIK);
@@ -477,6 +547,21 @@ namespace usrc_Item_InsidePage_Handler
                     }
                     else
                     {
+                        if (ControlClick != null)
+                        {
+                            switch (CollectionType)
+                            {
+                                case eCollectionType.ARRAY:
+                                    ControlClick(xtrl, m_ousrc_Item_array[iObj], iObj, iObj == SelectedIndex);
+                                    break;
+                                case eCollectionType.LIST:
+                                    ControlClick(xtrl, m_ousrc_Item_list[iObj], iObj, iObj == SelectedIndex);
+                                    break;
+                                default:
+                                    MessageBox.Show("ERROR:Xctrl_Click:CollectionType not implemented:" + CollectionType.ToString());
+                                    break;
+                            }
+                        }
                         SelectObject(iObj, eSelection.ON_CLIK);
                     }
                     
@@ -489,7 +574,7 @@ namespace usrc_Item_InsidePage_Handler
             numberOfCtrlColumns = this.Width / m_ctrlWidth;
             numberOCtrlfRows = this.Height / m_ctrlHeight;
 
-            RemoveControlItems();
+            //RemoveControlItems();
 
             if (ctrlItemsCount > 0)
             {
@@ -778,10 +863,10 @@ namespace usrc_Item_InsidePage_Handler
                         switch (CollectionType)
                         {
                             case eCollectionType.ARRAY:
-                                Paint(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index);
+                                Paint(ctrlItems_array[ictrl], m_ousrc_Item_array[index], index,this.Mode);
                                 break;
                             case eCollectionType.LIST:
-                                Paint(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index);
+                                Paint(ctrlItems_array[ictrl], m_ousrc_Item_list[index], index, this.Mode);
                                 break;
                         }
                     }

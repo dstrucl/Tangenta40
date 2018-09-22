@@ -21,6 +21,155 @@ namespace TangentaDB
             public f_DocInvoice_ShopC_Item.fData ShopC_Item_Data = new f_DocInvoice_ShopC_Item.fData();
         }
 
+        public static bool Get_ShopC_Invoices(ref DataTable dtDoc)
+        {
+            string Err = null;
+            if (dtDoc==null)
+            {
+                dtDoc = new DataTable();
+            }
+            else
+            {
+                dtDoc.Clear();
+                dtDoc.Columns.Clear();
+            }
+            
+            string sql = @"select 
+							     di.ID as DocInvoice_ID,
+                                 di.Draft as Draft,
+                                 di.DraftNumber as DraftNumber,
+                                 di.FinancialYear as FinancialYear,
+                                 di.NumberInFinancialYear as NumberInFinancialYear,
+								 diaon.IssueDate as IssueDate,
+								 di.GrossSum as GrossSum,
+								 diaon.PaymentDeadline,
+								 pt.Identification as Payment_Identification,
+								 pt.Name as Payment_Name,
+								 aba.TRR as BankAccount_TRR,
+								 aba.Active as BankAccount_Avtive,
+								 abao.Name as Bank_Name,
+								 an.NoticeText,
+                                    ap.Gender,
+                                    acfn.FirstName,
+                                    acfl.LastName,
+                                    ao.Name as Organisation_Name,
+                                    ao.Tax_ID as Organisation_Tax_ID,
+                                    acp.Atom_Person_ID,
+                                    aco.Atom_Organisation_ID,
+									di.Storno,
+									fvir.MessageID,
+									fvir.UniqueInvoiceID,
+									fvir.BarCodeValue,
+									fvir.Response_DateTime,
+									fvir.TestEnvironment,
+									awa.Name as WorAreaName,
+									awa.Description as WorAreaDescription
+                                 from DocInvoice di
+                                  left join Atom_Customer_Person acp on di.Atom_Customer_Person_ID = acp.ID
+                                  left join Atom_Person ap on acp.Atom_Person_ID = ap.ID
+                                  left join Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
+                                  left join Atom_cLastName acfl on ap.Atom_cLastName_ID = acfl.ID
+                                  left join Atom_Customer_Org aco on di.Atom_Customer_Org_ID = aco.ID
+                                  left join Atom_Organisation ao on aco.Atom_Organisation_ID = ao.ID
+								  left join DocInvoiceAddOn diaon on  diaon.DocInvoice_ID = di.ID
+								  left join TermsOfPayment top on diaon.TermsOfPayment_ID = top.ID 
+								  left join MethodOfPayment_DI omopdi on omopdi.ID = diaon.MethodOfPayment_DI_ID
+								  left join PaymentType pt on pt.ID = omopdi.PaymentType_ID
+								  left join Atom_BankAccount aba on aba.ID = omopdi.Atom_BankAccount_ID
+								  left join Atom_Bank ab on ab.ID = aba.Atom_Bank_ID 
+								  left join Atom_Organisation abao on  abao.ID = ab.Atom_Organisation_ID
+								  left join Atom_Warranty aw on aw.ID = diaon.Atom_Warranty_ID 
+								  left join Atom_Notice an on an.ID = diaon.Atom_Notice_ID
+								  left join Doc_ImageLib docIL on docIL.ID = diaon.Doc_ImageLib_ID
+								  left join FVI_SLO_Response fvir on  fvir.DocInvoice_ID  = di.ID 
+								  left join DocInvoice_Atom_WorkArea diawa on diawa.DocInvoice_ID = di.ID
+								  left join Atom_WorkArea awa on awa.ID = diawa.Atom_WorkArea_ID 
+								  where di.ID in (select DocInvoice_ID from DocInvoice_ShopC_Item Group by DocInvoice_ID)";
+            if (DBSync.DBSync.ReadDataTable(ref dtDoc, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:Get_ShopC_Invoices:sql=" + sql + "\r\nErr" + Err);
+                return false;
+            }
+        }
+
+        public static bool Get_ShopC_Invoices_FromStock(ref DataTable dtDoc)
+        {
+            string Err = null;
+            if (dtDoc == null)
+            {
+                dtDoc = new DataTable();
+            }
+            else
+            {
+                dtDoc.Clear();
+                dtDoc.Columns.Clear();
+            }
+
+            string sql = @"select 
+							     di.ID as DocInvoice_ID,
+                                 di.Draft as Draft,
+                                 di.DraftNumber as DraftNumber,
+                                 di.FinancialYear as FinancialYear,
+                                 di.NumberInFinancialYear as NumberInFinancialYear,
+								 diaon.IssueDate as IssueDate,
+								 di.GrossSum as GrossSum,
+								 diaon.PaymentDeadline,
+								 pt.Identification as Payment_Identification,
+								 pt.Name as Payment_Name,
+								 aba.TRR as BankAccount_TRR,
+								 aba.Active as BankAccount_Avtive,
+								 abao.Name as Bank_Name,
+								 an.NoticeText,
+                                    ap.Gender,
+                                    acfn.FirstName,
+                                    acfl.LastName,
+                                    ao.Name as Organisation_Name,
+                                    ao.Tax_ID as Organisation_Tax_ID,
+                                    acp.Atom_Person_ID,
+                                    aco.Atom_Organisation_ID,
+									di.Storno,
+									fvir.MessageID,
+									fvir.UniqueInvoiceID,
+									fvir.BarCodeValue,
+									fvir.Response_DateTime,
+									fvir.TestEnvironment,
+									awa.Name as WorAreaName,
+									awa.Description as WorAreaDescription
+                                 from DocInvoice di
+                                  left join Atom_Customer_Person acp on di.Atom_Customer_Person_ID = acp.ID
+                                  left join Atom_Person ap on acp.Atom_Person_ID = ap.ID
+                                  left join Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
+                                  left join Atom_cLastName acfl on ap.Atom_cLastName_ID = acfl.ID
+                                  left join Atom_Customer_Org aco on di.Atom_Customer_Org_ID = aco.ID
+                                  left join Atom_Organisation ao on aco.Atom_Organisation_ID = ao.ID
+								  left join DocInvoiceAddOn diaon on  diaon.DocInvoice_ID = di.ID
+								  left join TermsOfPayment top on diaon.TermsOfPayment_ID = top.ID 
+								  left join MethodOfPayment_DI omopdi on omopdi.ID = diaon.MethodOfPayment_DI_ID
+								  left join PaymentType pt on pt.ID = omopdi.PaymentType_ID
+								  left join Atom_BankAccount aba on aba.ID = omopdi.Atom_BankAccount_ID
+								  left join Atom_Bank ab on ab.ID = aba.Atom_Bank_ID 
+								  left join Atom_Organisation abao on  abao.ID = ab.Atom_Organisation_ID
+								  left join Atom_Warranty aw on aw.ID = diaon.Atom_Warranty_ID 
+								  left join Atom_Notice an on an.ID = diaon.Atom_Notice_ID
+								  left join Doc_ImageLib docIL on docIL.ID = diaon.Doc_ImageLib_ID
+								  left join FVI_SLO_Response fvir on  fvir.DocInvoice_ID  = di.ID 
+								  left join DocInvoice_Atom_WorkArea diawa on diawa.DocInvoice_ID = di.ID
+								  left join Atom_WorkArea awa on awa.ID = diawa.Atom_WorkArea_ID 
+								  where di.ID in (select DocInvoice_ID from DocInvoice_ShopC_Item where Stock_ID is not null Group by DocInvoice_ID)";
+            if (DBSync.DBSync.ReadDataTable(ref dtDoc, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:Get_ShopC_Invoices_FromStock:sql=" + sql + "\r\nErr" + Err);
+                return false;
+            }
+        }
 
         public static bool Get(ID docInvoice_ID,ID docInvoice_ShopC_Item_ID, ref fData ret_data)
         {

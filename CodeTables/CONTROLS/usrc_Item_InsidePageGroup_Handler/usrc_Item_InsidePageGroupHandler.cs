@@ -18,7 +18,7 @@ namespace usrc_Item_InsidePageGroup_Handler
         private DataRow[] drItems = null;
 
         public delegate void delegate_CreateControl(ref Control ctrl);
-        public event delegate_CreateControl CreateControl = null;
+        public new event delegate_CreateControl CreateControl = null;
 
         public delegate bool deleagte_InsidePageHandler_CompareWithString(object oData, string s);
         public event deleagte_InsidePageHandler_CompareWithString InsidePageHandler_CompareWithString = null;
@@ -34,7 +34,7 @@ namespace usrc_Item_InsidePageGroup_Handler
         public event delegate_LoadItemsList LoadItemsList = null;
 
         public delegate void delegate_Paint(Control ctrl, object oData, int index);
-        public event delegate_Paint Paint = null;
+        public new event delegate_Paint Paint = null;
 
 
         public delegate bool delegate_SetName(object oData, ref string name);
@@ -53,8 +53,8 @@ namespace usrc_Item_InsidePageGroup_Handler
         public delegate void delegate_ControlClick(Control ctrl, object oData, int index, bool selected);
         public event delegate_ControlClick ControlClick = null;
 
-        public delegate void delegate_PageChanged(int iPage);
-        public event delegate_PageChanged PageChanged = null;
+        //public delegate void delegate_PageChanged(int iPage);
+        //public event delegate_PageChanged PageChanged = null;
 
         //public delegate void delegate_Deselect(object oData, int index);
         //public event delegate_Deselect Deselect = null;
@@ -162,7 +162,7 @@ namespace usrc_Item_InsidePageGroup_Handler
             }
         }
 
-        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index)
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler.eMode xmode)
         {
             if (Paint != null)
             {

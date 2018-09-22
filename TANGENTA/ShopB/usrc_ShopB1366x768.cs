@@ -159,7 +159,6 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemRetailPricePerUnit, DBtcn.column_SelectedShopBItemRetailPricePerUnit_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_Count, DBtcn.column_SelectedShopBItem_Count_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
-            string Err = null;
             this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_B.s;
             SetColor();
         }

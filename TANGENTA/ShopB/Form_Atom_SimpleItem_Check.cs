@@ -16,8 +16,6 @@ namespace ShopB
         DataTable dt_DocInvoice_ShopB_Item_VIEW = null;
         DataTable dt_DocProformaInvoice_ShopB_Item_VIEW = null;
 
-        DataTable dt_Atom_SimpleItem_VIEW = null;
-
         public Form_Atom_SimpleItem_Check()
         {
             InitializeComponent();

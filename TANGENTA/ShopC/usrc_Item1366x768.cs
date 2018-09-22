@@ -39,19 +39,18 @@ namespace ShopC
             base.OnClick(e);
         }
 
-        public delegate void delegate_ItemAdded2Basket();
-        public event delegate_ItemAdded2Basket ItemAdded2Basket = null;
+        //public delegate void delegate_ItemAdded2Basket();
+        //public event delegate_ItemAdded2Basket ItemAdded2Basket = null;
 
-        public delegate void delegate_ItemChanged(object obj);
-        public event delegate_ItemChanged ItemChanged = null;
+        //public delegate void delegate_ItemChanged(object obj);
+        //public event delegate_ItemChanged ItemChanged = null;
 
-        public delegate void delegate_StockChanged(object obj);
-        public event delegate_StockChanged StockChanged = null;
+        //public delegate void delegate_StockChanged(object obj);
+        //public event delegate_StockChanged StockChanged = null;
 
         //usrc_ItemList
         private bool m_bExclusivelySellFromStock = false;
 
-        private ID m_Atom_WorkPeriod_ID = null;
 
         public bool ExclusivelySellFromStock
         {

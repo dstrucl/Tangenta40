@@ -30,6 +30,21 @@ namespace Tangenta
         public event delegate_EndDialog EndDialog = null;
         public bool bChanged = false;
         public NavigationButtons.Navigation nav = null;
+
+        private object m_usrc_DocumentManX = null;
+        public object M_usrc_DocumentManX
+        {
+            get
+            {
+                return m_usrc_DocumentManX;
+            }
+            set
+            {
+                m_usrc_DocumentManX = value;
+            }
+        }
+
+
         public usrc_CodeTables()
         {
             InitializeComponent();
@@ -210,7 +225,7 @@ namespace Tangenta
 
         private void btn_TableInspection_Click(object sender, EventArgs e)
         {
-            Form_TableInspection frmtbli = new Form_TableInspection();
+            Form_TableInspection frmtbli = new Form_TableInspection(M_usrc_DocumentManX);
             frmtbli.ShowDialog(this);
         }
     }

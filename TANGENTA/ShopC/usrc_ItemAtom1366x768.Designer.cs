@@ -41,11 +41,11 @@
             this.lbl_Item_UniqueName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Item_UniqueName.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.lbl_Item_UniqueName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Item_UniqueName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Item_UniqueName.Location = new System.Drawing.Point(3, 3);
             this.lbl_Item_UniqueName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Item_UniqueName.Name = "lbl_Item_UniqueName";
-            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(286, 19);
+            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(288, 18);
             this.lbl_Item_UniqueName.TabIndex = 0;
             this.lbl_Item_UniqueName.Text = "label1";
             this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_Click);
@@ -53,10 +53,10 @@
             // lbl_RetailPriceValue
             // 
             this.lbl_RetailPriceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_RetailPriceValue.Location = new System.Drawing.Point(86, 24);
+            this.lbl_RetailPriceValue.Location = new System.Drawing.Point(86, 22);
             this.lbl_RetailPriceValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_RetailPriceValue.Name = "lbl_RetailPriceValue";
-            this.lbl_RetailPriceValue.Size = new System.Drawing.Size(73, 12);
+            this.lbl_RetailPriceValue.Size = new System.Drawing.Size(73, 13);
             this.lbl_RetailPriceValue.TabIndex = 20;
             this.lbl_RetailPriceValue.Text = "0";
             this.lbl_RetailPriceValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -65,7 +65,7 @@
             // lbl_DiscountValue
             // 
             this.lbl_DiscountValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_DiscountValue.Location = new System.Drawing.Point(223, 23);
+            this.lbl_DiscountValue.Location = new System.Drawing.Point(223, 22);
             this.lbl_DiscountValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_DiscountValue.Name = "lbl_DiscountValue";
             this.lbl_DiscountValue.Size = new System.Drawing.Size(64, 13);
@@ -80,7 +80,7 @@
             this.lbl_DiscountText.Location = new System.Drawing.Point(168, 22);
             this.lbl_DiscountText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_DiscountText.Name = "lbl_DiscountText";
-            this.lbl_DiscountText.Size = new System.Drawing.Size(47, 14);
+            this.lbl_DiscountText.Size = new System.Drawing.Size(47, 13);
             this.lbl_DiscountText.TabIndex = 23;
             this.lbl_DiscountText.Text = "Popust:";
             this.lbl_DiscountText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -93,7 +93,7 @@
             this.btn_RemoveFromBasket.Location = new System.Drawing.Point(290, 1);
             this.btn_RemoveFromBasket.Margin = new System.Windows.Forms.Padding(4);
             this.btn_RemoveFromBasket.Name = "btn_RemoveFromBasket";
-            this.btn_RemoveFromBasket.Size = new System.Drawing.Size(69, 38);
+            this.btn_RemoveFromBasket.Size = new System.Drawing.Size(68, 37);
             this.btn_RemoveFromBasket.TabIndex = 25;
             this.btn_RemoveFromBasket.UseVisualStyleBackColor = false;
             this.btn_RemoveFromBasket.Visible = false;
@@ -102,10 +102,10 @@
             // lbl_Quantity_Value
             // 
             this.lbl_Quantity_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Quantity_Value.Location = new System.Drawing.Point(5, 23);
+            this.lbl_Quantity_Value.Location = new System.Drawing.Point(5, 22);
             this.lbl_Quantity_Value.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Quantity_Value.Name = "lbl_Quantity_Value";
-            this.lbl_Quantity_Value.Size = new System.Drawing.Size(73, 12);
+            this.lbl_Quantity_Value.Size = new System.Drawing.Size(73, 13);
             this.lbl_Quantity_Value.TabIndex = 27;
             this.lbl_Quantity_Value.Text = "0 kom";
             this.lbl_Quantity_Value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
-            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.lbl_Quantity_Value);
             this.Controls.Add(this.btn_RemoveFromBasket);
             this.Controls.Add(this.lbl_DiscountText);
@@ -124,7 +124,7 @@
             this.Controls.Add(this.lbl_Item_UniqueName);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Atom_Item1366x768";
-            this.Size = new System.Drawing.Size(360, 40);
+            this.Size = new System.Drawing.Size(362, 42);
             this.ResumeLayout(false);
 
         }

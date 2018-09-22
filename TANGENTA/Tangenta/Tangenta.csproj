@@ -1390,6 +1390,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\TableInspection_Shop_dtSQLdb.bmp" />
     <None Include="Resources\TableInspection_icon.ico" />
     <None Include="Resources\TableInspection_ShopC.bmp" />
     <None Include="Resources\TableInspection_ShopB.bmp" />

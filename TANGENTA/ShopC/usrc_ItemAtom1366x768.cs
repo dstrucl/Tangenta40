@@ -29,14 +29,8 @@ namespace ShopC
         public delegate void delegate_btn_RemoveClick(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd);
         public event delegate_btn_RemoveClick btn_RemoveClick = null;
 
-
-        private TangentaDB.ShopABC m_InvoiceDB = null;
         public bool FromFactory = false;
         public bool FromStock = false;
-        private decimal dQuantity_FromStock = 0;
-        private decimal dQuantity_FromFactory = 0;
-        private int[] ctrla_left = null;
-        private int PictureBox_Width = 0;
 
         public string Item_UniqueName
         {
@@ -121,10 +115,17 @@ namespace ShopC
                         ref TaxRate,
                         ref NetPrice);
 
-            decimal dquantityall = -1;
-            if (appisd.dQuantity_all!=null)
+            decimal dquantityall = appisd.dQuantity_FromFactory+ appisd.dQuantity_FromStock;
+            if (dquantityall>0)
             {
-                dquantityall = appisd.dQuantity_all.v;
+                if (appisd.dQuantity_all == null)
+                {
+                    appisd.dQuantity_all = new DBTypes.decimal_v(dquantityall);
+                }
+                else
+                {
+                    appisd.dQuantity_all.v = dquantityall;
+                }
                 lbl_Quantity_Value.Text = dquantityall.ToString() + " " + sunit;
                 lbl_Quantity_Value.Visible = true;
             }

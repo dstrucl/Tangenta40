@@ -755,5 +755,10 @@ namespace ShopC
         {
 
         }
+
+        private void uItemStock_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

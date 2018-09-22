@@ -720,6 +720,16 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TableInspection_Shop_dtSQLdb {
+            get {
+                object obj = ResourceManager.GetObject("TableInspection_Shop_dtSQLdb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TableInspection_ShopA {
             get {
                 object obj = ResourceManager.GetObject("TableInspection_ShopA", resourceCulture);

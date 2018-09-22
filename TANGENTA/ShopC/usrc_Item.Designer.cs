@@ -150,6 +150,7 @@
             0});
             this.uItemStock.ClickItem += new System.EventHandler(this.uItemStock_Click);
             this.uItemStock.ValueChanged += new System.EventHandler(this.uItemStock_ValueChanged);
+            this.uItemStock.Load += new System.EventHandler(this.uItemStock_Load);
             // 
             // uItemFactory
             // 

@@ -384,8 +384,8 @@ namespace TangentaDB
             }
             else
             {
-                dt_ShopC_Item_In_Stock.Clear();
-                dt_ShopC_Item_In_Stock.Columns.Clear();
+                dt_ShopC_Item_In_Stock.Dispose();
+                dt_ShopC_Item_In_Stock = new DataTable();
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Item_ID = "@par_Item_ID";
@@ -435,6 +435,65 @@ namespace TangentaDB
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB.f_Stock.GetItemInStock:slq=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        public static bool GetStock(ref DataTable dtStock)
+        {
+            string Err = null;
+            if (dtStock == null)
+            {
+                dtStock = new DataTable();
+            }
+            else
+            {
+                dtStock.Dispose();
+                dtStock = new DataTable();
+            }
+            string sql = @"select s.ID as Stock_ID,
+                                  i.UniqueName as Item_UniqueName,
+                                  s.ImportTime as Stock_ImportTime,
+                                  s.dQuantity as Stock_dQuantity,
+                                  s.ExpiryDate as Stock_Expiry_Date,
+                                  s.PurchasePrice_Item_ID as  Stock_PurchasePrice_Item_ID,
+                                  s.Stock_AddressLevel1_ID,
+                                  s.Description as Stock_Description,
+                                  i.Name as Item_Name,
+                                  i.Code as Item_Code,
+                                  i.barcode as Item_barcode,
+                                  stk.Name as StockTake_Name,
+                                  stk.StockTake_Date,
+                                  org.Name as Supplier_Organisation_Name,
+                                  cfn.FirstName as Supplier_Person_FirstName,
+                                  cln.LastName as Supplier_Person_LastName,
+                                  cgsmp.GsmNumber as Supplier_Person_GsmNumber,
+                                  cemailp.Email as Supplier_Person_Email,
+                                  u.Symbol as UnitSymbol
+                                  from Stock s
+                                  inner join PurchasePrice_Item ppi on ppi.ID = s.PurchasePrice_Item_ID
+                                  inner join Item i on ppi.Item_ID = i.ID
+                                  inner join Unit u on i.Unit_ID = u.ID
+                                  inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                                  inner join StockTake stk on ppi.StockTake_ID = stk.ID
+                                  left join Supplier sup on stk.Supplier_ID = sup.ID
+                                  left join Contact con on sup.Contact_ID = con.ID
+                                  left join OrganisationData orgd on con.OrganisationData_ID = orgd.ID
+                                  left join Organisation org on orgd.Organisation_ID = org.ID
+                                  left join Person per on con.Person_ID = per.ID
+                                  left join cFirstName cfn on per.cFirstName_ID = cfn.ID
+                                  left join cLastName cln on per.cLastName_ID = cln.ID
+                                  left join PersonData perd on perd.Person_ID = per.ID
+                                  left join cGsmNumber_Person cgsmp on perd.cGsmNumber_Person_ID = cgsmp.ID
+                                  left join cEmail_Person cemailp on perd.cEmail_Person_ID = cemailp.ID
+                                  order by s.ImportTime desc";
+            if (DBSync.DBSync.ReadDataTable(ref dtStock, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.f_Stock.GetStock:slq=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

@@ -24,10 +24,9 @@ namespace usrc_Item_InsideGroup_Handler
         private string[] currentGroups = null;
 
         public List<string> m_sGroupList = new List<string>();
-        private bool bGroupChanged = false;
 
         public delegate void delegate_SizeChanged(int height);
-        public event delegate_SizeChanged SizeChanged = null;
+        public new event delegate_SizeChanged SizeChanged = null;
 
         public delegate void delegate_SelectionChanged(string []sgroup);
         public event delegate_SelectionChanged SelectionChanged = null;
@@ -279,7 +278,6 @@ namespace usrc_Item_InsideGroup_Handler
 
         public bool Init(DataTable xdt_Group)
         {
-            bGroupChanged = false;
             if (!usrc_Item_InsidePageHandler_Defined)
             {
                 AddHandlers();
@@ -287,7 +285,6 @@ namespace usrc_Item_InsideGroup_Handler
             }
             if (!Set_Groups_Table_Equals(xdt_Group))
             {
-                bGroupChanged = true;
                 m_dt_Group = xdt_Group.Copy();
                 groups_set();
                 groups_createcontrols();
@@ -466,7 +463,7 @@ namespace usrc_Item_InsideGroup_Handler
             }
         }
 
-        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index)
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler.eMode xmode)
         {
             if (oData is GroupInsideControl)
             {
@@ -502,7 +499,7 @@ namespace usrc_Item_InsideGroup_Handler
             getSelectedGroups();
         }
 
-        private void Usrc_Item_InsidePageHandler2_Paint(Control ctrl, object oData, int index)
+        private void Usrc_Item_InsidePageHandler2_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler.eMode xmode)
         {
             if (oData is GroupInsideControl)
             {
@@ -523,7 +520,7 @@ namespace usrc_Item_InsideGroup_Handler
             ShowRootLevel2();
         }
 
-        private void Usrc_Item_InsidePageHandler3_Paint(Control ctrl, object oData, int index)
+        private void Usrc_Item_InsidePageHandler3_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler.eMode xmode)
         {
             if (oData is GroupInsideControl)
             {

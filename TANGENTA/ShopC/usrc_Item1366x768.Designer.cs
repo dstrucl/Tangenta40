@@ -38,10 +38,11 @@
             // lbl_Item_UniqueName
             // 
             this.lbl_Item_UniqueName.AutoEllipsis = true;
+            this.lbl_Item_UniqueName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.lbl_Item_UniqueName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lbl_Item_UniqueName.Location = new System.Drawing.Point(3, 4);
             this.lbl_Item_UniqueName.Name = "lbl_Item_UniqueName";
-            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(99, 22);
+            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(99, 25);
             this.lbl_Item_UniqueName.TabIndex = 0;
             this.lbl_Item_UniqueName.Text = "label1";
             this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_UniqueName_Click);
@@ -51,16 +52,16 @@
             this.lbl_InStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.lbl_InStock.Location = new System.Drawing.Point(2, 44);
             this.lbl_InStock.Name = "lbl_InStock";
-            this.lbl_InStock.Size = new System.Drawing.Size(101, 13);
+            this.lbl_InStock.Size = new System.Drawing.Size(99, 13);
             this.lbl_InStock.TabIndex = 1;
             this.lbl_InStock.Text = "Stock:";
             this.lbl_InStock.Click += new System.EventHandler(this.lbl_InStock_Click);
             // 
             // lbl_Price
             // 
-            this.lbl_Price.Location = new System.Drawing.Point(1, 30);
+            this.lbl_Price.Location = new System.Drawing.Point(1, 31);
             this.lbl_Price.Name = "lbl_Price";
-            this.lbl_Price.Size = new System.Drawing.Size(74, 13);
+            this.lbl_Price.Size = new System.Drawing.Size(74, 12);
             this.lbl_Price.TabIndex = 2;
             this.lbl_Price.Text = "Price";
             this.lbl_Price.Click += new System.EventHandler(this.lbl_Price_Click);
@@ -68,9 +69,9 @@
             // picInBasket
             // 
             this.picInBasket.Image = ((System.Drawing.Image)(resources.GetObject("picInBasket.Image")));
-            this.picInBasket.Location = new System.Drawing.Point(77, 27);
+            this.picInBasket.Location = new System.Drawing.Point(77, 28);
             this.picInBasket.Name = "picInBasket";
-            this.picInBasket.Size = new System.Drawing.Size(26, 19);
+            this.picInBasket.Size = new System.Drawing.Size(26, 18);
             this.picInBasket.TabIndex = 3;
             this.picInBasket.TabStop = false;
             this.picInBasket.Visible = false;

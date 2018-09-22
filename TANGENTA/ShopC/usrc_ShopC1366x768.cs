@@ -190,7 +190,6 @@ namespace ShopC
 
             this.m_usrc_ItemList1366x768.ItemAdded += new usrc_ItemList1366x768.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.m_usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
-            string Err = null;
 
             SetColor();
         }
