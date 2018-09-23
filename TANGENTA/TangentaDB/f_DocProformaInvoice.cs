@@ -105,8 +105,12 @@ namespace TangentaDB
             {
                 dt_FinancialYears = new DataTable();
             }
-            dt_FinancialYears.Clear();
-            dt_FinancialYears.Columns.Clear();
+            else
+            {
+                dt_FinancialYears.Dispose();
+                dt_FinancialYears = new DataTable();
+            }
+            
             if (DBSync.DBSync.ReadDataTable(ref dt_FinancialYears, sql, ref Err))
             {
                 return true;
@@ -182,6 +186,7 @@ namespace TangentaDB
             }
 
         }
+
 
         public static bool Get_ShopC_ProformaInvoices(ref DataTable dtDoc)
         {

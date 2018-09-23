@@ -6,6 +6,7 @@
 */
 #endregion
 using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,7 +21,6 @@ namespace TangentaDB
         public static bool Get(ID PriceList_ID, ref ID Atom_PriceList_ID)
         {
             string Err = null;
-
             DataTable dt = new DataTable();
             string sql = @"select apl.ID
                             from Atom_PriceList apl
@@ -40,11 +40,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Atom_PriceList_ID==null)
-                    {
-                        Atom_PriceList_ID = new ID(); 
-                    }
-                    Atom_PriceList_ID.Set(dt.Rows[0]["ID"]);
+                    Atom_PriceList_ID=tf.set_ID(dt.Rows[0]["ID"]);
                     return true;
                 }
                 else
@@ -112,22 +108,25 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref ID Atom_PriceList_ID)
+        public static bool Get(string_v priceList_Name_v,
+                               string_v currency_Abbreviation_v,
+                               string_v currency_Name_v,
+                               ref ID Atom_PriceList_ID)
         {
             string Err = null;
-            if (appisd.Atom_PriceList_Name != null)
+            if (priceList_Name_v != null)
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_Atom_PriceList_Name = "@par_Atom_PriceList_Name";
-                SQL_Parameter par_Atom_PriceList_Name = new SQL_Parameter(spar_Atom_PriceList_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, appisd.Atom_PriceList_Name.v);
+                SQL_Parameter par_Atom_PriceList_Name = new SQL_Parameter(spar_Atom_PriceList_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, priceList_Name_v.v);
                 lpar.Add(par_Atom_PriceList_Name);
 
                 string spar_Atom_Currency_Abbreviation = "@par_Atom_Currency_Abbreviation";
-                SQL_Parameter par_Atom_Currency_Abbreviation = new SQL_Parameter(spar_Atom_Currency_Abbreviation, SQL_Parameter.eSQL_Parameter.Nvarchar, false, appisd.Atom_Currency_Abbreviation.v);
+                SQL_Parameter par_Atom_Currency_Abbreviation = new SQL_Parameter(spar_Atom_Currency_Abbreviation, SQL_Parameter.eSQL_Parameter.Nvarchar, false, currency_Abbreviation_v.v);
                 lpar.Add(par_Atom_Currency_Abbreviation);
 
                 string spar_Atom_Currency_Name = "@par_Atom_Currency_Name";
-                SQL_Parameter par_Atom_Currency_Name = new SQL_Parameter(spar_Atom_Currency_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, appisd.Atom_Currency_Name.v);
+                SQL_Parameter par_Atom_Currency_Name = new SQL_Parameter(spar_Atom_Currency_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, currency_Name_v.v);
                 lpar.Add(par_Atom_Currency_Name);
 
                 DataTable dt = new DataTable();
@@ -162,7 +161,7 @@ namespace TangentaDB
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                ID PriceList_ID = new ID(dt.Rows[0]["ID"]);
+                                ID PriceList_ID = tf.set_ID(dt.Rows[0]["ID"]);
                                 xPriceList m_xPriceList = new xPriceList();
                                 sql = "select Currency_ID from PriceList where PriceList.ID = " + PriceList_ID.ToString();
                                 dt.Clear();
@@ -175,7 +174,7 @@ namespace TangentaDB
                                         if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID))
                                         {
                                             ID Atom_PriceList_Name_ID = null;
-                                            if (f_Atom_PriceList_Name.Get(appisd.Atom_PriceList_Name.v, ref Atom_PriceList_Name_ID))
+                                            if (f_Atom_PriceList_Name.Get(priceList_Name_v.v, ref Atom_PriceList_Name_ID))
                                             {
                                                 sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,CreationDate,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description,CreationDate," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
 
@@ -236,6 +235,14 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:f_Atom_PriceList:Get:appisd.Atom_PriceList_Name==null");
                 return false;
             }
+        }
+
+        public static bool Get(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref ID atom_PriceList_ID)
+        {
+            return Get(appisd.Atom_PriceList_Name,
+                       appisd.Atom_Currency_Abbreviation,
+                       appisd.Atom_Currency_Name,
+                       ref atom_PriceList_ID);
         }
     }
 }

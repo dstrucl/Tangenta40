@@ -451,7 +451,10 @@ namespace ShopC
                 {
                     Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
                 }
-                this.m_InvoiceDB.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
+                this.m_InvoiceDB.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock,
+                                                                            dStockQuantity, 
+                                                                            ref dQuantitySelectedFromStock, 
+                                                                            ref UnitSymbol);
                 if (dQuantitySelectedFromStock != dStockQuantity)
                 {
                     string smsg = Item_UniqueName + ":" + lng.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;

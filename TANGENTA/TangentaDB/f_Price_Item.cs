@@ -144,5 +144,48 @@ namespace TangentaDB
             }
             return false;
         }
+
+        public static bool Get(
+                      ID Item_ID,
+                      ID PriceList_ID,
+                      ref decimal_v retailPricePerUnit_v,
+                      ref decimal_v discount_v,
+                      ref string_v taxName_v,
+                      ref decimal_v taxRate_v,
+                      ref string_v priceList_Name_v,
+                      ref ID price_Item_ID)
+        {
+            string sql = @"select  pi.ID as Price_Item_ID,
+                            pi.RetailPricePerUnit as RetailPricePerUnit,
+		                    pi.Discount as Discount,
+		                    tax.Name as TaxName,
+		                    tax.Rate as TaxRate,
+		                    pl_n.Name as PriceList_Name
+                            from Price_Item pi
+                            inner join Taxation tax on tax.ID = pi.Taxation_ID
+                            inner join PriceList pl on pl.ID = pi.PriceList_ID
+                            inner join PriceList_Name pl_n on pl_n.ID = pl.PriceList_Name_ID
+                            where pi.Item_ID = " + Item_ID.ToString() + " and pi.PriceList_ID = " + PriceList_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    retailPricePerUnit_v = tf.set_decimal(dt.Rows[0]["RetailPricePerUnit"]);
+                    discount_v = tf.set_decimal(dt.Rows[0]["Discount"]);
+                    taxName_v = tf.set_string(dt.Rows[0]["TaxName"]);
+                    taxRate_v = tf.set_decimal(dt.Rows[0]["TaxRate"]);
+                    priceList_Name_v = tf.set_string(dt.Rows[0]["PriceList_Name"]);
+                    price_Item_ID = tf.set_ID(dt.Rows[0]["Price_Item_ID"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Price_Item:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

@@ -116,7 +116,12 @@
     <Compile Include="f_Atom_Customer_Org.cs" />
     <Compile Include="f_Atom_cZIP_Org.cs" />
     <Compile Include="f_Atom_cZIP_Person.cs" />
+    <Compile Include="f_Atom_Expiry.cs" />
     <Compile Include="f_Atom_FVI_SLO_RealEstateBP.cs" />
+    <Compile Include="f_Atom_Item_Image.cs" />
+    <Compile Include="f_Atom_Item.cs" />
+    <Compile Include="f_Atom_Item_barcode.cs" />
+    <Compile Include="f_Atom_Item_Description.cs" />
     <Compile Include="f_Atom_Item_Name.cs" />
     <Compile Include="f_Atom_Logo.cs" />
     <Compile Include="f_Atom_IP_address.cs" />
@@ -133,6 +138,9 @@
     <Compile Include="f_Atom_Person.cs" />
     <Compile Include="f_Atom_PriceList.cs" />
     <Compile Include="f_Atom_PriceList_Name.cs" />
+    <Compile Include="f_Atom_Price_Item.cs" />
+    <Compile Include="f_Atom_Unit.cs" />
+    <Compile Include="f_Atom_Warranty.cs" />
     <Compile Include="f_Atom_WorkAreaImage.cs" />
     <Compile Include="f_Atom_WorkPeriod.cs" />
     <Compile Include="f_Atom_WorkPeriod_Type.cs" />
@@ -235,7 +243,7 @@
     <Compile Include="Doc_ShopC_Item.cs" />
     <Compile Include="f_Supplier.cs" />
     <Compile Include="f_Taxation.cs" />
-    <Compile Include="f_TaxationAtom.cs" />
+    <Compile Include="f_Atom_Taxation.cs" />
     <Compile Include="f_TermsOfPayment.cs" />
     <Compile Include="f_Trucking.cs" />
     <Compile Include="f_Unit.cs" />

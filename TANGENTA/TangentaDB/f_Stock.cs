@@ -276,6 +276,28 @@ namespace TangentaDB
             }
         }
 
+        public static bool UpdateQuantity(ID stock_ID, decimal xdQuantity)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            string spar_dQuantity = "@par_dQuantity";
+            SQL_Parameter par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, xdQuantity);
+            lpar.Add(par_dQuantity);
+
+            string sql = "update Stock set dQuantity = " + spar_dQuantity
+                            + " where ID = " + stock_ID.ToString();
+            object oret = null;
+            string Err = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Stock:UpdateQuantity:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
 
         public static bool Remove(ID Stock_ID, ID StockTake_ID)
         {
@@ -293,9 +315,9 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_StockTake_AdditionalCost.cs:Remove:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:f_Stock:Remove:sql=" + sql + "\r\nErr=" + Err);
+                return false;
             }
-            return false;
         }
 
         public static bool Update(ID xAtom_WorkPeriod_ID,
