@@ -363,11 +363,11 @@ namespace ShopC
                 {
                     if (stocks.Count>0)
                     {
-                        if (!update_stock_elements_in_Doc_ShopC_Item(dtDoc_ShopC_Item,stocks))
-                        {
-                            LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:IncrementBasket:!update_stock_elements_in_Doc_ShopC_Item!");
-                            return;
-                        }
+                        //if (!update_stock_elements_in_Doc_ShopC_Item(dtDoc_ShopC_Item,stocks))
+                        //{
+                        //    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:IncrementBasket:!update_stock_elements_in_Doc_ShopC_Item!");
+                        //    return;
+                        //}
                     }
                 }
 
@@ -430,7 +430,7 @@ namespace ShopC
                         //                 ref xData.Taxation_Rate,
 
                         decimal retailPricePerunit = 0;
-                        if (xData.RetailPricePerUnit!=null)
+                        if (xData.RetailPricePerUnit != null)
                         {
                             retailPricePerunit = xData.RetailPricePerUnit.v;
                         }
@@ -439,26 +439,28 @@ namespace ShopC
                         {
                             taxRate = xData.Taxation_Rate.v;
                         }
-                        xData.
-                        decimal retailPriceWithDisount = decimal.Round(retailPricePerunit * stq.dQuantity * (1 - xData.ExtraDiscount),GlobalData.BaseCurrency.DecimalPlaces);
+
+                        decimal retailPriceWithDisount = decimal.Round(retailPricePerunit * stq.dQuantity * (1 - xData.ExtraDiscount), GlobalData.BaseCurrency.DecimalPlaces);
                         decimal netprice = decimal.Round(retailPriceWithDisount / (1 + taxRate), GlobalData.BaseCurrency.DecimalPlaces);
                         decimal taxprice = retailPriceWithDisount - netprice;
 
+                        //xData.Set_Price_Item_Stock
 
-                        if (!f_DocInvoice_ShopC_Item.Insert(Doc_ShopC_Item_ID,
-                                                            stq.dQuantity,
-                                                            retailPriceWithDisount,
-                                                            taxprice,
-                                                            this.m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                            
-                                                            stq.Stock_ID))
-                        {
-                            LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.InsertWithCopyFirst");
-                            return false;
-                        }
 
+                        //if (!f_DocInvoice_ShopC_Item.Insert(Doc_ShopC_Item_ID,
+                        //                                    stq.dQuantity,
+                        //                                    retailPriceWithDisount,
+                        //                                    taxprice,
+                        //                                    this.m_ShopBC.m_CurrentDoc.Doc_ID,
+                        //                                    atom_Price_Item_ID,
+                        //                                    stq.Stock_ID))
+                        //{
+                        //    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.InsertWithCopyFirst");
+                        //    return false;
+                        //}
                     }
                 }
+            }
             return true;
         }
 

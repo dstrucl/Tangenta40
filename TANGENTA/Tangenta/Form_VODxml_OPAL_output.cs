@@ -335,6 +335,8 @@ LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocIn
 LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID 
 LEFT JOIN Atom_Comment1 JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$_acmt1 ON JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Atom_Comment1_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$_acmt1.ID 
 LEFT JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID 
+LEFT JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod_$_aed.ID = JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID 
+LEFT JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ID = JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Office_ID 
 LEFT JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID 
 LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID 
 LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID 
@@ -649,14 +651,26 @@ left join PaymentType pt on pt.ID = mofpdi.PaymentType_ID " + scond + sInvoiceCo
                                     //+ ";" +gl21_Ime_in_Priimek_osebe_ki_je_spremenila_racun
                                     // + ";" +gl22_OPOMBE + "\r\n";
 
-                                    sql = @"select 
-                                        JOURNAL_DocInvoice_$_jpinvt_$$Description,
-                                        JOURNAL_DocInvoice_$$EventTime,
-                                        JOURNAL_DocInvoice_$_awperiod_$_acomp_$$UserName,
-                                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
-                                        JOURNAL_DocInvoice_$_awperiod_$$ID
-                                    from JOURNAL_DocInvoice_VIEW where JOURNAL_DocInvoice_$_dinv_$$GrossSum < 0 and JOURNAL_DocInvoice_$_dinv_$$Storno = 1 and JOURNAL_DocInvoice_$_dinv_$$ID = " + ic_ID.ToString();
+                                    sql = @"SELECT 
+	 JOURNAL_DocInvoice_$_jpinvt.Description as JOURNAL_DocInvoice_$_jpinvt_$$Description,
+	jdi.EventTime as JOURNAL_DocInvoice_$$EventTime,
+	JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp_$_acun.UserName as JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp_$_acun_$$UserName,
+	JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName as JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+	JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName as JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
+	JOURNAL_DocInvoice_$_awperiod.ID as JOURNAL_DocInvoice_$_awperiod_$$ID
+ FROM JOURNAL_DocInvoice jdi
+INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON jdi.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID 
+LEFT JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON jdi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
+LEFT JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON jdi.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID 
+LEFT JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID 
+LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID 
+LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID 
+LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID 
+LEFT JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID 
+LEFT JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID 
+LEFT JOIN Atom_ComputerUserName JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp_$_acun ON JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.Atom_ComputerUserName_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp_$_acun.ID 
+LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
+ where JOURNAL_DocInvoice_$_dinv.GrossSum < 0 and JOURNAL_DocInvoice_$_dinv.Storno = 1 and JOURNAL_DocInvoice_$_dinv.ID = " + ic_ID.ToString();
 
                                     DataTable dt_XML_Invoice_Storno = new DataTable();
                                     if (DBSync.DBSync.ReadDataTable(ref dt_XML_Invoice_Storno,sql, ref Err))
@@ -928,36 +942,55 @@ left join PaymentType pt on pt.ID = mofpdi.PaymentType_ID " + scond + sInvoiceCo
             int iEndMonth = xdtEndTime.Month;
             int iEndDay = xdtEndTime.Day;
             DateTime dtnow = DateTime.Now;
-            if (iStartYear==dtnow.Year)
+
+            if (((xdtStartTime.Day == 1) && (xdtStartTime.Hour == 0) && (xdtStartTime.Minute == 0) && (xdtStartTime.Second == 0))
+                &&
+                ((xdtEndTime.Day == 1) && (xdtEndTime.Hour == 0) && (xdtEndTime.Minute == 0) && (xdtEndTime.Second == 0))
+                && ((xdtEndTime.Month == xdtStartTime.Month +1)|| ((xdtEndTime.Month == 1)&&(xdtStartTime.Month==12)))
+                )
             {
-                if (iStartMonth == dtnow.Month )
-                {
-                    MessageBox.Show(lng.s_VODxml_export_for.s + s_period()+"\r\n"+lng.s_you_can_do_VODxml_Output_just_for_past_month.s);
-                    return false;
-                }
+                iObracunsko_Obdobje = iStartMonth;
+                iLeto_Obracunskega_Obdobja = iStartYear;
+                return true;
             }
 
-            if (iStartMonth + 1 == iEndMonth)
-            {
-                if (iEndDay == 1)
-                {
-                    iObracunsko_Obdobje = iStartMonth;
-                    iLeto_Obracunskega_Obdobja = iStartYear;
-                    return true;
-                }
-            }
-            else
-            {
-                if ((iStartMonth == 12)&&(iEndMonth==1))
-                {
-                    if (iEndDay == 1)
-                    {
-                        iObracunsko_Obdobje = iStartMonth;
-                        iLeto_Obracunskega_Obdobja = iStartYear;
-                        return true;
-                    }
-                }
-            }
+
+            //if (iStartMonth == iEndMonth)
+            //{
+            //    DateTime nextday = xdtEndTime.AddDays(1);
+
+            //    if ((xdtEndTime.Day == 1) && (xdtEndTime.Hour==0) && (xdtEndTime.Minute == 0) && (xdtEndTime.Second == 0))
+            //    {
+            //        iObracunsko_Obdobje = iStartMonth;
+            //        iLeto_Obracunskega_Obdobja = iStartYear;
+            //        return true;
+            //    }
+            //    else if (nextday.Month == xdtEndTime.Month + 1)
+            //    {
+            //        iObracunsko_Obdobje = iStartMonth;
+            //        iLeto_Obracunskega_Obdobja = iStartYear;
+            //        return true;
+            //    }
+            //    else if ((nextday.Month == 1) && (xdtEndTime.Month == 12))
+            //    {
+            //        iObracunsko_Obdobje = iStartMonth;
+            //        iLeto_Obracunskega_Obdobja = iStartYear;
+            //        return true;
+
+            //    }
+            //}
+            //else
+            //{
+            //    if ((iStartMonth == 12) && (iEndMonth == 1))
+            //    {
+            //        if (iEndDay == 1)
+            //        {
+            //            iObracunsko_Obdobje = iStartMonth;
+            //            iLeto_Obracunskega_Obdobja = iStartYear;
+            //            return true;
+            //        }
+            //    }
+            //}
             MessageBox.Show(lng.s_VODxml_export_for.s + s_period() + "\r\n" + lng.s_you_must_have_select_one_month_period_to_do_VODxml_Output.s);
             return false;
         }
