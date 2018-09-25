@@ -276,7 +276,7 @@ namespace TangentaDB
                     string sValue_Stock_ID = null;
                     if (Stock_ID != null)
                     {
-                        decimal dquantity = stock_data.dQuantity.v;
+                        decimal dquantity = stock_data.dQuantity_v.v;
                         StaticLib.Func.CalculatePrice(appisd.RetailPricePerUnit.v, dquantity, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
                         SQL_Parameter par_dQuantity = null;
                         par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dquantity);
@@ -461,10 +461,10 @@ namespace TangentaDB
                                         appisd.Atom_Currency_Name,
                                         appisd.Atom_Item_Image_Hash,
                                         appisd.Atom_Item_Image_Data,
-                                        appisd.RetailPricePerUnit.v,
-                                        appisd.Discount.v,
-                                        appisd.Atom_Taxation_Name.v,
-                                        appisd.Atom_Taxation_Rate.v,
+                                        appisd.RetailPricePerUnit,
+                                        appisd.Discount,
+                                        appisd.Atom_Taxation_Name,
+                                        appisd.Atom_Taxation_Rate,
                                         ref atom_Taxation_ID,
                                         ref appisd.Atom_Item_ID,
                                         ref appisd.Atom_Price_Item_ID

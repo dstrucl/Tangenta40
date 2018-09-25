@@ -150,16 +150,16 @@ namespace TangentaDB
             }
         }
 
-        public static bool Insert(ID doc_ShopC_Item_ID,
-                                  decimal xdQuantity,
-                                  decimal_v extraDiscount_v,
-                                  decimal retailPriceWithDiscount,
-                                  decimal taxPrice,
-                                  ID docProformaInvoice_ID,
-                                  ID atom_Price_Item_ID,
-                                  DateTime_v expiryDate_v,
-                                  ID stock_ID,
-                                  ref ID DocInvoice_ShopC_Item_ID)
+
+        public static bool Insert(decimal xdQuantity,
+                              decimal_v extraDiscount_v,
+                              decimal retailPriceWithDiscount,
+                              decimal taxPrice,
+                              ID docInvoice_ID,
+                              ID atom_Price_Item_ID,
+                              DateTime_v expiryDate_v,
+                              ID stock_ID,
+                              ref ID docProformaInvoice_ShopC_Item_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -184,9 +184,9 @@ namespace TangentaDB
             SQL_Parameter par_taxPrice = new SQL_Parameter(spar_taxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, taxPrice);
             lpar.Add(par_taxPrice);
 
-            string spar_DocProformaInvoice_ID = "@par_DocProformaInvoice_ID";
-            SQL_Parameter par_DocProformaInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, false, docProformaInvoice_ID);
-            lpar.Add(par_DocProformaInvoice_ID);
+            string spar_DocInvoice_ID = "@par_DocInvoice_ID";
+            SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, false, docInvoice_ID);
+            lpar.Add(par_DocInvoice_ID);
 
             string spar_atom_Price_Item_ID = "@par_atom_Price_Item_ID";
             SQL_Parameter par_atom_Price_Item_ID = new SQL_Parameter(spar_atom_Price_Item_ID, false, atom_Price_Item_ID);
@@ -210,11 +210,11 @@ namespace TangentaDB
                            (
                             dQuantity,
                             ExtraDiscount,
-                            RetailPriceWithDiscount
-                            TaxPrice
-                            DocProformaInvoice_ID
-                            Atom_Price_Item_ID
-                            ExpiryDate
+                            RetailPriceWithDiscount,
+                            TaxPrice,
+                            DocInvoice_ID,
+                            Atom_Price_Item_ID,
+                            ExpiryDate,
                             Stock_ID)
                             values
                             (
@@ -222,12 +222,12 @@ namespace TangentaDB
                             " + sval_extraDiscount + @",
                             " + spar_retailPriceWithDiscount + @",
                             " + spar_taxPrice + @",
-                            " + spar_DocProformaInvoice_ID + @",
+                            " + spar_DocInvoice_ID + @",
                             " + spar_atom_Price_Item_ID + @",
                             " + sval_expiryDate + @",
                             " + spar_stock_ID + @")";
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopC_Item_ID, ref Err, "DocProformaInvoice_ShopC_Item"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref docProformaInvoice_ShopC_Item_ID, ref Err, "DocProformaInvoice_ShopC_Item"))
             {
                 return true;
             }

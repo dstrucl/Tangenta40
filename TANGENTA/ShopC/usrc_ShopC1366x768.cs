@@ -449,10 +449,10 @@ namespace ShopC
                         stock_data.Stock_ImportTime = tf.set_DateTime(dr["Stock_ImportTime"]);
                         stock_data.Stock_ExpiryDate = tf.set_DateTime(dr["Stock_Expiry_Date"]);
                         decimal_v dQuantity_v = tf.set_decimal(dr["Stock_dQuantity"]);
-                        stock_data.dQuantity = tf.set_decimal(dr["TakeFromStock"]);
+                        stock_data.dQuantity_v = tf.set_decimal(dr["TakeFromStock"]);
                         decimal_v dQuantityTakenFromStock_v = tf.set_decimal(dr["TakeFromStock"]);
                         decimal dNewQuantityInStock = dQuantity_v.v - dQuantityTakenFromStock_v.v;
-                        stock_data.dQuantity_New_in_Stock = new decimal_v(dNewQuantityInStock);
+                        stock_data.dQuantity_New_in_Stock_v = new decimal_v(dNewQuantityInStock);
                         xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
                     }
                 }
@@ -467,8 +467,8 @@ namespace ShopC
                 Stock_Data stock_data = new Stock_Data();
                 stock_data.Stock_ID = null;
                 stock_data.Stock_ImportTime = null;
-                stock_data.dQuantity = new decimal_v(dFromFactoryQuantity);
-                stock_data.dQuantity_New_in_Stock = null;
+                stock_data.dQuantity_v = new decimal_v(dFromFactoryQuantity);
+                stock_data.dQuantity_New_in_Stock_v = null;
                 DateTime dtNow = DateTime.Now;
                 DateTime dtExpiry = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day);
                 dtExpiry = dtExpiry.AddMonths(1);

@@ -225,6 +225,20 @@ namespace TangentaDB
             m_ShopShelf_Source.Add_Stock_Data(xItem_Data, xFactoryQuantity, xStockQuantity, b_from_factory);
         }
 
+        public void AddQuantity(ID doc_ShopC_Item_ID,ID stock_ID, decimal dqAdd)
+        {
+            foreach (Stock_Data std in m_ShopShelf_Source.Stock_Data_List)
+            {
+                if (ID.Validate(std.Stock_ID))
+                {
+                    if (std.Stock_ID.Equals(stock_ID))
+                    {
+                        decimal dqcur = std.dQuantity_v.v;
+                        std.dQuantity_v.v = dqcur+ dqAdd;
+                    }
+                }
+            }
+        }
 
         public void GetPrices(
                         ref decimal Discount, 

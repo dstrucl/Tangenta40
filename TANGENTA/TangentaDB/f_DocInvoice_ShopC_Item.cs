@@ -217,8 +217,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Insert(ID doc_ShopC_Item_ID, 
-                                  decimal xdQuantity,
+        public static bool Insert(decimal xdQuantity,
                                   decimal_v extraDiscount_v,
                                   decimal retailPriceWithDiscount,
                                   decimal taxPrice,
@@ -277,11 +276,11 @@ namespace TangentaDB
                            (
                             dQuantity,
                             ExtraDiscount,
-                            RetailPriceWithDiscount
-                            TaxPrice
-                            DocInvoice_ID
-                            Atom_Price_Item_ID
-                            ExpiryDate
+                            RetailPriceWithDiscount,
+                            TaxPrice,
+                            DocInvoice_ID,
+                            Atom_Price_Item_ID,
+                            ExpiryDate,
                             Stock_ID)
                             values
                             (

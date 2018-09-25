@@ -156,19 +156,19 @@ namespace TangentaDB
                         {
                             if (xItem_Data.Stock_dQuantity.v > 0)
                             {
-                                stock_data.dQuantity = new DBTypes.decimal_v();
-                                stock_data.dQuantity.v = xItem_Data.Stock_dQuantity.v;
+                                stock_data.dQuantity_v = new DBTypes.decimal_v();
+                                stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity.v;
                             }
                             else
                             {
                                 // set stock_ID to null;
                                 stock_data.Stock_ID = null;
-                                stock_data.dQuantity = null;
+                                stock_data.dQuantity_v = null;
                             }
                         }
                         else
                         {
-                            stock_data.dQuantity = null;
+                            stock_data.dQuantity_v = null;
                         }
 
                         if (xItem_Data.StockTake_Draft != null)
@@ -247,14 +247,14 @@ namespace TangentaDB
 
                         if (xItem_Data.Stock_dQuantity != null)
                         {
-                            stock_data.dQuantity = new DBTypes.decimal_v();
-                            stock_data.dQuantity.v = xItem_Data.Stock_dQuantity.v;
+                            stock_data.dQuantity_v = new DBTypes.decimal_v();
+                            stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity.v;
                         }
                         else
                         {
                             // set stock_ID to null;
                             stock_data.Stock_ID = null;
-                            stock_data.dQuantity = null;
+                            stock_data.dQuantity_v = null;
                         }
                         xItem_Data.Stock_Data_List.Add(stock_data);
                         ListOfItems.Add(xItem_Data);
@@ -375,9 +375,9 @@ namespace TangentaDB
                         {
                             if (stock_data.Stock_ID.Equals(stock_id))
                             {
-                                if (stock_data.dQuantity != null)
+                                if (stock_data.dQuantity_v != null)
                                 {
-                                    stock_data.dQuantity.v = dQuantity_New_InStock;
+                                    stock_data.dQuantity_v.v = dQuantity_New_InStock;
                                     return;
                                 }
                             }

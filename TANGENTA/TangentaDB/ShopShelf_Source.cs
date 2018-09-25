@@ -166,11 +166,11 @@ namespace TangentaDB
             if (b_from_factory)
             {
                 Stock_Data stock_data = new Stock_Data();
-                if (stock_data.dQuantity == null)
+                if (stock_data.dQuantity_v == null)
                 {
-                    stock_data.dQuantity = new decimal_v();
+                    stock_data.dQuantity_v = new decimal_v();
                 }
-                stock_data.dQuantity.v = xFactoryQuantity;
+                stock_data.dQuantity_v.v = xFactoryQuantity;
                 Stock_Data_List.Add(stock_data);
             }
             else
@@ -196,17 +196,17 @@ namespace TangentaDB
                             if (dquantity > sd.dQuantity_from_stock.v)
                             {
                                 dquantity -= sd.dQuantity_from_stock.v;
-                                if (stock_data.dQuantity == null)
+                                if (stock_data.dQuantity_v == null)
                                 {
-                                    stock_data.dQuantity = new decimal_v();
+                                    stock_data.dQuantity_v = new decimal_v();
                                 }
-                                stock_data.dQuantity.v = sd.dQuantity_from_stock.v;
-                                sd.dQuantity.v = 0;
-                                if (stock_data.dQuantity_New_in_Stock == null)
+                                stock_data.dQuantity_v.v = sd.dQuantity_from_stock.v;
+                                sd.dQuantity_v.v = 0;
+                                if (stock_data.dQuantity_New_in_Stock_v == null)
                                 {
-                                    stock_data.dQuantity_New_in_Stock = new decimal_v();
+                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
                                 }
-                                stock_data.dQuantity_New_in_Stock.v = 0;
+                                stock_data.dQuantity_New_in_Stock_v.v = 0;
                                 stock_data.Stock_ID = new ID(sd.Stock_ID);
                                 Stock_Data_List.Add(stock_data);
                             }
@@ -214,15 +214,15 @@ namespace TangentaDB
                             {
                                 if (stock_data.dQuantity_from_stock == null)
                                 {
-                                    stock_data.dQuantity = new decimal_v();
+                                    stock_data.dQuantity_v = new decimal_v();
                                 }
-                                stock_data.dQuantity.v = dquantity;
-                                sd.dQuantity.v -= dquantity;
-                                if (stock_data.dQuantity_New_in_Stock == null)
+                                stock_data.dQuantity_v.v = dquantity;
+                                sd.dQuantity_v.v -= dquantity;
+                                if (stock_data.dQuantity_New_in_Stock_v == null)
                                 {
-                                    stock_data.dQuantity_New_in_Stock = new decimal_v();
+                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
                                 }
-                                stock_data.dQuantity_New_in_Stock.v = sd.dQuantity.v;
+                                stock_data.dQuantity_New_in_Stock_v.v = sd.dQuantity_v.v;
                                 stock_data.Stock_ID = new ID(sd.Stock_ID);
                                 dquantity = 0;
                                 Stock_Data_List.Add(stock_data);

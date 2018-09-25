@@ -67,9 +67,9 @@ namespace TangentaDB
         public string_v PurchaseOrganisation_Name = null;
         public PostAddress_v PurchaseOrganisation_Address = new PostAddress_v();
         public DateTime_v ExpiryDate;
-        public string s1_name;
-        public string s2_name;
-        public string s3_name;
+        public string s1_name = null;
+        public string s2_name = null;
+        public string s3_name = null;
 
         public List<Stock_Data> Stock_Data_List = new List<Stock_Data>();
 
@@ -91,6 +91,7 @@ namespace TangentaDB
             Stock_ExpiryDate = tf.set_DateTime(xdr["Stock_ExpiryDate"]);
             Stock_dQuantity = tf.set_decimal(xdr["Stock_dQuantity"]);
             RetailPricePerUnit = tf.set_decimal(xdr["RetailPricePerUnit"]);
+            Price_Item_Discount = tf.set_decimal(xdr["Price_Item_Discount"]);
             Stock_ImportTime = tf.set_DateTime(xdr["Stock_ImportTime"]);
             StockTake_Draft = tf.set_bool(xdr["StockTake_Draft"]);
             Item_ID = tf.set_ID(xdr["Item_ID"]);
@@ -155,9 +156,9 @@ namespace TangentaDB
                         {
                             if (stock_data.StockTake_Draft.v == false)
                             {
-                                if (stock_data.dQuantity != null)
+                                if (stock_data.dQuantity_v != null)
                                 {
-                                    d += stock_data.dQuantity.v;
+                                    d += stock_data.dQuantity_v.v;
                                 }
                             }
                         }

@@ -32,17 +32,15 @@ namespace TangentaDB
                         string_v currencyName_v,
                         string_v item_Image_Hash_v,
                         byte_array_v item_Image_Data_v,
-                        decimal retailPricePerUnit,
-                        decimal discunt,
-                        string taxationName,
-                        decimal taxationRate,
+                        decimal_v retailPricePerUnit_v,
+                        decimal_v discunt_v,
+                        string_v taxationName_v,
+                        decimal_v taxationRate_v,
                         ref ID atom_Taxation_ID,
                         ref ID atom_Item_ID,
                         ref ID atom_Price_Item_ID)
         {
 
-            string_v taxationName_v = new string_v(taxationName);
-            decimal_v taxationRate_v = new decimal_v(taxationRate);
 
             if (f_Atom_Taxation.Get(taxationName_v, taxationRate_v, ref atom_Taxation_ID))
             {
@@ -94,11 +92,11 @@ namespace TangentaDB
 
 
                                 string spar_RetailPricePerUnit = "@par_RetailPricePerUnit";
-                                DBConnectionControl40.SQL_Parameter par_RetailPricePerUnit = new DBConnectionControl40.SQL_Parameter(spar_RetailPricePerUnit, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, retailPricePerUnit);
+                                DBConnectionControl40.SQL_Parameter par_RetailPricePerUnit = new DBConnectionControl40.SQL_Parameter(spar_RetailPricePerUnit, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, retailPricePerUnit_v.v);
                                 lpar.Add(par_RetailPricePerUnit);
 
                                 string spar_Discount = "@par_Discount";
-                                DBConnectionControl40.SQL_Parameter par_Discount = new DBConnectionControl40.SQL_Parameter(spar_Discount, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, discunt);
+                                DBConnectionControl40.SQL_Parameter par_Discount = new DBConnectionControl40.SQL_Parameter(spar_Discount, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, discunt_v.v);
                                 lpar.Add(par_Discount);
 
 
