@@ -236,5 +236,88 @@ namespace TangentaDB
                 }
             }
         }
+
+        public void Add_Stock_Data_WithNoTakeForItemData(Item_Data xItem_Data, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
+        {
+            if (b_from_factory)
+            {
+                Stock_Data stock_data = new Stock_Data();
+                if (stock_data.dQuantity_v == null)
+                {
+                    stock_data.dQuantity_v = new decimal_v();
+                }
+                stock_data.dQuantity_v.v = xFactoryQuantity;
+                Stock_Data_List.Add(stock_data);
+            }
+            else
+            {
+                decimal dquantity = xStockQuantity;
+                xItem_Data.Stock_Data_List.Sort((x, y) => Compare_Stock_ExpiryDate(x, y));
+                foreach (Stock_Data sd in xItem_Data.Stock_Data_List)
+                {
+                    if (dquantity > 0)
+                    {
+                        if (sd.dQuantity_from_stock != null)
+                        {
+                            Stock_Data stock_data = new Stock_Data();
+                            if (sd.StockTake_Draft != null)
+                            {
+                                stock_data.StockTake_Draft = new bool_v(sd.StockTake_Draft.v);
+                            }
+                            else
+                            {
+                                stock_data.StockTake_Draft = null;
+                            }
+
+                            if (dquantity > sd.dQuantity_from_stock.v)
+                            {
+                                dquantity -= sd.dQuantity_from_stock.v;
+                                if (stock_data.dQuantity_v == null)
+                                {
+                                    stock_data.dQuantity_v = new decimal_v();
+                                }
+                                stock_data.dQuantity_v.v = sd.dQuantity_from_stock.v;
+                                sd.dQuantity_v.v = 0;
+                                if (stock_data.dQuantity_New_in_Stock_v == null)
+                                {
+                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
+                                }
+                                stock_data.dQuantity_New_in_Stock_v.v = 0;
+                                stock_data.Stock_ID = new ID(sd.Stock_ID);
+                                Stock_Data_List.Add(stock_data);
+                            }
+                            else
+                            {
+                                if (stock_data.dQuantity_from_stock == null)
+                                {
+                                    stock_data.dQuantity_v = new decimal_v();
+                                }
+                                stock_data.dQuantity_v.v = dquantity;
+                                if (stock_data.dQuantity_New_in_Stock_v == null)
+                                {
+                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
+                                }
+                                stock_data.dQuantity_New_in_Stock_v.v = sd.dQuantity_v.v;
+                                stock_data.Stock_ID = new ID(sd.Stock_ID);
+                                dquantity = 0;
+                                Stock_Data_List.Add(stock_data);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        internal void Add_Stock_Data(ID stock_ID, decimal xdQuantity)
+        {
+            Stock_Data std = new Stock_Data();
+            std.Stock_ID = stock_ID;
+            std.dQuantity_v = new decimal_v(xdQuantity);
+            this.Stock_Data_List.Add(std);
+        }
     }
 }

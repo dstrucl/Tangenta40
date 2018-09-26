@@ -513,7 +513,7 @@ namespace ShopC
         {
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
             m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                                        this,
+                                                                        null,
                                                                         m_Item_Data,
                                                                         uItemFactory.Value,
                                                                         uItemStock.Value,
@@ -539,7 +539,7 @@ namespace ShopC
                 {
                     Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
                     m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                                                   this,
+                                                                                   null,
                                                                                    m_Item_Data,
                                                                                    uItemFactory.Value,
                                                                                    uItemStock.Value,
@@ -559,7 +559,7 @@ namespace ShopC
             {
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
                 m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                                                this,
+                                                                                null,
                                                                                 m_Item_Data,
                                                                                 uItemFactory.Value,
                                                                                 uItemStock.Value,

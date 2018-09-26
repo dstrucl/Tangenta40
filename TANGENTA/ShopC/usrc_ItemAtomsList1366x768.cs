@@ -195,6 +195,12 @@ namespace ShopC
             {
                 this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID, DocTyp, appisd, this.m_ShopBC.m_CurrentDoc.m_ShopShelf);
             }
+
+            if ((appisd.dQuantity_FromFactory == 0)&&(appisd.dQuantity_FromStock==0))
+            {
+                // this is invalid case 
+                this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveAll(DocTyp, appisd);
+            }
         }
     
 
@@ -246,6 +252,46 @@ namespace ShopC
             if (!m_ShopBC.m_CurrentDoc.bDraft)
             {
                 emode = usrc_Item_InsidePageHandler.eMode.VIEW;
+            }
+            string sinfo = "";
+            if (m_ShopBC.m_CurrentDoc.bDraft)
+            {
+                sinfo = myOrg.m_myOrg_Office.ShortName_v.v+"-"+ myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name+"-"+lng.s_Draft.s+":"+ m_ShopBC.m_CurrentDoc.DraftNumber.ToString()+"/"+ m_ShopBC.m_CurrentDoc.FinancialYear.ToString();
+            }
+            else
+            {
+                bool bstorno = false;
+                if (m_ShopBC.m_CurrentDoc.TInvoice.bStorno_v!=null)
+                {
+                    bstorno = m_ShopBC.m_CurrentDoc.TInvoice.bStorno_v.v;
+                }
+                if (bstorno)
+                {
+                    sinfo = Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(myOrg.m_myOrg_Office.ShortName_v.v,
+                                                                                    myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name,
+                                                                                    m_ShopBC.m_CurrentDoc.NumberInFinancialYear,
+                                                                                    m_ShopBC.m_CurrentDoc.FinancialYear,
+                                                                                    bstorno,
+                                                                                    lng.s_StornoInvoice.s
+                                                                                    );
+                }
+                else
+                {
+                    sinfo = Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(myOrg.m_myOrg_Office.ShortName_v.v,
+                                                                                    myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name,
+                                                                                    m_ShopBC.m_CurrentDoc.NumberInFinancialYear,
+                                                                                    m_ShopBC.m_CurrentDoc.FinancialYear,
+                                                                                    false,
+                                                                                    null
+                                                                                    );
+                }
+
+            }
+
+            if (m_ShopBC.IsDocInvoice)
+            {
+
+                lbl_InvoiceInfo.Text = lng.s_DocInvoice.s + ":" + sinfo;
             }
             this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
             this.usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
@@ -302,6 +348,12 @@ namespace ShopC
         internal void Clear()
         {
             
+        }
+
+        private void showTablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form pform = Global.f.GetParentForm(this);
+            Form_ShopC_TableInspection.DoShow(pform, m_ShopBC);
         }
     }
 }

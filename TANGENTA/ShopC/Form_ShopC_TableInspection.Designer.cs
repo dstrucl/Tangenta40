@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopC_TableInspection));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.rdb_Invoice = new System.Windows.Forms.RadioButton();
-            this.rdb_ProformaInvoice = new System.Windows.Forms.RadioButton();
-            this.dgvx_ShopC_Docs = new DataGridView_2xls.DataGridView2xls();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.dgvx_DocID_ShopC_Items = new DataGridView_2xls.DataGridView2xls();
-            this.lbl_Doc_Info = new System.Windows.Forms.Label();
-            this.chk_OnlyFromStock = new System.Windows.Forms.CheckBox();
             this.btn_Reload = new System.Windows.Forms.Button();
-            this.dgvx_Stock = new DataGridView_2xls.DataGridView2xls();
+            this.chk_OnlyFromStock = new System.Windows.Forms.CheckBox();
+            this.dgvx_ShopC_Docs = new DataGridView_2xls.DataGridView2xls();
+            this.rdb_ProformaInvoice = new System.Windows.Forms.RadioButton();
+            this.rdb_Invoice = new System.Windows.Forms.RadioButton();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lbl_Doc_Info = new System.Windows.Forms.Label();
+            this.dgvx_DocID_ShopC_Items = new DataGridView_2xls.DataGridView2xls();
             this.lbl_Stock_Info = new System.Windows.Forms.Label();
+            this.dgvx_Stock = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,27 +78,25 @@
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 0;
             // 
-            // rdb_Invoice
+            // btn_Reload
             // 
-            this.rdb_Invoice.AutoSize = true;
-            this.rdb_Invoice.Checked = true;
-            this.rdb_Invoice.Location = new System.Drawing.Point(6, 6);
-            this.rdb_Invoice.Name = "rdb_Invoice";
-            this.rdb_Invoice.Size = new System.Drawing.Size(65, 17);
-            this.rdb_Invoice.TabIndex = 0;
-            this.rdb_Invoice.TabStop = true;
-            this.rdb_Invoice.Text = "Invoices";
-            this.rdb_Invoice.UseVisualStyleBackColor = true;
+            this.btn_Reload.Location = new System.Drawing.Point(295, 12);
+            this.btn_Reload.Name = "btn_Reload";
+            this.btn_Reload.Size = new System.Drawing.Size(80, 29);
+            this.btn_Reload.TabIndex = 4;
+            this.btn_Reload.Text = "Reload";
+            this.btn_Reload.UseVisualStyleBackColor = true;
+            this.btn_Reload.Click += new System.EventHandler(this.btn_Reload_Click);
             // 
-            // rdb_ProformaInvoice
+            // chk_OnlyFromStock
             // 
-            this.rdb_ProformaInvoice.AutoSize = true;
-            this.rdb_ProformaInvoice.Location = new System.Drawing.Point(72, 6);
-            this.rdb_ProformaInvoice.Name = "rdb_ProformaInvoice";
-            this.rdb_ProformaInvoice.Size = new System.Drawing.Size(110, 17);
-            this.rdb_ProformaInvoice.TabIndex = 1;
-            this.rdb_ProformaInvoice.Text = "Proforma Invoices";
-            this.rdb_ProformaInvoice.UseVisualStyleBackColor = true;
+            this.chk_OnlyFromStock.AutoSize = true;
+            this.chk_OnlyFromStock.Location = new System.Drawing.Point(12, 29);
+            this.chk_OnlyFromStock.Name = "chk_OnlyFromStock";
+            this.chk_OnlyFromStock.Size = new System.Drawing.Size(107, 17);
+            this.chk_OnlyFromStock.TabIndex = 3;
+            this.chk_OnlyFromStock.Text = "Only  From Stock";
+            this.chk_OnlyFromStock.UseVisualStyleBackColor = true;
             // 
             // dgvx_ShopC_Docs
             // 
@@ -116,6 +114,28 @@
             this.dgvx_ShopC_Docs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_ShopC_Docs.Size = new System.Drawing.Size(372, 632);
             this.dgvx_ShopC_Docs.TabIndex = 2;
+            // 
+            // rdb_ProformaInvoice
+            // 
+            this.rdb_ProformaInvoice.AutoSize = true;
+            this.rdb_ProformaInvoice.Location = new System.Drawing.Point(72, 6);
+            this.rdb_ProformaInvoice.Name = "rdb_ProformaInvoice";
+            this.rdb_ProformaInvoice.Size = new System.Drawing.Size(110, 17);
+            this.rdb_ProformaInvoice.TabIndex = 1;
+            this.rdb_ProformaInvoice.Text = "Proforma Invoices";
+            this.rdb_ProformaInvoice.UseVisualStyleBackColor = true;
+            // 
+            // rdb_Invoice
+            // 
+            this.rdb_Invoice.AutoSize = true;
+            this.rdb_Invoice.Checked = true;
+            this.rdb_Invoice.Location = new System.Drawing.Point(6, 6);
+            this.rdb_Invoice.Name = "rdb_Invoice";
+            this.rdb_Invoice.Size = new System.Drawing.Size(65, 17);
+            this.rdb_Invoice.TabIndex = 0;
+            this.rdb_Invoice.TabStop = true;
+            this.rdb_Invoice.Text = "Invoices";
+            this.rdb_Invoice.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
             // 
@@ -141,6 +161,15 @@
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 0;
             // 
+            // lbl_Doc_Info
+            // 
+            this.lbl_Doc_Info.AutoSize = true;
+            this.lbl_Doc_Info.Location = new System.Drawing.Point(6, 13);
+            this.lbl_Doc_Info.Name = "lbl_Doc_Info";
+            this.lbl_Doc_Info.Size = new System.Drawing.Size(35, 13);
+            this.lbl_Doc_Info.TabIndex = 4;
+            this.lbl_Doc_Info.Text = "label1";
+            // 
             // dgvx_DocID_ShopC_Items
             // 
             this.dgvx_DocID_ShopC_Items.AllowUserToAddRows = false;
@@ -158,34 +187,14 @@
             this.dgvx_DocID_ShopC_Items.Size = new System.Drawing.Size(409, 320);
             this.dgvx_DocID_ShopC_Items.TabIndex = 3;
             // 
-            // lbl_Doc_Info
+            // lbl_Stock_Info
             // 
-            this.lbl_Doc_Info.AutoSize = true;
-            this.lbl_Doc_Info.Location = new System.Drawing.Point(6, 13);
-            this.lbl_Doc_Info.Name = "lbl_Doc_Info";
-            this.lbl_Doc_Info.Size = new System.Drawing.Size(35, 13);
-            this.lbl_Doc_Info.TabIndex = 4;
-            this.lbl_Doc_Info.Text = "label1";
-            // 
-            // chk_OnlyFromStock
-            // 
-            this.chk_OnlyFromStock.AutoSize = true;
-            this.chk_OnlyFromStock.Location = new System.Drawing.Point(12, 29);
-            this.chk_OnlyFromStock.Name = "chk_OnlyFromStock";
-            this.chk_OnlyFromStock.Size = new System.Drawing.Size(107, 17);
-            this.chk_OnlyFromStock.TabIndex = 3;
-            this.chk_OnlyFromStock.Text = "Only  From Stock";
-            this.chk_OnlyFromStock.UseVisualStyleBackColor = true;
-            // 
-            // btn_Reload
-            // 
-            this.btn_Reload.Location = new System.Drawing.Point(295, 12);
-            this.btn_Reload.Name = "btn_Reload";
-            this.btn_Reload.Size = new System.Drawing.Size(80, 29);
-            this.btn_Reload.TabIndex = 4;
-            this.btn_Reload.Text = "Reload";
-            this.btn_Reload.UseVisualStyleBackColor = true;
-            this.btn_Reload.Click += new System.EventHandler(this.btn_Reload_Click);
+            this.lbl_Stock_Info.AutoSize = true;
+            this.lbl_Stock_Info.Location = new System.Drawing.Point(12, 10);
+            this.lbl_Stock_Info.Name = "lbl_Stock_Info";
+            this.lbl_Stock_Info.Size = new System.Drawing.Size(56, 13);
+            this.lbl_Stock_Info.TabIndex = 6;
+            this.lbl_Stock_Info.Text = "Stock Info";
             // 
             // dgvx_Stock
             // 
@@ -201,17 +210,8 @@
             this.dgvx_Stock.Name = "dgvx_Stock";
             this.dgvx_Stock.ReadOnly = true;
             this.dgvx_Stock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_Stock.Size = new System.Drawing.Size(409, 300);
+            this.dgvx_Stock.Size = new System.Drawing.Size(409, 298);
             this.dgvx_Stock.TabIndex = 5;
-            // 
-            // lbl_Stock_Info
-            // 
-            this.lbl_Stock_Info.AutoSize = true;
-            this.lbl_Stock_Info.Location = new System.Drawing.Point(12, 10);
-            this.lbl_Stock_Info.Name = "lbl_Stock_Info";
-            this.lbl_Stock_Info.Size = new System.Drawing.Size(56, 13);
-            this.lbl_Stock_Info.TabIndex = 6;
-            this.lbl_Stock_Info.Text = "Stock Info";
             // 
             // Form_ShopC_TableInspection
             // 

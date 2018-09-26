@@ -14,7 +14,6 @@ namespace Tangenta
 {
     public partial class Form_TableInspection : Form
     {
-        private static Form_ShopC_TableInspection frmshopc_table_inspection = null;
 
         private object m_usrc_DocumentMan = null;
 
@@ -49,20 +48,10 @@ namespace Tangenta
 
         private void btn_ShopC_TablesInspection_Click(object sender, EventArgs e)
         {
-            if (frmshopc_table_inspection!=null)
-            {
-                if (frmshopc_table_inspection.IsDisposed)
-                {
-                    frmshopc_table_inspection = null;
-                }
-            }
-            if (frmshopc_table_inspection == null)
-            {
-                frmshopc_table_inspection = new Form_ShopC_TableInspection();
-                Form pform = Global.f.GetParentForm((Control)m_usrc_DocumentMan);
-                frmshopc_table_inspection.Owner = pform;
-            }
-            frmshopc_table_inspection.Show();
+            Form pform = Global.f.GetParentForm((Control)m_usrc_DocumentMan);
+            Form_ShopC_TableInspection.DoShow(pform);
         }
+
+ 
     }
 }

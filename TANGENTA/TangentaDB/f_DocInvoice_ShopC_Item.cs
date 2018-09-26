@@ -64,16 +64,16 @@ namespace TangentaDB
             string sql = @"select 
                                    disci.DocInvoice_ID,
                                    disci.ID as DocInvoice_ShopC_Item_ID,
-                                   disci.dQuantity,
                                    ai.UniqueName as Atom_Item_UniqueName,
+                                   disci.dQuantity,
+                                   disci.Stock_ID,
+                                   i.UniqueName as Item_UniqueName,
                                    atax.Rate as TaxRate,
                                    disci.ExtraDiscount,
                                    disci.RetailPriceWithDiscount,
                                    disci.TaxPrice,
-                                   i.UniqueName as Item_UniqueName,
                                    disci.Atom_Price_Item_ID,
                                    disci.ExpiryDate,
-                                   disci.Stock_ID,
                                    api.RetailPricePerUnit as api_RetailPricePerUnit,
                                    api.Discount as api_Discount,
                                    api.Atom_Taxation_ID as api_Atom_Taxation_ID,
@@ -130,16 +130,16 @@ namespace TangentaDB
             string sql = @"select 
                                    disci.DocInvoice_ID,
                                    disci.ID as DocInvoice_ShopC_Item_ID,
-                                   disci.dQuantity as dQuantity,
                                    ai.UniqueName as Atom_Item_UniqueName,
+                                   disci.dQuantity as dQuantity,
+                                   disci.Stock_ID,
+                                   i.UniqueName as Item_UniqueName,
                                    atax.Rate as TaxRate,
                                    disci.ExtraDiscount as ExtraDiscount,
                                    disci.RetailPriceWithDiscount as RetailPriceWithDiscount,
                                    disci.TaxPrice as TaxPrice,
-                                   i.UniqueName as Item_UniqueName,
                                    disci.Atom_Price_Item_ID as Atom_Price_Item_ID,
                                    disci.ExpiryDate as ExpiryDate,
-                                   disci.Stock_ID,
                                    api.RetailPricePerUnit as api_RetailPricePerUnit,
                                    api.Discount as api_Discount,
                                    api.Atom_Taxation_ID as api_Atom_Taxation_ID,
@@ -267,9 +267,14 @@ namespace TangentaDB
                 sval_expiryDate = spar_expiryDate;
             }
 
-            string spar_stock_ID = "@par_stock_ID";
-            SQL_Parameter par_stock_ID = new SQL_Parameter(spar_stock_ID, false, stock_ID);
-            lpar.Add(par_stock_ID);
+            string sval_stock_ID = "null";
+            if (ID.Validate(stock_ID))
+            {
+                string spar_stock_ID = "@par_stock_ID";
+                SQL_Parameter par_stock_ID = new SQL_Parameter(spar_stock_ID, false, stock_ID);
+                lpar.Add(par_stock_ID);
+                sval_stock_ID = spar_stock_ID;
+            }
 
 
             string sql = @"insert into DocInvoice_ShopC_Item
@@ -291,7 +296,7 @@ namespace TangentaDB
                             " + spar_DocInvoice_ID + @",
                             " + spar_atom_Price_Item_ID + @",
                             " + sval_expiryDate + @",
-                            " + spar_stock_ID + @")";
+                            " + sval_stock_ID + @")";
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopC_Item_ID, ref Err, "DocInvoice_ShopC_Item"))
             {

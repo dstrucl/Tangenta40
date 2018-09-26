@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_ClearAll = new System.Windows.Forms.Button();
+            this.lbl_InvoiceInfo = new System.Windows.Forms.Label();
             this.usrc_Item_InsidePageHandler_ItemAtomList = new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler();
+            this.ContextMenuStrip_DocInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuStrip_DocInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_ClearAll
@@ -44,6 +49,16 @@
             this.btn_ClearAll.UseVisualStyleBackColor = false;
             this.btn_ClearAll.Visible = false;
             this.btn_ClearAll.Click += new System.EventHandler(this.btn_ClearAll_Click);
+            // 
+            // lbl_InvoiceInfo
+            // 
+            this.lbl_InvoiceInfo.AutoSize = true;
+            this.lbl_InvoiceInfo.ContextMenuStrip = this.ContextMenuStrip_DocInfo;
+            this.lbl_InvoiceInfo.Location = new System.Drawing.Point(3, 24);
+            this.lbl_InvoiceInfo.Name = "lbl_InvoiceInfo";
+            this.lbl_InvoiceInfo.Size = new System.Drawing.Size(35, 13);
+            this.lbl_InvoiceInfo.TabIndex = 12;
+            this.lbl_InvoiceInfo.Text = "label1";
             // 
             // usrc_Item_InsidePageHandler_ItemAtomList
             // 
@@ -61,20 +76,40 @@
             this.usrc_Item_InsidePageHandler_ItemAtomList.TabIndex = 11;
             this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
             // 
+            // ContextMenuStrip_DocInfo
+            // 
+            this.ContextMenuStrip_DocInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTablesToolStripMenuItem});
+            this.ContextMenuStrip_DocInfo.Name = "ContextMenuStrip_DocInfo";
+            this.ContextMenuStrip_DocInfo.Size = new System.Drawing.Size(140, 26);
+            // 
+            // showTablesToolStripMenuItem
+            // 
+            this.showTablesToolStripMenuItem.Name = "showTablesToolStripMenuItem";
+            this.showTablesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showTablesToolStripMenuItem.Text = "Show Tables";
+            this.showTablesToolStripMenuItem.Click += new System.EventHandler(this.showTablesToolStripMenuItem_Click);
+            // 
             // usrc_Atom_ItemsList1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.lbl_InvoiceInfo);
             this.Controls.Add(this.usrc_Item_InsidePageHandler_ItemAtomList);
             this.Controls.Add(this.btn_ClearAll);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Atom_ItemsList1366x768";
             this.Size = new System.Drawing.Size(400, 279);
+            this.ContextMenuStrip_DocInfo.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button btn_ClearAll;
         private usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler_ItemAtomList;
+        private System.Windows.Forms.Label lbl_InvoiceInfo;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuStrip_DocInfo;
+        private System.Windows.Forms.ToolStripMenuItem showTablesToolStripMenuItem;
     }
 }
