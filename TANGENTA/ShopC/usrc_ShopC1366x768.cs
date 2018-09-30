@@ -61,6 +61,8 @@ namespace ShopC
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
 
+        private usrc_Item1366x768_selected m_usrc_Item1366x768_selected = null;
+
         private bool m_bAutomaticSelectionOfItemsFromStock = true;
         public bool AutomaticSelectionOfItemsFromStock
         {
@@ -170,13 +172,15 @@ namespace ShopC
                         DBTablesAndColumnNames xDBtcn,
                         string ShopsInUse,
                         bool bAutomaticSelectionOfItemFromStock,
-                        bool bExclusivelySellFromStock)
+                        bool bExclusivelySellFromStock,
+                        usrc_Item1366x768_selected x_usrc_Item1366x768_selected)
 
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_InvoiceDB = xm_InvoiceDB;
             DBtcn = xDBtcn;
+            m_usrc_Item1366x768_selected = x_usrc_Item1366x768_selected;
             if (DBtcn == null)
             {
                 LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
@@ -190,8 +194,17 @@ namespace ShopC
 
             this.m_usrc_ItemList1366x768.ItemAdded += new usrc_ItemList1366x768.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.m_usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
+            this.m_usrc_Atom_ItemsList1366x768.SelectionChanged += M_usrc_Atom_ItemsList1366x768_SelectionChanged;
 
             SetColor();
+        }
+
+        private void M_usrc_Atom_ItemsList1366x768_SelectionChanged(int index, object odata)
+        {
+           if (m_usrc_Item1366x768_selected!=null)
+           {
+                m_usrc_Item1366x768_selected.FillControl(index, odata);
+           }
         }
 
         void usrc_Atom_ItemsList_After_Atom_Item_Remove()

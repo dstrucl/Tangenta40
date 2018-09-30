@@ -1002,36 +1002,36 @@ namespace TangentaDB
             }
         }
 
-        public void Add(ID xDocInvoice_ID,ID docInvoice_ShopC_Item_ID,Item_Data xItemData,decimal xFactoryQuantity, decimal xStockQuantity,  ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_factory)
+        public void Add(ID xDocInvoice_ID,ID doc_ShopC_Item_ID,Item_Data xItemData,decimal xFactoryQuantity, decimal xStockQuantity,  ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_factory)
         {
             foreach (Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisdx in m_DocInvoice_ShopC_Item_Data_LIST)
             {
                 if (appisdx.Item_ID.Equals(xItemData.Item_ID))
                 {
-                    appisdx.m_ShopShelf_Source.Add_Stock_Data(xItemData, xFactoryQuantity, xStockQuantity, b_from_factory);
+                    appisdx.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
                     appisd = appisdx;
                     return;
                 }
             }
             appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
-            appisd.Set( xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, docInvoice_ShopC_Item_ID, b_from_factory);
+            appisd.Set( xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, doc_ShopC_Item_ID, b_from_factory);
             m_DocInvoice_ShopC_Item_Data_LIST.Add(appisd);
 
         }
 
-        public void Add_WithNoTakeForItemData(ID xDocInvoice_ID, ID docInvoice_ShopC_Item_ID, Item_Data xItemData, decimal xFactoryQuantity, decimal xStockQuantity, ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_factory)
+        public void Add_WithNoTakeForItemData(ID xDocInvoice_ID, ID doc_ShopC_Item_ID, Item_Data xItemData, decimal xFactoryQuantity, decimal xStockQuantity, ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_factory)
         {
             foreach (Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisdx in m_DocInvoice_ShopC_Item_Data_LIST)
             {
                 if (appisdx.Item_ID.Equals(xItemData.Item_ID))
                 {
-                    appisdx.m_ShopShelf_Source.Add_Stock_Data(xItemData, xFactoryQuantity, xStockQuantity, b_from_factory);
+                    appisdx.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
                     appisd = appisdx;
                     return;
                 }
             }
             appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
-            appisd.Set_WithNoTakeForItemData(xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, docInvoice_ShopC_Item_ID, b_from_factory);
+            appisd.Set_WithNoTakeForItemData(xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, doc_ShopC_Item_ID, b_from_factory);
             m_DocInvoice_ShopC_Item_Data_LIST.Add(appisd);
 
         }

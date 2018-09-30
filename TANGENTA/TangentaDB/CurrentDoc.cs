@@ -342,11 +342,11 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            if (appisd.DocInvoice_ShopC_Item_ID==null)
+                            if (appisd.Doc_ShopC_Item_ID==null)
                             {
-                                appisd.DocInvoice_ShopC_Item_ID = new ID();
+                                appisd.Doc_ShopC_Item_ID = new ID();
                             }
-                            appisd.DocInvoice_ShopC_Item_ID.Set(dt.Rows[0][xDocTyp+"_ShopC_Item_ID"]);
+                            appisd.Doc_ShopC_Item_ID.Set(dt.Rows[0][xDocTyp+"_ShopC_Item_ID"]);
                             // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
                             appisd.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
                             appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
@@ -384,7 +384,7 @@ namespace TangentaDB
                             ID DocInvoice_ShopC_Item_ID = null;
                             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID,  ref Err, xDocTyp))
                             {
-                                appisd.DocInvoice_ShopC_Item_ID = new ID(DocInvoice_ShopC_Item_ID);
+                                appisd.Doc_ShopC_Item_ID = new ID(DocInvoice_ShopC_Item_ID);
 
                                 if (Stock_ID != null)
                                 {

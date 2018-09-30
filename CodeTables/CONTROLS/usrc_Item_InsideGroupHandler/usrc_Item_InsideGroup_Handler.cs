@@ -486,17 +486,26 @@ namespace usrc_Item_InsideGroup_Handler
 
         private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
         {
-            getSelectedGroups();
+            if (ctrl != null)
+            {
+                getSelectedGroups();
+            }
         }
 
         private void Usrc_Item_InsidePageHandler2_SelectionChanged(Control ctrl, object oData, int index, bool selected)
         {
-            getSelectedGroups();
+            if (ctrl != null)
+            {
+                getSelectedGroups();
+            }
         }
 
         private void Usrc_Item_InsidePageHandler3_SelectionChanged(Control ctrl, object oData, int index, bool selected)
         {
-            getSelectedGroups();
+            if (ctrl != null)
+            {
+                getSelectedGroups();
+            }
         }
 
         private void Usrc_Item_InsidePageHandler2_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler.eMode xmode)

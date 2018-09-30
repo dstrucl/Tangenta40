@@ -17,7 +17,33 @@ namespace TangentaDB
 {
     public class Stock_Data
     {
-        public ID Stock_ID = null;
+        private ID m_Doc_ShopC_Item_ID = null;
+        public ID Doc_ShopC_Item_ID
+        {
+            get
+            {
+                return m_Doc_ShopC_Item_ID;
+            }
+            set
+            {
+                m_Doc_ShopC_Item_ID = value;
+            }
+        }
+
+        private ID m_Stock_ID = null;
+
+        public ID Stock_ID
+        {
+            get
+            {
+                return m_Stock_ID;
+            }
+            set
+            {
+                m_Stock_ID = value;
+            }
+        }
+
         public DateTime_v Stock_ImportTime = null;
         public decimal_v dQuantity_v = null;
         public decimal_v dQuantity_New_in_Stock_v = null;
@@ -56,8 +82,9 @@ namespace TangentaDB
         }
 
 
-        public void Set(System.Data.DataRow dria)
+        public void Set(string docType,System.Data.DataRow dria)
         {
+            Doc_ShopC_Item_ID = tf.set_ID(dria[docType + "_ShopC_Item_ID"]);
             Stock_ID = tf.set_ID(dria["Stock_ID"]);
             Stock_ImportTime = tf.set_DateTime(dria["Stock_ImportTime"]);
             Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
@@ -103,6 +130,7 @@ namespace TangentaDB
 
         public Stock_Data()
         {
+            m_Doc_ShopC_Item_ID = null;
             Stock_ID = null;
             Stock_ImportTime = null;
             dQuantity_v = null;

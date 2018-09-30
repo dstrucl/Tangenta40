@@ -66,5 +66,29 @@ namespace ShopC
             // Call base class implementation. 
             base.Dispose(disposing);
         }
+
+        internal void FillControl(int index, object odata)
+        {
+            if (index>=0)
+            {
+                this.Enabled = true;
+                if (odata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+                {
+                    TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)odata;
+                    this.lbl_Item.Text = appisd.Atom_Item_UniqueName.v;
+                    this.lbl_from_Stock.Text = lng.s_FromStock.s+":"+appisd.dQuantity_FromStock.ToString();
+                    this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + appisd.dQuantity_FromFactory.ToString();
+                    this.lbl_VAT.Text = lng.s_Taxation.s + ":" + appisd.Atom_Taxation_Name.v;
+                }
+            }
+            else
+            {
+                this.Enabled = false;
+                this.lbl_Item.Text = "";
+                this.lbl_from_Stock.Text = "";
+                this.lbl_bypass_Stock.Text = "";
+                this.lbl_VAT.Text = "";
+            }
+        }
     }
 }

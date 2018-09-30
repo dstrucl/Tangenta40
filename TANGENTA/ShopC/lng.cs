@@ -75,6 +75,9 @@ namespace ShopC
 
         public static ltext s_QuantityTakenFromStock = new ltext(new string[] { "Quantity taken from stock", "Količina vzeta iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
+        public static ltext s_FromStock = new ltext(new string[] { "From stock", "Iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
+        public static ltext s_AvoidStock = new ltext(new string[] { "Not from stock", "Mimo zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
+
         public static ltext s_Supplier = new ltext(new string[] { "Supplier", "Dobavitelj" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
         public static ltext s_ImportTime = new ltext(new string[]{"Item Stock Import time",

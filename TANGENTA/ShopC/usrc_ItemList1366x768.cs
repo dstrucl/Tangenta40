@@ -26,7 +26,7 @@ namespace ShopC
     {
         private ID m_Atom_WorkPeriod_ID = null;
         private string m_DocTyp = "";
-        private Form_plus frmplus = null;
+        //private Form_plus frmplus = null;
 
         public new bool Visible
         {
@@ -360,30 +360,10 @@ namespace ShopC
         }
         private void Add2Basket(decimal xquantity2add,Control ctrl, object oData, int index)
         {
-            frmplus.Flash(ctrl);
+            //frmplus.Flash(ctrl);
             if (oData is Item_Data)
             {
                 Item_Data xData = (Item_Data)oData;
-
-
-                //DataTable dtDoc_ShopC_Item = null;
-
-                //if (this.m_ShopBC.IsDocInvoice)
-                //{
-                //    if (!f_DocInvoice_ShopC_Item.GetItems(this.m_ShopBC.m_CurrentDoc.Doc_ID, xData.Item_ID, ref dtDoc_ShopC_Item))
-                //    {
-                //        LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:IncrementBasket:f_DocInvoice_ShopC_Item.GetItems failed!");
-                //        return;
-                //    }
-                //}
-                //else
-                //{
-                //    if (!f_DocProformaInvoice_ShopC_Item.GetItems(this.m_ShopBC.m_CurrentDoc.Doc_ID, xData.Item_ID, ref dtDoc_ShopC_Item))
-                //    {
-                //        LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:IncrementBasket:f_DocProformaInvoice_ShopC_Ite.GetItems failed!");
-                //        return;
-                //    }
-                //}
 
                 decimal dRemainderQuantityNotTakenFromStock = 0;
                 decimal dquantity_in_stock_at_the_end = 0;
@@ -398,7 +378,7 @@ namespace ShopC
                         {
                             if (!update_stock_elements_in_Doc_ShopC_Item(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, xData, ref appisd))
                             {
-                                LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:IncrementBasket:!update_stock_elements_in_Doc_ShopC_Item!");
+                                LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:!update_stock_elements_in_Doc_ShopC_Item!");
                                 return;
                             }
                         }
@@ -426,7 +406,7 @@ namespace ShopC
                                                             dRemainderQuantityNotTakenFromStock,
                                                             0,
                                                             ref appisd,
-                                                            false
+                                                            true
                                                         );
                     }
                     else 
@@ -436,24 +416,36 @@ namespace ShopC
                         {
                             //factory items exist
                             //appisd.m_ShopShelf_Source.Stock_Data_List[0].
-
+                            std.dQuantity_v.v = std.dQuantity_v.v + xquantity2add;
+                            if (ID.Validate(std.Doc_ShopC_Item_ID))
+                            {
+                                if (!f_DocInvoice_ShopC_Item.UpdateQuantity(std.Doc_ShopC_Item_ID, std.dQuantity_v.v))
+                                {
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:std.Doc_ShopC_Item_ID is not valid!");
+                            }
                         }
                         else
                         {
                             //factory  items not exist
                             ID atom_Price_Item_ID = null;
-                            ID docInvoice_ShopC_Item_ID = null;
+                            ID doc_ShopC_Item_ID = null;
                             if (!Add_Doc_ShopC_Item(xData,
                                                     dRemainderQuantityNotTakenFromStock,
                                                     null,
                                                     ref atom_Price_Item_ID,
-                                                    ref docInvoice_ShopC_Item_ID))
+                                                    ref doc_ShopC_Item_ID))
                             {
                                 return;
                             }
-                            //appisd.m_ShopShelf_Source.Add_Stock_Data(xData, dRemainderQuantityNotTakenFromStock,0,true)
-
-
+                            Stock_Data stdx = new Stock_Data();
+                            stdx.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
+                            stdx.dQuantity_v = new decimal_v(xquantity2add);
+                            appisd.m_ShopShelf_Source.Stock_Data_List.Add(stdx);
                         }
                     }
 
@@ -463,8 +455,6 @@ namespace ShopC
                 {
                     ((usrc_Item1366x768)ctrl).DoPaint(xData, m_ShopBC.m_CurrentDoc.m_Basket);
                 }
-
-
 
 
                 m_usrc_Atom_ItemsList1366x768.ShowBasket(xData.Item_UniqueName.v);
@@ -497,7 +487,7 @@ namespace ShopC
                             {
                                 dquantity = dq_v.v;
                             }
-                            doc_ShopC_Item_ID = tf.set_ID(appisd.DocInvoice_ShopC_Item_ID);
+                            doc_ShopC_Item_ID = tf.set_ID(appisd.Doc_ShopC_Item_ID);
                             return true;
                         }
                     }
@@ -509,11 +499,17 @@ namespace ShopC
 
         private void Usrc_Item_InsidePageGroupHandler1_SelectionChanged(Control ctrl, object oData, int index)
         {
-            Add2Basket(1,ctrl, oData, index);
+            if (ctrl != null)
+            {
+                Add2Basket(1, ctrl, oData, index);
+            }
         }
         private void Usrc_Item_InsidePageGroupHandler1_ControlClick(Control ctrl, object oData, int index, bool selected)
         {
-            Add2Basket(1,ctrl, oData, index);
+            if (ctrl != null)
+            {
+                Add2Basket(1, ctrl, oData, index);
+            }
         }
 
         internal void DoRepaint()
@@ -599,8 +595,8 @@ namespace ShopC
             //            this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
             m_usrc_Atom_ItemsList1366x768 = x_usrc_Atom_ItemsList;
             m_bExclusivelySellFromStock = xbExclusivelySellFromStock;
-            frmplus = new Form_plus();
-            frmplus.Owner = Global.f.GetParentForm(this);
+            //frmplus = new Form_plus();
+            //frmplus.Owner = Global.f.GetParentForm(this);
         }
 
 

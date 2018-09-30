@@ -334,6 +334,54 @@ namespace usrc_Item_InsidePage_Handler
             }
         }
 
+        public int FindItem(string s, ref object odata)
+        {
+            odata = null;
+            int ilen = 0;
+            switch (CollectionType)
+            {
+                case eCollectionType.ARRAY:
+                    ilen = m_ousrc_Item_array.Length;
+                    if (ilen > 0)
+                    {
+                        for (int i = 0; i < ilen; i++)
+                        {
+                            if (CompareWithString != null)
+                            {
+                                if (CompareWithString(m_ousrc_Item_array[i], s))
+                                {
+                                    odata = m_ousrc_Item_array[i];
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    return -1;
+
+                case eCollectionType.LIST:
+                    ilen = m_ousrc_Item_list.Count;
+                    if (ilen > 0)
+                    {
+                        for (int i = 0; i < ilen; i++)
+                        {
+                            if (CompareWithString != null)
+                            {
+                                if (CompareWithString(m_ousrc_Item_list[i], s))
+                                {
+                                    odata = m_ousrc_Item_list[i];
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    return -1;
+
+                default:
+                    MessageBox.Show("ERROR:CollectionType not implemented:" + CollectionType.ToString());
+                    return -1;
+            }
+        }
+
         public usrc_Item_InsidePageHandler()
         {
             InitializeComponent();
@@ -717,7 +765,12 @@ namespace usrc_Item_InsidePage_Handler
 
         public void Init(object xDataCollection, eMode xMode)
         {
+            bool bselectionchanged = false;
             Mode = xMode;
+            if (SelectedIndex>=0)
+            {
+                bselectionchanged = true;
+            }
             SelectedIndex = -1;
             if (xDataCollection is object[])
             {
@@ -732,6 +785,13 @@ namespace usrc_Item_InsidePage_Handler
                 CollectionType = eCollectionType.LIST;
             }
             initialise();
+            if (bselectionchanged)
+            {
+                if (SelectionChanged!=null)
+                {
+                    SelectionChanged(null, null, -1, false);
+                }
+            }
         }
 
 

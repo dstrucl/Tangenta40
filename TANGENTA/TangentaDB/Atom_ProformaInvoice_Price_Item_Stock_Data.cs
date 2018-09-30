@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public class Atom_DocInvoice_ShopC_Item_Price_Stock_Data
     {
-        public ID DocInvoice_ShopC_Item_ID = null;
+        public ID Doc_ShopC_Item_ID = null;
         public ID DocInvoice_ID = null;
         public ID Atom_Price_Item_ID = null;
         public ID Atom_Item_ID = null;
@@ -82,7 +82,7 @@ namespace TangentaDB
             }
         }
 
-        public void Set(string DocTyp, DataRow dria,
+        public void Set(string docTyp, DataRow dria,
                             ref List<object> DocInvoice_ShopC_Item_Data_list)
         {
             Stock_Data stock_data = null;
@@ -97,15 +97,15 @@ namespace TangentaDB
                     if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)DocInvoice_ShopC_Item_Data_list[i]).Atom_Item_ID.Equals(Atom_Item_ID))
                     {
                         stock_data = new Stock_Data();
-                        stock_data.Set(dria);
+                        stock_data.Set(docTyp,dria);
                         ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)DocInvoice_ShopC_Item_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
                         return;
                     }
                 }
 
                 m_ShopShelf_Source.Clear();
-                DocInvoice_ShopC_Item_ID = new ID(dria[DocTyp+"_ShopC_Item_ID"]);
-                DocInvoice_ID = new ID(dria[DocTyp+"_ID"]);
+                Doc_ShopC_Item_ID = new ID(dria[docTyp+"_ShopC_Item_ID"]);
+                DocInvoice_ID = new ID(dria[docTyp+"_ID"]);
                 Atom_Price_Item_ID = new ID(dria["Atom_Price_Item_ID"]);
                 dQuantity_all = tf.set_decimal(dria["dQuantity"]);
                 RetailPricePerUnit = tf.set_decimal(dria["RetailPricePerUnit"]);
@@ -156,7 +156,7 @@ namespace TangentaDB
                 }
 
                 stock_data = new Stock_Data();
-                stock_data.Set(dria);
+                stock_data.Set(docTyp,dria);
                 m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
 
                 DocInvoice_ShopC_Item_Data_list.Add(this);
@@ -172,11 +172,11 @@ namespace TangentaDB
                         ID xDocInvoice_ID,
                         decimal xFactoryQuantity,
                         decimal xStockQuantity,
-                        ID docInvoice_ShopC_Item_ID,
+                        ID doc_ShopC_Item_ID,
                         bool b_from_factory)
         {
             m_ShopShelf_Source.Clear();
-            DocInvoice_ShopC_Item_ID = docInvoice_ShopC_Item_ID;
+            Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
             DocInvoice_ID = new ID();
             DocInvoice_ID.Set(xDocInvoice_ID);
             Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
@@ -227,18 +227,18 @@ namespace TangentaDB
             s1_name = xItem_Data.s1_name;
             s2_name = xItem_Data.s2_name;
             s3_name = xItem_Data.s3_name;
-            m_ShopShelf_Source.Add_Stock_Data(xItem_Data, xFactoryQuantity, xStockQuantity, b_from_factory);
+            m_ShopShelf_Source.Add_Stock_Data(xItem_Data, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
         }
 
         public void Set_WithNoTakeForItemData(Item_Data xItem_Data,
                         ID xDocInvoice_ID,
                         decimal xFactoryQuantity,
                         decimal xStockQuantity,
-                        ID docInvoice_ShopC_Item_ID,
+                        ID doc_ShopC_Item_ID,
                         bool b_from_factory)
         {
             m_ShopShelf_Source.Clear();
-            DocInvoice_ShopC_Item_ID = docInvoice_ShopC_Item_ID;
+            Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
             DocInvoice_ID = new ID();
             DocInvoice_ID.Set(xDocInvoice_ID);
             Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
@@ -289,7 +289,7 @@ namespace TangentaDB
             s1_name = xItem_Data.s1_name;
             s2_name = xItem_Data.s2_name;
             s3_name = xItem_Data.s3_name;
-            m_ShopShelf_Source.Add_Stock_Data_WithNoTakeForItemData(xItem_Data, xFactoryQuantity, xStockQuantity, b_from_factory);
+            m_ShopShelf_Source.Add_Stock_Data_WithNoTakeForItemData(xItem_Data, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
         }
         public void AddQuantity(ID doc_ShopC_Item_ID,ID stock_ID, decimal dqAdd)
         {

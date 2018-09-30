@@ -165,7 +165,14 @@ namespace Tangenta
             //    m_usrc_ShopC1366x768.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
             //    m_usrc_ShopC1366x768.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             //}
-            m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),Properties.Settings.Default.AutomaticSelectionOfItemFromStock,Program.OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
+                                      DocE.m_ShopABC,
+                                      DocE.DBtcn,
+                                      PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
+                                      Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
+                                      Program.OperationMode.ShopC_ExclusivelySellFromStock,
+                                      this.usrc_Item1366x768_selected1);
+
             m_usrc_ShopC1366x768.Dock = DockStyle.None;
             m_usrc_ShopC1366x768.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC1366x768.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -322,7 +329,13 @@ namespace Tangenta
             {
                 m_usrc_ShopA1366x768.Init(DocE.m_ShopABC, DocE.DBtcn);
                 m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
-                m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues), Properties.Settings.Default.AutomaticSelectionOfItemFromStock, Program.OperationMode.ShopC_ExclusivelySellFromStock);
+                m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
+                                          DocE.m_ShopABC,
+                                          DocE.DBtcn,
+                                          PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
+                                          Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
+                                          Program.OperationMode.ShopC_ExclusivelySellFromStock,
+                                          this.usrc_Item1366x768_selected1);
                 bInitShops = false;
             }
 

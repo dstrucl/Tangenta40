@@ -39,6 +39,9 @@ namespace ShopC
         public delegate void delegate_After_Atom_Item_Remove();
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
 
+        public delegate void delegate_SelectionChanged(int index, object odata);
+        public event delegate_SelectionChanged SelectionChanged = null;
+
 
         public long Item_ID = -1;
 
@@ -124,12 +127,30 @@ namespace ShopC
 
         private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
         {
-            if (oData is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+            if (ctrl != null)
             {
-                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oData;
-                if (this.Parent is usrc_ShopC1366x768)
+                if (oData is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
                 {
-                    ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd, appisd.Atom_Item_UniqueName.v);
+                    Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oData;
+                    if (this.Parent is usrc_ShopC1366x768)
+                    {
+                        ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd, appisd.Atom_Item_UniqueName.v);
+                        if (SelectionChanged!=null)
+                        {
+                            SelectionChanged(index, oData);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (index == -1)
+                {
+                    // this is deselection 
+                   if (SelectionChanged != null)
+                   {
+                        SelectionChanged(index, oData);
+                   }
                 }
             }
         }
@@ -238,10 +259,15 @@ namespace ShopC
                 emode = usrc_Item_InsidePageHandler.eMode.VIEW;
             }
             this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
-            int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName);
+            object odata = null;
+            int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata);
             if (index >= 0)
             {
                 this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index,usrc_Item_InsidePageHandler.eSelection.ON_REMOTE);
+                if (SelectionChanged != null)
+                {
+                    SelectionChanged(index, odata);
+                }
             }
             //this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }

@@ -161,7 +161,7 @@ namespace TangentaDB
         }
 
 
-        public void Add_Stock_Data(Item_Data xItem_Data, decimal xFactoryQuantity,decimal xStockQuantity,  bool b_from_factory)
+        public void Add_Stock_Data(Item_Data xItem_Data,ID doc_ShopC_Item_ID, decimal xFactoryQuantity,decimal xStockQuantity,  bool b_from_factory)
         {
             if (b_from_factory)
             {
@@ -171,6 +171,7 @@ namespace TangentaDB
                     stock_data.dQuantity_v = new decimal_v();
                 }
                 stock_data.dQuantity_v.v = xFactoryQuantity;
+                stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
                 Stock_Data_List.Add(stock_data);
             }
             else
@@ -184,6 +185,7 @@ namespace TangentaDB
                         if (sd.dQuantity_from_stock != null)
                         {
                             Stock_Data stock_data = new Stock_Data();
+                            stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
                             if (sd.StockTake_Draft != null)
                             {
                                 stock_data.StockTake_Draft = new bool_v(sd.StockTake_Draft.v);
@@ -237,11 +239,12 @@ namespace TangentaDB
             }
         }
 
-        public void Add_Stock_Data_WithNoTakeForItemData(Item_Data xItem_Data, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
+        public void Add_Stock_Data_WithNoTakeForItemData(Item_Data xItem_Data,ID doc_ShopC_Item_ID, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
         {
             if (b_from_factory)
             {
                 Stock_Data stock_data = new Stock_Data();
+                stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
                 if (stock_data.dQuantity_v == null)
                 {
                     stock_data.dQuantity_v = new decimal_v();
@@ -260,6 +263,7 @@ namespace TangentaDB
                         if (sd.dQuantity_from_stock != null)
                         {
                             Stock_Data stock_data = new Stock_Data();
+                            stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
                             if (sd.StockTake_Draft != null)
                             {
                                 stock_data.StockTake_Draft = new bool_v(sd.StockTake_Draft.v);
