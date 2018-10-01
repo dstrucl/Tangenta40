@@ -27,11 +27,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbl_Item = new System.Windows.Forms.Label();
-            this.btn_AddOrChangeData = new System.Windows.Forms.Button();
             this.lbl_bypass_Stock = new System.Windows.Forms.Label();
             this.lbl_from_Stock = new System.Windows.Forms.Label();
             this.lbl_VAT = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btn_AddOrChangeData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_Item
@@ -44,21 +46,6 @@
             this.lbl_Item.Size = new System.Drawing.Size(402, 19);
             this.lbl_Item.TabIndex = 0;
             this.lbl_Item.Text = "label1";
- 
-            // 
-            // btn_AddOrChangeData
-            // 
-            this.btn_AddOrChangeData.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_AddOrChangeData.Image = global::ShopC.Properties.Resources.Discount;
-            this.btn_AddOrChangeData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_AddOrChangeData.Location = new System.Drawing.Point(254, 22);
-            this.btn_AddOrChangeData.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_AddOrChangeData.Name = "btn_AddOrChangeData";
-            this.btn_AddOrChangeData.Size = new System.Drawing.Size(152, 61);
-            this.btn_AddOrChangeData.TabIndex = 12;
-            this.btn_AddOrChangeData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_AddOrChangeData.UseVisualStyleBackColor = false;
-
             // 
             // lbl_bypass_Stock
             // 
@@ -93,6 +80,24 @@
             this.lbl_VAT.TabIndex = 16;
             this.lbl_VAT.Text = "Taxation";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btn_AddOrChangeData
+            // 
+            this.btn_AddOrChangeData.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_AddOrChangeData.Image = global::ShopC.Properties.Resources.EditItem;
+            this.btn_AddOrChangeData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_AddOrChangeData.Location = new System.Drawing.Point(254, 22);
+            this.btn_AddOrChangeData.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_AddOrChangeData.Name = "btn_AddOrChangeData";
+            this.btn_AddOrChangeData.Size = new System.Drawing.Size(152, 61);
+            this.btn_AddOrChangeData.TabIndex = 12;
+            this.btn_AddOrChangeData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_AddOrChangeData.UseVisualStyleBackColor = false;
+            // 
             // usrc_Item1366x768_selected
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -106,6 +111,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Item1366x768_selected";
             this.Size = new System.Drawing.Size(410, 84);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.usrc_Item1366x768_selected_Paint);
             this.ResumeLayout(false);
 
         }
@@ -116,5 +122,7 @@
         internal System.Windows.Forms.Label lbl_bypass_Stock;
         internal System.Windows.Forms.Label lbl_from_Stock;
         internal System.Windows.Forms.Label lbl_VAT;
+        private System.Windows.Forms.Timer timer1;
+        private System.ComponentModel.IContainer components;
     }
 }

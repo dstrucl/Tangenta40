@@ -29,6 +29,9 @@ namespace ShopC
     {
 
 
+        private int ipenindex = 0;
+        private float penwidth = 2;
+        Pen[] pen = new Pen[5] { null, null, null, null, null };
 
 
         public TangentaDB.Item_Data m_Item_Data = null;
@@ -39,6 +42,24 @@ namespace ShopC
         public usrc_Item1366x768_selected()
         {
             InitializeComponent();
+            //Color color = Color.FromArgb(255 - this.BackColor.R, 255 - this.BackColor.G, 255 - this.BackColor.B);
+            Color color = Color.Black;
+            Brush br = new SolidBrush(color);
+            float[] dashValues0 = { 0.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues1 = { 1.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues2 = { 2.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues3 = { 3.01F, 5, 5, 5, 5, 5, 5 };
+            float[] dashValues4 = { 4.01F, 5, 5, 5, 5, 5, 5 };
+            pen[0] = new Pen(br, penwidth);
+            pen[0].DashPattern = dashValues0;
+            pen[1] = new Pen(br, penwidth);
+            pen[1].DashPattern = dashValues1;
+            pen[2] = new Pen(br, penwidth);
+            pen[2].DashPattern = dashValues2;
+            pen[3] = new Pen(br, penwidth);
+            pen[3].DashPattern = dashValues3;
+            pen[4] = new Pen(br, penwidth);
+            pen[4].DashPattern = dashValues4;
         }
 
 
@@ -72,6 +93,7 @@ namespace ShopC
             if (index>=0)
             {
                 this.Enabled = true;
+                timer1.Enabled = true;
                 if (odata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
                 {
                     TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)odata;
@@ -83,12 +105,38 @@ namespace ShopC
             }
             else
             {
+                timer1.Enabled = false;
                 this.Enabled = false;
                 this.lbl_Item.Text = "";
                 this.lbl_from_Stock.Text = "";
                 this.lbl_bypass_Stock.Text = "";
                 this.lbl_VAT.Text = "";
+                this.Refresh();
             }
+        }
+
+        private Rectangle insideRect(Rectangle clientRectangle, int penwidth)
+        {
+            return new Rectangle(clientRectangle.Left + penwidth, clientRectangle.Top + penwidth, clientRectangle.Width - 2 * penwidth, clientRectangle.Height - 2 * penwidth);
+        }
+
+        private void usrc_Item1366x768_selected_Paint(object sender, PaintEventArgs e)
+        {
+            if (timer1.Enabled)
+            {
+                Rectangle rect = insideRect(((Control)sender).ClientRectangle, Convert.ToInt32(penwidth));
+                e.Graphics.DrawRectangle(pen[ipenindex], rect);
+                ipenindex++;
+                if (ipenindex >= pen.Length)
+                {
+                    ipenindex = 0;
+                }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Refresh();
         }
     }
 }
