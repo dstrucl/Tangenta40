@@ -33,7 +33,6 @@
             this.lbl_from_Stock = new System.Windows.Forms.Label();
             this.lbl_VAT = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btn_AddOrChangeData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_Item
@@ -46,6 +45,7 @@
             this.lbl_Item.Size = new System.Drawing.Size(402, 19);
             this.lbl_Item.TabIndex = 0;
             this.lbl_Item.Text = "label1";
+            this.lbl_Item.Click += new System.EventHandler(this.Controls_Click);
             // 
             // lbl_bypass_Stock
             // 
@@ -57,6 +57,7 @@
             this.lbl_bypass_Stock.Size = new System.Drawing.Size(250, 19);
             this.lbl_bypass_Stock.TabIndex = 14;
             this.lbl_bypass_Stock.Text = "bypass Stock";
+            this.lbl_bypass_Stock.Click += new System.EventHandler(this.Controls_Click);
             // 
             // lbl_from_Stock
             // 
@@ -68,6 +69,7 @@
             this.lbl_from_Stock.Size = new System.Drawing.Size(250, 19);
             this.lbl_from_Stock.TabIndex = 15;
             this.lbl_from_Stock.Text = "from Stock:";
+            this.lbl_from_Stock.Click += new System.EventHandler(this.Controls_Click);
             // 
             // lbl_VAT
             // 
@@ -79,24 +81,12 @@
             this.lbl_VAT.Size = new System.Drawing.Size(250, 19);
             this.lbl_VAT.TabIndex = 16;
             this.lbl_VAT.Text = "Taxation";
+            this.lbl_VAT.Click += new System.EventHandler(this.Controls_Click);
             // 
             // timer1
             // 
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // btn_AddOrChangeData
-            // 
-            this.btn_AddOrChangeData.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_AddOrChangeData.Image = global::ShopC.Properties.Resources.EditItem;
-            this.btn_AddOrChangeData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_AddOrChangeData.Location = new System.Drawing.Point(254, 22);
-            this.btn_AddOrChangeData.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_AddOrChangeData.Name = "btn_AddOrChangeData";
-            this.btn_AddOrChangeData.Size = new System.Drawing.Size(152, 61);
-            this.btn_AddOrChangeData.TabIndex = 12;
-            this.btn_AddOrChangeData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_AddOrChangeData.UseVisualStyleBackColor = false;
             // 
             // usrc_Item1366x768_selected
             // 
@@ -106,7 +96,6 @@
             this.Controls.Add(this.lbl_VAT);
             this.Controls.Add(this.lbl_from_Stock);
             this.Controls.Add(this.lbl_bypass_Stock);
-            this.Controls.Add(this.btn_AddOrChangeData);
             this.Controls.Add(this.lbl_Item);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Item1366x768_selected";
@@ -118,7 +107,6 @@
 
         #endregion
         internal System.Windows.Forms.Label lbl_Item;
-        private System.Windows.Forms.Button btn_AddOrChangeData;
         internal System.Windows.Forms.Label lbl_bypass_Stock;
         internal System.Windows.Forms.Label lbl_from_Stock;
         internal System.Windows.Forms.Label lbl_VAT;

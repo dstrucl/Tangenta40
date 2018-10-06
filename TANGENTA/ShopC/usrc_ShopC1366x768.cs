@@ -196,14 +196,37 @@ namespace ShopC
             this.m_usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             this.m_usrc_Atom_ItemsList1366x768.SelectionChanged += M_usrc_Atom_ItemsList1366x768_SelectionChanged;
 
+            m_usrc_Item1366x768_selected.event_SetItemQunatityInBasket += M_usrc_Item1366x768_selected_event_SetItemQunatityInBasket;
+
             SetColor();
         }
 
-        private void M_usrc_Atom_ItemsList1366x768_SelectionChanged(int index, object odata)
+        private void M_usrc_Item1366x768_selected_event_SetItemQunatityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
+            usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
+            Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd,
+            Item_Data idata,
+            usrc_Item1366x768 xusrc_Item1366x768)
+        {
+            Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
+            frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket( xusrc_Item1366x768_selected,
+             xusrc_Atom_Item1366x768,
+             xappisd,
+             idata,
+             xusrc_Item1366x768);
+            frm_SetItemQuantityInBasket.ShowDialog();
+        }
+
+        private void M_usrc_Item1366x768_selected_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void M_usrc_Atom_ItemsList1366x768_SelectionChanged(Control ctrl,int index, object odata,
+                                                                    object oidata, Control ctrl_idata
+                                                                   )
         {
            if (m_usrc_Item1366x768_selected!=null)
            {
-                m_usrc_Item1366x768_selected.FillControl(index, odata);
+                m_usrc_Item1366x768_selected.FillControl(index, odata,ctrl,oidata,ctrl_idata);
            }
         }
 

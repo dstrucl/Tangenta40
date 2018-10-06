@@ -352,6 +352,12 @@ namespace TangentaDB
                                         if (myOrganisation_Person_ID.Equals(mop.ID))
                                         {
                                             this.m_myOrg_Person = mop;
+                                            if (m_myOrg_Office_ElectronicDevice == null)
+                                            {
+                                                m_myOrg_Office_ElectronicDevice = new myOrg_Office_ElectronicDevice(this);
+                                            }
+                                            m_myOrg_Office_ElectronicDevice.ID = xElectronicDevice_ID;
+                                            
                                             return eGet_m_myOrg_Person_SingleUser_Result.OK;
                                         }
                                     }

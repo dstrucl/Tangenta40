@@ -266,6 +266,8 @@ namespace ShopC
 
         public static ltext s_Taxation = new ltext(new string[] { "Taxation", "Davki" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
+        public static ltext s_Tax = new ltext(new string[] { "Taxation", "Davek" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
+
         public static ltext s_Item = new ltext(new string[] { "Item", "Artikel" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
 

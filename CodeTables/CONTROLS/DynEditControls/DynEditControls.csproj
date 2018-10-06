@@ -127,6 +127,12 @@
     <Compile Include="usrc_NumericUpDown.Designer.cs">
       <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_NumericUpDown3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_NumericUpDown3.Designer.cs">
+      <DependentUpon>usrc_NumericUpDown3.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DBTypes\DBTypes.csproj">
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_NumericUpDown.resx">
       <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_NumericUpDown3.resx">
+      <DependentUpon>usrc_NumericUpDown3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

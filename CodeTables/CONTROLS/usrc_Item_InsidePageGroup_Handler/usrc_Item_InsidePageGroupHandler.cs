@@ -125,6 +125,16 @@ namespace usrc_Item_InsidePageGroup_Handler
             }
         }
 
+        public void SelectGroup(string[] sgroup, string s_ItemUniqueName, ref object odata, ref Control ctrl)
+        {
+            usrc_Item_InsideGroup_Handler1.SelectGroup(sgroup);
+            int index = this.usrc_Item_InsidePageHandler1.FindItem(s_ItemUniqueName, ref odata, ref ctrl);
+            if (index >= 0)
+            {
+                this.usrc_Item_InsidePageHandler1.SelectObject(index, usrc_Item_InsidePageHandler.eSelection.ON_REMOTE);
+            }
+        }
+
         private int m_ctrlHeightInGroupBox = 40;
         public int CtrlHeightInGroupBox
         {

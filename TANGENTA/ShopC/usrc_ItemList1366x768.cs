@@ -120,7 +120,12 @@ namespace ShopC
            this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName);
         }
 
-     
+        internal void Select(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, string s_ItemUniqueName, ref object odata, ref Control ctrl)
+        {
+            string[] sgroup = new string[3] { appisd.s1_name, appisd.s2_name, appisd.s3_name };
+            this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName,ref odata, ref ctrl);
+        }
+
 
         private bool take_from_Stock(decimal dQuantityToGetFromStock,
                                      List<Stock_Data> stocks,
@@ -457,7 +462,7 @@ namespace ShopC
                 }
 
 
-                m_usrc_Atom_ItemsList1366x768.ShowBasket(xData.Item_UniqueName.v);
+                m_usrc_Atom_ItemsList1366x768.ShowBasket(xData.Item_UniqueName.v, xData, ctrl);
                 if (ItemAdded != null)
                 {
                     ItemAdded();

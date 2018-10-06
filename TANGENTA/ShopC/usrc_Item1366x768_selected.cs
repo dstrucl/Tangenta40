@@ -31,10 +31,24 @@ namespace ShopC
 
         private int ipenindex = 0;
         private float penwidth = 2;
-        Pen[] pen = new Pen[5] { null, null, null, null, null };
+        private Pen[] pen = new Pen[5] { null, null, null, null, null };
+
+        private TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
+        private Item_Data itemdata = null;
+
+        private usrc_Atom_Item1366x768 m_usrc_Atom_Item1366x768 = null;
+        private usrc_Item1366x768 m_usrc_Item1366x768 = null;
 
 
-        public TangentaDB.Item_Data m_Item_Data = null;
+        public delegate void delegate_SetItemQunatityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
+                                                              usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
+                                                              TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd,
+                                                              Item_Data idata,
+                                                              usrc_Item1366x768 xusrc_Item1366x768
+                                                              );
+
+        public event delegate_SetItemQunatityInBasket event_SetItemQunatityInBasket = null;
+
 
         bool disposed = false;
 
@@ -88,15 +102,52 @@ namespace ShopC
             base.Dispose(disposing);
         }
 
-        internal void FillControl(int index, object odata)
+
+        public new event EventHandler<EventArgs> Click;
+
+        protected override void OnClick(EventArgs e)
+        {
+            EventArgs myArgs = new EventArgs();
+            EventHandler<EventArgs> myEvent = Click;
+            if (myEvent != null)
+                myEvent(this, myArgs);
+            //base.OnClick(e);
+            if (event_SetItemQunatityInBasket!=null)
+            {
+                event_SetItemQunatityInBasket(this,
+                                             m_usrc_Atom_Item1366x768,
+                                             appisd,
+                                             itemdata,
+                                             m_usrc_Item1366x768);
+            }
+        }
+
+        internal void FillControl(int index, object oappisddata,
+                                             Control ctrl_appisd,
+                                             object oitemdata,
+                                             Control ctrl_itemdata)
         {
             if (index>=0)
             {
                 this.Enabled = true;
                 timer1.Enabled = true;
-                if (odata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+                if (oappisddata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
                 {
-                    TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)odata;
+                    appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oappisddata;
+                    if (ctrl_appisd is usrc_Atom_Item1366x768)
+                    {
+                        m_usrc_Atom_Item1366x768 = (usrc_Atom_Item1366x768)ctrl_appisd;
+                    }
+                    if (oitemdata is Item_Data)
+                    {
+                        itemdata = (Item_Data)oitemdata;
+                    }
+
+                    if (ctrl_itemdata is usrc_Item1366x768)
+                    {
+                        m_usrc_Item1366x768 = (usrc_Item1366x768)ctrl_itemdata;
+                    }
+
                     this.lbl_Item.Text = appisd.Atom_Item_UniqueName.v;
                     this.lbl_from_Stock.Text = lng.s_FromStock.s+":"+appisd.dQuantity_FromStock.ToString();
                     this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + appisd.dQuantity_FromFactory.ToString();
@@ -105,6 +156,8 @@ namespace ShopC
             }
             else
             {
+                appisd = null;
+                m_usrc_Atom_Item1366x768 = null;
                 timer1.Enabled = false;
                 this.Enabled = false;
                 this.lbl_Item.Text = "";
@@ -137,6 +190,12 @@ namespace ShopC
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.Refresh();
+        }
+
+        
+        private void Controls_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
         }
     }
 }

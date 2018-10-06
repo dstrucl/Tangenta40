@@ -87,18 +87,7 @@ namespace DynEditControls
             }
         }
 
-        public string Label5
-        {
-            get
-            {
-                return label5.Text;
-            }
-            set
-            {
-                label5.Text = value;
-            }
-        }
-
+       
 
         public eType Type
         {

@@ -600,6 +600,7 @@ namespace Tangenta
                 }
                 else
                 {
+                    // myOrganisation_Person_SingleUser_ID is not valid !
                     return false;
                 }
             }

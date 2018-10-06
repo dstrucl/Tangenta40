@@ -102,6 +102,12 @@
     <Compile Include="Form_plus.Designer.cs">
       <DependentUpon>Form_plus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SetItemQunatityInBasket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SetItemQunatityInBasket.Designer.cs">
+      <DependentUpon>Form_SetItemQunatityInBasket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ShopC_TableInspection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +253,12 @@
     <Compile Include="usrc_ItemAtom_View.Designer.cs">
       <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_SetItemQuantityInBasket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SetItemQuantityInBasket.Designer.cs">
+      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ItemList1366x768.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -300,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_plus.resx">
       <DependentUpon>Form_plus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SetItemQunatityInBasket.resx">
+      <DependentUpon>Form_SetItemQunatityInBasket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ShopC_TableInspection.resx">
       <DependentUpon>Form_ShopC_TableInspection.cs</DependentUpon>
@@ -384,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemAtom_View.resx">
       <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SetItemQuantityInBasket.resx">
+      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemList1366x768.resx">
       <DependentUpon>usrc_ItemList1366x768.cs</DependentUpon>

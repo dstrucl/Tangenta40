@@ -382,6 +382,66 @@ namespace usrc_Item_InsidePage_Handler
             }
         }
 
+        public int FindItem(string s, ref object odata, ref Control ctrl)
+        {
+            odata = null;
+            int ilen = 0;
+            int ictrl = 0;
+            int ipage = 0;
+            switch (CollectionType)
+            {
+                case eCollectionType.ARRAY:
+                    ilen = m_ousrc_Item_array.Length;
+                    if (ilen > 0)
+                    {
+                        for (int i = 0; i < ilen; i++)
+                        {
+                            if (CompareWithString != null)
+                            {
+                                if (CompareWithString(m_ousrc_Item_array[i], s))
+                                {
+                                    odata = m_ousrc_Item_array[i];
+                                    if (get_page(i, ref ipage, ref ictrl))
+                                    {
+                                        ctrl = ctrlItems_array[ictrl];
+                                    }
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    return -1;
+
+                case eCollectionType.LIST:
+                    ilen = m_ousrc_Item_list.Count;
+                    if (ilen > 0)
+                    {
+                        for (int i = 0; i < ilen; i++)
+                        {
+                            if (CompareWithString != null)
+                            {
+                                if (CompareWithString(m_ousrc_Item_list[i], s))
+                                {
+                                    odata = m_ousrc_Item_list[i];
+                                    if (get_page(i, ref ipage, ref ictrl))
+                                    {
+                                        ctrl = ctrlItems_array[ictrl];
+                                    }
+
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    return -1;
+
+                default:
+                    MessageBox.Show("ERROR:CollectionType not implemented:" + CollectionType.ToString());
+                    return -1;
+            }
+        }
+
+
         public usrc_Item_InsidePageHandler()
         {
             InitializeComponent();

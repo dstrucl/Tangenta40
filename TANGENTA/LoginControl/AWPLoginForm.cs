@@ -110,8 +110,12 @@ namespace LoginControl
                     Close();
                     return;
 
-              }
+                case AWPLoginData.eGetDateResult.USER_NOT_FOUND:
+                    XMessage.Box.Show(this, lng.s_UserNameNotFound, cmbR_UserName.Text + "\r\n", "", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    return;
+
             }
+        }
 
         private bool Login_PasswordExpired(AWPLoginData awpld)
         {

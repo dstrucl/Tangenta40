@@ -39,7 +39,13 @@ namespace ShopC
         public delegate void delegate_After_Atom_Item_Remove();
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
 
-        public delegate void delegate_SelectionChanged(int index, object odata);
+        public delegate void delegate_SelectionChanged(Control ctrl,
+                                                      int index, 
+                                                      object odata,
+                                                      object oItemData,
+                                                      Control ctrl_item_data
+                                                      );
+
         public event delegate_SelectionChanged SelectionChanged = null;
 
 
@@ -127,6 +133,8 @@ namespace ShopC
 
         private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
         {
+            object oidata = null;
+            Control oxusrc_Item1366x768 = null;
             if (ctrl != null)
             {
                 if (oData is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
@@ -134,10 +142,10 @@ namespace ShopC
                     Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oData;
                     if (this.Parent is usrc_ShopC1366x768)
                     {
-                        ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd, appisd.Atom_Item_UniqueName.v);
+                        ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(appisd, appisd.Atom_Item_UniqueName.v, ref oidata,ref oxusrc_Item1366x768);
                         if (SelectionChanged!=null)
                         {
-                            SelectionChanged(index, oData);
+                            SelectionChanged(ctrl,index, oData,oidata, oxusrc_Item1366x768);
                         }
                     }
                 }
@@ -149,7 +157,7 @@ namespace ShopC
                     // this is deselection 
                    if (SelectionChanged != null)
                    {
-                        SelectionChanged(index, oData);
+                        SelectionChanged(ctrl,index, oData, oidata, oxusrc_Item1366x768);
                    }
                 }
             }
@@ -251,7 +259,7 @@ namespace ShopC
             Init(xAtom_WorkPeriod_ID);
         }
 
-        internal void ShowBasket(string xItemUniqueName)
+        internal void ShowBasket(string xItemUniqueName,object oidata, Control oidata_control)
         {
             usrc_Item_InsidePageHandler.eMode emode = usrc_Item_InsidePageHandler.eMode.EDIT;
             if (!m_ShopBC.m_CurrentDoc.bDraft)
@@ -260,13 +268,14 @@ namespace ShopC
             }
             this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Cast<Atom_DocInvoice_ShopC_Item_Price_Stock_Data>().ToList<object>(), emode);
             object odata = null;
-            int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata);
+            Control ctrl = null;
+            int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
             if (index >= 0)
             {
                 this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index,usrc_Item_InsidePageHandler.eSelection.ON_REMOTE);
                 if (SelectionChanged != null)
                 {
-                    SelectionChanged(index, odata);
+                    SelectionChanged(ctrl,index, odata, oidata, oidata_control);
                 }
             }
             //this.usrc_Item_InsidePageHandler1.ShowPage(0);
