@@ -478,6 +478,10 @@
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_NumKeypad\usrc_NumKeypad.csproj">
+      <Project>{672eb8f1-8eda-4a4d-88d6-6467e2837312}</Project>
+      <Name>usrc_NumKeypad</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>

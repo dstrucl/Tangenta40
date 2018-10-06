@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FCC6248C-467C-4B36-9CA2-1557073ED772}</ProjectGuid>
+    <ProjectGuid>{672EB8F1-8EDA-4A4D-88D6-6467E2837312}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>usrc_NumKeypad</RootNamespace>

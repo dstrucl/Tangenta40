@@ -52,5 +52,10 @@ namespace usrc_NumKeypad
                 }
             }
         }
+
+        public bool IsDecimalPoint(char ch)
+        {
+            return (ch == DecimalPoint);
+        }
     }
 }

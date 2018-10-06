@@ -24,6 +24,8 @@ namespace DynEditControls
         //public delegate void delegate_ValueChanged(object sender, EventArgs e);
         public event System.EventHandler ValueChanged = null;
 
+        public event System.EventHandler TextEnter = null;
+
         private eType m_eType = eType.INTEGER;
         private string m_Unit = "";
         private decimal m_MinValue = 0;
@@ -359,5 +361,13 @@ namespace DynEditControls
             m_Increment = Convert.ToDecimal(Math.Pow(10, -decimal_places));
         }
 
+        private void txt_Value_Enter(object sender, EventArgs e)
+        {
+            if (TextEnter!=null)
+            {
+                TextEnter(sender,e);
+            }
+            
+        }
     }
 }

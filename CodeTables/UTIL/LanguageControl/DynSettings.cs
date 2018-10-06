@@ -187,7 +187,7 @@ namespace LanguageControl
             }
         }
 
-        public static string SetLanguageCurrencyString(decimal xdecimal, int decimalplaces, string symbol)
+        public static string SetLanguageDecimalString(decimal xdecimal, int decimalplaces, string unitsymbol)
         {
             string sdecimal = xdecimal.ToString();
             string sdectotal = null;
@@ -226,7 +226,55 @@ namespace LanguageControl
             }
             if (sdectotal!=null)
             {
-                if (symbol!=null)
+                if (unitsymbol != null)
+                {
+                    sdectotal += " " + unitsymbol;
+                }
+                return sdectotal;
+            }
+            return "Err decimal";
+        }
+
+        public static string SetLanguageCurrencyString(decimal xdecimal, int decimalplaces, string symbol)
+        {
+            string sdecimal = xdecimal.ToString();
+            string sdectotal = null;
+
+            int idecimalpoint = sdecimal.IndexOfAny(new char[] { '.', ',' });
+            if (idecimalpoint >= 0)
+            {
+                string[] spart = sdecimal.Split(new char[] { '.', ',' });
+                if (spart.Length == 2)
+                {
+                    string sdec = spart[1];
+                    while (sdec.Length < decimalplaces)
+                    {
+                        sdec += '0';
+                    }
+                    sdectotal = spart[0] + lng.s_DecimalPoint.s + sdec;
+                }
+                if (spart.Length == 1)
+                {
+                    string sdec = "";
+                    while (sdec.Length < decimalplaces)
+                    {
+                        sdec += '0';
+                    }
+                    sdectotal = spart[0] + lng.s_DecimalPoint.s + sdec;
+                }
+            }
+            else
+            {
+                string sdec = "";
+                while (sdec.Length < decimalplaces)
+                {
+                    sdec += '0';
+                }
+                sdectotal = sdecimal + lng.s_DecimalPoint.s + sdec;
+            }
+            if (sdectotal != null)
+            {
+                if (symbol != null)
                 {
                     sdectotal += " " + symbol;
                 }
@@ -234,7 +282,6 @@ namespace LanguageControl
             }
             return "Err decimal";
         }
-
 
         public static void LanguageTextSave()
         {

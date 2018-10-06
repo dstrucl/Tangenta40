@@ -46,6 +46,7 @@
             this.txt_Value.Name = "txt_Value";
             this.txt_Value.Size = new System.Drawing.Size(173, 22);
             this.txt_Value.TabIndex = 0;
+            this.txt_Value.Enter += new System.EventHandler(this.txt_Value_Enter);
             // 
             // label2
             // 
