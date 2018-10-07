@@ -191,99 +191,6 @@ namespace ShopC
         }
 
 
-        private bool Add_Doc_ShopC_Item(Item_Data xData,
-                                        decimal xdQuantity,
-                                        ID stock_ID, 
-                                        ref ID atom_Price_Item_ID,
-                                        ref ID docInvoice_ShopC_Item)
-        {
-            ID atom_Taxation_ID = null;
-            ID atom_Item_ID = null;
-            if (!f_Atom_Price_Item.Get(xData.Item_UniqueName.v,
-                xData.Item_Name,
-                xData.Item_barcode,
-                xData.Item_Description,
-                xData.Expiry_ExpectedShelfLifeInDays,
-                xData.Expiry_SaleBeforeExpiryDateInDays,
-                xData.Expiry_DiscardBeforeExpiryDateInDays,
-                xData.Expiry_Description,
-                xData.Warranty_WarrantyDurationType,
-                xData.Warranty_WarrantyDuration,
-                xData.Warranty_WarrantyConditions,
-                xData.Unit_Name,
-                xData.Unit_Symbol,
-                xData.Unit_DecimalPlaces,
-                xData.Unit_StorageOption,
-                xData.Unit_Description,
-                xData.PriceList_Name,
-                xData.Currency_Abbreviation,
-                xData.Currency_Name,
-                xData.Item_Image_Image_Hash,
-                xData.Item_Image_Image_Data,
-                xData.RetailPricePerUnit,
-                xData.Price_Item_Discount,
-                xData.Taxation_Name,
-                xData.Taxation_Rate,
-                ref atom_Taxation_ID,
-                ref atom_Item_ID,
-                ref atom_Price_Item_ID))
-            {
-                return false;
-            }
-
-            decimal retailPricePerunit = 0;
-            if (xData.RetailPricePerUnit != null)
-            {
-                retailPricePerunit = xData.RetailPricePerUnit.v;
-            }
-            decimal taxRate = 0;
-            if (xData.Taxation_Rate != null)
-            {
-                taxRate = xData.Taxation_Rate.v;
-            }
-
-            decimal retailPriceWithDisount = decimal.Round(retailPricePerunit * xdQuantity * (1 - xData.ExtraDiscount), GlobalData.BaseCurrency.DecimalPlaces);
-            decimal netprice = decimal.Round(retailPriceWithDisount / (1 + taxRate), GlobalData.BaseCurrency.DecimalPlaces);
-            decimal taxprice = retailPriceWithDisount - netprice;
-            
-            decimal_v extraDiscount_v = new decimal_v(xData.ExtraDiscount);
-
-            if (m_ShopBC.IsDocInvoice)
-            {
-                if (!f_DocInvoice_ShopC_Item.Insert(xdQuantity,
-                                                    extraDiscount_v,
-                                                    retailPriceWithDisount,
-                                                    taxprice,
-                                                    this.m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                    atom_Price_Item_ID,
-                                                    xData.ExpiryDate,
-                                                    stock_ID,
-                                                    ref docInvoice_ShopC_Item))
-                {
-                    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.InsertWithCopyFirst");
-                    return false;
-                }
-            }
-            else
-            {
-                if (!f_DocProformaInvoice_ShopC_Item.Insert(xdQuantity,
-                                                    extraDiscount_v,
-                                                    retailPriceWithDisount,
-                                                    taxprice,
-                                                    this.m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                    atom_Price_Item_ID,
-                                                    xData.ExpiryDate,
-                                                    stock_ID,
-                                                    ref docInvoice_ShopC_Item))
-                {
-                    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.InsertWithCopyFirst");
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         private bool update_stock_elements_in_Doc_ShopC_Item(List<object> doc_ShopC_Items, 
                                                              Item_Data xData,
                                                              ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
@@ -326,7 +233,7 @@ namespace ShopC
                             ID atom_Price_Item_ID = null;
                             ID docInvoice_ShopC_Item_ID = null;
                             //stock element that is currently not in Doc_ShopC_Item
-                            if (!Add_Doc_ShopC_Item(xData, std.
+                            if (!m_ShopBC.Add_Doc_ShopC_Item( xData, std.
                                                     dQuantity_Taken_v.v,
                                                     std.Stock_ID,
                                                     ref atom_Price_Item_ID,
@@ -336,7 +243,7 @@ namespace ShopC
                             }
                             if (appisd != null)
                             {
-                                appisd.Add_Doc_ShopC_Item(xData,
+                                appisd.Add_Doc_ShopC_Item( xData,
                                                           std.dQuantity_Taken_v.v,
                                                           std.Stock_ID, 
                                                           atom_Price_Item_ID
@@ -397,7 +304,7 @@ namespace ShopC
                     {
                         ID atom_Price_Item_ID = null;
                         ID docInvoice_ShopC_Item_ID = null;
-                        if (!Add_Doc_ShopC_Item(xData,
+                        if (!m_ShopBC.Add_Doc_ShopC_Item(xData,
                                                 dRemainderQuantityNotTakenFromStock,
                                                 null,
                                                 ref atom_Price_Item_ID,
@@ -439,7 +346,7 @@ namespace ShopC
                             //factory  items not exist
                             ID atom_Price_Item_ID = null;
                             ID doc_ShopC_Item_ID = null;
-                            if (!Add_Doc_ShopC_Item(xData,
+                            if (!m_ShopBC.Add_Doc_ShopC_Item(xData,
                                                     dRemainderQuantityNotTakenFromStock,
                                                     null,
                                                     ref atom_Price_Item_ID,

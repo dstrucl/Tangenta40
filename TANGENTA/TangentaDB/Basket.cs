@@ -238,7 +238,18 @@ namespace TangentaDB
             }
         }
 
-  
+        public void Remove(ID doc_ShopC_Item_ID)
+        {
+            foreach (object o in this.m_DocInvoice_ShopC_Item_Data_LIST)
+            {
+                if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Doc_ShopC_Item_ID.Equals(doc_ShopC_Item_ID))
+                {
+                    this.m_DocInvoice_ShopC_Item_Data_LIST.Remove(o);
+                    return;
+                }
+            }
+        }
+
         public bool IsInBasket(string item_UniqueName)
         {
             if (this.m_DocInvoice_ShopC_Item_Data_LIST != null)

@@ -40,14 +40,14 @@ namespace ShopC
         private usrc_Item1366x768 m_usrc_Item1366x768 = null;
 
 
-        public delegate void delegate_SetItemQunatityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
+        public delegate void delegate_SetItemQuantityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
                                                               usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
                                                               TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd,
                                                               Item_Data idata,
                                                               usrc_Item1366x768 xusrc_Item1366x768
                                                               );
 
-        public event delegate_SetItemQunatityInBasket event_SetItemQunatityInBasket = null;
+        public event delegate_SetItemQuantityInBasket event_SetItemQuantityInBasket = null;
 
 
         bool disposed = false;
@@ -112,9 +112,9 @@ namespace ShopC
             if (myEvent != null)
                 myEvent(this, myArgs);
             //base.OnClick(e);
-            if (event_SetItemQunatityInBasket!=null)
+            if (event_SetItemQuantityInBasket!=null)
             {
-                event_SetItemQunatityInBasket(this,
+                event_SetItemQuantityInBasket(this,
                                              m_usrc_Atom_Item1366x768,
                                              appisd,
                                              itemdata,
@@ -122,6 +122,34 @@ namespace ShopC
             }
         }
 
+        internal void DoPaint(object oappisddata,
+                                             Control ctrl_appisd,
+                                             object oitemdata,
+                                             Control ctrl_itemdata)
+        {
+            if (oappisddata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+            {
+                appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oappisddata;
+                if (ctrl_appisd is usrc_Atom_Item1366x768)
+                {
+                    m_usrc_Atom_Item1366x768 = (usrc_Atom_Item1366x768)ctrl_appisd;
+                }
+                if (oitemdata is Item_Data)
+                {
+                    itemdata = (Item_Data)oitemdata;
+                }
+
+                if (ctrl_itemdata is usrc_Item1366x768)
+                {
+                    m_usrc_Item1366x768 = (usrc_Item1366x768)ctrl_itemdata;
+                }
+
+                this.lbl_Item.Text = appisd.Atom_Item_UniqueName.v;
+                this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + appisd.dQuantity_FromStock.ToString();
+                this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + appisd.dQuantity_FromFactory.ToString();
+                this.lbl_VAT.Text = lng.s_Taxation.s + ":" + appisd.Atom_Taxation_Name.v;
+            }
+        }
         internal void FillControl(int index, object oappisddata,
                                              Control ctrl_appisd,
                                              object oitemdata,
@@ -131,28 +159,10 @@ namespace ShopC
             {
                 this.Enabled = true;
                 timer1.Enabled = true;
-                if (oappisddata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
-                {
-                    appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oappisddata;
-                    if (ctrl_appisd is usrc_Atom_Item1366x768)
-                    {
-                        m_usrc_Atom_Item1366x768 = (usrc_Atom_Item1366x768)ctrl_appisd;
-                    }
-                    if (oitemdata is Item_Data)
-                    {
-                        itemdata = (Item_Data)oitemdata;
-                    }
-
-                    if (ctrl_itemdata is usrc_Item1366x768)
-                    {
-                        m_usrc_Item1366x768 = (usrc_Item1366x768)ctrl_itemdata;
-                    }
-
-                    this.lbl_Item.Text = appisd.Atom_Item_UniqueName.v;
-                    this.lbl_from_Stock.Text = lng.s_FromStock.s+":"+appisd.dQuantity_FromStock.ToString();
-                    this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + appisd.dQuantity_FromFactory.ToString();
-                    this.lbl_VAT.Text = lng.s_Taxation.s + ":" + appisd.Atom_Taxation_Name.v;
-                }
+                DoPaint(oappisddata,
+                        ctrl_appisd,
+                        oitemdata,
+                        ctrl_itemdata);
             }
             else
             {

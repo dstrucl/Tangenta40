@@ -56,7 +56,7 @@ namespace ShopC
 
         private ID m_Atom_WorkPeriod_ID = null;
         private DataTable dt_Item = new DataTable();
-        private TangentaDB.ShopABC m_InvoiceDB = null;
+        private TangentaDB.ShopABC m_ShopBC = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
@@ -168,7 +168,7 @@ namespace ShopC
         }
 
         public void Init(ID xAtom_WorkPeriod_ID,
-                        TangentaDB.ShopABC xm_InvoiceDB,
+                        TangentaDB.ShopABC x_ShopBC,
                         DBTablesAndColumnNames xDBtcn,
                         string ShopsInUse,
                         bool bAutomaticSelectionOfItemFromStock,
@@ -178,7 +178,7 @@ namespace ShopC
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
-            m_InvoiceDB = xm_InvoiceDB;
+            m_ShopBC = x_ShopBC;
             DBtcn = xDBtcn;
             m_usrc_Item1366x768_selected = x_usrc_Item1366x768_selected;
             if (DBtcn == null)
@@ -189,26 +189,26 @@ namespace ShopC
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
-            this.m_usrc_Atom_ItemsList1366x768.Init(m_Atom_WorkPeriod_ID,m_usrc_ItemList1366x768, xm_InvoiceDB, xDBtcn);
-            this.m_usrc_ItemList1366x768.Init(m_Atom_WorkPeriod_ID,xm_InvoiceDB, xDBtcn, this,m_usrc_Atom_ItemsList1366x768, m_bExclusivelySellFromStock);
+            this.m_usrc_Atom_ItemsList1366x768.Init(m_Atom_WorkPeriod_ID,m_usrc_ItemList1366x768, x_ShopBC, xDBtcn);
+            this.m_usrc_ItemList1366x768.Init(m_Atom_WorkPeriod_ID,x_ShopBC, xDBtcn, this,m_usrc_Atom_ItemsList1366x768, m_bExclusivelySellFromStock);
 
             this.m_usrc_ItemList1366x768.ItemAdded += new usrc_ItemList1366x768.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.m_usrc_Atom_ItemsList1366x768.After_Atom_Item_Remove += new usrc_Atom_ItemsList1366x768.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             this.m_usrc_Atom_ItemsList1366x768.SelectionChanged += M_usrc_Atom_ItemsList1366x768_SelectionChanged;
 
-            m_usrc_Item1366x768_selected.event_SetItemQunatityInBasket += M_usrc_Item1366x768_selected_event_SetItemQunatityInBasket;
+            m_usrc_Item1366x768_selected.event_SetItemQuantityInBasket += M_usrc_Item1366x768_selected_event_SetItemQuantityInBasket;
 
             SetColor();
         }
 
-        private void M_usrc_Item1366x768_selected_event_SetItemQunatityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
+        private void M_usrc_Item1366x768_selected_event_SetItemQuantityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
             usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd,
             Item_Data idata,
             usrc_Item1366x768 xusrc_Item1366x768)
         {
             Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
-            frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket( xusrc_Item1366x768_selected,
+            frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket(m_ShopBC, xusrc_Item1366x768_selected,
              xusrc_Atom_Item1366x768,
              xappisd,
              idata,
@@ -445,7 +445,7 @@ namespace ShopC
                 {
                     Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
                 }
-                this.m_InvoiceDB.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
+                this.m_ShopBC.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
                 if (dQuantitySelectedFromStock != dStockQuantity)
                 {
                     string smsg = Item_UniqueName + ":" + lng.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;
@@ -519,14 +519,14 @@ namespace ShopC
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_stock > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, true))
+                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, true))
                 {
                     return false;
                 }
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_factory > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, false))
+                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, false))
                 {
                     return false;
                 }

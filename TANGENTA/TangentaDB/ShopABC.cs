@@ -1615,6 +1615,98 @@ namespace TangentaDB
             return s;
         }
 
+        public bool Add_Doc_ShopC_Item(
+                                        Item_Data xData,
+                                        decimal xdQuantity,
+                                        ID stock_ID,
+                                        ref ID atom_Price_Item_ID,
+                                        ref ID docInvoice_ShopC_Item)
+        {
+            ID atom_Taxation_ID = null;
+            ID atom_Item_ID = null;
+            if (!f_Atom_Price_Item.Get(xData.Item_UniqueName.v,
+                xData.Item_Name,
+                xData.Item_barcode,
+                xData.Item_Description,
+                xData.Expiry_ExpectedShelfLifeInDays,
+                xData.Expiry_SaleBeforeExpiryDateInDays,
+                xData.Expiry_DiscardBeforeExpiryDateInDays,
+                xData.Expiry_Description,
+                xData.Warranty_WarrantyDurationType,
+                xData.Warranty_WarrantyDuration,
+                xData.Warranty_WarrantyConditions,
+                xData.Unit_Name,
+                xData.Unit_Symbol,
+                xData.Unit_DecimalPlaces,
+                xData.Unit_StorageOption,
+                xData.Unit_Description,
+                xData.PriceList_Name,
+                xData.Currency_Abbreviation,
+                xData.Currency_Name,
+                xData.Item_Image_Image_Hash,
+                xData.Item_Image_Image_Data,
+                xData.RetailPricePerUnit,
+                xData.Price_Item_Discount,
+                xData.Taxation_Name,
+                xData.Taxation_Rate,
+                ref atom_Taxation_ID,
+                ref atom_Item_ID,
+                ref atom_Price_Item_ID))
+            {
+                return false;
+            }
 
+            decimal retailPricePerunit = 0;
+            if (xData.RetailPricePerUnit != null)
+            {
+                retailPricePerunit = xData.RetailPricePerUnit.v;
+            }
+            decimal taxRate = 0;
+            if (xData.Taxation_Rate != null)
+            {
+                taxRate = xData.Taxation_Rate.v;
+            }
+
+            decimal retailPriceWithDisount = decimal.Round(retailPricePerunit * xdQuantity * (1 - xData.ExtraDiscount), GlobalData.BaseCurrency.DecimalPlaces);
+            decimal netprice = decimal.Round(retailPriceWithDisount / (1 + taxRate), GlobalData.BaseCurrency.DecimalPlaces);
+            decimal taxprice = retailPriceWithDisount - netprice;
+
+            decimal_v extraDiscount_v = new decimal_v(xData.ExtraDiscount);
+
+            if (this.IsDocInvoice)
+            {
+                if (!f_DocInvoice_ShopC_Item.Insert(xdQuantity,
+                                                    extraDiscount_v,
+                                                    retailPriceWithDisount,
+                                                    taxprice,
+                                                    this.m_CurrentDoc.Doc_ID,
+                                                    atom_Price_Item_ID,
+                                                    xData.ExpiryDate,
+                                                    stock_ID,
+                                                    ref docInvoice_ShopC_Item))
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:ShopABC:Add_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.Insert");
+                    return false;
+                }
+            }
+            else
+            {
+                if (!f_DocProformaInvoice_ShopC_Item.Insert(xdQuantity,
+                                                    extraDiscount_v,
+                                                    retailPriceWithDisount,
+                                                    taxprice,
+                                                    this.m_CurrentDoc.Doc_ID,
+                                                    atom_Price_Item_ID,
+                                                    xData.ExpiryDate,
+                                                    stock_ID,
+                                                    ref docInvoice_ShopC_Item))
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:ShopABC:Add_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.Insert");
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

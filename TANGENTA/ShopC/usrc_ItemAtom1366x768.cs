@@ -73,27 +73,16 @@ namespace ShopC
             }
         }
 
-
-        internal void DoPaint(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, usrc_Item_InsidePageHandler.eMode emode)
+        internal void DoRefresh()
         {
-            m_appisd = appisd;
-            if (emode== usrc_Item_InsidePageHandler.eMode.EDIT)
+            if (m_appisd.Atom_Item_UniqueName != null)
             {
-                btn_RemoveFromBasket.Visible = true;
-            }
-            else
-            {
-                btn_RemoveFromBasket.Visible = false;
-            }
-
-            if (appisd.Atom_Item_UniqueName != null)
-            {
-                this.Item_UniqueName = appisd.Atom_Item_UniqueName.v;
+                this.Item_UniqueName = m_appisd.Atom_Item_UniqueName.v;
             }
             string sunit = "";
-            if (appisd.Atom_Unit_Symbol!=null)
+            if (m_appisd.Atom_Unit_Symbol != null)
             {
-                sunit = appisd.Atom_Unit_Symbol.v;
+                sunit = m_appisd.Atom_Unit_Symbol.v;
             }
 
             decimal Discount = 0;
@@ -115,16 +104,16 @@ namespace ShopC
                         ref TaxRate,
                         ref NetPrice);
 
-            decimal dquantityall = appisd.dQuantity_FromFactory+ appisd.dQuantity_FromStock;
-            if (dquantityall>0)
+            decimal dquantityall = m_appisd.dQuantity_FromFactory + m_appisd.dQuantity_FromStock;
+            if (dquantityall > 0)
             {
-                if (appisd.dQuantity_all == null)
+                if (m_appisd.dQuantity_all == null)
                 {
-                    appisd.dQuantity_all = new DBTypes.decimal_v(dquantityall);
+                    m_appisd.dQuantity_all = new DBTypes.decimal_v(dquantityall);
                 }
                 else
                 {
-                    appisd.dQuantity_all.v = dquantityall;
+                    m_appisd.dQuantity_all.v = dquantityall;
                 }
                 lbl_Quantity_Value.Text = dquantityall.ToString() + " " + sunit;
                 lbl_Quantity_Value.Visible = true;
@@ -139,17 +128,32 @@ namespace ShopC
             lbl_RetailPriceValue.Visible = true;
 
             decimal discount = 0;
-            if (appisd.Discount!=null)
+            if (m_appisd.Discount != null)
             {
-                discount = appisd.Discount.v;
+                discount = m_appisd.Discount.v;
             }
             decimal extradiscount = 0;
-            if (appisd.ExtraDiscount != null)
+            if (m_appisd.ExtraDiscount != null)
             {
-                extradiscount = appisd.ExtraDiscount.v;
+                extradiscount = m_appisd.ExtraDiscount.v;
             }
             decimal dTotalDiscount = discount + extradiscount - discount * extradiscount;
-            lbl_DiscountValue.Text = Global.f.GetPercent(dTotalDiscount, 3)+"%";
+            lbl_DiscountValue.Text = Global.f.GetPercent(dTotalDiscount, 3) + "%";
+
+        }
+
+        internal void DoPaint(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, usrc_Item_InsidePageHandler.eMode emode)
+        {
+            m_appisd = appisd;
+            if (emode== usrc_Item_InsidePageHandler.eMode.EDIT)
+            {
+                btn_RemoveFromBasket.Visible = true;
+            }
+            else
+            {
+                btn_RemoveFromBasket.Visible = false;
+            }
+            DoRefresh();
         }
 
         private void lbl_Item_Click(object sender, EventArgs e)

@@ -125,6 +125,22 @@ namespace TangentaDB
             }
         }
 
+        public static bool Delete(ID doc_ShopC_Item_ID)
+        {
+            string sql = "delete from DocInvoice_ShopC_Item where ID = " + doc_ShopC_Item_ID.ToString();
+            object objret = null;
+            string Err = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objret, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item:Delete:sql=" + sql + "\r\nErr" + Err);
+                return false;
+            }
+        }
+
         public static bool GetItems(ID currentDoc_ID,ID item_ID, ref DataTable dtShopCItems)
         {
             string sql = @"select 

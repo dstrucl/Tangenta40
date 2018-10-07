@@ -24,6 +24,9 @@ namespace ShopC
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+        public static ltext s_ThereAreNotsoManyArticlesInStock = new ltext(new string[] { "There is not such quantity in stock", "Na zalogi ni tolikšne količine artikla" });
+
         public static ltext s_StornoInvoice = new ltext(new string[] { "STORNO", "Stornacija računa" });
 
         public static ltext s_PriceTotalWithDiscountWithoutVAT = new ltext(new string[] { "Net total with discunt", "Skupaj s popustom brez DDV" });
