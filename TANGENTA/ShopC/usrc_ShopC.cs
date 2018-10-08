@@ -56,7 +56,7 @@ namespace ShopC
 
         private ID m_Atom_WorkPeriod_ID = null;
         DataTable dt_Item = new DataTable();
-        private TangentaDB.ShopABC m_InvoiceDB = null;
+        private TangentaDB.ShopABC m_ShopBC = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
@@ -189,7 +189,7 @@ namespace ShopC
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
-            m_InvoiceDB = xm_InvoiceDB;
+            m_ShopBC = xm_InvoiceDB;
             this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
             this.chk_AutomaticSelectionOfItemFromStock.Visible = false;
             DBtcn = xDBtcn;
@@ -286,7 +286,7 @@ namespace ShopC
             }
 
             decimal count_in_baskets = 0;
-            if (CountInBaskets(ref count_in_baskets))
+            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
             {
                 if (count_in_baskets == 0)
                 {
@@ -304,31 +304,7 @@ namespace ShopC
             }
         }
 
-        internal bool CountInBaskets(ref decimal count_in_baskets)
-        {
-            string sql = @"select dQuantity 
-                            from DocInvoice_ShopC_Item  appis
-                            inner join DocInvoice pi on appis.DocInvoice_ID = pi.ID
-                            where pi.Draft = 1 and appis.Stock_ID is not null";
-            DataTable dt = new DataTable();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
-            {
-                decimal d = 0;
-                int iCount = dt.Rows.Count;
-                for (int i = 0; i < iCount; i++)
-                {
-                    d += (decimal)dt.Rows[i][0];
-                }
-                count_in_baskets = d;
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_ItemMan:CountInBaskets:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
+      
 
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
@@ -365,7 +341,7 @@ namespace ShopC
         private void btn_Items_Click(object sender, EventArgs e)
         {
             decimal count_in_baskets = 0;
-            if (CountInBaskets(ref count_in_baskets))
+            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
             {
                 if (count_in_baskets == 0)
                 {
@@ -451,7 +427,7 @@ namespace ShopC
                 {
                     Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
                 }
-                this.m_InvoiceDB.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock,
+                this.m_ShopBC.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock,
                                                                             dStockQuantity, 
                                                                             ref dQuantitySelectedFromStock, 
                                                                             ref UnitSymbol);
@@ -528,14 +504,14 @@ namespace ShopC
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_stock > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID, DocTyp, ref xShopC_Data_Item, true))
+                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID, DocTyp, ref xShopC_Data_Item, true))
                 {
                     return false;
                 }
             }
             if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_factory > 0)
             {
-                if (!this.m_InvoiceDB.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID, DocTyp, ref xShopC_Data_Item, false))
+                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID, DocTyp, ref xShopC_Data_Item, false))
                 {
                     return false;
                 }

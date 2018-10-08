@@ -28,6 +28,12 @@ namespace ShopC
         private string m_DocTyp = "";
         //private Form_plus frmplus = null;
 
+        public delegate void delegate_Stock_Click();
+        public event delegate_Stock_Click Stock_Click;
+
+        public delegate void delegate_Items_Click();
+        public event delegate_Items_Click Items_Click;
+
         public new bool Visible
         {
             get
@@ -534,6 +540,22 @@ namespace ShopC
                 }
             }
             return false;
+        }
+
+        private void btn_Stock_Click(object sender, EventArgs e)
+        {
+            if (Stock_Click!=null)
+            {
+                Stock_Click();
+            }
+        }
+
+        private void btn_Items_Click(object sender, EventArgs e)
+        {
+            if (Items_Click!=null)
+            {
+                Items_Click();
+            }
         }
     }
 }

@@ -108,7 +108,7 @@ namespace ShopC
 
         public usrc_Item[] usrc_Item_aray = null;
         usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
-        ShopABC m_ShopBC;
+        internal ShopABC m_ShopBC;
         DBTablesAndColumnNames DBtcn;
         int ipnl_Items_Width_default = -1;
         private ID m_PriceList_ID = null;

@@ -30,6 +30,8 @@
         {
             this.usrc_Item_TextSearch1 = new ShopC.usrc_Item_TextSearch();
             this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler();
+            this.btn_Stock = new System.Windows.Forms.Button();
+            this.btn_Items = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usrc_Item_TextSearch1
@@ -37,7 +39,7 @@
             this.usrc_Item_TextSearch1.BackColor = System.Drawing.Color.RosyBrown;
             this.usrc_Item_TextSearch1.Location = new System.Drawing.Point(3, 0);
             this.usrc_Item_TextSearch1.Name = "usrc_Item_TextSearch1";
-            this.usrc_Item_TextSearch1.Size = new System.Drawing.Size(640, 37);
+            this.usrc_Item_TextSearch1.Size = new System.Drawing.Size(380, 37);
             this.usrc_Item_TextSearch1.TabIndex = 16;
             // 
             // usrc_Item_InsidePageGroupHandler1
@@ -56,10 +58,44 @@
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 17;
             this.usrc_Item_InsidePageGroupHandler1.InsidePageHandler_CompareWithString += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.deleagte_InsidePageHandler_CompareWithString(this.usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString);
             // 
+            // btn_Stock
+            // 
+            this.btn_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Stock.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Stock.Image = global::ShopC.Properties.Resources.Edit;
+            this.btn_Stock.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_Stock.Location = new System.Drawing.Point(483, 0);
+            this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Stock.Name = "btn_Stock";
+            this.btn_Stock.Size = new System.Drawing.Size(73, 33);
+            this.btn_Stock.TabIndex = 23;
+            this.btn_Stock.Text = "Stock";
+            this.btn_Stock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Stock.UseVisualStyleBackColor = false;
+            this.btn_Stock.Click += new System.EventHandler(this.btn_Stock_Click);
+            // 
+            // btn_Items
+            // 
+            this.btn_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Items.Image = global::ShopC.Properties.Resources.Edit;
+            this.btn_Items.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_Items.Location = new System.Drawing.Point(569, 0);
+            this.btn_Items.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Items.Name = "btn_Items";
+            this.btn_Items.Size = new System.Drawing.Size(73, 32);
+            this.btn_Items.TabIndex = 22;
+            this.btn_Items.Text = "Items";
+            this.btn_Items.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Items.UseVisualStyleBackColor = false;
+            this.btn_Items.Click += new System.EventHandler(this.btn_Items_Click);
+            // 
             // usrc_ItemList1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.YellowGreen;
+            this.Controls.Add(this.btn_Stock);
+            this.Controls.Add(this.btn_Items);
             this.Controls.Add(this.usrc_Item_InsidePageGroupHandler1);
             this.Controls.Add(this.usrc_Item_TextSearch1);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -72,5 +108,7 @@
         #endregion
         private usrc_Item_TextSearch usrc_Item_TextSearch1;
         private usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
+        private System.Windows.Forms.Button btn_Stock;
+        private System.Windows.Forms.Button btn_Items;
     }
 }

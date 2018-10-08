@@ -606,7 +606,7 @@ namespace ShopC
         private void EditItemStock(NavigationButtons.Navigation xnav)
         {
             decimal dCountInBaskets = -1;
-            if (m_usrc_ItemList.m_usrc_ItemMan.CountInBaskets(ref dCountInBaskets))
+            if (m_usrc_ItemList.m_ShopBC.CountInBaskets(ref dCountInBaskets))
             {
                 if (dCountInBaskets == 0)
                 {
@@ -738,7 +738,7 @@ namespace ShopC
         private void lbl_Item_Click(object sender, EventArgs e)
         {
             decimal dCountInBaskets = -1;
-            if (m_usrc_ItemList.m_usrc_ItemMan.CountInBaskets(ref dCountInBaskets))
+            if (m_usrc_ItemList.m_ShopBC.CountInBaskets(ref dCountInBaskets))
             {
                 if (dCountInBaskets == 0)
                 {

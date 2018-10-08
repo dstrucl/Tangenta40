@@ -553,5 +553,57 @@ namespace ShopC
         {
             return f_Item.GetItemData(ref dt_Item, ref iCountItemData);
         }
+
+        private void m_usrc_ItemList1366x768_Stock_Click()
+        {
+            if (CheckAccessStock != null)
+            {
+                if (!CheckAccessStock())
+                {
+                    return;
+                }
+            }
+
+            decimal count_in_baskets = 0;
+            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
+            {
+                if (count_in_baskets == 0)
+                {
+                    if (EditStock(nav))
+                    {
+                        m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(PriceList_ID);
+                        Reset();
+                    }
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                }
+            }
+        }
+
+        private void m_usrc_ItemList1366x768_Items_Click()
+        {
+
+            decimal count_in_baskets = 0;
+            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
+            {
+                if (count_in_baskets == 0)
+                {
+                    NavigationButtons.Navigation nav_EditItem = new NavigationButtons.Navigation(null);
+                    nav_EditItem.bDoModal = true;
+                    nav_EditItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                    if (EditItem(nav_EditItem))
+                    {
+                        m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(PriceList_ID);
+                    }
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                }
+
+            }
+        }
     }
 }

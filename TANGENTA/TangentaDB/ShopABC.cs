@@ -1708,5 +1708,31 @@ namespace TangentaDB
 
             return true;
         }
+
+        public bool CountInBaskets(ref decimal count_in_baskets)
+        {
+            string sql = @"select dQuantity 
+                            from DocInvoice_ShopC_Item  appis
+                            inner join DocInvoice pi on appis.DocInvoice_ID = pi.ID
+                            where pi.Draft = 1 and appis.Stock_ID is not null";
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                decimal d = 0;
+                int iCount = dt.Rows.Count;
+                for (int i = 0; i < iCount; i++)
+                {
+                    d += (decimal)dt.Rows[i][0];
+                }
+                count_in_baskets = d;
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:ShopABC:CountInBaskets:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

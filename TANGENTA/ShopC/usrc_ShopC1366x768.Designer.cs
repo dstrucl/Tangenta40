@@ -56,6 +56,8 @@
             this.m_usrc_ItemList1366x768.NumberOfItemsPerPage = 10;
             this.m_usrc_ItemList1366x768.Size = new System.Drawing.Size(646, 280);
             this.m_usrc_ItemList1366x768.TabIndex = 24;
+            this.m_usrc_ItemList1366x768.Stock_Click += new ShopC.usrc_ItemList1366x768.delegate_Stock_Click(this.m_usrc_ItemList1366x768_Stock_Click);
+            this.m_usrc_ItemList1366x768.Items_Click += new ShopC.usrc_ItemList1366x768.delegate_Items_Click(this.m_usrc_ItemList1366x768_Items_Click);
             // 
             // m_usrc_Atom_ItemsList1366x768
             // 
