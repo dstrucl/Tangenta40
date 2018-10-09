@@ -167,5 +167,24 @@ namespace TangentaDB
                 return d;
             }
         }
+
+        public void SetNewStock(ID stock_ID, decimal dnewinstock)
+        {
+           foreach(Stock_Data std in this.Stock_Data_List)
+           {
+                if ((std.Stock_ID==null)&&(std.dQuantity_v==null))
+                {
+                    std.Stock_ID = tf.set_ID(stock_ID);
+                    std.dQuantity_v = tf.set_decimal(dnewinstock);
+                    return;
+                }
+           }
+
+            Stock_Data xstd = new Stock_Data();
+            xstd.Stock_ID = tf.set_ID(stock_ID);
+            xstd.dQuantity_v = tf.set_decimal(dnewinstock);
+            this.Stock_Data_List.Add(xstd);
+
+        }
     }
 }

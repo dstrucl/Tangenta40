@@ -155,7 +155,7 @@ namespace TangentaDB
                               decimal_v extraDiscount_v,
                               decimal retailPriceWithDiscount,
                               decimal taxPrice,
-                              ID docInvoice_ID,
+                              ID docProformaInvoice_ID,
                               ID atom_Price_Item_ID,
                               DateTime_v expiryDate_v,
                               ID stock_ID,
@@ -184,8 +184,8 @@ namespace TangentaDB
             SQL_Parameter par_taxPrice = new SQL_Parameter(spar_taxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, taxPrice);
             lpar.Add(par_taxPrice);
 
-            string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-            SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, false, docInvoice_ID);
+            string spar_DocProformaInvoice_ID = "@par_DocProformaInvoice_ID";
+            SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, false, docProformaInvoice_ID);
             lpar.Add(par_DocInvoice_ID);
 
             string spar_atom_Price_Item_ID = "@par_atom_Price_Item_ID";
@@ -201,9 +201,14 @@ namespace TangentaDB
                 sval_expiryDate = spar_expiryDate;
             }
 
-            string spar_stock_ID = "@par_stock_ID";
-            SQL_Parameter par_stock_ID = new SQL_Parameter(spar_stock_ID, false, stock_ID);
-            lpar.Add(par_stock_ID);
+            string sval_stock_ID = "null";
+            if (ID.Validate(stock_ID))
+            {
+                string spar_stock_ID = "@par_stock_ID";
+                SQL_Parameter par_stock_ID = new SQL_Parameter(spar_stock_ID, false, stock_ID);
+                lpar.Add(par_stock_ID);
+                sval_stock_ID = spar_stock_ID;
+            }
 
 
             string sql = @"insert into DocProformaInvoice_ShopC_Item
@@ -212,7 +217,7 @@ namespace TangentaDB
                             ExtraDiscount,
                             RetailPriceWithDiscount,
                             TaxPrice,
-                            DocInvoice_ID,
+                            DocProformaInvoice_ID,
                             Atom_Price_Item_ID,
                             ExpiryDate,
                             Stock_ID)
@@ -222,10 +227,10 @@ namespace TangentaDB
                             " + sval_extraDiscount + @",
                             " + spar_retailPriceWithDiscount + @",
                             " + spar_taxPrice + @",
-                            " + spar_DocInvoice_ID + @",
+                            " + spar_DocProformaInvoice_ID + @",
                             " + spar_atom_Price_Item_ID + @",
                             " + sval_expiryDate + @",
-                            " + spar_stock_ID + @")";
+                            " + sval_stock_ID + @")";
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref docProformaInvoice_ShopC_Item_ID, ref Err, "DocProformaInvoice_ShopC_Item"))
             {

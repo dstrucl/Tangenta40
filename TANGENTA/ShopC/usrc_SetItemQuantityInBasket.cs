@@ -267,6 +267,101 @@ namespace ShopC
             return false;
         }
 
+        private bool putBackToTheSameStockElement(Stock_Data std_appisd, ref decimal dput_back_to_stock)
+        {
+            if (ID.Validate(std_appisd.Stock_ID))
+            {
+                if (std_appisd.dQuantity_v != null)
+                {
+                    if (std_appisd.dQuantity_v.v > 0)
+                    {
+                        if (std_appisd.dQuantity_v.v >= dput_back_to_stock)
+                        {
+                            decimal dallready_in_stock = 0;
+                            decimal dnewinstock = dallready_in_stock + dput_back_to_stock;
+                            if (f_Stock.UpdateQuantity(std_appisd.Stock_ID, dnewinstock))
+                            {
+                                idata.SetNewStock(std_appisd.Stock_ID, dnewinstock);
+                                decimal dnewinbasketfromstock = std_appisd.dQuantity_v.v - dput_back_to_stock;
+                                if (dnewinbasketfromstock > 0)
+                                {
+                                    if (m_ShopBC.IsDocInvoice)
+                                    {
+                                        if (f_DocInvoice_ShopC_Item.UpdateQuantity(std_appisd.Doc_ShopC_Item_ID, dnewinbasketfromstock))
+                                        {
+                                            std_appisd.dQuantity_v.v = dnewinbasketfromstock;
+                                            dput_back_to_stock = 0;
+                                            return true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (f_DocProformaInvoice_ShopC_Item.UpdateQuantity(std_appisd.Doc_ShopC_Item_ID, dnewinbasketfromstock))
+                                        {
+                                            std_appisd.dQuantity_v.v = dnewinbasketfromstock;
+                                            dput_back_to_stock = 0;
+                                            return true;
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (m_ShopBC.IsDocInvoice)
+                                    {
+                                        if (f_DocInvoice_ShopC_Item.Delete(std_appisd.Doc_ShopC_Item_ID))
+                                        {
+                                            m_ShopBC.m_CurrentDoc.m_Basket.Remove(std_appisd.Doc_ShopC_Item_ID);
+                                            dput_back_to_stock = 0;
+                                            return true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (f_DocProformaInvoice_ShopC_Item.Delete(std_appisd.Doc_ShopC_Item_ID))
+                                        {
+                                            m_ShopBC.m_CurrentDoc.m_Basket.Remove(std_appisd.Doc_ShopC_Item_ID);
+                                            dput_back_to_stock = 0;
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            decimal dallready_in_stock = 0;
+                            decimal dinbasketfromstock = std_appisd.dQuantity_v.v;
+                            decimal dnewinstock = dallready_in_stock + dinbasketfromstock;
+                            if (f_Stock.UpdateQuantity(std_appisd.Stock_ID, dnewinstock))
+                            {
+                                idata.SetNewStock(std_appisd.Stock_ID, dnewinstock);
+                                if (m_ShopBC.IsDocInvoice)
+                                {
+                                    if (f_DocInvoice_ShopC_Item.Delete(std_appisd.Doc_ShopC_Item_ID))
+                                    {
+                                        m_ShopBC.m_CurrentDoc.m_Basket.Remove(std_appisd.Doc_ShopC_Item_ID);
+                                        dput_back_to_stock = dput_back_to_stock - dinbasketfromstock;
+                                        return true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (f_DocProformaInvoice_ShopC_Item.Delete(std_appisd.Doc_ShopC_Item_ID))
+                                    {
+                                        m_ShopBC.m_CurrentDoc.m_Basket.Remove(std_appisd.Doc_ShopC_Item_ID);
+                                        dput_back_to_stock = dput_back_to_stock - dinbasketfromstock;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         private bool takefromTheSameStockElement(Stock_Data std_idata, Stock_Data std_appisd, ref decimal additional_quantity_to_take_from_stock)
         {
             if (std_idata.dQuantity_v.v >= additional_quantity_to_take_from_stock)
@@ -433,17 +528,13 @@ namespace ShopC
                         }
                         else
                         {
-                            //std_idata = find_Item_Data_Stock_Data_not_zero_quantity();
-                            //if (std_idata != null)
-                            //{
-                            //    if (takefromAnotherStockElement(std_idata, std_appisd, ref additional_quantity_to_take_from_stock))
-                            //    {
-                            //        if (additional_quantity_to_take_from_stock == 0)
-                            //        {
-                            //            break;
-                            //        }
-                            //    }
-                            //}
+                            if (putBackToTheSameStockElement( std_appisd, ref dput_back_to_stock))
+                            {
+                                if (dput_back_to_stock == 0)
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
