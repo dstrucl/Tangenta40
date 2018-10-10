@@ -2,6 +2,7 @@
 using DBTypes;
 using LoginControl;
 using PriseLists;
+using ShopB;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -179,6 +180,7 @@ namespace Tangenta
                               delegate_control_RemoveHandler xdelegate_control_RemoveHandler,
                               delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text,
                               delegate_control_SetMode xdelegate_control_SetMode,
+                              object om_usrc_ShopB,
                               delegate_control_SetCurrentInvoice_SelectedShopB_Items xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
                               delegate_control_SetCurrentInvoice_SelectedShopC_Items xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
                               delegate_control_ShowStornoCheckBox xdelegate_control_ShowStornoCheckBox,
@@ -192,6 +194,11 @@ namespace Tangenta
                               delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text
                               )
         {
+            m_ShopABC.DocTyp = this.DocTyp;
+            if (om_usrc_ShopB is usrc_ShopB1366x768)
+            {
+                ((usrc_ShopB1366x768)om_usrc_ShopB).DocTyp = this.DocTyp;
+            }
             if (DoGetCurrent(xID, 
                              xdelegate_control_AddHandler, 
                              xdelegate_control_RemoveHandler,

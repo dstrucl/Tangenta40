@@ -928,6 +928,7 @@ namespace Tangenta
                                     this.RemoveHandler,
                                     this.set_InvoiceNumberText,
                                     this.SetMode,
+                                    this.m_usrc_ShopB,
                                     this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items,
                                     this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems,
                                     this.chk_Storno_Show,

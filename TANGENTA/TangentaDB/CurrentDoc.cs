@@ -437,7 +437,7 @@ namespace TangentaDB
         }
 
 
-        private bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        public bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             ID atom_Taxation_ID = null;
             return f_Atom_Price_Item.Get(appisd.Atom_Item_UniqueName.v,

@@ -941,12 +941,13 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
             int iStartMonth = xdtStartTime.Month;
             int iEndMonth = xdtEndTime.Month;
             int iEndDay = xdtEndTime.Day;
+            DateTime xdtEndTimePlusOneDay = xdtEndTime.AddDays(1);
             DateTime dtnow = DateTime.Now;
 
             if (((xdtStartTime.Day == 1) && (xdtStartTime.Hour == 0) && (xdtStartTime.Minute == 0) && (xdtStartTime.Second == 0))
                 &&
-                ((xdtEndTime.Day == 1) && (xdtEndTime.Hour == 0) && (xdtEndTime.Minute == 0) && (xdtEndTime.Second == 0))
-                && ((xdtEndTime.Month == xdtStartTime.Month +1)|| ((xdtEndTime.Month == 1)&&(xdtStartTime.Month==12)))
+                ((xdtEndTimePlusOneDay.Day == 1) && (xdtEndTimePlusOneDay.Hour == 0) && (xdtEndTimePlusOneDay.Minute == 0) && (xdtEndTimePlusOneDay.Second == 0))
+                && ((xdtEndTimePlusOneDay.Month == xdtStartTime.Month +1)|| ((xdtEndTimePlusOneDay.Month == 1)&&(xdtStartTime.Month==12)))
                 )
             {
                 iObracunsko_Obdobje = iStartMonth;

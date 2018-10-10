@@ -621,6 +621,7 @@ namespace Tangenta
                 m_usrc_ShopA1366x768.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
                 m_usrc_ShopA1366x768.EditUnits += M_usrc_ShopA_EditUnits;
 
+                m_usrc_ShopB1366x768.DocTyp = DocE.DocTyp;
                 m_usrc_ShopB1366x768.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
                 m_usrc_ShopB1366x768.aa_ItemAdded += usrc_ShopB_ItemAdded;
                 m_usrc_ShopB1366x768.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
@@ -709,6 +710,7 @@ namespace Tangenta
                         this.RemoveHandler,
                         this.set_InvoiceNumberText,
                         this.SetMode,
+                        this.m_usrc_ShopB1366x768,
                         this.m_usrc_ShopB1366x768.SetCurrentInvoice_SelectedShopB_Items,
                         this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems,
                         this.chk_Storno_Show,

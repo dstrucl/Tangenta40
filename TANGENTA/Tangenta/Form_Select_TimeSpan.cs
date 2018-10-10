@@ -203,7 +203,7 @@ namespace Tangenta
             if (rdb_TimeSpan.Checked)
             {
                 DateTime dtTo = dateTimePicker_To.Value;
-                DateTime dtToNextDay = dtTo.AddDays(1);
+                DateTime dtToNextDay = dtTo;//.AddDays(1);
                 dtToNextDay = new DateTime(dtToNextDay.Year, dtToNextDay.Month, dtToNextDay.Day, 0, 0, 0);
                 m_usrc_InvoiceTable.SetTimeSpanParam(usrc_TableOfDocuments.eMode.TimeSpan, dateTimePicker_From.Value, dtToNextDay);
             }

@@ -152,12 +152,16 @@ namespace ShopC
         {
             get
             {
-              return this.m_PriceList_ID;
+              if (m_usrc_PriceList1!=null)
+                {
+                    return m_usrc_PriceList1.ID;
+                }
+              else
+                {
+                    return null;
+                }
             }
-            set
-            {
-                m_PriceList_ID = value;
-            }
+        
         }
 
         public void SetColor()

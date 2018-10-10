@@ -170,7 +170,6 @@
             this.m_usrc_ShopC1366x768.Location = new System.Drawing.Point(0, 360);
             this.m_usrc_ShopC1366x768.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_ShopC1366x768.Name = "m_usrc_ShopC1366x768";
-            this.m_usrc_ShopC1366x768.PriceList_ID = null;
             this.m_usrc_ShopC1366x768.Size = new System.Drawing.Size(1006, 320);
             this.m_usrc_ShopC1366x768.TabIndex = 46;
             // 

@@ -24,6 +24,7 @@ namespace ShopC
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext sYouSetAllQuantitiesToZeroDoYouwantToRemoveItem = new ltext(new string[] { "You set all quantitites to zero.Do you want to remove item?", "Vse količine ste postavili na nič.Želite umakniti artikel iz košare?" });
 
         public static ltext s_ThereAreNotsoManyArticlesInStock = new ltext(new string[] { "There is not such quantity in stock", "Na zalogi ni tolikšne količine artikla" });
 
@@ -285,6 +286,9 @@ namespace ShopC
 
         public static ltext s_DocInvoice = new ltext(new string[] { "Invoice",
                                                  "Račun" });
+
+        public static ltext s_HasNoDecimalPlaces = new ltext(new string[] { "has no decimal places.", "nima decimalnih mest." });
+
 
         public static ltext s_Unit = new ltext(new string[] { "Unit", "Merska enota" });
 

@@ -163,7 +163,12 @@ namespace ShopC
 
         private void btn_RemoveFromBasket_Click(object sender, EventArgs e)
         {
-            if (btn_RemoveClick!=null)
+            RemoveFromBasket();
+        }
+
+        internal void RemoveFromBasket()
+        {
+            if (btn_RemoveClick != null)
             {
                 btn_RemoveClick(m_appisd);
             }
