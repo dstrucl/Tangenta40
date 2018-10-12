@@ -167,6 +167,23 @@ namespace Tangenta
             }
         }
 
+       
+        public bool IsDocInvoice
+        {
+            get
+            {
+                return DocTyp.Equals(GlobalData.const_DocInvoice);
+            }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            {
+                return DocTyp.Equals(GlobalData.const_DocProformaInvoice);
+            }
+        }
+
         public usrc_DocumentMan1366x768()
         {
             InitializeComponent();

@@ -54,7 +54,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_DocumentMan.Mode illegal Mode!");
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:((usrc_DocumentMan)o_usrc_DocumentMan).Mode illegal Mode!");
                 }
             }
             else if (docM != null)
@@ -130,8 +130,8 @@ namespace Tangenta
 
         private void Form_SelectPanels_Load(object sender, EventArgs e)
         {
-            //this.Top = m_usrc_DocumentMan.btn_SelectPanels.Top + m_usrc_DocumentMan.btn_SelectPanels.Height;
-            //this.Left = m_usrc_DocumentMan.btn_SelectPanels.Left;
+            //this.Top = ((usrc_DocumentMan)o_usrc_DocumentMan).btn_SelectPanels.Top + ((usrc_DocumentMan)o_usrc_DocumentMan).btn_SelectPanels.Height;
+            //this.Left = ((usrc_DocumentMan)o_usrc_DocumentMan).btn_SelectPanels.Left;
         }
     }
 }

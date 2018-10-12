@@ -66,19 +66,19 @@ namespace TangentaDB
                 sql_select_DocInvoice_Atom_Item_Stock =
                 @"
                 SELECT 
-                DocInvoice_ShopC_Item.ID as DocInvoice_ShopC_Item_ID,
-                DocInvoice_ShopC_Item.DocInvoice_ID,
-                DocInvoice_ShopC_Item.Stock_ID,
-                DocInvoice_ShopC_Item.Atom_Price_Item_ID,
+                disi.ID as DocInvoice_ShopC_Item_ID,
+                disi.DocInvoice_ID,
+                disi.Atom_Price_Item_ID,       
+                disis.Stock_ID,
                 Atom_Item.ID as Atom_Item_ID,
                 itm.ID as Item_ID,
                 Atom_Price_Item.RetailPricePerUnit,
                 Atom_Price_Item.Discount,
-                DocInvoice_ShopC_Item.RetailPriceWithDiscount,
-                DocInvoice_ShopC_Item.TaxPrice,
-                DocInvoice_ShopC_Item.ExtraDiscount,
-                DocInvoice_ShopC_Item.dQuantity,
-                DocInvoice_ShopC_Item.ExpiryDate,
+                disis.RetailPriceWithDiscount,
+                disis.TaxPrice,
+                disis.ExtraDiscount,
+                disis.dQuantity,
+                disis.ExpiryDate,
                 Atom_Item.UniqueName AS Atom_Item_UniqueName,
                 Atom_Item_Name.Name AS Atom_Item_Name_Name,
                 Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
@@ -113,20 +113,21 @@ namespace TangentaDB
                 itm_g1.Name as s1_name,
                 itm_g2.Name as s2_name, 
                 itm_g3.Name as s3_name
-                FROM DocInvoice_ShopC_Item 
-                INNER JOIN  Atom_Price_Item on DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID
+                FROM DocInvoice_ShopC_Item  disi
+                INNER JOIN DocInvoice_ShopC_Item_Source disis on disis.DocInvoice_ShopC_Item_ID = disi.ID
+                INNER JOIN  Atom_Price_Item on disi.Atom_Price_Item_ID = Atom_Price_Item.ID
                 INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
                 inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                 INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
                 INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-                INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
+                INNER JOIN  DocInvoice ON disi.DocInvoice_ID = DocInvoice.ID 
                 INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
                 INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
                 INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
                 LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
                 LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
                 LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-                LEFT JOIN  Stock ON DocInvoice_ShopC_Item.Stock_ID = Stock.ID 
+                LEFT JOIN  Stock ON disis.Stock_ID = Stock.ID 
                 LEFT JOIN  PurchasePrice_Item puitms ON Stock.PurchasePrice_Item_ID = puitms.ID 
                 LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
                 LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
@@ -136,26 +137,26 @@ namespace TangentaDB
                 LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
                 LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
                 LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-                where DocInvoice_ShopC_Item.DocInvoice_ID = " + xDoc_ID.ToString();
+                where disi.DocInvoice_ID = " + xDoc_ID.ToString();
             }
             else if (xDocTyp.Equals("DocProformaInvoice"))
             {
                 sql_select_DocInvoice_Atom_Item_Stock =
                 @"
-                SELECT 
-                DocProformaInvoice_ShopC_Item.ID as DocProformaInvoice_ShopC_Item_ID,
-                DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID,
-                DocProformaInvoice_ShopC_Item.Stock_ID,
-                DocProformaInvoice_ShopC_Item.Atom_Price_Item_ID,
+               SELECT 
+                dpisi.ID as DocProformaInvoice_ShopC_Item_ID,
+                dpisi.DocProformaInvoice_ID,
+                dpisis.Stock_ID,
+                dpisi.Atom_Price_Item_ID,
                 Atom_Item.ID as Atom_Item_ID,
                 itm.ID as Item_ID,
                 Atom_Price_Item.RetailPricePerUnit,
                 Atom_Price_Item.Discount,
-                DocProformaInvoice_ShopC_Item.RetailPriceWithDiscount,
-                DocProformaInvoice_ShopC_Item.TaxPrice,
-                DocProformaInvoice_ShopC_Item.ExtraDiscount,
-                DocProformaInvoice_ShopC_Item.dQuantity,
-                DocProformaInvoice_ShopC_Item.ExpiryDate,
+                dpisis.RetailPriceWithDiscount,
+                dpisis.TaxPrice,
+                dpisis.ExtraDiscount,
+                dpisis.dQuantity,
+                dpisis.ExpiryDate,
                 Atom_Item.UniqueName AS Atom_Item_UniqueName,
                 Atom_Item_Name.Name AS Atom_Item_Name_Name,
                 Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
@@ -191,20 +192,21 @@ namespace TangentaDB
                 itm_g1.Name as s1_name,
                 itm_g2.Name as s2_name, 
                 itm_g3.Name as s3_name
-                FROM DocProformaInvoice_ShopC_Item 
-                INNER JOIN  Atom_Price_Item on DocProformaInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID
+                FROM DocProformaInvoice_ShopC_Item dpisi
+				INNER JOIN DocProformaInvoice_ShopC_Item_Source dpisis on dpisis.DocProformaInvoice_ShopC_Item_ID = dpisi.ID
+                INNER JOIN  Atom_Price_Item on dpisi.Atom_Price_Item_ID = Atom_Price_Item.ID
                 INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
                 inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
                 INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
                 INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-                INNER JOIN  DocProformaInvoice ON DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID = DocProformaInvoice.ID 
+                INNER JOIN  DocProformaInvoice ON dpisi.DocProformaInvoice_ID = DocProformaInvoice.ID 
                 INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
                 INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
                 INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
                 LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
                 LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
                 LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-                LEFT JOIN  Stock ON DocProformaInvoice_ShopC_Item.Stock_ID = Stock.ID 
+                LEFT JOIN  Stock ON dpisis.Stock_ID = Stock.ID 
                 LEFT JOIN  PurchasePrice_Item puitms ON Stock.PurchasePrice_Item_ID = puitms.ID 
                 LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
                 LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
@@ -214,7 +216,7 @@ namespace TangentaDB
                 LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
                 LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
                 LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-                where DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID = " + xDoc_ID.ToString();
+                where dpisi.DocProformaInvoice_ID = " + xDoc_ID.ToString();
             }
             else
             {

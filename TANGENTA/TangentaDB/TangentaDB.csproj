@@ -176,6 +176,7 @@
     <Compile Include="f_DocInvoice.cs" />
     <Compile Include="f_DocInvoice_Atom_WorkArea.cs" />
     <Compile Include="f_DocInvoice_ShopB_Item.cs" />
+    <Compile Include="f_DocInvoice_ShopC_Item_Source.cs" />
     <Compile Include="f_DocProformaInvoiceAddOn.cs" />
     <Compile Include="f_DocInvoiceAddOn.cs" />
     <Compile Include="f_DocInvoice_ShopC_Item.cs" />
