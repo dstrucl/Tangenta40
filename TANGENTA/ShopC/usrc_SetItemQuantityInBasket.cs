@@ -647,7 +647,7 @@ namespace ShopC
                 {
                     if (ID.Validate(std_appisd.Stock_ID))
                     {
-                        Stock_Data std_idata = find_Item_Data_Stock_Data_not_zero_quantity(std_appisd.Stock_ID);
+                        Stock_Data std_idata = find_Item_Data_Stock_Data(std_appisd.Stock_ID);
                         if (std_idata != null)
                         {
                             if (putBackToTheSameStockElement(std_idata, std_appisd, ref dput_back_to_stock))

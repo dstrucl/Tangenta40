@@ -1511,19 +1511,13 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
         public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
-        public Stock m_Stock = new Stock();
-        public dQuantity dQuantity = new dQuantity();
-        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
-        public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
-        public TaxPrice TaxPrice = new TaxPrice();
-        public ExpiryDate ExpiryDate = new ExpiryDate(); 
+      
     }
 
-    public class DocProformaInvoice_ShopC_Item
+    public class DocInvoice_ShopC_Item_Source
     {
         public ID ID = new ID();
-        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
-        public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
+        public DocInvoice_ShopC_Item m_DocInvoice_ShopC_Item = new DocInvoice_ShopC_Item();
         public Stock m_Stock = new Stock();
         public dQuantity dQuantity = new dQuantity();
         public ExtraDiscount ExtraDiscount = new ExtraDiscount();
@@ -1532,6 +1526,24 @@ namespace TangentaTableClass
         public ExpiryDate ExpiryDate = new ExpiryDate();
     }
 
+    public class DocProformaInvoice_ShopC_Item
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
+    }
+
+    public class DocProformaInvoice_ShopC_Item_Source
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice_ShopC_Item m_DocProformaInvoice_ShopC_Item = new DocProformaInvoice_ShopC_Item();
+        public Stock m_Stock = new Stock();
+        public dQuantity dQuantity = new dQuantity();
+        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
+        public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
+        public TaxPrice TaxPrice = new TaxPrice();
+        public ExpiryDate ExpiryDate = new ExpiryDate();
+    }
 
     public class Atom_Item_Image
     {
@@ -3678,5 +3690,10 @@ namespace TangentaTableClass
         /* 249 */
         public CashierActivity_DocInvoice m_CashierActivity_DocInvoice = new CashierActivity_DocInvoice();
 
+        /* 250 */
+        public DocInvoice_ShopC_Item_Source m_DocInvoice_ShopC_Item_Source = new DocInvoice_ShopC_Item_Source();
+
+        /* 251 */
+        public DocProformaInvoice_ShopC_Item_Source m_DocProformaInvoice_ShopC_Item_Source = new DocProformaInvoice_ShopC_Item_Source();
     }
 }

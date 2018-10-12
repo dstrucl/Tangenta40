@@ -144,23 +144,29 @@ namespace ShopC
             for (int i = 0; i < icount; i++)
             {
                 Stock_Data std = stocks[i];
-                if (std.dQuantity_from_stock != null)
+                if (std.dQuantity_v != null)
                 {
-                    if (std.dQuantity_from_stock.v > 0)
+                    if (std.dQuantity_v.v > 0)
                     {
-                        if (dquantity_to_take_from_stock >= std.dQuantity_from_stock.v)
+                        if (dquantity_to_take_from_stock >= std.dQuantity_v.v)
                         {
-                            dquantity_to_take_from_stock -= std.dQuantity_from_stock.v;
+                            dquantity_to_take_from_stock -= std.dQuantity_v.v;
                             if (f_Stock.UpdateQuantity(std.Stock_ID, 0))
                             {
-                                std.dQuantity_Taken_v = new decimal_v(std.dQuantity_from_stock.v);
-                                if (std.dQuantity_New_in_Stock_v == null)
+                                if (std.dQuantity_Taken_v == null)
                                 {
-                                    std.dQuantity_New_in_Stock_v = new decimal_v();
+                                    std.dQuantity_Taken_v = new decimal_v();
                                 }
-                                std.dQuantity_New_in_Stock_v.v = 0;
-                                std.dQuantity_from_stock.v = 0;
-                                continue;
+                                std.dQuantity_Taken_v.v = std.dQuantity_v.v;
+                                std.dQuantity_v.v = 0;
+                                if (dquantity_to_take_from_stock > 0)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
                             else
                             {
@@ -169,16 +175,16 @@ namespace ShopC
                         }
                         else
                         {
-                            decimal dQuantity_left_in_stock = std.dQuantity_from_stock.v - dquantity_to_take_from_stock;
+                            decimal dQuantity_left_in_stock = std.dQuantity_v.v - dquantity_to_take_from_stock;
                             if (f_Stock.UpdateQuantity(std.Stock_ID, dQuantity_left_in_stock))
                             {
-                                if (std.dQuantity_New_in_Stock_v == null)
+                                if (std.dQuantity_Taken_v == null)
                                 {
-                                    std.dQuantity_New_in_Stock_v = new decimal_v();
+                                    std.dQuantity_Taken_v = new decimal_v();
                                 }
-                                std.dQuantity_Taken_v = new decimal_v(dquantity_to_take_from_stock);
-                                std.dQuantity_New_in_Stock_v.v = dQuantity_left_in_stock;
-                                std.dQuantity_from_stock.v = dQuantity_left_in_stock;
+                                std.dQuantity_Taken_v.v = dquantity_to_take_from_stock;
+
+                                std.dQuantity_v.v = dQuantity_left_in_stock;
                                 dquantity_in_stock_at_the_end += dQuantity_left_in_stock;
                                 dquantity_to_take_from_stock = 0;
 
@@ -210,66 +216,72 @@ namespace ShopC
                 {
                     if (std.dQuantity_Taken_v != null)
                     {
-                        if (find_Doc_ShopC_Item_ID(doc_ShopC_Items, std.Stock_ID, ref dqunatity_current, ref Doc_ShopC_Item_ID))
+                        if (std.dQuantity_Taken_v.v > 0)
                         {
-                            decimal dquantity_new = dqunatity_current + std.dQuantity_Taken_v.v;
-                            if (m_ShopBC.IsDocInvoice)
+                            if (find_Doc_ShopC_Item_ID(doc_ShopC_Items, std.Stock_ID, ref dqunatity_current, ref Doc_ShopC_Item_ID))
                             {
-                                if (!f_DocInvoice_ShopC_Item.UpdateQuantity(Doc_ShopC_Item_ID, dquantity_new))
+                                decimal dquantity_new = dqunatity_current + std.dQuantity_Taken_v.v;
+                                if (m_ShopBC.IsDocInvoice)
                                 {
-                                    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:f_DocInvoice_ShopC_Item.UpdateQuantity!");
-                                    return false;
+                                    if (!f_DocInvoice_ShopC_Item.UpdateQuantity(Doc_ShopC_Item_ID, dquantity_new))
+                                    {
+                                        LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:f_DocInvoice_ShopC_Item.UpdateQuantity!");
+                                        return false;
+                                    }
                                 }
+                                else
+                                {
+                                    if (!f_DocProformaInvoice_ShopC_Item.UpdateQuantity(Doc_ShopC_Item_ID, dquantity_new))
+                                    {
+                                        LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:f_DocInvoice_ShopC_Item.UpdateQuantity!");
+                                        return false;
+                                    }
+                                }
+                                if (appisd != null)
+                                {
+                                    appisd.AddQuantity(Doc_ShopC_Item_ID, std.Stock_ID, std.dQuantity_Taken_v.v);
+                                }
+                               
                             }
                             else
                             {
-                                if (!f_DocProformaInvoice_ShopC_Item.UpdateQuantity(Doc_ShopC_Item_ID, dquantity_new))
+                                ID atom_Price_Item_ID = null;
+                                ID docInvoice_ShopC_Item_ID = null;
+                                //stock element that is currently not in Doc_ShopC_Item
+                                if (!m_ShopBC.Add_Doc_ShopC_Item(xData, std.
+                                                        dQuantity_Taken_v.v,
+                                                        std.Stock_ID,
+                                                        ref atom_Price_Item_ID,
+                                                        ref docInvoice_ShopC_Item_ID))
                                 {
-                                    LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:update_stock_elements_in_Doc_ShopC_Item:f_DocInvoice_ShopC_Item.UpdateQuantity!");
                                     return false;
                                 }
-                            }
-                            if (appisd != null)
-                            {
-                                appisd.AddQuantity(Doc_ShopC_Item_ID, std.Stock_ID, std.dQuantity_Taken_v.v);
-                            }
-                        }
-                        else
-                        {
-                            ID atom_Price_Item_ID = null;
-                            ID docInvoice_ShopC_Item_ID = null;
-                            //stock element that is currently not in Doc_ShopC_Item
-                            if (!m_ShopBC.Add_Doc_ShopC_Item( xData, std.
-                                                    dQuantity_Taken_v.v,
-                                                    std.Stock_ID,
-                                                    ref atom_Price_Item_ID,
-                                                    ref docInvoice_ShopC_Item_ID))
-                            {
-                                return false;
-                            }
-                            if (appisd != null)
-                            {
-                                appisd.Add_Doc_ShopC_Item( xData,
-                                                          std.dQuantity_Taken_v.v,
-                                                          std.Stock_ID, 
-                                                          atom_Price_Item_ID
-                                                          );
-                            }
-                            else
-                            {
-                                //not in basket yet
-                                if (ID.Validate(std.Stock_ID))
+                                if (appisd != null)
                                 {
-                                    m_ShopBC.m_CurrentDoc.m_Basket.Add_WithNoTakeForItemData(m_ShopBC.m_CurrentDoc.m_Doc_ID,
-                                                                       docInvoice_ShopC_Item_ID,
-                                                                       xData,
-                                                                       0,
-                                                                       std.dQuantity_Taken_v.v,
-                                                                       ref appisd,
-                                                                       false
-                                                                   );
+                                    appisd.Add_Doc_ShopC_Item(xData,
+                                                              std.dQuantity_Taken_v.v,
+                                                              std.Stock_ID,
+                                                              atom_Price_Item_ID
+                                                              );
                                 }
+                                else
+                                {
+                                    //not in basket yet
+                                    if (ID.Validate(std.Stock_ID))
+                                    {
+                                        m_ShopBC.m_CurrentDoc.m_Basket.Add_WithNoTakeForItemData(m_ShopBC.m_CurrentDoc.m_Doc_ID,
+                                                                           docInvoice_ShopC_Item_ID,
+                                                                           xData,
+                                                                           0,
+                                                                           std.dQuantity_Taken_v.v,
+                                                                           ref appisd,
+                                                                           false
+                                                                       );
+                                    }
+                                }
+                               
                             }
+                            std.dQuantity_Taken_v.v = 0;
                         }
                     }
                 }

@@ -62,7 +62,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.27";
+        public const string VERSION = "1.28";
         public Settings Settings = null;
 
         /* 1 */
@@ -745,6 +745,12 @@ namespace TangentaDataBaseDef
         /* 249 */
         public SQLTable t_CashierActivity_DocInvoice = null;
 
+        /* 250 */
+        public SQLTable t_DocInvoice_ShopC_Item_Source = null;
+
+        /* 251 */
+        public SQLTable t_DocProformaInvoice_ShopC_Item_Source = null;
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -1147,14 +1153,8 @@ namespace TangentaDataBaseDef
             /* 50 */
             t_DocInvoice_ShopC_Item = new SQLTable((Object)new DocInvoice_ShopC_Item(), "dinvshci", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_DocProformaInvoice_ShopC_Item);
             t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Selected Quantity", "Izbrana Količina"));
-            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Extra Discount", "Dodatni Popust"));
-            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("RetailSimpleItemPrice with discount", "Prodajna cena s popustom"));
-            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax price", "Davek"));
             t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Invoice ID", "Račun ID"));
             t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.m_Atom_Price_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Price-Item arh ID", "Cena-Artikel arh ID"));
-            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Expiry Date", "Rok uporabe"));
-            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Stock ID", "Zaloga ID"));
             m_DBTables.items.Add(t_DocInvoice_ShopC_Item);
 
             /* 51 */
@@ -2252,14 +2252,8 @@ namespace TangentaDataBaseDef
             /* 178 */
             t_DocProformaInvoice_ShopC_Item = new SQLTable((Object)new DocProformaInvoice_ShopC_Item(), "dpinvshci", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_DocProformaInvoice_ShopC_Item);
             t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Selected Quantity", "Izbrana Količina"));
-            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Extra Discount", "Dodatni Popust"));
-            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("RetailSimpleItemPrice with discount", "Prodajna cena s popustom"));
-            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax price", "Davek"));
             t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Proforma Invoice ID", "Predračun ID"));
             t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.m_Atom_Price_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Price-Item arh ID", "Cena-Artikel arh ID"));
-            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Expiry Date", "Rok uporabe"));
-            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Stock ID", "Zaloga ID"));
             m_DBTables.items.Add(t_DocProformaInvoice_ShopC_Item);
 
             /* 179 */
@@ -2841,6 +2835,30 @@ namespace TangentaDataBaseDef
             t_CashierActivity_DocInvoice.AddColumn((Object)mt.m_CashierActivity_DocInvoice.m_CashierActivity, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Cashier activity ID", "Aktivnost blagajne ID"));
             m_DBTables.items.Add(t_CashierActivity_DocInvoice);
 
+
+            /* 250 */
+            t_DocInvoice_ShopC_Item_Source = new SQLTable((Object)new DocInvoice_ShopC_Item(), "dinvshcis", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_DocInvoice_ShopC_Item);
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.m_DocInvoice_ShopC_Item, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Item in basket ID", "Artikel v košari ID"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Stock ID", "Zaloga ID"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Selected Quantity", "Izbrana Količina"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Extra Discount", "Dodatni Popust"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("RetailSimpleItemPrice with discount", "Prodajna cena s popustom"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax price", "Davek"));
+            t_DocInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocInvoice_ShopC_Item_Source.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Expiry Date", "Rok uporabe"));
+            m_DBTables.items.Add(t_DocInvoice_ShopC_Item_Source);
+
+            /* 251 */
+            t_DocProformaInvoice_ShopC_Item_Source = new SQLTable((Object)new DocProformaInvoice_ShopC_Item(), "dpinvshcis", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_DocProformaInvoice_ShopC_Item);
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.m_DocProformaInvoice_ShopC_Item, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Item in basket ID", "Artikel v košari ID"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Stock ID", "Zaloga ID"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Selected Quantity", "Izbrana Količina"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Extra Discount", "Dodatni Popust"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("RetailSimpleItemPrice with discount", "Prodajna cena s popustom"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax price", "Davek"));
+            t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Expiry Date", "Rok uporabe"));
+            m_DBTables.items.Add(t_DocProformaInvoice_ShopC_Item_Source);
 
         }
     }

@@ -380,7 +380,13 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_Atom_myOrganisation_Person = new ltext(new string[] { "My Organisation Person arh", "Zaposleni arhiv" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
+        public static ltext lngt_t_DocInvoice_ShopC_Item = new ltext(new string[] { "Proforma Invoice ShopC Item", "Artikli prodajalne C na računu" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+
         public static ltext lngt_t_DocProformaInvoice_ShopC_Item = new ltext(new string[] { "Proforma Invoice ShopC Item", "Artikli prodajalne C na pred-računu" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+
+        public static ltext lngt_t_DocInvoice_ShopC_Item_Source = new ltext(new string[] { "ShopC Item Source", "Izvor artikla prodajalne C v košari" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
+
+        public static ltext lngt_t_DocProformaInvoice_ShopC_Item_Source = new ltext(new string[] { "ShopC Item Source", "Izvor artikla prodajalne C v košari" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
         public static ltext lngt_myOrganisation_Person = new ltext(new string[] { "myCommpany_Person", "Oseba podjetja" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
