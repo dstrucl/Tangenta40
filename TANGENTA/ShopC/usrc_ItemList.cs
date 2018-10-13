@@ -343,14 +343,14 @@ namespace ShopC
         }
 
 
-        internal bool Show(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        internal bool Show(TangentaDB.Doc_ShopC_Item xdsci)
         {
             string[] sGroupArr = new string[3];
-            sGroupArr[0] = appisd.s1_name;
-            sGroupArr[1] = appisd.s2_name;
-            sGroupArr[2] = appisd.s3_name;
+            sGroupArr[0] = xdsci.s1_name;
+            sGroupArr[1] = xdsci.s2_name;
+            sGroupArr[2] = xdsci.s3_name;
             m_usrc_Item_Group_Handler.Select(sGroupArr);
-            int index = m_ShopBC.m_CurrentDoc.m_ShopShelf.GetIndex(appisd);
+            int index = m_ShopBC.m_CurrentDoc.m_ShopShelf.GetIndex(xdsci);
             if (index >= 0)
             {
                 m_usrc_Item_PageHandler.Show(index);

@@ -21,7 +21,7 @@ namespace ShopC
 {
     public partial class usrc_Atom_Item : UserControl
     {
-        public TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data m_appisd = null;
+        public TangentaDB.Doc_ShopC_Item m_dsci = null;
         public long Item_ID = -1;
         public delegate void delegate_btn_RemoveClick(usrc_Atom_Item x_usrc_Atom_Item, bool bFactory);
         public event delegate_btn_RemoveClick btn_RemoveClick = null;
@@ -58,18 +58,18 @@ namespace ShopC
 
         }
 
-        internal void DoPaint(TangentaDB.ShopABC xInvoiceDB, Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        internal void DoPaint(TangentaDB.ShopABC xInvoiceDB, Doc_ShopC_Item xdsci)
         {
             //appisd.Set(m_dr);
             m_InvoiceDB = xInvoiceDB;
-            m_appisd = appisd;
-            this.lbl_Item.Text = appisd.Atom_Item_UniqueName.v;
-            if (appisd.Atom_Item_Image_Data != null)
+            m_dsci = xdsci;
+            this.lbl_Item.Text = xdsci.Atom_Item_UniqueName.v;
+            if (xdsci.Atom_Item_Image_Data != null)
             {
                 try
                 {
                     ImageConverter ic = new ImageConverter();
-                    this.btn_pic_Image.Image = (Image)ic.ConvertFrom(appisd.Atom_Item_Image_Data.v);
+                    this.btn_pic_Image.Image = (Image)ic.ConvertFrom(xdsci.Atom_Item_Image_Data.v);
                     this.btn_pic_Image.Text = "";
                     int ctrla_Count = ctrla.Count();
                     for (int i=0;i<ctrla_Count;i++)
@@ -118,7 +118,7 @@ namespace ShopC
             decimal TaxRate = 0;
 
             decimal NetPrice = 0;
-            appisd.GetPrices(
+            xdsci.GetPrices(
                         ref  Discount,
                         ref  ExtraDiscount,
                         ref  RetailPrice,
@@ -132,8 +132,8 @@ namespace ShopC
             this.txt_TaxPrice.Text = TaxPrice.ToString();
             this.txt_NetPrice.Text = NetPrice.ToString();
 
-            dQuantity_FromStock = appisd.dQuantity_FromStock;
-            dQuantity_FromFactory = appisd.dQuantity_FromFactory;
+            dQuantity_FromStock = xdsci.dQuantity_FromStock;
+            dQuantity_FromFactory = xdsci.dQuantity_FromFactory;
 
             this.txt_FromStockCount.Text = dQuantity_FromStock.ToString();//m_Item_Data.nmUpDn_StockQuantity_Value.ToString();
             this.txt_FromFactoryCount.Text = dQuantity_FromFactory.ToString();//m_Item_Data.nmUpDn_FactoryQuantity_Value.ToString();
@@ -141,9 +141,9 @@ namespace ShopC
             this.lbl_RetailPriceValue.Text = RetailPrice.ToString();
 
             string unit_symbol = null;
-            if (appisd.Atom_Unit_Symbol!=null)
+            if (xdsci.Atom_Unit_Symbol!=null)
             {
-                unit_symbol = appisd.Atom_Unit_Symbol.v;
+                unit_symbol = xdsci.Atom_Unit_Symbol.v;
             }
             if (unit_symbol == null)
             {
@@ -249,7 +249,7 @@ namespace ShopC
             }
         }
 
-        internal void GetPrices(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd,
+        internal void GetPrices(TangentaDB.Doc_ShopC_Item xdsci,
                                 ref decimal Discount, ref decimal ExtraDiscount, ref decimal RetailPrice, ref decimal RetailPriceWithDiscount,
                                 ref decimal TaxPrice,
                                 ref string TaxName,
@@ -259,21 +259,21 @@ namespace ShopC
             decimal dquantity_all = 0;
             decimal RetailPricePerUnit = 0;
             int i = 0;
-            int iCount = appisd.m_ShopShelf_Source.Stock_Data_List.Count;
-            Discount = appisd.Discount.v;
-            ExtraDiscount = appisd.ExtraDiscount.v;
-            RetailPricePerUnit = appisd.RetailPricePerUnit.v;
-            TaxRate = appisd.Atom_Taxation_Rate.v;
+            int iCount = xdsci.m_ShopShelf_Source.Stock_Data_List.Count;
+            Discount = xdsci.Discount.v;
+            ExtraDiscount = xdsci.ExtraDiscount.v;
+            RetailPricePerUnit = xdsci.RetailPricePerUnit.v;
+            TaxRate = xdsci.Atom_Taxation_Rate.v;
             if (TaxName == null)
             {
-                TaxName = appisd.Atom_Taxation_Name.v;
+                TaxName = xdsci.Atom_Taxation_Name.v;
             }
 
             if (iCount > 0)
             {
                 for (i = 0; i < iCount; i++)
                 {
-                    Stock_Data stock_data = appisd.m_ShopShelf_Source.Stock_Data_List[i];
+                    Stock_Data stock_data = xdsci.m_ShopShelf_Source.Stock_Data_List[i];
                     if (stock_data.Stock_ID!=null)
                     { 
                         dquantity_all += stock_data.dQuantity_from_stock.v;
@@ -345,13 +345,13 @@ namespace ShopC
 
         private void btn_pic_Image_Click(object sender, EventArgs e)
         {
-            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB,this.m_appisd.Atom_Item_ID);
+            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB,this.m_dsci.Atom_Item_ID);
             itma_frm.ShowDialog();
         }
 
         private void lbl_Item_Click(object sender, EventArgs e)
         {
-            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB, this.m_appisd.Atom_Item_ID);
+            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_InvoiceDB, this.m_dsci.Atom_Item_ID);
             itma_frm.ShowDialog();
         }
     }

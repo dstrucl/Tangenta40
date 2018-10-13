@@ -207,14 +207,14 @@ namespace ShopC
 
         private void M_usrc_Item1366x768_selected_event_SetItemQuantityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
             usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
-            Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd,
+            Doc_ShopC_Item xdsci,
             Item_Data idata,
             usrc_Item1366x768 xusrc_Item1366x768)
         {
             Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
             frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket(m_ShopBC, xusrc_Item1366x768_selected,
              xusrc_Atom_Item1366x768,
-             xappisd,
+             xdsci,
              idata,
              xusrc_Item1366x768);
             frm_SetItemQuantityInBasket.ShowDialog();
@@ -433,7 +433,7 @@ namespace ShopC
 
         public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
                                                       DataTable dt_ShopC_Item_in_Stock,
-                                                      Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
+                                                      Doc_ShopC_Item xShopC_Data_Item,
                                                       decimal dStockQuantity,
                                                       decimal dFromFactoryQuantity,
                                                       ref decimal dQuantitySelectedFromStock,

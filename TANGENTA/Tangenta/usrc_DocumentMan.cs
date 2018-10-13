@@ -749,7 +749,7 @@ namespace Tangenta
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List))
+            if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List))
             {
                 if (xdt_ShopB_Items == null)
                 {

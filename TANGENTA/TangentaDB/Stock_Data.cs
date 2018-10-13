@@ -82,14 +82,14 @@ namespace TangentaDB
         }
 
 
-        public void Set(string docType,System.Data.DataRow dria)
-        {
-            Doc_ShopC_Item_ID = tf.set_ID(dria[docType + "_ShopC_Item_ID"]);
-            Stock_ID = tf.set_ID(dria["Stock_ID"]);
-            Stock_ImportTime = tf.set_DateTime(dria["Stock_ImportTime"]);
-            Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
-            dQuantity_v = tf.set_decimal(dria["dQuantity"]);
-        }
+        //public void Set(string docType,System.Data.DataRow dria)
+        //{
+        //    Doc_ShopC_Item_ID = tf.set_ID(dria[docType + "_ShopC_Item_ID"]);
+        //    Stock_ID = tf.set_ID(dria["Stock_ID"]);
+        //    Stock_ImportTime = tf.set_DateTime(dria["Stock_ImportTime"]);
+        //    Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
+        //    dQuantity_v = tf.set_decimal(dria["dQuantity"]);
+        //}
 
         public bool Remove_from_StockShelf(ID xAtom_WorkPeriod_ID)
         {

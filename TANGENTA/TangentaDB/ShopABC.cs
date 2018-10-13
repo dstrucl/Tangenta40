@@ -430,8 +430,8 @@ namespace TangentaDB
 
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
-                            m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
-                            if (m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                            m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Clear();
+                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST))
                             {
                                 return true;
                             }
@@ -502,8 +502,8 @@ namespace TangentaDB
 
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
-                            m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
-                            if (m_CurrentDoc.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                            m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Clear();
+                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST))
                             {
                                 return true;
                             }
@@ -1620,7 +1620,8 @@ namespace TangentaDB
                                         decimal xdQuantity,
                                         ID stock_ID,
                                         ref ID atom_Price_Item_ID,
-                                        ref ID docInvoice_ShopC_Item)
+                                        ref ID docInvoice_ShopC_Item_ID,
+                                        ref ID docInvoice_ShopC_Item_Source_ID)
         {
             ID atom_Taxation_ID = null;
             ID atom_Item_ID = null;
@@ -1675,15 +1676,37 @@ namespace TangentaDB
 
             if (this.IsDocInvoice)
             {
-                if (!f_DocInvoice_ShopC_Item.Insert(xdQuantity,
-                                                    extraDiscount_v,
-                                                    retailPriceWithDisount,
-                                                    taxprice,
-                                                    this.m_CurrentDoc.Doc_ID,
+                //if (!f_DocInvoice_ShopC_Item.Insert(xdQuantity,
+                //                                    extraDiscount_v,
+                //                                    retailPriceWithDisount,
+                //                                    taxprice,
+                //                                    this.m_CurrentDoc.Doc_ID,
+                //                                    atom_Price_Item_ID,
+                //                                    xData.ExpiryDate,
+                //                                    stock_ID,
+                //                                    ref docInvoice_ShopC_Item))
+                if (f_DocInvoice_ShopC_Item.Insert(this.m_CurrentDoc.Doc_ID,
                                                     atom_Price_Item_ID,
-                                                    xData.ExpiryDate,
-                                                    stock_ID,
-                                                    ref docInvoice_ShopC_Item))
+                                                    ref docInvoice_ShopC_Item_ID))
+                {
+                    if (f_DocInvoice_ShopC_Item_Source.Insert(docInvoice_ShopC_Item_ID,
+                                                            xdQuantity,
+                                                            extraDiscount_v,
+                                                            retailPriceWithDisount,
+                                                            taxprice,
+                                                            xData.ExpiryDate,
+                                                            stock_ID,
+                                                   ref docInvoice_ShopC_Item_Source_ID))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:ShopABC:Add_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item_Source.Insert");
+                        return false;
+                    }
+                }
+                else
                 {
                     LogFile.Error.Show("ERROR:TangentaDB:ShopABC:Add_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.Insert");
                     return false;
@@ -1699,7 +1722,7 @@ namespace TangentaDB
                                                     atom_Price_Item_ID,
                                                     xData.ExpiryDate,
                                                     stock_ID,
-                                                    ref docInvoice_ShopC_Item))
+                                                    ref docInvoice_ShopC_Item_ID))
                 {
                     LogFile.Error.Show("ERROR:TangentaDB:ShopABC:Add_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.Insert");
                     return false;

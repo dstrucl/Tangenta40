@@ -33,7 +33,7 @@ namespace ShopC
         private float penwidth = 2;
         private Pen[] pen = new Pen[5] { null, null, null, null, null };
 
-        private TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
+        private TangentaDB.Doc_ShopC_Item dsci = null;
         private Item_Data itemdata = null;
 
         private usrc_Atom_Item1366x768 m_usrc_Atom_Item1366x768 = null;
@@ -42,7 +42,7 @@ namespace ShopC
 
         public delegate void delegate_SetItemQuantityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
                                                               usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
-                                                              TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd,
+                                                              TangentaDB.Doc_ShopC_Item xdsci,
                                                               Item_Data idata,
                                                               usrc_Item1366x768 xusrc_Item1366x768
                                                               );
@@ -116,20 +116,20 @@ namespace ShopC
             {
                 event_SetItemQuantityInBasket(this,
                                              m_usrc_Atom_Item1366x768,
-                                             appisd,
+                                             dsci,
                                              itemdata,
                                              m_usrc_Item1366x768);
             }
         }
 
-        internal void DoPaint(object oappisddata,
+        internal void DoPaint(object oxdsci,
                                              Control ctrl_appisd,
                                              object oitemdata,
                                              Control ctrl_itemdata)
         {
-            if (oappisddata is TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+            if (oxdsci is TangentaDB.Doc_ShopC_Item)
             {
-                appisd = (TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oappisddata;
+                dsci = (TangentaDB.Doc_ShopC_Item)oxdsci;
                 if (ctrl_appisd is usrc_Atom_Item1366x768)
                 {
                     m_usrc_Atom_Item1366x768 = (usrc_Atom_Item1366x768)ctrl_appisd;
@@ -144,13 +144,13 @@ namespace ShopC
                     m_usrc_Item1366x768 = (usrc_Item1366x768)ctrl_itemdata;
                 }
 
-                this.lbl_Item.Text = appisd.Atom_Item_UniqueName.v;
-                this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + appisd.dQuantity_FromStock.ToString();
-                this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + appisd.dQuantity_FromFactory.ToString();
-                this.lbl_VAT.Text = lng.s_Taxation.s + ":" + appisd.Atom_Taxation_Name.v;
+                this.lbl_Item.Text = dsci.Atom_Item_UniqueName.v;
+                this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + dsci.dQuantity_FromStock.ToString();
+                this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + dsci.dQuantity_FromFactory.ToString();
+                this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Atom_Taxation_Name.v;
             }
         }
-        internal void FillControl(int index, object oappisddata,
+        internal void FillControl(int index, object oxdsci,
                                              Control ctrl_appisd,
                                              object oitemdata,
                                              Control ctrl_itemdata)
@@ -159,14 +159,14 @@ namespace ShopC
             {
                 this.Enabled = true;
                 timer1.Enabled = true;
-                DoPaint(oappisddata,
+                DoPaint(oxdsci,
                         ctrl_appisd,
                         oitemdata,
                         ctrl_itemdata);
             }
             else
             {
-                appisd = null;
+                dsci = null;
                 m_usrc_Atom_Item1366x768 = null;
                 timer1.Enabled = false;
                 this.Enabled = false;

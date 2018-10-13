@@ -349,11 +349,11 @@ namespace TangentaDB
             }
         }
 
-        public int GetIndex(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        public int GetIndex(Doc_ShopC_Item xdsci)
         {
             foreach (object o in ListOfItems)
             {
-                if (((Item_Data)o).Item_UniqueName.v.Equals(appisd.Atom_Item_UniqueName.v))
+                if (((Item_Data)o).Item_UniqueName.v.Equals(xdsci.Atom_Item_UniqueName.v))
                 {
                     int index = ListOfItems.IndexOf(o);
                     return index;

@@ -120,15 +120,15 @@ namespace ShopC
             usrc_Item_InsidePageGroupHandler1.ControlClick += Usrc_Item_InsidePageGroupHandler1_ControlClick;
         }
 
-        internal void Select(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, string s_ItemUniqueName)
+        internal void Select(Doc_ShopC_Item xdsci, string s_ItemUniqueName)
         {
-           string[] sgroup = new string[3] { appisd.s1_name, appisd.s2_name, appisd.s3_name };
+           string[] sgroup = new string[3] { xdsci.s1_name, xdsci.s2_name, xdsci.s3_name };
            this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName);
         }
 
-        internal void Select(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, string s_ItemUniqueName, ref object odata, ref Control ctrl)
+        internal void Select(Doc_ShopC_Item xdsci, string s_ItemUniqueName, ref object odata, ref Control ctrl)
         {
-            string[] sgroup = new string[3] { appisd.s1_name, appisd.s2_name, appisd.s3_name };
+            string[] sgroup = new string[3] { xdsci.s1_name, xdsci.s2_name, xdsci.s3_name };
             this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName,ref odata, ref ctrl);
         }
 
@@ -205,7 +205,7 @@ namespace ShopC
 
         private bool update_stock_elements_in_Doc_ShopC_Item(List<object> doc_ShopC_Items, 
                                                              Item_Data xData,
-                                                             ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+                                                             ref Doc_ShopC_Item dsci)
         {
             List<Stock_Data> stocks = xData.Stock_Data_List;
             foreach (Stock_Data std in stocks)
@@ -237,9 +237,9 @@ namespace ShopC
                                         return false;
                                     }
                                 }
-                                if (appisd != null)
+                                if (dsci != null)
                                 {
-                                    appisd.AddQuantity(Doc_ShopC_Item_ID, std.Stock_ID, std.dQuantity_Taken_v.v);
+                                    dsci.AddQuantity(Doc_ShopC_Item_ID, std.Stock_ID, std.dQuantity_Taken_v.v);
                                 }
                                
                             }
@@ -256,9 +256,9 @@ namespace ShopC
                                 {
                                     return false;
                                 }
-                                if (appisd != null)
+                                if (dsci != null)
                                 {
-                                    appisd.Add_Doc_ShopC_Item(xData,
+                                    dsci.Add_Doc_ShopC_Item(xData,
                                                               std.dQuantity_Taken_v.v,
                                                               std.Stock_ID,
                                                               atom_Price_Item_ID
@@ -274,7 +274,7 @@ namespace ShopC
                                                                            xData,
                                                                            0,
                                                                            std.dQuantity_Taken_v.v,
-                                                                           ref appisd,
+                                                                           ref dsci,
                                                                            false
                                                                        );
                                     }
@@ -298,7 +298,7 @@ namespace ShopC
                 decimal dRemainderQuantityNotTakenFromStock = 0;
                 decimal dquantity_in_stock_at_the_end = 0;
 
-                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = m_ShopBC.m_CurrentDoc.m_Basket.Find(xData.Item_UniqueName.v);
+                Doc_ShopC_Item dsci = m_ShopBC.m_CurrentDoc.m_Basket.Find(xData.Item_UniqueName.v);
                 
                 if (take_from_Stock(xquantity2add, xData.Stock_Data_List, ref dRemainderQuantityNotTakenFromStock, ref dquantity_in_stock_at_the_end))
                 {
@@ -306,7 +306,7 @@ namespace ShopC
                     {
                         if (xData.Stock_Data_List.Count > 0)
                         {
-                            if (!update_stock_elements_in_Doc_ShopC_Item(m_ShopBC.m_CurrentDoc.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST, xData, ref appisd))
+                            if (!update_stock_elements_in_Doc_ShopC_Item(m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST, xData, ref dsci))
                             {
                                 LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:!update_stock_elements_in_Doc_ShopC_Item!");
                                 return;
@@ -318,7 +318,7 @@ namespace ShopC
 
                 if (dRemainderQuantityNotTakenFromStock>0)
                 {
-                    if (appisd == null)
+                    if (dsci == null)
                     {
                         ID atom_Price_Item_ID = null;
                         ID docInvoice_ShopC_Item_ID = null;
@@ -335,13 +335,13 @@ namespace ShopC
                                                             xData,
                                                             dRemainderQuantityNotTakenFromStock,
                                                             0,
-                                                            ref appisd,
+                                                            ref dsci,
                                                             true
                                                         );
                     }
                     else 
                     {
-                        Stock_Data std = appisd.From_FactoryItems();
+                        Stock_Data std = dsci.From_FactoryItems();
                         if (std!=null)
                         {
                             //factory items exist
@@ -375,7 +375,7 @@ namespace ShopC
                             Stock_Data stdx = new Stock_Data();
                             stdx.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
                             stdx.dQuantity_v = new decimal_v(xquantity2add);
-                            appisd.m_ShopShelf_Source.Stock_Data_List.Add(stdx);
+                            dsci.m_ShopShelf_Source.Stock_Data_List.Add(stdx);
                         }
                     }
 
@@ -405,8 +405,8 @@ namespace ShopC
             dquantity = 0;
             foreach (object odr in doc_ShopC_Items)
             {
-                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)odr;
-                foreach (Stock_Data std in appisd.m_ShopShelf_Source.Stock_Data_List)
+                Doc_ShopC_Item dsci = (Doc_ShopC_Item)odr;
+                foreach (Stock_Data std in dsci.m_ShopShelf_Source.Stock_Data_List)
                 {
                     if (ID.Validate(std.Stock_ID))
                     {
@@ -417,7 +417,7 @@ namespace ShopC
                             {
                                 dquantity = dq_v.v;
                             }
-                            doc_ShopC_Item_ID = tf.set_ID(appisd.Doc_ShopC_Item_ID);
+                            doc_ShopC_Item_ID = tf.set_ID(dsci.Doc_ShopC_Item_ID);
                             return true;
                         }
                     }

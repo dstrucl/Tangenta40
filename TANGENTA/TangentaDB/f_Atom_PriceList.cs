@@ -237,7 +237,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref ID atom_PriceList_ID)
+        public static bool Get(ref Doc_ShopC_Item appisd, ref ID atom_PriceList_ID)
         {
             return Get(appisd.Atom_PriceList_Name,
                        appisd.Atom_Currency_Abbreviation,

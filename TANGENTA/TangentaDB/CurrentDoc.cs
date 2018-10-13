@@ -97,7 +97,7 @@ namespace TangentaDB
                         dtCurrent_DocInvoice_ShopC_Item.Clear();
                         if (m_Basket != null)
                         {
-                            m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                            m_Basket.m_Doc_ShopC_Item_LIST.Clear();
                         }
                     }
                 }
@@ -214,35 +214,35 @@ namespace TangentaDB
 
         public bool Insert_DocInvoice_Atom_Price_Items_Stock(ID xAtom_WorkPeriod_ID,
                                                              string xDocTyp,
-                                                             ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd,
+                                                             ref Doc_ShopC_Item xdsci,
                                                              bool b_from_stock
                                                              )
         {
-            return Get_DocInvoice_ShopC_Item(xAtom_WorkPeriod_ID,xDocTyp, ref appisd, b_from_stock);
+            return Get_DocInvoice_ShopC_Item(xAtom_WorkPeriod_ID,xDocTyp, ref xdsci, b_from_stock);
         }
 
-        private bool Get_DocInvoice_ShopC_Item(ID xAtom_WorkPeriod_ID,string xDocTyp,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
+        private bool Get_DocInvoice_ShopC_Item(ID xAtom_WorkPeriod_ID,string xDocTyp,ref Doc_ShopC_Item xdsci, bool b_from_stock)
         {
             ID Atom_Price_Item_ID = null;
-            if (Get_Atom_Price_Item(ref appisd))
+            if (Get_Atom_Price_Item(ref xdsci))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 int decimal_places = GlobalData.Get_BaseCurrency_DecimalPlaces();
-                Atom_Price_Item_ID = appisd.Atom_Price_Item_ID;
+                Atom_Price_Item_ID = xdsci.Atom_Price_Item_ID;
 
 
 
                 string spar_ExtraDiscount = "@par_ExtraDiscount";
-                SQL_Parameter par_ExtraDiscount = new SQL_Parameter(spar_ExtraDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, appisd.ExtraDiscount.v);
+                SQL_Parameter par_ExtraDiscount = new SQL_Parameter(spar_ExtraDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, xdsci.ExtraDiscount.v);
 
-                decimal dQuantity_from_factory = appisd.m_ShopShelf_Source.dQuantity_from_factory;
-                decimal dQuantity_from_stock = appisd.m_ShopShelf_Source.dQuantity_from_stock;
+                decimal dQuantity_from_factory = xdsci.m_ShopShelf_Source.dQuantity_from_factory;
+                decimal dQuantity_from_stock = xdsci.m_ShopShelf_Source.dQuantity_from_stock;
 
                 string spar_RetailPriceWithDiscount = "@par_RetailPriceWithDiscount";
                 string spar_TaxPrice = "@par_TaxPrice";
                 string spar_dQuantity = "@par_dQuantity";
 
-                foreach (Stock_Data stock_data in appisd.m_ShopShelf_Source.Stock_Data_List)
+                foreach (Stock_Data stock_data in xdsci.m_ShopShelf_Source.Stock_Data_List)
                 {
                     if (b_from_stock)
                     {
@@ -277,7 +277,7 @@ namespace TangentaDB
                     if (Stock_ID != null)
                     {
                         decimal dquantity = stock_data.dQuantity_v.v;
-                        StaticLib.Func.CalculatePrice(appisd.RetailPricePerUnit.v, dquantity, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
+                        StaticLib.Func.CalculatePrice(xdsci.RetailPricePerUnit.v, dquantity, xdsci.Discount.v, xdsci.ExtraDiscount.v, xdsci.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
                         SQL_Parameter par_dQuantity = null;
                         par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dquantity);
                         lpar.Add(par_dQuantity);
@@ -290,7 +290,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        StaticLib.Func.CalculatePrice(appisd.RetailPricePerUnit.v, dQuantity_from_factory, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
+                        StaticLib.Func.CalculatePrice(xdsci.RetailPricePerUnit.v, dQuantity_from_factory, xdsci.Discount.v, xdsci.ExtraDiscount.v, xdsci.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
                         SQL_Parameter par_dQuantity = null;
                         par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dQuantity_from_factory);
                         lpar.Add(par_dQuantity);
@@ -342,15 +342,15 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            if (appisd.Doc_ShopC_Item_ID==null)
+                            if (xdsci.Doc_ShopC_Item_ID==null)
                             {
-                                appisd.Doc_ShopC_Item_ID = new ID();
+                                xdsci.Doc_ShopC_Item_ID = new ID();
                             }
-                            appisd.Doc_ShopC_Item_ID.Set(dt.Rows[0][xDocTyp+"_ShopC_Item_ID"]);
+                            xdsci.Doc_ShopC_Item_ID.Set(dt.Rows[0][xDocTyp+"_ShopC_Item_ID"]);
                             // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
-                            appisd.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
-                            appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
-                            appisd.TaxPrice = tf.set_decimal(dt.Rows[0]["TaxPrice"]);
+                            xdsci.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
+                            xdsci.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
+                            xdsci.TaxPrice = tf.set_decimal(dt.Rows[0]["TaxPrice"]);
                             //$$TODO  pias.Stock_ID = long_v.Copy(pis.Stock_ID);
                             continue;
                         }
@@ -384,7 +384,7 @@ namespace TangentaDB
                             ID DocInvoice_ShopC_Item_ID = null;
                             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID,  ref Err, xDocTyp))
                             {
-                                appisd.Doc_ShopC_Item_ID = new ID(DocInvoice_ShopC_Item_ID);
+                                xdsci.Doc_ShopC_Item_ID = new ID(DocInvoice_ShopC_Item_ID);
 
                                 if (Stock_ID != null)
                                 {
@@ -437,37 +437,37 @@ namespace TangentaDB
         }
 
 
-        public bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        public bool Get_Atom_Price_Item(ref Doc_ShopC_Item xdsci)
         {
             ID atom_Taxation_ID = null;
-            return f_Atom_Price_Item.Get(appisd.Atom_Item_UniqueName.v,
-                                        appisd.Atom_Item_Name_Name,
-                                        appisd.Atom_Item_barcode_barcode,
-                                        appisd.Atom_Item_Description_Description,
-                                        appisd.Atom_Expiry_ExpectedShelfLifeInDays,
-                                        appisd.Atom_Expiry_SaleBeforeExpiryDateInDays,
-                                        appisd.Atom_Expiry_DiscardBeforeExpiryDateInDays,
-                                        appisd.Atom_Expiry_ExpiryDescription,
-                                        appisd.Atom_Warranty_WarrantyDurationType,
-                                        appisd.Atom_Warranty_WarrantyDuration,
-                                        appisd.Atom_Warranty_WarrantyConditions,
-                                        appisd.Atom_Unit_Name,
-                                        appisd.Atom_Unit_Symbol,
-                                        appisd.Atom_Unit_DecimalPlaces,
-                                        appisd.Atom_Unit_StorageOption,
-                                        appisd.Atom_Unit_Description,
-                                        appisd.Atom_PriceList_Name,
-                                        appisd.Atom_Currency_Abbreviation,
-                                        appisd.Atom_Currency_Name,
-                                        appisd.Atom_Item_Image_Hash,
-                                        appisd.Atom_Item_Image_Data,
-                                        appisd.RetailPricePerUnit,
-                                        appisd.Discount,
-                                        appisd.Atom_Taxation_Name,
-                                        appisd.Atom_Taxation_Rate,
+            return f_Atom_Price_Item.Get(xdsci.Atom_Item_UniqueName.v,
+                                        xdsci.Atom_Item_Name_Name,
+                                        xdsci.Atom_Item_barcode_barcode,
+                                        xdsci.Atom_Item_Description_Description,
+                                        xdsci.Atom_Expiry_ExpectedShelfLifeInDays,
+                                        xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays,
+                                        xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays,
+                                        xdsci.Atom_Expiry_ExpiryDescription,
+                                        xdsci.Atom_Warranty_WarrantyDurationType,
+                                        xdsci.Atom_Warranty_WarrantyDuration,
+                                        xdsci.Atom_Warranty_WarrantyConditions,
+                                        xdsci.Atom_Unit_Name,
+                                        xdsci.Atom_Unit_Symbol,
+                                        xdsci.Atom_Unit_DecimalPlaces,
+                                        xdsci.Atom_Unit_StorageOption,
+                                        xdsci.Atom_Unit_Description,
+                                        xdsci.Atom_PriceList_Name,
+                                        xdsci.Atom_Currency_Abbreviation,
+                                        xdsci.Atom_Currency_Name,
+                                        xdsci.Atom_Item_Image_Hash,
+                                        xdsci.Atom_Item_Image_Data,
+                                        xdsci.RetailPricePerUnit,
+                                        xdsci.Discount,
+                                        xdsci.Atom_Taxation_Name,
+                                        xdsci.Atom_Taxation_Rate,
                                         ref atom_Taxation_ID,
-                                        ref appisd.Atom_Item_ID,
-                                        ref appisd.Atom_Price_Item_ID
+                                        ref xdsci.Atom_Item_ID,
+                                        ref xdsci.Atom_Price_Item_ID
                                         );
         }
 

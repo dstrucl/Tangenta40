@@ -411,7 +411,7 @@ namespace ShopC
 
         public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
                                                       DataTable dt_ShopC_Item_in_Stock,
-                                                      Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
+                                                      Doc_ShopC_Item xShopC_Data_Item,
                                                       decimal dStockQuantity,
                                                       decimal dFromFactoryQuantity,
                                                       ref decimal dQuantitySelectedFromStock,
