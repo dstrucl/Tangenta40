@@ -353,7 +353,7 @@ namespace TangentaDB
         {
             foreach (object o in ListOfItems)
             {
-                if (((Item_Data)o).Item_UniqueName.v.Equals(xdsci.Atom_Item_UniqueName.v))
+                if (((Item_Data)o).Item_UniqueName_v.v.Equals(xdsci.Atom_Item_UniqueName_v.v))
                 {
                     int index = ListOfItems.IndexOf(o);
                     return index;

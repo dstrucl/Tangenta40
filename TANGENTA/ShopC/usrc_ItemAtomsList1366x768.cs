@@ -109,9 +109,9 @@ namespace ShopC
                 Doc_ShopC_Item dsci = (Doc_ShopC_Item)oData;
                 if (dsci!=null)
                 {
-                    if (dsci.Atom_Item_UniqueName != null)
+                    if (dsci.Atom_Item_UniqueName_v != null)
                     {
-                        return dsci.Atom_Item_UniqueName.v.Equals(s);
+                        return dsci.Atom_Item_UniqueName_v.v.Equals(s);
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace ShopC
                     Doc_ShopC_Item dsci = (Doc_ShopC_Item)oData;
                     if (this.Parent is usrc_ShopC1366x768)
                     {
-                        ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(dsci, dsci.Atom_Item_UniqueName.v, ref oidata,ref oxusrc_Item1366x768);
+                        ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.Select(dsci, dsci.Atom_Item_UniqueName_v.v, ref oidata,ref oxusrc_Item1366x768);
                         if (SelectionChanged!=null)
                         {
                             SelectionChanged(ctrl,index, oData,oidata, oxusrc_Item1366x768);

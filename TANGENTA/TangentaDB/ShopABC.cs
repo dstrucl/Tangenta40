@@ -1625,7 +1625,7 @@ namespace TangentaDB
         {
             ID atom_Taxation_ID = null;
             ID atom_Item_ID = null;
-            if (!f_Atom_Price_Item.Get(xData.Item_UniqueName.v,
+            if (!f_Atom_Price_Item.Get(xData.Item_UniqueName_v.v,
                 xData.Item_Name,
                 xData.Item_barcode,
                 xData.Item_Description,

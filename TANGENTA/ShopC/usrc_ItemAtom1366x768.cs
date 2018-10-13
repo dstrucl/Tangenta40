@@ -75,14 +75,14 @@ namespace ShopC
 
         internal void DoRefresh()
         {
-            if (m_dsci.Atom_Item_UniqueName != null)
+            if (m_dsci.Atom_Item_UniqueName_v != null)
             {
-                this.Item_UniqueName = m_dsci.Atom_Item_UniqueName.v;
+                this.Item_UniqueName = m_dsci.Atom_Item_UniqueName_v.v;
             }
             string sunit = "";
-            if (m_dsci.Atom_Unit_Symbol != null)
+            if (m_dsci.Atom_Unit_Symbol_v != null)
             {
-                sunit = m_dsci.Atom_Unit_Symbol.v;
+                sunit = m_dsci.Atom_Unit_Symbol_v.v;
             }
 
             decimal Discount = 0;
@@ -94,14 +94,13 @@ namespace ShopC
             decimal TaxRate = 0;
 
             decimal NetPrice = 0;
-            m_dsci.GetPrices(
-                        ref Discount,
-                        ref ExtraDiscount,
-                        ref RetailPrice,
-                        ref RetailPriceWithDiscount,
+            m_dsci.dsciS_List.GetPrices(m_dsci.TaxationRate,
+                         m_dsci.Discount,
+                         m_dsci.ExtraDiscount,
+                         m_dsci.RetailPricePerUnit,
+                         ref RetailPrice,
+                         ref RetailPriceWithDiscount,
                         ref TaxPrice,
-                        ref TaxName,
-                        ref TaxRate,
                         ref NetPrice);
 
             if (m_dsci.dQuantity_all > 0)
@@ -121,15 +120,15 @@ namespace ShopC
             decimal discount = 0;
             if (m_dsci.Discount != null)
             {
-                discount = m_dsci.Discount.v;
+                discount = m_dsci.Discount;
             }
             decimal extradiscount = 0;
             if (m_dsci.ExtraDiscount != null)
             {
-                extradiscount = m_dsci.ExtraDiscount.v;
+                extradiscount = m_dsci.ExtraDiscount;
             }
             decimal dTotalDiscount = discount + extradiscount - discount * extradiscount;
-            lbl_DiscountValue.Text = Global.f.GetPercent(m_dsci.dTotalDiscount, 3) + "%";
+            lbl_DiscountValue.Text = Global.f.GetPercent(m_dsci.TotalDiscount, GlobalData.BaseCurrency.DecimalPlaces) + "%";
 
         }
 

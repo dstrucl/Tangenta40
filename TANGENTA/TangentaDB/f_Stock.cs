@@ -240,9 +240,9 @@ namespace TangentaDB
                                 int iCount2 = drs_DocProformaInvoice.Length;
                                 if (iCount1 + iCount2 > 0)
                                 {
-                                    array_Doc_ShopC_Item[i] = new Doc_ShopC_Item(xstock_id,
-                                                                                 drs_DocInvoice,
-                                                                                 drs_DocProformaInvoice);
+                                    //array_Doc_ShopC_Item[i] = new Doc_ShopC_Item(xstock_id,
+                                    //                                             drs_DocInvoice,
+                                    //                                             drs_DocProformaInvoice);
                                 }
                                 else
                                 {

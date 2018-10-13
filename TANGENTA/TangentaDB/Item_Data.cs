@@ -38,7 +38,7 @@ namespace TangentaDB
         public DateTime_v Stock_ImportTime = null;
         public bool_v StockTake_Draft = null;
         public ID Item_ID = null;
-        public string_v Item_UniqueName = null;
+        public string_v Item_UniqueName_v = null;
         public string_v Item_Name = null;
         public string_v Item_barcode = null;
         public ID Item_Image_ID = null;
@@ -73,6 +73,18 @@ namespace TangentaDB
 
         public List<Stock_Data> Stock_Data_List = new List<Stock_Data>();
 
+
+        public string Item_UniqueName
+        {
+            get
+            {
+                if (Item_UniqueName_v!=null)
+                {
+                    return Item_UniqueName_v.v;
+                }
+                return null;
+            }
+        }
         public Item_Data()
         {
         }
@@ -95,7 +107,7 @@ namespace TangentaDB
             Stock_ImportTime = tf.set_DateTime(xdr["Stock_ImportTime"]);
             StockTake_Draft = tf.set_bool(xdr["StockTake_Draft"]);
             Item_ID = tf.set_ID(xdr["Item_ID"]);
-            Item_UniqueName = tf.set_string(xdr["Item_UniqueName"]);
+            Item_UniqueName_v = tf.set_string(xdr["Item_UniqueName"]);
             Item_Name = tf.set_string(xdr["Item_Name"]);
             Item_barcode = tf.set_string(xdr["Item_barcode"]);
             Item_Image_ID = tf.set_ID(xdr["Item_Image_ID"]);

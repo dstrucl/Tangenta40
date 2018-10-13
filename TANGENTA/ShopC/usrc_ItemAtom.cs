@@ -63,13 +63,13 @@ namespace ShopC
             //appisd.Set(m_dr);
             m_InvoiceDB = xInvoiceDB;
             m_dsci = xdsci;
-            this.lbl_Item.Text = xdsci.Atom_Item_UniqueName.v;
-            if (xdsci.Atom_Item_Image_Data != null)
+            this.lbl_Item.Text = xdsci.Atom_Item_UniqueName_v.v;
+            if (xdsci.Atom_Item_Image_Data_v != null)
             {
                 try
                 {
                     ImageConverter ic = new ImageConverter();
-                    this.btn_pic_Image.Image = (Image)ic.ConvertFrom(xdsci.Atom_Item_Image_Data.v);
+                    this.btn_pic_Image.Image = (Image)ic.ConvertFrom(xdsci.Atom_Item_Image_Data_v.v);
                     this.btn_pic_Image.Text = "";
                     int ctrla_Count = ctrla.Count();
                     for (int i=0;i<ctrla_Count;i++)
@@ -118,14 +118,13 @@ namespace ShopC
             decimal TaxRate = 0;
 
             decimal NetPrice = 0;
-            xdsci.GetPrices(
-                        ref  Discount,
-                        ref  ExtraDiscount,
-                        ref  RetailPrice,
+            xdsci.dsciS_List.GetPrices(xdsci.TaxationRate,
+                        xdsci.Discount,
+                        xdsci.ExtraDiscount,
+                        xdsci.RetailPricePerUnit,
+                        ref RetailPrice,
                         ref  RetailPriceWithDiscount,
                         ref  TaxPrice,
-                        ref TaxName,
-                        ref  TaxRate,
                         ref  NetPrice);
 
             this.txt_RetailSimpleItemPriceWithDiscount.Text = RetailPriceWithDiscount.ToString();
@@ -141,9 +140,9 @@ namespace ShopC
             this.lbl_RetailPriceValue.Text = RetailPrice.ToString();
 
             string unit_symbol = null;
-            if (xdsci.Atom_Unit_Symbol!=null)
+            if (xdsci.Atom_Unit_Symbol_v!=null)
             {
-                unit_symbol = xdsci.Atom_Unit_Symbol.v;
+                unit_symbol = xdsci.Atom_Unit_Symbol_v.v;
             }
             if (unit_symbol == null)
             {
@@ -258,39 +257,16 @@ namespace ShopC
         {
             decimal dquantity_all = 0;
             decimal RetailPricePerUnit = 0;
-            int i = 0;
-            int iCount = xdsci.m_ShopShelf_Source.Stock_Data_List.Count;
-            Discount = xdsci.Discount.v;
-            ExtraDiscount = xdsci.ExtraDiscount.v;
-            RetailPricePerUnit = xdsci.RetailPricePerUnit.v;
-            TaxRate = xdsci.Atom_Taxation_Rate.v;
+            Discount = xdsci.Discount;
+            ExtraDiscount = xdsci.ExtraDiscount;
+            RetailPricePerUnit = xdsci.RetailPricePerUnit;
+            TaxRate = xdsci.Atom_Taxation_Rate_v.v;
             if (TaxName == null)
             {
-                TaxName = xdsci.Atom_Taxation_Name.v;
+                TaxName = xdsci.Atom_Taxation_Name_v.v;
             }
 
-            if (iCount > 0)
-            {
-                for (i = 0; i < iCount; i++)
-                {
-                    Stock_Data stock_data = xdsci.m_ShopShelf_Source.Stock_Data_List[i];
-                    if (stock_data.Stock_ID!=null)
-                    { 
-                        dquantity_all += stock_data.dQuantity_from_stock.v;
-                    }
-                    else
-                    {
-                        dquantity_all += stock_data.dQuantity_from_factory.v;
-                    }
-                }
-                RetailPrice = RetailPricePerUnit * dquantity_all;
-                int decimal_places = 2;
-                if (GlobalData.BaseCurrency != null)
-                {
-                    decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
-                }
-                StaticLib.Func.CalculatePrice(RetailPricePerUnit, dquantity_all, Discount, ExtraDiscount, TaxRate, ref RetailPriceWithDiscount, ref TaxPrice, ref NetPrice, decimal_places);
-            }
+            xdsci.dsciS_List.GetPrices(TaxRate, Discount, ExtraDiscount, RetailPricePerUnit, ref RetailPrice, ref RetailPriceWithDiscount, ref TaxPrice, ref NetPrice);
         }
 
 

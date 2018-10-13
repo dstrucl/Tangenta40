@@ -23,6 +23,7 @@ namespace TangentaDB
         public decimal ExtraDiscount = 0;
         public decimal RetailPricePerUnit = 0;
         public decimal RetailPriceWithDiscount = 0;
+        public DateTime_v ExpiryDate_v = null;
 
         public void Set(string docType, System.Data.DataRow dria)
         {

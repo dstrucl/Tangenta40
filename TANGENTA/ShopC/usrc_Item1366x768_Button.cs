@@ -241,9 +241,9 @@ namespace ShopC
 
             //uItemStock.StockText = dAllStockQuantity.ToString();
 
-            if (m_Item_Data.Item_UniqueName != null)
+            if (m_Item_Data.Item_UniqueName_v != null)
             {
-                this.lbl_Item.Text = m_Item_Data.Item_UniqueName.v;
+                this.lbl_Item.Text = m_Item_Data.Item_UniqueName_v.v;
             }
             if (m_Item_Data.Item_Description != null)
             {
@@ -308,11 +308,11 @@ namespace ShopC
                                     if (dsci_in_Basket != null)
                                     {
                                         //btn_Discount.Visible = false;
-                                        if (dsci_in_Basket.m_ShopShelf_Source.dQuantity_from_stock == 0)
+                                        if (dsci_in_Basket.dQuantity_FromStock == 0)
                                         {
                                             //uItemStock.Visible = true;
                                             //uItemStock.Left = xStart;
-                                            if (dsci_in_Basket.m_ShopShelf_Source.dQuantity_from_factory == 0)
+                                            if (dsci_in_Basket.dQuantity_FromFactory == 0)
                                             {
                                                 if (!ExclusivelySellFromStock)
                                                 {
@@ -334,7 +334,7 @@ namespace ShopC
                                             //uItemStock.Visible = false;
                                             //txt_Item_Description.Left = btn_Discount.Left + btn_Discount.Width + 2;
 
-                                            if (dsci_in_Basket.m_ShopShelf_Source.dQuantity_from_factory == 0)
+                                            if (dsci_in_Basket.dQuantity_FromFactory == 0)
                                             {
                                                 Mode = eMode.FACTORY;
                                                 if (!ExclusivelySellFromStock)
@@ -395,7 +395,7 @@ namespace ShopC
                                     if (dsci_in_Basket != null)
                                     {
                                         //uItemStock.Visible = false;
-                                        if (dsci_in_Basket.m_ShopShelf_Source.dQuantity_from_factory == 0)
+                                        if (dsci_in_Basket.dQuantity_FromFactory == 0)
                                         {
                                             Mode = eMode.FACTORY;
                                             //uItemFactory.Visible = true;
@@ -582,7 +582,7 @@ namespace ShopC
                 dtExpiry = dtExpiry.AddMonths(1);
                 ExpiryDate_v = new DateTime_v(dtExpiry);
             }
-            Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(ExpiryDate_v, m_Item_Data.Item_UniqueName.v);
+            Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(ExpiryDate_v, m_Item_Data.Item_UniqueName_v.v);
             if (edt_Stock_AvoidStock_dlg.ShowDialog() == DialogResult.OK)
             {
                 m_Item_Data.ExpiryDate = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
@@ -652,7 +652,7 @@ namespace ShopC
             decimal_v AveragePruchasePricePerUnit = Get_AveragePurchasePricePerUnit();
             if (m_Item_Data.RetailPricePerUnit != null)
             {
-                Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(m_Item_Data.RetailPricePerUnit.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName.v);
+                Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(m_Item_Data.RetailPricePerUnit.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName_v.v);
                 discount_frm.ShowDialog();
                 ExtraDiscount = discount_frm.ExtraDiscount;
                 m_Item_Data.ExtraDiscount = ExtraDiscount;

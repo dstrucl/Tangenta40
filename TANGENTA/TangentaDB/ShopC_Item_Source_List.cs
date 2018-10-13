@@ -17,7 +17,7 @@ namespace TangentaDB
                 decimal d = 0;
                 foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
                 {
-                  
+
                     //not draft
                     if (xdsciS.Stock_ID != null)
                     {
@@ -63,7 +63,7 @@ namespace TangentaDB
             dsciS_list.Clear();
         }
 
-        internal void Add(Doc_ShopC_Item_Source dsciS)
+        public void Add(Doc_ShopC_Item_Source dsciS)
         {
             dsciS_list.Add(dsciS);
         }
@@ -78,8 +78,8 @@ namespace TangentaDB
                 ref decimal TaxPrice,
                 ref decimal NetPrice)
         {
-          
-            foreach (Doc_ShopC_Item_Source dsciSx in dsciS_list )
+
+            foreach (Doc_ShopC_Item_Source dsciSx in dsciS_list)
             {
                 decimal xRetailPrice = 0;
                 decimal xRetailPriceWithDiscount = 0;
@@ -119,6 +119,46 @@ namespace TangentaDB
                 ref xNetPrice);
 
             return xRetailPriceWithDiscount;
+        }
+
+        internal decimal TaxPrice(decimal retailPricePerUnit, decimal discount, decimal extraDiscount, decimal taxationRate)
+        {
+            decimal xRetailPrice = 0;
+            decimal xRetailPriceWithDiscount = 0;
+            decimal xTaxPrice = 0;
+            decimal xNetPrice = 0;
+
+            GetPrices(
+                 taxationRate,
+                 discount,
+                 extraDiscount,
+                 retailPricePerUnit,
+                ref xRetailPrice,
+                ref xRetailPriceWithDiscount,
+                ref xTaxPrice,
+                ref xNetPrice);
+
+            return xTaxPrice;
+        }
+
+        internal decimal NetPrice(decimal retailPricePerUnit, decimal discount, decimal extraDiscount, decimal taxationRate)
+        {
+            decimal xRetailPrice = 0;
+            decimal xRetailPriceWithDiscount = 0;
+            decimal xTaxPrice = 0;
+            decimal xNetPrice = 0;
+
+            GetPrices(
+                 taxationRate,
+                 discount,
+                 extraDiscount,
+                 retailPricePerUnit,
+                ref xRetailPrice,
+                ref xRetailPriceWithDiscount,
+                ref xTaxPrice,
+                ref xNetPrice);
+
+            return xNetPrice;
         }
     }
 }

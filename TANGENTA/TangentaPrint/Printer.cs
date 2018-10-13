@@ -1362,7 +1362,7 @@ namespace TangentaPrint
                 object o_Data = m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST[0];
                 if (o_Data is Doc_ShopC_Item)
                 {
-                    return (int)((Doc_ShopC_Item)(o_Data)).Atom_Currency_DecimalPlaces.v;
+                    return (int)((Doc_ShopC_Item)(o_Data)).Atom_Currency_DecimalPlaces_v.v;
                 }
             }
             if (m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.dtDraft_Doc_Doc_ShopC_Item.Rows.Count > 0)

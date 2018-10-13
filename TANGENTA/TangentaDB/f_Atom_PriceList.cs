@@ -239,9 +239,9 @@ namespace TangentaDB
 
         public static bool Get(ref Doc_ShopC_Item appisd, ref ID atom_PriceList_ID)
         {
-            return Get(appisd.Atom_PriceList_Name,
-                       appisd.Atom_Currency_Abbreviation,
-                       appisd.Atom_Currency_Name,
+            return Get(appisd.Atom_PriceList_Name_v,
+                       appisd.Atom_Currency_Abbreviation_v,
+                       appisd.Atom_Currency_Name_v,
                        ref atom_PriceList_ID);
         }
     }

@@ -161,7 +161,7 @@ namespace ShopC
                         }
                     }
                     Doc_ShopC_Item xdsci= (Doc_ShopC_Item)dsci_List[0];
-                    this.txt_Atom_Item_Name.Text = xdsci.Atom_Item_Name_Name.v;
+                    this.txt_Atom_Item_Name.Text = xdsci.Atom_Item_Name_Name_v.v;
                     if (xdsci.Atom_Item_Description_Description != null)
                     {
                         this.txt_V_Atom_Item_Description.Text = xdsci.Atom_Item_Description_Description.v;
@@ -189,9 +189,9 @@ namespace ShopC
                         txt_V_ExpiryDescription.BackColor = Color_null;
                     }
 
-                    if (xdsci.Atom_Warranty_WarrantyConditions != null)
+                    if (xdsci.Atom_Warranty_WarrantyConditions_v != null)
                     {
-                        this.txt_V_WarrantyConditions.Text = xdsci.Atom_Warranty_WarrantyConditions.v;
+                        this.txt_V_WarrantyConditions.Text = xdsci.Atom_Warranty_WarrantyConditions_v.v;
                     }
                     else
                     {
@@ -223,9 +223,9 @@ namespace ShopC
                         chk_V_Warranty.Checked = false;
                     }
 
-                    if ((xdsci.Atom_Warranty_WarrantyDurationType != null) && (xdsci.Atom_Warranty_WarrantyDuration != null))
+                    if ((xdsci.Atom_Warranty_WarrantyDurationType_v != null) && (xdsci.Atom_Warranty_WarrantyDuration_v != null))
                     {
-                        this.lbl_V_WarantyDuration.Text = m_InvoiceDB.SetWarrantyDurationText(xdsci.Atom_Warranty_WarrantyDurationType.v, xdsci.Atom_Warranty_WarrantyDuration.v);
+                        this.lbl_V_WarantyDuration.Text = m_InvoiceDB.SetWarrantyDurationText(xdsci.Atom_Warranty_WarrantyDurationType_v.v, xdsci.Atom_Warranty_WarrantyDuration_v.v);
                     }
                     else
                     {
@@ -233,9 +233,9 @@ namespace ShopC
                         lbl_V_WarantyDuration.BackColor = Color_null;
                     }
 
-                    if (xdsci.Atom_Expiry_ExpectedShelfLifeInDays != null)
+                    if (xdsci.Atom_Expiry_ExpectedShelfLifeInDays_v != null)
                     {
-                        this.lbl_V_ExpectedShelfLifeInDays.Text = xdsci.Atom_Expiry_ExpectedShelfLifeInDays.v.ToString();
+                        this.lbl_V_ExpectedShelfLifeInDays.Text = xdsci.Atom_Expiry_ExpectedShelfLifeInDays_v.v.ToString();
                     }
                     else
                     {
@@ -243,9 +243,9 @@ namespace ShopC
                         lbl_V_ExpectedShelfLifeInDays.BackColor = Color_null;
                     }
 
-                    if (xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays != null)
+                    if (xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays_v != null)
                     {
-                        this.lbl_V_SaleBeforeExpiryDateInDays.Text = xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays.v.ToString();
+                        this.lbl_V_SaleBeforeExpiryDateInDays.Text = xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays_v.v.ToString();
                     }
                     else
                     {
@@ -253,9 +253,9 @@ namespace ShopC
                         lbl_V_SaleBeforeExpiryDateInDays.BackColor = Color_null;
                     }
 
-                    if (xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays != null)
+                    if (xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays_v != null)
                     {
-                        this.lbl_V_DiscardBeforeExpiryDateInDays.Text = xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays.v.ToString();
+                        this.lbl_V_DiscardBeforeExpiryDateInDays.Text = xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays_v.v.ToString();
                     }
                     else
                     {
@@ -263,9 +263,9 @@ namespace ShopC
                         lbl_V_DiscardBeforeExpiryDateInDays.BackColor = Color_null;
                     }
 
-                    if (xdsci.Atom_Taxation_Name != null)
+                    if (xdsci.Atom_Taxation_Name_v != null)
                     {
-                        this.lbl_V_Taxation_Name.Text = xdsci.Atom_Taxation_Name.v;
+                        this.lbl_V_Taxation_Name.Text = xdsci.Atom_Taxation_Name_v.v;
                     }
                     else
                     {
@@ -273,9 +273,9 @@ namespace ShopC
                         lbl_V_Taxation_Name.BackColor = Color_null;
                     }
 
-                    if (xdsci.Atom_Taxation_Rate != null)
+                    if (xdsci.Atom_Taxation_Rate_v != null)
                     {
-                        this.lbl_V_Taxation_Rate.Text = (xdsci.Atom_Taxation_Rate.v * 100).ToString() + "%";
+                        this.lbl_V_Taxation_Rate.Text = (xdsci.Atom_Taxation_Rate_v.v * 100).ToString() + "%";
                     }
                     else
                     {
@@ -284,9 +284,9 @@ namespace ShopC
                     }
 
 
-                    if (xdsci.Atom_Item_barcode_barcode != null)
+                    if (xdsci.Atom_Item_barcode_barcode_v != null)
                     {
-                        this.txt_barcode_value.Text = xdsci.Atom_Item_barcode_barcode.v;
+                        this.txt_barcode_value.Text = xdsci.Atom_Item_barcode_barcode_v.v;
                     }
                     else
                     {
@@ -322,32 +322,17 @@ namespace ShopC
                     decimal TaxPricePerUnit = -1;
                     if (xdsci.TaxPrice != null)
                     {
-                        TaxPricePerUnit = xdsci.TaxPrice.v;
+                        TaxPricePerUnit = xdsci.TaxPrice;
                     }
 
-                    if (TaxPricePerUnit >= 0)
-                    {
-                        TaxPrice = TaxPricePerUnit * CountAll;
-                        lbl_V_TaxPrice.Text = TaxPrice.ToString();
-                    }
-                    else
-                    {
-                        lbl_V_TaxPrice.Text = "";
-                        lbl_V_TaxPrice.BackColor = Color_null;
-                    }
+                  
+                    lbl_V_TaxPrice.Text = xdsci.TaxPrice.ToString();
+                  
 
 
-                    decimal NetPrice = -1;
-                    if ((RetailPriceWithDiscount >= 0) && (TaxPrice >= 0))
-                    {
-                        NetPrice = RetailPriceWithDiscount - TaxPrice;
-                        lbl_V_NetPrice.Text = NetPrice.ToString();
-                    }
-                    else
-                    {
-                        lbl_V_NetPrice.Text = "";
-                        lbl_V_NetPrice.BackColor = Color_null;
-                    }
+                  
+                    lbl_V_NetPrice.Text = xdsci.NetPrice.ToString();
+              
 
                     string sql_get_image = "select Atom_Item_ImageLib.Image_Data from Atom_Item_ImageLib inner join Atom_Item_Image on Atom_Item_Image.Atom_Item_ImageLib_ID = Atom_Item_ImageLib.ID where Atom_Item_Image.Atom_Item_ID = " + xdsci.Atom_Item_ID.ToString();
                     DataTable dt = new DataTable();

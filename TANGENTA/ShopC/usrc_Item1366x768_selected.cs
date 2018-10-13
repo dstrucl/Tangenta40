@@ -144,10 +144,10 @@ namespace ShopC
                     m_usrc_Item1366x768 = (usrc_Item1366x768)ctrl_itemdata;
                 }
 
-                this.lbl_Item.Text = dsci.Atom_Item_UniqueName.v;
+                this.lbl_Item.Text = dsci.Atom_Item_UniqueName_v.v;
                 this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + dsci.dQuantity_FromStock.ToString();
                 this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + dsci.dQuantity_FromFactory.ToString();
-                this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Atom_Taxation_Name.v;
+                this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Atom_Taxation_Name_v.v;
             }
         }
         internal void FillControl(int index, object oxdsci,

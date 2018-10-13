@@ -433,7 +433,7 @@ namespace ShopC
 
         public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
                                                       DataTable dt_ShopC_Item_in_Stock,
-                                                      Doc_ShopC_Item xShopC_Data_Item,
+                                                      Doc_ShopC_Item xdsci,
                                                       decimal dStockQuantity,
                                                       decimal dFromFactoryQuantity,
                                                       ref decimal dQuantitySelectedFromStock,
@@ -442,7 +442,6 @@ namespace ShopC
             decimal dQuantityToTakeFromStock = dStockQuantity;
             string UnitSymbol = null;
             string Item_UniqueName = "";
-            xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List = new List<Stock_Data>();
             if (dt_ShopC_Item_in_Stock.Rows.Count > 0)
             {
                 if (dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"] is string)
@@ -484,53 +483,50 @@ namespace ShopC
                         //        continue;
                         //    }
                         //}
-                        Stock_Data stock_data = new Stock_Data();
-                        stock_data.Stock_ID = tf.set_ID(dr["Stock_ID"]);
-                        stock_data.Stock_ImportTime = tf.set_DateTime(dr["Stock_ImportTime"]);
-                        stock_data.Stock_ExpiryDate = tf.set_DateTime(dr["Stock_Expiry_Date"]);
-                        decimal_v dQuantity_v = tf.set_decimal(dr["Stock_dQuantity"]);
-                        stock_data.dQuantity_v = tf.set_decimal(dr["TakeFromStock"]);
-                        decimal_v dQuantityTakenFromStock_v = tf.set_decimal(dr["TakeFromStock"]);
-                        decimal dNewQuantityInStock = dQuantity_v.v - dQuantityTakenFromStock_v.v;
-                        stock_data.dQuantity_New_in_Stock_v = new decimal_v(dNewQuantityInStock);
-                        xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
+                        Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+
+                        xdsciS.Stock_ID = tf.set_ID(dr["Stock_ID"]);
+
+                        xdsciS.dQuantity = tf._set_decimal(dr["Stock_dQuantity"]);
+
+                        xdsci.dsciS_List.Add(xdsciS);
                     }
                 }
             }
             else
             {
-                Item_UniqueName = xShopC_Data_Item.Atom_Item_UniqueName.v;
+                Item_UniqueName = xdsci.Item_UniqueName;
             }
 
             if (dFromFactoryQuantity > 0)
             {
-                Stock_Data stock_data = new Stock_Data();
-                stock_data.Stock_ID = null;
-                stock_data.Stock_ImportTime = null;
-                stock_data.dQuantity_v = new decimal_v(dFromFactoryQuantity);
-                stock_data.dQuantity_New_in_Stock_v = null;
+                Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+                xdsciS.Stock_ID = null;
+                xdsciS.dQuantity = dFromFactoryQuantity;
                 DateTime dtNow = DateTime.Now;
                 DateTime dtExpiry = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day);
                 dtExpiry = dtExpiry.AddMonths(1);
-                DateTime_v ExpiryDate_v = new DateTime_v(dtExpiry);
-                stock_data.Stock_ExpiryDate = ExpiryDate_v;
-                Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(ExpiryDate_v, Item_UniqueName);
+                DateTime_v expiryDate_v = new DateTime_v(dtExpiry);
+                xdsciS.ExpiryDate_v = new DateTime_v(dtExpiry);
+                Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(expiryDate_v, Item_UniqueName);
                 if (edt_Stock_AvoidStock_dlg.ShowDialog() == DialogResult.OK)
                 {
-                    stock_data.Stock_ExpiryDate = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
-                    xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
+                    xdsciS.ExpiryDate_v = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
+                  
+                    
                 }
+                xdsci.dsciS_List.Add(xdsciS);
             }
-            if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_stock > 0)
+            if (xdsci.dQuantity_FromStock > 0)
             {
-                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, true))
+                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xdsci, true))
                 {
                     return false;
                 }
             }
-            if (xShopC_Data_Item.m_ShopShelf_Source.dQuantity_from_factory > 0)
+            if (xdsci.dQuantity_FromFactory > 0)
             {
-                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xShopC_Data_Item, false))
+                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xdsci, false))
                 {
                     return false;
                 }

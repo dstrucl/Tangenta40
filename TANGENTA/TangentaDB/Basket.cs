@@ -21,9 +21,7 @@ namespace TangentaDB
     {
         public delegate bool delegate_Select_ShopC_Item_in_Stock(string DocTyp,
                                                                   DataTable dt_ShopC_Item_in_Stock,
-                                                                  Doc_ShopC_Item xShopC_Data_Item,
-                                                                  decimal dStockQuantity,
-                                                                  decimal dFromFactoryQuantity,
+                                                                  Doc_ShopC_Item xdsci,
                                                                   ref decimal dQuantitySelected, 
                                                                   ref bool bOK);
         public delegate void delegate_Item_Not_InOffer(ShopC_Item shopC_Item);
@@ -365,11 +363,11 @@ namespace TangentaDB
 
         public void Remove(ID doc_ShopC_Item_ID)
         {
-            foreach (object o in this.m_Doc_ShopC_Item_LIST)
+            foreach (Doc_ShopC_Item dscix in this.m_Doc_ShopC_Item_LIST)
             {
-                if (((Doc_ShopC_Item)o).Doc_ShopC_Item_ID.Equals(doc_ShopC_Item_ID))
+                if (dscix.Doc_ShopC_Item_ID.Equals(doc_ShopC_Item_ID))
                 {
-                    this.m_Doc_ShopC_Item_LIST.Remove(o);
+                    this.m_Doc_ShopC_Item_LIST.Remove(dscix);
                     return;
                 }
             }
@@ -383,7 +381,7 @@ namespace TangentaDB
                 {
                     foreach (object o in this.m_Doc_ShopC_Item_LIST)
                     {
-                        if (((Doc_ShopC_Item)o).Atom_Item_UniqueName.v.Equals(item_UniqueName))
+                        if (((Doc_ShopC_Item)o).Atom_Item_UniqueName_v.v.Equals(item_UniqueName))
                         {
                             return true;
                         }
@@ -402,7 +400,7 @@ namespace TangentaDB
                 {
                     foreach (object o in this.m_Doc_ShopC_Item_LIST)
                     {
-                        if (((Doc_ShopC_Item)o).Atom_Item_UniqueName.v.Equals(item_UniqueName))
+                        if (((Doc_ShopC_Item)o).Atom_Item_UniqueName_v.v.Equals(item_UniqueName))
                         {
                             return (Doc_ShopC_Item)o;
                         }
@@ -430,22 +428,23 @@ namespace TangentaDB
             }
         }
 
-        public enum eCopy_ShopC_Price_Item_Stock_Table_Result { OK,ERROR_NO_ITEM_IN_DB,ERROR_DB};
-        public eCopy_ShopC_Price_Item_Stock_Table_Result Copy_ShopC_Price_Item_Stock_Table(string docInvoice,
+        public enum eCopy_Doc_ShopC_Item_Result { OK,ERROR_NO_ITEM_IN_DB,ERROR_DB};
+
+        public eCopy_Doc_ShopC_Item_Result Copy_Doc_ShopC_Item(string docInvoice,
                                                       CurrentDoc xCurrentDoc,
-                                                      List<object> xShopC_Data_Item_List,
+                                                      List<Doc_ShopC_Item> xdsci_List,
                                                       bool bSelectItemsFromStockInDialog,
                                                       delegate_Select_ShopC_Item_in_Stock proc_Select_ShopC_Item_in_Stock,
                                                       delegate_Item_Not_InOffer proc_Item_Not_InOffer
                                                       )
         {
-            foreach (object oxShopC_Data_Item in xShopC_Data_Item_List)
+            foreach (Doc_ShopC_Item dscix in xdsci_List)
             {
-                if (oxShopC_Data_Item is Doc_ShopC_Item)
+                if (dscix is Doc_ShopC_Item)
                 {
-                    Doc_ShopC_Item xShopC_Data_Item = (Doc_ShopC_Item)oxShopC_Data_Item;
+                   
                     ShopC_Item shopC_Item = new ShopC_Item();
-                    if (!f_Item.Get(xShopC_Data_Item.Atom_Item_UniqueName.v,
+                    if (!f_Item.Get(dscix.Atom_Item_UniqueName_v.v,
                                    ref shopC_Item.UniqueName_v,
                                    ref shopC_Item.Name_v,
                                    ref shopC_Item.bToOffer_v,
@@ -473,7 +472,7 @@ namespace TangentaDB
                                    ref shopC_Item.Unit_ID,
                                    ref shopC_Item.Item_ID))
                     {
-                        return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_DB;
+                        return eCopy_Doc_ShopC_Item_Result.ERROR_DB;
                     }
 
 
@@ -491,56 +490,26 @@ namespace TangentaDB
                     else
                     {
                         // No item found in offer !!
-                        return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_NO_ITEM_IN_DB;
+                        return eCopy_Doc_ShopC_Item_Result.ERROR_NO_ITEM_IN_DB;
                     }
-                    decimal dStockCount = 0;
-                    decimal dFromFactoryCount = 0;
-                    int iStockDataListCount = 0;
-                    if (xShopC_Data_Item.m_ShopShelf_Source != null)
-                    {
-                        if (xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List != null)
-                        {
-                            iStockDataListCount = xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List.Count;
-                            for (int i=0;i< iStockDataListCount;i++)
-                            {
-                                if (xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_stock != null)
-                                {
-                                    dStockCount += xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_stock.v;
-                                }
-                                if (xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_factory != null)
-                                {
-                                    dFromFactoryCount += xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_factory.v;
-                                }
-                            }
-                        }
-                    }
-                    if (dStockCount > 0)
-                    {
-                        //this item was taken from stock
-                    }
-                    else
-                    {
-                        //this item was taken directly from factory
-                    }
-
+                    
+                    
                     decimal dQuantitySelected = 0;
-                    if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentDoc.Doc_ID, xShopC_Data_Item,shopC_Item, dStockCount, dFromFactoryCount, ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
+                    if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentDoc.Doc_ID, shopC_Item,  ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
                     {
-                        return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_DB;
+                        return eCopy_Doc_ShopC_Item_Result.ERROR_DB;
                     }
 
                 }
             }
-            return eCopy_ShopC_Price_Item_Stock_Table_Result.OK;
+            return eCopy_Doc_ShopC_Item_Result.OK;
         }
 
 
         private bool CopyShopCItemInNewDocInvoice(string docInvoice, 
                                                   ID doc_ID,
-                                                  Doc_ShopC_Item xShopC_Data_Item,
+                                                  Doc_ShopC_Item xdsci,
                                                   ShopC_Item shopC_Item,
-                                                  decimal dStockCount,
-                                                  decimal dFromFactoryCount,
                                                   ref decimal dQuantitySelected,
                                                   bool bAutomaticSelectItemsFromStock,
                                                   delegate_Select_ShopC_Item_in_Stock proc_Select_ShopC_Item_in_Stock)
@@ -549,7 +518,7 @@ namespace TangentaDB
           if (f_Stock.GetItemInStock(shopC_Item.Item_ID,ref dt_ShopC_Item_In_Stock))
           {
                 bool bDialogOk = false;
-                return proc_Select_ShopC_Item_in_Stock(docInvoice,dt_ShopC_Item_In_Stock, xShopC_Data_Item,dStockCount, dFromFactoryCount, ref dQuantitySelected, ref bDialogOk);
+                return proc_Select_ShopC_Item_in_Stock(docInvoice,dt_ShopC_Item_In_Stock, xdsci,  ref dQuantitySelected, ref bDialogOk);
           }
           else
           {
@@ -654,6 +623,7 @@ namespace TangentaDB
         {
             string sql = null;
 
+            ID item_ID = xdsci.Find_Item_ID();
             if (xDocTyp==null)
             {
                 LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp = null not implemented.");
@@ -665,7 +635,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + xdsci.Item_ID.ToString() + ") and Stock_ID is null";
+                                  where  (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
             }
             else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
             {
@@ -673,7 +643,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + xdsci.Item_ID.ToString() + ") and Stock_ID is null";
+                                  where  (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
             }
             else
             {
@@ -779,6 +749,7 @@ namespace TangentaDB
         public bool RemoveAll(string xDocTyp, Doc_ShopC_Item xdsci)
         {
 
+            ID item_ID = xdsci.Find_Item_ID();
             string sql = null;
 
             if (xDocTyp == null)
@@ -792,7 +763,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + xdsci.Item_ID.ToString() + ")";
+                                  where  (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
             }
             else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
             {
@@ -800,7 +771,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + xdsci.Item_ID.ToString() + ")";
+                                  where  (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
             }
             else
             {
@@ -911,45 +882,45 @@ namespace TangentaDB
         private void RemoveFactory_from_list(Doc_ShopC_Item xdsci)
         {
             List<Stock_Data> Stock_Data_to_remove_List = new List<Stock_Data>();
-            foreach (Stock_Data sd in xdsci.m_ShopShelf_Source.Stock_Data_List)
-            {
-                if (sd.Stock_ID == null)
-                {
-                    Stock_Data_to_remove_List.Add(sd);
-                }
-            }
+            //foreach (Stock_Data sd in xdsci.m_ShopShelf_Source.Stock_Data_List)
+            //{
+            //    if (sd.Stock_ID == null)
+            //    {
+            //        Stock_Data_to_remove_List.Add(sd);
+            //    }
+            //}
 
-            foreach (Stock_Data sd in Stock_Data_to_remove_List)
-            {
-                xdsci.m_ShopShelf_Source.Stock_Data_List.Remove(sd);
-            }
+            //foreach (Stock_Data sd in Stock_Data_to_remove_List)
+            //{
+            //    xdsci.m_ShopShelf_Source.Stock_Data_List.Remove(sd);
+            //}
 
-            if (xdsci.m_ShopShelf_Source.Stock_Data_List.Count == 0)
-            {
-                this.m_Doc_ShopC_Item_LIST.Remove(xdsci);
-            }
+            //if (xdsci.m_ShopShelf_Source.Stock_Data_List.Count == 0)
+            //{
+            //    this.m_Doc_ShopC_Item_LIST.Remove(xdsci);
+            //}
 
         }
         private void RemoveStock_from_list(Doc_ShopC_Item xdsci)
         {
             List<Stock_Data> Stock_Data_to_remove_List = new List<Stock_Data>();
-            foreach (Stock_Data sd in xdsci.m_ShopShelf_Source.Stock_Data_List)
-            {
-                if (sd.Stock_ID != null)
-                {
-                    Stock_Data_to_remove_List.Add(sd);
-                }
-            }
+            //foreach (Stock_Data sd in xdsci.m_ShopShelf_Source.Stock_Data_List)
+            //{
+            //    if (sd.Stock_ID != null)
+            //    {
+            //        Stock_Data_to_remove_List.Add(sd);
+            //    }
+            //}
 
-            foreach (Stock_Data sd in Stock_Data_to_remove_List)
-            {
-                xdsci.m_ShopShelf_Source.Stock_Data_List.Remove(sd);
-            }
+            //foreach (Stock_Data sd in Stock_Data_to_remove_List)
+            //{
+            //    xdsci.m_ShopShelf_Source.Stock_Data_List.Remove(sd);
+            //}
 
-            if (xdsci.m_ShopShelf_Source.Stock_Data_List.Count == 0)
-            {
-                this.m_Doc_ShopC_Item_LIST.Remove(xdsci);
-            }
+            //if (xdsci.m_ShopShelf_Source.Stock_Data_List.Count == 0)
+            //{
+            //    this.m_Doc_ShopC_Item_LIST.Remove(xdsci);
+            //}
         }
 
 
@@ -989,6 +960,7 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:Basket.cs:Basket:Remove_and_put_back_to_ShopShelf: xDocTyp==null.");
                 return false;
             }
+            ID item_ID = xdsci.Find_Item_ID();
             string sql = @"select appis.ID,
                                   s.ID as Stock_ID,
                                   appis.dQuantity,
@@ -998,7 +970,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  ("+xDocTyp+@"_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + xdsci.Item_ID.ToString() + ")";
+                                  where  ("+xDocTyp+@"_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
             DataTable dt1 = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
@@ -1104,7 +1076,7 @@ namespace TangentaDB
         {
             foreach (object o in this.m_Doc_ShopC_Item_LIST)
             {
-                if (((Doc_ShopC_Item)o).Atom_Item_UniqueName.v.Equals(m_Item_Data.Item_UniqueName.v))
+                if (((Doc_ShopC_Item)o).Atom_Item_UniqueName_v.v.Equals(m_Item_Data.Item_UniqueName_v.v))
                 {
                     return ((Doc_ShopC_Item)o);
                 }
@@ -1114,23 +1086,23 @@ namespace TangentaDB
 
         public void GetPriceSum(ref decimal dsum_GrossSum_Basket, ref decimal dsum_TaxSum_Basket, ref decimal dsum_NetSum, ref StaticLib.TaxSum TaxSum)
         {
-            foreach (object o in this.m_Doc_ShopC_Item_LIST)
+            foreach (Doc_ShopC_Item dscix in this.m_Doc_ShopC_Item_LIST)
             {
-                decimal dQuantity = ((Doc_ShopC_Item)o).dQuantity_FromFactory + ((Doc_ShopC_Item)o).dQuantity_FromStock;
+               
                 decimal RetailPriceWithDisount = 0;
                 decimal tax_price = 0;
                 decimal net_price = 0;
-                StaticLib.Func.CalculatePrice(((Doc_ShopC_Item)o).RetailPricePerUnit.v,
-                                        dQuantity,
-                                        ((Doc_ShopC_Item)o).Discount.v,
-                                        ((Doc_ShopC_Item)o).ExtraDiscount.v,
-                                        ((Doc_ShopC_Item)o).Atom_Taxation_Rate.v,
+                StaticLib.Func.CalculatePrice(dscix.RetailPricePerUnit,
+                                        dscix.dQuantity_all,
+                                        dscix.Discount,
+                                        dscix.ExtraDiscount,
+                                        dscix.TaxationRate,
                                         ref RetailPriceWithDisount,
                                         ref tax_price,
                                         ref net_price,
-                                        ((Doc_ShopC_Item)o).Atom_Currency_DecimalPlaces.v);
+                                        dscix.Atom_Currency_DecimalPlaces_v.v);
 
-                TaxSum.Add(tax_price, net_price, ((Doc_ShopC_Item)o).Atom_Taxation_Name.v, ((Doc_ShopC_Item)o).Atom_Taxation_Rate.v);
+                TaxSum.Add(tax_price, net_price, dscix.Atom_Taxation_Name_v.v, dscix.Atom_Taxation_Rate_v.v);
 
                 dsum_GrossSum_Basket += RetailPriceWithDisount;
                 dsum_TaxSum_Basket += tax_price;
@@ -1142,9 +1114,9 @@ namespace TangentaDB
         {
             foreach (Doc_ShopC_Item dscix in m_Doc_ShopC_Item_LIST)
             {
-                if (dscix.Item_ID.Equals(xItemData.Item_ID))
+                if (dscix.ItemEquals(xItemData))
                 {
-                    dscix.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
+                   // dscix.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
                     xdsci = dscix;
                     return;
                 }
@@ -1159,9 +1131,10 @@ namespace TangentaDB
         {
             foreach (Doc_ShopC_Item dscix in m_Doc_ShopC_Item_LIST)
             {
-                if (dscix.Item_ID.Equals(xItemData.Item_ID))
+
+                if (dscix.ItemEquals(xItemData))
                 {
-                    dscix.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
+                   // dscix.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
                     xdsci = dscix;
                     return;
                 }

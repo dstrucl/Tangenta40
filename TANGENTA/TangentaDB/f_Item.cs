@@ -199,7 +199,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Item_ID==null)
+                    if (Item_ID == null)
                     {
                         Item_ID = new ID();
                     }
@@ -365,7 +365,7 @@ namespace TangentaDB
                     UniqueName_v = tf.set_string(dt.Rows[0]["UniqueName"]);
                     Name_v = tf.set_string(dt.Rows[0]["Name"]);
                     bToOffer_v = tf.set_bool(dt.Rows[0]["ToOffer"]);
-                    if (Item_Image_ID==null)
+                    if (Item_Image_ID == null)
                     {
                         Item_Image_ID = new ID();
                     }
@@ -379,7 +379,7 @@ namespace TangentaDB
                         }
                     }
 
-                    if (Unit_ID==null)
+                    if (Unit_ID == null)
                     {
                         Unit_ID = new ID();
                     }
@@ -405,7 +405,7 @@ namespace TangentaDB
                     barcode_v = tf.set_string(dt.Rows[0]["barcode"]);
                     Description_v = tf.set_string(dt.Rows[0]["Description"]);
 
-                    if (Expiry_ID==null)
+                    if (Expiry_ID == null)
                     {
                         Expiry_ID = new ID();
                     }
@@ -419,7 +419,7 @@ namespace TangentaDB
                         }
                     }
 
-                    if (Warranty_ID==null)
+                    if (Warranty_ID == null)
                     {
                         Warranty_ID = new ID();
                     }
@@ -433,7 +433,7 @@ namespace TangentaDB
                         }
                     }
 
-                    if (Item_ParentGroup1_ID==null)
+                    if (Item_ParentGroup1_ID == null)
                     {
                         Item_ParentGroup1_ID = new ID();
                     }
@@ -447,11 +447,35 @@ namespace TangentaDB
                         }
                     }
 
-                    if (Item_ID==null)
+                    if (Item_ID == null)
                     {
                         Item_ID = new ID();
                     }
                     Item_ID.Set(dt.Rows[0]["ID"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Item:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool Get(string item_UniqueName, ref ID item_ID)
+        {
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_UniqueName = "@par_UniqueName";
+            SQL_Parameter par_UniqueName = new SQL_Parameter(spar_UniqueName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, item_UniqueName);
+            lpar.Add(par_UniqueName);
+            string sql = @"select ID from Item where UniqueName =" + spar_UniqueName;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    item_ID = tf.set_ID(dt.Rows[0]["ID"]);
                 }
                 return true;
             }

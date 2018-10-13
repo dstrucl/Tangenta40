@@ -741,7 +741,7 @@ namespace TangentaDB
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<object> xDocInvoice_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
+        public void Fill_Sold_ShopC_ItemsData(List<Doc_ShopC_Item> xDocInvoice_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
         {
 
             int i;
@@ -753,29 +753,29 @@ namespace TangentaDB
             {
                 Doc_ShopC_Item xdsci = (Doc_ShopC_Item)xDocInvoice_ShopC_Item_Data_LIST[j];
 
-                decimal Discount = xdsci.Discount.v;
+                decimal Discount = xdsci.Discount;
 
-                decimal ExtraDiscount = xdsci.ExtraDiscount.v;
+                decimal ExtraDiscount = xdsci.ExtraDiscount;
 
                 decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Currency.DecimalPlaces);
 
-                decimal Atom_Taxation_Rate = xdsci.Atom_Taxation_Rate.v;
+                decimal Atom_Taxation_Rate = xdsci.Atom_Taxation_Rate_v.v;
 
                 decimal RetailItemsPriceWithDiscount = 0;
                 decimal ItemsTaxPrice = 0;
                 decimal ItemsNetPrice = 0;
 
-                int decimal_places = xdsci.Atom_Currency_DecimalPlaces.v;
+                int decimal_places = xdsci.Atom_Currency_DecimalPlaces_v.v;
 
-                decimal RetailPricePerUnit = xdsci.RetailPricePerUnit.v;
+                decimal RetailPricePerUnit = xdsci.RetailPricePerUnit;
                 decimal dQuantityAll = xdsci.dQuantity_FromStock + xdsci.dQuantity_FromFactory;
 
                 StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantityAll, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
 
 
-                decimal taxation_rate = DBTypes.tf._set_decimal(xdsci.Atom_Taxation_Rate.v);
+                decimal taxation_rate = DBTypes.tf._set_decimal(xdsci.Atom_Taxation_Rate_v.v);
                 decimal tax_price = ItemsTaxPrice;
-                string tax_name = xdsci.Atom_Taxation_Name.v;
+                string tax_name = xdsci.Atom_Taxation_Name_v.v;
 
                 if (bInvoiceStorno)
                 {
@@ -799,15 +799,15 @@ namespace TangentaDB
 
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lng.s_Shop_B,
-                                                             DBTypes.tf._set_string(xdsci.Atom_Item_UniqueName.v),
-                                                             DBTypes.tf._set_decimal(xdsci.RetailPricePerUnit.v),
-                                                             DBTypes.tf._set_string(xdsci.Atom_Unit_Name.v),
-                                                             DBTypes.tf._set_decimal(xdsci.RetailPriceWithDiscount.v),
-                                                             DBTypes.tf._set_string(xdsci.Atom_Taxation_Name.v),
+                                                             DBTypes.tf._set_string(xdsci.Atom_Item_UniqueName_v.v),
+                                                             DBTypes.tf._set_decimal(xdsci.RetailPricePerUnit),
+                                                             DBTypes.tf._set_string(xdsci.Atom_Unit_Name_v.v),
+                                                             DBTypes.tf._set_decimal(xdsci.RetailPriceWithDiscount),
+                                                             DBTypes.tf._set_string(xdsci.Atom_Taxation_Name_v.v),
                                                              DBTypes.tf._set_decimal(dQuantityAll),
-                                                             DBTypes.tf._set_decimal(xdsci.Discount.v),
-                                                             DBTypes.tf._set_decimal(xdsci.ExtraDiscount.v),
-                                                             DBTypes.tf._set_string(xdsci.Atom_Currency_Symbol.v),
+                                                             DBTypes.tf._set_decimal(xdsci.Discount),
+                                                             DBTypes.tf._set_decimal(xdsci.ExtraDiscount),
+                                                             DBTypes.tf._set_string(xdsci.Atom_Currency_Symbol_v.v),
                                                              taxation_rate,
                                                              DBTypes.tf._set_decimal(TotalDiscount),
                                                              dprice_without_tax,
@@ -1490,7 +1490,7 @@ namespace TangentaDB
                         {
                             if (m_ShopABC.Read_ShopB_Price_Item_Table(xDoc_ID, ref dt_ShopB_Items))
                             {
-                                List<object> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<object>();
+                                List<Doc_ShopC_Item> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<Doc_ShopC_Item>();
                                 if (this.m_eType == eType.STORNO)
                                 {
                                     if (!m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocInvoice,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST))

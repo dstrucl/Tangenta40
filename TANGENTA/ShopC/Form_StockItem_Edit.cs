@@ -44,7 +44,7 @@ namespace ShopC
             nav = xnav;
             m_Item_Data = x_Item_Data;
             lng.s_lbl_Item_Stock.Text(lbl_Item_Stock);
-            this.lbl_Item.Text = m_Item_Data.Item_UniqueName.v;
+            this.lbl_Item.Text = m_Item_Data.Item_UniqueName_v.v;
             dbTables = xdbTables;
             tbl = xtbl;
             where_condition = xwhere_condition;

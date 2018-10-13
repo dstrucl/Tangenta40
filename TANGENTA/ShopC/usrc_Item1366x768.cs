@@ -127,9 +127,9 @@ namespace ShopC
         {
             if (idata != null)
             {
-                if (idata.Item_UniqueName != null)
+                if (idata.Item_UniqueName_v != null)
                 {
-                    this.Item_UniqueName = idata.Item_UniqueName.v;
+                    this.Item_UniqueName = idata.Item_UniqueName_v.v;
                 }
 
                 decimal dAllStockQuantity = 0;
