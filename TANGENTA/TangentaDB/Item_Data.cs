@@ -56,6 +56,9 @@ namespace TangentaDB
         public string_v Expiry_Description = null;
         public ID Item_Expiry_ID = null;
         public bool_v Item_ToOffer = null;
+
+     
+
         public ID Item_Warranty_ID = null;
         public string_v Warranty_WarrantyConditions = null;
         public int_v Warranty_WarrantyDuration = null;
@@ -197,6 +200,45 @@ namespace TangentaDB
             xstd.dQuantity_v = tf.set_decimal(dnewinstock);
             this.Stock_Data_List.Add(xstd);
 
+        }
+
+        internal bool ReceiveBackToStock(ID stock_ID, decimal xdQuantity)
+        {
+            if (ID.Validate(stock_ID))
+            {
+                foreach (Stock_Data std in this.Stock_Data_List)
+                {
+                    if (ID.Validate(std.Stock_ID))
+                    {
+                        if (std.Stock_ID.Equals(stock_ID))
+                        {
+                            if (std.dQuantity_v==null)
+                            {
+                                std.dQuantity_v = new decimal_v();
+                            }
+                            decimal dnew_quantity_in_stock = std.dQuantity_v.v + xdQuantity;
+                            if (f_Stock.UpdateQuantity(stock_ID, dnew_quantity_in_stock))
+                            {
+                                std.dQuantity_v.v = dnew_quantity_in_stock;
+                                return true;
+                            }
+                        }
+                    }
+                    //else
+                    //{
+                    //    LogFile.Error.Show("ERROR:TangentaDB:Item_Data:ReceiveBackToStock:std.Stock_ID is not valid!");
+                    //}
+                    return true;
+                }
+                // THIS ITEM has no stock his it is FACTORY ITEM
+                //LogFile.Error.Show("ERROR:TangentaDB:Item_Data:ReceiveBackToStock:stock_ID was not found in m_ShopSehlf!!");
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Item_Data:ReceiveBackToStock:stock_ID is not valid!");
+
+            }
+            return false;
         }
     }
 }

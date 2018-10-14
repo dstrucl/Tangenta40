@@ -363,6 +363,17 @@ namespace TangentaDB
             }
         }
 
+        public bool RemoveItem(string docTyp, Doc_ShopC_Item dsci,Item_Data xdata)
+        {
+           if (dsci.RemoveSources(docTyp, xdata))
+            {
+                this.Basket_Doc_ShopC_Item_LIST.Remove(dsci);
+                return true;
+            }
+            return false;
+
+        }
+
         public void Remove(ID doc_ShopC_Item_ID)
         {
             foreach (Doc_ShopC_Item dscix in this.Basket_Doc_ShopC_Item_LIST)

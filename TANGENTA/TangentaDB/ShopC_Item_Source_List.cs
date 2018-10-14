@@ -190,5 +190,34 @@ namespace TangentaDB
             }
             return false;
         }
+
+        internal bool RemoveSources(string docTyp, Item_Data xdata)
+        {
+           foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
+           {
+                if (ID.Validate(xdsciS.Stock_ID))
+                {
+                    if (xdsciS.SendBackToStock(docTyp, xdsciS.dQuantity,xdata))
+                    {
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    //this is factory_resource
+                    if (!xdsciS.RemoveFactory(docTyp,xdsciS.dQuantity))
+                    {
+                        return false;
+                    }
+                }
+           }
+            dsciS_list.Clear();
+            return true;
+
+        }
     }
 }

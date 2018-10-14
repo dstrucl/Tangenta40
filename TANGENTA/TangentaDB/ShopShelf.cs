@@ -22,7 +22,7 @@ namespace TangentaDB
         public string sql_Price_Item_Stock_template = null;
         public DataTable dt_Price_Item_Stock = new DataTable();
         public DataTable dt_Price_Item_Group = new DataTable();
-        public List<object> ListOfItems = new List<object>();
+        public List<Item_Data> ListOfItems = new List<Item_Data>();
 
 
         public ShopShelf()
@@ -189,6 +189,18 @@ namespace TangentaDB
             return false;
         }
 
+        public Item_Data FindItem(Doc_ShopC_Item dsci)
+        {
+            foreach (Item_Data xdata in this.ListOfItems)
+            {
+                if (xdata.Item_UniqueName.Equals(dsci.Item_UniqueName))
+                {
+                    return xdata;
+                }
+            }
+            return null;
+        }
+
         private void ListOfItems_Set()
         {
             ListOfItems.Clear();
@@ -351,11 +363,11 @@ namespace TangentaDB
 
         public int GetIndex(Doc_ShopC_Item xdsci)
         {
-            foreach (object o in ListOfItems)
+            foreach (Item_Data idata in ListOfItems)
             {
-                if (((Item_Data)o).Item_UniqueName_v.v.Equals(xdsci.Atom_Item_UniqueName_v.v))
+                if (idata.Item_UniqueName_v.v.Equals(xdsci.Atom_Item_UniqueName_v.v))
                 {
-                    int index = ListOfItems.IndexOf(o);
+                    int index = ListOfItems.IndexOf(idata);
                     return index;
                 }
             }

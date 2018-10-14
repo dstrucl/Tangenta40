@@ -518,6 +518,18 @@ namespace TangentaDB
             //m_ShopShelf_Source.Add_Stock_Data(xItem_Data, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
         }
 
+        internal bool RemoveSources(string docTyp, Item_Data xdata)
+        {
+           if (this.dsciS_List.RemoveSources(docTyp,xdata))
+            {
+                if (f_DocInvoice_ShopC_Item.Delete(this.Doc_ShopC_Item_ID))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void Set_WithNoTakeForItemData(Item_Data xItem_Data,
                         ID xDocInvoice_ID,
                         decimal xFactoryQuantity,

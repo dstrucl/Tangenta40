@@ -213,38 +213,39 @@ namespace ShopC
             }
         }
 
-        public void RemoveItem(Doc_ShopC_Item dsci)
+        public bool RemoveItem(Doc_ShopC_Item dsci)
         {
-            if (dsci.dQuantity_FromFactory > 0)
-            {
-                this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp, dsci);
-            }
 
-            if (dsci.dQuantity_FromStock > 0)
+            Item_Data xdata =this.m_ShopBC.m_CurrentDoc.m_ShopShelf.FindItem(dsci);
+            if (xdata != null)
             {
-                this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID, DocTyp, dsci, this.m_ShopBC.m_CurrentDoc.m_ShopShelf);
+                if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveItem(DocTyp, dsci, xdata))
+                {
+                    return true;
+                }
             }
-
-            if ((dsci.dQuantity_FromFactory == 0)&&(dsci.dQuantity_FromStock==0))
+            else
             {
-                // this is invalid case 
-                this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveAll(DocTyp, dsci);
+                LogFile.Error.Show("ERROR:ShopC:usrc_ItemAtomList1366x768:RemoveItem:Item_Data not found for item = " + dsci.Item_UniqueName);
             }
+            return false;
         }
     
 
         private void Xusrc_Atom_Item1366x768_btn_RemoveClick(Doc_ShopC_Item dsci)
         {
-            RemoveItem(dsci);
-            usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
-            usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
-            if (this.Parent is usrc_ShopC1366x768)
+            if (RemoveItem(dsci))
             {
-                ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.DoRepaint();
-            }
-            if (After_Atom_Item_Remove!=null)
-            {
-                After_Atom_Item_Remove();
+                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), usrc_Item_InsidePageHandler.eMode.EDIT);
+                usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
+                if (this.Parent is usrc_ShopC1366x768)
+                {
+                    ((usrc_ShopC1366x768)this.Parent).m_usrc_ItemList1366x768.DoRepaint();
+                }
+                if (After_Atom_Item_Remove != null)
+                {
+                    After_Atom_Item_Remove();
+                }
             }
         }
 
