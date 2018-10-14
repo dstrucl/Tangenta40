@@ -33,25 +33,31 @@ namespace UpgradeDB
                     PRAGMA foreign_keys = OFF;
                     CREATE TABLE DocInvoice_ShopC_Item_TEMP ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                               DocInvoice_ID INTEGER NOT NULL REFERENCES DocInvoice(ID),
-                                                              Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID));
+                                                              Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID),
+                                                              ExtraDiscount DECIMAL(18, 5) NOT NULL);
 
                     Insert into DocInvoice_ShopC_Item_TEMP(DocInvoice_ID,
-                                                           Atom_Price_Item_ID) 
+                                                           Atom_Price_Item_ID,
+                                                           ExtraDiscount) 
                                                            SELECT 
                                                            DocInvoice_ID,
-                                                           Atom_Price_Item_ID 
-                                                           from DocInvoice_ShopC_Item  group by DocInvoice_ID,Atom_Price_Item_ID;
+                                                           Atom_Price_Item_ID,
+                                                           ExtraDiscount
+                                                           from DocInvoice_ShopC_Item  group by DocInvoice_ID,Atom_Price_Item_ID,ExtraDiscount;
 
                     CREATE TABLE DocProformaInvoice_ShopC_Item_TEMP ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                               DocProformaInvoice_ID INTEGER NOT NULL REFERENCES DocProformaInvoice(ID),
-                                                              Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID));
+                                                              Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID),
+                                                              ExtraDiscount DECIMAL(18, 5) NOT NULL);
 
                     Insert into  DocProformaInvoice_ShopC_Item_TEMP (DocProformaInvoice_ID,
-                                                           Atom_Price_Item_ID) 
+                                                           Atom_Price_Item_ID,
+                                                           ExtraDiscount) 
                                                            SELECT 
                                                            DocProformaInvoice_ID,
-                                                           Atom_Price_Item_ID 
-                                                           from DocProformaInvoice_ShopC_Item  group by DocProformaInvoice_ID,Atom_Price_Item_ID;
+                                                           Atom_Price_Item_ID,
+                                                           ExtraDiscount
+                                                           from DocProformaInvoice_ShopC_Item  group by DocProformaInvoice_ID,Atom_Price_Item_ID,ExtraDiscount;
                     ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
@@ -121,7 +127,7 @@ namespace UpgradeDB
                     DocInvoice_ShopC_Item_ID,
                     Stock_ID,
                     dQuantity,
-                    ExtraDiscount,
+                    SourceDiscount,
 		            RetailPriceWithDiscount,
 		            TaxPrice, 
 		            ExpiryDate
@@ -130,7 +136,7 @@ namespace UpgradeDB
                     " + doc_ShopC_Item_ID.ToString() + @",
 	                Stock_ID,
 		            dQuantity,
-                    ExtraDiscount,
+                    0,
 		            RetailPriceWithDiscount,
 		            TaxPrice, 
 		            ExpiryDate
@@ -174,7 +180,7 @@ namespace UpgradeDB
                     DocProformaInvoice_ShopC_Item_ID,
                     Stock_ID,
                     dQuantity,
-                    ExtraDiscount,
+                    SourceDiscount,
 		            RetailPriceWithDiscount,
 		            TaxPrice, 
 		            ExpiryDate
@@ -183,7 +189,7 @@ namespace UpgradeDB
                     " + doc_ShopC_Item_ID.ToString() + @",
 		            Stock_ID,
 		            dQuantity,
-                    ExtraDiscount,
+                    0,
 		            RetailPriceWithDiscount,
 		            TaxPrice, 
 		            ExpiryDate

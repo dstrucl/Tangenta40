@@ -10,14 +10,18 @@ namespace TangentaDB
 {
     public static class f_DocInvoice_ShopC_Item_Source
     {
-      
 
-        public static bool Get(ID docInvoice_ShopC_Item_Source_ID, ref Doc_ShopC_Item_Source xdsciS)
+        public static bool Get(ID docInvoice_ShopC_Item_ID,ref DataTable dt)
         {
             string Err = null;
-            DataTable dt = new DataTable();
+            if (dt!=null)
+            {
+                dt.Dispose();
+                dt = null;
+            }
+            dt = new DataTable();
             string sql = @" select
-                                   discis.Doc_ShopC_Item_ID as Doc_ShopC_Item_ID,
+                                   discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
                                    discis.ID as Doc_ShopC_Item_Source_ID,
                                    discis.Stock_ID as Stock_ID,
                                    discis.dQuantity as dQuantity,
@@ -26,7 +30,40 @@ namespace TangentaDB
                                   s.ExpiryDate as ExpiryDate,
                                   i.UniqueName as Item_UniqueName,
                                   st.Name as StockTakeName,
-                                  st.StockTake_Date as StockTake_Date,
+                                  st.StockTake_Date as StockTake_Date
+                                  from DocInvoice_ShopC_Item_Source discis
+                                  left join Stock s on discis.Stock_ID = s.ID
+                                  left join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID
+                                  left join StockTake st on ppi.StockTake_ID = st.ID
+                                  left join Item i on ppi.Item_ID = i.ID
+                                  where discis.DocInvoice_ShopC_Item_ID = " + docInvoice_ShopC_Item_ID.ToString();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item_Source:Get:sql=" + sql + "\r\nErr" + Err);
+                return false;
+            }
+
+        }
+
+        public static bool Get(ID docInvoice_ShopC_Item_Source_ID, ref Doc_ShopC_Item_Source xdsciS)
+        {
+            string Err = null;
+            DataTable dt = new DataTable();
+            string sql = @" select
+                                   discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
+                                   discis.ID as Doc_ShopC_Item_Source_ID,
+                                   discis.Stock_ID as Stock_ID,
+                                   discis.dQuantity as dQuantity,
+                                   discis.RetailPriceWithDiscount as RetailPriceWithDiscount,
+                                   discis.TaxPrice as TaxPrice,
+                                  s.ExpiryDate as ExpiryDate,
+                                  i.UniqueName as Item_UniqueName,
+                                  st.Name as StockTakeName,
+                                  st.StockTake_Date as StockTake_Date
                                   from DocInvoice_ShopC_Item_Source discis
                                   inner join Stock s on discis.Stock_ID = s.ID
                                   inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID

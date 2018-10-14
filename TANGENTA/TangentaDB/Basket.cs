@@ -141,7 +141,8 @@ namespace TangentaDB
                 SELECT 
                 disi.ID as DocInvoice_ShopC_Item_ID,
                 disi.DocInvoice_ID,
-                disi.Atom_Price_Item_ID,       
+                disi.Atom_Price_Item_ID,
+                disi.ExtraDiscount,
                 Atom_Item.ID as Atom_Item_ID,
                 itm.ID as Item_ID,
                 Atom_Price_Item.RetailPricePerUnit,
@@ -282,6 +283,7 @@ namespace TangentaDB
                 dpisi.ID as DocProformaInvoice_ShopC_Item_ID,
                 dpisi.DocProformaInvoice_ID,
                 dpisi.Atom_Price_Item_ID,
+                dpisi.ExtraDiscount,
                 Atom_Item.ID as Atom_Item_ID,
                 itm.ID as Item_ID,
                 Atom_Price_Item.RetailPricePerUnit,

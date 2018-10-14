@@ -23,8 +23,10 @@ namespace TangentaDB
         public decimal dQuantity = 0;
         public decimal ExtraDiscount = 0;
         public decimal RetailPricePerUnit = 0;
+        public decimal RetailPrice = 0;
         public decimal RetailPriceWithDiscount = 0;
         public decimal TaxPrice = 0;
+        public decimal NetPrice = 0;
 
 
         public DateTime_v ExpiryDate_v = null;
@@ -43,15 +45,15 @@ namespace TangentaDB
             dQuantity = tf._set_decimal(dria["dQuantity"]);
         }
 
-        internal void GetPrices(decimal taxRate, decimal discount, decimal extraDiscount, decimal retailPricePerUnit, ref decimal xRetailPrice, ref decimal xRetailPriceWithDiscount, ref decimal xTaxPrice, ref decimal xNetPrice)
+        internal void GetPrices(decimal taxRate, decimal discount, decimal retailPricePerUnit, ref decimal xRetailPrice, ref decimal xRetailPriceWithDiscount, ref decimal xTaxPrice, ref decimal xNetPrice)
         {
             int decimal_places = 2;
             if (GlobalData.BaseCurrency != null)
             {
                 decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
             }
-            StaticLib.Func.CalculatePrice(retailPricePerUnit, dQuantity, discount, ExtraDiscount, taxRate, ref RetailPriceWithDiscount, ref xTaxPrice, ref xNetPrice, decimal_places);
-
+            StaticLib.Func.CalculatePrice(retailPricePerUnit, dQuantity, discount, ExtraDiscount, taxRate,ref xRetailPrice, ref xRetailPriceWithDiscount, ref xTaxPrice, ref xNetPrice, decimal_places);
+            this.NetPrice = xNetPrice;
         }
     }
 }

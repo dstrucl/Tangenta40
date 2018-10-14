@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,14 +90,13 @@ namespace TangentaDB
                 dsciSx.GetPrices(
                 TaxRate,
                 Discount,
-                ExtraDiscount,
                 RetailPricePerUnit,
                 ref xRetailPrice,
                 ref xRetailPriceWithDiscount,
                 ref xTaxPrice,
                 ref xNetPrice);
                 RetailPrice += xRetailPrice;
-                RetailPricePerUnit += xRetailPriceWithDiscount;
+                RetailPriceWithDiscount += xRetailPriceWithDiscount;
                 TaxPrice += xTaxPrice;
                 NetPrice += xNetPrice;
             }
@@ -164,14 +164,29 @@ namespace TangentaDB
 
         internal bool Get(ID doc_ShopC_Item_ID)
         {
-            Doc_ShopC_Item_Source xdsciS = null;
-            if (f_DocInvoice_ShopC_Item_Source.Get(doc_ShopC_Item_ID,ref xdsciS))
+            DataTable dt = null;
+            if (f_DocInvoice_ShopC_Item_Source.Get(doc_ShopC_Item_ID,ref dt))
             {
-                if (xdsciS!=null)
+                dsciS_list.Clear();
+                foreach (DataRow dr in dt.Rows)
                 {
+                 
+                    Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+                    xdsciS.Stock_ID = DBTypes.tf.set_ID(dt.Rows[0]["Stock_ID"]);
+                    xdsciS.dQuantity = DBTypes.tf._set_decimal(dt.Rows[0]["dQuantity"]);
+                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
+                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dt.Rows[0]["TaxPrice"]);
+                    xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["ExpiryDate"]);
+                    xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dt.Rows[0]["Item_UniqueName"]);
+                    xdsciS.StockTakeName_v = DBTypes.tf.set_string(dt.Rows[0]["StockTakeName"]);
+                    xdsciS.StockTakeDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["StockTake_Date"]);
+
+                    xdsciS.Doc_ShopC_Item_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_ID"]);
+                    xdsciS.Doc_ShopC_Item_Source_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_Source_ID"]);
+               
                     dsciS_list.Add(xdsciS);
-                    return true;
                 }
+                return true;
             }
             return false;
         }

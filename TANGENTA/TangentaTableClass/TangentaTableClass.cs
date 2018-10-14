@@ -301,6 +301,10 @@ namespace TangentaTableClass
     {
     }
 
+    public class SourceDiscount : DB_Percent
+    {
+    }
+
     public class RetailPriceWithDiscount:DB_Money
     {
 
@@ -1511,7 +1515,8 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
         public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
-      
+        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
+
     }
 
     public class DocInvoice_ShopC_Item_Source
@@ -1520,7 +1525,7 @@ namespace TangentaTableClass
         public DocInvoice_ShopC_Item m_DocInvoice_ShopC_Item = new DocInvoice_ShopC_Item();
         public Stock m_Stock = new Stock();
         public dQuantity dQuantity = new dQuantity();
-        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
+        public SourceDiscount SourceDiscount = new SourceDiscount();
         public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
         public TaxPrice TaxPrice = new TaxPrice();
         public ExpiryDate ExpiryDate = new ExpiryDate();
@@ -1531,6 +1536,7 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
         public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
+        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
     }
 
     public class DocProformaInvoice_ShopC_Item_Source
@@ -1539,7 +1545,7 @@ namespace TangentaTableClass
         public DocProformaInvoice_ShopC_Item m_DocProformaInvoice_ShopC_Item = new DocProformaInvoice_ShopC_Item();
         public Stock m_Stock = new Stock();
         public dQuantity dQuantity = new dQuantity();
-        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
+        public SourceDiscount SourceDiscount = new SourceDiscount();
         public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
         public TaxPrice TaxPrice = new TaxPrice();
         public ExpiryDate ExpiryDate = new ExpiryDate();

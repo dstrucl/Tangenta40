@@ -27,6 +27,7 @@ namespace TangentaDB
         public decimal Discount = 0;
         public decimal ExtraDiscount = 0;
         public decimal TaxationRate = 0;
+       
 
         public string_v Atom_Item_Name_Name_v = null;
         public string_v Atom_Item_UniqueName_v = null;
@@ -140,17 +141,13 @@ namespace TangentaDB
                     }
                 }
 
-                dsciS_List.Clear();
                 Doc_ShopC_Item_ID = tf.set_ID(dria[docTyp+"_ShopC_Item_ID"]);
                 DocInvoice_ID = tf.set_ID(dria[docTyp+"_ID"]);
                 Atom_Price_Item_ID = new ID(dria["Atom_Price_Item_ID"]);
-                //dQuantity_all = tf.set_decimal(dria["dQuantity"]);
-                //RetailPricePerUnit = tf.set_decimal(dria["RetailPricePerUnit"]);
-                //Discount = tf.set_decimal(dria["Discount"]);
-                //RetailPriceWithDiscount = tf.set_decimal(dria["RetailPriceWithDiscount"]);
-                //TaxPrice = tf.set_decimal(dria["TaxPrice"]);
-                //ExtraDiscount = tf.set_decimal(dria["ExtraDiscount"]);
-                //dQuantity = tf.set_decimal(dria["dQuantity"]);
+                RetailPricePerUnit = tf._set_decimal(dria["RetailPricePerUnit"]);
+                Discount = tf._set_decimal(dria["Discount"]);
+                ExtraDiscount = tf._set_decimal(dria["ExtraDiscount"]);
+                TaxationRate = tf._set_decimal(dria["Atom_Taxation_Rate"]);
                 Atom_Item_UniqueName_v = tf.set_string(dria["Atom_Item_UniqueName"]);
                 Atom_Item_Name_Name_v = tf.set_string(dria["Atom_Item_Name_Name"]);
                 Atom_Item_barcode_barcode_v = tf.set_string(dria["Atom_Item_barcode_barcode"]);
@@ -166,7 +163,6 @@ namespace TangentaDB
                 Atom_Expiry_SaleBeforeExpiryDateInDays_v = tf.set_int(dria["Atom_Expiry_SaleBeforeExpiryDateInDays"]);
                 Atom_Expiry_DiscardBeforeExpiryDateInDays_v = tf.set_int(dria["Atom_Expiry_DiscardBeforeExpiryDateInDays"]);
                 Atom_Expiry_ExpiryDescription = tf.set_string(dria["Atom_Expiry_ExpiryDescription"]);
-                //Item_ID = tf.set_ID(dria["Item_ID"]);
                 Atom_Unit_Name_v = tf.set_string(dria["Atom_Unit_Name"]);
                 Atom_Unit_Symbol_v = tf.set_string(dria["Atom_Unit_Symbol"]);
                 Atom_Unit_DecimalPlaces_v = tf.set_int(dria["Atom_Unit_DecimalPlaces"]);
@@ -192,9 +188,6 @@ namespace TangentaDB
                     s3_name = (string)dria["s3_name"];
                 }
 
-                //stock_data = new Stock_Data();
-                //stock_data.Set(docTyp,dria);
-                //m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
                 if (dsciS_List.Get(Doc_ShopC_Item_ID))
                 {
                     DocInvoice_ShopC_Item_Data_list.Add(this);
