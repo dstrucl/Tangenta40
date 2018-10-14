@@ -97,7 +97,7 @@ namespace TangentaDB
                         dtCurrent_DocInvoice_ShopC_Item.Clear();
                         if (m_Basket != null)
                         {
-                            m_Basket.m_Doc_ShopC_Item_LIST.Clear();
+                            m_Basket.Basket_Doc_ShopC_Item_LIST.Clear();
                         }
                     }
                 }

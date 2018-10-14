@@ -236,7 +236,7 @@ namespace ShopC
         private void Xusrc_Atom_Item1366x768_btn_RemoveClick(Doc_ShopC_Item dsci)
         {
             RemoveItem(dsci);
-            usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
+            usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(),usrc_Item_InsidePageHandler.eMode.EDIT);
             usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
             if (this.Parent is usrc_ShopC1366x768)
             {
@@ -266,7 +266,7 @@ namespace ShopC
             {
                 emode = usrc_Item_InsidePageHandler.eMode.VIEW;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), emode);
             object odata = null;
             Control ctrl = null;
             int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
@@ -328,7 +328,7 @@ namespace ShopC
 
                 lbl_InvoiceInfo.Text = lng.s_DocInvoice.s + ":" + sinfo;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), emode);
             this.usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
         }
 

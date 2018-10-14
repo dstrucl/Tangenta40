@@ -164,18 +164,18 @@ namespace ShopC
                     LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                 }
             }
-            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Count > 0;
+            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0;
         }
 
 
         internal void SetCurrentInvoice_SelectedItems()
         {
 
-            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST, 5, usrc_Atom_Item_array);
+            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, 5, usrc_Atom_Item_array);
             this.m_usrc_ItemList.Reset();
             if (this.m_ShopBC.m_CurrentDoc.bDraft)
             {
-                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Count > 0;
+                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0;
             }
             else
             {
@@ -208,7 +208,7 @@ namespace ShopC
         {
             if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref dsci,true))
             {
-                int index = m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.IndexOf(dsci);
+                int index = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.IndexOf(dsci);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema != null)
                 {
@@ -229,7 +229,7 @@ namespace ShopC
             if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref dsci,false))
             {
 
-                int index = m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.IndexOf(dsci);
+                int index = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.IndexOf(dsci);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema!=null)
                 {

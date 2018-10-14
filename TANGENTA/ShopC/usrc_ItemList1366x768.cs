@@ -306,7 +306,7 @@ namespace ShopC
                     {
                         if (xData.Stock_Data_List.Count > 0)
                         {
-                            if (!update_stock_elements_in_Doc_ShopC_Item(m_ShopBC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST, xData, ref dsci))
+                            if (!update_stock_elements_in_Doc_ShopC_Item(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, xData, ref dsci))
                             {
                                 LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:!update_stock_elements_in_Doc_ShopC_Item!");
                                 return;

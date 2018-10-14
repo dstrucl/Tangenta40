@@ -1500,7 +1500,7 @@ namespace TangentaDB
                                 }
                                 else
                                 {
-                                    xDocProformaInvoice_ShopC_Item_Data_LIST = m_ShopABC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST;
+                                    xDocProformaInvoice_ShopC_Item_Data_LIST = m_ShopABC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST;
                                 }
 
 

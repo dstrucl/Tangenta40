@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
@@ -159,6 +160,20 @@ namespace TangentaDB
                 ref xNetPrice);
 
             return xNetPrice;
+        }
+
+        internal bool Get(ID doc_ShopC_Item_ID)
+        {
+            Doc_ShopC_Item_Source xdsciS = null;
+            if (f_DocInvoice_ShopC_Item_Source.Get(doc_ShopC_Item_ID,ref xdsciS))
+            {
+                if (xdsciS!=null)
+                {
+                    dsciS_list.Add(xdsciS);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

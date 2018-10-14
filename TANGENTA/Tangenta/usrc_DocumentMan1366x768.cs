@@ -124,20 +124,20 @@ namespace Tangenta
             }
         }
 
-        public bool m_usrc_InvoiceHead_Visible
-        {
-            get
-            {
-                if (m_usrc_DocumentEditor1366x768 != null)
-                {
-                    return m_usrc_DocumentEditor1366x768.HeadVisible;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+        //public bool m_usrc_InvoiceHead_Visible
+        //{
+        //    get
+        //    {
+        //        if (m_usrc_DocumentEditor1366x768 != null)
+        //        {
+        //            return m_usrc_DocumentEditor1366x768.HeadVisible;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //}
 
         public bool Active
         {

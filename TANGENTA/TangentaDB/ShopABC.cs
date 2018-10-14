@@ -430,8 +430,8 @@ namespace TangentaDB
 
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
-                            m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Clear();
-                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST))
+                            m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Clear();
+                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST))
                             {
                                 return true;
                             }
@@ -502,8 +502,8 @@ namespace TangentaDB
 
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
-                            m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Clear();
-                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST))
+                            m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Clear();
+                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST))
                             {
                                 return true;
                             }

@@ -141,8 +141,8 @@ namespace TangentaDB
                 }
 
                 dsciS_List.Clear();
-                Doc_ShopC_Item_ID = new ID(dria[docTyp+"_ShopC_Item_ID"]);
-                DocInvoice_ID = new ID(dria[docTyp+"_ID"]);
+                Doc_ShopC_Item_ID = tf.set_ID(dria[docTyp+"_ShopC_Item_ID"]);
+                DocInvoice_ID = tf.set_ID(dria[docTyp+"_ID"]);
                 Atom_Price_Item_ID = new ID(dria["Atom_Price_Item_ID"]);
                 //dQuantity_all = tf.set_decimal(dria["dQuantity"]);
                 //RetailPricePerUnit = tf.set_decimal(dria["RetailPricePerUnit"]);
@@ -195,8 +195,10 @@ namespace TangentaDB
                 //stock_data = new Stock_Data();
                 //stock_data.Set(docTyp,dria);
                 //m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
-
-                DocInvoice_ShopC_Item_Data_list.Add(this);
+                if (dsciS_List.Get(Doc_ShopC_Item_ID))
+                {
+                    DocInvoice_ShopC_Item_Data_list.Add(this);
+                }
             }
             else
             {

@@ -17,13 +17,22 @@ namespace TangentaDB
 {
     public class Doc_ShopC_Item_Source
     {
+        public ID Doc_ShopC_Item_Source_ID = null;
         public ID Doc_ShopC_Item_ID = null;
         public ID Stock_ID = null;
         public decimal dQuantity = 0;
         public decimal ExtraDiscount = 0;
         public decimal RetailPricePerUnit = 0;
         public decimal RetailPriceWithDiscount = 0;
+        public decimal TaxPrice = 0;
+
+
         public DateTime_v ExpiryDate_v = null;
+
+        public string_v Item_UniqueName_v = null;
+
+        public string_v StockTakeName_v = null;
+        public DateTime_v StockTakeDate_v = null;
 
         public void Set(string docType, System.Data.DataRow dria)
         {

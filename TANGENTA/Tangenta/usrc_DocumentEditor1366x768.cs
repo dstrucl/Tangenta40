@@ -299,7 +299,7 @@ namespace Tangenta
 
         internal void WizzardShow_usrc_Invoice_Head_Visible(bool bvisible)
         {
-            chk_Head.Checked = bvisible;
+            //chk_Head.Checked = bvisible;
             this.Refresh();
             this.Refresh();
         }
@@ -452,12 +452,12 @@ namespace Tangenta
             get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("Ç"); }
         }
 
-        public bool HeadVisible
-        {
-            get {
-                 return this.chk_Head.Checked;
-                }
-        }
+        //public bool HeadVisible
+        //{
+        //    get {
+        //         return this.chk_Head.Checked;
+        //        }
+        //}
 
         public usrc_DocumentEditor1366x768()
         {
@@ -556,9 +556,9 @@ namespace Tangenta
             DocM = xDocM;
             DocE.m_LMOUser = xLMOUser;
             DocE.door = new Door(DocE.m_LMOUser);
-            lng.s_Head.Text(chk_Head);
-            chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
-            chk_Head.CheckedChanged += chk_Head_CheckedChanged;
+            //lng.s_Head.Text(chk_Head);
+            //chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
+            //chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             //splitContainer2.Panel1Collapsed = !chk_Head.Checked;
 
             SetOperationMode();
@@ -725,20 +725,20 @@ namespace Tangenta
                         );
         }
 
-        private void chk_Head_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_Head.Checked)
-            {
-                //splitContainer2.Panel1Collapsed = false;
-            }
-            else
-            {
-                //splitContainer2.Panel1Collapsed = true;
-            }
+        //private void chk_Head_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (chk_Head.Checked)
+        //    {
+        //        //splitContainer2.Panel1Collapsed = false;
+        //    }
+        //    else
+        //    {
+        //        //splitContainer2.Panel1Collapsed = true;
+        //    }
 
-            ((SettingsUser)DocE.m_LMOUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
-            Properties.Settings.Default.Save();
-        }
+        //    ((SettingsUser)DocE.m_LMOUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
+        //    Properties.Settings.Default.Save();
+        //}
 
         private void AddHandler()
         {

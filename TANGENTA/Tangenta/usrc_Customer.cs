@@ -309,10 +309,14 @@ namespace Tangenta
             }
             else
             {
+                this.cmb_BuyerType.TextChanged -= new System.EventHandler(this.cmb_BuyerType_TextChanged);
+                this.cmb_BuyerType.SelectedIndexChanged -= new System.EventHandler(this.cmb_BuyerType_SelectedIndexChanged);
                 cmb_BuyerType.SelectedItem = null;
                 btn_Buyer.Enabled = false;
                 btn_BuyerSelect.Visible = false;
                 txt_Buyer.Visible = false;
+                this.cmb_BuyerType.TextChanged += new System.EventHandler(this.cmb_BuyerType_TextChanged);
+                this.cmb_BuyerType.SelectedIndexChanged += new System.EventHandler(this.cmb_BuyerType_SelectedIndexChanged);
             }
         }
 

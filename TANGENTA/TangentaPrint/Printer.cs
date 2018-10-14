@@ -1357,9 +1357,9 @@ namespace TangentaPrint
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.m_Doc_ShopC_Item_LIST[0];
+                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST[0];
                 if (o_Data is Doc_ShopC_Item)
                 {
                     return (int)((Doc_ShopC_Item)(o_Data)).Atom_Currency_DecimalPlaces_v.v;

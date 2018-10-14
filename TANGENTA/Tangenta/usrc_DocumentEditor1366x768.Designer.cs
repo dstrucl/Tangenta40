@@ -32,7 +32,6 @@
             this.lbl_Number = new System.Windows.Forms.Label();
             this.lbl_Sum = new System.Windows.Forms.Label();
             this.btn_Issue = new System.Windows.Forms.Button();
-            this.chk_Head = new System.Windows.Forms.CheckBox();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.m_usrc_ShopB1366x768 = new ShopB.usrc_ShopB1366x768();
@@ -86,17 +85,6 @@
             this.btn_Issue.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_Issue.UseVisualStyleBackColor = false;
             this.btn_Issue.Click += new System.EventHandler(this.btn_Issue_Click);
-            // 
-            // chk_Head
-            // 
-            this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Head.Location = new System.Drawing.Point(191, 1);
-            this.chk_Head.Name = "chk_Head";
-            this.chk_Head.Size = new System.Drawing.Size(65, 36);
-            this.chk_Head.TabIndex = 37;
-            this.chk_Head.Text = "Glava";
-            this.chk_Head.UseVisualStyleBackColor = true;
-            this.chk_Head.CheckedChanged += new System.EventHandler(this.chk_Head_CheckedChanged_1);
             // 
             // chk_Storno
             // 
@@ -155,10 +143,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_Customer.DocTyp = "";
-            this.usrc_Customer.Location = new System.Drawing.Point(259, 4);
+            this.usrc_Customer.Location = new System.Drawing.Point(193, 2);
             this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(743, 31);
+            this.usrc_Customer.Size = new System.Drawing.Size(809, 35);
             this.usrc_Customer.TabIndex = 33;
             // 
             // m_usrc_ShopC1366x768
@@ -209,7 +197,6 @@
             this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.usrc_Customer);
-            this.Controls.Add(this.chk_Head);
             this.Controls.Add(this.btn_Issue);
             this.Controls.Add(this.lbl_Sum);
             this.Controls.Add(this.lbl_Number);
@@ -228,7 +215,6 @@
         private System.Windows.Forms.Label lbl_Number;
         private System.Windows.Forms.Button btn_Issue;
         private usrc_Customer usrc_Customer;
-        private System.Windows.Forms.CheckBox chk_Head;
         private System.Windows.Forms.CheckBox chk_Storno;
         private usrc_AddOn usrc_AddOn1;
         public System.Windows.Forms.Button btn_Show_Shops;

@@ -10,24 +10,23 @@ namespace TangentaDB
 {
     public static class f_DocInvoice_ShopC_Item_Source
     {
-        public class fData
-        {
-            public decimal QuantityTakenFromStock = -1;
-            public DateTime ExpiryDate = DateTime.MinValue;
-            public string Item_UniqueName = null;
-            public string StockTakeName = null;
-            public DateTime StockTakeDate = DateTime.MinValue;
-        }
+      
 
-        public static bool Get(ID docInvoice_ShopC_Item_Source_ID, ref fData data)
+        public static bool Get(ID docInvoice_ShopC_Item_Source_ID, ref Doc_ShopC_Item_Source xdsciS)
         {
             string Err = null;
             DataTable dt = new DataTable();
-            string sql = @" select discis.dQuantity as QuantityTakenFromStock,
-                                  s.ExpiryDate,
-                                  i.UniqueName,
+            string sql = @" select
+                                   discis.Doc_ShopC_Item_ID as Doc_ShopC_Item_ID,
+                                   discis.ID as Doc_ShopC_Item_Source_ID,
+                                   discis.Stock_ID as Stock_ID,
+                                   discis.dQuantity as dQuantity,
+                                   discis.RetailPriceWithDiscount as RetailPriceWithDiscount,
+                                   discis.TaxPrice as TaxPrice,
+                                  s.ExpiryDate as ExpiryDate,
+                                  i.UniqueName as Item_UniqueName,
                                   st.Name as StockTakeName,
-                                  st.StockTake_Date
+                                  st.StockTake_Date as StockTake_Date,
                                   from DocInvoice_ShopC_Item_Source discis
                                   inner join Stock s on discis.Stock_ID = s.ID
                                   inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID
@@ -38,11 +37,21 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    data.QuantityTakenFromStock = DBTypes.tf._set_decimal(dt.Rows[0]["QuantityTakenFromStock"]);
-                    data.ExpiryDate = DBTypes.tf._set_DateTime(dt.Rows[0]["ExpiryDate"]);
-                    data.Item_UniqueName = DBTypes.tf._set_string(dt.Rows[0]["UniqueName"]);
-                    data.StockTakeName = DBTypes.tf._set_string(dt.Rows[0]["StockTakeName"]);
-                    data.StockTakeDate = DBTypes.tf._set_DateTime(dt.Rows[0]["StockTake_Date"]);
+                    if (xdsciS==null)
+                    {
+                        xdsciS = new Doc_ShopC_Item_Source();
+                    }
+                    xdsciS.Stock_ID = DBTypes.tf.set_ID(dt.Rows[0]["Stock_ID"]);
+                    xdsciS.dQuantity = DBTypes.tf._set_decimal(dt.Rows[0]["dQuantity"]);
+                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
+                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dt.Rows[0]["TaxPrice"]);
+                    xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["ExpiryDate"]);
+                    xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dt.Rows[0]["Item_UniqueName"]);
+                    xdsciS.StockTakeName_v = DBTypes.tf.set_string(dt.Rows[0]["StockTakeName"]);
+                    xdsciS.StockTakeDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["StockTake_Date"]);
+
+                    xdsciS.Doc_ShopC_Item_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_ID"]);
+                    xdsciS.Doc_ShopC_Item_Source_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_Source_ID"]);
                     return true;
                 }
                 else
@@ -61,6 +70,8 @@ namespace TangentaDB
 
         public static bool GetItem_Source(ID DocInvoice_ShopC_Item_ID, ref DataTable dtShopCItems)
         {
+
+ 
             string sql = @"select 
                                    
                                    discis.ID as DocInvoice_ShopC_Item_Source_ID,

@@ -1249,16 +1249,16 @@ namespace Tangenta
                     sNewTag += "I";
                     tag_conditions.Add(tagDC_usrc_Invoice_Visible_true.NamedCondition);
 
-                    if (DocumentMan1366x768.m_usrc_InvoiceHead_Visible)
-                    {
-                        sNewTag += "h1";
-                        tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
-                    }
-                    else
-                    {
-                        sNewTag += "h0";
-                        tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
-                    }
+                    //if (DocumentMan1366x768.m_usrc_InvoiceHead_Visible)
+                    //{
+                    //    sNewTag += "h1";
+                    //    tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_true.NamedCondition);
+                    //}
+                    //else
+                    //{
+                    //    sNewTag += "h0";
+                    //    tag_conditions.Add(tagDC_usrc_InvoiceHead_Visible_false.NamedCondition);
+                    //}
 
                     if (DocumentMan1366x768.m_usrc_Invoice_ViewMode)
                     {
