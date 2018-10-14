@@ -574,15 +574,15 @@ namespace ShopC
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.White;
                     if (aDoc_ShopC_Item[i] != null)
                     {
-                        if (aDoc_ShopC_Item[i].adata != null)
-                        {
-                            if (aDoc_ShopC_Item[i].adata.Length > 0)
-                            {
-                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).visible = true;
-                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = true;
-                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.LightPink;
-                            }
-                        }
+                        //if (aDoc_ShopC_Item[i].adata != null)
+                        //{
+                        //    if (aDoc_ShopC_Item[i].adata.Length > 0)
+                        //    {
+                        //        ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).visible = true;
+                        //        ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = true;
+                        //        ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.LightPink;
+                        //    }
+                        //}
                     }
                 }
 
@@ -956,13 +956,13 @@ namespace ShopC
                 {
                     if (aDoc_ShopC_Item[e.RowIndex] != null)
                     {
-                        if (aDoc_ShopC_Item[e.RowIndex].adata != null)
-                        {
-                            if (aDoc_ShopC_Item[e.RowIndex].adata.Length > 0)
-                            {
-                                Show_Documents_Where_stock_item_was_sold_or_reserved(aDoc_ShopC_Item[e.RowIndex].Stock_ID, aDoc_ShopC_Item[e.RowIndex].adata);
-                            }
-                        }
+                        //if (aDoc_ShopC_Item[e.RowIndex].adata != null)
+                        //{
+                        //    if (aDoc_ShopC_Item[e.RowIndex].adata.Length > 0)
+                        //    {
+                        //        Show_Documents_Where_stock_item_was_sold_or_reserved(aDoc_ShopC_Item[e.RowIndex].Stock_ID, aDoc_ShopC_Item[e.RowIndex].adata);
+                        //    }
+                        //}
                     }
                 }
             }

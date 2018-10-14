@@ -683,28 +683,28 @@ namespace Tangenta
             {
                 if (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items))
                 {
-                    switch (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Copy_Doc_ShopC_Item(DocM.DocTyp,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc,
-                                                                                                                    xShopC_Data_Item_List,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.proc_Select_ShopC_Item_from_Stock,
-                                                                                                                    this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.proc_Item_Not_In_Offer))
-                    {
-                        case TangentaDB.Basket.eCopy_Doc_ShopC_Item_Result.OK:
-                            DocM.mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear;
-                            m_usrc_TableOfDocuments.Init(DocM, true, false, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
-                            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-                            GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear);
-                            cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
-                            return true;
-                        case TangentaDB.Basket.eCopy_Doc_ShopC_Item_Result.ERROR_NO_ITEM_IN_DB:
-                            LogFile.Error.Show("ERROR:usrc_DocumentMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
-                            break;
+                    //switch (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Copy_Doc_ShopC_Item(DocM.DocTyp,
+                    //                                                                                                this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc,
+                    //                                                                                                xShopC_Data_Item_List,
+                    //                                                                                                this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock,
+                    //                                                                                                this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.proc_Select_ShopC_Item_from_Stock,
+                    //                                                                                                this.m_usrc_DocumentEditor1366x768.m_usrc_ShopC1366x768.proc_Item_Not_In_Offer))
+                    //{
+                    //    case TangentaDB.Basket.eCopy_Doc_ShopC_Item_Result.OK:
+                    //        DocM.mSettingsUserValues.FinancialYear = this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear;
+                    //        m_usrc_TableOfDocuments.Init(DocM, true, false, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear, null);
+                    //        cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
+                    //        GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear);
+                    //        cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
+                    //        return true;
+                    //    case TangentaDB.Basket.eCopy_Doc_ShopC_Item_Result.ERROR_NO_ITEM_IN_DB:
+                    //        LogFile.Error.Show("ERROR:usrc_DocumentMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
+                    //        break;
 
-                        case TangentaDB.Basket.eCopy_Doc_ShopC_Item_Result.ERROR_DB:
-                            LogFile.Error.Show("ERROR:usrc_DocumentMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
-                            break;
-                    }
+                    //    case TangentaDB.Basket.eCopy_Doc_ShopC_Item_Result.ERROR_DB:
+                    //        LogFile.Error.Show("ERROR:usrc_DocumentMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");
+                    //        break;
+                    //}
                 }
             }
             return false;

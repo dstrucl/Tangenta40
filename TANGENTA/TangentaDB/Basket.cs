@@ -495,10 +495,10 @@ namespace TangentaDB
                     
                     
                     decimal dQuantitySelected = 0;
-                    if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentDoc.Doc_ID, shopC_Item,  ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
-                    {
-                        return eCopy_Doc_ShopC_Item_Result.ERROR_DB;
-                    }
+                    //if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentDoc.Doc_ID, shopC_Item,  ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
+                    //{
+                    //    return eCopy_Doc_ShopC_Item_Result.ERROR_DB;
+                    //}
 
                 }
             }
