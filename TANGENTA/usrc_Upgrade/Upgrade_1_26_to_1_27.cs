@@ -456,7 +456,7 @@ namespace UpgradeDB
             if (DBSync.DBSync.ReadDataTable(ref dtInvoices, sql, ref Err))
             {
                 int iCount = dtInvoices.Rows.Count;
-                int i = 1;
+
                 if (iCount > 0)
                 {
                     foreach (DataRow dr in dtInvoices.Rows)

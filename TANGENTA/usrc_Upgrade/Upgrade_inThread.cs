@@ -82,7 +82,8 @@ namespace UpgradeDB
                 new Upgrade("1.23",Upgrade_1_23_to_1_24.UpgradeDB_1_23_to_1_24),
                 new Upgrade("1.24",Upgrade_1_24_to_1_25.UpgradeDB_1_24_to_1_25),
                 new Upgrade("1.25",Upgrade_1_25_to_1_26.UpgradeDB_1_25_to_1_26),
-                new Upgrade("1.26",Upgrade_1_26_to_1_27.UpgradeDB_1_26_to_1_27)
+                new Upgrade("1.26",Upgrade_1_26_to_1_27.UpgradeDB_1_26_to_1_27),
+                new Upgrade("1.27",Upgrade_1_27_to_1_28.UpgradeDB_1_27_to_1_28)
             };
         }
 

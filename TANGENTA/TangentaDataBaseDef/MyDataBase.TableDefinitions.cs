@@ -62,7 +62,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.27";
+        public const string VERSION = "1.28";
         public Settings Settings = null;
 
         /* 1 */
