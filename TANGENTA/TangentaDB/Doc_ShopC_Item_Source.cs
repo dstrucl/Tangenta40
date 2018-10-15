@@ -56,38 +56,67 @@ namespace TangentaDB
             this.NetPrice = xNetPrice;
         }
 
+        private bool setQuantity(string docType,decimal xdQuantity)
+        {
+            if (xdQuantity == this.dQuantity)
+            {
+                if (docType.Equals(GlobalData.const_DocInvoice))
+                {
+                    if (f_DocInvoice_ShopC_Item_Source.Delete(this.Doc_ShopC_Item_Source_ID))
+                    {
+                        this.dQuantity = 0;
+                        return true;
+                    }
+                }
+            }
+            else if (xdQuantity < this.dQuantity)
+            {
+                decimal dnew_quantity_in_stock = this.dQuantity - xdQuantity;
+                if (docType.Equals(GlobalData.const_DocInvoice))
+                {
+                    if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Doc_ShopC_Item_Source_ID, dnew_quantity_in_stock))
+                    {
+                        this.dQuantity = dnew_quantity_in_stock;
+                        return true;
+                    }
+                }
+
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item_Source:SendBackToStock: quantity=" + xdQuantity.ToString() + " to send back to stock is bigger than current quantity = " + dQuantity.ToString());
+            }
+            return false;
+        }
+
         internal bool SendBackToStock(string docType,decimal xdQuantity,Item_Data xdata)
         {
-            if (xdata.ReceiveBackToStock(this.Stock_ID,this.dQuantity))
+            if (xdata != null)
             {
-                if (xdQuantity == this.dQuantity)
+                if (xdata.ReceiveBackToStock(this.Stock_ID, this.dQuantity))
                 {
-                    if (docType.Equals(GlobalData.const_DocInvoice))
+                    return setQuantity(docType, xdQuantity);
+                }
+            }
+            else
+            {
+                decimal_v dQuantityInStock_v = null;
+                if (f_Stock.GetQuantity(this.Stock_ID, ref dQuantityInStock_v))
+                {
+                    if (dQuantityInStock_v != null)
                     {
-                        if (f_DocInvoice_ShopC_Item_Source.Delete(this.Doc_ShopC_Item_Source_ID))
+                        decimal dnew_quantity_in_stock = dQuantityInStock_v.v + xdQuantity;
+                        if (f_Stock.UpdateQuantity(this.Stock_ID, dnew_quantity_in_stock))
                         {
-                            this.dQuantity = 0;
-                            return true;
+                            return setQuantity(docType, xdQuantity);
                         }
                     }
-                }
-                else if (xdQuantity < this.dQuantity)
-                {
-                    decimal dnew_quantity_in_stock = this.dQuantity - xdQuantity;
-                    if (docType.Equals(GlobalData.const_DocInvoice))
+                    else
                     {
-                        if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Doc_ShopC_Item_Source_ID, dnew_quantity_in_stock))
-                        {
-                            this.dQuantity = dnew_quantity_in_stock;
-                            return true;
-                        }
+                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item_Source:SendBackToStock:dQuantity for Stock_ID =" +Stock_ID.ToString()+ " not found or dQuantity is null !");
                     }
-
                 }
-                else
-                {
-                    LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item_Source:SendBackToStock: quantity=" + xdQuantity.ToString() + " to send back to stock is bigger than current quantity = " + dQuantity.ToString());
-                }
+               
             }
             return false;
         }

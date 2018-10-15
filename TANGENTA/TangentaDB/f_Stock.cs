@@ -276,7 +276,28 @@ namespace TangentaDB
             }
         }
 
-        public static bool UpdateQuantity(ID stock_ID, decimal xdQuantity)
+        internal static bool GetQuantity(ID stock_ID, ref decimal_v dQuantityInStock_v)
+        {
+            dQuantityInStock_v = null;
+            string sql = @"select dQuantity                                
+                           from Stock  where ID = " + stock_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    dQuantityInStock_v = tf.set_decimal(dt.Rows[0]["dQuantity"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:GetQuantity:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+            public static bool UpdateQuantity(ID stock_ID, decimal xdQuantity)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

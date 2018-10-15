@@ -219,5 +219,10 @@ namespace TangentaDB
             return true;
 
         }
+
+        internal void Get(ID Doc_ShopC_Item_ID,List<Stock_Data> stock_Data_List, decimal dQuantity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

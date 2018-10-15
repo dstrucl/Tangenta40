@@ -203,11 +203,28 @@ namespace ShopC
         }
 
 
-        private bool update_stock_elements_in_Doc_ShopC_Item(List<Doc_ShopC_Item> doc_ShopC_Items, 
+        private bool update_stock_elements_in_Doc_ShopC_Item( 
                                                              Item_Data xData,
                                                              ref Doc_ShopC_Item dsci)
+
         {
+            dsci = m_ShopBC.m_CurrentDoc.m_Basket.Find(xData.Item_UniqueName);
+            if (dsci!=null)
+            {
+                // item allready in basket
+
+            }
+            else
+            {
+                // item not in basket
+                dsci = m_ShopBC.m_CurrentDoc.m_Basket.Add(xData);
+            }
+
+            List<Doc_ShopC_Item> doc_ShopC_Items = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST;
+
             List<Stock_Data> stocks = xData.Stock_Data_List;
+
+
             foreach (Stock_Data std in stocks)
             {
                 ID Doc_ShopC_Item_ID = null;
@@ -306,7 +323,7 @@ namespace ShopC
                     {
                         if (xData.Stock_Data_List.Count > 0)
                         {
-                            if (!update_stock_elements_in_Doc_ShopC_Item(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, xData, ref dsci))
+                            if (!update_stock_elements_in_Doc_ShopC_Item(xData, ref dsci))
                             {
                                 LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:!update_stock_elements_in_Doc_ShopC_Item!");
                                 return;

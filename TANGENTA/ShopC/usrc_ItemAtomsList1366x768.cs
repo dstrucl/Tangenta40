@@ -217,17 +217,14 @@ namespace ShopC
         {
 
             Item_Data xdata =this.m_ShopBC.m_CurrentDoc.m_ShopShelf.FindItem(dsci);
-            if (xdata != null)
+            //if usrc_ItemList1366x768 is showing different group of items to dsci then xdata=null
+
+            if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveItem(DocTyp, dsci, xdata))
             {
-                if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveItem(DocTyp, dsci, xdata))
-                {
-                    return true;
-                }
+                return true;
             }
-            else
-            {
-                LogFile.Error.Show("ERROR:ShopC:usrc_ItemAtomList1366x768:RemoveItem:Item_Data not found for item = " + dsci.Item_UniqueName);
-            }
+            
+          
             return false;
         }
     

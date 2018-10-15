@@ -246,6 +246,7 @@ namespace TangentaDB
 
         public static bool Insert(ID docInvoice_ID,
                                   ID atom_Price_Item_ID,
+                                  decimal extraDiscount,
                                   ref ID DocInvoice_ShopC_Item_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -259,22 +260,21 @@ namespace TangentaDB
             SQL_Parameter par_atom_Price_Item_ID = new SQL_Parameter(spar_atom_Price_Item_ID, false, atom_Price_Item_ID);
             lpar.Add(par_atom_Price_Item_ID);
 
-     
+            string spar_extraDiscount = "@par_extraDiscount";
+            SQL_Parameter par_extraDiscount = new SQL_Parameter(spar_extraDiscount,SQL_Parameter.eSQL_Parameter.Decimal, false, extraDiscount);
+            lpar.Add(par_extraDiscount);
+            
 
             string sql = @"insert into DocInvoice_ShopC_Item
                            (
-                            dQuantity,
-                            ExtraDiscount,
-                            RetailPriceWithDiscount,
-                            TaxPrice,
                             DocInvoice_ID,
                             Atom_Price_Item_ID,
-                            ExpiryDate,
-                            Stock_ID)
+                            ExtraDiscount)
                             values
                             (
                             " + spar_DocInvoice_ID + @",
-                            " + spar_atom_Price_Item_ID + @")";
+                            " + spar_atom_Price_Item_ID + @",
+                            " + spar_extraDiscount + ")";
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopC_Item_ID, ref Err, "DocInvoice_ShopC_Item"))
             {
@@ -285,6 +285,11 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item:Insert:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
+        }
+
+        internal static bool Get(ID doc_ID, ID atom_Price_Item_ID, decimal extraDiscount, ref ID doc_ShopC_Item_ID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
