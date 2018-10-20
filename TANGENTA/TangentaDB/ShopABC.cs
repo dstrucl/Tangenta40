@@ -1626,30 +1626,30 @@ namespace TangentaDB
             ID atom_Taxation_ID = null;
             ID atom_Item_ID = null;
             if (!f_Atom_Price_Item.Get(xData.Item_UniqueName_v.v,
-                xData.Item_Name,
-                xData.Item_barcode,
-                xData.Item_Description,
-                xData.Expiry_ExpectedShelfLifeInDays,
-                xData.Expiry_SaleBeforeExpiryDateInDays,
-                xData.Expiry_DiscardBeforeExpiryDateInDays,
-                xData.Expiry_Description,
-                xData.Warranty_WarrantyDurationType,
-                xData.Warranty_WarrantyDuration,
-                xData.Warranty_WarrantyConditions,
-                xData.Unit_Name,
-                xData.Unit_Symbol,
-                xData.Unit_DecimalPlaces,
-                xData.Unit_StorageOption,
-                xData.Unit_Description,
-                xData.PriceList_Name,
-                xData.Currency_Abbreviation,
-                xData.Currency_Name,
-                xData.Item_Image_Image_Hash,
-                xData.Item_Image_Image_Data,
-                xData.RetailPricePerUnit,
-                xData.Price_Item_Discount,
-                xData.Taxation_Name,
-                xData.Taxation_Rate,
+                xData.Item_Name_v,
+                xData.Item_barcode_v,
+                xData.Item_Description_v,
+                xData.Expiry_ExpectedShelfLifeInDays_v,
+                xData.Expiry_SaleBeforeExpiryDateInDays_v,
+                xData.Expiry_DiscardBeforeExpiryDateInDays_v,
+                xData.Expiry_Description_v,
+                xData.Warranty_WarrantyDurationType_v,
+                xData.Warranty_WarrantyDuration_v,
+                xData.Warranty_WarrantyConditions_v,
+                xData.Unit_Name_v,
+                xData.Unit_Symbol_v,
+                xData.Unit_DecimalPlaces_v,
+                xData.Unit_StorageOption_v,
+                xData.Unit_Description_v,
+                xData.PriceList_Name_v,
+                xData.Currency_Abbreviation_v,
+                xData.Currency_Name_v,
+                xData.Item_Image_Image_Hash_v,
+                xData.Item_Image_Image_Data_v,
+                xData.RetailPricePerUnit_v,
+                xData.Price_Item_Discount_v,
+                xData.Taxation_Name_v,
+                xData.Taxation_Rate_v,
                 ref atom_Taxation_ID,
                 ref atom_Item_ID,
                 ref atom_Price_Item_ID))
@@ -1658,14 +1658,14 @@ namespace TangentaDB
             }
 
             decimal retailPricePerunit = 0;
-            if (xData.RetailPricePerUnit != null)
+            if (xData.RetailPricePerUnit_v != null)
             {
-                retailPricePerunit = xData.RetailPricePerUnit.v;
+                retailPricePerunit = xData.RetailPricePerUnit_v.v;
             }
             decimal taxRate = 0;
-            if (xData.Taxation_Rate != null)
+            if (xData.Taxation_Rate_v != null)
             {
-                taxRate = xData.Taxation_Rate.v;
+                taxRate = xData.Taxation_Rate_v.v;
             }
 
             decimal retailPriceWithDisount = decimal.Round(retailPricePerunit * xdQuantity * (1 - xData.ExtraDiscount), GlobalData.BaseCurrency.DecimalPlaces);
@@ -1687,6 +1687,7 @@ namespace TangentaDB
                 //                                    ref docInvoice_ShopC_Item))
                 if (f_DocInvoice_ShopC_Item.Insert(this.m_CurrentDoc.Doc_ID,
                                                     atom_Price_Item_ID,
+                                                    xData.ExtraDiscount,
                                                     ref docInvoice_ShopC_Item_ID))
                 {
                     if (f_DocInvoice_ShopC_Item_Source.Insert(docInvoice_ShopC_Item_ID,
@@ -1694,7 +1695,7 @@ namespace TangentaDB
                                                             extraDiscount_v,
                                                             retailPriceWithDisount,
                                                             taxprice,
-                                                            xData.ExpiryDate,
+                                                            xData.ExpiryDate_v,
                                                             stock_ID,
                                                    ref docInvoice_ShopC_Item_Source_ID))
                     {
@@ -1720,7 +1721,7 @@ namespace TangentaDB
                                                     taxprice,
                                                     this.m_CurrentDoc.Doc_ID,
                                                     atom_Price_Item_ID,
-                                                    xData.ExpiryDate,
+                                                    xData.ExpiryDate_v,
                                                     stock_ID,
                                                     ref docInvoice_ShopC_Item_ID))
                 {

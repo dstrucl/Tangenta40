@@ -132,32 +132,32 @@ namespace TangentaDB
                             stock_data.Stock_ID = null;
                         }
 
-                        if (xItem_Data.Stock_ImportTime != null)
+                        if (xItem_Data.Stock_ImportTime_v != null)
                         {
                             stock_data.Stock_ImportTime = new DBTypes.DateTime_v();
-                            stock_data.Stock_ImportTime.v = xItem_Data.Stock_ImportTime.v;
+                            stock_data.Stock_ImportTime.v = xItem_Data.Stock_ImportTime_v.v;
                         }
                         else
                         {
                             stock_data.Stock_ImportTime = null;
                         }
 
-                        if (xItem_Data.Stock_ExpiryDate != null)
+                        if (xItem_Data.Stock_ExpiryDate_v != null)
                         {
                             stock_data.Stock_ExpiryDate = new DBTypes.DateTime_v();
-                            stock_data.Stock_ExpiryDate.v = xItem_Data.Stock_ExpiryDate.v;
+                            stock_data.Stock_ExpiryDate.v = xItem_Data.Stock_ExpiryDate_v.v;
                         }
                         else
                         {
                             stock_data.Stock_ExpiryDate = null;
                         }
 
-                        if (xItem_Data.Stock_dQuantity != null)
+                        if (xItem_Data.Stock_dQuantity_v != null)
                         {
-                            if (xItem_Data.Stock_dQuantity.v > 0)
+                            if (xItem_Data.Stock_dQuantity_v.v > 0)
                             {
                                 stock_data.dQuantity_v = new DBTypes.decimal_v();
-                                stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity.v;
+                                stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity_v.v;
                             }
                             else
                             {
@@ -171,10 +171,10 @@ namespace TangentaDB
                             stock_data.dQuantity_v = null;
                         }
 
-                        if (xItem_Data.StockTake_Draft != null)
+                        if (xItem_Data.StockTake_Draft_v != null)
                         {
                             stock_data.StockTake_Draft = new DBTypes.bool_v();
-                            stock_data.StockTake_Draft.v = xItem_Data.StockTake_Draft.v;
+                            stock_data.StockTake_Draft.v = xItem_Data.StockTake_Draft_v.v;
                         }
                         else
                         {
@@ -227,40 +227,40 @@ namespace TangentaDB
                             stock_data.Stock_ID = null;
                         }
 
-                        if (xItem_Data.Stock_ImportTime != null)
+                        if (xItem_Data.Stock_ImportTime_v != null)
                         {
                             stock_data.Stock_ImportTime = new DBTypes.DateTime_v();
-                            stock_data.Stock_ImportTime.v = xItem_Data.Stock_ImportTime.v;
+                            stock_data.Stock_ImportTime.v = xItem_Data.Stock_ImportTime_v.v;
                         }
                         else
                         {
                             stock_data.Stock_ImportTime = null;
                         }
 
-                        if (xItem_Data.StockTake_Draft != null)
+                        if (xItem_Data.StockTake_Draft_v != null)
                         {
                             stock_data.StockTake_Draft = new DBTypes.bool_v();
-                            stock_data.StockTake_Draft.v = xItem_Data.StockTake_Draft.v;
+                            stock_data.StockTake_Draft.v = xItem_Data.StockTake_Draft_v.v;
                         }
                         else
                         {
                             stock_data.StockTake_Draft = null;
                         }
 
-                        if (xItem_Data.Stock_ExpiryDate != null)
+                        if (xItem_Data.Stock_ExpiryDate_v != null)
                         {
                             stock_data.Stock_ExpiryDate = new DBTypes.DateTime_v();
-                            stock_data.Stock_ExpiryDate.v = xItem_Data.Stock_ExpiryDate.v;
+                            stock_data.Stock_ExpiryDate.v = xItem_Data.Stock_ExpiryDate_v.v;
                         }
                         else
                         {
                             stock_data.Stock_ExpiryDate = null;
                         }
 
-                        if (xItem_Data.Stock_dQuantity != null)
+                        if (xItem_Data.Stock_dQuantity_v != null)
                         {
                             stock_data.dQuantity_v = new DBTypes.decimal_v();
-                            stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity.v;
+                            stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity_v.v;
                         }
                         else
                         {

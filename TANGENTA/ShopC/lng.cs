@@ -212,6 +212,9 @@ namespace ShopC
         public static ltext s_RetailPricePerUnit = new ltext(new string[]{"Retail price per unit",
                                                                 "Prodajna cena na enoto"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
 
+        public static ltext s_PurchasePricePerUnitDiscount = new ltext(new string[]{"Purchase price per unit Discount",
+                                                                "Nabavna cena na enoto Popust"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
         public static ltext s_PurchasePricePerUnit = new ltext(new string[]{"Purchase price per unit",
                                                                 "Nabavna cena na enoto"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
 

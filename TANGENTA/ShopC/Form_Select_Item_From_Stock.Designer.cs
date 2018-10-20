@@ -64,10 +64,13 @@
             this.dgvx_Item_From_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_Item_From_Stock.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvx_Item_From_Stock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_Item_From_Stock.DataGridViewWithRowNumber = false;
+            this.dgvx_Item_From_Stock.DataGridViewWithRowNumber = true;
             this.dgvx_Item_From_Stock.Location = new System.Drawing.Point(13, 39);
             this.dgvx_Item_From_Stock.Name = "dgvx_Item_From_Stock";
+            this.dgvx_Item_From_Stock.RowTemplate.Height = 40;
+            this.dgvx_Item_From_Stock.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvx_Item_From_Stock.Size = new System.Drawing.Size(768, 352);
             this.dgvx_Item_From_Stock.TabIndex = 0;
             this.dgvx_Item_From_Stock.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_Item_From_Stock_CellContentClick);

@@ -223,19 +223,19 @@ namespace ShopC
             {
 
                 uItemStock.Maximum = Convert.ToDecimal(dAllStockQuantity);
-                setNumericUpDown(ref uItemStock, m_Item_Data.Unit_DecimalPlaces.v);
+                setNumericUpDown(ref uItemStock, m_Item_Data.Unit_DecimalPlaces_v.v);
                 uItemStock.Maximum = Convert.ToDecimal(dAllStockQuantity);
-                setNumericUpDown(ref uItemFactory, m_Item_Data.Unit_DecimalPlaces.v);
+                setNumericUpDown(ref uItemFactory, m_Item_Data.Unit_DecimalPlaces_v.v);
                 uItemFactory.Minimum = 0;
                 uItemFactory.Value = 0;
                 Paint_Item_Mode(eMode.STOCK_AND_FACTORY);
             }
             else
             {
-                setNumericUpDown(ref uItemStock, m_Item_Data.Unit_DecimalPlaces.v);
+                setNumericUpDown(ref uItemStock, m_Item_Data.Unit_DecimalPlaces_v.v);
                 uItemStock.Minimum = 0;
                 uItemStock.Value = 0;
-                setNumericUpDown(ref uItemFactory, m_Item_Data.Unit_DecimalPlaces.v);
+                setNumericUpDown(ref uItemFactory, m_Item_Data.Unit_DecimalPlaces_v.v);
                 uItemFactory.Minimum = 0;
                 uItemFactory.Value = 0;
                 uItemFactory.Maximum = decimal.MaxValue;
@@ -248,9 +248,9 @@ namespace ShopC
             {
                 this.lbl_Item.Text = m_Item_Data.Item_UniqueName_v.v;
             }
-            if (m_Item_Data.Item_Description != null)
+            if (m_Item_Data.Item_Description_v != null)
             {
-                this.txt_Item_Description.Text = m_Item_Data.Item_Description.v;
+                this.txt_Item_Description.Text = m_Item_Data.Item_Description_v.v;
             }
 
 
@@ -258,12 +258,12 @@ namespace ShopC
 
             if (m_Item_Data.Item_Image_ID != null)
             {
-                if (m_Item_Data.Item_Image_Image_Data != null)
+                if (m_Item_Data.Item_Image_Image_Data_v != null)
                 {
                     try
                     {
                         ImageConverter ic = new ImageConverter();
-                        this.pic_Item.Image = (Image)ic.ConvertFrom(m_Item_Data.Item_Image_Image_Data.v);
+                        this.pic_Item.Image = (Image)ic.ConvertFrom(m_Item_Data.Item_Image_Image_Data_v.v);
                         this.pic_Item.Visible = true;
                     }
                     catch
@@ -299,7 +299,7 @@ namespace ShopC
                             switch (xeMode)
                             {
                                 case eMode.STOCK_AND_FACTORY:
-                                    if (m_Item_Data.Item_Image_Image_Data != null)
+                                    if (m_Item_Data.Item_Image_Image_Data_v != null)
                                     {
                                         xStart = x1_lbl_Item_Left;
                                     }
@@ -384,7 +384,7 @@ namespace ShopC
 
                                 case eMode.FACTORY:
                                     xStart = x0_pic_Item_Left;
-                                    if (m_Item_Data.Item_Image_Image_Data != null)
+                                    if (m_Item_Data.Item_Image_Image_Data_v != null)
                                     {
                                         xStart = x1_btn_EditItem_Left;
                                     }
@@ -471,7 +471,7 @@ namespace ShopC
 
         private void Set_btn_Discount_Text()
         {
-            decimal TotalDiscount = StaticLib.Func.TotalDiscount(this.m_Item_Data.Price_Item_Discount.v, ExtraDiscount,GlobalData.Get_BaseCurrency_DecimalPlaces());
+            decimal TotalDiscount = StaticLib.Func.TotalDiscount(this.m_Item_Data.Price_Item_Discount_v.v, ExtraDiscount,GlobalData.Get_BaseCurrency_DecimalPlaces());
             this.btn_Discount.Text = decimal.Round((TotalDiscount * 100), GlobalData.Get_BaseCurrency_DecimalPlaces()).ToString();
         }
 
@@ -494,7 +494,7 @@ namespace ShopC
             {
                dquantity = GetValue(uItemStock);
             }      
-            StaticLib.Func.CalculatePrice(m_Item_Data.RetailPricePerUnit.v, dquantity, m_Item_Data.Price_Item_Discount.v, ExtraDiscount, m_Item_Data.Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
+            StaticLib.Func.CalculatePrice(m_Item_Data.RetailPricePerUnit_v.v, dquantity, m_Item_Data.Price_Item_Discount_v.v, ExtraDiscount, m_Item_Data.Taxation_Rate_v.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
             
             decimal EndPrice = decimal.Round(RetailPriceWithDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
             if (uItemStock.Visible)
@@ -577,7 +577,7 @@ namespace ShopC
 
         private bool EditStock_AvoidStock()
         {
-            DateTime_v ExpiryDate_v = m_Item_Data.ExpiryDate;
+            DateTime_v ExpiryDate_v = m_Item_Data.ExpiryDate_v;
             if (ExpiryDate_v == null)
             {
                 DateTime dtNow = DateTime.Now;
@@ -588,7 +588,7 @@ namespace ShopC
             Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(ExpiryDate_v, m_Item_Data.Item_UniqueName_v.v);
             if (edt_Stock_AvoidStock_dlg.ShowDialog() == DialogResult.OK)
             {
-                m_Item_Data.ExpiryDate = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
+                m_Item_Data.ExpiryDate_v = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
                 return true;
             }
             else
@@ -653,9 +653,9 @@ namespace ShopC
         private void btn_Discount_Click(object sender, EventArgs e)
         {
             decimal_v AveragePruchasePricePerUnit = Get_AveragePurchasePricePerUnit();
-            if (m_Item_Data.RetailPricePerUnit != null)
+            if (m_Item_Data.RetailPricePerUnit_v != null)
             {
-                Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(m_Item_Data.RetailPricePerUnit.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName_v.v);
+                Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(m_Item_Data.RetailPricePerUnit_v.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName_v.v);
                 discount_frm.ShowDialog();
                 ExtraDiscount = discount_frm.ExtraDiscount;
                 m_Item_Data.ExtraDiscount = ExtraDiscount;
@@ -688,7 +688,7 @@ namespace ShopC
         {
             if (m_Item_Data != null)
             {
-                return m_Item_Data.PurchasePricePerUnit;
+                return m_Item_Data.PurchasePricePerUnit_v;
             }
             else
             {

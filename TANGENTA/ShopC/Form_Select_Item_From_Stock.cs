@@ -20,6 +20,15 @@ namespace ShopC
         {
             InitializeComponent();
             dt_ShopC_Item_in_Stock = xdt_ShopC_Item_in_Stock;
+
+            if (!dt_ShopC_Item_in_Stock.Columns.Contains("Supplier"))
+            {
+                dt_ShopC_Item_in_Stock.Columns.Add(new DataColumn("Supplier", typeof(string)));
+            }
+            if (!dt_ShopC_Item_in_Stock.Columns.Contains("TakeFromStock"))
+            {
+                dt_ShopC_Item_in_Stock.Columns.Add(new DataColumn("TakeFromStock", typeof(decimal)));
+            }
             dQuantity = xdQuantity;
             lng.s_OK.Text(btn_OK);
             lng.s_Cancel.Text(btn_Cancel);
@@ -57,6 +66,7 @@ namespace ShopC
             dgvbc_minus.Text = "-";
             dgvbc_minus.HeaderText = "-";
             dgvbc_minus.Name = "MinusButton";
+            dgvbc_minus.Width = 50;
             dgvbc_minus.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dgvbc_minus.UseColumnTextForButtonValue = true;
             dgvbc_plus.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
@@ -65,6 +75,8 @@ namespace ShopC
             dgvbc_plus.UseColumnTextForButtonValue = true;
             dgvx_Item_From_Stock.Columns.Add(dgvbc_plus);
             dgvx_Item_From_Stock.Columns.Add(dgvbc_minus);
+            dgvx_Item_From_Stock.Columns["MinusButton"].Width = 50;
+            dgvx_Item_From_Stock.Columns["PlusButton"].Width = 50;
             dgvbc_minus.DisplayIndex = 3;
             dgvbc_plus.DisplayIndex = 4;
 
@@ -87,6 +99,38 @@ namespace ShopC
             dgvx_Item_From_Stock.Columns["Stock_ImportTime"].Visible = true;
             dgvx_Item_From_Stock.Columns["Stock_ImportTime"].DisplayIndex = 8;
             dgvx_Item_From_Stock.Columns["Stock_ImportTime"].ReadOnly = true;
+
+            dgvx_Item_From_Stock.Columns["PurchasePricePerUnit"].HeaderText = lng.s_PurchasePricePerUnit.s;
+            dgvx_Item_From_Stock.Columns["PurchasePricePerUnit"].Visible = true;
+            dgvx_Item_From_Stock.Columns["PurchasePricePerUnit"].DisplayIndex = 9;
+            dgvx_Item_From_Stock.Columns["PurchasePricePerUnit"].ReadOnly = true;
+
+            dgvx_Item_From_Stock.Columns["PurchaseDiscount"].HeaderText = lng.s_PurchasePricePerUnitDiscount.s;
+            dgvx_Item_From_Stock.Columns["PurchaseDiscount"].Visible = true;
+            dgvx_Item_From_Stock.Columns["PurchaseDiscount"].DisplayIndex = 10;
+            dgvx_Item_From_Stock.Columns["PurchaseDiscount"].ReadOnly = true;
+
+            dgvx_Item_From_Stock.Columns["Stock_ID"].HeaderText = lng.s_Stock_ID.s;
+            dgvx_Item_From_Stock.Columns["Stock_ID"].Visible = true;
+            dgvx_Item_From_Stock.Columns["Stock_ID"].DisplayIndex = 11;
+            dgvx_Item_From_Stock.Columns["Stock_ID"].ReadOnly = true;
+
+            foreach (DataGridViewColumn dgvcol in dgvx_Item_From_Stock.Columns)
+            {
+                if (dgvcol.Name.Equals("MinusButton")|| dgvcol.Name.Equals("PlusButton"))
+                {
+                    dgvcol.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    dgvcol.Width = 50;
+                }
+            }
+
+            dgvx_Item_From_Stock.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            foreach (DataGridViewRow dgvr in dgvx_Item_From_Stock.Rows)
+            {
+                
+                dgvr.Height = 40;
+            }
+
             ShowSelected();
         }
 
@@ -99,7 +143,11 @@ namespace ShopC
             {
                 if (((DataGridViewButtonColumn)senderGrid.Columns[e.ColumnIndex]).Text.Equals("-"))
                 {
-                    decimal d = (decimal)dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["TakeFromStock"];
+                    decimal d = 0;
+                    if (dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["TakeFromStock"] is decimal)
+                    {
+                        d = (decimal)dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["TakeFromStock"];
+                    }
                     if (d > 0)
                     {
                         d = d - 1;
@@ -114,7 +162,11 @@ namespace ShopC
                 if (((DataGridViewButtonColumn)senderGrid.Columns[e.ColumnIndex]).Text.Equals("+"))
                 {
                     decimal dQinStock = (decimal)dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["Stock_dQuantity"];
-                    decimal d = (decimal)dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["TakeFromStock"];
+                    decimal d = 0;
+                    if (dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["TakeFromStock"] is decimal)
+                    {
+                        d = (decimal)dt_ShopC_Item_in_Stock.Rows[e.RowIndex]["TakeFromStock"];
+                    }
                     if (d < dQinStock)
                     {
                         d = d + 1;
@@ -135,7 +187,10 @@ namespace ShopC
             dQuantitySelected = 0;
             foreach (DataRow dr in dt_ShopC_Item_in_Stock.Rows)
             {
-                dQuantitySelected += (decimal)dr["TakeFromStock"];
+                if (dr["TakeFromStock"] is decimal)
+                {
+                    dQuantitySelected += (decimal)dr["TakeFromStock"];
+                }
             }
             lng.s_SelectedQuantity.Text(lbl_Select, " " + dQuantitySelected.ToString() + " " + UnitSymbol);
             if (dQuantitySelected == dQuantity)

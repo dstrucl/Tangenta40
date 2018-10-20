@@ -21,18 +21,16 @@ namespace TangentaDB
         public ID Doc_ShopC_Item_ID = null;
         public ID Stock_ID = null;
         public decimal dQuantity = 0;
-        public decimal ExtraDiscount = 0;
-        public decimal RetailPricePerUnit = 0;
-        public decimal RetailPrice = 0;
+        public decimal SourceDiscount = 0;
         public decimal RetailPriceWithDiscount = 0;
         public decimal TaxPrice = 0;
-        public decimal NetPrice = 0;
-
-
         public DateTime_v ExpiryDate_v = null;
 
-        public string_v Item_UniqueName_v = null;
 
+        public decimal RetailPricePerUnit = 0;
+        public decimal RetailPrice = 0;
+        public decimal NetPrice = 0;
+        public string_v Item_UniqueName_v = null;
         public string_v StockTakeName_v = null;
         public DateTime_v StockTakeDate_v = null;
 
@@ -44,6 +42,27 @@ namespace TangentaDB
             //Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
             dQuantity = tf._set_decimal(dria["dQuantity"]);
         }
+
+        public void SetNew(ID doc_ShopC_Item_ID,
+                        ID doc_ShopC_Item_Source_ID,
+                        ID stock_ID,
+                        decimal xdQuantity,
+                        decimal sourceDiscount,
+                        decimal retailPriceWithDiscount,
+                        decimal taxPrice,
+                        DateTime_v expiryDate_v
+                        )
+        {
+            Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
+            Doc_ShopC_Item_Source_ID = doc_ShopC_Item_Source_ID;
+            Stock_ID = stock_ID;
+            dQuantity = xdQuantity;
+            SourceDiscount = sourceDiscount;
+            RetailPriceWithDiscount = retailPriceWithDiscount;
+            TaxPrice = taxPrice;
+            ExpiryDate_v = expiryDate_v;
+        }
+
 
         internal void GetPrices(decimal taxRate, decimal discount, decimal retailPricePerUnit, ref decimal xRetailPrice, ref decimal xRetailPriceWithDiscount, ref decimal xTaxPrice, ref decimal xNetPrice)
         {

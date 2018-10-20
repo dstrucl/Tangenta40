@@ -32,6 +32,7 @@
             this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler();
             this.btn_Stock = new System.Windows.Forms.Button();
             this.btn_Items = new System.Windows.Forms.Button();
+            this.chk_SelectFromStock = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // usrc_Item_TextSearch1
@@ -64,10 +65,10 @@
             this.btn_Stock.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Stock.Image = global::ShopC.Properties.Resources.Edit;
             this.btn_Stock.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Stock.Location = new System.Drawing.Point(483, 0);
+            this.btn_Stock.Location = new System.Drawing.Point(499, 1);
             this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stock.Name = "btn_Stock";
-            this.btn_Stock.Size = new System.Drawing.Size(73, 33);
+            this.btn_Stock.Size = new System.Drawing.Size(73, 32);
             this.btn_Stock.TabIndex = 23;
             this.btn_Stock.Text = "Stock";
             this.btn_Stock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -80,20 +81,31 @@
             this.btn_Items.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Items.Image = global::ShopC.Properties.Resources.Edit;
             this.btn_Items.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Items.Location = new System.Drawing.Point(569, 0);
+            this.btn_Items.Location = new System.Drawing.Point(574, 0);
             this.btn_Items.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Items.Name = "btn_Items";
-            this.btn_Items.Size = new System.Drawing.Size(73, 32);
+            this.btn_Items.Size = new System.Drawing.Size(68, 32);
             this.btn_Items.TabIndex = 22;
             this.btn_Items.Text = "Items";
             this.btn_Items.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Items.UseVisualStyleBackColor = false;
             this.btn_Items.Click += new System.EventHandler(this.btn_Items_Click);
             // 
+            // chk_SelectFromStock
+            // 
+            this.chk_SelectFromStock.BackColor = System.Drawing.Color.LemonChiffon;
+            this.chk_SelectFromStock.Location = new System.Drawing.Point(389, 3);
+            this.chk_SelectFromStock.Name = "chk_SelectFromStock";
+            this.chk_SelectFromStock.Size = new System.Drawing.Size(103, 31);
+            this.chk_SelectFromStock.TabIndex = 24;
+            this.chk_SelectFromStock.Text = "Stock Selection";
+            this.chk_SelectFromStock.UseVisualStyleBackColor = false;
+            // 
             // usrc_ItemList1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.YellowGreen;
+            this.Controls.Add(this.chk_SelectFromStock);
             this.Controls.Add(this.btn_Stock);
             this.Controls.Add(this.btn_Items);
             this.Controls.Add(this.usrc_Item_InsidePageGroupHandler1);
@@ -110,5 +122,6 @@
         private usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
         private System.Windows.Forms.Button btn_Stock;
         private System.Windows.Forms.Button btn_Items;
+        private System.Windows.Forms.CheckBox chk_SelectFromStock;
     }
 }

@@ -363,10 +363,46 @@ namespace TangentaDB
             }
         }
 
-        public Doc_ShopC_Item Add(Item_Data xData, decimal dQuantity)
+        public bool WriteItemStockTransferInDataBase(string doc_type,ID doc_ID, Item_Data xData, ref Doc_ShopC_Item dsci, List<Stock_Data> taken_from_Stock_List, decimal xquantity2add, decimal dQuantitySelectedFromStock)
+        {
+            if (dsci == null)
+            {
+                dsci = new Doc_ShopC_Item();
+                return dsci.SetNew(doc_type, doc_ID, xData, taken_from_Stock_List);
+            }
+            else
+            {
+                foreach (Stock_Data stdtaken in taken_from_Stock_List)
+                {
+                    Stock_Data std = xData.Find_Stock_Data(stdtaken);
+                    if (std != null)
+                    {
+                        std.dQuantity_v.v = std.dQuantity_v.v - stdtaken.dQuantity_Taken_v.v;
+
+                        if (f_Stock.UpdateQuantity(std.Stock_ID, std.dQuantity_v.v))
+                        {
+                            dsci.Set(doc_type, doc_ID, xData, taken_from_Stock_List);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:Basket:WriteItemStockTransferInDataBase Stock_Data taken from stock not found in  Item_Data Stock_Data_List !");
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public Doc_ShopC_Item Add(string docType,ID doc_ID,Item_Data xData, decimal dQuantity)
         {
             Doc_ShopC_Item xdsci = new Doc_ShopC_Item();
-            xdsci.Add(xData, dQuantity);
+            xdsci.Add(docType, doc_ID,xData, dQuantity);
+            return xdsci;
         }
 
         public bool RemoveItem(string docTyp, Doc_ShopC_Item dsci,Item_Data xdata)
@@ -654,7 +690,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
+                                  where  (DocInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
             }
             else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
             {
@@ -662,7 +698,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
+                                  where  (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
             }
             else
             {
@@ -697,12 +733,12 @@ namespace TangentaDB
                     string sql_Delete_DocInvoice_Atom_Item_Stock = null;
                     if (xDocTyp.Equals(GlobalData.const_DocInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where Stock_ID is null and (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString()
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where Stock_ID is null and (DocInvoice_ID = " + xdsci.Doc_ID.ToString()
                                                                         + ") and DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
                     }
                     else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item where Stock_ID is null and (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString()
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item where Stock_ID is null and (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString()
                                                                         + ") and DocProformaInvoice_ShopC_Item.ID in " + s_in_ID_list;
                     }
                     else
@@ -782,7 +818,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
+                                  where  (DocInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
             }
             else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
             {
@@ -790,7 +826,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
+                                  where  (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
             }
             else
             {
@@ -825,12 +861,12 @@ namespace TangentaDB
                     string sql_Delete_DocInvoice_Atom_Item_Stock = null;
                     if (xDocTyp.Equals(GlobalData.const_DocInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + xdsci.DocInvoice_ID.ToString()
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + xdsci.Doc_ID.ToString()
                                                                         + ") and DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
                     }
                     else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item where (DocProformaInvoice_ID = " + xdsci.DocInvoice_ID.ToString()
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item where (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString()
                                                                         + ") and DocProformaInvoice_ShopC_Item.ID in " + s_in_ID_list;
                     }
                     else
@@ -989,7 +1025,7 @@ namespace TangentaDB
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  ("+xDocTyp+@"_ID = " + xdsci.DocInvoice_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
+                                  where  ("+xDocTyp+@"_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
             DataTable dt1 = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
@@ -1029,7 +1065,7 @@ namespace TangentaDB
                     if (UpdateStock(xAtom_WorkPeriod_ID, Return_to_basket_data_List, lpar))
                     {
 
-                        string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from "+xDocTyp+@"_ShopC_Item where Stock_ID is not null and ("+xDocTyp+@"_ID = " + xdsci.DocInvoice_ID.ToString()
+                        string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from "+xDocTyp+@"_ShopC_Item where Stock_ID is not null and ("+xDocTyp+@"_ID = " + xdsci.Doc_ID.ToString()
                                                                             + ") and "+xDocTyp+@"_ShopC_Item.ID in " + s_in_ID_list;
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
                         {

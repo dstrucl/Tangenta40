@@ -220,9 +220,24 @@ namespace TangentaDB
 
         }
 
-        internal void Get(ID Doc_ShopC_Item_ID,List<Stock_Data> stock_Data_List, decimal dQuantity)
+        internal void Get(ID Doc_ShopC_Item_ID,Item_Data idata, decimal dQuantity)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        internal Doc_ShopC_Item_Source Find(Stock_Data stdx)
+        {
+            foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
+            {
+                if (ID.Validate(dsciSx.Stock_ID))
+                {
+                    if (dsciSx.Stock_ID.Equals(stdx.Stock_ID))
+                    {
+                        return dsciSx;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

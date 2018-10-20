@@ -51,10 +51,14 @@ namespace DBConnectionControl40
 
 
         private SqlConnection m_con_MSSQL = null;
+        private SqlTransaction MSSQLTran = null;
 
         private MySqlConnection m_con_MYSQL = null;
+        private MySqlTransaction MYSQLTran = null;
 
         private SQLiteConnection m_con_SQLite = null;
+        private SQLiteTransaction SQLiteTran = null;
+
 
         public enum eStartPositionOfTestConnectionForm { CENTER_SCREEN, TOP_LEFT_CORNER, TOP_RIGHT_CORNER, BOTTOM_LEFT_CORNER, BOTTOM_RIGHT_CORNER }
 
@@ -1248,6 +1252,8 @@ namespace DBConnectionControl40
             }
         }
 
+        
+
         public bool Connect_Batch(ref string sError)
         {
             if (m_bBatchOpen)
@@ -1269,6 +1275,266 @@ namespace DBConnectionControl40
             else
             {
                 return Disconnect();
+            }
+        }
+
+
+        public bool BeginTransaction(ref string sError)
+        {
+            //ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
+            try
+            {
+                //SetConnectionString();
+                switch (m_DBType)
+                {
+                    case eDBType.MYSQL:
+                        if (m_con_MYSQL.State == ConnectionState.Open)
+                        {
+                            MYSQLTran= m_con_MYSQL.BeginTransaction();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case eDBType.MSSQL:
+                        if (m_con_MSSQL.State == ConnectionState.Open)
+                        {
+                            MSSQLTran = m_con_MSSQL.BeginTransaction();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+
+                    case eDBType.SQLITE:
+                        if (m_con_SQLite.State == ConnectionState.Open)
+                        {
+                            SQLiteTran = m_con_SQLite.BeginTransaction();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    default:
+                        //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                        MessageBox.Show("Error unknown eSQLType in function: public bool BeginTransaction(ref string sError)");
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                sError = SetBeginTransactionError() + "\n" + ex.Message;
+                if (dbg.bON) dbg.Print(sError);
+                Log.Write(1, sError);
+                //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                return false;
+            }
+        }
+
+        private string SetBeginTransactionError()
+        {
+            switch (m_DBType)
+            {
+                case eDBType.MYSQL:
+                    return "ERROR BeginTransaction failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+
+                case eDBType.MSSQL:
+                    if (m_conData_MSSQL.m_bWindowsAuthentication)
+                    {
+                        return "ERROR BeginTransaction failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
+                    }
+                    else
+                    {
+                        return "ERROR BeginTransaction failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
+                    }
+
+                case eDBType.SQLITE:
+                    return "ERROR BeginTransaction failed for SQLite DataBaseFile:\"" + this.SQLiteDataBaseFile + "\"\n";
+
+                default:
+                    MessageBox.Show("ERROR eSQLType in function:private string SetBeginTransactionError()");
+                    return "ERROR eSQLType in function:        private string SetBeginTransactionError()";
+
+            }
+        }
+
+        public bool CommitTransaction(ref string sError)
+        {
+            //ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
+            try
+            {
+                //SetConnectionString();
+                switch (m_DBType)
+                {
+                    case eDBType.MYSQL:
+                        if (MYSQLTran != null)
+                        {
+                            MYSQLTran.Commit();
+                            MYSQLTran = null;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case eDBType.MSSQL:
+                        if (MSSQLTran!=null)
+                        {
+                            MSSQLTran.Commit();
+                            MSSQLTran = null;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+
+                    case eDBType.SQLITE:
+                        if (SQLiteTran!=null)
+                        {
+                            SQLiteTran.Commit();
+                            SQLiteTran = null;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    default:
+                        //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                        MessageBox.Show("Error unknown eSQLType in function: public bool CommitTransaction(ref string sError)");
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                sError = SetCommitTransactionError() + "\n" + ex.Message;
+                if (dbg.bON) dbg.Print(sError);
+                Log.Write(1, sError);
+                //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                return false;
+            }
+        }
+
+        private string SetCommitTransactionError()
+        {
+            switch (m_DBType)
+            {
+                case eDBType.MYSQL:
+                    return "ERROR CommitTransaction failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+
+                case eDBType.MSSQL:
+                    if (m_conData_MSSQL.m_bWindowsAuthentication)
+                    {
+                        return "ERROR CommitTransaction failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
+                    }
+                    else
+                    {
+                        return "ERROR CommitTransaction failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
+                    }
+
+                case eDBType.SQLITE:
+                    return "ERROR CommitTransaction failed for SQLite DataBaseFile:\"" + this.SQLiteDataBaseFile + "\"\n";
+
+                default:
+                    MessageBox.Show("ERROR eSQLType in function:private string CommitTransaction()");
+                    return "ERROR eSQLType in function:        private string CommitTransaction()";
+
+            }
+        }
+
+
+        public bool RollbackTransaction(ref string sError)
+        {
+            //ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
+            try
+            {
+                //SetConnectionString();
+                switch (m_DBType)
+                {
+                    case eDBType.MYSQL:
+                        if (MYSQLTran != null)
+                        {
+                            MYSQLTran.Rollback();
+                            MYSQLTran = null;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case eDBType.MSSQL:
+                        if (MSSQLTran != null)
+                        {
+                            MSSQLTran.Rollback();
+                            MSSQLTran = null;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+
+                    case eDBType.SQLITE:
+                        if (SQLiteTran != null)
+                        {
+                            SQLiteTran.Rollback();
+                            SQLiteTran = null;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    default:
+                        //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                        MessageBox.Show("Error unknown eSQLType in function: public bool RollbackTransaction(ref string sError)");
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                sError = SetRollbackTransactionError() + "\n" + ex.Message;
+                if (dbg.bON) dbg.Print(sError);
+                Log.Write(1, sError);
+                //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                return false;
+            }
+        }
+
+        private string SetRollbackTransactionError()
+        {
+            switch (m_DBType)
+            {
+                case eDBType.MYSQL:
+                    return "ERROR RollbackTransaction failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+
+                case eDBType.MSSQL:
+                    if (m_conData_MSSQL.m_bWindowsAuthentication)
+                    {
+                        return "ERROR RollbackTransaction failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
+                    }
+                    else
+                    {
+                        return "ERROR RollbackTransaction failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
+                    }
+
+                case eDBType.SQLITE:
+                    return "ERROR RollbackTransaction failed for SQLite DataBaseFile:\"" + this.SQLiteDataBaseFile + "\"\n";
+
+                default:
+                    MessageBox.Show("ERROR eSQLType in function:private string RollbackTransaction()");
+                    return "ERROR eSQLType in function:        private string RollbackTransaction()";
+
             }
         }
 
@@ -1956,6 +2222,8 @@ namespace DBConnectionControl40
 
             }
         }
+
+      
 
         public bool ReadDataSet(ref DataSet ds, string sqlGetColumnsNamesAndTypes, ref string csError)
         {

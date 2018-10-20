@@ -148,9 +148,9 @@ namespace ShopC
                 dAllStockQuantity = idata.dQuantity_OfStockItems;
 
                 string sunit = "";
-                if (idata.Unit_Symbol!=null)
+                if (idata.Unit_Symbol_v!=null)
                 {
-                    sunit = idata.Unit_Symbol.v;
+                    sunit = idata.Unit_Symbol_v.v;
                 }
 
                 
@@ -166,9 +166,9 @@ namespace ShopC
                 }
 
                 decimal dRetailPricePerUnit = -1;
-                if (idata.RetailPricePerUnit!=null)
+                if (idata.RetailPricePerUnit_v!=null)
                 {
-                    dRetailPricePerUnit = idata.RetailPricePerUnit.v;
+                    dRetailPricePerUnit = idata.RetailPricePerUnit_v.v;
                     lbl_Price.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(dRetailPricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
                     lbl_Price.Visible = true;
                 }

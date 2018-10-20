@@ -435,11 +435,13 @@ namespace TangentaDB
             SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, false, Item_ID);
             lpar.Add(par_Item_ID);
 
-            string sql = @"select s.ID as Stock_ID,
+            string sql = @"select 
                                   s.ImportTime as Stock_ImportTime,
                                   s.dQuantity as Stock_dQuantity,
                                   s.ExpiryDate as Stock_Expiry_Date,
-                                  s.PurchasePrice_Item_ID as  Stock_PurchasePrice_Item_ID,
+                                  pp.PurchasePricePerUnit as PurchasePricePerUnit,
+                                  pp.Discount as PurchaseDiscount,
+                                  pp.PriceWithoutVAT as PurchasePriceWithoutVAT,
                                   s.Stock_AddressLevel1_ID,
                                   s.Description as Stock_Description,
                                   i.UniqueName as Item_UniqueName,
@@ -453,7 +455,9 @@ namespace TangentaDB
                                   cln.LastName as Supplier_Person_LastName,
                                   cgsmp.GsmNumber as Supplier_Person_GsmNumber,
                                   cemailp.Email as Supplier_Person_Email,
-                                  u.Symbol as UnitSymbol
+                                  u.Symbol as UnitSymbol,
+                                  s.PurchasePrice_Item_ID as  Stock_PurchasePrice_Item_ID,
+                                  s.ID as Stock_ID
                                   from Stock s
                                   inner join PurchasePrice_Item ppi on ppi.ID = s.PurchasePrice_Item_ID
                                   inner join Item i on ppi.Item_ID = i.ID

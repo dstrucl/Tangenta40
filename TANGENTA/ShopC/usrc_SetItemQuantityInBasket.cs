@@ -736,7 +736,7 @@ namespace ShopC
         private void btn_Discount_Click(object sender, EventArgs e)
         {
             Form_Discount.Form_Discount frm_Discount = new Form_Discount.Form_Discount(dRetailPricePerUnit,
-                idata.PurchasePricePerUnit,
+                idata.PurchasePricePerUnit_v,
                 discount,
                 this.lbl_Item_UniqueName.Text);
             if (frm_Discount.ShowDialog(this)== DialogResult.OK)
@@ -778,9 +778,9 @@ namespace ShopC
 
             int iunit_decimal_places = 2;
             
-            if (xdata.Unit_DecimalPlaces!=null)
+            if (xdata.Unit_DecimalPlaces_v!=null)
             {
-                iunit_decimal_places = xdata.Unit_DecimalPlaces.v;
+                iunit_decimal_places = xdata.Unit_DecimalPlaces_v.v;
             }
 
             if (unmupdn3.Name.ToLower().Contains("stock"))
