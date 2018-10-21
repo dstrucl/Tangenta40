@@ -40,6 +40,9 @@
             this.dgvx_DocID_ShopC_Items = new DataGridView_2xls.DataGridView2xls();
             this.lbl_Stock_Info = new System.Windows.Forms.Label();
             this.dgvx_Stock = new DataGridView_2xls.DataGridView2xls();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.dgvx_Doc_ShopC_Item_Source = new DataGridView_2xls.DataGridView2xls();
+            this.lbl_dgvx_Doc_ShopC_Item_Source = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -51,6 +54,11 @@
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_DocID_ShopC_Items)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Stock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_Doc_ShopC_Item_Source)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -148,8 +156,7 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.Color.SeaShell;
-            this.splitContainer2.Panel1.Controls.Add(this.lbl_Doc_Info);
-            this.splitContainer2.Panel1.Controls.Add(this.dgvx_DocID_ShopC_Items);
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer3);
             // 
             // splitContainer2.Panel2
             // 
@@ -164,7 +171,7 @@
             // lbl_Doc_Info
             // 
             this.lbl_Doc_Info.AutoSize = true;
-            this.lbl_Doc_Info.Location = new System.Drawing.Point(6, 13);
+            this.lbl_Doc_Info.Location = new System.Drawing.Point(6, 10);
             this.lbl_Doc_Info.Name = "lbl_Doc_Info";
             this.lbl_Doc_Info.Size = new System.Drawing.Size(35, 13);
             this.lbl_Doc_Info.TabIndex = 4;
@@ -179,12 +186,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_DocID_ShopC_Items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_DocID_ShopC_Items.DataGridViewWithRowNumber = false;
-            this.dgvx_DocID_ShopC_Items.Location = new System.Drawing.Point(3, 29);
+            this.dgvx_DocID_ShopC_Items.Location = new System.Drawing.Point(6, 29);
             this.dgvx_DocID_ShopC_Items.MultiSelect = false;
             this.dgvx_DocID_ShopC_Items.Name = "dgvx_DocID_ShopC_Items";
             this.dgvx_DocID_ShopC_Items.ReadOnly = true;
             this.dgvx_DocID_ShopC_Items.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_DocID_ShopC_Items.Size = new System.Drawing.Size(409, 320);
+            this.dgvx_DocID_ShopC_Items.Size = new System.Drawing.Size(217, 320);
             this.dgvx_DocID_ShopC_Items.TabIndex = 3;
             // 
             // lbl_Stock_Info
@@ -210,8 +217,54 @@
             this.dgvx_Stock.Name = "dgvx_Stock";
             this.dgvx_Stock.ReadOnly = true;
             this.dgvx_Stock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_Stock.Size = new System.Drawing.Size(409, 298);
+            this.dgvx_Stock.Size = new System.Drawing.Size(409, 296);
             this.dgvx_Stock.TabIndex = 5;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.lbl_Doc_Info);
+            this.splitContainer3.Panel1.Controls.Add(this.dgvx_DocID_ShopC_Items);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.lbl_dgvx_Doc_ShopC_Item_Source);
+            this.splitContainer3.Panel2.Controls.Add(this.dgvx_Doc_ShopC_Item_Source);
+            this.splitContainer3.Size = new System.Drawing.Size(415, 352);
+            this.splitContainer3.SplitterDistance = 226;
+            this.splitContainer3.TabIndex = 5;
+            // 
+            // dgvx_Doc_ShopC_Item_Source
+            // 
+            this.dgvx_Doc_ShopC_Item_Source.AllowUserToAddRows = false;
+            this.dgvx_Doc_ShopC_Item_Source.AllowUserToDeleteRows = false;
+            this.dgvx_Doc_ShopC_Item_Source.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_Doc_ShopC_Item_Source.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_Doc_ShopC_Item_Source.DataGridViewWithRowNumber = false;
+            this.dgvx_Doc_ShopC_Item_Source.Location = new System.Drawing.Point(3, 29);
+            this.dgvx_Doc_ShopC_Item_Source.MultiSelect = false;
+            this.dgvx_Doc_ShopC_Item_Source.Name = "dgvx_Doc_ShopC_Item_Source";
+            this.dgvx_Doc_ShopC_Item_Source.ReadOnly = true;
+            this.dgvx_Doc_ShopC_Item_Source.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_Doc_ShopC_Item_Source.Size = new System.Drawing.Size(179, 323);
+            this.dgvx_Doc_ShopC_Item_Source.TabIndex = 5;
+            // 
+            // lbl_dgvx_Doc_ShopC_Item_Source
+            // 
+            this.lbl_dgvx_Doc_ShopC_Item_Source.AutoSize = true;
+            this.lbl_dgvx_Doc_ShopC_Item_Source.Location = new System.Drawing.Point(3, 8);
+            this.lbl_dgvx_Doc_ShopC_Item_Source.Name = "lbl_dgvx_Doc_ShopC_Item_Source";
+            this.lbl_dgvx_Doc_ShopC_Item_Source.Size = new System.Drawing.Size(35, 13);
+            this.lbl_dgvx_Doc_ShopC_Item_Source.TabIndex = 5;
+            this.lbl_dgvx_Doc_ShopC_Item_Source.Text = "label1";
             // 
             // Form_ShopC_TableInspection
             // 
@@ -230,13 +283,19 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ShopC_Docs)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_DocID_ShopC_Items)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Stock)).EndInit();
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            this.splitContainer3.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_Doc_ShopC_Item_Source)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -254,5 +313,8 @@
         private System.Windows.Forms.CheckBox chk_OnlyFromStock;
         private System.Windows.Forms.Label lbl_Stock_Info;
         private DataGridView_2xls.DataGridView2xls dgvx_Stock;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.Label lbl_dgvx_Doc_ShopC_Item_Source;
+        private DataGridView_2xls.DataGridView2xls dgvx_Doc_ShopC_Item_Source;
     }
 }

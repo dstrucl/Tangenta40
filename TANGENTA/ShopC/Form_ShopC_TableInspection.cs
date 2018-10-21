@@ -25,6 +25,7 @@ namespace ShopC
 
         private DataTable dtDoc = null;
         private DataTable dtShopCItems = null;
+        private DataTable dtShopCItemsSource = null;
         private DataTable dtStock = null;
 
         private ID CurrentDoc_ID = null;
@@ -195,6 +196,42 @@ namespace ShopC
                 if (f_DocInvoice_ShopC_Item.GetItems(currentDoc_ID, ref dtShopCItems))
                 {
                     dgvx_DocID_ShopC_Items.DataSource = dtShopCItems;
+                    if (dtShopCItems.Rows.Count>0)
+                    {
+                        ID docInvoice_ShopC_Item_ID = tf.set_ID(dtShopCItems.Rows[0]["DocInvoice_ShopC_Item_ID"]);
+                        string_v item_Unique_name_v = tf.set_string(dtShopCItems.Rows[0]["Atom_Item_UniqueName"]);
+                        if (item_Unique_name_v != null)
+                        {
+                            dgvx_Stock.DataSource = null;
+                            if (dtStock!=null)
+                            {
+                                dtStock.Dispose();
+                                dtStock = null;
+                            }
+                            if (f_Stock.GetStock(ref dtStock, item_Unique_name_v.v))
+                            {
+                                dgvx_Stock.DataSource = dtStock;
+                                lbl_Stock_Info.Text = "Stock data for " + "\"" + item_Unique_name_v.v + "\"";
+                            }
+                            if (ID.Validate(docInvoice_ShopC_Item_ID))
+                            {
+                                if (rdb_Invoice.Checked)
+                                {
+                                    dgvx_Doc_ShopC_Item_Source.DataSource = null;
+                                    if (dtShopCItemsSource != null)
+                                    {
+                                        dtShopCItemsSource.Dispose();
+                                        dtShopCItemsSource = null;
+                                    }
+                                    if (f_DocInvoice_ShopC_Item_Source.Get(docInvoice_ShopC_Item_ID, ref dtShopCItemsSource))
+                                    {
+                                        dgvx_Doc_ShopC_Item_Source.DataSource = dtShopCItemsSource;
+                                        lbl_dgvx_Doc_ShopC_Item_Source.Text = "Source for Item:\"" + item_Unique_name_v.v + "\"";
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -349,6 +386,24 @@ namespace ShopC
                     {
                         dgvx_Stock.DataSource = dtStock;
                         lbl_Stock_Info.Text = "Stock data for " + "\"" + item_Unique_name_v.v + "\"";
+                    }
+                    ID docInvoice_ShopC_Item_ID = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["DocInvoice_ShopC_Item_ID"].Value);
+                    if (ID.Validate(docInvoice_ShopC_Item_ID))
+                    {
+                        if (rdb_Invoice.Checked)
+                        {
+                            dgvx_Doc_ShopC_Item_Source.DataSource = null;
+                            if (dtShopCItemsSource!=null)
+                            {
+                                dtShopCItemsSource.Dispose();
+                                dtShopCItemsSource = null;
+                            }
+                            if (f_DocInvoice_ShopC_Item_Source.Get(docInvoice_ShopC_Item_ID, ref dtShopCItemsSource))
+                            {
+                                dgvx_Doc_ShopC_Item_Source.DataSource = dtShopCItemsSource;
+                                lbl_dgvx_Doc_ShopC_Item_Source.Text = "Source for Item:\"" + item_Unique_name_v.v + "\"";
+                            }
+                        }
                     }
                 }
             }
