@@ -363,15 +363,27 @@ namespace TangentaDB
             }
         }
 
-        public bool WriteItemStockTransferInDataBase(string doc_type,ID doc_ID, Item_Data xData, ref Doc_ShopC_Item dsci, List<Stock_Data> taken_from_Stock_List, decimal xquantity2add, decimal dQuantitySelectedFromStock)
+     
+
+        public bool WriteItemStockTransferInDataBase(string doc_type,ID doc_ID, Item_Data xData, ref Doc_ShopC_Item dsci, List<Stock_Data> taken_from_Stock_List, decimal dQuantity_FromFactory2Add)
         {
             if (dsci == null)
             {
+                // Doc_ShopC_Item does not exist create new
                 dsci = new Doc_ShopC_Item();
-                return dsci.SetNew(doc_type, doc_ID, xData, taken_from_Stock_List);
+                if (dsci.SetNew(doc_type, doc_ID, xData, taken_from_Stock_List, dQuantity_FromFactory2Add))
+                {
+                    this.Basket_Doc_ShopC_Item_LIST.Add(dsci);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
+                // Doc_ShopC_Item allready exist
                 foreach (Stock_Data stdtaken in taken_from_Stock_List)
                 {
                     Stock_Data std = xData.Find_Stock_Data(stdtaken);
@@ -394,8 +406,19 @@ namespace TangentaDB
                         return false;
                     }
                 }
+                if (dQuantity_FromFactory2Add>0)
+                {
+                    if (dsci.SetFactory(doc_type, doc_ID, xData, dQuantity_FromFactory2Add))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
-            return false;
         }
 
         public Doc_ShopC_Item Add(string docType,ID doc_ID,Item_Data xData, decimal dQuantity)

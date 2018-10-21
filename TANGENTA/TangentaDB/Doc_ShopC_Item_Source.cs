@@ -64,14 +64,14 @@ namespace TangentaDB
         }
 
 
-        internal void GetPrices(decimal taxRate, decimal discount, decimal retailPricePerUnit, ref decimal xRetailPrice, ref decimal xRetailPriceWithDiscount, ref decimal xTaxPrice, ref decimal xNetPrice)
+        internal void GetPrices(decimal taxRate, decimal discount, decimal extraDiscount,decimal retailPricePerUnit, ref decimal xRetailPrice, ref decimal xRetailPriceWithDiscount, ref decimal xTaxPrice, ref decimal xNetPrice)
         {
             int decimal_places = 2;
             if (GlobalData.BaseCurrency != null)
             {
                 decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
             }
-            StaticLib.Func.CalculatePrice(retailPricePerUnit, dQuantity, discount, ExtraDiscount, taxRate,ref xRetailPrice, ref xRetailPriceWithDiscount, ref xTaxPrice, ref xNetPrice, decimal_places);
+            StaticLib.Func.CalculatePrice(retailPricePerUnit, dQuantity, discount, extraDiscount, taxRate,ref xRetailPrice, ref xRetailPriceWithDiscount, ref xTaxPrice, ref xNetPrice, decimal_places);
             this.NetPrice = xNetPrice;
         }
 
@@ -171,6 +171,13 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item_Source:SendBackToStock: quantity=" + xdQuantity.ToString() + " to send back to stock is bigger than current quantity = " + dQuantity.ToString());
             }
             return false;
+        }
+
+        internal void Set(decimal dQuantity_FromFactory2Add, decimal retailPriceWithDiscount, decimal taxPrice)
+        {
+            this.dQuantity = dQuantity_FromFactory2Add;
+            this.RetailPriceWithDiscount = retailPriceWithDiscount;
+            this.TaxPrice = taxPrice;
         }
     }
 }

@@ -314,17 +314,16 @@ namespace TangentaDB
                            (
                             DocInvoice_ShopC_Item_ID,
                             dQuantity,
-                            ExtraDiscount,
+                            SourceDiscount,
                             RetailPriceWithDiscount,
                             TaxPrice,
-                            DocInvoice_ID,
                             ExpiryDate,
                             Stock_ID)
                             values
                             (
                             " + spar_Doc_ShopC_Item_ID + @",
                             " + spar_dQuantity + @",
-                            " + sval_extraDiscount + @",
+                            0,
                             " + spar_retailPriceWithDiscount + @",
                             " + spar_taxPrice + @",
                             " + sval_expiryDate + @",
@@ -337,6 +336,44 @@ namespace TangentaDB
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item_Source:Insert:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+       
+        internal static bool Update(ID doc_ShopC_Item_Source_ID, decimal dnewQuantity, decimal retailPriceWithDiscount, decimal taxPrice)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            string spar_dQuantity = "@par_dQuantity";
+            SQL_Parameter par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dnewQuantity);
+            lpar.Add(par_dQuantity);
+
+
+            string spar_retailPriceWithDiscount = "@par_retailPriceWithDiscount";
+            SQL_Parameter par_retailPriceWithDiscount = new SQL_Parameter(spar_retailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, retailPriceWithDiscount);
+            lpar.Add(par_retailPriceWithDiscount);
+
+            string spar_taxPrice = "@par_taxPrice";
+            SQL_Parameter par_taxPrice = new SQL_Parameter(spar_taxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, taxPrice);
+            lpar.Add(par_taxPrice);
+
+
+            string sql = @"update DocInvoice_ShopC_Item_Source set
+                           
+                            dQuantity = " + spar_dQuantity + @",
+                            RetailPriceWithDiscount =" + spar_retailPriceWithDiscount + @",
+                            TaxPrice = " + spar_taxPrice + @" 
+                            where ID = " + doc_ShopC_Item_Source_ID.ToString();
+            string Err = null;
+            object oret = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret,  ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item_Source:Update:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

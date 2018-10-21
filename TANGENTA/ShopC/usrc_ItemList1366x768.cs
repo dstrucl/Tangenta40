@@ -341,7 +341,12 @@ namespace ShopC
                         AutoSelect_Items_From_Stock(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
                     }
 
-                    if (m_ShopBC.m_CurrentDoc.m_Basket.WriteItemStockTransferInDataBase(xData, ref dsci, taken_from_Stock_List, xquantity2add, dQuantitySelectedFromStock))
+                    if (m_ShopBC.m_CurrentDoc.m_Basket.WriteItemStockTransferInDataBase(m_ShopBC.DocTyp,
+                                                                                        m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                                        xData, 
+                                                                                        ref dsci, 
+                                                                                        taken_from_Stock_List,
+                                                                                        xquantity2add - dQuantitySelectedFromStock))
                     {
                         if (ctrl is usrc_Item1366x768)
                         {
@@ -359,89 +364,6 @@ namespace ShopC
                         this.usrc_Item_TextSearch1.ShowGroup(xData.s1_name, xData.s2_name, xData.s3_name);
                     }
                 }
-
-                //if (take_from_Stock(xquantity2add, xData.Stock_Data_List, ref dRemainderQuantityNotTakenFromStock, ref dquantity_in_stock_at_the_end))
-                //{
-                //    if (xquantity2add > dRemainderQuantityNotTakenFromStock)
-                //    {
-                //        if (xData.Stock_Data_List.Count > 0)
-                //        {
-                //            if (!update_stock_elements_in_Doc_ShopC_Item(xData, ref dsci))
-                //            {
-                //                LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:!update_stock_elements_in_Doc_ShopC_Item!");
-                //                return;
-                //            }
-                //        }
-                //    }
-                //}
-
-
-                if (dRemainderQuantityNotTakenFromStock>0)
-                {
-                    if (dsci == null)
-                    {
-                        ID atom_Price_Item_ID = null;
-                        ID docInvoice_ShopC_Item_ID = null;
-                        //if (!m_ShopBC.Add_Doc_ShopC_Item(xData,
-                        //                        dRemainderQuantityNotTakenFromStock,
-                        //                        null,
-                        //                        ref atom_Price_Item_ID,
-                        //                        ref docInvoice_ShopC_Item_ID))
-                        //{
-                        //    return;
-                        //}
-                        m_ShopBC.m_CurrentDoc.m_Basket.Add_WithNoTakeForItemData(m_ShopBC.m_CurrentDoc.m_Doc_ID,
-                                                            docInvoice_ShopC_Item_ID,
-                                                            xData,
-                                                            dRemainderQuantityNotTakenFromStock,
-                                                            0,
-                                                            ref dsci,
-                                                            true
-                                                        );
-                    }
-                    else 
-                    {
-                        //Stock_Data std = dsci.From_FactoryItems();
-                        //if (std!=null)
-                        //{
-                        //    //factory items exist
-                        //    //appisd.m_ShopShelf_Source.Stock_Data_List[0].
-                        //    std.dQuantity_v.v = std.dQuantity_v.v + xquantity2add;
-                        //    if (ID.Validate(std.Doc_ShopC_Item_ID))
-                        //    {
-                        //        if (!f_DocInvoice_ShopC_Item.UpdateQuantity(std.Doc_ShopC_Item_ID, std.dQuantity_v.v))
-                        //        {
-                        //            return;
-                        //        }
-                        //    }
-                        //    else
-                        //    {
-                        //        LogFile.Error.Show("ERROR:ShopC:usrc_ItemList1366x768:Add2Basket:std.Doc_ShopC_Item_ID is not valid!");
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    //factory  items not exist
-                        //    ID atom_Price_Item_ID = null;
-                        //    ID doc_ShopC_Item_ID = null;
-                        //    if (!m_ShopBC.Add_Doc_ShopC_Item(xData,
-                        //                            dRemainderQuantityNotTakenFromStock,
-                        //                            null,
-                        //                            ref atom_Price_Item_ID,
-                        //                            ref doc_ShopC_Item_ID))
-                        //    {
-                        //        return;
-                        //    }
-                        //    Stock_Data stdx = new Stock_Data();
-                        //    stdx.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
-                        //    stdx.dQuantity_v = new decimal_v(xquantity2add);
-                        //    dsci.m_ShopShelf_Source.Stock_Data_List.Add(stdx);
-                        //}
-                    }
-
-                }
-
-             
             }
         }
 

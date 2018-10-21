@@ -90,6 +90,7 @@ namespace TangentaDB
                 dsciSx.GetPrices(
                 TaxRate,
                 Discount,
+                ExtraDiscount,
                 RetailPricePerUnit,
                 ref xRetailPrice,
                 ref xRetailPriceWithDiscount,
@@ -235,6 +236,18 @@ namespace TangentaDB
                     {
                         return dsciSx;
                     }
+                }
+            }
+            return null;
+        }
+
+        internal Doc_ShopC_Item_Source FindFactory()
+        {
+            foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
+            {
+                if (!ID.Validate(dsciSx.Stock_ID))
+                {
+                    return dsciSx;
                 }
             }
             return null;
