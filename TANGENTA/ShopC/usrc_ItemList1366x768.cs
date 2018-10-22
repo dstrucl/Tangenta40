@@ -391,6 +391,7 @@ namespace ShopC
                             Stock_Data xstd = new Stock_Data();
                             xstd.dQuantity_Taken_v = new decimal_v(((decimal)dr["TakeFromStock"]));
                             dQuantitySelected += xstd.dQuantity_Taken_v.v;
+                            xstd.dQuantity_v = new decimal_v((decimal)dr["Stock_dQuantity"]);
                             xstd.Stock_ID = tf.set_ID(dr["Stock_ID"]);
                             taken_form_stock.Add(xstd);
                         }
@@ -430,6 +431,7 @@ namespace ShopC
 
                         Stock_Data xstd = new Stock_Data();
                         xstd.dQuantity_Taken_v = new decimal_v(((decimal)dr["TakeFromStock"]));
+                        xstd.dQuantity_v = new decimal_v(dQinStock);
                         xstd.Stock_ID = tf.set_ID(dr["Stock_ID"]);
                         taken_from_stock.Add(xstd);
 
@@ -445,6 +447,7 @@ namespace ShopC
 
                         Stock_Data xstd = new Stock_Data();
                         xstd.dQuantity_Taken_v = new decimal_v(((decimal)dr["TakeFromStock"]));
+                        xstd.dQuantity_v = new decimal_v(dQinStock);
                         xstd.Stock_ID = tf.set_ID(dr["Stock_ID"]);
                         taken_from_stock.Add(xstd);
 

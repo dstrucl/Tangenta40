@@ -801,26 +801,38 @@ namespace TangentaDB
                                                               ref retailPriceWithDiscount_WithoutTax,
                                                               GlobalData.BaseCurrency.DecimalPlaces
                                                               );
-                                ID docInvoice_ShopC_Item_Source_ID = null;
-                                if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
-                                                                           stdx.dQuantity_Taken_v.v,
-                                                                           new decimal_v(xData.ExtraDiscount),
-                                                                           retailPriceWithDiscount,
-                                                                           taxPrice,
-                                                                           xData.ExpiryDate_v,
-                                                                           stdx.Stock_ID,
-                                                                           ref docInvoice_ShopC_Item_Source_ID))
+
+                                decimal dnew_stock_quantity = stdx.dQuantity_v.v - stdx.dQuantity_Taken_v.v;
+
+                                if (f_Stock.UpdateQuantity(stdx.Stock_ID, dnew_stock_quantity))
                                 {
-                                    Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
-                                    dsciSx.SetNew(this.Doc_ShopC_Item_ID,
-                                                  docInvoice_ShopC_Item_Source_ID,
-                                                  stdx.Stock_ID,
-                                                   stdx.dQuantity_Taken_v.v,
-                                                   0,
-                                                  retailPriceWithDiscount,
-                                                  taxPrice,
-                                                  xData.ExpiryDate_v);
-                                    this.dsciS_List.Add(dsciSx);
+                                    stdx.dQuantity_v.v = dnew_stock_quantity;
+
+                                    ID docInvoice_ShopC_Item_Source_ID = null;
+                                    if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
+                                                                               stdx.dQuantity_Taken_v.v,
+                                                                               new decimal_v(xData.ExtraDiscount),
+                                                                               retailPriceWithDiscount,
+                                                                               taxPrice,
+                                                                               xData.ExpiryDate_v,
+                                                                               stdx.Stock_ID,
+                                                                               ref docInvoice_ShopC_Item_Source_ID))
+                                    {
+                                        Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
+                                        dsciSx.SetNew(this.Doc_ShopC_Item_ID,
+                                                      docInvoice_ShopC_Item_Source_ID,
+                                                      stdx.Stock_ID,
+                                                       stdx.dQuantity_Taken_v.v,
+                                                       0,
+                                                      retailPriceWithDiscount,
+                                                      taxPrice,
+                                                      xData.ExpiryDate_v);
+                                        this.dsciS_List.Add(dsciSx);
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                                 else
                                 {

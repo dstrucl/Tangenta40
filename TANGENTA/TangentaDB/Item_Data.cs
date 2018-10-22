@@ -253,7 +253,7 @@ namespace TangentaDB
                     //{
                     //    LogFile.Error.Show("ERROR:TangentaDB:Item_Data:ReceiveBackToStock:std.Stock_ID is not valid!");
                     //}
-                    return true;
+                    //return true;
                 }
                 // THIS ITEM has no stock his it is FACTORY ITEM
                 //LogFile.Error.Show("ERROR:TangentaDB:Item_Data:ReceiveBackToStock:stock_ID was not found in m_ShopSehlf!!");
