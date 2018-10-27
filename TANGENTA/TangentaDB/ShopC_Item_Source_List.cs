@@ -173,17 +173,17 @@ namespace TangentaDB
                 {
                  
                     Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
-                    xdsciS.Stock_ID = DBTypes.tf.set_ID(dt.Rows[0]["Stock_ID"]);
-                    xdsciS.dQuantity = DBTypes.tf._set_decimal(dt.Rows[0]["dQuantity"]);
-                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
-                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dt.Rows[0]["TaxPrice"]);
-                    xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["ExpiryDate"]);
-                    xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dt.Rows[0]["Item_UniqueName"]);
-                    xdsciS.StockTakeName_v = DBTypes.tf.set_string(dt.Rows[0]["StockTakeName"]);
-                    xdsciS.StockTakeDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["StockTake_Date"]);
+                    xdsciS.Stock_ID = DBTypes.tf.set_ID(dr["Stock_ID"]);
+                    xdsciS.dQuantity = DBTypes.tf._set_decimal(dr["dQuantity"]);
+                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dr["RetailPriceWithDiscount"]);
+                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dr["TaxPrice"]);
+                    xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dr["ExpiryDate"]);
+                    xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dr["Item_UniqueName"]);
+                    xdsciS.StockTakeName_v = DBTypes.tf.set_string(dr["StockTakeName"]);
+                    xdsciS.StockTakeDate_v = DBTypes.tf.set_DateTime(dr["StockTake_Date"]);
 
-                    xdsciS.Doc_ShopC_Item_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_ID"]);
-                    xdsciS.Doc_ShopC_Item_Source_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_Source_ID"]);
+                    xdsciS.Doc_ShopC_Item_ID = DBTypes.tf.set_ID(dr["Doc_ShopC_Item_ID"]);
+                    xdsciS.Doc_ShopC_Item_Source_ID = DBTypes.tf.set_ID(dr["Doc_ShopC_Item_Source_ID"]);
                
                     dsciS_list.Add(xdsciS);
                 }
@@ -217,6 +217,95 @@ namespace TangentaDB
                 }
            }
             dsciS_list.Clear();
+            return true;
+
+        }
+
+        internal bool RemoveStockSources(string docTyp, Item_Data xdata,decimal dQuantity_To_Put_back_inStock)
+        {
+            foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
+            {
+                if (dQuantity_To_Put_back_inStock > 0)
+                {
+                    if (ID.Validate(xdsciS.Stock_ID))
+                    {
+                        if (dQuantity_To_Put_back_inStock > xdsciS.dQuantity)
+                        {
+                            decimal dQuantityToPutBack2Stock = xdsciS.dQuantity;
+                            if (xdsciS.SendBackToStock(docTyp, dQuantityToPutBack2Stock, null))
+                            {
+                                
+                                dQuantity_To_Put_back_inStock = dQuantity_To_Put_back_inStock - dQuantityToPutBack2Stock;
+                               Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
+                                if (xstd!=null)
+                                {
+                                    if (xstd.dQuantity_v==null)
+                                    {
+                                        xstd.dQuantity_v = new DBTypes.decimal_v(0);
+                                    }
+                                    xstd.dQuantity_v.v += dQuantityToPutBack2Stock;
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:ShopC_Item_Source_List:RemoveStockSources:1:Can not find Stock_Data in Item_Data!");
+                                    return false;
+                                }
+                                
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if (xdsciS.SendBackToStock(docTyp, dQuantity_To_Put_back_inStock, null))
+                            {
+                                Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
+                                if (xstd != null)
+                                {
+                                    if (xstd.dQuantity_v == null)
+                                    {
+                                        xstd.dQuantity_v = new DBTypes.decimal_v(0);
+                                    }
+                                    xstd.dQuantity_v.v += dQuantity_To_Put_back_inStock;
+                                    dQuantity_To_Put_back_inStock = 0;
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:ShopC_Item_Source_List:RemoveStockSources:2:Can not find Stock_Data in Item_Data!");
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            // make list of empty source elements
+            List<Doc_ShopC_Item_Source> dsciSl = new List<Doc_ShopC_Item_Source>();
+            foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
+            {
+                if (xdsciS.dQuantity==0)
+                {
+                    dsciSl.Add(xdsciS);
+                }
+            }
+
+            // purge list of empty source elements
+            foreach (Doc_ShopC_Item_Source xdsciS in dsciSl)
+            {
+                dsciS_list.Remove(xdsciS);
+            }
+
             return true;
 
         }

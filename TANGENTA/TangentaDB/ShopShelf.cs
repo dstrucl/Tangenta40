@@ -154,17 +154,7 @@ namespace TangentaDB
 
                         if (xItem_Data.Stock_dQuantity_v != null)
                         {
-                            if (xItem_Data.Stock_dQuantity_v.v > 0)
-                            {
-                                stock_data.dQuantity_v = new DBTypes.decimal_v();
-                                stock_data.dQuantity_v.v = xItem_Data.Stock_dQuantity_v.v;
-                            }
-                            else
-                            {
-                                // set stock_ID to null;
-                                stock_data.Stock_ID = null;
-                                stock_data.dQuantity_v = null;
-                            }
+                            stock_data.dQuantity_v = tf.set_decimal(xItem_Data.Stock_dQuantity_v.v);
                         }
                         else
                         {

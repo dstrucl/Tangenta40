@@ -38,12 +38,14 @@ namespace ShopC
 
         private usrc_Atom_Item1366x768 m_usrc_Atom_Item1366x768 = null;
         private usrc_Item1366x768 m_usrc_Item1366x768 = null;
+        private usrc_ItemList1366x768 m_usrc_ItemList1366x768 = null;
 
 
         public delegate void delegate_SetItemQuantityInBasket(usrc_Item1366x768_selected xusrc_Item1366x768_selected,
                                                               usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
                                                               TangentaDB.Doc_ShopC_Item xdsci,
                                                               Item_Data idata,
+                                                              usrc_ItemList1366x768 xusrc_ItemList1366x768,
                                                               usrc_Item1366x768 xusrc_Item1366x768
                                                               );
 
@@ -76,6 +78,10 @@ namespace ShopC
             pen[4].DashPattern = dashValues4;
         }
 
+        public void Init(usrc_ItemList1366x768 x_usrc_ItemList1366x768)
+        {
+            m_usrc_ItemList1366x768 = x_usrc_ItemList1366x768;
+        }
 
         // Protected implementation of Dispose pattern. 
         protected override void Dispose(bool disposing)
@@ -118,6 +124,7 @@ namespace ShopC
                                              m_usrc_Atom_Item1366x768,
                                              dsci,
                                              itemdata,
+                                             m_usrc_ItemList1366x768,
                                              m_usrc_Item1366x768);
             }
         }

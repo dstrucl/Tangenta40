@@ -55,6 +55,18 @@ namespace TangentaDB
         public string_v Atom_Currency_Name_v = null;
         public string_v Atom_Currency_Abbreviation_v = null;
         public string_v Atom_Currency_Symbol_v = null;
+
+        public bool UpdateExtraDiscount(string docTyp, decimal extradiscount)
+        {
+            if (docTyp.Equals(GlobalData.const_DocInvoice))
+            {
+                return f_DocInvoice_ShopC_Item.UpdateExtraDiscount(Doc_ShopC_Item_ID, extradiscount);
+            }
+            throw new NotImplementedException();
+        }
+
+      
+
         public int_v Atom_Currency_DecimalPlaces_v = null;
 
         public string_v Atom_Item_Image_Hash_v = null;
@@ -235,6 +247,7 @@ namespace TangentaDB
             }
 
         }
+
         private static bool IsNull_Stock_ExpiryDate(Stock_Data z)
         {
             if (z == null)
@@ -293,168 +306,9 @@ namespace TangentaDB
         }
 
 
-        public void Add_Stock_Data(Item_Data xItem_Data, ID doc_ShopC_Item_ID, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
-        {
-            if (b_from_factory)
-            {
-                Stock_Data stock_data = new Stock_Data();
-                if (stock_data.dQuantity_v == null)
-                {
-                    stock_data.dQuantity_v = new decimal_v();
-                }
-                stock_data.dQuantity_v.v = xFactoryQuantity;
-                stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
-                //Stock_Data_List.Add(stock_data);
-            }
-            else
-            {
-                decimal dquantity = xStockQuantity;
-                xItem_Data.Stock_Data_List.Sort((x, y) => Compare_Stock_ExpiryDate(x, y));
-                foreach (Stock_Data sd in xItem_Data.Stock_Data_List)
-                {
-                    if (dquantity > 0)
-                    {
-                        if (sd.dQuantity_from_stock != null)
-                        {
-                            Stock_Data stock_data = new Stock_Data();
-                            stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
-                            if (sd.StockTake_Draft != null)
-                            {
-                                stock_data.StockTake_Draft = new bool_v(sd.StockTake_Draft.v);
-                            }
-                            else
-                            {
-                                stock_data.StockTake_Draft = null;
-                            }
+     
 
-                            if (dquantity > sd.dQuantity_from_stock.v)
-                            {
-                                dquantity -= sd.dQuantity_from_stock.v;
-                                if (stock_data.dQuantity_v == null)
-                                {
-                                    stock_data.dQuantity_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_v.v = sd.dQuantity_from_stock.v;
-                                sd.dQuantity_v.v = 0;
-                                if (stock_data.dQuantity_New_in_Stock_v == null)
-                                {
-                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_New_in_Stock_v.v = 0;
-                                stock_data.Stock_ID = new ID(sd.Stock_ID);
-                                //Stock_Data_List.Add(stock_data);
-                            }
-                            else
-                            {
-                                if (stock_data.dQuantity_from_stock == null)
-                                {
-                                    stock_data.dQuantity_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_v.v = dquantity;
-                                sd.dQuantity_v.v -= dquantity;
-                                if (stock_data.dQuantity_New_in_Stock_v == null)
-                                {
-                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_New_in_Stock_v.v = sd.dQuantity_v.v;
-                                stock_data.Stock_ID = new ID(sd.Stock_ID);
-                                dquantity = 0;
-                                //Stock_Data_List.Add(stock_data);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void Add_Stock_Data_WithNoTakeForItemData(Item_Data xItem_Data, ID doc_ShopC_Item_ID, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
-        {
-            if (b_from_factory)
-            {
-                Stock_Data stock_data = new Stock_Data();
-                stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
-                if (stock_data.dQuantity_v == null)
-                {
-                    stock_data.dQuantity_v = new decimal_v();
-                }
-                stock_data.dQuantity_v.v = xFactoryQuantity;
-                //Stock_Data_List.Add(stock_data);
-            }
-            else
-            {
-                decimal dquantity = xStockQuantity;
-                xItem_Data.Stock_Data_List.Sort((x, y) => Compare_Stock_ExpiryDate(x, y));
-                foreach (Stock_Data sd in xItem_Data.Stock_Data_List)
-                {
-                    if (dquantity > 0)
-                    {
-                        if (sd.dQuantity_from_stock != null)
-                        {
-                            Stock_Data stock_data = new Stock_Data();
-                            stock_data.Doc_ShopC_Item_ID = doc_ShopC_Item_ID;
-                            if (sd.StockTake_Draft != null)
-                            {
-                                stock_data.StockTake_Draft = new bool_v(sd.StockTake_Draft.v);
-                            }
-                            else
-                            {
-                                stock_data.StockTake_Draft = null;
-                            }
-
-                            if (dquantity > sd.dQuantity_from_stock.v)
-                            {
-                                dquantity -= sd.dQuantity_from_stock.v;
-                                if (stock_data.dQuantity_v == null)
-                                {
-                                    stock_data.dQuantity_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_v.v = sd.dQuantity_from_stock.v;
-                                sd.dQuantity_v.v = 0;
-                                if (stock_data.dQuantity_New_in_Stock_v == null)
-                                {
-                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_New_in_Stock_v.v = 0;
-                                stock_data.Stock_ID = new ID(sd.Stock_ID);
-                               // Stock_Data_List.Add(stock_data);
-                            }
-                            else
-                            {
-                                if (stock_data.dQuantity_from_stock == null)
-                                {
-                                    stock_data.dQuantity_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_v.v = dquantity;
-                                if (stock_data.dQuantity_New_in_Stock_v == null)
-                                {
-                                    stock_data.dQuantity_New_in_Stock_v = new decimal_v();
-                                }
-                                stock_data.dQuantity_New_in_Stock_v.v = sd.dQuantity_v.v;
-                                stock_data.Stock_ID = new ID(sd.Stock_ID);
-                                dquantity = 0;
-                                //Stock_Data_List.Add(stock_data);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        internal void Add_Stock_Data(ID stock_ID, decimal xdQuantity)
-        {
-            Stock_Data std = new Stock_Data();
-            std.Stock_ID = stock_ID;
-            std.dQuantity_v = new decimal_v(xdQuantity);
-            //this.Stock_Data_List.Add(std);
-        }
+   
 
         public void Set(Item_Data xItem_Data,
                         ID xDocInvoice_ID,
@@ -469,17 +323,9 @@ namespace TangentaDB
             Doc_ID.Set(xDocInvoice_ID);
             Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
 
-
             //RetailPricePerUnit = (decimal_v)tf.Copy(xItem_Data.RetailPricePerUnit); //tf.set_decimal(dr[cpis.icol_RetailPricePerUnit]);
 
             //Discount = (decimal_v)tf.Copy(xItem_Data.Price_Item_Discount); // tf.set_decimal(dr[cpis.icol_Discount]);
-
-            decimal retail_price_with_discount = 0;
-            //RetailPriceWithDiscount = tf.set_decimal(retail_price_with_discount);
-            //$$TODO
-
-            decimal tax_price = 0;
-            //TaxPrice = tf.set_decimal(tax_price);
 
             //ExtraDiscount = tf.set_decimal(xItem_Data.ExtraDiscount);
 
@@ -519,105 +365,7 @@ namespace TangentaDB
         }
 
 
-        internal bool Add(string docType,ID Doc_ID,Item_Data xData, decimal dQuantity)
-        {
-         
-                ID atom_Taxation_ID = null;
-                ID atom_Item_ID = null;
-                if (!f_Atom_Price_Item.Get(xData.Item_UniqueName_v.v,
-                    xData.Item_Name_v,
-                    xData.Item_barcode_v,
-                    xData.Item_Description_v,
-                    xData.Expiry_ExpectedShelfLifeInDays_v,
-                    xData.Expiry_SaleBeforeExpiryDateInDays_v,
-                    xData.Expiry_DiscardBeforeExpiryDateInDays_v,
-                    xData.Expiry_Description_v,
-                    xData.Warranty_WarrantyDurationType_v,
-                    xData.Warranty_WarrantyDuration_v,
-                    xData.Warranty_WarrantyConditions_v,
-                    xData.Unit_Name_v,
-                    xData.Unit_Symbol_v,
-                    xData.Unit_DecimalPlaces_v,
-                    xData.Unit_StorageOption_v,
-                    xData.Unit_Description_v,
-                    xData.PriceList_Name_v,
-                    xData.Currency_Abbreviation_v,
-                    xData.Currency_Name_v,
-                    xData.Item_Image_Image_Hash_v,
-                    xData.Item_Image_Image_Data_v,
-                    xData.RetailPricePerUnit_v,
-                    xData.Price_Item_Discount_v,
-                    xData.Taxation_Name_v,
-                    xData.Taxation_Rate_v,
-                    ref atom_Taxation_ID,
-                    ref atom_Item_ID,
-                    ref Atom_Price_Item_ID))
-                {
-                    return false;
-                }
-
-            //RetailPricePerUnit = (decimal_v)tf.Copy(xItem_Data.RetailPricePerUnit); //tf.set_decimal(dr[cpis.icol_RetailPricePerUnit]);
-
-            //Discount = (decimal_v)tf.Copy(xItem_Data.Price_Item_Discount); // tf.set_decimal(dr[cpis.icol_Discount]);
-                ExtraDiscount = xData.ExtraDiscount;
-
-                decimal retail_price_with_discount = 0;
-                //RetailPriceWithDiscount = tf.set_decimal(retail_price_with_discount);
-                //$$TODO
-
-                decimal tax_price = 0;
-                //TaxPrice = tf.set_decimal(tax_price);
-
-                //ExtraDiscount = tf.set_decimal(xItem_Data.ExtraDiscount);
-
-              
-                Atom_Item_UniqueName_v = (string_v)tf.Copy(xData.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
-
-                Atom_Item_Name_Name_v = (string_v)tf.Copy(xData.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
-                Atom_Item_barcode_barcode_v = (string_v)tf.Copy(xData.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
-                Atom_Taxation_Name_v = (string_v)tf.Copy(xData.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
-                Atom_Taxation_Rate_v = (decimal_v)tf.Copy(xData.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
-                Atom_Item_Description_Description = (string_v)tf.Copy(xData.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
-                Atom_Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
-                Atom_Warranty_WarrantyDurationType_v = (short_v)tf.Copy(xData.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
-                Atom_Warranty_WarrantyDuration_v = (int_v)tf.Copy(xData.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
-                Atom_Warranty_WarrantyConditions_v = (string_v)tf.Copy(xData.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
-                Atom_Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
-                Atom_Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xData.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
-                Atom_Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xData.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
-                Atom_Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xData.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
-                Atom_Expiry_ExpiryDescription = (string_v)tf.Copy(xData.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
-                                                                                                 //Item_ID = tf.set_ID(xData.Item_ID);//tf.set_long(dr["Item_ID"]);
-                Atom_Unit_Name_v = (string_v)tf.Copy(xData.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
-                Atom_Unit_Symbol_v = (string_v)tf.Copy(xData.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
-                Atom_Unit_DecimalPlaces_v = (int_v)tf.Copy(xData.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
-                Atom_Unit_Description_v = (string_v)tf.Copy(xData.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
-                Atom_Unit_StorageOption_v = (bool_v)tf.Copy(xData.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
-                Atom_PriceList_Name_v = (string_v)tf.Copy(xData.PriceList_Name_v);//tf.set_string(dr[cpis.icol_PriceList_Name]);
-                Atom_Currency_Name_v = (string_v)tf.Copy(xData.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
-                Atom_Currency_Abbreviation_v = (string_v)tf.Copy(xData.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
-                Atom_Currency_Symbol_v = (string_v)tf.Copy(xData.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
-                Atom_Currency_DecimalPlaces_v = (int_v)tf.Copy(xData.Currency_DecimalPlaces);//tf.set_int(dr[cpis.icol_Currency_DecimalPlaces]);
-                Atom_Item_Image_Hash_v = (string_v)tf.Copy(xData.Item_Image_Image_Hash_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
-                Atom_Item_Image_Data_v = (byte_array_v)tf.Copy(xData.Item_Image_Image_Data_v);//Itemtf.set_byte_array(dr[cpis.icol_Item_Image_Image_Data]);
-                s1_name = xData.s1_name;
-                s2_name = xData.s2_name;
-                s3_name = xData.s3_name;
-                if (docType.Equals(GlobalData.const_DocInvoice))
-                {
-                    this.Doc_ID = Doc_ID;
-                    if (f_DocInvoice_ShopC_Item.Insert(Doc_ID, Atom_Price_Item_ID, ExtraDiscount, ref this.Doc_ShopC_Item_ID))
-                    {
-                        this.dsciS_List.Get(this.Doc_ShopC_Item_ID,xData, dQuantity);
-                    }
-                }
-
-                return false;
-                //m_ShopShelf_Source.Add_Stock_Data_WithNoTakeForItemData(xData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
-            
-        }
-
-        internal bool SetFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory2Add)
+        internal bool AddFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory2Add)
         {
             Doc_ShopC_Item_Source dsciSx = this.dsciS_List.FindFactory();
             if (dsciSx==null)
@@ -669,14 +417,14 @@ namespace TangentaDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetFactory:2:(xData.RetailPricePerUnit_v == null");
+                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:AddFactory:2:(xData.RetailPricePerUnit_v == null");
                         return false;
 
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetFactory:2:(xData.Taxation_Rate_v == null");
+                    LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:AddFactory:2:(xData.Taxation_Rate_v == null");
                     return false;
                 }
             }
@@ -690,8 +438,9 @@ namespace TangentaDB
                         decimal taxPrice = 0;
                         decimal retailPriceWithDiscount_WithoutTax = 0;
 
+                        decimal dnew_Quantity_FromFActory = dsciSx.dQuantity + dQuantity_FromFactory2Add;
                         StaticLib.Func.CalculatePrice(xData.RetailPricePerUnit_v.v,
-                                                     dQuantity_FromFactory2Add,
+                                                     dnew_Quantity_FromFActory,
                                                       xData.Discount,
                                                       xData.ExtraDiscount,
                                                       xData.Taxation_Rate_v.v,
@@ -701,12 +450,12 @@ namespace TangentaDB
                                                       GlobalData.BaseCurrency.DecimalPlaces
                                                       );
                         if (f_DocInvoice_ShopC_Item_Source.Update(dsciSx.Doc_ShopC_Item_Source_ID,
-                                                                   dQuantity_FromFactory2Add,
+                                                                   dnew_Quantity_FromFActory,
                                                                    retailPriceWithDiscount,
                                                                    taxPrice))
                         {
                             
-                            dsciSx.Set(dQuantity_FromFactory2Add,
+                            dsciSx.Set(dnew_Quantity_FromFActory,
                                        retailPriceWithDiscount,
                                        taxPrice
                                        );
@@ -715,6 +464,146 @@ namespace TangentaDB
                         else
                         {
                             return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:AddFactory:2:(xData.RetailPricePerUnit_v == null");
+                        return false;
+
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:AddFactory:2:(xData.Taxation_Rate_v == null");
+                    return false;
+                }
+            }
+        }
+
+
+        internal bool SetFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory)
+        {
+
+            Doc_ShopC_Item_Source dsciSx = this.dsciS_List.FindFactory();
+            if (dsciSx == null)
+            {
+                if (dQuantity_FromFactory > 0)
+                {
+                    if (xData.Taxation_Rate_v != null)
+                    {
+                        if (xData.RetailPricePerUnit_v != null)
+                        {
+                            decimal retailPriceWithDiscount = 0;
+                            decimal taxPrice = 0;
+                            decimal retailPriceWithDiscount_WithoutTax = 0;
+
+                            StaticLib.Func.CalculatePrice(xData.RetailPricePerUnit_v.v,
+                                                            dQuantity_FromFactory,
+                                                            xData.Discount,
+                                                            xData.ExtraDiscount,
+                                                            xData.Taxation_Rate_v.v,
+                                                            ref retailPriceWithDiscount,
+                                                            ref taxPrice,
+                                                            ref retailPriceWithDiscount_WithoutTax,
+                                                            GlobalData.BaseCurrency.DecimalPlaces
+                                                            );
+                            ID docInvoice_ShopC_Item_Source_ID = null;
+                            if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
+                                                                        dQuantity_FromFactory,
+                                                                        new decimal_v(xData.ExtraDiscount),
+                                                                        retailPriceWithDiscount,
+                                                                        taxPrice,
+                                                                        xData.ExpiryDate_v,
+                                                                        null,
+                                                                        ref docInvoice_ShopC_Item_Source_ID))
+                            {
+                                dsciSx = new Doc_ShopC_Item_Source();
+                                dsciSx.SetNew(this.Doc_ShopC_Item_ID,
+                                                docInvoice_ShopC_Item_Source_ID,
+                                                null,
+                                                dQuantity_FromFactory,
+                                                0,
+                                                retailPriceWithDiscount,
+                                                taxPrice,
+                                                xData.ExpiryDate_v);
+                                this.dsciS_List.Add(dsciSx);
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetFactory:2:(xData.RetailPricePerUnit_v == null");
+                            return false;
+
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetFactory:2:(xData.Taxation_Rate_v == null");
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                //Factory item allready item exist
+                if (xData.Taxation_Rate_v != null)
+                {
+                    if (xData.RetailPricePerUnit_v != null)
+                    {
+                        decimal retailPriceWithDiscount = 0;
+                        decimal taxPrice = 0;
+                        decimal retailPriceWithDiscount_WithoutTax = 0;
+
+                        StaticLib.Func.CalculatePrice(xData.RetailPricePerUnit_v.v,
+                                                        dQuantity_FromFactory,
+                                                        xData.Discount,
+                                                        xData.ExtraDiscount,
+                                                        xData.Taxation_Rate_v.v,
+                                                        ref retailPriceWithDiscount,
+                                                        ref taxPrice,
+                                                        ref retailPriceWithDiscount_WithoutTax,
+                                                        GlobalData.BaseCurrency.DecimalPlaces
+                                                        );
+                        if (dQuantity_FromFactory > 0)
+                        {
+                            if (f_DocInvoice_ShopC_Item_Source.Update(dsciSx.Doc_ShopC_Item_Source_ID,
+                                                                        dQuantity_FromFactory,
+                                                                        retailPriceWithDiscount,
+                                                                        taxPrice))
+                            {
+
+                                dsciSx.Set(dQuantity_FromFactory,
+                                            retailPriceWithDiscount,
+                                            taxPrice
+                                            );
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if (f_DocInvoice_ShopC_Item_Source.Delete(dsciSx.Doc_ShopC_Item_Source_ID))
+                            {
+                                this.dsciS_List.dsciS_list.Remove(dsciSx);
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                     }
                     else
@@ -807,30 +696,43 @@ namespace TangentaDB
                                 if (f_Stock.UpdateQuantity(stdx.Stock_ID, dnew_stock_quantity))
                                 {
                                     stdx.dQuantity_v.v = dnew_stock_quantity;
-
-                                    ID docInvoice_ShopC_Item_Source_ID = null;
-                                    if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
-                                                                               stdx.dQuantity_Taken_v.v,
-                                                                               new decimal_v(xData.ExtraDiscount),
-                                                                               retailPriceWithDiscount,
-                                                                               taxPrice,
-                                                                               xData.ExpiryDate_v,
-                                                                               stdx.Stock_ID,
-                                                                               ref docInvoice_ShopC_Item_Source_ID))
+                                    Stock_Data std_data = xData.Find_Stock_Data(stdx);
+                                    if (std_data != null)
                                     {
-                                        Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
-                                        dsciSx.SetNew(this.Doc_ShopC_Item_ID,
-                                                      docInvoice_ShopC_Item_Source_ID,
-                                                      stdx.Stock_ID,
-                                                       stdx.dQuantity_Taken_v.v,
-                                                       0,
-                                                      retailPriceWithDiscount,
-                                                      taxPrice,
-                                                      xData.ExpiryDate_v);
-                                        this.dsciS_List.Add(dsciSx);
+                                        std_data.dQuantity_v.v = dnew_stock_quantity;
+                                        if (std_data.dQuantity_Taken_v != null)
+                                        {
+                                            std_data.dQuantity_Taken_v = null;
+                                        }
+                                        ID docInvoice_ShopC_Item_Source_ID = null;
+                                        if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
+                                                                                   stdx.dQuantity_Taken_v.v,
+                                                                                   new decimal_v(xData.ExtraDiscount),
+                                                                                   retailPriceWithDiscount,
+                                                                                   taxPrice,
+                                                                                   xData.ExpiryDate_v,
+                                                                                   stdx.Stock_ID,
+                                                                                   ref docInvoice_ShopC_Item_Source_ID))
+                                        {
+                                            Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
+                                            dsciSx.SetNew(this.Doc_ShopC_Item_ID,
+                                                          docInvoice_ShopC_Item_Source_ID,
+                                                          stdx.Stock_ID,
+                                                           stdx.dQuantity_Taken_v.v,
+                                                           0,
+                                                          retailPriceWithDiscount,
+                                                          taxPrice,
+                                                          xData.ExpiryDate_v);
+                                            this.dsciS_List.Add(dsciSx);
+                                        }
+                                        else
+                                        {
+                                            return false;
+                                        }
                                     }
                                     else
                                     {
+                                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:xData.Find_Stock_Data(stdx) == null");
                                         return false;
                                     }
                                 }
@@ -966,6 +868,15 @@ namespace TangentaDB
             s2_name = xData.s2_name;
             s3_name = xData.s3_name;
 
+            if (xData.RetailPricePerUnit_v != null)
+            {
+                this.RetailPricePerUnit = xData.RetailPricePerUnit_v.v;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:Set(Item_Data xData):xData.RetailPricePerUnit_v == null!");
+            }
+            this.Discount = xData.Discount;
             ExtraDiscount = xData.ExtraDiscount;
         }
 

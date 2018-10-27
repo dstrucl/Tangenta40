@@ -59,6 +59,30 @@ namespace TangentaDB
 
         }
 
+        public static bool UpdateExtraDiscount(ID doc_ShopC_Item_ID, decimal extradiscount)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_extraDiscount = "@par_extraDiscount";
+            SQL_Parameter par_extraDiscount = new SQL_Parameter(spar_extraDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, extradiscount);
+            lpar.Add(par_extraDiscount);
+
+
+            string sql = @"update DocInvoice_ShopC_Item
+                           set ExtraDiscount = " + spar_extraDiscount + @"
+                           where ID = " + doc_ShopC_Item_ID.ToString(); ;
+            string Err = null;
+            object oret = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret,  ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item:UpdateExtraDiscount:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
         public static bool GetItems(ID currentDoc_ID, ref DataTable dtShopCItems)
         {
         //    string sql = @"select 

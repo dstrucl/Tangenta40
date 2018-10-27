@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TangentaDB
 {
@@ -343,7 +344,7 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:DocInvoice_ShopC_Item:xDocTyp=" + xDocTyp+" not implemented.");
+                LogFile.Error.Show("ERROR:TangentaDB:Basket:Read_Doc_ShopC_Item_Table:xDocTyp=" + xDocTyp+" not implemented.");
                 return false;
             }
             Basket_Doc_ShopC_Item_LIST.Clear();
@@ -358,12 +359,119 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:DocInvoice_ShopC_Item:sql="+ sql_select_Doc_ShopC_Item + ":\r\n Err=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:Basket:Read_Doc_ShopC_Item_Table:sql=" + sql_select_Doc_ShopC_Item + ":\r\n Err=" + Err);
                 return false;
             }
         }
 
-     
+        public bool SetFactory(string docTyp, ID doc_ID, decimal dToTakeFromFactory, Item_Data xData)
+        {
+            Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
+            if (dsci != null)
+            {
+                return dsci.SetFactory(docTyp, doc_ID, xData, dToTakeFromFactory);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Basket:SetFactory: Doc_ShopC_Item dsci == null!");
+                return false;
+            }
+        }
+
+
+
+        public delegate bool deleagate_Select_Items_From_Stock_Dialog(DataTable xdt_ShopC_Item_In_Stock, decimal dQuantityToTake, ref List<Stock_Data> taken_form_stock, ref decimal dQuantitySelected);
+
+
+        public bool Add2Basket(string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
+        {
+
+            Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
+
+            decimal dQuantitySelectedFromStock = 0;
+
+            DataTable xdt_ShopC_Item_In_Stock = null;
+            if (f_Stock.GetItemInStock(xData.Item_ID, ref xdt_ShopC_Item_In_Stock))
+            {
+                List<Stock_Data> taken_from_Stock_List = new List<Stock_Data>();
+
+                if (delegate_Select_Items_From_Stock_Dialog!=null)
+                {
+                    delegate_Select_Items_From_Stock_Dialog(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
+                }
+                else
+                {
+                    AutoSelect_Items_From_Stock(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
+                }
+
+                if (WriteItemStockTransferInDataBase(docTyp,
+                                                    doc_ID,
+                                                    xData,
+                                                    ref dsci,
+                                                    taken_from_Stock_List,
+                                                    xquantity2add - dQuantitySelectedFromStock))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        private void AutoSelect_Items_From_Stock(DataTable xdt_ShopC_Item_In_Stock, decimal xquantity2add, ref List<Stock_Data> taken_from_stock, ref decimal dQuantitySelectedFromStock)
+        {
+            if (!xdt_ShopC_Item_In_Stock.Columns.Contains("TakeFromStock"))
+            {
+                xdt_ShopC_Item_In_Stock.Columns.Add(new DataColumn("TakeFromStock", typeof(decimal)));
+            }
+
+            if (taken_from_stock == null)
+            {
+                taken_from_stock = new List<Stock_Data>();
+            }
+            else
+            {
+                taken_from_stock.Clear();
+            }
+            dQuantitySelectedFromStock = 0;
+            foreach (DataRow dr in xdt_ShopC_Item_In_Stock.Rows)
+            {
+                decimal dQinStock = (decimal)dr["Stock_dQuantity"];
+                if (dQinStock > 0)
+                {
+                    if (dQinStock >= xquantity2add)
+                    {
+                        dr["Stock_dQuantity"] = dQinStock - xquantity2add;
+                        dr["TakeFromStock"] = xquantity2add;
+                        dQuantitySelectedFromStock += xquantity2add;
+
+                        Stock_Data xstd = new Stock_Data();
+                        xstd.dQuantity_Taken_v = new decimal_v(((decimal)dr["TakeFromStock"]));
+                        xstd.dQuantity_v = new decimal_v(dQinStock);
+                        xstd.Stock_ID = tf.set_ID(dr["Stock_ID"]);
+                        taken_from_stock.Add(xstd);
+
+                        return;
+                    }
+                    else
+                    {
+                        // take all
+                        dr["TakeFromStock"] = dQinStock;
+                        dr["Stock_dQuantity"] = 0;
+                        dQuantitySelectedFromStock += dQinStock;
+                        xquantity2add -= dQinStock;
+
+                        Stock_Data xstd = new Stock_Data();
+                        xstd.dQuantity_Taken_v = new decimal_v(((decimal)dr["TakeFromStock"]));
+                        xstd.dQuantity_v = new decimal_v(dQinStock);
+                        xstd.Stock_ID = tf.set_ID(dr["Stock_ID"]);
+                        taken_from_stock.Add(xstd);
+
+                    }
+                }
+            }
+        }
+
 
         public bool WriteItemStockTransferInDataBase(string doc_type,ID doc_ID, Item_Data xData, ref Doc_ShopC_Item dsci, List<Stock_Data> taken_from_Stock_List, decimal dQuantity_FromFactory2Add)
         {
@@ -384,6 +492,7 @@ namespace TangentaDB
             else
             {
                 // Doc_ShopC_Item allready exist
+                // set stock
                 foreach (Stock_Data stdtaken in taken_from_Stock_List)
                 {
                     Stock_Data std = xData.Find_Stock_Data(stdtaken);
@@ -391,11 +500,7 @@ namespace TangentaDB
                     {
                         std.dQuantity_v.v = std.dQuantity_v.v - stdtaken.dQuantity_Taken_v.v;
 
-                        if (f_Stock.UpdateQuantity(std.Stock_ID, std.dQuantity_v.v))
-                        {
-                            dsci.Set(doc_type, doc_ID, xData, taken_from_Stock_List);
-                        }
-                        else
+                        if (!f_Stock.UpdateQuantity(std.Stock_ID, std.dQuantity_v.v))
                         {
                             return false;
                         }
@@ -406,9 +511,16 @@ namespace TangentaDB
                         return false;
                     }
                 }
+
+                // set basket
+                if (taken_from_Stock_List.Count > 0)
+                {
+                    dsci.Set(doc_type, doc_ID, xData, taken_from_Stock_List);
+                }
+
                 if (dQuantity_FromFactory2Add>0)
                 {
-                    if (dsci.SetFactory(doc_type, doc_ID, xData, dQuantity_FromFactory2Add))
+                    if (dsci.AddFactory(doc_type, doc_ID, xData, dQuantity_FromFactory2Add))
                     {
                         return true;
                     }
@@ -421,11 +533,22 @@ namespace TangentaDB
             }
         }
 
-        public Doc_ShopC_Item Add(string docType,ID doc_ID,Item_Data xData, decimal dQuantity)
+
+        public bool RemoveFromBasket_And_put_back_to_Stock(string docTyp, ID doc_ID, decimal xquantity2Remove, Item_Data xData)
         {
-            Doc_ShopC_Item xdsci = new Doc_ShopC_Item();
-            xdsci.Add(docType, doc_ID,xData, dQuantity);
-            return xdsci;
+
+            Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
+            if (dsci!=null)
+            {
+
+                return dsci.dsciS_List.RemoveStockSources(docTyp, xData, xquantity2Remove);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Basket:RemoveFromBasket_And_put_back_to_Stock:Doc_ShopC_Item is null!");
+            }
+
+            return false;
         }
 
         public bool RemoveItem(string docTyp, Doc_ShopC_Item dsci,Item_Data xdata)

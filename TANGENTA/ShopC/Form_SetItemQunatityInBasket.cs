@@ -31,6 +31,7 @@ namespace ShopC
             usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
             Doc_ShopC_Item xdsci,
             Item_Data idata,
+            usrc_ItemList1366x768 xusrc_ItemList1366x768,
             usrc_Item1366x768 xusrc_Item1366x768
             )
         {
@@ -45,6 +46,7 @@ namespace ShopC
                                                m_usrc_Atom_Item1366x768,
                                               xdsci,
                                               idata,
+                                              xusrc_ItemList1366x768,
                                               xusrc_Item1366x768);
         }
 

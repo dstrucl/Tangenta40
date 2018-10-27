@@ -185,6 +185,7 @@ namespace ShopC
             m_ShopBC = x_ShopBC;
             DBtcn = xDBtcn;
             m_usrc_Item1366x768_selected = x_usrc_Item1366x768_selected;
+            m_usrc_Item1366x768_selected.Init(this.m_usrc_ItemList1366x768);
             if (DBtcn == null)
             {
                 LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
@@ -209,6 +210,7 @@ namespace ShopC
             usrc_Atom_Item1366x768 xusrc_Atom_Item1366x768,
             Doc_ShopC_Item xdsci,
             Item_Data idata,
+            usrc_ItemList1366x768 xusrc_ItemList1366x768,
             usrc_Item1366x768 xusrc_Item1366x768)
         {
             Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
@@ -216,6 +218,7 @@ namespace ShopC
              xusrc_Atom_Item1366x768,
              xdsci,
              idata,
+             xusrc_ItemList1366x768,
              xusrc_Item1366x768);
             frm_SetItemQuantityInBasket.ShowDialog();
         }

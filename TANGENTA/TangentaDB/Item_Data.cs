@@ -168,6 +168,20 @@ namespace TangentaDB
             }
         }
 
+        internal Stock_Data Find_Stock_Data(ID stock_ID)
+        {
+            foreach (Stock_Data stock_data in this.Stock_Data_List)
+            {
+                if (ID.Validate(stock_data.Stock_ID))
+                {
+                    if (stock_data.Stock_ID.Equals(stock_ID))
+                    {
+                        return stock_data;
+                    }
+                }
+            }
+            return null;
+        }
 
         public decimal dQuantity_OfStockItems
         {
