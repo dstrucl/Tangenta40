@@ -1735,10 +1735,11 @@ namespace TangentaDB
 
         public bool CountInBaskets(ref decimal count_in_baskets)
         {
-            string sql = @"select dQuantity 
-                            from DocInvoice_ShopC_Item  appis
-                            inner join DocInvoice pi on appis.DocInvoice_ID = pi.ID
-                            where pi.Draft = 1 and appis.Stock_ID is not null";
+            string sql = @"select dscis.dQuantity 
+                            from DocInvoice_ShopC_Item  dsci
+                            inner join DocInvoice pi on dsci.DocInvoice_ID = pi.ID
+                            inner join DocInvoice_ShopC_Item_Source dscis on dscis.DocInvoice_ShopC_Item_ID = dsci.ID 
+                            where pi.Draft = 1 and dscis.Stock_ID is not null";
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))

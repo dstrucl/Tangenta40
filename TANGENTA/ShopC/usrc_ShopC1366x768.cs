@@ -213,14 +213,17 @@ namespace ShopC
             usrc_ItemList1366x768 xusrc_ItemList1366x768,
             usrc_Item1366x768 xusrc_Item1366x768)
         {
-            Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
-            frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket(m_ShopBC, xusrc_Item1366x768_selected,
-             xusrc_Atom_Item1366x768,
-             xdsci,
-             idata,
-             xusrc_ItemList1366x768,
-             xusrc_Item1366x768);
-            frm_SetItemQuantityInBasket.ShowDialog();
+            if (xdsci != null)
+            {
+                Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
+                frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket(m_ShopBC, xusrc_Item1366x768_selected,
+                 xusrc_Atom_Item1366x768,
+                 xdsci,
+                 idata,
+                 xusrc_ItemList1366x768,
+                 xusrc_Item1366x768);
+                frm_SetItemQuantityInBasket.ShowDialog();
+            }
         }
 
         private void M_usrc_Item1366x768_selected_Click(object sender, EventArgs e)

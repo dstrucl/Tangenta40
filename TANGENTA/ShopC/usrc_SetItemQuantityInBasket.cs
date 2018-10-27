@@ -249,6 +249,10 @@ namespace ShopC
             idata = xidata;
             m_usrc_ItemList1366x768 = xusrc_ItemList1366x768;
             m_usrc_Item1366x768 = xusrc_Item1366x768;
+            if (dsci==null)
+            {
+                return;
+            }
             if (dsci.Atom_Item_UniqueName_v != null)
             {
                 this.lbl_Item_UniqueName.Text = dsci.Atom_Item_UniqueName_v.v;

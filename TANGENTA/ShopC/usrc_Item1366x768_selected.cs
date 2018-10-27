@@ -76,6 +76,11 @@ namespace ShopC
             pen[3].DashPattern = dashValues3;
             pen[4] = new Pen(br, penwidth);
             pen[4].DashPattern = dashValues4;
+
+            lbl_from_Stock.Text = "";
+            lbl_Item.Text = "";
+            lbl_bypass_Stock.Text = "";
+            lbl_VAT.Text = "";
         }
 
         public void Init(usrc_ItemList1366x768 x_usrc_ItemList1366x768)

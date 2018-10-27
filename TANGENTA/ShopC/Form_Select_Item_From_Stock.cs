@@ -31,7 +31,6 @@ namespace ShopC
             }
             dQuantity = xdQuantity;
             lng.s_OK.Text(btn_OK);
-            lng.s_Cancel.Text(btn_Cancel);
             this.Icon = Properties.Resources.StockOutReference;
             lng.s_Select.Text(lbl_Select);
             lbl_Quantity.Text = dQuantity.ToString() + " " + (string)dt_ShopC_Item_in_Stock.Rows[0]["UnitSymbol"] + " " + (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
@@ -207,7 +206,12 @@ namespace ShopC
         private void btn_OK_Click(object sender, EventArgs e)
         {
             ShowSelected();
-            if (dQuantitySelected != dQuantity)
+            if (dQuantitySelected == dQuantity)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
             {
                 if (XMessage.Box.Show(this, lng.s_YourSelectedQuantityIsNotEqualTo, lng.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
