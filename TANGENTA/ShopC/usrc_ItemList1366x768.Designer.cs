@@ -1,4 +1,6 @@
-﻿namespace ShopC
+﻿using TangentaDB;
+
+namespace ShopC
 {
     partial class usrc_ItemList1366x768
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.usrc_Item_TextSearch1 = new ShopC.usrc_Item_TextSearch();
-            this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler();
+            this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroupHandler_Item_Data();
             this.btn_Stock = new System.Windows.Forms.Button();
             this.btn_Items = new System.Windows.Forms.Button();
             this.chk_SelectFromStock = new System.Windows.Forms.CheckBox();
@@ -57,7 +59,7 @@
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(640, 300);
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 17;
-            this.usrc_Item_InsidePageGroupHandler1.InsidePageHandler_CompareWithString += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.deleagte_InsidePageHandler_CompareWithString(this.usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString);
+            this.usrc_Item_InsidePageGroupHandler1.InsidePageHandler_CompareWithString += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item_Data>.deleagte_InsidePageHandler_CompareWithString(this.usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString);
             // 
             // btn_Stock
             // 
@@ -119,7 +121,7 @@
 
         #endregion
         private usrc_Item_TextSearch usrc_Item_TextSearch1;
-        private usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
+        private usrc_Item_InsidePageGroupHandler_Item_Data usrc_Item_InsidePageGroupHandler1;
         private System.Windows.Forms.Button btn_Stock;
         private System.Windows.Forms.Button btn_Items;
         private System.Windows.Forms.CheckBox chk_SelectFromStock;

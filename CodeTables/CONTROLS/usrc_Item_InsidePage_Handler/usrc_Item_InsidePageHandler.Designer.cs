@@ -2,7 +2,7 @@
 
 namespace usrc_Item_InsidePage_Handler
 {
-    partial class usrc_Item_InsidePageHandler
+    partial class usrc_Item_InsidePageHandler<T>
     {
         /// <summary>
         /// Required designer variable.

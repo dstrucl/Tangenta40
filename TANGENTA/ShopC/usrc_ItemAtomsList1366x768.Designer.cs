@@ -1,4 +1,6 @@
-﻿namespace ShopC
+﻿using TangentaDB;
+
+namespace ShopC
 {
     partial class usrc_Atom_ItemsList1366x768
     {
@@ -31,7 +33,7 @@
             this.components = new System.ComponentModel.Container();
             this.btn_ClearAll = new System.Windows.Forms.Button();
             this.lbl_InvoiceInfo = new System.Windows.Forms.Label();
-            this.usrc_Item_InsidePageHandler_ItemAtomList = new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler();
+            this.usrc_Item_InsidePageHandler_ItemAtomList = new usrc_Item_InsidePageHandler_Doc_ShopC_Item();
             this.ContextMenuStrip_DocInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuStrip_DocInfo.SuspendLayout();
@@ -74,7 +76,7 @@
             this.usrc_Item_InsidePageHandler_ItemAtomList.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler_ItemAtomList.Size = new System.Drawing.Size(395, 236);
             this.usrc_Item_InsidePageHandler_ItemAtomList.TabIndex = 11;
-            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Doc_ShopC_Item>.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
             // 
             // ContextMenuStrip_DocInfo
             // 
@@ -107,7 +109,7 @@
 
         #endregion
         private System.Windows.Forms.Button btn_ClearAll;
-        private usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler_ItemAtomList;
+        private usrc_Item_InsidePageHandler_Doc_ShopC_Item usrc_Item_InsidePageHandler_ItemAtomList;
         private System.Windows.Forms.Label lbl_InvoiceInfo;
         private System.Windows.Forms.ContextMenuStrip ContextMenuStrip_DocInfo;
         private System.Windows.Forms.ToolStripMenuItem showTablesToolStripMenuItem;

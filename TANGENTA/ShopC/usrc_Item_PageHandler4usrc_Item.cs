@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using usrc_Item_PageHandler;
 
-namespace usrc_Item_InsidePageGroup_Handler
+namespace ShopC
 {
-    public partial class usrc_Item_InsidePageGroupHandler : usrcG_Item_InsidePageGroupHandler<object>
+    public partial class usrc_Item_PageHandler4usrc_Item : usrcG_Item_PageHandler<usrc_Item>
     {
-        public usrc_Item_InsidePageGroupHandler()
+        public usrc_Item_PageHandler4usrc_Item()
         {
             InitializeComponent();
         }

@@ -116,11 +116,11 @@ namespace ShopC
 
                     if (m_usrc_ItemList1366x768.SelectItemsFromStockDialog)
                     {
-                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList1366x768.Select_Items_From_Stock_Dialog);
+                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList1366x768.Select_Items_From_Stock_Dialog);
                     }
                     else
                     {
-                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dadd_QuantityFromStock, idata, null);
+                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci, m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dadd_QuantityFromStock, idata, null);
                     }
                 }
                 else

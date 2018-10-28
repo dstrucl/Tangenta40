@@ -341,5 +341,37 @@ namespace TangentaDB
             }
             return null;
         }
+
+        internal void RemoveFactory_from_list()
+        {
+            List< Doc_ShopC_Item_Source > dsciSxL = new List<Doc_ShopC_Item_Source>();
+            foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
+            {
+                if (!ID.Validate(dsciSx.Stock_ID))
+                {
+                    dsciSxL.Add(dsciSx);
+                }
+            }
+            foreach (Doc_ShopC_Item_Source dsciSx in dsciSxL)
+            {
+                dsciS_list.Remove(dsciSx);
+            }
+        }
+
+        internal void RemoveStock_from_list()
+        {
+            List<Doc_ShopC_Item_Source> dsciSxL = new List<Doc_ShopC_Item_Source>();
+            foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
+            {
+                if (ID.Validate(dsciSx.Stock_ID))
+                {
+                    dsciSxL.Add(dsciSx);
+                }
+            }
+            foreach (Doc_ShopC_Item_Source dsciSx in dsciSxL)
+            {
+                dsciS_list.Remove(dsciSx);
+            }
+        }
     }
 }

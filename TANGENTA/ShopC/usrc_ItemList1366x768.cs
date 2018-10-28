@@ -191,13 +191,14 @@ namespace ShopC
             {
                 Item_Data xData = (Item_Data)oData;
                 bool bRes = false;
+                Doc_ShopC_Item dsci = null;
                 if (this.SelectItemsFromStockDialog)
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, dQuantity2Add, xData,  Select_Items_From_Stock_Dialog);
+                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, dQuantity2Add, xData,  Select_Items_From_Stock_Dialog);
                 }
                 else
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, dQuantity2Add, xData, null);
+                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci, m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, dQuantity2Add, xData, null);
                 }
 
                 if (bRes)
@@ -251,20 +252,20 @@ namespace ShopC
             }
         }
 
-        private bool Usrc_Item_InsidePageGroupHandler1_LoadItemsList(string[] groups, ref List<object> list)
+        private bool Usrc_Item_InsidePageGroupHandler1_LoadItemsList(string[] groups, ref List<Item_Data> list)
         {
             string[] sreversgroup = usrc_Item_InsideGroupHandler.reversegroup(groups);
 
            if ( m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
             {
-                list = m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems.Cast<Item_Data>().ToList<object>();
+                list = m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems;
                 return true;
             }
             return false;
         }
 
 
-        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
+        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item_Data>.eMode emode)
         {
             if (oData is Item_Data)
             {

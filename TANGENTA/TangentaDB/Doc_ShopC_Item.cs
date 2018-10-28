@@ -664,95 +664,98 @@ namespace TangentaDB
             {
                 if (f_DocInvoice_ShopC_Item.Insert(doc_ID, Atom_Price_Item_ID, xData.ExtraDiscount,ref this.Doc_ShopC_Item_ID))
                 {
-                    foreach (Stock_Data stdx in std_taken_List)
+                    if (std_taken_List != null)
                     {
-                        decimal discount = 0;
-                        if (xData.Price_Item_Discount_v!=null)
+                        foreach (Stock_Data stdx in std_taken_List)
                         {
-                            discount = xData.Price_Item_Discount_v.v;
-                        }
-
-                        if (xData.Taxation_Rate_v != null)
-                        {
-                            if (xData.RetailPricePerUnit_v != null)
+                            decimal discount = 0;
+                            if (xData.Price_Item_Discount_v != null)
                             {
-                                decimal retailPriceWithDiscount = 0;
-                                decimal taxPrice = 0;
-                                decimal retailPriceWithDiscount_WithoutTax = 0;
+                                discount = xData.Price_Item_Discount_v.v;
+                            }
 
-                                StaticLib.Func.CalculatePrice(xData.RetailPricePerUnit_v.v,
-                                                              stdx.dQuantity_Taken_v.v,
-                                                              xData.Discount,
-                                                              xData.ExtraDiscount,
-                                                              xData.Taxation_Rate_v.v,
-                                                              ref retailPriceWithDiscount,
-                                                              ref taxPrice,
-                                                              ref retailPriceWithDiscount_WithoutTax,
-                                                              GlobalData.BaseCurrency.DecimalPlaces
-                                                              );
-
-                                decimal dnew_stock_quantity = stdx.dQuantity_v.v - stdx.dQuantity_Taken_v.v;
-
-                                if (f_Stock.UpdateQuantity(stdx.Stock_ID, dnew_stock_quantity))
+                            if (xData.Taxation_Rate_v != null)
+                            {
+                                if (xData.RetailPricePerUnit_v != null)
                                 {
-                                    stdx.dQuantity_v.v = dnew_stock_quantity;
-                                    Stock_Data std_data = xData.Find_Stock_Data(stdx);
-                                    if (std_data != null)
+                                    decimal retailPriceWithDiscount = 0;
+                                    decimal taxPrice = 0;
+                                    decimal retailPriceWithDiscount_WithoutTax = 0;
+
+                                    StaticLib.Func.CalculatePrice(xData.RetailPricePerUnit_v.v,
+                                                                  stdx.dQuantity_Taken_v.v,
+                                                                  xData.Discount,
+                                                                  xData.ExtraDiscount,
+                                                                  xData.Taxation_Rate_v.v,
+                                                                  ref retailPriceWithDiscount,
+                                                                  ref taxPrice,
+                                                                  ref retailPriceWithDiscount_WithoutTax,
+                                                                  GlobalData.BaseCurrency.DecimalPlaces
+                                                                  );
+
+                                    decimal dnew_stock_quantity = stdx.dQuantity_v.v - stdx.dQuantity_Taken_v.v;
+
+                                    if (f_Stock.UpdateQuantity(stdx.Stock_ID, dnew_stock_quantity))
                                     {
-                                        std_data.dQuantity_v.v = dnew_stock_quantity;
-                                        if (std_data.dQuantity_Taken_v != null)
+                                        stdx.dQuantity_v.v = dnew_stock_quantity;
+                                        Stock_Data std_data = xData.Find_Stock_Data(stdx);
+                                        if (std_data != null)
                                         {
-                                            std_data.dQuantity_Taken_v = null;
-                                        }
-                                        ID docInvoice_ShopC_Item_Source_ID = null;
-                                        if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
-                                                                                   stdx.dQuantity_Taken_v.v,
-                                                                                   new decimal_v(xData.ExtraDiscount),
-                                                                                   retailPriceWithDiscount,
-                                                                                   taxPrice,
-                                                                                   xData.ExpiryDate_v,
-                                                                                   stdx.Stock_ID,
-                                                                                   ref docInvoice_ShopC_Item_Source_ID))
-                                        {
-                                            Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
-                                            dsciSx.SetNew(this.Doc_ShopC_Item_ID,
-                                                          docInvoice_ShopC_Item_Source_ID,
-                                                          stdx.Stock_ID,
-                                                           stdx.dQuantity_Taken_v.v,
-                                                           0,
-                                                          retailPriceWithDiscount,
-                                                          taxPrice,
-                                                          xData.ExpiryDate_v);
-                                            this.dsciS_List.Add(dsciSx);
+                                            std_data.dQuantity_v.v = dnew_stock_quantity;
+                                            if (std_data.dQuantity_Taken_v != null)
+                                            {
+                                                std_data.dQuantity_Taken_v = null;
+                                            }
+                                            ID docInvoice_ShopC_Item_Source_ID = null;
+                                            if (f_DocInvoice_ShopC_Item_Source.Insert(this.Doc_ShopC_Item_ID,
+                                                                                       stdx.dQuantity_Taken_v.v,
+                                                                                       new decimal_v(xData.ExtraDiscount),
+                                                                                       retailPriceWithDiscount,
+                                                                                       taxPrice,
+                                                                                       xData.ExpiryDate_v,
+                                                                                       stdx.Stock_ID,
+                                                                                       ref docInvoice_ShopC_Item_Source_ID))
+                                            {
+                                                Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
+                                                dsciSx.SetNew(this.Doc_ShopC_Item_ID,
+                                                              docInvoice_ShopC_Item_Source_ID,
+                                                              stdx.Stock_ID,
+                                                               stdx.dQuantity_Taken_v.v,
+                                                               0,
+                                                              retailPriceWithDiscount,
+                                                              taxPrice,
+                                                              xData.ExpiryDate_v);
+                                                this.dsciS_List.Add(dsciSx);
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
                                         }
                                         else
                                         {
+                                            LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:xData.Find_Stock_Data(stdx) == null");
                                             return false;
                                         }
                                     }
                                     else
                                     {
-                                        LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:xData.Find_Stock_Data(stdx) == null");
                                         return false;
                                     }
                                 }
                                 else
                                 {
+                                    LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:(xData.RetailPricePerUnit_v == null");
                                     return false;
+
                                 }
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:(xData.RetailPricePerUnit_v == null");
+                                LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:(xData.Taxation_Rate_v == null");
                                 return false;
 
                             }
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:TangentaDB:Doc_ShopC_Item:SetNew:1:(xData.Taxation_Rate_v == null");
-                            return false;
-
                         }
                     }
                     if (dQuantity_FromFactory2Add>0)

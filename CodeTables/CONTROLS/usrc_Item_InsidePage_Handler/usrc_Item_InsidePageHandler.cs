@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace usrc_Item_InsidePage_Handler
 {
-    public partial class usrc_Item_InsidePageHandler : UserControl
+    public partial class usrc_Item_InsidePageHandler<T> : UserControl
     {
         public enum eMode { VIEW,EDIT};
 
@@ -93,12 +93,12 @@ namespace usrc_Item_InsidePage_Handler
         public event delegate_PageChanged PageChanged = null;
 
 
-        private object[] m_ousrc_Item_array = null;
+        private T[] m_ousrc_Item_array = null;
 
         private Control[] ctrlItems_array = null;
         private Control[] ctrlItems_array_resource = null;
 
-        private List<object> m_ousrc_Item_list = null;
+        private List<T> m_ousrc_Item_list = null;
 
         private List<Page> Pages = new List<Page>();
 
@@ -832,15 +832,15 @@ namespace usrc_Item_InsidePage_Handler
                 bselectionchanged = true;
             }
             SelectedIndex = -1;
-            if (xDataCollection is object[])
+            if (xDataCollection is T[])
             {
-                m_ousrc_Item_array = (object[])xDataCollection;
+                m_ousrc_Item_array = (T[])xDataCollection;
                 NumberOfItems = m_ousrc_Item_array.Length;
                 CollectionType = eCollectionType.ARRAY;
             }
             else
             {
-                m_ousrc_Item_list = (List<object>)xDataCollection;
+                m_ousrc_Item_list = (List<T>)xDataCollection;
                 NumberOfItems = m_ousrc_Item_list.Count;
                 CollectionType = eCollectionType.LIST;
             }

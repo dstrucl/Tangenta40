@@ -187,6 +187,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_Item.Designer.cs">
+      <DependentUpon>usrc_Item_PageHandler4usrc_Item.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_btn_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -252,6 +258,24 @@
     </Compile>
     <Compile Include="usrc_ItemAtom_View.Designer.cs">
       <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageGroupHandler_Item_Data.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageGroupHandler_Item_Data.Designer.cs">
+      <DependentUpon>usrc_Item_InsidePageGroupHandler_Item_Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageHandler_Doc_ShopC_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageHandler_Doc_ShopC_Item.Designer.cs">
+      <DependentUpon>usrc_Item_InsidePageHandler_Doc_ShopC_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_Atom_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_Atom_Item.Designer.cs">
+      <DependentUpon>usrc_Item_PageHandler4usrc_Atom_Item.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_SetItemQuantityInBasket.cs">
       <SubType>UserControl</SubType>

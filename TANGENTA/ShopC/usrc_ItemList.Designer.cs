@@ -32,7 +32,7 @@
             this.lbl_GroupPath = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.m_usrc_Item_Group_Handler = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
-            this.m_usrc_Item_PageHandler = new usrc_Item_PageHandler.usrc_Item_PageHandler();
+            this.m_usrc_Item_PageHandler = new usrc_Item_PageHandler4usrc_Item();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -104,7 +104,7 @@
             this.m_usrc_Item_PageHandler.Name = "m_usrc_Item_PageHandler";
             this.m_usrc_Item_PageHandler.Size = new System.Drawing.Size(187, 56);
             this.m_usrc_Item_PageHandler.TabIndex = 9;
-            this.m_usrc_Item_PageHandler.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
+            this.m_usrc_Item_PageHandler.ShowObject += new usrc_Item_PageHandler4usrc_Item.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
             // usrc_ItemList
             // 
@@ -127,7 +127,7 @@
         #endregion
 
         internal System.Windows.Forms.Panel pnl_Items;
-        private usrc_Item_PageHandler.usrc_Item_PageHandler m_usrc_Item_PageHandler;
+        private usrc_Item_PageHandler4usrc_Item m_usrc_Item_PageHandler;
         private usrc_Item_Group_Handler.usrc_Item_Group_Handler m_usrc_Item_Group_Handler;
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.SplitContainer splitContainer1;

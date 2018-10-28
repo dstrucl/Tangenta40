@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using usrc_Item_InsidePage_Handler;
 
 namespace usrc_Item_InsidePageHandler
 {
@@ -84,7 +85,7 @@ namespace usrc_Item_InsidePageHandler
             ctrl = new Button();
         }
 
-        private void usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
+        private void usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.eMode emode)
         {
             if (ctrl is Button)
             {
@@ -120,7 +121,7 @@ namespace usrc_Item_InsidePageHandler
                 {
                     Items_array[i] = new Item("Item " + i.ToString());
                 }
-                usrc_Item_InsidePageHandler1.Init(Items_array, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
+                usrc_Item_InsidePageHandler1.Init(Items_array, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.eMode.EDIT);
             }
 
             if (rdb_List.Checked)
@@ -138,7 +139,7 @@ namespace usrc_Item_InsidePageHandler
                 {
                     Items_list.Add(new Item("Item " + i.ToString()));
                 }
-                usrc_Item_InsidePageHandler1.Init(Items_list.Cast<object>().ToList(), usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode.EDIT);
+                usrc_Item_InsidePageHandler1.Init(Items_list, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.eMode.EDIT);
             }
 
             usrc_Item_InsidePageHandler1.ShowPage(0);
@@ -189,7 +190,7 @@ namespace usrc_Item_InsidePageHandler
         private void nmUpDn_SelectItem_ValueChanged(object sender, EventArgs e)
         {
             int index = Convert.ToInt32(nmUpDn_SelectItem.Value);
-            usrc_Item_InsidePageHandler1.SelectObject(index);
+            usrc_Item_InsidePageHandler1.SelectObject(index,usrc_Item_InsidePageHandler<Item>.eSelection.ON_REMOTE);
         }
 
         private void usrc_Item_InsidePageHandler1_PageChanged(int iPage)
@@ -231,7 +232,7 @@ namespace usrc_Item_InsidePageHandler
             usrc_Item_InsidePageGroupHandler1.Init(sdb.dtItm);
         }
 
-        private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index)
+        private void usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.eMode eMode)
         {
 
         }
@@ -242,7 +243,7 @@ namespace usrc_Item_InsidePageHandler
             ctrl = btn;
         }
 
-        private void usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.eMode emode)
+        private void usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.eMode emode)
         {
             if (oData is DataRow)
             {

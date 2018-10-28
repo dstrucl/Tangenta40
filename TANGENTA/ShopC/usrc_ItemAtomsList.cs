@@ -144,24 +144,42 @@ namespace ShopC
             }
             else
             {
-                if (this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocTyp, x_usrc_Atom_Item.m_dsci, this.m_ShopBC.m_CurrentDoc.m_ShopShelf))
+                //if (this.m_ShopBC.m_CurrentDoc.m_Basket.Remove_and_put_back_to_ShopShelf(m_Atom_WorkPeriod_ID,DocTyp, x_usrc_Atom_Item.m_dsci, this.m_ShopBC.m_CurrentDoc.m_ShopShelf))
+                //m_usrc_ItemList.SetGroup(new string[] { x_usrc_Atom_Item.m_dsci.s1_name, x_usrc_Atom_Item.m_dsci.s2_name, x_usrc_Atom_Item.m_dsci.s3_name });
+                if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
                 {
-                    if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
+                    Item_Data xData = this.m_ShopBC.m_CurrentDoc.m_ShopShelf.Get_Item_Data(x_usrc_Atom_Item.m_dsci);
+                    if (xData != null)
                     {
-                        m_usrc_Item_PageHandler.DoPaint();
-                        if (After_Atom_Item_Remove != null)
+
+                        if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, x_usrc_Atom_Item.m_dsci.dQuantity_FromStock, xData))
                         {
-                            After_Atom_Item_Remove();
+                            //if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
+                            //{
+                                m_usrc_Item_PageHandler.DoPaint();
+                                if (After_Atom_Item_Remove != null)
+                                {
+                                    After_Atom_Item_Remove();
+                                }
+                            //}
+                            //else
+                            //{
+                            //    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:1:m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd failed !");
+                            //}
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                         }
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
+                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:Item_Data == null");
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
+                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:1:m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd failed !");
                 }
             }
             this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0;
@@ -206,42 +224,26 @@ namespace ShopC
 
         internal usrc_Atom_Item AddFromStock(TangentaDB.Doc_ShopC_Item dsci)
         {
-            if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref dsci,true))
+            int index = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.IndexOf(dsci);
+            usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
+            if (usrc_itema != null)
             {
-                int index = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.IndexOf(dsci);
-                usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
-                if (usrc_itema != null)
-                {
-                    pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
-                }
-                this.btn_ClearAll.Visible = true;
-                return usrc_itema;
+                pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
             }
-            else
-            {
-                return null;
-            }
+            this.btn_ClearAll.Visible = true;
+            return usrc_itema;
         }
 
         internal usrc_Atom_Item AddFromFactory(TangentaDB.Doc_ShopC_Item dsci)
         {
-
-            if (m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref dsci,false))
+            int index = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.IndexOf(dsci);
+            usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
+            if (usrc_itema!=null)
             {
-
-                int index = m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.IndexOf(dsci);
-                usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
-                if (usrc_itema!=null)
-                {
-                    pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
-                }
-                this.btn_ClearAll.Visible = true;
-                return usrc_itema;
+                pnl_Atom_Items.ScrollControlIntoView(usrc_itema);
             }
-            else
-            {
-                return null;
-            }
+            this.btn_ClearAll.Visible = true;
+            return usrc_itema;
         }
 
         private void btn_ClearAll_Click(object sender, EventArgs e)

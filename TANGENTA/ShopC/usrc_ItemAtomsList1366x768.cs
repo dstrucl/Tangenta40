@@ -118,7 +118,7 @@ namespace ShopC
             return false;
         }
 
-        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler.eMode xmode)
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode xmode)
         {
             if (oData is Doc_ShopC_Item)
             {
@@ -177,7 +177,7 @@ namespace ShopC
             }
         }
 
-        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler.eMode emode)
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode)
         {
             if (oData is Doc_ShopC_Item)
             {
@@ -233,7 +233,7 @@ namespace ShopC
         {
             if (RemoveItem(dsci))
             {
-                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), usrc_Item_InsidePageHandler.eMode.EDIT);
+                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT);
                 usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
                 if (this.Parent is usrc_ShopC1366x768)
                 {
@@ -259,18 +259,18 @@ namespace ShopC
 
         internal void ShowBasket(string xItemUniqueName,object oidata, Control oidata_control)
         {
-            usrc_Item_InsidePageHandler.eMode emode = usrc_Item_InsidePageHandler.eMode.EDIT;
+            usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT;
             if (!m_ShopBC.m_CurrentDoc.bDraft)
             {
-                emode = usrc_Item_InsidePageHandler.eMode.VIEW;
+                emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.VIEW;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST,emode);
             object odata = null;
             Control ctrl = null;
             int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
             if (index >= 0)
             {
-                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index,usrc_Item_InsidePageHandler.eSelection.ON_REMOTE);
+                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index,usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eSelection.ON_REMOTE);
                 if (SelectionChanged != null)
                 {
                     SelectionChanged(ctrl,index, odata, oidata, oidata_control);
@@ -281,10 +281,10 @@ namespace ShopC
 
         internal void SetCurrentInvoice_SelectedItems()
         {
-            usrc_Item_InsidePageHandler.eMode emode = usrc_Item_InsidePageHandler.eMode.EDIT;
+            usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT;
             if (!m_ShopBC.m_CurrentDoc.bDraft)
             {
-                emode = usrc_Item_InsidePageHandler.eMode.VIEW;
+                emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.VIEW;
             }
             string sinfo = "";
             if (m_ShopBC.m_CurrentDoc.bDraft)
@@ -326,7 +326,7 @@ namespace ShopC
 
                 lbl_InvoiceInfo.Text = lng.s_DocInvoice.s + ":" + sinfo;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Cast<Doc_ShopC_Item>().ToList<object>(), emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, emode);
             this.usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
         }
 
@@ -372,7 +372,7 @@ namespace ShopC
             if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
+                m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_ShopBC.m_CurrentDoc.Doc_ID, DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
                 this.Cursor = Cursors.Arrow;
                 btn_ClearAll.Visible = false;
             }

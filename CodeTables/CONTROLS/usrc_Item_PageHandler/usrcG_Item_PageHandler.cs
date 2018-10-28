@@ -17,12 +17,12 @@ using System.Windows.Forms;
 
 namespace usrc_Item_PageHandler
 {
-    public partial class usrc_Item_PageHandler: UserControl
+    public partial class usrcG_Item_PageHandler<T>: UserControl
     {
         public delegate void delegate_ShowObject(int Item_id_index,object o_data, object o_usrc, bool bVisible);
         public event delegate_ShowObject ShowObject = null;
         public object m_datatable_or_list = null;
-        public object[] m_ousrc_Item_array = null;
+        public T[] m_ousrc_Item_array = null;
 
         private RadioButton[] NumericPageButton = null;
         private int m_NumberOfNumericPageButtons = 0;
@@ -109,14 +109,14 @@ namespace usrc_Item_PageHandler
             }
         }
 
-        public usrc_Item_PageHandler()
+        public usrcG_Item_PageHandler()
         {
             InitializeComponent();
             CreateNumButtons(m_NumberOfNumericPageButtons);
 
         }
 
-        public void Init(object datatable_or_list, int xNumberOfNumericPagePuttons, object[] ousrc_Item_array)
+        public void Init(object datatable_or_list, int xNumberOfNumericPagePuttons, T[] ousrc_Item_array)
         {
             CurrentPage = 0;
             m_datatable_or_list = datatable_or_list;

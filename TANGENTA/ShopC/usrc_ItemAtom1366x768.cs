@@ -120,10 +120,10 @@ namespace ShopC
 
         }
 
-        internal void DoPaint(Doc_ShopC_Item xdsci, usrc_Item_InsidePageHandler.eMode emode)
+        internal void DoPaint(Doc_ShopC_Item xdsci, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode)
         {
             m_dsci = xdsci;
-            if (emode== usrc_Item_InsidePageHandler.eMode.EDIT)
+            if (emode== usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT)
             {
                 btn_RemoveFromBasket.Visible = true;
             }

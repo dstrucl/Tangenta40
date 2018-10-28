@@ -44,6 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="usrcG_Item_InsidePageGroupHandler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrcG_Item_InsidePageGroupHandler.Designer.cs">
+      <DependentUpon>usrcG_Item_InsidePageGroupHandler.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Item_InsidePageGroupHandler.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -52,8 +58,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="usrc_Item_InsidePageGroupHandler.resx">
-      <DependentUpon>usrc_Item_InsidePageGroupHandler.cs</DependentUpon>
+    <EmbeddedResource Include="usrcG_Item_InsidePageGroupHandler.resx">
+      <DependentUpon>usrcG_Item_InsidePageGroupHandler.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

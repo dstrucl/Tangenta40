@@ -1,6 +1,6 @@
-﻿namespace usrc_Item_InsidePageGroup_Handler
+﻿namespace ShopC
 {
-    partial class usrc_Item_InsidePageGroupHandler
+    partial class usrc_Item_InsidePageGroupHandler_Item_Data
     {
         /// <summary> 
         /// Required designer variable.

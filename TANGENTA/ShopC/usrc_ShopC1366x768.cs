@@ -437,108 +437,108 @@ namespace ShopC
             m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(xPriceList_ID);
         }
 
-        public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
-                                                      DataTable dt_ShopC_Item_in_Stock,
-                                                      Doc_ShopC_Item xdsci,
-                                                      decimal dStockQuantity,
-                                                      decimal dFromFactoryQuantity,
-                                                      ref decimal dQuantitySelectedFromStock,
-                                                      ref bool bOK)
-        {
-            decimal dQuantityToTakeFromStock = dStockQuantity;
-            string UnitSymbol = null;
-            string Item_UniqueName = "";
-            if (dt_ShopC_Item_in_Stock.Rows.Count > 0)
-            {
-                if (dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"] is string)
-                {
-                    Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
-                }
-                this.m_ShopBC.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
-                if (dQuantitySelectedFromStock != dStockQuantity)
-                {
-                    string smsg = Item_UniqueName + ":" + lng.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;
-                    if (XMessage.Box.Show(this, lng.s_NotEnoughItemsInStock_DoIgnoreStockQuestion, smsg, lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    {
-                        dFromFactoryQuantity += dStockQuantity - dQuantitySelectedFromStock;
-                    }
-                }
-                if (!AutomaticSelectionOfItemsFromStock)
-                {
-                    Form_Select_Item_From_Stock Select_Item_From_Stock_Dialog = new Form_Select_Item_From_Stock(dt_ShopC_Item_in_Stock, dStockQuantity);
-                    bOK = Select_Item_From_Stock_Dialog.ShowDialog() == DialogResult.OK;
-                    if (!bOK)
-                    {
-                        return false;
-                    }
-                    dQuantitySelectedFromStock = Select_Item_From_Stock_Dialog.dQuantitySelected;
+        //public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
+        //                                              DataTable dt_ShopC_Item_in_Stock,
+        //                                              Doc_ShopC_Item xdsci,
+        //                                              decimal dStockQuantity,
+        //                                              decimal dFromFactoryQuantity,
+        //                                              ref decimal dQuantitySelectedFromStock,
+        //                                              ref bool bOK)
+        //{
+        //    decimal dQuantityToTakeFromStock = dStockQuantity;
+        //    string UnitSymbol = null;
+        //    string Item_UniqueName = "";
+        //    if (dt_ShopC_Item_in_Stock.Rows.Count > 0)
+        //    {
+        //        if (dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"] is string)
+        //        {
+        //            Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
+        //        }
+        //        this.m_ShopBC.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
+        //        if (dQuantitySelectedFromStock != dStockQuantity)
+        //        {
+        //            string smsg = Item_UniqueName + ":" + lng.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;
+        //            if (XMessage.Box.Show(this, lng.s_NotEnoughItemsInStock_DoIgnoreStockQuestion, smsg, lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+        //            {
+        //                dFromFactoryQuantity += dStockQuantity - dQuantitySelectedFromStock;
+        //            }
+        //        }
+        //        if (!AutomaticSelectionOfItemsFromStock)
+        //        {
+        //            Form_Select_Item_From_Stock Select_Item_From_Stock_Dialog = new Form_Select_Item_From_Stock(dt_ShopC_Item_in_Stock, dStockQuantity);
+        //            bOK = Select_Item_From_Stock_Dialog.ShowDialog() == DialogResult.OK;
+        //            if (!bOK)
+        //            {
+        //                return false;
+        //            }
+        //            dQuantitySelectedFromStock = Select_Item_From_Stock_Dialog.dQuantitySelected;
 
 
-                }
+        //        }
 
 
-                foreach (DataRow dr in dt_ShopC_Item_in_Stock.Rows)
-                {
-                    if (dr["TakeFromStock"] is decimal)
-                    {
-                        //decimal_v xStock_dQuantity = tf.set_decimal(dr["Stock_dQuantity"]);
-                        //if (xStock_dQuantity != null)
-                        //{
-                        //    if (xStock_dQuantity.v==0)
-                        //    {
-                        //        continue;
-                        //    }
-                        //}
-                        Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+        //        foreach (DataRow dr in dt_ShopC_Item_in_Stock.Rows)
+        //        {
+        //            if (dr["TakeFromStock"] is decimal)
+        //            {
+        //                //decimal_v xStock_dQuantity = tf.set_decimal(dr["Stock_dQuantity"]);
+        //                //if (xStock_dQuantity != null)
+        //                //{
+        //                //    if (xStock_dQuantity.v==0)
+        //                //    {
+        //                //        continue;
+        //                //    }
+        //                //}
+        //                Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
 
-                        xdsciS.Stock_ID = tf.set_ID(dr["Stock_ID"]);
+        //                xdsciS.Stock_ID = tf.set_ID(dr["Stock_ID"]);
 
-                        xdsciS.dQuantity = tf._set_decimal(dr["Stock_dQuantity"]);
+        //                xdsciS.dQuantity = tf._set_decimal(dr["Stock_dQuantity"]);
 
-                        xdsci.dsciS_List.Add(xdsciS);
-                    }
-                }
-            }
-            else
-            {
-                Item_UniqueName = xdsci.Item_UniqueName;
-            }
+        //                xdsci.dsciS_List.Add(xdsciS);
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Item_UniqueName = xdsci.Item_UniqueName;
+        //    }
 
-            if (dFromFactoryQuantity > 0)
-            {
-                Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
-                xdsciS.Stock_ID = null;
-                xdsciS.dQuantity = dFromFactoryQuantity;
-                DateTime dtNow = DateTime.Now;
-                DateTime dtExpiry = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day);
-                dtExpiry = dtExpiry.AddMonths(1);
-                DateTime_v expiryDate_v = new DateTime_v(dtExpiry);
-                xdsciS.ExpiryDate_v = new DateTime_v(dtExpiry);
-                Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(expiryDate_v, Item_UniqueName);
-                if (edt_Stock_AvoidStock_dlg.ShowDialog() == DialogResult.OK)
-                {
-                    xdsciS.ExpiryDate_v = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
+        //    if (dFromFactoryQuantity > 0)
+        //    {
+        //        Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+        //        xdsciS.Stock_ID = null;
+        //        xdsciS.dQuantity = dFromFactoryQuantity;
+        //        DateTime dtNow = DateTime.Now;
+        //        DateTime dtExpiry = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day);
+        //        dtExpiry = dtExpiry.AddMonths(1);
+        //        DateTime_v expiryDate_v = new DateTime_v(dtExpiry);
+        //        xdsciS.ExpiryDate_v = new DateTime_v(dtExpiry);
+        //        Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(expiryDate_v, Item_UniqueName);
+        //        if (edt_Stock_AvoidStock_dlg.ShowDialog() == DialogResult.OK)
+        //        {
+        //            xdsciS.ExpiryDate_v = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);
                   
                     
-                }
-                xdsci.dsciS_List.Add(xdsciS);
-            }
-            if (xdsci.dQuantity_FromStock > 0)
-            {
-                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xdsci, true))
-                {
-                    return false;
-                }
-            }
-            if (xdsci.dQuantity_FromFactory > 0)
-            {
-                if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xdsci, false))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        //        }
+        //        xdsci.dsciS_List.Add(xdsciS);
+        //    }
+        //    if (xdsci.dQuantity_FromStock > 0)
+        //    {
+        //        if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xdsci, true))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    if (xdsci.dQuantity_FromFactory > 0)
+        //    {
+        //        if (!this.m_ShopBC.m_CurrentDoc.Insert_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp, ref xdsci, false))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         public void proc_Item_Not_In_Offer(ShopC_Item shopC_Item)
         {

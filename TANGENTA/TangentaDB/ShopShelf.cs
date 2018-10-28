@@ -364,6 +364,18 @@ namespace TangentaDB
             return -1;
         }
 
+        public Item_Data Get_Item_Data(Doc_ShopC_Item xdsci)
+        {
+            foreach (Item_Data idata in ListOfItems)
+            {
+                if (idata.Item_UniqueName_v.v.Equals(xdsci.Atom_Item_UniqueName_v.v))
+                {
+                    return idata;
+                }
+            }
+            return null;
+        }
+
         public void Set_dQuantity_New_InStock(ID stock_id, decimal dQuantity_New_InStock)
         {
             foreach (object oitem in ListOfItems)

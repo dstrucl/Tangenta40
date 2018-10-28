@@ -87,11 +87,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Item_PageHandler.cs">
+    <Compile Include="usrcG_Item_PageHandler.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Item_PageHandler.Designer.cs">
-      <DependentUpon>usrc_Item_PageHandler.cs</DependentUpon>
+    <Compile Include="usrcG_Item_PageHandler.Designer.cs">
+      <DependentUpon>usrcG_Item_PageHandler.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
@@ -101,8 +101,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Item_PageHandler.resx">
-      <DependentUpon>usrc_Item_PageHandler.cs</DependentUpon>
+    <EmbeddedResource Include="usrcG_Item_PageHandler.resx">
+      <DependentUpon>usrcG_Item_PageHandler.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

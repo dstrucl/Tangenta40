@@ -43,13 +43,13 @@ namespace TangentaDB
         public string sql_Price_Item_Stock_template = null;
 
 
-        public DataTable dtCurrent_Invoice = new DataTable();
-        public DataTable dtCurrent_Atom_Price_ShopBItem = new DataTable();
+        public DataTable dtCurrent_Invoice = null;
+        public DataTable dtCurrent_Atom_Price_ShopBItem = null;
 
-        public DataTable dtCurrent_DocInvoice_ShopC_Item = new DataTable();
+        public DataTable dtCurrent_DocInvoice_ShopC_Item = null;
 
-        public ShopShelf m_ShopShelf = new ShopShelf();
-        public Basket m_Basket = new Basket();
+        public ShopShelf m_ShopShelf = null;
+        public Basket m_Basket = null;
 
         DBTablesAndColumnNames DBtcn = null;
 
@@ -108,6 +108,16 @@ namespace TangentaDB
         {
             m_InvoiceDB = xInvoiceDB;
             DBtcn = xDBtcn;
+
+            dtCurrent_Invoice = new DataTable();
+            dtCurrent_Atom_Price_ShopBItem = new DataTable();
+
+            dtCurrent_DocInvoice_ShopC_Item = new DataTable();
+
+            m_ShopShelf = new ShopShelf();
+            m_Basket = new Basket();
+
+            
             FinancialYear = DateTime.Now.Year;
             NumberInFinancialYear = 1;
             Doc_ID = new ID();
@@ -212,199 +222,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Insert_DocInvoice_Atom_Price_Items_Stock(ID xAtom_WorkPeriod_ID,
-                                                             string xDocTyp,
-                                                             ref Doc_ShopC_Item xdsci,
-                                                             bool b_from_stock
-                                                             )
-        {
-            return Get_DocInvoice_ShopC_Item(xAtom_WorkPeriod_ID,xDocTyp, ref xdsci, b_from_stock);
-        }
-
-        private bool Get_DocInvoice_ShopC_Item(ID xAtom_WorkPeriod_ID,string xDocTyp,ref Doc_ShopC_Item xdsci, bool b_from_stock)
-        {
-            ID Atom_Price_Item_ID = null;
-            if (Get_Atom_Price_Item(ref xdsci))
-            {
-                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                int decimal_places = GlobalData.Get_BaseCurrency_DecimalPlaces();
-                Atom_Price_Item_ID = xdsci.Atom_Price_Item_ID;
-
-
-
-                string spar_ExtraDiscount = "@par_ExtraDiscount";
-                SQL_Parameter par_ExtraDiscount = new SQL_Parameter(spar_ExtraDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, xdsci.ExtraDiscount);
-
-               
-
-                string spar_RetailPriceWithDiscount = "@par_RetailPriceWithDiscount";
-                string spar_TaxPrice = "@par_TaxPrice";
-                string spar_dQuantity = "@par_dQuantity";
-
-                foreach (Doc_ShopC_Item_Source dsciSx in xdsci.dsciS_List.dsciS_list)
-                {
-                    if (b_from_stock)
-                    {
-                        if (dsciSx.Stock_ID == null)
-                        {
-                            continue;
-                        }
-
-                    }
-
-                    decimal RetailPriceWithDiscount = 0;
-
-                    decimal TaxPrice = 0;
-
-                    decimal RetailPriceWithDiscount_WithoutTax = 0;
-
-                    lpar.Clear();
-                    lpar.Add(par_ExtraDiscount);
-                    ID Stock_ID = dsciSx.Stock_ID;
-
-
-
-                    string scond_Stock_ID = null;
-                    string sValue_Stock_ID = null;
-                    if (Stock_ID != null)
-                    {
-                        decimal dquantity = dsciSx.dQuantity;
-                        StaticLib.Func.CalculatePrice(xdsci.RetailPricePerUnit, dquantity, xdsci.Discount, xdsci.ExtraDiscount, xdsci.Atom_Taxation_Rate_v.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
-                        SQL_Parameter par_dQuantity = null;
-                        par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dquantity);
-                        lpar.Add(par_dQuantity);
-                        scond_Stock_ID = "(Stock_ID = " + Stock_ID.ToString() + ")";
-                        sValue_Stock_ID = Stock_ID.ToString();
-                        SQL_Parameter par_RetailPriceWithDiscount = new SQL_Parameter(spar_RetailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, RetailPriceWithDiscount);
-                        lpar.Add(par_RetailPriceWithDiscount);
-                        SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
-                        lpar.Add(par_TaxPrice);
-                    }
-                    else
-                    {
-                        StaticLib.Func.CalculatePrice(xdsci.RetailPricePerUnit, xdsci.dQuantity_FromFactory, xdsci.Discount, xdsci.ExtraDiscount, xdsci.Atom_Taxation_Rate_v.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
-                        SQL_Parameter par_dQuantity = null;
-                        par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, xdsci.dQuantity_FromFactory);
-                        lpar.Add(par_dQuantity);
-                        SQL_Parameter par_RetailPriceWithDiscount = new SQL_Parameter(spar_RetailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, RetailPriceWithDiscount);
-                        lpar.Add(par_RetailPriceWithDiscount);
-                        SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
-                        lpar.Add(par_TaxPrice);
-                        scond_Stock_ID = "(Stock_ID is null)";
-                        sValue_Stock_ID = "null";
-                    }
-
-                    string spar_ExpiryDate = "@par_ExpiryDate";
-
-                    string scond_ExpiryDate = null;
-
-                    string sValue_ExpiryDate = null;
-                    if (dsciSx.ExpiryDate_v != null)
-                    {
-                        SQL_Parameter par_ExpiryDate = new SQL_Parameter(spar_ExpiryDate, SQL_Parameter.eSQL_Parameter.Datetime, false, dsciSx.ExpiryDate_v.v);
-                        lpar.Add(par_ExpiryDate);
-                        scond_ExpiryDate = "(ExpiryDate = " + spar_ExpiryDate + ")";
-                        sValue_ExpiryDate = spar_ExpiryDate;
-                    }
-                    else
-                    {
-                        scond_ExpiryDate = "(ExpiryDate is null)";
-                        sValue_ExpiryDate = "null";
-                    }
-
-                    if (xDocTyp==null)
-                    {
-                        LogFile.Error.Show("ERROR:TangentaDB:CurrentInvoice.cs:Get_DocInvoice_ShopC_Item:xDocTyp==null.");
-                        return false;
-                    }
-
-                    string sql_select_DocInvoice_ShopC_Item_ID = @"select ID as "+xDocTyp+@"_ShopC_Item_ID, 
-                                                                    dQuantity,
-                                                                    ExtraDiscount,
-                                                                    RetailPriceWithDiscount,
-                                                                    TaxPrice
-                                                                    from "+xDocTyp+@"_ShopC_Item
-                                                                    where "+xDocTyp+@"_ID = " + Doc_ID.ToString() + @" and
-                                                                            Atom_Price_Item_ID = " + Atom_Price_Item_ID.ToString() + @" and "
-                                                                                    + scond_ExpiryDate + @" and "
-                                                                                    + scond_Stock_ID;
-                    DataTable dt = new DataTable();
-                    string Err = null;
-                    if (DBSync.DBSync.ReadDataTable(ref dt, sql_select_DocInvoice_ShopC_Item_ID, lpar, ref Err))
-                    {
-                        if (dt.Rows.Count > 0)
-                        {
-                            if (xdsci.Doc_ShopC_Item_ID==null)
-                            {
-                                xdsci.Doc_ShopC_Item_ID = new ID();
-                            }
-                            xdsci.Doc_ShopC_Item_ID.Set(dt.Rows[0][xDocTyp+"_ShopC_Item_ID"]);
-                            // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
-                            //xdsci.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
-                            //xdsci.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
-                            //xdsci.TaxPrice = tf.set_decimal(dt.Rows[0]["TaxPrice"]);
-                            //$$TODO  pias.Stock_ID = long_v.Copy(pis.Stock_ID);
-                            continue;
-                        }
-                        else
-                        {
-
-
-
-                            string sql_insert_DocInvoice_ShopC_Item_ID = @"insert into "+xDocTyp+@"_ShopC_Item 
-                                                                            (
-                                                                            dQuantity,
-                                                                            ExtraDiscount,
-                                                                            RetailPriceWithDiscount,
-                                                                            TaxPrice,
-                                                                            "+xDocTyp+@"_ID,
-                                                                            Atom_Price_Item_ID,
-                                                                            ExpiryDate,
-                                                                            Stock_ID
-                                                                            )
-                                                                            values
-                                                                            (
-                                                                            " + spar_dQuantity + @",
-                                                                            " + spar_ExtraDiscount + @",
-                                                                            " + spar_RetailPriceWithDiscount + @",
-                                                                            " + spar_TaxPrice + @",
-                                                                            " + Doc_ID.ToString() + @",
-                                                                            " + Atom_Price_Item_ID.ToString() + @",
-                                                                            " + sValue_ExpiryDate + @", 
-                                                                            " + sValue_Stock_ID
-                                                                                    + ")";
-                            ID DocInvoice_ShopC_Item_ID = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID,  ref Err, xDocTyp))
-                            {
-                                xdsci.Doc_ShopC_Item_ID = new ID(DocInvoice_ShopC_Item_ID);
-
-                                if (Stock_ID != null)
-                                {
-                                    //dsciSx.Remove_from_StockShelf(xAtom_WorkPeriod_ID);
-                                }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:Get_DocInvoice_ShopC_Item:sql="+ sql_insert_DocInvoice_ShopC_Item_ID + " failed!\r\nErr=" + Err);
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Get_DocInvoice_ShopC_Item:sql="+ sql_select_DocInvoice_ShopC_Item_ID+" failed!\r\nErr=" + Err);
-                        return false;
-                    }
-
-
-                } // foreach
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+     
 
         internal bool SaveDocProformaInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear)
         {

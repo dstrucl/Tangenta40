@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TangentaDB;
+using usrc_Item_InsidePage_Handler;
 
-namespace usrc_Item_InsidePageGroup_Handler
+namespace ShopC
 {
-    public partial class usrc_Item_InsidePageGroupHandler : usrcG_Item_InsidePageGroupHandler<object>
+    public partial class usrc_Item_InsidePageHandler_Doc_ShopC_Item : usrc_Item_InsidePageHandler<Doc_ShopC_Item>
     {
-        public usrc_Item_InsidePageGroupHandler()
+        public usrc_Item_InsidePageHandler_Doc_ShopC_Item()
         {
             InitializeComponent();
         }

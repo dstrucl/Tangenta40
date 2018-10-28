@@ -42,8 +42,8 @@ namespace usrc_Item_InsidePageHandler
             this.label4 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btn_usrc_GroupHandler = new System.Windows.Forms.Button();
-            this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler();
-            this.usrc_Item_InsidePageHandler1 = new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler();
+            this.usrc_Item_InsidePageGroupHandler1 = new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item>();
+            this.usrc_Item_InsidePageHandler1 = new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>();
             this.lbl_Item = new System.Windows.Forms.Label();
             this.userControl11 = new usrc_Item_InsidePageHandler.UserControl1();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -206,10 +206,10 @@ namespace usrc_Item_InsidePageHandler
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(582, 296);
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 16;
-            this.usrc_Item_InsidePageGroupHandler1.CreateControl += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.delegate_CreateControl(this.usrc_Item_InsidePageGroupHandler1_CreateControl);
-            this.usrc_Item_InsidePageGroupHandler1.FillControl += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.delegate_FillControl(this.usrc_Item_InsidePageGroupHandler1_FillControl);
-            this.usrc_Item_InsidePageGroupHandler1.SelectControl += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.delegate_SelectControl(this.usrc_Item_InsidePageGroupHandler1_SelectControl);
-            this.usrc_Item_InsidePageGroupHandler1.SelectionChanged += new usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler.delegate_SelectionChanged(this.usrc_Item_InsidePageGroupHandler1_SelectionChanged);
+            this.usrc_Item_InsidePageGroupHandler1.CreateControl += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item>.delegate_CreateControl(this.usrc_Item_InsidePageGroupHandler1_CreateControl);
+            this.usrc_Item_InsidePageGroupHandler1.FillControl += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item>.delegate_FillControl(this.usrc_Item_InsidePageGroupHandler1_FillControl);
+            this.usrc_Item_InsidePageGroupHandler1.SelectControl += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item>.delegate_SelectControl(this.usrc_Item_InsidePageGroupHandler1_SelectControl);
+            this.usrc_Item_InsidePageGroupHandler1.SelectionChanged += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item>.delegate_SelectionChanged(this.usrc_Item_InsidePageGroupHandler1_SelectionChanged);
             // 
             // usrc_Item_InsidePageHandler1
             // 
@@ -224,11 +224,11 @@ namespace usrc_Item_InsidePageHandler
             this.usrc_Item_InsidePageHandler1.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler1.Size = new System.Drawing.Size(582, 106);
             this.usrc_Item_InsidePageHandler1.TabIndex = 0;
-            this.usrc_Item_InsidePageHandler1.CreateControl += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_CreateControl(this.usrc_Item_InsidePageHandler1_CreateControl);
-            this.usrc_Item_InsidePageHandler1.FillControl += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_FillControl(this.usrc_Item_InsidePageHandler1_FillControl);
-            this.usrc_Item_InsidePageHandler1.SelectControl += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_SelectControl(this.usrc_Item_InsidePageHandler1_SelectControl);
-            this.usrc_Item_InsidePageHandler1.Paint += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_Paint(this.usrc_Item_InsidePageHandler1_SelectionChanged);
-            this.usrc_Item_InsidePageHandler1.PageChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler.delegate_PageChanged(this.usrc_Item_InsidePageHandler1_PageChanged);
+            this.usrc_Item_InsidePageHandler1.CreateControl += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.delegate_CreateControl(this.usrc_Item_InsidePageHandler1_CreateControl);
+            this.usrc_Item_InsidePageHandler1.FillControl += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.delegate_FillControl(this.usrc_Item_InsidePageHandler1_FillControl);
+            this.usrc_Item_InsidePageHandler1.SelectControl += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.delegate_SelectControl(this.usrc_Item_InsidePageHandler1_SelectControl);
+            this.usrc_Item_InsidePageHandler1.Paint += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.delegate_Paint(this.usrc_Item_InsidePageHandler1_SelectionChanged);
+            this.usrc_Item_InsidePageHandler1.PageChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item>.delegate_PageChanged(this.usrc_Item_InsidePageHandler1_PageChanged);
             // 
             // lbl_Item
             // 
@@ -284,7 +284,7 @@ namespace usrc_Item_InsidePageHandler
         }
         #endregion
 
-        private usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler usrc_Item_InsidePageHandler1;
+        private usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item> usrc_Item_InsidePageHandler1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label1;
@@ -298,7 +298,7 @@ namespace usrc_Item_InsidePageHandler
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btn_usrc_GroupHandler;
-        private usrc_Item_InsidePageGroup_Handler.usrc_Item_InsidePageGroupHandler usrc_Item_InsidePageGroupHandler1;
+        private usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<Item> usrc_Item_InsidePageGroupHandler1;
         private System.Windows.Forms.Label lbl_Item;
         private UserControl1 userControl11;
     }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_usrc_Item_PageHandler = new usrc_Item_PageHandler.usrc_Item_PageHandler();
+            this.m_usrc_Item_PageHandler = new usrc_Item_PageHandler4usrc_Atom_Item();
             this.btn_ClearAll = new System.Windows.Forms.Button();
             this.pnl_Atom_Items = new System.Windows.Forms.Panel();
             this.SuspendLayout();
@@ -40,7 +40,7 @@
             this.m_usrc_Item_PageHandler.Name = "m_usrc_Item_PageHandler";
             this.m_usrc_Item_PageHandler.Size = new System.Drawing.Size(216, 38);
             this.m_usrc_Item_PageHandler.TabIndex = 9;
-            this.m_usrc_Item_PageHandler.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
+            this.m_usrc_Item_PageHandler.ShowObject += new usrc_Item_PageHandler4usrc_Atom_Item.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
             // btn_ClearAll
             // 
@@ -88,7 +88,7 @@
         #endregion
 
         internal System.Windows.Forms.Panel pnl_Atom_Items;
-        private usrc_Item_PageHandler.usrc_Item_PageHandler m_usrc_Item_PageHandler;
+        private usrc_Item_PageHandler4usrc_Atom_Item m_usrc_Item_PageHandler;
         private System.Windows.Forms.Button btn_ClearAll;
 
     }

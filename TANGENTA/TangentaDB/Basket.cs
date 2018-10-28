@@ -20,25 +20,47 @@ namespace TangentaDB
 {
     public class Basket
     {
+        public enum eCopy_Doc_ShopC_Item_Result { OK, ERROR_NO_ITEM_IN_DB, ERROR_DB };
+
+        public delegate bool deleagate_Select_Items_From_Stock_Dialog(DataTable xdt_ShopC_Item_In_Stock,
+                                                                    decimal dQuantityToTake,
+                                                                    ref List<Stock_Data> taken_form_stock,
+                                                                    ref decimal dQuantitySelected);
+
         public delegate bool delegate_Select_ShopC_Item_in_Stock(string DocTyp,
                                                                   DataTable dt_ShopC_Item_in_Stock,
                                                                   Doc_ShopC_Item xdsci,
                                                                   ref decimal dQuantitySelected, 
                                                                   ref bool bOK);
+
         public delegate void delegate_Item_Not_InOffer(ShopC_Item shopC_Item);
 
-        public List<Doc_ShopC_Item> Basket_Doc_ShopC_Item_LIST = new List<Doc_ShopC_Item>();
-        public DataTable dtDraft_Doc_Doc_ShopC_Item = new DataTable();
+        public List<Doc_ShopC_Item> Basket_Doc_ShopC_Item_LIST = null;
+        public DataTable dtDraft_Doc_Doc_ShopC_Item = null;
 
+        public Basket()
+        {
+            Basket_Doc_ShopC_Item_LIST = new List<Doc_ShopC_Item>();
+            dtDraft_Doc_Doc_ShopC_Item = new DataTable();
+        }
 
-        public void Empty(ID xAtom_WorkPeriod_ID,string DocTyp,ShopShelf xShopShelf)
+        public void Empty(ID doc_ID,string DocTyp,ShopShelf xShopShelf)
         {
             while (Basket_Doc_ShopC_Item_LIST.Count > 0)
             {
                 Doc_ShopC_Item xdsci = (Doc_ShopC_Item)Basket_Doc_ShopC_Item_LIST[0];
                 if (xdsci.dQuantity_FromStock > 0)
                 {
-                    Remove_and_put_back_to_ShopShelf(xAtom_WorkPeriod_ID,DocTyp, xdsci, xShopShelf);
+                    Item_Data xData = xShopShelf.Get_Item_Data(xdsci);
+                    if (xData != null)
+                    {
+                        RemoveFromBasket_And_put_back_to_Stock(DocTyp, doc_ID, xdsci.dQuantity_FromStock, xData);
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:Basket:Empty: Item_Data == null!");
+                    }
+                    //Remove_and_put_back_to_ShopShelf(xAtom_WorkPeriod_ID,DocTyp, xdsci, xShopShelf);
                 }
                 if (xdsci.dQuantity_FromFactory > 0)
                 {
@@ -380,13 +402,41 @@ namespace TangentaDB
 
 
 
-        public delegate bool deleagate_Select_Items_From_Stock_Dialog(DataTable xdt_ShopC_Item_In_Stock, decimal dQuantityToTake, ref List<Stock_Data> taken_form_stock, ref decimal dQuantitySelected);
+
+        public bool Add2BasketFromFactory(ref Doc_ShopC_Item dsci,string docTyp, ID doc_ID, decimal xquantity2add, Item_Data xData)
+        {
+            dsci = Find(xData.Item_UniqueName_v.v);
+            if (dsci == null)
+            {
+                dsci = new Doc_ShopC_Item();
+                if (dsci.SetNew(docTyp, doc_ID, xData, null, xquantity2add))
+                {
+                    this.Basket_Doc_ShopC_Item_LIST.Add(dsci);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (dsci.AddFactory(docTyp, doc_ID, xData, xquantity2add))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 
-        public bool Add2Basket(string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
+        public bool Add2Basket(ref Doc_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
         {
 
-            Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
+            dsci = Find(xData.Item_UniqueName_v.v);
 
             decimal dQuantitySelectedFromStock = 0;
 
@@ -541,7 +591,28 @@ namespace TangentaDB
             if (dsci!=null)
             {
 
-                return dsci.dsciS_List.RemoveStockSources(docTyp, xData, xquantity2Remove);
+                if (dsci.dsciS_List.RemoveStockSources(docTyp, xData, xquantity2Remove))
+                {
+                    
+                    if (dsci.dQuantity_all==0)
+                    {
+                        if (docTyp.Equals(GlobalData.const_DocInvoice))
+                        {
+                            if (!f_DocInvoice_ShopC_Item.Delete(dsci.Doc_ShopC_Item_ID))
+                            {
+                                return false;
+                            }
+                        }
+                        this.Basket_Doc_ShopC_Item_LIST.Remove(dsci);
+                        
+                        
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -629,8 +700,7 @@ namespace TangentaDB
             }
         }
 
-        public enum eCopy_Doc_ShopC_Item_Result { OK,ERROR_NO_ITEM_IN_DB,ERROR_DB};
-
+   
         public eCopy_Doc_ShopC_Item_Result Copy_Doc_ShopC_Item(string docInvoice,
                                                       CurrentDoc xCurrentDoc,
                                                       List<Doc_ShopC_Item> xdsci_List,
@@ -832,19 +902,21 @@ namespace TangentaDB
             }
             else if (xDocTyp.Equals(GlobalData.const_DocInvoice))
             {
-                sql = @"select appis.ID from DocInvoice_ShopC_Item  appis
-                                  inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
+                sql = @"select dsci.ID from DocInvoice_ShopC_Item  dsci
+                                  inner join DocInvoice_ShopC_Item_Source dsciS on dsciS.DocInvoice_ShopC_Item_ID = dsci.ID
+                                  inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
+                                  where  (DocInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
             }
             else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
             {
-                sql = @"select appis.ID from DocProformaInvoice_ShopC_Item  appis
-                                  inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
+                sql = @"select dsci.ID from DocProformaInvoice_ShopC_Item  dsci
+                                  inner join DocProformaInvoice_ShopC_Item_Source dsciS on dsciS.DocProformaInvoice_ShopC_Item_ID = dsci.ID
+                                  inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and Stock_ID is null";
+                                  where  (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
             }
             else
             {
@@ -879,13 +951,11 @@ namespace TangentaDB
                     string sql_Delete_DocInvoice_Atom_Item_Stock = null;
                     if (xDocTyp.Equals(GlobalData.const_DocInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where Stock_ID is null and (DocInvoice_ID = " + xdsci.Doc_ID.ToString()
-                                                                        + ") and DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item_Source where Stock_ID is null and  DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
                     }
                     else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item where Stock_ID is null and (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString()
-                                                                        + ") and DocProformaInvoice_ShopC_Item.ID in " + s_in_ID_list;
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item_Source where Stock_ID is null and  DocProformaInvoice_ShopC_Item.ID in " + s_in_ID_list;
                     }
                     else
                     {
@@ -947,134 +1017,6 @@ namespace TangentaDB
         }
 
 
-        public bool RemoveAll(string xDocTyp, Doc_ShopC_Item xdsci)
-        {
-
-            ID item_ID = xdsci.Find_Item_ID();
-            string sql = null;
-
-            if (xDocTyp == null)
-            {
-                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp = null not implemented.");
-                return false;
-            }
-            else if (xDocTyp.Equals(GlobalData.const_DocInvoice))
-            {
-                sql = @"select appis.ID from DocInvoice_ShopC_Item  appis
-                                  inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
-                                  inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-                                  inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
-            }
-            else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-            {
-                sql = @"select appis.ID from DocProformaInvoice_ShopC_Item  appis
-                                  inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
-                                  inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-                                  inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
-                return false;
-            }
-
-            DataTable dt1 = new DataTable();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
-            {
-                string s_in_ID_list = null;
-                if (dt1.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt1.Rows)
-                    {
-                        ID id = tf.set_ID(dr["ID"]);
-                        if (s_in_ID_list == null)
-                        {
-                            s_in_ID_list += "(" + id.ToString();
-                        }
-                        else
-                        {
-                            s_in_ID_list += "," + id.ToString();
-                        }
-                    }
-                    if (s_in_ID_list != null)
-                    {
-                        s_in_ID_list += ")"; // close ID_List!
-                    }
-
-                    string sql_Delete_DocInvoice_Atom_Item_Stock = null;
-                    if (xDocTyp.Equals(GlobalData.const_DocInvoice))
-                    {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + xdsci.Doc_ID.ToString()
-                                                                        + ") and DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
-                    }
-                    else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-                    {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item where (DocProformaInvoice_ID = " + xdsci.Doc_ID.ToString()
-                                                                        + ") and DocProformaInvoice_ShopC_Item.ID in " + s_in_ID_list;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
-                        return false;
-                    }
-
-                    object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
-                    {
-                        string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
-                        {
-                            string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_Image, null, ref objret, ref Err))
-                            {
-                                string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null, ref objret, ref Err))
-                                {
-                                    Remove_from_list(xdsci);
-                                    return true;
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Item_ImageLib + "\r\nErr=" + Err);
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:Basket:delete from Atom_Item:Err=" + Err);
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Price_Item + "\r\nErr=" + Err);
-                            return false;
-                        }
-
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Basket:delete from DocInvoice_ShopC_Item:Err=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-//                    LogFile.Error.Show("ERROR:Basket:dt1.Rows.Count == 0 !");
-                    // nothing to delete
-                    return true;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Basket:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
         private void Remove_from_list(Doc_ShopC_Item xdsci)
         {
              this.Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
@@ -1082,46 +1024,12 @@ namespace TangentaDB
 
         private void RemoveFactory_from_list(Doc_ShopC_Item xdsci)
         {
-            List<Stock_Data> Stock_Data_to_remove_List = new List<Stock_Data>();
-            //foreach (Stock_Data sd in xdsci.m_ShopShelf_Source.Stock_Data_List)
-            //{
-            //    if (sd.Stock_ID == null)
-            //    {
-            //        Stock_Data_to_remove_List.Add(sd);
-            //    }
-            //}
-
-            //foreach (Stock_Data sd in Stock_Data_to_remove_List)
-            //{
-            //    xdsci.m_ShopShelf_Source.Stock_Data_List.Remove(sd);
-            //}
-
-            //if (xdsci.m_ShopShelf_Source.Stock_Data_List.Count == 0)
-            //{
-            //    this.m_Doc_ShopC_Item_LIST.Remove(xdsci);
-            //}
+            xdsci.dsciS_List.RemoveFactory_from_list();
 
         }
         private void RemoveStock_from_list(Doc_ShopC_Item xdsci)
         {
-            List<Stock_Data> Stock_Data_to_remove_List = new List<Stock_Data>();
-            //foreach (Stock_Data sd in xdsci.m_ShopShelf_Source.Stock_Data_List)
-            //{
-            //    if (sd.Stock_ID != null)
-            //    {
-            //        Stock_Data_to_remove_List.Add(sd);
-            //    }
-            //}
-
-            //foreach (Stock_Data sd in Stock_Data_to_remove_List)
-            //{
-            //    xdsci.m_ShopShelf_Source.Stock_Data_List.Remove(sd);
-            //}
-
-            //if (xdsci.m_ShopShelf_Source.Stock_Data_List.Count == 0)
-            //{
-            //    this.m_Doc_ShopC_Item_LIST.Remove(xdsci);
-            //}
+            xdsci.dsciS_List.RemoveStock_from_list();
         }
 
 
@@ -1151,124 +1059,6 @@ namespace TangentaDB
                 }
             }
             return true;
-        }
-
-
-        public bool Remove_and_put_back_to_ShopShelf(ID xAtom_WorkPeriod_ID,string xDocTyp,Doc_ShopC_Item xdsci, ShopShelf shopShelf)
-        {
-            if (xDocTyp==null)
-            {
-                LogFile.Error.Show("ERROR:TangentaDB:Basket.cs:Basket:Remove_and_put_back_to_ShopShelf: xDocTyp==null.");
-                return false;
-            }
-            ID item_ID = xdsci.Find_Item_ID();
-            string sql = @"select appis.ID,
-                                  s.ID as Stock_ID,
-                                  appis.dQuantity,
-                                  s.dQuantity as Stock_dQuantity
-                                  from "+xDocTyp+@"_ShopC_Item  appis
-                                  inner join Stock s on appis.Stock_ID = s.ID
-                                  inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
-                                  inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-                                  inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  ("+xDocTyp+@"_ID = " + xdsci.Doc_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ")";
-            DataTable dt1 = new DataTable();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
-            {
-                string s_in_ID_list = null;
-                if (dt1.Rows.Count > 0)
-                {
-                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                    List<Return_to_shop_shelf_data> Return_to_basket_data_List = new List<Return_to_shop_shelf_data>();
-                    int i = 0;
-                    foreach (DataRow dr in dt1.Rows)
-                    {
-                        decimal dQuantity_stock = (decimal)dr["Stock_dQuantity"];
-                        decimal dQuantity_New_InStock = (decimal)dr["dQuantity"] + dQuantity_stock;
-                        decimal dQuantity_diff = dQuantity_New_InStock - dQuantity_stock;
-
-                        string spar_dQuantity_New_InStock = "@par_dQuantity_New_InStock" + i.ToString();
-                        ID stock_id = new ID(dr["Stock_ID"]);
-                        SQL_Parameter par_dQuantity_New_InStock = new SQL_Parameter(spar_dQuantity_New_InStock, SQL_Parameter.eSQL_Parameter.Decimal, false, dQuantity_New_InStock);
-                        lpar.Add(par_dQuantity_New_InStock);
-                        Return_to_shop_shelf_data rtb = new Return_to_shop_shelf_data("update stock set dQuantity = " + spar_dQuantity_New_InStock + " where ID = " + stock_id.ToString(), stock_id, dQuantity_diff);
-                        Return_to_basket_data_List.Add(rtb);
-                        ID id = tf.set_ID(dr["ID"]);
-                        if (s_in_ID_list == null)
-                        {
-                            s_in_ID_list += "(" + id.ToString();
-                        }
-                        else
-                        {
-                            s_in_ID_list += "," + id.ToString();
-                        }
-                        i++;
-                        shopShelf.Set_dQuantity_New_InStock(stock_id, dQuantity_New_InStock);
-                    }
-                    s_in_ID_list += ")";
-                    object objret = null;
-                    if (UpdateStock(xAtom_WorkPeriod_ID, Return_to_basket_data_List, lpar))
-                    {
-
-                        string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from "+xDocTyp+@"_ShopC_Item where Stock_ID is not null and ("+xDocTyp+@"_ID = " + xdsci.Doc_ID.ToString()
-                                                                            + ") and "+xDocTyp+@"_ShopC_Item.ID in " + s_in_ID_list;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
-                        {
-                            string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
-                            {
-                                string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_Image, null, ref objret, ref Err))
-                                {
-                                    string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-                                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null, ref objret, ref Err))
-                                    {
-                                        RemoveStock_from_list(xdsci);
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Item_ImageLib + "\r\nErr=" + Err);
-                                        return false;
-                                    }
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:Basket:delete from Atom_Item:Err=" + Err);
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Price_Item + "\r\nErr=" + Err);
-                                return false;
-                            }
-
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Basket:delete from "+xDocTyp+"_ShopC_Item:Err=" + Err);
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Basket:dt1.Rows.Count == 0 !");
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Basket:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-
         }
 
 
@@ -1310,41 +1100,5 @@ namespace TangentaDB
                 dsum_NetSum += net_price;
             }
         }
-
-        public void Add(ID xDocInvoice_ID,ID doc_ShopC_Item_ID,Item_Data xItemData,decimal xFactoryQuantity, decimal xStockQuantity,  ref Doc_ShopC_Item xdsci, bool b_from_factory)
-        {
-            foreach (Doc_ShopC_Item dscix in Basket_Doc_ShopC_Item_LIST)
-            {
-                if (dscix.ItemEquals(xItemData))
-                {
-                   // dscix.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
-                    xdsci = dscix;
-                    return;
-                }
-            }
-            xdsci = new Doc_ShopC_Item();
-            xdsci.Set( xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, doc_ShopC_Item_ID, b_from_factory);
-            Basket_Doc_ShopC_Item_LIST.Add(xdsci);
-
-        }
-
-        public void Add_WithNoTakeForItemData(ID xDocInvoice_ID, ID doc_ShopC_Item_ID, Item_Data xItemData, decimal xFactoryQuantity, decimal xStockQuantity, ref Doc_ShopC_Item xdsci, bool b_from_factory)
-        {
-            foreach (Doc_ShopC_Item dscix in Basket_Doc_ShopC_Item_LIST)
-            {
-
-                if (dscix.ItemEquals(xItemData))
-                {
-                   // dscix.m_ShopShelf_Source.Add_Stock_Data(xItemData, doc_ShopC_Item_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
-                    xdsci = dscix;
-                    return;
-                }
-            }
-            xdsci = new Doc_ShopC_Item();
-            xdsci.Set_WithNoTakeForItemData(xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, doc_ShopC_Item_ID, b_from_factory);
-            Basket_Doc_ShopC_Item_LIST.Add(xdsci);
-
-        }
-
     }
 }

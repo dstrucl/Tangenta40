@@ -31,7 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnl_Items = new System.Windows.Forms.Panel();
             this.usrc_Item_Group_Handler1 = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
-            this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrc_Item_PageHandler();
+            this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrcG_Item_PageHandler();
             this.lbl_GroupPath = new System.Windows.Forms.Label();
             this.lbl_Tangenta = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -91,7 +91,7 @@
             this.usrc_Item_PageHandler1.Name = "usrc_Item_PageHandler1";
             this.usrc_Item_PageHandler1.Size = new System.Drawing.Size(151, 37);
             this.usrc_Item_PageHandler1.TabIndex = 1;
-            this.usrc_Item_PageHandler1.ShowObject += new usrc_Item_PageHandler.usrc_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
+            this.usrc_Item_PageHandler1.ShowObject += new usrc_Item_PageHandler.usrcG_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
             // lbl_GroupPath
             // 
@@ -160,7 +160,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private usrc_Item_Group_Handler.usrc_Item_Group_Handler usrc_Item_Group_Handler1;
-        private usrc_Item_PageHandler.usrc_Item_PageHandler usrc_Item_PageHandler1;
+        private usrc_Item_PageHandler.usrcG_Item_PageHandler usrc_Item_PageHandler1;
         private System.Windows.Forms.Panel pnl_Items;
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.Button btn_Exit;

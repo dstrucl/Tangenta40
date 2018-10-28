@@ -182,6 +182,11 @@ namespace ShopC
             }
         }
 
+        internal void SetGroup(string[] sGroup)
+        {
+            m_usrc_Item_Group_Handler.Select(sGroup);
+        }
+
         void usrc_item_StockChanged(object obj)
         {
             if (obj is Item_Data)
