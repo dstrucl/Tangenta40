@@ -594,6 +594,12 @@
     <Compile Include="usrc_DocumentMan.Designer.cs">
       <DependentUpon>usrc_DocumentMan.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_WorkArea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_WorkArea.Designer.cs">
+      <DependentUpon>usrc_Item_PageHandler4usrc_WorkArea.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_WorkArea.cs">
       <SubType>UserControl</SubType>
     </Compile>

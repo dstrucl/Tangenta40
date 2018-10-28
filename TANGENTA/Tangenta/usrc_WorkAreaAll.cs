@@ -52,7 +52,7 @@ namespace Tangenta
             }
         }
 
-        public usrc_WorkArea[] usrc_Item_aray = null;
+        public usrc_WorkArea[] usrc_WorkArea_aray = null;
 
         public usrc_WorkAreaAll()
         {
@@ -64,7 +64,7 @@ namespace Tangenta
         {
             lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
             
-            usrc_Item_aray = new usrc_WorkArea[NumberOfItemsPerPage];
+            usrc_WorkArea_aray = new usrc_WorkArea[NumberOfItemsPerPage];
 
             int i = 0;
             int yPos = 0;
@@ -88,7 +88,7 @@ namespace Tangenta
                 yPos += usrc_item.Height + 1;
                 //usrc_item.BackColor = Colors.ItemFromStock.BackColor;
                 //usrc_item.ForeColor = Colors.ItemFromStock.ForeColor;
-                usrc_Item_aray[i] = usrc_item;
+                usrc_WorkArea_aray[i] = usrc_item;
                 this.pnl_Items.Controls.Add(usrc_item);
             }
             this.pnl_Items.AutoScroll = true;
@@ -199,7 +199,7 @@ namespace Tangenta
             if (usrc_WorkAreaAll_Load(s_name))
             {
                 lbl_GroupPath.Text = this.usrc_Item_Group_Handler1.GroupPath;
-                this.usrc_Item_PageHandler1.Init(m_dtWorkAreaAll, 5, usrc_Item_aray);
+                this.usrc_Item_PageHandler1.Init(m_dtWorkAreaAll, 5, usrc_WorkArea_aray);
             }
         }
 
