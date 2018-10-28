@@ -951,11 +951,11 @@ namespace TangentaDB
                     string sql_Delete_DocInvoice_Atom_Item_Stock = null;
                     if (xDocTyp.Equals(GlobalData.const_DocInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item_Source where Stock_ID is null and  DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item_Source where Stock_ID is null and  DocInvoice_ShopC_Item_ID in " + s_in_ID_list;
                     }
                     else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
                     {
-                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item_Source where Stock_ID is null and  DocProformaInvoice_ShopC_Item.ID in " + s_in_ID_list;
+                        sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item_Source where Stock_ID is null and  DocProformaInvoice_ShopC_Item_ID in " + s_in_ID_list;
                     }
                     else
                     {
@@ -976,6 +976,38 @@ namespace TangentaDB
                                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null, ref objret, ref Err))
                                 {
                                     RemoveFactory_from_list(xdsci);
+                                    if (xdsci.dQuantity_all==0)
+                                    {
+                                        if (xDocTyp.Equals(GlobalData.const_DocInvoice))
+                                        {
+                                            if (f_DocInvoice_ShopC_Item.Delete(xdsci.Doc_ShopC_Item_ID))
+                                            {
+                                                this.Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
+                                                return true; 
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
+                                        {
+                                            if (f_DocProformaInvoice_ShopC_Item.Delete(xdsci.Doc_ShopC_Item_ID))
+                                            {
+                                                this.Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
+                                                return true; 
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:TangentaDB:Basket:RemoveFactory:unsuported xDocTyp =" + xDocTyp);
+                                            return false;
+                                        }
+                                    }
                                     return true;
                                 }
                                 else

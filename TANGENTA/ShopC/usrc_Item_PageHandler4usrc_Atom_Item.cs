@@ -12,7 +12,7 @@ using TangentaDB;
 
 namespace ShopC
 {
-    public partial class usrc_Item_PageHandler4usrc_Atom_Item : usrcG_Item_PageHandler<usrc_Atom_Item>
+    public partial class usrc_Item_PageHandler4usrc_Atom_Item : usrcG_Item_PageHandler<usrc_Atom_Item,Doc_ShopC_Item>
     {
         public usrc_Item_PageHandler4usrc_Atom_Item()
         {

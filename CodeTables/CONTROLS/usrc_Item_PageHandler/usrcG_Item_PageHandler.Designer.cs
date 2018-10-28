@@ -1,6 +1,6 @@
 ﻿namespace usrc_Item_PageHandler
 {
-    partial class usrcG_Item_PageHandler<T>
+    partial class usrcG_Item_PageHandler<T,TD>
     {
         /// <summary>
         /// Required designer variable.

@@ -11,7 +11,7 @@ using usrc_Item_PageHandler;
 
 namespace Tangenta
 {
-    public partial class usrc_Item_PageHandler4usrc_WorkArea : usrcG_Item_PageHandler<usrc_WorkArea>
+    public partial class usrc_Item_PageHandler4usrc_WorkArea : usrcG_Item_PageHandler<usrc_WorkArea,DataRow>
     {
         public usrc_Item_PageHandler4usrc_WorkArea()
         {

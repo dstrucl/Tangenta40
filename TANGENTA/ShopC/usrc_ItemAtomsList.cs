@@ -154,18 +154,18 @@ namespace ShopC
 
                         if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, x_usrc_Atom_Item.m_dsci.dQuantity_FromStock, xData))
                         {
-                            //if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
-                            //{
+                            if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
+                            {
                                 m_usrc_Item_PageHandler.DoPaint();
                                 if (After_Atom_Item_Remove != null)
                                 {
                                     After_Atom_Item_Remove();
                                 }
-                            //}
-                            //else
-                            //{
-                            //    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:1:m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd failed !");
-                            //}
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:1:m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd failed !");
+                            }
                         }
                         else
                         {

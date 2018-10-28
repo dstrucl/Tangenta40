@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace usrc_Item_PageHandler
 {
-    public partial class usrcG_Item_PageHandler<T>: UserControl
+    public partial class usrcG_Item_PageHandler<T,TD>: UserControl
     {
         public delegate void delegate_ShowObject(int Item_id_index,object o_data, object o_usrc, bool bVisible);
         public event delegate_ShowObject ShowObject = null;
@@ -144,15 +144,15 @@ namespace usrc_Item_PageHandler
             
             int count = 0;
             DataTable dt = null;
-            List<object> list = null;
+            List<TD> list = null;
             if (m_datatable_or_list is DataTable)
             {
                 dt = (DataTable)m_datatable_or_list;
                 count = dt.Rows.Count;
             }
-            else if (m_datatable_or_list is List<object>)
+            else if (m_datatable_or_list is List<TD>)
             {
-                list = (List<object>)m_datatable_or_list;
+                list = (List<TD>)m_datatable_or_list;
                 count = list.Count;
             }
 
@@ -276,15 +276,15 @@ namespace usrc_Item_PageHandler
             int iEnd = -1;
             int count = 0;
             DataTable dt = null;
-            List<object> list = null;
+            List<TD> list = null;
             if (m_datatable_or_list is DataTable)
             {
                 dt = (DataTable)m_datatable_or_list;
                 count = dt.Rows.Count;
             }
-            else if (m_datatable_or_list is List<object>)
+            else if (m_datatable_or_list is List<TD>)
             {
-                list = (List<object>)m_datatable_or_list;
+                list = (List<TD>)m_datatable_or_list;
                 count = list.Count;
             }
 
@@ -307,9 +307,9 @@ namespace usrc_Item_PageHandler
                     {
                         ShowObject(i, ((DataTable)m_datatable_or_list).Rows[i], m_ousrc_Item_array[o_usrc_Index], true);
                     }
-                    else if (m_datatable_or_list is List<object>)
+                    else if (m_datatable_or_list is List<TD>)
                     {
-                        ShowObject(i, ((List<object>)m_datatable_or_list)[i], m_ousrc_Item_array[o_usrc_Index], true);
+                        ShowObject(i, ((List<TD>)m_datatable_or_list)[i], m_ousrc_Item_array[o_usrc_Index], true);
                     }
                     if (index>=0)
                     {
