@@ -511,15 +511,11 @@ namespace ShopC
 
         private void uItemStock_Click(object sender, EventArgs e)
         {
+            m_Item_Data.ExtraDiscount = this.ExtraDiscount;
+
             Doc_ShopC_Item dsci = null;
 
             m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,m_usrc_Atom_ItemsList.m_ShopBC.DocTyp, m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemStock.Value, m_Item_Data, null);
-            //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-            //                                                            null,
-            //                                                            m_Item_Data,
-            //                                                            uItemFactory.Value,
-            //                                                            uItemStock.Value,
-            //                                                            ref dsci, false);
 
             usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(dsci);
             if (uia != null)
@@ -535,6 +531,7 @@ namespace ShopC
 
         private void uItemFactory_Click(object sender, EventArgs e)
         {
+            m_Item_Data.ExtraDiscount = this.ExtraDiscount;
             if (ID.Validate(m_Item_Data.Item_Expiry_ID))
             {
                 if (EditStock_AvoidStock())
@@ -543,13 +540,6 @@ namespace ShopC
 
                     m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,m_usrc_Atom_ItemsList.m_ShopBC.DocTyp, m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemFactory.Value, m_Item_Data);
 
-
-                    //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                    //                                                               null,
-                    //                                                               m_Item_Data,
-                    //                                                               uItemFactory.Value,
-                    //                                                               uItemStock.Value,
-                    //                                                               ref dsci, true);
                     usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(dsci);
                     if (uia != null)
                     {
@@ -565,13 +555,6 @@ namespace ShopC
             {
                 Doc_ShopC_Item dsci = null;
                 m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci, m_usrc_Atom_ItemsList.m_ShopBC.DocTyp, m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemFactory.Value, m_Item_Data);
-                //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
-                //                                                                null,
-                //                                                                m_Item_Data,
-                //                                                                uItemFactory.Value,
-                //                                                                uItemStock.Value,
-                //                                                                ref dsci,
-                //                                                                true);
                 usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(dsci);
                 if (uia != null)
                 {
