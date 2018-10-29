@@ -109,13 +109,11 @@ namespace ShopC
                 }
             }
 
-            decimal Discount = 0;
-            decimal ExtraDiscount = 0;
+            
             decimal RetailPrice = 0;
             decimal RetailPriceWithDiscount = 0;
             decimal TaxPrice = 0;
-            string TaxName = null;
-            decimal TaxRate = 0;
+         
 
             decimal NetPrice = 0;
             xdsci.dsciS_List.GetPrices(xdsci.TaxationRate,
@@ -191,7 +189,7 @@ namespace ShopC
             set_offset(ioffs);
 
 
-            decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount,GlobalData.Get_BaseCurrency_DecimalPlaces());
+            decimal TotalDiscount = StaticLib.Func.TotalDiscount(xdsci.Discount, xdsci.ExtraDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
 
             if (TotalDiscount > 0)
             {

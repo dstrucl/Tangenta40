@@ -26,7 +26,21 @@ namespace TangentaDB
         public decimal RetailPricePerUnit = 0;
         public decimal Discount = 0;
         public decimal ExtraDiscount = 0;
-        public decimal TaxationRate = 0;
+        public decimal TaxationRate
+        {
+            get
+            {
+                if (Atom_Taxation_Rate_v!=null)
+                {
+                    return Atom_Taxation_Rate_v.v;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+
+        }
        
 
         public string_v Atom_Item_Name_Name_v = null;
@@ -159,7 +173,6 @@ namespace TangentaDB
                 RetailPricePerUnit = tf._set_decimal(dria["RetailPricePerUnit"]);
                 Discount = tf._set_decimal(dria["Discount"]);
                 ExtraDiscount = tf._set_decimal(dria["ExtraDiscount"]);
-                TaxationRate = tf._set_decimal(dria["Atom_Taxation_Rate"]);
                 Atom_Item_UniqueName_v = tf.set_string(dria["Atom_Item_UniqueName"]);
                 Atom_Item_Name_Name_v = tf.set_string(dria["Atom_Item_Name_Name"]);
                 Atom_Item_barcode_barcode_v = tf.set_string(dria["Atom_Item_barcode_barcode"]);
