@@ -53,8 +53,11 @@ namespace CodeTables
 
         bool m_SelectionButtonVisible = true;
 
+        internal static bool resetSettings = false;
+
         public static void ResetSettings()
         {
+            resetSettings = true;
             Properties.Settings.Default.Reset();
             Properties.Settings.Default.Save();
         }

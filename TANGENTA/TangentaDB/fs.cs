@@ -1058,7 +1058,7 @@ namespace TangentaDB
                         SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
                         lpar.Add(par2);
                         lpar.Add(par1);
-                        s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                        s_group_condition = " and s3.Name is null and s1.Name = " + spar_s2_name + " and s2.Name = " + spar_s1_name + " ";
                     }
                     else if (s_name[0] != null)
                     {

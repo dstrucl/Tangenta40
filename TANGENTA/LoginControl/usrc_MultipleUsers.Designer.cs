@@ -36,7 +36,7 @@
             this.lbl_Tangenta = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_Exit = new System.Windows.Forms.Button();
-            this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler.usrcG_Item_PageHandler();
+            this.usrc_Item_PageHandler1 = new usrc_Item_PageHandler4usrc_LMOUser();
             this.chk_ShowAdministrators = new System.Windows.Forms.CheckBox();
             this.btn_IdleCtrl_ShowURL1 = new System.Windows.Forms.Button();
             this.btn_IdleCtrl_ShowURL2 = new System.Windows.Forms.Button();
@@ -137,7 +137,7 @@
             this.usrc_Item_PageHandler1.Name = "usrc_Item_PageHandler1";
             this.usrc_Item_PageHandler1.Size = new System.Drawing.Size(255, 42);
             this.usrc_Item_PageHandler1.TabIndex = 1;
-            this.usrc_Item_PageHandler1.ShowObject += new usrc_Item_PageHandler.usrcG_Item_PageHandler.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
+            this.usrc_Item_PageHandler1.ShowObject += new usrc_Item_PageHandler4usrc_LMOUser.delegate_ShowObject(this.m_usrc_Item_PageHandler_ShowObject);
             // 
             // chk_ShowAdministrators
             // 
@@ -223,7 +223,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private usrc_Item_Group_Handler.usrc_Item_Group_Handler usrc_Item_Group_Handler1;
-        private usrc_Item_PageHandler.usrcG_Item_PageHandler usrc_Item_PageHandler1;
+        private usrc_Item_PageHandler4usrc_LMOUser usrc_Item_PageHandler1;
         private System.Windows.Forms.Panel pnl_Items;
         private System.Windows.Forms.Label lbl_GroupPath;
         private System.Windows.Forms.Button btn_Exit;

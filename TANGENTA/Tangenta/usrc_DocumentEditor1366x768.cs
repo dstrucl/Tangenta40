@@ -476,7 +476,6 @@ namespace Tangenta
             ShopC_default_W = this.m_usrc_ShopC1366x768.Width;
             ShopC_default_H = this.m_usrc_ShopC1366x768.Height;
 
-            usrc_AddOn1.Init(this);
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Number.Text(lbl_Number);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
@@ -560,6 +559,7 @@ namespace Tangenta
             //chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
             //chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             //splitContainer2.Panel1Collapsed = !chk_Head.Checked;
+            usrc_AddOn1.Init(this, this.DocM);
 
             SetOperationMode();
             return true;

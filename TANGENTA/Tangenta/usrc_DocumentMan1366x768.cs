@@ -548,7 +548,7 @@ namespace Tangenta
             }
             else
             {
-                Form_NewDocument frm_new = new Form_NewDocument(this, DocM.mSettingsUserValues);
+                Form_NewDocument frm_new = new Form_NewDocument(this,this.DocM, DocM.mSettingsUserValues);
                 frm_new.ShowDialog(this);
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 

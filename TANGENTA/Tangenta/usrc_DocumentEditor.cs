@@ -704,7 +704,6 @@ namespace Tangenta
         public usrc_DocumentEditor()
         {
             InitializeComponent();
-            usrc_AddOn1.Init(this);
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_Number.Text(lbl_Number);
@@ -786,6 +785,7 @@ namespace Tangenta
             chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             splitContainer2.Panel1Collapsed = !chk_Head.Checked;
+            usrc_AddOn1.Init(this, this.DocM);
             SetOperationMode();
             return true;
         }

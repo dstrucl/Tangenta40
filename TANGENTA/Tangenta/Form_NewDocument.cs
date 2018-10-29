@@ -26,8 +26,9 @@ namespace Tangenta
 
         public enum e_NewDocument { New_Empty, New_Copy_Of_SameDocType, New_Copy_To_Another_DocType,UNKNOWN}
 
-        private object o_usrc_DocumentMan = null;
+        private Control parentControl = null;
 
+        private DocumentMan docM = null;
         private ShopABC m_ShopABC = null;
 
         public e_NewDocument eNewDocumentResult = e_NewDocument.UNKNOWN;
@@ -39,20 +40,9 @@ namespace Tangenta
         {
             get
             {
-                if (o_usrc_DocumentMan != null)
+                if (docM != null)
                 {
-                    if (o_usrc_DocumentMan is usrc_DocumentMan)
-                    {
-                        return ((usrc_DocumentMan)o_usrc_DocumentMan).IsDocInvoice;
-                    }
-                    else if (o_usrc_DocumentMan is usrc_DocumentMan1366x768)
-                    {
-                        return ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).IsDocInvoice;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return docM.IsDocInvoice;
                 }
                 else
                 {
@@ -62,23 +52,12 @@ namespace Tangenta
         }
 
        
-        public Form_NewDocument(object xousrc_DocumentMan,SettingsUserValues xSettingsUserValues)
+        public Form_NewDocument(Control xparent,DocumentMan xdocM,SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
-            o_usrc_DocumentMan = xousrc_DocumentMan;
-            if (o_usrc_DocumentMan is usrc_DocumentMan)
-            {
-                m_ShopABC = ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC;
-                
-            }
-            else if (o_usrc_DocumentMan is usrc_DocumentMan1366x768)
-            {
-                m_ShopABC = ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument:Constructor:Wrong o_usrc_DocumentMan type:" + o_usrc_DocumentMan.GetType().ToString());
-            }
+            parentControl = xparent;
+            docM = xdocM;
+            m_ShopABC = docM.DocE.m_ShopABC;
             Init(xSettingsUserValues);
         }
 
@@ -87,73 +66,45 @@ namespace Tangenta
             string sdraft = "";
             string sNumber = null;
 
-            if (o_usrc_DocumentMan is usrc_DocumentMan)
-            {
-                sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
-            }
-            else if(o_usrc_DocumentMan is usrc_DocumentMan1366x768)
-            {
-                sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
-            }
+
+            sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
+
             string sInvoiceNumber = null;
             int ItemsCount = 0;
-            if (o_usrc_DocumentMan is usrc_DocumentMan)
+            string sumText = "";
+            if (parentControl is usrc_DocumentMan)
             {
-                ItemsCount = m_ShopABC.m_CurrentDoc.ItemsCount(((usrc_DocumentMan)o_usrc_DocumentMan).DocTyp);
-                if (((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.bDraft)
-                {
-                    sdraft = lng.s_Draft.s;
-                    sInvoiceNumber = "(" + sdraft + " št.:" + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
-                                       + " " + lng.s_Total.s + " = " + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.lbl_Sum.Text + ")";
-                }
-                else
-                {
-                    sInvoiceNumber = "(" + sdraft + " št.:" + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
-                    + " " + lng.s_Total.s + " = " + ((usrc_DocumentMan)o_usrc_DocumentMan).m_usrc_DocumentEditor.lbl_Sum.Text + ")";
-                }
-
-                if (((usrc_DocumentMan)o_usrc_DocumentMan).IsDocInvoice)
-                {
-                    lng.s_New_Empty_Invoice.Text(this.btn_New_Empty);
-                }
-                else if (((usrc_DocumentMan)o_usrc_DocumentMan).IsDocProformaInvoice)
-                {
-                    lng.s_New_Empty_ProformaInvoice.Text(this.btn_New_Empty);
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument:1 Unknown DocTyp type!");
-                }
-
+                sumText= ((usrc_DocumentMan)parentControl).m_usrc_DocumentEditor.lbl_Sum.Text;
             }
-            else if (o_usrc_DocumentMan is usrc_DocumentMan1366x768)
+            else if (parentControl is usrc_DocumentMan1366x768)
             {
-                ItemsCount = m_ShopABC.m_CurrentDoc.ItemsCount(((usrc_DocumentMan1366x768)o_usrc_DocumentMan).DocTyp);
-                if (((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.bDraft)
-                {
-                    sdraft = lng.s_Draft.s;
-                    sInvoiceNumber = "(" + sdraft + " št.:" + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
-                                       + " " + lng.s_Total.s + " = " + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.lbl_Sum.Text + ")";
-                }
-                else
-                {
-                    sInvoiceNumber = "(" + sdraft + " št.:" + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
-                    + " " + lng.s_Total.s + " = " + ((usrc_DocumentMan1366x768)o_usrc_DocumentMan).m_usrc_DocumentEditor1366x768.lbl_Sum.Text + ")";
-                }
+                sumText = ((usrc_DocumentMan1366x768)parentControl).m_usrc_DocumentEditor1366x768.lbl_Sum.Text;
+            }
 
-                if (((usrc_DocumentMan1366x768)o_usrc_DocumentMan).IsDocInvoice)
-                {
-                    lng.s_New_Empty_Invoice.Text(this.btn_New_Empty);
-                }
-                else if (((usrc_DocumentMan1366x768)o_usrc_DocumentMan).IsDocProformaInvoice)
-                {
-                    lng.s_New_Empty_ProformaInvoice.Text(this.btn_New_Empty);
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument:2 Unknown DocTyp type!");
-                }
+            ItemsCount = m_ShopABC.m_CurrentDoc.ItemsCount(docM.DocTyp);
+            if (docM.DocE.m_ShopABC.m_CurrentDoc.bDraft)
+            {
+                sdraft = lng.s_Draft.s;
+                sInvoiceNumber = "(" + sdraft + " št.:" + docM.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
+                                    + " " + lng.s_Total.s + " = " + sumText + ")";
+            }
+            else
+            {
+                sInvoiceNumber = "(" + sdraft + " št.:" + docM.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
+                + " " + lng.s_Total.s + " = " + sumText + ")";
+            }
 
+            if (docM.IsDocInvoice)
+            {
+                lng.s_New_Empty_Invoice.Text(this.btn_New_Empty);
+            }
+            else if (docM.IsDocProformaInvoice)
+            {
+                lng.s_New_Empty_ProformaInvoice.Text(this.btn_New_Empty);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument:1 Unknown DocTyp type!");
             }
 
             if (Program.OperationMode.MultiCurrency)
@@ -176,8 +127,8 @@ namespace Tangenta
             {
                 this.usrc_New_Copy_of_Same_DocType1.Visible = true;
                 this.usrc_New_Copy_of_Another_DocType1.Visible = true;
-                this.usrc_New_Copy_of_Same_DocType1.Init(((usrc_DocumentMan)o_usrc_DocumentMan).DocTyp, sInvoiceNumber, xSettingsUserValues);
-                this.usrc_New_Copy_of_Another_DocType1.Init(((usrc_DocumentMan)o_usrc_DocumentMan).DocTyp, sInvoiceNumber, xSettingsUserValues);
+                this.usrc_New_Copy_of_Same_DocType1.Init(docM.DocTyp, sInvoiceNumber, xSettingsUserValues);
+                this.usrc_New_Copy_of_Another_DocType1.Init(docM.DocTyp, sInvoiceNumber, xSettingsUserValues);
             }
             usrc_Currency1.Init(GlobalData.BaseCurrency);
             SetNewFormTag();
@@ -262,41 +213,20 @@ namespace Tangenta
             string sNewTag = "_";
             sXMLFiletag = "_";
             List<string> tag_conditions = new List<string>();
-            if (o_usrc_DocumentMan is usrc_DocumentMan)
+            if (docM.IsDocInvoice)
             {
-                if (((usrc_DocumentMan)o_usrc_DocumentMan).IsDocInvoice)
-                {
-                    numberOfAll = fs.NumberOInvoicesInDatabase();
-                    sNewTag += "i";
-                    sXMLFiletag += "i";
-                    tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
-                }
-                else if (((usrc_DocumentMan)o_usrc_DocumentMan).IsDocProformaInvoice)
-                {
-                    numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
-                    sNewTag += "p";
-                    sXMLFiletag += "p";
-                    tag_conditions.Add(tagDC_DocType_ProformaInvoice.NamedCondition);
-                }
+                numberOfAll = fs.NumberOInvoicesInDatabase();
+                sNewTag += "i";
+                sXMLFiletag += "i";
+                tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
             }
-            else if (o_usrc_DocumentMan is usrc_DocumentMan1366x768)
+            else if (docM.IsDocProformaInvoice)
             {
-                if (((usrc_DocumentMan1366x768)o_usrc_DocumentMan).IsDocInvoice)
-                {
-                    numberOfAll = fs.NumberOInvoicesInDatabase();
-                    sNewTag += "i";
-                    sXMLFiletag += "i";
-                    tag_conditions.Add(tagDC_DocType_Invoice.NamedCondition);
-                }
-                else if (((usrc_DocumentMan1366x768)o_usrc_DocumentMan).IsDocProformaInvoice)
-                {
-                    numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
-                    sNewTag += "p";
-                    sXMLFiletag += "p";
-                    tag_conditions.Add(tagDC_DocType_ProformaInvoice.NamedCondition);
-                }
+                numberOfAll = fs.NumberOfProformaInvoicesInDatabase();
+                sNewTag += "p";
+                sXMLFiletag += "p";
+                tag_conditions.Add(tagDC_DocType_ProformaInvoice.NamedCondition);
             }
-
             if (numberOfAll < 0)
             {
                 LogFile.Error.Show("ERROR:Tangenta:Form_Document:SetNewFormTag:  numberOfAll invoices or proforma invoices < 0 !");

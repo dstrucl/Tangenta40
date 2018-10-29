@@ -217,6 +217,12 @@
     <Compile Include="usrc_IdleSettings.Designer.cs">
       <DependentUpon>usrc_IdleSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_LMOUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_PageHandler4usrc_LMOUser.Designer.cs">
+      <DependentUpon>usrc_Item_PageHandler4usrc_LMOUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_LoginCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>

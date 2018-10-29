@@ -23,16 +23,17 @@ namespace Tangenta
 {
     public partial class usrc_AddOn : UserControl
     {
-        internal usrc_DocumentEditor m_usrc_Invoice = null;
-        internal usrc_DocumentEditor1366x768 m_usrc_Invoice1366x768 = null;
+        internal DocumentMan docM = null;
+        internal Control parent_Control = null;
+
 
         private bool IsDocInvoice
         {
             get
             {
-                if (m_usrc_Invoice != null)
+                if (docM != null)
                 {
-                    return m_usrc_Invoice.IsDocInvoice;
+                    return docM.IsDocInvoice;
                 }
                 else
                 {
@@ -45,9 +46,9 @@ namespace Tangenta
         {
             get
             {
-                if (m_usrc_Invoice != null)
+                if (docM != null)
                 {
-                    return m_usrc_Invoice.IsDocProformaInvoice;
+                    return docM.IsDocProformaInvoice;
                 }
                 else
                 {
@@ -61,15 +62,14 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public void Init(usrc_DocumentEditor x_usrc_Invoice)
+
+        public void Init(Control xparent,DocumentMan x_docM)
         {
-            m_usrc_Invoice = x_usrc_Invoice;
+            parent_Control = xparent;
+            docM = x_docM;
         }
 
-        public void Init(usrc_DocumentEditor1366x768 x_usrc_Invoice1366x768)
-        {
-            m_usrc_Invoice1366x768 = x_usrc_Invoice1366x768;
-        }
+   
 
         private void btn_Notice_Click(object sender, EventArgs e)
         {
@@ -81,11 +81,11 @@ namespace Tangenta
         {
             if (IsDocInvoice)
             {
-                return Get_DocInvoice_AddOn(m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI, xbPrint);
+                return Get_DocInvoice_AddOn(docM.DocE.m_InvoiceData.AddOnDI, xbPrint);
             }
             else if (IsDocProformaInvoice)
             {
-                return Get_DocProformaInvoice_AddOn(m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI, xbPrint);
+                return Get_DocProformaInvoice_AddOn(docM.DocE.m_InvoiceData.AddOnDPI, xbPrint);
             }
             else
             {
@@ -99,7 +99,7 @@ namespace Tangenta
             Form_DocInvoice_AddOn payment_frm = new Form_DocInvoice_AddOn(x_DocInvoice_AddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
-                Show(m_usrc_Invoice.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                Show(docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                 return true;
             }
             return false;
@@ -110,7 +110,7 @@ namespace Tangenta
             Form_DocProformaInvoice_AddOn payment_frm = new Form_DocProformaInvoice_AddOn(m_DocProformaInvoice_AddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
-                Show(m_usrc_Invoice.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                Show(docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                 return true;
             }
             return false;
@@ -120,14 +120,14 @@ namespace Tangenta
         {
             if (IsDocInvoice)
             {
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.Get(ID))
+                if (docM.DocE.m_InvoiceData.AddOnDI.Get(ID))
                 {
                     DisplayAddOn();
                 }
             }
             else if (IsDocProformaInvoice)
             {
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.Get(ID))
+                if (docM.DocE.m_InvoiceData.AddOnDPI.Get(ID))
                 {
                     DisplayAddOn();
                 }
@@ -139,61 +139,61 @@ namespace Tangenta
             string txt = "";
             if (IsDocInvoice)
             {
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_IssueDate != null)
+                if (docM.DocE.m_InvoiceData.AddOnDI.m_IssueDate != null)
                 {
-                    txt += lng.s_Invoice_IssueDate.s + ":" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_IssueDate.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_Invoice_IssueDate.s + ":" + docM.DocE.m_InvoiceData.AddOnDI.m_IssueDate.Date.ToShortDateString() + "\r\n";
                 }
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI != null)
+                if (docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI != null)
                 {
-                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType).s;
-                    switch (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
+                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType).s;
+                    switch (docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
+                            txtMethodOfPayment += " [" + docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
                             break;
 
                     }
                     txt += txtMethodOfPayment + "\r\n";
                 }
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_TermsOfPayment != null)
+                if (docM.DocE.m_InvoiceData.AddOnDI.m_TermsOfPayment != null)
                 {
-                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_TermsOfPayment.Description;
+                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + docM.DocE.m_InvoiceData.AddOnDI.m_TermsOfPayment.Description;
                     txt += txtTermsOfPayment + "\r\n";
                 }
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_PaymentDeadline != null)
+                if (docM.DocE.m_InvoiceData.AddOnDI.m_PaymentDeadline != null)
                 {
-                    string txtTermsOfPayment = lng.s_Payment_Deadline.s + ":" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_PaymentDeadline.Date.ToShortDateString();
+                    string txtTermsOfPayment = lng.s_Payment_Deadline.s + ":" + docM.DocE.m_InvoiceData.AddOnDI.m_PaymentDeadline.Date.ToShortDateString();
                     txt += txtTermsOfPayment + "\r\n";
                 }
 
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_NoticeText != null)
+                if (docM.DocE.m_InvoiceData.AddOnDI.m_NoticeText != null)
                 {
-                    txt += m_usrc_Invoice.DocE.m_InvoiceData.AddOnDI.m_NoticeText + "\r\n";
+                    txt += docM.DocE.m_InvoiceData.AddOnDI.m_NoticeText + "\r\n";
                 }
 
                 this.txt_Notice.Text = txt;
             }
             else if (IsDocProformaInvoice)
             {
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_IssueDate != null)
+                if (docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate != null)
                 {
-                    txt += lng.s_ProformaInvoice_IssueDate.s + ":" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_IssueDate.Date.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_ProformaInvoice_IssueDate.s + ":" + docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate.Date.Date.ToShortDateString() + "\r\n";
                 }
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_Duration != null)
+                if (docM.DocE.m_InvoiceData.AddOnDPI.m_Duration != null)
                 {
                     string txtValidity = lng.s_ProformaInvoice_Validity.s + ":";
-                    switch (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_Duration.type)
+                    switch (docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.type)
                     {
                         case 0:
-                            txtValidity += lng.s_Number_Of_Months.s + " = " + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_Duration.length.ToString();
+                            txtValidity += lng.s_Number_Of_Months.s + " = " + docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.length.ToString();
                             break;
                         case 1:
-                            txtValidity += lng.s_Number_Of_Days + " = " + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_Duration.length.ToString();
+                            txtValidity += lng.s_Number_Of_Days + " = " + docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.length.ToString();
                             break;
                         case 2:
-                            if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_IssueDate != null)
+                            if (docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate != null)
                             {
-                                DateTime dtValidUntil = m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_IssueDate.Date.AddDays(Convert.ToInt32(m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_Duration.length));
+                                DateTime dtValidUntil = docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate.Date.AddDays(Convert.ToInt32(docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.length));
                                 txtValidity += lng.s_Valid_Until.s + dtValidUntil.ToShortDateString();
                             }
                             break;
@@ -201,27 +201,27 @@ namespace Tangenta
                     }
                     txt += txtValidity + "\r\n";
                 }
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI != null)
+                if (docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI != null)
                 {
-                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType).s;
-                    switch (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType)
+                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType).s;
+                    switch (docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount + "] " + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
+                            txtMethodOfPayment += " [" + docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount + "] " + docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
                             break;
 
                     }
                     txt += txtMethodOfPayment + "\r\n";
                 }
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_TermsOfPayment != null)
+                if (docM.DocE.m_InvoiceData.AddOnDPI.m_TermsOfPayment != null)
                 {
-                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_TermsOfPayment.Description;
+                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + docM.DocE.m_InvoiceData.AddOnDPI.m_TermsOfPayment.Description;
                     txt += txtTermsOfPayment + "\r\n";
                 }
 
-                if (m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_NoticeText != null)
+                if (docM.DocE.m_InvoiceData.AddOnDPI.m_NoticeText != null)
                 {
-                    txt += m_usrc_Invoice.DocE.m_InvoiceData.AddOnDPI.m_NoticeText + "\r\n";
+                    txt += docM.DocE.m_InvoiceData.AddOnDPI.m_NoticeText + "\r\n";
                 }
                 this.txt_Notice.Text = txt;
             }
@@ -234,7 +234,7 @@ namespace Tangenta
             {
                 if (addOnDI.IsCashPayment)
                 {
-                    Form_DocInvoice_PaymentCash dlg_cash = new Form_DocInvoice_PaymentCash(this.m_usrc_Invoice.DocE.GrossSum);
+                    Form_DocInvoice_PaymentCash dlg_cash = new Form_DocInvoice_PaymentCash(this.docM.DocE.GrossSum);
                     if (dlg_cash.ShowDialog() == DialogResult.OK)
                     {
                         addOnDI.Cash_AmountReceived = dlg_cash.Cash_AmountReceived;

@@ -181,8 +181,9 @@ namespace CodeTables
             StringBuilder strSqlAll = new StringBuilder(30000);
             StringBuilder strSqlTables = new StringBuilder(30000);
 
-            if (!File.Exists(SQLdbFile))
+            if ((!File.Exists(SQLdbFile))||SQLTable.resetSettings)
             {
+                SQLTable.resetSettings = false;
                 DataColumn dcol_TableName = new DataColumn(col_TABLE_NAME, typeof(string));
                 DataColumn dcol_ViewName = new DataColumn(col_VIEW_NAME, typeof(string));
                 DataColumn dcol_SQL_CreateTable = new DataColumn(col_SQL_CreateTABLE, typeof(string));
