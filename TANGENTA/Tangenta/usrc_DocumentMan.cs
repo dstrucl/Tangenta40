@@ -1100,7 +1100,7 @@ namespace Tangenta
             {
                 if (Program.b_FVI_SLO)
                 {
-                    switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(ref Err))
+                    switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(false,ref Err))
                     {
                         case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.OK:
                         case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ALLREADY_RUNNING:

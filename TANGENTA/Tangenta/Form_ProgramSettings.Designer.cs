@@ -144,6 +144,7 @@
             // 
             this.usrc_ShopsInuse1.Location = new System.Drawing.Point(3, 118);
             this.usrc_ShopsInuse1.Name = "usrc_ShopsInuse1";
+            this.usrc_ShopsInuse1.SettingsUserValues = null;
             this.usrc_ShopsInuse1.Size = new System.Drawing.Size(570, 125);
             this.usrc_ShopsInuse1.TabIndex = 38;
             // 
@@ -372,9 +373,9 @@
             this.chk_RecordCashierActivity.AutoSize = true;
             this.chk_RecordCashierActivity.Location = new System.Drawing.Point(199, 60);
             this.chk_RecordCashierActivity.Name = "chk_RecordCashierActivity";
-            this.chk_RecordCashierActivity.Size = new System.Drawing.Size(104, 17);
+            this.chk_RecordCashierActivity.Size = new System.Drawing.Size(129, 17);
             this.chk_RecordCashierActivity.TabIndex = 52;
-            this.chk_RecordCashierActivity.Text = "Use Work Areas";
+            this.chk_RecordCashierActivity.Text = "Open/Closing Cashier";
             this.chk_RecordCashierActivity.UseVisualStyleBackColor = true;
             // 
             // chk_ShowChangeDatabaseButtonAtStartup

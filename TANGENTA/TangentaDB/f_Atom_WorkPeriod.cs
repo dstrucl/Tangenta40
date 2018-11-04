@@ -25,6 +25,7 @@ namespace TangentaDB
                                  string Atom_WorkPeriod_Type_Description,
                                  ID   Atom_myOrganisation_Person_ID,
                                  ID   Atom_ElectronicDevice_ID,
+                                 ID   Atom_IP_address_ID,
                                  DateTime Login_time,
                                  DBTypes.DateTime_v Logout_time_v,
                                  ref ID Atom_WorkPeriod_ID)
@@ -140,24 +141,46 @@ namespace TangentaDB
                     }
                     else
                     {
-                        sql = @"insert into Atom_WorkPeriod (Atom_WorkPeriod_TYPE_ID,
+                        if (f_Atom_IP_address.Get(ref Atom_IP_address_ID))
+                        {
+                            string sval_Atom_IP_address_ID = "null";
+                            if (ID.Validate(Atom_IP_address_ID))
+                            {
+                                string spar_Atom_IP_address_ID = "@par_Atom_IP_address_ID";
+                                SQL_Parameter par_Atom_IP_address_ID = new SQL_Parameter(spar_Atom_IP_address_ID, false, Atom_IP_address_ID);
+                                lpar.Add(par_Atom_IP_address_ID);
+                                sval_Atom_IP_address_ID = spar_Atom_IP_address_ID;
+                            }
+                            else
+                            {
+                                sval_Atom_IP_address_ID = "null";
+                            }
+
+                            sql = @"insert into Atom_WorkPeriod (Atom_WorkPeriod_TYPE_ID,
                                                                Atom_myOrganisation_Person_ID,
                                                                Atom_ElectronicDevice_ID,
                                                                LoginTime,
-                                                               LogoutTime) values ("
-                                                                + sval_Atom_WorkPeriod_Type_ID +","
-                                                                + sval_Atom_myOrganisation_Person_ID +","
+                                                               LogoutTime,
+                                                               Atom_IP_address_ID) values ("
+                                                                + sval_Atom_WorkPeriod_Type_ID + ","
+                                                                + sval_Atom_myOrganisation_Person_ID + ","
                                                                 + sval_Atom_ElectronicDevice_ID + ","
-                                                                + sval_Login_time +","
-                                                                + sval_Logout_time +
+                                                                + sval_Login_time + ","
+                                                                + sval_Logout_time + ","
+                                                                + sval_Atom_IP_address_ID +
                                                                 ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_ID,  ref Err, "Atom_WorkPeriod"))
-                        {
-                            return true;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_ID, ref Err, "Atom_WorkPeriod"))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:Get:" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:Get:" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }

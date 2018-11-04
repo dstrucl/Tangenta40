@@ -32,7 +32,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string ErrReason = "";
 
 
-            FVI_com_running = m_FVI_SLO1.Start(ref ErrReason);
+            FVI_com_running = m_FVI_SLO1.Start(true,ref ErrReason);
             if (FVI_com_running)
             {
                 btn_Send_ECHO.Enabled = true;

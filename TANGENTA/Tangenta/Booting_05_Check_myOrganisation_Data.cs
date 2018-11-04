@@ -864,7 +864,7 @@ namespace Tangenta
         {
             bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
             startup_OnFormResult_proc = Startup_05_onformresult_FiscalVerificationOfInvoices_SLO_Form_Settings;
-            xnav.ShowForm(new FiscalVerificationOfInvoices_SLO.Form_Settings(frm.fvI_SLO1, xnav, ref Reset2FactorySettings_FiscalVerification_DLL), typeof(FiscalVerificationOfInvoices_SLO.Form_Settings).ToString());
+            xnav.ShowForm(new FiscalVerificationOfInvoices_SLO.Form_Settings(frm.fvI_SLO1, xnav,true, ref Reset2FactorySettings_FiscalVerification_DLL), typeof(FiscalVerificationOfInvoices_SLO.Form_Settings).ToString());
             return true;
         }
 

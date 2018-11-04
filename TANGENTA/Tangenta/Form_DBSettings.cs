@@ -154,6 +154,12 @@ namespace Tangenta
                     {
                         sbMultiUserOperation = "1";
                     }
+                    else
+                    {
+                        Properties.Settings.Default.RecordCashierActivity = false;
+                        Properties.Settings.Default.Save();
+                    }
+
                     if (chk_StockCheckAtStartup.Checked)
                     {
                         sbStockCheckAtStartup = "1";

@@ -28,7 +28,6 @@ namespace TangentaDB
             ID Atom_ComputerName_ID = null;
             ID Atom_ComputerUsername_ID = null;
             ID Atom_MAC_address_ID = null;
-            ID Atom_IP_address_ID = null;
 
             string Err = null;
             DataTable dt = new DataTable();
@@ -89,62 +88,41 @@ namespace TangentaDB
 
 
 
-                        if (f_Atom_IP_address.Get(ref Atom_IP_address_ID))
+
+                        string sql = @"select ID from Atom_Computer
+                                                            where (" + scond_Atom_ComputerName_ID + ") and (" + scond_Atom_ComputerUsername_ID + ") and (" + scond_Atom_MAC_address_ID + ")";
+
+                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                         {
-                            string scond_Atom_IP_address_ID = null;
-                            string sval_Atom_IP_address_ID = "null";
-                            if (ID.Validate(Atom_IP_address_ID))
+                            if (dt.Rows.Count > 0)
                             {
-                                string spar_Atom_IP_address_ID = "@par_Atom_IP_address_ID";
-                                SQL_Parameter par_Atom_IP_address_ID = new SQL_Parameter(spar_Atom_IP_address_ID, false, Atom_IP_address_ID);
-                                lpar.Add(par_Atom_IP_address_ID);
-                                scond_Atom_IP_address_ID = "Atom_IP_address_ID = " + spar_Atom_IP_address_ID;
-                                sval_Atom_IP_address_ID = spar_Atom_IP_address_ID;
+                                if (Atom_Computer_ID==null)
+                                {
+                                    Atom_Computer_ID = new ID();
+                                }
+                                Atom_Computer_ID.Set(dt.Rows[0]["ID"]);
+                                return true;
                             }
                             else
                             {
-                                scond_Atom_IP_address_ID = "Atom_IP_address_ID is null";
-                                sval_Atom_IP_address_ID = "null";
-                            }
-
-                            string sql = @"select ID from Atom_Computer
-                                                                where (" + scond_Atom_ComputerName_ID + ") and (" + scond_Atom_ComputerUsername_ID + ") and (" + scond_Atom_MAC_address_ID + ") and (" + scond_Atom_IP_address_ID + ")";
-
-                            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-                            {
-                                if (dt.Rows.Count > 0)
+                                sql = @"insert into Atom_Computer (Atom_ComputerName_ID,Atom_ComputerUsername_ID,Atom_MAC_address_ID) values (" + sval_Atom_ComputerName_ID + "," + sval_Atom_ComputerUsername_ID + "," + sval_Atom_MAC_address_ID +  ")";
+                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref Err, "Atom_Computer"))
                                 {
-                                    if (Atom_Computer_ID==null)
-                                    {
-                                        Atom_Computer_ID = new ID();
-                                    }
-                                    Atom_Computer_ID.Set(dt.Rows[0]["ID"]);
                                     return true;
                                 }
                                 else
                                 {
-                                    sql = @"insert into Atom_Computer (Atom_ComputerName_ID,Atom_ComputerUsername_ID,Atom_MAC_address_ID,Atom_IP_address_ID) values (" + sval_Atom_ComputerName_ID + "," + sval_Atom_ComputerUsername_ID + "," + sval_Atom_MAC_address_ID + "," + sval_Atom_IP_address_ID + ")";
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref Err, "Atom_Computer"))
-                                    {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show("ERROR:f_Atom_Computer:Get:" + sql + "\r\nErr=" + Err);
-                                        return false;
-                                    }
+                                    LogFile.Error.Show("ERROR:f_Atom_Computer:Get:" + sql + "\r\nErr=" + Err);
+                                    return false;
                                 }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:f_Atom_Computer:Get:" + sql + "\r\nErr=" + Err);
-                                return false;
                             }
                         }
                         else
                         {
+                            LogFile.Error.Show("ERROR:f_Atom_Computer:Get:" + sql + "\r\nErr=" + Err);
                             return false;
                         }
+                     
                     }
                     else
                     {

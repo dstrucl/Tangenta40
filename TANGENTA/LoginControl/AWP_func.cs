@@ -30,6 +30,7 @@ SELECT LoginSession.ID,
  LoginSession_$_awperiod.LogoutTime AS LoginSession_$_awperiod_$$LogoutTime,
  LoginSession_$_awperiod_$_awperiodt.Name AS LoginSession_$_awperiod_$_awperiodt_$$Name,
  LoginSession_$_awperiod_$_awperiodt.Description AS LoginSession_$_awperiod_$_awperiodt_$$Description,
+ LoginSession_$_awperiod_$_aipa.IP_address,
  LoginSession_$_lusr.Time_When_UserSetsItsOwnPassword_FirstTime AS LoginSession_$_lusr_$$Time_When_UserSetsItsOwnPassword_FirstTime,
  LoginSession_$_lusr.Time_When_UserSetsItsOwnPassword_LastTime AS LoginSession_$_lusr_$$Time_When_UserSetsItsOwnPassword_LastTime,
  LoginSession_$_lusr.Enabled AS LoginSession_$_lusr_$$Enabled,
@@ -97,7 +98,7 @@ SELECT LoginSession.ID,
  INNER JOIN Atom_ComputerName LoginSession_$_awperiod_$_aed_$_acomp_$_acn ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_ComputerName_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_acn.ID 
  LEFT JOIN Atom_MAC_address LoginSession_$_awperiod_$_aed_$_acomp_$_amac ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_MAC_address_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_amac.ID 
  LEFT JOIN Atom_ComputerUserName LoginSession_$_awperiod_$_aed_$_acomp_$_acun ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_ComputerUserName_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_acun.ID 
- LEFT JOIN Atom_IP_address LoginSession_$_awperiod_$_aed_$_acomp_$_aipa ON LoginSession_$_awperiod_$_aed_$_acomp.Atom_IP_address_ID = LoginSession_$_awperiod_$_aed_$_acomp_$_aipa.ID 
+ LEFT JOIN Atom_IP_address LoginSession_$_awperiod_$_aipa ON LoginSession_$_awperiod.Atom_IP_address_ID = LoginSession_$_awperiod_$_aipa.ID 
  INNER JOIN Atom_Office LoginSession_$_awperiod_$_aed_$_aoffice ON LoginSession_$_awperiod_$_aed.Atom_Office_ID = LoginSession_$_awperiod_$_aed_$_aoffice.ID 
  INNER JOIN Atom_myOrganisation LoginSession_$_awperiod_$_aed_$_aoffice_$_amc ON LoginSession_$_awperiod_$_aed_$_aoffice.Atom_myOrganisation_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc.ID 
  INNER JOIN Atom_OrganisationData LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd ON LoginSession_$_awperiod_$_aed_$_aoffice_$_amc.Atom_OrganisationData_ID = LoginSession_$_awperiod_$_aed_$_aoffice_$_amc_$_aorgd.ID 
@@ -389,11 +390,10 @@ SELECT
                     Atom_WorkPeriod_$_amcper_$_aoffice.ShortName AS Atom_WorkPeriod_$_amcper_$_aoffice_$$ShortName,
                     Atom_WorkPeriod_$_acomp_$_acn.Name AS Atom_WorkPeriod_$_acomp_$_acn_$$Name,
                     Atom_WorkPeriod_$_acomp_$_acun.UserName AS Atom_WorkPeriod_$_acomp_$_acun_$$UserName,
-                    Atom_WorkPeriod_$_acomp.IP_address AS Atom_WorkPeriod_$_acomp_$$IP_address,
                     Atom_WorkPeriod_$_acomp_$_amac.MAC_address AS Atom_WorkPeriod_$_acomp_$_amac_$$Mac_address,
+                    Atom_WorkPeriod_$_aipa.IP_address AS Atom_WorkPeriod_$_aipa_$$IP_address,
                     Atom_WorkPeriod_$_amcper_$_aper_$_acfn.FirstName AS Atom_WorkPeriod_$_amcper_$_aper_$_acfn_$$FirstName,
                     Atom_WorkPeriod_$_amcper_$_aper_$_acln.LastName AS Atom_WorkPeriod_$_amcper_$_aper_$_acln_$$LastName,
-                    
                     Atom_WorkPeriod_$_awperiodt.Name AS Atom_WorkPeriod_$_awperiodt_$$Name,
                     Atom_WorkPeriod_$_awperiodt.Description AS Atom_WorkPeriod_$_awperiodt_$$Description
                     FROM Atom_WorkPeriod 
@@ -411,6 +411,7 @@ SELECT
                     LEFT JOIN Atom_MAC_address Atom_WorkPeriod_$_acomp_$_amac ON Atom_WorkPeriod_$_acomp.Atom_MAC_address_ID = Atom_WorkPeriod_$_acomp_$_amac.ID 
                     INNER JOIN ElectronicDevice Atom_WorkPeriod_$_aed ON Atom_WorkPeriod.Atom_ElectronicDevice_ID = Atom_WorkPeriod_$_aed.ID 
                     LEFT JOIN Atom_WorkPeriod_TYPE Atom_WorkPeriod_$_awperiodt ON Atom_WorkPeriod.Atom_WorkPeriod_TYPE_ID = Atom_WorkPeriod_$_awperiodt.ID
+                    LEFT JOIN Atom_IP_address Atom_WorkPeriod_$_aipa ON Atom_WorkPeriod.Atom_IP_address_ID = Atom_WorkPeriod_$_aipa.ID 
                     where Atom_WorkPeriod_$_amcper.ID in " + sInCondition + " and Atom_WorkPeriod.LoginTime > "+ spar_dateFrom + " and Atom_WorkPeriod.LoginTime < "+ spar_dateTo + " order by Atom_WorkPeriod.LoginTime desc ";
 
                     string err = null;

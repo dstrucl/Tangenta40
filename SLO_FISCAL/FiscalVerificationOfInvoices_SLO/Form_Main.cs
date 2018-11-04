@@ -115,7 +115,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 nav_Form_Settings.bDoModal = true;
                 bool Reset2FactorySettings_FiscalVerification_DLL = false;
-                Form_Settings fvi_settings = new Form_Settings(m_FVI_SLO, nav_Form_Settings, ref Reset2FactorySettings_FiscalVerification_DLL);
+                Form_Settings fvi_settings = new Form_Settings(m_FVI_SLO, nav_Form_Settings,false, ref Reset2FactorySettings_FiscalVerification_DLL);
                 fvi_settings.ShowDialog(this);
                 Init();
             }

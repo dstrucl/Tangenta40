@@ -86,12 +86,12 @@ namespace LoginControl
                     }
                     else
                     {
-                        return eCashierState.CLOSED;
+                        return eCashierState.OPENED;
                     }
                 }
                 else
                 {
-                    return eCashierState.CLOSED;
+                    return eCashierState.OPENED;
                 }
             }
         }

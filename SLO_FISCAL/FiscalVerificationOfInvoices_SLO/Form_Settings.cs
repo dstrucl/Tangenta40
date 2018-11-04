@@ -30,7 +30,9 @@ namespace FiscalVerificationOfInvoices_SLO
         public int timeOutInSec = -1;
         NavigationButtons.Navigation nav = null;
 
-        public Form_Settings(FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav,ref bool Reset2FactorySettings_FiscalVerification_DLL)
+        public Form_Settings(FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav,
+                             bool bstartup,
+                             ref bool Reset2FactorySettings_FiscalVerification_DLL)
         {
             InitializeComponent();
             nav = xnav;
@@ -55,8 +57,8 @@ namespace FiscalVerificationOfInvoices_SLO
 
             this.rdb_FURS_TEST_Environment.Checked = false;
             this.rdb_FURS_Environment.Checked = false;
-            this.usrc_FURS_environment_settings.Init(false, m_FVI_SLO);
-            this.usrc_FURS_environment_settings_TEST.Init(true, m_FVI_SLO);
+            this.usrc_FURS_environment_settings.Init(false, bstartup, m_FVI_SLO);
+            this.usrc_FURS_environment_settings_TEST.Init(true, bstartup, m_FVI_SLO);
             this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
 

@@ -29,7 +29,9 @@ namespace FiscalVerificationOfInvoices_SLO
             InitializeComponent();
         }
 
-        public void Init(bool bTest, FVI_SLO x_usrc_FVI_SLO)
+        public void Init(bool bTest,
+                        bool bstartup,
+                        FVI_SLO x_usrc_FVI_SLO)
         {
             m_usrc_FVI_SLO = x_usrc_FVI_SLO;
             Test = bTest;
@@ -55,7 +57,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_fursXmlNamespace.Text = Properties.Settings.Default.fursXmlNamespace;
                 this.txt_fursWWW_check_invoice.Text = Properties.Settings.Default.fursWWW_check_invoice;
             }
-            this.usrc_FURS_BussinesPremiseData1.Init(Test, m_usrc_FVI_SLO);
+            this.usrc_FURS_BussinesPremiseData1.Init(Test, bstartup, m_usrc_FVI_SLO);
         }
 
         private void btn_BrowseCertificateFile_Click(object sender, EventArgs e)

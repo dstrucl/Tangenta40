@@ -39,11 +39,9 @@ namespace Tangenta
             lng.s_ComputerName.Text(lbl_ComputerName);
             lng.s_ComputerUserName.Text(lbl_ComputerUsername);
             lng.s_ComputerMAC_address.Text(lbl_MAC_address);
-            lng.s_ComputerIP_address.Text(lbl_IP_address);
             txt_ComputerName.Text = TangentaDB.f_Atom_ComputerName.Get();
             txt_ComputerUserName.Text = TangentaDB.f_Atom_ComputerUsername.Get();
             txt_MAC_address.Text = TangentaDB.f_Atom_MAC_address.Get();
-            txt_IP_address.Text = TangentaDB.f_Atom_IP_address.Get();
         }
 
         private bool do_OK()

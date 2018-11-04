@@ -118,9 +118,7 @@ namespace TangentaDB
                                             ref m_ComputerUserName,
                                             ref m_ComputerUserName_Description,
                                             ref m_MAC_address,
-                                            ref m_MAC_address_Description,
-                                            ref m_IP_address,
-                                            ref m_IP_address_Description
+                                            ref m_MAC_address_Description
                                             ))
             {
                 if ((m_ElectronicDevice_Name!=null)&&(m_ComputerName!=null))

@@ -62,7 +62,9 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        public void Init(bool bTest, FVI_SLO x_usrc_FVI_SLO)
+        public void Init(bool bTest,
+                        bool bstartup,
+                        FVI_SLO x_usrc_FVI_SLO)
         {
 
             m_usrc_FVI_SLO = x_usrc_FVI_SLO;
@@ -124,7 +126,14 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_MyOrganisation_TaxID.Text = TangentaDB.myOrg.Tax_ID_v.v; //Properties.Settings.Default.fursD_MyOrgTaxID;
                 this.txt_BussinesPremiseID.Text = TangentaDB.myOrg.m_myOrg_Office.ShortName_v.v;// Properties.Settings.Default.fursD_BussinesPremiseID;
                 this.txt_InvoiceAuthor_TaxID.Text = "";
-                this.txt_InvoiceAuthor_TaxID.Text = m_usrc_FVI_SLO.FursD_InvoiceAuthorTaxID;
+                if (bstartup)
+                {
+                    this.txt_InvoiceAuthor_TaxID.Text = "";
+                }
+                else
+                {
+                    this.txt_InvoiceAuthor_TaxID.Text = m_usrc_FVI_SLO.FursD_InvoiceAuthorTaxID;
+                }
 
                 this.txt_City.Text = TangentaDB.myOrg.m_myOrg_Office.Address_v.City; // Properties.Settings.Default.fursD_City;
                 this.txt_PostNumber.Text = TangentaDB.myOrg.m_myOrg_Office.Address_v.ZIP; // Properties.Settings.Default.fursD_PostNumber;

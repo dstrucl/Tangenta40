@@ -40,8 +40,6 @@
             this.lbl_ComputerUsername = new System.Windows.Forms.Label();
             this.txt_MAC_address = new System.Windows.Forms.TextBox();
             this.lbl_MAC_address = new System.Windows.Forms.Label();
-            this.txt_IP_address = new System.Windows.Forms.TextBox();
-            this.lbl_IP_address = new System.Windows.Forms.Label();
             this.dgvx_ElectronicDevice = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btn_Write = new System.Windows.Forms.Button();
@@ -179,25 +177,6 @@
             this.lbl_MAC_address.Text = "MAC address:";
             this.lbl_MAC_address.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_IP_address
-            // 
-            this.txt_IP_address.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.txt_IP_address.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_IP_address.Location = new System.Drawing.Point(153, 243);
-            this.txt_IP_address.Name = "txt_IP_address";
-            this.txt_IP_address.ReadOnly = true;
-            this.txt_IP_address.Size = new System.Drawing.Size(226, 13);
-            this.txt_IP_address.TabIndex = 12;
-            // 
-            // lbl_IP_address
-            // 
-            this.lbl_IP_address.Location = new System.Drawing.Point(10, 239);
-            this.lbl_IP_address.Name = "lbl_IP_address";
-            this.lbl_IP_address.Size = new System.Drawing.Size(145, 19);
-            this.lbl_IP_address.TabIndex = 11;
-            this.lbl_IP_address.Text = "IP address:";
-            this.lbl_IP_address.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // dgvx_ElectronicDevice
             // 
             this.dgvx_ElectronicDevice.AllowUserToAddRows = false;
@@ -234,9 +213,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.txt_ElectronicDevice_Name);
             this.splitContainer1.Panel1.Controls.Add(this.dgvx_ElectronicDevice);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_ElectronicDevice_Name);
-            this.splitContainer1.Panel1.Controls.Add(this.txt_IP_address);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_ElectronicDevice_Description);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_IP_address);
             this.splitContainer1.Panel1.Controls.Add(this.txt_ElectronicDevice_Description);
             this.splitContainer1.Panel1.Controls.Add(this.txt_MAC_address);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_ComputerName);
@@ -377,8 +354,6 @@
         private System.Windows.Forms.Label lbl_ComputerUsername;
         private System.Windows.Forms.TextBox txt_MAC_address;
         private System.Windows.Forms.Label lbl_MAC_address;
-        private System.Windows.Forms.TextBox txt_IP_address;
-        private System.Windows.Forms.Label lbl_IP_address;
         private DataGridView_2xls.DataGridView2xls dgvx_ElectronicDevice;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox txt_Office;

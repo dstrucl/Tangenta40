@@ -1178,7 +1178,6 @@ namespace TangentaTableClass
         public Atom_ComputerName m_Atom_ComputerName = new Atom_ComputerName();
         public Atom_ComputerUserName m_Atom_ComputerUserName = new Atom_ComputerUserName();
         public Atom_MAC_address m_Atom_MAC_address = new Atom_MAC_address();
-        public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
         public Description Description = new Description();
     }
 
@@ -1311,6 +1310,7 @@ namespace TangentaTableClass
         public LoginTime LoginTime = new LoginTime();
         public LogoutTime LogoutTime = new LogoutTime();
         public Atom_WorkPeriod_TYPE m_Atom_WorkPeriod_TYPE = new Atom_WorkPeriod_TYPE();
+        public Atom_IP_address m_Atom_IP_address = new Atom_IP_address();
     }
 
     public class Expiry

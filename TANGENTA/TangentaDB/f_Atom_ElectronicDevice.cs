@@ -175,9 +175,7 @@ namespace TangentaDB
                                 ref string computerUserName,
                                 ref string computerUserName_Description,
                                 ref string mAC_address,
-                                ref string mAC_address_Description,
-                                ref string iP_address, 
-                                ref string iP_address_Description)
+                                ref string mAC_address_Description)
         {
 
             electronicDevice_Name = null;
@@ -188,8 +186,6 @@ namespace TangentaDB
             computerUserName_Description = null;
             mAC_address = null;
             mAC_address_Description = null;
-            iP_address = null;
-            iP_address_Description = null;
 
             string sql = @"SELECT Atom_ElectronicDevice.ID,
                              Atom_ElectronicDevice.Name AS Atom_ElectronicDevice_$$Name,
@@ -200,8 +196,6 @@ namespace TangentaDB
                              Atom_ElectronicDevice_$_acomp_$_amac.Description AS Atom_ElectronicDevice_$_acomp_$_amac_$$Description,
                              Atom_ElectronicDevice_$_acomp_$_acun.UserName AS Atom_ElectronicDevice_$_acomp_$_acun_$$UserName,
                              Atom_ElectronicDevice_$_acomp_$_acun.Description AS Atom_ElectronicDevice_$_acomp_$_acun_$$Description,
-                             Atom_ElectronicDevice_$_acomp_$_aipa.IP_address AS Atom_ElectronicDevice_$_acomp_$_aipa_$$IP_address,
-                             Atom_ElectronicDevice_$_acomp_$_aipa.Description AS Atom_ElectronicDevice_$_acomp_$_aipa_$$Description,
                              Atom_ElectronicDevice_$_aoffice.ID AS Atom_ElectronicDevice_$_aoffice_$$ID,
                              Atom_ElectronicDevice_$_aoffice.Name AS Atom_ElectronicDevice_$_aoffice_$$Name,
                              Atom_ElectronicDevice_$_aoffice.ShortName AS Atom_ElectronicDevice_$_aoffice_$$ShortName
@@ -210,7 +204,6 @@ namespace TangentaDB
                             LEFT JOIN Atom_ComputerName Atom_ElectronicDevice_$_acomp_$_acn ON Atom_ElectronicDevice_$_acomp.Atom_ComputerName_ID = Atom_ElectronicDevice_$_acomp_$_acn.ID 
                             LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
                             LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
-                            LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
                             LEFT JOIN Atom_Office Atom_ElectronicDevice_$_aoffice ON Atom_ElectronicDevice.Office_ID = Atom_ElectronicDevice_$_aoffice.ID  where Atom_ElectronicDevice.ID = " + atom_ElectronicDevice_ID.ToString();
             DataTable dt = new DataTable();
             string Err = null;
@@ -227,8 +220,6 @@ namespace TangentaDB
                     computerUserName_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_acun_$$Description"]);
                     mAC_address = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_amac_$$MAC_address"]);
                     mAC_address_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_amac_$$Description"]);
-                    iP_address = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_aipa_$$IP_address"]);
-                    iP_address_Description = tf._set_string(dr["Atom_ElectronicDevice_$_acomp_$_aipa_$$Description"]);
                     return true;
                 }
                 return true;
@@ -249,14 +240,12 @@ namespace TangentaDB
                              Atom_ElectronicDevice_$_acomp_$_acn.Name AS Atom_ElectronicDevice_$_acomp_$_acn_$$Name,
                              Atom_ElectronicDevice_$_acomp_$_acun.UserName AS Atom_ElectronicDevice_$_acomp_$_acun_$$UserName,
                              Atom_ElectronicDevice_$_acomp_$_amac.MAC_address AS Atom_ElectronicDevice_$_acomp_$_amac_$$MAC_address,
-                             Atom_ElectronicDevice_$_acomp_$_aipa.IP_address AS Atom_ElectronicDevice_$_acomp_$_aipa_$$IP_address,
                              Atom_ElectronicDevice_$_office.Name AS Atom_ElectronicDevice_$_office_$$Name,
                              Atom_ElectronicDevice_$_office.ShortName AS Atom_ElectronicDevice_$_office_$$ShortName,
                              ElectronicDevice.Description AS Atom_ElectronicDevice_$$Description,
                              Atom_ElectronicDevice_$_acomp_$_acn.Description AS Atom_ElectronicDevice_$_acomp_$_acn_$$Description,
                              Atom_ElectronicDevice_$_acomp_$_amac.Description AS Atom_ElectronicDevice_$_acomp_$_amac_$$Description,
                              Atom_ElectronicDevice_$_acomp_$_acun.Description AS Atom_ElectronicDevice_$_acomp_$_acun_$$Description,
-                             Atom_ElectronicDevice_$_acomp_$_aipa.Description AS Atom_ElectronicDevice_$_acomp_$_aipa_$$Description,
                              Atom_ElectronicDevice_$_office.ID AS Atom_ElectronicDevice_$_office_$$ID,
                              Atom_ElectronicDevice.ID
                             FROM Atom_ElectronicDevice 
@@ -264,7 +253,6 @@ namespace TangentaDB
                             LEFT JOIN Atom_ComputerName Atom_ElectronicDevice_$_acomp_$_acn ON Atom_ElectronicDevice_$_acomp.Atom_ComputerName_ID = Atom_ElectronicDevice_$_acomp_$_acn.ID 
                             LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
                             LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
-                            LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
                             LEFT JOIN Office Atom_ElectronicDevice_$_office ON ElectronicDevice.Office_ID = Atom_ElectronicDevice_$_office.ID where Atom_ElectronicDevice_$_office.ID = " + Office_ID.ToString();
                 if (tAtom_ElectronicDevice==null)
                 {
@@ -307,7 +295,6 @@ namespace TangentaDB
                                 LEFT JOIN Atom_ComputerName Atom_ElectronicDevice_$_acomp_$_acn ON Atom_ElectronicDevice_$_acomp.Atom_ComputerName_ID = Atom_ElectronicDevice_$_acomp_$_acn.ID 
                                 LEFT JOIN Atom_MAC_address Atom_ElectronicDevice_$_acomp_$_amac ON Atom_ElectronicDevice_$_acomp.Atom_MAC_address_ID = Atom_ElectronicDevice_$_acomp_$_amac.ID 
                                 LEFT JOIN Atom_ComputerUserName Atom_ElectronicDevice_$_acomp_$_acun ON Atom_ElectronicDevice_$_acomp.Atom_ComputerUserName_ID = Atom_ElectronicDevice_$_acomp_$_acun.ID 
-                                LEFT JOIN Atom_IP_address Atom_ElectronicDevice_$_acomp_$_aipa ON Atom_ElectronicDevice_$_acomp.Atom_IP_address_ID = Atom_ElectronicDevice_$_acomp_$_aipa.ID 
                                 LEFT JOIN Atom_Office Atom_ElectronicDevice_$_office ON Atom_ElectronicDevice.Atom_Office_ID = Atom_ElectronicDevice_$_office.ID where Atom_ElectronicDevice_$_office.ID = " + Atom_Office_ID.ToString() 
                                 + " and Atom_Computer_ID = "+ Atom_Computer_ID.ToString() + " and Atom_Office_ID = " + Atom_Office_ID.ToString();
 

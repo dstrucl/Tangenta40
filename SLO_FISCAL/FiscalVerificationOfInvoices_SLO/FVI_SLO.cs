@@ -719,7 +719,7 @@ namespace FiscalVerificationOfInvoices_SLO
             xInvoiceNumber = fsb.InvoiceNumber;
         }
 
-        public eStartResult Start(ref string ErrReason)
+        public eStartResult Start(bool bstartup,ref string ErrReason)
         {
             if (!bRun)
             {
@@ -752,7 +752,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                         nav_Form_Settings.bDoModal = true;
                         bool Reset2FactorySettings_FiscalVerification_DLL = false;
-                        Form_Settings fvi_settings = new Form_Settings(this, nav_Form_Settings, ref Reset2FactorySettings_FiscalVerification_DLL);
+                        Form_Settings fvi_settings = new Form_Settings(this, nav_Form_Settings, bstartup, ref Reset2FactorySettings_FiscalVerification_DLL);
                         dlgResult = fvi_settings.ShowDialog();
                     }
                 }
@@ -835,7 +835,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 {
                     if (FormFURSCommunication.ErrorMessage.Contains(FormFURSCommunication_ErrorMessage_BUSSINES_PREMISE_NOT_DEFINED))
                     {
-                        Form_BussinesPremisse frm_BP = new Form_BussinesPremisse(this, this.FursTESTEnvironment, FormFURSCommunication.ErrorMessage + "\r\n" + lng.s_SignUpYourBussinesBremise.s);
+                        Form_BussinesPremisse frm_BP = new Form_BussinesPremisse(this,false, this.FursTESTEnvironment, FormFURSCommunication.ErrorMessage + "\r\n" + lng.s_SignUpYourBussinesBremise.s);
                         if (frm_BP.ShowDialog(this.m_usrc_FVI_SLO) == DialogResult.OK)
                         {
                             if (frm_BP.FURS_BussinesPremiseData_SignedUp)

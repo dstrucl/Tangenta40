@@ -837,10 +837,16 @@ namespace Tangenta
             }
             else
             {
-                ID atom_work_period_id = loginControl1.awp.LMO1User.Atom_WorkPeriod_ID;
-                if (ID.Validate(atom_work_period_id))
+                if (loginControl1.awp != null)
                 {
-                    TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMO1User.Atom_WorkPeriod_ID);
+                    if (loginControl1.awp.LMO1User != null)
+                    {
+                        ID atom_work_period_id = loginControl1.awp.LMO1User.Atom_WorkPeriod_ID;
+                        if (ID.Validate(atom_work_period_id))
+                        {
+                            TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMO1User.Atom_WorkPeriod_ID);
+                        }
+                    }
                 }
             }
             if (Program.b_FVI_SLO)

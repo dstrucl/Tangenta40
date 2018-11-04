@@ -1986,7 +1986,6 @@ namespace TangentaDataBaseDef
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_ComputerName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer Name ID", "Ime računalnika ID"));
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_MAC_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("MAC address", "MAC naslov ID"));
             t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_ComputerUserName, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Computer UserName ID", "Računalniško prijavno ime ID"));
-            t_Atom_Computer.AddColumn((Object)mt.m_Atom_Computer.m_Atom_IP_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP address ID", "IP naslov ID"));
             m_DBTables.items.Add(t_Atom_Computer);
 
             /* 151 */
@@ -2020,6 +2019,7 @@ namespace TangentaDataBaseDef
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LoginTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work start time", "Začetek dela"));
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LogoutTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work end time", "Konec dela"));
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_WorkPeriod_TYPE, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work end time", "Konec dela"));
+            t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_IP_address, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("IP address ID", "IP naslov ID"));
             m_DBTables.items.Add(t_Atom_WorkPeriod);
 
             /* 155 */

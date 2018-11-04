@@ -372,9 +372,24 @@ namespace TangentaDB
                     {
                         Atom_WorkPeriod_Type_Description = "Stari šiht od 29.4.2015 do " + dtEnd_v.v.Day.ToString() + "." + dtEnd_v.v.Month.ToString() + "." + dtEnd_v.v.Year.ToString();
                     }
-                    if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, xAtom_myOrganisation_Person_ID, Atom_ElectronicDevice_ID, dtStart, dtEnd_v, ref xAtom_WorkPeriod_ID))
+                    ID Atom_IP_address_ID = null;
+                    if (f_Atom_IP_address.Get(ref Atom_IP_address_ID))
                     {
-                        return true;
+                        if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name,
+                                                  Atom_WorkPeriod_Type_Description,
+                                                  xAtom_myOrganisation_Person_ID,
+                                                  Atom_ElectronicDevice_ID,
+                                                  Atom_IP_address_ID,
+                                                  dtStart,
+                                                  dtEnd_v,
+                                                  ref xAtom_WorkPeriod_ID))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
