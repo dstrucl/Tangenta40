@@ -858,6 +858,17 @@ namespace Tangenta
             return iRowsCount;
         }
 
+        internal void BeforeRemove()
+        {
+            this.dgvx_XInvoice.SelectionChanged -= dgvx_XInvoice_SelectionChanged;
+            this.dgvx_XInvoice.DataSource = null;
+            this.Controls.Remove(dgvx_XInvoice);
+            dgvx_XInvoice.Dispose();
+            this.dt_XInvoice.Clear();
+            this.dt_XInvoice.Columns.Clear();
+            this.iCurrentSelectedRow = -1;
+        }
+
         internal void Clear()
         {
             this.dgvx_XInvoice.DataSource = null;

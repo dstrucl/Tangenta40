@@ -855,7 +855,14 @@ namespace Tangenta
                     return false;
                 }
             }
-            return xdelegate_control_DoCurrent(document_ID); 
+            if (ID.Validate(document_ID))
+            {
+                return xdelegate_control_DoCurrent(document_ID);
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private bool GetPriceList_ShopC(ref ID price_list_ID,delegate_control_m_usrc_ShopC_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init)

@@ -1228,5 +1228,12 @@ namespace Tangenta
                 initControlsRecursive(c.Controls);
             }
         }
+
+        internal void BeforeRemove()
+        {
+            m_usrc_TableOfDocuments.BeforeRemove();
+            this.Controls.Remove(this.m_usrc_TableOfDocuments);
+            this.m_usrc_TableOfDocuments.Dispose();
+        }
     }
 }

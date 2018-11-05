@@ -499,28 +499,14 @@ namespace Tangenta
                     {
                         ID xAtom_WorkPeriod_ID = null;
                         if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
-                        //if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
-                        //                             f_Atom_WorkPeriod.sWorkPeriod,
-                        //                             LoginControl.lng.s_WorkPeriod.s,
-                        //                             DateTime.Now,
-                        //                             null,
-                        //                             ref LMO1User.Atom_myOrganisation_Person_ID,
-                        //                             ref xAtom_WorkPeriod_ID,
-                        //                             ref Err))
+               
                         {
-                            //myStartup.eNextStep++;
-                            LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                            SettingsUser user_settings = new SettingsUser();
-                            if (user_settings.Load(this.LMO1User))
-                            {
-                                LMO1User.oSettings = user_settings;
-                            }
+                            LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;                           
                             return true;
                         }
                         else
                         {
                             LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                            //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -536,34 +522,18 @@ namespace Tangenta
                             {
                                 ID xAtom_WorkPeriod_ID = null;
                                 if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
-                                    //if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
-                                    //f_Atom_WorkPeriod.sWorkPeriod,
-                                    //LoginControl.lng.s_WorkPeriod.s,
-                                    //DateTime.Now,
-                                    //null,
-                                    //ref LMO1User.Atom_myOrganisation_Person_ID,
-                                    //ref xAtom_WorkPeriod_ID,
-                                    //ref Err))
                                 {
-                                    //myStartup.eNextStep++;
                                     LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                                    SettingsUser user_settings = new SettingsUser();
-                                    if (user_settings.Load(this.LMO1User))
-                                    {
-                                        LMO1User.oSettings = user_settings;
-                                    }
                                     return true;
                                 }
                                 else
                                 {
                                     LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                                    //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                     return false;
                                 }
                             }
                             else
                             {
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                         }
@@ -571,22 +541,8 @@ namespace Tangenta
                         {
                             ID xAtom_WorkPeriod_ID = null;
                             if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
-
-                                //if (GlobalData.GetWorkPeriod(myOrganisation_Person_SingleUser_ID,
-                                //f_Atom_WorkPeriod.sWorkPeriod,
-                                //LoginControl.lng.s_WorkPeriod.s,
-                                //DateTime.Now,
-                                //null,
-                                //ref LMO1User.Atom_myOrganisation_Person_ID,
-                                //ref xAtom_WorkPeriod_ID, ref Err))
                             {
-                                //myStartup.eNextStep++;
-                                LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                                SettingsUser user_settings = new SettingsUser();
-                                if (user_settings.Load(this.LMO1User))
-                                {
-                                    LMO1User.oSettings = user_settings;
-                                }
+                                LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;                                
                                 return true;
                             }
                             else
@@ -1973,6 +1929,7 @@ namespace Tangenta
                 //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
                 if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
                 {
+                    ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).BeforeRemove();
                     this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
                     ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
                 }

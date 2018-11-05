@@ -190,7 +190,7 @@ namespace ShopC
         {
 
             m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, 5, usrc_Atom_Item_array);
-            this.m_usrc_ItemList.Reset();
+            //this.m_usrc_ItemList.Reset();
             if (this.m_ShopBC.m_CurrentDoc.bDraft)
             {
                 this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0;
@@ -253,7 +253,7 @@ namespace ShopC
                 this.Cursor = Cursors.WaitCursor;
                 m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
                 m_usrc_Item_PageHandler.DoPaint();
-                m_usrc_ItemList.Reset();
+                m_usrc_ItemList.DoPaint();
                 this.Cursor = Cursors.Arrow;
                 btn_ClearAll.Visible = false;
             }

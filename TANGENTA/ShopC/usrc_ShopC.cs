@@ -176,7 +176,7 @@ namespace ShopC
         {
             this.BackColor = Colors.ShopC.BackColor;
             this.ForeColor = Colors.ShopC.ForeColor;
-            Reset();
+            DoPaint();
         }
 
         public void Init(ID xAtom_WorkPeriod_ID,
@@ -263,7 +263,13 @@ namespace ShopC
 
         public void Reset()
         {
-            this.usrc_ItemList.Reset();
+            this.usrc_ItemList.Reset(PriceList_ID);
+        }
+
+
+        public void DoPaint()
+        {
+            this.usrc_ItemList.DoPaint();
         }
 
         public void Clear()

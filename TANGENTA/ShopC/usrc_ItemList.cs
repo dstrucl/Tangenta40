@@ -293,10 +293,17 @@ namespace ShopC
             }
         }
 
-        internal void Reset()
+        internal void Reset(ID xPriceList_ID)
+        {
+            if (Get_Price_Item_Stock_Data(xPriceList_ID))
+            {
+                m_usrc_Item_PageHandler.DoPaint();
+            }
+        }
+
+        internal void DoPaint()
         {
             m_usrc_Item_PageHandler.DoPaint();
-
         }
 
         private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)

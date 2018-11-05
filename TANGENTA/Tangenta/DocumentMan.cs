@@ -77,6 +77,13 @@ namespace Tangenta
                 if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     m_DocTyp = s;
+                    if (DocE!=null)
+                    {
+                        if (DocE.m_ShopABC!=null)
+                        {
+                            DocE.m_ShopABC.DocTyp = s;
+                        }
+                    }
                 }
                 else
                 {

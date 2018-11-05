@@ -14,10 +14,47 @@ namespace Tangenta
 {
     public class SettingsUser
     {
-        public SettingsUserValues mSettingsUserValues = new SettingsUserValues();
+        public SettingsUserValues mSettingsUserValues = null;
 
         private Setting[] item = null;
         private int icount = 0;
+
+        public SettingsUser()
+        {
+            mSettingsUserValues = new SettingsUserValues();
+
+            if (!Compatiple(Properties.Settings.Default.eShopsInUse, Properties.Settings.Default.eShowShops))
+            {
+                Properties.Settings.Default.eShowShops = Properties.Settings.Default.eShopsInUse;
+                Properties.Settings.Default.Save();
+            }
+
+            mSettingsUserValues.eShopsInUse = Properties.Settings.Default.eShopsInUse;
+            mSettingsUserValues.eShowShops = Properties.Settings.Default.eShowShops;
+        }
+
+        private bool Compatiple(string xeShopsInUse, string xeShowShops)
+        {
+            if (xeShowShops.Length > 0)
+            {
+                if (xeShowShops.Length <= xeShopsInUse.Length)
+                {
+                    foreach (char ch in xeShowShops)
+                    {
+                        if (xeShopsInUse.Contains(ch))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public bool Load(LoginControl.LMOUser luser)
         {
