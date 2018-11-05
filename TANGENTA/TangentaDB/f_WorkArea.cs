@@ -89,5 +89,25 @@ namespace TangentaDB
             }
         }
 
+        public static bool GetWorkAreas(ref DataTable xdtWorkAreaAll, ref int xcount)
+        {
+
+            xcount = 0;
+            if (xdtWorkAreaAll != null)
+            {
+                xdtWorkAreaAll.Dispose();
+                xdtWorkAreaAll = null;
+            }
+            xdtWorkAreaAll = new DataTable();
+            if (f_WorkArea.Read_WorkArea_VIEW(ref xdtWorkAreaAll, null, null))
+            {
+                xcount = xdtWorkAreaAll.Rows.Count;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

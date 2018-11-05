@@ -23,27 +23,21 @@ namespace Tangenta
 
         DataTable m_dtWorkAreaAll = null;
 
-        public Form_NewDocument_WorkArea()
+        public Form_NewDocument_WorkArea(DataTable x_dtWorkAreaAll)
         {
             InitializeComponent();
             Currency = GlobalData.BaseCurrency;
             f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID);
-            
+            m_dtWorkAreaAll = x_dtWorkAreaAll;
+
+
         }
     
 
         private void Form_NewDocument_WorkArea_Load(object sender, EventArgs e)
         {
-            if (f_WorkArea.Read_WorkArea_VIEW(ref m_dtWorkAreaAll,null,null))
-            {
                 this.usrc_WorkAreaAll1.dtWorkAreaAll = m_dtWorkAreaAll;
                 this.usrc_WorkAreaAll1.Init();
-            }
-            else
-            {
-                this.Close();
-                DialogResult = DialogResult.Abort;
-            }
         }
 
         private void usrc_WorkAreaAll1_Selected(WArea warea)

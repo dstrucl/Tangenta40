@@ -528,42 +528,49 @@ namespace Tangenta
         private void btn_New_Click(object sender, EventArgs e)
         {
             if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-            if (Program.UseWorkAreas)
-            {
-                Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea();
-                frm_new_workarea.ShowDialog(this);
-                switch (frm_new_workarea.eNewDocumentResult)
-                {
-                    case Form_NewDocument.e_NewDocument.New_Empty:
-                        New_Empty_Doc(frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, frm_new_workarea.Warea);
-                        break;
 
-                    case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                        New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
-                        break;
-                    case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                        New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
-                        break;
+            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            DataTable dtWorkAreaAll = null;
+            int iWorkAreasCount = 0;
+            if (f_WorkArea.GetWorkAreas(ref dtWorkAreaAll, ref iWorkAreasCount))
+            {
+                if ((iWorkAreasCount > 0) && (Program.UseWorkAreas))
+                {
+                    Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea(dtWorkAreaAll);
+                    frm_new_workarea.ShowDialog(this);
+                    switch (frm_new_workarea.eNewDocumentResult)
+                    {
+                        case Form_NewDocument.e_NewDocument.New_Empty:
+                            New_Empty_Doc(frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, frm_new_workarea.Warea);
+                            break;
+
+                        case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+                            New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                            break;
+                        case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+                            New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                Form_NewDocument frm_new = new Form_NewDocument(this,this.DocM, DocM.mSettingsUserValues);
-                frm_new.ShowDialog(this);
-                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-
-                switch (frm_new.eNewDocumentResult)
+                else
                 {
-                    case Form_NewDocument.e_NewDocument.New_Empty:
-                        New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID,null);
-                        break;
+                    Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues);
+                    frm_new.ShowDialog(this);
+                    if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
-                    case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                        New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
-                        break;
-                    case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                        New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
-                        break;
+                    switch (frm_new.eNewDocumentResult)
+                    {
+                        case Form_NewDocument.e_NewDocument.New_Empty:
+                            New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, null);
+                            break;
+
+                        case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+                            New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                            break;
+                        case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+                            New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                            break;
+                    }
                 }
             }
         }

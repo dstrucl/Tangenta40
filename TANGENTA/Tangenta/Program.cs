@@ -284,7 +284,9 @@ namespace Tangenta
 
 
         public static bool UseWorkAreas {
-                                        get { return Properties.Settings.Default.UseWorkAreas; }
+                                        get {
+
+                                                return Properties.Settings.Default.UseWorkAreas; }
 
                                     }
 

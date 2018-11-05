@@ -334,6 +334,15 @@ namespace ShopC
                     m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
                 }
             }
+            else
+            {
+                string[] xs_name = new string[] { null, null, null };
+                if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, xs_name))
+                {
+                    lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
+                    m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
+                }
+            }
         }
 
         private void m_usrc_Item_Group_Handler_GroupChanged(string[] s_name)
