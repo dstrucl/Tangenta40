@@ -586,9 +586,9 @@ namespace TangentaDB
 
             }
         }
-   
 
-        public bool Storno(ID xAtom_WorkPeriod_ID,ref ID Storno_DocInvoice_ID,  bool bStorno,string ElectronicDevice_Name, string sReason,ref  DateTime retissue_time)
+
+        public bool Storno(ID xAtom_WorkPeriod_ID, ref ID Storno_DocInvoice_ID, bool bStorno, string ElectronicDevice_Name, string sReason, ref DateTime retissue_time)
         {
             object ores = null;
             string Err = null;
@@ -611,11 +611,12 @@ namespace TangentaDB
                         aw.WarrantyDuration,
                         diao.TermsOfPayment_ID,
                         diao.PaymentDeadline,
-                        diao.MethodOfPayment_DI_ID
+                        diao.MethodOfPayment_DI_ID,
                         Paid,
                         Storno,
                         Invoice_Reference_ID,
-                        Invoice_Reference_Type from DocInvoice di
+                        Invoice_Reference_Type 
+                        from DocInvoice di
 					    inner join 	DocInvoiceAddOn diao on diao.DocInvoice_ID = di.ID
 						left join Atom_Warranty aw on diao.Atom_Warranty_ID = aw.ID
 						where di.ID = " + Doc_ID.ToString();
@@ -636,8 +637,9 @@ namespace TangentaDB
                 int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
                 ID TermsOfPayment_ID = tf.set_ID(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
+                ID MethodOfPayment_DI_ID = tf.set_ID(dt_ProfInv.Rows[0]["MethodOfPayment_DI_ID"]);
                 int iNewNumberInFinancialYear = -1;
-                GetNewNumberInFinancialYear(GlobalData.const_DocInvoice, ElectronicDevice_Name,ref iNewNumberInFinancialYear);
+                GetNewNumberInFinancialYear(GlobalData.const_DocInvoice, ElectronicDevice_Name, ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
 
                 ID Storno_Invoice_ID = new ID(Doc_ID);
@@ -683,16 +685,49 @@ namespace TangentaDB
                                                             'STORNO'
                                                             )";
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref Err, GlobalData.const_DocInvoice))
+                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref Err, GlobalData.const_DocInvoice))
+                {
+
+                    string spar_DocumentInvoice_ID = "@par_DocumentInvoice_ID";
+                    SQL_Parameter par_DocumentInvoice_ID = new SQL_Parameter(spar_DocumentInvoice_ID, false, Storno_DocInvoice_ID);
+                    lpar.Add(par_DocumentInvoice_ID);
+
+                    string spar_IssueDate = "@par_IssueDate";
+                    DateTime dtIssueDate = DateTime.Today;
+                    SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, dtIssueDate);
+                    lpar.Add(par_IssueDate);
+
+                    string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
+                    SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, false, TermsOfPayment_ID);
+                    lpar.Add(par_TermsOfPayment_ID);
+
+                    string spar_MethodOfPayment_DI_ID = "@par_MethodOfPayment_DI_ID";
+                    SQL_Parameter par_MethodOfPayment_DI_ID = new SQL_Parameter(spar_MethodOfPayment_DI_ID, false, MethodOfPayment_DI_ID);
+                    lpar.Add(par_MethodOfPayment_DI_ID);
+
+                    sql = @" insert into DocInvoiceAddOn
+                                     (DocInvoice_ID,
+                                      IssueDate,
+                                      TermsOfPayment_ID,
+                                      MethodOfPayment_DI_ID)
+                                      values
+                                     (" + spar_DocumentInvoice_ID + ","
+                             + spar_IssueDate + ","
+                             + spar_TermsOfPayment_ID + ","
+                             + spar_MethodOfPayment_DI_ID + ")";
+
+                    ID Storno_DocInvoiceAddOn_ID = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoiceAddOn_ID, ref Err, "DocInvoiceAddOn"))
+                    {
+
+                        string sBit = "0";
+                        if (bStorno)
                         {
-                            string sBit = "0";
-                            if (bStorno)
-                            {
-                                sBit = "1";
-                            }
-                            sql = " update Docinvoice set Storno  = " + sBit + @",
-                                                   Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
-                                                   Invoice_Reference_Type = 'STORNO' where ID = " + this.Doc_ID.ToString();
+                            sBit = "1";
+                        }
+                        sql = " update Docinvoice set Storno  = " + sBit + @",
+                                                       Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
+                                                       Invoice_Reference_Type = 'STORNO' where ID = " + this.Doc_ID.ToString();
 
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                         {
@@ -703,7 +738,7 @@ namespace TangentaDB
 
                             if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
                             {
-                                  return true;
+                                return true;
                             }
                             return false;
                         }
@@ -725,6 +760,12 @@ namespace TangentaDB
                     return false;
                 }
             }
+            else
+            {
+                LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
 
         private string GetParam(string scol_name, ref List<SQL_Parameter> lpar, object type_v)
         {
@@ -756,6 +797,11 @@ namespace TangentaDB
             else if (type_v is bool_v)
             {
                 lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Bit, false, ((bool_v)type_v).v));
+                return sParam;
+            }
+            else if (type_v is ID)
+            {
+                lpar.Add(new SQL_Parameter(sParam,  false, (ID)type_v));
                 return sParam;
             }
             else

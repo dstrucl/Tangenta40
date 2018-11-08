@@ -1216,54 +1216,54 @@ namespace Tangenta
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
                                     if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID, true, GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason, ref stornoInvoiceIssueDateTime))
                                     {
-                                        xdelegate_Storno(true);
-                                    }
 
-                                    if (Program.b_FVI_SLO)
-                                    {
-                                        m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID, GlobalData.ElectronicDevice_Name);
-                                        if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                        if (Program.b_FVI_SLO)
                                         {
+                                            m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                            InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID, GlobalData.ElectronicDevice_Name);
+                                            if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                            {
 
-                                            string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(true,
-                                                                                                          Properties.Resources.FVI_SLO_Invoice,
-                                                                                                          Program.FVI_SLO1.FursD_MyOrgTaxID,
-                                                                                                          Program.FVI_SLO1.FursD_BussinesPremiseID,
-                                                                                                          GlobalData.ElectronicDevice_Name,
-                                                                                                          Program.FVI_SLO1.FursD_InvoiceAuthorTaxID,
-                                                                                                          stornoReferenceInvoiceNumber,
-                                                                                                          stornoReferenceInvoiceIssueDateTime,
-                                                                                                          xInvoiceData.IssueDate_v,
-                                                                                                          xInvoiceData.NumberInFinancialYear,
-                                                                                                          xInvoiceData.GrossSum,
-                                                                                                          xInvoiceData.taxSum,
-                                                                                                          xInvoiceData.Invoice_Author
-                                                                                                          );
-                                            string furs_UniqeMsgID = null;
-                                            string furs_UniqeInvID = null;
-                                            string furs_BarCodeValue = null;
-                                            Image img_QR = null;
-                                            if (Program.FVI_SLO1.Send_SingleInvoice(false, furs_XML, pform, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
-                                            {
-                                                xInvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
-                                                xInvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
-                                                xInvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
-                                                xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment);
-                                            }
-                                            else
-                                            {
-                                                string xSerialNumber = null;
-                                                string xSetNumber = null;
-                                                string xInvoiceNumber = null;
-                                                Program.FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
-                                                ID FVI_SLO_SalesBookInvoice_ID = null;
-                                                if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(true,
+                                                                                                              Properties.Resources.FVI_SLO_Invoice,
+                                                                                                              Program.FVI_SLO1.FursD_MyOrgTaxID,
+                                                                                                              Program.FVI_SLO1.FursD_BussinesPremiseID,
+                                                                                                              GlobalData.ElectronicDevice_Name,
+                                                                                                              Program.FVI_SLO1.FursD_InvoiceAuthorTaxID,
+                                                                                                              stornoReferenceInvoiceNumber,
+                                                                                                              stornoReferenceInvoiceIssueDateTime,
+                                                                                                              xInvoiceData.IssueDate_v,
+                                                                                                              xInvoiceData.NumberInFinancialYear,
+                                                                                                              xInvoiceData.GrossSum,
+                                                                                                              xInvoiceData.taxSum,
+                                                                                                              xInvoiceData.Invoice_Author
+                                                                                                              );
+                                                string furs_UniqeMsgID = null;
+                                                string furs_UniqeInvID = null;
+                                                string furs_BarCodeValue = null;
+                                                Image img_QR = null;
+                                                if (Program.FVI_SLO1.Send_SingleInvoice(false, furs_XML, pform, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                                                 {
-                                                    MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
+                                                    xInvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
+                                                    xInvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
+                                                    xInvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
+                                                    xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment);
+                                                }
+                                                else
+                                                {
+                                                    string xSerialNumber = null;
+                                                    string xSetNumber = null;
+                                                    string xInvoiceNumber = null;
+                                                    Program.FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                                    ID FVI_SLO_SalesBookInvoice_ID = null;
+                                                    if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                    {
+                                                        MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
+                                                    }
                                                 }
                                             }
                                         }
+                                        xdelegate_Storno(true);
                                     }
                                 }
                             }
