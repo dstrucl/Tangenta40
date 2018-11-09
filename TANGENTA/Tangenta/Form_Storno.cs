@@ -74,7 +74,12 @@ namespace Tangenta
 
                     m_sInvoiceToStorno = lng.s_Invoice.s + ":" + InvoiceNumber + " " + lng.s_Invoice.s + " " + lng.s_Time.s + " = " + fs.DateTime2String(InvoiceTime) + "," + lng.s_Price.s + " = " + s_GrossSum;
                     lbl_StornoMessage.Text = m_sInvoiceToStorno+ "\r\n" + lng.s_Storno_Instruction.s;
-                    sql = @"select Name,Description from journal_invoice_type jit where jit.Name='" + const_Storno_with_description + "'";
+
+
+                    sql = @"select Name from StornoName";
+
+
+
                     lbl_SelectExistingReason.Text = lng.s_SelectObligatoryWriteReasonForStorno.s + ":";
                     lbl_WriteReason.Text = lng.s_ObligatoryWriteReasonForStorno.s + ":";
                     if (DBSync.DBSync.ReadDataTable(ref dt_journal_invoice_type,sql,ref Err))
@@ -82,8 +87,8 @@ namespace Tangenta
                         if (dt_journal_invoice_type.Rows.Count>0)
                         {
                             cmb_StornoReason.DataSource = dt_journal_invoice_type;
-                            cmb_StornoReason.DisplayMember = "Description";
-                            cmb_StornoReason.ValueMember = "Description";
+                            cmb_StornoReason.DisplayMember = "Name";
+                            cmb_StornoReason.ValueMember = "Name";
                         }
                         this.cmb_StornoReason.SelectedValueChanged += new System.EventHandler(this.cmb_StornoReason_SelectedValueChanged);
                     }

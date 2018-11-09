@@ -24,6 +24,10 @@ namespace TangentaDataBaseDef
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext lngt_t_StornoReason = new ltext(new string[] { "Storno Reason", "Razlog stornacije" });
+
+        public static ltext lngt_t_StornoName = new ltext(new string[] { "Storno Name", "Ime stornacije" });
+
         public static ltext lng_t_CashierActivityOpened = new ltext(new string[] { "Cashier opening","Odprtje blagajne" });
 
         public static ltext lng_t_CashierActivityClosed = new ltext(new string[] { "Cashier closing", "Zaprtje blagajne" });

@@ -2965,6 +2965,19 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class StornoName
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class StornoReason
+    {
+        public ID ID = new ID();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+        public StornoName m_StornoName = new StornoName();
+    }
+
     public class SQL_Database_Tables_Definition
     {
 
@@ -3701,5 +3714,12 @@ namespace TangentaTableClass
 
         /* 251 */
         public DocProformaInvoice_ShopC_Item_Source m_DocProformaInvoice_ShopC_Item_Source = new DocProformaInvoice_ShopC_Item_Source();
+
+        /* 252 */
+        public StornoName m_StornoName = new StornoName();
+
+        /* 253 */
+        public StornoReason m_StornoReason = new StornoReason();
+
     }
 }

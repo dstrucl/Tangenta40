@@ -731,40 +731,39 @@ namespace TangentaDB
 
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                         {
-                            ID Journal_DocInvoice_ID = null;
-                            DateTime_v issue_time = new DateTime_v(DateTime.Now);
-
-                            retissue_time = issue_time.v;
-
-                            if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
+                            ID stornoReason_ID = null;
+                            if (f_StornoReason.Get(Storno_DocInvoice_ID, sReason, ref stornoReason_ID))
                             {
-                                return true;
+                                ID Journal_DocInvoice_ID = null;
+                                DateTime_v issue_time = new DateTime_v(DateTime.Now);
+                                retissue_time = issue_time.v;
+
+                                if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
+                                {
+                                    return true;
+                                }
                             }
-                            return false;
                         }
                         else
                         {
                             LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
-                            return false;
                         }
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
                     }
                 }
                 else
                 {
                     LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
                 }
             }
             else
             {
                 LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
-                return false;
             }
+            return false;
         }
 
         private string GetParam(string scol_name, ref List<SQL_Parameter> lpar, object type_v)

@@ -547,6 +547,9 @@ namespace Tangenta
         public static ltext s_btn_New = new ltext(new string[]{"New",
                                                     "Nov"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
 
+
+        public static ltext s_StornoReason = new ltext(new string[] { "Storno reason", "Razlog stornacije" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+        
         public static ltext s_IssueDate = new ltext(new string[] { "Issue date", "Čas izdaje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
 
         public static ltext s_FURS_BarCode = new ltext(new string[] { "FURS Bar (QR) code", "Davčna QR ali bar koda" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs

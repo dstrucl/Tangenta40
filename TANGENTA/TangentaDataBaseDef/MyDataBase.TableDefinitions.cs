@@ -751,6 +751,12 @@ namespace TangentaDataBaseDef
         /* 251 */
         public SQLTable t_DocProformaInvoice_ShopC_Item_Source = null;
 
+        /* 252 */
+        public SQLTable t_StornoName = null;
+
+        /* 253 */
+        public SQLTable t_StornoReason = null;
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -2862,6 +2868,18 @@ namespace TangentaDataBaseDef
             t_DocProformaInvoice_ShopC_Item_Source.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item_Source.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Expiry Date", "Rok uporabe"));
             m_DBTables.items.Add(t_DocProformaInvoice_ShopC_Item_Source);
 
+            /* 252 */
+            t_StornoName  = new SQLTable((Object)new StornoName(), "sn", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_StornoName);
+            t_StornoName.AddColumn((Object)mt.m_StornoName.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_StornoName.AddColumn((Object)mt.m_StornoName.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Storno Name", "Ime stornacije"));
+            m_DBTables.items.Add(t_StornoName);
+
+            /* 253 */
+            t_StornoReason = new SQLTable((Object)new StornoReason(), "sr", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_t_StornoReason);
+            t_StornoReason.AddColumn((Object)mt.m_StornoReason.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_StornoReason.AddColumn((Object)mt.m_StornoReason.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("DocInvoice ID", "Račun ID"));
+            t_StornoReason.AddColumn((Object)mt.m_StornoReason.m_StornoName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Storno Name ID", "Ime stornacije ID"));
+            m_DBTables.items.Add(t_StornoReason);
         }
     }
 }

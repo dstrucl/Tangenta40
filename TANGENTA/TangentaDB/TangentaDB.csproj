@@ -156,6 +156,8 @@
     <Compile Include="f_cCity_Person.cs" />
     <Compile Include="f_cCountry_Org.cs" />
     <Compile Include="f_cCountry_Person.cs" />
+    <Compile Include="f_StornoReason.cs" />
+    <Compile Include="f_StornoName.cs" />
     <Compile Include="f_cFirstName.cs" />
     <Compile Include="f_cHouseNumber_Org.cs" />
     <Compile Include="f_cHouseNumber_Person.cs" />

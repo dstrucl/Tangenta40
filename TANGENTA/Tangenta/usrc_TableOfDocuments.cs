@@ -70,6 +70,7 @@ namespace Tangenta
         private int iColIndex_DocInvoice_IssueDate = -1;
         private int iColIndex_DocProformaInvoice_IssueDate = -1;
         private int iColIndex_DocInvoice_Invoice_Storno = -1;
+        private int iColIndex_DocInvoice_Invoice_StornoReason = -1;
         private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
         private int iColIndex_DocInvoice_FSI_SLO_ID = -1;
         private int iColIndex_DocInvoice_FSI_SLO_EOR = -1;
@@ -474,6 +475,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
+                    sn.Name  as StornoReason,
                     JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
                     JOURNAL_DocInvoice_$_dinv_$_fvisres.ID AS JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID,
@@ -481,6 +483,8 @@ namespace Tangenta
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
                     INNER JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN StornoReason sr ON sr.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN StornoName sn ON sr.StornoName_ID = sn.ID
                     LEFT JOIN Atom_Customer_Person JOURNAL_DocInvoice_$_dinv_$_acusper ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper.ID
                     LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper ON JOURNAL_DocInvoice_$_dinv_$_acusper.Atom_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.ID
                     LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.ID
@@ -562,11 +566,14 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_awperiod_$_aed.Name as JOURNAL_DocInvoice_$_awperiod_$_aed_$$Name,
                     JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
                     JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
+                    sn.Name as StornoReason,
                     JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
                     INNER JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN StornoReason sr ON sr.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN StornoName sn ON sr.StornoName_ID = sn.ID
                     LEFT JOIN Atom_Customer_Person JOURNAL_DocInvoice_$_dinv_$_acusper ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper.ID
                     LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper ON JOURNAL_DocInvoice_$_dinv_$_acusper.Atom_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.ID
                     LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.ID
@@ -708,6 +715,7 @@ namespace Tangenta
             string Err = null;
             iColIndex_DocInvoice_Draft = -1;
             iColIndex_DocInvoice_Invoice_Storno = -1;
+            iColIndex_DocInvoice_Invoice_StornoReason = -1;
             dgvx_XInvoice.DataSource = null;
             bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XInvoice, sql, lpar_ExtraCondition, ref Err);
             if (bRes)
@@ -728,8 +736,10 @@ namespace Tangenta
                 {
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
                     iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Storno");
+                    iColIndex_DocInvoice_Invoice_StornoReason = dt_XInvoice.Columns.IndexOf("StornoReason");
                     iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
+                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_Invoice_StornoReason].HeaderText = lng.s_StornoReason.s;
                     if (Program.b_FVI_SLO)
                     {
                         iColIndex_DocInvoice_FSI_SLO_ID = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID"); 

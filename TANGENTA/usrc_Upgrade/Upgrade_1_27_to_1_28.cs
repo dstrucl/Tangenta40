@@ -21,7 +21,9 @@ namespace UpgradeDB
                 //change myOrganisation_Person
                 string[] new_tables = new string[] {
                                         "DocInvoice_ShopC_Item_Source",
-                                        "DocProformaInvoice_ShopC_Item_Source"
+                                        "DocProformaInvoice_ShopC_Item_Source",
+                                        "StornoName",
+                                        "StornoReason",
                                     };
 
                 if (!DBSync.DBSync.CreateTables(new_tables, ref Err))
@@ -58,6 +60,53 @@ namespace UpgradeDB
                                                            Atom_Price_Item_ID,
                                                            ExtraDiscount
                                                            from DocProformaInvoice_ShopC_Item  group by DocProformaInvoice_ID,Atom_Price_Item_ID,ExtraDiscount;
+
+                     CREATE TABLE Atom_WorkPeriod_TEMP 
+                     ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 
+                        Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
+                        Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
+                        'LoginTime' DATETIME NULL,
+                        'LogoutTime' DATETIME NULL,
+                        Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID),
+                        Atom_IP_address_ID INTEGER NULL REFERENCES Atom_IP_address(ID) );
+
+                    CREATE TABLE Atom_Computer_TEMP ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                        Atom_ComputerName_ID INTEGER NOT NULL REFERENCES Atom_ComputerName(ID),
+                                                        Atom_MAC_address_ID INTEGER NULL REFERENCES Atom_MAC_address(ID),
+                                                        Atom_ComputerUserName_ID INTEGER NULL REFERENCES Atom_ComputerUserName(ID) );
+
+                     insert into Atom_WorkPeriod_TEMP 
+                     (  awp.ID, 
+                        awp.Atom_myOrganisation_Person_ID,
+                        awp.Atom_ElectronicDevice_ID,
+                        awp.LoginTime,
+                        awp.LogoutTime,
+                        awp.Atom_WorkPeriod_TYPE_ID,
+                        ac.Atom_IP_address_ID)
+                     select 
+                     ID,
+                     Atom_myOrganisation_Person_ID,
+                     Atom_ElectronicDevice_ID,
+                     LoginTime,
+                     LogoutTime,
+                     Atom_WorkPeriod_TYPE_ID,
+                     Atom_IP_address_ID
+                     from Atom_WorkPeriod awp
+                     inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                     inner join Atom_Computer ac on aed.Atom_Computer_ID = ac.ID;
+
+                    insert into Atom_Computer_TEMP
+                    (
+                    ID,
+                    Atom_ComputerName_ID,
+                    Atom_MAC_address_ID,
+                    Atom_ComputerUserName_ID)
+                    select
+                    ID,
+                    Atom_ComputerName_ID,
+                    Atom_MAC_address_ID,
+                    Atom_ComputerUserName_ID
+                    from Atom_Computer;
                     ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
@@ -81,6 +130,13 @@ namespace UpgradeDB
 
                                 DROP TABLE DocProformaInvoice_ShopC_Item;
                                 ALTER TABLE DocProformaInvoice_ShopC_Item_TEMP RENAME TO DocProformaInvoice_ShopC_Item;
+
+                                DROP TABLE Atom_Computer;
+                                ALTER TABLE Atom_Computer_TEMP RENAME TO Atom_Computer;
+
+                                DROP TABLE Atom_WorkPeriod;
+                                ALTER TABLE Atom_WorkPeriod_TEMP RENAME TO Atom_WorkPeriod;
+
                                 PRAGMA foreign_keys = ON;
                     ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
