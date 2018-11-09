@@ -76,21 +76,21 @@ namespace UpgradeDB
                                                         Atom_ComputerUserName_ID INTEGER NULL REFERENCES Atom_ComputerUserName(ID) );
 
                      insert into Atom_WorkPeriod_TEMP 
-                     (  awp.ID, 
-                        awp.Atom_myOrganisation_Person_ID,
-                        awp.Atom_ElectronicDevice_ID,
-                        awp.LoginTime,
-                        awp.LogoutTime,
-                        awp.Atom_WorkPeriod_TYPE_ID,
-                        ac.Atom_IP_address_ID)
+                     (  ID, 
+                        Atom_myOrganisation_Person_ID,
+                        Atom_ElectronicDevice_ID,
+                        LoginTime,
+                        LogoutTime,
+                        Atom_WorkPeriod_TYPE_ID,
+                        Atom_IP_address_ID)
                      select 
-                     ID,
-                     Atom_myOrganisation_Person_ID,
-                     Atom_ElectronicDevice_ID,
-                     LoginTime,
-                     LogoutTime,
-                     Atom_WorkPeriod_TYPE_ID,
-                     Atom_IP_address_ID
+                     awp.ID,
+                     awp.Atom_myOrganisation_Person_ID,
+                     awp.Atom_ElectronicDevice_ID,
+                     awp.LoginTime,
+                     awp.LogoutTime,
+                     awp.Atom_WorkPeriod_TYPE_ID,
+                     ac.Atom_IP_address_ID
                      from Atom_WorkPeriod awp
                      inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                      inner join Atom_Computer ac on aed.Atom_Computer_ID = ac.ID;
