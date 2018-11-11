@@ -91,10 +91,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Tangenta40\DLL\FastColoredTextBox.dll</HintPath>
+      <HintPath>..\..\DLL\FastColoredTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="oExcel">
+      <HintPath>..\..\DLL\oExcel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -405,6 +407,10 @@
     <ProjectReference Include="..\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Excell_Export\Excell_Export.csproj">
+      <Project>{5f7e6571-ac5e-44bc-a805-a0726d99b82c}</Project>
+      <Name>Excell_Export</Name>
     </ProjectReference>
     <ProjectReference Include="..\Excell_Export_base\Excell_Export_base.csproj">
       <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
