@@ -44,9 +44,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.rdb_NotAcceptLicenseAgreement);
             this.groupBox1.Controls.Add(this.rdb_AcceptLicenseAgreement);
-            this.groupBox1.Location = new System.Drawing.Point(3, 355);
+            this.groupBox1.Location = new System.Drawing.Point(3, 357);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(600, 55);
+            this.groupBox1.Size = new System.Drawing.Size(602, 55);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
@@ -75,9 +75,9 @@
             this.btn_Print.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Print.Location = new System.Drawing.Point(187, 416);
+            this.btn_Print.Location = new System.Drawing.Point(187, 418);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(216, 27);
+            this.btn_Print.Size = new System.Drawing.Size(218, 27);
             this.btn_Print.TabIndex = 4;
             this.btn_Print.Text = "Print";
             this.btn_Print.UseVisualStyleBackColor = false;
@@ -101,7 +101,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(602, 27);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(604, 27);
             this.usrc_NavigationButtons1.TabIndex = 6;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -123,14 +123,14 @@
             this.usrc_web_Help1.Location = new System.Drawing.Point(3, 26);
             this.usrc_web_Help1.Name = "usrc_web_Help1";
             this.usrc_web_Help1.RemoteUrl = "";
-            this.usrc_web_Help1.Size = new System.Drawing.Size(600, 330);
+            this.usrc_web_Help1.Size = new System.Drawing.Size(602, 332);
             this.usrc_web_Help1.TabIndex = 7;
             // 
             // Form_LicenseAgreement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(603, 449);
+            this.ClientSize = new System.Drawing.Size(605, 451);
             this.ControlBox = false;
             this.Controls.Add(this.usrc_web_Help1);
             this.Controls.Add(this.btn_Print);

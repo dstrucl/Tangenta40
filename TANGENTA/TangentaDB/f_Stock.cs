@@ -188,10 +188,11 @@ namespace TangentaDB
                                     di.DraftNumber,
                                     di.FinancialYear,
                                     di.NumberInFinancialYear,
-                                    disci.Stock_ID,
+                                    discis.Stock_ID,
                                     disci.DocInvoice_ID,
                                     disci.ID
                             from DocInvoice_ShopC_Item disci
+							inner join DocInvoice_ShopC_Item_Source discis on discis.DocInvoice_ShopC_Item_ID = disci.ID
                             inner join  DocInvoice di on disci.DocInvoice_ID = di.ID
                             inner join  JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = di.ID
                             inner join  JOURNAL_DocInvoice_Type jdit on jdi.JOURNAL_DocInvoice_Type_ID = jdit.ID and jdit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @"
@@ -201,7 +202,7 @@ namespace TangentaDB
                             left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
                             left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
                             left join  Atom_cLastName acln on ap.Atom_cLastName_ID = acln.ID
-                            inner join  Stock s on disci.Stock_ID = s.ID
+                            inner join  Stock s on discis.Stock_ID = s.ID
                             inner join  PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and ppi.StockTake_ID = " + StockTake_ID.ToString();
                     dt_DocInvoice_ShopC_Item_of_StockTake.Rows.Clear();
                     if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice_ShopC_Item_of_StockTake, sql, ref Err))
@@ -211,10 +212,11 @@ namespace TangentaDB
                                     dpi.DraftNumber,
                                     dpi.FinancialYear,
                                     dpi.NumberInFinancialYear,
-                                    dpisci.Stock_ID,
+                                    dpiscis.Stock_ID,
                                     dpisci.DocProformaInvoice_ID,
                                     dpisci.ID
                             from DocProformaInvoice_ShopC_Item dpisci
+                            inner join  DocProformaInvoice_ShopC_Item_Source dpiscis on dpiscis.DocProformaInvoice_ShopC_Item_ID = dpisci.ID
                             inner join  DocProformaInvoice dpi on dpisci.DocProformaInvoice_ID = dpi.ID
                             inner join  JOURNAL_DocProformaInvoice jdpi on jdpi.DocProformaInvoice_ID = dpi.ID
                             inner join  JOURNAL_DocProformaInvoice_Type jdpit on jdpi.JOURNAL_DocProformaInvoice_Type_ID = jdpit.ID and jdpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @"
@@ -224,7 +226,7 @@ namespace TangentaDB
                             left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
                             left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
                             left join  Atom_cLastName acln on ap.Atom_cLastName_ID = acln.ID
-                            inner join  Stock s on dpisci.Stock_ID = s.ID
+                            inner join  Stock s on dpiscis.Stock_ID = s.ID
                             inner join  PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and ppi.StockTake_ID = " + StockTake_ID.ToString();
                         dt_DocProformaInvoice_ShopC_Item_of_StockTake.Rows.Clear();
                         if (DBSync.DBSync.ReadDataTable(ref dt_DocProformaInvoice_ShopC_Item_of_StockTake, sql, ref Err))

@@ -83,7 +83,7 @@
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
             this.usrc_NavigationButtons1.Location = new System.Drawing.Point(0, 0);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(326, 27);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(331, 27);
             this.usrc_NavigationButtons1.TabIndex = 3;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -99,7 +99,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(326, 100);
+            this.ClientSize = new System.Drawing.Size(331, 104);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.rdb_MSSQL);
             this.Controls.Add(this.rdb_SQLite);

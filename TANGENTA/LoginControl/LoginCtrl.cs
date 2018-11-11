@@ -614,7 +614,10 @@ namespace LoginControl
 
         public void Login_MultipleUsers_ShowControl()
         {
-            awp.Login_MultipleUsers_ShowControl();
+            if (awp != null)
+            {
+                awp.Login_MultipleUsers_ShowControl();
+            }
         }
 
         private static bool getWorkPeriod(ID myOrganisation_Person_ID,ref ID xAtom_myOrganisation_Person_ID, ref ID xAtom_WorkPeriod_ID,

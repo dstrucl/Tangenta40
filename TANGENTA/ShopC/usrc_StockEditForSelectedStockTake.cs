@@ -644,10 +644,28 @@ namespace ShopC
             calculatedsum_withouttax = 0;
             foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
             {
-                decimal xPurchasePricePerUnitWithoutTax = (decimal)dr["PurchasePricePerUnit"];
-                decimal xTaxationRate = (decimal)dr["TaxationRate"];
-                decimal xDiscount = (decimal)dr["Discount"];
-                decimal xQuantity = (decimal)dr["dInitialQuantity"];
+                decimal xPurchasePricePerUnitWithoutTax = 0;
+                if (dr["PurchasePricePerUnit"] is decimal)
+                {
+                    xPurchasePricePerUnitWithoutTax = (decimal)dr["PurchasePricePerUnit"];
+                }
+                decimal xTaxationRate = 0;
+                if (dr["TaxationRate"] is decimal)
+                {
+                    xTaxationRate = (decimal)dr["TaxationRate"];
+                }
+
+                decimal xDiscount = 0;
+                if (dr["Discount"] is decimal)
+                {
+                    xDiscount = (decimal)dr["Discount"];
+                }
+                decimal xQuantity = 0;
+                if (dr["dInitialQuantity"] is decimal)
+                {
+                    xQuantity = (decimal)dr["dInitialQuantity"];
+                }
+                
 
                 decimal xPurchasePricePerUnitWithTax = xPurchasePricePerUnitWithoutTax * (1 + xTaxationRate);
 
@@ -1005,10 +1023,27 @@ namespace ShopC
                 decimal dItemsPrice_withttax = 0;
                 foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
                 {
-                    decimal xPurchasePricePerUnitWithoutTax = (decimal)dr["PurchasePricePerUnit"];
-                    decimal xTaxationRate = (decimal)dr["TaxationRate"];
-                    decimal xDiscount = (decimal)dr["Discount"];
-                    decimal xQuantity = (decimal)dr["dInitialQuantity"];
+                    decimal xPurchasePricePerUnitWithoutTax = 0;
+                    if (dr["PurchasePricePerUnit"] is decimal)
+                    {
+                        xPurchasePricePerUnitWithoutTax = (decimal)dr["PurchasePricePerUnit"];
+                    }
+                    decimal xTaxationRate = 0;
+                    if (dr["TaxationRate"] is decimal)
+                    {
+                        xTaxationRate = (decimal)dr["TaxationRate"];
+                    }
+                    decimal xDiscount = 0;
+                    if (dr["Discount"] is decimal)
+                    {
+                        xDiscount = (decimal)dr["Discount"];
+                    }
+
+                    decimal xQuantity = 0;
+                    if (dr["dInitialQuantity"] is decimal)
+                    {
+                        xQuantity = (decimal)dr["dInitialQuantity"];
+                    }
 
                     decimal xPurchasePricePerUnitWithTax = xPurchasePricePerUnitWithoutTax * (1 + xTaxationRate);
 

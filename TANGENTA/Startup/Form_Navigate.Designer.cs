@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(341, 62);
+            this.ClientSize = new System.Drawing.Size(359, 70);
             this.ControlBox = false;
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
