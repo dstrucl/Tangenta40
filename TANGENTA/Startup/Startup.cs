@@ -87,6 +87,7 @@ namespace Startup
             try
             {
                 iversionread = Convert.ToInt32(dbversionread);
+              
             }
             catch
             {

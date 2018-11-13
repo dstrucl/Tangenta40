@@ -396,11 +396,12 @@ namespace TangentaDB
             string sqlC = @"
                          select 
                        'ShopC' as ShopName,
-                        disci.TaxPrice as TaxPrice,
-                        disci.RetailPriceWithDiscount as Total,
+                        disciS.TaxPrice as TaxPrice,
+                        disciS.RetailPriceWithDiscount as Total,
                         atax.Name as TaxName,
                         atax.Rate as TaxRate
                         from  DocInvoice_ShopC_Item disci
+                        inner join DocInvoice_ShopC_Item_Source disciS on disciS.DocInvoice_ShopC_Item_ID = disci.ID
                         inner join Atom_Price_Item api on api.ID = disci.Atom_Price_Item_ID
                         inner join Atom_Taxation  atax on api.Atom_Taxation_ID = atax.ID
                         where DocInvoice_ID = " + DocInvoice_ID.ToString();
