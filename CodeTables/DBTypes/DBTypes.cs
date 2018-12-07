@@ -818,7 +818,7 @@ namespace DBTypes
 
     }
 
-    public class DB_decimal2 : ValSet
+    public class DB_decimal : ValSet
     {
         private decimal m_val = new decimal();
         public decimal val
@@ -997,7 +997,7 @@ namespace DBTypes
         public DB_bit DB_bit = new DB_bit();
         public DB_varbinary_max DB_varbinary_max = new DB_varbinary_max();
         public DB_Money DB_Money = new DB_Money();
-        public DB_decimal2 DB_decimal = new DB_decimal2();
+        public DB_decimal DB_decimal = new DB_decimal();
         public DB_Percent DB_Percent = new DB_Percent();
         public DB_Document DB_Document = new DB_Document();
         public DB_Image DB_Image = new DB_Image();
@@ -1065,7 +1065,7 @@ namespace DBTypes
                         {
                             return "[money]";
                         }
-                        else if (baseType == typeof(DB_decimal2))
+                        else if (baseType == typeof(DB_decimal))
                         {
                             return "[decimal](18,5)";
                         }
@@ -1193,7 +1193,7 @@ namespace DBTypes
                         {
                             return true;
                         }
-                        else if (baseType == typeof(DB_decimal2))
+                        else if (baseType == typeof(DB_decimal))
                         {
                             return true;
                         }
@@ -1324,7 +1324,7 @@ namespace DBTypes
                         {
                             return -1;
                         }
-                        else if (baseType == typeof(DB_decimal2))
+                        else if (baseType == typeof(DB_decimal))
                         {
                             return -1;
                         }
@@ -1444,7 +1444,7 @@ namespace DBTypes
                         {
                             return "DECIMAL(18,5)";
                         }
-                        else if (baseType == typeof(DB_decimal2))
+                        else if (baseType == typeof(DB_decimal))
                         {
                             return "DECIMAL(18,5)";
                         }
@@ -1576,7 +1576,7 @@ namespace DBTypes
                         {
                             return "DECIMAL(18,5)";
                         }
-                        else if (baseType == typeof(DB_decimal2))
+                        else if (baseType == typeof(DB_decimal))
                         {
                             return "DECIMAL(18,5)";
                         }
@@ -1757,9 +1757,9 @@ namespace DBTypes
                     {
                         return typeof(DB_Money);
                     }
-                    else if (baseType == typeof(DB_decimal2))
+                    else if (baseType == typeof(DB_decimal))
                     {
-                        return typeof(DB_decimal2);
+                        return typeof(DB_decimal);
                     }
                     else if (baseType == typeof(DB_Percent))
                     {
@@ -1842,7 +1842,7 @@ namespace DBTypes
                     {
                         return true;
                     }
-                    else if (baseType == typeof(DB_decimal2))
+                    else if (baseType == typeof(DB_decimal))
                     {
                         return true;
                     }
@@ -1950,10 +1950,10 @@ namespace DBTypes
                     xDB_Money.val = Convert.ToDecimal(Value, new CultureInfo("en-US"));
                     return true;
                 }
-                else if (type == typeof(DB_decimal2))
+                else if (type == typeof(DB_decimal))
                 {
                     sAction = "DB_decimal";
-                    DB_decimal2 xDB_decimal = (DB_decimal2)obj;
+                    DB_decimal xDB_decimal = (DB_decimal)obj;
                     xDB_decimal.val = Convert.ToDecimal(Value, new CultureInfo("en-US"));
                     return true;
                 }
@@ -2326,9 +2326,9 @@ namespace DBTypes
                         ((DB_Money)col_obj).val = Convert.ToDecimal(Value);
                         return true;
                     }
-                    else if (type == typeof(DB_decimal2))
+                    else if (type == typeof(DB_decimal))
                     {
-                        ((DB_decimal2)col_obj).val = Convert.ToDecimal(Value);
+                        ((DB_decimal)col_obj).val = Convert.ToDecimal(Value);
                         return true;
                     }
                     else if (type == typeof(DB_Percent))
@@ -2497,9 +2497,9 @@ namespace DBTypes
                 DB_Money xDB_Money = (DB_Money)obj;
                 return xDB_Money.val.ToString(new CultureInfo("en-US"));
             }
-            else if (baseType == typeof(DB_decimal2))
+            else if (baseType == typeof(DB_decimal))
             {
-                DB_decimal2 xDB_decimal = (DB_decimal2)obj;
+                DB_decimal xDB_decimal = (DB_decimal)obj;
                 return xDB_decimal.val.ToString(new CultureInfo("en-US"));
             }
             else if (baseType == typeof(DB_Percent))
@@ -2736,7 +2736,7 @@ namespace DBTypes
             return ((baseType == typeof(DB_Int32)) ||
                     (baseType == typeof(DB_Int64)) ||
                     (baseType == typeof(DB_Money)) ||
-                    (baseType == typeof(DB_decimal2)) ||
+                    (baseType == typeof(DB_decimal)) ||
                     (baseType == typeof(DB_Percent)) ||
                     (baseType == typeof(DB_smallInt)) ||
                     (baseType == typeof(DB_bit)) ||

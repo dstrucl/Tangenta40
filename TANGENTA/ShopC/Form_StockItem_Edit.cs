@@ -151,9 +151,9 @@ namespace ShopC
                         {
                             if (col.obj != null)
                             {
-                                if (col.obj is DB_decimal2)
+                                if (col.obj is DB_decimal)
                                 {
-                                    dq = ((DB_decimal2)col.obj).val;
+                                    dq = ((DB_decimal)col.obj).val;
                                 }
                             }
                         }
@@ -179,9 +179,9 @@ namespace ShopC
                         {
                             if (col.obj != null)
                             {
-                                if (col.obj is DB_decimal2)
+                                if (col.obj is DB_decimal)
                                 {
-                                    dq = ((DB_decimal2)col.obj).val;
+                                    dq = ((DB_decimal)col.obj).val;
                                 }
                             }
                         }

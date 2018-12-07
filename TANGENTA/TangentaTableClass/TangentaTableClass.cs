@@ -7,11 +7,11 @@ using DBTypes;
 
 namespace TangentaTableClass
 {
-    public class Width : DB_decimal2
+    public class Width : DB_decimal
     {
     }
 
-    public class Height : DB_decimal2
+    public class Height : DB_decimal
     {
     }
 
@@ -218,7 +218,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class dQuantity : DB_decimal2
+    public class dQuantity : DB_decimal
     {
     }
 

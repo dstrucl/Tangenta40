@@ -448,7 +448,7 @@ namespace CodeTables
                         }
                         //break;
 
-                    case Globals.eDBType.DB_decimal2:
+                    case Globals.eDBType.DB_decimal:
                         if (ObjectInitialValue.GetType() == typeof(decimal))
                         {
                             decimal d = (decimal)ObjectInitialValue;
@@ -464,7 +464,7 @@ namespace CodeTables
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:DifferentToObjectInitialValue:Globals.eDBType.DB_decimal2:ObjectInitialValue.GetType() != typeof(decimal)!");
+                            LogFile.Error.Show("ERROR:DifferentToObjectInitialValue:Globals.eDBType.DB_decimal:ObjectInitialValue.GetType() != typeof(decimal)!");
                             return false;
                         }
                         //break;
@@ -769,7 +769,7 @@ namespace CodeTables
                     }
                     break;
 
-                case Globals.eDBType.DB_decimal2:
+                case Globals.eDBType.DB_decimal:
                     if (b)
                     {
                         nmUpDown.ValueChanged += new usrc_NumericUpDown.delegate_ValueChanged(nmUpDown_ValueChanged);
@@ -1067,7 +1067,7 @@ namespace CodeTables
                     m_active_ctrl_List.Add(MoneyUpDown);
                     break;
 
-                case Globals.eDBType.DB_decimal2:
+                case Globals.eDBType.DB_decimal:
                     nmUpDown = new usrc_NumericUpDown(bReadOnly, xuctrln.Get_usrc_NumericUpDown_UniqueIndex());
                     nmUpDown.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     nmUpDown.Top = usrc_lbl.Top;
@@ -1398,7 +1398,7 @@ namespace CodeTables
                     ObjectInitialValue = MoneyUpDown.Value;
                     break;
 
-                case Globals.eDBType.DB_decimal2:
+                case Globals.eDBType.DB_decimal:
                     nmUpDown.Value = nmUpDown.Minimum;
                     ObjectInitialValue = nmUpDown.Value;
                     break;
@@ -1613,7 +1613,7 @@ namespace CodeTables
                 case Globals.eDBType.DB_smallInt:
                 case Globals.eDBType.DB_Int32:
                 case Globals.eDBType.DB_Int64:
-                case Globals.eDBType.DB_decimal2:
+                case Globals.eDBType.DB_decimal:
                     this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + nmUpDown.Width + 2;
                     this.Height = nmUpDown.Height + 2; 
                     break;
@@ -1753,9 +1753,9 @@ namespace CodeTables
                 MoneyUpDown.Value = xDB_Money.val;
                 return true;
             }
-            else if (basetype == typeof(DB_decimal2))
+            else if (basetype == typeof(DB_decimal))
             {
-                DB_decimal2 xDB_decimal = (DB_decimal2)Obj;
+                DB_decimal xDB_decimal = (DB_decimal)Obj;
                 nmUpDown.Value = xDB_decimal.val;
                 return true;
             }
@@ -2337,9 +2337,9 @@ namespace CodeTables
                 objret = xDB_Money.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Decimal;
             }
-            else if (basetype == typeof(DB_decimal2))
+            else if (basetype == typeof(DB_decimal))
             {
-                DB_decimal2 xDB_decimal = (DB_decimal2)Obj;
+                DB_decimal xDB_decimal = (DB_decimal)Obj;
                 xDB_decimal.val = nmUpDown.Value;
                 objret = xDB_decimal.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Decimal;
@@ -2579,9 +2579,9 @@ namespace CodeTables
                 DB_Money xDB_Money = (DB_Money)Obj;
                 Lines.Add(this.sImportExportVector + DecimalSeparator(MoneyUpDown.Value.ToString()));
             }
-            else if (basetype == typeof(DB_decimal2))
+            else if (basetype == typeof(DB_decimal))
             {
-                DB_decimal2 xDB_decimal = (DB_decimal2)Obj;
+                DB_decimal xDB_decimal = (DB_decimal)Obj;
                 Lines.Add(this.sImportExportVector + DecimalSeparator(nmUpDown.Value.ToString()));
             }
             else if (basetype == typeof(DB_Percent))
@@ -2771,9 +2771,9 @@ namespace CodeTables
                 DB_Money xDB_Money = (DB_Money)Obj;
                 xDB_Money.val = MoneyUpDown.Value;
             }
-            else if (basetype == typeof(DB_decimal2))
+            else if (basetype == typeof(DB_decimal))
             {
-                DB_decimal2 xDB_decimal2 = (DB_decimal2)Obj;
+                DB_decimal xDB_decimal2 = (DB_decimal)Obj;
                 xDB_decimal2.val = nmUpDown.Value;
             }
             else if (basetype == typeof(DB_Percent))
