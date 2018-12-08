@@ -990,15 +990,27 @@ namespace ShopC
         {
             if (ID.Validate(StockTake_ID))
             {
-                object oTotalPrice = m_StockTakeTable.Value("StockTakePriceTotal");
-                decimal dTotalPrice = 0;
-                if (oTotalPrice is TangentaTableClass.StockTakePriceTotal)
+                object oStockTakePriceTotal = m_StockTakeTable.Value("StockTakePriceTotal");
+                decimal dStockTakePriceTotal = 0;
+                if (oStockTakePriceTotal is TangentaTableClass.StockTakePriceTotal)
                 {
-                    if (((TangentaTableClass.StockTakePriceTotal)oTotalPrice).defined)
+                    if (((TangentaTableClass.StockTakePriceTotal)oStockTakePriceTotal).defined)
                     {
-                        dTotalPrice = ((TangentaTableClass.StockTakePriceTotal)oTotalPrice).val;
+                        dStockTakePriceTotal = ((TangentaTableClass.StockTakePriceTotal)oStockTakePriceTotal).val;
                     }
                 }
+
+
+                object oStockTakePriceTotalWithVAT = m_StockTakeTable.Value("StockTakePriceTotalWithVAT");
+                bool bStockTakePriceTotalWithVAT = false;
+                if (oStockTakePriceTotalWithVAT is TangentaTableClass.StockTakePriceTotalWithVAT)
+                {
+                    if (((TangentaTableClass.StockTakePriceTotalWithVAT)oStockTakePriceTotalWithVAT).defined)
+                    {
+                        bStockTakePriceTotalWithVAT = ((TangentaTableClass.StockTakePriceTotalWithVAT)oStockTakePriceTotalWithVAT).val;
+                    }
+                }
+
                 decimal dTruckingCost = 0;
                 decimal dCustoms = 0;
                 object oTruckingCosts = m_StockTakeTable.Value("StockTake_$_trc_$$TruckingCost");
@@ -1076,7 +1088,16 @@ namespace ShopC
                     }
                 }
                 decimal dTruckingCostPLUSdCustomsPLUSdAdditionalCost =  dTruckingCost + dCustoms + dAdditionalCost;
-                decimal difference = dTotalPrice - dTruckingCostPLUSdCustomsPLUSdAdditionalCost - dItemsPrice_withouttax ;
+
+                decimal difference = -1;
+                if (bStockTakePriceTotalWithVAT)
+                {
+                    difference = dStockTakePriceTotal - dTruckingCostPLUSdCustomsPLUSdAdditionalCost - dItemsPrice_withttax;
+                }
+                else
+                {
+                    difference = dStockTakePriceTotal - dTruckingCostPLUSdCustomsPLUSdAdditionalCost - dItemsPrice_withouttax;
+                }
 
                 ShowComputationOfDifference(dItemsPrice_withouttax,dVAT, dTruckingCostPLUSdCustomsPLUSdAdditionalCost, difference);
                 return difference;

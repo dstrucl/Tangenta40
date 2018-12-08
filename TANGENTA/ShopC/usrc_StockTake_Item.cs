@@ -655,16 +655,12 @@ namespace ShopC
         }
         private void cmb_PurchasePrice_TextChanged(object sender, EventArgs e)
         {
-//            RemoveHandlers();
             Set_On_cmb_PurchasePriceWithoutDiscountAndWithoutTax();
-            //            AddHandlers();
         }
 
         private void cmb_Discount_TextChanged(object sender, EventArgs e)
         {
-            //            RemoveHandlers();
             Set_On_cmb_Discount();
-            //            AddHandlers();
         }
 
         private void Set_On_cmb_Discount()
@@ -691,15 +687,6 @@ namespace ShopC
                     XMessage.Box.ShowTopMost(this, lng.s_InvalidDiscount, lng.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                 }
             }
-
-            //object oDecimalValue = cmb_Discount.SelectedValue;
-            //if (oDecimalValue is decimal)
-            //{
-            //    SetPrices_PurchasePricePerUnitWithoutTax((decimal)oDecimalValue);
-            //}
-            //else
-            //{
-            //}
         }
 
         private void SetPrices_Discount(decimal xDiscount)
@@ -779,7 +766,6 @@ namespace ShopC
 
         private void cmb_Taxation_SelectedValueChanged(object sender, EventArgs e)
         {
-//            RemoveHandlers();
             string_v Taxation_Name_v = null;
             decimal_v Taxation_Rate_v = null;
             if (ID.Validate(this.Taxation_ID))
@@ -795,7 +781,6 @@ namespace ShopC
                     }
                 }
             }
-//            AddHandlers();
         }
 
         private void usrc_StockTake_Item_Load(object sender, EventArgs e)
@@ -810,19 +795,16 @@ namespace ShopC
 
         private void nmUpDn_Quantity_ValueChanged(object sender, EventArgs e)
         {
-//            RemoveHandlers();
             Quantity = nmUpDn_Quantity.Value;
             CalculateAll_from_PurchasePricePerUnitWithoutTax();
             SetControls();
-//            AddHandlers();
         }
 
         private void txt_TotalWithoutTax_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //enter key is down
-                RemoveHandlers();
+                //enter key is up
                 string sval = this.txt_TotalWithoutTax.Text;
                 try
                 {
@@ -838,8 +820,6 @@ namespace ShopC
                 {
                     MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
                 }
-                AddHandlers();
-
             }
         }
 
@@ -847,8 +827,7 @@ namespace ShopC
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //enter key is down
-  //              RemoveHandlers();
+                //enter key is up
                 string sval = this.txt_TotalWithTax.Text;
                 try
                 {
@@ -865,7 +844,6 @@ namespace ShopC
                 {
                     MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
                 }
-    //            AddHandlers();
             }
         }
 
@@ -873,8 +851,7 @@ namespace ShopC
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //enter key is down
-//                RemoveHandlers();
+                //enter key is up
                 string sval = this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.Text;
                 try
                 {
@@ -888,7 +865,6 @@ namespace ShopC
                 {
                     MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
                 }
-//                AddHandlers();
             }
         }
 
@@ -897,8 +873,7 @@ namespace ShopC
 
             if (e.KeyCode == Keys.Enter)
             {
-                //enter key is down
-//                RemoveHandlers();
+                //enter key is up
                 string sval = this.cmb_PurchasePriceWithoutDiscountAndWithTax.Text;
                 try
                 {
@@ -912,7 +887,6 @@ namespace ShopC
                 {
                     MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
                 }
-                //AddHandlers();
             }
         }
     }
