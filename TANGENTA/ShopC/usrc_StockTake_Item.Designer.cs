@@ -80,6 +80,7 @@
             this.txt_TotalWithTax.Name = "txt_TotalWithTax";
             this.txt_TotalWithTax.Size = new System.Drawing.Size(85, 20);
             this.txt_TotalWithTax.TabIndex = 44;
+            this.txt_TotalWithTax.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_TotalWithTax_KeyUp);
             // 
             // txt_PriceWithDiscountWithTax
             // 
@@ -99,6 +100,7 @@
             this.cmb_PurchasePriceWithoutDiscountAndWithTax.Name = "cmb_PurchasePriceWithoutDiscountAndWithTax";
             this.cmb_PurchasePriceWithoutDiscountAndWithTax.Size = new System.Drawing.Size(89, 21);
             this.cmb_PurchasePriceWithoutDiscountAndWithTax.TabIndex = 42;
+            this.cmb_PurchasePriceWithoutDiscountAndWithTax.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmb_PurchasePriceWithoutDiscountAndWithTax_KeyUp);
             // 
             // lbl_PriceWithoutVAT
             // 
@@ -118,6 +120,7 @@
             this.txt_TotalWithoutTax.Name = "txt_TotalWithoutTax";
             this.txt_TotalWithoutTax.Size = new System.Drawing.Size(85, 20);
             this.txt_TotalWithoutTax.TabIndex = 40;
+            this.txt_TotalWithoutTax.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_TotalWithoutTax_KeyUp);
             // 
             // lbl_Total
             // 
@@ -218,6 +221,7 @@
             this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.Name = "cmb_PurchasePriceWithoutDiscountAndWithoutTax";
             this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.Size = new System.Drawing.Size(89, 21);
             this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.TabIndex = 30;
+            this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmb_PurchasePriceWithoutDiscountAndWithoutTax_KeyUp);
             // 
             // lbl_PurchasePrice
             // 

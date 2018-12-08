@@ -655,16 +655,16 @@ namespace ShopC
         }
         private void cmb_PurchasePrice_TextChanged(object sender, EventArgs e)
         {
-            RemoveHandlers();
+//            RemoveHandlers();
             Set_On_cmb_PurchasePriceWithoutDiscountAndWithoutTax();
-            AddHandlers();
+            //            AddHandlers();
         }
 
         private void cmb_Discount_TextChanged(object sender, EventArgs e)
         {
-            RemoveHandlers();
+            //            RemoveHandlers();
             Set_On_cmb_Discount();
-            AddHandlers();
+            //            AddHandlers();
         }
 
         private void Set_On_cmb_Discount()
@@ -705,10 +705,11 @@ namespace ShopC
         private void SetPrices_Discount(decimal xDiscount)
         {
             Discount = xDiscount;
+            CalculateAll_from_PurchasePricePerUnitWithoutTax();
             SetControls();
         }
 
-        public void CalculateAll()
+        public void CalculateAll_from_PurchasePricePerUnitWithoutTax()
         {
             PurchasePricePerUnitWithTax = PurchasePricePerUnitWithoutTax * (1 + TaxationRate);
 
@@ -724,14 +725,14 @@ namespace ShopC
 
         public void SetControls()
         {
-
-            CalculateAll();
-
+            RemoveHandlers();
+            cmb_PurchasePriceWithoutDiscountAndWithoutTax.Text = Convert.ToString(PurchasePricePerUnitWithoutTax);
             cmb_PurchasePriceWithoutDiscountAndWithTax.Text = Convert.ToString(PurchasePricePerUnitWithTax);
             txt_PriceWithDiscountWithoutTax.Text = Convert.ToString(PurchasePricePerUnitWithoutTaxWithDiscount);
             txt_PriceWithDiscountWithTax.Text = Convert.ToString(PurchasePricePerUnitWithTaxWithDiscount);
             txt_TotalWithoutTax.Text = Convert.ToString(TotalWithoutTaxWithDiscount);
             txt_TotalWithTax.Text = Convert.ToString(TotalWithTaxWithDiscount);
+            AddHandlers();
         }
 
         private void SetPrices_PurchasePricePerUnitWithoutTax(decimal xPurchasePricePerUnitWithoutTax)
@@ -745,6 +746,8 @@ namespace ShopC
                 if (Taxation_Rate_v!=null)
                 {
                     TaxationRate = Taxation_Rate_v.v;
+
+                    CalculateAll_from_PurchasePricePerUnitWithoutTax();
 
                     SetControls();
 
@@ -776,7 +779,7 @@ namespace ShopC
 
         private void cmb_Taxation_SelectedValueChanged(object sender, EventArgs e)
         {
-            RemoveHandlers();
+//            RemoveHandlers();
             string_v Taxation_Name_v = null;
             decimal_v Taxation_Rate_v = null;
             if (ID.Validate(this.Taxation_ID))
@@ -786,13 +789,13 @@ namespace ShopC
                     if (Taxation_Rate_v != null)
                     {
                         TaxationRate = Taxation_Rate_v.v;
-
+                        CalculateAll_from_PurchasePricePerUnitWithoutTax();
                         SetControls();
 
                     }
                 }
             }
-            AddHandlers();
+//            AddHandlers();
         }
 
         private void usrc_StockTake_Item_Load(object sender, EventArgs e)
@@ -807,10 +810,110 @@ namespace ShopC
 
         private void nmUpDn_Quantity_ValueChanged(object sender, EventArgs e)
         {
-            RemoveHandlers();
+//            RemoveHandlers();
             Quantity = nmUpDn_Quantity.Value;
+            CalculateAll_from_PurchasePricePerUnitWithoutTax();
             SetControls();
-            AddHandlers();
+//            AddHandlers();
+        }
+
+        private void txt_TotalWithoutTax_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //enter key is down
+                RemoveHandlers();
+                string sval = this.txt_TotalWithoutTax.Text;
+                try
+                {
+                    decimal dval = Convert.ToDecimal(sval);
+                    //(priceperunitWithoutTax * (1 - discount)) * Quantity = TotalWithoutTaxWithDiscount
+                    decimal dpriceperunitWithoutTax =  dval / ((1 - Discount) * Quantity);
+                    PurchasePricePerUnitWithoutTax = dpriceperunitWithoutTax;
+                    CalculateAll_from_PurchasePricePerUnitWithoutTax();
+                    SetControls();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
+                }
+                AddHandlers();
+
+            }
+        }
+
+        private void txt_TotalWithTax_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //enter key is down
+  //              RemoveHandlers();
+                string sval = this.txt_TotalWithTax.Text;
+                try
+                {
+                    decimal dval = Convert.ToDecimal(sval);
+                    decimal dTotalWithoutTaxWithDiscount = dval / (1 + TaxationRate);
+                    //(priceperunitWithoutTax * (1 - discount)) * Quantity = TotalWithoutTaxWithDiscount
+                    decimal dpriceperunitWithoutTax = dTotalWithoutTaxWithDiscount / ((1 - Discount) * Quantity);
+                    PurchasePricePerUnitWithoutTax = dpriceperunitWithoutTax;
+                    CalculateAll_from_PurchasePricePerUnitWithoutTax();
+                    SetControls();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
+                }
+    //            AddHandlers();
+            }
+        }
+
+        private void cmb_PurchasePriceWithoutDiscountAndWithoutTax_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //enter key is down
+//                RemoveHandlers();
+                string sval = this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.Text;
+                try
+                {
+                    decimal dval = Convert.ToDecimal(sval);
+                    PurchasePricePerUnitWithoutTax = dval;
+                    CalculateAll_from_PurchasePricePerUnitWithoutTax();
+                    SetControls();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
+                }
+//                AddHandlers();
+            }
+        }
+
+        private void cmb_PurchasePriceWithoutDiscountAndWithTax_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                //enter key is down
+//                RemoveHandlers();
+                string sval = this.cmb_PurchasePriceWithoutDiscountAndWithTax.Text;
+                try
+                {
+                    decimal dval = Convert.ToDecimal(sval);
+                    PurchasePricePerUnitWithoutTax = dval/(1+TaxationRate);
+                    CalculateAll_from_PurchasePricePerUnitWithoutTax();
+                    SetControls();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, lng.s_CannotConvertToDecimal.s + ":" + sval);
+                }
+                //AddHandlers();
+            }
         }
     }
 }

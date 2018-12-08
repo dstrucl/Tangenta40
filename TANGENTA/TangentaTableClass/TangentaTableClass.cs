@@ -40,12 +40,12 @@ namespace TangentaTableClass
     public class MAC_address : DB_varchar_32
     {
     }
-    
+
     public class IP_address : DB_varchar_32
     {
     }
-    
-    public class ExpectedShelfLifeInDays: DB_Int32
+
+    public class ExpectedShelfLifeInDays : DB_Int32
     {
     }
 
@@ -62,7 +62,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class SOrganisation :DB_varchar_2000
+    public class SOrganisation : DB_varchar_2000
     {
     }
 
@@ -108,7 +108,7 @@ namespace TangentaTableClass
     public class HomePage : DB_varchar_264
     {
     }
-    
+
 
     public class OrganisationTYPE : DB_varchar_32
     {
@@ -130,24 +130,24 @@ namespace TangentaTableClass
 
 
 
-    public class Organisation_id:DB_Int64
+    public class Organisation_id : DB_Int64
     {
     }
 
-    public class Tax_ID: DB_varchar_32
+    public class Tax_ID : DB_varchar_32
     {
     }
 
-    public class TRR:DB_varchar_264
+    public class TRR : DB_varchar_264
     {
 
     }
 
-    public class Registration_ID:DB_varchar_50
+    public class Registration_ID : DB_varchar_50
     {
     }
 
-    public class BankName:DB_varchar_264
+    public class BankName : DB_varchar_264
     {
 
     }
@@ -156,12 +156,12 @@ namespace TangentaTableClass
     {
     }
 
-    public class Community:DB_varchar_250
+    public class Community : DB_varchar_250
     {
 
     }
 
-    public class CadastralNumber:DB_Int32
+    public class CadastralNumber : DB_Int32
     {
 
     }
@@ -171,17 +171,17 @@ namespace TangentaTableClass
 
     }
 
-    public class BuildingSectionNumber:DB_Int32
+    public class BuildingSectionNumber : DB_Int32
     {
 
     }
 
-    public class PremiseType:DB_varchar_5
+    public class PremiseType : DB_varchar_5
     {
 
     }
 
-    public class ValidityDate:DB_DateTime
+    public class ValidityDate : DB_DateTime
     {
 
     }
@@ -196,17 +196,17 @@ namespace TangentaTableClass
 
     }
 
-    public class SoftwareSupplier_TaxNumber: DB_varchar_10
+    public class SoftwareSupplier_TaxNumber : DB_varchar_10
     {
 
     }
 
-    public class SpecialNotes:DB_varchar_2000
+    public class SpecialNotes : DB_varchar_2000
     {
 
     }
 
-    public class Name:DB_varchar_264
+    public class Name : DB_varchar_264
     {
     }
 
@@ -214,7 +214,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class iQuantity:DB_Int32
+    public class iQuantity : DB_Int32
     {
     }
 
@@ -222,7 +222,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class PurchasePricePerUnit:DB_Money
+    public class PurchasePricePerUnit : DB_Money
     {
     }
 
@@ -234,38 +234,38 @@ namespace TangentaTableClass
     {
     }
 
-    public class ImportTime:DB_DateTime
+    public class ImportTime : DB_DateTime
     {
     }
 
-    public class Rate:DB_Percent
+    public class Rate : DB_Percent
     {
     }
 
-    public class TaxSum:DB_Money
+    public class TaxSum : DB_Money
     {
     }
 
-    public class GrossSum:DB_Money
+    public class GrossSum : DB_Money
     {
     }
 
-    public class RetailPricePerUnit:DB_Money
+    public class RetailPricePerUnit : DB_Money
     {
-        
+
     }
 
-     public class RetailPricePerUnitWithDiscount:DB_Money
+    public class RetailPricePerUnitWithDiscount : DB_Money
     {
-        
+
     }
 
 
-    public class ExpiryDate:DB_DateTime
+    public class ExpiryDate : DB_DateTime
     {
     }
 
-    public class DocInvoiceTime:DB_DateTime
+    public class DocInvoiceTime : DB_DateTime
     {
     }
 
@@ -277,23 +277,23 @@ namespace TangentaTableClass
     {
     }
 
-    public class NetSum:DB_Money
+    public class NetSum : DB_Money
     {
     }
 
 
-    public class EndSum:DB_Money
-    {
-    }
-        
-
-
-    public class TaxPrice:DB_Money
+    public class EndSum : DB_Money
     {
     }
 
 
-    public class Discount:DB_Percent
+
+    public class TaxPrice : DB_Money
+    {
+    }
+
+
+    public class Discount : DB_Percent
     {
     }
 
@@ -305,12 +305,12 @@ namespace TangentaTableClass
     {
     }
 
-    public class RetailPriceWithDiscount:DB_Money
+    public class RetailPriceWithDiscount : DB_Money
     {
 
     }
 
-    public class Abbreviation:DB_varchar_50
+    public class Abbreviation : DB_varchar_50
     {
     }
 
@@ -321,11 +321,11 @@ namespace TangentaTableClass
     {
     }
 
-    public class MinimumSimpleItemPrice:DB_Money
+    public class MinimumSimpleItemPrice : DB_Money
     {
     }
 
-    public class RetailSimpleItemPrice:DB_Money
+    public class RetailSimpleItemPrice : DB_Money
     {
     }
 
@@ -341,7 +341,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class Country: DB_varchar_264
+    public class Country : DB_varchar_264
     {
     }
 
@@ -349,23 +349,23 @@ namespace TangentaTableClass
     {
     }
 
-    public class ContactPerson:DB_varchar_264
+    public class ContactPerson : DB_varchar_264
     {
     }
 
-    public class ContactPhone:DB_varchar_264
+    public class ContactPhone : DB_varchar_264
     {
     }
 
-    public class ContactEmail:DB_varchar_264
+    public class ContactEmail : DB_varchar_264
     {
     }
 
-    public class RecievedInvoiceNumber:DB_varchar_50
+    public class RecievedInvoiceNumber : DB_varchar_50
     {
     }
 
-    public class Code:DB_Int64
+    public class Code : DB_Int64
     {
     }
 
@@ -377,12 +377,12 @@ namespace TangentaTableClass
     {
     }
 
-    public class EventTime:DB_DateTime
+    public class EventTime : DB_DateTime
     {
 
     }
 
-    public class DeliveryTime:DB_DateTime
+    public class DeliveryTime : DB_DateTime
     {
 
     }
@@ -392,7 +392,7 @@ namespace TangentaTableClass
 
     }
 
-    public class Country_ISO_3166_a2:DB_varchar_5
+    public class Country_ISO_3166_a2 : DB_varchar_5
     {
 
     }
@@ -513,7 +513,7 @@ namespace TangentaTableClass
     public class cCountry_Person
     {
         public ID ID = new ID();
-        public Country Country= new Country();
+        public Country Country = new Country();
         public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
         public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
         public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
@@ -536,7 +536,7 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public HouseNumber HouseNumber = new HouseNumber();
     }
-    
+
     public class Atom_cCity_Person
     {
         public ID ID = new ID();
@@ -553,7 +553,7 @@ namespace TangentaTableClass
     public class Atom_cCountry_Person
     {
         public ID ID = new ID();
-        public Country Country= new Country();
+        public Country Country = new Country();
         public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
         public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
         public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
@@ -619,7 +619,7 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class PIN:DB_Int32
+    public class PIN : DB_Int32
     {
 
     }
@@ -707,7 +707,7 @@ namespace TangentaTableClass
     public class cCountry_Org
     {
         public ID ID = new ID();
-        public Country Country= new Country();
+        public Country Country = new Country();
         public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
         public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
         public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
@@ -747,7 +747,7 @@ namespace TangentaTableClass
     public class Atom_cCountry_Org
     {
         public ID ID = new ID();
-        public Country Country= new Country();
+        public Country Country = new Country();
         public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
         public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
         public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
@@ -792,7 +792,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class ExpiryDescription: DB_varchar_2000
+    public class ExpiryDescription : DB_varchar_2000
     {
     }
 
@@ -800,14 +800,14 @@ namespace TangentaTableClass
 
 
 
-    public class ReadOnly: DB_bit
+    public class ReadOnly : DB_bit
     {
     }
     public class ToOffer : DB_bit
     {
     }
 
-    public class WarrantyDurationType: DB_smallInt
+    public class WarrantyDurationType : DB_smallInt
     {
     }
     public class WarrantyDuration : DB_Int32
@@ -817,27 +817,27 @@ namespace TangentaTableClass
     {
     }
 
-    public class DocDuration:DB_Int64
+    public class DocDuration : DB_Int64
     {
     }
 
-    public class DocDurationType: DB_smallInt
+    public class DocDurationType : DB_smallInt
     {
     }
 
-    public class Job:DB_varchar_264
+    public class Job : DB_varchar_264
     {
     }
 
-    public class UserName:DB_varchar_32
+    public class UserName : DB_varchar_32
     {
     }
 
-    public class Password:DB_varbinary_max
+    public class Password : DB_varbinary_max
     {
     }
 
-    public class Active:DB_bit
+    public class Active : DB_bit
     {
     }
 
@@ -849,30 +849,30 @@ namespace TangentaTableClass
     {
     }
 
-    public class  LoginTime:DB_DateTime
+    public class LoginTime : DB_DateTime
     {
 
     }
 
-    public class  LogoutTime:DB_DateTime
+    public class LogoutTime : DB_DateTime
     {
 
     }
 
-    public class DocInvoice_Top_Description:DB_varchar_max
+    public class DocInvoice_Top_Description : DB_varchar_max
     {
     }
 
-    public class DocInvoice_Bottom_description:DB_varchar_max
+    public class DocInvoice_Bottom_description : DB_varchar_max
     {
     }
 
 
-    public class PaymentDeadline:DB_DateTime
+    public class PaymentDeadline : DB_DateTime
     {
     }
 
-    public class ProFormaImage:DB_Image
+    public class ProFormaImage : DB_Image
     {
     }
 
@@ -894,11 +894,11 @@ namespace TangentaTableClass
     {
     }
 
-    public class FinancialYear:DB_Int32
+    public class FinancialYear : DB_Int32
     {
     }
 
-    public class NumberInFinancialYear:DB_Int32
+    public class NumberInFinancialYear : DB_Int32
     {
     }
 
@@ -920,7 +920,7 @@ namespace TangentaTableClass
         public Image_Data Image_Data = new Image_Data();
     }
 
-    public class TaxPayer:DB_bit
+    public class TaxPayer : DB_bit
     {
 
     }
@@ -1061,7 +1061,7 @@ namespace TangentaTableClass
     public class myOrganisation
     {
         public ID ID = new ID();
-//        public Organisation m_Organisation = new Organisation();
+        //        public Organisation m_Organisation = new Organisation();
         public OrganisationData m_OrganisationData = new OrganisationData();
     }
 
@@ -1090,7 +1090,7 @@ namespace TangentaTableClass
     }
 
 
-    public class ShortName:DB_varchar_10
+    public class ShortName : DB_varchar_10
     {
 
     }
@@ -1206,13 +1206,13 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class SettingsVal:DB_varchar_264
+    public class SettingsVal : DB_varchar_264
     {
 
     }
 
 
-    public class SValue:DB_varchar_264
+    public class SValue : DB_varchar_264
     {
     }
 
@@ -1379,14 +1379,14 @@ namespace TangentaTableClass
 
     }
 
-    public class PricePerUnit:DB_Money
+    public class PricePerUnit : DB_Money
     {
 
     }
 
-    public class ShopAUnit:DB_varchar_32
+    public class ShopAUnit : DB_varchar_32
     {
-        
+
     }
 
 
@@ -1412,38 +1412,38 @@ namespace TangentaTableClass
 
     public class Item
     {
-            public ID ID = new ID();
-            public Code Code  = new Code();
-            public UniqueName UniqueName = new UniqueName();
-            public Name Name = new Name();
-            public Item_ParentGroup1 m_Item_ParentGroup1 = new Item_ParentGroup1();
-            public barcode barcode = new barcode();
-            public Description Description = new Description();
-            public Expiry m_Expiry = new Expiry();
-            public Warranty m_Warranty = new Warranty();
-            public ToOffer ToOffer = new ToOffer();
-            public Item_Image m_Item_Image = new Item_Image();
-            public Unit m_Unit = new Unit();
+        public ID ID = new ID();
+        public Code Code = new Code();
+        public UniqueName UniqueName = new UniqueName();
+        public Name Name = new Name();
+        public Item_ParentGroup1 m_Item_ParentGroup1 = new Item_ParentGroup1();
+        public barcode barcode = new barcode();
+        public Description Description = new Description();
+        public Expiry m_Expiry = new Expiry();
+        public Warranty m_Warranty = new Warranty();
+        public ToOffer ToOffer = new ToOffer();
+        public Item_Image m_Item_Image = new Item_Image();
+        public Unit m_Unit = new Unit();
     }
 
     public class Atom_Item_ImageLib
     {
-         public ID ID = new ID();
-         public Image_Hash Image_Hash = new Image_Hash();
-         public Image_Data Image_Data = new Image_Data();
-         public Description Description = new Description();
+        public ID ID = new ID();
+        public Image_Hash Image_Hash = new Image_Hash();
+        public Image_Data Image_Data = new Image_Data();
+        public Description Description = new Description();
     }
 
     public class Atom_Item_Name
     {
-         public ID ID = new ID();
-         public Name Name = new Name();
+        public ID ID = new ID();
+        public Name Name = new Name();
     }
 
     public class Atom_Item_barcode
     {
-         public ID ID = new ID();
-         public barcode barcode = new barcode();
+        public ID ID = new ID();
+        public barcode barcode = new barcode();
     }
 
     public class Taxation
@@ -1455,8 +1455,8 @@ namespace TangentaTableClass
 
     public class Atom_Item_Description
     {
-         public ID ID = new ID();
-         public Description Description = new Description();
+        public ID ID = new ID();
+        public Description Description = new Description();
     }
 
     public class Atom_Currency
@@ -1500,14 +1500,14 @@ namespace TangentaTableClass
 
     public class Atom_Item
     {
-            public ID ID = new ID();
-            public UniqueName UniqueName = new UniqueName();
-            public Atom_Item_Name m_Atom_Item_Name = new Atom_Item_Name();
-            public Atom_Item_barcode m_Atom_Item_barcode = new Atom_Item_barcode();
-            public Atom_Item_Description m_Atom_Item_Description = new Atom_Item_Description();
-            public Atom_Expiry m_Atom_Expiry = new Atom_Expiry();
-            public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
-            public Atom_Unit m_Atom_Unit = new Atom_Unit();
+        public ID ID = new ID();
+        public UniqueName UniqueName = new UniqueName();
+        public Atom_Item_Name m_Atom_Item_Name = new Atom_Item_Name();
+        public Atom_Item_barcode m_Atom_Item_barcode = new Atom_Item_barcode();
+        public Atom_Item_Description m_Atom_Item_Description = new Atom_Item_Description();
+        public Atom_Expiry m_Atom_Expiry = new Atom_Expiry();
+        public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
+        public Atom_Unit m_Atom_Unit = new Atom_Unit();
     }
 
     public class DocInvoice_ShopC_Item
@@ -1553,13 +1553,13 @@ namespace TangentaTableClass
 
     public class Atom_Item_Image
     {
-         public ID ID = new ID();
-         public Atom_Item m_Atom_Item = new Atom_Item();
-         public Atom_Item_ImageLib m_Atom_Item_ImageLib = new Atom_Item_ImageLib();
+        public ID ID = new ID();
+        public Atom_Item m_Atom_Item = new Atom_Item();
+        public Atom_Item_ImageLib m_Atom_Item_ImageLib = new Atom_Item_ImageLib();
     }
 
 
-    public class Atom_Taxation 
+    public class Atom_Taxation
     {
         public ID ID = new ID();
         public Name Name = new Name();
@@ -1586,7 +1586,7 @@ namespace TangentaTableClass
         public Stock_AddressLevel2 m_Stock_AddressLevel2 = new Stock_AddressLevel2();
     }
 
-    public class ValidFrom:DB_DateTime
+    public class ValidFrom : DB_DateTime
     {
     }
 
@@ -1650,7 +1650,7 @@ namespace TangentaTableClass
 
     }
 
-    public class ReferenceDate:DB_DateTime
+    public class ReferenceDate : DB_DateTime
     {
 
     }
@@ -1668,12 +1668,12 @@ namespace TangentaTableClass
         public Contact m_Contact = new Contact();
     }
 
-    public class TruckingNumber:DB_varchar_64
+    public class TruckingNumber : DB_varchar_64
     {
 
     }
 
-    public class TruckingCost:DB_Money
+    public class TruckingCost : DB_Money
     {
 
     }
@@ -1689,9 +1689,13 @@ namespace TangentaTableClass
     }
 
 
-    public class Locked:DB_bit
+    public class Locked : DB_bit
     {
 
+    }
+
+    public class StockTakePriceTotalWithVAT:DB_bit
+    {
     }
 
     public class StockTake
@@ -1701,6 +1705,7 @@ namespace TangentaTableClass
         public StockTake_Date StockTake_Date = new StockTake_Date();
         public Supplier m_Supplier = new Supplier();
         public StockTakePriceTotal StockTakePriceTotal = new StockTakePriceTotal();
+        public StockTakePriceTotalWithVAT StockTakePriceTotalWithVAT = new StockTakePriceTotalWithVAT();
         public Trucking m_Trucking = new Trucking();
         public Reference m_Reference = new Reference();
         public Description Description = new Description();
@@ -2845,6 +2850,7 @@ namespace TangentaTableClass
         public WorkAreaImage m_WorkAreaImage = new WorkAreaImage();
         public Active Active = new Active();
         public WorkArea_ParentGroup1 m_WorkArea_ParentGroup1 = new WorkArea_ParentGroup1();
+        public PriceList m_PriceList = new PriceList();
     }
 
     public class DocInvoice_Atom_WorkArea

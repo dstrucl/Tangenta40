@@ -62,7 +62,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.28";
+        public const string VERSION = "1.29";
         public Settings Settings = null;
 
         /* 1 */
@@ -2430,6 +2430,7 @@ namespace TangentaDataBaseDef
             t_StockTake.AddColumn((Object)mt.m_StockTake.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Oznaka"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.StockTake_Date, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker_Now, new ltext("Stock Take Date", "Datum Prevzemnice"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.StockTakePriceTotal, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take price total", "Skupna cena prevzemnice"));
+            t_StockTake.AddColumn((Object)mt.m_StockTake.StockTakePriceTotalWithVAT, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take price total with VAT", "Skupna cena prevzemnice je z DDV"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.m_Reference, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference ID", "Sklic ID"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             t_StockTake.AddColumn((Object)mt.m_StockTake.m_Supplier, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Supplier ID", "Dobavitelj ID"));
@@ -2687,6 +2688,7 @@ namespace TangentaDataBaseDef
             t_WorkArea.AddColumn((Object)mt.m_WorkArea.Active, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area active", "Delovno področje je aktivno"));
             t_WorkArea.AddColumn((Object)mt.m_WorkArea.m_WorkAreaImage, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area image ID", "Slika delovnega področja ID"));
             t_WorkArea.AddColumn((Object)mt.m_WorkArea.m_WorkArea_ParentGroup1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work area group ID", "Delovno področje skupina ID"));
+            t_WorkArea.AddColumn((Object)mt.m_WorkArea.m_PriceList, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price List ID", "Cenik ID"));
             m_DBTables.items.Add(t_WorkArea);
 
             /* 229 */
