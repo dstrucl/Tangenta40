@@ -245,7 +245,7 @@ namespace ShopC
                     object o_StockTakePriceTotal = m_StockTakeTable.Value("StockTakePriceTotal");
                     if (o_StockTakePriceTotal is TangentaTableClass.StockTakePriceTotal)
                     {
-                        if (((TangentaTableClass.StockTake_Date)o_StockTakePriceTotal).defined)
+                        if (((TangentaTableClass.StockTakePriceTotal)o_StockTakePriceTotal).defined)
                         {
                             return  new decimal_v(((TangentaTableClass.StockTakePriceTotal)o_StockTakePriceTotal).val);
                         }
@@ -403,14 +403,14 @@ namespace ShopC
             {
                 if (ID.Validate(CurrentItem_ID))
                 {
-                    Set_cmb_PurchasePrice(iD, usrc_StockTake_Item1.Selected_Currency_ID);
+                    Set_cmb_PurchasePriceWithoutDiscountAndWithoutTax(iD, usrc_StockTake_Item1.Selected_Currency_ID);
                 }
             }
         }
 
-        private void Set_cmb_PurchasePrice(ID Item_ID, ID Currency_ID)
+        private void Set_cmb_PurchasePriceWithoutDiscountAndWithoutTax(ID Item_ID, ID Currency_ID)
         {
-            usrc_StockTake_Item1.Set_cmb_PurchasePrice(Item_ID, Currency_ID);
+            usrc_StockTake_Item1.Set_cmb_PurchasePriceWithoutDiscountAndWithoutTax(Item_ID, Currency_ID);
         }
 
 
@@ -547,6 +547,38 @@ namespace ShopC
 
         private bool Reload(ID xStockTake_ID)
         {
+
+            if (m_StockTakeTable != null)
+            {
+                object oStockTakePriceTotalWithVAT = m_StockTakeTable.Value("StockTakePriceTotalWithVAT");
+                bool bStockTakePriceTotalWithVAT = false;
+                if (oStockTakePriceTotalWithVAT is TangentaTableClass.StockTakePriceTotalWithVAT)
+                {
+                    if (((TangentaTableClass.StockTakePriceTotalWithVAT)oStockTakePriceTotalWithVAT).defined)
+                    {
+                        bStockTakePriceTotalWithVAT = ((TangentaTableClass.StockTakePriceTotalWithVAT)oStockTakePriceTotalWithVAT).val;
+                    }
+                }
+                if (bStockTakePriceTotalWithVAT)
+                {
+                    lng.s_StockTakePriceWithVAT.Text(lbl_StockTakePriceWithOrWithoutVAT);
+                }
+                else
+                {
+                    lng.s_StockTakePriceWithoutVAT.Text(lbl_StockTakePriceWithOrWithoutVAT);
+                }
+
+                object o_StockTakePriceTotal = m_StockTakeTable.Value("StockTakePriceTotal");
+                if (o_StockTakePriceTotal is TangentaTableClass.StockTakePriceTotal)
+                {
+                    if (((TangentaTableClass.StockTakePriceTotal)o_StockTakePriceTotal).defined)
+                    {
+                        decimal dStockTakePriceTotal = ((TangentaTableClass.StockTakePriceTotal)o_StockTakePriceTotal).val;
+                        this.txt_StockTakePrice_WithOrWithoutTAX.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(dStockTakePriceTotal, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
+                    }
+                }
+            }
+
             dgvx_StockTakeItemsAndPrices.DataSource = null;
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
             if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake, ref aDoc_ShopC_Item, StockTake_ID))
@@ -609,7 +641,7 @@ namespace ShopC
                     ID xCurrency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
                     if (ID.Validate(xCurrency_ID))
                     {
-                        Set_cmb_PurchasePrice(CurrentItem_ID, xCurrency_ID);
+                        Set_cmb_PurchasePriceWithoutDiscountAndWithoutTax(CurrentItem_ID, xCurrency_ID);
                     }
 
                     dgvx_StockTakeItemsAndPrices.Rows[current_index].Selected = true;
@@ -839,7 +871,7 @@ namespace ShopC
                         Selected_Currency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
                         if (ID.Validate(Selected_Currency_ID))
                         {
-                            Set_cmb_PurchasePrice(CurrentItem_ID, Selected_Currency_ID);
+                            Set_cmb_PurchasePriceWithoutDiscountAndWithoutTax(CurrentItem_ID, Selected_Currency_ID);
                         }
                     }
 

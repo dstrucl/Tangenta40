@@ -266,7 +266,6 @@ namespace ShopC
             }
         }
 
-
         private void SetNewFormTag()
         {
 
@@ -350,23 +349,6 @@ namespace ShopC
                 frm_StockTake_Edit_WizzardForHelp.Owner = this;
             }
             frm_StockTake_Edit_WizzardForHelp.Show();
-        }
-
-
-
-        private void usrc_StockEditForSelectedStockTake1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
-        private void usrc_EditTable1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

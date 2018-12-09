@@ -25,6 +25,10 @@ namespace ShopC
         }
 
 
+        public static ltext s_StockTakePriceWithoutVAT = new ltext(new string[] { "Stock-Take price without VAT", "Cena prevzemnice brez DDV" });
+
+        public static ltext s_StockTakePriceWithVAT = new ltext(new string[] { "Stock-Take price with VAT", "Cena prevzemnice z DDV" });
+
         public static ltext s_CannotConvertToDecimal = new ltext(new string[] { "Can not convert to decimal", "Pretvorba v decimalno število ni uspela" });
 
         public static ltext sYouSetAllQuantitiesToZeroDoYouwantToRemoveItem = new ltext(new string[] { "You set all quantitites to zero.Do you want to remove item?", "Vse količine ste postavili na nič.Želite umakniti artikel iz košare?" });

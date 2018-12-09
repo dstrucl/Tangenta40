@@ -459,7 +459,6 @@ namespace ShopC
 
         internal void SetInitialValues()
         {
-            RemoveHandlers();
             cmb_Taxation.DataSource = TangentaDB.f_Taxation.GetTable(true);
             cmb_Taxation.DisplayMember = "Name";
             cmb_Taxation.ValueMember = "ID";
@@ -478,7 +477,6 @@ namespace ShopC
             cmb_PurchasePriceWithoutDiscountAndWithoutTax.Text = "";
             nmUpDn_Quantity.Minimum = 0;
             nmUpDn_Quantity.Value = 0;
-            AddHandlers();
         }
 
         internal void SetQuantity_NumericUpdDown(object xiItem_UnitDecimalPlaces)
@@ -486,10 +484,8 @@ namespace ShopC
             fs.SetNumericUpDown(ref nmUpDn_Quantity, xiItem_UnitDecimalPlaces);
         }
 
-        internal void Set_cmb_PurchasePrice(ID item_ID, ID currency_ID)
+        internal void Set_cmb_PurchasePriceWithoutDiscountAndWithoutTax(ID item_ID, ID currency_ID)
         {
-            RemoveHandlers();
-
             toolTip_cmb_PurchasePrice.SetToolTip(cmb_PurchasePriceWithoutDiscountAndWithoutTax, lng.s_PurchasePricesNotDefinedYeet.s);
 
             cmb_PurchasePriceWithoutDiscountAndWithoutTax.DataSource = null;
@@ -516,7 +512,6 @@ namespace ShopC
                     }
                 }
             }
-            AddHandlers();
         }
         
         internal bool Check_dQuantity(bool bTopmost)
@@ -653,7 +648,7 @@ namespace ShopC
                 }
             }
         }
-        private void cmb_PurchasePrice_TextChanged(object sender, EventArgs e)
+        private void cmb_PurchasePriceWithoutDiscountAndWithoutTax_TextChanged(object sender, EventArgs e)
         {
             Set_On_cmb_PurchasePriceWithoutDiscountAndWithoutTax();
         }
@@ -748,7 +743,7 @@ namespace ShopC
 
         private void AddHandlers()
         {
-            this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.TextChanged += new System.EventHandler(this.cmb_PurchasePrice_TextChanged);
+            this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.TextChanged += new System.EventHandler(this.cmb_PurchasePriceWithoutDiscountAndWithoutTax_TextChanged);
             this.cmb_Discount.TextChanged += new System.EventHandler(this.cmb_Discount_TextChanged);
             this.cmb_PurchasePriceWithoutDiscountAndWithTax.TextChanged += new System.EventHandler(this.cmb_PurchasePriceWithoutDiscountAndWithTax_TextChanged);
             this.cmb_Taxation.SelectedValueChanged += new System.EventHandler(this.cmb_Taxation_SelectedValueChanged);
@@ -758,7 +753,7 @@ namespace ShopC
 
         private void RemoveHandlers()
         {
-            this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.TextChanged -= new System.EventHandler(this.cmb_PurchasePrice_TextChanged);
+            this.cmb_PurchasePriceWithoutDiscountAndWithoutTax.TextChanged -= new System.EventHandler(this.cmb_PurchasePriceWithoutDiscountAndWithoutTax_TextChanged);
             this.cmb_Discount.TextChanged -= new System.EventHandler(this.cmb_Discount_TextChanged);
             this.cmb_PurchasePriceWithoutDiscountAndWithTax.TextChanged -= new System.EventHandler(this.cmb_PurchasePriceWithoutDiscountAndWithTax_TextChanged);
             this.cmb_Taxation.SelectedValueChanged -= new System.EventHandler(this.cmb_Taxation_SelectedValueChanged);
