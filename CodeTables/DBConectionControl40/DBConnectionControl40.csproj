@@ -117,6 +117,9 @@
     <Compile Include="ConnectionDialog.Designer.cs">
       <DependentUpon>ConnectionDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConnectionMSSQL.cs" />
+    <Compile Include="ConnectionMYSQL.cs" />
+    <Compile Include="ConnectionSQLITE.cs" />
     <Compile Include="Connection_Control.cs">
       <SubType>UserControl</SubType>
     </Compile>

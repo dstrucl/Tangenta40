@@ -16,19 +16,7 @@ namespace CodeTables
 {
     partial class SQLTable
     {
-        public bool FillDataTable(DBConnection m_SQL_connection, String SqlCmd,List<SQL_Parameter> lSQL_Parameter, ref DataTable dt, ref String csError)
-        {
-            dt.TableName = TableName;
-
-            if (m_SQL_connection.FillDataTable(ref dt, SqlCmd, lSQL_Parameter,ref  csError))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        
 
         public bool GetTableData(DBConnection m_SQL_connection, ref DataTable dt, ref String csError, int iLimit, string sWhere)
         {

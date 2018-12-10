@@ -44,20 +44,13 @@ namespace DBConnectionControl40
         public const string BACKUPTEMP = "backuptemp";
         public string m_inifile_prefix = null;
 
-        private bool m_bOpened = false;
-        private bool m_bBatchOpen = false;
-        private bool m_bSessionConnected = false;
 
+        private ConnectionMSSQL m_con_MSSQL = null;
 
+        private ConnectionMYSQL m_con_MYSQL = null;
 
-        private SqlConnection m_con_MSSQL = null;
-        private SqlTransaction MSSQLTran = null;
+        public ConnectionSQLITE m_con_SQLite = null;
 
-        private MySqlConnection m_con_MYSQL = null;
-        private MySqlTransaction MYSQLTran = null;
-
-        private SQLiteConnection m_con_SQLite = null;
-        private SQLiteTransaction SQLiteTran = null;
 
 
         public enum eStartPositionOfTestConnectionForm { CENTER_SCREEN, TOP_LEFT_CORNER, TOP_RIGHT_CORNER, BOTTOM_LEFT_CORNER, BOTTOM_RIGHT_CORNER }
@@ -147,17 +140,17 @@ namespace DBConnectionControl40
 
         public DBConnection()
         {
-            m_con_SQLite = new SQLiteConnection();
-            m_con_MYSQL = new MySqlConnection();
-            m_con_MSSQL = new SqlConnection();
+            m_con_SQLite = new ConnectionSQLITE();
+            m_con_MYSQL = new ConnectionMYSQL();
+            m_con_MSSQL = new ConnectionMSSQL();
             InitializeComponent();
         }
 
         public DBConnection(string rfolder)
         {
-            m_con_SQLite = new SQLiteConnection();
-            m_con_MYSQL = new MySqlConnection();
-            m_con_MSSQL = new SqlConnection();
+            m_con_SQLite = new ConnectionSQLITE();
+            m_con_MYSQL = new ConnectionMYSQL();
+            m_con_MSSQL = new ConnectionMSSQL();
             InitializeComponent();
             m_RecentItemsFolder = rfolder;
 
@@ -168,11 +161,11 @@ namespace DBConnectionControl40
             container.Add(this);
 
             InitializeComponent();
-            m_con_SQLite = new SQLiteConnection();
-            m_con_MYSQL = new MySqlConnection();
+            m_con_SQLite = new ConnectionSQLITE(); 
+            m_con_MYSQL = new ConnectionMYSQL();
             try
             {
-                m_con_MSSQL = new SqlConnection();
+                m_con_MSSQL = new ConnectionMSSQL();
             }
             catch (Exception ex)
             {
@@ -203,15 +196,12 @@ namespace DBConnectionControl40
         private const string const_MSSQL_ALTER_ANY_DATABASE = "ALTER ANY DATABASE";
 
         private ConnectionDialog ConnectionDialog = null;
-        private SQLiteConnectionDialog SQLiteConnectionDialog = null;
 
         private string m_LogTableName;
         private int m_CommandTimeout = 20000;
 
 
-        private conData_MSSQL m_conData_MSSQL = null;
         private conData_MYSQL m_conData_MYSQL = null;
-        private conData_SQLITE m_conData_SQLITE = null;
 
         private eDBType m_DBType = eDBType.SQLITE;
 
@@ -240,85 +230,33 @@ namespace DBConnectionControl40
 
         public bool BatchOpen
         {
-            get { return m_bBatchOpen; }
-            set { m_bBatchOpen = value; }
-        }
-
-        public bool SessionConnect(ref string sError)
-        {
-            if (BatchOpen)
-            {
-                m_bSessionConnected = true;
-                return true;
-            }
-            else
-            {
-                if (m_bBatchOpen)
+            get {
+                switch (m_DBType)
                 {
-                    if (m_bOpened)
-                    {
-                        m_bSessionConnected = true;
-                        return true;
-                    }
-                }
-
-                if (Connect(ref sError))
-                {
-                    m_bBatchOpen = true;
-                    m_bSessionConnected = true;
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    case eDBType.MSSQL:
+                        return m_con_MSSQL.BatchOpen;
+                    case eDBType.MYSQL:
+                        return m_con_MYSQL.BatchOpen;
+                    case eDBType.SQLITE:
+                        return m_con_SQLite.BatchOpen;
+                    default:
+                        return false;
                 }
             }
-        }
+                
+            set {
 
-        public bool SessionDisconnect()
-        {
-            if (BatchOpen)
-            {
-                if (Disconnect())
+                switch (m_DBType)
                 {
-                    m_bBatchOpen = false;
-                    m_bSessionConnected = false;
-                    return true;
-                }
-                else
-                {
-                    m_bSessionConnected = false;
-                    return false;
-                }
-            }
-            else
-            {
-                if (!m_bBatchOpen)
-                {
-                    if (!m_bOpened)
-                    {
-                        m_bSessionConnected = false;
-                        return true;
-                    }
-                    else
-                    {
-                        if (Disconnect())
-                        {
-                            m_bBatchOpen = false;
-                            m_bSessionConnected = false;
-                            return true;
-                        }
-                        else
-                        {
-                            m_bSessionConnected = false;
-                            return false;
-                        }
-                    }
-                }
-                else
-                {
-                    m_bSessionConnected = false;
-                    return true;
+                    case eDBType.MSSQL:
+                        m_con_MSSQL.BatchOpen = value;
+                        break;
+                    case eDBType.MYSQL:
+                        m_con_MYSQL.BatchOpen = value;
+                        break;
+                    case eDBType.SQLITE:
+                        m_con_SQLite.BatchOpen = value;
+                        break;
                 }
             }
         }
@@ -1290,8 +1228,7 @@ namespace DBConnectionControl40
                     case eDBType.MYSQL:
                         if (m_con_MYSQL.State == ConnectionState.Open)
                         {
-                            MYSQLTran= m_con_MYSQL.BeginTransaction();
-                            return true;
+                            return m_con_MYSQL.BeginTransaction();
                         }
                         else
                         {
@@ -1300,8 +1237,7 @@ namespace DBConnectionControl40
                     case eDBType.MSSQL:
                         if (m_con_MSSQL.State == ConnectionState.Open)
                         {
-                            MSSQLTran = m_con_MSSQL.BeginTransaction();
-                            return true;
+                            return m_con_MSSQL.BeginTransaction();
                         }
                         else
                         {
@@ -1312,8 +1248,7 @@ namespace DBConnectionControl40
                     case eDBType.SQLITE:
                         if (m_con_SQLite.State == ConnectionState.Open)
                         {
-                            SQLiteTran = m_con_SQLite.BeginTransaction();
-                            return true;
+                            return m_con_SQLite.BeginTransaction();
                         }
                         else
                         {
@@ -1372,40 +1307,14 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        if (MYSQLTran != null)
-                        {
-                            MYSQLTran.Commit();
-                            MYSQLTran = null;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                            return m_con_MYSQL.Commit();
+
                     case eDBType.MSSQL:
-                        if (MSSQLTran!=null)
-                        {
-                            MSSQLTran.Commit();
-                            MSSQLTran = null;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                            return m_con_MSSQL.Commit();
 
 
                     case eDBType.SQLITE:
-                        if (SQLiteTran!=null)
-                        {
-                            SQLiteTran.Commit();
-                            SQLiteTran = null;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return m_con_SQLite.Commit();
 
                     default:
                         //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
@@ -1460,40 +1369,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        if (MYSQLTran != null)
-                        {
-                            MYSQLTran.Rollback();
-                            MYSQLTran = null;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    case eDBType.MSSQL:
-                        if (MSSQLTran != null)
-                        {
-                            MSSQLTran.Rollback();
-                            MSSQLTran = null;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                            return m_con_MYSQL.RollbackTransaction(ref sError);
 
+                    case eDBType.MSSQL:
+                        return m_con_MSSQL.RollbackTransaction(ref sError);
 
                     case eDBType.SQLITE:
-                        if (SQLiteTran != null)
-                        {
-                            SQLiteTran.Rollback();
-                            SQLiteTran = null;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return m_con_SQLite.RollbackTransaction(ref sError);
 
                     default:
                         //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
@@ -1516,20 +1398,13 @@ namespace DBConnectionControl40
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
-                    return "ERROR RollbackTransaction failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+                    return m_con_MYSQL.SetRollbackTransactionError();
 
                 case eDBType.MSSQL:
-                    if (m_conData_MSSQL.m_bWindowsAuthentication)
-                    {
-                        return "ERROR RollbackTransaction failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
-                    }
-                    else
-                    {
-                        return "ERROR RollbackTransaction failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
-                    }
+                    return m_con_MSSQL.SetRollbackTransactionError();
 
                 case eDBType.SQLITE:
-                    return "ERROR RollbackTransaction failed for SQLite DataBaseFile:\"" + this.SQLiteDataBaseFile + "\"\n";
+                    return m_con_SQLite.SetRollbackTransactionError();
 
                 default:
                     MessageBox.Show("ERROR eSQLType in function:private string RollbackTransaction()");
@@ -1547,21 +1422,12 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_con_MYSQL.Open();
-                        m_bOpened = true;
-                        ProgramDiagnostic.Diagnostic.Meassure("Connect END",null);
-                        return true;
+                        return m_con_MYSQL.Connect(ref sError);
                     case eDBType.MSSQL:
-                        m_con_MSSQL.Open();
-                        m_bOpened = true;
-                        ProgramDiagnostic.Diagnostic.Meassure("Connect END", null);
-                        return true;
+                        return m_con_MSSQL.Connect(ref sError);
 
                     case eDBType.SQLITE:
-                        m_con_SQLite.Open();
-                        m_bOpened = true;
-                        ProgramDiagnostic.Diagnostic.Meassure("Connect END", null);
-                        return true;
+                        return m_con_SQLite.Connect(ref sError); ;
 
                     default:
                         ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
@@ -1609,22 +1475,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_con_MYSQL.Close();
-                        m_bOpened = false;
-                        ProgramDiagnostic.Diagnostic.Meassure("Disconnect END", null);
-                        return true;
+                        return m_con_MYSQL.Disconnect();
 
                     case eDBType.MSSQL:
-                        m_con_MSSQL.Close();
-                        m_bOpened = false;
-                        ProgramDiagnostic.Diagnostic.Meassure("Disconnect END", null);
-                        return true;
+                        return m_con_MSSQL.Disconnect();
 
                     case eDBType.SQLITE:
-                        m_con_SQLite.Close();
-                        m_bOpened = false;
-                        ProgramDiagnostic.Diagnostic.Meassure("Disconnect END", null);
-                        return true;
+                        return m_con_SQLite.Disconnect();
 
                     default:
                         ProgramDiagnostic.Diagnostic.Meassure("Disconnect END Error", null);
@@ -1778,7 +1635,7 @@ namespace DBConnectionControl40
                             {
                                 m_con_SQLite.Dispose();
                             }
-                            m_con_SQLite = new SQLiteConnection(ConnectionString);
+                            m_con_SQLite = new ConnectionSQLITE(ConnectionString);
 
                             if (Connect_ToServerOnly(ref sErr))
                             {
@@ -1786,7 +1643,7 @@ namespace DBConnectionControl40
                                 {
                                     try
                                     {
-                                        SQLiteCommand cmd = m_con_SQLite.CreateCommand();
+                                        SQLiteCommand cmd = m_con_SQLite.Con.CreateCommand();
                                         cmd.CommandText = "PRAGMA foreign_keys = ON;";
                                         cmd.ExecuteNonQuery();
                                     }
@@ -1866,7 +1723,7 @@ namespace DBConnectionControl40
                             {
                                 m_con_SQLite.Dispose();
                             }
-                            m_con_SQLite = new SQLiteConnection(ConnectionString);
+                            m_con_SQLite = new ConnectionSQLITE(ConnectionString);
                           
                             if (Connect_ToServerOnly(ref sErr))
                             {
@@ -1874,7 +1731,7 @@ namespace DBConnectionControl40
                                 {
                                     try
                                     {
-                                        SQLiteCommand cmd = m_con_SQLite.CreateCommand();
+                                        SQLiteCommand cmd = m_con_SQLite.Con.CreateCommand();
                                         cmd.CommandText = "PRAGMA foreign_keys = ON;";
                                         cmd.ExecuteNonQuery();
                                     }
@@ -1947,152 +1804,6 @@ namespace DBConnectionControl40
             return false;
         }
 
-        public bool FillDataTable(ref DataTable dt, string sqlGetColumnsNamesAndTypes, List<SQL_Parameter> lSQL_Parameter, ref string csError)
-        {
-            //SqlConnection Conn = new SqlConnection("Data Source=razvoj1;Initial Catalog=NOS_BIH;Persist Security Info=True;User ID=sa;Password=sa;");
-            ProgramDiagnostic.Diagnostic.Meassure("FillDataTable START", sqlGetColumnsNamesAndTypes);
-            if (DynSettings.bPreviewSQLBeforeExecution)
-            {
-                string new_sql = "";
-                bool bChanged = false;
-                PreviewSQLCommand(sqlGetColumnsNamesAndTypes, null, ref new_sql, ref bChanged, "ReadDataTable");
-                if (bChanged)
-                {
-                    sqlGetColumnsNamesAndTypes = new_sql;
-                }
-            }
-            try
-            {
-                switch (m_DBType)
-                {
-                    case eDBType.MYSQL:
-                        {
-                            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-                            if (Connect_Batch(ref csError))
-                            {
-                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL);
-                                SqlCommandcommandGetColumnsNamesAndTypes.CommandTimeout = CommandTimeout;
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
-                                        }
-                                        else
-                                        {
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
-                                        }
-                                    }
-                                }
-
-                                adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
-                                adapter.Fill(dt);
-                                adapter.Dispose();
-                                SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
-                                Disconnect_Batch();
-                            }
-                            else
-                            {
-                                MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                            }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("FillDataTable END", null);
-                        return true;
-
-                    case eDBType.MSSQL:
-                        {
-                            SqlDataAdapter adapter = new SqlDataAdapter();
-
-                            if (Connect_Batch(ref csError))
-                            {
-                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL);
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(sqlPar.Name, sqlPar.dbType, sqlPar.size).Value = sqlPar.Value;
-                                        }
-                                        else
-                                        {
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(new SqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
-                                        }
-                                    }
-                                }
-                                adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
-                                adapter.Fill(dt);
-                                adapter.Dispose();
-                                SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
-                                Disconnect_Batch();
-                            }
-                            else
-                            {
-                                MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                            }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("FillDataTable END", null);
-                        return true;
-
-                    case eDBType.SQLITE:
-                        {
-                            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-
-                            if (Connect_Batch(ref csError))
-                            {
-
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite);
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                            mySQLiteParameter.Value = sqlPar.Value;
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(mySQLiteParameter);
-                                        }
-                                        else
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(mySQLiteParameter);
-                                        }
-                                    }
-                                }
-
-                                adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
-                                adapter.Fill(dt);
-                                adapter.Dispose();
-                                SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
-                                Disconnect_Batch();
-                            }
-                            else
-                            {
-                                MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                            }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("FillDataTable END", null);
-                        return true;
-
-                    default:
-                        MessageBox.Show("Error eSQLType in function: public bool ReadDataTable( ..)");
-                        return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Disconnect();
-
-                ShowDBErrorMessage(ex.Message, null, "ExecuteNonQuerySQL");
-
-                WriteLogTable(ex);
-                ProgramDiagnostic.Diagnostic.Meassure("FillDataTable END ERROR", null);
-                return false;
-            }
-        }
         
         public bool ReadDataTable(ref DataTable dt, string sqlGetColumnsNamesAndTypes, ref string csError)
         {
@@ -2120,7 +1831,7 @@ namespace DBConnectionControl40
 
                             if (Connect_Batch(ref csError))
                             {
-                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL);
+                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL.Con);
                                 adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
                                 adapter.Fill(dt);
                                 adapter.Dispose();
@@ -2141,7 +1852,7 @@ namespace DBConnectionControl40
 
                             if (Connect_Batch(ref csError))
                             {
-                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL);
+                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL.Con);
                                 adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
                                 adapter.Fill(dt);
                                 adapter.Dispose();
@@ -2162,7 +1873,7 @@ namespace DBConnectionControl40
 
                             if (Connect_Batch(ref csError))
                             {
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite);
+                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite.Con);
                                 adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
                                 adapter.Fill(dt);
                                 adapter.Dispose();
@@ -2250,7 +1961,7 @@ namespace DBConnectionControl40
                             string sError = "";
                             if (Connect_Batch(ref sError))
                             {
-                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL);
+                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL.Con);
                                 adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
                                 adapter.Fill(ds);
                                 adapter.Dispose();
@@ -2270,7 +1981,7 @@ namespace DBConnectionControl40
                             string sError = "";
                             if (Connect_Batch(ref sError))
                             {
-                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL);
+                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL.Con);
                                 adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
                                 adapter.Fill(ds);
                                 adapter.Dispose();
@@ -2291,7 +2002,7 @@ namespace DBConnectionControl40
                             string sError = "";
                             if (Connect_Batch(ref sError))
                             {
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite);
+                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite.Con);
                                 adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
                                 adapter.Fill(ds);
                                 adapter.Dispose();
@@ -2371,7 +2082,7 @@ namespace DBConnectionControl40
                             string sError = "";
                             if (Connect_Batch(ref sError))
                             {
-                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL);
+                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
                                 command.CommandTimeout = 20000;
                                 if (lSQL_Parameter != null)
                                 {
@@ -2432,7 +2143,7 @@ namespace DBConnectionControl40
                             string sError = "";
                             if (Connect_Batch(ref sError))
                             {
-                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL);
+                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
                                 command.CommandTimeout = 200000;
                                 if (lSQL_Parameter != null)
                                 {
@@ -2484,7 +2195,7 @@ namespace DBConnectionControl40
                             string sError = "";
                             if (Connect_Batch(ref sError))
                             {
-                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite);
+                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
                                 command.CommandTimeout = 200000;
                                 if (lSQL_Parameter != null)
                                 {
@@ -2511,7 +2222,7 @@ namespace DBConnectionControl40
                                     //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
                                     // On different Sqlite.dll runs different !
 //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
-                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid()", m_con_SQLite);
+                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid()", m_con_SQLite.Con);
                                     // Bepaal de nieuwe ID en sla deze op in het juiste veld
                                     if (Connect_Batch(ref sError))
                                     {
@@ -2610,7 +2321,7 @@ namespace DBConnectionControl40
                             sqlTran.Append(sql);
                             sqlTran.Append("\nCOMMIT; \n");
                             MySqlCommand command;
-                            command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL);
+                            command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -2640,7 +2351,7 @@ namespace DBConnectionControl40
                             sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
                             SqlCommand command;
                             SqlParameter OutPar = null;
-                            command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL);
+                            command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -2712,7 +2423,7 @@ namespace DBConnectionControl40
                             sqlTran.Append(sql);
                             sqlTran.Append(";\nCOMMIT TRANSACTION; \n");
                             SQLiteCommand command;
-                            command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite);
+                            command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -2826,7 +2537,7 @@ namespace DBConnectionControl40
                 if (Connect(ref sErr))
                 {
                     MySqlCommand command;
-                    command = new MySqlCommand(sqlLog, m_con_MYSQL);
+                    command = new MySqlCommand(sqlLog, m_con_MYSQL.Con);
                     command.ExecuteNonQuery();
                     Disconnect();
                     return true;
@@ -2865,7 +2576,7 @@ namespace DBConnectionControl40
                 if (Connect(ref sErr))
                 {
                     SqlCommand command;
-                    command = new SqlCommand(sqlLog, m_con_MSSQL);
+                    command = new SqlCommand(sqlLog, m_con_MSSQL.Con);
                     command.ExecuteNonQuery();
                     Disconnect();
                     return true;
@@ -2904,7 +2615,7 @@ namespace DBConnectionControl40
                 if (Connect(ref sErr))
                 {
                     SQLiteCommand command;
-                    command = new SQLiteCommand(sqlLog, m_con_SQLite);
+                    command = new SQLiteCommand(sqlLog, m_con_SQLite.Con);
                     command.ExecuteNonQuery();
                     Disconnect();
                     return true;
@@ -2943,7 +2654,7 @@ namespace DBConnectionControl40
                         case eDBType.MYSQL:
                             {
                                 MySqlCommand command;
-                                command = new MySqlCommand(sql, m_con_MYSQL);
+                                command = new MySqlCommand(sql, m_con_MYSQL.Con);
                                 command.CommandTimeout = 200000;
                                 command.ExecuteNonQuery();
                                 Disconnect();
@@ -2953,7 +2664,7 @@ namespace DBConnectionControl40
                         case eDBType.MSSQL:
                             {
                                 SqlCommand command;
-                                command = new SqlCommand(sql, m_con_MSSQL);
+                                command = new SqlCommand(sql, m_con_MSSQL.Con);
                                 command.CommandTimeout = 200000;
                                 command.ExecuteNonQuery();
                                 Disconnect();
@@ -3009,7 +2720,7 @@ namespace DBConnectionControl40
                         case eDBType.MYSQL:
                          {
                             MySqlCommand command;
-                            command = new MySqlCommand(sql, m_con_MYSQL);
+                            command = new MySqlCommand(sql, m_con_MYSQL.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3037,7 +2748,7 @@ namespace DBConnectionControl40
 
                             SqlCommand command;
                             SqlParameter OutPar = null;
-                            command = new SqlCommand(sql, m_con_MSSQL);
+                            command = new SqlCommand(sql, m_con_MSSQL.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3101,7 +2812,7 @@ namespace DBConnectionControl40
                         {
 
                             SQLiteCommand command;
-                            command = new SQLiteCommand(sql, m_con_SQLite);
+                            command = new SQLiteCommand(sql, m_con_SQLite.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3214,7 +2925,7 @@ namespace DBConnectionControl40
                         case eDBType.MYSQL:
                         {
                             MySqlCommand command;
-                            command = new MySqlCommand(sql, m_con_MYSQL);
+                            command = new MySqlCommand(sql, m_con_MYSQL.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3262,7 +2973,7 @@ namespace DBConnectionControl40
                         case eDBType.MSSQL:
                         {
                             SqlCommand command;
-                            command = new SqlCommand(sql, m_con_MSSQL);
+                            command = new SqlCommand(sql, m_con_MSSQL.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3310,7 +3021,7 @@ namespace DBConnectionControl40
                         case eDBType.SQLITE:
                         {
                             SQLiteCommand command;
-                            command = new SQLiteCommand(sql, m_con_SQLite);
+                            command = new SQLiteCommand(sql, m_con_SQLite.Con);
                             if (lSQL_Parameter != null)
                             {
                                 foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3908,7 +3619,7 @@ namespace DBConnectionControl40
                                 sqlTran.Append(sql);
                                 sqlTran.Append("\nCOMMIT; \n");
                                 MySqlCommand command;
-                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL);
+                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
                                 if (lSQL_Parameter != null)
                                 {
                                     foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3938,7 +3649,7 @@ namespace DBConnectionControl40
                                 //sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
                                 sqlTran.Append(";SELECT SCOPE_IDENTITY();");
                                 SqlCommand command;
-                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL);
+                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
                                 if (lSQL_Parameter != null)
                                 {
                                     foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3970,7 +3681,7 @@ namespace DBConnectionControl40
                                 sqlTran.Append(sql);
                                 //sqlTran.Append(";\nCOMMIT TRANSACTION; \n");
                                 SQLiteCommand command;
-                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite);
+                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
                                 if (lSQL_Parameter != null)
                                 {
                                     foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -3992,7 +3703,7 @@ namespace DBConnectionControl40
                                 }
                                 command.CommandTimeout = 200000;
                                 command.ExecuteNonQuery();
-                                SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
+                                SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite.Con);
                                 newID = new ID(cmd.ExecuteScalar());
                                 Disconnect_Batch();
                             }
@@ -4064,7 +3775,7 @@ namespace DBConnectionControl40
 
                             if (Connect_Batch(ref csError))
                             {
-                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL);
+                                MySqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new MySqlCommand(sqlGetColumnsNamesAndTypes, m_con_MYSQL.Con);
                                 if (lSQL_Parameter != null)
                                 {
                                     foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -4099,7 +3810,7 @@ namespace DBConnectionControl40
 
                             if (Connect_Batch(ref csError))
                             {
-                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL);
+                                SqlCommand SqlCommandcommandGetColumnsNamesAndTypes = new SqlCommand(sqlGetColumnsNamesAndTypes, m_con_MSSQL.Con);
                                 if (lSQL_Parameter != null)
                                 {
                                     foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -4135,7 +3846,7 @@ namespace DBConnectionControl40
 
                             if (Connect_Batch(ref csError))
                             {
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite);
+                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite.Con);
                                 if (lSQL_Parameter != null)
                                 {
                                     foreach (SQL_Parameter sqlPar in lSQL_Parameter)
@@ -4466,7 +4177,7 @@ namespace DBConnectionControl40
                     string sErr = null;
                     if (!File.Exists(DataBase))
                     {
-                        m_con_SQLite = new SQLiteConnection(ConnectionString);
+                        m_con_SQLite.Con = new SQLiteConnection(ConnectionString);
                         //}
                         //else
                         //{
@@ -4482,7 +4193,7 @@ namespace DBConnectionControl40
                             {
                                 try
                                 {
-                                    SQLiteCommand cmd = m_con_SQLite.CreateCommand();
+                                    SQLiteCommand cmd = m_con_SQLite.Con.CreateCommand();
                                     cmd.CommandText = "PRAGMA foreign_keys = ON;";
                                     cmd.ExecuteNonQuery();
                                     Disconnect();
